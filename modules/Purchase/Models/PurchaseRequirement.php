@@ -30,13 +30,12 @@ class PurchaseRequirement extends Model implements Auditable
      */
     protected $dates = ['deleted_at'];
 
+    protected $with = ['purchaseSupplierType','fiscalYear'];
 
     protected $fillable = [
         'code', 'description', 'fiscal_year_id', 'contracting_department_id', 'user_department_id',
         'purchase_supplier_type_id', 'requirement_status', 'purchase_base_budget_id', 'purchase_order_id'
     ];
-
-    protected $with = ['contratingDepartment','userDepartment','purchaseSupplierType','fiscalYear'];
     
     /**
      * PurchaseRequirement belongs to FiscalYear.
@@ -49,13 +48,23 @@ class PurchaseRequirement extends Model implements Auditable
     }
 
     /**
+     * PurchaseRequirement belongs to PurchaseSupplierType.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function purchaseSupplierType()
+    {
+        return $this->belongsTo(PurchaseSupplierType::class);
+    }
+    
+    /**
      * PurchaseRequirement belongs to ContratingDepartment.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function contratingDepartment()
     {
-        return $this->belongsTo(Department::class, 'contracting_department_id');
+        return $this->belongsTo(Department::class, 'contracting_department_id')??null;
     }
 
     /**
@@ -65,18 +74,9 @@ class PurchaseRequirement extends Model implements Auditable
      */
     public function userDepartment()
     {
-        return $this->belongsTo(Department::class, 'user_department_id');
+        return $this->belongsTo(Department::class, 'user_department_id')??null;
     }
 
-    /**
-     * PurchaseRequirement belongs to PurchaseSupplierType.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function purchaseSupplierType()
-    {
-        return $this->belongsTo(PurchaseSupplierType::class);
-    }
 
     /**
      * PurchaseRequirement has many PurchaseRequirementItems.

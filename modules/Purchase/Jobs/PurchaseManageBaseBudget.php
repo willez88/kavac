@@ -86,6 +86,13 @@ class PurchaseManageBaseBudget implements ShouldQueue
                     $rq->purchase_base_budget_id = null;
                     $rq->save();
                 }
+                foreach ($requirement['purchase_requirement_items'] as $item) {
+                    $r = PurchasePivotModelsToRequirementItem::where('purchase_requirement_item_id', $item['id'])
+                                                                ->fisrt();
+                    if ($r) {
+                        $r->delete();
+                    }
+                }
             }
 
             foreach ($data['list'] as $requirement) {

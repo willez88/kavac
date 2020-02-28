@@ -14,6 +14,7 @@ use Modules\Purchase\Jobs\PurchaseManageBaseBudget;
 use Modules\Purchase\Models\PurchaseBaseBudget;
 use Modules\Purchase\Models\PurchaseRequirement;
 use Modules\Purchase\Models\PurchaseRequirementItem;
+use Modules\Purchase\Models\PurchasePivotModelsToRequirementItem;
 use Modules\Purchase\Models\HistoryTax;
 
 class PurchaseBaseBudgetController extends Controller
@@ -36,7 +37,8 @@ class PurchaseBaseBudgetController extends Controller
         return response()->json([
             'records' => PurchaseBaseBudget::with(
                 'currency',
-                'purchaseRequirement',
+                'purchaseRequirement.contratingDepartment',
+                'purchaseRequirement.userDepartment',
                 'relatable.purchaseRequirementItem.purchaseRequirement'
             )->orderBy('id', 'ASC')->get(),
             'message'=>'success'
@@ -56,8 +58,6 @@ class PurchaseBaseBudgetController extends Controller
         $requirements = PurchaseRequirement::with(
             'contratingDepartment',
             'userDepartment',
-            'purchaseSupplierType',
-            'fiscalYear',
             'purchaseRequirementItems.measurementUnit'
         )->where('requirement_status', 'WAIT')->orderBy('code', 'ASC')->get();
         return view('purchase::requirements.base_budget', [
@@ -102,7 +102,8 @@ class PurchaseBaseBudgetController extends Controller
         return response()->json(['records' => PurchaseBaseBudget::with(
             'currency',
             'tax.histories',
-            'purchaseRequirement',
+            'purchaseRequirement.contratingDepartment',
+            'purchaseRequirement.userDepartment',
             'relatable.purchaseRequirementItem.purchaseRequirement',
         )->find($id)], 200);
     }
@@ -115,7 +116,9 @@ class PurchaseBaseBudgetController extends Controller
     {
         $baseBudget = PurchaseBaseBudget::with(
             'tax.histories',
-            'purchaseRequirement.purchaseRequirementItems',
+            'purchaseRequirement.contratingDepartment',
+            'purchaseRequirement.userDepartment',
+            'purchaseRequirement.purchaseRequirementItems.pivotPurchase',
         )->find($id);
 
         $historyTax = HistoryTax::with('tax')->whereHas('tax', function ($query) {
@@ -123,6 +126,8 @@ class PurchaseBaseBudgetController extends Controller
         })->where('operation_date', '<=', date('Y-m-d'))->orderBy('operation_date', 'DESC')->first();
 
         $requirements = PurchaseRequirement::with(
+            'contratingDepartment',
+            'userDepartment',
             'purchaseRequirementItems'
         )->where('requirement_status', 'WAIT')->orderBy('code', 'ASC')->get();
 
@@ -168,11 +173,21 @@ class PurchaseBaseBudgetController extends Controller
      */
     public function destroy($id)
     {
-        PurchaseBaseBudget::find($id)->delete();
-        foreach (PurchaseRequirement::where('purchase_base_budget_id', $id) as $record) {
-            $record->purchase_base_budget_id = null;
-            $record->requirement_status = 'WAIT';
-            $record->save();
+        $record = PurchaseBaseBudget::find($id);
+        // dd(PurchaseRequirement::where('purchase_base_budget_id', $id)->orderBy('id', 'ASC')->get());
+        if ($record) {
+            foreach (PurchaseRequirement::where('purchase_base_budget_id', $id)->orderBy('id', 'ASC')->get() as $r) {
+                $r->purchase_base_budget_id = null;
+                $r->requirement_status = 'WAIT';
+                $r->save();
+            }
+            foreach (PurchasePivotModelsToRequirementItem::where('relatable_id', $id)->orderBy('id', 'ASC')
+                                                                                                    ->get() as $r) {
+                $r->delete();
+            }
+            $record->delete();
+        } else {
+            return response()->json(['message'=>'El registro ya fue eliminado.'], 200);
         }
         return response()->json(['message'=>'success'], 200);
     }

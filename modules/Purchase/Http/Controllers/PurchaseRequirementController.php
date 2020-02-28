@@ -63,7 +63,10 @@ class PurchaseRequirementController extends Controller
      */
     public function index()
     {
-        $requirements = PurchaseRequirement::orderBy('code', 'ASC')->get();
+        $requirements = PurchaseRequirement::with(
+            'contratingDepartment',
+            'userDepartment'
+        )->orderBy('code', 'ASC')->get();
         return view('purchase::requirements.index', ['requirements' => $requirements]);
     }
 
@@ -171,6 +174,8 @@ class PurchaseRequirementController extends Controller
     public function show($id)
     {
         return response()->json(['records'=>PurchaseRequirement::with(
+            'contratingDepartment',
+            'userDepartment',
             'purchaseRequirementItems'
         )->find($id)], 200);
     }
@@ -181,7 +186,11 @@ class PurchaseRequirementController extends Controller
      */
     public function edit($id)
     {
-        $requirement_edit        = PurchaseRequirement::with('purchaseRequirementItems')->find($id);
+        $requirement_edit        = PurchaseRequirement::with(
+            'contratingDepartment',
+            'userDepartment',
+            'purchaseRequirementItems'
+        )->find($id);
         $institutions            = template_choices('App\Models\Institution', 'name', [], true);
         $department_list         = template_choices('App\Models\Department', 'name', [], true);
         $measurement_units       = template_choices('App\Models\MeasurementUnit', 'name', [], true);

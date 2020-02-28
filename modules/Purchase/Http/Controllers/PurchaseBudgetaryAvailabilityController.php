@@ -54,6 +54,8 @@ class PurchaseBudgetaryAvailabilityController extends Controller
         }
 
         $requirements = purchaseRequirement::with(
+            'contratingDepartment',
+            'userDepartment',
             'purchaseRequirement.purchaseRequirementItems',
             'purchaseRequirement.purchaseBaseBudget.currency',
             'purchaseRequirement.purchaseOrder.currency',
