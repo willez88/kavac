@@ -1,18 +1,5 @@
 <template>
-	<div class="card">
-		<div class="card-header">
-			<h6 class="card-title text-uppercase">Nuevo Movimiento de Almacén</h6>
-			<div class="card-btns">
-				<a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)" 
-				   title="Ir atrás" data-toggle="tooltip">
-					<i class="fa fa-reply"></i>
-				</a>
-				<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
-				   data-toggle="tooltip">
-					<i class="now-ui-icons arrows-1_minimal-up"></i>
-				</a>
-			</div>
-		</div>
+	<section id="WarehouseMovementForm">
 		<div class="card-body">
 			<div class="alert alert-danger" v-if="errors.length > 0">
 				<div class="container">
@@ -36,14 +23,16 @@
 				<div class="col-md-6">
 					<b>Origen de los productos</b>
 					<div class="col-12 d-inline-flex">
-						<div class="col-6" v-if="movementid == null">
+						<div class="col-6" id="helpInstitutionInitial"
+							v-if="movementid == null">
 							<div class="form-group is-required">
 								<label>Nombre de la Institución:</label>
 								<select2 :options="institutions" @input="getWarehouseStart(record.initial_institution_id)" v-model="record.initial_institution_id"></select2>
 								<input type="hidden" v-model="record.id">
 		                    </div>
 						</div>
-						<div class="col-6" v-else>
+						<div class="col-6" id="helpInstitutionInitial"
+							v-else>
 							<div class="form-group is-required">
 								<label>Nombre de la Institución:</label>
 								<input type="text" data-toggle="tooltip" 
@@ -53,14 +42,16 @@
 		                    </div>
 						</div>
 
-						<div class="col-6" v-if="movementid == null">
+						<div class="col-6" id="helpWarehouseInitial"
+							v-if="movementid == null">
 							<div class="form-group is-required">
 								<label>Nombre del Almacén:</label>
 								<select2 :options="initial_warehouses" @input="getWarehouseProducts()"
 								v-model="record.initial_warehouse_id"></select2>
 		                    </div>
 						</div>
-						<div class="col-6" v-else>
+						<div class="col-6" id="helpWarehouseInitial"
+							v-else>
 							<div class="form-group is-required">
 								<label>Nombre del Almacén:</label>
 								<input type="text" data-toggle="tooltip" 
@@ -75,14 +66,14 @@
 				<div class="col-md-6">
 					<b>Destino de los productos</b>
 					<div class="col-12 d-inline-flex">
-						<div class="col-6">
+						<div class="col-6" id="helpInstitutionEnd">
 							<div class="form-group is-required">
 								<label>Nombre de la Institución:</label>
 								<select2 :options="institutions" @input="getWarehouseFinish(record.end_institution_id)" v-model="record.end_institution_id"></select2>
 		                    </div>
 						</div>
 
-						<div class="col-6">
+						<div class="col-6"  id="helpWarehouseEnd">
 							<div class="form-group is-required">
 								<label>Nombre del Almacén:</label>
 								<select2 :options="end_warehouses"
@@ -94,7 +85,7 @@
 			</div>
 
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-6" id="helpWarehouseMovementDescription">
 					<div class="form-group is-required">
 						<label>Descripción:</label>
 						<textarea  data-toggle="tooltip" 
@@ -106,7 +97,8 @@
 			</div>
 			
 			<hr>
-			<v-client-table @row-click="toggleActive" :columns="columns" :data="records" :options="table_options">
+			<v-client-table id="helpTable"
+				@row-click="toggleActive" :columns="columns" :data="records" :options="table_options">
 				<div slot="h__check" class="text-center">
 					<label class="form-checkbox">
 						<input type="checkbox" v-model="selectAll" @click="select()" class="cursor-pointer">
@@ -151,27 +143,30 @@
 			</v-client-table>			
 		</div>
         <div class="card-footer text-right">
-        	<button type="button" @click="reset()"
-					class="btn btn-default btn-icon btn-round"
-					title ="Borrar datos del formulario">
-					<i class="fa fa-eraser"></i>
-			</button>
+			<div class="row">
+				<div class="col-md-3 offset-md-9" id="helpParamButtons">
+		        	<button type="button" @click="reset()"
+							class="btn btn-default btn-icon btn-round"
+							title ="Borrar datos del formulario">
+							<i class="fa fa-eraser"></i>
+					</button>
 
-        	<button type="button"
-        			class="btn btn-warning btn-icon btn-round btn-modal-close"
-        			data-dismiss="modal"
-        			title="Cancelar y regresar">
-        			<i class="fa fa-ban"></i>
-        	</button>
+		        	<button type="button"
+		        			class="btn btn-warning btn-icon btn-round btn-modal-close"
+		        			data-dismiss="modal"
+		        			title="Cancelar y regresar">
+		        			<i class="fa fa-ban"></i>
+		        	</button>
 
-        	<button type="button"  @click="createMovement('warehouse/movements')"
-        			class="btn btn-success btn-icon btn-round btn-modal-save"
-        			title="Guardar registro">
-        		<i class="fa fa-save"></i>
-            </button>
+		        	<button type="button"  @click="createMovement('warehouse/movements')"
+		        			class="btn btn-success btn-icon btn-round btn-modal-save"
+		        			title="Guardar registro">
+		        		<i class="fa fa-save"></i>
+		            </button>
+		        </div>
+		    </div>
         </div>
-
-	</div>
+	</section>
 </template>
 
 <style>

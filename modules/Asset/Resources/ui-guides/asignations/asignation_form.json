@@ -1,0 +1,67 @@
+[
+    {
+        "element" : "#cardAssetAsignationForm",
+        "intro" : "Formulario de asignación de bienes institucionales",
+        "position" : "top"
+    },
+    {
+        "element" : "#helpInstitution",
+        "intro" : "Parámetro que establece la institución asociada al trabajador",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpDepartment",
+        "intro" : "Parámetro que establece el departamento asociado al trabajador",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpPositionType",
+        "intro" : "Parámetro que establece el tipo de cargo asociado al trabajador",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpPosition",
+        "intro" : "Parámetro que establece el cargo asociado al trabajador",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpStaff",
+        "intro" : "Parámetro que establece el trabajador asociado a la asignación de bienes institucionales",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpSearchAssetType",
+        "intro" : "Parámetro utilizado para filtrar los bienes institucionales por el tipo al que pertenecen",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpSearchAssetCategory",
+        "intro" : "Parámetro utilizado para filtrar los bienes institucionales por la categoria general a la que pertenecen",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpSearchAssetSubCategory",
+        "intro" : "Parámetro utilizado para filtrar los bienes institucionales por la subcategoria a la que pertenecen",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpSearchAssetSpecificCategory",
+        "intro" : "Parámetro utilizado para filtrar los bienes institucionales por la categoria especifica a la que pertenecen",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpSearchButton",
+        "intro" : "Botón para ejecutar la acción de buscar de acuerdo a los datos establecidos en los filtros del formulario",
+        "position" : "left"
+    },
+    {
+        "element" : "#helpTable",
+        "intro" : "Listado de bienes registrados en la institución y disponibles para su correspondiente asignación",
+        "position" : "top"
+    },
+    {
+        "element" : "#helpParamButtons",
+        "intro" : "Botones para ejecutar las acciones de limpiar, cancelar o guardar los datos del formulario",
+        "position" : "left"
+    }
+]

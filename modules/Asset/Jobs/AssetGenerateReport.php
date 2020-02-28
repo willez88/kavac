@@ -89,31 +89,6 @@ class AssetGenerateReport implements ShouldQueue
                 $this->data->mes,
                 $this->data->year
             )->get();
-<<<<<<< HEAD
-            $multi_inst =  Parameter::where('p_key', 'multi_institution')->where('active', true)->first();
-            $institution = Institution::where('default', true)->where('active', true)->first();
-            $pdf = new ReportRepository();
-
-            /*
-             *  Definicion de las caracteristicas generales de la página
-             */
-            $pdf->setConfig(
-                [
-                    'institution' => $institution,
-                    'urlVerify' => 'www.google.com',
-                    'orientation' => 'L',
-                    'filename' => uniqid() . 'pdf'
-                ]
-            );
-
-            $pdf->setHeader('Reporte de Bienes', 'Reporte de inventario general');
-            $pdf->setFooter();
-            $pdf->setBody('asset::pdf.asset_general', true, [
-                'pdf' => $pdf,
-                'assets' => $assets
-            ]);
-=======
->>>>>>> 1152a5f98efa304d3ccf5adf73e37335502686cf
         } elseif ($this->data->type_report == 'clasification') {
             if ($this->data->type_search != '') {
                 $assets = Asset::dateclasification(

@@ -18,19 +18,49 @@
 
 
 @section('content')
-	<div class="row">
-		<div class="col-12">
-			@if(!isset($staff))
+<div class="row">
+	<div class="col-12">
+		@if(!isset($staff))
+			<div class="card" id="cardWarehouseRequestForm">
+				<div class="card-header">
+					<h6 class="card-title text-uppercase">Solicitud de Almacén
+						@include('buttons.help', [
+						    'helpId' => 'WarehouseRequestForm',
+						    'helpSteps' => get_json_resource('ui-guides/requests/request_form.json', 'warehouse')
+					    ])
+					</h6>
+					</h6>
+					<div class="card-btns">
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.minimize')
+					</div>
+				</div>
 				<warehouse-request-create
 					route_list='{{ url('warehouse/requests') }}'
 					:requestid ="{!! (isset($warehouse_request)) ? $warehouse_request->id : 'null' !!}">
 				</warehouse-request-create>
-			@else
+			</div>
+		@else
+			<div class="card" id="cardWarehouseRequestStaffForm">
+				<div class="card-header">
+					<h6 class="card-title text-uppercase">Solicitud de Almacén
+						@include('buttons.help', [
+						    'helpId' => 'WarehouseRequestStaffForm',
+						    'helpSteps' => get_json_resource('ui-guides/requests/request_staff_form.json', 'warehouse')
+					    ])
+					</h6>
+					</h6>
+					<div class="card-btns">
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.minimize')
+					</div>
+				</div>
 				<warehouse-request-staff-create
 					route_list='{{ url('warehouse/requests') }}'
 					:requestid ="{!! (isset($warehouse_request)) ? $warehouse_request->id : 'null' !!}">
 				</warehouse-request-staff-create>
-			@endif
-		</div>
+			</div>
+		@endif
 	</div>
+</div>
 @stop

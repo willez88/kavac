@@ -41,8 +41,8 @@
     "/modules/digitalsignature/js/app.js.map": "/modules/digitalsignature/js/app.js.map?id=f37232a7727f5177b13c",
     "/modules/finance/js/app.js.map": "/modules/finance/js/app.js.map?id=a4bee3e4d925e7f53684",
     "/modules/purchase/js/app.js.map": "/modules/purchase/js/app.js.map?id=47652fb04320ba41189f",
-    "/modules/technicalsupport/js/app.js": "/modules/technicalsupport/js/app.js?id=235071e5f567fbade3af",
-    "/modules/technicalsupport/css/app.css": "/modules/technicalsupport/css/app.css?id=d41d8cd98f00b204e980",
+    "/modules/technicalsupport/js/app.js": "/modules/technicalsupport/js/app.js",
+    "/modules/technicalsupport/css/app.css": "/modules/technicalsupport/css/app.css",
     "/modules/technicalsupport/js/app.js.map": "/modules/technicalsupport/js/app.js.map?id=b88e08aff3edf343a339",
     "/modules/warehouse/js/app.js.map": "/modules/warehouse/js/app.js.map?id=5b0eaa572c9f405d66c1"
 }

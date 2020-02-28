@@ -21,9 +21,14 @@
 	@include('warehouse::settings-parameters')
 	<div class="row">
 		<div class="col-12">
-			<div class="card">
+			<div class="card" id="cardConfigParamsForm">
 				<div class="card-header">
-					<h6 class="card-title">Configuración General de Almacén</h6>
+					<h6 class="card-title">Configuración General de Almacén
+						@include('buttons.help', [
+						    	'helpId' => 'ConfigParamsForm',
+								'helpSteps' => get_json_resource('ui-guides/settings/config_parameters.json', 'warehouse')
+						])
+					</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.minimize')
@@ -32,16 +37,16 @@
 				<div class="card-body">
 					<div class="row">
 						{{-- Configuración de Almacenes --}}
-						<warehouses></warehouses>
+						<warehouses id="helpWarehouses"></warehouses>
 
 						{{-- Configuración de Productos Almacenables --}}
-						<warehouse-products></warehouse-products>
+						<warehouse-products id="helpWarehouseProducts"></warehouse-products>
 
 						{{-- Configuración de Reglas de Almacén --}}
-						<warehouse-rules></warehouse-rules>
+						<warehouse-rules id="helpWarehouseRules"></warehouse-rules>
 
 						{{-- Configuración de Cierres de Almacén --}}
-						<warehouse-closes></warehouse-closes>
+						<warehouse-closes id="helpWarehouseCloses"></warehouse-closes>
 
 					</div>
 				</div>

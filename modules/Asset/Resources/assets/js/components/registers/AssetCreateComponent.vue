@@ -1,18 +1,5 @@
 <template>
-	<div class="card">
-		<div class="card-header">
-			<h6 class="card-title text-uppercase">Registro Manual de Bienes Institucionales</h6>
-			<div class="card-btns">
-				<a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)"
-				   title="Ir atrás" data-toggle="tooltip">
-					<i class="fa fa-reply"></i>
-				</a>
-				<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
-				   data-toggle="tooltip">
-					<i class="now-ui-icons arrows-1_minimal-up"></i>
-				</a>
-			</div>
-		</div>
+	<section id="AssetForm">
 		<div class="card-body">
 			<div class="alert alert-danger" v-if="errors.length > 0">
 				<div class="container">
@@ -32,7 +19,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpInstitution">
 					<div class="form-group is-required">
 						<label>institución:</label>
 						<select2 :options="institutions"
@@ -44,7 +31,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpAssetType">
 					<div class="form-group is-required">
 						<label>Tipo de Bien:</label>
 						<select2 :options="asset_types" id="asset_types_select"
@@ -54,7 +41,7 @@
 								v-model="record.asset_type_id"></select2>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpAssetCategory">
 					<div class="form-group is-required">
 						<label>Categoria General:</label>
 						<select2 :options="asset_categories" id="asset_categories_select"
@@ -65,7 +52,7 @@
 								v-model="record.asset_category_id"></select2>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpAssetSubCategory">
 					<div class="form-group is-required">
 						<label>Subcategoria:</label>
 						<select2 :options="asset_subcategories" id="asset_subcategories_select"
@@ -76,7 +63,7 @@
 								v-model="record.asset_subcategory_id"></select2>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpAssetSpecificCategory">
 					<div class="form-group is-required">
 						<label>Categoria Específica:</label>
 						<select2 :options="asset_specific_categories"
@@ -87,7 +74,7 @@
 								v-model="record.asset_specific_category_id"></select2>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpAssetSpecification">
 					<div class="form-group">
 						<label>Especificaciones</label>
 						<textarea  data-toggle="tooltip"
@@ -99,14 +86,14 @@
 			</div>
 			<div class="row">
 				<hr>
-				<div class="col-md-3">
+				<div class="col-md-3" id="helpAssetAcquisitionType">
 					<div class="form-group is-required">
 						<label>Forma de Adquisición</label>
 						<select2 :options="asset_acquisition_types"
 								v-model="record.asset_acquisition_type_id"></select2>
 					</div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-3" id="helpAssetAcquisitionYear">
 					<div class="form-group is-required">
 						<label>Año de Adquisición</label>
 						<input type="number" min="0" placeholder="Año de Adquisición" data-toggle="tooltip"
@@ -123,7 +110,7 @@
 					</div>
 				</div>
 
-				<div class="col-md-3">
+				<div class="col-md-3" id="helpAssetCondition">
 					<div class="form-group is-required">
 						<label>Condición Física</label>
 						<select2 :options="asset_conditions"
@@ -133,7 +120,7 @@
 					</div>
 				</div>
 
-				<div class="col-md-3">
+				<div class="col-md-3" id="helpAssetStatus">
 					<div class="form-group is-required">
 						<label>Estatus de Uso</label>
 						<select2 :options="asset_status"
@@ -143,7 +130,8 @@
 					</div>
 				</div>
 
-				<div class="col-md-3" v-if="required.use_function == true">
+				<div class="col-md-3" id="helpAssetUseFunction"
+					v-if="required.use_function == true">
 					<div class="form-group is-required">
 						<label>Función de Uso</label>
 						<select2 :options="asset_use_functions"
@@ -153,7 +141,8 @@
 					</div>
 				</div>
 
-				<div class="col-md-3" v-if="required.serial == true">
+				<div class="col-md-3" id="helpAssetSerial"
+					v-if="required.serial == true">
 					<div class="form-group is-required">
 						<label>Serial</label>
 						<input type="text" placeholder="Serial de Fabricación" data-toggle="tooltip"
@@ -161,7 +150,8 @@
 							   class="form-control input-sm" v-model="record.serial">
 					</div>
 				</div>
-				<div class="col-md-3" v-if="required.marca == true">
+				<div class="col-md-3" id="helpAssetMarca"
+					v-if="required.marca == true">
 					<div class="form-group is-required">
 						<label>Marca</label>
 						<input type="text" placeholder="Marca" data-toggle="tooltip"
@@ -169,7 +159,8 @@
 							   class="form-control input-sm" v-model="record.marca">
 					</div>
 				</div>
-				<div class="col-md-3" v-if="required.model == true">
+				<div class="col-md-3" id="helpAssetModel"
+					v-if="required.model == true">
 					<div class="form-group is-required">
 						<label>Modelo</label>
 						<input type="text" placeholder="Modelo" data-toggle="tooltip"
@@ -177,7 +168,7 @@
 							   class="form-control input-sm" v-model="record.model">
 					</div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-3" id="helpAssetValue">
 					<div class="form-group is-required">
 						<label>Valor</label>
 						<input type="number" min="0" step=".01"
@@ -186,14 +177,15 @@
 								class="form-control input-sm" v-model="record.value">
 					</div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-3" id="helpAssetCurrency">
 					<div class="form-group is-required">
 						<label>Moneda</label>
 						<select2 :options="currencies"
 								 v-model="record.currency_id"></select2>
 					</div>
 				</div>
-				<div class="col-md-3" v-if="record.id == ''">
+				<div class="col-md-3" id="helpAssetQuantity"
+					v-if="record.id == ''">
 					<div class="form-group is-required">
 						<label>Cantidad</label>
 						<input type="number" min="0" placeholder="Cantidad" data-toggle="tooltip"
@@ -206,7 +198,7 @@
 				<hr>
 				<h6 class="card-title text-uppercase">Ubicación</h6>
 				<div class="row">
-					<div class="col-md-3">
+					<div class="col-md-3" id="helpAssetCountry">
 						<div class="form-group is-required">
 							<label>Pais:</label>
 							<select2 :options="countries" id="country_select"
@@ -214,7 +206,7 @@
 									 v-model="record.country_id"></select2>
 						</div>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-3" id="helpAssetEstate">
 						<div class="form-group is-required">
 							<label>Estado:</label>
 							<select2 :options="estates" id="estate_select"
@@ -223,7 +215,7 @@
 									v-model="record.estate_id"></select2>
 						</div>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-3" id="helpAssetMunicipality">
 						<div class="form-group is-required">
 							<label>Municipio:</label>
 							<select2 :options="municipalities" id="municipality_select"
@@ -232,7 +224,7 @@
 									v-model="record.municipality_id"></select2>
 						</div>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-3" id="helpAssetParish">
 						<div class="form-group is-required">
 							<label>Parroquia:</label>
 							<select2 :options="parishes" id="parish_select"
@@ -240,7 +232,7 @@
 									 v-model="record.parish_id"></select2>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6" id="helpAssetAddress">
 						<div class="form-group is-required">
 							<label>Dirección</label>
 							<textarea  data-toggle="tooltip"
@@ -255,26 +247,30 @@
 		</div>
 
 		<div class="card-footer text-right">
-        	<button type="button" @click="reset()"
-					class="btn btn-default btn-icon btn-round"
-					title ="Borrar datos del formulario">
-					<i class="fa fa-eraser"></i>
-			</button>
+			<div class="row">
+				<div class="col-md-3 offset-md-9" id="helpParamButtons">
+		        	<button type="button" @click="reset()"
+							class="btn btn-default btn-icon btn-round"
+							title ="Borrar datos del formulario">
+							<i class="fa fa-eraser"></i>
+					</button>
 
-        	<button type="button"
-        			class="btn btn-warning btn-icon btn-round btn-modal-close"
-        			data-dismiss="modal"
-        			title="Cancelar y regresar">
-        			<i class="fa fa-ban"></i>
-        	</button>
+		        	<button type="button"
+		        			class="btn btn-warning btn-icon btn-round btn-modal-close"
+		        			data-dismiss="modal"
+		        			title="Cancelar y regresar">
+		        			<i class="fa fa-ban"></i>
+		        	</button>
 
-        	<button type="button"  @click="createRecord('asset/registers')"
-        			class="btn btn-success btn-icon btn-round btn-modal-save"
-        			title="Guardar registro">
-        		<i class="fa fa-save"></i>
-            </button>
+		        	<button type="button"  @click="createRecord('asset/registers')"
+		        			class="btn btn-success btn-icon btn-round btn-modal-save"
+		        			title="Guardar registro">
+		        		<i class="fa fa-save"></i>
+		            </button>
+		        </div>
+		    </div>
         </div>
-    </div>
+	</section>
 </template>
 
 <script>
