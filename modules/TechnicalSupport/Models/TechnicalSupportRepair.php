@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
+use App\Traits\ModelsTrait;
 
 /**
- * @class TechnicalSupportRequestRepair
- * @brief Datos de las solicitudes de reparación de bienes institucionales.
+ * @class TechnicalSupportRepair
+ * @brief Datos de las reparaciones registradas.
  *
- * Gestiona el modelo de datos de las solicitudes de reparación de bienes institucionales.
+ * Gestiona el modelo de datos de las reparaciones de bienes institucionales.
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
@@ -22,6 +23,7 @@ class TechnicalSupportRepair extends Model implements Auditable
 {
     use SoftDeletes;
     use AuditableTrait;
+    use ModelsTrait;
 
     /**
      * Lista de atributos para la gestión de fechas
@@ -36,26 +38,27 @@ class TechnicalSupportRepair extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'state', 'result', 'start_date', 'end_date', 'user_id', 'technical_support_request_repair_id'
+        'state', 'start_date', 'end_date', 'user_id'
     ];
 
     /**
-     * Método que obtiene la solicitud asociada a la reparación
+     * Método que obtiene las solicitudes de reparación asociadas al registro
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
-     * TechnicalSupportRequestRepair
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado
+     * al modelo TechnicalSupportRequestRepair
      */
-    public function technicalSupportRequestRepair()
+    public function technicalSupportRequestRepairs()
     {
-        return $this->belongsTo(TechnicalSupportRequestRepair::class);
+        return $this->hasMany(TechnicalSupportRequestRepair::class);
     }
 
     /**
      * Método que obtiene el usuario responsable de la reparación
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo User
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado
+     * al modelo TechnicalSupportRequestRepair
      */
     public function user()
     {
