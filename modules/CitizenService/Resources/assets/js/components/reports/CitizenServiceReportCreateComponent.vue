@@ -21,7 +21,7 @@
 			</div>
 
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-md-6">
 						<div class="form-group is-required">
 							<label for="citizenserviceRequestTypes">Tipo de Solicitud</label>
 							<select2 :options="citizen_service_request_types"
@@ -31,11 +31,11 @@
 							
 						</div>
 				</div>
-				<div class="col-md-4">
-					<div class="form-group">
+				<div class="col-md-6">
+					<div class="form-group is-required">
 						<label>Estado de la Solicitud:</label>
 						<select2 :options="citizen_service_states"
-						v-model="record.citizenservice_id"></select2>
+						v-model="record.citizen_service_id"></select2>
 	                </div>
 				</div>
 
@@ -43,7 +43,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<div class="form-group">
+					<div class="form-group" style="text-align: right;">
 						<label>Busqueda por Periodo</label>
 						<div class="col-12">
 							<input type="radio" name="type_search" value="period" id="sel_search_period" 
@@ -54,7 +54,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-6">
 						<div class=" form-group">
 							<label>Busqueda por Fecha </label>
 							<div class="col-12">
@@ -99,6 +99,8 @@
 					</div>
 				</div>
 				<div v-show="this.record.type_search == 'date'">
+					<div class="col-md-2">
+					</div>
 					<div class="col-md-4">
 						<div class="form-group">
 							<label >Fecha</label>
@@ -136,6 +138,16 @@
 
 					</div>
 				</div>
+				<div slot="id" slot-scope="props" class="text-center">
+					<div class="d-inline-flex">
+						<button @click="createReport()"
+								class="btn btn-primary btn-xs btn-icon btn-action" 
+								title="Generar reporte" data-toggle="tooltip" 
+								type="button">
+							<i class="fa fa-file-pdf-o"></i>
+						</button>
+					</div>
+				</div>
 				<div slot="requested_by" slot-scope="props" class="text-center">
 	                <span>
 	                    {{ 
@@ -144,19 +156,10 @@
 	                </span>
 	        	</div>
 			</v-client-table>
-			<div class="row">
-				<div class="col-12" align="right">
-					<button type="button" @click="createReport()"
-						class='btn btn-sm btn-primary btn-custom'>
-						<i class="fa fa-plus-circle"></i>
-						<span>	Generar Reporte	</span>
-					</button>
-				</div>
-			</div>
 
-			</div>
 		</div>
 	</div>
+
 </template>
 
 <script>
@@ -166,6 +169,7 @@
 				record: {
 					id: '',
 					citizen_service_request_types_id: '',
+					citizen_service_id: '',
 					type_search: '',
 					date: '',
 					start_date: '',
@@ -174,7 +178,7 @@
 			
 				records: [],
 				errors: [],
-				columns: ['requested_by', 'citizen_service_request_type_id', 'state', 'date'],
+				columns: ['requested_by', 'citizen_service_request_type_id', 'state', 'date', 'id'],
 				citizen_service_request_types: [],
 				citizen_service_states: [
 					{
@@ -182,11 +186,11 @@
 						text:'Seleccione..'
 					},
 					{
-						id: 1,
+						id: 'Iniciado',
 						text:'Iniciado'
 					},
 					{
-						id: 2,
+						id: 'Culminado',
 						text:'Culminado'
 					},
 				]
@@ -198,7 +202,8 @@
 				'requested_by': 'Solicitado por',
 				'citizen_service_request_type_id': 'Tipos de solicitud',
 				'state': 'Estado de la Solicitud',
-				'date': 'Fecha de la Solicitud'
+				'date': 'Fecha de la Solicitud',
+				'id': 'Acción'
 			};
 			
 			this.table_options.sortable = ['requested_by', 'citizen_service_request_type_id', 'state', 'date'];
@@ -216,31 +221,82 @@
 				this.record = {
 					id: '',
 					citizen_service_request_types_id: '',
+					citizen_service_id: '',
 					type_search: '',
 					date: '',
 					start_date: '',
 					end_date: '',
 					
 				};
-			
-		
-	   
 			},
+
+			createReport() {
+				const vm = this;
+				var fields = {};
+				var url = 'citizenservice/reports';
+
+				if (vm.record.type_search == '') {
+					bootbox.alert("Seleccionar el tipo de reporte a generar");
+					return false;
+				}
+				if (vm.record.type_search == 'date') {
+					return false;
+				}
+
+				for (var index in this.record) {
+					fields[index] = this.record[index];
+				}
+				axios.post('/' + url, fields).then(response => {
+					if (response.data.result == false)
+						location.href = response.data.redirect;
+					else if (typeof(response.data.redirect) !== "undefined") {
+						window.open(response.data.redirect, '_blank');
+					}
+					else {
+						vm.reset();
+					}
+				}).catch(error => {
+					vm.errors = [];
+
+					if (typeof(error.response) !="undefined") {
+						for (var index in error.response.data.errors) {
+							if (error.response.data.errors[index]) {
+								vm.errors.push(error.response.data.errors[index][0]);
+							}
+						}
+					}
+				});
+
+			},
+			
 			filterRecords() {
 				const vm = this;
+				var url =  '/citizenservice/reports/search';
 				var fields = {};
 
 				if(vm.record.type_search == 'period'){
+					url += '/period';
 						fields = {
 							start_date: vm.record.start_date,
 							end_date: vm.record.end_date,
+							citizen_service_request_type_id: vm.record.citizen_service_request_type_id,
+							citizen_service_id: vm.record.citizen_service_id
 						};
 					}
 				else if(vm.record.type_search == 'date'){
+					url += '/date';
 						fields = {
 							date: vm.record.date,
+							citizen_service_request_type_id: vm.record.citizen_service_request_type_id,
+							citizen_service_id: vm.record.citizen_service_id
 						};
 					}
+
+				if(vm.record.type_search != ''){
+					axios.post(url, fields).then(response => {
+						vm.records = response.data.records;
+					});
+				}
 			}
 		},
 		
