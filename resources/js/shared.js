@@ -113,5 +113,16 @@ Vue.component('roles-permissions', require('./components/RolesAndPermissionsComp
  */
 Vue.component('users', require('./components/UsersComponent.vue').default);
 
+/**
+ * Componente para la gestión de notificaciones en tiempo real
+ *
+ * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
+ */
+Vue.component('notifications', require('./components/Notifications/DropdownNotificationsComponent.vue').default);
 
-Vue.component('notifications', require('./components/NotificationsComponent.vue').default);
+/**
+ * Componente para mostrar un listado con todas las notificaciones del usuario
+ *
+ * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
+ */
+Vue.component('all-notifications', require('./components/Notifications/AllNotificationsComponent.vue').default);
