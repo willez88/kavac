@@ -32,7 +32,7 @@
                     </li>
                 </ul>
             </div>
-            <a class="dropdown-item dropdown-footer text-center" href="#"
+            <a class="dropdown-item dropdown-footer text-center" :href="listNotificationsUrl"
                title="Ver todas las notificaciones" data-toggle="tooltip" data-placement="left">
                 Ver todas las notificaciones
             </a>
@@ -47,7 +47,7 @@
                 notifications: this.unreads
             }
         },
-        props: ['unreads', 'userId'],
+        props: ['unreads', 'userId', 'listNotificationsUrl'],
         methods: {
             markAsReaded: function(id) {
                 console.log(id)
