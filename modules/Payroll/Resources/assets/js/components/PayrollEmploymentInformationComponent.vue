@@ -103,14 +103,6 @@
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group is-required">
-								<label>Rol del Trabajador:</label>
-								<select2 :options="payroll_roles"
-									v-model="record.payroll_role_id">
-								</select2>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group is-required">
 								<label>Cargo:</label>
 								<select2 :options="payroll_positions"
 									v-model="record.payroll_position_id">
@@ -125,8 +117,6 @@
 								</select2>
 							</div>
 						</div>
-					</div>
-					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Tipo de Contrato:</label>
@@ -135,6 +125,8 @@
 								</select2>
 							</div>
 						</div>
+					</div>
+					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Institución:</label>
@@ -190,7 +182,6 @@
 					institution_email: '',
 					function_description: '',
 					payroll_position_type_id: '',
-					payroll_role_id: '',
 					payroll_position_id: '',
 					payroll_staff_type_id: '',
 					institution_id: '',
@@ -202,7 +193,6 @@
 				payroll_inactivity_types: [],
 				payroll_position_types: [],
 				payroll_positions: [],
-				payroll_roles: [],
 				payroll_staff_types: [],
 				departments: [],
 				payroll_contract_types: [],
@@ -235,7 +225,6 @@
 					institution_email: '',
 					function_description: '',
 					payroll_position_type_id: '',
-					payroll_role_id: '',
 					payroll_position_id: '',
 					payroll_staff_type_id: '',
 					department_id: '',
@@ -259,7 +248,6 @@
 			this.getPayrollStaffs();
 			this.getPayrollInactivityTypes();
 			this.getPayrollPositionTypes();
-			this.getPayrollRoles();
 			this.getPayrollPositions();
 			this.getPayrollStaffTypes();
 			this.getPayrollContractTypes();

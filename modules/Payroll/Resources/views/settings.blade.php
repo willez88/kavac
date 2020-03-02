@@ -41,7 +41,7 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									{!! Form::label('staffs_code', 'Código de Formulación', []) !!}
+									{!! Form::label('staffs_code', 'Código del personal', []) !!}
 									{!! Form::text('staffs_code', ($sCode) ? $sCode->format_code : old('staffs_code'), [
 										'class' => 'form-control', 'data-toggle' => 'tooltip',
 										'title' => 'Formato para el código del personal',
@@ -72,19 +72,24 @@
 						</a>
 					</div>
 				</div>
-				{!! Form::open(['route' => 'payroll.work-age-settings.store', 'method' => 'post']) !!}
+				{!! Form::open(['route' => 'parameters.store', 'method' => 'post']) !!}
 					{!! Form::token() !!}
 					<div class="card-body">
 						@include('layouts.form-errors')
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									{!! Form::label('age', 'Edad', []) !!}
-									{!! Form::number('age', ($payrollWorkAgeSetting) ? $payrollWorkAgeSetting->age : old('age'), [
-										'class' => 'form-control', 'data-toggle' => 'tooltip',
-										'title' => 'Indique la edad laboral permitida', 'min' => '1',
-										'placeholder' => 'Edad'
-									]) !!}
+									@if (Modules\Payroll\Models\Parameter::where([
+							            'active' => true, 'required_by' => 'payroll',
+							            'p_key' => 'work_age'
+							        ])->first())
+										{!! Form::label('p_value', 'Edad', []) !!}
+										{!! Form::number('p_value', ($parameter) ? $parameter->p_value : old('p_value'), [
+											'class' => 'form-control', 'data-toggle' => 'tooltip',
+											'title' => 'Indique la edad laboral permitida', 'min' => '1',
+											'placeholder' => 'Edad'
+										]) !!}
+									@endif
 								</div>
 							</div>
 						</div>
@@ -166,9 +171,6 @@
 
 						{{-- tipos de sangre --}}
 						<payroll-blood-types></payroll-blood-types>
-
-						{{-- Roles de los trabajadores --}}
-						<payroll-roles></payroll-roles>
 					</div>
 				</div>
 			</div>

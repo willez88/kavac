@@ -40,14 +40,29 @@ class ParameterController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Valida y registra un nuevo parámetro general del sistema
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request $request    Solicitud con los datos a guardar
+     * @return \Illuminate\Http\Response            Mensaje del dato guardado
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'p_value' => ['required', 'integer', 'min:1']
+        ]);
+        Parameter::updateOrCreate(
+            [
+                'p_key' => 'work_age',
+                'required_by' => 'payroll',
+                'active' => true
+            ],
+            [
+                'p_value' => $request->p_value
+            ]
+        );
+        $request->session()->flash('message', ['type' => 'store']);
+        return redirect()->back();
     }
 
     /**

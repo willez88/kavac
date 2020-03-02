@@ -132,15 +132,4 @@ class PayrollEmploymentInformation extends Model implements Auditable
     {
         return $this->belongsTo(PayrollContractType::class);
     }
-
-    /**
-     * Método que obtiene la información laboral del trabajador asociado a un rol
-     *
-     * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function payrollRole()
-    {
-        return $this->belongsTo(PayrollRole::class);
-    }
 }

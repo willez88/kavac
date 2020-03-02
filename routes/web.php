@@ -123,7 +123,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
      * Ruta para la configuración de parámetros generales de la aplicación y
      * de los módulos
      */
-    Route::post('parameters', 'ParameterController@store');
+    Route::post('parameters', 'ParameterController@store')->name('parameters.store');
 
     /**
      * -----------------------------------------------------------------------
@@ -259,7 +259,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('exchange-rates', 'ExchangeRateController', ['except' => ['show']]);
 
     /** Rutas para gestionar notificaciones del sistema */
-    Route::post('system/notify/send', 'SystemNotificationController@send');
+    //Route::post('system/notify/send', 'SystemNotificationController@send');
 });
 
 /**

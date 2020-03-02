@@ -79,7 +79,6 @@ class PayrollEmploymentInformationController extends Controller
             'institution_email' => ['email', 'nullable', 'unique:payroll_employment_informations,institution_email'],
             'function_description' => ['nullable'],
             'payroll_position_type_id' => ['required'],
-            'payroll_role_id' => ['required'],
             'payroll_position_id' => ['required'],
             'payroll_staff_type_id' => ['required'],
             'institution_id' => ['required'],
@@ -106,7 +105,6 @@ class PayrollEmploymentInformationController extends Controller
         $payrollEmploymentInformation->institution_email = $request->institution_email;
         $payrollEmploymentInformation->function_description = $request->function_description;
         $payrollEmploymentInformation->payroll_position_type_id = $request->payroll_position_type_id;
-        $payrollEmploymentInformation->payroll_role_id = $request->payroll_role_id;
         $payrollEmploymentInformation->payroll_position_id = $request->payroll_position_id;
         $payrollEmploymentInformation->payroll_staff_type_id = $request->payroll_staff_type_id;
         $payrollEmploymentInformation->department_id = $request->department_id;
@@ -135,7 +133,7 @@ class PayrollEmploymentInformationController extends Controller
     public function show($id)
     {
         $payrollEmploymentInformation = PayrollEmploymentInformation::where('id', $id)->with([
-            'payrollStaff', 'payrollInactivityType', 'payrollPositionType', 'payrollRole',
+            'payrollStaff', 'payrollInactivityType', 'payrollPositionType',
             'payrollPosition', 'payrollStaffType', 'department', 'payrollContractType'
         ])->first();
         return response()->json(['record' => $payrollEmploymentInformation], 200);
@@ -179,7 +177,6 @@ class PayrollEmploymentInformationController extends Controller
             ],
             'function_description' => ['nullable'],
             'payroll_position_type_id' => ['required'],
-            'payroll_role_id' => ['required'],
             'payroll_position_id' => ['required'],
             'payroll_staff_type_id' => ['required'],
             'institution_id' => ['required'],
@@ -207,7 +204,6 @@ class PayrollEmploymentInformationController extends Controller
         $payrollEmploymentInformation->payroll_position_type_id = $request->payroll_position_type_id;
         $payrollEmploymentInformation->payroll_position_id = $request->payroll_position_id;
         $payrollEmploymentInformation->payroll_staff_type_id = $request->payroll_staff_type_id;
-        $payrollEmploymentInformation->payroll_role_id = $request->payroll_role_id;
         //$payrollEmploymentInformation->institution_id = $request->institution_id;
         $payrollEmploymentInformation->department_id = $request->department_id;
         $payrollEmploymentInformation->payroll_contract_type_id = $request->payroll_contract_type_id;
@@ -239,7 +235,7 @@ class PayrollEmploymentInformationController extends Controller
     public function vueList()
     {
         return response()->json(['records' => PayrollEmploymentInformation::with([
-            'payrollStaff', 'payrollInactivityType', 'payrollPositionType', 'payrollRole',
+            'payrollStaff', 'payrollInactivityType', 'payrollPositionType',
             'payrollPosition', 'payrollStaffType', 'department', 'payrollContractType'
         ])->get()], 200);
     }
