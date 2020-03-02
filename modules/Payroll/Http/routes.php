@@ -12,12 +12,6 @@ Route::group([
     Route::post('settings', 'PayrollSettingController@store')->name('payroll.settings.store');
 
     Route::resource(
-        'work-age-settings',
-        'PayrollWorkAgeSettingController',
-        ['as' => 'payroll', 'except' => ['index','create','edit','show','destroy']]
-    );
-
-    Route::resource(
         'staff-types',
         'PayrollStaffTypeController',
         ['as' => 'payroll', 'except' => ['create','edit','show']]
