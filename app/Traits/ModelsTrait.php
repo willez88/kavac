@@ -83,6 +83,9 @@ trait ModelsTrait
      */
     public function isModelSoftDelete($model)
     {
-        return in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses($model));
+        return is_array(class_uses($model)) &&
+               count(class_uses($model)) > 0 &&
+               in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses($model)) &&
+               $model->trashed();
     }
 }
