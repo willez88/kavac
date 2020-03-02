@@ -43,35 +43,35 @@ Vue.use(PrettyCheckbox);
  * <v-multiselect :options="[{key: 1, name: 'one'},{key: 2, name: 'two'},{key: 3, name: 'three'}]" track_by="key"
  * :hide_selected="false"></v-multiselect>
  */
-Vue.component('v-multiselect', require('./components/MultiSelectsComponent.vue').default);
+Vue.component('v-multiselect', require('./components/Shared/MultiSelectsComponent.vue').default);
 
 /**
  * Componente genérico para el uso de listas desplegables con select2 y selects dependientes
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('select2', require('./components/SelectsComponent.vue').default);
+Vue.component('select2', require('./components/Shared/SelectsComponent.vue').default);
 
 /**
  * Componente genérico para el uso de botones en formularios de ventanas modales
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('modal-form-buttons', require('./components/ButtonsFormModalComponent').default);
+Vue.component('modal-form-buttons', require('./components/Shared/ButtonsFormModalComponent').default);
 
 /**
  * Componente genérico para la gestión de imágenes
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('image-management', require('./components/ImageManagementComponent.vue').default);
+Vue.component('image-management', require('./components/Shared/ImageManagementComponent.vue').default);
 
 /**
  * Componente genérico para la gestión de documentos
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('document-management', require('./components/DocumentManagementComponent.vue').default);
+Vue.component('document-management', require('./components/Shared/DocumentManagementComponent.vue').default);
 
 /**
  * Componente genérico para mostrar motones de limpiar, cancelar o guardar registros cuando la altura del
@@ -83,35 +83,46 @@ Vue.component('document-management', require('./components/DocumentManagementCom
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('buttonsDisplay', require('./components/ButtonsFormDisplayComponent.vue').default);
+Vue.component('buttonsDisplay', require('./components/Shared/ButtonsFormDisplayComponent.vue').default);
 
 /**
  * Componente para la gestión de números telefónicos
  *
  * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
  */
-Vue.component('phones', require('./components/PhonesComponent.vue').default);
+Vue.component('phones', require('./components/Shared/PhonesComponent.vue').default);
 
 /**
  * Componente para la gestión de documentos a requerir
  *
  * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
  */
-Vue.component('required-documents', require('./components/RequiredDocumentsComponent.vue').default);
+Vue.component('required-documents', require('./components/Shared/RequiredDocumentsComponent.vue').default);
 
 /**
  * Componente para la configuración de permisos asociados a roles de usuarios
  *
  * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
  */
-Vue.component('roles-permissions', require('./components/RolesAndPermissionsComponent.vue').default);
+Vue.component('roles-permissions', require('./components/Shared/RolesAndPermissionsComponent.vue').default);
 
 /**
  * Componente para la gestión de usuarios del sistema
  *
  * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
  */
-Vue.component('users', require('./components/UsersComponent.vue').default);
+Vue.component('users', require('./components/Shared/UsersComponent.vue').default);
 
+/**
+ * Componente para la gestión de notificaciones en tiempo real
+ *
+ * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
+ */
+Vue.component('notifications', require('./components/Notifications/DropdownNotificationsComponent.vue').default);
 
-Vue.component('notifications', require('./components/NotificationsComponent.vue').default);
+/**
+ * Componente para mostrar un listado con todas las notificaciones del usuario
+ *
+ * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
+ */
+Vue.component('all-notifications', require('./components/Notifications/AllNotificationsComponent.vue').default);

@@ -17,6 +17,10 @@ use App\Http\Controllers\Controller;
  */
 class NotificationsController extends Controller
 {
+    public function show()
+    {
+        return view('auth.notifications');
+    }
     /**
      * Obtiene las notificaciones no leídas
      *
