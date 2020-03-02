@@ -15,7 +15,7 @@ class UserRegistered extends Notification //implements ShouldQueue
     public $user;
     public $password;
     public $notifyTitle;
-    public $notifyDescription;
+    public $notifyMessage;
 
     /**
      * Create a new notification instance.
@@ -27,7 +27,7 @@ class UserRegistered extends Notification //implements ShouldQueue
         $this->user = $user;
         $this->password = $password;
         $this->notifyTitle = __('Modificar contraseña');
-        $this->notifyDescription = __('Bienvenido al sistema, recuerde modificar su contraseña en el primer acceso');
+        $this->notifyMessage = __('Bienvenido al sistema, recuerde modificar su contraseña en el primer acceso');
     }
 
     /**
@@ -77,7 +77,7 @@ class UserRegistered extends Notification //implements ShouldQueue
         return [
             'title' => $this->notifyTitle,
             'module' => null,
-            'description' => $this->notifyDescription,
+            'message' => $this->notifyMessage,
         ];
     }
 
@@ -86,7 +86,7 @@ class UserRegistered extends Notification //implements ShouldQueue
         return [
             'title' => $this->notifyTitle,
             'module' => null,
-            'description' => $this->notifyDescription,
+            'message' => $this->notifyMessage,
         ];
     }
 }

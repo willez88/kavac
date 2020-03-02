@@ -5,9 +5,12 @@ namespace Modules\CitizenService\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Modules\CitizenService\Models\CitizenServiceRequest;
 
 class CitizenServiceReportController extends Controller
 {
+    use ValidatesRequests;
     /**
      * Display a listing of the resource.
      * @return Response
@@ -37,7 +40,7 @@ class CitizenServiceReportController extends Controller
             'type_search' => ['required']
         ]);
 
-        $report = AssetReport::create([
+        $report = CitizenServiceReport::create([
             'type_search' => $request->input('type_search'),
 
             'date' => $request->input('date'),
@@ -79,5 +82,28 @@ class CitizenServiceReportController extends Controller
      */
     public function destroy()
     {
+    }
+
+    public function searchPeriod(Request $request)
+    {
+        $citizenservice = CitizenServiceRequest::SearchPeriod(
+            $request->start_date,
+            $request->end_date,
+            $request->citizen_service_request_type_id,
+            $request->citizen_service_id
+        )->get();
+        
+        return response()->json(['records' => $citizenservice], 200);
+    }
+
+    public function searchDate(Request $request)
+    {
+        $citizenservice = CitizenServiceRequest::SearchDate(
+            $request->date,
+            $request->citizen_service_request_type_id,
+            $request->citizen_service_id
+        )->get();
+        
+        return response()->json(['records' => $citizenservice], 200);
     }
 }

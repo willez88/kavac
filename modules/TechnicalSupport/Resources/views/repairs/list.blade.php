@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-    Gestión de Reparaciones de Averías
+    Gestión de Reparaciones
 @stop
 
 @section('content')
@@ -21,16 +21,16 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h6 class="card-title">Solicitudes de Reparación</h6>
+                    <h6 class="card-title">Reparaciones Asignadas</h6>
                     <div class="card-btns">
                         @include('buttons.previous', ['route' => url()->previous()])
                         @include('buttons.minimize')
                     </div>
                 </div>
                 <div class="card-body">
-                    <technicalsupport-request-repair-list
-                        route_list="{{ url('technicalsupport/repairs/requests/vue-list') }}">
-                    </technicalsupport-request-repair-list>
+                    <technicalsupport-repair-list
+                        route_list="{{ url('technicalsupport/repairs/vue-list') }}">
+                    </technicalsupport-repair-list>
                 </div>
             </div>
         </div>

@@ -305,6 +305,8 @@ Route::group(['middleware' => ['auth', 'verified'], 'namespace' => 'Services'], 
         Route::get('readed', 'NotificationsController@getReaded');
         /** Obtiene todas las notificaciones del usuario */
         Route::get('all', 'NotificationsController@getAll');
+        /** Mustra el listado de notificaciones */
+        Route::get('list', 'NotificationsController@show')->name('notifications.list');
     });
 });
 

@@ -1,18 +1,5 @@
 <template>
-	<div class="card">
-		<div class="card-header">
-			<h6 class="card-title text-uppercase">Solicitud de Bienes Institucionales</h6>
-			<div class="card-btns">
-				<a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)" 
-				   title="Ir atrás" data-toggle="tooltip">
-					<i class="fa fa-reply"></i>
-				</a>
-				<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
-				   data-toggle="tooltip">
-					<i class="now-ui-icons arrows-1_minimal-up"></i>
-				</a>
-			</div>
-		</div>
+	<section id="AssetRequestForm">
 		<div class="card-body">
 			<div class="alert alert-danger" v-if="errors.length > 0">
 				<div class="container">
@@ -33,7 +20,8 @@
 			</div>
 
 			<div class="row">
-				<div class="col-md-4" v-if="record.id">
+				<div class="col-md-4" id="helpAssetRequestDate"
+					v-if="record.id">
 				    <div class="form-group">
 				        <label>Fecha de Solicitud</label>
 				        <div class="input-group input-sm">
@@ -47,7 +35,7 @@
                     	</div>
 				    </div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpAssetRequestDeliveryDate">
 			        <div class="form-group is-required">
 			            <label>Fecha de Entrega</label>
 			            <div class="input-group input-sm">
@@ -61,14 +49,14 @@
 			            </div>
 			        </div>
 			    </div>
-			    <div class="col-md-4">
+			    <div class="col-md-4" id="helpAssetRequestType">
 					<div class="form-group is-required">
 						<label>Tipo de Solicitud</label>
 						<select2 :options="types" 
 								 v-model="record.type_id"></select2>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpAssetRequestMotive">
 				    <div class="form-group is-required">
 				        <label>Motivo de la solicitud</label>
 				        <textarea  data-toggle="tooltip" 
@@ -85,7 +73,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-3">
+					<div class="col-md-3" id="helpAssetCountry">
 						<div class="form-group is-required">
 							<label>Pais:</label>
 							<select2 :options="countries" id="country_select"
@@ -93,7 +81,7 @@
 									 v-model="record.country_id"></select2>
 						</div>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-3" id="helpAssetEstate">
 						<div class="form-group is-required">
 							<label>Estado:</label>
 							<select2 :options="estates" id="estate_select"
@@ -102,7 +90,7 @@
 									v-model="record.estate_id"></select2>
 						</div>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-3" id="helpAssetMunicipality">
 						<div class="form-group is-required">
 							<label>Municipio:</label>
 							<select2 :options="municipalities" id="municipality_select"
@@ -111,7 +99,7 @@
 									v-model="record.municipality_id"></select2>
 						</div>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-3" id="helpAssetParish">
 						<div class="form-group is-required">
 							<label>Parroquia:</label>
 							<select2 :options="parishes" id="parish_select"
@@ -119,7 +107,7 @@
 									 v-model="record.parish_id"></select2>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6" id="helpAssetAddress">
 						<div class="form-group is-required">
 							<label>Dirección</label>
 							<textarea  data-toggle="tooltip" 
@@ -138,7 +126,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-4" id="helpAssetRequestAgentName">
 						<div class="form-group is-required">
 					        <label>Nombre del Agente Externo</label>
 					        <input  type="text" class="form-control input-sm"
@@ -147,7 +135,7 @@
 					    </div>
 					</div>
 					
-					<div class="col-md-4">
+					<div class="col-md-4" id="helpAssetRequestAgentTelf">
 					    <div class="form-group is-required">
 					    	<label>Teléfono del Agente Externo</label>
 					    	<input  type="text" class="form-control input-sm"
@@ -156,7 +144,7 @@
 					    </div>
 					</div>
 					
-					<div class="col-md-4">
+					<div class="col-md-4" id="helpAssetRequestAgentEmail">
 						<div class="form-group is-required">
 					    	<label>Correo del Agente Externo</label>
 					    	<input  type="text" class="form-control input-sm"
@@ -177,7 +165,8 @@
 					</select2>
 				</div>
 			</div>
-			<v-client-table @row-click="toggleActive" :columns="columns" :data="records" :options="table_options" ref="tableMax">
+			<v-client-table id="helpTable"
+				@row-click="toggleActive" :columns="columns" :data="records" :options="table_options" ref="tableMax">
 				<div slot="h__check" class="text-center">
 					<label class="form-checkbox">
 						<input type="checkbox" v-model="selectAll" @click="select()" class="cursor-pointer">
@@ -227,26 +216,30 @@
 			</div>
 		</div>
 		<div class="card-footer text-right">
-        	<button type="button" @click="reset()"
-					class="btn btn-default btn-icon btn-round"
-					title ="Borrar datos del formulario">
-					<i class="fa fa-eraser"></i>
-			</button>
+			<div class="row">
+				<div class="col-md-3 offset-md-9" id="helpParamButtons">
+		        	<button type="button" @click="reset()"
+							class="btn btn-default btn-icon btn-round"
+							title ="Borrar datos del formulario">
+							<i class="fa fa-eraser"></i>
+					</button>
 
-        	<button type="button"
-        			class="btn btn-warning btn-icon btn-round btn-modal-close"
-        			data-dismiss="modal"
-        			title="Cancelar y regresar">
-        			<i class="fa fa-ban"></i>
-        	</button>
+		        	<button type="button"
+		        			class="btn btn-warning btn-icon btn-round btn-modal-close"
+		        			data-dismiss="modal"
+		        			title="Cancelar y regresar">
+		        			<i class="fa fa-ban"></i>
+		        	</button>
 
-        	<button type="button"  @click="createForm('asset/requests')"
-        			class="btn btn-success btn-icon btn-round btn-modal-save"
-        			title="Guardar registro">
-        		<i class="fa fa-save"></i>
-            </button>
+		        	<button type="button"  @click="createForm('asset/requests')"
+		        			class="btn btn-success btn-icon btn-round btn-modal-save"
+		        			title="Guardar registro">
+		        		<i class="fa fa-save"></i>
+		            </button>
+		        </div>
+		    </div>
         </div>
-	</div>
+	</section>
 </template>
 
 <style>

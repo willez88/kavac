@@ -10,18 +10,21 @@
             <div slot="id" slot-scope="props" class="text-center">
                 <div class="d-inline-flex">
                     
-                    <purchase-plan-show :id="props.row.id" :route_show="'/purchase/purchase_plans/'+props.row.id" />
+                    <purchase-plan-show :id="props.row.id" :route_show="'/purchase/purchase_plans/'+props.row.id" 
+                                        v-if="!props.row.active" />
                     
                     <button @click="editForm(props.row.id)"
                             class="btn btn-warning btn-xs btn-icon btn-action"
                             title="Modificar registro"
-                            data-toggle="tooltip">
+                            data-toggle="tooltip"
+                            v-if="props.row.active">
                         <i class="fa fa-edit"></i>
                     </button>
                     <button @click="deleteRecord(props.index,'/purchase/purchase_plans')"
                             class="btn btn-danger btn-xs btn-icon btn-action" 
                             title="Eliminar registro" 
-                            data-toggle="tooltip" >
+                            data-toggle="tooltip" 
+                            v-if="props.row.active">
                         <i class="fa fa-trash-o"></i>
                     </button>
                 </div>

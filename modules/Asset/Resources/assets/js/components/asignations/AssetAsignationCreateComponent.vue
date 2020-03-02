@@ -1,18 +1,5 @@
 <template>
-	<div class="card">
-		<div class="card-header">
-			<h6 class="card-title text-uppercase">Asignación de Bienes Institucionales</h6>
-			<div class="card-btns">
-				<a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)" 
-				   title="Ir atrás" data-toggle="tooltip">
-					<i class="fa fa-reply"></i>
-				</a>
-				<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
-				   data-toggle="tooltip">
-					<i class="now-ui-icons arrows-1_minimal-up"></i>
-				</a>
-			</div>
-		</div>
+	<section id="AssetAsignationForm">
 		<div class="card-body">
 			<div class="alert alert-danger" v-if="errors.length > 0">
 				<div class="container">
@@ -33,11 +20,10 @@
 			</div>
 
 			<div class="row">
-
 				<div class="col-md-12">
 					<b>Información del Trabajador Responsable del bien</b>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpInstitution">
 					<div class="form-group is-required">
 						<label>Institución:</label>
 						<select2 :options="institutions" @input="getDepartments()" 
@@ -45,7 +31,7 @@
                     </div>
 
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpDepartment">
 					<div class="form-group is-required">
 						<label>Departamento:</label>
 						<select2 :options="departments" @input="" 
@@ -53,7 +39,7 @@
                     </div>
 
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpPositionType">
 					<div class="form-group">
 						<label>Puesto de Trabajo:</label>
 						<select2 :options="payroll_position_types" @input="" 
@@ -61,14 +47,14 @@
 						<input type="hidden" v-model="record.id">
                     </div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpPosition">
 					<div class="form-group">
 						<label>Cargo:</label>
 						<select2 :options="payroll_positions" @input="" 
 								 v-model="record.payroll_position_id"></select2>
                     </div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpStaff">
 					<div class="form-group is-required">
 						<label>Trabajador:</label>
 						<select2 :options="payroll_staffs" @input="" 
@@ -89,7 +75,7 @@
 			</div>
 
 			<div class="row">
-				<div class="col-md-3">
+				<div class="col-md-3" id="helpSearchAssetType">
 					<div class="form-group">
 						<label>Tipo de Bien</label>
 						<select2 :options="asset_types" @input="getAssetCategories()" 
@@ -97,7 +83,7 @@
 					</div>
 				</div>
 									
-				<div class="col-md-3">
+				<div class="col-md-3" id="helpSearchAssetCategory">
 					<div class="form-group">
 						<label>Categoria General</label>
 						<select2 :options="asset_categories" @input="getAssetSubcategories()" 
@@ -105,7 +91,7 @@
 								 title="Indique la categoria general del bien"></select2>
 					</div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-3" id="helpSearchAssetSubCategory">
 					<div class="form-group">
 						<label>Subcategoria</label>
 						<select2 :options="asset_subcategories" 
@@ -115,7 +101,7 @@
 					</div>
 				</div>
 
-				<div class="col-md-3">
+				<div class="col-md-3" id="helpSearchAssetSpecificCategory">
 					<div class="form-group">
 						<label>Categoria Específica</label>
 						<select2 :options="asset_specific_categories" 
@@ -126,7 +112,8 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<button type="button" @click="filterRecords()"class="btn btn-sm btn-primary btn-info float-right" 
+					<button type="button" id="helpSearchButton"
+							@click="filterRecords()"class="btn btn-sm btn-primary btn-info float-right" 
 							title="Buscar registros"
 							data-toggle="tooltip">
 						<i class="fa fa-search"></i>
@@ -144,7 +131,8 @@
 					</select2>
 				</div>
 			</div>
-			<v-client-table @row-click="toggleActive" :columns="columns" :data="records" :options="table_options" ref="tableMax">
+			<v-client-table id="helpTable"
+				@row-click="toggleActive" :columns="columns" :data="records" :options="table_options" ref="tableMax">
 				<div slot="h__check" class="text-center">
 					<label class="form-checkbox">
 						<input type="checkbox" v-model="selectAll" @click="select()" class="cursor-pointer">
@@ -202,30 +190,32 @@
 					<p class="VuePagination__count text-center col-md-12" style=""> </p>
 				</nav>
 			</div>
-
-	        <div class="card-footer text-right">
-            	<button type="button" @click="reset()"
-						class="btn btn-default btn-icon btn-round"
-						title ="Borrar datos del formulario">
-						<i class="fa fa-eraser"></i>
-				</button>
-				
-            	<button type="button" 
-            			class="btn btn-warning btn-icon btn-round btn-modal-close" 
-            			data-dismiss="modal"
-            			title="Cancelar y regresar">
-            			<i class="fa fa-ban"></i>
-            	</button>
-
-            	<button type="button"  @click="createForm('asset/asignations')"
-            			class="btn btn-success btn-icon btn-round btn-modal-save"
-            			title="Guardar registro">
-            		<i class="fa fa-save"></i>
-                </button>
-            </div>
-
 		</div>
-	</div>
+        <div class="card-footer text-right">
+			<div class="row">
+				<div class="col-md-3 offset-md-9" id="helpParamButtons">
+		        	<button type="button" @click="reset()"
+							class="btn btn-default btn-icon btn-round"
+							title ="Borrar datos del formulario">
+							<i class="fa fa-eraser"></i>
+					</button>
+					
+		        	<button type="button" 
+		        			class="btn btn-warning btn-icon btn-round btn-modal-close" 
+		        			data-dismiss="modal"
+		        			title="Cancelar y regresar">
+		        			<i class="fa fa-ban"></i>
+		        	</button>
+
+		        	<button type="button"  @click="createForm('asset/asignations')"
+		        			class="btn btn-success btn-icon btn-round btn-modal-save"
+		        			title="Guardar registro">
+		        		<i class="fa fa-save"></i>
+		            </button>
+		        </div>
+		    </div>
+        </div>
+	</section>
 </template>
 
 <style>

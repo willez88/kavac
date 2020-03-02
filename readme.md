@@ -33,6 +33,7 @@ A continuación se listan los paquetes previos requeridos para la instalación y
 	* nodejs
 	* postgresql
 	* servidor de aplicaciones nginx, apache, etc
+    * supervisor
 
 ## Glosario
 
@@ -243,6 +244,76 @@ Una vez configurado el gestor de base de datos, se deben ejecutar los siguientes
 	php artisan migrate
 
 Lo anterior creará la estructura de tablas de la base de datos necesaria para comenzar a gestionar la información.
+
+## Procesamiento de colas
+
+El sistema cuenta con procedimientos que permiten establecer colas de trabajo para peticiones y registros con grandes cantidades de información, por tal motivo es necesario realizar una configuración previa antes de iniciar la aplicación.
+
+Dentro del archivo config/queue.php se encuentra las distintas variables a configurar para el uso de colas, por lo que se deben configurar el driver a usar para la gestión de las colas y posteriormente configurar los datos necesarios del servidor seleccionado.
+
+Lo primero es configuar dentro del archivo de entorno (.env) la variable **QUEUE_CONNECTION** para el uso con base de datos de la siguiente manera:
+
+    QUEUE_CONNECTION=database
+
+Posteriormente se debe instalar y configurar el servidor que atenderá las peticiones de la colas de trabajo **Redis**, del cual se puede obtener información en la documentación oficial del framework [Larave](https://docs.laravel.com).
+
+Una vez instalado y configurado el servidor de colas, se debe establecer los valores correspondientes de las siguientes variables en el archivo de entorno .env como se muestra a continuación:
+
+    REDIS_HOST=<NOMBRE O IP DEL SERVIDOR REDIS>
+    REDIS_PASSWORD=null
+    REDIS_PORT=<PUERTO DE CONEXION DEL SERVIDOR REDIS>
+    REDIS_CLIENT=predis
+    REDIS_DB=<NUMERO DE BASE DE DATOS REDIS>
+
+Donde
+`<NOMBRE O IP DEL SERVIDOR REDIS>` es el nombre o dirección IP del servidor REDIS. Ej. 127.0.0.1 o localhost
+`<PUERTO DE CONEXION DEL SERVIDOR REDIS>` es el puerto de conexión del servidor REDIS. Ej. 6379
+`<NUMERO DE BASE DE DATOS REDIS>` es el número de base de datos del servidor REDIS. Ej. 16
+
+## Websockets
+
+La aplicación viene con un sistema de notificaciones en tiempo real con websockets por lo que es necesario iniciar y mantener el servidor que atiende y despacha estas peticiones, además de establecer algunos valores en el archivo **.env** de la siguiente forma:
+
+    PUSHER_APP_ID=<API_ID>
+    PUSHER_APP_KEY=<API_KEY>
+    PUSHER_APP_SECRET=<API_SECRET>
+    PUSHER_APP_CLUSTER=mt1
+
+    WEBSOCKETS_HOST=<WEBSOCKET_IP>
+    WEBSOCKETS_PORT=<WEBSOCKET_PORT>
+
+    MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
+    MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
+    MIX_WEBSOCKETS_HOST="${WEBSOCKETS_HOST}"
+    MIX_WEBSOCKETS_PORT="${WEBSOCKETS_PORT}"
+
+Luego de realizada la configuración en el archivo de entorno **.env** se requiere tener instalado en el servidor de aplicaciones una aplicación que monitoree y ejecute este servicio para lo cual se utiliza la aplicación ***supervisor***.
+
+Una vez instalado ***supervisor***, se requiere agregar y configurar un nuevo proceso que permita mantener la ejecución de los websockets de la aplicación, para lo cual se debe crear un nuevo archivo con el nombre **websockets.conf** dentro del directorio /etc/supervisor/conf.d (en Debian/Ubuntu) ó /etc/supervisord.d (en RedHat/CentOS).
+
+El archivo creado deberá contener la siguiente información:
+
+    [program:websockets]
+    command=/usr/bin/php <ruta-de-la-aplicacion-kavac>/artisan websockets:serve
+    numprocs=1
+    autostart=true
+    autorestart=true
+    user=<usuario-del-sistema>
+
+Donde:
+`/user/bin/php` es la ruta en donde se encuentra el comando php
+`<ruta-de-la-aplicacion-kavac>` es la ruta en donde se encuentra instalada la aplicación
+`<usuario-del-sistema>` es el usuario del sistema operativo en donde se encuentra la aplicación, el cual tendrá los permisos necesarios para ejecutar los distintos procesos
+
+Con la configuración anteriormente descrita, se debe reiniciar el **supervisor** para que tome en cuenta la nueva configuración, para lo cual se ejecutan los siguientes comandos:
+
+    supervisorctl update
+
+    supervisorctl start websockets
+
+Para verificar que la configuración es correcta y el servicio se este ejecutando, se puede indicar el siguiente comando:
+
+    supervisorctl status
 
 ## Registros Iniciales
 

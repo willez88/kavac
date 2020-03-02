@@ -65,13 +65,9 @@ class PurchaseRequirementController extends Controller
     {
         $requirements = PurchaseRequirement::with(
             'contratingDepartment',
-            'userDepartment',
-            'purchaseSupplierType',
-            'fiscalYear'
+            'userDepartment'
         )->orderBy('code', 'ASC')->get();
-
-        $baseBudget = PurchaseBaseBudget::with('currency')->orderBy('id', 'ASC')->get();
-        return view('purchase::requirements.index', ['requirements' => $requirements, 'baseBudget' => $baseBudget]);
+        return view('purchase::requirements.index', ['requirements' => $requirements]);
     }
 
     /**
@@ -180,9 +176,7 @@ class PurchaseRequirementController extends Controller
         return response()->json(['records'=>PurchaseRequirement::with(
             'contratingDepartment',
             'userDepartment',
-            'purchaseSupplierType',
-            'fiscalYear',
-            'purchaseRequirementItems.measurementUnit'
+            'purchaseRequirementItems'
         )->find($id)], 200);
     }
 
@@ -192,7 +186,11 @@ class PurchaseRequirementController extends Controller
      */
     public function edit($id)
     {
-        $requirement_edit        = PurchaseRequirement::with('purchaseRequirementItems', 'fiscalYear')->find($id);
+        $requirement_edit        = PurchaseRequirement::with(
+            'contratingDepartment',
+            'userDepartment',
+            'purchaseRequirementItems'
+        )->find($id);
         $institutions            = template_choices('App\Models\Institution', 'name', [], true);
         $department_list         = template_choices('App\Models\Department', 'name', [], true);
         $measurement_units       = template_choices('App\Models\MeasurementUnit', 'name', [], true);

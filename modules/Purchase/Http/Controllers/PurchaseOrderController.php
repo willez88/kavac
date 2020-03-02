@@ -54,8 +54,6 @@ class PurchaseOrderController extends Controller
         
         $requirements = PurchaseRequirement::with(
             'contratingDepartment',
-            'purchaseSupplierType',
-            'fiscalYear',
             'userDepartment',
             'purchaseRequirementItems.measurementUnit',
             'purchaseBaseBudget.currency'
@@ -148,8 +146,6 @@ class PurchaseOrderController extends Controller
         
         $requirements = PurchaseRequirement::with(
             'contratingDepartment',
-            'purchaseSupplierType',
-            'fiscalYear',
             'userDepartment',
             'purchaseRequirementItems.measurementUnit',
             'purchaseBaseBudget.currency'

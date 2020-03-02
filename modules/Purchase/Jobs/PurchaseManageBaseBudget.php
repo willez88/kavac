@@ -12,6 +12,8 @@ use Modules\Purchase\Models\PurchaseBaseBudget;
 use Modules\Purchase\Models\PurchaseRequirement;
 use Modules\Purchase\Models\PurchaseRequirementItem;
 
+use Modules\Purchase\Models\PurchasePivotModelsToRequirementItem;
+
 class PurchaseManageBaseBudget implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -51,9 +53,9 @@ class PurchaseManageBaseBudget implements ShouldQueue
         $data = $this->data;
         if ($data['action'] == 'create') {
             $baseBudget = PurchaseBaseBudget::create([
-                                                        'currency_id' => $data['currency_id'],
-                                                        'tax_id'      => $data['tax_id'],
-                                                    ]);
+                'currency_id' => $data['currency_id'],
+                'tax_id'      => $data['tax_id'],
+            ]);
             foreach ($data['list'] as $requirement) {
                 $rq = PurchaseRequirement::find($requirement['id']);
                 $rq->requirement_status = 'PROCESSED';
@@ -61,9 +63,12 @@ class PurchaseManageBaseBudget implements ShouldQueue
                 $rq->save();
 
                 foreach ($requirement['purchase_requirement_items'] as $item) {
-                    $it = PurchaseRequirementItem::find($item['id']);
-                    $it['unit_price'] = $item['unit_price'];
-                    $it->save();
+                    PurchasePivotModelsToRequirementItem::create([
+                        'purchase_requirement_item_id' => $item['id'],
+                        'relatable_type'               => PurchaseBaseBudget::class,
+                        'relatable_id'                 => $baseBudget['id'],
+                        'unit_price'                   => $item['unit_price']
+                    ]);
                 }
             }
         } elseif ($data['action'] == 'update') {
@@ -73,15 +78,20 @@ class PurchaseManageBaseBudget implements ShouldQueue
             $baseBudget->save();
 
             foreach ($data['list_to_delete'] as $requirement) {
+                // trae requerimiento
                 $rq = PurchaseRequirement::find($requirement['id']);
-                $rq->requirement_status = 'WAIT';
-                $rq->purchase_base_budget_id = null;
-                $rq->save();
 
+                if ($rq) {
+                    $rq->requirement_status = 'WAIT';
+                    $rq->purchase_base_budget_id = null;
+                    $rq->save();
+                }
                 foreach ($requirement['purchase_requirement_items'] as $item) {
-                    $it = PurchaseRequirementItem::find($item['id']);
-                    $it['unit_price'] = null;
-                    $it->save();
+                    $r = PurchasePivotModelsToRequirementItem::where('purchase_requirement_item_id', $item['id'])
+                                                                ->fisrt();
+                    if ($r) {
+                        $r->delete();
+                    }
                 }
             }
 
@@ -92,9 +102,13 @@ class PurchaseManageBaseBudget implements ShouldQueue
                 $rq->save();
 
                 foreach ($requirement['purchase_requirement_items'] as $item) {
-                    $it = PurchaseRequirementItem::find($item['id']);
-                    $it['unit_price'] = $item['unit_price'];
-                    $it->save();
+                    PurchasePivotModelsToRequirementItem::updateOrcreate([
+                        'purchase_requirement_item_id' => $item['id'],
+                        'relatable_type'               => PurchaseBaseBudget::class,
+                        'relatable_id'                 => $baseBudget['id'],
+                    ], [
+                        'unit_price'                   => $item['unit_price']
+                    ]);
                 }
             }
         }

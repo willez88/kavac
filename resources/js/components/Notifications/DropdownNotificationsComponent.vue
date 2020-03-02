@@ -15,7 +15,7 @@
                     <li class="media unread" v-for="notify in notifications">
                         <div class="media-body" v-if="notify.data.title && notify.data.message">
                             <strong>
-                                <i class="fa fa-envelope-o cursor-pointer" title="Marcar como leído" 
+                                <i class="fa fa-envelope-o cursor-pointer" title="Marcar como leído"
                                    data-toggle="tooltip" @click.prevent="markAsReaded(notify.id)"></i>
                                 {{ notify.data.title }}
                             </strong><br>
@@ -32,7 +32,7 @@
                     </li>
                 </ul>
             </div>
-            <a class="dropdown-item dropdown-footer text-center" href="#"
+            <a class="dropdown-item dropdown-footer text-center" :href="listNotificationsUrl"
                title="Ver todas las notificaciones" data-toggle="tooltip" data-placement="left">
                 Ver todas las notificaciones
             </a>
@@ -47,7 +47,7 @@
                 notifications: this.unreads
             }
         },
-        props: ['unreads', 'userId'],
+        props: ['unreads', 'userId', 'listNotificationsUrl'],
         methods: {
             markAsReaded: function(id) {
                 console.log(id)
@@ -70,7 +70,7 @@
             let vm = this;
             window.Echo.private(`App.User.${vm.userId}`).notification((notification) => {
                 console.log(notification);
-                
+
                 let newNotifications = {
                     id: notification.id,
                     data: {

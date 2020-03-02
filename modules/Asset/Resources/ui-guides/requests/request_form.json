@@ -1,0 +1,76 @@
+[
+    {
+        "element" : "#cardAssetRequestForm",
+        "intro" : "Formulario de solicitudes de bienes institucionales"
+    },
+    {
+        "element" : "#helpAssetRequestDate",
+        "intro" : "Parámetro que establece la fecha de la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetRequestDeliveryDate",
+        "intro" : "Parámetro que establece la fecha de entrega de los bienes solicitados",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetRequestType",
+        "intro" : "Parámetro que establece el tipo de solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetRequestMotive",
+        "intro" : "Parámetro que establece el motivo de la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetCountry",
+        "intro" : "Parámetro que establece el país donde se ubican los bienes solicitados",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetEstate",
+        "intro" : "Parámetro que establece el estado donde se ubican los bienes solicitados",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetMunicipality",
+        "intro" : "Parámetro que establece el municipio donde se ubican los bienes solicitados",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetParish",
+        "intro" : "Parámetro que establece la parroquía donde se ubican los bienes solicitados",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetAddress",
+        "intro" : "Parámetro que establece la dirección física donde se ubican los bienes solicitados",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetRequestAgentName",
+        "intro" : "Parámetro que establece el nombre del agente externo asociado a la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetRequestAgentTelf",
+        "intro" : "Parámetro que establece el teléfono del agente externo asociado a la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpAssetRequestAgentEmail",
+        "intro" : "Parámetro que establece el correo del agente externo asociado a la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpTable",
+        "intro" : "Listado de bienes registrados en la institución y disponibles para su correspondiente solicitud",
+        "position" : "top"
+    },
+    {
+        "element" : "#helpParamButtons",
+        "intro" : "Botones para ejecutar las acciones de limpiar, cancelar o guardar los datos del formulario",
+        "position" : "left"
+    }
+]

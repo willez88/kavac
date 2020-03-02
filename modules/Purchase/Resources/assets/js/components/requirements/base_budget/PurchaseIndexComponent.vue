@@ -29,14 +29,6 @@
 </template>
 <script>
     export default{
-        props:{
-            record_list:{
-                type:Array,
-                default: function() {
-                    return [];
-                }
-            },
-        },
         data(){
             return {
                 records:[],
@@ -60,7 +52,9 @@
             };
         },
         mounted(){
-            this.records = this.record_list;
+            axios.get('/purchase/base_budget').then(response => {
+                this.records = response.data.records;
+            });
         }
     };
 </script>

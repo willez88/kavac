@@ -68,7 +68,7 @@
                             </td>
                             <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
                                 <input type="number" :disabled="!currency_id" :step="cualculateLimitDecimal()" 
-                                       class="form-control" v-model="varr.unit_price" @input="CalculateTot">
+                                       class="form-control" v-model="(varr.pivot_purchase)?varr.pivot_purchase.unit_price:varr.unit_price" @input="CalculateTot">
                             </td>
                             <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
                                 <h6 align="right">{{ CalculateQtyPrice(varr.qty_price) }}</h6>
@@ -249,7 +249,6 @@
                             'currency_id':this.currency_id,
                             'tax_id':this.record_tax.id,
                         }).then(response=>{
-                        console.log('creo')
                         this.loading = false;
                         this.showMessage('store');
                         setTimeout(function() {
@@ -279,7 +278,6 @@
                             'currency_id':this.currency_id,
                             'tax_id':this.record_tax.id,
                         }).then(response=>{
-                            console.log('edito')
                         this.loading = false;
                         this.showMessage('update');
                         setTimeout(function() {

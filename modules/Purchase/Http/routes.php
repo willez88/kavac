@@ -132,6 +132,7 @@ Route::group([
     Route::resource('purchase_plans', 'PurchasePlanController', [
         'as'     => 'purchase',
     ]);
+    Route::post('purchase_plan_upload_file', 'PurchasePlanController@uploadFile');
 
     /*
      * -----------------------------------------------------------------------
@@ -146,4 +147,15 @@ Route::group([
     Route::post('purchase_order/{id}', 'PurchaseOrderController@updatePurchaseOrder');
 
     Route::get('get-convertion/{currency_id}/{base_budget_currency_id}', 'PurchaseOrderController@getConvertion');
+
+    /*
+     * -----------------------------------------------------------------------
+     * Rutas para la gestión de Disponibilidad presupuestaria
+     * -----------------------------------------------------------------------
+     *
+     * Gestiona los datos de los tipos de operaciones
+     */
+    Route::resource('budgetary_availability', 'PurchaseBudgetaryAvailabilityController', [
+        'as'     => 'purchase',
+    ]);
 });

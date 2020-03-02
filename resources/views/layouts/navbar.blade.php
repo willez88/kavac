@@ -42,8 +42,9 @@
 					@if (App\Models\Parameter::where([
 						'active' => true, 'required_by' => 'core', 'p_key' => 'notify', 'p_value' => 'true'
 					])->first())
-                        <notifications :unreads="{{ auth()->user()->unreadNotifications }}" 
-                                       :user-id="{!! auth()->user()->id !!}"></notifications>
+                        <notifications :unreads="{{ auth()->user()->unreadNotifications->take(5) }}"
+                                       :user-id="{!! auth()->user()->id !!}"
+                                       list-notifications-url="{!! route('notifications.list') !!}"></notifications>
 					@endif
 
 					<li class="nav-item dropdown dropdown-notify">

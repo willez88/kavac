@@ -72,6 +72,6 @@ class TechnicalSupportController extends Controller
 
     public function getTechnicalSupportStaff()
     {
-        return template_choices('App\User', 'name', '', true);
+        return template_choices('App\User', 'name', ['relationship' => 'roles','where' => ['slug' => 'technicalsupport']], true);
     }
 }

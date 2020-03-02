@@ -1,18 +1,5 @@
 <template>
-	<div class="card">
-		<div class="card-header">
-			<h6 class="card-title text-uppercase">Nuevo Ingreso al Almacén</h6>
-			<div class="card-btns">
-				<a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)" 
-				   title="Ir atrás" data-toggle="tooltip">
-					<i class="fa fa-reply"></i>
-				</a>
-				<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
-				   data-toggle="tooltip">
-					<i class="now-ui-icons arrows-1_minimal-up"></i>
-				</a>
-			</div>
-		</div>
+	<section id="WarehouseReceptionForm">
 		<div class="card-body">
 			<div class="alert alert-danger" v-if="errors.length > 0">
 				<div class="container">
@@ -37,7 +24,7 @@
 					<b>Seleccione el destino de los productos</b>
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpInstitution">
 					<div class="form-group is-required">
 						<label>Nombre de la Institución:</label>
 						<select2 :options="institutions" @input="getWarehouses"
@@ -46,7 +33,7 @@
                     </div>
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpWarehouse">
 					<div class="form-group is-required">
 						<label>Nombre del Almacén:</label>
 						<select2 :options="warehouses" @input="getWarehouseProducts"
@@ -56,17 +43,17 @@
 			</div>
 			<hr>
 			
-			<div class="row">
+			<div class="row" id="helpSectionProducts">
 				<div class="col-md-12">
 					<b>Ingrese los Productos a la solicitud</b>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-3" id="helpProductName">
 					<div class="form-group is-required">
 						<label>Nombre del Producto:</label>
 						<select2 :options="warehouse_products" @input="getWarehouseProductAttributes" v-model="warehouse_inventory_product.warehouse_product_id"></select2>
                     </div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-3" id="helpProductQuantity">
 					<div class="form-group is-required">
 						<label>Cantidad:</label>
 						<input type="number" min="1" placeholder="Cantidad del Producto" data-toggle="tooltip" 								   
@@ -74,7 +61,7 @@
 							   v-model="warehouse_inventory_product.quantity">
                     </div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-3" id="helpProductValue">
 					<div class="form-group is-required">
 						<label>Valor:</label>
 						<input type="number" min="0" placeholder="Valor por unidad del producto" data-toggle="tooltip" step=".01"
@@ -82,7 +69,7 @@
 							   v-model="warehouse_inventory_product.unit_value">
                     </div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-3" id="helpProductCurrency">
 					<div class="form-group is-required">
 						<label>Moneda</label>
 						<select2 :options="currencies"
@@ -116,7 +103,8 @@
 				</div>
 			</div>
 			<hr>
-			<v-client-table :columns="columns" :data="records" :options="table_options">
+			<v-client-table id="helpTable"
+				:columns="columns" :data="records" :options="table_options">
 				<div slot="name" slot-scope="props" class="text-center">
 					<span>
 						{{ (props.row.warehouse_product)?props.row.warehouse_product.name:'N/A' }}
@@ -150,27 +138,30 @@
 
 		</div>
         <div class="card-footer text-right">
-        	<button type="button" @click="reset()"
-					class="btn btn-default btn-icon btn-round"
-					title ="Borrar datos del formulario">
-					<i class="fa fa-eraser"></i>
-			</button>
+			<div class="row">
+				<div class="col-md-3 offset-md-9" id="helpParamButtons">
+		        	<button type="button" @click="reset()"
+							class="btn btn-default btn-icon btn-round"
+							title ="Borrar datos del formulario">
+							<i class="fa fa-eraser"></i>
+					</button>
 
-        	<button type="button"
-        			class="btn btn-warning btn-icon btn-round btn-modal-close"
-        			data-dismiss="modal"
-        			title="Cancelar y regresar">
-        			<i class="fa fa-ban"></i>
-        	</button>
+		        	<button type="button"
+		        			class="btn btn-warning btn-icon btn-round btn-modal-close"
+		        			data-dismiss="modal"
+		        			title="Cancelar y regresar">
+		        			<i class="fa fa-ban"></i>
+		        	</button>
 
-        	<button type="button"  @click="createReception('warehouse/receptions')"
-        			class="btn btn-success btn-icon btn-round btn-modal-save"
-        			title="Guardar registro">
-        		<i class="fa fa-save"></i>
-            </button>
+		        	<button type="button"  @click="createReception('warehouse/receptions')"
+		        			class="btn btn-success btn-icon btn-round btn-modal-save"
+		        			title="Guardar registro">
+		        		<i class="fa fa-save"></i>
+		            </button>
+		        </div>
+		    </div>
         </div>
-
-	</div>
+	</section>
 </template>
 
 <script>

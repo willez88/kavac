@@ -22,6 +22,9 @@ trait ModelsTrait
         $path = app_path() . "/Models";
         $modules_path = base_path() . '/modules';
 
+        if (!empty($dir)) {
+            $path .= '/' . $dir;
+        }
         $out = [];
         $results = scandir($path);
 
@@ -51,12 +54,12 @@ trait ModelsTrait
             $r = scandir(base_path() . '/modules/' . $filename_module . '/Models');
 
             foreach ($r as $model) {
-                if ($model === '.' or $model === '..' or $model === '.gitkeep' or $model === 'AssetClasification.php') {
+                if (in_array($model, ['.', '..', '.gitkeep', 'AssetClasification.php']) || strpos($model, '.php')<= 0) {
                     continue;
                 }
                 $filename_m = $model;
 
-                if (is_dir($filename_m)) {
+                if (is_dir($filename_m) || strpos($model, '.php') <=0) {
                     $out = array_merge(
                         $out,
                         'Modules\\' . $filename_module . '\\Models\\' . $this->getModels($filename_m)
@@ -80,6 +83,9 @@ trait ModelsTrait
      */
     public function isModelSoftDelete($model)
     {
-        return in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses($model));
+        return is_array(class_uses($model)) &&
+               count(class_uses($model)) > 0 &&
+               in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses($model)) &&
+               $model->trashed();
     }
 }

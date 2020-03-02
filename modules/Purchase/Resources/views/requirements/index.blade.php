@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <purchase-base-budget :record_list="{{ $baseBudget }}" route_edit="/purchase/base_budget/{id}/edit" />
+                    <purchase-base-budget route_edit="/purchase/base_budget/{id}/edit" />
                 </div>
             </div>
         </div>

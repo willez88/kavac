@@ -24,7 +24,7 @@ class PurchasePlan extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['init_date', 'end_date', 'purchase_processes_id', 'purchase_type_id'];
+    protected $fillable = ['init_date', 'end_date', 'purchase_processes_id', 'purchase_type_id', 'active'];
 
     /**
      * PurchasePlan belongs to PurchaseProcess.
@@ -46,5 +46,16 @@ class PurchasePlan extends Model implements Auditable
     {
         // belongsTo(RelatedModel, foreignKey = purchaseType_id, keyOnRelatedModel = id)
         return $this->belongsTo(PurchaseType::class);
+    }
+
+    /**
+     * PurchasePlan morphs many document.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function document()
+    {
+        // morphMany(MorphedModel, morphableName, type = able_type, relatedKeyName = able_id, localKey = id)
+        return $this->morphMany(Document::class, 'documentable');
     }
 }

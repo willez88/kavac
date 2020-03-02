@@ -8,6 +8,8 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
+use Modules\Purchase\Models\PurchasePivotModelsToRequirementItem;
+
 class PurchaseBaseBudget extends Model implements Auditable
 {
     use SoftDeletes;
@@ -24,7 +26,7 @@ class PurchaseBaseBudget extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['currency_id','tax_id'];
+    protected $fillable = ['currency_id', 'tax_id'];
 
     /**
      * PurchaseBaseBudget belongs to Currency.
@@ -56,5 +58,16 @@ class PurchaseBaseBudget extends Model implements Auditable
     {
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = purchaseBaseBudget_id, localKey = id)
         return $this->hasMany(PurchaseRequirement::class);
+    }
+
+    /**
+     * PurchaseBaseBudget morphs many PurchasePivotModelsToRequirementItem.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function relatable()
+    {
+        // morphMany(MorphedModel, morphableName, type = able_type, relatedKeyName = able_id, localKey = id)
+        return $this->morphMany(PurchasePivotModelsToRequirementItem::class, 'relatable');
     }
 }

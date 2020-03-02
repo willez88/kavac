@@ -89,8 +89,7 @@ class CitizenServiceRequestController extends Controller
             ]);
             $i++;
         }
-        
-        error_log($request->id_number);
+       
         //Guardar los registros del formulario en  citizensrviceRequest
         $citizenserviceRequest = CitizenServiceRequest::create([
             'date'                             => $request->date,
