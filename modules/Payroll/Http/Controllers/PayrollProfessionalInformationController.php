@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Payroll\Models\PayrollProfessionalInformation;
-use Modules\Payroll\Models\Profession as BaseProfession;
+use Modules\Payroll\Models\Profession;
 use Modules\Payroll\Models\PayrollLanguage;
 use Modules\Payroll\Models\PayrollLanguageLevel;
 use Modules\Payroll\Models\PayrollInstructionDegree;
@@ -151,7 +151,7 @@ class PayrollProfessionalInformationController extends Controller
                 'professions' => ['required', 'array', 'min:1']
             ]);
             foreach ($request->professions as $profession) {
-                $prof = BaseProfession::find($profession['id']);
+                $prof = Profession::find($profession['id']);
                 $payrollProfessionalInformation->professions()->attach($prof);
             }
         }
@@ -266,12 +266,12 @@ class PayrollProfessionalInformationController extends Controller
             // Elimina las relaciones para poner entre PayrollProfessionalInformation
             // y Profession para agregar las nuevas
             foreach ($payrollProfessionalInformation->professions as $profession) {
-                $prof = BaseProfession::find($profession['id']);
+                $prof = Profession::find($profession['id']);
                 $payrollProfessionalInformation->professions()->detach($prof);
             }
 
             foreach ($request->professions as $profession) {
-                $prof = BaseProfession::find($profession['id']);
+                $prof = Profession::find($profession['id']);
                 $payrollProfessionalInformation->professions()->attach($prof);
             }
         }
@@ -332,6 +332,6 @@ class PayrollProfessionalInformationController extends Controller
      */
     public function getJsonProfessions()
     {
-        return response()->json(['jsonProfessions' => BaseProfession::all()], 200);
+        return response()->json(['jsonProfessions' => Profession::all()], 200);
     }
 }
