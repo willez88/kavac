@@ -73,7 +73,7 @@ class CitizenServiceRequest extends Model implements Auditable
         $citizen_service_request_type_id,
         $citizen_service_id
     ) {
-        return $query->whereBetween("date", [$start,$end])
+        return $query->whereBetween("date", [$start_date,$end_date])
                      ->where("citizen_service_request_type_id", $citizen_service_request_type_id)
                      ->where("state", $citizen_service_id);
     }
