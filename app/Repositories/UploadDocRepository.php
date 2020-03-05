@@ -39,7 +39,7 @@ class UploadDocRepository
      * @param  object  $file         Objeto con el archivo a subir
      * @param  string  $store        Ruta en la que se va a almacenar el archivo
      * @param  string  $model        Modelo con el que se relaciona
-     * @param  integer $model_id     Id del modelo con el q se relaciona
+     * @param  integer $model_id     Id del modelo con el que se relaciona
      * @param  boolean $sign         Indica si el archivo a subir será firmado digitalmente
      * @param  boolean $originalName Indica si el archivo a subir es con el nombre original del mismo
      * @param  boolean $checkAllowed Indica si se va a verificar el tipo de archivo permitido para subir
@@ -81,7 +81,7 @@ class UploadDocRepository
                         'signs' => ($sign && isset($signCrypt) && $signCrypt)
                                    ? $sygnCrypt : null,
                         'documentable_type' => $model,
-                        'documentable_id' => $id
+                        'documentable_id' => $model_id
                     ]);
                     return true;
                 } else {
