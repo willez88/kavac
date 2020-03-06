@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'Budget'
+    'name' => 'Budget',
+    'name_es' => 'Presupuesto'
 ];

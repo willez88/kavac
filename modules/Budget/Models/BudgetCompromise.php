@@ -8,7 +8,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
- * @class BudgetCompromize
+ * @class BudgetCompromise
  * @brief Datos de los compromisos presupuestarios
  *
  * Gestiona el modelo de datos para los Compromisos de Presupuesto

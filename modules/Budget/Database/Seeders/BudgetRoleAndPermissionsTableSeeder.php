@@ -36,6 +36,7 @@ class BudgetRoleAndPermissionsTableSeeder extends Seeder
             ['name' => 'Presupuesto', 'description' => 'Coordinador de presupuesto']
         );
 
+        /** @var array Listado de permisos a registrar */
         $permissions = [
             [
                 'name' => 'Inicio del módulo de presupuesto', 'slug' => 'budget.home',

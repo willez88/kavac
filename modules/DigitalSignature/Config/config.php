@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'DigitalSignature'
+    'name' => 'DigitalSignature',
+    'name_es' => 'Firma Electrónica'
 ];

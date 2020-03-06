@@ -8,6 +8,17 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
+/**
+ * @class BudgetCompromiseDetail
+ * @brief Datos de los detalles de los compromisos presupuestarios
+ *
+ * Gestiona el modelo de datos para los detalles de los compromisos Compromisos de Presupuesto
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
+ */
 class BudgetCompromiseDetail extends Model implements Auditable
 {
     use SoftDeletes;

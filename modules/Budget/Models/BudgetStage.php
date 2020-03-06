@@ -8,6 +8,22 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
+/**
+ * @class BudgetStage
+ * @brief Datos de las etapas presupuestarias
+ *
+ * Gestiona el modelo de datos para las etapas presupuestarias:
+ * Precompromiso = PRE
+ * Programado = PRO
+ * Comprometido = COM
+ * Causado = CAU
+ * Pagado = PAG
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
+ */
 class BudgetStage extends Model implements Auditable
 {
     use SoftDeletes;

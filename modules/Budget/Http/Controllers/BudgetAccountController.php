@@ -23,8 +23,11 @@ class BudgetAccountController extends Controller
 {
     use ValidatesRequests;
 
+    /** @var array Arreglo con información de las cuentas presupuestarias */
     public $budget_account_choices;
+    /** @var array Arreglo con los datos a implementar en los atributos del formulario */
     public $header;
+    /** @var array Arreglo con las reglas de validación sobre los datos de un formulario */
     public $validate_rules;
 
     /**

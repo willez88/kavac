@@ -79,11 +79,6 @@ class BudgetCompromiseController extends Controller
      */
     public function vueList()
     {
-        dd(BudgetCompromise::with(
-            'budgetCompromiseDetails',
-            'budgetStages',
-            'documentStatus'
-            )->orderBy('compromised_at')->get());
         return response()->json([
             'records' => BudgetCompromise::with(
                 'budgetCompromiseDetails',

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
+use App\Traits\ModelsTrait;
 
 /**
  * @class BudgetSubSpecificFormulation
@@ -22,6 +23,7 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
 {
     use SoftDeletes;
     use AuditableTrait;
+    use ModelsTrait;
 
     /** @var array Establece las relaciones por defecto que se retornan con las consultas */
     protected $with = ['specificAction'];
@@ -33,6 +35,10 @@ class BudgetSubSpecificFormulation extends Model implements Auditable
      */
     protected $dates = ['deleted_at'];
 
+    /**
+     * Lista de atributos que pueden ser asignados masivamente
+     * @var array $fillable
+     */
     protected $fillable = [
         'code', 'year', 'total_formulated', 'assigned', 'budget_specific_action_id',
         'currency_id', 'institution_id', 'document_status_id'
