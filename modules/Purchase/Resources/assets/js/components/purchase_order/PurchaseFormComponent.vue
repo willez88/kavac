@@ -33,12 +33,13 @@
             </div>
             <div class="col-12 row">
                 <div class="col-3">
-                    <label for="acta_inicio">Acta de inicio</label>
+                    <label for="acta_inicio">Acta de inicio (inhabilitado temporalmente)</label>
                     <label class="custom-control">
                         <button type="button" data-toggle="tooltip"
                                 class="btn btn-sm btn-info btn-import"
                                 title="Presione para subir el archivo del documento."
-                                @click="setFile('acta_inicio')">
+                                @click="setFile('acta_inicio')"
+                                disabled="">
                             <i class="fa fa-upload"></i>
                         </button>
                         <input type="file" 
@@ -51,11 +52,31 @@
                     </label>
                 </div>
                 <div class="col-3">
-                    <label for="invitation_bussiness">Acta de inicio</label>
+                    <label for="invitation_bussiness">Invitación de la empresa (inhabilitado temporalmente)</label>
                     <label class="custom-control">
                         <button type="button" data-toggle="tooltip"
                                 class="btn btn-sm btn-info btn-import"
                                 title="Presione para subir el archivo del documento."
+                                disabled="" 
+                                @click="setFile('invitation_bussiness')">
+                            <i class="fa fa-upload"></i>
+                        </button>
+                        <input type="file" 
+                                id="invitation_bussiness" 
+                                @change="uploadFile('invitation_bussiness')"
+                                style="display:none;">
+                        <span class="badge badge-success" id="status_invitation_bussiness" style="display:none;">
+                            <strong>Documento Cargado.</strong>
+                        </span>
+                    </label>
+                </div>
+                <div class="col-3">
+                    <label for="invitation_bussiness">Proforma / Cotización (inhabilitado temporalmente)</label>
+                    <label class="custom-control">
+                        <button type="button" data-toggle="tooltip"
+                                class="btn btn-sm btn-info btn-import"
+                                title="Presione para subir el archivo del documento."
+                                disabled="" 
                                 @click="setFile('invitation_bussiness')">
                             <i class="fa fa-upload"></i>
                         </button>
@@ -95,47 +116,34 @@
                     </div>
                 </v-client-table>
             </div>
+    
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
             <div class="col-12">
-                <div class="VueTables VueTables--client">
+                <v-client-table :columns="columns2" :data="record_items" :options="table2_options">
+                    <div slot="unit_price" slot-scope="props">
+                        <input type="number" v-model="record_items[props.index-1].unit_price" class="form-control"
+                                :step="cualculateLimitDecimal()" @input="CalculateTot(record_items[props.index-1], props.index-1)">
+                    </div>
+                    <div slot="qty_price" slot-scope="props">
+                        <h6 align="right">{{ CalculateQtyPrice(record_items[props.index-1].qty_price) }}</h6>
+                    </div>
+                </v-client-table>
+            </div>
+
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+            <div class="col-12" v-if="record_items.length > 0">
+                <div class="VueTables VueTables--client" style="margin-top: -1rem;">
                     <div class="table-responsive">
                         <table class="VueTables__table table table-striped table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th tabindex="0" width="8%" style="border: 1px solid #dee2e6; position: relative;">Código de requerimiento</th>
-                                    <th tabindex="0" width="24%" style="border: 1px solid #dee2e6; position: relative;">Nombre</th>
-                                    <th tabindex="0" width="16%" style="border: 1px solid #dee2e6; position: relative;">Cantidad</th>
-                                    <th tabindex="0" width="16%" style="border: 1px solid #dee2e6; position: relative;">Unidad de medida</th>
-                                    <th tabindex="0" width="16%" style="border: 1px solid #dee2e6; position: relative;">Precio Unitario sin IVA</th>
-                                    <th tabindex="0" width="20%" style="border: 1px solid #dee2e6; position: relative;">cantidad * Precio unitario</th>
-                                </tr>
-                            </thead>
                             <tbody>
-                                <tr v-for="varr in record_items">
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="8%" class="text-center">
-                                        {{ varr.requirement_code }}
-                                    </td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="24%">
-                                        {{ varr.name }}
-                                    </td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="16%">
-                                        {{ varr.quantity }}
-                                    </td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="16%">
-                                        {{ varr.measurement_unit.acronym }}
-                                    </td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="16%">
-                                        <h6 align="right">{{ addDecimals(varr.unit_price) }}</h6>
-                                    </td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="20%">
-                                        <h6 align="right">{{ CalculateQtyPrice(varr.qty_price) }}</h6>
-                                    </td>
-                                </tr>
                                 <tr>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="8%"></td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="24%"></td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="16%"></td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="16%"></td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="16%">
+                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="8.2%"></td>
+                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="25%"></td>
+                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="16.65%"></td>
+                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="16.75%"></td>
+                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="16.75%">
                                         <h6 align="right">SUB TOTAL {{ currency_symbol }}</h6>
                                     </td>
                                     <td style="border: 1px solid #dee2e6;" tabindex="0" width="20%">
@@ -143,11 +151,11 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="8%"></td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="24%"></td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="16%"></td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="16%"></td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="16%">
+                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="8.2%"></td>
+                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="25%"></td>
+                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="16.6%"></td>
+                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="16.75%"></td>
+                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="16.75%">
                                         <h6 align="right">{{ tax?tax.percentage:'' }} % IVA {{ currency_symbol }}</h6>
                                     </td>
                                     <td style="border: 1px solid #dee2e6;" tabindex="0" width="20%">
@@ -155,11 +163,11 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="8%"></td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="24%"></td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="16%"></td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="16%"></td>
-                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="16%">
+                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="8.2%"></td>
+                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="25%"></td>
+                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="16.6%"></td>
+                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="16.75%"></td>
+                                    <td style="border: 1px solid #dee2e6;" tabindex="0" width="16.75%">
                                         <h6 align="right">TOTAL {{ currency_symbol }}</h6>
                                     </td>
                                     <td style="border: 1px solid #dee2e6;" tabindex="0" width="20%">
@@ -274,6 +282,35 @@ export default{
                         'purchase_base_budget.currency.name',
                         'id'
                     ],
+            columns2:[  'requirement_code',
+                        'name',
+                        'quantity',
+                        'measurement_unit.acronym',
+                        'unit_price',
+                        'qty_price',
+                    ],
+            table2_options: {
+                pagination: { edge: true },
+                //filterByColumn: true,
+                highlightMatches: true,
+                texts: {
+                    filter: "Buscar:",
+                    filterBy: 'Buscar por {column}',
+                    //count:'Página {page}',
+                    count: ' ',
+                    first: 'PRIMERO',
+                    last: 'ÚLTIMO',
+                    limit: 'Registros',
+                    //page: 'Página:',
+                    noResults: 'No existen registros',
+                },
+                sortIcon: {
+                    is: 'fa-sort cursor-pointer',
+                    base: 'fa',
+                    up: 'fa-sort-up cursor-pointer',
+                    down: 'fa-sort-down cursor-pointer'
+                },
+            },
             requirement_list:[],
             requirement_list_deleted:[],
             sub_total:0,
@@ -287,25 +324,46 @@ export default{
     },
     created(){
         this.table_options.headings = {
-            'code': 'Código',
-            'description': 'Descripción',
-            'fiscal_year.year':'Año fiscal',
-            'contrating_department.name': 'Departamento contatante',
-            'user_department.name': 'Departamento Usuario',
-            'purchase_supplier_type.name': 'Tipo de Proveedor',
+            'code':                               'Código',
+            'description':                        'Descripción',
+            'fiscal_year.year':                   'Año fiscal',
+            'contrating_department.name':         'Departamento contatante',
+            'user_department.name':               'Departamento Usuario',
+            'purchase_supplier_type.name':        'Tipo de Proveedor',
             'purchase_base_budget.currency.name': 'Moneda',
-            'id': 'ACCIÓN'
+            'id':                                 'Acción'
         };
+
         this.table_options.columnsClasses = {
-            'code'    : 'col-xs-1 text-center',
-            'description': 'col-xs-2',
-            'fiscal_year.year': 'col-xs-1 text-center',
-            'contrating_department.name'    : 'col-xs-2',
-            'user_department.name': 'col-xs-2',
-            'purchase_supplier_type.name': 'col-xs-2',
+            'code':                               'col-xs-1 text-center',
+            'description':                        'col-xs-2',
+            'fiscal_year.year':                   'col-xs-1 text-center',
+            'contrating_department.name':         'col-xs-2',
+            'user_department.name':               'col-xs-2',
+            'purchase_supplier_type.name':        'col-xs-2',
             'purchase_base_budget.currency.name': 'col-xs-1',
-            'id'      : 'col-xs-1'
+            'id':                                 'col-xs-1'
         };
+
+        this.table2_options.headings = {
+            'requirement_code':         'Código de requerimiento',
+            'name':                     'Nombre',
+            'quantity':                 'Cantidad',
+            'measurement_unit.acronym': 'Unidad de medida',
+            'unit_price':               'Precio unitario sin IVA',
+            'qty_price':                'Cantidad * precio unitario',
+        };
+
+        this.table2_options.columnsClasses = {
+            'requirement_code':         'col-xs-1 text-center',
+            'name':                     'col-xs-3',
+            'quantity':                 'col-xs-2',
+            'measurement_unit.acronym': 'col-xs-2',
+            'unit_price':               'col-xs-2',
+            'qty_price':                'col-xs-2',
+        };
+
+        this.table2_options.filterable = [];
     },
     mounted(){
         this.records = this.requirements;
@@ -375,6 +433,7 @@ export default{
                 if (pos == -1) {
                     for (var i = 0; i < record.purchase_requirement_items.length; i++) {
                         record.purchase_requirement_items[i].requirement_code = record.code;
+                        record.purchase_requirement_items[i].unit_price = 0;
                     }
 
                     // saca de la lista de registros eliminar
@@ -408,21 +467,26 @@ export default{
                 this.CalculateTot();
         },
 
-        /**
-        * Calcula el total del debe y haber del asiento contable
-        *
+       /**
+        * [CalculateTot Calcula el total del debe y haber del asiento contable]
         * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+        * @param  {[type]} r   [información del registro]
+        * @param  {[type]} pos [posición del registro]
         */
-        CalculateTot(){
-            this.sub_total = 0;
-            this.tax_value = 0;
-            for (var i = this.record_items.length - 1; i >= 0; i--) {
-                var r = this.record_items[i];
+        CalculateTot(item, pos){
+            const vm = this;
+            // console.log(item)
+            // vm.record_items[pos] = item;
+
+            vm.sub_total = 0;
+            vm.tax_value = 0;
+            for (var i = vm.record_items.length - 1; i >= 0; i--) {
+                var r = vm.record_items[i];
                 r['qty_price'] = r.quantity * r.unit_price;
-                this.sub_total += r['qty_price'];
+                vm.sub_total += r['qty_price'];
             }
-            this.tax_value = this.sub_total * (parseFloat(this.tax.percentage)/100);
-            this.total = this.sub_total + this.tax_value;
+            vm.tax_value = vm.sub_total * (parseFloat(vm.tax.percentage)/100);
+            vm.total = vm.sub_total + vm.tax_value;
         },
 
         CalculateQtyPrice(qty_price){
@@ -559,6 +623,9 @@ export default{
         currency:function(){
             return (this.record.currency)?this.record.currency:null;
         },
+        getRecordItems: function(){
+            return this.record_items;
+        }
     }
 };
 </script>
