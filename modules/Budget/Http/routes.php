@@ -215,7 +215,7 @@ Route::group(
             'BudgetCompromiseController@vueList'
         )->name('budget.compromises.vuelist');
         Route::get(
-            'compromises/document-sources/get',
+            'compromises/get-document-sources/{institution_id}/{year}',
             'BudgetCompromiseController@getDocumentSources',
         )->name('budget.compromises.get-document-sources');
     }

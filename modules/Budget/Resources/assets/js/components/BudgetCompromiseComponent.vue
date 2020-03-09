@@ -37,8 +37,13 @@
                             Documento Origen
                             <a class="btn btn-sm btn-info btn-action btn-tooltip" href="javascript:void(0)"
                                data-original-title="Buscar documento" data-toggle="modal"
-                               data-target="#add_source">
+                               data-target="#add_source" v-if="record.institution_id">
                                 <i class="fa fa-search"></i>
+                            </a>
+                            <a class="btn btn-sm btn-default btn-action btn-tooltip" href="javascript:void(0)"
+                               data-original-title="Quitar documento de origen" title="Quitar documento de origen"
+                               v-if="(document_number!=='')" data-toggle="tooltip">
+                                <i class="icofont icofont-eraser"></i>
                             </a>
                         </label>
                     </div>
@@ -47,7 +52,7 @@
                     <div class="form-group is-required">
                         <input type="text" v-model="record.source_document" class="form-control input-sm"
                                title="Indique el número de documento de origen que genera el compromiso"
-                               data-toggle="tooltip">
+                               data-toggle="tooltip" :readonly="(document_number!=='')">
                     </div>
                 </div>
                 <!-- Modal para agregar documentos de origen que generaron un precompromiso -->
@@ -67,9 +72,27 @@
                                 <div class="row">
                                     <div class="col-md-12 pad-top-20">
                                         <table class="table table-hover table-striped">
-                                            <thead></thead>
+                                            <thead>
+                                                <tr>
+                                                    <th>Código</th>
+                                                    <th>Fecha</th>
+                                                    <th>Monto</th>
+                                                    <th>Sel.</th>
+                                                </tr>
+                                            </thead>
                                             <tbody>
-                                                <tr v-for="(source, index) in document_sources"></tr>
+                                                <tr v-for="(source, index) in document_sources">
+                                                    <td>{{ source.sourceable.code }}</td>
+                                                    <td>{{ format_date(source.created_at) }}</td>
+                                                    <td>{{ source.budget_stages[0].amount }}</td>
+                                                    <td>
+                                                        <a href="#" data-original-title="Agregar documento"
+                                                           class="btn btn-sm btn-info btn-action btn-tooltip"
+                                                           @click="addDocument(source.id)">
+                                                            <i class="fa fa-plus-circle"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -316,6 +339,9 @@
              * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
              */
             reset: function() {
+                /**
+                 * Campos con información a ser almacenada
+                 */
                 this.record.id = '';
                 this.record.institution_id = '';
                 this.record.compromised_at = '';
@@ -389,7 +415,7 @@
              *
              * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
              */
-            addDocument() {
+            addDocument(sourceId) {
 
             },
             /**
@@ -412,7 +438,19 @@
              * @return     {[type]}              [description]
              */
             getDocumentSources() {
-
+                let vm = this;
+                let appUrl = window.app_url;
+                let institutionId = vm.record.institution_id;
+                let year = window.execution_year;
+                vm.loading = true;
+                axios.get(
+                    `${appUrl}/budget/compromises/get-document-sources/${institutionId}/${year}`
+                ).then(response => {
+                    vm.document_sources = response.data.records;
+                    vm.loading = false;
+                }).catch(error => {
+                    console.warn(error);
+                });
             }
         },
         created() {
@@ -423,6 +461,14 @@
             vm.reset();
             vm.getInstitutions();
             vm.getSpecificActions();
+
+            $("#add_source").on('shown.bs.modal', function() {
+                /** Carga los documentos que faltan por comprometer */
+                vm.getDocumentSources();
+            }).on('hide.bs.modal', function() {
+                /** @type array Inicializa el arreglo de los documentos por comprometer */
+                vm.document_sources = [];
+            });
         }
     };
 </script>

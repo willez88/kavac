@@ -46,6 +46,8 @@ class BudgetCompromise extends Model implements Auditable
     /**
      * Compromise morphs to models in sourceable_type.
      *
+     * Este método requiere que la fuente asociada contenga un campo llamado code con el código del documento
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */

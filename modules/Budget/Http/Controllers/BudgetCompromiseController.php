@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Budget\Models\BudgetCompromise;
-use Modules\Budget\Models\BudgetStage;
 
 class BudgetCompromiseController extends Controller
 {
@@ -96,16 +95,21 @@ class BudgetCompromiseController extends Controller
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
+     * @param      integer               $institution_id    Identificador de la institución
+     * @param      string                $year              Año de ejercicio económico
+     *
      * @return     \Illuminate\Http\JsonResponse    Devuelve un JSON con la información de registros por comprometer
      */
-    public function getDocumentSources()
+    public function getDocumentSources($institution_id, $year)
     {
         /** @var object Obtiene todos los registros de fuentes de documentos que aún no han sido comprometidos */
-        $compromises = BudgetStage::where('type', 'PRE')->orWhere('type', 'PRO')->with([
-            'budgetCompromise' => function ($budgetCompromise) {
-                return $budgetCompromise->whereNull('compromised_at');
+        $compromises = BudgetCompromise::where(['compromised_at' => null, 'institution_id' => $institution_id])->with([
+            'budgetCompromiseDetails',
+            'sourceable',
+            'budgetStages' => function ($budgetStages) {
+                return $budgetStages->where('type', 'PRE');
             }
-        ]);
+        ])->get();
         return response(['records' => $compromises], 200);
     }
 }
