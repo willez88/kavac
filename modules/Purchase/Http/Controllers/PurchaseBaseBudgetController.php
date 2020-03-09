@@ -118,7 +118,8 @@ class PurchaseBaseBudgetController extends Controller
             'tax.histories',
             'purchaseRequirement.contratingDepartment',
             'purchaseRequirement.userDepartment',
-            'purchaseRequirement.purchaseRequirementItems.pivotPurchase',
+            'purchaseRequirement.purchaseRequirementItems',
+            'relatable'
         )->find($id);
 
         $historyTax = HistoryTax::with('tax')->whereHas('tax', function ($query) {

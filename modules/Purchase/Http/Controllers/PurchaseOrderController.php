@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 
 use Modules\Purchase\Models\PurchaseOrder;
 use Modules\Purchase\Models\PurchaseRequirement;
+use Modules\Purchase\Models\PurchasePivotModelsToRequirementItem;
 
 use Modules\Purchase\Models\HistoryTax;
 use Modules\Purchase\Models\TaxUnit;
@@ -32,7 +33,7 @@ class PurchaseOrderController extends Controller
     public function index()
     {
         return view('purchase::purchase_order.index', [
-            'records' => PurchaseOrder::with('purchaseSupplier', 'currency')->orderBy('id', 'ASC')->get(),
+            'records' => PurchaseOrder::with('purchaseSupplier', 'currency', 'relatable')->orderBy('id', 'ASC')->get(),
         ]);
     }
 
@@ -76,12 +77,12 @@ class PurchaseOrderController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'file'                 => 'required|mimes:pdf',
+            // 'file'                 => 'required|mimes:pdf',
             'purchase_supplier_id' => 'required|integer',
             'currency_id'          => 'required|integer',
         ], [
-            'file.required'                 => 'El archivo de proforma / cotización es obligatorio.',
-            'file.mimes'                    => 'El archivo de proforma / cotización debe estar en formato pdf.',
+            // 'file.required'                 => 'El archivo de proforma / cotización es obligatorio.',
+            // 'file.mimes'                    => 'El archivo de proforma / cotización debe estar en formato pdf.',
             'purchase_supplier_id.required' => 'El campo proveedor es obligatorio.',
             'purchase_supplier_id.integer'  => 'El campo proveedor debe ser numerico.',
             'currency_id.required'          => 'El campo de tipo de moneda es obligatorio.',
@@ -94,21 +95,26 @@ class PurchaseOrderController extends Controller
         //     $request->file('file'),
         //     'documents'
         // );
-        
+
         $purchase_order = PurchaseOrder::create([
             'purchase_supplier_id' => $request->purchase_supplier_id,
             'currency_id'          => $request->currency_id,
         ]);
-        foreach (json_decode($request['requirement_list_deleted'], true) as $item) {
-            $requirement = PurchaseRequirement::find($item['id']);
-            $requirement->purchase_order_id = null;
-            $requirement->save();
-        }
 
-        foreach (json_decode($request['requirement_list'], true) as $item) {
-            $requirement = PurchaseRequirement::find($item['id']);
+        foreach (json_decode($request['requirement_list'], true) as $req) {
+            $requirement = PurchaseRequirement::find($req['id']);
+            $requirement->requirement_status = 'BOUGHT';
             $requirement->purchase_order_id = $purchase_order->id;
             $requirement->save();
+
+            foreach ($req['purchase_requirement_items'] as $item) {
+                PurchasePivotModelsToRequirementItem::create([
+                    'purchase_requirement_item_id' => $item['id'],
+                    'relatable_type'               => PurchaseOrder::class,
+                    'relatable_id'                 => $purchase_order->id,
+                    'unit_price'                   => $item['unit_price']
+                ]);
+            }
         }
         return response()->json(['message' => 'Success'], 200);
     }
@@ -131,7 +137,11 @@ class PurchaseOrderController extends Controller
         $record_edit = PurchaseOrder::with(
             'purchaseSupplier',
             'currency',
-            'purchaseRequirement.purchaseRequirementItems.measurementUnit'
+            'purchaseRequirement.purchaseRequirementItems.measurementUnit',
+            'purchaseRequirement.contratingDepartment',
+            'purchaseRequirement.userDepartment',
+            'purchaseRequirement.purchaseBaseBudget.currency',
+            'relatable'
         )->find($id);
 
         $suppliers  = template_choices('Modules\Purchase\Models\PurchaseSupplier', ['rif','-', 'name'], [], true);
@@ -151,6 +161,7 @@ class PurchaseOrderController extends Controller
             'purchaseBaseBudget.currency'
         )->where('requirement_status', 'PROCESSED')
         ->orderBy('id', 'ASC')->get();
+        $requirements = $requirements->concat($record_edit->purchaseRequirement);
 
         return view('purchase::purchase_order.form', [
             'requirements' => $requirements,
@@ -162,30 +173,94 @@ class PurchaseOrderController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    // /**
+    //  * Update the specified resource in storage.
+    //  * @param  Request $request
+    //  * @return Response
+    //  */
+    // public function update(Request $request, $id)
+    // {
+    //     dd($request->all());
+    //     $this->validate($request, [
+    //         // 'file'                 => 'required|mimes:pdf',
+    //         'purchase_supplier_id' => 'required|integer',
+    //         'currency_id'          => 'required|integer',
+    //     ], [
+    //         // 'file.required'                 => 'El archivo de proforma / cotización es obligatorio.',
+    //         // 'file.mimes'                    => 'El archivo de proforma / cotización debe estar en formato pdf.',
+    //         'purchase_supplier_id.required' => 'El campo proveedor es obligatorio.',
+    //         'purchase_supplier_id.integer'  => 'El campo proveedor debe ser numerico.',
+    //         'currency_id.required'          => 'El campo de tipo de moneda es obligatorio.',
+    //         'currency_id.integer'           => 'El campo de tipo de moneda debe ser numerico.',
+    //     ]);
+
+    //     // // Se guarda el archivo
+    //     // $file = new UploadDocRepository();
+    //     // $file->uploadDoc(
+    //     //     $request->file('file'),
+    //     //     'documents'
+    //     // );
+
+    //     $purchase_order = PurchaseOrder::create([
+    //         'purchase_supplier_id' => $request->purchase_supplier_id,
+    //         'currency_id'          => $request->currency_id,
+    //     ]);
+
+    //     foreach (json_decode($request['list_to_delete'], true) as $requirement) {
+    //         // trae requerimiento
+    //         $rq = PurchaseRequirement::find($requirement['id']);
+
+    //         if ($rq) {
+    //             $rq->requirement_status = 'PROCESSED';
+    //             $rq->purchase_base_budget_id = null;
+    //             $rq->save();
+
+    //             foreach ($requirement['purchase_requirement_items'] as $item) {
+    //                 $r = PurchasePivotModelsToRequirementItem::where('purchase_requirement_item_id', $item['id'])
+    //                                                                 ->fisrt();
+    //                 if ($r) {
+    //                     $r->delete();
+    //                 }
+    //             }
+    //         }
+    //     }
+
+    //     foreach (json_decode($request['requirement_list'], true) as $requirement) {
+    //         $rq = PurchaseRequirement::find($requirement['id']);
+    //         if ($rq) {
+    //             $rq->requirement_status = 'BOUGHT';
+    //             $rq->purchase_order_id = $purchase_order->id;
+    //             $rq->save();
+                
+    //             foreach ($requirement['purchase_requirement_items'] as $item) {
+    //                 PurchasePivotModelsToRequirementItem::create([
+    //                     'purchase_requirement_item_id' => $item['id'],
+    //                     'relatable_type'               => PurchaseOrder::class,
+    //                     'relatable_id'                 => $purchase_order->id,
+    //                     'unit_price'                   => $item['unit_price']
+    //                 ]);
+    //             }
+    //         }
+    //     }
+    //     return response()->json(['message' => 'Success'], 200);
+    // }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
+     * [updatePurchaseOrder the specified resource in storage]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  Request $request [description]
+     * @param  [type]  $id      [description]
+     * @return [type]           [description]
      */
     public function updatePurchaseOrder(Request $request, $id)
     {
         $this->validate($request, [
-            'file'                 => 'required|mimes:pdf',
+            // 'file'                 => 'required|mimes:pdf',
             'purchase_supplier_id' => 'required|integer',
             'currency_id'          => 'required|integer',
         ], [
-            'file.required'                 => 'El archivo de proforma / cotización es obligatorio.',
-            'file.mimes'                    => 'El archivo de proforma / cotización debe estar en formato pdf.',
+            // 'file.required'                 => 'El archivo de proforma / cotización es obligatorio.',
+            // 'file.mimes'                    => 'El archivo de proforma / cotización debe estar en formato pdf.',
             'purchase_supplier_id.required' => 'El campo proveedor es obligatorio.',
             'purchase_supplier_id.integer'  => 'El campo proveedor debe ser numerico.',
             'currency_id.required'          => 'El campo de tipo de moneda es obligatorio.',
@@ -198,23 +273,50 @@ class PurchaseOrderController extends Controller
         //     $request->file('file'),
         //     'documents'
         // );
-        
+
         $purchase_order = PurchaseOrder::find($id);
 
-        $purchase_order->purchase_supplier_id = $request->purchase_supplier_id;
-        $purchase_order->currency_id          = $request->currency_id;
-        $purchase_order->save();
+        if ($purchase_order) {
+            $purchase_order->purchase_supplier_id = $request->purchase_supplier_id;
+            $purchase_order->currency_id = $request->currency_id;
+            $purchase_order->save();
 
-        foreach (json_decode($request['requirement_list_deleted'], true) as $item) {
-            $requirement = PurchaseRequirement::find($item['id']);
-            $requirement->purchase_order_id = null;
-            $requirement->save();
-        }
+            foreach (json_decode($request['list_to_delete'], true) as $requirement) {
+                // trae requerimiento
+                $rq = PurchaseRequirement::find($requirement['id']);
 
-        foreach (json_decode($request['requirement_list'], true) as $item) {
-            $requirement = PurchaseRequirement::find($item['id']);
-            $requirement->purchase_order_id = $purchase_order->id;
-            $requirement->save();
+                if ($rq) {
+                    $rq->requirement_status = 'PROCESSED';
+                    $rq->purchase_base_budget_id = null;
+                    $rq->save();
+
+                    foreach ($requirement['purchase_requirement_items'] as $item) {
+                        $r = PurchasePivotModelsToRequirementItem::where('purchase_requirement_item_id', $item['id'])
+                                                                    ->fisrt();
+                        if ($r) {
+                            $r->delete();
+                        }
+                    }
+                }
+            }
+
+            foreach (json_decode($request['requirement_list'], true) as $requirement) {
+                $rq = PurchaseRequirement::find($requirement['id']);
+                if ($rq) {
+                    $rq->requirement_status = 'BOUGHT';
+                    $rq->purchase_order_id = $purchase_order->id;
+                    $rq->save();
+                
+                    foreach ($requirement['purchase_requirement_items'] as $item) {
+                        PurchasePivotModelsToRequirementItem::create([
+                            'purchase_requirement_item_id' => $item['id'],
+                            'relatable_type'               => PurchaseOrder::class,
+                            'relatable_id'                 => $purchase_order->id,
+                            'unit_price'                   => $item['unit_price']
+                        ]);
+                    }
+                }
+            }
         }
         return response()->json(['message' => 'Success'], 200);
     }
@@ -225,10 +327,18 @@ class PurchaseOrderController extends Controller
      */
     public function destroy($id)
     {
-        PurchaseOrder::find($id)->delete();
-        foreach (PurchaseRequirement::where('purchase_order_id', $id)->orderBy('id', 'ASC')->get() as $record) {
-            $record->purchase_order_id = null;
-            $record->save();
+        $purchase_order = PurchaseOrder::find($id);
+        if ($purchase_order) {
+            foreach (PurchaseRequirement::where('purchase_order_id', $id)->orderBy('id', 'ASC')->get() as $record) {
+                $record->requirement_status = 'PROCESSED';
+                $record->purchase_order_id = null;
+                $record->save();
+            }
+            foreach (PurchasePivotModelsToRequirementItem::where('relatable_id', $id)
+                        ->orderBy('id', 'ASC')->get() as $record) {
+                $record->delete();
+            }
+            $purchase_order->delete();
         }
         return response()->json([
             'message' => 'Success',

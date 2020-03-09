@@ -364,29 +364,36 @@
             };
         },
         mounted(){
-            if (!this.record_tax) {
-                this.$refs.PurchaseBaseBudgetComponent.showAlertMessages('Debe configurar el IVA en el sistema.');
+            const vm = this;
+            if (!vm.record_tax) {
+                vm.$refs.PurchaseBaseBudgetComponent.showAlertMessages('Debe configurar el IVA en el sistema.');
             }
-            if (this.base_budget_edit) {
-                this.currency_id = this.base_budget_edit.currency_id;
+            if (vm.base_budget_edit) {
+                vm.currency_id = vm.base_budget_edit.currency_id;
 
-                for (var i = 0; i < this.base_budget_edit.purchase_requirement.length; i++) {
-                    var requirement = this.base_budget_edit.purchase_requirement[i];
+                var prices = [];
+                for (var i = 0; i < vm.base_budget_edit.relatable.length; i++) {
+                    prices[vm.base_budget_edit.relatable[i].purchase_requirement_item_id] = vm.base_budget_edit.relatable[i].unit_price;
+                }
 
-                    if (this.requirement_list.indexOf(requirement) == -1) {
-                        this.requirement_list.push(requirement);
+                for (var i = 0; i < vm.base_budget_edit.purchase_requirement.length; i++) {
+                    var requirement = vm.base_budget_edit.purchase_requirement[i];
+
+                    if (vm.requirement_list.indexOf(requirement) == -1) {
+                        vm.requirement_list.push(requirement);
                     }
 
                     var items = requirement.purchase_requirement_items;
 
                     for (var x = 0; x < items.length; x++) {
                         items[x].requirement_code = requirement.code;
+                        items[x].unit_price = (prices && prices[items[x].id])?prices[items[x].id]:0;
                         items[x].qty_price = items[x].quantity * items[x].unit_price;
                         
-                        this.record_items = this.record_items.concat(items[x]);
+                        vm.record_items = vm.record_items.concat(items[x]);
                     }
                 }
-                this.CalculateTot();
+                vm.CalculateTot();
             }
         },
         watch:{
