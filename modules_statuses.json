@@ -8,5 +8,6 @@
     "Payroll": true,
     "Purchase": true,
     "TechnicalSupport": true,
-    "Warehouse": true
+    "Warehouse": true,
+    "Sale": true
 }
