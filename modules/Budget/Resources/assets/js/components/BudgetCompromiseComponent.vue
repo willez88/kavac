@@ -50,6 +50,7 @@
                                data-toggle="tooltip">
                     </div>
                 </div>
+                <!-- Modal para agregar documentos de origen que generaron un precompromiso -->
                 <div class="modal fade" tabindex="-1" role="dialog" id="add_source">
                     <div class="modal-dialog vue-crud" role="document">
                         <div class="modal-content">
@@ -64,17 +65,13 @@
                             </div>
                             <div class="modal-body">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group is-required">
-                                            <label>Tipo de Documento:</label>
-                                            <select2 :options="document_types" v-model="document_type_id"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group is-required">
-                                            <label>Número de Documento:</label>
-                                            <select2 :options="document_numbers" v-model="document_number_id"/>
-                                        </div>
+                                    <div class="col-md-12 pad-top-20">
+                                        <table class="table table-hover table-striped">
+                                            <thead></thead>
+                                            <tbody>
+                                                <tr v-for="(source, index) in document_sources"></tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -308,10 +305,8 @@
                 /**
                  * Campos temporales para agregar documentos al compromiso
                  */
-                document_types: [],
-                document_type_id: '',
-                document_numbers: [],
-                document_number_id: ''
+                document_sources: [],
+                document_number: ''
             }
         },
         methods: {
@@ -347,10 +342,8 @@
                 /**
                  * Campos temporales para agregar documentos al compromiso
                  */
-                this.document_types = [];
-                this.document_type_id = '';
-                this.document_numbers = [];
-                this.document_number_id = '';
+                this.document_sources = [];
+                this.document_number = '';
             },
             /**
              * Elimina una cuenta del listado de cuentas agregadas
@@ -407,12 +400,27 @@
              */
             getSpecificActions() {
             },
+            /**
+             * Obtiene los registros precomprometidos que aún no han sido comprometidos
+             *
+             * @method     getDocumentSources
+             *
+             * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             *
+             * @license    [description]
+             *
+             * @return     {[type]}              [description]
+             */
+            getDocumentSources() {
+
+            }
         },
         created() {
 
         },
         mounted() {
             let vm = this;
+            vm.reset();
             vm.getInstitutions();
             vm.getSpecificActions();
         }

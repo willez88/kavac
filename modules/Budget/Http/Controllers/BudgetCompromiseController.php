@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Budget\Models\BudgetCompromise;
+use Modules\Budget\Models\BudgetStage;
 
 class BudgetCompromiseController extends Controller
 {
@@ -86,5 +87,25 @@ class BudgetCompromiseController extends Controller
                 'documentStatus'
             )->orderBy('compromised_at')->get()
         ], 200);
+    }
+
+    /**
+     * Obtiene las fuentes de documentos que aún no han sido comprometidos, solo (PRE)comprometidos y/o (PRO)gramados
+     *
+     * @method     getDocumentSources
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return     \Illuminate\Http\JsonResponse    Devuelve un JSON con la información de registros por comprometer
+     */
+    public function getDocumentSources()
+    {
+        /** @var object Obtiene todos los registros de fuentes de documentos que aún no han sido comprometidos */
+        $compromises = BudgetStage::where('type', 'PRE')->orWhere('type', 'PRO')->with([
+            'budgetCompromise' => function ($budgetCompromise) {
+                return $budgetCompromise->whereNull('compromised_at');
+            }
+        ]);
+        return response(['records' => $compromises], 200);
     }
 }

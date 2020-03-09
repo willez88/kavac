@@ -214,5 +214,9 @@ Route::group(
             'compromises/vue-list',
             'BudgetCompromiseController@vueList'
         )->name('budget.compromises.vuelist');
+        Route::get(
+            'compromises/document-sources/get',
+            'BudgetCompromiseController@getDocumentSources',
+        )->name('budget.compromises.get-document-sources');
     }
 );
