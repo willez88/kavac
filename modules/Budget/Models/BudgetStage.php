@@ -43,12 +43,12 @@ class BudgetStage extends Model implements Auditable
     protected $fillable = ['code', 'registered_at', 'type', 'amount', 'budget_compromise_id'];
 
     /**
-     * BudgetStage morphs to models in sourceable_type.
+     * BudgetStage morphs to models in stageable_type.
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
-    public function sourceable()
+    public function stageable()
     {
         return $this->morphTo();
     }
