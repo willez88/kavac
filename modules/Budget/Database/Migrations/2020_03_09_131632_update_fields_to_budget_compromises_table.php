@@ -30,6 +30,8 @@ class UpdateFieldsToBudgetCompromisesTable extends Migration
                       ->on('institutions')->onUpdate('cascade');
             }
 
+            $table->date('compromised_at')->nullable()->comment("Fecha en la que se establece el compromiso")->change();
+
             $table->dropMorphs('sourceable');
         });
 
@@ -53,6 +55,7 @@ class UpdateFieldsToBudgetCompromisesTable extends Migration
                 $table->dropForeign('budget_compromises_institution_id_foreign');
                 $table->dropColumn('institution_id');
             }
+            $table->date('compromised_at')->comment("Fecha en la que se establece el compromiso")->change();
             $table->dropMorphs('sourceable');
         });
 
