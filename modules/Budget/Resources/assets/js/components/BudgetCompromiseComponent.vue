@@ -36,7 +36,7 @@
                         <label for="" class="control-label">
                             Documento Origen
                             <a class="btn btn-sm btn-info btn-action btn-tooltip" href="javascript:void(0)"
-                               data-original-title="Buscar documento" data-toggle="modal"
+                               data-original-title="Buscar documento" title="Buscar documento" data-toggle="modal"
                                data-target="#add_source" v-if="record.institution_id">
                                 <i class="fa fa-search"></i>
                             </a>
