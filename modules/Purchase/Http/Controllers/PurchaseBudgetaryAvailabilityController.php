@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Modules\Purchase\Models\PurchaseOrder;
-use Modules\Purchase\Models\purchaseRequirement;
+use Modules\Purchase\Models\PurchaseBaseBudget;
 
 class PurchaseBudgetaryAvailabilityController extends Controller
 {
@@ -45,25 +45,49 @@ class PurchaseBudgetaryAvailabilityController extends Controller
     public function show($id)
     {
         $purchase_order = PurchaseOrder::with(
-            'purchaseRequirement.purchaseRequirementItems',
-            'purchaseRequirement.purchaseBaseBudget',
+            'currency',
+            'purchaseSupplier',
+            'purchaseRequirement.purchaseRequirementItems.pivotPurchase',
         )->find($id);
 
-        if (!$purchase_order || !$purchase_order->active) {
+        if (!$purchase_order) {
             return view('errors.404');
         }
 
-        $requirements = purchaseRequirement::with(
-            'contratingDepartment',
-            'userDepartment',
-            'purchaseRequirement.purchaseRequirementItems',
-            'purchaseRequirement.purchaseBaseBudget.currency',
-            'purchaseRequirement.purchaseOrder.currency',
-            'purchaseRequirement.purchaseOrder.purchaseSupplier',
-        )->where('purchase_order', $id)->orderBy('code', 'ASC')->get();
+        $currency = $purchase_order->currency;
+        $supplier = $purchase_order->purchaseSupplier;
 
+        $record_items = [];
+
+        // Se recorren los requerimientos
+        $requirements = $purchase_order->purchaseRequirement;
+        foreach ($requirements as $requirement) {
+            $data = [];
+            $data['code'] = $requirement['code'];
+
+            // Se recorren los items del requerimiento
+            $items = $requirement['purchaseRequirementItems'];
+            foreach ($items as $item) {
+                $data['name']        = $item['name'];
+                $data['description'] = $item['description'];
+                $data['qty']         = $item['quantity'].' '.$item['measurementUnit']['acronym'];
+
+                // se recorre la relacion del requerimiento para obtener los precios
+                foreach ($item['pivotPurchase'] as $r) {
+                    if ($r['relatable_type'] == PurchaseOrder::class) {
+                        $data['suppliers_price'] = $r['unit_price'];
+                    }
+                    if ($r['relatable_type'] == PurchaseBaseBudget::class) {
+                        $data['base_price'] = $r['unit_price'];
+                    }
+                }
+                array_push($record_items, $data);
+            }
+        }
         return view('purchase::budgetary_availability.index', [
-            'record' => $requirements
+            'record_items' => json_encode($record_items),
+            'currency' => $currency,
+            'supplier' => $supplier,
         ]);
     }
 

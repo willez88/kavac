@@ -28,7 +28,9 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <purchase-budgetary-availability :record="{{ $record }}" />
+                    <purchase-budgetary-availability :records="{{ $record_items }}"
+                                                    :currency="{{ $currency }}"
+                                                    :supplier="{{ $supplier }}" />
                 </div>
             </div>
         </div>

@@ -506,6 +506,7 @@ export default{
                 }).then(response => {
                     vm.showMessage('store');
                     vm.loading = false;
+                    location.href = this.route_list;
                 }).catch(error => {
                     if (typeof(error.response) !== "undefined") {
                         if (error.response.status == 422 || error.response.status == 500) {
@@ -528,6 +529,7 @@ export default{
                 }).then(response => {
                     vm.showMessage('update');
                     vm.loading = false;
+                    location.href = this.route_list;
 
                 }).catch(error => {
                     if (typeof(error.response) !== "undefined") {
