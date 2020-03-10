@@ -16,10 +16,10 @@
             <a href="{{ route('accounting.entries.index') }}">Asientos contables</a>
         </li>
         <li>
-            <a href="">Reportes</a>
+            <a href="javascript:void(0)">Reportes</a>
             <ul class="submenu">
-                <li><a href="{{ route('accounting.report.accountingBooks') }}">Libros contables</a></li>
-                <li><a href="{{ route('accounting.report.financeStatements') }}">Estados financieros</a></li>
+                <li><a href="{{ route('accounting.report.accountingBooks') }}" data-toggle="tooltip" data-placement="right">Libros contables</a></li>
+                <li><a href="{{ route('accounting.report.financeStatements') }}" data-toggle="tooltip" data-placement="right">Estados financieros</a></li>
             </ul>
         </li>
         <li>

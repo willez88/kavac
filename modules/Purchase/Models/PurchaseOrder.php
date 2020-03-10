@@ -60,4 +60,15 @@ class PurchaseOrder extends Model implements Auditable
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = purchaseOrder_id, localKey = id)
         return $this->hasMany(PurchaseRequirement::class);
     }
+
+    /**
+     * PurchaseBaseBudget morphs many PurchasePivotModelsToRequirementItem.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function relatable()
+    {
+        // morphMany(MorphedModel, morphableName, type = able_type, relatedKeyName = able_id, localKey = id)
+        return $this->morphMany(PurchasePivotModelsToRequirementItem::class, 'relatable');
+    }
 }
