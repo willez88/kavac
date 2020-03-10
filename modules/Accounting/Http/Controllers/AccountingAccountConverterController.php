@@ -160,7 +160,6 @@ class AccountingAccountConverterController extends Controller
         $has_budget = (Module::has('Budget') && Module::isEnabled('Budget'));
 
         if (!$has_budget) {
-            dd($has_budget);
             return view('accounting::account_converters.edit', compact('has_budget'));
         }
 

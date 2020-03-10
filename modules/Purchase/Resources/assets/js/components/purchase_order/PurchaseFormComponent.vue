@@ -144,7 +144,7 @@
                                     <td style="border: 1px solid #dee2e6;" tabindex="0" width="16.65%"></td>
                                     <td style="border: 1px solid #dee2e6;" tabindex="0" width="16.75%"></td>
                                     <td style="border: 1px solid #dee2e6;" tabindex="0" width="16.75%">
-                                        <h6 align="right">SUB TOTAL {{ currency_symbol }}</h6>
+                                        <h6 align="right">SUB-TOTAL {{ currency_symbol }}</h6>
                                     </td>
                                     <td style="border: 1px solid #dee2e6;" tabindex="0" width="20%">
                                         <h6 align="right">{{ sub_total.toFixed((record.currency)?currency_decimal_places:'') }}</h6>
@@ -495,6 +495,7 @@ export default{
             // formData.append("file", inputFile.files[0]);
             formData.append("purchase_supplier_id", this.purchase_supplier_id);
             formData.append("currency_id", this.currency_id);
+            formData.append("subtotal", this.sub_total);
             formData.append("requirement_list", JSON.stringify(this.requirement_list) );
             vm.loading = true;
              

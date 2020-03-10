@@ -24,9 +24,7 @@ class PurchaseOrder extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['purchase_supplier_id',
-                            'currency_id',
-                        ];
+    protected $fillable = ['purchase_supplier_id', 'currency_id', 'subtotal'];
 
     /**
      * PurchaseOrder belongs to PurchaseSupplier.

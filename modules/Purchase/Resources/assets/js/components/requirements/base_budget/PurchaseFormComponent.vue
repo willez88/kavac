@@ -5,41 +5,43 @@
             <purchase-show-errors ref="PurchaseBaseBudgetComponent" />
 
             <div class="card-body">
-                <v-client-table :columns="columns" :data="records" :options="table_options" class="row">
-                    <div slot="requirement_status" slot-scope="props" class="text-center">
-                        <div class="d-inline-flex">
-                            <span class="badge badge-danger"  v-show="props.row.requirement_status == 'WAIT'">     <strong>EN ESPERA</strong></span>
-                            <span class="badge badge-info"    v-show="props.row.requirement_status == 'PROCESSED'"><strong>PROCESADO</strong></span>
-                            <span class="badge badge-success" v-show="props.row.requirement_status == 'BOUGHT'">   <strong>COMPRADO </strong></span>
-                        </div>
-                    </div>
-                    <div slot="id" slot-scope="props" class="text-center">
-                        <div class="feature-list-content-left mr-2">
-                            <label class="custom-control custom-checkbox">
-                                <p-check class="p-icon p-smooth p-plain p-curve"
-                                         color="primary-o"
-                                         :value="'_'+props.row.id"
-                                         :checked="indexOf(requirement_list, props.row.id, true)"
-                                         @change="requirementCheck(props.row)">
-                                    <i slot="extra" class="icon fa fa-check"></i>
-                                </p-check>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="form-group is-required">
+                            <label class="control-label">Tipo de moneda
                             </label>
+                            <select2 :options="currencies" v-model="currency_id" tabindex="1"></select2>
                         </div>
                     </div>
-                </v-client-table>
+                    <div class="col-12">
+                        <v-client-table :columns="columns" :data="records" :options="table_options" class="row">
+                            <div slot="requirement_status" slot-scope="props" class="text-center">
+                                <div class="d-inline-flex">
+                                    <span class="badge badge-danger"  v-show="props.row.requirement_status == 'WAIT'">     <strong>EN ESPERA</strong></span>
+                                    <span class="badge badge-info"    v-show="props.row.requirement_status == 'PROCESSED'"><strong>PROCESADO</strong></span>
+                                    <span class="badge badge-success" v-show="props.row.requirement_status == 'BOUGHT'">   <strong>COMPRADO </strong></span>
+                                </div>
+                            </div>
+                            <div slot="id" slot-scope="props" class="text-center">
+                                <div class="feature-list-content-left mr-2">
+                                    <label class="custom-control custom-checkbox">
+                                        <p-check class="p-icon p-smooth p-plain p-curve"
+                                                 color="primary-o"
+                                                 :value="'_'+props.row.id"
+                                                 :checked="indexOf(requirement_list, props.row.id, true)"
+                                                 @change="requirementCheck(props.row)">
+                                            <i slot="extra" class="icon fa fa-check"></i>
+                                        </p-check>
+                                    </label>
+                                </div>
+                            </div>
+                        </v-client-table>
+                    </div>
+                </div>
             </div>
         </div>
         <hr>
         <div class="form-horizontal">
-            <div class="row">
-                <div class="col-3">
-                    <div class="form-group is-required">
-                        <label class="control-label">Tipo de moneda
-                        </label>
-                        <select2 :options="currencies" v-model="currency_id" tabindex="1"></select2>
-                    </div>
-                </div>
-            </div>
             <div class="card-body">
                 <table class="table table-striped table-hover">
                     <thead>
@@ -248,6 +250,7 @@
                     axios.post('/purchase/base_budget',{   
                             'list':this.requirement_list, 
                             'currency_id':this.currency_id,
+                            'subtotal':this.sub_total,
                             'tax_id':this.record_tax.id,
                         }).then(response=>{
                         this.loading = false;
@@ -277,6 +280,7 @@
                             'list':this.requirement_list, 
                             'list_to_delete':this.requirement_list_deleted, 
                             'currency_id':this.currency_id,
+                            'subtotal':this.subtotal,
                             'tax_id':this.record_tax.id,
                         }).then(response=>{
                         this.loading = false;

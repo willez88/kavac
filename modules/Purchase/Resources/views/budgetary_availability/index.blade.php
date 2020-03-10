@@ -30,7 +30,8 @@
                 <div class="card-body">
                     <purchase-budgetary-availability :records="{{ $record_items }}"
                                                     :currency="{{ $currency }}"
-                                                    :supplier="{{ $supplier }}" />
+                                                    :supplier="{{ $supplier }}"
+                                                    :budget_items="{{ $budget_items }}" />
                 </div>
             </div>
         </div>

@@ -99,6 +99,7 @@ class PurchaseOrderController extends Controller
         $purchase_order = PurchaseOrder::create([
             'purchase_supplier_id' => $request->purchase_supplier_id,
             'currency_id'          => $request->currency_id,
+            'subtotal'             => $request->subtotal,
         ]);
 
         foreach (json_decode($request['requirement_list'], true) as $req) {
@@ -173,78 +174,6 @@ class PurchaseOrderController extends Controller
         ]);
     }
 
-    // /**
-    //  * Update the specified resource in storage.
-    //  * @param  Request $request
-    //  * @return Response
-    //  */
-    // public function update(Request $request, $id)
-    // {
-    //     dd($request->all());
-    //     $this->validate($request, [
-    //         // 'file'                 => 'required|mimes:pdf',
-    //         'purchase_supplier_id' => 'required|integer',
-    //         'currency_id'          => 'required|integer',
-    //     ], [
-    //         // 'file.required'                 => 'El archivo de proforma / cotización es obligatorio.',
-    //         // 'file.mimes'                    => 'El archivo de proforma / cotización debe estar en formato pdf.',
-    //         'purchase_supplier_id.required' => 'El campo proveedor es obligatorio.',
-    //         'purchase_supplier_id.integer'  => 'El campo proveedor debe ser numerico.',
-    //         'currency_id.required'          => 'El campo de tipo de moneda es obligatorio.',
-    //         'currency_id.integer'           => 'El campo de tipo de moneda debe ser numerico.',
-    //     ]);
-
-    //     // // Se guarda el archivo
-    //     // $file = new UploadDocRepository();
-    //     // $file->uploadDoc(
-    //     //     $request->file('file'),
-    //     //     'documents'
-    //     // );
-
-    //     $purchase_order = PurchaseOrder::create([
-    //         'purchase_supplier_id' => $request->purchase_supplier_id,
-    //         'currency_id'          => $request->currency_id,
-    //     ]);
-
-    //     foreach (json_decode($request['list_to_delete'], true) as $requirement) {
-    //         // trae requerimiento
-    //         $rq = PurchaseRequirement::find($requirement['id']);
-
-    //         if ($rq) {
-    //             $rq->requirement_status = 'PROCESSED';
-    //             $rq->purchase_base_budget_id = null;
-    //             $rq->save();
-
-    //             foreach ($requirement['purchase_requirement_items'] as $item) {
-    //                 $r = PurchasePivotModelsToRequirementItem::where('purchase_requirement_item_id', $item['id'])
-    //                                                                 ->fisrt();
-    //                 if ($r) {
-    //                     $r->delete();
-    //                 }
-    //             }
-    //         }
-    //     }
-
-    //     foreach (json_decode($request['requirement_list'], true) as $requirement) {
-    //         $rq = PurchaseRequirement::find($requirement['id']);
-    //         if ($rq) {
-    //             $rq->requirement_status = 'BOUGHT';
-    //             $rq->purchase_order_id = $purchase_order->id;
-    //             $rq->save();
-                
-    //             foreach ($requirement['purchase_requirement_items'] as $item) {
-    //                 PurchasePivotModelsToRequirementItem::create([
-    //                     'purchase_requirement_item_id' => $item['id'],
-    //                     'relatable_type'               => PurchaseOrder::class,
-    //                     'relatable_id'                 => $purchase_order->id,
-    //                     'unit_price'                   => $item['unit_price']
-    //                 ]);
-    //             }
-    //         }
-    //     }
-    //     return response()->json(['message' => 'Success'], 200);
-    // }
-
     /**
      * [updatePurchaseOrder the specified resource in storage]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
@@ -278,7 +207,8 @@ class PurchaseOrderController extends Controller
 
         if ($purchase_order) {
             $purchase_order->purchase_supplier_id = $request->purchase_supplier_id;
-            $purchase_order->currency_id = $request->currency_id;
+            $purchase_order->currency_id          = $request->currency_id;
+            $purchase_order->subtotal             = $request->subtotal;
             $purchase_order->save();
 
             foreach (json_decode($request['list_to_delete'], true) as $requirement) {
@@ -286,7 +216,7 @@ class PurchaseOrderController extends Controller
                 $rq = PurchaseRequirement::find($requirement['id']);
 
                 if ($rq) {
-                    $rq->requirement_status = 'PROCESSED';
+                    $rq->requirement_status      = 'PROCESSED';
                     $rq->purchase_base_budget_id = null;
                     $rq->save();
 

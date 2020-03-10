@@ -9,6 +9,8 @@ use Illuminate\Routing\Controller;
 use Modules\Purchase\Models\PurchaseOrder;
 use Modules\Purchase\Models\PurchaseBaseBudget;
 
+use Module;
+
 class PurchaseBudgetaryAvailabilityController extends Controller
 {
     /**
@@ -76,19 +78,47 @@ class PurchaseBudgetaryAvailabilityController extends Controller
                 foreach ($item['pivotPurchase'] as $r) {
                     if ($r['relatable_type'] == PurchaseOrder::class) {
                         $data['suppliers_price'] = $r['unit_price'];
+                        $data['suppliers_qty_price'] = $r['unit_price'];
                     }
                     if ($r['relatable_type'] == PurchaseBaseBudget::class) {
                         $data['base_price'] = $r['unit_price'];
+                        $data['base_qty_price'] = $r['unit_price'];
                     }
                 }
                 array_push($record_items, $data);
             }
         }
-        return view('purchase::budgetary_availability.index', [
-            'record_items' => json_encode($record_items),
-            'currency' => $currency,
-            'supplier' => $supplier,
-        ]);
+
+        /**
+         * [$has_budget determina si esta instalado el modulo Budget]
+         * @var [boolean]
+         */
+        $has_budget = (Module::has('Budget') && Module::isEnabled('Budget'));
+
+        if ($has_budget) {
+            $budget_items = template_choices(
+                'Modules\Budget\Models\BudgetAccount',
+                ['code', '-', 'denomination'],
+                [],
+                true
+            );
+            return view('purchase::budgetary_availability.index', [
+                'record_items' => json_encode($record_items),
+                'currency' => $currency,
+                'supplier' => $supplier,
+                'budget_items' => json_encode($budget_items),
+            ]);
+        } else {
+            return view('purchase::budgetary_availability.index', [
+                'record_items' => json_encode($record_items),
+                'currency' => $currency,
+                'supplier' => $supplier,
+                'budget_items' => json_encode([[
+                        'id'=>'',
+                        'text'=>'Seleccione...'
+                    ]]),
+            ]);
+        }
     }
 
     /**
