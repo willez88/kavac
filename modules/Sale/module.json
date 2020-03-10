@@ -1,7 +1,8 @@
 {
     "name": "Sale",
     "alias": "sale",
-    "description": "",
+    "name_es": "Comercialización",
+    "description": "Gestión de ventas",
     "keywords": [],
     "active": 1,
     "order": 0,

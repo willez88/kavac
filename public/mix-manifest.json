@@ -44,5 +44,6 @@
     "/modules/technicalsupport/js/app.js": "/modules/technicalsupport/js/app.js",
     "/modules/technicalsupport/css/app.css": "/modules/technicalsupport/css/app.css",
     "/modules/technicalsupport/js/app.js.map": "/modules/technicalsupport/js/app.js.map?id=b88e08aff3edf343a339",
-    "/modules/warehouse/js/app.js.map": "/modules/warehouse/js/app.js.map?id=5b0eaa572c9f405d66c1"
+    "/modules/warehouse/js/app.js.map": "/modules/warehouse/js/app.js.map?id=5b0eaa572c9f405d66c1",
+    "/js/module-settings.js": "/js/module-settings.js"
 }

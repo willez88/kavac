@@ -1,7 +1,8 @@
 {
     "name": "DigitalSignature",
     "alias": "digitalsignature",
-    "description": "",
+    "name_es": "Firma Electrónica",
+    "description": "Gestión de firma electrónica",
     "keywords": [],
     "active": 1,
     "order": 0,

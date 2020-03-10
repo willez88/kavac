@@ -1,7 +1,8 @@
 {
     "name": "Asset",
     "alias": "asset",
-    "description": "",
+    "name_es": "Bienes",
+    "description": "Gestión de bienes institucionales",
     "keywords": [],
     "active": 1,
     "order": 0,
