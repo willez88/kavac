@@ -76,6 +76,7 @@ class PurchaseManageBaseBudget implements ShouldQueue
             $baseBudget = PurchaseBaseBudget::find($data['id_edit']);
             $baseBudget->currency_id = $data['currency_id'];
             $baseBudget->subtotal    = $data['subtotal'];
+            $baseBudget->status    = 'WAIT_QUOTATION';
             $baseBudget->save();
 
             foreach ($data['list_to_delete'] as $requirement) {

@@ -22,9 +22,10 @@ class CreatePurchaseBaseBudgetsTable extends Migration
             $table->float('subtotal', 12, 10)->nullable()
                       ->comment('Subtotal del registro de presupuesto base');
 
-            $table->enum('status', ['QUOTED', 'WAIT_QUOTATION', 'BOUGHT'])->default('WAIT_QUOTATION')
+            $table->enum('status', ['WAIT', 'QUOTED', 'WAIT_QUOTATION', 'BOUGHT'])->default('WAIT')
                       ->comment(
                           'Determina el estatus del presupuesto base 
+                          (WAIT) - espera por ser completado. 
                           (WAIT_QUOTATION) - espera ser cotizado. 
                           (QUOTED) - Cotizado,
                           (BOUGHT) - comprado',

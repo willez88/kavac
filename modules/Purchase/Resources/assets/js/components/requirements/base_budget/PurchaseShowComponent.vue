@@ -289,9 +289,10 @@ export default{
             }
         },
         purchase_requirement: function(){
-            if (this.records.purchase_requirements && this.records.purchase_requirements.length > 0) {
-            console.log(this.records.purchase_requirements)
-                return this.records.purchase_requirements;
+            if (this.records.purchase_requirement) {
+                var r = [];
+                r.push(this.records.purchase_requirement)
+                return r;
             }
             return [];
         },

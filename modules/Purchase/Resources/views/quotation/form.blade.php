@@ -29,14 +29,14 @@
                 </div>
                 <div class="card-body">
                     @if(!isset($record_edit))
-                        <purchase-quotation-form :requirements="{{ $requirements }}"
-                                             :currencies="{{ $currencies }}"
-                                             :tax="{{ $tax }}"
-                                             :tax_unit="{{ $tax_unit }}"
-                                             :suppliers="{{ $suppliers }}"
-                                             route_list="/purchase/quotation" />
+                        <purchase-quotation-form :record_base_budgets="{{ $record_base_budgets }}"
+                                                 :currencies="{{ $currencies }}"
+                                                 :tax="{{ $tax }}"
+                                                 :tax_unit="{{ $tax_unit }}"
+                                                 :suppliers="{{ $suppliers }}"
+                                                 route_list="/purchase/quotation" />
                     @else
-                        <purchase-quotation-form :requirements="{{ $requirements }}"
+                        <purchase-quotation-form :record_base_budgets="{{ $record_base_budgets }}"
                                                  :currencies="{{ $currencies }}"
                                                  :tax="{{ $tax }}"
                                                  :tax_unit="{{ $tax_unit }}"

@@ -40,14 +40,14 @@ class PurchaseBaseBudget extends Model implements Auditable
     }
 
     /**
-     * PurchaseBaseBudget has many PurchaseRequirements.
+     * PurchaseBaseBudget has one PurchaseRequirement.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function purchaseRequirements()
+    public function purchaseRequirement()
     {
-        // hasMany(RelatedModel, foreignKeyOnRelatedModel = purchaseBaseBudget_id, localKey = id)
-        return $this->hasMany(PurchaseRequirement::class);
+        // hasOne(RelatedModel, foreignKeyOnRelatedModel = purchaseBaseBudget_id, localKey = id)
+        return $this->hasOne(PurchaseRequirement::class);
     }
 
     /**

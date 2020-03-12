@@ -22,7 +22,7 @@
                                     <span class="badge badge-success" v-show="props.row.requirement_status == 'BOUGHT'">   <strong>COMPRADO </strong></span>
                                 </div>
                             </div>
-                            <div slot="id" slot-scope="props" class="text-center">
+                            <!-- <div slot="id" slot-scope="props" class="text-center">
                                 <div class="feature-list-content-left mr-2">
                                     <label class="custom-control custom-checkbox">
                                         <p-check class="p-icon p-smooth p-plain p-curve"
@@ -34,7 +34,7 @@
                                         </p-check>
                                     </label>
                                 </div>
-                            </div>
+                            </div> -->
                         </v-client-table>
                     </div>
                 </div>
@@ -154,7 +154,7 @@
                             'user_department.name',
                             'purchase_supplier_type.name',
                             'requirement_status',
-                            'id'
+                            // 'id'
                         ],
                 currency_id:'',
                 currency:null,
@@ -168,54 +168,54 @@
             reset(){
                 // 
             },
-            indexOf(list, id, returnBoolean){
-                for (var i = list.length - 1; i >= 0; i--) {
-                    if (list[i].id == id) {
-                        return (returnBoolean) ? true : i;
-                    }
-                }
-                return (returnBoolean) ? false : -1;
-            },
-            requirementCheck(record){
+            // indexOf(list, id, returnBoolean){
+            //     for (var i = list.length - 1; i >= 0; i--) {
+            //         if (list[i].id == id) {
+            //             return (returnBoolean) ? true : i;
+            //         }
+            //     }
+            //     return (returnBoolean) ? false : -1;
+            // },
+            // requirementCheck(record){
 
-                var pos = this.indexOf(this.requirement_list, record.id);
-                // se agregan a la lista a guardar
-                if (pos == -1) {
-                    for (var i = 0; i < record.purchase_requirement_items.length; i++) {
-                        record.purchase_requirement_items[i].unit_price = 0;
-                        record.purchase_requirement_items[i].requirement_code = record.code;
-                    }
+            //     var pos = this.indexOf(this.requirement_list, record.id);
+            //     // se agregan a la lista a guardar
+            //     if (pos == -1) {
+            //         for (var i = 0; i < record.purchase_requirement_items.length; i++) {
+            //             record.purchase_requirement_items[i].unit_price = 0;
+            //             record.purchase_requirement_items[i].requirement_code = record.code;
+            //         }
 
-                    // saca de la lista de registros eliminar
-                    pos = this.indexOf(this.requirement_list_deleted, record.id);
-                    if (pos != -1) {
-                        this.requirement_list_deleted.splice(pos,1);
-                    }
+            //         // saca de la lista de registros eliminar
+            //         pos = this.indexOf(this.requirement_list_deleted, record.id);
+            //         if (pos != -1) {
+            //             this.requirement_list_deleted.splice(pos,1);
+            //         }
 
-                    this.requirement_list.push(record);
-                    this.record_items = this.record_items.concat(record.purchase_requirement_items);
-                }else{
-                    // se sacan de la lista a guardar
-                    var record_copy = this.requirement_list.splice(pos,1)[0];
-                    var pos = this.indexOf(this.requirement_list_deleted, record_copy.id); 
+            //         this.requirement_list.push(record);
+            //         this.record_items = this.record_items.concat(record.purchase_requirement_items);
+            //     }else{
+            //         // se sacan de la lista a guardar
+            //         var record_copy = this.requirement_list.splice(pos,1)[0];
+            //         var pos = this.indexOf(this.requirement_list_deleted, record_copy.id); 
 
-                    // agrega a la lista de registros a eliminar
-                    if (pos == -1) {
-                        this.requirement_list_deleted.push(record_copy);
-                    }
+            //         // agrega a la lista de registros a eliminar
+            //         if (pos == -1) {
+            //             this.requirement_list_deleted.push(record_copy);
+            //         }
 
-                    for (var i = 0; i < record.purchase_requirement_items.length; i++) {
-                        for (var x = 0; x < this.record_items.length; x++) {
-                            if (this.record_items[x].id == record.purchase_requirement_items[i].id) {
-                                delete this.record_items[x].qty_price;
-                                this.record_items.splice(x,1);
-                                break;
-                            }
-                        }
-                    }
-                }
-                this.CalculateTot();
-            },
+            //         for (var i = 0; i < record.purchase_requirement_items.length; i++) {
+            //             for (var x = 0; x < this.record_items.length; x++) {
+            //                 if (this.record_items[x].id == record.purchase_requirement_items[i].id) {
+            //                     delete this.record_items[x].qty_price;
+            //                     this.record_items.splice(x,1);
+            //                     break;
+            //                 }
+            //             }
+            //         }
+            //     }
+            //     this.CalculateTot();
+            // },
             createRecord(){
                 this.$refs.PurchaseBaseBudgetComponent.reset();
                 if (!this.record_tax) {
@@ -354,17 +354,17 @@
                 'user_department.name': 'Departamento Usuario',
                 'purchase_supplier_type.name': 'Tipo de Proveedor',
                 'requirement_status': 'Estado',
-                'id': 'Selección'
+                // 'id': 'Selección'
             };
             this.table_options.columnsClasses = {
-                'code'    : 'col-xs-1',
-                'description': 'col-xs-2',
-                'fiscal_year.year': 'col-xs-1',
+                'code'    : 'col-xs-1 text-center',
+                'description': 'col-xs-3',
+                'fiscal_year.year': 'col-xs-1 text-center',
                 'contrating_department.name'    : 'col-xs-2',
                 'user_department.name': 'col-xs-2',
                 'purchase_supplier_type.name': 'col-xs-2',
                 'requirement_status': 'col-xs-1',
-                'id'      : 'col-xs-1'
+                // 'id'      : 'col-xs-1'
             };
         },
         mounted(){
@@ -380,12 +380,12 @@
                     prices[vm.base_budget_edit.relatable[i].purchase_requirement_item_id] = vm.base_budget_edit.relatable[i].unit_price;
                 }
 
-                for (var i = 0; i < vm.base_budget_edit.purchase_requirements.length; i++) {
-                    var requirement = vm.base_budget_edit.purchase_requirements[i];
+                // for (var i = 0; i < vm.base_budget_edit.purchase_requirements.length; i++) {
+                    var requirement = vm.base_budget_edit.purchase_requirement;
 
-                    if (vm.requirement_list.indexOf(requirement) == -1) {
+                    // if (vm.requirement_list.indexOf(requirement) == -1) {
                         vm.requirement_list.push(requirement);
-                    }
+                    // }
 
                     var items = requirement.purchase_requirement_items;
 
@@ -396,7 +396,7 @@
                         
                         vm.record_items = vm.record_items.concat(items[x]);
                     }
-                }
+                // }
                 vm.CalculateTot();
             }
         },

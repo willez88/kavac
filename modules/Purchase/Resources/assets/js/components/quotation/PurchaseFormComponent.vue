@@ -91,7 +91,13 @@
                 </div>
             </div>
             <div class="col-12">
-                <v-client-table :columns="columns" :data="requirements" :options="table_options">
+                <hr>
+            </div>
+            <div class="col-12">
+                <h6 class="card-title">Lista de presupuestos base en espera de cotización</h6>
+            </div>
+            <div class="col-12">
+                <v-client-table :columns="columns" :data="record_base_budgets" :options="table_options">
                     <div slot="requirement_status" slot-scope="props" class="text-center">
                         <div class="d-inline-flex">
                             <span class="badge badge-info"    
@@ -108,7 +114,7 @@
                                          :value="'_'+props.row.id"
                                          :id="'requirement_check_'+props.row.id"
                                          :checked="indexOf(requirement_list, props.row.id, true)"
-                                         @change="requirementCheck(props.row)">
+                                         @change="recordCheck(props.row)">
                                     <i slot="extra" class="icon fa fa-check"></i>
                                 </p-check>
                             </label>
@@ -121,6 +127,9 @@
 
             <div class="col-12">
                 <v-client-table :columns="columns2" :data="record_items" :options="table2_options">
+                    <div slot="quantity" slot-scope="props">
+                        <h6 align="left">{{ props.row.quantity }} {{ props.row.measurement_unit_acronym }}</h6>
+                    </div>
                     <div slot="unit_price" slot-scope="props">
                         <input type="number" v-model="record_items[props.index-1].unit_price" class="form-control"
                                 :step="cualculateLimitDecimal()" @input="CalculateTot(record_items[props.index-1], props.index-1)">
@@ -210,7 +219,7 @@ export default{
                 return null;
             }
         },
-        requirements:{
+        record_base_budgets:{
             type:Array,
             default: function(){
                 return [];
@@ -231,26 +240,29 @@ export default{
     },
     data(){
         return {
-            records:[],
+            // records:[],
             record:{
                 purchase_supplier_id:'',
                 purchase_supplier_object:'',
                 currency:null,
             },
             record_items:[],
-            columns: [  'code',
-                        'description',
-                        'fiscal_year.year',
-                        'contrating_department.name',
-                        'user_department.name',
-                        'purchase_supplier_type.name',
-                        'purchase_base_budget.currency.name',
+            columns: [  
+                        'purchase_requirement.code',
+                        'created_at',
+                        'purchase_requirement.description',
+                        'purchase_requirement.fiscal_year.year',
+                        'purchase_requirement.user_department.name',
+                        'currency.name',
                         'id'
+                        // 'contrating_department.name',
+                        // 'purchase_supplier_type.name',
                     ],
-            columns2:[  'requirement_code',
+            columns2:[  
+                        'requirement_code',
                         'name',
                         'quantity',
-                        'measurement_unit.acronym',
+                        // 'measurement_unit_acronym',
                         'unit_price',
                         'qty_price',
                     ],
@@ -289,41 +301,43 @@ export default{
     },
     created(){
         this.table_options.headings = {
-            'code':                               'Código',
-            'description':                        'Descripción',
-            'fiscal_year.year':                   'Año fiscal',
-            'contrating_department.name':         'Departamento contatante',
-            'user_department.name':               'Departamento Usuario',
-            'purchase_supplier_type.name':        'Tipo de Proveedor',
-            'purchase_base_budget.currency.name': 'Moneda',
+            'purchase_requirement.code':          'Código de requerimeinto',
+            'created_at':                         'Fecha',
+            'purchase_requirement.description':                        'Descripción',
+            'purchase_requirement.fiscal_year.year':                   'Año fiscal',
+            'purchase_requirement.user_department.name':               'Departamento Usuario',
+            'currency.name':                      'Moneda',
             'id':                                 'Acción'
+            // 'contrating_department.name':         'Departamento contatante',
+            // 'purchase_supplier_type.name':        'Tipo de Proveedor',
         };
 
         this.table_options.columnsClasses = {
-            'code':                               'col-xs-1 text-center',
-            'description':                        'col-xs-2',
-            'fiscal_year.year':                   'col-xs-1 text-center',
-            'contrating_department.name':         'col-xs-2',
-            'user_department.name':               'col-xs-2',
-            'purchase_supplier_type.name':        'col-xs-2',
-            'purchase_base_budget.currency.name': 'col-xs-1',
+            'purchase_requirement.code':          'col-xs-1 text-center',
+            'created_at':                         'col-xs-1 text-center',
+            'purchase_requirement.description':                        'col-xs-4',
+            'purchase_requirement.fiscal_year.year':                   'col-xs-1 text-center',
+            'purchase_requirement.user_department.name':               'col-xs-2',
+            'currency.name':                      'col-xs-2',
             'id':                                 'col-xs-1'
+            // 'purchase_supplier_type.name':        'col-xs-2',
+            // 'contrating_department.name':         'col-xs-2',
         };
 
         this.table2_options.headings = {
             'requirement_code':         'Código de requerimiento',
             'name':                     'Nombre',
             'quantity':                 'Cantidad',
-            'measurement_unit.acronym': 'Unidad de medida',
+            // 'measurement_unit_acronym': 'Unidad de medida',
             'unit_price':               'Precio unitario sin IVA',
             'qty_price':                'Cantidad * precio unitario',
         };
 
         this.table2_options.columnsClasses = {
             'requirement_code':         'col-xs-1 text-center',
-            'name':                     'col-xs-3',
+            'name':                     'col-xs-5',
             'quantity':                 'col-xs-2',
-            'measurement_unit.acronym': 'col-xs-2',
+            // 'measurement_unit_acronym': 'col-xs-2',
             'unit_price':               'col-xs-2',
             'qty_price':                'col-xs-2',
         };
@@ -333,7 +347,7 @@ export default{
     mounted(){
         const vm = this;
 
-        vm.records = vm.requirements;
+        // vm.records = vm.record_base_budgets;
         if (vm.record_edit) {
             vm.load_data_edit = true;
             vm.currency_id = vm.record_edit.currency_id;
@@ -344,8 +358,8 @@ export default{
                 prices[vm.record_edit.relatable[i].purchase_requirement_item_id] = vm.record_edit.relatable[i].unit_price;
             }
 
-            for (var i = 0; i < vm.record_edit.purchase_requirement.length; i++) {
-                vm.addToList(vm.record_edit.purchase_requirement[i], prices);
+            for (var i = 0; i < vm.record_edit.purchase_base_budgets.length; i++) {
+                vm.addToList(vm.record_edit.purchase_base_budgets[i], prices);
             }
         }
     },
@@ -378,16 +392,16 @@ export default{
             return (returnBoolean) ? false : -1;
         },
 
-        requirementCheck(record){
-            axios.get('/purchase/get-convertion/'+this.currency_id+'/'+record.purchase_base_budget.currency_id)
+        recordCheck(record){
+            axios.get('/purchase/get-convertion/'+this.currency_id+'/'+record.currency_id)
             .then(response=>{
-                if (record.purchase_base_budget.currency_id != this.currency_id && !response.data.record) {
+                if (record.currency_id != this.currency_id && !response.data.record) {
 
                     if ($('#requirement_check_'+record.id+' input:checkbox').prop('checked')) {
                         this.showMessage(
                             'custom', 'Error', 'danger', 'screen-error',
                             "Imposible realizar la conversión de "+this.record.currency.name
-                            +" a "+record.purchase_base_budget.currency.name
+                            +" a "+record.currency.name
                             +". Revisar conversiones configuradas en el sistema."
                         );
                         $('#requirement_check_'+record.id+' input:checkbox').prop('checked',false);
@@ -403,9 +417,18 @@ export default{
             var pos = this.indexOf(this.requirement_list, record.id);
                 // se agregan a la lista a guardar
                 if (pos == -1) {
-                    for (var i = 0; i < record.purchase_requirement_items.length; i++) {
-                        record.purchase_requirement_items[i].requirement_code = record.code;
-                        record.purchase_requirement_items[i].unit_price = (prices)?prices[record.purchase_requirement_items[i].id]:0;
+                    for (var i = 0; i < record.relatable.length; i++) {
+                        record.relatable[i].name = record.relatable[i].purchase_requirement_item.name;
+                        record.relatable[i].quantity = record.relatable[i].purchase_requirement_item.quantity;
+
+                        record.relatable[i].measurement_unit_acronym = 
+                                record.relatable[i].purchase_requirement_item.measurement_unit.acronym;
+
+                                // +' - '+
+                                // record.relatable[i].purchase_requirement_item.measurement_unit.name;
+
+                        record.relatable[i].requirement_code = record.relatable[i].purchase_requirement_item.purchase_requirement.code;
+                        record.relatable[i].unit_price = (prices)?prices[record.relatable[i].id]:0;
                     }
 
                     // saca de la lista de registros eliminar
@@ -415,7 +438,7 @@ export default{
                     }
 
                     this.requirement_list.push(record);
-                    this.record_items = this.record_items.concat(record.purchase_requirement_items);
+                    this.record_items = this.record_items.concat(record.relatable);
                 }else{
                     // se sacan de la lista a guardar
                     var record_copy = this.requirement_list.splice(pos,1)[0];
@@ -426,9 +449,9 @@ export default{
                         this.requirement_list_deleted.push(record_copy);
                     }
 
-                    for (var i = 0; i < record.purchase_requirement_items.length; i++) {
+                    for (var i = 0; i < record.relatable.length; i++) {
                         for (var x = 0; x < this.record_items.length; x++) {
-                            if (this.record_items[x].id == record.purchase_requirement_items[i].id) {
+                            if (this.record_items[x].id == record.relatable[i].id) {
                                 delete this.record_items[x].qty_price;
                                 this.record_items.splice(x,1);
                                 break;

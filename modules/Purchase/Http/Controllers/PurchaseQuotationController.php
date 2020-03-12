@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 
 use Modules\Purchase\Models\PurchaseQuotation;
 use Modules\Purchase\Models\PurchaseRequirement;
+use Modules\Purchase\Models\purchaseBaseBudget;
 use Modules\Purchase\Models\PurchasePivotModelsToRequirementItem;
 
 use Modules\Purchase\Models\HistoryTax;
@@ -59,8 +60,16 @@ class PurchaseQuotationController extends Controller
             'purchaseBaseBudget.currency'
         )->where('requirement_status', 'PROCESSED')
         ->orderBy('id', 'ASC')->get();
+
+        $record_base_budgets = PurchaseBaseBudget::with(
+            'currency',
+            'purchaseRequirement.contratingDepartment',
+            'purchaseRequirement.userDepartment',
+            'relatable.purchaseRequirementItem.purchaseRequirement'
+        )->where('status', 'WAIT_QUOTATION')->orderBy('id', 'ASC')->get();
+
         return view('purchase::quotation.form', [
-            'requirements' => $requirements,
+            'record_base_budgets' => $record_base_budgets,
             'currencies'   => json_encode($currencies),
             'tax'          => json_encode($historyTax),
             'tax_unit'     => json_encode($taxUnit),
