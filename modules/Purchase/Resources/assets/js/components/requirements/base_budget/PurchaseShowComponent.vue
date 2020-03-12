@@ -24,13 +24,13 @@
                         <h6>INFORMACIÓN DE LOS REQUERIMIENTOS</h6>
                         <hr>
                         <v-client-table :columns="column_requirements" :data="purchase_requirement" :options="table_option_requirements">
-                            <div slot="requirement_status" slot-scope="props" class="text-center">
+                            <!-- <div slot="requirement_status" slot-scope="props" class="text-center">
                                 <div class="d-inline-flex">
                                     <span class="badge badge-danger"  v-show="props.row.requirement_status == 'WAIT'">     <strong>EN ESPERA</strong></span>
                                     <span class="badge badge-info"    v-show="props.row.requirement_status == 'PROCESSED'"><strong>PROCESADO</strong></span>
                                     <span class="badge badge-success" v-show="props.row.requirement_status == 'BOUGHT'">   <strong>COMPRADO </strong></span>
                                 </div>
-                            </div>
+                            </div> -->
                         </v-client-table>
                     </div>
                     <hr>
@@ -119,7 +119,7 @@ export default{
                                 'contrating_department.name',
                                 'user_department.name',
                                 'purchase_supplier_type.name',
-                                'requirement_status'
+                                // 'requirement_status'
                             ],
             // columns: ['name','measurement_unit.name','technical_specifications', 'unit_price', 'quantity'],
             table_option_requirements: {
@@ -158,16 +158,16 @@ export default{
             'contrating_department.name': 'Departamento contatante',
             'user_department.name': 'Departamento Usuario',
             'purchase_supplier_type.name': 'Tipo de Proveedor',
-            'requirement_status': 'Estado del requerimiento'
+            // 'requirement_status': 'Estado del requerimiento'
         };
         this.table_option_requirements.columnsClasses = {
             'code'    : 'col-xs-1',
-            'description': 'col-xs-3',
-            'fiscal_year.year': 'col-xs-1',
+            'description': 'col-xs-4',
+            'fiscal_year.year': 'col-xs-1 text-center',
             'contrating_department.name'    : 'col-xs-2',
             'user_department.name': 'col-xs-2',
             'purchase_supplier_type.name': 'col-xs-2',
-            'requirement_status': 'col-xs-1',
+            // 'requirement_status': 'col-xs-1',
         };
 
         // this.table_options.headings = {
@@ -264,33 +264,34 @@ export default{
             return (this.records.currency)?this.records.currency.id:null;
         },
         contracting_department: function(){
-            if (this.records.purchase_requirement.contrating_department) {
-                return this.records.purchase_requirement.contrating_department.name;
+            if (this.records.purchase_requirements.contrating_department) {
+                return this.records.purchase_requirements.contrating_department.name;
             }
         },
         user_department: function(){
-            if (this.records.purchase_requirement.user_department) {
-                return this.records.purchase_requirement.user_department.name;
+            if (this.records.purchase_requirements.user_department) {
+                return this.records.purchase_requirements.user_department.name;
             }
         },
         purchase_supplier_type: function(){
-            if (this.records.purchase_requirement.purchase_supplier_type) {
-                return this.records.purchase_requirement.purchase_supplier_type.name;
+            if (this.records.purchase_requirements.purchase_supplier_type) {
+                return this.records.purchase_requirements.purchase_supplier_type.name;
             }
         },
         fiscal_year: function(){
-            if (this.records.purchase_requirement.fiscal_year) {
-                return this.records.purchase_requirement.fiscal_year.year;
+            if (this.records.purchase_requirements.fiscal_year) {
+                return this.records.purchase_requirements.fiscal_year.year;
             }
         },
         description: function(){
-            if (this.records.purchase_requirement.description) {
-                return this.records.purchase_requirement.description;
+            if (this.records.purchase_requirements.description) {
+                return this.records.purchase_requirements.description;
             }
         },
         purchase_requirement: function(){
-            if (this.records.purchase_requirement) {
-                return this.records.purchase_requirement;
+            if (this.records.purchase_requirements && this.records.purchase_requirements.length > 0) {
+            console.log(this.records.purchase_requirements)
+                return this.records.purchase_requirements;
             }
             return [];
         },

@@ -6,6 +6,29 @@
                     {{ format_date(props.row.created_at) }}
                 </div>
             </div>
+            <div slot="currency.name" slot-scope="props">
+                <div align="center">
+                    <h6 v-if="props.row.currency">
+                        {{ props.row.currency.symbol }} - {{ props.row.currency.name }}
+                    </h6>
+                    <h6 v-else>
+                        Tipo de moneda no asigando
+                    </h6>
+                </div>
+            </div>
+            <div slot="status" slot-scope="props">
+                <div class="d-inline-flex">
+                    <span class="badge badge-danger"  v-show="props.row.status == 'WAIT_QUOTATION'">
+                        <strong>EN ESPERA DE COTIZACIÓN</strong>
+                    </span>
+                    <span class="badge badge-info"    v-show="props.row.status == 'QUOTED'">
+                        <strong>COTIZADO</strong>
+                    </span>
+                    <span class="badge badge-success" v-show="props.row.status == 'BOUGHT'">
+                        <strong>COMPRADO </strong>
+                    </span>
+                </div>
+            </div>
             <div slot="id" slot-scope="props" class="text-center">
                 <div class="d-inline-flex">
                     <purchase-base-budget-show :id="props.row.id" :route_show="'/purchase/base_budget/'+props.row.id" />
@@ -35,6 +58,7 @@
                 columns: [  
                             'created_at',
                             'currency.name',
+                            'status',
                             'id'
                         ],
             }
@@ -43,11 +67,13 @@
             this.table_options.headings = {
                 'created_at': 'Fecha',
                 'currency.name': 'Tipo de moneda',
+                'status':'Estatus',
                 'id': 'ACCIÓN'
             };
             this.table_options.columnsClasses = {
                 'created_at'    : 'col-xs-2',
-                'currency_id': 'col-xs-8',
+                'currency.name': 'col-xs-6 text-center',
+                'status':'col-xs-2 text-center',
                 'id'      : 'col-xs-2'
             };
         },

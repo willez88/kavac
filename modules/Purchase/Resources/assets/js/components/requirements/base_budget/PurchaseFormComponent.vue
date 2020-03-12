@@ -280,7 +280,7 @@
                             'list':this.requirement_list, 
                             'list_to_delete':this.requirement_list_deleted, 
                             'currency_id':this.currency_id,
-                            'subtotal':this.subtotal,
+                            'subtotal':this.sub_total,
                             'tax_id':this.record_tax.id,
                         }).then(response=>{
                         this.loading = false;
@@ -380,8 +380,8 @@
                     prices[vm.base_budget_edit.relatable[i].purchase_requirement_item_id] = vm.base_budget_edit.relatable[i].unit_price;
                 }
 
-                for (var i = 0; i < vm.base_budget_edit.purchase_requirement.length; i++) {
-                    var requirement = vm.base_budget_edit.purchase_requirement[i];
+                for (var i = 0; i < vm.base_budget_edit.purchase_requirements.length; i++) {
+                    var requirement = vm.base_budget_edit.purchase_requirements[i];
 
                     if (vm.requirement_list.indexOf(requirement) == -1) {
                         vm.requirement_list.push(requirement);

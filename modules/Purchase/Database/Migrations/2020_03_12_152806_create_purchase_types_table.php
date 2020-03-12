@@ -15,6 +15,7 @@ class CreatePurchaseTypesTable extends Migration
     {
         Schema::create('purchase_types', function (Blueprint $table) {
             $table->bigIncrements('id');
+            
             $table->string('name')->comment('Nombre del tipo o modalidad de compra');
             $table->text('description')->comment('Descripción del tipo de compra de compra');
 
@@ -23,7 +24,7 @@ class CreatePurchaseTypesTable extends Migration
             $table->foreign('purchase_processes_id')->references('id')
                       ->on('purchase_processes')->onDelete('restrict')
                       ->onUpdate('cascade');
-
+            
             $table->timestamps();
             $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
         });

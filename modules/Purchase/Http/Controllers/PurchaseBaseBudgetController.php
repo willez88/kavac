@@ -37,8 +37,8 @@ class PurchaseBaseBudgetController extends Controller
         return response()->json([
             'records' => PurchaseBaseBudget::with(
                 'currency',
-                'purchaseRequirement.contratingDepartment',
-                'purchaseRequirement.userDepartment',
+                'purchaseRequirements.contratingDepartment',
+                'purchaseRequirements.userDepartment',
                 'relatable.purchaseRequirementItem.purchaseRequirement'
             )->orderBy('id', 'ASC')->get(),
             'message'=>'success'
@@ -101,9 +101,8 @@ class PurchaseBaseBudgetController extends Controller
     {
         return response()->json(['records' => PurchaseBaseBudget::with(
             'currency',
-            'tax.histories',
-            'purchaseRequirement.contratingDepartment',
-            'purchaseRequirement.userDepartment',
+            'purchaseRequirements.contratingDepartment',
+            'purchaseRequirements.userDepartment',
             'relatable.purchaseRequirementItem.purchaseRequirement',
         )->find($id)], 200);
     }
@@ -115,10 +114,9 @@ class PurchaseBaseBudgetController extends Controller
     public function edit($id)
     {
         $baseBudget = PurchaseBaseBudget::with(
-            'tax.histories',
-            'purchaseRequirement.contratingDepartment',
-            'purchaseRequirement.userDepartment',
-            'purchaseRequirement.purchaseRequirementItems',
+            'purchaseRequirements.contratingDepartment',
+            'purchaseRequirements.userDepartment',
+            'purchaseRequirements.purchaseRequirementItems',
             'relatable'
         )->find($id);
 
@@ -133,7 +131,7 @@ class PurchaseBaseBudgetController extends Controller
         )->where('requirement_status', 'WAIT')->orderBy('code', 'ASC')->get();
 
         return view('purchase::requirements.base_budget', [
-                    'requirements' => $baseBudget['purchaseRequirement']->merge($requirements),
+                    'requirements' => $baseBudget['purchaseRequirements']->merge($requirements),
                     'tax'          => json_encode($historyTax),
                     'currencies'   => json_encode($this->currencies),
                     'baseBudget'   => $baseBudget,

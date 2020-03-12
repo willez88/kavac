@@ -8,9 +8,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
-use Modules\Purchase\Models\PurchasePivotModelsToRequirementItem;
-
-class PurchaseBaseBudget extends Model implements Auditable
+class PurchaseQuotation extends Model implements Auditable
 {
     use SoftDeletes;
     use AuditableTrait;
@@ -26,10 +24,21 @@ class PurchaseBaseBudget extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['currency_id', 'subtotal'];
+    protected $fillable = ['purchase_supplier_id', 'purchase_base_budget_id', 'currency_id', 'subtotal'];
 
     /**
-     * PurchaseBaseBudget belongs to Currency.
+     * PurchaseOrder belongs to PurchaseSupplier.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function purchaseSupplier()
+    {
+        // belongsTo(RelatedModel, foreignKey = purchaseSupplier_id, keyOnRelatedModel = id)
+        return $this->belongsTo(PurchaseSupplier::class);
+    }
+
+    /**
+     * PurchaseOrder belongs to Currency.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -40,14 +49,14 @@ class PurchaseBaseBudget extends Model implements Auditable
     }
 
     /**
-     * PurchaseBaseBudget has many PurchaseRequirements.
+     * PurchaseEstimate belongs to PurchaseBaseBudget.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function purchaseRequirements()
+    public function purchaseBaseBudget()
     {
-        // hasMany(RelatedModel, foreignKeyOnRelatedModel = purchaseBaseBudget_id, localKey = id)
-        return $this->hasMany(PurchaseRequirement::class);
+        // belongsTo(RelatedModel, foreignKey = purchaseBaseBudget_id, keyOnRelatedModel = id)
+        return $this->belongsTo(PurchaseBaseBudget::class);
     }
 
     /**
@@ -59,16 +68,5 @@ class PurchaseBaseBudget extends Model implements Auditable
     {
         // morphMany(MorphedModel, morphableName, type = able_type, relatedKeyName = able_id, localKey = id)
         return $this->morphMany(PurchasePivotModelsToRequirementItem::class, 'relatable');
-    }
-
-    /**
-     * PurchaseBaseBudget has many PurchaseEstimates.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function purchaseQuotations()
-    {
-        // hasMany(RelatedModel, foreignKeyOnRelatedModel = purchaseBaseBudget_id, localKey = id)
-        return $this->hasMany(PurchaseEstimates::class);
     }
 }

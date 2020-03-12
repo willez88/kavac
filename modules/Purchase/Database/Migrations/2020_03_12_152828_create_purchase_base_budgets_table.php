@@ -15,8 +15,20 @@ class CreatePurchaseBaseBudgetsTable extends Migration
     {
         Schema::create('purchase_base_budgets', function (Blueprint $table) {
             $table->bigIncrements('id');
+
             $table->integer('currency_id')->unsigned()->nullable()
                   ->comment('Unidad monetaria en la que se expresara el presupuesto base.');
+
+            $table->float('subtotal', 12, 10)->nullable()
+                      ->comment('Subtotal del registro de presupuesto base');
+
+            $table->enum('status', ['QUOTED', 'WAIT_QUOTATION', 'BOUGHT'])->default('WAIT_QUOTATION')
+                      ->comment(
+                          'Determina el estatus del presupuesto base 
+                          (WAIT_QUOTATION) - espera ser cotizado. 
+                          (QUOTED) - Cotizado,
+                          (BOUGHT) - comprado',
+                      );
             $table->timestamps();
             $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
         });
