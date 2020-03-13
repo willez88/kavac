@@ -30,7 +30,9 @@ class BudgetAditionalCreditController extends Controller
 {
     use ValidatesRequests;
 
+    /** @var array Arreglo con los datos a implementar en los atributos del formulario */
     public $header;
+    /** @var array Arreglo con información de las instituciones registradas */
     public $institutions;
 
     /**

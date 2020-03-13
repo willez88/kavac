@@ -29,6 +29,7 @@ class BudgetAccountsTableSeeder extends Seeder
     {
         Model::unguard();
 
+        /** @var array Listado de cuentas presupuestarias a registrar */
         $budget_accounts = [
             [
                 'group' => '3', 'item' => '00', 'generic' => '00', 'specific' => '00', 'subspecific' => '00',

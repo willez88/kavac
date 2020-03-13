@@ -1,7 +1,8 @@
 {
     "name": "CitizenService",
     "alias": "citizenservice",
-    "description": "",
+    "name_es": "O.A.C.",
+    "description": "Oficina de Atención al Ciudadano",
     "keywords": [],
     "active": 1,
     "order": 0,

@@ -1,8 +1,9 @@
 {
+    "version": "1.0",
     "name": "Accounting",
     "alias": "accounting",
     "name_es": "Contabilidad",
-    "description": "",
+    "description": "Gestión de asientos contables",
     "authors": [
         {
             "name": "Ing. Juan Rosas",

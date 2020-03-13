@@ -25,6 +25,7 @@ mix.js([
       //'resources/js/loading-message.js'
 	], 'public/js')
    .js('resources/js/core-settings.js', 'public/js')
+   .js('resources/js/module-settings.js', 'public/js')
    .js(['resources/js/shared.js', 'resources/js/mixins.js'], 'public/js/shared-components.js')
    .js('resources/js/chart.js', 'public/js')
    .js('resources/js/ckeditor.js', 'public/js')

@@ -13,10 +13,22 @@ use Modules\Budget\Models\BudgetModification;
 use Modules\Budget\Models\BudgetModificationAccount;
 use Modules\Budget\Models\BudgetSubSpecificFormulation;
 
+/**
+ * @class BudgetModificationController
+ * @brief Controlador para las modificaciones presupuestarias del módulo de Presupuesto
+ *
+ * Clase que gestiona información de las modificaciones presupuestarias del módulo de Presupuesto
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
+ */
 class BudgetModificationController extends Controller
 {
     use ValidatesRequests;
 
+    /** @var array Arreglo con los datos a implementar en los atributos del formulario */
     public $header;
 
     /**
@@ -186,6 +198,19 @@ class BudgetModificationController extends Controller
         ], 200);
     }
 
+    /**
+     * Muestra el formulario de actualización de datos según el tipo de modificación presupuestaria
+     *
+     * @method     edit
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param      string                $type            Define el tipo de modificación presupuestaria a mostrar
+     * @param      BudgetModification    $modification    Objeto con información de la modificación presupuestaria a
+     *                                                    actualizar
+     *
+     * @return     View                Devuelve la vista a mostrar para la respectiva modificación presupuestaria
+     */
     public function edit($type, BudgetModification $modification)
     {
         $viewTemplate = ($type==="AC")

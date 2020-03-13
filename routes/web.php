@@ -353,6 +353,7 @@ Route::group(['middleware' => ['auth', 'verified', 'role:admin']], function () {
             Route::get('list', 'ModuleController@index')->name('module.list');
             Route::post('enable', 'ModuleController@enable')->name('module.enable');
             Route::post('disable', 'ModuleController@disable')->name('module.disable');
+            Route::post('details', 'ModuleController@getDetails')->name('module.details');
         });
         /** Ruta para la gestión de información sobre la(s) institución(es) */
         Route::resource('institutions', 'InstitutionController');

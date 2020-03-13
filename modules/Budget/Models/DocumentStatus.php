@@ -4,6 +4,17 @@ namespace Modules\Budget\Models;
 
 use App\Models\DocumentStatus as BaseDocumentStatus;
 
+/**
+ * @class DocumentStatus
+ * @brief Modelo que extiende las funcionalidades del modelo base DocumentStatus
+ *
+ * Modelo que extiende las funcionalidades del modelo base DocumentStatus
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
+ */
 class DocumentStatus extends BaseDocumentStatus
 {
     /**

@@ -1,7 +1,8 @@
 {
     "name": "Payroll",
     "alias": "payroll",
-    "description": "",
+    "name_es": "Talento Humano",
+    "description": "Gestión de talento humano y nómina",
     "keywords": [],
     "active": 1,
     "order": 0,

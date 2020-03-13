@@ -1,0 +1,17 @@
+{
+    "name": "Sale",
+    "alias": "sale",
+    "name_es": "Comercialización",
+    "description": "Gestión de ventas",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Sale\\Providers\\SaleServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'Accounting'
+    'name' => 'Accounting',
+    'name_es' => 'Contabilidad'
 ];
