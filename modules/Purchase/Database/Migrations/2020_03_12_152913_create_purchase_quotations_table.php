@@ -30,17 +30,11 @@ class CreatePurchaseQuotationsTable extends Migration
                 ->on('currencies')->onDelete('restrict')
                 ->onUpdate('cascade');
 
-            $table->integer('purchase_base_budget_id')->unsigned()
-                    ->comment('identificador del registro del presupuesto base');
-            $table->foreign('purchase_base_budget_id')->references('id')
-                    ->on('purchase_base_budgets')->onDelete('restrict')
-                    ->onUpdate('cascade');
-
-            $table->enum('status', ['WAIT', 'ESTIMATE', 'APPROVED'])->default('WAIT')
+            $table->enum('status', ['WAIT', 'QUOTED', 'APPROVED'])->default('WAIT')
                 ->comment(
                     'Determina el estatus del requerimiento 
                     (WAIT) - en espera. 
-                    (ESTIMATE) - Cotizado,
+                    (QUOTED) - Cotizado,
                     (APPROVED) - Aprobado',
                 );
 

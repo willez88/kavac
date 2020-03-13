@@ -113,7 +113,7 @@
                                          color="primary-o"
                                          :value="'_'+props.row.id"
                                          :id="'requirement_check_'+props.row.id"
-                                         :checked="indexOf(requirement_list, props.row.id, true)"
+                                         :checked="indexOf(base_budget_list, props.row.id, true)"
                                          @change="recordCheck(props.row)">
                                     <i slot="extra" class="icon fa fa-check"></i>
                                 </p-check>
@@ -288,8 +288,8 @@ export default{
                     down: 'fa-sort-down cursor-pointer'
                 },
             },
-            requirement_list:[],
-            requirement_list_deleted:[],
+            base_budget_list:[],
+            base_budget_list_deleted:[],
             sub_total:0,
             tax_value:0,
             total:0,
@@ -367,8 +367,8 @@ export default{
 
         reset(){
             this.record_items             = [];
-            this.requirement_list         = [];
-            this.requirement_list_deleted = [];
+            this.base_budget_list         = [];
+            this.base_budget_list_deleted = [];
             this.record = {
                 purchase_supplier_id:'',
                 currency:'',
@@ -414,7 +414,7 @@ export default{
         },
 
         addToList:function(record, prices) {
-            var pos = this.indexOf(this.requirement_list, record.id);
+            var pos = this.indexOf(this.base_budget_list, record.id);
                 // se agregan a la lista a guardar
                 if (pos == -1) {
                     for (var i = 0; i < record.relatable.length; i++) {
@@ -432,21 +432,21 @@ export default{
                     }
 
                     // saca de la lista de registros eliminar
-                    pos = this.indexOf(this.requirement_list_deleted, record.id);
+                    pos = this.indexOf(this.base_budget_list_deleted, record.id);
                     if (pos != -1) {
-                        this.requirement_list_deleted.splice(pos,1);
+                        this.base_budget_list_deleted.splice(pos,1);
                     }
 
-                    this.requirement_list.push(record);
+                    this.base_budget_list.push(record);
                     this.record_items = this.record_items.concat(record.relatable);
                 }else{
                     // se sacan de la lista a guardar
-                    var record_copy = this.requirement_list.splice(pos,1)[0];
-                    var pos = this.indexOf(this.requirement_list_deleted, record_copy.id); 
+                    var record_copy = this.base_budget_list.splice(pos,1)[0];
+                    var pos = this.indexOf(this.base_budget_list_deleted, record_copy.id); 
 
                     // agrega a la lista de registros a eliminar
                     if (pos == -1) {
-                        this.requirement_list_deleted.push(record_copy);
+                        this.base_budget_list_deleted.push(record_copy);
                     }
 
                     for (var i = 0; i < record.relatable.length; i++) {
@@ -519,11 +519,11 @@ export default{
             formData.append("purchase_supplier_id", this.purchase_supplier_id);
             formData.append("currency_id", this.currency_id);
             formData.append("subtotal", this.sub_total);
-            formData.append("requirement_list", JSON.stringify(this.requirement_list) );
+            formData.append("record_list", JSON.stringify(this.base_budget_list) );
             vm.loading = true;
              
             if (!this.record_edit) {
-                axios.post('/purchase/purchase_order', formData, {
+                axios.post('/purchase/quotation', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -544,9 +544,9 @@ export default{
                     vm.loading = false;
                 });
             }else{
-                formData.append("list_to_delete", JSON.stringify(this.requirement_list_deleted));
+                formData.append("list_to_delete", JSON.stringify(this.base_budget_list_deleted));
 
-                axios.post('/purchase/purchase_order/'+this.record_edit.id, formData, {
+                axios.post('/purchase/quotation/'+this.record_edit.id, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -575,11 +575,11 @@ export default{
             if (res != ant && !this.load_data_edit) {
                 this.record_items             = [];
 
-                this.requirement_list_deleted = [];
-                if (this.requirement_list.length > 0) {
-                    this.requirement_list_deleted = this.requirement_list;    
+                this.base_budget_list_deleted = [];
+                if (this.base_budget_list.length > 0) {
+                    this.base_budget_list_deleted = this.base_budget_list;    
                 }
-                this.requirement_list         = [];
+                this.base_budget_list         = [];
 
                 this.sub_total                = 0;
                 this.tax_value                = 0;

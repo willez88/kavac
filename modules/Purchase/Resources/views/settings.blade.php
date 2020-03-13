@@ -80,10 +80,10 @@
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									{!! Form::label('quotions_code', 'Código de Cotización', []) !!}
+									{!! Form::label('quotations_code', 'Código de Cotización', []) !!}
 									{!! Form::text(
-										'quotions_code',
-										($quCode)?$quCode->format_code:old('quotions_code'), [
+										'quotations_code',
+										($quCode)?$quCode->format_code:old('quotations_code'), [
 											'class' => 'form-control',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código de la cotización',

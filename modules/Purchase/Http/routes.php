@@ -156,7 +156,7 @@ Route::group([
     Route::resource('quotation', 'PurchaseQuotationController', [
         'as'     => 'purchase',
     ]);
-    Route::post('quotation/{id}', 'PurchaseQuotationController@updatePurchaseOrder');
+    Route::post('quotation/{id}', 'PurchaseQuotationController@updatePurchaseQuotation');
 
     Route::get('get-convertion/{currency_id}/{base_budget_currency_id}', 'PurchaseOrderController@getConvertion');
 

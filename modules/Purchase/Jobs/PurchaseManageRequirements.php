@@ -15,8 +15,8 @@ use Modules\Purchase\Models\PurchasePivotModelsToRequirementItem;
 
 use Modules\Warehouse\Models\WarehouseProduct;
 use Modules\Warehouse\Models\Warehouse;
-use App\Models\CodeSetting;
 use App\Models\Institution;
+use App\Models\CodeSetting;
 use App\Rules\CodeSetting as CodeSettingRule;
 use App\Models\FiscalYear;
 
