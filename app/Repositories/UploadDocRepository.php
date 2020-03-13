@@ -81,7 +81,7 @@ class UploadDocRepository
                         'signs' => ($sign && isset($signCrypt) && $signCrypt)
                                    ? $sygnCrypt : null,
                         'documentable_type' => $model,
-                        'documentable_id' => $id
+                        'documentable_id' => $model_id
                     ]);
                     return true;
                 } else {

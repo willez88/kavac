@@ -18,7 +18,7 @@ class CitizenServiceRequestCloseController extends Controller
      */
     public function index()
     {
-        //
+        return view('citizenservice::requests.list');
     }
 
     /**
@@ -48,16 +48,25 @@ class CitizenServiceRequestCloseController extends Controller
         $extensionFile = $request->file('file')->getClientOriginalExtension();
 
         if (in_array($extensionFile, $documentFormat)) {
-            if ($upDoc->uploadDoc($request->file('file'), 'documents')) {
-                $doc_id = $upDoc->getDocStored()->id;
-                $doc_url = $upDoc->getDocStored()->url;
-                return response()->json(['result' => true, 'doc_name' => $doc_name], 200);
+            if ($upDoc->uploadDoc($request->file('file'), 'documents', null, null, null, false, false, true)) {
+                $file_id = $upDoc->getDocStored()->id;
+                //$document = Document::find($file_id);
+                //$document->documentable_type = 'Modules\CitizenService\Models\CitizenServiceRequestClose';
+                //$document->documentable_id = 'Modules\CitizenService\Models\CitizenServiceRequestClose';
+                $file_url = $upDoc->getDocStored()->url;
+                $file_name = $upDoc->getDocName();
+                 return response()->json(['result' => true, 'file_id' => $file_id,
+                    'file_url' => $file_url,
+                    'file_name' => $file_name], 200);
             }
         } elseif (in_array($extensionFile, $imageFormat)) {
             if ($upImage->uploadImage($request->file('file'), 'pictures')) {
-                $image_id = $upImage->getImageStored()->id;
-                $image_url = $upImage->getImageStored()->url;
-                return response()->json(['result' => true, 'image_id' => $image_id, 'image_url' => $image_url], 200);
+                $file_id = $upImage->getImageStored()->id;
+                $file_url = $upImage->getImageStored()->url;
+                $file_name = $upImage->getImageName();
+                return response()->json(['result' => true, 'file_id' => $file_id,
+                    'file_url' => $file_url,
+                    'file_name' => $file_name], 200);
             }
         } elseif (in_array($extensionFile, $videoFormat)) {
             dd('Is video');
