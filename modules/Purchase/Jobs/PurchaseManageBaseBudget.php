@@ -54,11 +54,12 @@ class PurchaseManageBaseBudget implements ShouldQueue
         if ($data['action'] == 'create') {
             $baseBudget = PurchaseBaseBudget::create([
                 'currency_id' => $data['currency_id'],
-                'tax_id'      => $data['tax_id'],
+                'status'      => 'WAIT_QUOTATION',
+                'subtotal'    => $data['subtotal'],
             ]);
             foreach ($data['list'] as $requirement) {
                 $rq = PurchaseRequirement::find($requirement['id']);
-                $rq->requirement_status = 'PROCESSED';
+                $rq->requirement_status      = 'PROCESSED';
                 $rq->purchase_base_budget_id = $baseBudget['id'];
                 $rq->save();
 
@@ -74,7 +75,8 @@ class PurchaseManageBaseBudget implements ShouldQueue
         } elseif ($data['action'] == 'update') {
             $baseBudget = PurchaseBaseBudget::find($data['id_edit']);
             $baseBudget->currency_id = $data['currency_id'];
-            $baseBudget->tax_id = $data['tax_id'];
+            $baseBudget->subtotal    = $data['subtotal'];
+            $baseBudget->status    = 'WAIT_QUOTATION';
             $baseBudget->save();
 
             foreach ($data['list_to_delete'] as $requirement) {
@@ -82,7 +84,7 @@ class PurchaseManageBaseBudget implements ShouldQueue
                 $rq = PurchaseRequirement::find($requirement['id']);
 
                 if ($rq) {
-                    $rq->requirement_status = 'WAIT';
+                    $rq->requirement_status      = 'WAIT';
                     $rq->purchase_base_budget_id = null;
                     $rq->save();
                 }

@@ -34,7 +34,7 @@ class PurchaseRequirement extends Model implements Auditable
 
     protected $fillable = [
         'code', 'description', 'fiscal_year_id', 'contracting_department_id', 'user_department_id',
-        'purchase_supplier_type_id', 'requirement_status', 'purchase_base_budget_id', 'purchase_order_id'
+        'purchase_supplier_type_id', 'requirement_status', 'purchase_base_budget_id'
     ];
     
     /**
@@ -87,7 +87,7 @@ class PurchaseRequirement extends Model implements Auditable
     {
         return $this->hasMany(PurchaseRequirementItem::class);
     }
-    
+
     /**
      * PurchaseRequirement belongs to PurchaseBaseBudget.
      *

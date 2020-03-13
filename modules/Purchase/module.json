@@ -1,7 +1,8 @@
 {
     "name": "Purchase",
     "alias": "purchase",
-    "description": "",
+    "name_es": "Compras",
+    "description": "Gestión de compras",
     "keywords": [],
     "active": 1,
     "order": 0,

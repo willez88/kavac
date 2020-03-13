@@ -41,7 +41,7 @@
                     <h6 class="card-title">Presupuesto base</h6>
                     <div class="card-btns">
                         @include('buttons.previous', ['route' => url()->previous()])
-                        @include('buttons.new', ['route' => route('purchase.base_budget.create')])
+                        {{-- @include('buttons.new', ['route' => route('purchase.base_budget.create')]) --}}
                         @include('buttons.minimize')
                     </div>
                 </div>

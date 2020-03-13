@@ -13,9 +13,11 @@ class AddFieldCodeToBudgetSubSpecificFormulationsTable extends Migration
      */
     public function up()
     {
-        Schema::table('budget_sub_specific_formulations', function (Blueprint $table) {
-            $table->string('code', 20)->unique()->comment('Código único para la formulación');
-        });
+        if (!Schema::hasColumn('budget_sub_specific_formulations', 'code')) {
+            Schema::table('budget_sub_specific_formulations', function (Blueprint $table) {
+                $table->string('code', 20)->unique()->comment('Código único para la formulación');
+            });
+        }
     }
 
     /**

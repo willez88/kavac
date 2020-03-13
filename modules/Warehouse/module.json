@@ -1,7 +1,8 @@
 {
     "name": "Warehouse",
     "alias": "warehouse",
-    "description": "",
+    "name_es": "Almacén",
+    "description": "Gestión de almacenes",
     "keywords": [],
     "active": 1,
     "order": 0,

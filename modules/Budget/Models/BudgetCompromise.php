@@ -8,7 +8,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
- * @class BudgetCompromize
+ * @class BudgetCompromise
  * @brief Datos de los compromisos presupuestarios
  *
  * Gestiona el modelo de datos para los Compromisos de Presupuesto
@@ -45,6 +45,8 @@ class BudgetCompromise extends Model implements Auditable
 
     /**
      * Compromise morphs to models in sourceable_type.
+     *
+     * Este método requiere que la fuente asociada contenga un campo llamado code con el código del documento
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo

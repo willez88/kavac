@@ -11780,7 +11780,7 @@ var staticRenderFns = [
           ]),
           _vm._v(" "),
           _c("strong", [_vm._v("Longitud total máxima:")]),
-          _vm._v(" 20 carácteres"),
+          _vm._v(" 17 carácteres"),
           _c("br"),
           _vm._v(" "),
           _c("strong", [_vm._v("Ej.")]),
@@ -11910,8 +11910,8 @@ function normalizeComponent (
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/cenditel/Documentos/kavac/modules/Accounting/Resources/assets/js/app.js */"./Resources/assets/js/app.js");
-module.exports = __webpack_require__(/*! /home/cenditel/Documentos/kavac/modules/Accounting/Resources/assets/sass/app.scss */"./Resources/assets/sass/app.scss");
+__webpack_require__(/*! /home/cenditel/Documentos/kavac2/kavac/modules/Accounting/Resources/assets/js/app.js */"./Resources/assets/js/app.js");
+module.exports = __webpack_require__(/*! /home/cenditel/Documentos/kavac2/kavac/modules/Accounting/Resources/assets/sass/app.scss */"./Resources/assets/sass/app.scss");
 
 
 /***/ })

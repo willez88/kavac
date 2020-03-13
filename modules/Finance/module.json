@@ -1,7 +1,8 @@
 {
     "name": "Finance",
     "alias": "finance",
-    "description": "",
+    "name_es": "Finanzas",
+    "description": "Gestión de finanzas",
     "keywords": [],
     "active": 1,
     "order": 0,

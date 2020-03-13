@@ -8,13 +8,15 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
+use Modules\Purchase\Models\PurchaseBaseBudget;
 use Modules\Purchase\Models\PurchaseRequirement;
 use Modules\Purchase\Models\PurchaseRequirementItem;
+use Modules\Purchase\Models\PurchasePivotModelsToRequirementItem;
 
 use Modules\Warehouse\Models\WarehouseProduct;
 use Modules\Warehouse\Models\Warehouse;
-use App\Models\CodeSetting;
 use App\Models\Institution;
+use App\Models\CodeSetting;
 use App\Rules\CodeSetting as CodeSettingRule;
 use App\Models\FiscalYear;
 
@@ -55,7 +57,7 @@ class PurchaseManageRequirements implements ShouldQueue
     public function handle()
     {
         $data = $this->data;
-        if ($data['action'] == 'create') {
+        if ($data['action'] == 'update') {
             $requirement = PurchaseRequirement::find($data['id_edit']);
 
             foreach ($data['toDelete'] as $toDeleteId) {
@@ -85,14 +87,19 @@ class PurchaseManageRequirements implements ShouldQueue
                     ]);
                 }
             }
-        } elseif ($data['action'] == 'update') {
+        } elseif ($data['action'] == 'create') {
             $data['code'] = $this->generateCodeAvailable();
+            $baseBudget = PurchaseBaseBudget::create([
+                'subtotal' => 0,
+            ]);
+            $data['purchase_base_budget_id'] = $baseBudget->id;
+
             $requirement = PurchaseRequirement::create($data);
 
             foreach ($data['products'] as $prod) {
                 $prod['purchase_requirement_id'] = $requirement->id;
                 $warehouseProd = WarehouseProduct::find($prod['id']);
-                PurchaseRequirementItem::create([
+                $item = PurchaseRequirementItem::create([
                     'name'                     => $warehouseProd->name,
                     'description'              => $warehouseProd->description,
                     'technical_specifications' => $prod['technical_specifications'],
@@ -100,6 +107,13 @@ class PurchaseManageRequirements implements ShouldQueue
                     'measurement_unit_id'      => $prod['measurement_unit_id'],
                     'warehouse_product_id'     => $prod['id'],
                     'purchase_requirement_id'  => $requirement->id
+                ]);
+
+                PurchasePivotModelsToRequirementItem::create([
+                    'relatable_type'               => PurchaseBaseBudget::class,
+                    'relatable_id'                 => $baseBudget->id,
+                    'purchase_requirement_item_id' => $item->id,
+                    'unit_price'                   => 0,
                 ]);
             }
         }

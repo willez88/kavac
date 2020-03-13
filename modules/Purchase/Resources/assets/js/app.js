@@ -100,14 +100,14 @@ Vue.component('purchase-plan-form', require('./components/purchase_plans/Purchas
  * 
  * @author Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
  */
-Vue.component('purchase-order-form', require('./components/purchase_order/PurchaseFormComponent.vue').default);
+Vue.component('purchase-quotation-form', require('./components/quotation/PurchaseFormComponent.vue').default);
 
 /**
  * Componente para la gestión de ordend e compra
  * 
  * @author Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
  */
-Vue.component('purchase-order-list', require('./components/purchase_order/PurchaseListComponent.vue').default);
+Vue.component('purchase-quotation-list', require('./components/quotation/PurchaseListComponent.vue').default);
 
 
 /**

@@ -1,7 +1,8 @@
 {
     "name": "TechnicalSupport",
     "alias": "technicalsupport",
-    "description": "",
+    "name_es": "Soporte Técnico",
+    "description": "Gestión de soporte técnico",
     "keywords": [],
     "active": 1,
     "order": 0,

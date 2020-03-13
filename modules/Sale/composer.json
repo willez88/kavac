@@ -1,0 +1,25 @@
+{
+    "name": "kavac/sale",
+    "description": "",
+    "authors": [
+        {
+            "name": "Ing. Roldan Vargas",
+            "email": "rvargas@cenditel.gob.ve | roldandvg@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Sale\\Providers\\SaleServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Sale\\": ""
+        }
+    }
+}

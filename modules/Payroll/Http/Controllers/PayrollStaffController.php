@@ -11,7 +11,7 @@ use Modules\Payroll\Models\PayrollStaff;
 use App\Models\Phone;
 use App\Models\CodeSetting;
 use App\Rules\AgeToWork;
-use Modules\Payroll\Models\PayrollWorkAgeSetting;
+use Modules\Payroll\Models\Parameter;
 
 /**
  * @class PayrollStaffController
@@ -73,7 +73,9 @@ class PayrollStaffController extends Controller
      */
     public function store(Request $request)
     {
-        $payrollWorkAgeSetting = PayrollWorkAgeSetting::first();
+        $parameter = Parameter::where([
+            'active' => true, 'required_by' => 'payroll', 'p_key' => 'work_age'
+        ])->first();
         $this->validate($request, [
             'first_name' => ['required', 'max:100'],
             'last_name' => ['required', 'max:100'],
@@ -82,7 +84,7 @@ class PayrollStaffController extends Controller
             'passport' => ['nullable', 'max:20', 'unique:payroll_staffs,passport'],
             'email' => ['nullable', 'email', 'unique:payroll_staffs,email'],
             'birthdate' => ['required', 'date'],
-            'birthdate' => [new AgeToWork(($payrollWorkAgeSetting) ? $payrollWorkAgeSetting->age : 0)],
+            'birthdate' => [new AgeToWork(($parameter) ? $parameter->p_value : 0)],
             'payroll_gender_id' => ['required'],
             'payroll_blood_type_id' => ['required'],
             'social_security' => ['nullable'],
@@ -220,7 +222,9 @@ class PayrollStaffController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $payrollWorkAgeSetting = PayrollWorkAgeSetting::first();
+        $parameter = Parameter::where([
+            'active' => true, 'required_by' => 'payroll', 'p_key' => 'work_age'
+        ])->first();
         $payrollStaff = PayrollStaff::find($id);
         $this->validate($request, [
             'first_name' => ['required', 'max:100'],
@@ -232,7 +236,7 @@ class PayrollStaffController extends Controller
             'passport' => ['nullable', 'max:20', 'unique:payroll_staffs,passport,'.$payrollStaff->id],
             'email' => ['nullable', 'email', 'unique:payroll_staffs,email,'.$payrollStaff->id],
             'birthdate' => ['required', 'date'],
-            'birthdate' => [new AgeToWork(($payrollWorkAgeSetting) ? $payrollWorkAgeSetting->age : 0)],
+            'birthdate' => [new AgeToWork(($parameter) ? $parameter->p_value : 0)],
             'payroll_gender_id' => ['required'],
             'payroll_blood_type_id' => ['required'],
             'social_security' => ['nullable'],

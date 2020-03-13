@@ -13,11 +13,13 @@ class AddFieldInstitutionIdToBudgetSubSpecificFormulationsTable extends Migratio
      */
     public function up()
     {
-        Schema::table('budget_sub_specific_formulations', function (Blueprint $table) {
-            $table->bigInteger('institution_id')->unsigned()->nullable()
-                  ->comment('Identificador asociado a la institución');
-            $table->foreign('institution_id')->references('id')->on('institutions')->onUpdate('cascade');
-        });
+        if (!Schema::hasColumn('budget_sub_specific_formulations', 'institution_id')) {
+            Schema::table('budget_sub_specific_formulations', function (Blueprint $table) {
+                $table->bigInteger('institution_id')->unsigned()->nullable()
+                      ->comment('Identificador asociado a la institución');
+                $table->foreign('institution_id')->references('id')->on('institutions')->onUpdate('cascade');
+            });
+        }
     }
 
     /**

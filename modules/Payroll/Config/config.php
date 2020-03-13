@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'Payroll'
+    'name' => 'Payroll',
+    'name_es' => 'Talento Humano',
 ];

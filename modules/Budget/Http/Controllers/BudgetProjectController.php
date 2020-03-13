@@ -28,6 +28,7 @@ class BudgetProjectController extends Controller
 {
     use ValidatesRequests;
 
+    /** @var array Arreglo con las reglas de validación sobre los datos de un formulario */
     public $validate_rules;
 
     /**

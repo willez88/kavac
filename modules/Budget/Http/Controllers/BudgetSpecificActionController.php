@@ -28,7 +28,9 @@ class BudgetSpecificActionController extends Controller
 {
     use ValidatesRequests;
 
+    /** @var array Arreglo con información de los proyectos registrados */
     public $projects;
+    /** @var array Arreglo con información de las acciones centralizadas registradas */
     public $centralized_actions;
 
     /**
