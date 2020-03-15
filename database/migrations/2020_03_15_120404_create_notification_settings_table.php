@@ -23,8 +23,9 @@ class CreateNotificationSettingsTable extends Migration
                           provenientes de la aplicación base
                           EOT
                       );
-                $table->string('model')->comment('Nombre de la clase del modelo que genera una notificación');
+                $table->string('model')->unique()->comment('Nombre de la clase del modelo que genera una notificación');
                 $table->string('name')->comment('Nombre de la notificación a configurar');
+                $table->string('slug')->unique()->comment('Slug de la notificación a configurar');
                 $table->string('description')->comment('Descripción de la notificación a configurar');
                 $table->string('message')->comment('Mensaje de la notificación');
                 $table->timestamps();

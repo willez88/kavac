@@ -260,6 +260,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     /** Rutas para gestionar notificaciones del sistema */
     //Route::post('system/notify/send', 'SystemNotificationController@send');
+
+    /** Ruta para acceder a la configuración del usuario autenticado */
+    Route::get('my-settings', 'Auth\UserController@userSettings')->name('my.settings');
+    Route::post('my-settings', 'Auth\UserController@setMyNotifications')->name('set.my.notifications');
 });
 
 /**

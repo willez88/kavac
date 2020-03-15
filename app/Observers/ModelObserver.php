@@ -75,8 +75,12 @@ class ModelObserver
      */
     public function setNotifications($model, $type)
     {
+        /** @var string Obtiene la clase de un modelo */
+        $modelClass = get_class($model);
+
         /** @var object Obtiene la configuración del modelo del cual enviar una notificación */
-        $notifySetting = NotificationSetting::where('model', $model)->first();
+        $notifySetting = NotificationSetting::where('model', $modelClass)->first();
+
 
         if ($notifySetting) {
             /** @var string Nombre del evento o modelo a notificar */
@@ -111,7 +115,7 @@ class ModelObserver
                 /** @var string Detalle o descripción de la notificación a enviar */
                 $details = "Se realizó {$event} de datos en {$eventName}";
 
-                foreach ($notifySetting->users() as $user) {
+                foreach ($notifySetting->users()->get() as $user) {
                     /** Notificación al usuario configurado para recibir notificaciones del sistema */
                     $user->notify(new SystemNotification($title, $details));
                 }

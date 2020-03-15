@@ -3,13 +3,14 @@
 /** Controladores para la gestión de autenticación de usuarios */
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User;
 use App\Models\Profile;
+use App\Models\NotificationSetting;
 use App\Roles\Models\Role;
 use App\Roles\Models\Permission;
 use App\Notifications\UserRegistered;
-use Illuminate\Http\Request;
 
 /**
  * @class UserController
@@ -155,7 +156,15 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        if ($request->input('password')) {
+        if ($request->role) {
+            $user->detachAllRoles();
+            $user->syncRoles($request->role);
+        }
+        if ($request->permission) {
+            $user->detachAllPermissions();
+            $user->syncPermissions($request->permission);
+        }
+        if ($request->password) {
             $this->validate($request, [
                 'password' => ['min:6', 'confirmed'],
                 'password_confirmation' => ['min:6', 'required_with:password'],
@@ -338,8 +347,60 @@ class UserController extends Controller
         ], 200);
     }
 
+    /**
+     * Muestra un listado de roles y permisos de usuario
+     *
+     * @method     indexRolesPermissions
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return     \Illuminate\View\View   Devuelve la vista correspondiente para mostrar el listado de roles y permisos
+     */
     public function indexRolesPermissions()
     {
         return view('admin.settings-access');
+    }
+
+    /**
+     * Gestiona la configuración de la cuenta de un usuario
+     *
+     * @method     userSettings
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return     \Illuminate\View\View           Devuelve la vista para la configuración de la cuenta de usuario
+     */
+    public function userSettings()
+    {
+        $user = auth()->user();
+        $notifySettings = NotificationSetting::all();
+        $header_notify_settings = [
+            'route' => 'set.my.notifications', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
+        ];
+        return view('auth.my-settings', compact('user', 'notifySettings', 'header_notify_settings'));
+    }
+
+    public function setMyNotifications(Request $request)
+    {
+        $fields = $request->all();
+
+        if (count($fields) > 1) {
+            auth()->user()->notificationSettings()->detach();
+            $notifications = [];
+            foreach ($fields as $keyField => $valueField) {
+                if ($keyField === '_token') {
+                    continue;
+                }
+                $notifySetting = NotificationSetting::where('slug', $keyField)->first();
+
+                if ($notifySetting) {
+                    array_push($notifications, $notifySetting->id);
+                }
+            }
+            auth()->user()->notificationSettings()->sync($notifications);
+        }
+
+        $request->session()->flash('message', ['type' => 'store']);
+        return redirect()->route('my.settings');
     }
 }

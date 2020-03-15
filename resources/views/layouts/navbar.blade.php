@@ -154,8 +154,8 @@
 					 aria-labelledby="list_options_user">
 					<a class="dropdown-header">{{ __('USUARIO') }}</a>
 					@if (Auth::user()->hasVerifiedEmail())
-						<a class="dropdown-item" href="javascript:void(0)" data-toggle="tooltip" data-placement="left"
-                           title="{{ __('Establecer configuración personalizada') }}">
+						<a class="dropdown-item" href="{{ route('my.settings') }}" data-toggle="tooltip"
+                           data-placement="left" title="{{ __('Establecer configuración personalizada') }}">
 							<i class="ion-gear-a"></i>{{ __('Configurar Cuenta') }}</a>
 						<a class="dropdown-item" href="{{ url('users') . "/" . Auth::user()->id }}"
 						   title="{{ __('Actualizar datos de perfil del usuario') }}"

@@ -28,7 +28,7 @@ class NotificationSetting extends Model
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['module', 'model', 'name', 'description'];
+    protected $fillable = ['module', 'model', 'name', 'slug', 'description'];
 
     /**
      * NotificationSetting belongs to Many Users.

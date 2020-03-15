@@ -14,7 +14,7 @@ class CreateNotificationSettingsUsersTable extends Migration
     public function up()
     {
         if (!Schema::hasTable('notification_setting_user')) {
-            Schema::create('notification_settings_users', function (Blueprint $table) {
+            Schema::create('notification_setting_user', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->enum('type', ['N', 'E', 'S'])->default('N')
                       ->comment('Tipo de notificacion. Ej. (N)otify, (E)mail, (S)MS');
@@ -37,6 +37,6 @@ class CreateNotificationSettingsUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notification_settings_users');
+        Schema::dropIfExists('notification_setting_user');
     }
 }

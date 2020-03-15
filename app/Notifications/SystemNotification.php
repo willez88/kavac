@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 
-class SystemNotification extends Notification implements ShouldQueue
+class SystemNotification extends Notification //implements ShouldQueue
 {
     use Queueable;
 
