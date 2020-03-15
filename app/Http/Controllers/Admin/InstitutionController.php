@@ -44,8 +44,11 @@ class InstitutionController extends Controller
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
+        if (!$request->ajax()) {
+            return abort('403');
+        }
         return response()->json(['records' => Institution::all()], 200);
     }
 
