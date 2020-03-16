@@ -90,6 +90,7 @@
 						</a>
 					</div>
 				</li>
+                {{--
 				<li class="nav-item dropdown">
 					<a href="#" class="nav-link dropdown-toggle btn btn-sm btn-info" id="list_options_language"
 					   data-toggle="dropdown" aria-expanded="false" title="{{ __('Idioma') }}">
@@ -104,6 +105,7 @@
 						   data-toggle="tooltip">{{ __('Inglés') }}</a>
 					</div>
 				</li>
+                 --}}
 				{{-- <li class="nav-item">
 					<a class="nav-link btn btn-sm btn-info" href="#"
 					   title="Configuración del Sistema, solo administradores"
