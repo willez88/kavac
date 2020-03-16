@@ -98,6 +98,9 @@ class SettingController extends Controller
         $cities = template_choices(City::class);
         $sectors = template_choices(InstitutionSector::class);
         $types = template_choices(InstitutionType::class);
+        $social_networks = [
+            'facebook', 'twitter', 'linkedin', 'instagram', 'youtube', 'telegram'
+        ];
 
         return view(
             'admin.settings',
@@ -120,7 +123,8 @@ class SettingController extends Controller
                 'cities',
                 'sectors',
                 'types',
-                'organism_adscripts'
+                'organism_adscripts',
+                'social_networks'
             )
         );
     }

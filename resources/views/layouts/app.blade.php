@@ -154,6 +154,12 @@
                     });
                 }
 
+                /** Restringe el rango de fechas del campo tipo date al año de ejercicio económico */
+                /*$("input[type=date]").attr({
+                    min: `${window.execution_year}-01-01`,
+                    max: `${window.execution_year}-12-31`
+                });*/
+
                 /** Previene el uso de carácteres no permitidos en campos numéricos */
                 $(".numeric").on('input keypress keyup blur', function(event) {
                     $(this).val($(this).val().replace(/[^\d].+/, ""));

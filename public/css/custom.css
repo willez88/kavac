@@ -679,6 +679,7 @@ a.resalt-link {
   font-size: 1em;
   text-transform: uppercase;
   font-weight: normal;
+  color: #0073b7;
 }
 
 .nopadding-left {
@@ -4770,7 +4771,12 @@ table th {
 }
 
 .ck-editor__editable {
-  min-height: 200px !important;
+  min-height: 100px !important;
+}
+
+.ck.ck-button,
+a.ck.ck-button {
+  font-size: 0.725rem;
 }
 
 .feature-list .feature-list-indicator {
