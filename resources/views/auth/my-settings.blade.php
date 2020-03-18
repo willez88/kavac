@@ -27,7 +27,18 @@
             {!! Form::open($header_notify_settings) !!}
                 <div class="card-body">
                     <div class="row">
+                        @php
+                            $section = 'GENERAL';
+                        @endphp
                         @foreach ($notifySettings as $notifySetting)
+                            @if ($section != $notifySetting->module)
+                                <div class="col-12 mb-4">
+                                    <h6 class="md-title text-center">{{ $section }}</h6>
+                                </div>
+                                @php
+                                    $section = $notifySetting->module;
+                                @endphp
+                            @endif
                             <div class="col-2 mb-4" id="{{ $notifySetting->slug }}">
                                 <div class="form-group">
                                     <label for="" class="control-label">{{ $notifySetting->name }}</label>
