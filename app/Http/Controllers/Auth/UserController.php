@@ -373,7 +373,12 @@ class UserController extends Controller
     public function userSettings()
     {
         $user = auth()->user();
-        $notifySettings = NotificationSetting::all();
+        $userPermissions = $user->getPermissions()->where('slug', '<>', '')->pluck('slug')->toArray();
+        $notifySettings = NotificationSetting::whereIn(
+            'perm_required',
+            $userPermissions
+        )->orWhereNull('perm_required')->get();
+
         $header_notify_settings = [
             'route' => 'set.my.notifications', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
