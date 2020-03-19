@@ -23,11 +23,14 @@ class CreateNotificationSettingsTable extends Migration
                           provenientes de la aplicación base
                           EOT
                       );
+                $table->string('module_name')->nullable()->comment('Nombre del módulo');
                 $table->string('model')->unique()->comment('Nombre de la clase del modelo que genera una notificación');
                 $table->string('name')->comment('Nombre de la notificación a configurar');
                 $table->string('slug')->unique()->comment('Slug de la notificación a configurar');
                 $table->string('description')->comment('Descripción de la notificación a configurar');
                 $table->string('message')->comment('Mensaje de la notificación');
+                $table->string('perm_required')->nullable()
+                      ->comment('Permiso requerido para poder recibir notificaciones de un modelo o módulo');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });
