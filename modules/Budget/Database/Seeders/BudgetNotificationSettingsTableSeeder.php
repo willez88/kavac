@@ -31,7 +31,7 @@ class BudgetNotificationSettingsTableSeeder extends Seeder
                 'module_name' => 'Presupuesto',
                 'model' => BudgetAccount::class,
                 'name' => 'Cuenta Presupuestaria',
-                'slug' => 'budget.account',
+                'slug' => 'budget_account',
                 'description' => 'Gestión de Catálogo de cuentas presupuestarias',
                 'message' => 'Se ha generado un evento en el catálogo de cuentas presupuestarías'
             ],
@@ -40,7 +40,7 @@ class BudgetNotificationSettingsTableSeeder extends Seeder
                 'module_name' => 'Presupuesto',
                 'model' => BudgetCentralizedAction::class,
                 'name' => 'Acciones Centralizadas',
-                'slug' => 'budget.centralized.action',
+                'slug' => 'budget_centralized_action',
                 'description' => 'Gestión de Acciones Centralizadas',
                 'message' => 'Se ha generado un evento en acciones centralizadas'
             ],
@@ -49,7 +49,7 @@ class BudgetNotificationSettingsTableSeeder extends Seeder
                 'module_name' => 'Presupuesto',
                 'model' => BudgetCompromise::class,
                 'name' => 'Compromisos Presupuestarios',
-                'slug' => 'budget.compromise',
+                'slug' => 'budget_compromise',
                 'description' => 'Gestión de compromisos presupuestarios',
                 'message' => 'Se ha generado un evento en compromisos presupuestarios'
             ],
@@ -58,7 +58,7 @@ class BudgetNotificationSettingsTableSeeder extends Seeder
                 'module_name' => 'Presupuesto',
                 'model' => BudgetModification::class,
                 'name' => 'Modificaciones Presupuestarias',
-                'slug' => 'budget.modification',
+                'slug' => 'budget_modification',
                 'description' => 'Gestión de modificaciones presupuestarias',
                 'message' => 'Se ha generado un evento en modificaciones presupuestarias'
             ],
@@ -67,7 +67,7 @@ class BudgetNotificationSettingsTableSeeder extends Seeder
                 'module_name' => 'Presupuesto',
                 'model' => BudgetProject::class,
                 'name' => 'Proyectos',
-                'slug' => 'budget.projects',
+                'slug' => 'budget_projects',
                 'description' => 'Gestión de proyectos',
                 'message' => 'Se ha generado un evento en proyectos'
             ],
@@ -76,7 +76,7 @@ class BudgetNotificationSettingsTableSeeder extends Seeder
                 'module_name' => 'Presupuesto',
                 'model' => BudgetSpecificAction::class,
                 'name' => 'Acciones Específicas',
-                'slug' => 'budget.specific.actions',
+                'slug' => 'budget_specific_actions',
                 'description' => 'Gestión de acciones específicas',
                 'message' => 'Se ha generado un evento en acciones específicas'
             ],
@@ -85,7 +85,7 @@ class BudgetNotificationSettingsTableSeeder extends Seeder
                 'module_name' => 'Presupuesto',
                 'model' => BudgetSubSpecificFormulation::class,
                 'name' => 'Formulación de Presupuesto',
-                'slug' => 'budget.subspecific.formulations',
+                'slug' => 'budget_subspecific_formulations',
                 'description' => 'Gestión de formulaciones presupuestarias',
                 'message' => 'Se ha generado un evento en formulación presupuestaria'
             ],

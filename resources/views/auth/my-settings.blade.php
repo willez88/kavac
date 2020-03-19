@@ -35,6 +35,7 @@
                         </span>
                         @php
                             $section = 'GENERAL';
+                            $switchEl = [];
                         @endphp
                         @foreach ($notifySettings as $notifySetting)
                             @if ($section !== $notifySetting->module_name)
@@ -45,7 +46,7 @@
                                     <h6 class="md-title text-center">{{ $section ?? 'GENERAL' }}</h6>
                                 </div>
                             @endif
-                            <div class="col-3 mb-4" id="{{ $notifySetting->slug }}">
+                            <div class="col-3 mb-4">
                                 <div class="form-group text-center">
                                     <label for="" class="control-label">{{ $notifySetting->name }}</label>
                                     <div class="col-12 bootstrap-switch-mini">
@@ -54,6 +55,11 @@
                                             'id' => $notifySetting->slug, 'class' => 'form-control bootstrap-switch',
                                             'data-on-label' => __('SI'), 'data-off-label' => __('NO')
                                         ]) !!}
+                                        @php
+                                            $switchEl = array_merge(
+                                                $switchEl, [$notifySetting->slug => $notifySetting->description]
+                                            );
+                                        @endphp
                                     </div>
                                 </div>
                             </div>
@@ -70,4 +76,18 @@
             {!! Form::close() !!}
         </div>
     </div>
+@stop
+
+@section('extra-js')
+    @parent
+    <script>
+        $(document).ready(function() {
+            @foreach ($switchEl as $switchId => $switchDescription)
+                $('#{{ $switchId }}').closest('.bootstrap-switch-wrapper').attr({
+                    'title': '{{ $switchDescription }}',
+                    'data-toggle': 'tooltip'
+                }).tooltip({delay: 8});
+            @endforeach
+        });
+    </script>
 @stop

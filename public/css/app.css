@@ -31898,6 +31898,16 @@ table th {
   width: 22px !important;
 }
 
+.bootstrap-switch-mini {
+  /* width: 18px !important; */
+  /* font-size: 7px; */
+  /* padding-right: 2px !important; */
+}
+
+.bootstrap-switch-mini .bootstrap-switch .bootstrap-switch-handle-off:hover {
+  width: 0px !important;
+}
+
 @-webkit-keyframes wrench {
   0% {
     -webkit-transform: rotate(-12deg);

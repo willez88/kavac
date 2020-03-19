@@ -461,7 +461,7 @@ $(document).ready(function() {
         });
     });
 
-    /** Oculta el tooltip de los elementos bootstrap switch después de unois segundos */
+    /** Oculta el tooltip de los elementos bootstrap switch después de unos segundos */
     $('.bootstrap-switch').on('shown.bs.tooltip', function() {
         setTimeout(function() {
             $('.bootstrap-switch').tooltip('hide');
