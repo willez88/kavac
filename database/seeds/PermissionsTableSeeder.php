@@ -12,6 +12,11 @@ use App\Models\Tax;
 use App\Models\TaxUnit;
 use App\Models\RequiredDocument;
 use App\Models\ExchangeRate;
+use App\Models\Currency;
+use App\Models\Deduction;
+use App\Models\Department;
+use App\Models\Document;
+use App\Models\Profession;
 use OwenIt\Auditing\Models\Audit;
 
 /**
@@ -38,10 +43,7 @@ class PermissionsTableSeeder extends Seeder
 
         $adminRole = Role::where('slug', 'admin')->first();
 
-        /**
-         * Permisos disponibles para la gestión de registros comúnes
-         */
-
+        /** @var array Permisos disponibles para la gestión de registros comúnes */
         $permissions = [
             [
                 'name' => 'Ver Logs del sistema', 'slug' => 'log.list',
@@ -200,6 +202,30 @@ class PermissionsTableSeeder extends Seeder
                 'slug_alt' => 'solicitud.documentos.ver', 'short_description' => 'ver documentos requeridos'
             ],
             [
+                'name' => 'Crear moneda', 'slug' => 'currency.create',
+                'description' => 'Acceso al registro de monedas',
+                'model' => Currency::class, 'model_prefix' => '0general',
+                'slug_alt' => 'moneda.crear', 'short_description' => 'agregar monedas'
+            ],
+            [
+                'name' => 'Editar moneda', 'slug' => 'currency.edit',
+                'description' => 'Acceso para editar monedas',
+                'model' => Currency::class, 'model_prefix' => '0general',
+                'slug_alt' => 'moneda.editar', 'short_description' => 'editar monedas'
+            ],
+            [
+                'name' => 'Eliminar moneda', 'slug' => 'currency.delete',
+                'description' => 'Acceso para eliminar monedas',
+                'model' => Currency::class, 'model_prefix' => '0general',
+                'slug_alt' => 'moneda.eliminar', 'short_description' => 'eliminar monedas'
+            ],
+            [
+                'name' => 'Ver moneda', 'slug' => 'currency.list',
+                'description' => 'Acceso para ver monedas',
+                'model' => Currency::class, 'model_prefix' => '0general',
+                'slug_alt' => 'moneda.ver', 'short_description' => 'ver monedas'
+            ],
+            [
                 'name' => 'Crear tipo de cambio', 'slug' => 'exchange.rate.create',
                 'description' => 'Acceso al registro de tipos de cambios',
                 'model' => ExchangeRate::class, 'model_prefix' => '0general',
@@ -223,7 +249,171 @@ class PermissionsTableSeeder extends Seeder
                 'model' => ExchangeRate::class, 'model_prefix' => '0general',
                 'slug_alt' => 'tipos.cambio.ver', 'short_description' => 'ver tipos de cambio'
             ],
+            [
+                'name' => 'Crear deducción / retención', 'slug' => 'deduction.create',
+                'description' => 'Acceso al registro de deducciones',
+                'model' => Deduction::class, 'model_prefix' => '0general',
+                'slug_alt' => 'deduccion.crear', 'short_description' => 'agregar deducciones'
+            ],
+            [
+                'name' => 'Editar deducción / retención', 'slug' => 'deduction.edit',
+                'description' => 'Acceso para editar deducciones',
+                'model' => Deduction::class, 'model_prefix' => '0general',
+                'slug_alt' => 'deduccion.editar', 'short_description' => 'editar deducciones'
+            ],
+            [
+                'name' => 'Eliminar deducción / retención', 'slug' => 'deduction.delete',
+                'description' => 'Acceso para eliminar deducciones',
+                'model' => Deduction::class, 'model_prefix' => '0general',
+                'slug_alt' => 'deduccion.eliminar', 'short_description' => 'eliminar deducciones'
+            ],
+            [
+                'name' => 'Ver deducción / retención', 'slug' => 'deduction.list',
+                'description' => 'Acceso para ver deducciones',
+                'model' => Deduction::class, 'model_prefix' => '0general',
+                'slug_alt' => 'deduccion.ver', 'short_description' => 'ver deducciones'
+            ],
+            [
+                'name' => 'Crear departamento', 'slug' => 'department.create',
+                'description' => 'Acceso al registro de departamentos',
+                'model' => Department::class, 'model_prefix' => '0general',
+                'slug_alt' => 'departamento.crear', 'short_description' => 'agregar departamentos'
+            ],
+            [
+                'name' => 'Editar departamento', 'slug' => 'department.edit',
+                'description' => 'Acceso para editar departamentos',
+                'model' => Department::class, 'model_prefix' => '0general',
+                'slug_alt' => 'departamento.editar', 'short_description' => 'editar departamentos'
+            ],
+            [
+                'name' => 'Eliminar departamento', 'slug' => 'department.delete',
+                'description' => 'Acceso para eliminar departamentos',
+                'model' => Department::class, 'model_prefix' => '0general',
+                'slug_alt' => 'departamento.eliminar', 'short_description' => 'eliminar departamentos'
+            ],
+            [
+                'name' => 'Ver departamento', 'slug' => 'department.list',
+                'description' => 'Acceso para ver departamentos',
+                'model' => Department::class, 'model_prefix' => '0general',
+                'slug_alt' => 'departamento.ver', 'short_description' => 'ver departamentos'
+            ],
+            [
+                'name' => 'Crear documento', 'slug' => 'document.create',
+                'description' => 'Acceso al registro de documentos',
+                'model' => Document::class, 'model_prefix' => '0general',
+                'slug_alt' => 'documento.crear', 'short_description' => 'agregar documentos'
+            ],
+            [
+                'name' => 'Editar documento', 'slug' => 'document.edit',
+                'description' => 'Acceso para editar documentos',
+                'model' => Document::class, 'model_prefix' => '0general',
+                'slug_alt' => 'documento.editar', 'short_description' => 'editar documentos'
+            ],
+            [
+                'name' => 'Eliminar documento', 'slug' => 'document.delete',
+                'description' => 'Acceso para eliminar documentos',
+                'model' => Document::class, 'model_prefix' => '0general',
+                'slug_alt' => 'documento.eliminar', 'short_description' => 'eliminar documentos'
+            ],
+            [
+                'name' => 'Ver documento', 'slug' => 'document.list',
+                'description' => 'Acceso para ver documentos',
+                'model' => Document::class, 'model_prefix' => '0general',
+                'slug_alt' => 'documento.ver', 'short_description' => 'ver documentos'
+            ],
+            [
+                'name' => 'Crear profesión', 'slug' => 'profession.create',
+                'description' => 'Acceso al registro de profesiones',
+                'model' => Profession::class, 'model_prefix' => '0general',
+                'slug_alt' => 'profesion.crear', 'short_description' => 'agregar profesiones'
+            ],
+            [
+                'name' => 'Editar profesión', 'slug' => 'profession.edit',
+                'description' => 'Acceso para editar profesiones',
+                'model' => Profession::class, 'model_prefix' => '0general',
+                'slug_alt' => 'profesion.editar', 'short_description' => 'editar profesiones'
+            ],
+            [
+                'name' => 'Eliminar profesión', 'slug' => 'profession.delete',
+                'description' => 'Acceso para eliminar profesiones',
+                'model' => Profession::class, 'model_prefix' => '0general',
+                'slug_alt' => 'profesion.eliminar', 'short_description' => 'eliminar profesiones'
+            ],
+            [
+                'name' => 'Ver profesión', 'slug' => 'profession.list',
+                'description' => 'Acceso para ver profesiones',
+                'model' => Profession::class, 'model_prefix' => '0general',
+                'slug_alt' => 'profesion.ver', 'short_description' => 'ver profesiones'
+            ],
         ];
+
+        /** @var array combina el arreglo de permisos con el arreglo de permisos para notificaciones */
+        $permissions = array_merge($permissions, [
+            [
+                'name' => 'Notificar configuración de instituciones',
+                'slug' => 'notify.institution',
+                'description' => 'Notificar sobre configuración de datos de Instituciones',
+                'model' => Institution::class, 'model_prefix' => '0general',
+                'slug_alt' => 'notificar.institucion.configurar',
+                'short_description' => 'notificar la configuración de instituciones'
+            ],
+            [
+                'name' => 'Notificar gestión de monedas',
+                'slug' => 'notify.currency',
+                'description' => 'Notificar sobre gestión de datos de monedas',
+                'model' => Currency::class, 'model_prefix' => '0general',
+                'slug_alt' => 'notificar.moneda',
+                'short_description' => 'notificar la gestión de monedas'
+            ],
+            [
+                'name' => 'Notificar gestión de deducciones / retenciones',
+                'slug' => 'notify.deduction',
+                'description' => 'Notificar sobre gestión de datos de deducciones / retenciones',
+                'model' => Deduction::class, 'model_prefix' => '0general',
+                'slug_alt' => 'notificar.deduccion',
+                'short_description' => 'notificar la gestión de deducciones / retenciones'
+            ],
+            [
+                'name' => 'Notificar gestión de impuestos',
+                'slug' => 'notify.tax',
+                'description' => 'Notificar sobre gestión de datos de impuestos',
+                'model' => Tax::class, 'model_prefix' => '0general',
+                'slug_alt' => 'notificar.impuesto',
+                'short_description' => 'notificar la gestión de impuestos'
+            ],
+            [
+                'name' => 'Notificar gestión de unidades tributarias',
+                'slug' => 'notify.taxunit',
+                'description' => 'Notificar sobre gestión de datos de unidades tributarias',
+                'model' => TaxUnit::class, 'model_prefix' => '0general',
+                'slug_alt' => 'notificar.unidad.tributaria',
+                'short_description' => 'notificar la gestión de unidades tributarias'
+            ],
+            [
+                'name' => 'Notificar gestión de departamentos',
+                'slug' => 'notify.department',
+                'description' => 'Notificar sobre gestión de datos de departamentos',
+                'model' => Department::class, 'model_prefix' => '0general',
+                'slug_alt' => 'notificar.departamento',
+                'short_description' => 'notificar la gestión de departamentos'
+            ],
+            [
+                'name' => 'Notificar gestión de documentos',
+                'slug' => 'notify.document',
+                'description' => 'Notificar sobre gestión de datos de documentos',
+                'model' => Document::class, 'model_prefix' => '0general',
+                'slug_alt' => 'notificar.departamento',
+                'short_description' => 'notificar la gestión de documentos'
+            ],
+            [
+                'name' => 'Notificar gestión de profesiones',
+                'slug' => 'notify.profession',
+                'description' => 'Notificar sobre gestión de datos de profesiones',
+                'model' => Profession::class, 'model_prefix' => '0general',
+                'slug_alt' => 'notificar.profesion',
+                'short_description' => 'notificar la gestión de profesiones'
+            ],
+        ]);
 
         DB::transaction(function () use ($permissions, $adminRole) {
             foreach ($permissions as $permission) {
