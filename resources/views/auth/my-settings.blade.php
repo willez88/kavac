@@ -43,10 +43,16 @@
                                     $section = $notifySetting->module_name;
                                 @endphp
                                 <div class="col-12 mb-4">
-                                    <h6 class="md-title text-center">{{ $section ?? 'GENERAL' }}</h6>
+                                    <h6 class="md-title text-center">
+                                        <a data-toggle="collapse" href="#collapse{{ $section ?? 'GENERAL' }}"
+                                           role="button" aria-expanded="true"
+                                           aria-controls="collapse{{ $section ?? 'GENERAL' }}">
+                                            {{ $section ?? 'GENERAL' }}
+                                        </a>
+                                    </h6>
                                 </div>
                             @endif
-                            <div class="col-3 mb-4">
+                            <div class="col-3 mb-4 collapse show" id="collapse{{ $section ?? 'GENERAL' }}">
                                 <div class="form-group text-center">
                                     <label for="" class="control-label">{{ $notifySetting->name }}</label>
                                     <div class="col-12 bootstrap-switch-mini">
