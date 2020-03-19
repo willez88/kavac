@@ -19,7 +19,10 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h6 class="card-title">{{ __('Notificaciones') }}</h6>
+            <h6 class="card-title">
+                {{ __('Notificaciones') }}
+                @include('buttons.help')
+            </h6>
             <div class="card-btns">
                 @include('buttons.previous', ['route' => url()->previous()])
                 @include('buttons.minimize')
@@ -27,20 +30,23 @@
             {!! Form::open($header_notify_settings) !!}
                 <div class="card-body">
                     <div class="row">
+                        <span class="text-muted">
+                            {{ __('Seleccione las opciones de las cuales quiere ser notificado') }}
+                        </span>
                         @php
                             $section = 'GENERAL';
                         @endphp
                         @foreach ($notifySettings as $notifySetting)
-                            @if ($section != $notifySetting->module)
-                                <div class="col-12 mb-4">
-                                    <h6 class="md-title text-center">{{ $section }}</h6>
-                                </div>
+                            @if ($section !== $notifySetting->module_name)
                                 @php
-                                    $section = $notifySetting->module;
+                                    $section = $notifySetting->module_name;
                                 @endphp
+                                <div class="col-12 mb-4">
+                                    <h6 class="md-title text-center">{{ $section ?? 'GENERAL' }}</h6>
+                                </div>
                             @endif
-                            <div class="col-2 mb-4" id="{{ $notifySetting->slug }}">
-                                <div class="form-group">
+                            <div class="col-3 mb-4" id="{{ $notifySetting->slug }}">
+                                <div class="form-group text-center">
                                     <label for="" class="control-label">{{ $notifySetting->name }}</label>
                                     <div class="col-12 bootstrap-switch-mini">
                                         {!! Form::checkbox($notifySetting->slug, true,
