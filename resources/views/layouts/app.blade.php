@@ -175,6 +175,9 @@
                     }
                 });
 
+                /** Instrucciones a implementar en campos de formularios */
+                //$("input[type=date]").attr('readonly', true);
+
                 /** oculta el mensaje de carga al renderizar por completo el DOM de la página */
                 $('.preloader').fadeOut(1000);
             });

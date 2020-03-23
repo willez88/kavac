@@ -282,19 +282,23 @@
                                 <div class="form-group">
                                     {!! Form::label('active', __('Activa'), []) !!}
                                     <div class="col-12">
-                                        {!! Form::checkbox('active', true, null, [
-                                            'id' => 'active', 'class' => 'form-control bootstrap-switch',
-                                            'data-on-label' => __('SI'), 'data-off-label' => __('NO')
-                                        ]) !!}
+                                        <div class="col-12 bootstrap-switch-mini">
+                                            {!! Form::checkbox('active', true, null, [
+                                                'id' => 'active', 'class' => 'form-control bootstrap-switch',
+                                                'data-on-label' => __('SI'), 'data-off-label' => __('NO')
+                                            ]) !!}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     {!! Form::label('default', __('Institución por defecto'), []) !!}
                                     <div class="col-12">
-                                        {!! Form::checkbox('default', true, (isset($model_institution) && $model_institution->default)?null:true, [
-                                            'id' => 'default', 'class' => 'form-control bootstrap-switch',
-                                            'data-on-label' => __('SI'), 'data-off-label' => __('NO')
-                                        ]) !!}
+                                        <div class="col-12 bootstrap-switch-mini">
+                                            {!! Form::checkbox('default', true, (isset($model_institution) && $model_institution->default)?null:true, [
+                                                'id' => 'default', 'class' => 'form-control bootstrap-switch',
+                                                'data-on-label' => __('SI'), 'data-off-label' => __('NO')
+                                            ]) !!}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -302,10 +306,12 @@
                                 <div class="form-group">
                                     {!! Form::label('retention_agent', __('Agente de Retención'), []) !!}
                                     <div class="col-12">
-                                        {!! Form::checkbox('retention_agent', true, null, [
-                                            'id' => 'retention_agent', 'class' => 'form-control bootstrap-switch',
-                                            'data-on-label' => __('SI'), 'data-off-label' => __('NO')
-                                        ]) !!}
+                                        <div class="col-12 bootstrap-switch-mini">
+                                            {!! Form::checkbox('retention_agent', true, null, [
+                                                'id' => 'retention_agent', 'class' => 'form-control bootstrap-switch',
+                                                'data-on-label' => __('SI'), 'data-off-label' => __('NO')
+                                            ]) !!}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -323,7 +329,7 @@
                                     ) !!}
                                 </div>
 							</div>
-							<div class="col-md-4">
+							<!--<div class="col-md-4">
 								<div class="form-group">
 									{!! Form::label('social_networks', __('Redes Sociales'), []) !!}
 									{!! Form::select(
@@ -333,7 +339,7 @@
 										]
 									) !!}
 								</div>
-							</div>
+							</div>-->
 						</div>
 					</div>
 					<hr>
