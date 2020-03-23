@@ -181,6 +181,8 @@
                 /** oculta el mensaje de carga al renderizar por completo el DOM de la página */
                 $('.preloader').fadeOut(1000);
             });
+            /** Establece el tema por defecto, para elementos select2, a bootstrap 4 */
+            $.fn.select2.defaults.set( "theme", "bootstrap" );
             /*
              * Función que permite eliminar registros mediante ajax
              *
