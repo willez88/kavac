@@ -138,6 +138,12 @@ var deleteImage = function(element_delete, id, no_image, force_delete) {
  * @param   {boolean}   stepNumber          Define si se muestra o no el número del elemento en la visita guiada
  */
 var startGuidedTour = function(steps, disableInteraction = true, stepNumber = true) {
+    var steps = steps.filter(function(currentValue) {
+        var value = currentValue.element.replace("#", "");
+        var element = document.getElementById(value);
+        return  typeof(element) !== "undefined" && element !== null;
+    });
+    console.log(steps);
     var intro = introJs();
     intro.setOptions({
         steps: steps,

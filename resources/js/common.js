@@ -138,7 +138,20 @@ var deleteImage = function(element_delete, id, no_image, force_delete) {
  * @param   {boolean}   stepNumber          Define si se muestra o no el número del elemento en la visita guiada
  */
 var startGuidedTour = function(steps, disableInteraction = true, stepNumber = true) {
+    /**
+     * Verifica si algún elemento del DOM no esta presente para filtrar los pasos a mostrar en el tour guiado solo
+     * con elemento que se encuentren presentes
+     */
+    var steps = steps.filter(function(currentValue) {
+        var value = currentValue.element.replace("#", "");
+        var element = document.getElementById(value);
+        return  typeof(element) !== "undefined" && element !== null;
+    });
+
+    /** @type {object} Inicializa el objeto para el tour guiado */
     var intro = introJs();
+
+    /** @type {object} Establece la configuración por defecto del tour guiado */
     intro.setOptions({
         steps: steps,
         nextLabel: 'Siguiente &rarr;',
@@ -151,5 +164,6 @@ var startGuidedTour = function(steps, disableInteraction = true, stepNumber = tr
         disableInteraction: disableInteraction
     });
 
+    /** Inicializa el proceso que muestra el tour guiado */
     intro.start();
 }
