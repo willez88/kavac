@@ -2086,7 +2086,7 @@ a.level-debug:hover {
 
 .input-group input[type=date] {
   padding-left: 6px !important;
-  padding-right: 6px !important;
+  /*padding-right: 6px !important;*/
 }
 
 .input-group .input-group-append .btn {
@@ -4195,16 +4195,6 @@ table th {
 .bootstrap-switch.bootstrap-switch-on:hover .bootstrap-switch-label,
 .bootstrap-switch.bootstrap-switch-off:hover .bootstrap-switch-label {
   width: 22px !important;
-}
-
-.bootstrap-switch-mini {
-  /* width: 18px !important; */
-  /* font-size: 7px; */
-  /* padding-right: 2px !important; */
-}
-
-.bootstrap-switch-mini .bootstrap-switch .bootstrap-switch-handle-off:hover {
-  width: 0px !important;
 }
 
 @-webkit-keyframes wrench {
