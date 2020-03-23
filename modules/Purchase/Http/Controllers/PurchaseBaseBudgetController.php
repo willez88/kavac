@@ -101,7 +101,6 @@ class PurchaseBaseBudgetController extends Controller
     {
         return response()->json(['records' => PurchaseBaseBudget::with(
             'currency',
-            'tax.histories',
             'purchaseRequirement.contratingDepartment',
             'purchaseRequirement.userDepartment',
             'relatable.purchaseRequirementItem.purchaseRequirement',
@@ -115,24 +114,24 @@ class PurchaseBaseBudgetController extends Controller
     public function edit($id)
     {
         $baseBudget = PurchaseBaseBudget::with(
-            'tax.histories',
             'purchaseRequirement.contratingDepartment',
             'purchaseRequirement.userDepartment',
-            'purchaseRequirement.purchaseRequirementItems.pivotPurchase',
+            'purchaseRequirement.purchaseRequirementItems',
+            'relatable'
         )->find($id);
 
         $historyTax = HistoryTax::with('tax')->whereHas('tax', function ($query) {
             $query->where('active', true);
         })->where('operation_date', '<=', date('Y-m-d'))->orderBy('operation_date', 'DESC')->first();
 
-        $requirements = PurchaseRequirement::with(
-            'contratingDepartment',
-            'userDepartment',
-            'purchaseRequirementItems'
-        )->where('requirement_status', 'WAIT')->orderBy('code', 'ASC')->get();
+        // $requirements = PurchaseRequirement::with(
+        //     'contratingDepartment',
+        //     'userDepartment',
+        //     'purchaseRequirementItems'
+        // )->where('requirement_status', 'WAIT')->orderBy('code', 'ASC')->get();
 
         return view('purchase::requirements.base_budget', [
-                    'requirements' => $baseBudget['purchaseRequirement']->merge($requirements),
+                    'requirements' => json_encode([0 => $baseBudget['purchaseRequirement']]),
                     'tax'          => json_encode($historyTax),
                     'currencies'   => json_encode($this->currencies),
                     'baseBudget'   => $baseBudget,

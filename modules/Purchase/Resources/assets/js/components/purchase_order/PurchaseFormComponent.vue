@@ -144,7 +144,7 @@
                                     <td style="border: 1px solid #dee2e6;" tabindex="0" width="16.65%"></td>
                                     <td style="border: 1px solid #dee2e6;" tabindex="0" width="16.75%"></td>
                                     <td style="border: 1px solid #dee2e6;" tabindex="0" width="16.75%">
-                                        <h6 align="right">SUB TOTAL {{ currency_symbol }}</h6>
+                                        <h6 align="right">SUB-TOTAL {{ currency_symbol }}</h6>
                                     </td>
                                     <td style="border: 1px solid #dee2e6;" tabindex="0" width="20%">
                                         <h6 align="right">{{ sub_total.toFixed((record.currency)?currency_decimal_places:'') }}</h6>
@@ -182,41 +182,6 @@
         </div>
         <div class="card-footer text-right">
             <buttonsDisplay route_list="/purchese/purchase_order" display="false" />
-        </div>
-
-        
-        <div class="modal fade text-left" tabindex="-1" role="dialog" id="modal-upload-file">
-            <div class="modal-dialog vue-crud" role="document" style="min-width: 50% !important;">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="reset" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                        <h6>
-                            <i class="fa fa-list inline-block"></i>
-                            Cargar archivo proforma / cotización
-                        </h6>
-                    </div>
-                    <!-- Fromulario -->
-                    <div class="modal-body">
-                        <div>
-                            <label class="custom-control">
-                                Cargar archivo
-                                <button type="button" data-toggle="tooltip"
-                                        class="btn btn-sm btn-info btn-import"
-                                        title="Presione para subir el archivo del documento."
-                                        @click="setFile('file_document')">
-                                    <i class="fa fa-upload"></i>
-                                </button>
-                                <input type="file" 
-                                        id="file_document" 
-                                        @change="uploadFile('file_document')"
-                                        style="display:none;">
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 </template>
@@ -366,14 +331,21 @@ export default{
         this.table2_options.filterable = [];
     },
     mounted(){
-        this.records = this.requirements;
-        if (this.record_edit) {
-            this.load_data_edit = true;
-            this.currency_id = this.record_edit.currency_id;
-            this.purchase_supplier_id = this.record_edit.purchase_supplier_id;
+        const vm = this;
 
-            for (var i = 0; i < this.record_edit.purchase_requirement.length; i++) {
-                this.addToList(this.record_edit.purchase_requirement[i]);
+        vm.records = vm.requirements;
+        if (vm.record_edit) {
+            vm.load_data_edit = true;
+            vm.currency_id = vm.record_edit.currency_id;
+            vm.purchase_supplier_id = vm.record_edit.purchase_supplier_id;
+
+            var prices = [];
+            for (var i = 0; i < vm.record_edit.relatable.length; i++) {
+                prices[vm.record_edit.relatable[i].purchase_requirement_item_id] = vm.record_edit.relatable[i].unit_price;
+            }
+
+            for (var i = 0; i < vm.record_edit.purchase_requirement.length; i++) {
+                vm.addToList(vm.record_edit.purchase_requirement[i], prices);
             }
         }
     },
@@ -427,13 +399,13 @@ export default{
             });
         },
 
-        addToList:function(record) {
+        addToList:function(record, prices) {
             var pos = this.indexOf(this.requirement_list, record.id);
                 // se agregan a la lista a guardar
                 if (pos == -1) {
                     for (var i = 0; i < record.purchase_requirement_items.length; i++) {
                         record.purchase_requirement_items[i].requirement_code = record.code;
-                        record.purchase_requirement_items[i].unit_price = 0;
+                        record.purchase_requirement_items[i].unit_price = (prices)?prices[record.purchase_requirement_items[i].id]:0;
                     }
 
                     // saca de la lista de registros eliminar
@@ -510,28 +482,21 @@ export default{
         },
 
         createRecord(){
-            const vm = this;
-            vm.record.products = vm.record_products;
 
-            $("#modal-upload-file").modal("show");
-        },
-
-        uploadFile(id){
-
-            if (id == 'acta_inicio' || id == 'invitation_bussiness') {
-                $('#status_'+id).show('slow');
-                return;
-            }
+            // if (id == 'acta_inicio' || id == 'invitation_bussiness') {
+            //     $('#status_'+id).show('slow');
+            //     return;
+            // }
 
             /** Se obtiene y da formato para enviar el archivo a la ruta */
             let vm = this;
             var formData = new FormData();
-            var inputFile = document.querySelector('#'+id);
-            formData.append("file", inputFile.files[0]);
+            // var inputFile = document.querySelector('#'+id);
+            // formData.append("file", inputFile.files[0]);
             formData.append("purchase_supplier_id", this.purchase_supplier_id);
             formData.append("currency_id", this.currency_id);
+            formData.append("subtotal", this.sub_total);
             formData.append("requirement_list", JSON.stringify(this.requirement_list) );
-            formData.append("requirement_list_deleted", JSON.stringify(this.requirement_list_deleted));
             vm.loading = true;
              
             if (!this.record_edit) {
@@ -542,7 +507,7 @@ export default{
                 }).then(response => {
                     vm.showMessage('store');
                     vm.loading = false;
-
+                    location.href = this.route_list;
                 }).catch(error => {
                     if (typeof(error.response) !== "undefined") {
                         if (error.response.status == 422 || error.response.status == 500) {
@@ -556,6 +521,8 @@ export default{
                     vm.loading = false;
                 });
             }else{
+                formData.append("list_to_delete", JSON.stringify(this.requirement_list_deleted));
+
                 axios.post('/purchase/purchase_order/'+this.record_edit.id, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -563,6 +530,7 @@ export default{
                 }).then(response => {
                     vm.showMessage('update');
                     vm.loading = false;
+                    location.href = this.route_list;
 
                 }).catch(error => {
                     if (typeof(error.response) !== "undefined") {

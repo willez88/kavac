@@ -56,5 +56,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CurrenciesTableSeeder::class);
         /** Unidades de medida */
         $this->call(MeasurementUnitsTableSeeder::class);
+        /** Configuración de notificaciones en aplicación base */
+        $this->call(CoreNotificationSettingsTableSeeder::class);
     }
 }

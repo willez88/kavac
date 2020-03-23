@@ -35,7 +35,7 @@ class PurchaseSettingController extends Controller
         /** @var object Contiene información sobre la configuración de código para la requisición */
         $rqCode = $codeSettings->where('table', 'purchase_requirements')->first();
         /** @var object Contiene información sobre la configuración de código para la cotización */
-        $quCode = $codeSettings->where('table', 'purchase_quotions')->first();
+        $quCode = $codeSettings->where('table', 'purchase_quotations')->first();
         /** @var object Contiene información sobre la configuración de código para la acta */
         $miCode = $codeSettings->where('table', 'purchase_minutes')->first();
         /** @var object Contiene información sobre la configuración de código para la orden de compra */
@@ -66,12 +66,12 @@ class PurchaseSettingController extends Controller
     {
         /** Reglas de validación para la configuración de códigos */
         $request->validate([
-            'requirements_code' => [new CodeSettingRule],
-            'quotions_code' => [new CodeSettingRule],
-            'minutes_code' => [new CodeSettingRule],
-            'buy-orders_code' => [new CodeSettingRule],
+            'requirements_code'   => [new CodeSettingRule],
+            'quotations_code'     => [new CodeSettingRule],
+            'minutes_code'        => [new CodeSettingRule],
+            'buy-orders_code'     => [new CodeSettingRule],
             'service-orders_code' => [new CodeSettingRule],
-            'refunds_code' => [new CodeSettingRule],
+            'refunds_code'        => [new CodeSettingRule],
         ]);
 
         /** @var array Arreglo con información de los campos de códigos configurados */
@@ -90,10 +90,10 @@ class PurchaseSettingController extends Controller
                     case 'requirements':
                         $model = PurchaseRequirement::class;
                         break;
-                    /*case 'quotions':
-                        $model = PurchaseQuotion::class;
+                    case 'quotations':
+                        $model = PurchaseQuotation::class;
                         break;
-                    case 'minutes':
+                    /*case 'minutes':
                         $model = PurchaseMinute::class;
                         break;
                     case 'buy-orders':

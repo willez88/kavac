@@ -26,7 +26,7 @@ class PurchaseBaseBudget extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['currency_id', 'tax_id'];
+    protected $fillable = ['currency_id', 'subtotal'];
 
     /**
      * PurchaseBaseBudget belongs to Currency.
@@ -40,24 +40,14 @@ class PurchaseBaseBudget extends Model implements Auditable
     }
 
     /**
-     * PurchaseBaseBudget belongs to Tax.
+     * PurchaseBaseBudget has one PurchaseRequirement.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function tax()
-    {
-        // belongsTo(RelatedModel, foreignKey = tax_id, keyOnRelatedModel = id)
-        return $this->belongsTo(Tax::class);
-    }
-    /**
-     * PurchaseBaseBudget has many PurchaseRequirement.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function purchaseRequirement()
     {
-        // hasMany(RelatedModel, foreignKeyOnRelatedModel = purchaseBaseBudget_id, localKey = id)
-        return $this->hasMany(PurchaseRequirement::class);
+        // hasOne(RelatedModel, foreignKeyOnRelatedModel = purchaseBaseBudget_id, localKey = id)
+        return $this->hasOne(PurchaseRequirement::class);
     }
 
     /**
@@ -69,5 +59,16 @@ class PurchaseBaseBudget extends Model implements Auditable
     {
         // morphMany(MorphedModel, morphableName, type = able_type, relatedKeyName = able_id, localKey = id)
         return $this->morphMany(PurchasePivotModelsToRequirementItem::class, 'relatable');
+    }
+
+    /**
+     * PurchaseBaseBudget has many PurchaseEstimates.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function purchaseQuotations()
+    {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = purchaseBaseBudget_id, localKey = id)
+        return $this->hasMany(PurchaseEstimates::class);
     }
 }

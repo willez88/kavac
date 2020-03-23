@@ -33,14 +33,16 @@
                                              :currencies="{{ $currencies }}"
                                              :tax="{{ $tax }}"
                                              :tax_unit="{{ $tax_unit }}"
-                                             :suppliers="{{ $suppliers }}" />
+                                             :suppliers="{{ $suppliers }}"
+                                             route_list="/purchase/purchase_order" />
                     @else
                         <purchase-order-form :requirements="{{ $requirements }}"
                                                  :currencies="{{ $currencies }}"
                                                  :tax="{{ $tax }}"
                                                  :tax_unit="{{ $tax_unit }}"
                                                  :suppliers="{{ $suppliers }}"
-                                                 :record_edit="{{ $record_edit }}"/>
+                                                 :record_edit="{{ $record_edit }}"
+                                                 route_list="/purchase/purchase_order" />
                     @endif
                 </div>
             </div>

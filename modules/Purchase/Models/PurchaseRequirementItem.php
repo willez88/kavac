@@ -70,7 +70,7 @@ class PurchaseRequirementItem extends Model implements Auditable
     public function pivotPurchase()
     {
         // hasOne(RelatedModel, foreignKeyOnRelatedModel = purchaseRequirementItem_id, localKey = id)
-        return $this->hasOne(PurchasePivotModelsToRequirementItem::class);
+        return $this->hasMany(PurchasePivotModelsToRequirementItem::class);
     }
 
     /**

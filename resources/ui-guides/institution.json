@@ -2,18 +2,22 @@
     {
         "element" : "#helpInstitutionImgs",
         "intro" : "Corresponde a las imágenes institucionales, logotipo y banner o cintillo",
+        "position": "top"
     },
     {
         "element" : "#helpInstitutionBasicData",
-        "intro" : "Corresponde a los datos básicos que identifican a la institución. Tome en cuenta que aquellos campos con (*) son obligatorios"
+        "intro" : "Corresponde a los datos básicos que identifican a la institución. Tome en cuenta que aquellos campos con (*) son obligatorios",
+        "position": "top"
     },
     {
         "element" : "#helpInstitutionComplementaryData",
-        "intro" : "Corresponde a los datos con información complementaria de la institución, Esta información es opcional"
+        "intro" : "Corresponde a los datos con información complementaria de la institución, Esta información es opcional",
+        "position": "top"
     },
     {
         "element" : "#helpInstitutionList",
-        "intro" : "Muestra un listado de instituciones registradas. Este elemento solo será mostrado siempre y cuando la aplicación se encuentre configurada para la gestión de múltiples instituciones"
+        "intro" : "Muestra un listado de instituciones registradas. Este elemento solo será mostrado siempre y cuando la aplicación se encuentre configurada para la gestión de múltiples instituciones",
+        "position": "top"
     },
     {
         "element" : "#helpInstitutionButtons",

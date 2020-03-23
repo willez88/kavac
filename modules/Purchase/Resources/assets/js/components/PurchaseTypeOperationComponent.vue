@@ -5,7 +5,7 @@
            data-toggle="tooltip"
            @click="addRecord('add_purchase_type_operation', '/purchase/type_operations', $event)">
             <i class="fa fa-tag ico-3x"></i>
-            <span>Tipos de<br>Operaciones <br>de compra</span>
+            <span>Tipos de<br>Operaciones</span>
         </a>
         <div class="modal fade text-left" tabindex="-1" role="dialog" id="add_purchase_type_operation">
             <div class="modal-dialog vue-crud" role="document">
@@ -60,8 +60,8 @@
                                         <i class="fa fa-edit"></i>
                                     </button>
                                     <button @click="deleteRecord(props.index,'/purchase/type_operations')"
-                                            class="btn btn-danger btn-xs btn-icon btn-action" 
-                                            title="Eliminar registro" 
+                                            class="btn btn-danger btn-xs btn-icon btn-action"
+                                            title="Eliminar registro"
                                             data-toggle="tooltip" >
                                         <i class="fa fa-trash-o"></i>
                                     </button>

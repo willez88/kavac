@@ -1,17 +1,86 @@
 site_name: Documentación de Usuario.
 nav:
-    - Inicio: index.md
-    - Información General: information.md
-    - Instalación: installation.md 
-    - Administración del sistema: 
-                    - 'Panel de Control': 'control_panel.md'
-                    - 'Configuración': 'settings.md'
+      - Inicio: index.md
+      - Información General: information.md
+      - Instalación: installation.md
+      - Panel de Control: control_panel.md
+      - Configuración: settings.md  
+      - Acerca de: 
+        - Acerca del Sistema KAVAC: about_kavac/about.md 
+        - Un software Innovador: about_kavac/innovative_software.md
+      - Gestión de proyecto: 
+        - Metodología de desarrollo: project_management/development_methodology.md 
+      - Preguntas frecuentes: 
+        - Preguntas frecuentes: frequent_questions/frequent_questions.md  
+        
 
-markdown_extensions:
-    - toc:
-        permalink: "¶"
-        separator: "_"            
-             
-            
+    
+# Project information
+site_description: A Material Design theme for MkDocs
+# site_author: 
+# site_url:
+
+# # Repository
+# repo_name: 
+# repo_url: 
+
+
+# Copyright
+# copyright: ''
+
+# Configuration
+theme:
+  name: null
+  custom_dir: material
+
+  # 404 page
+  static_templates:
+    - 404.html
+
+  # Don't include MkDocs' JavaScript
+  include_search_page: false
+  search_index_only: true
+
+  # Default values, taken from mkdocs_theme.yml
+  language: en
+  feature:
+    tabs: true
+  palette:
+    primary: blue
+    accent:  blue
+  font:
+    text: Roboto
+    code: Roboto Mono
+  favicon: assets/images/favicon.ico
+  logo: assets/images/logo.png  
+
+# Plugins
+plugins:
+  - search
+  - minify:
+      minify_html: true
+
+# Customization
+# extra:
+#   social:
+#     - type: globe
+#       link: 
+#     - type: github-alt
+#       link: 
+#     - type: twitter
+#       link: 
+#     - type: linkedin
+#       link: 
+
+
+
+
+
+
+
+
+
+
+
             
 

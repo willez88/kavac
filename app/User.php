@@ -76,6 +76,16 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
     }
 
     /**
+     * User belongs to Many NotificationSetting.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function notificationSettings()
+    {
+        return $this->belongsToMany(Models\NotificationSetting::class)->withPivot('type');
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getIdentifier()

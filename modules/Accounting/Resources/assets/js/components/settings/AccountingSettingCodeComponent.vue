@@ -26,7 +26,7 @@
                                 <li>digitos (requerido): 6 carácteres (mínimo), 8 carácteres (máximo)</li>
                                 <li>año (requerido): 2 o 4 caracteres (YY o YYYY)</li>
                             </ul>
-                            <strong>Longitud total máxima:</strong> 20 carácteres<br>
+                            <strong>Longitud total máxima:</strong> 17 carácteres<br>
                             <strong>Ej.</strong> XXX-000000000-YYYY
                         </span>
                     </div>

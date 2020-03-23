@@ -32,7 +32,10 @@
             </a>
         </li>
         <li>
-            <a href="#">Cotización</a>
+            <a href="{{ route('purchase.quotation.index') }}"
+                title="Gestión de cotizaciones" data-toggle="tooltip" data-placement="right">
+                Cotización
+            </a>
         </li>
         <li>
             <a href="#">Acta</a>

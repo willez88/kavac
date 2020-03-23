@@ -143,7 +143,8 @@ class InstitutionController extends Controller
         $fiscalYear = FiscalYear::firstOrCreate(
             ['year' => ($execution) ? $execution->year : $year, 'active' => true]
         );
-        $exec_year = Crypt::encrypt($fiscalYear->year);
+        //$exec_year = Crypt::encrypt($fiscalYear->year);
+        $exec_year = $fiscalYear->year;
 
         return response()->json(['result' => true, 'year' => $exec_year], 200);
     }

@@ -47,13 +47,21 @@ class AccountingEntryController extends Controller
     */
     public function pdf($id)
     {
-        $entry = AccountingEntry::with(
-            'accountingAccounts.account.accountConverters.budgetAccount',
-            'currency'
-        )->find($id);
 
         // Validar acceso para el registro
         $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+
+        if ($user_profile && $user_profile['institution']) {
+            $entry = AccountingEntry::with(
+                'accountingAccounts.account.accountConverters.budgetAccount',
+                'currency'
+            )->where('institution_id', $user_profile['institution']['id'])->find($id);
+        } else {
+            $entry = AccountingEntry::with(
+                'accountingAccounts.account.accountConverters.budgetAccount',
+                'currency'
+            )->find($id);
+        }
 
         if ($entry && $entry->queryAccess($user_profile['institution']['id'])) {
             return view('errors.403');
@@ -76,7 +84,14 @@ class AccountingEntryController extends Controller
         /*
          *  Definicion de las caracteristicas generales de la página pdf
          */
-        $institution = Institution::find(1);
+        $institution = null;
+
+        if ($user_profile && $user_profile['institution']) {
+            $institution = Institution::find($user_profile['institution']['id']);
+        } else {
+            $institution = Institution::first();
+        }
+
         $pdf->setConfig(['institution' => $institution, 'urlVerify' => url(' entries/pdf/'.$id)]);
         $pdf->setHeader('Reporte de Contabilidad', 'Reporte de asiento contable');
         $pdf->setFooter();

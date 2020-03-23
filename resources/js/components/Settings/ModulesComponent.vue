@@ -57,7 +57,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-6 mb-4" v-for="module in modules">
-                            <div class="list-group">
+                            <div class="list-group list-group-modules">
                                 <a href="javascript:void(0);" class="list-group-item" data-toggle="tooltip"
                                    :data-original-title="'Ver detalles del módulo de ' + module.name"
                                    @click="viewDetails(module.alias)">

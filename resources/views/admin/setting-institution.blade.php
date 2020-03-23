@@ -136,7 +136,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-4">
-								<div class="form-group">
+								<div class="form-group is-required{{ $errors->has('acronym') ? ' has-error' : '' }}">
 									{!! Form::label('acronym', __('Acrónimo (Nombre Corto)'), []) !!}
 									{!! Form::text('acronym',
 										(isset($model_institution))?$model_institution->acronym:old('acronym'), [
@@ -267,28 +267,69 @@
 								</div>
 							</div>
 						</div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group is-required">
+                                    {!! Form::label('legal_address', __('Dirección Fiscal'), []) !!}
+                                    {!! Form::textarea('legal_address', null, [
+                                        'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip',
+                                        'title' => __('Indique la dirección fiscal de la institución  (requerido)'),
+                                        'id' => 'legal_address'
+                                    ]) !!}
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    {!! Form::label('active', __('Activa'), []) !!}
+                                    <div class="col-12">
+                                        <div class="col-12 bootstrap-switch-mini">
+                                            {!! Form::checkbox('active', true, null, [
+                                                'id' => 'active', 'class' => 'form-control bootstrap-switch',
+                                                'data-on-label' => __('SI'), 'data-off-label' => __('NO')
+                                            ]) !!}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    {!! Form::label('default', __('Institución por defecto'), []) !!}
+                                    <div class="col-12">
+                                        <div class="col-12 bootstrap-switch-mini">
+                                            {!! Form::checkbox('default', true, (isset($model_institution) && $model_institution->default)?null:true, [
+                                                'id' => 'default', 'class' => 'form-control bootstrap-switch',
+                                                'data-on-label' => __('SI'), 'data-off-label' => __('NO')
+                                            ]) !!}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    {!! Form::label('retention_agent', __('Agente de Retención'), []) !!}
+                                    <div class="col-12">
+                                        <div class="col-12 bootstrap-switch-mini">
+                                            {!! Form::checkbox('retention_agent', true, null, [
+                                                'id' => 'retention_agent', 'class' => 'form-control bootstrap-switch',
+                                                'data-on-label' => __('SI'), 'data-off-label' => __('NO')
+                                            ]) !!}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 						<div class="row">
 							<div class="col-md-4">
-								<div class="form-group is-required">
-									{!! Form::label('legal_address', __('Dirección Fiscal'), []) !!}
-									{!! Form::textarea('legal_address', null, [
-										'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip',
-										'title' => __('Indique la dirección fiscal de la institución  (requerido)'),
-										'id' => 'legal_address'
-									]) !!}
-								</div>
+                                <div class="form-group">
+                                    {!! Form::label('web', __('Sitio Web'), []) !!}
+                                    {!! Form::text('web',
+                                        (isset($model_institution))?$model_institution->web:old('web'), [
+                                            'class' => 'form-control input-sm', 'id' => 'web',
+                                            'data-toggle' => 'tooltip',
+                                            'title' => __('Indique la URL del sitio web')
+                                        ]
+                                    ) !!}
+                                </div>
 							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									{!! Form::label('web', __('Sitio Web'), []) !!}
-									{!! Form::text('web',
-										(isset($model_institution))?$model_institution->web:old('web'), [
-											'class' => 'form-control input-sm', 'id' => 'web',
-											'data-toggle' => 'tooltip',
-											'title' => __('Indique la URL del sitio web')
-										]
-									) !!}
-								</div>
+							<!--<div class="col-md-4">
 								<div class="form-group">
 									{!! Form::label('social_networks', __('Redes Sociales'), []) !!}
 									{!! Form::select(
@@ -298,38 +339,7 @@
 										]
 									) !!}
 								</div>
-							</div>
-							<div class="col-md-2">
-								<div class="form-group">
-									{!! Form::label('active', __('Activa'), []) !!}
-									<div class="col-12">
-										{!! Form::checkbox('active', true, null, [
-											'id' => 'active', 'class' => 'form-control bootstrap-switch',
-											'data-on-label' => __('SI'), 'data-off-label' => __('NO')
-										]) !!}
-									</div>
-								</div>
-								<div class="form-group">
-									{!! Form::label('default', __('Institución por defecto'), []) !!}
-									<div class="col-12">
-										{!! Form::checkbox('default', true, (isset($model_institution) && $model_institution->default)?null:true, [
-											'id' => 'default', 'class' => 'form-control bootstrap-switch',
-											'data-on-label' => __('SI'), 'data-off-label' => __('NO')
-										]) !!}
-									</div>
-								</div>
-							</div>
-							<div class="col-md-2">
-								<div class="form-group">
-									{!! Form::label('retention_agent', __('Agente de Retención'), []) !!}
-									<div class="col-12">
-										{!! Form::checkbox('retention_agent', true, null, [
-											'id' => 'retention_agent', 'class' => 'form-control bootstrap-switch',
-											'data-on-label' => __('SI'), 'data-off-label' => __('NO')
-										]) !!}
-									</div>
-								</div>
-							</div>
+							</div>-->
 						</div>
 					</div>
 					<hr>
@@ -474,7 +484,8 @@
 		$(document).ready(function() {
 			if (typeof CkEditor !== 'undefined') {
 				$.each([
-					'legal_base', 'legal_form', 'main_activity', 'mission', 'vision', 'composition_assets'
+					'legal_address', 'legal_base', 'legal_form', 'main_activity',
+                    'mission', 'vision', 'composition_assets'
 				], function(index, element_id) {
 					CkEditor.create(document.querySelector(`#${element_id}`), {
 			            toolbar: [

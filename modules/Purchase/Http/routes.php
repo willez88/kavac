@@ -146,6 +146,18 @@ Route::group([
     ]);
     Route::post('purchase_order/{id}', 'PurchaseOrderController@updatePurchaseOrder');
 
+    /*
+     * -----------------------------------------------------------------------
+     * Rutas para la gestión de cotizaciones
+     * -----------------------------------------------------------------------
+     *
+     * Gestiona los datos de ordenes de compras
+     */
+    Route::resource('quotation', 'PurchaseQuotationController', [
+        'as'     => 'purchase',
+    ]);
+    Route::post('quotation/{id}', 'PurchaseQuotationController@updatePurchaseQuotation');
+
     Route::get('get-convertion/{currency_id}/{base_budget_currency_id}', 'PurchaseOrderController@getConvertion');
 
     /*
