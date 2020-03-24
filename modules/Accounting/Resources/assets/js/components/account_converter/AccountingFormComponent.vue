@@ -1,25 +1,21 @@
 <template>
     <div class="form-horizontal">
         <div class="card-body">
-            
+
             <accounting-show-errors ref="accountingConverterForm" />
 
             <div class="row">
-                <div class="col-1"></div>
-                <div class="col-5 is-required">
-                    <label class="control-label">Cuentas Presupuestales</label>
-                    <select2 :options="budgetOptions" v-model="budgetSelect"
-                                data-toggle="tooltip"
-                                title="Seleccione una cuenta presupuestal"></select2>
+                <div class="col-6 is-required">
+                    <label class="control-label">Cuentas Presupuestarias</label>
+                    <select2 :options="budgetOptions" v-model="budgetSelect" data-toggle="tooltip"
+                             title="Seleccione una cuenta presupuestaria"></select2>
                 </div>
-                <div class="col-5 is-required">
+                <div class="col-6 is-required">
                     <label class="control-label">Cuentas Patrimoniales</label>
-                    <select2 :options="accountingOptions" v-model="accountingSelect"
-                                data-toggle="tooltip"
-                                title="Seleccione una cuenta patrimonial"></select2>
+                    <select2 :options="accountingOptions" v-model="accountingSelect" data-toggle="tooltip"
+                             title="Seleccione una cuenta patrimonial"></select2>
                 </div>
-                <div class="col-1"></div>
-            </div> 
+            </div>
             <br><br>
             <div class="card-footer text-right">
                 <buttonsDisplay route_list="/accounting/converter" display="false"/>
@@ -69,10 +65,14 @@
         },
         mounted(){
             if (this.budget_list.length < 2) {
-                this.$refs.accountingConverterForm.showAlertMessages('No se encontraron registros de cuentas presupuestales.');
+                this.$refs.accountingConverterForm.showAlertMessages(
+                    'No se encontraron registros de cuentas presupuestarias.'
+                );
             }
             if (this.accounting_list.length < 2) {
-                this.$refs.accountingConverterForm.showAlertMessages('No se encontraron registros de cuentas patrimoniales.');
+                this.$refs.accountingConverterForm.showAlertMessages(
+                    'No se encontraron registros de cuentas patrimoniales.'
+                );
             }
         },
         methods:{
@@ -104,10 +104,10 @@
                                                         'accounting_id':vm.accountingSelect,
                                                         })
                     .then(response=>{
-                        
+
                         vm.$refs.accountingConverterForm.reset();
                         vm.showMessage('store');
-                        
+
                         vm.budgetSelect      = '';
                         vm.accountingSelect  = '';
                         vm.accountingOptions = [];

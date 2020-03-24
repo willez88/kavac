@@ -29902,6 +29902,7 @@ a.level-debug:hover {
 .bootstrap-switch-mini .bootstrap-switch {
   height: 16px !important;
   width: 46px !important;
+  margin-bottom: 0 !important;
 }
 
 .bootstrap-switch-mini .bootstrap-switch .bootstrap-switch-label {
@@ -30670,16 +30671,22 @@ a.level-debug:hover {
 /** Estilos personalizados en campos de tipo color */
 
 input[type="color"] {
-  min-height: 36px;
+  min-height: 28px;
   color: white;
   width: 60px;
   cursor: pointer;
+  padding: 5px 10px !important;
 }
 
 /** Estilos para campos de tipo number */
 
 input[type=number] {
   padding-right: 5px;
+}
+
+input[type=number].input-sm {
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
 }
 
 /** Estilos para campos textarea */

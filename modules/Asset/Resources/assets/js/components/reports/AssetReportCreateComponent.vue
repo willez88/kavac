@@ -16,9 +16,11 @@
 					<div class="form-group">
 						<label>General</label>
 						<div class="col-12">
-							<input type="radio" name="type_report" value="general" id="sel_general_report" 
-								   class="form-control bootstrap-switch bootstrap-switch-mini sel_type_report" 
-								   data-on-label="SI" data-off-label="NO">
+                            <div class="col-12 bootstrap-switch-mini">
+    							<input type="radio" name="type_report" value="general" id="sel_general_report"
+    								   class="form-control bootstrap-switch bootstrap-switch-mini sel_type_report"
+    								   data-on-label="SI" data-off-label="NO">
+                            </div>
 							<input type="hidden" v-model="record.id">
 						</div>
 					</div>
@@ -27,9 +29,11 @@
 					<div class="form-group">
 						<label>Por Clasificación</label>
 						<div class="col-12">
-							<input type="radio" name="type_report" value="clasification" id="sel_clasification_report" 
-								   class="form-control bootstrap-switch bootstrap-switch-mini sel_type_report" 
-								   data-on-label="SI" data-off-label="NO">
+                            <div class="col-12 bootstrap-switch-mini">
+    							<input type="radio" name="type_report" value="clasification" id="sel_clasification_report"
+    								   class="form-control bootstrap-switch bootstrap-switch-mini sel_type_report"
+    								   data-on-label="SI" data-off-label="NO">
+                            </div>
 						</div>
 					</div>
 				</div>
@@ -37,9 +41,11 @@
 					<div class="form-group">
 						<label>Por Dependencia</label>
 						<div class="col-12">
-							<input type="radio" name="type_report" value="dependence" id="sel_dependence_report" 
-								   class="form-control bootstrap-switch bootstrap-switch-mini sel_type_report" 
-								   data-on-label="SI" data-off-label="NO">
+                            <div class="col-12 bootstrap-switch-mini">
+    							<input type="radio" name="type_report" value="dependence" id="sel_dependence_report"
+    								   class="form-control bootstrap-switch bootstrap-switch-mini sel_type_report"
+    								   data-on-label="SI" data-off-label="NO">
+                            </div>
 						</div>
 					</div>
 				</div>
@@ -52,9 +58,11 @@
 						<div class="form-group">
 							<label>Busqueda por Periodo</label>
 							<div class="col-12">
-								<input type="radio" name="type_search" value="date" id="sel_search_date" 
-									   class="form-control bootstrap-switch bootstrap-switch-mini sel_type_search" 
-									   data-on-label="SI" data-off-label="NO">
+                                <div class="col-12 bootstrap-switch-mini">
+    								<input type="radio" name="type_search" value="date" id="sel_search_date"
+    									   class="form-control bootstrap-switch bootstrap-switch-mini sel_type_search"
+    									   data-on-label="SI" data-off-label="NO">
+                                </div>
 							</div>
 						</div>
 					</div>
@@ -63,9 +71,11 @@
 						<div class=" form-group">
 							<label>Busqueda por Mes</label>
 							<div class="col-12">
-								<input type="radio" name="type_search" value="mes" id="sel_search_mes" 
-									   class="form-control bootstrap-switch bootstrap-switch-mini sel_type_search" 
-									   data-on-label="SI" data-off-label="NO">
+                                <div class="col-12 bootstrap-switch-mini">
+    								<input type="radio" name="type_search" value="mes" id="sel_search_mes"
+    									   class="form-control bootstrap-switch bootstrap-switch-mini sel_type_search"
+    									   data-on-label="SI" data-off-label="NO">
+                                </div>
 							</div>
 						</div>
 					</div>
@@ -78,7 +88,7 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Mes:</label>
-								<select2 :options="mes" 
+								<select2 :options="mes"
 										 v-model="record.mes_id"></select2>
 		                    </div>
 						</div>
@@ -86,7 +96,7 @@
 							<div class="form-group">
 								<label>Año:</label>
 								<input type="number" data-toggle="tooltip" min="0"
-										   title="Indique el año de busqueda" 
+										   title="Indique el año de busqueda"
 										   class="form-control input-sm" v-model="record.year">
 		                    </div>
 						</div>
@@ -103,8 +113,8 @@
 				                    <span class="input-group-addon">
 				                        <i class="now-ui-icons ui-1_calendar-60"></i>
 				                    </span>
-				                    <input type="date" data-toggle="tooltip" 
-										   title="Indique la fecha minima de busqueda" 
+				                    <input type="date" data-toggle="tooltip"
+										   title="Indique la fecha minima de busqueda"
 										   class="form-control input-sm" v-model="record.start_date">
 				                </div>
 		                    </div>
@@ -116,8 +126,8 @@
 				                    <span class="input-group-addon">
 				                        <i class="now-ui-icons ui-1_calendar-60"></i>
 				                    </span>
-				                    <input type="date" data-toggle="tooltip" 
-										   title="Indique la fecha maxima de busqueda" 
+				                    <input type="date" data-toggle="tooltip"
+										   title="Indique la fecha maxima de busqueda"
 										   class="form-control input-sm" v-model="record.end_date">
 				                </div>
 		                    </div>
@@ -183,10 +193,9 @@
 
 			<div class="row">
 				<div class="col-12">
-					<button type="button" class='btn btn-sm btn-info btn-custom float-right'
-							@click="filterRecords()" v-show="this.record.type_report != ''">
+					<button type="button" class='btn btn-sm btn-info btn-custom float-right' data-toggle="tooltip"
+							@click="filterRecords()" v-show="this.record.type_report != ''" title="Buscar registros">
 						<i class="fa fa-search"></i>
-						<span>Buscar</span>
 					</button>
 				</div>
 			</div>
@@ -200,10 +209,10 @@
 				</div>
 			</div>
 			<v-client-table :columns="columns" :data="records" :options="table_options" ref="tableMax">
-				
+
 				<div slot="institution" slot-scope="props" class="text-center">
 					<span>{{ (props.row.institution)? props.row.institution.name:((props.row.institution_id)?props.row.institution_id:'N/A') }}</span>
-					
+
 				</div>
 				<div slot="condition" slot-scope="props" class="text-center">
 					<span>{{ (props.row.asset_condition)? props.row.asset_condition.name:props.row.asset_condition_id }}</span>
@@ -211,7 +220,7 @@
 				<div slot="status" slot-scope="props" class="text-center">
 					<span>{{ (props.row.asset_status)? props.row.asset_status.name:props.row.asset_status_id }}</span>
 				</div>
-				
+
 			</v-client-table>
 			<div class="VuePagination-2 row col-md-12 ">
 				<nav class="text-center">
@@ -379,7 +388,7 @@
 					start_date: '',
 					end_date: '',
 				};
-				
+
 			},
 
 			loadAssets(url) {
@@ -397,7 +406,7 @@
 			 * Cambia la pagina actual de la tabla
 			 *
 			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
-			 * 
+			 *
 			 * @param [Integer] $page Número de pagina actual
 			 */
 			changePage(page) {
@@ -489,7 +498,7 @@
 					fields = {
 						department: vm.record.department_id,
 						institution: vm.record.instituion_id
-					}	
+					}
 				}
 				if((vm.record.type_report != '')||((vm.record.type_report == 'general')&&(vm.record.type_search != ''))){
 					axios.post(url, fields).then(response => {

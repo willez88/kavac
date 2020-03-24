@@ -31,6 +31,7 @@
         "bootstrap-switch": "^3.4.0",
         "chart.js": "^2.9.3",
         "gifsicle": "^4.0.1",
+        "inputmask": "^5.0.3",
         "intro.js": "^2.9.3",
         "jquery.complexify": "^0.5.2",
         "laravel-echo": "^1.6.1",

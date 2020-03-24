@@ -2137,10 +2137,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     accounting_list: {
@@ -2179,7 +2175,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     if (this.budget_list.length < 2) {
-      this.$refs.accountingConverterForm.showAlertMessages('No se encontraron registros de cuentas presupuestales.');
+      this.$refs.accountingConverterForm.showAlertMessages('No se encontraron registros de cuentas presupuestarias.');
     }
 
     if (this.accounting_list.length < 2) {
@@ -2299,14 +2295,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2322,7 +2310,7 @@ __webpack_require__.r(__webpack_exports__);
       },
       searchActive: false,
       searchBudgetAccount: true,
-      //true: para cuentas presupuestales, false para cuentas patrimoniales
+      //true: para cuentas presupuestarias, false para cuentas patrimoniales
       convertionId: null
     };
   },
@@ -2511,7 +2499,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.table_options.headings = {
-      'codeBudget': 'CÓDIGO PRESUPUESTAL',
+      'codeBudget': 'CÓDIGO PRESUPUESTO',
       'budget_account': 'DENOMINACIÓN',
       'codeAccounting': 'CÓDIGO PATRIMONIAL',
       'accounting_account': 'DENOMINACIÓN',
@@ -2520,11 +2508,11 @@ __webpack_require__.r(__webpack_exports__);
     this.table_options.sortable = ['codeBudget', 'budget_account', 'codeAccounting', 'accounting_account'];
     this.table_options.filterable = ['codeBudget', 'budget_account', 'codeAccounting', 'accounting_account'];
     this.table_options.columnsClasses = {
-      'codeBudget': 'col-xs-1',
-      'budget_account': 'col-xs-5',
-      'codeAccounting': 'col-xs-1',
-      'accounting_account': 'col-xs-4',
-      'id': 'col-xs-1'
+      'codeBudget': 'col-xs-2',
+      'budget_account': 'col-xs-3',
+      'codeAccounting': 'col-xs-2',
+      'accounting_account': 'col-xs-3',
+      'id': 'col-xs-2'
     };
     EventBus.$on('list:conversions', function (data) {
       _this.records = data;
@@ -2543,49 +2531,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2759,7 +2704,7 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     /**
-    * Valida que los campos del código sean validos 
+    * Valida que los campos del código sean validos
     *
     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
     * @return {boolean} retorna falso si algun campo no cumple el formato correspondiente
@@ -2870,7 +2815,7 @@ __webpack_require__.r(__webpack_exports__);
       if (res != '') {
         axios.get('/accounting/get-children-account/' + res).then(function (response) {
           var account = response.data.account;
-          /** 
+          /**
            * Selecciona en pantalla la nueva cuentas
            */
 
@@ -3566,7 +3511,7 @@ __webpack_require__.r(__webpack_exports__);
           decimal_places: 0
         };
       }
-    }); // recibe un json con el id de cuenta presupuestal para agregar el registro con la
+    }); // recibe un json con el id de cuenta presupuestaria para agregar el registro con la
     // respectiva cuenta patrimonial
     //emisión:  EventBus.$emit('entries:budgetToAccount',{'id':id_budget,'value':compromise_value});
     // data = id_budget
@@ -3576,8 +3521,8 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/accounting/converter/budgetToAccount/' + data).then(function (response) {
         $('#select2').val(response.data.record.id);
         vm.addAccountingAccount(); // var pos = vm.recordsAccounting.length-1;
-        // 
-        // /* Si es positivo se suma en el lado del debe, sino en el haber */ 
+        //
+        // /* Si es positivo se suma en el lado del debe, sino en el haber */
         // if(data.value >= 0){
         //     vm.recordsAccounting[pos].value = data.value;
         // }else{
@@ -3882,14 +3827,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -4256,14 +4193,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     categories: {
@@ -4310,7 +4239,7 @@ __webpack_require__.r(__webpack_exports__);
     this.data.institution = this.institutions[0]['id'];
   },
   mounted: function mounted() {
-    /** 
+    /**
      * Evento para determinar los datos a requerir segun la busqueda seleccionada
      */
     var vm = this;
@@ -4565,7 +4494,7 @@ __webpack_require__.r(__webpack_exports__);
     * Cambia la pagina actual de la tabla
     *
     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-    * 
+    *
     * @param [Integer] $page Número de pagina actual
     */
     changePage: function changePage(page) {
@@ -4633,15 +4562,15 @@ __webpack_require__.r(__webpack_exports__);
       'reference': 'REFERENCIA',
       'concept': 'CONCEPTO',
       'total': 'TOTAL',
-      'approved': 'ESTADO DEL ASIENTO',
+      'approved': 'ESTATUS',
       'id': 'ACCIÓN'
     };
     this.table_options.sortable = [];
     this.table_options.filterable = [];
     this.table_options.columnsClasses = {
       'from_date': 'col-xs-1',
-      'reference': 'col-xs-1',
-      'denomination': 'col-xs-5',
+      'reference': 'col-xs-2',
+      'denomination': 'col-xs-4',
       'total': 'col-xs-2',
       'approved': 'col-xs-1',
       'id': 'col-xs-2'
@@ -4941,11 +4870,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     year_old: {
@@ -5145,7 +5069,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     records: {
@@ -5235,7 +5158,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -5423,6 +5345,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     year_old: {
@@ -5485,9 +5410,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
 //
 //
 //
@@ -5770,9 +5692,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
 //
 //
 //
@@ -6853,21 +6772,19 @@ var render = function() {
         _c("accounting-show-errors", { ref: "accountingConverterForm" }),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-1" }),
-          _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col-5 is-required" },
+            { staticClass: "col-6 is-required" },
             [
               _c("label", { staticClass: "control-label" }, [
-                _vm._v("Cuentas Presupuestales")
+                _vm._v("Cuentas Presupuestarias")
               ]),
               _vm._v(" "),
               _c("select2", {
                 attrs: {
                   options: _vm.budgetOptions,
                   "data-toggle": "tooltip",
-                  title: "Seleccione una cuenta presupuestal"
+                  title: "Seleccione una cuenta presupuestaria"
                 },
                 model: {
                   value: _vm.budgetSelect,
@@ -6883,7 +6800,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col-5 is-required" },
+            { staticClass: "col-6 is-required" },
             [
               _c("label", { staticClass: "control-label" }, [
                 _vm._v("Cuentas Patrimoniales")
@@ -6905,9 +6822,7 @@ var render = function() {
               })
             ],
             1
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-1" })
+          )
         ]),
         _vm._v(" "),
         _c("br"),
@@ -7044,10 +6959,7 @@ var render = function() {
                 }
               }
             },
-            [
-              _vm._v("\n                    Buscar\n                "),
-              _c("i", { staticClass: "fa fa-search" })
-            ]
+            [_c("i", { staticClass: "fa fa-search" })]
           )
         ])
       ],
@@ -7067,21 +6979,21 @@ var staticRenderFns = [
         _c(
           "label",
           { staticClass: "control-label", attrs: { for: "sel_budget_acc" } },
-          [_vm._v("Por código presupuestal")]
+          [_vm._v("Por código presupuestario")]
         ),
         _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control bootstrap-switch sel_pry_acc",
-          attrs: {
-            type: "radio",
-            name: "sel_account_type",
-            id: "sel_budget_acc",
-            "data-on-label": "SI",
-            "data-off-label": "NO"
-          }
-        })
+        _c("div", { staticClass: "col-12 bootstrap-switch-mini" }, [
+          _c("input", {
+            staticClass: "form-control bootstrap-switch sel_pry_acc",
+            attrs: {
+              type: "radio",
+              name: "sel_account_type",
+              id: "sel_budget_acc",
+              "data-on-label": "SI",
+              "data-off-label": "NO"
+            }
+          })
+        ])
       ]
     )
   },
@@ -7099,19 +7011,19 @@ var staticRenderFns = [
           [_vm._v("Por código patrimonial")]
         ),
         _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control bootstrap-switch sel_pry_acc",
-          attrs: {
-            type: "radio",
-            name: "sel_account_type",
-            id: "sel_accounting_acc",
-            checked: "true",
-            "data-on-label": "SI",
-            "data-off-label": "NO"
-          }
-        })
+        _c("div", { staticClass: "col-12 bootstrap-switch-mini" }, [
+          _c("input", {
+            staticClass: "form-control bootstrap-switch sel_pry_acc",
+            attrs: {
+              type: "radio",
+              name: "sel_account_type",
+              id: "sel_accounting_acc",
+              checked: "true",
+              "data-on-label": "SI",
+              "data-off-label": "NO"
+            }
+          })
+        ])
       ]
     )
   },
@@ -7127,19 +7039,19 @@ var staticRenderFns = [
           _vm._v("Seleccionar todas")
         ]),
         _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("input", {
-          staticClass:
-            "form-control bootstrap-switch sel_pry_acc sel_all_acc_class",
-          attrs: {
-            type: "checkbox",
-            name: "sel_account_type",
-            id: "sel_all_acc",
-            "data-on-label": "SI",
-            "data-off-label": "NO"
-          }
-        })
+        _c("div", { staticClass: "col-12 bootstrap-switch-mini" }, [
+          _c("input", {
+            staticClass:
+              "form-control bootstrap-switch sel_pry_acc sel_all_acc_class",
+            attrs: {
+              type: "checkbox",
+              name: "sel_account_type",
+              id: "sel_all_acc",
+              "data-on-label": "SI",
+              "data-off-label": "NO"
+            }
+          })
+        ])
       ]
     )
   }
@@ -7188,7 +7100,7 @@ var render = function() {
           {
             key: "budget_account",
             fn: function(props) {
-              return _c("div", { staticClass: "text-center" }, [
+              return _c("div", { staticClass: "text-justify" }, [
                 _vm._v(
                   "\n            " +
                     _vm._s(props.row.budget_account) +
@@ -7212,7 +7124,7 @@ var render = function() {
           {
             key: "accounting_account",
             fn: function(props) {
-              return _c("div", { staticClass: "text-center" }, [
+              return _c("div", { staticClass: "text-justify" }, [
                 _vm._v(
                   "\n            " +
                     _vm._s(props.row.accounting_account) +
@@ -7302,7 +7214,7 @@ var render = function() {
             { staticClass: "form-group" },
             [
               _c("label", { staticClass: "control-label" }, [
-                _vm._v("Cuenta pariente")
+                _vm._v("Cuenta de nivel superior")
               ]),
               _vm._v(" "),
               _c("select2", {
@@ -7335,7 +7247,7 @@ var render = function() {
                       expression: "record.group"
                     }
                   ],
-                  staticClass: "form-control",
+                  staticClass: "form-control input-sm",
                   attrs: {
                     type: "text",
                     onkeyup: (_vm.record.group = _vm.onlyNumbers(
@@ -7345,8 +7257,8 @@ var render = function() {
                     id: "group",
                     name: "group",
                     "data-toggle": "tooltip",
-                    title: "Grupo al que pertenece la cuenta",
-                    maxlength: "1"
+                    maxlength: "1",
+                    title: "Grupo al que pertenece la cuenta"
                   },
                   domProps: { value: _vm.record.group },
                   on: {
@@ -7372,7 +7284,7 @@ var render = function() {
                       expression: "record.subgroup"
                     }
                   ],
-                  staticClass: "form-control",
+                  staticClass: "form-control input-sm",
                   attrs: {
                     type: "text",
                     onkeyup: (_vm.record.subgroup = _vm.onlyNumbers(
@@ -7409,7 +7321,7 @@ var render = function() {
                       expression: "record.item"
                     }
                   ],
-                  staticClass: "form-control",
+                  staticClass: "form-control input-sm",
                   attrs: {
                     type: "text",
                     onkeyup: (_vm.record.item = _vm.onlyNumbers(
@@ -7446,7 +7358,7 @@ var render = function() {
                       expression: "record.generic"
                     }
                   ],
-                  staticClass: "form-control",
+                  staticClass: "form-control input-sm",
                   attrs: {
                     type: "text",
                     onkeyup: (_vm.record.generic = _vm.onlyNumbers(
@@ -7483,7 +7395,7 @@ var render = function() {
                       expression: "record.specific"
                     }
                   ],
-                  staticClass: "form-control",
+                  staticClass: "form-control input-sm",
                   attrs: {
                     type: "text",
                     onkeyup: (_vm.record.specific = _vm.onlyNumbers(
@@ -7520,7 +7432,7 @@ var render = function() {
                       expression: "record.subspecific"
                     }
                   ],
-                  staticClass: "form-control",
+                  staticClass: "form-control input-sm",
                   attrs: {
                     type: "text",
                     onkeyup: (_vm.record.subspecific = _vm.onlyNumbers(
@@ -7563,7 +7475,7 @@ var render = function() {
                   expression: "record.denomination"
                 }
               ],
-              staticClass: "form-control",
+              staticClass: "form-control input-sm",
               attrs: {
                 type: "text",
                 id: "denomination",
@@ -7594,53 +7506,59 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-12" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.record.active,
-                        expression: "record.active"
-                      }
-                    ],
-                    staticClass: "form-control bootstrap-switch",
-                    attrs: {
-                      id: "active",
-                      "data-on-label": "SI",
-                      "data-off-label": "NO",
-                      name: "active",
-                      type: "checkbox"
-                    },
-                    domProps: {
-                      checked: Array.isArray(_vm.record.active)
-                        ? _vm._i(_vm.record.active, null) > -1
-                        : _vm.record.active
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.record.active,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              _vm.$set(_vm.record, "active", $$a.concat([$$v]))
+                  _c("div", { staticClass: "col-12 bootstrap-switch-mini" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.record.active,
+                          expression: "record.active"
+                        }
+                      ],
+                      staticClass: "form-control bootstrap-switch",
+                      attrs: {
+                        id: "active",
+                        "data-on-label": "SI",
+                        "data-off-label": "NO",
+                        name: "active",
+                        type: "checkbox"
+                      },
+                      domProps: {
+                        checked: Array.isArray(_vm.record.active)
+                          ? _vm._i(_vm.record.active, null) > -1
+                          : _vm.record.active
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$a = _vm.record.active,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = null,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 &&
+                                _vm.$set(
+                                  _vm.record,
+                                  "active",
+                                  $$a.concat([$$v])
+                                )
+                            } else {
+                              $$i > -1 &&
+                                _vm.$set(
+                                  _vm.record,
+                                  "active",
+                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                )
+                            }
                           } else {
-                            $$i > -1 &&
-                              _vm.$set(
-                                _vm.record,
-                                "active",
-                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                              )
+                            _vm.$set(_vm.record, "active", $$c)
                           }
-                        } else {
-                          _vm.$set(_vm.record, "active", $$c)
                         }
                       }
-                    }
-                  })
+                    })
+                  ])
                 ])
               ])
             ])
@@ -8553,7 +8471,7 @@ var render = function() {
               [
                 _c("div", { staticClass: "form-group is-required" }, [
                   _c("label", { staticClass: "control-label" }, [
-                    _vm._v("Fecha\n\t\t\t\t\t\t")
+                    _vm._v("Fecha")
                   ]),
                   _vm._v(" "),
                   _c("input", {
@@ -8565,12 +8483,8 @@ var render = function() {
                         expression: "date"
                       }
                     ],
-                    staticClass: "form-control",
-                    attrs: {
-                      disabled: _vm.data_edit != null,
-                      type: "date",
-                      tabindex: "1"
-                    },
+                    staticClass: "form-control input-sm",
+                    attrs: { disabled: _vm.data_edit != null, type: "date" },
                     domProps: { value: _vm.date },
                     on: {
                       input: function($event) {
@@ -8587,11 +8501,98 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
+              {
+                staticClass: "col-6 offset-3",
+                attrs: { id: "helpEntriesInstitution" }
+              },
+              [
+                _c(
+                  "div",
+                  { staticClass: "form-group is-required" },
+                  [
+                    _c("label", { staticClass: "control-label" }, [
+                      _vm._v("Institución que genera")
+                    ]),
+                    _vm._v(" "),
+                    _c("select2", {
+                      attrs: { options: _vm.institutions },
+                      model: {
+                        value: _vm.institution_id,
+                        callback: function($$v) {
+                          _vm.institution_id = $$v
+                        },
+                        expression: "institution_id"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-6", attrs: { id: "helpEntriesCategory" } },
+              [
+                _c(
+                  "div",
+                  { staticClass: "form-group is-required" },
+                  [
+                    _c("label", { staticClass: "control-label" }, [
+                      _vm._v("Categoría del asiento")
+                    ]),
+                    _vm._v(" "),
+                    _c("select2", {
+                      attrs: { options: _vm.categories },
+                      model: {
+                        value: _vm.category,
+                        callback: function($$v) {
+                          _vm.category = $$v
+                        },
+                        expression: "category"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-6", attrs: { id: "helpEntriesCurrency" } },
+              [
+                _c(
+                  "div",
+                  { staticClass: "form-group is-required" },
+                  [
+                    _c("label", { staticClass: "control-label" }, [
+                      _vm._v("Tipo de moneda")
+                    ]),
+                    _vm._v(" "),
+                    _c("select2", {
+                      attrs: { options: _vm.currencies },
+                      model: {
+                        value: _vm.currency_id,
+                        callback: function($$v) {
+                          _vm.currency_id = $$v
+                        },
+                        expression: "currency_id"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
               { staticClass: "col-3", attrs: { id: "helpEntriesDescription" } },
               [
                 _c("div", { staticClass: "form-group is-required" }, [
                   _c("label", { staticClass: "control-label" }, [
-                    _vm._v("Concepto ó Descripción\n\t\t\t\t\t\t")
+                    _vm._v("Concepto ó Descripción")
                   ]),
                   _vm._v(" "),
                   _c("input", {
@@ -8603,8 +8604,8 @@ var render = function() {
                         expression: "concept"
                       }
                     ],
-                    staticClass: "form-control",
-                    attrs: { type: "text", tabindex: "1" },
+                    staticClass: "form-control input-sm",
+                    attrs: { type: "text" },
                     domProps: { value: _vm.concept },
                     on: {
                       input: function($event) {
@@ -8625,7 +8626,7 @@ var render = function() {
               [
                 _c("div", { staticClass: "form-group" }, [
                   _c("label", { staticClass: "control-label" }, [
-                    _vm._v("Observaciones\n\t\t\t\t\t\t")
+                    _vm._v("Observaciones")
                   ]),
                   _vm._v(" "),
                   _c("input", {
@@ -8637,8 +8638,8 @@ var render = function() {
                         expression: "observations"
                       }
                     ],
-                    staticClass: "form-control",
-                    attrs: { type: "text", tabindex: "1" },
+                    staticClass: "form-control input-sm",
+                    attrs: { type: "text" },
                     domProps: { value: _vm.observations },
                     on: {
                       input: function($event) {
@@ -8655,95 +8656,11 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
-              { staticClass: "col-3", attrs: { id: "helpEntriesCategory" } },
-              [
-                _c(
-                  "div",
-                  { staticClass: "form-group is-required" },
-                  [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("Categoría del asiento\n\t\t\t\t\t\t")
-                    ]),
-                    _vm._v(" "),
-                    _c("select2", {
-                      attrs: { options: _vm.categories, tabindex: "1" },
-                      model: {
-                        value: _vm.category,
-                        callback: function($$v) {
-                          _vm.category = $$v
-                        },
-                        expression: "category"
-                      }
-                    })
-                  ],
-                  1
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-3", attrs: { id: "helpEntriesInstitution" } },
-              [
-                _c(
-                  "div",
-                  { staticClass: "form-group is-required" },
-                  [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("Institución que genera\n\t\t\t\t\t\t")
-                    ]),
-                    _vm._v(" "),
-                    _c("select2", {
-                      attrs: { options: _vm.institutions, tabindex: "1" },
-                      model: {
-                        value: _vm.institution_id,
-                        callback: function($$v) {
-                          _vm.institution_id = $$v
-                        },
-                        expression: "institution_id"
-                      }
-                    })
-                  ],
-                  1
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-3", attrs: { id: "helpEntriesCurrency" } },
-              [
-                _c(
-                  "div",
-                  { staticClass: "form-group is-required" },
-                  [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("Tipo de moneda\n\t\t\t\t\t\t")
-                    ]),
-                    _vm._v(" "),
-                    _c("select2", {
-                      attrs: { options: _vm.currencies, tabindex: "1" },
-                      model: {
-                        value: _vm.currency_id,
-                        callback: function($$v) {
-                          _vm.currency_id = $$v
-                        },
-                        expression: "currency_id"
-                      }
-                    })
-                  ],
-                  1
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
               { staticClass: "col-3", attrs: { id: "helpEntriesReference" } },
               [
                 _c("div", { staticClass: "form-group" }, [
                   _c("label", { staticClass: "control-label" }, [
-                    _vm._v("Código Referencia\n\t\t\t\t\t\t")
+                    _vm._v("Código Referencia")
                   ]),
                   _c("br"),
                   _vm._v(" "),
@@ -8819,7 +8736,6 @@ var render = function() {
                         _c("label", { staticClass: "control-label" }, [
                           _vm._v("Por Institución")
                         ]),
-                        _c("br"),
                         _vm._v(" "),
                         _c("select2", {
                           attrs: { options: _vm.institutions },
@@ -8866,7 +8782,7 @@ var render = function() {
                               expression: "data.reference"
                             }
                           ],
-                          staticClass: "form-control",
+                          staticClass: "form-control input-sm",
                           attrs: {
                             disabled: _vm.typeSearch != "reference",
                             type: "text",
@@ -9118,10 +9034,7 @@ var render = function() {
                 }
               }
             },
-            [
-              _vm._v("\n\t\t\t\tBuscar \n\t\t\t\t"),
-              _c("i", { staticClass: "fa fa-search" })
-            ]
+            [_c("i", { staticClass: "fa fa-search" })]
           )
         ])
       ]
@@ -9143,18 +9056,19 @@ var staticRenderFns = [
           _c("label", { staticClass: "control-label" }, [
             _vm._v("Por Referencia")
           ]),
-          _c("br"),
           _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control bootstrap-switch sel_search",
-            attrs: {
-              type: "radio",
-              name: "sel_Search",
-              id: "sel_ref",
-              "data-on-label": "SI",
-              "data-off-label": "NO"
-            }
-          })
+          _c("div", { staticClass: "col-12 bootstrap-switch-mini" }, [
+            _c("input", {
+              staticClass: "form-control bootstrap-switch sel_search",
+              attrs: {
+                type: "radio",
+                name: "sel_Search",
+                id: "sel_ref",
+                "data-on-label": "SI",
+                "data-off-label": "NO"
+              }
+            })
+          ])
         ])
       ]
     )
@@ -9171,19 +9085,20 @@ var staticRenderFns = [
           _c("label", { staticClass: "control-label" }, [
             _vm._v("Por Categoría")
           ]),
-          _c("br"),
           _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control bootstrap-switch sel_search",
-            attrs: {
-              type: "radio",
-              name: "sel_Search",
-              id: "sel_origin",
-              checked: "true",
-              "data-on-label": "SI",
-              "data-off-label": "NO"
-            }
-          })
+          _c("div", { staticClass: "col-12 bootstrap-switch-mini" }, [
+            _c("input", {
+              staticClass: "form-control bootstrap-switch sel_search",
+              attrs: {
+                type: "radio",
+                name: "sel_Search",
+                id: "sel_origin",
+                checked: "true",
+                "data-on-label": "SI",
+                "data-off-label": "NO"
+              }
+            })
+          ])
         ])
       ]
     )
@@ -9199,18 +9114,19 @@ var staticRenderFns = [
         _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
           _vm._v("Por Período")
         ]),
-        _c("br"),
         _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control bootstrap-switch sel_filterDate",
-          attrs: {
-            type: "radio",
-            name: "sel_filter_date",
-            id: "sel_fil_date_specific",
-            "data-on-label": "SI",
-            "data-off-label": "NO"
-          }
-        })
+        _c("div", { staticClass: "col-12 bootstrap-switch-mini" }, [
+          _c("input", {
+            staticClass: "form-control bootstrap-switch sel_filterDate",
+            attrs: {
+              type: "radio",
+              name: "sel_filter_date",
+              id: "sel_fil_date_specific",
+              "data-on-label": "SI",
+              "data-off-label": "NO"
+            }
+          })
+        ])
       ]
     )
   },
@@ -9225,19 +9141,20 @@ var staticRenderFns = [
         _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
           _vm._v("Por Mes")
         ]),
-        _c("br"),
         _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control bootstrap-switch sel_filterDate",
-          attrs: {
-            type: "radio",
-            name: "sel_filter_date",
-            id: "sel_fil_date_generic",
-            checked: "true",
-            "data-on-label": "SI",
-            "data-off-label": "NO"
-          }
-        })
+        _c("div", { staticClass: "col-12 bootstrap-switch-mini" }, [
+          _c("input", {
+            staticClass: "form-control bootstrap-switch sel_filterDate",
+            attrs: {
+              type: "radio",
+              name: "sel_filter_date",
+              id: "sel_fil_date_generic",
+              checked: "true",
+              "data-on-label": "SI",
+              "data-off-label": "NO"
+            }
+          })
+        ])
       ]
     )
   }
@@ -9369,7 +9286,7 @@ var render = function() {
                 return _c("div", { staticClass: "text-right" }, [
                   _c("strong", [_vm._v("Debe: ")]),
                   _vm._v(
-                    " \n                    " +
+                    "\n                    " +
                       _vm._s(props.row.currency.symbol) +
                       " " +
                       _vm._s(
@@ -9383,7 +9300,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("strong", [_vm._v("Haber")]),
                   _vm._v(
-                    " \n                    " +
+                    "\n                    " +
                       _vm._s(props.row.currency.symbol) +
                       " " +
                       _vm._s(
@@ -10282,8 +10199,6 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
             _vm._m(4)
           ])
         ])
@@ -10350,23 +10265,23 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { attrs: { id: "helpAnaliticalMajorAllAccount" } }, [
-      _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+      _c("label", { staticClass: "control-label mt-4", attrs: { for: "" } }, [
         _vm._v("Seleccionar todas")
       ]),
       _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", {
-        staticClass:
-          "form-control bootstrap-switch sel_pry_acc sel_all_acc_class",
-        attrs: {
-          type: "checkbox",
-          name: "sel_account_type",
-          id: "sel_all_acc",
-          "data-on-label": "SI",
-          "data-off-label": "NO"
-        }
-      })
+      _c("div", { staticClass: "col-12 bootstrap-switch-mini" }, [
+        _c("input", {
+          staticClass:
+            "form-control bootstrap-switch sel_pry_acc sel_all_acc_class",
+          attrs: {
+            type: "checkbox",
+            name: "sel_account_type",
+            id: "sel_all_acc",
+            "data-on-label": "SI",
+            "data-off-label": "NO"
+          }
+        })
+      ])
     ])
   }
 ]
@@ -10556,24 +10471,23 @@ var staticRenderFns = [
       "div",
       { staticClass: "col-3", attrs: { id: "helpAuxiliaryBookAllAccount" } },
       [
-        _c("label", { staticClass: "control-label", attrs: { for: "" } }, [
+        _c("label", { staticClass: "control-label mt-4", attrs: { for: "" } }, [
           _vm._v("Seleccionar todas")
         ]),
         _vm._v(" "),
-        _c("br"),
-        _c("br"),
-        _vm._v(" "),
-        _c("input", {
-          staticClass:
-            "form-control bootstrap-switch sel_pry_acc sel_all_acc_class",
-          attrs: {
-            type: "checkbox",
-            name: "sel_account_type_auxiliary",
-            id: "sel_all_acc_auxiliary",
-            "data-on-label": "SI",
-            "data-off-label": "NO"
-          }
-        })
+        _c("div", { staticClass: "col-12 bootstrap-switch-mini" }, [
+          _c("input", {
+            staticClass:
+              "form-control bootstrap-switch sel_pry_acc sel_all_acc_class",
+            attrs: {
+              type: "checkbox",
+              name: "sel_account_type_auxiliary",
+              id: "sel_all_acc_auxiliary",
+              "data-on-label": "SI",
+              "data-off-label": "NO"
+            }
+          })
+        ])
       ]
     )
   }
@@ -10614,42 +10528,50 @@ var render = function() {
               attrs: { id: "help" + this.type_report + "InitDate" }
             },
             [
-              _c("label", { staticClass: "control-label" }, [_vm._v("Al mes")]),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("label", { staticClass: "control-label" }, [
+                    _vm._v("Mes")
+                  ]),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: { options: _vm.months },
+                    model: {
+                      value: _vm.month_init,
+                      callback: function($$v) {
+                        _vm.month_init = $$v
+                      },
+                      expression: "month_init"
+                    }
+                  })
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("br"),
-              _c("br"),
-              _vm._v(" "),
-              _c("select2", {
-                attrs: { options: _vm.months },
-                model: {
-                  value: _vm.month_init,
-                  callback: function($$v) {
-                    _vm.month_init = $$v
-                  },
-                  expression: "month_init"
-                }
-              }),
-              _vm._v(" "),
-              _c("br"),
-              _c("br"),
-              _vm._v(" "),
-              _c("label", { staticClass: "control-label" }, [_vm._v("Año")]),
-              _vm._v(" "),
-              _c("br"),
-              _c("br"),
-              _vm._v(" "),
-              _c("select2", {
-                attrs: { options: _vm.years },
-                model: {
-                  value: _vm.year_init,
-                  callback: function($$v) {
-                    _vm.year_init = $$v
-                  },
-                  expression: "year_init"
-                }
-              })
-            ],
-            1
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("label", { staticClass: "control-label" }, [
+                    _vm._v("Año")
+                  ]),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: { options: _vm.years },
+                    model: {
+                      value: _vm.year_init,
+                      callback: function($$v) {
+                        _vm.year_init = $$v
+                      },
+                      expression: "year_init"
+                    }
+                  })
+                ],
+                1
+              )
+            ]
           ),
           _vm._v(" "),
           _c(
@@ -10659,25 +10581,28 @@ var render = function() {
               attrs: { id: "help" + this.type_report + "Level" }
             },
             [
-              _c("label", { staticClass: "control-label" }, [
-                _vm._v("Nivel de consulta")
-              ]),
-              _vm._v(" "),
-              _c("br"),
-              _c("br"),
-              _vm._v(" "),
-              _c("select2", {
-                attrs: { options: _vm.levels },
-                model: {
-                  value: _vm.level,
-                  callback: function($$v) {
-                    _vm.level = $$v
-                  },
-                  expression: "level"
-                }
-              })
-            ],
-            1
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("label", { staticClass: "control-label" }, [
+                    _vm._v("Nivel de consulta")
+                  ]),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: { options: _vm.levels },
+                    model: {
+                      value: _vm.level,
+                      callback: function($$v) {
+                        _vm.level = $$v
+                      },
+                      expression: "level"
+                    }
+                  })
+                ],
+                1
+              )
+            ]
           ),
           _vm._v(" "),
           _c(
@@ -10689,13 +10614,11 @@ var render = function() {
             [
               _c(
                 "div",
+                { staticClass: "form-group" },
                 [
                   _c("label", { staticClass: "control-label" }, [
                     _vm._v("Expresar en")
                   ]),
-                  _vm._v(" "),
-                  _c("br"),
-                  _c("br"),
                   _vm._v(" "),
                   _c("select2", {
                     attrs: { options: _vm.currencies },
@@ -10720,21 +10643,22 @@ var render = function() {
               attrs: { id: "help" + this.type_report + "AllAccount" }
             },
             [
-              _vm._m(0),
-              _vm._v(" "),
-              _c("br"),
-              _c("br"),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control text-center bootstrap-switch",
-                attrs: {
-                  id: "zero" + _vm.type_report,
-                  "data-on-label": "SI",
-                  "data-off-label": "NO",
-                  name: "zero",
-                  type: "checkbox"
-                }
-              })
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-12 bootstrap-switch-mini" }, [
+                  _c("input", {
+                    staticClass: "form-control text-center bootstrap-switch",
+                    attrs: {
+                      id: "zero" + _vm.type_report,
+                      "data-on-label": "SI",
+                      "data-off-label": "NO",
+                      name: "zero",
+                      type: "checkbox"
+                    }
+                  })
+                ])
+              ])
             ]
           )
         ]),
@@ -10752,7 +10676,7 @@ var render = function() {
               }
             },
             [
-              _vm._v("\n\t\t\t\tGenerar Reporte "),
+              _vm._v("\n\t\t\t\t\tGenerar Reporte "),
               _c("i", { staticClass: "fa fa-print" })
             ]
           )
@@ -10810,37 +10734,50 @@ var render = function() {
             [
               _vm._m(0),
               _vm._v(" "),
-              _c("br"),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("label", { staticClass: "control-label" }, [
+                    _vm._v("Mes")
+                  ]),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: { options: _vm.months },
+                    model: {
+                      value: _vm.month_init,
+                      callback: function($$v) {
+                        _vm.month_init = $$v
+                      },
+                      expression: "month_init"
+                    }
+                  })
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("label", { staticClass: "control-label" }, [_vm._v("Mes")]),
-              _vm._v(" "),
-              _c("select2", {
-                attrs: { options: _vm.months },
-                model: {
-                  value: _vm.month_init,
-                  callback: function($$v) {
-                    _vm.month_init = $$v
-                  },
-                  expression: "month_init"
-                }
-              }),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(" "),
-              _c("label", { staticClass: "control-label" }, [_vm._v("Año")]),
-              _vm._v(" "),
-              _c("select2", {
-                attrs: { options: _vm.years },
-                model: {
-                  value: _vm.year_init,
-                  callback: function($$v) {
-                    _vm.year_init = $$v
-                  },
-                  expression: "year_init"
-                }
-              })
-            ],
-            1
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("label", { staticClass: "control-label" }, [
+                    _vm._v("Año")
+                  ]),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: { options: _vm.years },
+                    model: {
+                      value: _vm.year_init,
+                      callback: function($$v) {
+                        _vm.year_init = $$v
+                      },
+                      expression: "year_init"
+                    }
+                  })
+                ],
+                1
+              )
+            ]
           ),
           _vm._v(" "),
           _c(
@@ -10852,37 +10789,50 @@ var render = function() {
             [
               _vm._m(1),
               _vm._v(" "),
-              _c("br"),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("label", { staticClass: "control-label" }, [
+                    _vm._v("Mes")
+                  ]),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: { options: _vm.months },
+                    model: {
+                      value: _vm.month_end,
+                      callback: function($$v) {
+                        _vm.month_end = $$v
+                      },
+                      expression: "month_end"
+                    }
+                  })
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("label", { staticClass: "control-label" }, [_vm._v("Mes")]),
-              _vm._v(" "),
-              _c("select2", {
-                attrs: { options: _vm.months },
-                model: {
-                  value: _vm.month_end,
-                  callback: function($$v) {
-                    _vm.month_end = $$v
-                  },
-                  expression: "month_end"
-                }
-              }),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(" "),
-              _c("label", { staticClass: "control-label" }, [_vm._v("Año")]),
-              _vm._v(" "),
-              _c("select2", {
-                attrs: { options: _vm.years },
-                model: {
-                  value: _vm.year_end,
-                  callback: function($$v) {
-                    _vm.year_end = $$v
-                  },
-                  expression: "year_end"
-                }
-              })
-            ],
-            1
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("label", { staticClass: "control-label" }, [
+                    _vm._v("Año")
+                  ]),
+                  _vm._v(" "),
+                  _c("select2", {
+                    attrs: { options: _vm.years },
+                    model: {
+                      value: _vm.year_end,
+                      callback: function($$v) {
+                        _vm.year_end = $$v
+                      },
+                      expression: "year_end"
+                    }
+                  })
+                ],
+                1
+              )
+            ]
           ),
           _vm._v(" "),
           _c(
@@ -10892,28 +10842,31 @@ var render = function() {
               attrs: { id: "helpCheckupBalanceCurrency" }
             },
             [
-              _c("label", { staticClass: "control-label" }, [
-                _vm._v("Expresar en")
-              ]),
-              _vm._v(" "),
-              _c("br"),
-              _c("br"),
-              _vm._v(" "),
-              _c("select2", {
-                attrs: { options: _vm.currencies },
-                model: {
-                  value: _vm.currency,
-                  callback: function($$v) {
-                    _vm.currency = $$v
-                  },
-                  expression: "currency"
-                }
-              })
-            ],
-            1
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(2),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "mt-4" },
+                  [
+                    _c("select2", {
+                      attrs: { options: _vm.currencies },
+                      model: {
+                        value: _vm.currency,
+                        callback: function($$v) {
+                          _vm.currency = $$v
+                        },
+                        expression: "currency"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ])
+            ]
           ),
           _vm._v(" "),
-          _vm._m(2)
+          _vm._m(3)
         ])
       ],
       1
@@ -10961,27 +10914,36 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "control-label" }, [
+      _c("strong", [_vm._v("Expresar en")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c(
       "div",
       { staticClass: "col-3", attrs: { id: "helpCheckupBalanceAllAccount" } },
       [
-        _c("label", { staticClass: "text-center" }, [
-          _c("strong", [_vm._v("Mostrar valores en cero")])
-        ]),
-        _vm._v(" "),
-        _c("br"),
-        _c("br"),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control text-center bootstrap-switch",
-          attrs: {
-            id: "zero",
-            "data-on-label": "SI",
-            "data-off-label": "NO",
-            name: "zero",
-            type: "checkbox"
-          }
-        })
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { staticClass: "text-center" }, [
+            _c("strong", [_vm._v("Mostrar valores en cero")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-12 bootstrap-switch-mini mt-4" }, [
+            _c("input", {
+              staticClass: "form-control text-center bootstrap-switch",
+              attrs: {
+                id: "zero",
+                "data-on-label": "SI",
+                "data-off-label": "NO",
+                name: "zero",
+                type: "checkbox"
+              }
+            })
+          ])
+        ])
       ]
     )
   }
@@ -11032,7 +10994,7 @@ var render = function() {
                     expression: "dateIni"
                   }
                 ],
-                staticClass: "form-control is-required",
+                staticClass: "form-control input-sm",
                 attrs: { type: "date" },
                 domProps: { value: _vm.dateIni },
                 on: {
@@ -11064,7 +11026,7 @@ var render = function() {
                     expression: "dateEnd"
                   }
                 ],
-                staticClass: "form-control is-required",
+                staticClass: "form-control input-sm",
                 attrs: { type: "date" },
                 domProps: { value: _vm.dateEnd },
                 on: {
@@ -11450,12 +11412,8 @@ var render = function() {
                   _c("div", { staticClass: "row" }, [
                     _c("div", { staticClass: "card-body" }, [
                       _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-1" }),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "form-group col-5 is-required" },
-                          [
+                        _c("div", { staticClass: "col-6" }, [
+                          _c("div", { staticClass: "form-group is-required" }, [
                             _c("label", { staticClass: "control-label" }, [
                               _vm._v("Nombre")
                             ]),
@@ -11469,7 +11427,7 @@ var render = function() {
                                   expression: "record.name"
                                 }
                               ],
-                              staticClass: "form-control",
+                              staticClass: "form-control input-sm",
                               attrs: {
                                 type: "text",
                                 title: "Ingrese el nombre de la categoria",
@@ -11489,13 +11447,11 @@ var render = function() {
                                 }
                               }
                             })
-                          ]
-                        ),
+                          ])
+                        ]),
                         _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "form-group col-5 is-required" },
-                          [
+                        _c("div", { staticClass: "col-6" }, [
+                          _c("div", { staticClass: "form-group is-required" }, [
                             _c("label", { staticClass: "control-label" }, [
                               _vm._v("Acrónimo")
                             ]),
@@ -11509,7 +11465,7 @@ var render = function() {
                                   expression: "record.acronym"
                                 }
                               ],
-                              staticClass: "form-control",
+                              staticClass: "form-control input-sm",
                               attrs: {
                                 type: "text",
                                 onkeyup: (_vm.record.acronym = _vm.onlyNumbers(
@@ -11534,8 +11490,8 @@ var render = function() {
                                 }
                               }
                             })
-                          ]
-                        )
+                          ])
+                        ])
                       ])
                     ])
                   ])
@@ -11645,7 +11601,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("h6", [
         _c("i", { staticClass: "fa fa-tags inline-block" }),
-        _vm._v("\n\t\t\t\t\t\tCategorias\n\t\t\t\t\t")
+        _vm._v("\n\t\t\t\t\t\t\tCategorias\n\t\t\t\t\t\t")
       ])
     ])
   }
@@ -11910,8 +11866,8 @@ function normalizeComponent (
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/cenditel/Documentos/kavac2/kavac/modules/Accounting/Resources/assets/js/app.js */"./Resources/assets/js/app.js");
-module.exports = __webpack_require__(/*! /home/cenditel/Documentos/kavac2/kavac/modules/Accounting/Resources/assets/sass/app.scss */"./Resources/assets/sass/app.scss");
+__webpack_require__(/*! /home/rvargas/RESPALDOS/PROYECTOS/CENDITEL/kavac/modules/Accounting/Resources/assets/js/app.js */"./Resources/assets/js/app.js");
+module.exports = __webpack_require__(/*! /home/rvargas/RESPALDOS/PROYECTOS/CENDITEL/kavac/modules/Accounting/Resources/assets/sass/app.scss */"./Resources/assets/sass/app.scss");
 
 
 /***/ })

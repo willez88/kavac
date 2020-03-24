@@ -77,15 +77,21 @@
 
 /** Estilos personalizados en campos de tipo color */
 input[type="color"] {
-	min-height:36px;
+	min-height:28px;
 	color: $color-white;
 	width: 60px;
 	cursor: pointer;
+    padding: 5px 10px !important;
 }
 
 /** Estilos para campos de tipo number */
 input[type=number] {
 	padding-right:5px;
+
+    &.input-sm {
+        padding-top: 2px !important;
+        padding-bottom: 2px !important;
+    }
 }
 
 /** Estilos para campos textarea */

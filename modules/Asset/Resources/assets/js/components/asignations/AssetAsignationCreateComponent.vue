@@ -26,7 +26,7 @@
 				<div class="col-md-4" id="helpInstitution">
 					<div class="form-group is-required">
 						<label>Institución:</label>
-						<select2 :options="institutions" @input="getDepartments()" 
+						<select2 :options="institutions" @input="getDepartments()"
 								 v-model="record.institution_id"></select2>
                     </div>
 
@@ -34,7 +34,7 @@
 				<div class="col-md-4" id="helpDepartment">
 					<div class="form-group is-required">
 						<label>Departamento:</label>
-						<select2 :options="departments" @input="" 
+						<select2 :options="departments" @input=""
 								 v-model="record.department_id"></select2>
                     </div>
 
@@ -42,7 +42,7 @@
 				<div class="col-md-4" id="helpPositionType">
 					<div class="form-group">
 						<label>Puesto de Trabajo:</label>
-						<select2 :options="payroll_position_types" @input="" 
+						<select2 :options="payroll_position_types" @input=""
 								 v-model="record.payroll_position_type_id"></select2>
 						<input type="hidden" v-model="record.id">
                     </div>
@@ -50,14 +50,14 @@
 				<div class="col-md-4" id="helpPosition">
 					<div class="form-group">
 						<label>Cargo:</label>
-						<select2 :options="payroll_positions" @input="" 
+						<select2 :options="payroll_positions" @input=""
 								 v-model="record.payroll_position_id"></select2>
                     </div>
 				</div>
 				<div class="col-md-4" id="helpStaff">
 					<div class="form-group is-required">
 						<label>Trabajador:</label>
-						<select2 :options="payroll_staffs" @input="" 
+						<select2 :options="payroll_staffs" @input=""
 								 v-model="record.payroll_staff_id"></select2>
                     </div>
 				</div>
@@ -78,15 +78,15 @@
 				<div class="col-md-3" id="helpSearchAssetType">
 					<div class="form-group">
 						<label>Tipo de Bien</label>
-						<select2 :options="asset_types" @input="getAssetCategories()" 
+						<select2 :options="asset_types" @input="getAssetCategories()"
 								 v-model="record.asset_type_id"></select2>
 					</div>
 				</div>
-									
+
 				<div class="col-md-3" id="helpSearchAssetCategory">
 					<div class="form-group">
 						<label>Categoria General</label>
-						<select2 :options="asset_categories" @input="getAssetSubcategories()" 
+						<select2 :options="asset_categories" @input="getAssetSubcategories()"
 								 v-model="record.asset_category_id"
 								 title="Indique la categoria general del bien"></select2>
 					</div>
@@ -94,8 +94,8 @@
 				<div class="col-md-3" id="helpSearchAssetSubCategory">
 					<div class="form-group">
 						<label>Subcategoria</label>
-						<select2 :options="asset_subcategories" 
-								 @input="getAssetSpecificCategories()" 
+						<select2 :options="asset_subcategories"
+								 @input="getAssetSpecificCategories()"
 								 v-model="record.asset_subcategory_id"
 								 title="Indique la subcategoria del bien"></select2>
 					</div>
@@ -104,7 +104,7 @@
 				<div class="col-md-3" id="helpSearchAssetSpecificCategory">
 					<div class="form-group">
 						<label>Categoria Específica</label>
-						<select2 :options="asset_specific_categories" 
+						<select2 :options="asset_specific_categories"
 								 v-model="record.asset_specific_category_id"
 								 title="Indique la categoria específica del bien"></select2>
 					</div>
@@ -112,12 +112,10 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<button type="button" id="helpSearchButton"
-							@click="filterRecords()"class="btn btn-sm btn-primary btn-info float-right" 
-							title="Buscar registros"
-							data-toggle="tooltip">
+					<button type="button" id="helpSearchButton" @click="filterRecords()"
+                            class="btn btn-sm btn-primary btn-info float-right" title="Buscar registros"
+                            data-toggle="tooltip">
 						<i class="fa fa-search"></i>
-						Buscar
 					</button>
 				</div>
 			</div>
@@ -150,7 +148,7 @@
 						{{ (props.row.institution)?
 							props.row.institution.name:((props.row.institution_id)?props.row.institution_id:'N/A') }}
 					</span>
-					
+
 				</div>
 				<div slot="asset_condition" slot-scope="props" class="text-center">
 					<span>
@@ -199,9 +197,9 @@
 							title ="Borrar datos del formulario">
 							<i class="fa fa-eraser"></i>
 					</button>
-					
-		        	<button type="button" 
-		        			class="btn btn-warning btn-icon btn-round btn-modal-close" 
+
+		        	<button type="button"
+		        			class="btn btn-warning btn-icon btn-round btn-modal-close"
 		        			data-dismiss="modal"
 		        			title="Cancelar y regresar">
 		        			<i class="fa fa-ban"></i>
@@ -223,7 +221,7 @@
 	.selected-row {
 		background-color: #d1d1d1 !important;
 	}
-	
+
 </style>
 
 <script>
@@ -235,7 +233,7 @@
 					payroll_position_type_id: '',
 					payroll_position_id: '',
 					payroll_staff_id: '',
-					
+
 					institution_id: '',
 					department_id: '',
 
@@ -326,8 +324,8 @@
 				this.selected.push(this.assetid);
 		},
 		props: {
-			asignationid: Number, 
-			assetid: Number, 
+			asignationid: Number,
+			assetid: Number,
 		},
 		methods: {
 			toggleActive({ row })
@@ -359,7 +357,7 @@
 					payroll_position_type_id: '',
 					payroll_position_id: '',
 					payroll_staff_id: '',
-					
+
 					institution_id: '',
 
 					asset_type_id: '',
@@ -369,7 +367,7 @@
 				};
 				this.selected = [];
 				this.selectAll = false;
-				
+
 			},
 			select()
 			{
@@ -377,7 +375,7 @@
 				vm.selected = [];
 				$.each(vm.records, function(index,campo){
 					var checkbox = document.getElementById('checkbox_' + campo.id);
-					
+
 					if(!vm.selectAll)
 						vm.selected.push(campo.id);
 					else if(checkbox && checkbox.checked){
@@ -389,7 +387,7 @@
 			 * Cambia la pagina actual de la tabla
 			 *
 			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
-			 * 
+			 *
 			 * @param [Integer] $page Número de pagina actual
 			 */
 			changePage(page) {
@@ -424,7 +422,7 @@
 			{
 				const vm = this;
 	            var fields = {};
-	            
+
 	            axios.get('/asset/asignations/vue-info/'+id).then(response => {
 	                if(typeof(response.data.records != "undefined")){
 

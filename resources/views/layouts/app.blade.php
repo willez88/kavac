@@ -45,6 +45,8 @@
             window.debug = {!! (config('app.debug')) ? 'true' : 'false' !!};
             /** @type {string} Define la URI de la aplicación */
             window.app_url = `${location.protocol}//${location.host}`;
+            /** @type {String} Define el idioma actual de la aplicación */
+            window.currentLocale = '{{ app()->getLocale() }}';
             @auth
                 /** @type {array} Lista de módulos instalados y habilitados */
                 window.modules = [];

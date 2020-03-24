@@ -29,13 +29,12 @@
 					<select2 :options="currencies" v-model="currency"></select2>
 				</div>
                 <div class="col-3" id="helpAuxiliaryBookAllAccount">
-                    <label for="" class="control-label">Seleccionar todas</label>
-                    <br><br>
-                    <input type="checkbox"
-                            name="sel_account_type_auxiliary"
-                            id="sel_all_acc_auxiliary"
-                            data-on-label="SI" data-off-label="NO"
-                            class="form-control bootstrap-switch sel_pry_acc sel_all_acc_class">
+                    <label for="" class="control-label mt-4">Seleccionar todas</label>
+                    <div class="col-12 bootstrap-switch-mini">
+                        <input type="checkbox" name="sel_account_type_auxiliary" id="sel_all_acc_auxiliary"
+                               data-on-label="SI" data-off-label="NO"
+                               class="form-control bootstrap-switch sel_pry_acc sel_all_acc_class">
+                    </div>
                 </div>
 			</div>
 		</div>
@@ -123,7 +122,7 @@
                     this.$refs.errorAuxiliaryBook.showAlertMessages(errors);
                     return;
                 }
-                
+
                 this.$refs.errorAuxiliaryBook.reset();
                 var acc = (this.account_id == 0 && this.allAccounts)?'':'0';
 				return ( this.url+(this.year_init+'-'+this.month_init)+'/'+this.currency+'/'+acc );

@@ -35,13 +35,13 @@
 								<div class="alert-icon">
 									<i class="now-ui-icons objects_support-17"></i>
 								</div>
-								<strong>Atención!</strong><br> La funcionalidad de conversión de cuentas presupuestales con patrimoniales esta inhabilitada, para habilitarla debe instalar ó activar el modulo de
+								<strong>Atención!</strong><br> La funcionalidad de conversión de cuentas presupuestarias con patrimoniales esta inhabilitada, para habilitarla debe instalar ó activar el modulo de
 								<a href="{{ route('module.list') }}" style="color: black;"><strong>Presupuesto</strong></a>
 							</div>
 						</div>
 					@else
-						<accounting-conversion-form :accounting_list="{{ $accountingAccounts }}" 
-													:budget_list="{{ $budgetAccounts }}" 
+						<accounting-conversion-form :accounting_list="{{ $accountingAccounts }}"
+													:budget_list="{{ $budgetAccounts }}"
 													:account_to_edit="{{ $account }}"
 													route_list="{{ route('accounting.converter.index') }}" />
 					@endif

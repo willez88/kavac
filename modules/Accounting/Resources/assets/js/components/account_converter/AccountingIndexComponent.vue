@@ -5,52 +5,44 @@
 
             <div class="row">
                 <div class="col-2" id="helpSearchSelectBudget">
-                    <label for="sel_budget_acc" class="control-label">Por código presupuestal</label>
-                    <br>
-                        <input type="radio"
-                                name="sel_account_type"
-                                id="sel_budget_acc"
-                                data-on-label="SI" data-off-label="NO"
-                                class="form-control bootstrap-switch sel_pry_acc">
+                    <label for="sel_budget_acc" class="control-label">Por código presupuestario</label>
+                    <div class="col-12 bootstrap-switch-mini">
+                        <input type="radio" name="sel_account_type" id="sel_budget_acc" data-on-label="SI"
+                               data-off-label="NO" class="form-control bootstrap-switch sel_pry_acc">
+                    </div>
                 </div>
                 <div class="col-2" id="helpSearchSelectAccounting">
                     <label for="sel_account_type" class="control-label">Por código patrimonial</label>
-                    <br>
-                        <input type="radio"
-                                name="sel_account_type"
-                                id="sel_accounting_acc"
-                                checked="true"
-                                data-on-label="SI" data-off-label="NO"
-                                class="form-control bootstrap-switch sel_pry_acc">
+                    <div class="col-12 bootstrap-switch-mini">
+                        <input type="radio" name="sel_account_type" id="sel_accounting_acc" checked="true"
+                               data-on-label="SI" data-off-label="NO" class="form-control bootstrap-switch sel_pry_acc">
+                    </div>
                 </div>
                 <div class="col-8 row" id="helpSearchRangeAccount">
                     <div class="col-5">
                         <label class="control-label">Desde</label>
-                        <select2 id="sel_acc_init" :options="accountOptions[0]" v-model="accountSelect.init_id" :disabled="SelectAll"></select2>
+                        <select2 id="sel_acc_init" :options="accountOptions[0]" v-model="accountSelect.init_id"
+                                 :disabled="SelectAll"></select2>
                     </div>
                     <div class="col-5">
                         <label class="control-label">Hasta</label>
-                        <select2 id="sel_acc_end" :options="accountOptions[1]" v-model="accountSelect.end_id" :disabled="SelectAll"></select2>
+                        <select2 id="sel_acc_end" :options="accountOptions[1]" v-model="accountSelect.end_id"
+                                 :disabled="SelectAll"></select2>
                     </div>
                     <div class="col-2" id="helpSearchRangeAll">
                         <label for="" class="control-label">Seleccionar todas</label>
-                        <br>
-                        <input type="checkbox"
-                                    name="sel_account_type"
-                                    id="sel_all_acc"
-                                    data-on-label="SI" data-off-label="NO"
-                                    class="form-control bootstrap-switch sel_pry_acc sel_all_acc_class">
+                        <div class="col-12 bootstrap-switch-mini">
+                            <input type="checkbox" name="sel_account_type" id="sel_all_acc" data-on-label="SI"
+                                   data-off-label="NO"
+                                   class="form-control bootstrap-switch sel_pry_acc sel_all_acc_class">
+                        </div>
                     </div>
                 </div>
             </div>
             <br>
             <div class="card-footer text-right">
-                <button class="btn btn-info btn-sm"
-                        :disabled="!searchActive"
-                        title="Buscar conversiones de cuentas"
-                        data-toggle="tooltip"
-                        v-on:click="getRecords()">
-                        Buscar
+                <button class="btn btn-info btn-sm" :disabled="!searchActive"
+                        title="Buscar conversiones de cuentas" data-toggle="tooltip" v-on:click="getRecords()">
                     <i class="fa fa-search"></i>
                 </button>
             </div>
@@ -72,7 +64,7 @@
                                 all:false,
                              },
                 searchActive:false,
-                searchBudgetAccount:true, //true: para cuentas presupuestales, false para cuentas patrimoniales
+                searchBudgetAccount:true, //true: para cuentas presupuestarias, false para cuentas patrimoniales
                 convertionId:null,
             }
         },
@@ -123,7 +115,7 @@
                 this.accountOptions      = [[],[]];
                 this.accountOptions[0]   = records;
                 this.accountOptions[1]   = records;
-                
+
                 this.searchBudgetAccount = type_search;
                 this.accountSelect.type  = type_select;
                 this.searchActive        = true;
@@ -183,7 +175,7 @@
                 let vm = this;
 
                 if (vm.accountSelect.init_id != '' && vm.accountSelect.end_id != '') {
-                    
+
                     vm.loading = true;
 
                     axios.post('/accounting/converter/get-Records',vm.accountSelect)

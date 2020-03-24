@@ -14,25 +14,25 @@
         <tbody>
             <tr v-for="record in recordsAccounting">
                 <td>
-                    <select2 :options="accounting_accounts" v-model="record.id" 
+                    <select2 :options="accounting_accounts" v-model="record.id"
                                 @input="changeSelectinTable(record)"></select2>
                 </td>
                 <td>
-                    <input :disabled="record.assets != 0" type="number" 
-                            data-toggle="tooltip" 
-                            class="form-control input-sm" :step="cualculateLimitDecimal()" 
+                    <input :disabled="record.assets != 0" type="number"
+                            data-toggle="tooltip"
+                            class="form-control input-sm" :step="cualculateLimitDecimal()"
                             v-model="record.debit" @change="CalculateTot()">
                 </td>
                 <td>
-                    <input :disabled="record.debit != 0 " type="number" 
-                            data-toggle="tooltip" 
+                    <input :disabled="record.debit != 0 " type="number"
+                            data-toggle="tooltip"
                             class="form-control input-sm" :step="cualculateLimitDecimal()"
                             v-model="record.assets" @change="CalculateTot()">
                 </td>
                 <td>
                     <div class="text-center">
-                        <button @click="deleteAccount(recordsAccounting.indexOf(record), record.entryAccountId)" 
-                            class="btn btn-danger btn-xs btn-icon btn-action" 
+                        <button @click="deleteAccount(recordsAccounting.indexOf(record), record.entryAccountId)"
+                            class="btn btn-danger btn-xs btn-icon btn-action"
                             title="Eliminar registro" data-toggle="tooltip">
                             <i class="fa fa-trash-o"></i>
                         </button>
@@ -54,7 +54,7 @@
                         <h6>
                             <span>{{ currency.symbol }}</span>
                             <span v-if="data.totDebit.toFixed(currency.decimal_places) == data.totAssets.toFixed(currency.decimal_places) &&
-                                        data.totDebit.toFixed(currency.decimal_places) >= 0" 
+                                        data.totDebit.toFixed(currency.decimal_places) >= 0"
                                 style="color:#18ce0f;">
                                 <strong>{{ addDecimals(data.totDebit) }}</strong>
                             </span>
@@ -155,7 +155,7 @@
                 }
             });
 
-            // recibe un json con el id de cuenta presupuestal para agregar el registro con la
+            // recibe un json con el id de cuenta presupuestaria para agregar el registro con la
             // respectiva cuenta patrimonial
             //emisión:  EventBus.$emit('entries:budgetToAccount',{'id':id_budget,'value':compromise_value});
 
@@ -166,8 +166,8 @@
                     $('#select2').val(response.data.record.id);
                     vm.addAccountingAccount();
                     // var pos = vm.recordsAccounting.length-1;
-                    // 
-                    // /* Si es positivo se suma en el lado del debe, sino en el haber */ 
+                    //
+                    // /* Si es positivo se suma en el lado del debe, sino en el haber */
                     // if(data.value >= 0){
                     //     vm.recordsAccounting[pos].value = data.value;
                     // }else{
@@ -211,7 +211,7 @@
              * @return {boolean}
              */
             validateTotals:function(){
-                return !(this.data.totDebit.toFixed(this.currency.decimal_places) >= 0 && 
+                return !(this.data.totDebit.toFixed(this.currency.decimal_places) >= 0 &&
                         this.data.totAssets.toFixed(this.currency.decimal_places) >= 0);
             },
 
@@ -365,8 +365,8 @@
             */
             storeEntry(){
                 const vm = this;
-                if (vm.validateErrors()) { 
-                    return ; 
+                if (vm.validateErrors()) {
+                    return ;
                 }
 
                 vm.data['tot'] = vm.data.totDebit;
@@ -405,7 +405,7 @@
             updateRecord:function() {
                 const vm = this;
                 if (vm.validateErrors()) {
-                    return ; 
+                    return ;
                 }
                 vm.data['tot'] = vm.data.totDebit;
                 vm.data['tot_confirmation'] = vm.data.totAssets;
@@ -413,7 +413,7 @@
                 vm.data['rowsToDelete'] = vm.rowsToDelete;
 
                 vm.loading = true;
-                
+
                 axios.put('/accounting/entries/'+vm.entries.id, vm.data)
                 .then(response=>{
                     vm.loading = false;

@@ -27,7 +27,7 @@
                         	<span class="input-group-addon">
                             	<i class="now-ui-icons ui-1_calendar-60"></i>
                         	</span>
-                        	<input type="date" class="form-control input-sm" data-toogle="tolltip" 
+                        	<input type="date" class="form-control input-sm" data-toogle="tolltip"
                         			title="Fecha de la desincorporación" v-model="record.date">
                     	</div>
 				    </div>
@@ -44,9 +44,8 @@
 			    <div class="col-md-6" id="helpDisincorporationObservation">
 			        <div class="form-group is-required">
 			            <label>Observaciones generales</label>
-			            <textarea  data-toggle="tooltip" 
-								   title="Indique alguna observación referente a la desincorporación" 
-								   class="form-control" v-model="record.observation">
+			            <textarea  data-toggle="tooltip" class="form-control" v-model="record.observation"
+                                   title="Indique alguna observación referente a la desincorporación" id="observations">
 					   </textarea>
 			        </div>
 			    </div>
@@ -62,7 +61,7 @@
 					<b>Filtros</b>
 				</div>
 			</div>
-				
+
 			<div class="row">
 				<div class="col-md-3" id="helpSearchAssetType">
 					<div class="form-group">
@@ -73,11 +72,11 @@
 								 v-model="record.asset_type_id"></select2>
 					</div>
 				</div>
-									
+
 				<div class="col-md-3" id="helpSearchAssetCategory">
 					<div class="form-group">
 						<label>Categoria General</label>
-						<select2 :options="asset_categories" @input="getAssetSubcategories()" 
+						<select2 :options="asset_categories" @input="getAssetSubcategories()"
 								 data-toggle="tooltip"
 								 title="Indique la categoria general del bien"
 								 v-model="record.asset_category_id"></select2>
@@ -86,7 +85,7 @@
 				<div class="col-md-3" id="helpSearchAssetSubCategory">
 					<div class="form-group">
 						<label>Subcategoria</label>
-						<select2 :options="asset_subcategories" @input="getAssetSpecificCategories()" 
+						<select2 :options="asset_subcategories" @input="getAssetSpecificCategories()"
 								 data-toggle="tooltip"
 								 title="Indique la subcategoria del bien"
 								 v-model="record.asset_subcategory_id"></select2>
@@ -107,11 +106,10 @@
 			<div class="row">
 				<div class="col-md-12">
 					<button type="button" id="helpSearchButton"
-							@click="filterRecords()"class="btn btn-sm btn-primary btn-info float-right" 
+							@click="filterRecords()"class="btn btn-sm btn-primary btn-info float-right"
 							title="Buscar registros"
 							data-toggle="tooltip">
 						<i class="fa fa-search"></i>
-						Buscar
 					</button>
 				</div>
 			</div>
@@ -140,7 +138,7 @@
 				</div>
 				<div slot="institution" slot-scope="props" class="text-center">
 					<span>{{ (props.row.institution)? props.row.institution.name:((props.row.institution_id)?props.row.institution_id:'N/A') }}</span>
-					
+
 				</div>
 				<div slot="asset_condition" slot-scope="props" class="text-center">
 					<span>{{ (props.row.asset_condition)? props.row.asset_condition.name:props.row.asset_condition_id }}</span>
@@ -305,12 +303,26 @@
 			if ((this.disincorporationid)&&(!this.assetid)){
 				this.loadForm(this.disincorporationid);
 			}
-			else if((!this.disincorporationid)&&(this.assetid))
+			else if((!this.disincorporationid)&&(this.assetid)) {
 				this.selected.push(this.assetid);
+            }
+
+            CkEditor.create(document.querySelector(`#observations`), {
+                toolbar: [
+                    'heading', '|',
+                    'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|',
+                    'insertTable'
+                ],
+                language: window.currentLocale,
+            }).then(editor => {
+                window.editor = editor;
+            }).catch(error => {
+                console.warn(error);
+            });
 		},
 		props: {
-			disincorporationid: Number, 
-			assetid: Number, 
+			disincorporationid: Number,
+			assetid: Number,
 		},
 		methods: {
 			toggleActive({ row }) {
@@ -347,14 +359,14 @@
 				};
 				this.selected = [];
 				this.selectAll = false;
-				
+
 			},
 			select() {
 				const vm = this;
 				vm.selected = [];
 				$.each(vm.records, function(index,campo){
 					var checkbox = document.getElementById('checkbox_' + campo.id);
-					
+
 					if(!vm.selectAll)
 						vm.selected.push(campo.id);
 					else if(checkbox && checkbox.checked){
@@ -366,7 +378,7 @@
 			 * Cambia la pagina actual de la tabla
 			 *
 			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
-			 * 
+			 *
 			 * @param [Integer] $page Número de pagina actual
 			 */
 			changePage(page) {
@@ -399,7 +411,7 @@
 			loadForm(id){
 				const vm = this;
 	            var fields = {};
-	            
+
 	            axios.get('/asset/disincorporations/vue-info/'+id).then(response => {
 	                if(typeof(response.data.records != "undefined")){
 						vm.record = response.data.records;
