@@ -339,6 +339,12 @@ $(document).ready(function() {
                 $('.dataTables_filter input').tooltip('hide');
             }, 1500);
         });
+
+    }
+
+    /** Gestiona elementos de tablas VueTables */
+    if ($('.VueTables__search__input').length > 0 && !$('.VueTables__search__input').hasClass('input-sm')) {
+        $('.VueTables__search__input').addClass('input-sm');
     }
 
     /** Evento que permite mostrar datos sobre la aplicación (acerca de) */
