@@ -25,25 +25,22 @@
 						<div class="row">
 							<div class="card-body">
 								<div class="row">
-									<div class="col-1"></div>
-									<div class="form-group col-5 is-required">
-										<label class="control-label">Nombre</label>
-										<input type="text"
-												class="form-control"
-												title="Ingrese el nombre de la categoria"
-												data-toggle="tooltip"
-												v-model="record.name">
-									</div>
-									<div class="form-group col-5 is-required">
-										<label class="control-label">Acrónimo</label>
-										<input type="text"
-												:onkeyup="record.acronym=onlyNumbers(record.acronym,'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')"
-												class="form-control"
-												maxlength="4"
-												title="Ingrese el acrónimo"
-												data-toggle="tooltip"
-												v-model="record.acronym">
-									</div>
+                                    <div class="col-6">
+                                        <div class="form-group is-required">
+                                            <label class="control-label">Nombre</label>
+                                            <input type="text" class="form-control input-sm" v-model="record.name"
+                                                   title="Ingrese el nombre de la categoria" data-toggle="tooltip">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group is-required">
+                                            <label class="control-label">Acrónimo</label>
+                                            <input type="text" :onkeyup="record.acronym=onlyNumbers(record.acronym,'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')"
+                                                   class="form-control input-sm" maxlength="4"
+                                                   title="Ingrese el acrónimo" data-toggle="tooltip"
+                                                   v-model="record.acronym">
+                                        </div>
+                                    </div>
 								</div>
 							</div>
 						</div>

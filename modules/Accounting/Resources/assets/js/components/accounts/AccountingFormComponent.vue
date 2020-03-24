@@ -4,7 +4,7 @@
             <div class='row'>
                 <div class='col-md-6'>
                     <div class='form-group'>
-                        <label class='control-label'>Cuenta pariente</label>
+                        <label class='control-label'>Cuenta de nivel superior</label>
                         <select2 :options='accRecords' v-model='record_select'></select2>
                     </div>
                 </div>
@@ -13,81 +13,43 @@
                         <label class='control-label'>Código</label>
                         <div class='row inline-inputs'>
                             <div class='col-1'>
-                                <input type='text'
-                                        :onkeyup="record.group=onlyNumbers(record.group)"
-                                        step='1'
-                                        id='group'
-                                        name='group'
-                                        class='form-control'
-                                        data-toggle='tooltip'
-                                        title='Grupo al que pertenece la cuenta'
-                                        maxlength='1'
-                                        v-model='record.group'>
+                                <input type='text' :onkeyup="record.group=onlyNumbers(record.group)" step='1' id='group'
+                                       name='group' class='form-control input-sm' data-toggle='tooltip' maxlength='1'
+                                       title='Grupo al que pertenece la cuenta' v-model='record.group'>
                             </div>
                             <div class='col-1'>.</div>
                             <div class='col-1'>
-                                <input type='text'
-                                        :onkeyup="record.subgroup=onlyNumbers(record.subgroup)"
-                                        step='1'
-                                        id='subgroup'
-                                        name='subgroup'
-                                        class='form-control'
-                                        data-toggle='tooltip'
-                                        title='Sub-grupo al que pertenece la cuenta'
-                                        maxlength='1'
-                                        v-model='record.subgroup'>
+                                <input type='text' :onkeyup="record.subgroup=onlyNumbers(record.subgroup)" step='1'
+                                       id='subgroup' name='subgroup' class='form-control input-sm' data-toggle='tooltip'
+                                       title='Sub-grupo al que pertenece la cuenta' maxlength='1'
+                                       v-model='record.subgroup'>
                             </div>
                             <div class='col-1'>.</div>
                             <div class='col-1'>
-                                <input type='text'
-                                        :onkeyup="record.item=onlyNumbers(record.item)"
-                                        step='1' 
-                                        id='item'
-                                        name='item'
-                                        class='form-control'
-                                        data-toggle='tooltip'
-                                        title='Rubro al que pertenece la cuenta'
-                                        maxlength='1'
-                                        v-model='record.item'>
+                                <input type='text' :onkeyup="record.item=onlyNumbers(record.item)" step='1' id='item'
+                                       name='item' class='form-control input-sm' data-toggle='tooltip'
+                                       title='Rubro al que pertenece la cuenta' maxlength='1' v-model='record.item'>
                             </div>
                             <div class='col-1'>.</div>
                             <div class='col-1'>
-                                <input type='text'
-                                        :onkeyup="record.generic=onlyNumbers(record.generic)"
-                                        step='1'
-                                        id='generic'
-                                        name='generic' 
-                                        class='form-control'
-                                        data-toggle='tooltip'
-                                        title='identificador de cuenta a la que pertenece'
-                                        maxlength='2'
-                                        v-model='record.generic'>
+                                <input type='text' :onkeyup="record.generic=onlyNumbers(record.generic)" step='1'
+                                       id='generic' name='generic' class='form-control input-sm' data-toggle='tooltip'
+                                       title='identificador de cuenta a la que pertenece' maxlength='2'
+                                       v-model='record.generic'>
                             </div>
                             <div class='col-1'>.</div>
                             <div class='col-1'>
-                                <input type='text'
-                                        :onkeyup="record.specific=onlyNumbers(record.specific)"
-                                        step='1'
-                                        id='specific'
-                                        name='specific'
-                                        class='form-control'
-                                        data-toggle='tooltip'
-                                        title='Identificador de cuenta de 1er orden'
-                                        maxlength='2'
-                                        v-model='record.specific'>
+                                <input type='text' :onkeyup="record.specific=onlyNumbers(record.specific)" step='1'
+                                       id='specific' name='specific' class='form-control input-sm' data-toggle='tooltip'
+                                       title='Identificador de cuenta de 1er orden' maxlength='2'
+                                       v-model='record.specific'>
                             </div>
                             <div class='col-1'>.</div>
                             <div class='col-1'>
-                                <input type='text'
-                                        :onkeyup="record.subspecific=onlyNumbers(record.subspecific)"
-                                        step='1'
-                                        id='subspecific'
-                                        name='subspecific'
-                                        class='form-control'
-                                        data-toggle='tooltip'
-                                        title='Identificador de cuenta de 2do orden'
-                                        maxlength='2'
-                                        v-model='record.subspecific'>
+                                <input type='text' :onkeyup="record.subspecific=onlyNumbers(record.subspecific)"
+                                       step='1' id='subspecific' name='subspecific' class='form-control input-sm'
+                                       data-toggle='tooltip' title='Identificador de cuenta de 2do orden' maxlength='2'
+                                       v-model='record.subspecific'>
                             </div>
                         </div>
                     </div>
@@ -95,13 +57,9 @@
                 <div class='col-md-6'>
                     <div class='form-group'>
                         <label class='control-label'>Denominación</label>
-                        <input type='text' class='form-control'
-                                id='denomination'
-                                name='denomination'
-                                data-toggle='tooltip'
-                                placeholder='Descripción de la cuenta'
-                                title='Denominación o concepto de la cuenta'
-                                v-model='record.denomination'>
+                        <input type='text' class='form-control input-sm' id='denomination' name='denomination'
+                               data-toggle='tooltip' placeholder='Descripción de la cuenta'
+                               title='Denominación o concepto de la cuenta' v-model='record.denomination'>
                     </div>
                 </div>
                 <div class='col-6'>
@@ -110,12 +68,11 @@
                             <div class='form-group'>
                                 <label class='control-label'>Activa</label>
                                 <div class='col-12'>
-                                    <input id='active'
-                                         data-on-label='SI' data-off-label='NO' 
-                                         name='active' 
-                                         type='checkbox' 
-                                         class='form-control bootstrap-switch'
-                                         v-model='record.active'>
+                                    <div class="col-12 bootstrap-switch-mini">
+                                        <input id='active' data-on-label='SI' data-off-label='NO' name='active'
+                                               type='checkbox' class='form-control bootstrap-switch'
+                                               v-model='record.active'>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -213,7 +170,7 @@
                 this.operation = 'create';
             },
             /**
-            * Valida que los campos del código sean validos 
+            * Valida que los campos del código sean validos
             *
             * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
             * @return {boolean} retorna falso si algun campo no cumple el formato correspondiente
@@ -244,7 +201,7 @@
             * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
             */
             sendData:function(url){
-                
+
                 const vm = this;
                 if (!vm.FormatCode()) { return; }
 
@@ -256,9 +213,9 @@
                 vm.record.generic     = (dt.generic.length < 2) ? '0'+dt.generic : dt.generic ;
                 vm.record.specific    = (dt.specific.length < 2) ? '0'+dt.specific : dt.specific ;
                 vm.record.subspecific = (dt.subspecific.length < 2) ? '0'+dt.subspecific : dt.subspecific ;
-                
+
                 vm.record.active      = $('#active').prop('checked');
-                
+
                 vm.loading            = true;
 
                 if (vm.operation == 'create') {
@@ -273,7 +230,7 @@
                         vm.showMessage('store');
 
                         vm.loading = false;
-                        
+
                     }).catch(error=>{
                         var errors = [];
                         if (typeof(error.response) !='undefined') {
@@ -322,7 +279,7 @@
                 if (res != '') {
                     axios.get('/accounting/get-children-account/' + res).then(response => {
                             var account = response.data.account;
-                            /** 
+                            /**
                              * Selecciona en pantalla la nueva cuentas
                              */
                             this.record = {

@@ -42,8 +42,8 @@
 			                <span class="input-group-addon">
 								<i class="now-ui-icons ui-1_calendar-60"></i>
 			                </span>
-			                <input  type="date" class="form-control input-sm" 
-			                		data-toogle="tooltip" 
+			                <input  type="date" class="form-control input-sm"
+			                		data-toogle="tooltip"
                         			title="Indique la fecha de entrega de los equipos"
                         			v-model="record.delivery_date">
 			            </div>
@@ -52,17 +52,15 @@
 			    <div class="col-md-4" id="helpAssetRequestType">
 					<div class="form-group is-required">
 						<label>Tipo de Solicitud</label>
-						<select2 :options="types" 
+						<select2 :options="types"
 								 v-model="record.type_id"></select2>
 					</div>
 				</div>
-				<div class="col-md-4" id="helpAssetRequestMotive">
+				<div class="col-md-12" id="helpAssetRequestMotive">
 				    <div class="form-group is-required">
 				        <label>Motivo de la solicitud</label>
-				        <textarea  data-toggle="tooltip" 
-								   title="Indique el motivo de la solicitud" 
-								   class="form-control input-sm" v-model="record.motive">
-					   </textarea>
+				        <textarea  data-toggle="tooltip" title="Indique el motivo de la solicitud" id="details"
+								   class="form-control input-sm" v-model="record.motive"></textarea>
 				    </div>
 				</div>
 			</div>
@@ -110,13 +108,13 @@
 					<div class="col-md-6" id="helpAssetAddress">
 						<div class="form-group is-required">
 							<label>Dirección</label>
-							<textarea  data-toggle="tooltip" 
-									   title="Indique dirección física del bien" 
+							<textarea  data-toggle="tooltip"
+									   title="Indique dirección física del bien"
 									   class="form-control" v-model="record.address">
 						   </textarea>
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 			<div v-show="record.type_id == 3">
@@ -130,25 +128,25 @@
 						<div class="form-group is-required">
 					        <label>Nombre del Agente Externo</label>
 					        <input  type="text" class="form-control input-sm"
-					        		data-toogle="tooltip" 
+					        		data-toogle="tooltip"
 	                        		title="Indique el nombre del agente externo responsable del bien" v-model="record.agent_name">
 					    </div>
 					</div>
-					
+
 					<div class="col-md-4" id="helpAssetRequestAgentTelf">
 					    <div class="form-group is-required">
 					    	<label>Teléfono del Agente Externo</label>
 					    	<input  type="text" class="form-control input-sm"
-					    			data-toogle="tooltip" 
+					    			data-toogle="tooltip"
 	                        		title="Indique el teléfono del agente externo responsable del bien" v-model="record.agent_telf">
 					    </div>
 					</div>
-					
+
 					<div class="col-md-4" id="helpAssetRequestAgentEmail">
 						<div class="form-group is-required">
 					    	<label>Correo del Agente Externo</label>
 					    	<input  type="text" class="form-control input-sm"
-					    			data-toogle="tooltip" 
+					    			data-toogle="tooltip"
 	                        		title="Indique el correo eléctronico del agente externo responsable del bien"
 	                        		v-model="record.agent_email">
 					    </div>
@@ -184,7 +182,7 @@
 				<div slot="status" slot-scope="props" class="text-center">
 					<span>{{ (props.row.asset_status)? props.row.asset_status.name:props.row.asset_status_id }}</span>
 				</div>
-				
+
 			</v-client-table>
 			<div class="VuePagination-2 row col-md-12 ">
 				<nav class="text-center">
@@ -296,7 +294,7 @@
 						{"id":1,"text":"Prestamo de Equipos (Uso Interno)"},
 						{"id":2,"text":"Prestamo de Equipos (Uso Externo)"},
 						{"id":3,"text":"Prestamo de Equipos para Agentes Externos"}],
-				
+
 				selected: [],
 				selectAll: false,
 
@@ -343,9 +341,22 @@
 			if(this.requestid){
 				this.loadForm(this.requestid);
 			}
+
+            CkEditor.create(document.querySelector(`#details`), {
+                toolbar: [
+                    'heading', '|',
+                    'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|',
+                    'insertTable'
+                ],
+                language: window.currentLocale,
+            }).then(editor => {
+                window.editor = editor;
+            }).catch(error => {
+                console.warn(error);
+            });
 		},
 		props: {
-			requestid: Number, 
+			requestid: Number,
 		},
 		methods: {
 			toggleActive({ row }) {
@@ -389,14 +400,14 @@
 
 				this.selected = [];
 				this.selectAll = false;
-				
+
 			},
 			select() {
 				const vm = this;
 				vm.selected = [];
 				$.each(vm.records, function(index,campo){
 					var checkbox = document.getElementById('checkbox_' + campo.id);
-					
+
 					if(!vm.selectAll)
 						vm.selected.push(campo.id);
 					else if(checkbox && checkbox.checked){
@@ -408,7 +419,7 @@
 			 * Cambia la pagina actual de la tabla
 			 *
 			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
-			 * 
+			 *
 			 * @param [Integer] $page Número de pagina actual
 			 */
 			changePage(page) {
@@ -441,7 +452,7 @@
 		    loadForm(id){
 				const vm = this;
 	            var fields = {};
-	            
+
 	            axios.get('/asset/requests/vue-info/'+id).then(response => {
 	                if(typeof(response.data.records != "undefined")){
 						vm.record = response.data.records;

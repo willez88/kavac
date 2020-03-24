@@ -6,51 +6,43 @@
 			<div class="row">
 				<div class="col-3" id="helpEntriesDate">
 					<div class="form-group is-required">
-						<label class="control-label">Fecha
-						</label>
-						<input :disabled="data_edit != null" type="date" class="form-control" v-model="date"
-								tabindex="1">
+						<label class="control-label">Fecha</label>
+						<input :disabled="data_edit != null" type="date" class="form-control input-sm" v-model="date">
 					</div>
 				</div>
+                <div class="col-6 offset-3" id="helpEntriesInstitution">
+                    <div class="form-group is-required">
+                        <label class="control-label">Institución que genera</label>
+                        <select2 :options="institutions" v-model="institution_id"></select2>
+                    </div>
+                </div>
+                <div class="col-6" id="helpEntriesCategory">
+                    <div class="form-group is-required">
+                        <label class="control-label">Categoría del asiento</label>
+                        <select2 :options="categories" v-model="category"></select2>
+                    </div>
+                </div>
+                <div class="col-6" id="helpEntriesCurrency">
+                    <div class="form-group is-required">
+                        <label class="control-label">Tipo de moneda</label>
+                        <select2 :options="currencies" v-model="currency_id"></select2>
+                    </div>
+                </div>
 				<div class="col-3" id="helpEntriesDescription">
 					<div class="form-group is-required">
-						<label class="control-label">Concepto ó Descripción
-						</label>
-						<input type="text" class="form-control" v-model="concept" tabindex="1">
+						<label class="control-label">Concepto ó Descripción</label>
+						<input type="text" class="form-control input-sm" v-model="concept">
 					</div>
 				</div>
 				<div class="col-3" id="helpEntriesObservation">
 					<div class="form-group">
-						<label class="control-label">Observaciones
-						</label>
-						<input type="text" class="form-control" v-model="observations" tabindex="1">
-					</div>
-				</div>
-				<div class="col-3" id="helpEntriesCategory">
-					<div class="form-group is-required">
-						<label class="control-label">Categoría del asiento
-						</label>
-						<select2 :options="categories" v-model="category" tabindex="1"></select2>
-					</div>
-				</div>
-				<div class="col-3" id="helpEntriesInstitution">
-					<div class="form-group is-required">
-						<label class="control-label">Institución que genera
-						</label>
-						<select2 :options="institutions" v-model="institution_id" tabindex="1"></select2>
-					</div>
-				</div>
-				<div class="col-3" id="helpEntriesCurrency">
-					<div class="form-group is-required">
-						<label class="control-label">Tipo de moneda
-						</label>
-						<select2 :options="currencies" v-model="currency_id" tabindex="1"></select2>
+						<label class="control-label">Observaciones</label>
+						<input type="text" class="form-control input-sm" v-model="observations">
 					</div>
 				</div>
 				<div class="col-3" id="helpEntriesReference">
 					<div class="form-group">
-						<label class="control-label">Código Referencia
-						</label><br>
+						<label class="control-label">Código Referencia</label><br>
 						<h5 class="control-label"><strong>{{ reference }}</strong></h5>
 					</div>
 				</div>
@@ -120,7 +112,7 @@
 				this.reset();
 			});
 
-			
+
 		},
 		methods:{
 
@@ -140,10 +132,10 @@
 			*/
 			validateRequired:function() {
 
-				if (!this.validated && 
-					(this.date == '' || 
-					this.concept == '' || 
-					this.observations == '' || 
+				if (!this.validated &&
+					(this.date == '' ||
+					this.concept == '' ||
+					this.observations == '' ||
 					this.category == '' ||
 					this.institution_id == null)) {
 
@@ -161,7 +153,7 @@
 				if (this.validated == false) {
 					/**
 					 * se verifica que la fecha, la referencia, la institucion, la categoria y el tipo de moneda no esten vacios
-					*/ 
+					*/
 					if (this.date != '' && this.institution_id != null && this.category != ''
 						&& this.currency_id != '') {
 						EventBus.$emit('enableInput:entries-account',{'value':true,

@@ -188,9 +188,9 @@
 										<div class="form-group is-required">
 											<label>Monto:</label>
 											<input type="number" onfocus="$(this).select()"
-												   class="form-control numeric"
-												   data-toggle="tooltip"
-												   title="Indique el monto a asignar para la cuenta seleccionada" v-model="from_amount">
+												   class="form-control input-sm numeric"
+												   data-toggle="tooltip" v-model="from_amount"
+												   title="Indique el monto a asignar para la cuenta seleccionada">
 										</div>
 									</div>
 								</div>

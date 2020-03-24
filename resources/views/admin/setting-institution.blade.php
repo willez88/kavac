@@ -163,7 +163,7 @@
 								<div class="form-group">
 									{!! Form::label('country_id', __('Pais'), []) !!}
 									{!! Form::select('country_id', (isset($countries))?$countries:[], (isset($model_institution)) ? $model_institution->city->estate->country->id : null, [
-										'class' => 'form-control select2', 'id' => 'country_id',
+										'class' => 'form-control select2 input-sm', 'id' => 'country_id',
 										'onchange' => 'updateSelect($(this), $("#estate_id"), "Estate")'
 									]) !!}
 									{{-- <i class="fa fa-plus-circle btn-add-record"></i> --}}

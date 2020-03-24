@@ -60,7 +60,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Monto:</label>
-                                    <input type="numeric" step="0.01" class="form-control input-sm"
+                                    <input type="number" step="0.01" class="form-control input-sm"
                                            v-model="record.amount" data-toggle="tooltip"
                                            title="monto del tipo de cambio">
                                 </div>
@@ -69,10 +69,12 @@
                                 <div class="form-group is-required">
                                     <label>Activo:</label>
                                     <div class="col-md-12">
-                                        <input type="checkbox" class="form-control bootstrap-switch"
-                                               data-toggle="tooltip" data-on-label="SI" data-off-label="NO" value="true"
-                                               title="Indique si el tipo de cambio está activo"
-                                               v-model="record.active" name="active">
+                                        <div class="col-12 bootstrap-switch-mini">
+                                            <input type="checkbox" class="form-control bootstrap-switch"
+                                                   data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
+                                                   value="true" title="Indique si el tipo de cambio está activo"
+                                                   v-model="record.active" name="active">
+                                        </div>
                                     </div>
                                 </div>
                             </div>

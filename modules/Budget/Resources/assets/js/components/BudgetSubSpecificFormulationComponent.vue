@@ -44,30 +44,38 @@
 			</div>
 			<hr>
 			<div class="row">
-				<div class="col-6">
+				<div class="col-6 mt-4">
 					<label for="">
-						<input type="radio" name="project_centralized_action" value="project" id="sel_project"
-							   class="form-control bootstrap-switch bootstrap-switch-mini sel_pry_acc"
-							   data-on-label="SI" data-off-label="NO">
-						Proyecto
+                        <div class="col-12 bootstrap-switch-mini">
+    						<input type="radio" name="project_centralized_action" value="project" id="sel_project"
+    							   class="form-control bootstrap-switch bootstrap-switch-mini sel_pry_acc"
+    							   data-on-label="SI" data-off-label="NO">
+    						Proyecto
+                        </div>
 					</label>
-					<select2 :options="projects" v-model="record.project_id" id="project_id"
-							 @input="getSpecificActions('Project')" disabled></select2>
+                    <div class="mt-4">
+                        <select2 :options="projects" v-model="record.project_id" id="project_id"
+    							 @input="getSpecificActions('Project')" disabled></select2>
+                    </div>
 				</div>
-				<div class="col-6">
+				<div class="col-6 mt-4">
 					<label for="">
-						<input type="radio" name="project_centralized_action" value="project"
-							   class="form-control bootstrap-switch bootstrap-switch-mini sel_pry_acc"
-							   id="sel_centralized_action" data-on-label="SI" data-off-label="NO">
-						Acción Centralizada
+                        <div class="col-12 bootstrap-switch-mini">
+    						<input type="radio" name="project_centralized_action" value="project"
+    							   class="form-control bootstrap-switch bootstrap-switch-mini sel_pry_acc"
+    							   id="sel_centralized_action" data-on-label="SI" data-off-label="NO">
+    						Acción Centralizada
+                        </div>
 					</label>
-					<select2 :options="centralized_actions" v-model="record.centralized_action_id"
-							 @input="getSpecificActions('CentralizedAction')"
-							 id="centralized_action_id" disabled></select2>
+                    <div class="mt-4">
+                        <select2 :options="centralized_actions" v-model="record.centralized_action_id"
+    							 @input="getSpecificActions('CentralizedAction')"
+    							 id="centralized_action_id" disabled></select2>
+                    </div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-12">
+				<div class="col-12 mt-4">
 					<div class="form-group is-required">
 						<label for="" class="control-label">Acción Específica</label>
 						<select2 :options="specific_actions" v-model="record.specific_action_id"

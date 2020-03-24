@@ -3,7 +3,7 @@
 		<div class="card-body">
 
 			<accounting-show-errors ref="errorsAnalyticalMajor" />
-	
+
 			<div class="row">
 				<div class="col-3" id="helpAnaliticalMajorInitDate">
 					<label class="control-label"><strong>Fecha Inicial</strong></label>
@@ -48,27 +48,22 @@
 						<label class="control-label">Expresar en</label>
 						<select2 :options="currencies" v-model="currency"></select2>
 					</div>
-					<br>
 					<div id="helpAnaliticalMajorAllAccount">
-						<label for="" class="control-label">Seleccionar todas</label>
-						<br>
-						<input type="checkbox"
-									name="sel_account_type"
-									id="sel_all_acc"
-									data-on-label="SI" data-off-label="NO"
-									class="form-control bootstrap-switch sel_pry_acc sel_all_acc_class">
+						<label for="" class="control-label mt-4">Seleccionar todas</label>
+						<div class="col-12 bootstrap-switch-mini">
+    						<input type="checkbox" name="sel_account_type" id="sel_all_acc" data-on-label="SI"
+                                   data-off-label="NO"
+                                   class="form-control bootstrap-switch sel_pry_acc sel_all_acc_class">
+                        </div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="card-footer text-right">
-			<button class="btn btn-primary btn-sm"
-					title="Generar Reporte"
-					data-toggle="tooltip"
-					v-on:click="OpenPdf(getUrlReport(), '_blank')"
-					id="helpAnaliticalMajorGenerateReport">
-					<span>Generar reporte</span>
-					<i class="fa fa-print"></i>
+			<button class="btn btn-primary btn-sm" title="Generar Reporte" data-toggle="tooltip"
+                    v-on:click="OpenPdf(getUrlReport(), '_blank')" id="helpAnaliticalMajorGenerateReport">
+                <span>Generar reporte</span>
+                <i class="fa fa-print"></i>
 			</button>
 		</div>
 	</div>
@@ -152,7 +147,7 @@
 			* @return {string} url para el reporte
 			*/
 			getUrlReport:function(){
-				
+
 				var errors = [];
 				if (this.InitAcc <= 0) {
 					errors.push("Debe seleccionar una cuenta de inicio.");

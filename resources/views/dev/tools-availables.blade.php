@@ -89,10 +89,12 @@
 						<div class="form-group">
 							<label for="" class="control-label">{{ __('Mantenimiento') }}</label>
 							<div class="col-12">
-								{!! Form::checkbox('maintenance', true, false, [
-									'id' => 'maintenance', 'class' => 'form-control bootstrap-switch',
-									'data-on-label' => __('SI'), 'data-off-label' => __('NO')
-								]) !!}
+                                <div class="col-12 bootstrap-switch-mini">
+    								{!! Form::checkbox('maintenance', true, false, [
+    									'id' => 'maintenance', 'class' => 'form-control bootstrap-switch',
+    									'data-on-label' => __('SI'), 'data-off-label' => __('NO')
+    								]) !!}
+                                </div>
 							</div>
 						</div>
 					</div>
@@ -100,10 +102,12 @@
 						<div class="form-group">
 							<label for="" class="control-label">{{ __('Demostración') }}</label>
 							<div class="col-12">
-								{!! Form::checkbox('demo', true, false, [
-									'id' => 'demo', 'class' => 'form-control bootstrap-switch',
-									'data-on-label' => __('SI'), 'data-off-label' => __('NO')
-								]) !!}
+                                <div class="col-12 bootstrap-switch-mini">
+    								{!! Form::checkbox('demo', true, false, [
+    									'id' => 'demo', 'class' => 'form-control bootstrap-switch',
+    									'data-on-label' => __('SI'), 'data-off-label' => __('NO')
+    								]) !!}
+                                </div>
 							</div>
 						</div>
 					</div>
@@ -111,10 +115,12 @@
 						<div class="form-group">
 							<label for="" class="control-label">{{ __('Debug') }}</label>
 							<div class="col-12">
-								{!! Form::checkbox('debug', true, false, [
-									'id' => 'debug', 'class' => 'form-control bootstrap-switch',
-									'data-on-label' => __('SI'), 'data-off-label' => __('NO')
-								]) !!}
+                                <div class="col-12 bootstrap-switch-mini">
+    								{!! Form::checkbox('debug', true, false, [
+    									'id' => 'debug', 'class' => 'form-control bootstrap-switch',
+    									'data-on-label' => __('SI'), 'data-off-label' => __('NO')
+    								]) !!}
+                                </div>
 							</div>
 						</div>
 					</div>

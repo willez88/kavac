@@ -5,7 +5,7 @@
     },
     {
         "element" : "#helpSearchSelectBudget",
-        "intro" : "Interruptor que indica que se realizara la consulta en base a cuentas presupuestales."
+        "intro" : "Interruptor que indica que se realizara la consulta en base a cuentas presupuestarias."
     },
     {
         "element" : "#helpSearchSelectAccounting",

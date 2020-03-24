@@ -3,7 +3,7 @@
 		<div class="card-header">
 			<h6 class="card-title text-uppercase">Gráficos del Inventario de Productos en Almacén</h6>
 			<div class="card-btns">
-				<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
+				<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
 				   data-toggle="tooltip">
 					<i class="now-ui-icons arrows-1_minimal-up"></i>
 				</a>
@@ -21,9 +21,11 @@
 					<div class=" form-group">
 						<label>Existencia</label>
 						<div class="col-12">
-							<input type="radio" name="type_graph_products" value="exist" id="sel_product_exist" checked 
-								   class="form-control bootstrap-switch bootstrap-switch-mini sel_graph_products" 
-								   data-on-label="SI" data-off-label="NO">
+                            <div class="col-12 bootstrap-switch-mini">
+    							<input type="radio" name="type_graph_products" value="exist" id="sel_product_exist"
+    								   class="form-control bootstrap-switch bootstrap-switch-mini sel_graph_products"
+    								   data-on-label="SI" data-off-label="NO" checked>
+                            </div>
 						</div>
 					</div>
 				</div>
@@ -31,9 +33,11 @@
 					<div class=" form-group">
 						<label>Más Solicitados</label>
 						<div class="col-12">
-							<input type="radio" name="type_graph_products" value="max_request" id="sel_product_max_request" 
-								   class="form-control bootstrap-switch bootstrap-switch-mini sel_graph_products" 
-								   data-on-label="SI" data-off-label="NO">
+                            <div class="col-12 bootstrap-switch-mini">
+    							<input type="radio" name="type_graph_products" value="max_request"
+                                       id="sel_product_max_request" data-on-label="SI" data-off-label="NO"
+    								   class="form-control bootstrap-switch bootstrap-switch-mini sel_graph_products">
+                            </div>
 						</div>
 					</div>
 				</div>
@@ -42,9 +46,11 @@
 					<div class=" form-group">
 						<label>Menos Solicitados</label>
 						<div class="col-12">
-							<input type="radio" name="type_graph_products" value="min_request" id="sel_product_min_request" 
-								   class="form-control bootstrap-switch bootstrap-switch-mini sel_graph_products" 
-								   data-on-label="SI" data-off-label="NO">
+                            <div class="col-12 bootstrap-switch-mini">
+    							<input type="radio" name="type_graph_products" value="min_request"
+                                       id="sel_product_min_request" data-on-label="SI" data-off-label="NO"
+    								   class="form-control bootstrap-switch bootstrap-switch-mini sel_graph_products">
+                            </div>
 						</div>
 					</div>
 				</div>
@@ -64,19 +70,19 @@
 	                    <div class="dropdown-menu dropdown-menu-right"
 	                         aria-labelledby="list_options_diagram">
 	                         <div class="d-inline-flex">
-	                            <a class="dropdown-item btn btn-sm btn-default" @click="updateGraphType('bar')" 
+	                            <a class="dropdown-item btn btn-sm btn-default" @click="updateGraphType('bar')"
 	                               title="Vizualizar en gráfico de barras" data-toggle="tooltip">
 	                                <i class="fa fa-bar-chart" style="color: white;"></i>
 	                            </a>
-	                            <a class="dropdown-item btn btn-sm btn-default" @click="updateGraphType('doughnut')" 
+	                            <a class="dropdown-item btn btn-sm btn-default" @click="updateGraphType('doughnut')"
 	                               title="Vizualizar en gráfico de dona" data-toggle="tooltip">
 	                                <i class="fa fa-refresh" style="color: white;"></i>
 	                            </a>
-	                            <a class="dropdown-item btn btn-sm btn-default" @click="updateGraphType('pie')" 
+	                            <a class="dropdown-item btn btn-sm btn-default" @click="updateGraphType('pie')"
 	                               title="Vizualizar en gráfico de torta" data-toggle="tooltip">
 	                                <i class="fa fa-pie-chart" style="color: white;"></i>
 	                            </a>
-                                <a class="dropdown-item btn btn-sm btn-default" @click="updateGraphType('line')" 
+                                <a class="dropdown-item btn btn-sm btn-default" @click="updateGraphType('line')"
                                    title="Vizualizar en gráfico de linea" data-toggle="tooltip">
                                     <i class="fa fa-line-chart" style="color: white;"></i>
                                 </a>
@@ -97,7 +103,7 @@
 					</warehouse-graph-charts>
 				</div>
 			</div>
-			<!-- Controles -->        
+			<!-- Controles -->
 	        <div class="VuePagination row col-md-12" v-if="records.length > 0">
 	            <nav class="text-center">
 	                <ul class="pagination VuePagination__pagination" style="">
@@ -123,7 +129,7 @@
 	                        <a class="page-link" @click="lastPag()">ÚLTIMO</a>
 	                    </li>
 	                </ul>
-	                
+
 	            </nav>
 	        </div>
 		</div>

@@ -78,7 +78,7 @@
 							<div class="col-md-3">
 								<div class="form-group is-required">
 									<label>Monto:</label>
-									<input type="number" class="form-control" data-toggle="tooltip"
+									<input type="number" class="form-control input-sm" data-toggle="tooltip"
 										   title="Indique el monto a asignar para la cuenta seleccionada"
 										   v-model="amount">
 								</div>

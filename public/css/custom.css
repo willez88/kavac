@@ -1401,6 +1401,7 @@ a.level-debug:hover {
 .bootstrap-switch-mini .bootstrap-switch {
   height: 16px !important;
   width: 46px !important;
+  margin-bottom: 0 !important;
 }
 
 .bootstrap-switch-mini .bootstrap-switch .bootstrap-switch-label {
@@ -2169,16 +2170,22 @@ a.level-debug:hover {
 /** Estilos personalizados en campos de tipo color */
 
 input[type="color"] {
-  min-height: 36px;
+  min-height: 28px;
   color: white;
   width: 60px;
   cursor: pointer;
+  padding: 5px 10px !important;
 }
 
 /** Estilos para campos de tipo number */
 
 input[type=number] {
   padding-right: 5px;
+}
+
+input[type=number].input-sm {
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
 }
 
 /** Estilos para campos textarea */
@@ -2276,6 +2283,12 @@ textarea.form-control:active {
 
 .select2-container--default.select2-container--focus .select2-selection--multiple {
   border: 1px solid #2ca8ff !important;
+}
+
+.select2-container--bootstrap .select2-selection--single {
+  padding: 0.275rem 1.5rem 0.275rem 0.75rem;
+  height: 28px;
+  font-size: 0.8571em;
 }
 
 .form-group .input-group-addon,

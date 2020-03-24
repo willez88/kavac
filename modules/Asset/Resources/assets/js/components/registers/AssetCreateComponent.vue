@@ -21,7 +21,7 @@
 			<div class="row">
 				<div class="col-md-4" id="helpInstitution">
 					<div class="form-group is-required">
-						<label>institución:</label>
+						<label>Institución:</label>
 						<select2 :options="institutions"
 								data-toggle="tooltip"
 								title="Seleccione un registro de la lista"
@@ -74,13 +74,11 @@
 								v-model="record.asset_specific_category_id"></select2>
 					</div>
 				</div>
-				<div class="col-md-4" id="helpAssetSpecification">
+				<div class="col-md-8" id="helpAssetSpecification">
 					<div class="form-group">
 						<label>Especificaciones</label>
-						<textarea  data-toggle="tooltip"
-								   title="Indique las especificaciones del bien (opcional)"
-								   class="form-control" v-model="record.specifications">
-					   </textarea>
+						<textarea  data-toggle="tooltip" title="Indique las especificaciones del bien (opcional)"
+                                   class="form-control" v-model="record.specifications" id="details"></textarea>
 					</div>
 				</div>
 			</div>
@@ -235,9 +233,8 @@
 					<div class="col-md-6" id="helpAssetAddress">
 						<div class="form-group is-required">
 							<label>Dirección</label>
-							<textarea  data-toggle="tooltip"
-									   title="Indique dirección física del bien"
-									   class="form-control" v-model="record.address">
+							<textarea  data-toggle="tooltip" title="Indique dirección física del bien"
+                                       class="form-control" v-model="record.address" id="direction">
 						   </textarea>
 						</div>
 					</div>
@@ -541,8 +538,24 @@
 			if(this.assetid){
 				this.loadForm(this.assetid);
 			}
-			else
-				this.getAssetTypes();
+			else{
+                this.getAssetTypes();
+            }
+
+            $.each(['details', 'direction'], function(index, element_id) {
+                CkEditor.create(document.querySelector(`#${element_id}`), {
+                    toolbar: [
+                        'heading', '|',
+                        'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|',
+                        'insertTable'
+                    ],
+                    language: window.currentLocale,
+                }).then(editor => {
+                    window.editor = editor;
+                }).catch(error => {
+                    console.warn(error);
+                });
+            });
 		},
 	};
 </script>

@@ -122,12 +122,14 @@
                                     <label>Activa</label>
                                     <div class="col-md-12">
                                         <label for="">
-                                            <input type="checkbox" class="form-control bootstrap-switch"
-                                                   name="active" id="active" data-toggle="tooltip"
-                                                   data-on-label="SI" data-off-label="NO"
-                                                   title="Indique si la deducción se encuentra activa"
-                                                   v-model.lazy="record.active" value="true"
-                                                   data-record="active">
+                                            <div class="bootstrap-switch-mini">
+                                                <input type="checkbox" class="form-control bootstrap-switch"
+                                                       name="active" id="active" data-toggle="tooltip"
+                                                       data-on-label="SI" data-off-label="NO"
+                                                       title="Indique si la deducción se encuentra activa"
+                                                       v-model.lazy="record.active" value="true"
+                                                       data-record="active">
+                                            </div>
                                         </label>
                                     </div>
                                 </div>

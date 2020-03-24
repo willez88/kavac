@@ -45,6 +45,8 @@
             window.debug = {!! (config('app.debug')) ? 'true' : 'false' !!};
             /** @type {string} Define la URI de la aplicación */
             window.app_url = `${location.protocol}//${location.host}`;
+            /** @type {String} Define el idioma actual de la aplicación */
+            window.currentLocale = '{{ app()->getLocale() }}';
             @auth
                 /** @type {array} Lista de módulos instalados y habilitados */
                 window.modules = [];
@@ -168,9 +170,10 @@
                     }
                 });
                 /** Previene el uso de carácteres no permitidos en campos de monedas */
-                $(".currency").on('input keypress keyup blur', function(event) {
-                    $(this).val($(this).val().replace(/[^0-9\.]/g, ""));
-                    if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+                $(".currency, input[type=number]").on('input keypress keyup blur', function(event) {
+                    $(this).val($(this).val().replace(/[^0-9\.]?$/g, ""));
+                    //$(this).val($(this).val().replace(/^\d*\.?(?:\d{1,2})?$/g, ""));
+                    if ((event.which === 46 && $(this).val().indexOf('.') != -1) || (event.which < 48 || event.which > 57)) {
                         event.preventDefault();
                     }
                 });
@@ -181,6 +184,8 @@
                 /** oculta el mensaje de carga al renderizar por completo el DOM de la página */
                 $('.preloader').fadeOut(1000);
             });
+            /** Establece el tema por defecto, para elementos select2, a bootstrap 4 */
+            $.fn.select2.defaults.set( "theme", "bootstrap" );
             /*
              * Función que permite eliminar registros mediante ajax
              *

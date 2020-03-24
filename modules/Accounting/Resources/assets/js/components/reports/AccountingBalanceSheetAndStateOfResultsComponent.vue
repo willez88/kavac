@@ -6,41 +6,40 @@
 
 			<div class="row">
 				<div class="col-3" :id="'help'+this.type_report+'InitDate'">
-					<label class="control-label">Al mes</label>
-					<br><br>
-					<select2 :options="months" v-model="month_init"></select2>
-					<br><br>
-					<label class="control-label">Año</label>
-					<br><br>
-					<select2 :options="years" v-model="year_init"></select2>
+                    <div class="form-group">
+    					<label class="control-label">Mes</label>
+    					<select2 :options="months" v-model="month_init"></select2>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Año</label>
+    					<select2 :options="years" v-model="year_init"></select2>
+                    </div>
 				</div>
 				<div class="col-3" :id="'help'+this.type_report+'Level'">
-					<label class="control-label">Nivel de consulta</label>
-					<br><br>
-					<select2 :options="levels" v-model="level"></select2>
+                    <div class="form-group">
+                        <label class="control-label">Nivel de consulta</label>
+    					<select2 :options="levels" v-model="level"></select2>
+                    </div>
 				</div>
 				<div class="col-3" :id="'help'+this.type_report+'Currency'">
-						<div>
-							<label class="control-label">Expresar en</label>
-							<br><br>
-							<select2 :options="currencies" v-model="currency"></select2>
-						</div>
-					</div>
+                    <div class="form-group">
+                        <label class="control-label">Expresar en</label>
+    					<select2 :options="currencies" v-model="currency"></select2>
+                    </div>
+				</div>
 				<div class="col-3" :id="'help'+this.type_report+'AllAccount'">
-					<label class="text-center"><strong>Mostrar valores en cero</strong>
-					</label>
-					<br><br>
-					<input :id="'zero'+type_report"
-						 data-on-label="SI" data-off-label="NO" 
-						 name="zero" 
-						 type="checkbox"
-						 class="form-control text-center bootstrap-switch">
+                    <div class="form-group">
+                        <label class="text-center"><strong>Mostrar valores en cero</strong></label>
+    					<div class="col-12 bootstrap-switch-mini">
+        					<input :id="'zero'+type_report" data-on-label="SI" data-off-label="NO" name="zero"
+                                   type="checkbox" class="form-control text-center bootstrap-switch">
+                        </div>
+                    </div>
 				</div>
 			</div>
 			<div class="card-footer text-right">
-				<button class="btn btn-primary btn-sm"
-					@click="OpenPdf(getUrlReport(), '_blank')"
-					:id="'help'+this.type_report+'GenerateReport'">
+				<button class="btn btn-primary btn-sm" @click="OpenPdf(getUrlReport(), '_blank')"
+                        :id="'help'+this.type_report+'GenerateReport'">
 					Generar Reporte <i class="fa fa-print"></i>
 				</button>
 			</div>

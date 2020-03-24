@@ -7,47 +7,50 @@
 			<div class="row">
 				<div class="col-3" id="helpCheckupBalanceInitDate">
 					<label><strong>Desde:</strong></label>
-					<br>
-					<label class="control-label">Mes</label>
-					<select2 :options="months" v-model="month_init"></select2>
-					<br>
-					<label class="control-label">Año</label>
-					<select2 :options="years" v-model="year_init"></select2>
+                    <div class="form-group">
+                        <label class="control-label">Mes</label>
+    					<select2 :options="months" v-model="month_init"></select2>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Año</label>
+    					<select2 :options="years" v-model="year_init"></select2>
+                    </div>
 				</div>
 				<div class="col-3" id="helpCheckupBalanceEndDate">
 					<label><strong>Hasta:</strong></label>
-					<br>
-					<label class="control-label">Mes</label>
-					<select2 :options="months" v-model="month_end"></select2>
-					<br>
-					<label class="control-label">Año</label>
-					<select2 :options="years" v-model="year_end"></select2>
+					<div class="form-group">
+                        <label class="control-label">Mes</label>
+    					<select2 :options="months" v-model="month_end"></select2>
+                    </div>
+					<div class="form-group">
+                        <label class="control-label">Año</label>
+    					<select2 :options="years" v-model="year_end"></select2>
+                    </div>
 				</div>
 				<div class="col-3" id="helpCheckupBalanceCurrency">
-					<label class="control-label">Expresar en</label>
-					<br><br>
-					<select2 :options="currencies" v-model="currency"></select2>
+                    <div class="form-group">
+                        <label class="control-label"><strong>Expresar en</strong></label>
+                        <div class="mt-4">
+                           <select2 :options="currencies" v-model="currency"></select2>
+                        </div>
+                    </div>
 				</div>
 				<div class="col-3" id="helpCheckupBalanceAllAccount">
-					<label class="text-center"><strong>Mostrar valores en cero</strong>
-					</label>
-					<br><br>
-					<input id="zero"
-						 data-on-label="SI" data-off-label="NO" 
-						 name="zero" 
-						 type="checkbox"
-						 class="form-control text-center bootstrap-switch">
+                    <div class="form-group">
+                        <label class="text-center"><strong>Mostrar valores en cero</strong></label>
+    					<div class="col-12 bootstrap-switch-mini mt-4">
+        					<input id="zero" data-on-label="SI" data-off-label="NO" name="zero" type="checkbox"
+                                   class="form-control text-center bootstrap-switch">
+                        </div>
+                    </div>
 				</div>
 			</div>
 		</div>
 		<div class="card-footer text-right">
-			<button class="btn btn-primary btn-sm"
-					data-toggle="tooltip"
-					title="Generar Reporte"
-					v-on:click="OpenPdf(getUrlReport(), '_black')"
-					id="helpCheckupBalanceGenerateReport">
-					<span>Generar reporte</span>
-					<i class="fa fa-print"></i>
+			<button class="btn btn-primary btn-sm" data-toggle="tooltip" title="Generar Reporte"
+                    v-on:click="OpenPdf(getUrlReport(), '_black')" id="helpCheckupBalanceGenerateReport">
+                <span>Generar reporte</span>
+                <i class="fa fa-print"></i>
 			</button>
 		</div>
 	</div>
