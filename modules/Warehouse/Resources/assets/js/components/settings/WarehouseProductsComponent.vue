@@ -76,11 +76,13 @@
 				                        title="Establecer los atributos del producto para gestionar las variantes">
 				                        <label for="" class="control-label">Atributos Personalizados</label>
 				                        <div class="col-12">
-										<input type="checkbox" class="form-control bootstrap-switch"
-											name="define_attributes"
-											data-on-label="Si" data-off-label="No" value="true"
-											v-model="record.define_attributes">
-									</div>
+                                            <div class="bootstrap-switch-mini">
+        										<input type="checkbox" class="form-control bootstrap-switch"
+        											name="define_attributes"
+        											data-on-label="Si" data-off-label="No" value="true"
+        											v-model="record.define_attributes">
+                                            </div>
+    									</div>
 				                    </a>
 								</div>
 							</div>

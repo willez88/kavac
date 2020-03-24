@@ -26,9 +26,8 @@
 
 				<div class="col-md-4">
 					<button type="button" @click="loadInventaryProduct('/warehouse/report/vue-list')"
-					class='btn btn-sm btn-info float-right'>
+                            class='btn btn-sm btn-info float-right' title="Buscar registro" data-toggle="tooltip">
 						<i class="fa fa-search"></i>
-						<span>	Buscar	</span>
 					</button>
 				</div>
 			</div>
@@ -91,7 +90,7 @@
 				records: [],
 				errors: [],
 				columns: ['code', 'description', 'inventory'],
-				
+
 			}
 		},
 		methods: {

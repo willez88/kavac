@@ -63,7 +63,7 @@
 			                    </div>
 							</div>
 
-							<div class="col-md-4">
+							<div class="col-md-12">
 								<div class="form-group is-required">
 									<label>Observaciones del Cierre de Almacén:</label>
 									<textarea  data-toggle="tooltip"
