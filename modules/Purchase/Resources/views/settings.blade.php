@@ -69,7 +69,7 @@
 									{!! Form::text(
 										'requirements_code',
 										($rqCode)?$rqCode->format_code:old('requirements_code'), [
-											'class' => 'form-control',
+											'class' => 'form-control input-sm',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código de los requerimientos de compra',
 											'placeholder' => 'Ej. XXX-0000000000-YYYY',
@@ -84,7 +84,7 @@
 									{!! Form::text(
 										'quotations_code',
 										($quCode)?$quCode->format_code:old('quotations_code'), [
-											'class' => 'form-control',
+											'class' => 'form-control input-sm',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código de la cotización',
 											'placeholder' => 'Ej. XXX-0000000000-YYYY',
@@ -99,7 +99,7 @@
 									{!! Form::text(
 										'minutes_code',
 										($miCode)?$miCode->format_code:old('minutes_code'), [
-											'class' => 'form-control',
+											'class' => 'form-control input-sm',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código de las actas',
 											'placeholder' => 'Ej. XXX-0000000000-YYYY',
@@ -116,7 +116,7 @@
 									{!! Form::text(
 										'buy-orders_code',
 										($buCode)?$buCode->format_code:old('buy-orders_code'), [
-											'class' => 'form-control',
+											'class' => 'form-control input-sm',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código de la orden de compra',
 											'placeholder' => 'Ej. XXX-0000000000-YYYY',
@@ -133,7 +133,7 @@
 									{!! Form::text(
 										'service-orders_code',
 										($soCode)?$soCode->format_code:old('service-orders_code'), [
-											'class' => 'form-control',
+											'class' => 'form-control input-sm',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código de la orden de servicio',
 											'placeholder' => 'Ej. XXX-0000000000-YYYY',
@@ -148,7 +148,7 @@
 									{!! Form::text(
 										'refunds_code',
 										($reCode)?$reCode->format_code:old('refunds_code'), [
-											'class' => 'form-control',
+											'class' => 'form-control input-sm',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código del reintegro',
 											'placeholder' => 'Ej. XXX-0000000000-YYYY',
@@ -167,4 +167,27 @@
 			</div>
 		</div>
 	</div>
+@stop
+
+@section('extra-js')
+    @parent
+    {!! Html::script('js/ckeditor.js', [], Request::secure()) !!}
+    <script>
+        $(document).ready(function() {
+            $('textarea').each(function() {
+                CkEditor.create(this, {
+                    toolbar: [
+                        'heading', '|',
+                        'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|',
+                        'insertTable'
+                    ],
+                    language: '{{ app()->getLocale() }}',
+                }).then(editor => {
+                    window.editor = editor;
+                }).catch(error => {
+                    logs('setting-institution', 489, error);
+                });
+            });
+        });
+    </script>
 @stop

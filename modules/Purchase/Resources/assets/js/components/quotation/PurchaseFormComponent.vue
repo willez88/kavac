@@ -1,7 +1,7 @@
 <template>
     <section>
         <purchase-show-errors ref="PurchaseOrderFormComponent" />
-        
+
         <div class="row">
             <div class="col-3">
                 <div class="form-group is-required">
@@ -36,14 +36,14 @@
                     <label for="acta_inicio">Acta de inicio (inhabilitado temporalmente)</label>
                     <label class="custom-control">
                         <button type="button" data-toggle="tooltip"
-                                class="btn btn-sm btn-info btn-import"
+                                class="btn btn-sm btn-info btn-import mt-4"
                                 title="Presione para subir el archivo del documento."
                                 @click="setFile('acta_inicio')"
                                 disabled="">
                             <i class="fa fa-upload"></i>
                         </button>
-                        <input type="file" 
-                                id="acta_inicio" 
+                        <input type="file"
+                                id="acta_inicio"
                                 @change="uploadFile('acta_inicio')"
                                 style="display:none;">
                         <span class="badge badge-success" id="status_acta_inicio" style="display:none;">
@@ -57,12 +57,12 @@
                         <button type="button" data-toggle="tooltip"
                                 class="btn btn-sm btn-info btn-import"
                                 title="Presione para subir el archivo del documento."
-                                disabled="" 
+                                disabled=""
                                 @click="setFile('invitation_bussiness')">
                             <i class="fa fa-upload"></i>
                         </button>
-                        <input type="file" 
-                                id="invitation_bussiness" 
+                        <input type="file"
+                                id="invitation_bussiness"
                                 @change="uploadFile('invitation_bussiness')"
                                 style="display:none;">
                         <span class="badge badge-success" id="status_invitation_bussiness" style="display:none;">
@@ -76,12 +76,12 @@
                         <button type="button" data-toggle="tooltip"
                                 class="btn btn-sm btn-info btn-import"
                                 title="Presione para subir el archivo del documento."
-                                disabled="" 
+                                disabled=""
                                 @click="setFile('invitation_bussiness')">
                             <i class="fa fa-upload"></i>
                         </button>
-                        <input type="file" 
-                                id="invitation_bussiness" 
+                        <input type="file"
+                                id="invitation_bussiness"
                                 @change="uploadFile('invitation_bussiness')"
                                 style="display:none;">
                         <span class="badge badge-success" id="status_invitation_bussiness" style="display:none;">
@@ -100,7 +100,7 @@
                 <v-client-table :columns="columns" :data="record_base_budgets" :options="table_options">
                     <div slot="requirement_status" slot-scope="props" class="text-center">
                         <div class="d-inline-flex">
-                            <span class="badge badge-info"    
+                            <span class="badge badge-info"
                                 v-show="props.row.requirement_status == 'PROCESSED'">
                                 <strong>PROCESADO</strong>
                             </span>
@@ -122,7 +122,7 @@
                     </div>
                 </v-client-table>
             </div>
-    
+
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
             <div class="col-12">
@@ -247,7 +247,7 @@ export default{
                 currency:null,
             },
             record_items:[],
-            columns: [  
+            columns: [
                         'purchase_requirement.code',
                         'created_at',
                         'purchase_requirement.description',
@@ -258,7 +258,7 @@ export default{
                         // 'contrating_department.name',
                         // 'purchase_supplier_type.name',
                     ],
-            columns2:[  
+            columns2:[
                         'requirement_code',
                         'name',
                         'quantity',
@@ -421,7 +421,7 @@ export default{
                         record.relatable[i].name = record.relatable[i].purchase_requirement_item.name;
                         record.relatable[i].quantity = record.relatable[i].purchase_requirement_item.quantity;
 
-                        record.relatable[i].measurement_unit_acronym = 
+                        record.relatable[i].measurement_unit_acronym =
                                 record.relatable[i].purchase_requirement_item.measurement_unit.acronym;
 
                                 // +' - '+
@@ -442,7 +442,7 @@ export default{
                 }else{
                     // se sacan de la lista a guardar
                     var record_copy = this.base_budget_list.splice(pos,1)[0];
-                    var pos = this.indexOf(this.base_budget_list_deleted, record_copy.id); 
+                    var pos = this.indexOf(this.base_budget_list_deleted, record_copy.id);
 
                     // agrega a la lista de registros a eliminar
                     if (pos == -1) {
@@ -521,7 +521,7 @@ export default{
             formData.append("subtotal", this.sub_total);
             formData.append("record_list", JSON.stringify(this.base_budget_list) );
             vm.loading = true;
-             
+
             if (!this.record_edit) {
                 axios.post('/purchase/quotation', formData, {
                     headers: {
@@ -577,7 +577,7 @@ export default{
 
                 this.base_budget_list_deleted = [];
                 if (this.base_budget_list.length > 0) {
-                    this.base_budget_list_deleted = this.base_budget_list;    
+                    this.base_budget_list_deleted = this.base_budget_list;
                 }
                 this.base_budget_list         = [];
 
