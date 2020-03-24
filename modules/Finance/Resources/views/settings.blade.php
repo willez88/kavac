@@ -71,7 +71,7 @@
 								<div class="form-group">
 									{!! Form::label('checks_code', 'Código de cheques emitidos', []) !!}
 									{!! Form::text('checks_code', ($checkCode) ? $checkCode->format_code : old('checks_code'), [
-										'class' => 'form-control', 'data-toggle' => 'tooltip',
+										'class' => 'form-control input-sm', 'data-toggle' => 'tooltip',
 										'title' => 'Formato para el código de la emisión de cheques',
 										'placeholder' => 'Ej. XXX-0000000000-YYYY',
 										'readonly' => ($checkCode) ? true : false
@@ -88,4 +88,9 @@
 			</div>
 		</div>
 	</div>
+@stop
+
+@section('extra-js')
+    @parent
+    {!! Html::script('js/ckeditor.js', [], Request::secure()) !!}
 @stop
