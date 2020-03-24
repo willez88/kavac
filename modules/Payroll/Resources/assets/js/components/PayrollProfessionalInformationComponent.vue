@@ -67,10 +67,13 @@
 							<div class="form-group">
 								<label>¿Es Estudiante?</label>
 								<div class="col-md-12">
-									<input id="is_student" name="is_student" type="checkbox" class="form-control bootstrap-switch"
-										data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
-										title="Indique si el trabajador es estudiante o no"
-										v-model="record.is_student" value="true"/>
+                                    <div class="col-12 bootstrap-switch-mini">
+    									<input id="is_student" name="is_student" type="checkbox"
+                                               class="form-control bootstrap-switch" data-toggle="tooltip"
+                                               data-on-label="SI" data-off-label="NO"
+                                               title="Indique si el trabajador es estudiante o no"
+                                               v-model="record.is_student" value="true"/>
+                                    </div>
 								</div>
 							</div>
 						</div>
@@ -80,8 +83,7 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Tipo de Estudio:</label>
-								<select2 :options="payroll_study_types"
-									v-model="record.payroll_study_type_id">
+								<select2 :options="payroll_study_types" v-model="record.payroll_study_type_id">
 								</select2>
 							</div>
 						</div>
