@@ -12,6 +12,7 @@ use Modules\Payroll\Models\Profession;
 use Modules\Payroll\Models\PayrollLanguage;
 use Modules\Payroll\Models\PayrollLanguageLevel;
 use Modules\Payroll\Models\PayrollInstructionDegree;
+use App\Repositories\UploadImageRepository;
 use App\Repositories\UploadDocRepository;
 
 /**
@@ -72,16 +73,23 @@ class PayrollProfessionalInformationController extends Controller
      * @param  \Illuminate\Http\Request $request    Solicitud con los datos a guardar
      * @return \Illuminate\Http\JsonResponse        Json: result en verdadero y redirect con la url a donde ir
      */
-    public function store(Request $request, UploadDocRepository $upDoc)
+    public function store(Request $request, UploadImageRepository $upImage, UploadDocRepository $upDoc)
     {
         $this->validate($request, [
             'payroll_staff_id' => ['required', 'unique:payroll_professional_informations,payroll_staff_id'],
             'payroll_instruction_degree_id' => ['required']
         ]);
 
-        /*$this->validate($request, [
-            'acknowledgment' => ['required', 'max:5000', 'mimes:jpg,png,pdf,odt'],
-        ]);*/
+        $acknowledgments = $request->file('acknowledgments');
+        if ($request->hasFile('acknowledgments')) {
+            foreach ($acknowledgments as $acknowledgment) {
+                error_log($acknowledgment->getClientOriginalExtension());
+            }
+        }
+
+        return response()->json([
+            'result' => true, 'hola' => $request->acknowledgments
+        ], 200);
 
         $payrollInstructionDegree1 = PayrollInstructionDegree::where('name', 'TSU Universitario')->first()->id;
         $payrollInstructionDegree2 = PayrollInstructionDegree::where('name', 'Universitario Pregrado')->first()->id;
