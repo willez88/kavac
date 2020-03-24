@@ -38,11 +38,13 @@
 								<div class="form-group">
 									{!! Form::label('project', __('Proyecto')) !!}
 									<div class="col-12">
-										{!! Form::radio('project_centralized_action', 'project', null, [
-											'class' => 'form-control bootstrap-switch sel_project_centralized_action',
-											'data-on-label' => __('SI'), 'data-off-label' => __('NO'),
-											'id' => 'sel_project'
-										]) !!}
+                                        <div class="col-12 bootstrap-switch-mini">
+    										{!! Form::radio('project_centralized_action', 'project', null, [
+    											'class' => 'form-control bootstrap-switch sel_project_centralized_action',
+    											'data-on-label' => __('SI'), 'data-off-label' => __('NO'),
+    											'id' => 'sel_project'
+    										]) !!}
+                                        </div>
 									</div>
 								</div>
 								<div class="form-group">
@@ -57,11 +59,13 @@
 								<div class="form-group">
 									{!! Form::label('centralized_action', __('Acción Centralizada')) !!}
 									<div class="col-12">
-										{!! Form::radio('project_centralized_action', 'centralized_action', null, [
-											'class' => 'form-control bootstrap-switch sel_project_centralized_action',
-											'data-on-label' => __('SI'), 'data-off-label' => __('NO'),
-											'id' => 'sel_centralized_action'
-										]) !!}
+                                        <div class="col-12 bootstrap-switch-mini">
+    										{!! Form::radio('project_centralized_action', 'centralized_action', null, [
+    											'class' => 'form-control bootstrap-switch sel_project_centralized_action',
+    											'data-on-label' => __('SI'), 'data-off-label' => __('NO'),
+    											'id' => 'sel_centralized_action'
+    										]) !!}
+                                        </div>
 									</div>
 								</div>
 								<div class="form-group">
@@ -79,7 +83,7 @@
 								<div class="form-group is-required">
 									{!! Form::label('from_date', __('Fecha de inicio'), ['class' => 'control-label']) !!}
 									{!! Form::date('from_date', (isset($model))?$model->from_date:old('from_date'), [
-										'class' => 'form-control', 'placeholder' => 'dd/mm/YYYY',
+										'class' => 'form-control input-sm', 'placeholder' => 'dd/mm/YYYY',
 										'data-toggle' => 'tooltip',
 										'title' => __('Fecha en la que inicia la acción específica')
 									]) !!}
@@ -89,7 +93,7 @@
 								<div class="form-group is-required">
 									{!! Form::label('to_date', __('Fecha final'), ['class' => 'control-label']) !!}
 									{!! Form::date('to_date', (isset($model))?$model->from_date:old('to_date'), [
-										'class' => 'form-control', 'placeholder' => 'dd/mm/YYYY',
+										'class' => 'form-control input-sm', 'placeholder' => 'dd/mm/YYYY',
 										'data-toggle' => 'tooltip',
 										'title' => __('Fecha en la que finaliza la acción específica')
 									]) !!}
@@ -99,7 +103,8 @@
 								<div class="form-group is-required">
 									{!! Form::label('code', __('Código'), ['class' => 'control-label']) !!}
 									{!! Form::text('code', old('code'), [
-										'class' => 'form-control', 'placeholder' => __('Código de la acción específica'),
+										'class' => 'form-control input-sm',
+                                        'placeholder' => __('Código de la acción específica'),
 										'data-toggle' => 'tooltip',
 										'title' => __('Código que identifica la acción específica')
 									]) !!}
@@ -109,7 +114,8 @@
 								<div class="form-group is-required">
 									{!! Form::label('name', __('Nombre'), ['class' => 'control-label']) !!}
 									{!! Form::text('name', old('name'), [
-										'class' => 'form-control', 'placeholder' => __('Nombre de la acción específica'),
+										'class' => 'form-control input-sm',
+                                        'placeholder' => __('Nombre de la acción específica'),
 										'data-toggle' => 'tooltip',
 										'title' => __('Nombre que identifica la acción específica')
 									]) !!}
@@ -123,7 +129,7 @@
 									{!! Form::textarea('description', old('description'), [
 										'class' => 'form-control', 'rows' => '4',
 										'placeholder' => __('Descripción de la acción específica'),
-										'data-toggle' => 'tooltip',
+										'data-toggle' => 'tooltip', 'id' => 'description',
 										'title' => __('Descripción de la acción específica')
 									]) !!}
 								</div>
@@ -141,6 +147,7 @@
 
 @section('extra-js')
 	@parent
+    {!! Html::script('js/ckeditor.js', [], Request::secure()) !!}
 	<script>
 		$(document).ready(function() {
 			$('.sel_project_centralized_action').on('switchChange.bootstrapSwitch', function(e) {
@@ -156,6 +163,19 @@
 					$("#project_id").closest('.form-group').removeClass('is-required');
 				}
 			});
+
+            CkEditor.create(document.querySelector(`#description`), {
+                toolbar: [
+                    'heading', '|',
+                    'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|',
+                    'insertTable'
+                ],
+                language: '{{ app()->getLocale() }}',
+            }).then(editor => {
+                window.editor = editor;
+            }).catch(error => {
+                logs('setting-institution', 489, error);
+            });
 		});
 	</script>
 @endsection

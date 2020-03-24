@@ -80,7 +80,7 @@
 								<div class="form-group is-required">
 									{!! Form::label('custom_date', __('Fecha de creación'), ['class' => 'control-label']) !!}
 									{!! Form::date('custom_date', old('custom_date'), [
-										'class' => 'form-control', 'placeholder' => 'dd/mm/YY',
+										'class' => 'form-control input-sm', 'placeholder' => 'dd/mm/YY',
 										'data-toggle' => 'tooltip',
 										'title' => __('Fecha en la que se creó la acción centralizada')
 									]) !!}
@@ -90,7 +90,7 @@
 								<div class="form-group is-required">
 									{!! Form::label('code', __('Código'), ['class' => 'control-label']) !!}
 									{!! Form::text('code', old('code'), [
-										'class' => 'form-control', 'placeholder' => __('Código de proyecto'),
+										'class' => 'form-control input-sm', 'placeholder' => __('Código de proyecto'),
 										'data-toggle' => 'tooltip', 'title' => __('Código que identifica el proyecto')
 									]) !!}
 								</div>
@@ -99,7 +99,7 @@
 								<div class="form-group is-required">
 									{!! Form::label('name', __('Nombre'), ['class' => 'control-label']) !!}
 									{!! Form::text('name', old('name'), [
-										'class' => 'form-control', 'placeholder' => __('Nombre del proyecto'),
+										'class' => 'form-control input-sm', 'placeholder' => __('Nombre del proyecto'),
 										'data-toggle' => 'tooltip',
 										'title' => __('Nombre que identifica el proyecto')
 									]) !!}
@@ -111,10 +111,12 @@
 								<div class="form-group">
 									<label for="" class="control-label">{{ __('Activo') }}</label>
 									<div class="col-12">
-										{!! Form::checkbox('active', true, (isset($model))?$model->active:true, [
-											'id' => 'active', 'class' => 'form-control bootstrap-switch',
-											'data-on-label' => __('SI'), 'data-off-label' => __('NO')
-										]) !!}
+                                        <div class="col-12 bootstrap-switch-mini">
+    										{!! Form::checkbox('active', true, (isset($model))?$model->active:true, [
+    											'id' => 'active', 'class' => 'form-control bootstrap-switch',
+    											'data-on-label' => __('SI'), 'data-off-label' => __('NO')
+    										]) !!}
+                                        </div>
 									</div>
 								</div>
 							</div>
