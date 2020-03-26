@@ -28,6 +28,7 @@ Route::get('test-notify', function () {
  * de lo contrario muestra la interfaz de autenticación
  */
 Route::get('/', 'DashboardController@index')->middleware('verified')->name('index');
+Route::post('unlockscreen', 'Auth\UserController@unlockScreen')->name('unlockscreen');
 
 /**
  * -----------------------------------------------------------------------
@@ -72,7 +73,7 @@ Route::post('/logs/front-end', 'Admin\LogController@frontEnd')->name('logs.front
  * config/filesystems.php
  */
 Route::group(['middleware' => ['auth', 'verified']], function () {
-
+    Route::get('/home', 'DashboardController@index')->middleware('verified');
     /**
      * -----------------------------------------------------------------------
      * Ruta para mostrar imágenes almacenadas
@@ -264,6 +265,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     /** Ruta para acceder a la configuración del usuario autenticado */
     Route::get('my-settings', 'Auth\UserController@userSettings')->name('my.settings');
     Route::post('my-settings', 'Auth\UserController@setMyNotifications')->name('set.my.notifications');
+
+    /** Rutas que permiten gestionar datos para el bloqueo de pantalla por inactividad */
+    Route::get('get-lockscreen-data', 'Auth\UserController@getLockScreenData')->name('get-lockscreen-data');
+    Route::post('set-lockscreen-data', 'Auth\UserController@setLockScreenData')->name('set-lockscreen-data');
 });
 
 /**
