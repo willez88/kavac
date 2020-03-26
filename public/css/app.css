@@ -33616,3 +33616,176 @@ a.ck.ck-button {
   padding-right: 10px;
 }
 
+/**
+ * Estilos para el fondo de la pantalla de bloqueo
+ */
+
+body.modalBlur > *:not(.modal) {
+  opacity: 0.65 !important;
+  /*-webkit-filter: blur(7px) !important;
+        -moz-filter: blur(7px) !important;
+        -o-filter: blur(7px) !important;
+        -ms-filter: blur(7px) !important;
+        filter: blur(7px) !important;*/
+  -webkit-filter: blur(4px) !important;
+  -moz-filter: blur(4px) !important;
+  -o-filter: blur(4px) !important;
+  -ms-filter: blur(4px) !important;
+  filter: blur(4px) !important;
+}
+
+body.modalBlur #gritter-notice-wrapper {
+  -webkit-filter: blur(0) !important;
+  -moz-filter: blur(0) !important;
+  -o-filter: blur(0) !important;
+  -ms-filter: blur(0) !important;
+  filter: blur(0) !important;
+  opacity: 1 !important;
+}
+
+/**
+ * Estilos de la ventana modal para el bloqueo de pantalla
+ */
+
+.modal-lockscreen {
+  /**
+     * Estilos de la ventana modal
+     */
+}
+
+.modal-lockscreen .modal-dialog {
+  margin: 10% auto 0 auto;
+  padding: 20px;
+  border-radius: 3px;
+  /**
+         * Estilos del contenido de la ventana modal
+         */
+}
+
+.modal-lockscreen .modal-dialog .modal-content {
+  height: auto;
+  min-height: 100%;
+  -mox-border-radius: 10px;
+  border-radius: 10px;
+  background-color: #2ba3f7;
+  /**
+             * Estilos del modal de bloqueo de pantalla
+             */
+}
+
+.modal-lockscreen .modal-dialog .modal-content .lockscreen {
+  /**
+                 * Estilos del contenido de la pantalla de bloqueo
+                 */
+}
+
+.modal-lockscreen .modal-dialog .modal-content .lockscreen .lockscreen-wrapper {
+  max-width: 400px;
+  margin: 0 auto;
+  /*margin-top: 5%;*/
+  /**
+                     * Estilos para el logotipo de la aplicación a mostrar en la pantalla de bloqueo
+                     */
+  /**
+                     * Estilos para el nombre del usuario a mostrar
+                     */
+  /**
+                     * Estilos para los elementos de la pantalla de bloqueo
+                     */
+}
+
+.modal-lockscreen .modal-dialog .modal-content .lockscreen .lockscreen-wrapper .lockscreen-logo {
+  font-size: 35px;
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 300;
+}
+
+.modal-lockscreen .modal-dialog .modal-content .lockscreen .lockscreen-wrapper .lockscreen-logo img {
+  max-height: 80px !important;
+}
+
+.modal-lockscreen .modal-dialog .modal-content .lockscreen .lockscreen-wrapper .lockscreen-logo a {
+  color: #333333;
+}
+
+.modal-lockscreen .modal-dialog .modal-content .lockscreen .lockscreen-wrapper .lockscreen-name {
+  text-align: center;
+  font-weight: 600;
+}
+
+.modal-lockscreen .modal-dialog .modal-content .lockscreen .lockscreen-wrapper .lockscreen-item {
+  border-radius: 4px;
+  padding: 0;
+  background: white;
+  position: relative;
+  margin: 10px auto 30px auto;
+  width: 290px;
+  /**
+                         * Estilos para la imagen del perfil de usuario a mostrar en la pantalla de bloqueo
+                         */
+  /**
+                         * Estilos para los elementos de las credenciales de usuario
+                         */
+}
+
+.modal-lockscreen .modal-dialog .modal-content .lockscreen .lockscreen-wrapper .lockscreen-item .lockscreen-image {
+  border-radius: 50%;
+  position: absolute;
+  left: -10px;
+  top: -25px;
+  background: white;
+  padding: 5px;
+  z-index: 10;
+}
+
+.modal-lockscreen .modal-dialog .modal-content .lockscreen .lockscreen-wrapper .lockscreen-item .lockscreen-image > img {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+}
+
+.modal-lockscreen .modal-dialog .modal-content .lockscreen .lockscreen-wrapper .lockscreen-item .lockscreen-credentials {
+  margin-left: 70px;
+}
+
+.modal-lockscreen .modal-dialog .modal-content .lockscreen .lockscreen-wrapper .lockscreen-item .lockscreen-credentials .form-control {
+  border: 0;
+}
+
+.modal-lockscreen .modal-dialog .modal-content .lockscreen .lockscreen-wrapper .lockscreen-item .lockscreen-credentials .btn {
+  background-color: white;
+  border: 0;
+  padding: 0 10px;
+  height: calc(1.2em + 0.75rem + 1.2px);
+  margin: 3px 2px;
+}
+
+.modal-lockscreen .modal-dialog .modal-content .lockscreen .lockscreen-wrapper .lockscreen-item .form-control::-webkit-input-placeholder {
+  color: #636e7b;
+}
+
+.modal-lockscreen .modal-dialog .modal-content .lockscreen .lockscreen-wrapper .lockscreen-item .form-control::-moz-placeholder {
+  color: #636e7b;
+}
+
+.modal-lockscreen .modal-dialog .modal-content .lockscreen .lockscreen-wrapper .lockscreen-item .form-control:-ms-input-placeholder {
+  color: #636e7b;
+}
+
+.modal-lockscreen .modal-dialog .modal-content .lockscreen .lockscreen-wrapper .lockscreen-item .form-control::-ms-input-placeholder {
+  color: #636e7b;
+}
+
+.modal-lockscreen .modal-dialog .modal-content .lockscreen .lockscreen-wrapper .lockscreen-item .form-control::placeholder {
+  color: #636e7b;
+}
+
+/**
+ * Estilo para el pie de página de la ventana modal
+ */
+
+.lockscreen-footer {
+  margin-top: 10px;
+}
+
