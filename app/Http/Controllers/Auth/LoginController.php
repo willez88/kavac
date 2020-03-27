@@ -6,6 +6,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
+use App\User;
 
 use Captcha;
 
@@ -43,6 +45,20 @@ class LoginController extends Controller
     protected $redirectTo = '/';
 
     /**
+     * Número máximo de intentos fallidos al tratar de autenticarse en la aplicación
+     *
+     * @var    integer
+     */
+    protected $maxAttempts = 3;
+
+    /**
+     * Tiempo establecido para volver a intentar el acceso al sistema después de varios intentos fallidos
+     *
+     * @var    integer
+     */
+    protected $decayMinutes = 300;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -50,6 +66,38 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Handle a login request to the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Http\JsonResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function login(Request $request)
+    {
+        $this->validateLogin($request);
+
+        $user = User::where('username', $request->username)->firstOrFail();
+        if ($user && !is_null($user->blocked_at)) {
+            return $this->sendLockedAccountResponse($request);
+        }
+
+        if (method_exists($this, 'hasTooManyLoginAttempts') && $this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+
+            return $this->sendLockoutResponse($request);
+        }
+
+        if ($this->attemptLogin($request)) {
+            return $this->sendLoginResponse($request);
+        }
+
+        $this->incrementLoginAttempts($request);
+
+        return $this->sendFailedLoginResponse($request);
     }
 
     /**
@@ -96,5 +144,30 @@ class LoginController extends Controller
     public function refreshCaptcha()
     {
         return Captcha::Img();
+    }
+
+    /**
+     * Obtiene la instancia de la petición del usuario bloqueado.
+     *
+     * @param \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function sendLockedAccountResponse(Request $request)
+    {
+        return redirect()->back()->withInput($request->only($this->username(), 'remember'))->withErrors([
+            $this->username() => $this->getLockedAccountMessage(),
+        ]);
+    }
+
+    /**
+     * Obtiene el mensaje a mostrar para la cuenta bloqueada.
+     *
+     * @return string
+     */
+    protected function getLockedAccountMessage()
+    {
+        return Lang::has('auth.locked')
+               ? Lang::get('auth.locked')
+               : 'Tú cuenta esta bloqueada. Por favor contacte a soporte por ayuda.';
     }
 }
