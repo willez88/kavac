@@ -37,14 +37,14 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Trabajador</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="payroll_staff">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Estado Civil</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="marital_status">
                                 </div>
                             </div>
@@ -53,21 +53,21 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Nombres y Apellidos de la Pareja del Trabajador</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="full_name_twosome">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Cédula de Identidad de la Pareja del Trabajador</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="id_number_twosome">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Fecha de Nacimiento de la Pareja del Trabajador</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="birthdate_twosome">
                                 </div>
                             </div>
@@ -84,28 +84,28 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Nombres</label>
-                                        <input type="text" data-toggle="tooltip" class="form-control"
+                                        <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                             disabled="true" :value="payroll_children.first_name">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Apellidos</label>
-                                        <input type="text" data-toggle="tooltip" class="form-control"
+                                        <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                             disabled="true" :value="payroll_children.last_name">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Cédula de Identidad</label>
-                                        <input type="text" data-toggle="tooltip" class="form-control"
+                                        <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                             disabled="true" :value="payroll_children.id_number">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Fecha de Nacimiento</label>
-                                        <input type="text" data-toggle="tooltip" class="form-control"
+                                        <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                             disabled="true" :value="payroll_children.birthdate">
                                     </div>
                                 </div>

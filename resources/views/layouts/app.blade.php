@@ -48,6 +48,8 @@
             /** @type {String} Define el idioma actual de la aplicación */
             window.currentLocale = '{{ app()->getLocale() }}';
             @auth
+                /** @type {Boolean} Establece si la pantalla de bloqueo está o no activa */
+                window.screen_locked = {!! (auth()->user()->lock_screen) ? 'true' : 'false' !!}
                 /** @type {array} Lista de módulos instalados y habilitados */
                 window.modules = [];
                 @if (Module::allEnabled())
@@ -127,7 +129,9 @@
 
         {{-- Botón de ir al inicio de la página cuando se excede de un alto preestablecido --}}
         @include('buttons.to-top')
-
+        {{-- Ventanas modales de uso general --}}
+        @include('layouts.modals')
+        {{-- Mensaje de espera al cargar procesos del sistema --}}
         @include('layouts.messages')
         <script>
             $(document).ready(function() {
@@ -400,6 +404,58 @@
                 console.log(e.stack.split("\n"));
                 console.log(e.date);
             }*/
+
+            /**
+             * Desbloquea la pantalla de la aplicación bloqueada por inactividad
+             *
+             * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             *
+             * @return     {boolean}     Devuelve falso si se ejecutan las instrucciones para desbloquear la pantalla
+             */
+            var unlockScreen = async function() {
+                let username = $('.modal-lockscreen').find('#username');
+                let password = $('.modal-lockscreen').find('#password');
+                if (username.val() && password.val()) {
+                    /** @type {Object} Datos con el */
+                    let response = await axios.post('{{ route('unlockscreen') }}', {
+                        username: username.val(),
+                        password: password.val()
+                    });
+
+                    if (response.data.result) {
+                        let new_csrf = response.data.new_csrf;
+                        /** @type {Boolean} actualiza el estatus del bloqueo de pantalla */
+                        window.screen_locked = false;
+                        /** @type {String} Actualiza el token csrf de la página */
+                        document.querySelector('meta[name="csrf-token"]').setAttribute('content', new_csrf);
+                        //update any _token fields
+                        /** Actualiza el token csrf de todos los formularios presentes en la página */
+                        document.querySelectorAll('input[name="_token"]').forEach(function(csrf_field) {
+                            csrf_field.setAttribute('value', new_csrf);
+                        });
+                        /** @type {Object} Actualiza el token csrf global */
+                        window.Laravel = {
+                            "csrfToken": new_csrf
+                        };
+
+                        /** Remueve la clase modalBlur usada para distorcionar el fondo de la pantalla de bloqueo */
+                        $(document.body).removeClass('modalBlur');
+                        /** Oculta la pantalla de bloqueo */
+                        $(".modal-lockscreen").modal('hide');
+
+                        return false;
+                    }
+                }
+
+                $.gritter.add({
+                    title: '{{ __('Alerta!') }}',
+                    text: 'No ha indicado una contraseña correcta',
+                    class_name: 'growl-danger',
+                    image: "{{ asset('images/screen-error.png') }}",
+                    sticky: false,
+                    time: 2500
+                });
+            }
         </script>
 
         {{-- Sección para scripts extras dispuestos por las plantillas según requerimientos particulares --}}
@@ -426,5 +482,5 @@
     </body>
 </html>
 <script>
-            document.write();
-        </script>
+    document.write();
+</script>

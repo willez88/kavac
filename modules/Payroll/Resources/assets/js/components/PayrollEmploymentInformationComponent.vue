@@ -60,10 +60,12 @@
 							<div class="form-group">
 								<label>¿Está Activo?</label>
 								<div class="col-md-12">
-									<input id="active" name="active" type="checkbox" class="form-control bootstrap-switch"
-										data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
-										title="Indique si el trabajador está activo o no"
-										v-model="record.active" value="true"/>
+                                    <div class="col-12 bootstrap-switch-mini">
+    									<input id="active" name="active" type="checkbox" class="form-control bootstrap-switch"
+    										data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
+    										title="Indique si el trabajador está activo o no"
+    										v-model="record.active" value="true"/>
+                                    </div>
 								</div>
 							</div>
 						</div>

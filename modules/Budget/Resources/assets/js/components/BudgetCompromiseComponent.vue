@@ -234,29 +234,29 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label>Descripción:</label>
-                                        <input type="text" class="form-control" data-toggle="tooltip"
+                                        <input type="text" class="form-control input-sm" data-toggle="tooltip"
                                                v-model="account_description" readonly
                                                title="Denominación de la cuenta presupuestaria">
                                     </div>
                                     <div class="col-md-6">
                                         <label>Concepto:</label>
-                                        <input type="text" class="form-control" data-toggle="tooltip"
+                                        <input type="text" class="form-control input-sm" data-toggle="tooltip"
                                                v-model="account_concept"
                                                title="Indique el concepto de la cuenta presupuestaria a agregar">
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 mt-4">
                                         <div class="form-group is-required">
                                             <label>Monto:</label>
                                             <input type="number" onfocus="$(this).select()"
-                                                   class="form-control numeric"
+                                                   class="form-control input-sm"
                                                    data-toggle="tooltip"
                                                    title="Indique el monto a asignar para la cuenta seleccionada"
                                                    v-model="account_amount">
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 mt-4">
                                         <div class="form-group is-required">
                                             <label>Impuesto:</label>
                                             <select2 :options="taxes" v-model="account_tax_id"/>

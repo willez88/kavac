@@ -43,7 +43,7 @@
 								<div class="form-group">
 									{!! Form::label('staffs_code', 'Código del personal', []) !!}
 									{!! Form::text('staffs_code', ($sCode) ? $sCode->format_code : old('staffs_code'), [
-										'class' => 'form-control', 'data-toggle' => 'tooltip',
+										'class' => 'form-control input-sm', 'data-toggle' => 'tooltip',
 										'title' => 'Formato para el código del personal',
 										'placeholder' => 'Ej. XXX-0000000000-YYYY',
 										'readonly' => ($sCode) ? true : false
@@ -192,23 +192,24 @@
 				<div class="card-body">
 					<div class="row">
 						{{-- Escalafones Salariales --}}
-						<payroll-salary-scale>
-						</payroll-salary-scale>
+						<payroll-salary-scale></payroll-salary-scale>
 
 						{{-- Tabuladores de Nómina --}}
-						<payroll-salary-tabulator>
-						</payroll-salary-tabulator>
+						<payroll-salary-tabulator></payroll-salary-tabulator>
 
 						{{-- Asignaciones de Nómina --}}
-						<payroll-salary-assignment-type>
-						</payroll-salary-assignment-type>
+						<payroll-salary-assignment-type></payroll-salary-assignment-type>
 
 						{{-- Asignaciones de Nómina --}}
-						<payroll-salary-assignment>
-						</payroll-salary-assignment>
+						<payroll-salary-assignment></payroll-salary-assignment>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+@stop
+
+@section('extra-js')
+    @parent
+    {!! Html::script('js/ckeditor.js', [], Request::secure()) !!}
 @stop

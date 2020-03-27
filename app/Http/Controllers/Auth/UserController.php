@@ -4,6 +4,8 @@
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Models\Profile;
@@ -25,6 +27,8 @@ use App\Notifications\UserRegistered;
  */
 class UserController extends Controller
 {
+    use AuthenticatesUsers;
+
     /**
      * Muesta todos los registros de los usuarios
      *
@@ -385,6 +389,17 @@ class UserController extends Controller
         return view('auth.my-settings', compact('user', 'notifySettings', 'header_notify_settings'));
     }
 
+    /**
+     * Gestiona la configuración de notificaciones establecida por el usuario
+     *
+     * @method     setMyNotifications
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @license    [description]
+     *
+     * @param      Request               $request    [description]
+     */
     public function setMyNotifications(Request $request)
     {
         $fields = $request->all();
@@ -407,5 +422,73 @@ class UserController extends Controller
 
         $request->session()->flash('message', ['type' => 'store']);
         return redirect()->route('my.settings');
+    }
+
+    /**
+     * Obtiene información acerca de la pantalla de bloqueo del sistema
+     *
+     * @method     getLockScreenData
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return     \Illuminate\Http\JsonResponse     Devuelve los datos correspondientes a la pantalla de bloqueo
+     */
+    public function getLockScreenData()
+    {
+        $user = auth()->user();
+        return response()->json(['lock_screen' => $user->lock_screen, 'time_lock' => $user->time_lock], 200);
+    }
+
+    /**
+     * Actualiza información de la pantalla de bloqueo del sistema
+     *
+     * @method     setLockScreenData
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param      \Illuminate\Http\JsonResponse     Devuelve el resultado de la operación
+     */
+    public function setLockScreenData(Request $request)
+    {
+        $user = User::find(auth()->user()->id);
+        $user->lock_screen = $request->lock_screen;
+        $user->save();
+        return response()->json(['result' => true], 200);
+    }
+
+    /**
+     * Realiza las gestiones necesarias para desbloquear la pantalla del sistema
+     *
+     * @method     unlockScreen
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param      Request          $request    [description]
+     *
+     * @return     \Illuminate\Http\JsonResponse     Devuelve el resultado de la operación
+     */
+    public function unlockScreen(Request $request)
+    {
+        $user = User::where('username', $request->username)->first();
+
+        /** Verifica si la contraseña es correcta, de lo contrario retorna falso */
+        if (!Hash::check($request->password, $user->password)) {
+            return response()->json(['result' => false], 200);
+        }
+
+        // Agregar funcionalidad para determinar si el usuario esta autenticado (aplica para cuando expira la sesion)
+        if (!auth()->check()) {
+            $userCredentials = $request->only('email', 'password');
+            if (!Auth::attempt($userCredentials)) {
+                return response()->json(['result' => false], 200);
+            }
+            //$this->login($request);
+        }
+
+        /** @var boolean actualiza el campo que determina si la pantalla de bloqueo esta o no activada */
+        $user->lock_screen = false;
+        $user->save();
+
+        return response()->json(['result' => true, 'new_csrf' => csrf_token()], 200);
     }
 }

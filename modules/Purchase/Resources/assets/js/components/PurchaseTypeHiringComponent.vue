@@ -34,7 +34,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label" for="purchase_type_operation_id">Tipo:</label><br>
-                                    <select2 :options="type_operations" id="purchase_type_operation_id" 
+                                    <select2 :options="type_operations" id="purchase_type_operation_id"
                                             placeholder="Tipo de contratación"
                                             v-model="record.purchase_type_operation_id">
                                             </select2>
@@ -43,7 +43,7 @@
                             <div class="col-md-6">
                                 <div class="form-group is-required">
                                     <label for="record_ut">Unidades tributarias:</label>
-                                    <input type="number" id="record_ut" class="form-control" v-model="record.ut" 
+                                    <input type="number" id="record_ut" class="form-control" v-model="record.ut"
                                             title="Indique las unidades tributarias">
                                 </div>
                             </div>
@@ -51,12 +51,11 @@
                                 <div class='form-group'>
                                     <label class='control-label'>Activa</label>
                                     <div class='col-12'>
-                                        <input id='active'
-                                             data-on-label='SI' data-off-label='NO' 
-                                             name='active' 
-                                             type='checkbox' 
-                                             class='form-control bootstrap-switch'
-                                             v-model='record.active'>
+                                        <div class="col-12 bootstrap-switch-mini">
+                                            <input id='active' data-on-label='SI' data-off-label='NO' name='active'
+                                                   type='checkbox' class='form-control bootstrap-switch'
+                                                   v-model='record.active'>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -92,8 +91,8 @@
                                         <i class="fa fa-edit"></i>
                                     </button>
                                     <button @click="deleteRecord(props.index,'/purchase/type_hiring')"
-                                            class="btn btn-danger btn-xs btn-icon btn-action" 
-                                            title="Eliminar registro" 
+                                            class="btn btn-danger btn-xs btn-icon btn-action"
+                                            title="Eliminar registro"
                                             data-toggle="tooltip" >
                                         <i class="fa fa-trash-o"></i>
                                     </button>

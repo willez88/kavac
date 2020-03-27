@@ -21,11 +21,13 @@
 							<div class="form-group">
 								<label for="" class="control-label">Multi Almacén (varios almacenes)</label>
 								<div class="col-12">
-									{!! Form::checkbox('multi_warehouse', true, 
-										(!is_null($paramMultiWarehouse) && $paramMultiWarehouse->p_value === 'true'), [
-										'id' => 'multi_warehouse', 'class' => 'form-control bootstrap-switch',
-										'data-on-label' => 'SI', 'data-off-label' => 'NO'
-									]) !!}
+                                    <div class="bootstrap-switch-mini">
+    									{!! Form::checkbox('multi_warehouse', true,
+    										(!is_null($paramMultiWarehouse) && $paramMultiWarehouse->p_value === 'true'), [
+    										'id' => 'multi_warehouse', 'class' => 'form-control bootstrap-switch',
+    										'data-on-label' => 'SI', 'data-off-label' => 'NO'
+    									]) !!}
+                                    </div>
 								</div>
 							</div>
 						</div>

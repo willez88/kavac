@@ -66,6 +66,16 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
     protected $dates = ['deleted_at', 'last_login'];
 
     /**
+     * User has many FailedLoginAttempts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function failedLoginAttempts()
+    {
+        return $this->hasMany(Models\FailedLoginAttempt::class);
+    }
+
+    /**
      * Método que obtiene el perfil de un usuario
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

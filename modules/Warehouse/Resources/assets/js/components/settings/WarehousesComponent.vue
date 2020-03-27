@@ -63,22 +63,26 @@
 								<div class="form-group">
 									<label for="" class="control-label">Principal</label>
 									<div class="col-12">
-										<input type="checkbox" class="form-control bootstrap-switch"
-											name="main" data-toggle="tolltip" title="Indique si es el almacén principal"
-											data-on-label="Si" data-off-label="No" value="true"
-											v-model="record.main">
-										</div>
+                                        <div class="bootstrap-switch-mini">
+    										<input type="checkbox" class="form-control bootstrap-switch"
+    											name="main" data-toggle="tolltip" title="Indique si es el almacén principal"
+    											data-on-label="Si" data-off-label="No" value="true"
+    											v-model="record.main">
+    										</div>
+                                        </div>
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<label for="" class="control-label">Activo</label>
 									<div class="col-12">
-										<input type="checkbox" class="form-control bootstrap-switch"
-											name="active" data-toggle="tolltip" title="Indique si el estatus del almacén"
-											data-on-label="Si" data-off-label="No" value="true"
-											v-model="record.active">
-										</div>
+                                        <div class="bootstrap-switch-mini">
+    										<input type="checkbox" class="form-control bootstrap-switch"
+    											name="active" data-toggle="tolltip" title="Indique si el estatus del almacén"
+    											data-on-label="Si" data-off-label="No" value="true"
+    											v-model="record.active">
+                                        </div>
+									</div>
 								</div>
 							</div>
 						</div>

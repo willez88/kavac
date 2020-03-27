@@ -51,10 +51,9 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Descripción:</label>
-									<textarea  data-toggle="tooltip" 
+									<textarea  data-toggle="tooltip" rows="2" id="description_assignment_type"
 											   placeholder="Descripción del Tipo de Asignación"
 											   title="Indique una breve descripción del Nuevo Tipo de Asignación (opcional)"
-											   rows="2"
 											   class="form-control" v-model="record.description">
 								    </textarea>
 			                    </div>
@@ -118,6 +117,20 @@
 				'id': 'col-xs-2',
 			}
 		},
+        mounted() {
+            CkEditor.create(document.querySelector(`#description_assignment_type`), {
+                toolbar: [
+                    'heading', '|',
+                    'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|',
+                    'insertTable'
+                ],
+                language: window.currentLocation,
+            }).then(editor => {
+                window.editor = editor;
+            }).catch(error => {
+                console.warn(error);
+            });
+        },
 		methods: {
 			reset() {
 				this.record = {

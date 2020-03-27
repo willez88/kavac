@@ -82,7 +82,7 @@
 								<div class="form-group is-required">
 									<label>Descripción</label>
 									<textarea class="form-control" rows="3" v-model="record.description"
-											  data-toggle="tooltip"
+											  data-toggle="tooltip" id="description"
 											  title="Indique la descripción u objetivo de la cuenta"></textarea>
 								</div>
 							</div>
@@ -184,5 +184,19 @@
 			this.getBanks();
 			this.getAccountTypes();
 		},
+        mounted() {
+            CkEditor.create(document.querySelector(`#description`), {
+                toolbar: [
+                    'heading', '|',
+                    'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|',
+                    'insertTable'
+                ],
+                language: window.currentLocale,
+            }).then(editor => {
+                window.editor = editor;
+            }).catch(error => {
+                console.warn(error);
+            });
+        }
 	};
 </script>
