@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Validation\ValidationException;
 use App\User;
 
 use Captcha;
@@ -38,6 +39,13 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
+     * Intentos fallidos restantes
+     *
+     * @var    integer
+     */
+    protected $remainAttempts;
+
+    /**
      * Where to redirect users after login.
      *
      * @var string
@@ -66,6 +74,8 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+
+        $this->remainAttempts = $this->maxAttempts - $this->limiter()->attempts($this->throttleKey(request()));
     }
 
     /**
@@ -86,6 +96,9 @@ class LoginController extends Controller
         }
 
         if (method_exists($this, 'hasTooManyLoginAttempts') && $this->hasTooManyLoginAttempts($request)) {
+            /** elimina la cantidad de intentos fallidos del usuario y se procede al bloqueo del mismo */
+            $this->clearLoginAttempts($request);
+
             $this->fireLockoutEvent($request);
 
             return $this->sendLockoutResponse($request);
@@ -98,6 +111,21 @@ class LoginController extends Controller
         $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
+    }
+
+    /**
+     * Get the failed login response instance.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        throw ValidationException::withMessages([
+            $this->username() => [trans('auth.failed', ['attempts' => $this->remainAttempts])],
+        ]);
     }
 
     /**
