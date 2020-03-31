@@ -135,6 +135,10 @@
         @include('layouts.messages')
         <script>
             $(document).ready(function() {
+                $('#form-lockscreen').on('submit', function() {
+                    unlockScreen();
+                    return false;
+                });
                 /** Coloca el año actual en el pie de página */
                 $('.currentYear').text(new Date().getFullYear());
 

@@ -19,7 +19,7 @@
                                      alt="perfil">
                             </div>
 
-                            {!! Form::open(array('class' => 'lockscreen-credentials', 'id' => 'form-lockscreen')) !!}
+                            {!! Form::open(['class' => 'lockscreen-credentials', 'id' => 'form-lockscreen']) !!}
                                 <div class="input-group">
                                     {!! Form::password('password', array(
                                         'class' => 'form-control', 'placeholder' => 'contraseña de acceso',
