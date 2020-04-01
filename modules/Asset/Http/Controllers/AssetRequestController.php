@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use App\Repositories\UploadDocRepository;
 use Illuminate\Support\Facades\Auth;
 use App\Models\CodeSetting;
 use Session;
@@ -85,12 +86,13 @@ class AssetRequestController extends Controller
      * @param  \Illuminate\Http\Request  $request   Datos de la petición
      * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
      */
-    public function store(Request $request)
+     public function store(Request $request, UploadDocRepository $upDoc)
     {
         $this->validate($request, [
-            'type_id' => ['required'],
-            'motive' => ['required'],
+            'type_id'       => ['required'],
+            'motive'        => ['required'],
             'delivery_date' => ['required'],
+            'file'          => ['max:5000', 'mimes:pdf,docx,doc,odt']
 
         ]);
 
@@ -138,7 +140,8 @@ class AssetRequestController extends Controller
             'user_id' => Auth::id()
         ]);
 
-        foreach ($request->assets as $asset_id) {
+        $assets = explode(",", $request->assets);
+        foreach ($assets as $asset_id) {
             $asset = Asset::find($asset_id);
             $asset->asset_status_id = 6;
             $asset->save();
@@ -147,6 +150,22 @@ class AssetRequestController extends Controller
                 'asset_request_id' => $asset_request->id,
             ]);
         }
+
+        $documentFormat = ['doc', 'docx', 'pdf', 'odt'];
+        $extensionFile = $request->file('file')->getClientOriginalExtension();
+        if (in_array($extensionFile, $documentFormat)) {
+            $upDoc->uploadDoc(
+                $request->file('file'),
+                'documents',
+                AssetRequest::class,
+                $asset_request->id,
+                null,
+                false,
+                false,
+                true
+            );
+        }
+
         $request->session()->flash('message', ['type' => 'store']);
         return response()->json(['result' => true, 'redirect' => route('asset.request.index')], 200);
     }
