@@ -29280,6 +29280,7 @@ table td {
 
 .login-page .card-login .logo-container {
   margin-bottom: 35px !important;
+  width: 120px !important;
 }
 
 .login-page .card-login .content {
