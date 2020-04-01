@@ -9,7 +9,7 @@
                 <div class="modal-body lockscreen">
                     <div class="lockscreen-wrapper">
                         <div class="lockscreen-logo">
-                            <img src="{{ asset('images/logo-white.png') }}" alt="Logo SAID" />
+                            <img src="{{ asset('images/app-logo-white.png') }}" alt="Logo KAVAC" />
                         </div>
                         <div class="lockscreen-name text-white">@if (Auth::check()) {{ Auth::user()->name }} @endif</div>
 
