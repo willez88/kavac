@@ -32,6 +32,9 @@ Route::group(
         Route::post('registers/search/clasification', 'AssetController@searchClasification');
         Route::post('registers/search/dependence', 'AssetController@searchDependence');
 
+        Route::get('registers/export/all', 'AssetController@export');
+        Route::post('registers/import/all', 'AssetController@import');
+
         /**
          * Rutas para gestionar las asignaciones de bienes institucionales
          */

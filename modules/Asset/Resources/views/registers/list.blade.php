@@ -25,6 +25,23 @@
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.new', ['route' => route('asset.register.create')])
+                    	{!! Form::button('<i class="fa fa-upload"></i>', [
+							'class'       => 'btn btn-sm btn-primary btn-custom',
+							'data-toggle' => 'tooltip',
+							'type'        => 'button',
+							'title'       => __('Importar registros'),
+							'onclick'     => "$('input[name=importFile]').click()"
+						]) !!}
+                        <input  id="importFile" name="importFile"
+                        		type="file" style="display:none"
+                               	onchange="importData()">
+                        {!! Form::button('<i class="fa fa-download"></i>', [
+							'class'       => 'btn btn-sm btn-primary btn-custom',
+							'data-toggle' => 'tooltip',
+							'type'        => 'button',
+							'title'       => __('Exportar registros'),
+							'onclick'     => 'exportData()'
+						]) !!}
 						@include('buttons.minimize')
 					</div>
 				</div>
@@ -39,3 +56,36 @@
 		</div>
 	</div>
 @stop
+
+@section('extra-js')
+	@parent
+    <script>
+        function exportData() {
+            location.href = '/asset/registers/export/all';
+        };
+        function importData() {
+        	var url = '/asset/registers/import/all' ;
+            var formData = new FormData();
+            var importFile = document.querySelector('#importFile');
+            formData.append("file", importFile.files[0]);
+            axios.post(url, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(response => {
+            	console.log('exit');
+                $.gritter.add({
+                    title: 'Exito!',
+                    text: "Registro almacenado con exito",
+                    class_name: 'growl-success',
+                    image: "/images/screen-ok.png",
+                    sticky: false,
+                    time: 2500
+                });
+            }).catch(error => {
+                console.log('failure');
+                
+            });
+        }
+    </script>
+@endsection

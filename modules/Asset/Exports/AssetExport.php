@@ -19,7 +19,26 @@ class AssetExport extends \App\Exports\DataExport implements
     */
     public function collection()
     {
-        return Asset::all();
+        return Asset::with(
+            [
+                'assetType',
+                'assetCategory',
+                'assetSubcategory',
+                'assetSpecificCategory',
+                'assetAcquisitionType',
+                'assetCondition',
+                'assetStatus',
+                'assetUseFunction',
+                'institution',
+                'parish' => function ($query) {
+                    $query->with(['municipality' => function ($query) {
+                        $query->with(['estate' => function ($query) {
+                            $query->with('country')->get();
+                        }])->get();
+                    }])->get();
+                }
+            ]
+        )->get();
     }
 
     /**
@@ -47,7 +66,7 @@ class AssetExport extends \App\Exports\DataExport implements
             'asset_condition',
             'asset_acquisition_type_id',
             'asset_acquisition_type',
-            'acquisition_year',
+            'acquisition_date',
             'asset_status_id',
             'asset_status',
             'serial',
@@ -83,36 +102,36 @@ class AssetExport extends \App\Exports\DataExport implements
     {
         return [
             $asset->id,
-            $asset->assetType->id,
-            $asset->assetType->name,
-            $asset->assetCategory->id,
-            $asset->assetCategory->name,
-            $asset->assetSubcategory->id,
-            $asset->assetSubcategory->name,
-            $asset->assetSpecificCategory->id,
-            $asset->assetSpecificCategory->name,
-            $asset->assetCondition->id,
-            $asset->assetCondition->name,
-            $asset->assetAcquisitionType->id,
-            $asset->assetAcquisitionType->name,
-            $asset->acquisition_year,
-            $asset->assetStatus->id,
-            $asset->assetStatus->name,
+            $asset->assetType->id ?? '',
+            $asset->assetType->name ?? '',
+            $asset->assetCategory->id ?? '',
+            $asset->assetCategory->name ?? '',
+            $asset->assetSubcategory->id ?? '',
+            $asset->assetSubcategory->name ?? '',
+            $asset->assetSpecificCategory->id ?? '',
+            $asset->assetSpecificCategory->name ?? '',
+            $asset->assetCondition->id ?? '',
+            $asset->assetCondition->name ?? '',
+            $asset->assetAcquisitionType->id ?? '',
+            $asset->assetAcquisitionType->name ?? '',
+            $asset->acquisition_date,
+            $asset->assetStatus->id ?? '',
+            $asset->assetStatus->name ?? '',
             $asset->serial,
             $asset->marca,
             $asset->model,
             $asset->inventory_serial,
             $asset->value,
-            $asset->assetUseFunction->id,
-            $asset->assetUseFunction->name,
+            $asset->assetUseFunction->id ?? '',
+            $asset->assetUseFunction->name ?? '',
             $asset->specifications,
             $asset->address,
-            $asset->parish->id,
-            $asset->parish->name,
-            $asset->currency->id,
-            $asset->currency->name,
-            $asset->institution->id,
-            $asset->institution->name
+            $asset->parish->id ?? '',
+            $asset->parish->name ?? '',
+            $asset->currency->id ?? '',
+            $asset->currency->name ?? '',
+            $asset->institution->id ?? '',
+            $asset->institution->name ?? ''
         ];
     }
 }

@@ -40,7 +40,7 @@ class Asset extends Model implements Auditable
      */
     protected $fillable = [
         'asset_type_id', 'asset_category_id', 'asset_subcategory_id', 'asset_specific_category_id',
-        'asset_condition_id', 'asset_acquisition_type_id', 'acquisition_year', 'asset_status_id',
+        'asset_condition_id', 'asset_acquisition_type_id', 'acquisition_date', 'asset_status_id',
         'serial', 'marca', 'model', 'inventory_serial', 'value', 'asset_use_function_id',
         'specifications', 'address', 'parish_id', 'currency_id', 'institution_id'
     ];
@@ -53,9 +53,11 @@ class Asset extends Model implements Auditable
      */
     public function getCode()
     {
+        $date = strtotime($this->acquisition_date);
+        $year = date("Y", $date);
         return $this->asset_type_id . '-' . $this->asset_category_id . '-' .
         $this->asset_subcategory_id . '-' . $this->asset_specific_category_id . '-' .
-        $this->acquisition_year     . '-' . $this->id;
+        $year     . '-' . $this->id;
     }
 
     /**

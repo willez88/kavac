@@ -93,10 +93,10 @@
 				</div>
 				<div class="col-md-3" id="helpAssetAcquisitionYear">
 					<div class="form-group is-required">
-						<label>Año de Adquisición</label>
-						<input type="number" min="0" placeholder="Año de Adquisición" data-toggle="tooltip"
-							   title="Indique el año de adquisición"
-							   class="form-control input-sm" v-model="record.acquisition_year">
+						<label>Fecha de Adquisición</label>
+						<input type="date" placeholder="Fecha de Adquisición" data-toggle="tooltip"
+							   title="Indique la fecha de adquisición"
+							   class="form-control input-sm" v-model="record.acquisition_date">
 					</div>
 				</div>
 
@@ -282,7 +282,7 @@
 					asset_specific_category_id: '',
 
 					asset_acquisition_type_id: '',
-					acquisition_year: '',
+					acquisition_date: '',
 					institution_id: '',
 					proveedor_id: '',
 					asset_condition_id: '',
@@ -341,7 +341,7 @@
 					asset_specific_category_id: '',
 
 					asset_acquisition_type_id: '',
-					acquisition_year: '',
+					acquisition_date: '',
 					institution_id: '',
 					proveedor_id: '',
 					asset_condition_id: '',

@@ -37,7 +37,10 @@ class WarehouseProductExport extends \App\Exports\DataExport implements
             'id',
             'name',
             'description',
-            'measurement_unit'
+            'measurement_unit_id',
+            'measurement_unit',
+            'measurement_unit_acronym',
+            'measurement_unit_description'
         ];
     }
 
@@ -58,7 +61,10 @@ class WarehouseProductExport extends \App\Exports\DataExport implements
             $warehouseProduct->id,
             $warehouseProduct->name,
             $warehouseProduct->description,
-            $warehouseProduct->measurementUnit->name
+            $warehouseProduct->measurementUnit->id,
+            $warehouseProduct->measurementUnit->name,
+            $warehouseProduct->measurementUnit->acronym,
+            $warehouseProduct->measurementUnit->description
         ];
     }
 }
