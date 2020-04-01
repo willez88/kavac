@@ -72,11 +72,13 @@ body.modalBlur {
                     .lockscreen-logo {
                         font-size: 35px;
                         text-align: center;
-                        margin-bottom: 25px;
+                        /*margin-bottom: 25px;*/
+                        margin-bottom: 15px;
                         font-weight: 300;
 
                         img {
-                            max-height: 80px !important;
+                            /*max-height: 80px !important;*/
+                            max-height: 100px !important;
                         }
 
                         a {
