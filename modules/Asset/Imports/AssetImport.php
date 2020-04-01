@@ -11,7 +11,7 @@ use Modules\Asset\Models\AssetSpecificCategory;
 use Modules\Asset\Models\AssetCondition;
 use Modules\Asset\Models\AssetAcquisitionType;
 use Modules\Asset\Models\AssetStatus;
-use Modules\Asset\Models\assetUseFunction;
+use Modules\Asset\Models\AssetUseFunction;
 use App\Models\Currency;
 use App\Models\Institution;
 use App\Models\Parish;
@@ -134,7 +134,7 @@ class AssetImport extends \App\Imports\DataImport implements
             $currency = Currency::find($row['currency_id']);
         }
 
-        if !(empty($row['institution_id']) || is_null($row['institution_id'])) {
+        if (!(empty($row['institution_id']) || is_null($row['institution_id']))) {
             /** @var object Contiene los datos de la moneda asociada al bien */
             $institution = Institution::find($row['institution_id']);
         }
@@ -146,10 +146,10 @@ class AssetImport extends \App\Imports\DataImport implements
 
         if (empty($row['asset_use_function_id']) || is_null($row['asset_use_function_id'])) {
             /** @var object Crea la nueva función de uso a ser asociada al bien */
-            $useFunction = UseFunction::create($dataUseFunction);
+            $assetUseFunction = AssetUseFunction::create($dataUseFunction);
         } else {
             /** @var object Contiene los datos de la función de uso asociada al bien */
-            $useFunction = UseFunction::find($row['asset_use_function_id']);
+            $assetUseFunction = AssetUseFunction::find($row['asset_use_function_id']);
         }
 
         /** @var array Datos de la parroquia al cual asociar la información del bien */
@@ -175,7 +175,7 @@ class AssetImport extends \App\Imports\DataImport implements
             'specifications'             => $row['specifications'],
             'asset_condition_id'         => $assetCondition->id,
             'asset_acquisition_type_id'  => $assetAcquisitionType->id,
-            'acquisition_year'           => $row['acquisition_year'],
+            'acquisition_date'           => $row['acquisition_date'],
             'asset_status_id'            => $assetStatus->id,
             'serial'                     => $row['serial'],
             'marca'                      => $row['marca'],
