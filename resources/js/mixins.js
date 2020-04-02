@@ -1,6 +1,9 @@
 import moment from 'moment';
 
+/** Import del editor clásico de CKEditor */
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+/** Requerimiento para traducción de CKEditor al español */
+require('@ckeditor/ckeditor5-build-classic/build/translations/es.js');
 
 /**
  * Opciones de configuración global para utilizar en todos los componentes vuejs de la aplicación
@@ -891,12 +894,12 @@ Vue.mixin({
     mounted() {
         let vm = this;
         if ($('.modal-lockscreen').length > 0) {
-            vm.lockScreen();
-            $('.modal-lockscreen').on('hidden.bs.modal', function() {
+            //vm.lockScreen();
+            //$('.modal-lockscreen').on('hidden.bs.modal', function() {
                 /** Reinicia el valor del campo de la contraseña */
-                $(".modal-lockscreen").find('#password').val('');
-                vm.lockScreen();
-            });
+                //$(".modal-lockscreen").find('#password').val('');
+                //vm.lockScreen();
+            //});
         }
     }
 });

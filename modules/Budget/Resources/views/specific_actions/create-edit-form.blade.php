@@ -126,12 +126,13 @@
 							<div class="col-12">
 								<div class="form-group is-required">
 									{!! Form::label('description', __('Descripción'), ['class' => 'control-label']) !!}
-									{!! Form::textarea('description', old('description'), [
-										'class' => 'form-control', 'rows' => '4',
-										'placeholder' => __('Descripción de la acción específica'),
-										'data-toggle' => 'tooltip', 'id' => 'description',
-										'title' => __('Descripción de la acción específica')
-									]) !!}
+                                    <ckeditor :editor="ckeditor.editor" id="description" data-toggle="tooltip"
+                                              title="{!! __('Descripción de la acción específica') !!}"
+                                              :config="ckeditor.editorConfig" class="form-control" name="description"
+                                              tag-name="textarea" rows="4"
+                                              value="{!! (isset($model))?$model->description:old('description')  !!}"
+                                              placeholder="{!! __('Descripción de la acción específica') !!}"></ckeditor>
+
 								</div>
 							</div>
 						</div>
@@ -147,7 +148,6 @@
 
 @section('extra-js')
 	@parent
-    {!! Html::script('js/ckeditor.js', [], Request::secure()) !!}
 	<script>
 		$(document).ready(function() {
 			$('.sel_project_centralized_action').on('switchChange.bootstrapSwitch', function(e) {
@@ -163,19 +163,6 @@
 					$("#project_id").closest('.form-group').removeClass('is-required');
 				}
 			});
-
-            CkEditor.create(document.querySelector(`#description`), {
-                toolbar: [
-                    'heading', '|',
-                    'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|',
-                    'insertTable'
-                ],
-                language: '{{ app()->getLocale() }}',
-            }).then(editor => {
-                window.editor = editor;
-            }).catch(error => {
-                logs('setting-institution', 489, error);
-            });
 		});
 	</script>
 @endsection
