@@ -108,10 +108,12 @@
 											<div class="col-md-12">
 												<div class="form-group">
 													<label>Descripción:</label>
-													<textarea  data-toggle="tooltip" rows="1"
-															   title="Indique alguna descripción asociada a la asignación"
-															   class="form-control"
-                                                               v-model="record.description"></textarea>
+                                                    <ckeditor :editor="ckeditor.editor" id="description"
+                                                              data-toggle="tooltip"
+                                                              title="Indique una descripción asociada a la asignación"
+                                                              :config="ckeditor.editorConfig" class="form-control"
+                                                              name="description" tag-name="textarea" rows="3"
+                                                              v-model="record.description"></ckeditor>
 							                    </div>
 											</div>
 					                    </div>

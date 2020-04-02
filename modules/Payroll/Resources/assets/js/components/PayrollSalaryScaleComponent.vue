@@ -86,11 +86,11 @@
 									<div class="col-md-12">
 										<div class="form-group">
 											<label>Descripción:</label>
-											<textarea  data-toggle="tooltip" id="description_scale"
-													   title="Indique alguna descripción asociada al escalafón"
-													   rows="3"
-													   class="form-control" v-model="record.description">
-										   </textarea>
+                                            <ckeditor :editor="ckeditor.editor" id="description_scale"
+                                                      title="Indique alguna descripción asociada al escalafón"
+                                                      :config="ckeditor.editorConfig" class="form-control"
+                                                      name="description" tag-name="textarea" rows="3"
+                                                      data-toggle="tooltip" v-model="record.description"></ckeditor>
 					                    </div>
 									</div>
 								</div>
@@ -232,11 +232,12 @@
 										<div class="col-md-12">
 											<div class="form-group">
 												<label>Descripción:</label>
-												<textarea  data-toggle="tooltip" id="description_new_scale"
-														   title="Indique alguna descripción asociada a la escala"
-														   class="form-control input-sm"
-														   rows="2"
-														   v-model="scale.description">
+                                                <ckeditor :editor="ckeditor.editor" id="description_new_scale"
+                                                          data-toggle="tooltip"
+                                                          title="Indique alguna descripción asociada a la escala"
+                                                          :config="ckeditor.editorConfig" class="form-control"
+                                                          name="description_new_scale" tag-name="textarea" rows="2"
+                                                          v-model="scale.description"></ckeditor>
 											   </textarea>
 						                    </div>
 										</div>
@@ -641,22 +642,6 @@
 				}
 			});
 
-            $.each([
-                'description_scale', 'description_new_scale'
-            ], function(index, element_id) {
-                CkEditor.create(document.querySelector(`#${element_id}`), {
-                    toolbar: [
-                        'heading', '|',
-                        'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|',
-                        'insertTable'
-                    ],
-                    language: window.currentLocale,
-                }).then(editor => {
-                    window.editor = editor;
-                }).catch(error => {
-                    console.warn(error);
-                });
-            });
 		},
 	};
 </script>
