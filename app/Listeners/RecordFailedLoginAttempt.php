@@ -6,9 +6,6 @@ use Illuminate\Auth\Events\Failed;
 use App\Models\FailedLoginAttempt;
 use App\Notifications\UserBlocked;
 
-/*use App\Notifications\SystemNotification;
-use App\User;*/
-
 //use Illuminate\Contracts\Queue\ShouldQueue;
 //use Illuminate\Queue\InteractsWithQueue;
 
@@ -32,13 +29,11 @@ class RecordFailedLoginAttempt
      */
     public function handle(Failed $event)
     {
-        /** Bloquear solo si el máximo número de intentos fue alcanzado */
+        /** @var string Establece la fecha y hora en la que fue bloqueado el usuario */
         $event->user->blocked_at = date('Y-m-d H:i:s');
         $event->user->save();
 
         $event->user->notify(new UserBlocked($event->user));
-
-        //Enviar notificación al administrador?
 
         FailedLoginAttempt::record(
             $event->credentials['username'],

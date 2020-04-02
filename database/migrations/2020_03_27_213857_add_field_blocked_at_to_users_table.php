@@ -15,7 +15,7 @@ class AddFieldBlockedAtToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             if (!Schema::hasColumn('users', 'blocked_at')) {
-                $table->date('blocked_at')->nullable()->comment('fecha en la que fue bloqueado un usuario');
+                $table->datetime('blocked_at')->nullable()->comment('fecha en la que fue bloqueado un usuario');
             }
         });
     }

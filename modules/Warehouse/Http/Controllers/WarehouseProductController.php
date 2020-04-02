@@ -7,6 +7,9 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Maatwebsite\Excel\Facades\Excel;
+use Modules\Warehouse\Exports\WarehouseProductExport;
+use Modules\Warehouse\Imports\WarehouseProductImport;
 
 use Modules\Warehouse\Models\WarehouseInventoryProduct;
 use Modules\Warehouse\Models\WarehouseProductAttribute;
@@ -215,5 +218,29 @@ class WarehouseProductController extends Controller
                 $fields->orderBy('reserved', 'asc')->get();
         }
         return response()->json(['records' => $fields], 200);
+    }
+
+    /**
+     * Realiza la acción necesaria para exportar los datos del modelo WarehouseProduct
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return object    Objeto que permite descargar el archivo con la información a ser exportada
+     */
+    public function export()
+    {
+        return Excel::download(new WarehouseProductExport, 'warehouse-products.xlsx');
+    }
+
+    /**
+     * Realiza la acción necesaria para importar los datos suministrados en un archivo para el modelo WarehouseProduct
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @return object    Objeto que permite descargar el archivo con la información a ser exportada
+     */
+    public function import(Request $request)
+    {
+        Excel::import(new WarehouseProductImport, request()->file('file'));
+        return response()->json(['result' => true], 200);
     }
 }

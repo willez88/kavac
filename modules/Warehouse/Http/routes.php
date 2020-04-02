@@ -247,6 +247,8 @@ Route::group(
          * Rutas para gestionar los productos de almacén
          */
         Route::resource('products', 'WarehouseProductController', ['except' => ['show']]);
+        Route::get('products/export/all', 'WarehouseProductController@export');
+        Route::post('products/import/all', 'WarehouseProductController@import');
 
         /**
          * Rutas para gestionar las Reglas de Productos de Almacén

@@ -41,7 +41,8 @@
         </div>
         <div class="col-9">
             <div class="card mb-4" style="min-height:100%">
-                <div class="card-body">
+                <div class="card-body" v-if="showDetail">aqui van los detalles del módulo</div>
+                <div class="card-body" v-else>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                             <div class="input-group input-sm">
@@ -180,6 +181,7 @@
     export default {
         data() {
             return {
+                showDetail: false,
                 details: {}
             }
         },
@@ -191,7 +193,8 @@
                     module: module
                 }).then(response => {
                     vm.details = response.data.details;
-                    $(".btn-show-modal").click();
+                    vm.showDetail = true;
+                    //$(".btn-show-modal").click();
                 }).catch(error => {
                     console.warn(error);
                 });

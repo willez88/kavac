@@ -264,7 +264,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     /** Ruta para acceder a la configuración del usuario autenticado */
     Route::get('my-settings', 'Auth\UserController@userSettings')->name('my.settings');
-    Route::post('my-settings', 'Auth\UserController@setMyNotifications')->name('set.my.notifications');
+    Route::post('my-settings/general', 'Auth\UserController@setUserSettings')->name('set.my.settings');
+    Route::post('my-settings/notifications', 'Auth\UserController@setMyNotifications')->name('set.my.notifications');
 
     /** Rutas que permiten gestionar datos para el bloqueo de pantalla por inactividad */
     Route::get('get-lockscreen-data', 'Auth\UserController@getLockScreenData')->name('get-lockscreen-data');

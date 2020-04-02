@@ -39,7 +39,9 @@ class AcquisitionYear implements Rule
      */
     public function passes($attribute, $value)
     {
-        return $value <= $this->year;
+        $date = strtotime($value);
+        $year = date("Y", $date);
+        return $year <= $this->year;
     }
 
     /**

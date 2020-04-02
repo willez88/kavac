@@ -135,6 +135,10 @@
         @include('layouts.messages')
         <script>
             $(document).ready(function() {
+                $('#form-lockscreen').on('submit', function() {
+                    unlockScreen();
+                    return false;
+                });
                 /** Coloca el año actual en el pie de página */
                 $('.currentYear').text(new Date().getFullYear());
 
@@ -422,6 +426,7 @@
                         password: password.val()
                     });
 
+
                     if (response.data.result) {
                         let new_csrf = response.data.new_csrf;
                         /** @type {Boolean} actualiza el estatus del bloqueo de pantalla */
@@ -442,6 +447,11 @@
                         $(document.body).removeClass('modalBlur');
                         /** Oculta la pantalla de bloqueo */
                         $(".modal-lockscreen").modal('hide');
+
+                        app.lockscreen.time = 0;
+                        app.lockscreen.lock = false;
+                        clearTimeout(app._data.lockscreen.timer_timeout);
+                        app.lockScreen();
 
                         return false;
                     }

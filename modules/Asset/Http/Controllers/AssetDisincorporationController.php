@@ -7,6 +7,8 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use App\Repositories\UploadImageRepository;
+use App\Repositories\UploadDocRepository;
 use Illuminate\Support\Facades\Auth;
 use App\Models\CodeSetting;
 
@@ -73,12 +75,13 @@ class AssetDisincorporationController extends Controller
     * @param  \Illuminate\Http\Request  $request   Datos de la petición
     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar)
     */
-    public function store(Request $request)
+    public function store(Request $request, UploadImageRepository $upImage, UploadDocRepository $upDoc)
     {
         $this->validate($request, [
-            'date' => ['required'],
+            'date'                             => ['required'],
             'asset_disincorporation_motive_id' => ['required'],
-            'observation' => ['required']
+            'observation'                      => ['required'],
+            'file'                             => ['required', 'max:5000', 'mimes:jpeg,jpg,png,pdf,docx,doc,odt']
 
         ]);
 
@@ -106,8 +109,9 @@ class AssetDisincorporationController extends Controller
             'observation' => $request->observation,
             'user_id' => Auth::id()
         ]);
-
-        foreach ($request->assets as $asset_id) {
+        
+        $assets = explode(",", $request->assets);
+        foreach ($assets as $asset_id) {
             $asset = Asset::find($asset_id);
             $asset->asset_status_id = 7;
             $asset->save();
@@ -116,6 +120,29 @@ class AssetDisincorporationController extends Controller
                 'asset_disincorporation_id' => $disincorporation->id,
             ]);
         }
+
+        $documentFormat = ['doc', 'docx', 'pdf', 'odt'];
+        $imageFormat = ['jpeg', 'jpg', 'png'];
+        $extensionFile = $request->file('file')->getClientOriginalExtension();
+
+        if (in_array($extensionFile, $documentFormat)) {
+            $upDoc->uploadDoc(
+                $request->file('file'),
+                'documents',
+                AssetDisincorporation::class,
+                $disincorporation->id,
+                null,
+                false,
+                false,
+                true
+            );
+        } elseif (in_array($extensionFile, $imageFormat)) {
+            $upImage->uploadImage(
+                $request->file('file'),
+                'pictures'
+            );
+        }
+
         $request->session()->flash('message', ['type' => 'store']);
         return response()->json(['result' => true, 'redirect' => route('asset.disincorporation.index')], 200);
     }

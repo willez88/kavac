@@ -383,10 +383,41 @@ class UserController extends Controller
             $userPermissions
         )->orWhereNull('perm_required')->get();
 
+        $header_general_settings = [
+            'route' => 'set.my.settings', 'method' => 'POST', 'role' => 'form', 'class' => 'form'
+        ];
         $header_notify_settings = [
             'route' => 'set.my.notifications', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
-        return view('auth.my-settings', compact('user', 'notifySettings', 'header_notify_settings'));
+        return view('auth.my-settings', compact(
+            'user',
+            'notifySettings',
+            'header_notify_settings',
+            'header_general_settings'
+        ));
+    }
+
+    /**
+     * Establece la configuración personalizada de un usuario
+     *
+     * @method     setUserSettings
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param      Request            $request   Objeto con datos de la petición
+     *
+     * @return     \Illuminate\Http\Response     redirecciona a la página de configuración del usuario
+     */
+    public function setUserSettings(Request $request)
+    {
+        $user = User::find(auth()->user()->id);
+        $user->lock_screen = (!is_null($request->lock_screen));
+        $user->time_lock = $request->time_lock ?? 10;
+        $user->save();
+
+        $request->session()->flash('message', ['type' => 'store']);
+
+        return redirect()->route('my.settings');
     }
 
     /**

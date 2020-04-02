@@ -137,9 +137,9 @@
 
 							        <div class="col-md-6">
 										<div class="form-group">
-											<strong>Año de Adquisición</strong>
+											<strong>Fecha de Adquisición</strong>
 											<div class="row" style="margin: 1px 0">
-								        		<span class="col-md-12" id="asset_acquisition_year">
+								        		<span class="col-md-12" id="asset_acquisition_date">
 												</span>
 											</div>
 										</div>
@@ -268,7 +268,7 @@
 						document.getElementById('asset_codigo').innerText = fields.inventory_serial;
 
 						document.getElementById('asset_acquisition_type').innerText = (fields.asset_acquisition_type)?fields.asset_acquisition_type.name:'';
-						document.getElementById('asset_acquisition_year').innerText = (fields.acquisition_year)?fields.acquisition_year:'';
+						document.getElementById('asset_acquisition_date').innerText = (fields.acquisition_date)?fields.acquisition_date:'';
 						document.getElementById('asset_ubication').innerText = (fields.ubication)?fields.ubication:'N/A';
 						document.getElementById('asset_proveedor').innerText = (fields.proveedor)?fields.proveedor:'N/A';
 						document.getElementById('asset_condition').innerText = (fields.asset_condition)?fields.asset_condition.name:'';

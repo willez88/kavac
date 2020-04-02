@@ -540,7 +540,7 @@ class WarehouseReceptionController extends Controller
     public function approvedReception(Request $request, $id)
     {
         $warehouse_reception = WarehouseMovement::find($id);
-        $warehouse_reception->state = 'Completado';
+        $warehouse_reception->state = 'Aprobado';
         $warehouse_reception->save();
 
         $warehouse_inventory_product_movements = $warehouse_reception->WarehouseInventoryProductMovements;
