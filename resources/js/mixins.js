@@ -1,5 +1,7 @@
 import moment from 'moment';
 
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 /**
  * Opciones de configuración global para utilizar en todos los componentes vuejs de la aplicación
  *
@@ -45,6 +47,19 @@ Vue.mixin({
                     down: 'fa-sort-down cursor-pointer'
                 },
             },
+            ckeditor: {
+                editor: ClassicEditor,
+                editorConfig: {
+                    toolbar: [
+                        'heading', '|',
+                        'bold', 'italic', 'blockQuote', 'link',
+                        'numberedList', 'bulletedList', '|',
+                        'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells', '|',
+                        'undo', 'redo'
+                    ],
+                    language: window.currentLocale
+                }
+            }
         }
     },
     props: {

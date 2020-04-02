@@ -16,6 +16,11 @@ import PrettyCheckbox from 'pretty-checkbox-vue';
 
 Vue.use(PrettyCheckbox);
 
+/** Requerimiento del paquete CKEditor para ser implementado en Vuejs */
+import CKEditor from '@ckeditor/ckeditor5-vue';
+
+Vue.use(CKEditor);
+
 /**
  * Componente genérico para el uso de listas desplegables de selección multiple
  *

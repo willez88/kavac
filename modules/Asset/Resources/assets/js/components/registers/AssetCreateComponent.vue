@@ -77,8 +77,11 @@
 				<div class="col-md-8" id="helpAssetSpecification">
 					<div class="form-group">
 						<label>Especificaciones</label>
-						<textarea  data-toggle="tooltip" title="Indique las especificaciones del bien (opcional)"
-                                   class="form-control" v-model="record.specifications" id="details"></textarea>
+						<!--<textarea  data-toggle="tooltip" title="Indique las especificaciones del bien (opcional)"
+                                   class="form-control" v-model="record.specifications" id="details"></textarea>-->
+                        <ckeditor :editor="ckeditor.editor" v-model="record.specifications" id="details"
+                                  title="Indique las especificaciones del bien (opcional)" data-toggle="tooltip"
+                                  :config="ckeditor.editorConfig" tag-name="textarea"></ckeditor>
 					</div>
 				</div>
 			</div>
@@ -542,7 +545,7 @@
                 this.getAssetTypes();
             }
 
-            $.each(['details', 'direction'], function(index, element_id) {
+            /*$.each(['details', 'direction'], function(index, element_id) {
                 CkEditor.create(document.querySelector(`#${element_id}`), {
                     toolbar: [
                         'heading', '|',
@@ -555,7 +558,7 @@
                 }).catch(error => {
                     console.warn(error);
                 });
-            });
+            });*/
 		},
 	};
 </script>
