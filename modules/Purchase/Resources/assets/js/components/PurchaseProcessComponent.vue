@@ -60,10 +60,11 @@
                             <div class="col-md-6">
                                 <div class="form-group is-required">
                                     <label>Descripción:</label>
-                                    <textarea class="form-control input-sm" rows="3" v-model="record.description"
-                                              placeholder="Descripción del proceso de compra"
-                                              data-toggle="tooltip"
-                                              title="Indique la descripción para el proceso de compra (requerido)"></textarea>
+                                    <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+                                              title="Indique la descripción para el proceso de compra (requerido)"
+                                              :config="ckeditor.editorConfig" class="form-control" tag-name="textarea"
+                                              rows="3" v-model="record.description"
+                                              placeholder="Descripción del proceso de compra"></ckeditor>
                                 </div>
                             </div>
                         </div>

@@ -73,11 +73,10 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Descripción:</label>
-									<textarea   data-toggle="tooltip"
-												placeholder="Descripción del Producto"
-											    title="Indique una breve descripción del nuevo producto (requerido)"
-										   		class="form-control input-sm" v-model="record.description">
-								   </textarea>
+                                    <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+                                              title="Indique una breve descripción del nuevo producto (requerido)"
+                                              :config="ckeditor.editorConfig" class="form-control" tag-name="textarea"
+                                              rows="3" v-model="record.description"></ckeditor>
 			                    </div>
 							</div>
 						</div>
@@ -264,7 +263,7 @@
 	            }).catch(error => {
 	                console.log('failure');
 	                vm.loading = false;
-	                
+
 	            });
             }
 

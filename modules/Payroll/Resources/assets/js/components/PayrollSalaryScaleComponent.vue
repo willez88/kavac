@@ -238,7 +238,6 @@
                                                           :config="ckeditor.editorConfig" class="form-control"
                                                           name="description_new_scale" tag-name="textarea" rows="2"
                                                           v-model="scale.description"></ckeditor>
-											   </textarea>
 						                    </div>
 										</div>
 									</div>

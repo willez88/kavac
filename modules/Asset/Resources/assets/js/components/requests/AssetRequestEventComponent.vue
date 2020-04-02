@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<a class="btn btn-success btn-xs btn-icon btn-action" 
-		   href="#" title="Registros de Eventos" data-toggle="tooltip" 
+		<a class="btn btn-success btn-xs btn-icon btn-action"
+		   href="#" title="Registros de Eventos" data-toggle="tooltip"
 		   :disabled="((state == 'Aprobado')||(state == 'Pendiente por entrega'))?false:true"
 		   @click="((state == 'Aprobado')||(state == 'Pendiente por entrega'))?addRecord('add_event', 'requests/request-event', $event):viewMessage()">
 		   <i class="fa fa-list-alt"></i>
@@ -14,7 +14,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-tasks-alt ico-2x"></i> 
+							<i class="icofont icofont-tasks-alt ico-2x"></i>
 							Nuevo Evento
 						</h6>
 					</div>
@@ -52,11 +52,10 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Descripción del Evento</label>
-									<textarea  data-toggle="tooltip" 
-											   title="Indique una descripción del evento" 
-											   class="form-control" v-model="record.description"
-											   id="description_event">
-								   </textarea>
+                                    <ckeditor :editor="ckeditor.editor" id="description_event" data-toggle="tooltip"
+                                              title="Indique una descripción del evento" :config="ckeditor.editorConfig"
+                                              class="form-control" name="description_event" tag-name="textarea" rows="3"
+                                              v-model="record.description"></ckeditor>
 								</div>
 							</div>
 						</div>
@@ -109,7 +108,7 @@
 								<b>Seleccione los equipos afectados</b>
 							</div>
 							<div class="col-md-12">
-								<v-client-table @row-click="toggleActive" 
+								<v-client-table @row-click="toggleActive"
 		                						:columns="columns_equipments"
 		                						:data="equipments"
 		                						:options="table_options"
@@ -145,14 +144,14 @@
 								</div>
 							</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button @click="initUpdate(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-action" 
+	                			<button @click="initUpdate(props.index, $event)"
+		                				class="btn btn-warning btn-xs btn-icon btn-action"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'requests/request-event')" 
-										class="btn btn-danger btn-xs btn-icon btn-action" 
-										title="Eliminar registro" data-toggle="tooltip" 
+		                		<button @click="deleteRecord(props.index, 'requests/request-event')"
+										class="btn btn-danger btn-xs btn-icon btn-action"
+										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
 									<i class="fa fa-trash-o"></i>
 								</button>
@@ -166,7 +165,7 @@
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
-	                	<button type="button" @click="createRequest('asset/requests/request-event')" 
+	                	<button type="button" @click="createRequest('asset/requests/request-event')"
 	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
@@ -258,7 +257,7 @@
 				vm.selected = [];
 				$.each(vm.equipments, function(index,campo){
 					var checkbox = document.getElementById('checkbox_' + campo.asset_id);
-					
+
 					if(!vm.selectAll)
 						vm.selected.push(campo.asset_id);
 					else if(checkbox && checkbox.checked){
@@ -268,7 +267,7 @@
 			},
 			/**
 			 * Método que borra todos los datos del formulario
-			 * 
+			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset() {
@@ -289,7 +288,7 @@
 	                vm.updateRecord(url);
 	            } else {
 	                vm.loading = true;
-	                
+
 	                for (var index in this.record) {
 	                	if (index == 'equipments') {
 	                		formData.append(index, JSON.stringify(vm.record[index]));
@@ -348,7 +347,7 @@
                 var inputFile = document.querySelector('#file');
                 formData.append("file", inputFile.files[0]);
                 vm.showMessage(
-                    'custom', 'Éxito', 'success', 'screen-ok', 
+                    'custom', 'Éxito', 'success', 'screen-ok',
                     'Documento cargado de manera existosa.'
                 );
                 return;
@@ -364,7 +363,7 @@
                             response.data.message
                         );
                     } else {
-                        
+
                     }
                 }).catch(error => {
                     if (typeof(error.response) !== "undefined") {

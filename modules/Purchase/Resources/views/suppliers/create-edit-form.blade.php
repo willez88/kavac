@@ -219,9 +219,11 @@
 									<div class="col-12">
 										<div class="form-group is-required{{ $errors->has('direction') ? ' has-error' : '' }}">
 											{!! Form::label('direction', 'Dirección Fiscal') !!}
-											{!! Form::textarea('direction', null, [
-												'class' => 'form-control ckeditor', 'rows' => '4'
-											]) !!}
+                                            <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+                                                      title="Indique la dirección del proveedor"
+                                                      :config="ckeditor.editorConfig"
+                                                      class="form-control" tag-name="textarea" rows="3"
+                                                      placeholder="dirección del proveedor"></ckeditor>
 										</div>
 									</div>
 								</div>

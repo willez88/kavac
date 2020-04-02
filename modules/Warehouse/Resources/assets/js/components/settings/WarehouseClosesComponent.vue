@@ -66,10 +66,10 @@
 							<div class="col-md-12">
 								<div class="form-group is-required">
 									<label>Observaciones del Cierre de Almacén:</label>
-									<textarea  data-toggle="tooltip"
-											   title="Indique alguna observación referente al cierre del almacén (requerido)"
-											   class="form-control" v-model="record.observations">
-								   </textarea>
+                                    <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+                                              title="Indique alguna observación referente al cierre de almacén (requerido)"
+                                              :config="ckeditor.editorConfig" class="form-control" tag-name="textarea"
+                                              rows="3" v-model="record.observations"></ckeditor>
 			                    </div>
 							</div>
 						</div>

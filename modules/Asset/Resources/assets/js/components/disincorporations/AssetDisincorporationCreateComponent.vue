@@ -44,9 +44,10 @@
 			    <div class="col-md-6" id="helpDisincorporationObservation">
 			        <div class="form-group is-required">
 			            <label>Observaciones generales</label>
-			            <textarea  data-toggle="tooltip" class="form-control" v-model="record.observation"
-                                   title="Indique alguna observación referente a la desincorporación" id="observations">
-					   </textarea>
+                        <ckeditor :editor="ckeditor.editor" data-toggle="tooltip" id="observations"
+                                  title="Indique alguna observación referente a la desincorporación"
+                                  :config="ckeditor.editorConfig" class="form-control" name="observations"
+                                  tag-name="textarea" rows="3" v-model="record.observation"></ckeditor>
 			        </div>
 			    </div>
 			    <div class="col-md-3">
@@ -314,19 +315,6 @@
 			else if((!this.disincorporationid)&&(this.assetid)) {
 				this.selected.push(this.assetid);
             }
-
-            CkEditor.create(document.querySelector(`#observations`), {
-                toolbar: [
-                    'heading', '|',
-                    'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|',
-                    'insertTable'
-                ],
-                language: window.currentLocale,
-            }).then(editor => {
-                window.editor = editor;
-            }).catch(error => {
-                console.warn(error);
-            });
 		},
 		props: {
 			disincorporationid: Number,

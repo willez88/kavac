@@ -46,10 +46,11 @@
 							<div class="col-md-12">
 								<div class="form-group is-required">
 									<label>Descripción:</label>
-									<textarea class="form-control input-sm" rows="3"
-											  title="Indique la descripción para el objeto del proveedor"
-											  placeholder="Descripción del objeto del proveedor"
-											  v-model="record.description" data-toggle="tooltip"></textarea>
+                                    <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+                                              title="Indique la descripción para el objeto del proveedor"
+                                              :config="ckeditor.editorConfig" class="form-control" tag-name="textarea"
+                                              rows="3" v-model="record.description"
+                                              placeholder="Descripción del objeto del proveedor"></ckeditor>
 			                    </div>
 							</div>
 						</div>

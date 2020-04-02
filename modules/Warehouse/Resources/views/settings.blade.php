@@ -57,28 +57,12 @@
 @stop
 @section('extra-js')
 	@parent
-    {!! Html::script('js/ckeditor.js', [], Request::secure()) !!}
 	<script>
 		$(document).ready(function() {
 			$('#multi_warehouse').closest('.bootstrap-switch-wrapper').attr({
 	            'title': 'Gestionar multiples almacenes',
 	            'data-toggle': 'tooltip'
 	        }).tooltip({delay: 4});
-
-            $('textarea').each(function() {
-                    CkEditor.create(this, {
-                        toolbar: [
-                            'heading', '|',
-                            'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|',
-                            'insertTable'
-                        ],
-                        language: '{{ app()->getLocale() }}',
-                    }).then(editor => {
-                        window.editor = editor;
-                    }).catch(error => {
-                        console.warn(error);
-                    });
-                });
 		});
 	</script>
 @endsection

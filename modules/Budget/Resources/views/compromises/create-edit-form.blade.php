@@ -35,26 +35,3 @@
         </div>
     </div>
 @stop
-
-@section('extra-js')
-    @parent
-    {!! Html::script('js/ckeditor.js', [], Request::secure()) !!}
-    <script>
-        $(document).ready(function() {
-            if (typeof CkEditor !== 'undefined') {
-                CkEditor.create(document.querySelector('#description'), {
-                    toolbar: [
-                        'heading', '|',
-                        'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|',
-                        'insertTable'
-                    ],
-                    language: '{{ app()->getLocale() }}',
-                }).then(editor => {
-                    window.editor = editor;
-                }).catch(error => {
-                    logs('budget::compromises.create-edit-form', 54, error);
-                });
-            }
-        });
-    </script>
-@endsection

@@ -81,9 +81,10 @@
 							<div class="col-12">
 								<div class="form-group is-required">
 									<label>Descripción</label>
-									<textarea class="form-control" rows="3" v-model="record.description"
-											  data-toggle="tooltip" id="description"
-											  title="Indique la descripción u objetivo de la cuenta"></textarea>
+                                    <ckeditor :editor="ckeditor.editor" id="description" data-toggle="tooltip"
+                                              title="Indique la descripción u objetivo de la cuenta"
+                                              :config="ckeditor.editorConfig" class="form-control" name="description"
+                                              tag-name="textarea" rows="3" v-model="record.description"></ckeditor>
 								</div>
 							</div>
 						</div>
@@ -185,18 +186,6 @@
 			this.getAccountTypes();
 		},
         mounted() {
-            CkEditor.create(document.querySelector(`#description`), {
-                toolbar: [
-                    'heading', '|',
-                    'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|',
-                    'insertTable'
-                ],
-                language: window.currentLocale,
-            }).then(editor => {
-                window.editor = editor;
-            }).catch(error => {
-                console.warn(error);
-            });
         }
 	};
 </script>

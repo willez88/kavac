@@ -89,10 +89,10 @@
 							<div class="col-md-4">
 								<div class="form-group is-required">
 									<label>Dirección</label>
-									<textarea class="form-control input-sm" rows="3" style="min-height:100px" data-toggle="tooltip"
-											  title="Indique la dirección de la agencia bancaria"
-											  v-model="record.direction"
-											  placeholder="Dirección de la agencia bancaria"></textarea>
+                                    <ckeditor :editor="ckeditor.editor" id="direction" data-toggle="tooltip"
+                                              title="Indique la dirección de la agencia bancaria"
+                                              :config="ckeditor.editorConfig" class="form-control" name="direction"
+                                              tag-name="textarea" rows="3" v-model="record.direction"></ckeditor>
 								</div>
 							</div>
 						</div>

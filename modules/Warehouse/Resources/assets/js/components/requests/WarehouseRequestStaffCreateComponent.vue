@@ -18,7 +18,7 @@
 					</ul>
 				</div>
 			</div>
-			
+
 			<div class="row">
 				<div class="col-md-12">
 					<b>Datos de la Solicitud</b>
@@ -27,22 +27,22 @@
 				<div class="col-md-4" id="helpWarehouseRequestDate">
 					<div class="form-group is-required">
 						<label>Fecha de la Solicitud</label>
-						<input type="text" data-toggle="tooltip" 
-							   title="Fecha de la solicitud" 
-							   class="form-control input-sm" 
+						<input type="text" data-toggle="tooltip"
+							   title="Fecha de la solicitud"
+							   class="form-control input-sm"
 							   readonly="readonly"
 							   v-model="record.created_at">
 						<input type="hidden" v-model="record.id">
                     </div>
 				</div>
-			
+
 				<div class="col-md-8" id="helpWarehouseRequestMotive">
 					<div class="form-group is-required">
 						<label>Motivo de la Solicitud</label>
-						<textarea  data-toggle="tooltip" 
-								   title="Indique el motivo de la solicitud (requerido)" 
-								   class="form-control" v-model="record.motive">
-					   </textarea>
+                        <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+                                  title="Indique el motivo de la solicitud (requerido)"
+                                  :config="ckeditor.editorConfig" class="form-control" tag-name="textarea" rows="3"
+                                  v-model="record.motive"></ckeditor>
                     </div>
 				</div>
 
@@ -113,7 +113,7 @@
 						<input type="number" class="form-control table-form input-sm" data-toggle="tooltip" min=0 :max="props.row.exist" :id="'request_product_'+props.row.id" onfocus="this.select()" @input="selectElement(props.row.id)">
 					</div>
 				</div>
-				
+
 			</v-client-table>
 		</div>
 		<div class="card-footer text-right">
@@ -251,7 +251,7 @@
 				vm.selected = [];
 				$.each(vm.records, function(index,campo){
 					var checkbox = document.getElementById('checkbox_' + campo.id);
-					
+
 					if(!vm.selectAll)
 						vm.selected.push(campo.id);
 					else if(checkbox && checkbox.checked){
@@ -298,7 +298,7 @@
 			loadRequest(id) {
 				const vm = this;
 	            var fields = {};
-	            
+
 	            axios.get('/warehouse/requests/staff/info/' + id).then(response => {
 	                if(typeof(response.data.records != "undefined")){
 	                	fields = response.data.records;
