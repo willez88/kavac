@@ -26,6 +26,7 @@
     "dependencies": {
         "@ckeditor/ckeditor5-alignment": "^11.2.0",
         "@ckeditor/ckeditor5-build-classic": "^12.4.0",
+        "@ckeditor/ckeditor5-vue": "^1.0.1",
         "bootbox": "^5.4.0",
         "bootstrap-fileinput": "^4.5.3",
         "bootstrap-switch": "^3.4.0",

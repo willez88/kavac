@@ -51,11 +51,11 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Descripción:</label>
-									<textarea  data-toggle="tooltip" rows="2" id="description_assignment_type"
-											   placeholder="Descripción del Tipo de Asignación"
-											   title="Indique una breve descripción del Nuevo Tipo de Asignación (opcional)"
-											   class="form-control" v-model="record.description">
-								    </textarea>
+                                    <ckeditor :editor="ckeditor.editor" id="description" data-toggle="tooltip"
+                                              title="Indique una breve descripción del Nuevo Tipo de Asignación (opcional)"
+                                              :config="ckeditor.editorConfig" class="form-control" name="description"
+                                              tag-name="textarea" rows="2" v-model="record.description"
+                                              placeholder="Descripción del Tipo de Asignación"></ckeditor>
 			                    </div>
 							</div>
 						</div>
@@ -118,18 +118,6 @@
 			}
 		},
         mounted() {
-            CkEditor.create(document.querySelector(`#description_assignment_type`), {
-                toolbar: [
-                    'heading', '|',
-                    'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|',
-                    'insertTable'
-                ],
-                language: window.currentLocation,
-            }).then(editor => {
-                window.editor = editor;
-            }).catch(error => {
-                console.warn(error);
-            });
         },
 		methods: {
 			reset() {

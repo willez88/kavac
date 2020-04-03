@@ -122,12 +122,10 @@
 							<div class="col-md-8">
 								<div class="form-group is-required">
 									<label>Dirección:</label>
-									<textarea  data-toggle="tooltip"
-												placeholder="Dirección del almacén"
-											    title="Indique una breve dirección del Nuevo almacén (requerido)"
-										   		class="form-control" v-model="record.address">
-								   </textarea>
-
+                                    <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+                                              title="Indique una breve dirección del nuevo almacén (requerido)"
+                                              :config="ckeditor.editorConfig" class="form-control" tag-name="textarea"
+                                              rows="3" v-model="record.address"></ckeditor>
 			                    </div>
 							</div>
 						</div>

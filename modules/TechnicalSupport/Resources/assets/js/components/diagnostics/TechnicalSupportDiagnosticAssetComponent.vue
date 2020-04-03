@@ -43,29 +43,27 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Descripción del Diagnóstico</label>
-                                    <textarea   class="form-control input-sm" 
-                                                data-toggle="tooltip"
-                                                title="Indique una descripción del diagnóstico"
-                                                v-model="record.diagnostic">
-                                   </textarea>
+                                    <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+                                              title="Indique una descripción del diagnóstico"
+                                              :config="ckeditor.editorConfig" class="form-control"
+                                              tag-name="textarea" rows="3" v-model="record.diagnostic"></ckeditor>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Piezas de Reparación</label>
-                                    <textarea   class="form-control input-sm"
-                                                data-toggle="tooltip"
-                                                title="Indique piezas de reparación">
-                                    </textarea>
+                                    <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+                                              title="Indique piezas de reparación" :config="ckeditor.editorConfig"
+                                              class="form-control" tag-name="textarea" rows="3"></ckeditor>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Herramientas</label>
-                                    <textarea   class="form-control input-sm"
-                                                data-toggle="tooltip"
-                                                title="Indique las herramientas utilizadas">
-                                    </textarea>
+                                    <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+                                              title="Indique las herramientas utilizadas"
+                                              :config="ckeditor.editorConfig" class="form-control"
+                                              tag-name="textarea" rows="3"></ckeditor>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +90,7 @@
                                         <div class="form-group">
                                             <input  class="form-control input-sm"
                                                     type="text"
-                                                    placeholder="Descripción de la pieza de reparación" 
+                                                    placeholder="Descripción de la pieza de reparación"
                                                     data-toggle="tooltip"
                                                     title="Indique una descripción de la pieza de reparación (opcional)"
                                                     v-model="field.description">

@@ -107,9 +107,10 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Horario de Clase</label>
-                                    <textarea class="form-control input-sm" disabled="true"
-                                        id="class_schedule">
-                                    </textarea>
+                                    <ckeditor :editor="ckeditor.editor" id="class_schedule" data-toggle="tooltip"
+                                              title="Indique el horario de clase" :config="ckeditor.editorConfig"
+                                              class="form-control" name="class_schedule" tag-name="textarea"
+                                              rows="4" disabled="true"></ckeditor>
                                 </div>
                             </div>
                         </div>

@@ -41,8 +41,3 @@
     	</div>
     </div>
 @stop
-
-@section('extra-js')
-    @parent
-    {!! Html::script('js/ckeditor.js', [], Request::secure()) !!}
-@stop

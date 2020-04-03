@@ -40,11 +40,10 @@
                             <div class="col-md-6">
                                 <div class="form-group is-required">
                                     <label>Solución</label>
-                                    <textarea   class="form-control input-sm" 
-                                                data-toggle="tooltip"
-                                                title="Indique una descripción de la solución del equipo reparado"
-                                                v-model="record.solution">
-                                   </textarea>
+                                    <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+                                              title="Indique una descripción de la solución del equipo reparado"
+                                              :config="ckeditor.editorConfig" class="form-control"
+                                              tag-name="textarea" rows="3" v-model="record.solution"></ckeditor>
                                 </div>
                             </div>
                             <div class="col-md-6">

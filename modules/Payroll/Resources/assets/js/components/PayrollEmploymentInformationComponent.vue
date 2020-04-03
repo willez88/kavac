@@ -89,8 +89,11 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Descripción de Funciones:</label>
-								<input type="textarea" class="form-control input-sm"
-									v-model="record.function_description"/>
+                                <ckeditor :editor="ckeditor.editor" id="function_description" data-toggle="tooltip"
+                                          title="Indique una descripción para las funciones"
+                                          :config="ckeditor.editorConfig" class="form-control"
+                                          name="function_description" tag-name="textarea" rows="3"
+                                          v-model="record.function_description"></ckeditor>
 							</div>
 						</div>
 						<div class="col-md-4">

@@ -77,8 +77,9 @@
 				<div class="col-md-8" id="helpAssetSpecification">
 					<div class="form-group">
 						<label>Especificaciones</label>
-						<textarea  data-toggle="tooltip" title="Indique las especificaciones del bien (opcional)"
-                                   class="form-control" v-model="record.specifications" id="details"></textarea>
+                        <ckeditor :editor="ckeditor.editor" v-model="record.specifications" id="details"
+                                  title="Indique las especificaciones del bien (opcional)" data-toggle="tooltip"
+                                  :config="ckeditor.editorConfig" tag-name="textarea"></ckeditor>
 					</div>
 				</div>
 			</div>
@@ -233,9 +234,10 @@
 					<div class="col-md-6" id="helpAssetAddress">
 						<div class="form-group is-required">
 							<label>Dirección</label>
-							<textarea  data-toggle="tooltip" title="Indique dirección física del bien"
-                                       class="form-control" v-model="record.address" id="direction">
-						   </textarea>
+                            <ckeditor :editor="ckeditor.editor" id="direction" data-toggle="tooltip"
+                                      title="Indique dirección física del bien" :config="ckeditor.editorConfig"
+                                      class="form-control" name="direction" tag-name="textarea" rows="3"
+                                      v-model="record.address"></ckeditor>
 						</div>
 					</div>
 
@@ -541,21 +543,6 @@
 			else{
                 this.getAssetTypes();
             }
-
-            $.each(['details', 'direction'], function(index, element_id) {
-                CkEditor.create(document.querySelector(`#${element_id}`), {
-                    toolbar: [
-                        'heading', '|',
-                        'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|',
-                        'insertTable'
-                    ],
-                    language: window.currentLocale,
-                }).then(editor => {
-                    window.editor = editor;
-                }).catch(error => {
-                    console.warn(error);
-                });
-            });
 		},
 	};
 </script>

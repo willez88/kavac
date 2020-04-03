@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<a class="btn btn-default btn-xs btn-icon btn-action" 
-		   href="#" title="Entregar productos" data-toggle="tooltip" 
+		<a class="btn btn-default btn-xs btn-icon btn-action"
+		   href="#" title="Entregar productos" data-toggle="tooltip"
 		   @click="initRequest('view_request_pending',$event)">
 			<i class="fa fa-calendar-check-o"></i>
 		</a>
@@ -34,16 +34,15 @@
 								</ul>
 							</div>
 						</div>
-						
+
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
 									<label>Observación:</label>
-									<textarea  placeholder="Observaciones referentes a la solicitud de almacén"
-											   data-toggle="tooltip" 
-											   title="Indique alguna observación referente a la solicitud de almacén (opcional)" 
-											   class="form-control input-sm" v-model="record.observations">
-								   </textarea>
+                                    <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+                                              title="Indique alguna observación referente a la solicitud de almacén (opcional)"
+                                              :config="ckeditor.editorConfig" class="form-control" tag-name="textarea"
+                                              rows="3" v-model="record.observations"></ckeditor>
 								   <input type="hidden" v-model="record.id" id="id">
 			                    </div>
 							</div>
@@ -53,11 +52,11 @@
 
 	                <div class="modal-footer">
 
-	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
-	                	<button type="button" @click="updateRecord('/warehouse/requests/request-complete/')" 
+	                	<button type="button" @click="updateRecord('/warehouse/requests/request-complete/')"
 	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
@@ -80,12 +79,12 @@
 			}
 		},
 		props: {
-			requestid: Number, 
+			requestid: Number,
 		},
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
-			 * 
+			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset() {
@@ -95,7 +94,7 @@
 				};
 			},
 			initRequest(modal_id,event) {
-				
+
 				$(".modal-body #id").val( this.requestid );
 				if ($("#" + modal_id).length) {
 					$('#'+modal_id).modal('show');

@@ -59,11 +59,10 @@
 				<div class="col-md-6" id="helpAssetRequestMotive">
 				    <div class="form-group is-required">
 				        <label>Motivo de la solicitud</label>
-				        <textarea  id="motive" data-toggle="tooltip"
-				        			title="Indique el motivo de la solicitud"
-								   	class="form-control input-sm"
-								   	v-model="record.motive">
-						</textarea>
+                        <ckeditor :editor="ckeditor.editor" id="motive" data-toggle="tooltip"
+                                  title="Indique el motivo de la solicitud" :config="ckeditor.editorConfig"
+                                  class="form-control" name="motive" tag-name="textarea" rows="3"
+                                  v-model="record.motive"></ckeditor>
 				    </div>
 				</div>
 				<div class="col-md-3">
@@ -118,10 +117,10 @@
 					<div class="col-md-6" id="helpAssetAddress">
 						<div class="form-group is-required">
 							<label>Dirección</label>
-							<textarea  data-toggle="tooltip"
-									   title="Indique dirección física del bien"
-									   class="form-control" v-model="record.address">
-						   </textarea>
+                            <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+                                      title="Indique dirección física del bien" :config="ckeditor.editorConfig"
+                                      class="form-control" name="address" tag-name="textarea" rows="3"
+                                      v-model="record.address"></ckeditor>
 						</div>
 					</div>
 

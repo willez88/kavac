@@ -46,9 +46,10 @@
 				<div class="col-md-4" id="helpWarehouseRequestMotive">
 					<div class="form-group is-required">
 						<label>Motivo de la Solicitud</label>
-						<textarea  data-toggle="tooltip"
-								   title="Indique el motivo de la solicitud (requerido)"
-								   class="form-control" v-model="record.motive">
+                        <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+                                  title="Indique el motivo de la solicitud (requerido)"
+                                  :config="ckeditor.editorConfig" class="form-control" tag-name="textarea" rows="3"
+                                  v-model="record.motive"></ckeditor>
 					   </textarea>
                     </div>
 				</div>

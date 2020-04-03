@@ -36,7 +36,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label" for="purchase_process">Proceso de compra:</label><br>
-                                    <select2 :options="purchaseProcesses" id="purchase_process" 
+                                    <select2 :options="purchaseProcesses" id="purchase_process"
                                             placeholder="Proceso de compra asociado"
                                             v-model="record.purchase_processes_id">
                                             </select2>
@@ -45,10 +45,11 @@
                             <div class="col-md-12">
                                 <div class="form-group is-required">
                                     <label>Descripción:</label>
-                                    <textarea class="form-control input-sm" rows="3"
-                                              title="Indique la descripción para tipo de compra"
-                                              placeholder="Descripción del tipo de compra"
-                                              v-model="record.description" data-toggle="tooltip"></textarea>
+                                    <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+                                              title="Indique la descripción para el tipo de compra"
+                                              :config="ckeditor.editorConfig" class="form-control" tag-name="textarea"
+                                              rows="3" v-model="record.description"
+                                              placeholder="Descripción del tipo de compra"></ckeditor>
                                 </div>
                             </div>
                         </div>
@@ -69,8 +70,8 @@
                                         <i class="fa fa-edit"></i>
                                     </button>
                                     <button @click="deleteRecord(props.index,'/purchase/purchase_types')"
-                                            class="btn btn-danger btn-xs btn-icon btn-action" 
-                                            title="Eliminar registro" 
+                                            class="btn btn-danger btn-xs btn-icon btn-action"
+                                            title="Eliminar registro"
                                             data-toggle="tooltip" >
                                         <i class="fa fa-trash-o"></i>
                                     </button>
