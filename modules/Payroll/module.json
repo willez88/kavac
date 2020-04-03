@@ -1,8 +1,10 @@
 {
+    "version": "1.0.0",
     "name": "Payroll",
     "alias": "payroll",
     "name_es": "Talento Humano",
     "description": "Gestión de talento humano y nómina",
+    "long_description": "",
     "keywords": [],
     "active": 1,
     "order": 0,
