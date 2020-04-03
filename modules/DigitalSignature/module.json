@@ -1,8 +1,10 @@
 {
+    "version": "1.0.0",
     "name": "DigitalSignature",
     "alias": "digitalsignature",
     "name_es": "Firma Electrónica",
     "description": "Gestión de firma electrónica",
+    "long_description": "",
     "keywords": [],
     "active": 1,
     "order": 0,

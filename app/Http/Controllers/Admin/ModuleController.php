@@ -103,6 +103,7 @@ class ModuleController extends Controller
     public function getDetails(Request $request)
     {
         $module = Module::findOrFail($request->module);
+
         $details = [
             'version' => $module->get("version") ?? "0",
             'name' => $module->get("name_es") ?? $module->getName(),
@@ -114,6 +115,7 @@ class ModuleController extends Controller
             'requirements' => $module->getRequires() ?? [],
             'enabled' => $module->isEnabled()
         ];
+
         return response()->json(['result' => true, 'details' => $details], 200);
     }
 }

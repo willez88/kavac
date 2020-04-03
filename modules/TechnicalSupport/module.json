@@ -1,8 +1,10 @@
 {
+    "version": "1.0.0",
     "name": "TechnicalSupport",
     "alias": "technicalsupport",
     "name_es": "Soporte Técnico",
     "description": "Gestión de soporte técnico",
+    "long_description": "",
     "keywords": [],
     "active": 1,
     "order": 0,

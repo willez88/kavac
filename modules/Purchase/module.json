@@ -1,8 +1,10 @@
 {
+    "version": "1.0.0",
     "name": "Purchase",
     "alias": "purchase",
     "name_es": "Compras",
     "description": "Gestión de compras",
+    "long_description": "",
     "keywords": [],
     "active": 1,
     "order": 0,

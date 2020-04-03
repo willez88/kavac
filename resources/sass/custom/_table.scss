@@ -38,3 +38,13 @@ table {
 		padding: 0.375rem 0.75rem;
 	}
 }
+
+.dataTables_length {
+    .select2 {
+        width:50% !important;
+    }
+    .select2-container--bootstrap {
+        display: inline-block !important;
+        margin: 0 6px;
+    }
+}
