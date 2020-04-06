@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/*
 Route::group([
     'middleware' => ['web', 'auth', 'verified'],
     'prefix' => 'sale',
@@ -18,3 +18,4 @@ Route::group([
 ], function () {
     Route::get('/', 'SaleController@index');
 });
+*/
