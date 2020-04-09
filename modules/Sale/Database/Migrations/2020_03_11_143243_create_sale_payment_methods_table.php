@@ -13,13 +13,15 @@ class CreateSalePaymentMethodsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sale_payment_methods', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->timestamps();
-            $table->string('name', 100)->unique()->comment('Nombre');
-            $table->string('description', 200)->nullable()->comment('Descripción');
-            $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-        });
+        if (!Schema::hasTable('sale_payment_methods')) {
+            Schema::create('sale_payment_methods', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->timestamps();
+                $table->string('name', 100)->unique()->comment('Nombre');
+                $table->string('description', 200)->nullable()->comment('Descripción');
+                $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
+            });
+        }
     }
 
     /**
