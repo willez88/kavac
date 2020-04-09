@@ -4,10 +4,9 @@
         <i class="ion ion-briefcase"></i><span>Comercialización</span>
     </a>
     <ul class="submenu" style="{!! display_submenu('sale') !!}">
-        <li>
-            <a href="#">
-                <i></i>Configuración
-            </a>
+         <li class="{!! set_active_menu('sale.settings.index') !!}">
+            <a href="/sale/settings" data-toggle="tooltip" data-placement="right" 
+               title="Configuración de Comercialización">Configuración</a>
         </li>
         <li>
             <a href="#">Facturas</a>
