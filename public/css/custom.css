@@ -2279,7 +2279,7 @@ textarea.form-control:active {
 
 .select2-container--default .select2-selection--single,
 .select2-container--default .select2-selection--multiple {
-  border: 1px solid #E3E3E3 !important;
+  border: 1px solid #e3e3e3 !important;
 }
 
 .select2-container--default.select2-container--focus .select2-selection--multiple {
@@ -2295,6 +2295,135 @@ textarea.form-control:active {
 .form-group .input-group-addon,
 .input-group .input-group-addon {
   padding: 8px 0 10px 18px;
+}
+
+/** Estilos personalizados para wizard en formularios */
+
+.wizard-tabs {
+  margin: 0;
+  /*.wizard-steps*/
+}
+
+.wizard-tabs ul {
+  display: table;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.wizard-tabs ul > li {
+  display: table-cell;
+  border-bottom: 1px solid #EEE;
+}
+
+.wizard-tabs ul > li.active {
+  border-bottom-color: transparent;
+}
+
+.wizard-tabs ul > li.active > a {
+  background: #FFF;
+  color: #555;
+}
+
+.wizard-tabs ul > li.active > a:hover {
+  background: #FFF;
+  color: #555;
+}
+
+.wizard-tabs ul > li.active > a:focus {
+  background: #FFF;
+  color: #555;
+}
+
+.wizard-tabs ul > li.active > a:after {
+  border-left-color: #FFF;
+}
+
+.wizard-tabs ul > li.active .badge {
+  background-color: #0073b7;
+  border: 0;
+}
+
+.wizard-tabs ul > li.disabled > a {
+  color: #CCC;
+}
+
+.wizard-tabs ul > li.disabled > a:hover {
+  color: #CCC;
+}
+
+.wizard-tabs ul > li.disabled > a:focus {
+  color: #CCC;
+}
+
+.wizard-tabs ul > li.disabled .badge {
+  background-color: #CCC;
+}
+
+.wizard-tabs ul > li > a {
+  position: relative;
+  display: block;
+  padding: 5px;
+  font-size: 13.6px;
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: #555;
+  background: #F4F4F4;
+  color: #555;
+}
+
+.wizard-tabs ul > li > a .badge {
+  border-radius: 100%;
+  color: #FFF;
+  background: #CCC;
+  padding: 6.4px 8.8px;
+  padding: 0.4rem 0.55rem;
+  margin-right: 5px;
+  position: relative;
+  top: -1px;
+}
+
+.wizard-tabs ul > li > a:hover {
+  background: #F4F4F4;
+  color: #555;
+  box-shadow: none;
+}
+
+.wizard-tabs ul > li > a:active,
+.wizard-tabs ul > li > a:focus {
+  border-bottom: 0;
+}
+
+.wizard-tabs ul > li > a:before,
+.wizard-tabs ul > li > a:after {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -10px;
+  z-index: 1;
+  border: 17px solid transparent;
+  border-right: 0;
+  border-left: 10px solid transparent;
+  width: 0;
+  height: 0;
+}
+
+.wizard-tabs ul > li > a:before {
+  z-index: 1;
+  right: -11px;
+  border-left-color: #E0E0E0;
+}
+
+.wizard-tabs ul > li > a:after {
+  z-index: 2;
+  border-left-color: #F4F4F4;
+}
+
+.wizard-tabs ul > li:last-child > a:before,
+.wizard-tabs ul > li:last-child > a:after {
+  display: none;
 }
 
 img.institution-logo,

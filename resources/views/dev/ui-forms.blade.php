@@ -163,6 +163,82 @@
                             <div id="sliderDouble" class="slider slider-primary"></div>
                         </div>
                     </div>
+                    <h6 class="pad-top-10">{{ __('Wizards') }}</h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="wizard-tabs">
+                                <ul class="nav wizard-steps">
+                                    <li class="nav-item active">
+                                        <a href="#w1-account" data-toggle="tab" class="nav-link text-center">
+                                            <span class="badge">1</span>
+                                            Account
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#w1-profile" data-toggle="tab" class="nav-link text-center">
+                                            <span class="badge">2</span>
+                                            Profile
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#w1-confirm" data-toggle="tab" class="nav-link text-center active">
+                                            <span class="badge">3</span>
+                                            Confirm
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <form class="form-horizontal" novalidate="novalidate">
+                                <div class="tab-content">
+                                    <div id="w1-account" class="tab-pane p-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label text-sm-right pt-1" for="w1-username">Username</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control valid" name="username" id="w1-username" required="" aria-invalid="false">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label text-sm-right pt-1" for="w1-password">Password</label>
+                                            <div class="col-sm-8">
+                                                <input type="password" class="form-control valid" name="password" id="w1-password" minlength="6" required="" aria-invalid="false">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="w1-profile" class="tab-pane p-3">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label text-sm-right pt-1" for="w1-first-name">First Name</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control valid" name="first-name" id="w1-first-name" required="" aria-invalid="false">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label text-sm-right pt-1" for="w1-last-name">Last Name</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control valid" name="last-name" id="w1-last-name" required="" aria-invalid="false">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="w1-confirm" class="tab-pane p-3 active">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 control-label text-sm-right pt-1" for="w1-email">Email</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" name="email" id="w1-email" required="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-10">
+                                                <div class="checkbox-custom">
+                                                    <input type="checkbox" name="terms" id="w1-terms" required="">
+                                                    <label for="w1-terms">I agree to the terms of service</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-6">
                             <h4>{{ __('Barras de progreso') }}</h4>

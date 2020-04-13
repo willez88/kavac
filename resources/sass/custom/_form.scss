@@ -168,7 +168,7 @@ textarea {
 		background-color: rgba(18, 160, 11, .9);
 
 		.bootstrap-switch-label {
-			background-color: rgb(255, 255, 255);
+			background-color: $color-white;
 		}
 	}
 }
@@ -186,7 +186,7 @@ textarea {
 
 .select2-container--default .select2-selection--single,
 .select2-container--default .select2-selection--multiple {
-	border: 1px solid #E3E3E3 !important;
+	border: 1px solid $color-white-mid !important;
 }
 
 .select2-container--default.select2-container--focus .select2-selection--multiple {
@@ -201,4 +201,136 @@ textarea {
 
 .form-group .input-group-addon, .input-group .input-group-addon {
     padding: 8px 0 10px 18px;
+}
+
+/** Estilos personalizados para wizard en formularios */
+.wizard-tabs {
+    margin: 0;
+
+    ul {
+        display: table;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+
+        > li {
+            display: table-cell;
+            border-bottom: 1px solid #EEE;
+
+            &.active {
+                border-bottom-color: transparent;
+
+                > a {
+                    background: #FFF;
+                    color: #555;
+
+                    &:hover {
+                        background: #FFF;
+                        color: #555;
+                    }
+
+                    &:focus {
+                        background: #FFF;
+                        color: #555;
+                    }
+
+                    &:after {
+                        border-left-color: #FFF;
+                    }
+                }
+
+                .badge {
+                    background-color: $color-info-dark;
+                    border: 0;
+                }
+            }
+
+            &.disabled {
+                > a {
+                    color: #CCC;
+
+                    &:hover {
+                        color: #CCC;
+                    }
+
+                    &:focus {
+                        color: #CCC;
+                    }
+                }
+
+                .badge {
+                    background-color: #CCC;
+                }
+            }
+
+            > a {
+                position: relative;
+                display: block;
+                padding: 5px;
+                font-size: 13.6px;
+                font-size: 0.85rem;
+                text-decoration: none;
+                color: #555;
+                background: #F4F4F4;
+                color: #555;
+
+                .badge {
+                    border-radius: 100%;
+                    color: #FFF;
+                    background: #CCC;
+                    padding: 6.4px 8.8px;
+                    padding: 0.4rem 0.55rem;
+                    margin-right: 5px;
+                    position: relative;
+                    top: -1px;
+                }
+
+                &:hover {
+                    background: #F4F4F4;
+                    color: #555;
+                    -webkit-box-shadow: none;
+                    box-shadow: none;
+                }
+
+                &:active, &:focus {
+                    border-bottom: 0;
+                }
+
+                &:before, &:after {
+                    display: block;
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    right: -10px;
+                    z-index: 1;
+                    border: 17px solid transparent;
+                    border-right: 0;
+                    border-left: 10px solid transparent;
+                    width: 0;
+                    height: 0;
+                }
+
+                &:before {
+                    z-index: 1;
+                    right: -11px;
+                    border-left-color: #E0E0E0;
+                }
+
+                &:after {
+                    z-index: 2;
+                    border-left-color: #F4F4F4;
+                }
+            }
+
+            &:last-child {
+                > a{
+                    &:before, &:after {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+    /*.wizard-steps*/
 }
