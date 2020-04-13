@@ -139,6 +139,7 @@
                     unlockScreen();
                     return false;
                 });
+
                 /** Coloca el año actual en el pie de página */
                 $('.currentYear').text(new Date().getFullYear());
 
@@ -465,6 +466,19 @@
                     sticky: false,
                     time: 2500
                 });
+            }
+
+            function fullScreen(elem) {
+                var elem = (typeof(elem) !== "undefined") ? elem : document.documentElement;
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.mozRequestFullScreen) { /* Firefox */
+                    elem.mozRequestFullScreen();
+                } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                    elem.webkitRequestFullscreen();
+                } else if (elem.msRequestFullscreen) { /* IE/Edge */
+                    elem.msRequestFullscreen();
+                }
             }
         </script>
 
