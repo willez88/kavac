@@ -35,10 +35,11 @@ mix.js([
    .sass('resources/sass/font-awesome/font-awesome.scss', 'public/css')
    .sass('resources/sass/ionicons/ionicons.scss', 'public/css')
    .sass('resources/sass/now-ui-kit/now-ui-kit.scss', 'public/css')
+   .sass('node_modules/@mdi/font/scss/materialdesignicons.scss', 'public/css')
    .sass('resources/sass/custom/custom.scss', 'public/css')
    .combine([
    		'public/css/app.css', 'public/css/font-awesome.css', 'public/css/ionicons.css',
-   		'public/css/now-ui-kit.css', 'public/css/custom.css'
+   		'public/css/now-ui-kit.css', 'public/css/materialdesignicons.css', 'public/css/custom.css'
    ], 'public/css/app.css')
    .sourceMaps();
 

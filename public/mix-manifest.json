@@ -47,5 +47,7 @@
     "/modules/warehouse/js/app.js.map": "/modules/warehouse/js/app.js.map?id=5b0eaa572c9f405d66c1",
     "/js/module-settings.js": "/js/module-settings.js",
     "/modules/sale/js/app.js": "/modules/sale/js/app.js",
-    "/modules/sale/css/app.css": "/modules/sale/css/app.css"
+    "/modules/sale/css/app.css": "/modules/sale/css/app.css",
+    "/css/materialdesignicons/materialdesignicons.css": "/css/materialdesignicons/materialdesignicons.css",
+    "/css/materialdesignicons.css": "/css/materialdesignicons.css"
 }
