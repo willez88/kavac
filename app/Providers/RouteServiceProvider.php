@@ -61,6 +61,13 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
              ->namespace($this->namespace)
              ->group(base_path('routes/module.php'));
+
+        if (config('app.debug')) {
+            /** Rutas para pruebas de desarrollo */
+            Route::middleware('web')
+                 ->namespace($this->namespace)
+                 ->group(base_path('routes/test.php'));
+        }
     }
 
     /**
