@@ -151,7 +151,7 @@
                    href="javascript:void(0)" onclick="fullScreen()"
                    title="{{ __('Pantalla completa') }}"
                    data-toggle="tooltip">
-                    <i class="mdi mdi-fullscreen"></i>
+                    <i class="mdi mdi-fullscreen" style="font-size: 1.287em"></i>
                 </a>
             </li>
 			<li class="nav-item dropdown">
