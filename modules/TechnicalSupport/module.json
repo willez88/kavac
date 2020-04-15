@@ -8,6 +8,7 @@
     "keywords": [],
     "active": 1,
     "order": 0,
+    "logo": "technical-support-logo.png",
     "providers": [
         "Modules\\TechnicalSupport\\Providers\\TechnicalSupportServiceProvider"
     ],

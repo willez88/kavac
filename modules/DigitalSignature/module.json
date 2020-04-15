@@ -8,6 +8,7 @@
     "keywords": [],
     "active": 1,
     "order": 0,
+    "logo": "digital-signature-logo.png",
     "providers": [
         "Modules\\DigitalSignature\\Providers\\DigitalSignatureServiceProvider"
     ],

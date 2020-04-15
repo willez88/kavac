@@ -8,6 +8,7 @@
     "keywords": [],
     "active": 1,
     "order": 0,
+    "logo": "citizen-service-logo.png",
     "providers": [
         "Modules\\CitizenService\\Providers\\CitizenServiceServiceProvider"
     ],

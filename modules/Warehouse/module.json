@@ -8,6 +8,7 @@
     "keywords": [],
     "active": 1,
     "order": 0,
+    "logo": "warehouse-logo.png",
     "providers": [
         "Modules\\Warehouse\\Providers\\WarehouseServiceProvider"
     ],
