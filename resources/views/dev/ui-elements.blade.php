@@ -87,7 +87,7 @@
 							</div>
 						</div>
 					</div>
-					<hr>
+					{{-- <hr>
 					<h6>{{ __('Módulos') }}</h6>
 					<div class="row">
 						<div class="col-4">
@@ -137,7 +137,7 @@
 							<div class="info-box">
 								<div class="info-box-content info-box-content-lg">
 									<div class="info-box-img">
-										{{-- <img src="{{ asset('images/no-image.png') }}" alt="Thumbnail Image" class="rounded img-raised"> --}}
+										<img src="{{ asset('images/no-image.png') }}" alt="Thumbnail Image" class="rounded img-raised">
 										<i class="fa fa-cubes"></i>
 									</div>
 									<div class="info-box-title">
@@ -173,7 +173,7 @@
 							<div class="info-box">
 								<div class="info-box-content info-box-content-lg">
 									<div class="info-box-img">
-										{{-- <img src="{{ asset('images/no-image.png') }}" alt="Thumbnail Image" class="rounded img-raised"> --}}
+										<img src="{{ asset('images/no-image.png') }}" alt="Thumbnail Image" class="rounded img-raised">
 										<i class="fa fa-cubes"></i>
 									</div>
 									<div class="info-box-title">
@@ -209,7 +209,7 @@
 							<div class="info-box">
 								<div class="info-box-content info-box-content-lg">
 									<div class="info-box-img">
-										{{-- <img src="{{ asset('images/no-image.png') }}" alt="Thumbnail Image" class="rounded img-raised"> --}}
+										<img src="{{ asset('images/no-image.png') }}" alt="Thumbnail Image" class="rounded img-raised">
 										<i class="fa fa-cubes"></i>
 									</div>
 									<div class="info-box-title">
@@ -241,8 +241,183 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> --}}
 					<hr>
+                    <h6>{{ __('Cintas') }}</h6>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card-box ribbon-box">
+                                <div class="ribbon ribbon-blue float-left"><i class="mdi mdi-access-point mr-1"></i> Blue</div>
+                                <h6 class="text-blue float-right mt-0">Blue Header</h6>
+                                <div class="ribbon-content">
+                                    <p class="mb-0">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores magnam voluptates adipisci molestiae blanditiis a ad, ipsum. Excepturi dolorem laboriosam, quae, placeat at veritatis porro quibusdam incidunt nostrum, ab facilis.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card-box ribbon-box">
+                                <div class="ribbon ribbon-primary float-right"><i class="mdi mdi-access-point mr-1"></i> Primary</div>
+                                <h5 class="text-primary float-left mt-0">Primary Header</h5>
+                                <div class="ribbon-content">
+                                    <p class="mb-0">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, dignissimos assumenda, nobis enim molestiae architecto, reprehenderit vel voluptas sed suscipit omnis soluta necessitatibus non perspiciatis quibusdam ipsum deleniti aut repudiandae.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card-box ribbon-box">
+                                <div class="ribbon ribbon-success float-right"><i class="mdi mdi-access-point mr-1"></i> Success</div>
+                                <h5 class="text-success float-left mt-0">Success Header</h5>
+                                <div class="ribbon-content">
+                                    <p class="mb-0">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, dignissimos assumenda, nobis enim molestiae architecto, reprehenderit vel voluptas sed suscipit omnis soluta necessitatibus non perspiciatis quibusdam ipsum deleniti aut repudiandae.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card-box ribbon-box">
+                                <div class="ribbon ribbon-info float-left"><i class="mdi mdi-access-point mr-1"></i> Info</div>
+                                <h5 class="text-info float-right mt-0">Info Header</h5>
+                                <div class="ribbon-content">
+                                    <p class="mb-0">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, dignissimos assumenda, nobis enim molestiae architecto, reprehenderit vel voluptas sed suscipit omnis soluta necessitatibus non perspiciatis quibusdam ipsum deleniti aut repudiandae.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card-box ribbon-box">
+                                <div class="ribbon ribbon-warning float-right"><i class="mdi mdi-access-point mr-1"></i> Warning</div>
+                                <h5 class="text-warning float-left mt-0">Warning Header</h5>
+                                <div class="ribbon-content">
+                                    <p class="mb-0">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, dignissimos assumenda, nobis enim molestiae architecto, reprehenderit vel voluptas sed suscipit omnis soluta necessitatibus non perspiciatis quibusdam ipsum deleniti aut repudiandae.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card-box ribbon-box">
+                                <div class="ribbon ribbon-danger float-right"><i class="mdi mdi-access-point mr-1"></i> Danger</div>
+                                <h5 class="text-danger float-left mt-0">Danger Header</h5>
+                                <div class="ribbon-content">
+                                    <p class="mb-0">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, dignissimos assumenda, nobis enim molestiae architecto, reprehenderit vel voluptas sed suscipit omnis soluta necessitatibus non perspiciatis quibusdam ipsum deleniti aut repudiandae.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card-box ribbon-box">
+                                <div class="ribbon ribbon-pink float-left"><i class="mdi mdi-access-point mr-1"></i> Pink</div>
+                                <h5 class="text-pink float-right mt-0">Pink Header</h5>
+                                <div class="ribbon-content">
+                                    <p class="mb-0">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, dignissimos assumenda, nobis enim molestiae architecto, reprehenderit vel voluptas sed suscipit omnis soluta necessitatibus non perspiciatis quibusdam ipsum deleniti aut repudiandae.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card-box ribbon-box">
+                                <div class="ribbon ribbon-secondary float-right"><i class="mdi mdi-access-point mr-1"></i> Secondary</div>
+                                <h5 class="text-secondary float-left mt-0">Secondary Header</h5>
+                                <div class="ribbon-content">
+                                    <p class="mb-0">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, dignissimos assumenda, nobis enim molestiae architecto, reprehenderit vel voluptas sed suscipit omnis soluta necessitatibus non perspiciatis quibusdam ipsum deleniti aut repudiandae.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card-box ribbon-box">
+                                <div class="ribbon ribbon-dark float-right"><i class="mdi mdi-access-point mr-1"></i> Dark</div>
+                                <h5 class="text-dark float-left mt-0">Dark Header</h5>
+                                <div class="ribbon-content">
+                                    <p class="mb-0">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, dignissimos assumenda, nobis enim molestiae architecto, reprehenderit vel voluptas sed suscipit omnis soluta necessitatibus non perspiciatis quibusdam ipsum deleniti aut repudiandae.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card-box ribbon-box">
+                                <div class="ribbon-two ribbon-two-secondary"><span>Secondary</span></div>
+                                <p class="mb-0">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, dignissimos assumenda, nobis enim molestiae architecto, reprehenderit vel voluptas sed suscipit omnis soluta necessitatibus non perspiciatis quibusdam ipsum deleniti aut repudiandae.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card-box ribbon-box">
+                                <div class="ribbon-two ribbon-two-primary"><span>Primary</span></div>
+                                <p class="mb-0">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, dignissimos assumenda, nobis enim molestiae architecto, reprehenderit vel voluptas sed suscipit omnis soluta necessitatibus non perspiciatis quibusdam ipsum deleniti aut repudiandae.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card-box ribbon-box">
+                                <div class="ribbon-two ribbon-two-success"><span>Success</span></div>
+                                <p class="mb-0">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, dignissimos assumenda, nobis enim molestiae architecto, reprehenderit vel voluptas sed suscipit omnis soluta necessitatibus non perspiciatis quibusdam ipsum deleniti aut repudiandae.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card-box ribbon-box">
+                                <div class="ribbon-two ribbon-two-info"><span>Info</span></div>
+                                <p class="mb-0">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, dignissimos assumenda, nobis enim molestiae architecto, reprehenderit vel voluptas sed suscipit omnis soluta necessitatibus non perspiciatis quibusdam ipsum deleniti aut repudiandae.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card-box ribbon-box">
+                                <div class="ribbon-two ribbon-two-warning"><span>Warning</span></div>
+                                <p class="mb-0">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, dignissimos assumenda, nobis enim molestiae architecto, reprehenderit vel voluptas sed suscipit omnis soluta necessitatibus non perspiciatis quibusdam ipsum deleniti aut repudiandae.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card-box ribbon-box">
+                                <div class="ribbon-two ribbon-two-danger"><span>Danger</span></div>
+                                <p class="mb-0">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, dignissimos assumenda, nobis enim molestiae architecto, reprehenderit vel voluptas sed suscipit omnis soluta necessitatibus non perspiciatis quibusdam ipsum deleniti aut repudiandae.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card-box ribbon-box">
+                                <div class="ribbon-two ribbon-two-pink"><span>Pink</span></div>
+                                <p class="mb-0">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, dignissimos assumenda, nobis enim molestiae architecto, reprehenderit vel voluptas sed suscipit omnis soluta necessitatibus non perspiciatis quibusdam ipsum deleniti aut repudiandae.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card-box ribbon-box">
+                                <div class="ribbon-two ribbon-two-blue"><span>Blue</span></div>
+                                <p class="mb-0">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, dignissimos assumenda, nobis enim molestiae architecto, reprehenderit vel voluptas sed suscipit omnis soluta necessitatibus non perspiciatis quibusdam ipsum deleniti aut repudiandae.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card-box ribbon-box">
+                                <div class="ribbon-two ribbon-two-dark"><span>Dark</span></div>
+                                <p class="mb-0">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, dignissimos assumenda, nobis enim molestiae architecto, reprehenderit vel voluptas sed suscipit omnis soluta necessitatibus non perspiciatis quibusdam ipsum deleniti aut repudiandae.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
 					<h6>{{ __('Listas') }}</h6>
 					<div class="row">
 						<div class="col-6">
