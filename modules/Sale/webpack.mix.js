@@ -6,8 +6,8 @@ mix.setPublicPath('../../public').mergeManifest();
 var m = __dirname.split("/");
 var moduleName = m[m.length-1].toLowerCase()
 
-mix.js(__dirname + '/Resources/sale/js/app.js', `modules/sale/js`)
-   .sass( __dirname + '/Resources/sale/sass/app.scss', `modules/sale/css`)
+mix.js(__dirname + '/Resources/assets/js/app.js', `modules/sale/js`)
+   .sass( __dirname + '/Resources/assets/sass/app.scss', `modules/sale/css`)
    .sourceMaps();
 
 if (mix.inProduction()) {
