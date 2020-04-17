@@ -481,12 +481,282 @@
 				</div>
 				<div class="card-body">
 					<div class="row">
-						<div class="col-sm-4 col-md-2">
+                        @php
+                            $colors = [
+                                [
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(96, 92, 168)',
+                                        'text' => '#605ca8'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(85, 82, 153)',
+                                        'text' => '#525299'
+                                    ]
+                                ],
+                                [
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(240, 18, 190)',
+                                        'text' => '#f012be'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(219, 14, 173)',
+                                        'text' => '#db0ead'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(216, 27, 96)',
+                                        'text' => '#d81b60'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(202, 25, 90)',
+                                        'text' => '#ca195a'
+                                    ],
+                                ],
+                                [
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(255, 133, 27)',
+                                        'text' => '#ff851b'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(255, 119, 1)',
+                                        'text' => '#ff7701'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(255, 178, 54)',
+                                        'text' => '#ffb236'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(243, 156, 18)',
+                                        'text' => '#f39c12'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(219, 139, 11)',
+                                        'text' => '#db8b0b'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(204, 128, 14)',
+                                        'text' => '#cc800e'
+                                    ],
+                                ],
+                                [
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(255, 54, 54)',
+                                        'text' => '#ff3636'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(255, 41, 41)',
+                                        'text' => '#ff2929'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(249, 99, 50)',
+                                        'text' => '#f96332'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(249, 74, 20)',
+                                        'text' => '#f94a14'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(239, 94, 48)',
+                                        'text' => '#ef5e30'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(221, 75, 57)',
+                                        'text' => '#dd4b39'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(211, 55, 36)',
+                                        'text' => '#d33724'
+                                    ],
+                                ],
+                                [
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(61, 153, 112)',
+                                        'text' => '#3d9970'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(54, 135, 99)',
+                                        'text' => '#368763'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(24, 206, 15)',
+                                        'text' => '#18ce0f'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(18, 161, 11)',
+                                        'text' => '#12a10b'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(1, 255, 112)',
+                                        'text' => '#01ff70'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(0, 231, 101)',
+                                        'text' => '#00e765'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(0, 166, 90)',
+                                        'text' => '#00a65a'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(0, 141, 76)',
+                                        'text' => '#008d4c'
+                                    ],
+                                ],
+                                [
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(60, 141, 188)',
+                                        'text' => '#3c8dbc'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(57, 204, 204)',
+                                        'text' => '#39cccc'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(53, 124, 165)',
+                                        'text' => '#357ca5'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(48, 187, 187)',
+                                        'text' => '#30bbbb'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(44, 168, 255)',
+                                        'text' => '#2ca8ff'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(43, 163, 247)',
+                                        'text' => '#2ba3f7'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(32, 126, 189)',
+                                        'text' => '#207ebd'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(0, 192, 239)',
+                                        'text' => '#00c0ef'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(0, 167, 208)',
+                                        'text' => '#00a7d0'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(0, 115, 183)',
+                                        'text' => '#0073b7'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(0, 83, 132)',
+                                        'text' => '#005384'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(0, 62, 133)',
+                                        'text' => '#003e85'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(0, 31, 63)',
+                                        'text' => '#001f3f'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(0, 26, 53)',
+                                        'text' => '#001a35'
+                                    ],
+                                ],
+                                [
+                                    [
+                                        'text-color' => 'rgb(154, 154, 154)', 'bg-color' => 'rgb(255, 255, 255)',
+                                        'text' => '#ffffff'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(154, 154, 154)', 'bg-color' => 'rgb(247, 247, 247)',
+                                        'text' => '#f7f7f7'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(154, 154, 154)', 'bg-color' => 'rgb(247, 236, 236)',
+                                        'text' => '#f7ecec'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(154, 154, 154)', 'bg-color' => 'rgb(238, 238, 238)',
+                                        'text' => '#eeeeee'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(154, 154, 154)', 'bg-color' => 'rgb(235, 236, 241)',
+                                        'text' => '#ebecf1'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(154, 154, 154)', 'bg-color' => 'rgb(228, 231, 234)',
+                                        'text' => '#e4e7ea'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(154, 154, 154)', 'bg-color' => 'rgb(227, 227, 227)',
+                                        'text' => '#e3e3e3'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(154, 154, 154)', 'bg-color' => 'rgb(210, 214, 222)',
+                                        'text' => '#d2d6de'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(181, 187, 200)',
+                                        'text' => '#b5bbc8'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(154, 154, 154)',
+                                        'text' => '#9a9a9a'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(153, 153, 153)',
+                                        'text' => '#999999'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(102, 102, 102)',
+                                        'text' => '#666666'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(99, 110, 123)',
+                                        'text' => '#636e7b'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(85, 85, 85)',
+                                        'text' => '#555555'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(51, 51, 51)',
+                                        'text' => '#333333'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(34, 34, 34)',
+                                        'text' => '#222222'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(17, 17, 17)',
+                                        'text' => '#111111'
+                                    ],
+                                    [
+                                        'text-color' => 'rgb(255, 255, 255)', 'bg-color' => 'rgb(0, 0, 0)',
+                                        'text' => '#000000'
+                                    ],
+                                ],
+                            ];
+                        @endphp
+
+                        @foreach ($colors as $color)
+                            <div class="col-sm-4 col-md-2">
+                                @foreach ($color as $col)
+                                    @php
+                                        $background = 'background-color:' . $col['bg-color'];
+                                        $textColor = 'color:' . $col['text-color'];
+                                        $text = $col['text'] ?? $col['bg-color'];
+                                        $style = $background . ';' . $textColor . ';';
+                                    @endphp
+                                    <div class="color-palette" style="{!! $style !!};">
+                                        <span>{!! $text !!}</span>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endforeach
+						{{-- <div class="col-sm-4 col-md-2">
 							<div class="color-palette-set" style="color:#ffffff">
 			                  <div class="bg-red color-palette"><span>#dd4b39</span></div>
 			                  <div class="bg-primary color-palette"><span>#f96332</span></div>
 			                </div>
-						</div>
+						</div> --}}
 					</div>
 				</div>
 			</div>
