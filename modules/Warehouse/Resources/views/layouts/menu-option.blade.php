@@ -6,8 +6,8 @@
         ])->first();
 @endphp
 <li>
-    <a href="#" title="Gestión de artículos e inventario" data-toggle="tooltip" 
-       data-placement="right">
+    <a href="javascript:void(0)" title="Gestión de artículos e inventario"
+       data-toggle="tooltip" data-placement="right">
         <i class="ion-ios-list-outline"></i><span>Almacén</span>
     </a>
     <ul class="submenu" style="{!! display_submenu('warehouse') !!}">
@@ -41,12 +41,12 @@
         </li>
         @endif
         <li data-toggle="tooltip" data-placement="right"
-                        title="Gestiona la generación de reportes del inventario de almacenes (por producto, por almacén.)">
-            <a href="#">Reportes</a>
+            title="Gestiona la generación de reportes del módulo de almacén">
+            <a href="javascript:void(0)">Reportes</a>
             <ul class="submenu" style="{!! display_submenu('report') !!}">
-                <li title="Reporte de Inventario de Productos de Almacén" data-toggle="tooltip"
-            data-placement="right"
-            class='{!! set_active_menu('warehouse.report.create') !!}'>
+                <li title="Reporte de Inventario de Productos de Almacén"
+                    data-toggle="tooltip" data-placement="right"
+                    class='{!! set_active_menu('warehouse.report.create') !!}'>
                     <a href="{{ route('warehouse.report.create') }}">Inventario de Productos</a>
                 </li>
             </ul>

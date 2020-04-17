@@ -1,6 +1,6 @@
 {{-- Gestión de soporte técnico --}}
 <li>
-    <a href="#" title="Gestión de soporte técnico" data-toggle="tooltip"
+    <a href="javascript:void(0)" title="Gestión de soporte técnico" data-toggle="tooltip"
        data-placement="right">
         <i class="icofont icofont-fix-tools"></i><span>Soporte Técnico</span>
     </a>
