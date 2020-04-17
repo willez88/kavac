@@ -202,6 +202,9 @@
 
 						{{-- Asignaciones de Nómina --}}
 						<payroll-salary-assignment></payroll-salary-assignment>
+
+						{{-- conceptos --}}
+						<payroll-concepts></payroll-concepts>
 					</div>
 				</div>
 			</div>
