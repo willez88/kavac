@@ -54,5 +54,6 @@
         "vue-multiselect": "^2.1.6",
         "vue-tables-2": "^1.6.25",
         "vue-template-compiler": "^2.6.11"
-    }
+    },
+    "start": { "postinstall": "cd modules/Accounting && npm install" }
 }
