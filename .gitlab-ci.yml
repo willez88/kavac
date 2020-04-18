@@ -10,8 +10,8 @@ deploy to heroku:
     - apt-get install -y ruby
     - gem install dpl
     - dpl --provider=heroku --app=$HEROKU_APP_PRODUCTION --api-key=$HEROKU_API_KEY
-    - heroku run php artisan migrate
-    - heroku run php artisan db:seed
-    - heroku run php artisan module:seed
+    - php artisan migrate
+    - php artisan db:seed
+    - php artisan module:seed
   only:
     - master
