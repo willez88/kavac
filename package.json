@@ -9,6 +9,12 @@
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
+    "cacheDirectories": [
+        "modules/Accounting/node_modules", "modules/Asset/node_modules", "modules/Budget/node_modules",
+        "modules/CitizenService/node_modules", "modules/Finance/node_modules", "modules/Payroll/node_modules",
+        "modules/Purchase/node_modules", "modules/Sale/node_modules", "modules/TechnicalSupport/node_modules",
+        "modules/Warehouse/node_modules"
+    ],
     "devDependencies": {
         "axios": "^0.19.2",
         "bootstrap": "^4.4.1",
