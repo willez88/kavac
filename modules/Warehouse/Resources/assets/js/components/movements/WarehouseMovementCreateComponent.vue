@@ -35,9 +35,9 @@
 							v-else>
 							<div class="form-group is-required">
 								<label>Nombre de la Institución:</label>
-								<input type="text" data-toggle="tooltip" 
+								<input type="text" data-toggle="tooltip"
 												class="form-control"
-												id="institution_start" 
+												id="institution_start"
 												readonly="">
 		                    </div>
 						</div>
@@ -54,9 +54,9 @@
 							v-else>
 							<div class="form-group is-required">
 								<label>Nombre del Almacén:</label>
-								<input type="text" data-toggle="tooltip" 
+								<input type="text" data-toggle="tooltip"
 												class="form-control"
-												id="warehouse_start" 
+												id="warehouse_start"
 												readonly="">
 		                    </div>
 						</div>
@@ -88,14 +88,14 @@
 				<div class="col-md-6" id="helpWarehouseMovementDescription">
 					<div class="form-group is-required">
 						<label>Descripción:</label>
-						<textarea  data-toggle="tooltip" 
-								   title="Indique alguna descripción referente al movimiento de almacén (requerido)" 
-								   class="form-control" v-model="record.description">
-					   </textarea>
+                        <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+                                  title="Indique alguna descripción referente al movimiento de almacén (requerido)"
+                                  :config="ckeditor.editorConfig" class="form-control" tag-name="textarea" rows="3"
+                                  v-model="record.description"></ckeditor>
                     </div>
 				</div>
 			</div>
-			
+
 			<hr>
 			<v-client-table id="helpTable"
 				@row-click="toggleActive" :columns="columns" :data="records" :options="table_options">
@@ -140,7 +140,7 @@
 						<input type="number" class="form-control table-form input-sm" data-toggle="tooltip" min=0 :max="props.row.exist" :id="'movement_product_'+props.row.id" onfocus="this.select()" @input="selectElement(props.row.id)">
 					</div>
 				</div>
-			</v-client-table>			
+			</v-client-table>
 		</div>
         <div class="card-footer text-right">
 			<div class="row">
@@ -196,11 +196,11 @@
 					end_institution_id:'',
 					warehouse_inventory_products: [],
 				},
-				
+
 				columns: ['check', 'code', 'description', 'inventory', 'id'],
 				records: [],
 				errors: [],
-				
+
 				institutions: [],
 				initial_warehouses: [],
 				end_warehouses: [],
@@ -226,7 +226,7 @@
 			}
 		},
 		props: {
-			movementid: Number, 
+			movementid: Number,
 		},
 		methods: {
 			toggleActive({ row }) {
@@ -360,11 +360,11 @@
                 });
                 vm.createRecord(url);
 			},
-			
+
 			loadMovement(id){
 				const vm = this;
 	            var fields = {};
-	            
+
 	            axios.get('/warehouse/movements/info/'+id).then(response => {
 	                if(typeof(response.data.records != "undefined")){
 	                    fields = response.data.records;

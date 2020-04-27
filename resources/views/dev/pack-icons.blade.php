@@ -49,6 +49,11 @@
                                 NUCLEO
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#material" role="tab">
+                                MATERIAL DESIGN
+                            </a>
+                        </li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="icofont" role="tabpanel">
@@ -149,6 +154,44 @@
                                                         </div>
                                                         <div class="col-12">
                                                             <label>now-ui-icons {{ $nuc }}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="material" role="tabpanel">
+                            <div class="row">
+                                @foreach ($materialDesigns as $key => $material)
+                                    @php
+                                        $materialIdx = $loop->index;
+                                    @endphp
+                                    <div class="col-12">
+                                        <hr>
+                                        <h6 class="card-title">
+                                            {{ $key }}
+                                            <a class="btn btn-collapse" data-toggle="collapse"
+                                               href="#materialContent{{ $materialIdx }}"
+                                               aria-expanded="true" aria-controls="materialContent{{ $materialIdx }}"
+                                               style="padding:4px;font-size:0.7em;background-color: transparent;color:#0073b7" title="{{ __('Mostrar / Ocultar contenido') }}">
+                                                <i class="now-ui-icons arrows-1_minimal-up"></i>
+                                            </a>
+                                        </h6>
+                                    </div>
+                                    <div class="col-sm-12 collapse show" id="materialContent{{ $materialIdx }}">
+                                        <div class="row">
+                                            @foreach ($material as $mat)
+                                                <div class="col-md-2 text-center">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <i class="mdi {{ $mat }}"
+                                                               style="font-size: 2em;"></i>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label>mdi {{ $mat }}</label>
                                                         </div>
                                                     </div>
                                                 </div>

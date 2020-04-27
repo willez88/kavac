@@ -58,8 +58,8 @@
 			                </div>
 						</div>
 						<div class="form-group col-md-2">
-							{!! Form::button(__('Buscar') . ' <i class="fa fa-search"></i>', [
-                                'class' => 'btn btn-sm btn-info',
+							{!! Form::button('<i class="fa fa-search"></i>', [
+                                'class' => 'btn btn-info btn-icon btn-xs px-3',
                                 'data-toggle' => 'tooltip', 'onclick' => '#',
                                 'title' => __('Buscar registros del sistema'),
                             ]) !!}

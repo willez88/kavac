@@ -1,9 +1,10 @@
 .bootstrap-switch.bootstrap-switch-mini {
 	height: 16px !important;
 	width: 46px !important;
+
 	&.bootstrap-switch-mini {
-		
-		
+
+
 		.bootstrap-switch-handle-off {
 			text-indent:none;
 		}
@@ -23,4 +24,12 @@
 	&.bootstrap-switch-on:hover .bootstrap-switch-label, &.bootstrap-switch-off:hover .bootstrap-switch-label {
     	width: 22px !important;
 	}
+}
+
+.bootstrap-switch-mini {
+    .bootstrap-switch {
+        .bootstrap-switch-handle-off:hover {
+            //width: 0px !important;
+        }
+    }
 }

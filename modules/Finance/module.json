@@ -1,10 +1,14 @@
 {
+    "version": "1.0.0",
     "name": "Finance",
     "alias": "finance",
-    "description": "",
+    "name_es": "Finanzas",
+    "description": "Gestión de finanzas",
+    "long_description": "",
     "keywords": [],
     "active": 1,
     "order": 0,
+    "logo": "finance-logo.png",
     "providers": [
         "Modules\\Finance\\Providers\\FinanceServiceProvider"
     ],

@@ -6,6 +6,14 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use App\Roles\Models\Role;
 use App\Roles\Models\Permission;
+use Modules\Budget\Models\BudgetAccount;
+use Modules\Budget\Models\BudgetCentralizedAction;
+use Modules\Budget\Models\BudgetCompromise;
+use Modules\Budget\Models\BudgetStage;
+use Modules\Budget\Models\BudgetModification;
+use Modules\Budget\Models\BudgetProject;
+use Modules\Budget\Models\BudgetSpecificAction;
+use Modules\Budget\Models\BudgetSubSpecificFormulation;
 
 /**
  * @class BudgetRoleAndPermissionsTableSeeder
@@ -36,6 +44,7 @@ class BudgetRoleAndPermissionsTableSeeder extends Seeder
             ['name' => 'Presupuesto', 'description' => 'Coordinador de presupuesto']
         );
 
+        /** @var array Listado de permisos a registrar */
         $permissions = [
             [
                 'name' => 'Inicio del módulo de presupuesto', 'slug' => 'budget.home',
@@ -288,6 +297,75 @@ class BudgetRoleAndPermissionsTableSeeder extends Seeder
                 'slug_alt' => 'modificacion.ver', 'short_description' => 'ver modificación presupuestaria'
             ],
         ];
+
+        $permissions = array_merge($permissions, [
+            [
+                'name' => 'Notificar gestion de cuentas presupuestarias',
+                'slug' => 'notify.budget.account',
+                'description' => 'Notificar sobre gestión de datos de cuentas presupuestarias',
+                'model' => BudgetAccount::class, 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'notificar.presupuesto.cuentas',
+                'short_description' => 'notificar la gestion de cuentas presupuestarias'
+            ],
+            [
+                'name' => 'Notificar gestion de acciones centralizadas',
+                'slug' => 'notify.budget.centralized_actions',
+                'description' => 'Notificar sobre gestión de datos de acciones centralizadas',
+                'model' => BudgetCentralizedAction::class, 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'notificar.presupuesto.acciones.centralizadas',
+                'short_description' => 'notificar la gestion de acciones centralizadas'
+            ],
+            [
+                'name' => 'Notificar gestion de compromisos',
+                'slug' => 'notify.budget.compromise',
+                'description' => 'Notificar sobre gestión de datos de compromisos',
+                'model' => BudgetCompromise::class, 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'notificar.presupuesto.compromiso',
+                'short_description' => 'notificar la gestion de compromisos'
+            ],
+            [
+                'name' => 'Notificar etapa de compromiso',
+                'slug' => 'notify.budget.stage',
+                'description' => <<<EOT
+                    Notificar sobre etapas de compromisos. Precomprometido, Programado, Comprometido, Causado o Pagado
+                EOT,
+                'model' => BudgetStage::class, 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'notificar.presupuesto.etapa',
+                'short_description' => 'notificar la etapa de compromisos'
+            ],
+            [
+                'name' => 'Notificar gestion de modificaciones presupuestarias',
+                'slug' => 'notify.budget.modification',
+                'description' => 'Notificar sobre gestión de datos de modificaciones presupuestarias',
+                'model' => BudgetModification::class, 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'notificar.presupuesto.modificacion',
+                'short_description' => 'notificar la gestion de modificaciones presupuestarias'
+            ],
+            [
+                'name' => 'Notificar gestion de proyectos',
+                'slug' => 'notify.budget.project',
+                'description' => 'Notificar sobre gestión de datos de proyectos',
+                'model' => BudgetProject::class, 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'notificar.presupuesto.proyecto',
+                'short_description' => 'notificar la gestion de proyectos'
+            ],
+            [
+                'name' => 'Notificar gestion de acciones específicas',
+                'slug' => 'notify.budget.specific_action',
+                'description' => 'Notificar sobre gestión de datos de acciones específicas',
+                'model' => BudgetSpecificAction::class, 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'notificar.presupuesto.accion.especifica',
+                'short_description' => 'notificar la gestion de acciones específicas'
+            ],
+            [
+                'name' => 'Notificar gestion de formulaciones de presupuesto',
+                'slug' => 'notify.budget.sub_specific_formulation',
+                'description' => 'Notificar sobre gestión de datos de formulaciones de presupuesto',
+                'model' => BudgetSubSpecificFormulation::class, 'model_prefix' => 'presupuesto',
+                'slug_alt' => 'notificar.presupuesto.formulacion',
+                'short_description' => 'notificar la gestion de formulaciones de presupuesto'
+            ],
+        ]);
 
         $budgetRole->detachAllPermissions();
 

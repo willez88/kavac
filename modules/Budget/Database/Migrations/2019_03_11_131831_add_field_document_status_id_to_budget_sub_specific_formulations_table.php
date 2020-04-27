@@ -13,11 +13,14 @@ class AddFieldDocumentStatusIdToBudgetSubSpecificFormulationsTable extends Migra
      */
     public function up()
     {
-        Schema::table('budget_sub_specific_formulations', function (Blueprint $table) {
-            $table->bigInteger('document_status_id')->unsigned()->nullable()
-                  ->comment('Identificador asociado a la institución');
-            $table->foreign('document_status_id')->references('id')->on('document_status')->onUpdate('cascade');
-        });
+        if (!Schema::hasColumn('budget_sub_specific_formulations', 'document_status_id')) {
+            Schema::table('budget_sub_specific_formulations', function (Blueprint $table) {
+                $table->bigInteger('document_status_id')->unsigned()->nullable()
+                      ->comment('Identificador asociado a la institución');
+                $table->foreign('document_status_id')->references('id')
+                      ->on('document_status')->onUpdate('cascade');
+            });
+        }
     }
 
     /**

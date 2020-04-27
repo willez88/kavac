@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<a class="btn btn-default btn-xs btn-icon btn-action" 
-		   href="#" title="Confirmar movimiento" data-toggle="tooltip" 
+		<a class="btn btn-default btn-xs btn-icon btn-action"
+		   href="#" title="Confirmar movimiento" data-toggle="tooltip"
 		   @click="initMovement('view_movement_pending', $event)">
 			<i class="fa fa-calendar-check-o"></i>
 		</a>
@@ -38,11 +38,11 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label>Observación:</label>
-									<textarea  placeholder="Observaciones referentes al movimiento de almacén"
-											   data-toggle="tooltip" 
-											   title="Indique alguna observación referente al movimiento de almacén" 
-											   class="form-control input-sm" v-model="record.observation">
-								   </textarea>
+                                    <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+                                              title="Indique alguna observación referente al movimiento de almacén"
+                                              :config="ckeditor.editorConfig" class="form-control" tag-name="textarea"
+                                              rows="3" v-model="record.observation"
+                                              placeholder="Observaciones referentes al movimiento de almacén"></ckeditor>
 								   <input type="hidden" v-model="record.id" id="id">
 			                    </div>
 							</div>
@@ -51,7 +51,7 @@
 	                </div>
 
 	                <div class="modal-footer">
-	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
@@ -83,7 +83,7 @@
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
-			 * 
+			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset() {
@@ -93,7 +93,7 @@
 				};
 			},
 			initMovement(modal_id,event) {
-				
+
 				$(".modal-body #id").val( this.movementid );
 				if ($("#" + modal_id).length) {
 					$('#'+modal_id).modal('show');
@@ -103,7 +103,7 @@
 			updateRecord() {
 				const vm = this;
 				var id = $(".modal-body #id").val();
-				
+
 				axios.put('/'+vm.route_update+'/'+id, vm.record).then(response => {
                     if (typeof(response.data.redirect) !== "undefined")
                         location.href = response.data.redirect;

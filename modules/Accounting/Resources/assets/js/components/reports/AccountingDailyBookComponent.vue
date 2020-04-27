@@ -7,12 +7,12 @@
 			<div class="row">
 				<div class="col-3" id="helpDailyBookInitDate">
 					<label class="control-label">Fecha inicial</label>
-					<input type="date" class="form-control is-required"
+					<input type="date" class="form-control input-sm"
 						v-model="dateIni">
 				</div>
 				<div class="col-3" id="helpDailyBookEndDate">
 					<label class="control-label">Fecha final</label>
-					<input type="date" class="form-control is-required"
+					<input type="date" class="form-control input-sm"
 						v-model="dateEnd">
 				</div>
 				<div class="col-3" id="helpDailyBookCurrency">
@@ -23,13 +23,10 @@
 			</div>
 		</div>
 		<div class="card-footer text-right" >
-			<button class="btn btn-primary btn-sm"
-					data-toggle="tooltip"
-					title="Generar Reporte"
-					v-on:click="OpenPdf(getUrlReport(), '_blank')"
-					id="helpDailyBookGenerateReport">
-					<span>Generar reporte</span>
-					<i class="fa fa-print"></i>
+			<button class="btn btn-primary btn-sm" data-toggle="tooltip" title="Generar Reporte"
+                    v-on:click="OpenPdf(getUrlReport(), '_blank')" id="helpDailyBookGenerateReport">
+                <span>Generar reporte</span>
+                <i class="fa fa-print"></i>
 			</button>
 		</div>
 	</div>
@@ -78,7 +75,7 @@
 					return;
 				}
 				this.$refs.errorsDialyBook.reset();
-				
+
 				var dateIni = this.dateIni;
 				var dateEnd = this.dateEnd;
 				var info = (this.dateIni <= this.dateEnd) ? (dateIni+'/'+dateEnd) : (dateEnd+'/'+dateIni) ;

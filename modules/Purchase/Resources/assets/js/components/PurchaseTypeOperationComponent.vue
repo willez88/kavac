@@ -5,7 +5,7 @@
            data-toggle="tooltip"
            @click="addRecord('add_purchase_type_operation', '/purchase/type_operations', $event)">
             <i class="fa fa-tag ico-3x"></i>
-            <span>Tipos de<br>Operaciones <br>de compra</span>
+            <span>Tipos de<br>Operaciones</span>
         </a>
         <div class="modal fade text-left" tabindex="-1" role="dialog" id="add_purchase_type_operation">
             <div class="modal-dialog vue-crud" role="document">
@@ -36,10 +36,11 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Descripción:</label>
-                                    <textarea class="form-control input-sm" rows="3"
+                                    <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
                                               title="Indique la descripción para tipo de compra"
-                                              placeholder="Descripción del tipo de compra"
-                                              v-model="record.description" data-toggle="tooltip"></textarea>
+                                              :config="ckeditor.editorConfig" class="form-control" tag-name="textarea"
+                                              rows="3" v-model="record.description"
+                                              placeholder="Descripción del tipo de compra"></ckeditor>
                                 </div>
                             </div>
                         </div>
@@ -60,8 +61,8 @@
                                         <i class="fa fa-edit"></i>
                                     </button>
                                     <button @click="deleteRecord(props.index,'/purchase/type_operations')"
-                                            class="btn btn-danger btn-xs btn-icon btn-action" 
-                                            title="Eliminar registro" 
+                                            class="btn btn-danger btn-xs btn-icon btn-action"
+                                            title="Eliminar registro"
                                             data-toggle="tooltip" >
                                         <i class="fa fa-trash-o"></i>
                                     </button>

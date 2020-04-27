@@ -2,64 +2,59 @@
 	<div>
 		<form @submit.prevent="" class="form-horizontal">
 			<div class="card-body">
-				
+
 				<accounting-show-errors ref="accountingEntriesSearch" />
 
 				<div class="row">
 					<div class="col-2" id="helpSearchEntriesReference">
 						<div class="form-group">
-							<label class="control-label">Por Referencia</label><br>
-							<input type="radio" 
-									name="sel_Search"
-									id="sel_ref"
-									data-on-label="SI" data-off-label="NO" 
-									class="form-control bootstrap-switch sel_search">
+							<label class="control-label">Por Referencia</label>
+                            <div class="col-12 bootstrap-switch-mini">
+    							<input type="radio" name="sel_Search" id="sel_ref" data-on-label="SI"
+                                       data-off-label="NO" class="form-control bootstrap-switch sel_search">
+                            </div>
 						</div>
 					</div>
 					<div class="col-2" id="helpSearchEntriesCategory">
 						<div class="form-group">
-							<label class="control-label">Por Categoría</label><br>
-							<input type="radio"
-									name="sel_Search" 
-									id="sel_origin"
-									checked="true" 
-									data-on-label="SI" data-off-label="NO" 
-									class="form-control bootstrap-switch sel_search">
+							<label class="control-label">Por Categoría</label>
+                            <div class="col-12 bootstrap-switch-mini">
+    							<input type="radio" name="sel_Search" id="sel_origin" checked="true" data-on-label="SI"
+                                       data-off-label="NO" class="form-control bootstrap-switch sel_search">
+                            </div>
 						</div>
 					</div>
 					<div class="col-8 row">
 						<div class="col-7" id="helpSearchEntriesInstitution">
 							<div class="form-group">
-								<label class="control-label">Por Institución</label><br>
+								<label class="control-label">Por Institución</label>
 								<select2 :options="institutions" v-model="data.institution"></select2>
 							</div>
 						</div>
 						<div class="col-5" id="helpSearchEntriesInputReference">
 							<div :class="(typeSearch != 'reference')? 'form-group': 'form-group is-required'">
 								<label class="control-label">Referencia</label>
-								<input :disabled="typeSearch != 'reference'" type="text" class="form-control"
-									v-model="data.reference" placeholder="Referencia">
-							</div>	
+								<input :disabled="typeSearch != 'reference'" type="text" class="form-control input-sm"
+                                       v-model="data.reference" placeholder="Referencia">
+							</div>
 						</div>
 					</div>
 
 					<!-- filtrado por fechas -->
 					<div class="col-2" id="helpSearchEntriesDateSpecific">
-						<label for="" class="control-label">Por Período</label><br>
-						<input type="radio" 
-								name="sel_filter_date"
-								id="sel_fil_date_specific"
-								data-on-label="SI" data-off-label="NO"
-								class="form-control bootstrap-switch sel_filterDate">
+						<label for="" class="control-label">Por Período</label>
+                        <div class="col-12 bootstrap-switch-mini">
+    						<input type="radio" name="sel_filter_date" id="sel_fil_date_specific" data-on-label="SI"
+                                   data-off-label="NO" class="form-control bootstrap-switch sel_filterDate">
+                        </div>
 					</div>
 					<div class="col-2" id="helpSearchEntriesDateGeneric">
-						<label for="" class="control-label">Por Mes</label><br>
-						<input type="radio"
-								name="sel_filter_date" 
-								id="sel_fil_date_generic"
-								checked="true" 
-								data-on-label="SI" data-off-label="NO" 
-								class="form-control bootstrap-switch sel_filterDate">
+						<label for="" class="control-label">Por Mes</label>
+                        <div class="col-12 bootstrap-switch-mini">
+    						<input type="radio" name="sel_filter_date" id="sel_fil_date_generic" checked="true"
+                                   data-on-label="SI" data-off-label="NO"
+                                   class="form-control bootstrap-switch sel_filterDate">
+                        </div>
 					</div>
 
 					<div class="col-8 row">
@@ -77,9 +72,9 @@
 									<label class="control-label">Hasta</label>
 									<input type="date" class="form-control" v-model="data.end">
 								</div>
-							</div>				
+							</div>
 						</div>
-						<div class="col-7 row" style="padding-right: 0rem;" 
+						<div class="col-7 row" style="padding-right: 0rem;"
 							id="helpSearchEntriesDateRange" v-else>
 							<div class="col-6">
 								<div class="form-group is-required">
@@ -100,18 +95,15 @@
 								<select2 :disabled="typeSearch != 'origin'" :options="categories" v-model="data.category"></select2>
 							</div>
 						</div>
-						
+
 					</div>
 				</div>
 			</div>
 			<div class="card-footer text-right">
-				<button class="btn btn-info btn-sm"
-					data-toggle="tooltip"
-					title="Buscar asientos contables aprobados"
-					v-on:click="searchRecords()">
-					Buscar 
-					<i class="fa fa-search"></i>
-			</button>
+				<button class="btn btn-info btn-sm" data-toggle="tooltip" title="Buscar asientos contables aprobados"
+                        v-on:click="searchRecords()">
+                    <i class="fa fa-search"></i>
+                </button>
 			</div>
 		</form>
 
@@ -164,7 +156,7 @@
 		},
 		mounted(){
 
-			/** 
+			/**
 			 * Evento para determinar los datos a requerir segun la busqueda seleccionada
 			 */
 			const vm = this;
@@ -232,7 +224,7 @@
 				vm.data['typeSearch'] = vm.typeSearch;
                 vm.data['filterDate'] = vm.filterDate;
                 vm.data['firstSearch'] = true;
-                
+
                 vm.loading = true;
 
                 EventBus.$emit('list:entries',vm.data);

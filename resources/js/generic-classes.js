@@ -116,7 +116,7 @@ class AppInfo {
 	 * @return {string} Datos de la aplicación
 	 */
 	showAbout() {
-		
+
 		let credits = `
 			<h6 class="card-title">Créditos</h6>
 			<ul>
@@ -124,7 +124,7 @@ class AppInfo {
 		let group = '';
 		this.members.forEach(function(member) {
 			if (group !== member.group) {
-				credits += `<li class="special-title">${member.group}</li>`;
+				credits += `<li class="special-title mt-4">${member.group}</li>`;
 				group = member.group;
 			}
 			credits += `<li>${member.name} (${member.email})</li>`;
@@ -134,7 +134,7 @@ class AppInfo {
 		return `
 			<h6>SISTEMA DE GESTION ADMINISTRATIVA | KAVAC</h6>
 			<p class="text-justify">
-				Sistema administrativo que permite la automatización de los procesos inherentes a la administración pública. 
+				Sistema administrativo que permite la automatización de los procesos inherentes a la administración pública.
 				Registra y controla el presupuesto de la institución.
 			</p>
 			${credits}
@@ -190,25 +190,25 @@ class AppInfo {
 				<b>Autores:</b> ${members}</li>
 			</ul>
 			<p class="text-justify">
-				La Fundación Centro Nacional de Desarrollo e Investigación en Tecnologías Libres (CENDITEL), 
-				ente adscrito al Ministerio del Poder Popular para la Ciencia y Tecnología (MPPECT), 
-				concede permiso para usar, copiar, modificar y distribuir libremente y sin fines comerciales 
-				el SOFTWARE KAVAC, sin garantía alguna, preservando el reconocimiento moral de los autores y 
-				manteniendo los mismos principios para las obras derivadas, de conformidad con los términos y 
+				La Fundación Centro Nacional de Desarrollo e Investigación en Tecnologías Libres (CENDITEL),
+				ente adscrito al Ministerio del Poder Popular para la Ciencia y Tecnología (MPPECT),
+				concede permiso para usar, copiar, modificar y distribuir libremente y sin fines comerciales
+				el SOFTWARE KAVAC, sin garantía alguna, preservando el reconocimiento moral de los autores y
+				manteniendo los mismos principios para las obras derivadas, de conformidad con los términos y
 				condiciones de la licencia de software de la Fundación CENDITEL.
 			</p>
 			<p class="text-justify">
-				El software es una creación intelectual necesaria para el desarrollo económico y social de la 
-				nación, por tanto, esta licencia tiene la pretensión de preservar la libertad de este conocimiento 
+				El software es una creación intelectual necesaria para el desarrollo económico y social de la
+				nación, por tanto, esta licencia tiene la pretensión de preservar la libertad de este conocimiento
 				para que contribuya a la consolidación de la soberanía nacional.
 			</p>
 			<p class="text-justify">
-				Cada vez que copie y distribuya el SOFTWARE KAVAC debe acompañarlo de una copia de la licencia. 
-				Para más información sobre los términos y condiciones de la licencia visite la siguiente dirección 
-				electrónica: 
+				Cada vez que copie y distribuya el SOFTWARE KAVAC debe acompañarlo de una copia de la licencia.
+				Para más información sobre los términos y condiciones de la licencia visite la siguiente dirección
+				electrónica:
 			</p>
 			<p class="text-right">
-				<a href="http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3" target="_blank" 
+				<a href="http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3" target="_blank"
 				   title="Licencia de Software">
 					<img src="/images/license-icon.png" class="img-fluid" style="max-width:100px;">
 				</a>
@@ -279,7 +279,7 @@ class HandleJSError extends Error {
 		}
 		else if (this.debug) {
 			console.log(
-				`Se generó un evento de error que no pudo ser registrado con el siguiente detalle: 
+				`Se generó un evento de error que no pudo ser registrado con el siguiente detalle:
 				${this.stack}`
 			);
 		}
@@ -287,7 +287,7 @@ class HandleJSError extends Error {
 
 	/**
 	 * Muestra un mensaje en la consola del navegador según el tipo indicado
-	 * 
+	 *
 	 * @param  {string} type Define el tipo de error a mostrar
 	 */
 	error_type(type = '') {

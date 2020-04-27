@@ -21,7 +21,7 @@
 			<div class="row">
 				<div class="col-md-4" id="helpInstitution">
 					<div class="form-group is-required">
-						<label>institución:</label>
+						<label>Institución:</label>
 						<select2 :options="institutions"
 								data-toggle="tooltip"
 								title="Seleccione un registro de la lista"
@@ -74,13 +74,12 @@
 								v-model="record.asset_specific_category_id"></select2>
 					</div>
 				</div>
-				<div class="col-md-4" id="helpAssetSpecification">
+				<div class="col-md-8" id="helpAssetSpecification">
 					<div class="form-group">
 						<label>Especificaciones</label>
-						<textarea  data-toggle="tooltip"
-								   title="Indique las especificaciones del bien (opcional)"
-								   class="form-control" v-model="record.specifications">
-					   </textarea>
+                        <ckeditor :editor="ckeditor.editor" v-model="record.specifications" id="details"
+                                  title="Indique las especificaciones del bien (opcional)" data-toggle="tooltip"
+                                  :config="ckeditor.editorConfig" tag-name="textarea"></ckeditor>
 					</div>
 				</div>
 			</div>
@@ -95,10 +94,10 @@
 				</div>
 				<div class="col-md-3" id="helpAssetAcquisitionYear">
 					<div class="form-group is-required">
-						<label>Año de Adquisición</label>
-						<input type="number" min="0" placeholder="Año de Adquisición" data-toggle="tooltip"
-							   title="Indique el año de adquisición"
-							   class="form-control input-sm" v-model="record.acquisition_year">
+						<label>Fecha de Adquisición</label>
+						<input type="date" placeholder="Fecha de Adquisición" data-toggle="tooltip"
+							   title="Indique la fecha de adquisición"
+							   class="form-control input-sm" v-model="record.acquisition_date">
 					</div>
 				</div>
 
@@ -235,10 +234,10 @@
 					<div class="col-md-6" id="helpAssetAddress">
 						<div class="form-group is-required">
 							<label>Dirección</label>
-							<textarea  data-toggle="tooltip"
-									   title="Indique dirección física del bien"
-									   class="form-control" v-model="record.address">
-						   </textarea>
+                            <ckeditor :editor="ckeditor.editor" id="direction" data-toggle="tooltip"
+                                      title="Indique dirección física del bien" :config="ckeditor.editorConfig"
+                                      class="form-control" name="direction" tag-name="textarea" rows="3"
+                                      v-model="record.address"></ckeditor>
 						</div>
 					</div>
 
@@ -285,7 +284,7 @@
 					asset_specific_category_id: '',
 
 					asset_acquisition_type_id: '',
-					acquisition_year: '',
+					acquisition_date: '',
 					institution_id: '',
 					proveedor_id: '',
 					asset_condition_id: '',
@@ -344,7 +343,7 @@
 					asset_specific_category_id: '',
 
 					asset_acquisition_type_id: '',
-					acquisition_year: '',
+					acquisition_date: '',
 					institution_id: '',
 					proveedor_id: '',
 					asset_condition_id: '',
@@ -541,8 +540,9 @@
 			if(this.assetid){
 				this.loadForm(this.assetid);
 			}
-			else
-				this.getAssetTypes();
+			else{
+                this.getAssetTypes();
+            }
 		},
 	};
 </script>

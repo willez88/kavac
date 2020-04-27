@@ -1,7 +1,7 @@
 <template>
 	<div class="text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" 
-		   href="#" title="Registros de los escalafones salariales" data-toggle="tooltip" 
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+		   href="#" title="Registros de los escalafones salariales" data-toggle="tooltip"
 		   @click="addRecord('add_salary_scale', 'salary-scale', $event)">
 		   <i class="icofont icofont-growth ico-3x"></i>
 			<span>Escalafones Salariales</span>
@@ -42,8 +42,8 @@
 									<div class="col-md-4">
 										<div class="form-group is-required">
 											<label>Código:</label>
-											<input type="text" placeholder="Código del escalafón salarial" data-toggle="tooltip" 
-												   title="Indique el código del nuevo escalafón salarial (requerido)" 
+											<input type="text" placeholder="Código del escalafón salarial" data-toggle="tooltip"
+												   title="Indique el código del nuevo escalafón salarial (requerido)"
 												   class="form-control input-sm" v-model="record.code">
 											<input type="hidden" v-model="record.id">
 					                    </div>
@@ -51,8 +51,8 @@
 									<div class="col-md-8">
 										<div class="form-group is-required">
 											<label>Nombre:</label>
-											<input type="text" placeholder="Nombre del escalafón salarial" data-toggle="tooltip" 
-												   title="Indique el nombre del nuevo escalafón salarial (requerido)" 
+											<input type="text" placeholder="Nombre del escalafón salarial" data-toggle="tooltip"
+												   title="Indique el nombre del nuevo escalafón salarial (requerido)"
 												   class="form-control input-sm" v-model="record.name">
 					                    </div>
 									</div>
@@ -62,11 +62,13 @@
 										<div class=" form-group">
 											<label>¿Activa?</label>
 											<div class="col-12">
-												<input type="checkbox" class="form-control bootstrap-switch" 
-												   data-toggle="tooltip" name="active" 
-												   title="Indique si el escalafón esta activo"
-												   data-on-label="SI" data-off-label="NO" 
-												   v-model="record.active" value="true">
+                                                <div class="col-12 bootstrap-switch-mini">
+    												<input type="checkbox" class="form-control bootstrap-switch"
+    												   data-toggle="tooltip" name="active"
+    												   title="Indique si el escalafón esta activo"
+    												   data-on-label="SI" data-off-label="NO"
+    												   v-model="record.active" value="true">
+                                                </div>
 											</div>
 										</div>
 									</div>
@@ -84,11 +86,11 @@
 									<div class="col-md-12">
 										<div class="form-group">
 											<label>Descripción:</label>
-											<textarea  data-toggle="tooltip" 
-													   title="Indique alguna descripción asociada al escalafón"
-													   rows="3"
-													   class="form-control" v-model="record.description">
-										   </textarea>
+                                            <ckeditor :editor="ckeditor.editor" id="description_scale"
+                                                      title="Indique alguna descripción asociada al escalafón"
+                                                      :config="ckeditor.editorConfig" class="form-control"
+                                                      name="description" tag-name="textarea" rows="3"
+                                                      data-toggle="tooltip" v-model="record.description"></ckeditor>
 					                    </div>
 									</div>
 								</div>
@@ -102,9 +104,11 @@
 								<div class=" form-group">
 									<label>Experiencia Laboral</label>
 									<div class="col-12">
-										<input type="checkbox" name="group_by_years" value="experience"
-										class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification" 
-										id="sel_experience" data-on-label="SI" data-off-label="NO">
+                                        <div class="col-12 bootstrap-switch-mini">
+    										<input type="checkbox" name="group_by_years" value="experience"
+    										class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification"
+    										id="sel_experience" data-on-label="SI" data-off-label="NO">
+                                        </div>
 									</div>
 								</div>
 							</div>
@@ -113,9 +117,11 @@
 								<div class=" form-group">
 									<label>Antigüedad</label>
 									<div class="col-12">
-										<input type="checkbox" name="group_by_years" value="antiquity" 
-										class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification" 
-										id="sel_antiquity" data-on-label="SI" data-off-label="NO">
+                                        <div class="col-12 bootstrap-switch-mini">
+    										<input type="checkbox" name="group_by_years" value="antiquity"
+    										class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification"
+    										id="sel_antiquity" data-on-label="SI" data-off-label="NO">
+                                        </div>
 									</div>
 								</div>
 							</div>
@@ -124,10 +130,12 @@
 								<div class=" form-group">
 									<label>Grado de Instrucción</label>
 									<div class="col-12">
-										<input type="checkbox" name="group_by_clasification"
-										class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification" 
-										value="instruction_degree" id="sel_instruction_degree" 
-										data-on-label="SI" data-off-label="NO">
+                                        <div class="col-12 bootstrap-switch-mini">
+    										<input type="checkbox" name="group_by_clasification"
+    										class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification"
+    										value="instruction_degree" id="sel_instruction_degree"
+    										data-on-label="SI" data-off-label="NO">
+                                        </div>
 									</div>
 								</div>
 							</div>
@@ -136,9 +144,11 @@
 								<div class=" form-group">
 									<label>Cargo</label>
 									<div class="col-12">
-										<input type="checkbox" name="group_by_clasification" value="position"
-										class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification"
-										id="sel_position" data-on-label="SI" data-off-label="NO">
+                                        <div class="col-12 bootstrap-switch-mini">
+    										<input type="checkbox" name="group_by_clasification" value="position"
+    										class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification"
+    										id="sel_position" data-on-label="SI" data-off-label="NO">
+                                        </div>
 									</div>
 								</div>
 							</div>
@@ -172,13 +182,13 @@
 										<td v-for="(field,index) in record.payroll_scales">
 											<div class="d-inline-flex">
 												<button @click="editScale(index,$event)"
-						                				class="btn btn-warning btn-xs btn-icon btn-action" 
+						                				class="btn btn-warning btn-xs btn-icon btn-action"
 						                				title="Modificar registro" data-toggle="tooltip" type="button">
 						                			<i class="fa fa-edit"></i>
 						                		</button>
-						                		<button @click="removeScale(index,$event)" 
-														class="btn btn-danger btn-xs btn-icon btn-action" 
-														title="Eliminar registro" data-toggle="tooltip" 
+						                		<button @click="removeScale(index,$event)"
+														class="btn btn-danger btn-xs btn-icon btn-action"
+														title="Eliminar registro" data-toggle="tooltip"
 														type="button">
 													<i class="fa fa-trash-o"></i>
 												</button>
@@ -199,9 +209,9 @@
 										<div class="col-md-6">
 											<div class="form-group is-required">
 												<label>Código:</label>
-												<input type="text" placeholder="Código de la Escala" 
+												<input type="text" placeholder="Código de la Escala"
 														data-toggle="tooltip"
-														title="Indique el código de la escala (requerido)" 
+														title="Indique el código de la escala (requerido)"
 														class="form-control input-sm"
 														v-model="scale.code">
 												<input type="hidden" v-model="scale.id">
@@ -210,9 +220,9 @@
 										<div class="col-md-6">
 											<div class=" form-group is-required">
 												<label>Nombre:</label>
-												<input type="text" placeholder="Nombre de la Escala" 
+												<input type="text" placeholder="Nombre de la Escala"
 														data-toggle="tooltip"
-														title="Indique el nombre de la escala (requerido)" 
+														title="Indique el nombre de la escala (requerido)"
 														class="form-control input-sm"
 														v-model="scale.name">
 											</div>
@@ -222,12 +232,12 @@
 										<div class="col-md-12">
 											<div class="form-group">
 												<label>Descripción:</label>
-												<textarea  data-toggle="tooltip" 
-														   title="Indique alguna descripción asociada a la escala"
-														   class="form-control input-sm"
-														   rows="2" 
-														   v-model="scale.description">
-											   </textarea>
+                                                <ckeditor :editor="ckeditor.editor" id="description_new_scale"
+                                                          data-toggle="tooltip"
+                                                          title="Indique alguna descripción asociada a la escala"
+                                                          :config="ckeditor.editorConfig" class="form-control"
+                                                          name="description_new_scale" tag-name="textarea" rows="2"
+                                                          v-model="scale.description"></ckeditor>
 						                    </div>
 										</div>
 									</div>
@@ -257,14 +267,14 @@
 													<label v-else>
 													Años de Antiguedad</label>
 													<div class="d-inline-flex">
-														<input type="number" placeholder="Desde" 
+														<input type="number" placeholder="Desde"
 															data-toggle="tooltip" min=0 max=30
-															title="Indique la cantidad minima de años (requerido)" 
-															class="form-control input-sm" style="margin-right:15px;" 
+															title="Indique la cantidad minima de años (requerido)"
+															class="form-control input-sm" style="margin-right:15px;"
 															v-model="requirement.scale_years_minimum">
-														<input type="number" placeholder="Hasta" 
+														<input type="number" placeholder="Hasta"
 															data-toggle="tooltip" min=0 max=30
-															title="Indique la cantidad máxima de años (requerido)" 
+															title="Indique la cantidad máxima de años (requerido)"
 															class="form-control input-sm"
 															v-model="requirement.scale_years_maximum">
 													</div>
@@ -302,16 +312,16 @@
 											<label v-else>Años de Antiguedad</label>
 											<div class="col-md-12 d-inline-flex" style="padding-left:0px;">
 												<div class="form-group is-required" style="margin-right:15px;">
-													<input type="number" placeholder="Desde" 
+													<input type="number" placeholder="Desde"
 														data-toggle="tooltip" min=0 max=30
-														title="Indique la cantidad minima de años (requerido)" 
+														title="Indique la cantidad minima de años (requerido)"
 														class="form-control input-sm"
 														v-model="scale_requirement.scale_years_minimum">
 												</div>
 												<div class="form-group is-required">
-													<input type="number" placeholder="Hasta" 
+													<input type="number" placeholder="Hasta"
 														data-toggle="tooltip" min=0 max=30
-														title="Indique la cantidad máxima de años (requerido)" 
+														title="Indique la cantidad máxima de años (requerido)"
 														class="form-control input-sm"
 														v-model="scale_requirement.scale_years_maximum">
 												</div>
@@ -322,8 +332,8 @@
 							</div>
 							<div class="row">
 								<div class="col-md-12">
-									<button type="button" @click="addScale($event)" 
-											class="btn btn-sm btn-primary btn-custom float-right" 
+									<button type="button" @click="addScale($event)"
+											class="btn btn-sm btn-primary btn-custom float-right"
 											title="Agregar escala"
 											data-toggle="tooltip">
 										<i class="fa fa-plus-circle"></i>
@@ -348,14 +358,14 @@
 	                			<span>{{ (props.row.active)?'Activo':'Inactivo' }}</span>
 	                		</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button @click="initUpdate(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-action" 
+	                			<button @click="initUpdate(props.index, $event)"
+		                				class="btn btn-warning btn-xs btn-icon btn-action"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'salary-scale')" 
-										class="btn btn-danger btn-xs btn-icon btn-action" 
-										title="Eliminar registro" data-toggle="tooltip" 
+		                		<button @click="deleteRecord(props.index, 'salary-scale')"
+										class="btn btn-danger btn-xs btn-icon btn-action"
+										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
 									<i class="fa fa-trash-o"></i>
 								</button>
@@ -429,7 +439,7 @@
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
-			 * 
+			 *
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset() {
@@ -485,7 +495,7 @@
 				for (var index in vm.scale) {
 					field[index] = vm.scale[index];
 				}
-				if(vm.editIndex == null)					
+				if(vm.editIndex == null)
 					vm.record.payroll_scales.push(field);
 				else {
 					vm.record.payroll_scales[vm.editIndex] = field;
@@ -630,6 +640,7 @@
 						vm.getParamenters(e.target.id, e.target.value);
 				}
 			});
+
 		},
 	};
 </script>

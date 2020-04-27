@@ -24,20 +24,34 @@
 								<li v-for="error in errors">{{ error }}</li>
 							</ul>
 						</div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Sede principal</label>
+                                    <div class="col-md-12">
+                                        <div class="col-12 bootstrap-switch-mini">
+                                            <input type="checkbox" class="form-control bootstrap-switch"
+                                                   data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
+                                                   title="Indique si es la sede principal del banco"
+                                                   v-model="record.headquarters" value="true">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group is-required">
 									<label>País</label>
 									<select2 :options="countries" @input="getEstates"
-											 v-model="record.country_id"></select2>
+                                             v-model="record.country_id"></select2>
 									<input type="hidden" v-model="record.id">
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group is-required">
 									<label>Estado</label>
-									<select2 :options="estates" @input="getCities"
-											 v-model="record.estate_id"></select2>
+									<select2 :options="estates" @input="getCities" v-model="record.estate_id"></select2>
 								</div>
 							</div>
 							<div class="col-md-4">
@@ -51,6 +65,12 @@
 									<label>Banco</label>
 									<select2 :options="banks" v-model="record.finance_bank_id"></select2>
 								</div>
+                                <div class="form-group">
+                                    <label>Persona de contacto</label>
+                                    <input type="text" placeholder="Nombre contacto" data-toggle="tooltip"
+                                           title="Indique el nombre de la persona de contacto"
+                                           class="form-control input-sm" v-model="record.contact_person">
+                                </div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group is-required">
@@ -59,42 +79,21 @@
 										   title="Indique el nombre de la agencia bancaria (requerido)"
 										   class="form-control input-sm" v-model="record.name">
 								</div>
+                                <div class="form-group">
+                                    <label>Correo de contacto</label>
+                                    <input type="text" placeholder="Nombre contacto" data-toggle="tooltip"
+                                           title="Indique el correo de la persona de contacto"
+                                           class="form-control input-sm" v-model="record.contact_email">
+                                </div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group is-required">
 									<label>Dirección</label>
-									<textarea class="form-control input-sm" rows="3" style="min-height:100px" data-toggle="tooltip"
-											  title="Indique la dirección de la agencia bancaria"
-											  v-model="record.direction"
-											  placeholder="Dirección de la agencia bancaria"></textarea>
+                                    <ckeditor :editor="ckeditor.editor" id="direction" data-toggle="tooltip"
+                                              title="Indique la dirección de la agencia bancaria"
+                                              :config="ckeditor.editorConfig" class="form-control" name="direction"
+                                              tag-name="textarea" rows="3" v-model="record.direction"></ckeditor>
 								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Persona de contacto</label>
-									<input type="text" placeholder="Nombre contacto" data-toggle="tooltip"
-										   title="Indique el nombre de la persona de contacto"
-										   class="form-control input-sm" v-model="record.contact_person">
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Correo de contacto</label>
-									<input type="text" placeholder="Nombre contacto" data-toggle="tooltip"
-										   title="Indique el correo de la persona de contacto"
-										   class="form-control input-sm" v-model="record.contact_email">
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Sede principal</label>
-									<div class="col-md-12">
-										<input type="checkbox" class="form-control bootstrap-switch"
-											   data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
-											   title="Indique si es la sede principal del banco"
-											   v-model="record.headquarters" value="true">
-									</div>
-			                    </div>
 							</div>
 						</div>
 						<hr>

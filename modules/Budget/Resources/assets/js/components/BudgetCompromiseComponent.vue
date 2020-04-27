@@ -36,9 +36,14 @@
                         <label for="" class="control-label">
                             Documento Origen
                             <a class="btn btn-sm btn-info btn-action btn-tooltip" href="javascript:void(0)"
-                               data-original-title="Buscar documento" data-toggle="modal"
-                               data-target="#add_source">
+                               data-original-title="Buscar documento" title="Buscar documento" data-toggle="modal"
+                               data-target="#add_source" v-if="record.institution_id">
                                 <i class="fa fa-search"></i>
+                            </a>
+                            <a class="btn btn-sm btn-default btn-action btn-tooltip" href="javascript:void(0)"
+                               data-original-title="Quitar documento de origen" title="Quitar documento de origen"
+                               v-if="(document_number!=='')" data-toggle="tooltip">
+                                <i class="icofont icofont-eraser"></i>
                             </a>
                         </label>
                     </div>
@@ -47,9 +52,10 @@
                     <div class="form-group is-required">
                         <input type="text" v-model="record.source_document" class="form-control input-sm"
                                title="Indique el número de documento de origen que genera el compromiso"
-                               data-toggle="tooltip">
+                               data-toggle="tooltip" :readonly="(document_number!=='')">
                     </div>
                 </div>
+                <!-- Modal para agregar documentos de origen que generaron un precompromiso -->
                 <div class="modal fade" tabindex="-1" role="dialog" id="add_source">
                     <div class="modal-dialog vue-crud" role="document">
                         <div class="modal-content">
@@ -64,17 +70,31 @@
                             </div>
                             <div class="modal-body">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group is-required">
-                                            <label>Tipo de Documento:</label>
-                                            <select2 :options="document_types" v-model="document_type_id"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group is-required">
-                                            <label>Número de Documento:</label>
-                                            <select2 :options="document_numbers" v-model="document_number_id"/>
-                                        </div>
+                                    <div class="col-md-12 pad-top-20">
+                                        <table class="table table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Código</th>
+                                                    <th>Fecha</th>
+                                                    <th>Monto</th>
+                                                    <th>Sel.</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="(source, index) in document_sources">
+                                                    <td>{{ source.sourceable.code }}</td>
+                                                    <td>{{ format_date(source.created_at) }}</td>
+                                                    <td>{{ source.budget_stages[0].amount }}</td>
+                                                    <td>
+                                                        <a href="#" data-original-title="Agregar documento"
+                                                           class="btn btn-sm btn-info btn-action btn-tooltip"
+                                                           @click="addDocument(source.id)">
+                                                            <i class="fa fa-plus-circle"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -100,8 +120,10 @@
                 </div>
                 <div class="col-md-10">
                     <div class="form-group is-required">
-                        <textarea v-model="record.description" class="form-control" rows="3" data-toggle="tooltip"
-                                  title="Indique una descripción para el compromiso" id="description"></textarea>
+                        <ckeditor :editor="ckeditor.editor" id="description" data-toggle="tooltip"
+                                  title="Indique una descripción para el compromiso" :config="ckeditor.editorConfig"
+                                  class="form-control" name="description" tag-name="textarea" rows="3"
+                                  v-model="record.description"></ckeditor>
                     </div>
                 </div>
             </div>
@@ -214,29 +236,29 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label>Descripción:</label>
-                                        <input type="text" class="form-control" data-toggle="tooltip"
+                                        <input type="text" class="form-control input-sm" data-toggle="tooltip"
                                                v-model="account_description" readonly
                                                title="Denominación de la cuenta presupuestaria">
                                     </div>
                                     <div class="col-md-6">
                                         <label>Concepto:</label>
-                                        <input type="text" class="form-control" data-toggle="tooltip"
+                                        <input type="text" class="form-control input-sm" data-toggle="tooltip"
                                                v-model="account_concept"
                                                title="Indique el concepto de la cuenta presupuestaria a agregar">
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 mt-4">
                                         <div class="form-group is-required">
                                             <label>Monto:</label>
                                             <input type="number" onfocus="$(this).select()"
-                                                   class="form-control numeric"
+                                                   class="form-control input-sm"
                                                    data-toggle="tooltip"
                                                    title="Indique el monto a asignar para la cuenta seleccionada"
                                                    v-model="account_amount">
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 mt-4">
                                         <div class="form-group is-required">
                                             <label>Impuesto:</label>
                                             <select2 :options="taxes" v-model="account_tax_id"/>
@@ -308,10 +330,8 @@
                 /**
                  * Campos temporales para agregar documentos al compromiso
                  */
-                document_types: [],
-                document_type_id: '',
-                document_numbers: [],
-                document_number_id: ''
+                document_sources: [],
+                document_number: ''
             }
         },
         methods: {
@@ -321,6 +341,9 @@
              * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
              */
             reset: function() {
+                /**
+                 * Campos con información a ser almacenada
+                 */
                 this.record.id = '';
                 this.record.institution_id = '';
                 this.record.compromised_at = '';
@@ -347,10 +370,8 @@
                 /**
                  * Campos temporales para agregar documentos al compromiso
                  */
-                this.document_types = [];
-                this.document_type_id = '';
-                this.document_numbers = [];
-                this.document_number_id = '';
+                this.document_sources = [];
+                this.document_number = '';
             },
             /**
              * Elimina una cuenta del listado de cuentas agregadas
@@ -396,7 +417,7 @@
              *
              * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
              */
-            addDocument() {
+            addDocument(sourceId) {
 
             },
             /**
@@ -407,14 +428,49 @@
              */
             getSpecificActions() {
             },
+            /**
+             * Obtiene los registros precomprometidos que aún no han sido comprometidos
+             *
+             * @method     getDocumentSources
+             *
+             * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             *
+             * @license    [description]
+             *
+             * @return     {[type]}              [description]
+             */
+            getDocumentSources() {
+                let vm = this;
+                let appUrl = window.app_url;
+                let institutionId = vm.record.institution_id;
+                let year = window.execution_year;
+                vm.loading = true;
+                axios.get(
+                    `${appUrl}/budget/compromises/get-document-sources/${institutionId}/${year}`
+                ).then(response => {
+                    vm.document_sources = response.data.records;
+                    vm.loading = false;
+                }).catch(error => {
+                    console.warn(error);
+                });
+            }
         },
         created() {
 
         },
         mounted() {
             let vm = this;
+            vm.reset();
             vm.getInstitutions();
             vm.getSpecificActions();
+
+            $("#add_source").on('shown.bs.modal', function() {
+                /** Carga los documentos que faltan por comprometer */
+                vm.getDocumentSources();
+            }).on('hide.bs.modal', function() {
+                /** @type array Inicializa el arreglo de los documentos por comprometer */
+                vm.document_sources = [];
+            });
         }
     };
 </script>

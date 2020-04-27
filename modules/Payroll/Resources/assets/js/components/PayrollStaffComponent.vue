@@ -27,24 +27,21 @@
                         <div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Nombres</label>
-								<input type="text" class="form-control input-sm"
-									v-model="record.first_name"/>
+								<input type="text" class="form-control input-sm" v-model="record.first_name"/>
                                 <input type="hidden" v-model="record.id">
 							</div>
 						</div>
                         <div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Apellidos</label>
-								<input type="text" class="form-control input-sm"
-									v-model="record.last_name"/>
+								<input type="text" class="form-control input-sm" v-model="record.last_name"/>
 							</div>
 						</div>
                         <div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Nacionalidad</label>
 								<select2 :options="payroll_nationalities"
-                                    v-model="record.payroll_nationality_id">
-                                </select2>
+                                         v-model="record.payroll_nationality_id"></select2>
 							</div>
 						</div>
 					</div>
@@ -53,22 +50,19 @@
 						<div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Cédula de Identidad</label>
-								<input type="text" class="form-control input-sm"
-									v-model="record.id_number"/>
+								<input type="text" class="form-control input-sm" v-model="record.id_number"/>
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Pasaporte</label>
-								<input type="text" class="form-control input-sm"
-									v-model="record.passport"/>
+								<input type="text" class="form-control input-sm" v-model="record.passport"/>
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Correo Electrónico</label>
-								<input type="text" class="form-control input-sm"
-									v-model="record.email"/>
+								<input type="email" class="form-control input-sm" v-model="record.email"/>
 							</div>
 						</div>
 					</div>
@@ -77,16 +71,13 @@
 						<div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Fecha de Nacimiento</label>
-								<input type="date" class="form-control input-sm"
-									v-model="record.birthdate"/>
+								<input type="date" class="form-control input-sm" v-model="record.birthdate"/>
 							</div>
 						</div>
                         <div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Género</label>
-								<select2 :options="payroll_genders"
-                                    v-model="record.payroll_gender_id">
-                                </select2>
+								<select2 :options="payroll_genders" v-model="record.payroll_gender_id"></select2>
 							</div>
 						</div>
 					</div>
@@ -95,16 +86,14 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Nombres y Apellidos de la Persona de Contacto</label>
-								<input type="text" class="form-control input-sm"
-									v-model="record.emergency_contact"/>
+								<input type="text" class="form-control input-sm" v-model="record.emergency_contact"/>
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Teléfono de la Persona de Contacto</label>
-								<input type="text" class="form-control input-sm"
-									placeholder="00-000-0000000"
-									v-model="record.emergency_phone"/>
+								<input type="text" class="form-control input-sm" placeholder="00-000-0000000"
+                                       v-model="record.emergency_phone"/>
 							</div>
 						</div>
 					</div>
@@ -114,11 +103,13 @@
 							<div class="form-group">
 								<label>¿Posee una Discapacidad?</label>
 								<div class="col-md-12">
-									<input id="has_disability" name="has_disability" type="checkbox"
-										class="form-control bootstrap-switch sel_has_disability"
-										data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
-										title="Indique si el trabajador posee una discapacidad o no"
-										v-model="record.has_disability" value="true"/>
+                                    <div class="col-12 bootstrap-switch-mini">
+    									<input id="has_disability" name="has_disability" type="checkbox"
+                                               class="form-control bootstrap-switch sel_has_disability"
+                                               data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
+                                               title="Indique si el trabajador posee una discapacidad o no"
+                                               v-model="record.has_disability" value="true"/>
+                                    </div>
 								</div>
 							</div>
 						</div>
@@ -133,8 +124,7 @@
 						<div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Tipo de Sangre</label>
-								<select2 :options="payroll_blood_types"
-                                    v-model="record.payroll_blood_type_id">
+								<select2 :options="payroll_blood_types" v-model="record.payroll_blood_type_id">
                                 </select2>
 							</div>
 						</div>
@@ -144,28 +134,28 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Seguro Social</label>
-								<input type="text" class="form-control input-sm"
-									title="Indique el número de seguro social"
-									v-model="record.social_security"/>
+								<input type="text" class="form-control input-sm" v-model="record.social_security"
+                                       title="Indique el número de seguro social"/>
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>¿Posee Licencia de Conducir?</label>
 								<div class="col-md-12">
-									<input id="has_driver_license" name="has_driver_license" type="checkbox"
-										class="form-control bootstrap-switch sel_has_driver_license"
-										data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
-										title="Indique si el trabajador posee licencia de conducir o no"
-										v-model="record.has_driver_license" value="true"/>
+                                    <div class="col-12 bootstrap-switch-mini">
+    									<input id="has_driver_license" name="has_driver_license" type="checkbox"
+                                               class="form-control bootstrap-switch sel_has_driver_license"
+                                               data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
+                                               title="Indique si el trabajador posee licencia de conducir o no"
+                                               v-model="record.has_driver_license" value="true"/>
+                                    </div>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-4" v-if="record.has_driver_license">
 							<div class="form-group is-required">
 								<label>Grado de Licencia de Conducir</label>
-								<select2 :options="payroll_license_degrees"
-                                    v-model="record.payroll_license_degree_id">
+								<select2 :options="payroll_license_degrees" v-model="record.payroll_license_degree_id">
                                 </select2>
 							</div>
 						</div>
@@ -175,25 +165,22 @@
                         <div class="col-md-4">
 							<div class="form-group is-required">
 								<label>País</label>
-								<select2 :options="countries" @input="getEstates"
-                                    v-model="record.country_id" id="country_id">
-                                </select2>
+								<select2 :options="countries" @input="getEstates" v-model="record.country_id"
+                                         id="country_id"></select2>
 							</div>
 						</div>
                         <div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Estado</label>
 								<select2 :options="estates" @input="getMunicipalities" id="estate_id"
-                                    v-model="record.estate_id">
-                                </select2>
+                                         v-model="record.estate_id"></select2>
 							</div>
 						</div>
                         <div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Municipio</label>
 								<select2 :options="municipalities" @input="getParishes" id="municipality_id"
-                                    v-model="record.municipality_id">
-                                </select2>
+                                         v-model="record.municipality_id"></select2>
 							</div>
 						</div>
 					</div>
@@ -202,16 +189,13 @@
                         <div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Parroquia</label>
-								<select2 :options="parishes" id="parish_id"
-                                    v-model="record.parish_id">
-                                </select2>
+								<select2 :options="parishes" id="parish_id" v-model="record.parish_id"></select2>
 							</div>
 						</div>
                         <div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Dirección</label>
-								<input type="text" class="form-control input-sm"
-									v-model="record.address"/>
+								<input type="text" class="form-control input-sm" v-model="record.address"/>
 							</div>
 						</div>
                     </div>
@@ -223,8 +207,7 @@
                     <div class="row" v-for="(phone, index) in record.phones">
                         <div class="col-3">
                             <div class="form-group is-required">
-                                <select data-toggle="tooltip" v-model="phone.type"
-                                        class="select2"
+                                <select data-toggle="tooltip" v-model="phone.type" class="select2"
                                         title="Seleccione el tipo de número telefónico">
                                     <option value="">Seleccione...</option>
                                     <option value="M">Móvil</option>

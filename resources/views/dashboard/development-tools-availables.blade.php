@@ -10,7 +10,7 @@
 			<div class="card-body">
 				<div class="row">
 					<div class="col-12">
-						<span class="text-muted">
+                        <span class="text-muted">
 							{{ __('Acceso a herramientas para desarrolladores') }}
 							<a href="javascript:void(0)">
 								<i class="ion ion-ios-help-outline"></i>
@@ -20,7 +20,7 @@
 					</div>
 				</div>
 				<h6>Interfaz</h6>
-				<div class="row">
+                <div class="row">
 					<div class="col-12">
 						<a href="{{ route('pack.icons') }}" class="btn btn-primary btn-simple btn-lg"
 						   data-toggle="tooltip" title="{{ __('Listado de íconos disponibles en la aplicación') }}">

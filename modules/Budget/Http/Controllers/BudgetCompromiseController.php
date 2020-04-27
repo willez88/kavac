@@ -79,11 +79,6 @@ class BudgetCompromiseController extends Controller
      */
     public function vueList()
     {
-        dd(BudgetCompromise::with(
-            'budgetCompromiseDetails',
-            'budgetStages',
-            'documentStatus'
-            )->orderBy('compromised_at')->get());
         return response()->json([
             'records' => BudgetCompromise::with(
                 'budgetCompromiseDetails',
@@ -91,5 +86,30 @@ class BudgetCompromiseController extends Controller
                 'documentStatus'
             )->orderBy('compromised_at')->get()
         ], 200);
+    }
+
+    /**
+     * Obtiene las fuentes de documentos que aún no han sido comprometidos, solo (PRE)comprometidos y/o (PRO)gramados
+     *
+     * @method     getDocumentSources
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param      integer               $institution_id    Identificador de la institución
+     * @param      string                $year              Año de ejercicio económico
+     *
+     * @return     \Illuminate\Http\JsonResponse    Devuelve un JSON con la información de registros por comprometer
+     */
+    public function getDocumentSources($institution_id, $year)
+    {
+        /** @var object Obtiene todos los registros de fuentes de documentos que aún no han sido comprometidos */
+        $compromises = BudgetCompromise::where(['compromised_at' => null, 'institution_id' => $institution_id])->with([
+            'budgetCompromiseDetails',
+            'sourceable',
+            'budgetStages' => function ($budgetStages) {
+                return $budgetStages->where('type', 'PRE');
+            }
+        ])->get();
+        return response(['records' => $compromises], 200);
     }
 }

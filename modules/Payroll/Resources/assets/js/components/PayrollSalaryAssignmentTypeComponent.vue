@@ -51,12 +51,11 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Descripción:</label>
-									<textarea  data-toggle="tooltip" 
-											   placeholder="Descripción del Tipo de Asignación"
-											   title="Indique una breve descripción del Nuevo Tipo de Asignación (opcional)"
-											   rows="2"
-											   class="form-control" v-model="record.description">
-								    </textarea>
+                                    <ckeditor :editor="ckeditor.editor" id="description" data-toggle="tooltip"
+                                              title="Indique una breve descripción del Nuevo Tipo de Asignación (opcional)"
+                                              :config="ckeditor.editorConfig" class="form-control" name="description"
+                                              tag-name="textarea" rows="2" v-model="record.description"
+                                              placeholder="Descripción del Tipo de Asignación"></ckeditor>
 			                    </div>
 							</div>
 						</div>
@@ -118,6 +117,8 @@
 				'id': 'col-xs-2',
 			}
 		},
+        mounted() {
+        },
 		methods: {
 			reset() {
 				this.record = {

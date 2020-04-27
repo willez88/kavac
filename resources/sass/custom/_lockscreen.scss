@@ -1,0 +1,163 @@
+/**
+ * Estilos para el fondo de la pantalla de bloqueo
+ */
+body.modalBlur {
+
+    > *:not(.modal) {
+        opacity:0.65 !important;
+        /*-webkit-filter: blur(7px) !important;
+        -moz-filter: blur(7px) !important;
+        -o-filter: blur(7px) !important;
+        -ms-filter: blur(7px) !important;
+        filter: blur(7px) !important;*/
+        -webkit-filter: blur(4px) !important;
+        -moz-filter: blur(4px) !important;
+        -o-filter: blur(4px) !important;
+        -ms-filter: blur(4px) !important;
+        filter: blur(4px) !important;
+    }
+
+    #gritter-notice-wrapper {
+        -webkit-filter: blur(0) !important;
+        -moz-filter: blur(0) !important;
+        -o-filter: blur(0) !important;
+        -ms-filter: blur(0) !important;
+        filter: blur(0) !important;
+        opacity: 1 !important;
+    }
+}
+
+/**
+ * Estilos de la ventana modal para el bloqueo de pantalla
+ */
+.modal-lockscreen {
+
+    /**
+     * Estilos de la ventana modal
+     */
+    .modal-dialog {
+        margin: 10% auto 0 auto;
+        padding: 20px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+
+        /**
+         * Estilos del contenido de la ventana modal
+         */
+        .modal-content {
+            height: auto;
+            min-height: 100%;
+            -mox-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            background-color: $colo-base-dark;
+
+            /**
+             * Estilos del modal de bloqueo de pantalla
+             */
+            .lockscreen {
+
+                /**
+                 * Estilos del contenido de la pantalla de bloqueo
+                 */
+                .lockscreen-wrapper {
+                    max-width: 400px;
+                    margin: 0 auto;
+                    /*margin-top: 5%;*/
+
+                    /**
+                     * Estilos para el logotipo de la aplicación a mostrar en la pantalla de bloqueo
+                     */
+                    .lockscreen-logo {
+                        font-size: 35px;
+                        text-align: center;
+                        /*margin-bottom: 25px;*/
+                        margin-bottom: 15px;
+                        font-weight: 300;
+
+                        img {
+                            /*max-height: 80px !important;*/
+                            max-height: 100px !important;
+                        }
+
+                        a {
+                            color: $color-black-light;
+                        }
+                    }
+
+                    /**
+                     * Estilos para el nombre del usuario a mostrar
+                     */
+                    .lockscreen-name {
+                        text-align: center;
+                        font-weight: 600;
+                    }
+
+                    /**
+                     * Estilos para los elementos de la pantalla de bloqueo
+                     */
+                    .lockscreen-item {
+                        border-radius: 4px;
+                        padding: 0;
+                        background: $color-white;
+                        position: relative;
+                        margin: 10px auto 30px auto;
+                        width: 290px;
+
+                        /**
+                         * Estilos para la imagen del perfil de usuario a mostrar en la pantalla de bloqueo
+                         */
+                        .lockscreen-image {
+                            border-radius: 50%;
+                            position: absolute;
+                            left: -10px;
+                            top: -25px;
+                            background: $color-white;
+                            padding: 5px;
+                            z-index: 10;
+
+                            > img {
+                                border-radius: 50%;
+                                width: 70px;
+                                height: 70px;
+                            }
+                        }
+
+                        /**
+                         * Estilos para los elementos de las credenciales de usuario
+                         */
+                        .lockscreen-credentials {
+                            margin-left: 70px;
+
+                            .form-control {
+                                border: 0;
+                            }
+
+                            .btn {
+                                background-color: $color-white;
+                                border: 0;
+                                padding: 0 10px;
+                                height: calc(1.2em + 0.75rem + 1.2px);
+                                margin: 3px 2px;
+                            }
+                        }
+
+                        .form-control {
+                            &::placeholder {
+                                color: $default-text-color;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Estilo para el pie de página de la ventana modal
+ */
+.lockscreen-footer {
+    margin-top: 10px;
+}

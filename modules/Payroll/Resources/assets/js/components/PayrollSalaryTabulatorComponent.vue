@@ -43,34 +43,30 @@
 									<div class="col-md-4">
 										<div class=" form-group is-required">
 											<label>Código</label>
-											<input type="text" placeholder="Código del tabulador" 
-													data-toggle="tooltip"
-													title="Indique el código del nuevo tabulador (requerido)" 
-													class="form-control input-sm"
-													v-model="record.code">
+											<input type="text" placeholder="Código del tabulador" data-toggle="tooltip"
+                                                   title="Indique el código del nuevo tabulador (requerido)"
+													class="form-control input-sm" v-model="record.code">
 											<input type="hidden" v-model="record.id">
 										</div>
 									</div>
 									<div class="col-md-8">
 										<div class=" form-group is-required">
 											<label>Nombre</label>
-											<input type="text" placeholder="Nombre del tabulador"
-													data-toggle="tooltip"
-													class="form-control input-sm"
-													v-model="record.name">
+											<input type="text" placeholder="Nombre del tabulador" data-toggle="tooltip"
+                                                   class="form-control input-sm" v-model="record.name">
 										</div>
 									</div>
 									<div class="col-md-4">
 										<div class=" form-group">
 											<label>¿Activa?</label>
 											<div class="col-12">
-												<input type="checkbox"
-													   id="sel_active"
-													   class="form-control bootstrap-switch"
-												   	   data-toggle="tooltip" name="active"
-												       title="Indique si el tabulador esta activo"
-												       data-on-label="SI" data-off-label="NO"
-												       v-model="record.active" value="true">
+                                                <div class="col-12 bootstrap-switch-mini">
+    												<input type="checkbox" id="sel_active" data-toggle="tooltip"
+                                                           name="active" class="form-control bootstrap-switch"
+                                                           title="Indique si el tabulador esta activo"
+    												       data-on-label="SI" data-off-label="NO"
+    												       v-model="record.active" value="true">
+                                                </div>
 											</div>
 										</div>
 									</div>
@@ -78,7 +74,7 @@
 										<div class=" form-group is-required">
 											<label>Tipo de Personal</label>
 											<select2 :options="payroll_staff_types"
-												v-model="record.payroll_staff_type_id"></select2>
+                                                     v-model="record.payroll_staff_type_id"></select2>
 										</div>
 									</div>
 								</div>
@@ -88,8 +84,7 @@
 									<div class="col-md-12">
 										<div class="form-group is-required">
 											<label>Institución:</label>
-											<select2 :options="institutions"
-														v-model="record.institution_id"></select2>
+											<select2 :options="institutions" v-model="record.institution_id"></select2>
 					                    </div>
 									</div>
 								</div>
@@ -97,8 +92,7 @@
 									<div class="col-md-12">
 										<div class="form-group is-required">
 											<label>Moneda:</label>
-											<select2 :options="currencies"
-														v-model="record.currency_id"></select2>
+											<select2 :options="currencies" v-model="record.currency_id"></select2>
 					                    </div>
 									</div>
 								</div>
@@ -106,19 +100,19 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label>Descripción:</label>
-									<textarea  data-toggle="tooltip"
-											   title="Indique alguna descripción asociada al tabulador"
-											   class="form-control"
-											   rows="1"
-											   v-model="record.description">
-								   </textarea>
+                                    <ckeditor :editor="ckeditor.editor" id="description_tabulator" data-toggle="tooltip"
+                                              title="Indique alguna descripción asociada al tabulador"
+                                              :config="ckeditor.editorConfig" class="form-control"
+                                              name="description_tabulator" tag-name="textarea" rows="2"
+                                              v-model="record.description"></ckeditor>
 			                    </div>
 							</div>
 						</div>
 
 						<ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
 	                        <li class="nav-item">
-	                            <a class="nav-link active" data-toggle="tab" href="#horizontal" id="tab_horizontal" role="tab">
+	                            <a class="nav-link active" data-toggle="tab" href="#horizontal" id="tab_horizontal"
+                                   role="tab">
 	                                Escalafón Horizontal
 	                            </a>
 	                        </li>
@@ -140,9 +134,11 @@
 										<div class=" form-group">
 											<label>Experiencia Laboral</label>
 											<div class="col-12">
-												<input type="checkbox" name="group_by_years_h" value="experience"
-												class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification" 
-												id="sel_experience_h" data-on-label="SI" data-off-label="NO">
+                                                <div class="col-12 bootstrap-switch-mini">
+    												<input type="checkbox" name="group_by_years_h" value="experience"
+    												       class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification"
+                                                           id="sel_experience_h" data-on-label="SI" data-off-label="NO">
+                                                </div>
 											</div>
 										</div>
 									</div>
@@ -151,9 +147,11 @@
 										<div class=" form-group">
 											<label>Antigüedad</label>
 											<div class="col-12">
-												<input type="checkbox" name="group_by_years_h" value="antiquity" 
-												class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification" 
-												id="sel_antiquity_h" data-on-label="SI" data-off-label="NO">
+                                                <div class="col-12 bootstrap-switch-mini">
+    												<input type="checkbox" name="group_by_years_h" value="antiquity"
+                                                           class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification" id="sel_antiquity_h" data-on-label="SI"
+                                                           data-off-label="NO">
+                                                </div>
 											</div>
 										</div>
 									</div>
@@ -162,10 +160,12 @@
 										<div class=" form-group">
 											<label>Grado de Instrucción</label>
 											<div class="col-12">
-												<input type="checkbox" name="group_by_clasification_h"
-												class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification" 
-												value="instruction_degree" id="sel_instruction_degree_h" 
-												data-on-label="SI" data-off-label="NO">
+                                                <div class="col-12 bootstrap-switch-mini">
+    												<input type="checkbox" name="group_by_clasification_h"
+                                                           class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification" value="instruction_degree"
+                                                           id="sel_instruction_degree_h" data-on-label="SI"
+                                                           data-off-label="NO">
+                                                </div>
 											</div>
 										</div>
 									</div>
@@ -174,9 +174,11 @@
 										<div class=" form-group">
 											<label>Cargo</label>
 											<div class="col-12">
-												<input type="checkbox" name="group_by_clasification_h" value="position"
-												class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification"
-												id="sel_position_h" data-on-label="SI" data-off-label="NO">
+                                                <div class="col-12 bootstrap-switch-mini">
+    												<input type="checkbox" name="group_by_clasification_h"
+                                                           value="position" class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification" id="sel_position_h"
+                                                           data-on-label="SI" data-off-label="NO">
+                                                </div>
 											</div>
 										</div>
 									</div>
@@ -185,10 +187,9 @@
 									<div class="col-md-12">
 										<div class=" form-group is-required">
 											<label>Escalafón Salarial:</label>
-											<select2 id="salary_scale_h_select"
-													 :options="payroll_salary_scales_h"
-													 @input="loadSalaryScale('horizontal')"
-													 v-model="record.payroll_horizontal_salary_scale_id">
+											<select2 id="salary_scale_h_select" :options="payroll_salary_scales_h"
+                                                     @input="loadSalaryScale('horizontal')"
+                                                     v-model="record.payroll_horizontal_salary_scale_id">
 											</select2>
 										</div>
 									</div>
@@ -203,10 +204,11 @@
 										<div class=" form-group">
 											<label>Experiencia Laboral</label>
 											<div class="col-12">
-												<input type="checkbox" name="group_by_years_v"
-													value="experience" id="sel_experience_v"
-													class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification"
-													data-on-label="SI" data-off-label="NO">
+                                                <div class="col-12 bootstrap-switch-mini">
+    												<input type="checkbox" name="group_by_years_v" value="experience"
+                                                           id="sel_experience_v" data-on-label="SI" data-off-label="NO"
+                                                           class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification">
+                                                </div>
 											</div>
 										</div>
 									</div>
@@ -215,10 +217,11 @@
 										<div class=" form-group">
 											<label>Antigüedad</label>
 											<div class="col-12">
-												<input type="checkbox" name="group_by_years_v"
-													value="antiquity" id="sel_antiquity_v"
-													class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification" 
-													data-on-label="SI" data-off-label="NO">
+                                                <div class="col-12 bootstrap-switch-mini">
+    												<input type="checkbox" name="group_by_years_v" value="antiquity"
+                                                           id="sel_antiquity_v" data-on-label="SI" data-off-label="NO"
+                                                           class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification">
+                                                </div>
 											</div>
 										</div>
 									</div>
@@ -227,10 +230,11 @@
 										<div class=" form-group">
 											<label>Grado de Instrucción</label>
 											<div class="col-12">
-												<input type="checkbox" name="group_by_clasification_v"
-													value="instruction_degree" id="sel_instruction_degree_v"
-													class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification"
-													data-on-label="SI" data-off-label="NO">
+                                                <div class="col-12 bootstrap-switch-mini">
+    												<input type="checkbox" name="group_by_clasification_v"
+                                                           value="instruction_degree" id="sel_instruction_degree_v"
+                                                           class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification" data-on-label="SI" data-off-label="NO">
+                                                </div>
 											</div>
 										</div>
 									</div>
@@ -239,10 +243,11 @@
 										<div class=" form-group">
 											<label>Cargo</label>
 											<div class="col-12">
-												<input type="checkbox" name="group_by_clasification_v"
-													value="position" id="sel_position_v"
-													class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification"
-													data-on-label="SI" data-off-label="NO">
+                                                <div class="col-12 bootstrap-switch-mini">
+    												<input type="checkbox" name="group_by_clasification_v"
+                                                           value="position" id="sel_position_v"
+                                                           class="form-control bootstrap-switch bootstrap-switch-mini sel_clasification" data-on-label="SI" data-off-label="NO">
+                                                </div>
 											</div>
 										</div>
 									</div>
@@ -251,10 +256,9 @@
 									<div class="col-md-12">
 										<div class=" form-group is-required">
 											<label>Escalafón Salarial:</label>
-											<select2 id="salary_scale_v_select"
-													 :options="payroll_salary_scales_v" 
-													 @input="loadSalaryScale('vertical')"
-													 v-model="record.payroll_vertical_salary_scale_id">
+											<select2 id="salary_scale_v_select" :options="payroll_salary_scales_v"
+                                                     @input="loadSalaryScale('vertical')"
+                                                     v-model="record.payroll_vertical_salary_scale_id">
 											</select2>
 										</div>
 									</div>
@@ -288,17 +292,14 @@
 										<td class="td-with-border"
 											v-for="(field_h, index) in payroll_salary_scale_h.payroll_scales">
 											<div>
-												<input type="number"
-													   :id="'salary_scale_h_' + field_h.id"
-													   class="form-control input-sm"
-													   data-toggle="tooltip" min="0"
-													   step=".01" onfocus="this.select()">
+												<input type="number" :id="'salary_scale_h_' + field_h.id"
+                                                       class="form-control input-sm" data-toggle="tooltip" min="0"
+                                                       step=".01" onfocus="this.select()">
 											</div>
 										</td>
 									</tr>
 
-									<tr class="text-center"
-										v-else
+									<tr class="text-center" v-else
 										v-for="(field_v, index_v) in payroll_salary_scale_v.payroll_scales">
 										<th
 											v-if="((record.payroll_vertical_salary_scale_id > 0) &&
@@ -308,11 +309,9 @@
 										<td class="td-with-border"
 											v-for="(field_h, index_h) in payroll_salary_scale_h.payroll_scales">
 											<div>
-												<input type="number"
-													   :id="'salary_scale_' + field_v.id + '_' + field_h.id"
-													   class="form-control input-sm"
-													   data-toggle="tooltip" min="0"
-													   step=".01" onfocus="this.select()">
+												<input type="number" class="form-control input-sm"
+                                                       :id="'salary_scale_' + field_v.id + '_' + field_h.id"
+													   data-toggle="tooltip" min="0" step=".01" onfocus="this.select()">
 											</div>
 										</td>
 									</tr>
@@ -339,10 +338,8 @@
 										</th>
 										<td>
 											<div>
-												<input type="number"
-													   :id="'salary_scale_v_' + field.id"
-													   class="form-control input-sm"
-													   data-toggle="tooltip" min="0"
+												<input type="number" :id="'salary_scale_v_' + field.id"
+                                                       class="form-control input-sm" data-toggle="tooltip" min="0"
 													   step=".01" onfocus="this.select()">
 											</div>
 										</td>
@@ -361,21 +358,18 @@
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="exportRecord(props.index, $event)"
-                						class="btn btn-primary btn-xs btn-icon btn-action" 
-                					    title="Descargar/Exportar tabulador"
-										data-toggle="tooltip"
-										type="button">
+                                        class="btn btn-primary btn-xs btn-icon btn-action"
+                                        title="Descargar/Exportar tabulador" data-toggle="tooltip" type="button">
 	                                <i class="fa fa-download"></i>
 	                            </button>
-	                			<button @click="editRecord(props.index, $event)" 
-		                				class="btn btn-warning btn-xs btn-icon btn-action" 
+	                			<button @click="editRecord(props.index, $event)"
+		                				class="btn btn-warning btn-xs btn-icon btn-action"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'salary-tabulators')" 
-										class="btn btn-danger btn-xs btn-icon btn-action" 
-										title="Eliminar registro" data-toggle="tooltip" 
-										type="button">
+		                		<button @click="deleteRecord(props.index, 'salary-tabulators')"
+										class="btn btn-danger btn-xs btn-icon btn-action" title="Eliminar registro"
+                                        data-toggle="tooltip" type="button">
 									<i class="fa fa-trash-o"></i>
 								</button>
 	                		</div>
@@ -393,7 +387,7 @@
 	}
 	.table-ladder tbody tr.config-row {
 		background-color: #fff;
-	}	
+	}
 </style>
 
 <script>
@@ -513,8 +507,8 @@
 				vm.group_by_years_h = '';
 				vm.group_by_clasification_v = '';
 				vm.group_by_clasification_h = '';
-				
-				
+
+
 				vm.payroll_salary_scales_h = [];
 				vm.payroll_salary_scales_v = [];
 				vm.editIndex = null;
@@ -916,6 +910,7 @@
 					vm.disabledSwitch('sel_position_h', 'vertical');
 				}
 			});
+
 		},
 		watch: {
 			record: {

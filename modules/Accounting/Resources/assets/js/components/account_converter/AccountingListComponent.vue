@@ -5,13 +5,13 @@
         <div slot="codeBudget" slot-scope="props" class="text-center">
             {{ props.row.codeBudget }}
         </div>
-        <div slot="budget_account" slot-scope="props" class="text-center">
+        <div slot="budget_account" slot-scope="props" class="text-justify">
             {{ props.row.budget_account }}
         </div>
         <div slot="codeAccounting" slot-scope="props" class="text-center">
             {{ props.row.codeAccounting }}
         </div>
-        <div slot="accounting_account" slot-scope="props" class="text-center">
+        <div slot="accounting_account" slot-scope="props" class="text-justify">
             {{ props.row.accounting_account }}
         </div>
         <div slot="id" slot-scope="props" class="text-center">
@@ -41,7 +41,7 @@
         },
         created(){
             this.table_options.headings = {
-                'codeBudget': 'CÓDIGO PRESUPUESTAL',
+                'codeBudget': 'CÓDIGO PRESUPUESTO',
                 'budget_account': 'DENOMINACIÓN',
                 'codeAccounting': 'CÓDIGO PATRIMONIAL',
                 'accounting_account': 'DENOMINACIÓN',
@@ -50,11 +50,11 @@
             this.table_options.sortable = ['codeBudget', 'budget_account', 'codeAccounting', 'accounting_account'];
             this.table_options.filterable = ['codeBudget', 'budget_account', 'codeAccounting', 'accounting_account'];
             this.table_options.columnsClasses = {
-                'codeBudget': 'col-xs-1',
-                'budget_account': 'col-xs-5',
-                'codeAccounting': 'col-xs-1',
-                'accounting_account': 'col-xs-4',
-                'id': 'col-xs-1'
+                'codeBudget': 'col-xs-2',
+                'budget_account': 'col-xs-3',
+                'codeAccounting': 'col-xs-2',
+                'accounting_account': 'col-xs-3',
+                'id': 'col-xs-2'
             };
 
             EventBus.$on('list:conversions',(data)=>{

@@ -69,7 +69,7 @@
 									{!! Form::text(
 										'requirements_code',
 										($rqCode)?$rqCode->format_code:old('requirements_code'), [
-											'class' => 'form-control',
+											'class' => 'form-control input-sm',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código de los requerimientos de compra',
 											'placeholder' => 'Ej. XXX-0000000000-YYYY',
@@ -80,11 +80,11 @@
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									{!! Form::label('quotions_code', 'Código de Cotización', []) !!}
+									{!! Form::label('quotations_code', 'Código de Cotización', []) !!}
 									{!! Form::text(
-										'quotions_code',
-										($quCode)?$quCode->format_code:old('quotions_code'), [
-											'class' => 'form-control',
+										'quotations_code',
+										($quCode)?$quCode->format_code:old('quotations_code'), [
+											'class' => 'form-control input-sm',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código de la cotización',
 											'placeholder' => 'Ej. XXX-0000000000-YYYY',
@@ -99,7 +99,7 @@
 									{!! Form::text(
 										'minutes_code',
 										($miCode)?$miCode->format_code:old('minutes_code'), [
-											'class' => 'form-control',
+											'class' => 'form-control input-sm',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código de las actas',
 											'placeholder' => 'Ej. XXX-0000000000-YYYY',
@@ -116,7 +116,7 @@
 									{!! Form::text(
 										'buy-orders_code',
 										($buCode)?$buCode->format_code:old('buy-orders_code'), [
-											'class' => 'form-control',
+											'class' => 'form-control input-sm',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código de la orden de compra',
 											'placeholder' => 'Ej. XXX-0000000000-YYYY',
@@ -133,7 +133,7 @@
 									{!! Form::text(
 										'service-orders_code',
 										($soCode)?$soCode->format_code:old('service-orders_code'), [
-											'class' => 'form-control',
+											'class' => 'form-control input-sm',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código de la orden de servicio',
 											'placeholder' => 'Ej. XXX-0000000000-YYYY',
@@ -148,7 +148,7 @@
 									{!! Form::text(
 										'refunds_code',
 										($reCode)?$reCode->format_code:old('refunds_code'), [
-											'class' => 'form-control',
+											'class' => 'form-control input-sm',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código del reintegro',
 											'placeholder' => 'Ej. XXX-0000000000-YYYY',

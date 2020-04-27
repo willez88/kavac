@@ -27,15 +27,15 @@
 				<div class="col-md-4" id="helpWarehouseRequestDate">
 					<div class="form-group is-required">
 						<label>Fecha de la Solicitud</label>
-						<input type="text" data-toggle="tooltip" 
-							   title="Fecha de la solicitud" 
-							   class="form-control input-sm" 
+						<input type="text" data-toggle="tooltip"
+							   title="Fecha de la solicitud"
+							   class="form-control input-sm"
 							   readonly="readonly"
 							   v-model="record.created_at">
 						<input type="hidden" v-model="record.id">
                     </div>
 				</div>
-			
+
 				<div class="col-md-4" id="helpWarehouseRequestDepartment">
 					<div class=" form-group is-required">
 						<label>Dependencia Solicitante</label>
@@ -46,31 +46,38 @@
 				<div class="col-md-4" id="helpWarehouseRequestMotive">
 					<div class="form-group is-required">
 						<label>Motivo de la Solicitud</label>
-						<textarea  data-toggle="tooltip" 
-								   title="Indique el motivo de la solicitud (requerido)" 
-								   class="form-control" v-model="record.motive">
+                        <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+                                  title="Indique el motivo de la solicitud (requerido)"
+                                  :config="ckeditor.editorConfig" class="form-control" tag-name="textarea" rows="3"
+                                  v-model="record.motive"></ckeditor>
 					   </textarea>
                     </div>
 				</div>
 				<div class="col-md-6" id="helpWarehouseRequestProject">
 					<div class=" form-group is-required">
-						<label>
-							<input type="radio" name="project_centralized_action" value="project" id="sel_project" 
-							   class="form-control bootstrap-switch bootstrap-switch-mini sel_pry_acc" 
-							   data-on-label="SI" data-off-label="NO">
-							Proyecto</label>
+						<label class="mb-4">
+                            <div class="bootstrap-switch-mini">
+    							<input type="radio" name="project_centralized_action" value="project" id="sel_project"
+    							   class="form-control bootstrap-switch bootstrap-switch-mini sel_pry_acc"
+    							   data-on-label="SI" data-off-label="NO">
+    							Proyecto
+                            </div>
+                        </label>
 						<select2 :options="budget_projects" id="budget_project_id" @input="getBudgetSpecificActions('Project')" disabled
 							v-model="record.budget_project_id"></select2>
-							
+
 					</div>
 				</div>
 				<div class="col-md-6" id="helpWarehouseRequestCentralizedAction">
 					<div class=" form-group is-required">
-						<label>
-							<input type="radio" name="project_centralized_action" value="project" 
-								   class="form-control bootstrap-switch bootstrap-switch-mini sel_pry_acc" 
-								   id="sel_centralized_action" data-on-label="SI" data-off-label="NO">
-							Acción Centralizada</label>
+						<label class="mb-4">
+                            <div class="bootstrap-switch-mini">
+    							<input type="radio" name="project_centralized_action" value="project"
+    								   class="form-control bootstrap-switch bootstrap-switch-mini sel_pry_acc"
+    								   id="sel_centralized_action" data-on-label="SI" data-off-label="NO">
+    							Acción Centralizada
+                            </div>
+                        </label>
 						<select2 :options="budget_centralized_actions" id="budget_centralized_action_id" @input="getBudgetSpecificActions('CentralizedAction')" disabled
 							v-model="record.budget_centralized_action_id"></select2>
 					</div>
@@ -268,7 +275,7 @@
 				vm.selected = [];
 				$.each(vm.records, function(index,campo){
 					var checkbox = document.getElementById('checkbox_' + campo.id);
-					
+
 					if(!vm.selectAll)
 						vm.selected.push(campo.id);
 					else if(checkbox && checkbox.checked){
@@ -315,7 +322,7 @@
 			loadRequest(id) {
 				const vm = this;
 	            var fields = {};
-	            
+
 	            axios.get('/warehouse/requests/info/' + id).then(response => {
 	                if(typeof(response.data.records != "undefined")){
 	                	fields = response.data.records;
@@ -376,14 +383,14 @@
 		},
 		mounted() {
 
-			/** 
-			 * Evento para determinar los datos a requerir según el tipo de formulación 
+			/**
+			 * Evento para determinar los datos a requerir según el tipo de formulación
 			 * (por proyecto o acción centralizada)
 			 */
 			$('.sel_pry_acc').on('switchChange.bootstrapSwitch', function(e) {
 				$('#budget_project_id').attr('disabled', (e.target.id!=="sel_project"));
 				$('#budget_centralized_action_id').attr('disabled', (e.target.id!=="sel_centralized_action"));
-				
+
 				if (e.target.id === "sel_project") {
 					$("#budget_centralized_action_id").closest('.form-group').removeClass('is-required');
 					$("#budget_project_id").closest('.form-group').addClass('is-required');

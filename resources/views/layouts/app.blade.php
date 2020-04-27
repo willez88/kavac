@@ -45,7 +45,11 @@
             window.debug = {!! (config('app.debug')) ? 'true' : 'false' !!};
             /** @type {string} Define la URI de la aplicación */
             window.app_url = `${location.protocol}//${location.host}`;
+            /** @type {String} Define el idioma actual de la aplicación */
+            window.currentLocale = '{{ app()->getLocale() }}';
             @auth
+                /** @type {Boolean} Establece si la pantalla de bloqueo está o no activa */
+                window.screen_locked = {!! (auth()->user()->lock_screen) ? 'true' : 'false' !!}
                 /** @type {array} Lista de módulos instalados y habilitados */
                 window.modules = [];
                 @if (Module::allEnabled())
@@ -125,10 +129,17 @@
 
         {{-- Botón de ir al inicio de la página cuando se excede de un alto preestablecido --}}
         @include('buttons.to-top')
-
+        {{-- Ventanas modales de uso general --}}
+        @include('layouts.modals')
+        {{-- Mensaje de espera al cargar procesos del sistema --}}
         @include('layouts.messages')
         <script>
             $(document).ready(function() {
+                $('#form-lockscreen').on('submit', function() {
+                    unlockScreen();
+                    return false;
+                });
+
                 /** Coloca el año actual en el pie de página */
                 $('.currentYear').text(new Date().getFullYear());
 
@@ -154,6 +165,12 @@
                     });
                 }
 
+                /** Restringe el rango de fechas del campo tipo date al año de ejercicio económico */
+                /*$("input[type=date]").attr({
+                    min: `${window.execution_year}-01-01`,
+                    max: `${window.execution_year}-12-31`
+                });*/
+
                 /** Previene el uso de carácteres no permitidos en campos numéricos */
                 $(".numeric").on('input keypress keyup blur', function(event) {
                     $(this).val($(this).val().replace(/[^\d].+/, ""));
@@ -162,16 +179,24 @@
                     }
                 });
                 /** Previene el uso de carácteres no permitidos en campos de monedas */
-                $(".currency").on('input keypress keyup blur', function(event) {
-                    $(this).val($(this).val().replace(/[^0-9\.]/g, ""));
-                    if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+                $(".currency, input[type=number]").on('input keypress keyup blur', function(event) {
+                    $(this).val($(this).val().replace(/[^0-9\.]?$/g, ""));
+                    //$(this).val($(this).val().replace(/^\d*\.?(?:\d{1,2})?$/g, ""));
+                    if ((event.which === 46 && $(this).val().indexOf('.') != -1) || (event.which < 48 || event.which > 57)) {
                         event.preventDefault();
                     }
                 });
 
+                Inputmask().mask(document.querySelectorAll("input"));
+
+                /** Instrucciones a implementar en campos de formularios */
+                //$("input[type=date]").attr('readonly', true);
+
                 /** oculta el mensaje de carga al renderizar por completo el DOM de la página */
                 $('.preloader').fadeOut(1000);
             });
+            /** Establece el tema por defecto, para elementos select2, a bootstrap 4 */
+            $.fn.select2.defaults.set( "theme", "bootstrap" );
             /*
              * Función que permite eliminar registros mediante ajax
              *
@@ -386,6 +411,77 @@
                 console.log(e.stack.split("\n"));
                 console.log(e.date);
             }*/
+
+            /**
+             * Desbloquea la pantalla de la aplicación bloqueada por inactividad
+             *
+             * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             *
+             * @return     {boolean}     Devuelve falso si se ejecutan las instrucciones para desbloquear la pantalla
+             */
+            var unlockScreen = async function() {
+                let username = $('.modal-lockscreen').find('#username');
+                let password = $('.modal-lockscreen').find('#password');
+                if (username.val() && password.val()) {
+                    /** @type {Object} Datos con el */
+                    let response = await axios.post('{{ route('unlockscreen') }}', {
+                        username: username.val(),
+                        password: password.val()
+                    });
+
+
+                    if (response.data.result) {
+                        let new_csrf = response.data.new_csrf;
+                        /** @type {Boolean} actualiza el estatus del bloqueo de pantalla */
+                        window.screen_locked = false;
+                        /** @type {String} Actualiza el token csrf de la página */
+                        document.querySelector('meta[name="csrf-token"]').setAttribute('content', new_csrf);
+                        //update any _token fields
+                        /** Actualiza el token csrf de todos los formularios presentes en la página */
+                        document.querySelectorAll('input[name="_token"]').forEach(function(csrf_field) {
+                            csrf_field.setAttribute('value', new_csrf);
+                        });
+                        /** @type {Object} Actualiza el token csrf global */
+                        window.Laravel = {
+                            "csrfToken": new_csrf
+                        };
+
+                        /** Remueve la clase modalBlur usada para distorcionar el fondo de la pantalla de bloqueo */
+                        $(document.body).removeClass('modalBlur');
+                        /** Oculta la pantalla de bloqueo */
+                        $(".modal-lockscreen").modal('hide');
+
+                        app.lockscreen.time = 0;
+                        app.lockscreen.lock = false;
+                        clearTimeout(app._data.lockscreen.timer_timeout);
+                        app.lockScreen();
+
+                        return false;
+                    }
+                }
+
+                $.gritter.add({
+                    title: '{{ __('Alerta!') }}',
+                    text: 'No ha indicado una contraseña correcta',
+                    class_name: 'growl-danger',
+                    image: "{{ asset('images/screen-error.png') }}",
+                    sticky: false,
+                    time: 2500
+                });
+            }
+
+            function fullScreen(elem) {
+                var elem = (typeof(elem) !== "undefined") ? elem : document.documentElement;
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.mozRequestFullScreen) { /* Firefox */
+                    elem.mozRequestFullScreen();
+                } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                    elem.webkitRequestFullscreen();
+                } else if (elem.msRequestFullscreen) { /* IE/Edge */
+                    elem.msRequestFullscreen();
+                }
+            }
         </script>
 
         {{-- Sección para scripts extras dispuestos por las plantillas según requerimientos particulares --}}
@@ -412,5 +508,5 @@
     </body>
 </html>
 <script>
-            document.write();
-        </script>
+    document.write();
+</script>

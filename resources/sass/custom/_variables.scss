@@ -13,7 +13,9 @@ $default-box-shadow-thin:   rgba(0,0,0,.12);
 
 /** Colores */
 $color-primary:             rgb(249, 99, 50);
+$color-primary-dark:        rgb(249, 74, 20);
 $color-info:                rgb(44, 168, 255);
+$color-info-strong:         rgb(32, 126, 189);
 $color-info-opacity-8:      rgba(44, 168, 255, 0.8);
 $color-info-dark:           rgb(0, 115, 183);
 $color-info-dark-active:    rgb(0, 83, 132);
@@ -26,17 +28,20 @@ $color-info-navy:           rgb(0, 31, 63);
 $color-info-navy-active:    rgb(0, 26, 53);
 $color-info-enabled:        rgb(0, 62, 133);
 $color-info-light-blue:     rgb(53, 124, 165);
+$colo-base-dark:            rgb(43, 163, 247);
 
 $color-danger:              rgb(255, 54, 54);
+$color-danger-dark:         rgb(255, 41, 41);
 $color-danger-opacity-8:    rgba(255, 54, 54, 0.8);
 $color-danger-active:       rgb(211, 55, 36);
-$color-danger-dark:         rgb(221, 75, 57);
+$color-danger-light:        rgb(221, 75, 57);
 $color-danger-fuchsia:      rgb(240, 18, 190);
 $color-danger-fuchsia-active:rgb(219, 14, 173);
 $color-danger-maroon:       rgb(216, 27, 96);
 $color-danger-maroon-active:rgb(202, 25, 90);
 
 $color-warning:             rgb(243, 156, 18);
+$color-warning-strong:      rgb(204, 128, 14);
 $color-warbing-light-thin:  rgba(255, 178, 54, 0.8);
 $color-warning-light:       rgb(255, 178, 54);
 $color-warning-active:      rgb(219, 139, 11);
@@ -45,6 +50,7 @@ $color-warning-dark-active: rgb(255, 119, 1);
 $color-warning-error:       rgb(239, 94, 48);
 
 $color-success:             rgb(24, 206, 15);
+$color-success-dark:        rgb(18, 161, 11);
 $color-success-opacity-8:   rgba(24, 206, 15, 0.8);
 $color-success-light:       rgb(0, 166, 90);
 $color-success-light-active:rgb(0, 141, 76);
@@ -54,16 +60,18 @@ $color-success-lime:        rgb(1, 255, 112);
 $color-success-lime-active: rgb(0, 231, 101);
 
 $color-white:               rgb(255, 255, 255);
+$color-gray-light:          rgb(247, 247, 247);
+$color-gray-light-strong:   rgb(247, 236, 236);
 $color-white-light:         rgb(238, 238, 238);
 $color-white-dark:          rgb(228, 231, 234);
+$color-white-mid:           rgb(227, 227, 227);
 $color-gray:                rgb(154, 154, 154);
 $color-gray-active:         rgb(181, 187, 200);
 $color-gray-thin:           rgb(210, 214, 222);
-$color-gray-light:          rgb(247, 247, 247);
 $color-gray-strong:         rgb(153, 153, 153);
 $color-gray-dark:           rgb(102, 102, 102);
-$color-black-light:         rgb(51, 51, 51);
 $color-black-thin:          rgb(85, 85, 85);
+$color-black-light:         rgb(51, 51, 51);
 $color-black-medium:        rgb(34, 34, 34);
 $color-black-strong:        rgb(17, 17, 17);
 $color-black:               rgb(0, 0, 0);

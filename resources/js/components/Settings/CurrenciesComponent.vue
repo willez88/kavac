@@ -37,7 +37,7 @@
 									<label>Símbolo:</label>
 									<input type="text" placeholder="Símbolo" data-toggle="tooltip"
 										   title="Indique el símbolo de la moneda (requerido)"
-										   class="form-control" v-model="record.symbol">
+										   class="form-control input-sm" v-model="record.symbol">
 			                    </div>
 							</div>
 							<div class="col-md-4">
@@ -45,14 +45,15 @@
 									<label>Nombre:</label>
 									<input type="text" placeholder="Nombre de la moneda" data-toggle="tooltip"
 										   title="Infique el nombre de la moneda (requerido)"
-										   class="form-control" v-model="record.name">
+										   class="form-control input-sm" v-model="record.name">
 			                    </div>
 							</div>
 							<div class="col-md-2">
 								<div class="form-group is-required">
 									<label>Decimales</label>
-									<input type="number" placeholder="Cantidad de decimales" data-toggle="tooltip"
-										   title="Indique la cantidad de decimales para la moneda a registrar" class="form-control" v-model="record.decimal_places" step="1"
+									<input type="number" data-toggle="tooltip"
+										   title="Indique la cantidad de decimales para la moneda a registrar"
+                                           class="form-control input-sm" v-model="record.decimal_places" step="1"
 										   min="2">
 								</div>
 							</div>
@@ -62,10 +63,12 @@
 								<div class="form-group is-required">
 									<label>Por defecto:</label>
 									<div class="col-md-12">
-										<input type="checkbox" class="form-control bootstrap-switch"
-											   data-toggle="tooltip" data-on-label="SI" data-off-label="NO" value="true"
-											   title="Indique si es la moneda por defecto en la aplicación"
-											   v-model="record.default" name="default">
+                                        <div class="col-12 bootstrap-switch-mini">
+    										<input type="checkbox" class="form-control bootstrap-switch"
+    											   data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
+                                                   value="true" v-model="record.default" name="default"
+    											   title="Indique si es la moneda por defecto en la aplicación">
+                                        </div>
 									</div>
 			                    </div>
 							</div>

@@ -3,13 +3,16 @@
 /** Controladores para la gestión de autenticación de usuarios */
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use App\User;
 use App\Models\Profile;
+use App\Models\NotificationSetting;
 use App\Roles\Models\Role;
 use App\Roles\Models\Permission;
 use App\Notifications\UserRegistered;
-use Illuminate\Http\Request;
 
 /**
  * @class UserController
@@ -24,6 +27,8 @@ use Illuminate\Http\Request;
  */
 class UserController extends Controller
 {
+    use AuthenticatesUsers;
+
     /**
      * Muesta todos los registros de los usuarios
      *
@@ -155,7 +160,15 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        if ($request->input('password')) {
+        if ($request->role) {
+            $user->detachAllRoles();
+            $user->syncRoles($request->role);
+        }
+        if ($request->permission) {
+            $user->detachAllPermissions();
+            $user->syncPermissions($request->permission);
+        }
+        if ($request->password) {
             $this->validate($request, [
                 'password' => ['min:6', 'confirmed'],
                 'password_confirmation' => ['min:6', 'required_with:password'],
@@ -338,8 +351,175 @@ class UserController extends Controller
         ], 200);
     }
 
+    /**
+     * Muestra un listado de roles y permisos de usuario
+     *
+     * @method     indexRolesPermissions
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return     \Illuminate\View\View   Devuelve la vista correspondiente para mostrar el listado de roles y permisos
+     */
     public function indexRolesPermissions()
     {
         return view('admin.settings-access');
+    }
+
+    /**
+     * Gestiona la configuración de la cuenta de un usuario
+     *
+     * @method     userSettings
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return     \Illuminate\View\View           Devuelve la vista para la configuración de la cuenta de usuario
+     */
+    public function userSettings()
+    {
+        $user = auth()->user();
+        $userPermissions = $user->getPermissions()->where('slug', '<>', '')->pluck('slug')->toArray();
+        $notifySettings = NotificationSetting::whereIn(
+            'perm_required',
+            $userPermissions
+        )->orWhereNull('perm_required')->get();
+
+        $header_general_settings = [
+            'route' => 'set.my.settings', 'method' => 'POST', 'role' => 'form', 'class' => 'form'
+        ];
+        $header_notify_settings = [
+            'route' => 'set.my.notifications', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
+        ];
+        return view('auth.my-settings', compact(
+            'user',
+            'notifySettings',
+            'header_notify_settings',
+            'header_general_settings'
+        ));
+    }
+
+    /**
+     * Establece la configuración personalizada de un usuario
+     *
+     * @method     setUserSettings
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param      Request            $request   Objeto con datos de la petición
+     *
+     * @return     \Illuminate\Http\Response     redirecciona a la página de configuración del usuario
+     */
+    public function setUserSettings(Request $request)
+    {
+        $user = User::find(auth()->user()->id);
+        $user->lock_screen = (!is_null($request->lock_screen));
+        $user->time_lock = $request->time_lock ?? 10;
+        $user->save();
+
+        $request->session()->flash('message', ['type' => 'store']);
+
+        return redirect()->route('my.settings');
+    }
+
+    /**
+     * Gestiona la configuración de notificaciones establecida por el usuario
+     *
+     * @method     setMyNotifications
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @license    [description]
+     *
+     * @param      Request               $request    [description]
+     */
+    public function setMyNotifications(Request $request)
+    {
+        $fields = $request->all();
+
+        if (count($fields) > 1) {
+            auth()->user()->notificationSettings()->detach();
+            $notifications = [];
+            foreach ($fields as $keyField => $valueField) {
+                if ($keyField === '_token') {
+                    continue;
+                }
+                $notifySetting = NotificationSetting::where('slug', $keyField)->first();
+
+                if ($notifySetting) {
+                    array_push($notifications, $notifySetting->id);
+                }
+            }
+            auth()->user()->notificationSettings()->sync($notifications);
+        }
+
+        $request->session()->flash('message', ['type' => 'store']);
+        return redirect()->route('my.settings');
+    }
+
+    /**
+     * Obtiene información acerca de la pantalla de bloqueo del sistema
+     *
+     * @method     getLockScreenData
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return     \Illuminate\Http\JsonResponse     Devuelve los datos correspondientes a la pantalla de bloqueo
+     */
+    public function getLockScreenData()
+    {
+        $user = auth()->user();
+        return response()->json(['lock_screen' => $user->lock_screen, 'time_lock' => $user->time_lock], 200);
+    }
+
+    /**
+     * Actualiza información de la pantalla de bloqueo del sistema
+     *
+     * @method     setLockScreenData
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param      \Illuminate\Http\JsonResponse     Devuelve el resultado de la operación
+     */
+    public function setLockScreenData(Request $request)
+    {
+        $user = User::find(auth()->user()->id);
+        $user->lock_screen = $request->lock_screen;
+        $user->save();
+        return response()->json(['result' => true], 200);
+    }
+
+    /**
+     * Realiza las gestiones necesarias para desbloquear la pantalla del sistema
+     *
+     * @method     unlockScreen
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param      Request          $request    [description]
+     *
+     * @return     \Illuminate\Http\JsonResponse     Devuelve el resultado de la operación
+     */
+    public function unlockScreen(Request $request)
+    {
+        $user = User::where('username', $request->username)->first();
+
+        /** Verifica si la contraseña es correcta, de lo contrario retorna falso */
+        if (!Hash::check($request->password, $user->password)) {
+            return response()->json(['result' => false], 200);
+        }
+
+        // Agregar funcionalidad para determinar si el usuario esta autenticado (aplica para cuando expira la sesion)
+        if (!auth()->check()) {
+            $userCredentials = $request->only('email', 'password');
+            if (!Auth::attempt($userCredentials)) {
+                return response()->json(['result' => false], 200);
+            }
+            //$this->login($request);
+        }
+
+        /** @var boolean actualiza el campo que determina si la pantalla de bloqueo esta o no activada */
+        $user->lock_screen = false;
+        $user->save();
+
+        return response()->json(['result' => true, 'new_csrf' => csrf_token()], 200);
     }
 }

@@ -151,6 +151,7 @@ a.resalt-link {
 	font-size: 1em;
 	text-transform: uppercase;
 	font-weight: normal;
+    color: $color-info-dark;
 }
 .nopadding-left {
 	padding-left: 0 !important;
@@ -228,6 +229,7 @@ table {
 		}
 		.logo-container{
             margin-bottom: 35px !important;
+            width:120px !important;
         }
         .content {
         	margin: 50px auto !important;
@@ -437,6 +439,7 @@ a.level-notice:hover, a.level-info:hover, a.level-debug:hover {
 	.bootstrap-switch {
 		height: 16px !important;
 		width: 46px !important;
+        margin-bottom: 0 !important;
 
 		.bootstrap-switch-label {
 			height:16px !important;

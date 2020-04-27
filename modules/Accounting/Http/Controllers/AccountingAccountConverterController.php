@@ -9,13 +9,12 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingAccountConverter;
 use Module;
-use Auth;
 
 /**
  * @class AccountingAccountConverterController
- * @brief Controlador para la conversión de cuentas presupuestales y patrimoniales
+ * @brief Controlador para la conversión de cuentas presupuestarias y patrimoniales
  *
- * Clase que gestiona la conversión entre cuentas presupuestales y patrimoniales
+ * Clase que gestiona la conversión entre cuentas presupuestarias y patrimoniales
  *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
@@ -68,7 +67,7 @@ class AccountingAccountConverterController extends Controller
     }
 
     /**
-     * [getAllRecordsBudgetVuejs registros de las cuentas presupuestales al componente]
+     * [getAllRecordsBudgetVuejs registros de las cuentas presupuestarias al componente]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @return [response]
      */
@@ -101,7 +100,7 @@ class AccountingAccountConverterController extends Controller
         $accountingList = json_encode($this->getRecordsAccounting(false));
 
         /**
-         * [$accountingList contiene las cuentas presupuestales]
+         * [$accountingList contiene las cuentas presupuestarias]
          * @var [Json]
          */
         $budgetList = json_encode($this->getRecordsBudget(false));
@@ -133,7 +132,7 @@ class AccountingAccountConverterController extends Controller
         $records_accounting = $this->getRecordsAccounting(false);
 
         /**
-         * [$records_busget contiene las cuentas presupuestales disponibles]
+         * [$records_busget contiene las cuentas presupuestarias disponibles]
          * @var [Json]
          */
         $records_busget = $this->getRecordsBudget(false);
@@ -160,7 +159,6 @@ class AccountingAccountConverterController extends Controller
         $has_budget = (Module::has('Budget') && Module::isEnabled('Budget'));
 
         if (!$has_budget) {
-            dd($has_budget);
             return view('accounting::account_converters.edit', compact('has_budget'));
         }
 
@@ -177,7 +175,7 @@ class AccountingAccountConverterController extends Controller
         $accountingAccounts = [];
 
         /**
-         * [$accountingAccounts contendra las cuentas presupuestales]
+         * [$accountingAccounts contendra las cuentas presupuestarias]
          * @var array
          */
         $budgetAccounts = [];
@@ -189,7 +187,7 @@ class AccountingAccountConverterController extends Controller
         $accountingAccounts = $this->getRecordsAccounting(false);
 
         /**
-         * [$records_busget contiene las cuentas presupuestales disponibles]
+         * [$records_busget contiene las cuentas presupuestarias disponibles]
          * @var [Json]
          */
         $budgetAccounts = $this->getRecordsBudget(false);
@@ -215,13 +213,13 @@ class AccountingAccountConverterController extends Controller
         }
 
         /**
-         * Cuenta Presupuestal a editar
+         * Cuenta Presupuestaria a editar
          */
         $aux = \Modules\Budget\Models\BudgetAccount::find($account->budget_account_id);
         $aux['getCodeAttribute'] = $aux->getCodeAttribute();
 
         /**
-         * agrega al array la cuenta presupuestal que se editara
+         * agrega al array la cuenta presupuestaria que se editara
         */
         for ($i=1; $i < $budgetAccounts[0]['index']; $i++) {
             if (explode(' - ', $budgetAccounts[$i]['text'])[0] > "{$aux->getCodeAttribute}") {
@@ -235,13 +233,13 @@ class AccountingAccountConverterController extends Controller
         }
 
         /**
-         * [$accountingAccounts contiene las cuentas presupuestales]
+         * [$accountingAccounts contiene las cuentas presupuestarias]
          * @var [Json]
          */
         $accountingAccounts = json_encode($accountingAccounts);
 
         /**
-         * [$budgetAccounts contiene las cuentas presupuestales]
+         * [$budgetAccounts contiene las cuentas presupuestarias]
          * @var [Json]
          */
         $budgetAccounts = json_encode($budgetAccounts);
@@ -269,7 +267,7 @@ class AccountingAccountConverterController extends Controller
          * Actualiza el registro de conversión a editar
          */
         $record                        = AccountingAccountConverter::find($id);
-        
+
         $record->accounting_account_id = $request['accounting_account_id'];
         $record->budget_account_id     = $request['budget_account_id'];
         $record->save();
@@ -332,7 +330,7 @@ class AccountingAccountConverterController extends Controller
         if ($request->type == 'budget') {
             if ($request->all) {
                 /**
-                 * Se obtienen el primer y ultimo id de las cuentas presupuestales
+                 * Se obtienen el primer y ultimo id de las cuentas presupuestarias
                 */
                 $init_id = \Modules\Budget\Models\BudgetAccount::orderBy('created_at', 'ASC')
                                                                 ->where('parent_id', null)->first()->id;
@@ -471,7 +469,7 @@ class AccountingAccountConverterController extends Controller
             ]);
 
             /**
-             * ciclo para almacenar en array cuentas presupuestales disponibles para conversiones
+             * ciclo para almacenar en array cuentas presupuestarias disponibles para conversiones
             */
             if (!$allRecords) {
                 foreach (\Modules\Budget\Models\BudgetAccount::doesnthave('accountConverters')
@@ -514,10 +512,10 @@ class AccountingAccountConverterController extends Controller
     }
 
     /**
-     * [budgetToAccount cuenta patrimonial correspondiente a la presupuestal]
+     * [budgetToAccount cuenta patrimonial correspondiente a la presupuestaria]
      * @author    Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  [integer] $id [id de cuenta patrimonial]
-     * @return [Response]     [cuenta patrimonial correspondiente a la presupuestal]
+     * @return [Response]     [cuenta patrimonial correspondiente a la presupuestaria]
      */
     public function budgetToAccount($id)
     {
@@ -530,10 +528,10 @@ class AccountingAccountConverterController extends Controller
     }
 
     /**
-     * [accountToBudget cuenta presupuestal correspondiente a la patrimonial]
+     * [accountToBudget cuenta presupuestaria correspondiente a la patrimonial]
      * @author    Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  [integer] $id [id de cuenta presupuestal]
-     * @return [Response]     [cuenta presupuestal correspondiente a la patrimonial]
+     * @param  [integer] $id [id de cuenta presupuestaria]
+     * @return [Response]     [cuenta presupuestaria correspondiente a la patrimonial]
      */
     public function accountToBudget($id)
     {

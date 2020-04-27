@@ -339,6 +339,12 @@ $(document).ready(function() {
                 $('.dataTables_filter input').tooltip('hide');
             }, 1500);
         });
+
+    }
+
+    /** Gestiona elementos de tablas VueTables */
+    if ($('.VueTables__search__input').length > 0 && !$('.VueTables__search__input').hasClass('input-sm')) {
+        $('.VueTables__search__input').addClass('input-sm');
     }
 
     /** Evento que permite mostrar datos sobre la aplicación (acerca de) */
@@ -348,7 +354,7 @@ $(document).ready(function() {
             {
                 name: 'Roldan Vargas',
                 email: 'rvargas@cenditel.gob.ve | roldandvg@gmail.com',
-                group: 'Lider de proyecto / Diseño / Desarrollo'
+                group: 'Lider de proyecto / Diseño / Desarrollo / Autor'
             },
             {
                 name: 'Julie Vera',
@@ -416,14 +422,24 @@ $(document).ready(function() {
                 group: 'Desarrolladores'
             },
             {
-                name: 'Jenifer Ramírez',
-                email: 'jramirez@cenditel.gob.ve',
+                name: 'Yennifer Ramírez',
+                email: 'yramirez@cenditel.gob.ve',
                 group: 'Desarrolladores'
             },
             {
                 name: 'Argenis Osorio',
                 email: 'aosorio@cenditel.gob.ve',
-                group: 'Director de Desarrollo'
+                group: 'Director de Desarrollo (2018-2019)'
+            },
+            {
+                name: 'Laura Colina',
+                email: 'lcolina@cenditel.gob.ve',
+                group: 'Director de Desarrollo (2020)'
+            },
+            {
+                name: 'Angelo Osorio',
+                email: 'adosorio@cenditel.gob.ve',
+                group: 'Colaborador'
             },
         ]);
         bootbox.alert({
@@ -451,8 +467,10 @@ $(document).ready(function() {
             { name: 'William Paéz' },
             { name: 'Henry Paredes' },
             { name: 'Juan Rosas' },
-            { name: 'Jenifer Ramírez' },
+            { name: 'Yennifer Ramírez' },
             { name: 'Argenis Osorio' },
+            { name: 'Laura Colina' },
+            { name: 'Angelo Osorio' },
         ]);
         bootbox.alert({
             className: 'modal-credits',
@@ -461,7 +479,7 @@ $(document).ready(function() {
         });
     });
 
-    /** Oculta el tooltip de los elementos bootstrap switch después de unois segundos */
+    /** Oculta el tooltip de los elementos bootstrap switch después de unos segundos */
     $('.bootstrap-switch').on('shown.bs.tooltip', function() {
         setTimeout(function() {
             $('.bootstrap-switch').tooltip('hide');

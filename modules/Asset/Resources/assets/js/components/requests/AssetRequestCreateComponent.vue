@@ -35,35 +35,42 @@
                     	</div>
 				    </div>
 				</div>
-				<div class="col-md-4" id="helpAssetRequestDeliveryDate">
+				<div class="col-md-6" id="helpAssetRequestDeliveryDate">
 			        <div class="form-group is-required">
 			            <label>Fecha de Entrega</label>
 			            <div class="input-group input-sm">
 			                <span class="input-group-addon">
 								<i class="now-ui-icons ui-1_calendar-60"></i>
 			                </span>
-			                <input  type="date" class="form-control input-sm" 
-			                		data-toogle="tooltip" 
+			                <input  type="date" class="form-control input-sm"
+			                		data-toogle="tooltip"
                         			title="Indique la fecha de entrega de los equipos"
                         			v-model="record.delivery_date">
 			            </div>
 			        </div>
 			    </div>
-			    <div class="col-md-4" id="helpAssetRequestType">
+			    <div class="col-md-6" id="helpAssetRequestType">
 					<div class="form-group is-required">
 						<label>Tipo de Solicitud</label>
-						<select2 :options="types" 
+						<select2 :options="types"
 								 v-model="record.type_id"></select2>
 					</div>
 				</div>
-				<div class="col-md-4" id="helpAssetRequestMotive">
+				<div class="col-md-6" id="helpAssetRequestMotive">
 				    <div class="form-group is-required">
 				        <label>Motivo de la solicitud</label>
-				        <textarea  data-toggle="tooltip" 
-								   title="Indique el motivo de la solicitud" 
-								   class="form-control input-sm" v-model="record.motive">
-					   </textarea>
+                        <ckeditor :editor="ckeditor.editor" id="motive" data-toggle="tooltip"
+                                  title="Indique el motivo de la solicitud" :config="ckeditor.editorConfig"
+                                  class="form-control" name="motive" tag-name="textarea" rows="3"
+                                  v-model="record.motive"></ckeditor>
 				    </div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<label> Adjuntar archivos </label>
+						<input id="files" name="files" type="file"
+							   accept=".odt, .pdf" multiple>
+					</div>
 				</div>
 			</div>
 			<div v-if="record.type_id > 1">
@@ -110,13 +117,13 @@
 					<div class="col-md-6" id="helpAssetAddress">
 						<div class="form-group is-required">
 							<label>Dirección</label>
-							<textarea  data-toggle="tooltip" 
-									   title="Indique dirección física del bien" 
-									   class="form-control" v-model="record.address">
-						   </textarea>
+                            <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+                                      title="Indique dirección física del bien" :config="ckeditor.editorConfig"
+                                      class="form-control" name="address" tag-name="textarea" rows="3"
+                                      v-model="record.address"></ckeditor>
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 			<div v-show="record.type_id == 3">
@@ -130,25 +137,25 @@
 						<div class="form-group is-required">
 					        <label>Nombre del Agente Externo</label>
 					        <input  type="text" class="form-control input-sm"
-					        		data-toogle="tooltip" 
+					        		data-toogle="tooltip"
 	                        		title="Indique el nombre del agente externo responsable del bien" v-model="record.agent_name">
 					    </div>
 					</div>
-					
+
 					<div class="col-md-4" id="helpAssetRequestAgentTelf">
 					    <div class="form-group is-required">
 					    	<label>Teléfono del Agente Externo</label>
 					    	<input  type="text" class="form-control input-sm"
-					    			data-toogle="tooltip" 
+					    			data-toogle="tooltip"
 	                        		title="Indique el teléfono del agente externo responsable del bien" v-model="record.agent_telf">
 					    </div>
 					</div>
-					
+
 					<div class="col-md-4" id="helpAssetRequestAgentEmail">
 						<div class="form-group is-required">
 					    	<label>Correo del Agente Externo</label>
 					    	<input  type="text" class="form-control input-sm"
-					    			data-toogle="tooltip" 
+					    			data-toogle="tooltip"
 	                        		title="Indique el correo eléctronico del agente externo responsable del bien"
 	                        		v-model="record.agent_email">
 					    </div>
@@ -184,7 +191,7 @@
 				<div slot="status" slot-scope="props" class="text-center">
 					<span>{{ (props.row.asset_status)? props.row.asset_status.name:props.row.asset_status_id }}</span>
 				</div>
-				
+
 			</v-client-table>
 			<div class="VuePagination-2 row col-md-12 ">
 				<nav class="text-center">
@@ -231,7 +238,7 @@
 		        			<i class="fa fa-ban"></i>
 		        	</button>
 
-		        	<button type="button"  @click="createForm('asset/requests')"
+		        	<button type="button"  @click="createRecord('asset/requests')"
 		        			class="btn btn-success btn-icon btn-round btn-modal-save"
 		        			title="Guardar registro">
 		        		<i class="fa fa-save"></i>
@@ -270,6 +277,7 @@
 
 				},
 				records: [],
+				files: [],
 				page: 1,
 				total: '',
 				perPage: 10,
@@ -296,7 +304,7 @@
 						{"id":1,"text":"Prestamo de Equipos (Uso Interno)"},
 						{"id":2,"text":"Prestamo de Equipos (Uso Externo)"},
 						{"id":3,"text":"Prestamo de Equipos para Agentes Externos"}],
-				
+
 				selected: [],
 				selectAll: false,
 
@@ -345,7 +353,7 @@
 			}
 		},
 		props: {
-			requestid: Number, 
+			requestid: Number,
 		},
 		methods: {
 			toggleActive({ row }) {
@@ -387,16 +395,17 @@
 					address: '',
 				};
 
-				this.selected = [];
+				this.selected  = [];
+				this.files     = [];
 				this.selectAll = false;
-				
+
 			},
 			select() {
 				const vm = this;
 				vm.selected = [];
 				$.each(vm.records, function(index,campo){
 					var checkbox = document.getElementById('checkbox_' + campo.id);
-					
+
 					if(!vm.selectAll)
 						vm.selected.push(campo.id);
 					else if(checkbox && checkbox.checked){
@@ -408,7 +417,7 @@
 			 * Cambia la pagina actual de la tabla
 			 *
 			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
-			 * 
+			 *
 			 * @param [Integer] $page Número de pagina actual
 			 */
 			changePage(page) {
@@ -428,20 +437,68 @@
                     vm.pageValues.push(pag + i);
                 }
             },
-			createForm(url) {
-				const vm = this
+			createRecord(url, list = true, reset = true) {
+				const vm = this;
+				var inputFiles = document.querySelector('#files');
+				var formData   = new FormData();
+
 				vm.errors = [];
 				if(!vm.selected.length > 0){
                 	bootbox.alert("Debe agregar almenos un elemento a la solicitud");
 					return false;
 				};
-				vm.record.assets = vm.selected;
-				vm.createRecord(url);
+
+				if (this.record.id) {
+	                //this.updateRecord(url);
+	            } else {
+	            	vm.loading = true;
+	            	for (var index in vm.record) {
+	                	if (index == "motive") {
+	                		formData.append("motive", window.editor.getData());
+	                	} else {
+	                		formData.append(index, vm.record[index]);
+	                	}
+	                }
+	                formData.append("file", inputFiles.files[0]);
+	                formData.append("assets", vm.selected);
+	                axios.post('/' + url, formData, {
+	                    headers: {
+	                        'Content-Type': 'multipart/form-data'
+	                    }
+	                }).then(response => {
+	                    if (typeof(response.data.redirect) !== "undefined") {
+	                        location.href = response.data.redirect;
+	                    }
+	                    else {
+	                        vm.errors = [];
+	                        if (reset) {
+	                            vm.reset();
+	                        }
+	                        if (list) {
+	                            vm.readRecords(url);
+	                        }
+	                        vm.loading = false;
+	                        vm.showMessage('store');
+	                    }
+	                }).catch(error => {
+	                    vm.errors = [];
+
+	                    if (typeof(error.response) !="undefined") {
+	                        for (var index in error.response.data.errors) {
+	                            if (error.response.data.errors[index]) {
+	                                vm.errors.push(error.response.data.errors[index][0]);
+	                            }
+	                        }
+	                    }
+
+	                    vm.loading = false;
+	                });
+	            }
 			},
 		    loadForm(id){
 				const vm = this;
 	            var fields = {};
-	            
+
 	            axios.get('/asset/requests/vue-info/'+id).then(response => {
 	                if(typeof(response.data.records != "undefined")){
 						vm.record = response.data.records;

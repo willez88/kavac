@@ -14,14 +14,18 @@ class UpdateFieldsToBudgetCentralizedActionsTable extends Migration
     public function up()
     {
         Schema::table('budget_centralized_actions', function (Blueprint $table) {
-            $table->bigInteger('payroll_position_id')->unsigned()->nullable()
-                  ->comment(
-                      'Identificador asociado al cargo de la persona responsable del proyecto'
-                  )->change();
-            $table->bigInteger('payroll_staff_id')->unsigned()->nullable()
-                  ->comment(
-                      'Identificador asociado al cargo de la persona responsable del proyecto'
-                  )->change();
+            if (Schema::hasColumn('budget_centralized_actions', 'payroll_position_id')) {
+                $table->bigInteger('payroll_position_id')->unsigned()->nullable()
+                      ->comment(
+                          'Identificador asociado al cargo de la persona responsable del proyecto'
+                      )->change();
+            }
+            if (Schema::hasColumn('budget_centralized_actions', 'payroll_staff_id')) {
+                $table->bigInteger('payroll_staff_id')->unsigned()->nullable()
+                      ->comment(
+                          'Identificador asociado al cargo de la persona responsable del proyecto'
+                      )->change();
+            }
         });
     }
 
@@ -33,14 +37,18 @@ class UpdateFieldsToBudgetCentralizedActionsTable extends Migration
     public function down()
     {
         Schema::table('budget_centralized_actions', function (Blueprint $table) {
-            $table->bigInteger('payroll_position_id')->unsigned()
-                  ->comment(
-                      'Identificador asociado al cargo de la persona responsable del proyecto'
-                  )->change();
-            $table->bigInteger('payroll_staff_id')->unsigned()
-                  ->comment(
-                      'Identificador asociado al cargo de la persona responsable del proyecto'
-                  )->change();
+            if (Schema::hasColumn('budget_centralized_actions', 'payroll_position_id')) {
+                $table->bigInteger('payroll_position_id')->unsigned()
+                      ->comment(
+                          'Identificador asociado al cargo de la persona responsable del proyecto'
+                      )->change();
+            }
+            if (Schema::hasColumn('budget_centralized_actions', 'payroll_staff_id')) {
+                $table->bigInteger('payroll_staff_id')->unsigned()
+                      ->comment(
+                          'Identificador asociado al cargo de la persona responsable del proyecto'
+                      )->change();
+            }
         });
     }
 }

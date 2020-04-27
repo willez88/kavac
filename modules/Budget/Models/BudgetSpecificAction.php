@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
+use App\Traits\ModelsTrait;
 
 /**
  * @class BudgetSpecificAction
@@ -22,6 +23,7 @@ class BudgetSpecificAction extends Model implements Auditable
 {
     use SoftDeletes;
     use AuditableTrait;
+    use ModelsTrait;
 
     /** @var array Establece las relaciones por defecto que se retornan con las consultas */
     protected $with = ['specificable'];
@@ -33,6 +35,11 @@ class BudgetSpecificAction extends Model implements Auditable
      */
     protected $dates = ['deleted_at', 'from_date', 'to_date'];
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = ['from_date', 'to_date', 'code', 'name', 'description', 'active'];
 
 
@@ -66,10 +73,10 @@ class BudgetSpecificAction extends Model implements Auditable
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return string Devuelve el código y nombre de la acción específica
      */
-    public function getDescriptionAttribute()
+    /*public function getDescriptionAttribute()
     {
         return "{$this->code} - {$this->name}";
-    }
+    }*/
 
     /**
      * Get all of the owning specificable models.

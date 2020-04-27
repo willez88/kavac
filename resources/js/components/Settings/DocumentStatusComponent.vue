@@ -58,44 +58,59 @@
 			                    </div>
 			                    <div class="form-group">
 			                    	<div class="row">
-			                    		<div class="col-md-4">
+			                    		<div class="col-md-4 mb-2">
 				                    		<label for="">
-					                    		<input type="radio" class="form-control bootstrap-switch"
-					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si aprueba procesos"
-													   v-model.lazy="record.action" value="AP" data-record="action">
-				                    			Aprueba procesos
+                                                <div class="col-12 bootstrap-switch-mini">
+    					                    		<input type="radio" class="form-control bootstrap-switch"
+    					                    			   name="action" data-toggle="tooltip" data-on-label="SI"
+                                                           data-off-label="NO" title="Indique si aprueba procesos"
+    													   v-model.lazy="record.action" value="AP" data-record="action">
+				                    			    Aprueba procesos
+                                                </div>
 				                    		</label>
 				                    	</div>
-				                    	<div class="col-md-4">
+				                    	<div class="col-md-4 mb-2">
 				                    		<label for="">
-					                    		<input type="radio" class="form-control bootstrap-switch"
-					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si rechaza procesos"
-													   v-model="record.action" value="RE" data-record="action">
-				                    			Rechaza procesos
+                                                <div class="col-12 bootstrap-switch-mini">
+    					                    		<input type="radio" class="form-control bootstrap-switch"
+    					                    			   name="action" data-toggle="tooltip" data-on-label="SI"
+                                                           data-off-label="NO" title="Indique si rechaza procesos"
+    													   v-model="record.action" value="RE" data-record="action">
+    				                    			Rechaza procesos
+                                                </div>
 				                    		</label>
 				                    	</div>
-				                    	<div class="col-md-4">
+				                    	<div class="col-md-4 mb-2">
 				                    		<label for="">
-					                    		<input type="radio" class="form-control bootstrap-switch"
-					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si elimina procesos"
-													   v-model="record.action" value="EL" data-record="action">
-				                    			Elimina procesos
+                                                <div class="col-12 bootstrap-switch-mini">
+    					                    		<input type="radio" class="form-control bootstrap-switch"
+    					                    			   name="action" data-toggle="tooltip" data-on-label="SI"
+                                                           data-off-label="NO" title="Indique si elimina procesos"
+    													   v-model="record.action" value="EL" data-record="action">
+    				                    			Elimina procesos
+                                                </div>
 				                    		</label>
 				                    	</div>
-				                    	<div class="col-md-4">
+				                    	<div class="col-md-4 mb-2">
 				                    		<label for="">
-					                    		<input type="radio" class="form-control bootstrap-switch"
-					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si inicia procesos"
-													   v-model="record.action" value="PR" data-record="action">
-				                    			Inicia procesos
+                                                <div class="col-12 bootstrap-switch-mini">
+    					                    		<input type="radio" class="form-control bootstrap-switch"
+    					                    			   name="action" data-toggle="tooltip" data-on-label="SI"
+                                                           data-off-label="NO" title="Indique si inicia procesos"
+    													   v-model="record.action" value="PR" data-record="action">
+    				                    			Inicia procesos
+                                                </div>
 				                    		</label>
 				                    	</div>
-				                    	<div class="col-md-4">
+				                    	<div class="col-md-4 mb-2">
 				                    		<label for="">
-					                    		<input type="radio" class="form-control bootstrap-switch"
-					                    			   name="action" data-toggle="tooltip" data-on-label="SI" data-off-label="NO" title="Indique si anula procesos"
-													   v-model="record.action" value="AN" data-record="action">
-				                    			Anula procesos
+                                                <div class="col-12 bootstrap-switch-mini">
+    					                    		<input type="radio" class="form-control bootstrap-switch"
+    					                    			   name="action" data-toggle="tooltip" data-on-label="SI"
+                                                           data-off-label="NO" title="Indique si anula procesos"
+    													   v-model="record.action" value="AN" data-record="action">
+    				                    			Anula procesos
+                                                </div>
 				                    		</label>
 				                    	</div>
 			                    	</div>

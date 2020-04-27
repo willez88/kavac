@@ -27,8 +27,10 @@
                         @include('buttons.minimize')
 					</div>
 				</div>
-				<div class="card-body">
+				<div class="card-body" style="padding-bottom: 2.25rem">
+                    <manage-modules :modules='{!! json_encode($listModules) !!}'></manage-modules>
 					<div class="row">
+                        {{--
 						@foreach ($modules as $module)
 							<div class="col-3" style="margin-bottom:30px">
 								<div class="info-box">
@@ -97,6 +99,7 @@
 								</div>
 							</div>
 						@endforeach
+                        --}}
 					</div>
 				</div>
 			</div>
@@ -106,6 +109,7 @@
 
 @section('extra-js')
 	@parent
+    {!! Html::script('js/module-settings.js', [], Request::secure()) !!}
 	<script>
 		$(document).ready(function() {
 			$(".btn-enable").on("click", function() {

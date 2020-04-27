@@ -1,5 +1,10 @@
 import moment from 'moment';
 
+/** Import del editor clásico de CKEditor */
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+/** Requerimiento para traducción de CKEditor al español */
+require('@ckeditor/ckeditor5-build-classic/build/translations/es.js');
+
 /**
  * Opciones de configuración global para utilizar en todos los componentes vuejs de la aplicación
  *
@@ -13,6 +18,12 @@ Vue.mixin({
             loading: true,
             /** @type {Object} Objeto que contiene los atributos y métodos para obtener traducciones del sistema  */
             //i18n: Lang,
+            /** @type {Object} Objeto que contiene datos a gestionar para el bloque de pantalla por inactividad */
+            lockscreen: {
+                time: 0, //Tiempo de inactividad establecido para el bloqueo de la pantalla
+                lock: true, //Indica si se bloquea o no la pantalla por inactividad
+                timer_timeout: 0
+            },
             /**
              * Opciones generales a implementar en tablas
              * @type {JSON}
@@ -39,6 +50,19 @@ Vue.mixin({
                     down: 'fa-sort-down cursor-pointer'
                 },
             },
+            ckeditor: {
+                editor: ClassicEditor,
+                editorConfig: {
+                    toolbar: [
+                        'heading', '|',
+                        'bold', 'italic', 'blockQuote', 'link',
+                        'numberedList', 'bulletedList', '|',
+                        'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells', '|',
+                        'undo', 'redo'
+                    ],
+                    language: window.currentLocale
+                }
+            }
         }
     },
     props: {
@@ -785,6 +809,73 @@ Vue.mixin({
                 delay: {hide: delayHide}
             });
         },
+        /**
+         * Realiza las acciones necesarias para bloquear la pantalla del sistema por inactividad del usuario
+         *
+         * @method     lockScreen
+         *
+         * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         *
+         * @return     {boolean}         Retorna falso si la pantalla ya esta bloqueada
+         */
+        async lockScreen() {
+            let vm = this;
+            if (window.screen_locked) {
+                $(document.body).addClass('modalBlur');
+                $(".modal-lockscreen").modal('show');
+                return false;
+            }
+            else {
+                if (vm.lockscreen.time === 0) {
+                    /** @type {Object} Datos del usuario para el bloqueo de pantalla por inactividad */
+                    let response = await axios.get('/get-lockscreen-data');
+                    vm.lockscreen.lock = response.data.lock_screen;
+                    vm.lockscreen.time = response.data.time_lock;
+                }
+
+                if (vm.lockscreen.time > 0) {
+                    /** Bloquea la pantalla del sistema al no haber actividad por parte del usuario */
+                    vm.lockscreen.timer_timeout = setTimeout(function() {
+                        $(document.body).addClass('modalBlur');
+                        $(".modal-lockscreen").modal('show');
+                        window.screen_locked = true;
+                        axios.post('/set-lockscreen-data', {
+                            lock_screen: true
+                        }).catch(error => {
+                            console.warn(error);
+                        });
+                    }, vm.lockscreen.time * 60000);
+
+
+                    /** @type {Array} Eventos que determinan actividad del usuario en la aplicación */
+                    /*var activityEvents = [
+                        'mousedown', 'mousemove', 'keydown',
+                        'scroll'
+                    ];*/
+
+                    /** Reinicia el contador para bloquear la pantalla si el usuario ha estado activo en la aplicación */
+                    /*activityEvents.forEach(function(eventName) {
+                        document.addEventListener(eventName, function() {
+                            console.log($(".modal-lockscreen").is(':visible'))
+                            if (!$(".modal-lockscreen").is(':visible')) {
+                                clearTimeout(vm.timer_timeout);
+                                window.screen_locked = false;
+                                vm.lockscreen.timer_timeout = setTimeout(function() {
+                                    $(document.body).addClass('modalBlur');
+                                    $(".modal-lockscreen").modal('show');
+                                    window.screen_locked = true;
+                                    axios.post('/set-lockscreen-data', {
+                                        lock_screen: true
+                                    }).catch(error => {
+                                        console.warn(error);
+                                    });
+                                }, vm.lockscreen.time * 60000);
+                            }
+                        }, true);
+                    });*/
+                }
+            }
+        },
         /*loadRelationalSelect(parent_id, target_url) {
             var parent_id = (typeof(parent_id) !== "undefined")?parent_id:false;
             var target_url = (typeof(target_url) !== "undefined")?target_url:false;
@@ -801,5 +892,14 @@ Vue.mixin({
         this.loading = false;
     },
     mounted() {
+        let vm = this;
+        if ($('.modal-lockscreen').length > 0) {
+            //vm.lockScreen();
+            //$('.modal-lockscreen').on('hidden.bs.modal', function() {
+                /** Reinicia el valor del campo de la contraseña */
+                //$(".modal-lockscreen").find('#password').val('');
+                //vm.lockScreen();
+            //});
+        }
     }
 });

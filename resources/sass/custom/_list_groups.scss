@@ -1,0 +1,9 @@
+.list-group {
+    &.list-group-modules {
+        .media-left {
+            margin-right: 10px;
+            border-right: solid 2px;
+            padding-right: 10px;
+        }
+    }
+}

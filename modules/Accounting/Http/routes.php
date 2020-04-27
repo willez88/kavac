@@ -59,7 +59,7 @@ Route::group(['middleware' => ['web', 'auth', 'verified'],
     Route::get('converter/budgetToAccount/{id}', 'AccountingAccountConverterController@budgetToAccount')
             ->name('accounting.converter.budgetToAccount');
 
-    // retorna cuenta presupuestal asociada
+    // retorna cuenta presupuestaria asociada
     Route::get('converter/accountToBudget/{id}', 'AccountingAccountConverterController@accountToBudget')
             ->name('accounting.converter.accountToBudget');
 

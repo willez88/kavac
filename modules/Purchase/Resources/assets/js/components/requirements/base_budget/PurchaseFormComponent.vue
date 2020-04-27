@@ -5,41 +5,43 @@
             <purchase-show-errors ref="PurchaseBaseBudgetComponent" />
 
             <div class="card-body">
-                <v-client-table :columns="columns" :data="records" :options="table_options" class="row">
-                    <div slot="requirement_status" slot-scope="props" class="text-center">
-                        <div class="d-inline-flex">
-                            <span class="badge badge-danger"  v-show="props.row.requirement_status == 'WAIT'">     <strong>EN ESPERA</strong></span>
-                            <span class="badge badge-info"    v-show="props.row.requirement_status == 'PROCESSED'"><strong>PROCESADO</strong></span>
-                            <span class="badge badge-success" v-show="props.row.requirement_status == 'BOUGHT'">   <strong>COMPRADO </strong></span>
-                        </div>
-                    </div>
-                    <div slot="id" slot-scope="props" class="text-center">
-                        <div class="feature-list-content-left mr-2">
-                            <label class="custom-control custom-checkbox">
-                                <p-check class="p-icon p-smooth p-plain p-curve"
-                                         color="primary-o"
-                                         :value="'_'+props.row.id"
-                                         :checked="indexOf(requirement_list, props.row.id, true)"
-                                         @change="requirementCheck(props.row)">
-                                    <i slot="extra" class="icon fa fa-check"></i>
-                                </p-check>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="form-group is-required">
+                            <label class="control-label">Tipo de moneda
                             </label>
+                            <select2 :options="currencies" v-model="currency_id" tabindex="1"></select2>
                         </div>
                     </div>
-                </v-client-table>
+                    <div class="col-12">
+                        <v-client-table :columns="columns" :data="records" :options="table_options" class="row">
+                            <div slot="requirement_status" slot-scope="props" class="text-center">
+                                <div class="d-inline-flex">
+                                    <span class="badge badge-danger"  v-show="props.row.requirement_status == 'WAIT'">     <strong>EN ESPERA</strong></span>
+                                    <span class="badge badge-info"    v-show="props.row.requirement_status == 'PROCESSED'"><strong>PROCESADO</strong></span>
+                                    <span class="badge badge-success" v-show="props.row.requirement_status == 'BOUGHT'">   <strong>COMPRADO </strong></span>
+                                </div>
+                            </div>
+                            <!-- <div slot="id" slot-scope="props" class="text-center">
+                                <div class="feature-list-content-left mr-2">
+                                    <label class="custom-control custom-checkbox">
+                                        <p-check class="p-icon p-smooth p-plain p-curve"
+                                                 color="primary-o"
+                                                 :value="'_'+props.row.id"
+                                                 :checked="indexOf(requirement_list, props.row.id, true)"
+                                                 @change="requirementCheck(props.row)">
+                                            <i slot="extra" class="icon fa fa-check"></i>
+                                        </p-check>
+                                    </label>
+                                </div>
+                            </div> -->
+                        </v-client-table>
+                    </div>
+                </div>
             </div>
         </div>
         <hr>
         <div class="form-horizontal">
-            <div class="row">
-                <div class="col-3">
-                    <div class="form-group is-required">
-                        <label class="control-label">Tipo de moneda
-                        </label>
-                        <select2 :options="currencies" v-model="currency_id" tabindex="1"></select2>
-                    </div>
-                </div>
-            </div>
             <div class="card-body">
                 <table class="table table-striped table-hover">
                     <thead>
@@ -68,7 +70,8 @@
                             </td>
                             <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
                                 <input type="number" :disabled="!currency_id" :step="cualculateLimitDecimal()" 
-                                       class="form-control" v-model="(varr.pivot_purchase)?varr.pivot_purchase.unit_price:varr.unit_price" @input="CalculateTot">
+                                       class="form-control" v-model="(varr.pivot_purchase)?varr.pivot_purchase.unit_price:varr.unit_price" 
+                                       @input="CalculateTot">
                             </td>
                             <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
                                 <h6 align="right">{{ CalculateQtyPrice(varr.qty_price) }}</h6>
@@ -151,7 +154,7 @@
                             'user_department.name',
                             'purchase_supplier_type.name',
                             'requirement_status',
-                            'id'
+                            // 'id'
                         ],
                 currency_id:'',
                 currency:null,
@@ -165,54 +168,54 @@
             reset(){
                 // 
             },
-            indexOf(list, id, returnBoolean){
-                for (var i = list.length - 1; i >= 0; i--) {
-                    if (list[i].id == id) {
-                        return (returnBoolean) ? true : i;
-                    }
-                }
-                return (returnBoolean) ? false : -1;
-            },
-            requirementCheck(record){
+            // indexOf(list, id, returnBoolean){
+            //     for (var i = list.length - 1; i >= 0; i--) {
+            //         if (list[i].id == id) {
+            //             return (returnBoolean) ? true : i;
+            //         }
+            //     }
+            //     return (returnBoolean) ? false : -1;
+            // },
+            // requirementCheck(record){
 
-                var pos = this.indexOf(this.requirement_list, record.id);
-                // se agregan a la lista a guardar
-                if (pos == -1) {
-                    for (var i = 0; i < record.purchase_requirement_items.length; i++) {
-                        record.purchase_requirement_items[i].unit_price = 0;
-                        record.purchase_requirement_items[i].requirement_code = record.code;
-                    }
+            //     var pos = this.indexOf(this.requirement_list, record.id);
+            //     // se agregan a la lista a guardar
+            //     if (pos == -1) {
+            //         for (var i = 0; i < record.purchase_requirement_items.length; i++) {
+            //             record.purchase_requirement_items[i].unit_price = 0;
+            //             record.purchase_requirement_items[i].requirement_code = record.code;
+            //         }
 
-                    // saca de la lista de registros eliminar
-                    pos = this.indexOf(this.requirement_list_deleted, record.id);
-                    if (pos != -1) {
-                        this.requirement_list_deleted.splice(pos,1);
-                    }
+            //         // saca de la lista de registros eliminar
+            //         pos = this.indexOf(this.requirement_list_deleted, record.id);
+            //         if (pos != -1) {
+            //             this.requirement_list_deleted.splice(pos,1);
+            //         }
 
-                    this.requirement_list.push(record);
-                    this.record_items = this.record_items.concat(record.purchase_requirement_items);
-                }else{
-                    // se sacan de la lista a guardar
-                    var record_copy = this.requirement_list.splice(pos,1)[0];
-                    var pos = this.indexOf(this.requirement_list_deleted, record_copy.id); 
+            //         this.requirement_list.push(record);
+            //         this.record_items = this.record_items.concat(record.purchase_requirement_items);
+            //     }else{
+            //         // se sacan de la lista a guardar
+            //         var record_copy = this.requirement_list.splice(pos,1)[0];
+            //         var pos = this.indexOf(this.requirement_list_deleted, record_copy.id); 
 
-                    // agrega a la lista de registros a eliminar
-                    if (pos == -1) {
-                        this.requirement_list_deleted.push(record_copy);
-                    }
+            //         // agrega a la lista de registros a eliminar
+            //         if (pos == -1) {
+            //             this.requirement_list_deleted.push(record_copy);
+            //         }
 
-                    for (var i = 0; i < record.purchase_requirement_items.length; i++) {
-                        for (var x = 0; x < this.record_items.length; x++) {
-                            if (this.record_items[x].id == record.purchase_requirement_items[i].id) {
-                                delete this.record_items[x].qty_price;
-                                this.record_items.splice(x,1);
-                                break;
-                            }
-                        }
-                    }
-                }
-                this.CalculateTot();
-            },
+            //         for (var i = 0; i < record.purchase_requirement_items.length; i++) {
+            //             for (var x = 0; x < this.record_items.length; x++) {
+            //                 if (this.record_items[x].id == record.purchase_requirement_items[i].id) {
+            //                     delete this.record_items[x].qty_price;
+            //                     this.record_items.splice(x,1);
+            //                     break;
+            //                 }
+            //             }
+            //         }
+            //     }
+            //     this.CalculateTot();
+            // },
             createRecord(){
                 this.$refs.PurchaseBaseBudgetComponent.reset();
                 if (!this.record_tax) {
@@ -247,6 +250,7 @@
                     axios.post('/purchase/base_budget',{   
                             'list':this.requirement_list, 
                             'currency_id':this.currency_id,
+                            'subtotal':this.sub_total,
                             'tax_id':this.record_tax.id,
                         }).then(response=>{
                         this.loading = false;
@@ -276,6 +280,7 @@
                             'list':this.requirement_list, 
                             'list_to_delete':this.requirement_list_deleted, 
                             'currency_id':this.currency_id,
+                            'subtotal':this.sub_total,
                             'tax_id':this.record_tax.id,
                         }).then(response=>{
                         this.loading = false;
@@ -349,43 +354,50 @@
                 'user_department.name': 'Departamento Usuario',
                 'purchase_supplier_type.name': 'Tipo de Proveedor',
                 'requirement_status': 'Estado',
-                'id': 'Selección'
+                // 'id': 'Selección'
             };
             this.table_options.columnsClasses = {
-                'code'    : 'col-xs-1',
-                'description': 'col-xs-2',
-                'fiscal_year.year': 'col-xs-1',
+                'code'    : 'col-xs-1 text-center',
+                'description': 'col-xs-3',
+                'fiscal_year.year': 'col-xs-1 text-center',
                 'contrating_department.name'    : 'col-xs-2',
                 'user_department.name': 'col-xs-2',
                 'purchase_supplier_type.name': 'col-xs-2',
                 'requirement_status': 'col-xs-1',
-                'id'      : 'col-xs-1'
+                // 'id'      : 'col-xs-1'
             };
         },
         mounted(){
-            if (!this.record_tax) {
-                this.$refs.PurchaseBaseBudgetComponent.showAlertMessages('Debe configurar el IVA en el sistema.');
+            const vm = this;
+            if (!vm.record_tax) {
+                vm.$refs.PurchaseBaseBudgetComponent.showAlertMessages('Debe configurar el IVA en el sistema.');
             }
-            if (this.base_budget_edit) {
-                this.currency_id = this.base_budget_edit.currency_id;
+            if (vm.base_budget_edit) {
+                vm.currency_id = vm.base_budget_edit.currency_id;
 
-                for (var i = 0; i < this.base_budget_edit.purchase_requirement.length; i++) {
-                    var requirement = this.base_budget_edit.purchase_requirement[i];
+                var prices = [];
+                for (var i = 0; i < vm.base_budget_edit.relatable.length; i++) {
+                    prices[vm.base_budget_edit.relatable[i].purchase_requirement_item_id] = vm.base_budget_edit.relatable[i].unit_price;
+                }
 
-                    if (this.requirement_list.indexOf(requirement) == -1) {
-                        this.requirement_list.push(requirement);
-                    }
+                // for (var i = 0; i < vm.base_budget_edit.purchase_requirements.length; i++) {
+                    var requirement = vm.base_budget_edit.purchase_requirement;
+
+                    // if (vm.requirement_list.indexOf(requirement) == -1) {
+                        vm.requirement_list.push(requirement);
+                    // }
 
                     var items = requirement.purchase_requirement_items;
 
                     for (var x = 0; x < items.length; x++) {
                         items[x].requirement_code = requirement.code;
+                        items[x].unit_price = (prices && prices[items[x].id])?prices[items[x].id]:0;
                         items[x].qty_price = items[x].quantity * items[x].unit_price;
                         
-                        this.record_items = this.record_items.concat(items[x]);
+                        vm.record_items = vm.record_items.concat(items[x]);
                     }
-                }
-                this.CalculateTot();
+                // }
+                vm.CalculateTot();
             }
         },
         watch:{

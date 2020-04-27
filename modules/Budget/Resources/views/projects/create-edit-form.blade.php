@@ -86,7 +86,7 @@
 								<div class="form-group is-required">
 									{!! Form::label('code', __('Código'), ['class' => 'control-label']) !!}
 									{!! Form::text('code', (isset($model)) ? $model->code : old('code'), [
-										'class' => 'form-control', 'placeholder' => __('Código de proyecto'),
+										'class' => 'form-control input-sm', 'placeholder' => __('Código de proyecto'),
 										'data-toggle' => 'tooltip', 'title' => __('Código que identifica el proyecto')
 									]) !!}
 								</div>
@@ -95,7 +95,7 @@
 								<div class="form-group is-required">
 									{!! Form::label('onapre_code', __('Código ONAPRE'), ['class' => 'control-label']) !!}
 									{!! Form::text('onapre_code', (isset($model)) ? $model->onapre_code : old('onapre_code'), [
-										'class' => 'form-control', 'placeholder' => __('Código de la ONAPRE'),
+										'class' => 'form-control input-sm', 'placeholder' => __('Código de la ONAPRE'),
 										'data-toggle' => 'tooltip',
 										'title' => __('Código asignado por la Oficina Nacional de Presupuesto (ONAPRE)')
 									]) !!}
@@ -105,7 +105,7 @@
 								<div class="form-group is-required">
 									{!! Form::label('name', __('Nombre'), ['class' => 'control-label']) !!}
 									{!! Form::text('name', (isset($model)) ? $model->name : old('name'), [
-										'class' => 'form-control', 'placeholder' => __('Nombre del proyecto'),
+										'class' => 'form-control input-sm', 'placeholder' => __('Nombre del proyecto'),
 										'data-toggle' => 'tooltip',
 										'title' => __('Nombre que identifica el proyecto')
 									]) !!}
@@ -117,10 +117,12 @@
 								<div class="form-group">
 									<label for="" class="control-label">{{ __('Activo') }}</label>
 									<div class="col-12">
-										{!! Form::checkbox('active', true, (isset($model))?$model->active:null, [
-											'id' => 'active', 'class' => 'form-control bootstrap-switch',
-											'data-on-label' => __('SI'), 'data-off-label' => __('NO')
-										]) !!}
+                                        <div class="col-12 bootstrap-switch-mini">
+    										{!! Form::checkbox('active', true, (isset($model))?$model->active:null, [
+    											'id' => 'active', 'class' => 'form-control bootstrap-switch',
+    											'data-on-label' => __('SI'), 'data-off-label' => __('NO')
+    										]) !!}
+                                        </div>
 									</div>
 								</div>
 							</div>

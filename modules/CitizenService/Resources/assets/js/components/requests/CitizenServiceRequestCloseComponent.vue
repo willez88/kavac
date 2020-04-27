@@ -62,11 +62,7 @@
 					</div>
 					<hr>
 					<v-client-table :columns="columns" :data="records" :options="table_options">
-						<div slot="code" slot-scope="props" class="text-center">
-								<span>
-									{{ props.row.code }}
-								</span>
-						</div>
+						
 						<div slot="id" slot-scope="props" class="text-center">
 								<div class="d-inline-flex">
 									<button @click="initUpdate(props.index, $event)" 
@@ -150,14 +146,14 @@
                 }).then(response => {
 
 
-                	console.log(response.data.image_id);
-                	console.log(response.data.image_url);
-                	records.push({
-                		file: '',
+                	console.log(response.data.file_id);
+                	console.log(response.data.file_url);
+                	vm.records.push({
+                		file: response.data.file_name,
                 		size: '',
                 		state: '',
-                		id: response.data.image_id,
-                		url: response.data.url
+                		id: response.data.file_id,
+                		url: response.data.file_url
                 	});
 
                     vm.showMessage(

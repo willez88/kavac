@@ -1,0 +1,20 @@
+{
+    "version": "1.0.0",
+    "name": "Sale",
+    "alias": "sale",
+    "name_es": "Comercialización",
+    "description": "Gestión de ventas",
+    "long_description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "logo": "sale-logo.png",
+    "providers": [
+        "Modules\\Sale\\Providers\\SaleServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

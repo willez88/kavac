@@ -62,10 +62,12 @@
 								<div class="form-group is-required">
 									<label>Solicita almacén:</label>
 									<div class="col-md-12">
-										<input type="checkbox" class="form-control bootstrap-switch" name="issue_requests"
-											   data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
-											   title="Indique si puede emitir solicitudes de almacén"
-											   v-model="record.issue_requests" value="true">
+                                        <div class="bootstrap-switch-mini">
+    										<input type="checkbox" class="form-control bootstrap-switch"
+    											   data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
+    											   title="Indique si puede emitir solicitudes de almacén"
+    											   v-model="record.issue_requests" value="true" name="issue_requests">
+                                        </div>
 									</div>
 			                    </div>
 							</div>
@@ -73,10 +75,12 @@
 								<div class="form-group is-required">
 									<label>Activo:</label>
 									<div class="col-md-12">
-										<input type="checkbox" class="form-control bootstrap-switch" name="active"
-											   data-toggle="tooltip" title="Indique si se encuentra activo"
-											   data-on-label="SI" data-off-label="NO" value="true"
-											   v-model="record.active">
+                                        <div class="bootstrap-switch-mini">
+    										<input type="checkbox" class="form-control bootstrap-switch" name="active"
+    											   data-toggle="tooltip" title="Indique si se encuentra activo"
+    											   data-on-label="SI" data-off-label="NO" value="true"
+    											   v-model="record.active">
+                                        </div>
 									</div>
 			                    </div>
 							</div>
@@ -84,10 +88,12 @@
 								<div class="form-group is-required">
 									<label>Administrativo:</label>
 									<div class="col-md-12">
-										<input type="checkbox" class="form-control bootstrap-switch"
-											   data-toggle="tooltip" title="Indique si la unidad, departamento o dependencia es del área administrativa" name="administrative"
-											   data-on-label="SI" data-off-label="NO" value="true"
-											   v-model="record.administrative">
+                                        <div class="bootstrap-switch-mini">
+    										<input type="checkbox" class="form-control bootstrap-switch"
+    											   data-toggle="tooltip" title="Indique si la unidad, departamento o dependencia es del área administrativa" name="administrative"
+    											   data-on-label="SI" data-off-label="NO" value="true"
+    											   v-model="record.administrative">
+                                        </div>
 									</div>
 			                    </div>
 							</div>

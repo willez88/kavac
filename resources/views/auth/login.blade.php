@@ -5,7 +5,7 @@
         {{ csrf_field() }}
         <div class="header header-primary text-center">
             <div class="logo-container">
-                @include('layouts.logo-images', ['logo_mini' => true, 'logo_name' => true])
+                @include('layouts.logo-images', ['logo_mini' => true])
             </div>
             <h6>{{ __('Acceso') }}</h6>
         </div>

@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'TechnicalSupport'
+    'name' => 'TechnicalSupport',
+    'name_es' => 'Soporte Técnico'
 ];

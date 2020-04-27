@@ -48,14 +48,14 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Trabajador</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="payroll_staff">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Grado de Instrucción</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="payroll_instruction_degree">
                                 </div>
                             </div>
@@ -70,7 +70,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Nombre de la Especialización, Maestría o Doctorado</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="instruction_degree_name">
                                 </div>
                             </div>
@@ -81,8 +81,10 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>¿Es Estudiante?</label>
-                                    <input id="is_student" class="form-control bootstrap-switch"
-                                        data-on-label="SI" data-off-label="NO" type="checkbox">
+                                    <div class="col-12 bootstrap-switch-mini">
+                                        <input id="is_student" class="form-control bootstrap-switch"
+                                            data-on-label="SI" data-off-label="NO" type="checkbox">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -91,23 +93,24 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Tipo de Estudio</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="payroll_study_type">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Nombre del Programa de Estudio</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="study_program_name">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Horario de Clase</label>
-                                    <textarea class="form-control" disabled="true"
-                                        id="class_schedule">
-                                    </textarea>
+                                    <ckeditor :editor="ckeditor.editor" id="class_schedule" data-toggle="tooltip"
+                                              title="Indique el horario de clase" :config="ckeditor.editorConfig"
+                                              class="form-control" name="class_schedule" tag-name="textarea"
+                                              rows="4" disabled="true"></ckeditor>
                                 </div>
                             </div>
                         </div>
@@ -124,14 +127,14 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Idioma</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" :value="payroll_language.name">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Dominio del Idioma</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" :value="record.payroll_language_levels[index].name">
                                 </div>
                             </div>

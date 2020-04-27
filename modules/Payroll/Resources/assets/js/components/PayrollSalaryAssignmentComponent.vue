@@ -57,8 +57,8 @@
 									<div class="col-md-2">
 										<div class="form-group is-required">
 											<label>Código:</label>
-											<input type="text" placeholder="Código" data-toggle="tooltip" 
-												   title="Indique el código de la nueva asignación salarial (requerido)" 
+											<input type="text" placeholder="Código" data-toggle="tooltip"
+												   title="Indique el código de la nueva asignación salarial (requerido)"
 												   class="form-control input-sm" v-model="record.code">
 											<input type="hidden" v-model="record.id">
 					                    </div>
@@ -66,7 +66,7 @@
 									<div class="col-md-4">
 										<div class=" form-group is-required">
 											<label>Nombre:</label>
-											<input type="text" placeholder="Nombre de la asignación" 
+											<input type="text" placeholder="Nombre de la asignación"
 															data-toggle="tooltip"
 															title="Indique un nombre asociado a la asignación"
 															class="form-control input-sm"
@@ -76,25 +76,28 @@
 									<div class="col-md-2">
 										<div class=" form-group">
 											<label>¿Activa?</label>
-											<div class="col-12" data-toggle="tooltip" 
+											<div class="col-12" data-toggle="tooltip"
 												 title="¿La asignación se encuentra activa actualmente?">
-												<input type="checkbox" class="form-control bootstrap-switch" 
-												   data-toggle="tooltip" name="active" 
-												   title="Indique si la asignación esta activa"
-												   data-on-label="SI" data-off-label="NO" 
-												   v-model="record.active" value="true">
+                                                <div class="col-12 bootstrap-switch-mini">
+    												<input type="checkbox" class="form-control bootstrap-switch"
+                                                           data-toggle="tooltip" name="active"
+                                                           title="Indique si la asignación esta activa"
+                                                           data-on-label="SI" data-off-label="NO"
+                                                           v-model="record.active" value="true">
+                                                </div>
 											</div>
 										</div>
 									</div>
 									<div class="col-md-2">
 										<div class=" form-group">
 											<label>¿Incide sobre SB.?</label>
-											<div class="col-12" data-toggle="tooltip" 
+											<div class="col-12" data-toggle="tooltip"
 												 title="¿Incide sobre el sueldo base?">
-												<input type="checkbox" class="form-control bootstrap-switch" 
-												   name="incidence" 
-												   data-on-label="SI" data-off-label="NO" 
-												   v-model="record.incidence" value="true">
+                                                <div class="col-12 bootstrap-switch-mini">
+    												<input type="checkbox" class="form-control bootstrap-switch"
+                                                           name="incidence" data-on-label="SI" data-off-label="NO"
+                                                           v-model="record.incidence" value="true">
+                                                </div>
 											</div>
 										</div>
 									</div>
@@ -105,11 +108,12 @@
 											<div class="col-md-12">
 												<div class="form-group">
 													<label>Descripción:</label>
-													<textarea  data-toggle="tooltip" 
-															   title="Indique alguna descripción asociada a la asignación"
-															   rows="1" 
-															   class="form-control" v-model="record.description">
-												   </textarea>
+                                                    <ckeditor :editor="ckeditor.editor" id="description"
+                                                              data-toggle="tooltip"
+                                                              title="Indique una descripción asociada a la asignación"
+                                                              :config="ckeditor.editorConfig" class="form-control"
+                                                              name="description" tag-name="textarea" rows="3"
+                                                              v-model="record.description"></ckeditor>
 							                    </div>
 											</div>
 					                    </div>
@@ -123,10 +127,12 @@
 												<div class=" form-group">
 													<label>Valor Absoluto</label>
 													<div class="col-12">
-														<input type="radio" name="incidence_type" 
-																value="Valor Neto" id="sel_neto_value" 
-																class="form-control bootstrap-switch bootstrap-switch-mini sel_incidence_value" 
-																data-on-label="SI" data-off-label="NO">
+                                                        <div class="col-12 bootstrap-switch-mini">
+    														<input type="radio" name="incidence_type" value="Valor Neto"
+                                                                   id="sel_neto_value"
+                                                                   class="form-control bootstrap-switch bootstrap-switch-mini sel_incidence_value"
+    																data-on-label="SI" data-off-label="NO">
+                                                        </div>
 													</div>
 												</div>
 											</div>
@@ -134,10 +140,12 @@
 												<div class=" form-group">
 													<label>Unidad Tributaria</label>
 													<div class="col-12">
-														<input type="radio" name="incidence_type" 
-																value="Unidad Tributaria" id="sel_tax_unit" 
-																class="form-control bootstrap-switch bootstrap-switch-mini sel_incidence_value"
-																data-on-label="SI" data-off-label="NO">
+                                                        <div class="col-12 bootstrap-switch-mini">
+    														<input type="radio" name="incidence_type"
+                                                                   value="Unidad Tributaria" id="sel_tax_unit"
+                                                                   class="form-control bootstrap-switch bootstrap-switch-mini sel_incidence_value"
+                                                                   data-on-label="SI" data-off-label="NO">
+                                                        </div>
 													</div>
 												</div>
 											</div>
@@ -145,10 +153,12 @@
 												<div class=" form-group">
 													<label>Porcentaje</label>
 													<div class="col-12">
-														<input type="radio" name="incidence_type" 
-																value="Porcentaje" id="sel_percent" 
-																class="form-control bootstrap-switch bootstrap-switch-mini sel_incidence_value"
-																data-on-label="SI" data-off-label="NO">
+                                                        <div class="col-12 bootstrap-switch-mini">
+    														<input type="radio" name="incidence_type" value="Porcentaje"
+                                                                   id="sel_percent"
+                                                                   class="form-control bootstrap-switch bootstrap-switch-mini sel_incidence_value"
+                                                                   data-on-label="SI" data-off-label="NO">
+                                                        </div>
 													</div>
 												</div>
 											</div>
@@ -159,22 +169,21 @@
 									<div class="col-md-4">
 										<div class=" form-group is-required">
 											<label>Institución:</label>
-											<select2 :options="institutions"
-												v-model="record.institution_id"></select2>
+											<select2 :options="institutions" v-model="record.institution_id"></select2>
 										</div>
 									</div>
 									<div class="col-md-4">
 										<div class=" form-group is-required">
 											<label>Tipo de Asignación</label>
 											<select2 :options="payroll_salary_assignment_types"
-												v-model="record.payroll_salary_assignment_type_id"></select2>
+                                                     v-model="record.payroll_salary_assignment_type_id"></select2>
 										</div>
 									</div>
 									<div class="col-md-4">
 										<div class=" form-group is-required">
 											<label>¿Asignar a?</label>
 											<select2 :options="payroll_assign_to" @input="getAssignableType()"
-												v-model="record.payroll_assign_to_id">
+                                                     v-model="record.payroll_assign_to_id">
 											</select2>
 										</div>
 									</div>
@@ -182,31 +191,27 @@
 										<div class=" form-group is-required">
 											<label>Periodicidad</label>
 											<select2 :options="payroll_periodicities"
-												v-model="record.payroll_periodicity_id"></select2>
+                                                     v-model="record.payroll_periodicity_id"></select2>
 										</div>
 									</div>
 									<div class="col-md-4"
 										v-if="viewAssignableTypes()">
 										<div class=" form-group is-required">
 											<label id="assignable_type_label"></label>
-											<label
-												v-if="record.payroll_assign_to_id == 1">
+											<label v-if="record.payroll_assign_to_id == 1">
 												Tipo de Personal:
 											</label>
-											<label
-												v-if="record.payroll_assign_to_id == 2">
+											<label v-if="record.payroll_assign_to_id == 2">
 												Tipo de Cargo:
 											</label>
-											<label
-												v-if="record.payroll_assign_to_id == 4">
+											<label v-if="record.payroll_assign_to_id == 4">
 												Trabajador:
 											</label>
-											<label
-												v-if="record.payroll_assign_to_id == 5">
+											<label v-if="record.payroll_assign_to_id == 5">
 												Tabulador:
 											</label>
 											<select2 :options="assignable_types"
-												v-model="record.assignable_id"></select2>
+                                                     v-model="record.assignable_id"></select2>
 										</div>
 									</div>
 								</div>
@@ -250,9 +255,9 @@
 		                    		<div class="row">
 		                    			<div class="col-4 offset-md-8">
 											<div class="float-right">
-												<button type="button" @click="exportRecord('payroll/salary-assignments/export')"
-													class="btn btn-sm btn-warning btn-import" 
-														title="Presione para exportar la información."
+												<button type="button" class="btn btn-sm btn-warning btn-import"
+                                                        @click="exportRecord('payroll/salary-assignments/export')"
+                                                        title="Presione para exportar la información."
 														data-toggle="tooltip" v-if="this.record.id">
 													<i class="fa fa-download"></i>
 													Exportar
@@ -280,7 +285,7 @@
 													<th>
 														{{ record.incidence_type }}</th>
 													<td v-for="(field,index) in payroll_salary_scale.payroll_scales">
-														
+
 													</td>
 												</tr>
 											</tbody>
@@ -361,10 +366,10 @@
 
 					payroll_assign_to_id: '',
 					payroll_salary_scale_id: '',
-					
+
 					periodicity_id: '',
 					institution_id: '',
-					
+
 				},
 				payroll_salary_scale: {
 					id:'',
@@ -456,7 +461,7 @@
 
 					payroll_assign_to_id: '',
 					payroll_salary_scale_id: '',
-					
+
 					periodicity_id: '',
 					institution_id: ''
 				};
@@ -492,9 +497,9 @@
 					name: '',
 					value: '',
 				};
-				if(vm.editIndex == null)					
+				if(vm.editIndex == null)
 					vm.payroll_salary_scale.payroll_scales.push(field);
-				else if(vm.editIndex >= 0 ){				
+				else if(vm.editIndex >= 0 ){
 					vm.payroll_salary_scale.payroll_scales.splice(vm.editIndex, 1);
 					vm.payroll_salary_scale.payroll_scales.push(field);
 					vm.editIndex = null;

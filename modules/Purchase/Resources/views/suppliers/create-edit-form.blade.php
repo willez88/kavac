@@ -61,17 +61,21 @@
 											<div class="col-12">
 												<label class="radio-inline">
 													<span class="left">Natural</span>
-													{!! Form::radio('person_type', 'N', null, [
-														'class' => 'form-control bootstrap-switch', 'data-on-label' => 'SI',
-														'data-off-label' => 'NO'
-													]) !!}
+                                                    <div class="col-12 bootstrap-switch-mini">
+    													{!! Form::radio('person_type', 'N', null, [
+    														'class' => 'form-control bootstrap-switch',
+                                                            'data-on-label' => 'SI', 'data-off-label' => 'NO'
+    													]) !!}
+                                                    </div>
 												</label>
 												<label class="radio-inline">
 													<span class="left">Jurídica</span>
-													{!! Form::radio('person_type', 'J', null, [
-														'class' => 'form-control bootstrap-switch', 'data-on-label' => 'SI',
-														'data-off-label' => 'NO'
-													]) !!}
+                                                    <div class="col-12 bootstrap-switch-mini">
+    													{!! Form::radio('person_type', 'J', null, [
+    														'class' => 'form-control bootstrap-switch',
+                                                            'data-on-label' => 'SI', 'data-off-label' => 'NO'
+    													]) !!}
+                                                    </div>
 												</label>
 											</div>
 										</div>
@@ -82,17 +86,21 @@
 											<div class="col-12">
 												<label class="radio-inline">
 													<span class="left">Pública</span>
-													{!! Form::radio('company_type', 'PU', null, [
-														'class' => 'form-control bootstrap-switch', 'data-on-label' => 'SI',
-														'data-off-label' => 'NO'
-													]) !!}
+                                                    <div class="col-12 bootstrap-switch-mini">
+    													{!! Form::radio('company_type', 'PU', null, [
+    														'class' => 'form-control bootstrap-switch',
+                                                            'data-on-label' => 'SI', 'data-off-label' => 'NO'
+    													]) !!}
+                                                    </div>
 												</label>
 												<label class="radio-inline">
 													<span class="left">Privada</span>
-													{!! Form::radio('company_type', 'PR', null, [
-														'class' => 'form-control bootstrap-switch', 'data-on-label' => 'SI',
-														'data-off-label' => 'NO'
-													]) !!}
+                                                    <div class="col-12 bootstrap-switch-mini">
+    													{!! Form::radio('company_type', 'PR', null, [
+    														'class' => 'form-control bootstrap-switch',
+                                                            'data-on-label' => 'SI', 'data-off-label' => 'NO'
+    													]) !!}
+                                                    </div>
 												</label>
 											</div>
 										</div>
@@ -101,10 +109,12 @@
 										<div class="form-group{{ $errors->has('active') ? ' has-error' : '' }}">
 											{!! Form::label('active', 'Activo') !!}
 											<div class="col-12">
-												{!! Form::checkbox('active', true, null, [
-													'class' => 'form-control bootstrap-switch', 'data-on-label' => 'SI',
-													'data-off-label' => 'NO'
-												]) !!}
+                                                <div class="col-12 bootstrap-switch-mini">
+    												{!! Form::checkbox('active', true, null, [
+    													'class' => 'form-control bootstrap-switch',
+                                                        'data-on-label' => 'SI', 'data-off-label' => 'NO'
+    												]) !!}
+                                                </div>
 											</div>
 										</div>
 									</div>
@@ -171,7 +181,7 @@
 									<div class="col-6">
 										<div class="form-group{{ $errors->has('website') ? ' has-error' : '' }}">
 											{!! Form::label('website', 'Sitio Web') !!}
-											{!! Form::text('website', null, [
+											{!! Form::url('website', null, [
 												'class' => 'form-control input-sm'
 											]) !!}
 										</div>
@@ -209,9 +219,11 @@
 									<div class="col-12">
 										<div class="form-group is-required{{ $errors->has('direction') ? ' has-error' : '' }}">
 											{!! Form::label('direction', 'Dirección Fiscal') !!}
-											{!! Form::textarea('direction', null, [
-												'class' => 'form-control ckeditor', 'rows' => '4'
-											]) !!}
+                                            <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+                                                      title="Indique la dirección del proveedor"
+                                                      :config="ckeditor.editorConfig"
+                                                      class="form-control" tag-name="textarea" rows="3"
+                                                      placeholder="dirección del proveedor"></ckeditor>
 										</div>
 									</div>
 								</div>
@@ -258,26 +270,32 @@
 										<div class="form-group is-required{{ $errors->has('rnc_status') ? ' has-error' : '' }}">
 											{!! Form::label('rnc_status', 'Situación Actual') !!}
 											<div class="col-12">
-												<label class="radio-inline">
+												<label class="radio-inline mt-4 mr-4">
 													<span class="left">Inscrito y no habilitado</span>
-													{!! Form::radio('rnc_status', 'INH', null, [
-														'class' => 'form-control bootstrap-switch', 'data-on-label' => 'SI',
-														'data-off-label' => 'NO'
-													]) !!}
+                                                    <div class="col-12 bootstrap-switch-mini mt-3 text-center">
+    													{!! Form::radio('rnc_status', 'INH', null, [
+    														'class' => 'form-control bootstrap-switch',
+                                                            'data-on-label' => 'SI', 'data-off-label' => 'NO'
+    													]) !!}
+                                                    </div>
 												</label>
-												<label class="radio-inline">
+												<label class="radio-inline mt-4 mr-4">
 													<span class="left">Inscrito y habilitado</span>
-													{!! Form::radio('rnc_status', 'ISH', null, [
-														'class' => 'form-control bootstrap-switch', 'data-on-label' => 'SI',
-														'data-off-label' => 'NO'
-													]) !!}
+                                                    <div class="col-12 bootstrap-switch-mini mt-3 text-center">
+    													{!! Form::radio('rnc_status', 'ISH', null, [
+    														'class' => 'form-control bootstrap-switch',
+                                                            'data-on-label' => 'SI', 'data-off-label' => 'NO'
+    													]) !!}
+                                                    </div>
 												</label>
-												<label class="radio-inline">
+												<label class="radio-inline mt-4 mr-4">
 													<span class="left">Inscrito, habilitado y calificado</span>
-													{!! Form::radio('rnc_status', 'IHC', null, [
-														'class' => 'form-control bootstrap-switch', 'data-on-label' => 'SI',
-														'data-off-label' => 'NO'
-													]) !!}
+                                                    <div class="col-12 bootstrap-switch-mini mt-3 text-center">
+    													{!! Form::radio('rnc_status', 'IHC', null, [
+    														'class' => 'form-control bootstrap-switch',
+                                                            'data-on-label' => 'SI', 'data-off-label' => 'NO'
+    													]) !!}
+                                                    </div>
 												</label>
 											</div>
 										</div>

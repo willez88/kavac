@@ -37,21 +37,21 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Código</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="code">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Trabajador</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="payroll_staff">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Nacionalidad</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="payroll_nationality">
                                 </div>
                             </div>
@@ -60,21 +60,21 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Cédula de Identidad</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="id_number">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Pasaporte</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="passport">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Correo Electrónico</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="email">
                                 </div>
                             </div>
@@ -83,21 +83,21 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Fecha de Nacimiento</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="birthdate">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Edad</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="age">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Género</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="payroll_gender">
                                 </div>
                             </div>
@@ -106,14 +106,14 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Nombres y Apellidos de la Persona de Contacto</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="emergency_contact">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Teléfono de la Persona de Contacto</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="emergency_phone">
                                 </div>
                             </div>
@@ -124,42 +124,48 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>¿Posee una Discapacidad?</label>
-                                    <input id="has_disability" class="form-control bootstrap-switch"
-                                        data-on-label="SI" data-off-label="NO" type="checkbox" :value="record.has_disability">
+                                    <div class="col-12 bootstrap-switch-mini">
+                                        <input id="has_disability" class="form-control bootstrap-switch"
+                                               data-on-label="SI" data-off-label="NO" type="checkbox"
+                                               :value="record.has_disability">
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4" v-show="record.has_disability">
                                 <div class="form-group">
                                     <label>Discapacidad</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="disability">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Tipo de Sangre</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="payroll_blood_type">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Seguro Social</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="social_security">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>¿Posee Licencia de Conducir?</label>
-                                    <input id="has_driver_license" class="form-control bootstrap-switch"
-                                        data-on-label="SI" data-off-label="NO" type="checkbox" :value="record.has_driver_license">
+                                    <div class="col-12 bootstrap-switch-mini">
+                                        <input id="has_driver_license" class="form-control bootstrap-switch"
+                                               data-on-label="SI" data-off-label="NO" type="checkbox"
+                                               :value="record.has_driver_license">
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4" v-show="record.has_driver_license">
                                 <div class="form-group">
                                     <label>Grado de la Licencia de Conducir</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="payroll_license_degree">
                                 </div>
                             </div>
@@ -170,21 +176,21 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>País</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="country">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Estado</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="estate">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Municipio</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="municipality">
                                 </div>
                             </div>
@@ -193,14 +199,14 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Parroquia</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="parish">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Dirección</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="address">
                                 </div>
                             </div>
@@ -214,28 +220,28 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Tipo</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="type" :value="phone.type">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Código de Área</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="area_code" :value="phone.area_code">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Número</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="number" :value="phone.number">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Extensión</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="extension" :value="phone.extension">
                                 </div>
                             </div>

@@ -60,7 +60,7 @@ class AssetCreateAssets implements ShouldQueue
                 'specifications'             => $this->data['specifications'],
                 'asset_condition_id'         => $this->data['asset_condition_id'],
                 'asset_acquisition_type_id'  => $this->data['asset_acquisition_type_id'],
-                'acquisition_year'           => $this->data['acquisition_year'],
+                'acquisition_date'           => $this->data['acquisition_date'],
                 'asset_status_id'            => $this->data['asset_status_id'],
                 'serial'                     => $this->data['serial'],
                 'marca'                      => $this->data['marca'],

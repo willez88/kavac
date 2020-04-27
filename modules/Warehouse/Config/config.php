@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'Warehouse'
+    'name' => 'Warehouse',
+    'name_es' => 'Almacén'
 ];

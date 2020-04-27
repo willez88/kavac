@@ -41,21 +41,21 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Trabajador</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="payroll_staff">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Fecha de ingreso a la administración pública</label>
-                                    <input type="date" data-toggle="tooltip" class="form-control"
+                                    <input type="date" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="start_date_apn">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Fecha de ingreso a la institución</label>
-                                    <input type="date" data-toggle="tooltip" class="form-control"
+                                    <input type="date" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="start_date">
                                 </div>
                             </div>
@@ -64,21 +64,23 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Fecha de egreso de la institución</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="end_date">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>¿Está Activo?</label>
-                                    <input id="active" class="form-control bootstrap-switch"
-                                        data-on-label="SI" data-off-label="NO" type="checkbox">
+                                    <div class="col-12 bootstrap-switch-mini">
+                                        <input id="active" class="form-control bootstrap-switch"
+                                            data-on-label="SI" data-off-label="NO" type="checkbox">
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4" v-if="!record.active">
                                 <div class="form-group">
                                     <label>Tipo de la Inactividad</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="payroll_inactivity_type">
                                 </div>
                             </div>
@@ -87,22 +89,22 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Correo Institucional</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="institution_email">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Descripción de las Funciones</label>
-                                    <textarea class="form-control" disabled="true"
-                                        id="function_description">
-                                    </textarea>
+                                    <ckeditor :editor="ckeditor.editor" id="function_description" data-toggle="tooltip"
+                                              disabled="true" :config="ckeditor.editorConfig" class="form-control"
+                                              name="function_description" tag-name="textarea" rows="3"></ckeditor>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Tipo de Cargo</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="payroll_position_type">
                                 </div>
                             </div>
@@ -111,21 +113,21 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Cargo</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="payroll_position">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Tipo de Personal</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="payroll_staff_type">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Tipo de Contrato</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="payroll_contract_type">
                                 </div>
                             </div>
@@ -134,14 +136,14 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Institución</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="institution">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Departamento</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control"
+                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="department">
                                 </div>
                             </div>

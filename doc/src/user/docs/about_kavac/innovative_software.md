@@ -1,12 +1,12 @@
-# KAVAC un Software Innovador
+# KAVAC un software innovador
 *****************************
 <div style="text-align: justify;" >
 
 ![Screenshot](../img/logokavac.png#imagen)
 
-   Siguiendo la primicia de Software Libre, en el primer semestre del año 2016 se inicia desde CENDITEL el desarrollo de un sistema basado en elementos innovadores y versátiles, KAVAK. 
+   Siguiendo la primicia de Software Libre, en el primer semestre del año 2016 se inicia desde CENDITEL el desarrollo de un sistema basado en elementos innovadores y versátiles, KAVAC. 
 
-   KAVAK tiene como propósito aprovechar las potencialidades y herramientas de un lenguaje de programación y un framework moderno. Un framework que permite entre otras cosas la posibilidad de extender funcionalidades sin mayor complejidad, instrucciones de código más sencillas, entendibles y orientadas a objetos. 
+   KAVAC tiene como propósito aprovechar las potencialidades y herramientas de un lenguaje de programación y un framework moderno. Un framework que permite entre otras cosas la posibilidad de extender funcionalidades sin mayor complejidad, instrucciones de código más sencillas, entendibles y orientadas a objetos. 
  
 
 Esta estructura de desarrollo permite a la aplicación extender otras potencialidades: 

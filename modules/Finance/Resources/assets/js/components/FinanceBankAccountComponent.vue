@@ -81,9 +81,10 @@
 							<div class="col-12">
 								<div class="form-group is-required">
 									<label>Descripción</label>
-									<textarea class="form-control" rows="3" v-model="record.description"
-											  data-toggle="tooltip"
-											  title="Indique la descripción u objetivo de la cuenta"></textarea>
+                                    <ckeditor :editor="ckeditor.editor" id="description" data-toggle="tooltip"
+                                              title="Indique la descripción u objetivo de la cuenta"
+                                              :config="ckeditor.editorConfig" class="form-control" name="description"
+                                              tag-name="textarea" rows="3" v-model="record.description"></ckeditor>
 								</div>
 							</div>
 						</div>
@@ -184,5 +185,7 @@
 			this.getBanks();
 			this.getAccountTypes();
 		},
+        mounted() {
+        }
 	};
 </script>

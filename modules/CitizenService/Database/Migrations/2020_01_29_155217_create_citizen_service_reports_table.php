@@ -13,12 +13,14 @@ class CreateCitizenServiceReportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('citizen_service_reports', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            
-            $table->timestamps();
-            $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-        });
+        if (!Schema::hasTable('citizen_service_reports')) {
+            Schema::create('citizen_service_reports', function (Blueprint $table) {
+                $table->bigIncrements('id');
+
+                $table->timestamps();
+                $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
+            });
+        }
     }
 
     /**

@@ -1,10 +1,14 @@
 {
+    "version": "1.0.0",
     "name": "Warehouse",
     "alias": "warehouse",
-    "description": "",
+    "name_es": "Almacén",
+    "description": "Gestión de almacenes",
+    "long_description": "",
     "keywords": [],
     "active": 1,
     "order": 0,
+    "logo": "warehouse-logo.png",
     "providers": [
         "Modules\\Warehouse\\Providers\\WarehouseServiceProvider"
     ],

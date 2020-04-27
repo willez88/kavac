@@ -52,9 +52,22 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes()
     {
+        /** Rutas para la gestión de la aplicación base */
         Route::middleware('web')
              ->namespace($this->namespace)
              ->group(base_path('routes/web.php'));
+
+        /** Rutas generales para la gestión de módulos */
+        Route::middleware('web')
+             ->namespace($this->namespace)
+             ->group(base_path('routes/module.php'));
+
+        if (config('app.debug')) {
+            /** Rutas para pruebas de desarrollo */
+            Route::middleware('web')
+                 ->namespace($this->namespace)
+                 ->group(base_path('routes/test.php'));
+        }
     }
 
     /**
@@ -66,6 +79,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes()
     {
+        /** Rutas para la gestión de APIs de la aplicación */
         Route::prefix('api')
              ->middleware('api')
              ->namespace($this->namespace)

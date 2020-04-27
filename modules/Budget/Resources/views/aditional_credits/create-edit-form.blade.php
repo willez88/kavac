@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-	{{ ___('Créditos Adicionales') }}
+	{{ __('Créditos Adicionales') }}
 @stop
 
 @section('content')

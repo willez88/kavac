@@ -60,10 +60,12 @@
 							<div class="form-group">
 								<label>¿Está Activo?</label>
 								<div class="col-md-12">
-									<input id="active" name="active" type="checkbox" class="form-control bootstrap-switch"
-										data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
-										title="Indique si el trabajador está activo o no"
-										v-model="record.active" value="true"/>
+                                    <div class="col-12 bootstrap-switch-mini">
+    									<input id="active" name="active" type="checkbox" class="form-control bootstrap-switch"
+    										data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
+    										title="Indique si el trabajador está activo o no"
+    										v-model="record.active" value="true"/>
+                                    </div>
 								</div>
 							</div>
 						</div>
@@ -87,8 +89,11 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Descripción de Funciones:</label>
-								<input type="textarea" class="form-control input-sm"
-									v-model="record.function_description"/>
+                                <ckeditor :editor="ckeditor.editor" id="function_description" data-toggle="tooltip"
+                                          title="Indique una descripción para las funciones"
+                                          :config="ckeditor.editorConfig" class="form-control"
+                                          name="function_description" tag-name="textarea" rows="3"
+                                          v-model="record.function_description"></ckeditor>
 							</div>
 						</div>
 						<div class="col-md-4">

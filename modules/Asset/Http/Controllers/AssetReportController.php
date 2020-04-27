@@ -80,21 +80,22 @@ class AssetReportController extends Controller
         );
         
         $report = AssetReport::create([
-            'code' => $code,
-            'type_report' => $request->input('type_report'),
-            'type_search' => $request->input('type_search'),
+            'code'                       => $code,
+            'type_report'                => $request->input('type_report'),
+            'type_search'                => $request->input('type_search'),
 
-            'asset_type_id' => $request->input('asset_type_id'),
-            'asset_category_id' => $request->input('asset_category_id'),
-            'asset_subcategory_id' => $request->input('asset_subcategory_id'),
+            'asset_status_id'            => $request->input('asset_status_id'),
+            'asset_type_id'              => $request->input('asset_type_id'),
+            'asset_category_id'          => $request->input('asset_category_id'),
+            'asset_subcategory_id'       => $request->input('asset_subcategory_id'),
             'asset_specific_category_id' => $request->input('asset_specific_category_id'),
 
-            'institution_id' => $request->input('institution_id'),
-            'department_id' => $request->input('department_id'),
-            'mes' => $request->input('mes_id'),
-            'year' => $request->input('year'),
-            'start_date' => $request->input('start_date'),
-            'end_date' => $request->input('end_date'),
+            'institution_id'             => $request->input('institution_id'),
+            'department_id'              => $request->input('department_id'),
+            'mes'                        => $request->input('mes_id'),
+            'year'                       => $request->input('year'),
+            'start_date'                 => $request->input('start_date'),
+            'end_date'                   => $request->input('end_date'),
         ]);
         if ($request->input('operation') == 'open') {
             /**

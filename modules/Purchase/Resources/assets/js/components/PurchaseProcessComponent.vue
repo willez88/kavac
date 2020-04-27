@@ -29,11 +29,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">
-                                        <input type="checkbox" class="form-control bootstrap-switch"
-                                               name="exists" data-toggle="tooltip" data-on-label="SI"
-                                               data-off-label="NO" title="Indique si el proceso existe"
-                                               value="true" data-record="exists">
-                                        ¿El proceso existe?
+                                        <div class="col-12 bootstrap-switch-mini">
+                                            <input type="checkbox" class="form-control bootstrap-switch"
+                                                   name="exists" data-toggle="tooltip" data-on-label="SI"
+                                                   data-off-label="NO" title="Indique si el proceso existe"
+                                                   value="true" data-record="exists">
+                                            ¿El proceso existe?
+                                        </div>
                                     </label>
                                 </div>
                             </div>
@@ -58,10 +60,11 @@
                             <div class="col-md-6">
                                 <div class="form-group is-required">
                                     <label>Descripción:</label>
-                                    <textarea class="form-control input-sm" rows="3" v-model="record.description"
-                                              placeholder="Descripción del proceso de compra"
-                                              data-toggle="tooltip"
-                                              title="Indique la descripción para el proceso de compra (requerido)"></textarea>
+                                    <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+                                              title="Indique la descripción para el proceso de compra (requerido)"
+                                              :config="ckeditor.editorConfig" class="form-control" tag-name="textarea"
+                                              rows="3" v-model="record.description"
+                                              placeholder="Descripción del proceso de compra"></ckeditor>
                                 </div>
                             </div>
                         </div>
@@ -74,7 +77,7 @@
                                                 :data-target="'#collapseDocumentsList'+index"
                                                 aria-expanded="true" :aria-controls="'collapseDocumentsList'+index"
                                                 title="Presione para mostrar u ocultar la lista de documentos">
-                                            {{ index+1 }}. {{ list.title }} 
+                                            {{ index+1 }}. {{ list.title }}
                                         </button>
                                     </h6>
                                     <hr>
