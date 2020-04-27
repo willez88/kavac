@@ -106,7 +106,6 @@ class UserController extends Controller
 
         /**
          * TODO:
-         * - Enviar datos de acceso por correo electrónico
          * - colocar en cola correo a enviar
          */
         $user->notify(new UserRegistered($user, $password));
