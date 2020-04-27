@@ -24,6 +24,18 @@ Route::group(
          * Gestiona los datos de configuración del módulo de Comercialización
          */
         Route::resource(
+          'register-clients',
+          'SaleClientsController',
+          ['as' => 'sale', 'except' => ['create','edit','show']]
+        );
+
+        Route::resource(
+          'register-formatcode',
+          'SaleCodeFormatController',
+          ['as' => 'sale', 'except' => ['create','edit','show']]
+        );
+
+        Route::resource(
             'payment-method',
             'SalePaymentMethodController',
             ['as' => 'sale', 'except' => ['create','edit','show']]
