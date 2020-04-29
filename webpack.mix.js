@@ -24,11 +24,8 @@ mix.js([
 		'resources/js/jquery-menu.js', 'resources/js/custom.js'
       //'resources/js/loading-message.js'
 	], 'public/js')
-   .js('resources/js/core-settings.js', 'public/js')
-   .js('resources/js/module-settings.js', 'public/js')
    .js(['resources/js/shared.js', 'resources/js/mixins.js'], 'public/js/shared-components.js')
    .js('resources/js/chart.js', 'public/js')
-   .js('resources/js/ckeditor.js', 'public/js')
    .copy('resources/js/generic-classes.js', 'public/js/generic-classes.js')
    .copy('resources/js/common.js', 'public/js/common.js')
    .sass('resources/sass/app.scss', 'public/css')
@@ -40,8 +37,7 @@ mix.js([
    .combine([
    		'public/css/app.css', 'public/css/font-awesome.css', 'public/css/ionicons.css',
    		'public/css/now-ui-kit.css', 'public/css/materialdesignicons.css', 'public/css/custom.css'
-   ], 'public/css/app.css')
-   .sourceMaps();
+   ], 'public/css/app.css');
 
 
 /*
@@ -83,7 +79,10 @@ mix.webpackConfig({
             onBuildStart:['php artisan lang:js --quiet'],
             onBuildEnd: []
         })
-    ]
+    ],
+    output:{
+        chunkFilename: `js/components/${(mix.inProduction()) ? 'core/[chunkhash]' : '[name]'}.js`,
+    }
 });
 
 
@@ -99,4 +98,8 @@ mix.webpackConfig({
 /** Publica la versión de la compilación */
 if (mix.inProduction()) {
    mix.version();
+   //mix.versionHash();
+}
+else {
+    mix.sourceMaps();
 }

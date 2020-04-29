@@ -95,16 +95,6 @@
     </div>
 </template>
 
-<style>
-    .text-module {font-weight: bold;}
-    .btn-collapse, .btn-collapse:hover {
-        background-color: transparent;
-    }
-    .btn-collapse {
-        padding:4px;font-size:0.7em;color:#0073b7;
-    }
-</style>
-
 <script>
     export default {
         data() {
