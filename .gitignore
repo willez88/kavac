@@ -3,7 +3,7 @@
 /public/hot
 /public/storage
 /public/js/components/core
-#/public/modules
+/public/modules/*/components/prod
 /storage/*.key
 /storage/debugbar
 /storage/pictures

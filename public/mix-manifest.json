@@ -1,13 +1,15 @@
 {
-    "/js/app.js": "/js/app.js?id=05752846cb1dd8e12896",
-    "/css/app.css": "/css/app.css?id=5d0cd5f0106d2b68fd9a",
-    "/css/font-awesome.css": "/css/font-awesome.css?id=57858bb7d0307e8f5aa6",
-    "/css/ionicons.css": "/css/ionicons.css?id=02f9d579752de494013a",
-    "/css/now-ui-kit.css": "/css/now-ui-kit.css?id=20f5e5e42b31743a7f87",
-    "/css/materialdesignicons.css": "/css/materialdesignicons.css?id=3c97d2e5a364d7185460",
-    "/css/custom.css": "/css/custom.css?id=f8591b84d3f737bb0f2e",
-    "/js/chart.js": "/js/chart.js?id=ea36a769813e4d5982bc",
-    "/js/shared-components.js": "/js/shared-components.js?id=bd67a848bea861c72026",
+    "/js/app.js": "/js/app.js?id=51424de30943da4579de",
+    "/css/app.css": "/css/app.css?id=39f9350836126822d1fc",
+    "/css/font-awesome.css": "/css/font-awesome.css?id=63249641db2f1dcc96bf",
+    "/css/ionicons.css": "/css/ionicons.css?id=5963d800b0e5d013cf7d",
+    "/css/now-ui-kit.css": "/css/now-ui-kit.css?id=41516b0e5357417a3b97",
+    "/css/materialdesignicons.css": "/css/materialdesignicons.css?id=ca667a7fa3073df97bc9",
+    "/css/custom.css": "/css/custom.css?id=b978212a8bc67917c719",
+    "/js/chart.js": "/js/chart.js?id=9fc541d37a8ff1242e57",
+    "/js/shared-components.js": "/js/shared-components.js?id=3a0cefb74ac09285c865",
     "/js/generic-classes.js": "/js/generic-classes.js?id=b4502a0abe71cb4934bb",
-    "/js/common.js": "/js/common.js?id=b8932c72dd603f8bbef7"
+    "/js/common.js": "/js/common.js?id=b8932c72dd603f8bbef7",
+    "/modules/budget/js/app.js": "/modules/budget/js/app.js",
+    "/modules/budget/css/app.css": "/modules/budget/css/app.css"
 }
