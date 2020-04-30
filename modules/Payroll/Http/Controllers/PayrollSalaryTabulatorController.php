@@ -75,7 +75,6 @@ class PayrollSalaryTabulatorController extends Controller
         $this->validate($request, [
             'code'                            => ['required', Rule::unique('payroll_salary_tabulators')],
             'name'                            => ['required'],
-            'currency_id'                     => ['required'],
             'institution_id'                  => ['required'],
             'payroll_salary_tabulator_scales' => ['required', new PayrollSalaryScales()],
             'payroll_staff_type_id'           => ['required'],

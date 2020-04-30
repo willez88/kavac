@@ -54,6 +54,30 @@ class PayrollConceptController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'code'                    => ['required'],
+            'name'                    => ['required'],
+            'affect'                  => ['required'],
+            'incidence_type'          => ['required'],
+            'institution_id'          => ['required'],
+            'payroll_concept_type_id' => ['required'],
+            'payroll_assign_to_id'    => ['required'],
+            'calculation_way_id'      => ['required']
+        ]);
+
+        $payrollConcept = PayrollConcept::create([
+            'code'                    => $request->code,
+            'name'                    => $request->name,
+            'description'             => $request->description,
+            'active'                  => !empty($request->active)
+                                            ? $request->active
+                                            : false,
+            'incidence_type'          => $request->incidence_type,
+            'affect'                  => $request->affect,
+            'payroll_concept_type_id' => $request->payroll_concept_type_id,
+            'institution_id'          => $request->institution_id
+        ]);
+        return response()->json(['record' => $payrollConcept, 'message' => 'Success'], 200);
     }
 
     /**
@@ -62,8 +86,28 @@ class PayrollConceptController extends Controller
      * @param     \Illuminate\Http\Request         $request    Datos de la petición
      * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        $payrollConcept = PayrollConcept::find($id);
+        $this->validate($request, [
+            'code'                    => ['required'],
+            'name'                    => ['required'],
+            'affect'                  => ['required'],
+            'incidence_type'          => ['required'],
+            'institution_id'          => ['required'],
+            'payroll_concept_type_id' => ['required'],
+            'payroll_assign_to_id'    => ['required'],
+            'calculation_way_id'      => ['required']
+        ]);
+
+        $payrollConcept->code = $request->code;
+        $payrollConcept->name = $request->name;
+        $payrollConcept->description = $request->description;
+        $payrollConcept->active = !empty($request->active)
+            ? $request->active
+            : $payrollConcept->active;
+        $payrollConcept->save();
+        return response()->json(['message' => 'Success'], 200);
     }
 
     /**
@@ -75,5 +119,8 @@ class PayrollConceptController extends Controller
      */
     public function destroy($id)
     {
+        $payrollConcept = PayrollConcept::find($id);
+        $payrollConcept->delete();
+        return response()->json(['record' => $payrollConcept, 'message' => 'Success'], 200);
     }
 }

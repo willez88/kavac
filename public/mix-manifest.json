@@ -11,5 +11,13 @@
     "/js/generic-classes.js": "/js/generic-classes.js?id=b4502a0abe71cb4934bb",
     "/js/common.js": "/js/common.js?id=b8932c72dd603f8bbef7",
     "/modules/budget/js/app.js": "/modules/budget/js/app.js",
-    "/modules/budget/css/app.css": "/modules/budget/css/app.css"
+    "/modules/budget/css/app.css": "/modules/budget/css/app.css",
+    "/modules/payroll/js/app.js": "/modules/payroll/js/app.js",
+    "/modules/payroll/css/app.css": "/modules/payroll/css/app.css",
+    "/modules/accounting/js/app.js": "/modules/accounting/js/app.js",
+    "/modules/accounting/css/app.css": "/modules/accounting/css/app.css",
+    "/modules/asset/js/app.js": "/modules/asset/js/app.js",
+    "/modules/asset/css/app.css": "/modules/asset/css/app.css",
+    "/modules/warehouse/js/app.js": "/modules/warehouse/js/app.js",
+    "/modules/warehouse/css/app.css": "/modules/warehouse/css/app.css"
 }

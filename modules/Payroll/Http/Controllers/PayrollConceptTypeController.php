@@ -135,6 +135,6 @@ class PayrollConceptTypeController extends Controller
      */
     public function getPayrollConceptTypes()
     {
-        return template_choices('Modules\Payroll\Models\PayrollConceptType', ['name', '-', 'sign'], '', true);
+        return template_choices('Modules\Payroll\Models\PayrollConceptType', ['name'], '', true);
     }
 }
