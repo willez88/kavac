@@ -36,6 +36,6 @@ class WarehouseReport extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'code', 'type_report', 'warehouse_product_id', 'warehouse_id', 'institution_id'
+        'code', 'type_report', 'institution_id', 'filename'
     ];
 }
