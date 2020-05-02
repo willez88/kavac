@@ -32,5 +32,22 @@ Route::group(
             'get-paymentmethod',
             'SalePaymentMethodController@getSalePaymentMethod'
         )->name('sale.get-sale-paymentmethod');
+
+        /**
+         * -----------------------------------------------------------------------
+         * Rutas para la configuración de Almacen de Comercialización
+         * -----------------------------------------------------------------------
+         *
+         * Gestiona los datos de configuración de Almacen de Comercialización
+         */
+        Route::resource(
+            'warehouse-method',
+            'SaleWarehouseController',
+            ['as' => 'sale', 'except' => ['create','edit','show']]
+        );
+        Route::get(
+            'get-salewarehousemethod',
+            'SaleWarehouseController@getSaleWarehouseMethod'
+        )->name('sale.get-sale-warehousemethod');
     }
 );

@@ -32,6 +32,8 @@
 					<div class="row">
 						{{-- Configuración de Formas de cobro--}}
 						<sale-payment-method></sale-payment-method>
+						{{-- Configuración de Almacén--}}
+						<sale-warehouse-method></sale-warehouse-method>
 					</div>
 				</div>
 			</div>
