@@ -20,6 +20,20 @@ Vue.component('sale-payment-method', require('./components/settings/SalePaymentM
 Vue.component('sale-warehouse-method', require('./components/settings/SaleWarehouseMethodComponent.vue').default);
 
 /**
+ * Componente para gestionar el formato de codigo
+ *
+ * @author José Puentes <jpuentes@cenditel.gob.ve>
+ */
+Vue.component('register-formatcode', require('./components/settings/SaleCodeFormatComponent.vue').default);
+
+/**
+ * Componente para gestionar los clientes
+ *
+ * @author José Puentes <jpuentes@cenditel.gob.ve>
+ */
+Vue.component('register-clients', require('./components/settings/SaleClientsComponent.vue').default);
+
+/**
  * Opciones de configuración global del módulo de Commercialización
  */
 Vue.mixin({

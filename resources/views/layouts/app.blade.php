@@ -187,6 +187,8 @@
                     }
                 });
 
+                Inputmask().mask(document.querySelectorAll("input"));
+
                 /** Instrucciones a implementar en campos de formularios */
                 //$("input[type=date]").attr('readonly', true);
 
