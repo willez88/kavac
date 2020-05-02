@@ -197,13 +197,10 @@
 						{{-- Tabuladores de Nómina --}}
 						<payroll-salary-tabulator></payroll-salary-tabulator>
 
-						{{-- Asignaciones de Nómina --}}
-						<payroll-salary-assignment-type></payroll-salary-assignment-type>
+						{{-- Tipos de Conceptos --}}
+						<payroll-concept-types></payroll-concept-types>
 
-						{{-- Asignaciones de Nómina --}}
-						<payroll-salary-assignment></payroll-salary-assignment>
-
-						{{-- conceptos --}}
+						{{-- Conceptos --}}
 						<payroll-concepts></payroll-concepts>
 					</div>
 				</div>
