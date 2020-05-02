@@ -16,7 +16,7 @@ class PurchaseTypeOperationsTableSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
+        /*Model::unguard();
 
         DB::transaction(function () {
             $types = [
@@ -28,6 +28,6 @@ class PurchaseTypeOperationsTableSeeder extends Seeder
             foreach ($types as $type) {
                 PurchaseTypeOperation::updateOrCreate($type, $type);
             }
-        });
+        });*/
     }
 }
