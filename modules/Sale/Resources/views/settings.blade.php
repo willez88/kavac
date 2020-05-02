@@ -27,25 +27,17 @@
 					@include('buttons.previous', ['route' => url()->previous()])
 					@include('buttons.minimize')
 				</div>
-<<<<<<< HEAD
 				<div class="card-body">
 					<div class="row">
-						{{-- Configuración de Formas de cobro--}}
-						<sale-payment-method></sale-payment-method>
 						{{-- Configuración de Almacén--}}
 						<sale-warehouse-method></sale-warehouse-method>
+						{{-- Configuración de Formas de cobro --}}
+						<register-clients></register-clients>
+						{{-- Configuración de Formas de cobro--}}
+						<sale-payment-method></sale-payment-method>
+						{{-- Configuración de Clientes --}}
+						<register-formatcode></register-formatcode>
 					</div>
-=======
-			</div>
-			<div class="card-body">
-				<div class="row">
-					{{-- Configuración de Formas de cobro --}}
-					<register-clients></register-clients>
-					{{-- Configuración de Clientes --}}
-					<register-formatcode></register-formatcode>
-					{{-- Configuración de Formas de cobro--}}
-					<sale-payment-method></sale-payment-method>
->>>>>>> 61b9b2789faf958906551c273bd9b3f37699c94d
 				</div>
 			</div>
 		</div>
