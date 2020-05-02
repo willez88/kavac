@@ -131,5 +131,5 @@ return [
     |
     */
 
-    'console' => true,
+    'console' => false, //false para no auditar cuando se hace una migración por consola
 ];
