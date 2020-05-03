@@ -46,21 +46,30 @@ Vue.use(window.execution_year);
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('modal-form-buttons', () => import('./components/Shared/ButtonsFormModalComponent'));
+Vue.component('modal-form-buttons', () => import(
+    /* webpackChunkName: "modal-form-buttons" */
+    './components/Shared/ButtonsFormModalComponent'
+));
 
 /**
  * Componente genérico para la gestión de imágenes
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('image-management', () => import('./components/Shared/ImageManagementComponent.vue'));
+Vue.component('image-management', () => import(
+    /* webpackChunkName: "image-management" */
+    './components/Shared/ImageManagementComponent.vue'
+));
 
 /**
  * Componente para mostrar un listado con todas las notificaciones del usuario
  *
  * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
  */
-Vue.component('users', () => import('./components/Shared/UsersComponent.vue'));
+Vue.component('users', () => import(
+    /* webpackChunkName: "users" */
+    './components/Shared/UsersComponent.vue'
+));
 
 /**
  * Componente para la configuración de permisos asociados a roles de usuarios

@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const webpack = require('webpack');
 /*const fs = require('fs');
 const path = require('path');*/
 
@@ -78,11 +79,26 @@ mix.webpackConfig({
         new WebpackShellPlugin({
             onBuildStart:['php artisan lang:js --quiet'],
             onBuildEnd: []
-        })
+        }),
+        new webpack.IgnorePlugin({
+            resourceRegExp: /^\.\/locale$/,
+            contextRegExp: /moment$/
+        }),
     ],
+    resolve: {
+        alias: {
+            moment$: 'moment/moment.js'
+        }
+    },
     output:{
         chunkFilename: `js/components/${(mix.inProduction()) ? 'core/[chunkhash]' : '[name]'}.js`,
-    }
+    },
+    /*optimization: {
+        splitChunks: {
+          chunks: 'initial',
+          name: ''
+        }
+      },*/
 });
 
 

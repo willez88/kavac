@@ -23,12 +23,16 @@ try {
     require('jquery.complexify');
     /** Required for select list element */
     require('select2');
+    //import(/* webpackChunkName: "select2" */ 'select2');
     /** Requerido para el uso del componente vue-tables-2 */
-    require('vue-tables-2');
+    //require('vue-tables-2');
+    //import(/* webpackChunkName: "vue-tables-2" */ 'vue-tables-2');
     /** Requerido para componentes personalizados checkbox y radio en vue */
     require('pretty-checkbox-vue');
     /** Requerido para la gestión de fechas y horas */
-    require('moment');
+    //require('moment');
+    //import(/* webpackChunkName: "moment" */ 'moment');
+    //import(/* webpackChunkName: "moment-locales" */'moment/min/locales');
 
 } catch (e) {}
 
