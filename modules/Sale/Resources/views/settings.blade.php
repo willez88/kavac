@@ -35,15 +35,12 @@
 						<register-clients></register-clients>
 						{{-- Configuración de Formas de cobro--}}
 						<sale-payment-method></sale-payment-method>
-<<<<<<< HEAD
 						{{-- Configuración de Productos--}}
 						<sale-setting-product></sale-setting-product>
 						{{-- Configuración de Tipos de productos--}}
 						<sale-setting-product-type></sale-setting-product-type>
-=======
 						{{-- Configuración de Clientes --}}
 						<register-formatcode></register-formatcode>
->>>>>>> 5c732fcb8a1ef17b5d59d4fb66b06c060f1ba4ab
 					</div>
 				</div>
 			</div>

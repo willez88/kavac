@@ -64,7 +64,6 @@ Vue.mixin({
 				vm.sale_payment_method = response.data;
 			});
 		},
-<<<<<<< HEAD
 		/**
 		 * Obtiene los datos de los productos
 		 *
@@ -87,7 +86,8 @@ Vue.mixin({
 			vm.sale_setting_product_type = [];
 			axios.get('/sale/get-settingproducttype').then(response => {
 				vm.sale_setting_product_type = response.data;
-=======
+			});
+		},
 
 		/**
 		 * Obtiene los datos de los almacenes de comercialización
@@ -99,7 +99,6 @@ Vue.mixin({
 			vm.sale_warehouse_method = [];
 			axios.get('/sale/get-salewarehousemethod').then(response => {
 				vm.sale_warehouse_method = response.data;
->>>>>>> 5c732fcb8a1ef17b5d59d4fb66b06c060f1ba4ab
 			});
 		},
 	},
