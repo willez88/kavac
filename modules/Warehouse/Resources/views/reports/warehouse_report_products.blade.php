@@ -27,7 +27,6 @@
 					    'helpSteps' => get_json_resource('ui-guides/reports/report_form.json', 'warehouse')
 				    ])
 				</h6>
-				</h6>
 				<div class="card-btns">
 					@include('buttons.previous', ['route' => url()->previous()])
 					@include('buttons.minimize')

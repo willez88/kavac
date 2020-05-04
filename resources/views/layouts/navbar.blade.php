@@ -146,6 +146,14 @@
 					</li>
 				@endif
 			@endif
+            <li class="nav-item">
+                <a class="nav-link btn btn-sm btn-info fullscreen"
+                   href="javascript:void(0)" onclick="fullScreen()"
+                   title="{{ __('Pantalla completa') }}"
+                   data-toggle="tooltip">
+                    <i class="mdi mdi-fullscreen" style="font-size: 1.287em"></i>
+                </a>
+            </li>
 			<li class="nav-item dropdown">
 				<a href="javascript:void(0)" class="nav-link dropdown-toggle btn btn-sm btn-info"
                    id="list_options_user" data-toggle="dropdown" aria-expanded="false"

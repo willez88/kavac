@@ -1,0 +1,347 @@
+.card-box {
+    background-color:#fff;
+    padding:1.5rem;
+    -webkit-box-shadow:0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    box-shadow:0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    margin-bottom:24px;
+    border-radius:.25rem;
+}
+.ribbon-box {
+    position:relative;
+
+    .ribbon {
+        position:relative;
+        clear:both;
+        padding:5px 12px;
+        margin-bottom:15px;
+        -webkit-box-shadow:2px 5px 10px rgba(50,58,70,.15);
+        box-shadow:2px 5px 10px rgba(50,58,70,.15);
+        color:#fff;
+        font-size:13px;
+        font-weight:600;
+
+        &:before {
+            content:" ";
+            border-style:solid;
+            border-width:10px;
+            display:block;
+            position:absolute;
+            bottom:-10px;
+            left:0;
+            margin-bottom:-10px;
+            z-index:-1;
+        }
+
+        &.float-left {
+            margin-left:-30px;
+            border-radius:0 3px 3px 0;
+        }
+
+        &.float-right {
+            margin-right:-30px;
+            border-radius:3px 0 0 3px;
+
+            &:before {
+                right:0;
+            }
+        }
+
+        &.float-center {
+            span {
+                margin:0 auto 20px auto;
+            }
+        }
+    }
+
+    .ribbon-content {
+        clear:both;
+    }
+
+    .ribbon-primary {
+        background:$color-primary;
+
+        &:before {
+            border-color:$color-primary-dark transparent transparent;
+        }
+    }
+
+    .ribbon-secondary {
+        background:$color-gray-strong;
+
+        &:before {
+            border-color:$color-gray-dark transparent transparent;
+        }
+    }
+
+    .ribbon-success {
+        background:$color-success;
+
+        &:before {
+            border-color:$color-success-dark transparent transparent;
+        }
+    }
+
+    .ribbon-info {
+        background:$color-info;
+
+        &:before {
+            border-color:$color-info-strong transparent transparent;
+        }
+    }
+
+    .ribbon-warning {
+        background:$color-warning;
+
+        &:before {
+            border-color:$color-warning-strong transparent transparent;
+        }
+    }
+
+    .ribbon-danger {
+        background:$color-danger;
+
+        &:before {
+            border-color:$color-danger-dark transparent transparent;
+        }
+    }
+
+    .ribbon-light {
+        background:$color-gray-light;
+
+        &:before {
+            border-color:$color-gray-light-strong transparent transparent;
+        }
+    }
+
+    .ribbon-dark {
+        background:#323a46;
+
+        &:before {
+            border-color:#1d2128 transparent transparent;
+        }
+    }
+
+    .ribbon-pink {
+        background:#f672a7;
+
+        &:before {
+            border-color:#f34289 transparent transparent;
+        }
+    }
+
+    .ribbon-blue {
+        background:#4a81d4;
+
+        &:before {
+            border-color:#2d67be transparent transparent;
+        }
+    }
+
+    .ribbon-two {
+        position:absolute;
+        left:-5px;
+        top:-5px;
+        z-index:1;
+        overflow:hidden;
+        width:75px;
+        height:75px;
+        text-align:right;
+
+        span {
+            font-size:13px;
+            color:#fff;
+            text-align:center;
+            line-height:20px;
+            transform:rotate(-45deg);
+            -webkit-transform:rotate(-45deg);
+            width:100px;
+            display:block;
+            -webkit-box-shadow:0 0 8px 0 rgba(0,0,0,.06),0 1px 0 0 rgba(0,0,0,.02);
+            box-shadow:0 0 8px 0 rgba(0,0,0,.06),0 1px 0 0 rgba(0,0,0,.02);
+            position:absolute;
+            top:19px;
+            left:-21px;
+            font-weight:600;
+
+            &:before {
+                content:"";
+                position:absolute;
+                left:0;
+                top:100%;
+                z-index:-1;
+                border-right:3px solid transparent;
+                border-bottom:3px solid transparent;
+            }
+
+            &:after {
+                content:"";
+                position:absolute;
+                right:0;
+                top:100%;
+                z-index:-1;
+                border-left:3px solid transparent;
+                border-bottom:3px solid transparent;
+            }
+        }
+    }
+
+    .ribbon-two-primary {
+        span {
+            background:$color-primary;
+
+            &:before {
+                border-left:3px solid $color-primary-dark;
+                border-top:3px solid $color-primary-dark;
+            }
+
+            &:after {
+                border-right:3px solid $color-primary-dark;
+                border-top:3px solid $color-primary-dark;
+            }
+        }
+    }
+
+    .ribbon-two-secondary {
+        span {
+            background:$color-gray-strong;
+
+            &:before {
+                border-left:3px solid $color-gray-dark;
+                border-top:3px solid $color-gray-dark;
+            }
+
+            &:after {
+                border-right:3px solid $color-gray-dark;
+                border-top:3px solid $color-gray-dark;
+            }
+        }
+    }
+
+    .ribbon-two-success {
+        span {
+            background:$color-success;
+
+            &:before {
+                border-left:3px solid $color-success-dark;
+                border-top:3px solid $color-success-dark;
+            }
+
+            &:after {
+                border-right:3px solid $color-success-dark;
+                border-top:3px solid $color-success-dark;
+            }
+        }
+    }
+
+    .ribbon-two-info {
+        span {
+            background:$color-info;
+
+            &:before {
+                border-left:3px solid $color-info-strong;
+                border-top:3px solid $color-info-strong;
+            }
+
+            &:after {
+                border-right:3px solid $color-info-strong;
+                border-top:3px solid $color-info-strong;
+            }
+        }
+    }
+
+    .ribbon-two-warning {
+        span {
+            background:$color-warning;
+
+            &:before {
+                border-left:3px solid $color-warning-strong;
+                border-top:3px solid $color-warning-strong;
+            }
+
+            &:after {
+                border-right:3px solid $color-warning-strong;
+                border-top:3px solid $color-warning-strong;
+            }
+        }
+    }
+
+    .ribbon-two-danger {
+        span {
+            background:$color-danger;
+
+            &:before {
+                border-left:3px solid $color-danger-dark;
+                border-top:3px solid $color-danger-dark;
+            }
+
+            &:after {
+                border-right:3px solid $color-danger-dark;
+                border-top:3px solid $color-danger-dark;
+            }
+        }
+    }
+
+    .ribbon-two-light {
+        span {
+            background:$color-gray-light;
+
+            &:before {
+                border-left:3px solid $color-gray-light-strong;
+                border-top:3px solid $color-gray-light-strong;
+            }
+
+            &:after {
+                border-right:3px solid $color-gray-light-strong;
+                border-top:3px solid $color-gray-light-strong;
+            }
+        }
+    }
+
+    .ribbon-two-dark {
+        span {
+            background:#323a46;
+
+            &:before {
+                border-left:3px solid #121519;
+                border-top:3px solid #121519;
+            }
+
+            &:after {
+                border-right:3px solid #121519;
+                border-top:3px solid #121519;
+            }
+        }
+    }
+
+    .ribbon-two-pink {
+        span {
+            background:#f672a7;
+
+            &:before {
+                border-left:3px solid #f12a7a;
+                border-top:3px solid #f12a7a;
+            }
+
+            &:after {
+                border-right:3px solid #f12a7a;
+                border-top:3px solid #f12a7a;
+            }
+        }
+    }
+
+    .ribbon-two-blue {
+        span {
+            background:#4a81d4;
+
+            &:before {
+                border-left:3px solid #285ca9;
+                border-top:3px solid #285ca9;
+            }
+
+            &:after {
+                border-right:3px solid #285ca9;
+                border-top:3px solid #285ca9;
+            }
+        }
+    }
+}

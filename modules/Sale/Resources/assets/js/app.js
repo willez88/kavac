@@ -12,6 +12,26 @@
  * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
  */
 Vue.component('sale-payment-method', require('./components/settings/SalePaymentMethodComponent.vue').default);
+/**
+ * Componente para listar, crear, actualizar y borrar datos de almacén
+ *
+ * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+ */
+Vue.component('sale-warehouse-method', require('./components/settings/SaleWarehouseMethodComponent.vue').default);
+
+/**
+ * Componente para gestionar el formato de codigo
+ *
+ * @author José Puentes <jpuentes@cenditel.gob.ve>
+ */
+Vue.component('register-formatcode', require('./components/settings/SaleCodeFormatComponent.vue').default);
+
+/**
+ * Componente para gestionar los clientes
+ *
+ * @author José Puentes <jpuentes@cenditel.gob.ve>
+ */
+Vue.component('register-clients', require('./components/settings/SaleClientsComponent.vue').default);
 
 /**
  * Componente para listar, crear, actualizar y borrar datos de los productos
@@ -44,6 +64,7 @@ Vue.mixin({
 				vm.sale_payment_method = response.data;
 			});
 		},
+<<<<<<< HEAD
 		/**
 		 * Obtiene los datos de los productos
 		 *
@@ -66,6 +87,19 @@ Vue.mixin({
 			vm.sale_setting_product_type = [];
 			axios.get('/sale/get-settingproducttype').then(response => {
 				vm.sale_setting_product_type = response.data;
+=======
+
+		/**
+		 * Obtiene los datos de los almacenes de comercialización
+		 *
+		 * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+		 */
+		getSaleWarehouseMethod() {
+			const vm = this;
+			vm.sale_warehouse_method = [];
+			axios.get('/sale/get-salewarehousemethod').then(response => {
+				vm.sale_warehouse_method = response.data;
+>>>>>>> 5c732fcb8a1ef17b5d59d4fb66b06c060f1ba4ab
 			});
 		},
 	},

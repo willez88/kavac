@@ -36,7 +36,7 @@ class AssetReport extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'code', 'type_report', 'type_search', 'asset_type_id', 'asset_category_id',
+        'code', 'type_report', 'type_search', 'asset_status_id', 'asset_type_id', 'asset_category_id',
         'asset_subcategory_id', 'asset_specific_category_id', 'institution_id', 'department_id', 'mes',
         'year', 'start_date', 'end_date', 'document_id', 'status'
     ];

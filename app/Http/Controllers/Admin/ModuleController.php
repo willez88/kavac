@@ -42,6 +42,9 @@ class ModuleController extends Controller
                 'alias' => $module->get('alias'),
                 'name' => $module->get('name_es') ?? $module->getName(),
                 'icon' => $module->icon["name"] ?? "fa fa-cubes",
+                'logo' => ($module->get('logo'))
+                          ? "assets/" . $module->get('name') . "/images/" . $module->get('logo')
+                          : "images/default-avatar.png",
                 'description' => $module->getDescription(),
                 'requirements' => $requirements,
                 'authors' => $authors
@@ -109,6 +112,9 @@ class ModuleController extends Controller
             'name' => $module->get("name_es") ?? $module->getName(),
             'description' => $module->getDescription() ?? 'N/A',
             'icon' => '',
+            'logo' => ($module->get('logo'))
+                      ? "assets/" . $module->get('name') . "/images/" . $module->get('logo')
+                      : "images/default-avatar.png",
             'status' => '', //Instalado o desinstalado
             'link' => '',
             'authors' => $module->get('authors') ?? [],

@@ -18,7 +18,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \NunoMaduro\Larastan\Console\CodeAnalyseCommand::class,
+        //\NunoMaduro\Larastan\Console\CodeAnalyseCommand::class,
     ];
 
     /**

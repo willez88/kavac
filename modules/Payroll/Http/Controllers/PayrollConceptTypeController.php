@@ -136,4 +136,14 @@ class PayrollConceptTypeController extends Controller
         }
         return redirect()->route('payroll.concept-types.index');
     }
+
+    /**
+     * Obtiene los tipos de conceptos registrados
+     *
+     * @return Array Listado de los registros a mostrar
+     */
+    public function getPayrollConceptTypes()
+    {
+        return template_choices('Modules\Payroll\Models\PayrollConceptType', 'name', '', true);
+    }
 }

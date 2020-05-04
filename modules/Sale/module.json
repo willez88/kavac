@@ -8,6 +8,7 @@
     "keywords": [],
     "active": 1,
     "order": 0,
+    "logo": "sale-logo.png",
     "providers": [
         "Modules\\Sale\\Providers\\SaleServiceProvider"
     ],

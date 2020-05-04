@@ -3,7 +3,7 @@
         <div class="col-12 mb-4" v-if="showDetail">
             <div class="row">
                 <div class="col-4">
-                    <img src="/images/default-avatar.png" alt="" class="img-responsive" style="width:100%">
+                    <img :src="moduleLogo(details)" alt="" class="img-responsive" style="width:100%">
                     <div class="row">
                         <div class="col-12 mt-4 text-yellow text-center" title="1000 instalaciones"
                              data-toggle="tooltip">
@@ -106,7 +106,7 @@
                            @click="viewDetails(module.alias)">
                             <div class="media">
                                 <div class="media-left">
-                                    <img src="/images/default-avatar.png" alt="" class="img-responsive">
+                                    <img :src="moduleLogo(module)" alt="logotipo / imagen" class="img-responsive">
                                 </div>
                                 <div class="media-middle media-body">
                                     <h5 class="media-heading">{{ module.name }}</h5>
@@ -145,6 +145,9 @@
         },
         props: ['modules'],
         methods: {
+            moduleLogo(module) {
+                return `${window.app_url}/${module.logo}`;
+            },
             /**
              * Obtiene información acerca del módulo seleccionado
              *
