@@ -15,7 +15,8 @@ class CreateSaleCodeFormatsTable extends Migration
     {
         Schema::create('sale_code_formats', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('formatcode', 100)->unique()->comment('Nombre');
+            $table->string('formatcode', 17)->unique()->comment('Format code');
+            $table->string('type_formatcode', 50)->comment('Type of Format code');
             $table->timestamps();
             $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
         });

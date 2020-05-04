@@ -10,19 +10,29 @@ use App\Traits\ModelsTrait;
 
 class SaleClients extends Model implements Auditable
 {
-    use SoftDeletes;
-    use AuditableTrait;
-    use ModelsTrait;
+  use SoftDeletes;
+  use AuditableTrait;
+  use ModelsTrait;
 
-    /**
-     * Lista de atributos para la gestión de fechas
-     * @var array $dates
-     */
-    protected $dates = ['deleted_at'];
+  /**
+   * Lista de atributos para la gestión de fechas
+   * @var array $dates
+   */
+  protected $dates = ['deleted_at'];
 
-    /**
-     * Lista de atributos que pueden ser asignados masivamente
-     * @var array $fillable
-     */
-    protected $fillable = ['id', 'rif', 'first_name', 'last_name', 'name', 'email', 'typeformat', 'country_id', 'parish_id', 'address', 'address_tax', 'phone'];
+  /**
+   * Lista de atributos que pueden ser asignados masivamente
+   * @var array $fillable
+   */
+  protected $fillable = ['id', 'rif', 'type_person_juridica', 'name', 'country_id', 'estate_id', 'city_id', 'municipality_id', 'parish_id', 'address', 'address_tax', 'name_client', 'email_client', 'phone_client'];
+
+  /**
+   * Obtiene todos los número telefónicos asociados al cliente
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+   */
+  public function phones()
+  {
+    return $this->morphMany(\App\Models\Phone::class, 'phoneable');
+  }
 }

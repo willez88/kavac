@@ -24,5 +24,5 @@ class SaleCodeFormat extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['id', 'formatcode'];
+    protected $fillable = ['id', 'formatcode', 'type_formatcode'];
 }

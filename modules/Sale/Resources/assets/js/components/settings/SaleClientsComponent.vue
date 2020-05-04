@@ -26,24 +26,7 @@
               <div class="col-md-4">
                 <div class="form-group is-required">
                   <label for="type_person">Tipo de persona:</label>
-                  <div class='row'>
-                    <div class="col-6">
-                      <label for="tipoformato">Jurídica:</label>
-                      <div class="col-12 bootstrap-switch-mini">
-                        <input id='type_person_juridica' data-on-label='SI' data-off-label='NO' name='type_person_juridica'
-                          type='checkbox' class='form-control bootstrap-switch'
-                          v-model='record.type_person_juridica'>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <label for="tipoformato">Natural:</label>
-                       <div class="col-12 bootstrap-switch-mini">
-                        <input id='type_person_natural' data-on-label='SI' data-off-label='NO' name='type_person_natural'
-                          type='checkbox' class='form-control bootstrap-switch'
-                          v-model='record.type_person_natural'>
-                      </div>
-                    </div>
-                  </div>
+                  <select2 :options="types_person" id='type_person_juridica' v-model="record.type_person_juridica"></select2>
                 </div>
               </div>
               <div class="col-md-4">
@@ -55,9 +38,9 @@
               </div>
               <div class="col-md-4">
                 <div class="form-group is-required">
-                  <label for="name_client">Nombre o razón social:</label>
-                  <input type="text" id="name_client" class="form-control input-sm" data-toggle="tooltip"
-                    title="Nombre o razón social" v-model="record.name_client">
+                  <label for="name">Nombre o razón social:</label>
+                  <input type="text" id="name" class="form-control input-sm" data-toggle="tooltip"
+                    title="Nombre o razón social" v-model="record.name">
                 </div>
               </div>
             </div>
@@ -103,10 +86,10 @@
               <div class="col-md-12">
                 <div class="form-group is-required">
                   <label for="direction">Dirección</label>
-                  <ckeditor :editor="ckeditor.editor" id="direction" data-toggle="tooltip"
+                  <ckeditor :editor="ckeditor.editor" id="address_tax" data-toggle="tooltip"
                     title="Indique dirección física del bien" :config="ckeditor.editorConfig"
-                    class="form-control" name="direction" tag-name="textarea" rows="3"
-                    v-model="record.address"></ckeditor>
+                    class="form-control" name="address_tax" tag-name="textarea" rows="3"
+                    v-model="record.address_tax"></ckeditor>
                 </div>
               </div>
             </div>
@@ -134,9 +117,9 @@
                   </div>
                   <div class="col-md-4">
                     <div class="form-group is-required">
-                      <label for="name_client">Correo electrónico:</label>
+                      <label for="email_client">Correo electrónico:</label>
                       <input type="text" id="email_client" class="form-control input-sm" data-toggle="tooltip"
-                        title="Correo electrónico" v-model="record.name_client">
+                        title="Correo electrónico" v-model="record.email_client">
                     </div>
                   </div>
                   <div class="col-md-12">
@@ -152,9 +135,23 @@
                           </select>
                         </div>
                       </div>
-                      <div class="col-3">
+                      <div class="col-2">
                         <div class="form-group is-required">
-                          <input type="text" placeholder="Número" data-toggle="tooltip" title="Indique el número telefónico" v-model="phone.number" class="form-control input-sm">
+                          <input type="text" placeholder="Cod. Area" data-toggle="tooltip"
+                            title="Indique el código de área" v-model="phone.area_code"
+                            class="form-control input-sm">
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="form-group is-required">
+                          <input type="text" placeholder="Número" data-toggle="tooltip" title="Indique el número telefónico" v-model="phone.number_phones" class="form-control input-sm">
+                        </div>
+                      </div>
+                      <div class="col-2">
+                        <div class="form-group is-required">
+                          <input type="text" placeholder="Extensión" data-toggle="tooltip"
+                            title="Indique la extención telefónica (opcional)"
+                            v-model="phone.extension" class="form-control input-sm">
                         </div>
                       </div>
                       <div class="col-1">
@@ -176,6 +173,23 @@
               <modal-form-buttons :saveRoute="'sale/register-clients'"></modal-form-buttons>
             </div>
           </div>
+          <div class="modal-body modal-table">
+            <v-client-table :columns="columns" :data="records" :options="table_options">
+              <div slot="id" slot-scope="props" class="text-center">
+                <button @click="initUpdate(props.index, $event)"
+                  class="btn btn-warning btn-xs btn-icon btn-action"
+                  title="Modificar registro" data-toggle="tooltip" type="button">
+                    <i class="fa fa-edit"></i>
+                </button>
+                <button @click="deleteRecord(props.index, 'register-formatcode')"
+                  class="btn btn-danger btn-xs btn-icon btn-action"
+                  title="Eliminar registro" data-toggle="tooltip"
+                  type="button">
+                    <i class="fa fa-trash-o"></i>
+                </button>
+              </div>
+            </v-client-table>
+          </div>
         </div>
       </div>
     </div>
@@ -187,12 +201,18 @@
     data() {
       return {
         record: {
+          rif: '',
+          type_person_juridica: '',
+          name: '',
           country_id: '',
           estate_id: '',
           city_id: '',
           municipality_id: '',
           parish_id: '',
           address: '',
+          address_tax: '',
+          name_client: '',
+          email_client: '',
           phones: []
         },
         errors: [],
@@ -202,17 +222,25 @@
         cities: ['0'],
         municipalities: ['0'],
         parishes: ['0'],
+        columns: ['type_person_juridica', 'rif', 'name_client', 'id'],
+        types_person: ['Seleccione...', 'Jurídica', 'Natural']
       }
     },
     methods: {
       reset() {
         this.record = {
+          rif: '',
+          type_person_juridica: '',
+          name: '',
           country_id: '',
           estate_id: '',
           city_id: '',
           municipality_id: '',
           parish_id: '',
           address: '',
+          address_tax: '',
+          name_client: '',
+          email_client: '',
           phones: []
         };
       },
@@ -222,6 +250,22 @@
       this.getEstates();
       this.getMunicipalities();
       this.getParishes();
+      this.record.phones = [];
+
+      this.table_options.headings = {
+        'type_person_juridica': 'Tipo de Persona',
+        'rif': 'Rif',
+        'name_client': 'Nombre o razón social',
+        'id': 'Acción'
+      };
+      this.table_options.sortable = ['rif'];
+      this.table_options.filterable = ['rif'];
+      this.table_options.columnsClasses = {
+        'type_person_juridica': 'col-md-3',
+        'rif': 'col-md-3',
+        'name_client': 'col-md-4',
+        'id': 'col-md-2'
+      };
     }
   };
 </script>
