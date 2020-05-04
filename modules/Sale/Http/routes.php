@@ -31,4 +31,22 @@ Route::group(['middleware' => 'web', 'prefix' => 'sale', 'namespace' => 'Modules
         'get-paymentmethod',
         'SalePaymentMethodController@getSalePaymentMethod'
     )->name('sale.get-sale-paymentmethod');
+    Route::resource(
+        'setting-product',
+        'SaleSettingProductController',
+        ['as' => 'sale', 'except' => ['create','edit','show']]
+    );
+    Route::get(
+        'get-settingproduct',
+        'SaleSettingProductController@getSaleSettingProduct'
+    )->name('sale.get-sale-settingproduct');
+    Route::resource(
+        'setting-product-type',
+        'SaleSettingProductTypeController',
+        ['as' => 'sale', 'except' => ['create','edit','show']]
+    );
+    Route::get(
+        'get-settingproducttype',
+        'SaleSettingProductTypeController@getSaleSettingProductType'
+    )->name('sale.get-sale-settingproducttype');
 });

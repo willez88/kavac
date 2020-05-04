@@ -32,6 +32,10 @@
 					<div class="row">
 						{{-- Configuración de Formas de cobro--}}
 						<sale-payment-method></sale-payment-method>
+						{{-- Configuración de Productos--}}
+						<sale-setting-product></sale-setting-product>
+						{{-- Configuración de Tipos de productos--}}
+						<sale-setting-product-type></sale-setting-product-type>
 					</div>
 				</div>
 			</div>
