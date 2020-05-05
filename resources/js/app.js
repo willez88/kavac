@@ -76,21 +76,30 @@ Vue.component('users', () => import(
  *
  * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
  */
-Vue.component('roles-permissions', () => import('./components/Shared/RolesAndPermissionsComponent.vue'));
+Vue.component('roles-permissions', () => import(
+    /* webpackChunkName: "vue-tables-2" */
+    './components/Shared/RolesAndPermissionsComponent.vue'
+));
 
 /**
  * Componente para la gestión de documentos a requerir
  *
  * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
  */
-Vue.component('required-documents', () => import('./components/Shared/RequiredDocumentsComponent.vue'));
+Vue.component('required-documents', () => import(
+    /* webpackChunkName: "required-documents" */
+    './components/Shared/RequiredDocumentsComponent.vue'
+));
 
 /**
  * Componente para la gestión de números telefónicos
  *
  * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
  */
-Vue.component('phones', () => import('./components/Shared/PhonesComponent.vue'));
+Vue.component('phones', () => import(
+    /* webpackChunkName: "phones" */
+    './components/Shared/PhonesComponent.vue'
+));
 
 /**
  * Componente genérico para mostrar motones de limpiar, cancelar o guardar registros cuando la altura del
@@ -102,21 +111,30 @@ Vue.component('phones', () => import('./components/Shared/PhonesComponent.vue'))
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('buttonsDisplay', () => import('./components/Shared/ButtonsFormDisplayComponent.vue'));
+Vue.component('buttonsDisplay', () => import(
+    /* webpackChunkName: "buttons-form-display" */
+    './components/Shared/ButtonsFormDisplayComponent.vue'
+));
 
 /**
  * Componente genérico para la gestión de documentos
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('document-management', () => import('./components/Shared/DocumentManagementComponent.vue'));
+Vue.component('document-management', () => import(
+    /* webpackChunkName: "document-management" */
+    './components/Shared/DocumentManagementComponent.vue'
+));
 
 /**
  * Componente genérico para el uso de listas desplegables con select2 y selects dependientes
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('select2', () => import('./components/Shared/SelectsComponent.vue'));
+Vue.component('select2', () => import(
+    /* webpackChunkName: "selects" */
+    './components/Shared/SelectsComponent.vue'
+));
 
 /**
  * Componente genérico para el uso de listas desplegables de selección multiple
@@ -145,49 +163,70 @@ Vue.component('select2', () => import('./components/Shared/SelectsComponent.vue'
  * <v-multiselect :options="[{key: 1, name: 'one'},{key: 2, name: 'two'},{key: 3, name: 'three'}]" track_by="key"
  * :hide_selected="false"></v-multiselect>
  */
-Vue.component('v-multiselect', () => import('./components/Shared/MultiSelectsComponent.vue'));
+Vue.component('v-multiselect', () => import(
+    /* webpackChunkName: "multi-selects" */
+    './components/Shared/MultiSelectsComponent.vue'
+));
 
 /**
  * Componente para la gestión de notificaciones en tiempo real
  *
  * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
  */
-Vue.component('notifications', () => import('./components/Notifications/DropdownNotificationsComponent.vue'));
+Vue.component('notifications', () => import(
+    /* webpackChunkName: "dropdown-notifications" */
+    './components/Notifications/DropdownNotificationsComponent.vue'
+));
 
 /**
  * Componente para mostrar un listado con todas las notificaciones del usuario
  *
  * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
  */
-Vue.component('all-notifications', () => import('./components/Notifications/AllNotificationsComponent.vue'));
+Vue.component('all-notifications', () => import(
+    /* webpackChunkName: "all-notifications" */
+    './components/Notifications/AllNotificationsComponent.vue'
+));
 
 /**
  * Componente para la gestión de estados civiles
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('marital-status', () => import('./components/Settings/MaritalStatusComponent.vue'));
+Vue.component('marital-status', () => import(
+    /* webpackChunkName: "marital-status" */
+    './components/Settings/MaritalStatusComponent.vue'
+));
 
 /**
  * Componente para la gestión de profesiones
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('professions', () => import('./components/Settings/ProfessionsComponent.vue'));
+Vue.component('professions', () => import(
+    /* webpackChunkName: "professions" */
+    './components/Settings/ProfessionsComponent.vue'
+));
 
 /**
  * Componente para la gestión de tipos de instituciones
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('institution-types', () => import('./components/Settings/InstitutionTypesComponent.vue'));
+Vue.component('institution-types', () => import(
+    /* webpackChunkName: "institution-types" */
+    './components/Settings/InstitutionTypesComponent.vue'
+));
 
 /**
  * Componente para la configuración y gestión de sectores de instituciones
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('institution-sectors', () => import('./components/Settings/InstitutionSectorsComponent.vue'));
+Vue.component('institution-sectors', () => import(
+    /* webpackChunkName: "institution-sectors" */
+    './components/Settings/InstitutionSectorsComponent.vue'
+));
 
 
 /**
@@ -195,95 +234,137 @@ Vue.component('institution-sectors', () => import('./components/Settings/Institu
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('countries', () => import('./components/Settings/CountriesComponent.vue'));
+Vue.component('countries', () => import(
+    /* webpackChunkName: "countries" */
+    './components/Settings/CountriesComponent.vue'
+));
 
 /**
  * Componente para la gestión de Estados
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('estates', () => import('./components/Settings/EstatesComponent.vue'));
+Vue.component('estates', () => import(
+    /* webpackChunkName: "estates" */
+    './components/Settings/EstatesComponent.vue'
+));
 
 /**
  * Componente para la gestión de Municipio
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('municipalities', () => import('./components/Settings/MunicipalitiesComponent.vue'));
+Vue.component('municipalities', () => import(
+    /* webpackChunkName: "municipalities" */
+    './components/Settings/MunicipalitiesComponent.vue'
+));
 
 /**
  * Componente para la gestión de Ciudades
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('cities', () => import('./components/Settings/CitiesComponent.vue'));
+Vue.component('cities', () => import(
+    /* webpackChunkName: "cities" */
+    './components/Settings/CitiesComponent.vue'
+));
 
 /**
  * Componente para la gestión de Parroquias
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('parishes', () => import('./components/Settings/ParishesComponent.vue'));
+Vue.component('parishes', () => import(
+    /* webpackChunkName: "parishes" */
+    './components/Settings/ParishesComponent.vue'
+));
 
 /**
  * Componente para la gestión de estatus de documentos
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('document-status', () => import('./components/Settings/DocumentStatusComponent.vue'));
+Vue.component('document-status', () => import(
+    /* webpackChunkName: "document-status" */
+    './components/Settings/DocumentStatusComponent.vue'
+));
 
 /**
  * Componente para la gestión de impuestos
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('taxes', () => import('./components/Settings/TaxesComponent.vue'));
+Vue.component('taxes', () => import(
+    /* webpackChunkName: "taxes" */
+    './components/Settings/TaxesComponent.vue'
+));
 
 /**
  * Componente para la gestión de unidades tributarias
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('tax-units', () => import('./components/Settings/TaxUnitsComponent.vue'));
+Vue.component('tax-units', () => import(
+    /* webpackChunkName: "tax-units" */
+    './components/Settings/TaxUnitsComponent.vue'
+));
 
 /**
  * Componente para la gestión de departamentos
  *
  * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
  */
-Vue.component('departments', () => import('./components/Settings/DepartmentsComponent.vue'));
+Vue.component('departments', () => import(
+    /* webpackChunkName: "departments" */
+    './components/Settings/DepartmentsComponent.vue'
+));
 
 /**
  * Componente para la gestión de monedas
  *
  * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
  */
-Vue.component('currencies', () => import('./components/Settings/CurrenciesComponent.vue'));
+Vue.component('currencies', () => import(
+    /* webpackChunkName: "currencies" */
+    './components/Settings/CurrenciesComponent.vue'
+));
 
 /**
 * Componente para la gestión de unidades de medida
 *
 * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
 */
-Vue.component('measurement-units', () => import('./components/Settings/MeasurementUnitsComponent.vue'));
+Vue.component('measurement-units', () => import(
+    /* webpackChunkName: "measurement-units" */
+    './components/Settings/MeasurementUnitsComponent.vue'
+));
 
 /**
  * Componente para la gestión de deducciones
  *
  * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
  */
-Vue.component('deductions', () => import('./components/Settings/DeductionsComponent.vue'));
+Vue.component('deductions', () => import(
+    /* webpackChunkName: "deductions" */
+    './components/Settings/DeductionsComponent.vue'
+));
 
 /**
  * Componente para la gestión de tipos de cambio
  *
  * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
  */
-Vue.component('exchange-rates', () => import('./components/Settings/ExchangeRatesComponent.vue'));
+Vue.component('exchange-rates', () => import(
+    /* webpackChunkName: "exchange-rates" */
+    './components/Settings/ExchangeRatesComponent.vue'
+));
 
 /**
  * Componente para la gestión de módulos
  *
  * @author Ing. Roldan Vargas (rvargas@cenditel.gob.ve / roldandvg@gmail.com)
  */
-Vue.component('manage-modules', () => import('./components/Settings/ModulesComponent.vue'));
+Vue.component('manage-modules', () => import(
+    /* webpackChunkName: "modules" */
+    './components/Settings/ModulesComponent.vue'
+));

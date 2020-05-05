@@ -15,7 +15,7 @@ try {
     /** Requerido para tour giados en funcionalidades del sistema */
     window.introJs = require('intro.js');
     /** Requerido para agregar mascara a campos de texto */
-    window.Inputmask = require('inputmask')
+    window.Inputmask = require('inputmask');
     /** Requerido para los componentes switch */
     //require('bootstrap-switch');
     /** JQuery.Complexify required for validate strong password */

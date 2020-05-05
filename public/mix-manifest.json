@@ -1,6 +1,8 @@
 {
-    "/js/app.js": "/js/app.js?id=062b03eb939f472996c2",
-    "/css/app.css": "/css/app.css?id=0aefb49d0abe41e69d22",
+    "/js/generic-classes.js": "/js/generic-classes.js?id=b4502a0abe71cb4934bb",
+    "/js/common.js": "/js/common.js?id=b8932c72dd603f8bbef7",
+    "/css/app.css": "/css/app.css?id=e2bf6efa5485d261ade4",
+    "/js/app.js": "/js/app.js?id=a8be1e52221d1b5dd700",
     "/css/font-awesome.css": "/css/font-awesome.css?id=57858bb7d0307e8f5aa6",
     "/css/ionicons.css": "/css/ionicons.css?id=02f9d579752de494013a",
     "/css/now-ui-kit.css": "/css/now-ui-kit.css?id=20f5e5e42b31743a7f87",
@@ -8,6 +10,14 @@
     "/css/custom.css": "/css/custom.css?id=8293976e39c3f4954e8e",
     "/js/chart.js": "/js/chart.js?id=fa2ced0332f91773bf63",
     "/js/shared-components.js": "/js/shared-components.js?id=e9917112c690d809acfa",
-    "/js/generic-classes.js": "/js/generic-classes.js?id=b4502a0abe71cb4934bb",
-    "/js/common.js": "/js/common.js?id=b8932c72dd603f8bbef7"
+    "/js/components/core/86a41ef0a8b6c8ded13c.js": "/js/components/core/86a41ef0a8b6c8ded13c.js?id=aac9cd37382ef3fd30c6",
+    "/js/components/core/9f6e3dde9cdf762c456b.js": "/js/components/core/9f6e3dde9cdf762c456b.js?id=aaf37bedaba640b02c64",
+    "/js/components/core/e87aa2c055a8100704fc.js": "/js/components/core/e87aa2c055a8100704fc.js?id=dbd420e1b62868973832",
+    "/js/components/core/c406a9108dda6dd2344b.js": "/js/components/core/c406a9108dda6dd2344b.js?id=512863fe5ef42607a0bf",
+    "/modules/accounting/js/app.js": "/modules/accounting/js/app.js?id=b93dadc3d006bc9cd912",
+    "/modules/accounting/css/app.css": "/modules/accounting/css/app.css?id=4d1ffca9c7095984d7ae",
+    "/modules/asset/js/app.js": "/modules/asset/js/app.js?id=dc120e696d966f6be381",
+    "/modules/asset/css/app.css": "/modules/asset/css/app.css?id=4d1ffca9c7095984d7ae",
+    "/modules/warehouse/js/app.js": "/modules/warehouse/js/app.js?id=6f4a2cc3d5b8d7c74bf2",
+    "/modules/warehouse/css/app.css": "/modules/warehouse/css/app.css?id=4d1ffca9c7095984d7ae"
 }
