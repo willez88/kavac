@@ -68,18 +68,18 @@ Route::group(
         ['as' => 'sale', 'except' => ['create','edit','show']]
     );
     Route::get(
-        'get-settingproduct',
+        'get-setting-product',
         'SaleSettingProductController@getSaleSettingProduct'
-    )->name('sale.get-sale-settingproduct');
+    )->name('sale.get-sale-setting-product');
     Route::resource(
         'setting-product-type',
         'SaleSettingProductTypeController',
         ['as' => 'sale', 'except' => ['create','edit','show']]
     );
     Route::get(
-        'get-settingproducttype',
+        'get-setting-product-type',
         'SaleSettingProductTypeController@getSaleSettingProductType'
-    )->name('sale.get-sale-settingproducttype');
+    )->name('sale.get-sale-setting-product-type');
 
     /**
      * -----------------------------------------------------------------------

@@ -126,7 +126,7 @@
 				errors: [],
                 sale_setting_product_type_id: [],
 				records: [],
-				columns: ['sale_setting_product_type_id.name', 'name', 'code', 'description', 'price', 'iva', 'id'],
+				columns: ['sale_setting_product_type.name', 'name', 'code', 'description', 'price', 'iva', 'id'],
 			}
 		},
 		methods: {
@@ -149,7 +149,7 @@
 		},
 		created() {
 			this.table_options.headings = {
-				'sale_setting_product_type_id.name': 'Tipo de producto',
+				'sale_setting_product_type.name': 'Tipo de producto',
 				'name': 'Nombre',
 				'code': 'Código',
                 'description': 'Descripción',
@@ -157,10 +157,10 @@
                 'iva': 'IVA',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['sale_setting_product_type_id.name' , 'name'];
-			this.table_options.filterable = ['sale_setting_product_type_id.name', 'name'];
+			this.table_options.sortable = ['sale_setting_product_type.name' , 'name'];
+			this.table_options.filterable = ['sale_setting_product_type.name', 'name'];
 			this.table_options.columnsClasses = {
-				'sale_setting_product_type_id.name': 'Tipo de producto',
+				'sale_setting_product_type_id': 'Tipo de producto',
                 'name': 'Nombre',
 				'code': 'Código',
                 'description': 'col-md-5',

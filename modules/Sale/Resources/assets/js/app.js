@@ -72,7 +72,7 @@ Vue.mixin({
 		getSaleSettingProduct() {
 			const vm = this;
 			vm.sale_setting_product = [];
-			axios.get('/sale/get-settingproduct').then(response => {
+			axios.get('/sale/get-setting-product').then(response => {
 				vm.sale_setting_product = response.data;
 			});
 		},
@@ -84,7 +84,7 @@ Vue.mixin({
 		getSaleSettingProductType() {
 			const vm = this;
 			vm.sale_setting_product_type = [];
-			axios.get('/sale/get-settingproducttype').then(response => {
+			axios.get('/sale/get-setting-product-type').then(response => {
 				vm.sale_setting_product_type = response.data;
 			});
 		},

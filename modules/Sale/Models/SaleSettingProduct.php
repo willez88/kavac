@@ -26,6 +26,8 @@ class SaleSettingProduct extends Model implements Auditable
      */
     protected $fillable = ['sale_setting_product_type_id', 'name', 'code', 'description', 'price', 'iva'];
 
+    protected $with = ['SaleSettingProductType'];
+
     /**
      * Método que obtiene el tipo de producto
      *
