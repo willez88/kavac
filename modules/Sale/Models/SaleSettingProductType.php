@@ -7,7 +7,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
-
+/**
+ * @class SaleSettingProductType
+ * @brief Datos de tipos de producto
+ *
+ * Gestiona el modelo de los tipos de producto
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
+ */
 class SaleSettingProductType extends Model implements Auditable
 {
     use SoftDeletes;
