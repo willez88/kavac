@@ -50,21 +50,14 @@ class CitizenServiceRequestController extends Controller
             'address'                          => ['required', 'max:200'],
             'motive_request'                   => ['required', 'max:200'],
             'citizen_service_request_type_id'  => ['required'],
+            'citizen_service_department_id'    => ['required'],
 
         ]);
 
-        if ($request->type_institution == true) {
-            $this->validate($request, [
-                'institution_name'                 => ['required', 'max:200'],
-                'rif'                              => ['required', 'max:100'],
-                'institution_address'              => ['required', 'max:200'],
-                'web'                              => ['required', 'max:200'],
-            ]);
-        }
 
         if ($request->citizen_service_request_type_id == 1) {
             $this->validate($request, [
-                'team'            => ['required'],
+                'type_team'       => ['required'],
                 'brand'           => ['required'],
                 'model'           => ['required'],
                 'serial'          => ['required'],
@@ -77,8 +70,15 @@ class CitizenServiceRequestController extends Controller
             ]);
         }
 
-        
-       
+        if ($request->type_institution) {
+            $this->validate($request, [
+                'institution_name'              => ['required', 'max:200'],
+                'rif'                           => ['required', 'max:100'],
+                'institution_address'           => ['required', 'max:200'],
+                'web'                           => ['required', 'max:200'],
+            ]);
+        }
+
         $i = 0;
         foreach ($request->phones as $phone) {
             $this->validate($request, [
@@ -89,9 +89,9 @@ class CitizenServiceRequestController extends Controller
             ]);
             $i++;
         }
-       
-        //Guardar los registros del formulario en  citizensrviceRequest
-        $citizenserviceRequest = CitizenServiceRequest::create([
+
+        //Guardar los registros del formulario en  CitizenServiceRequest
+        $citizenServiceRequest = CitizenServiceRequest::create([
             'date'                             => $request->date,
             'first_name'                       => $request->first_name,
             'last_name'                        => $request->last_name,
@@ -103,13 +103,15 @@ class CitizenServiceRequestController extends Controller
             'motive_request'                   => $request->motive_request,
             'state'                            => 'Pendiente',
             'citizen_service_request_type_id'  => $request->citizen_service_request_type_id,
+            'citizen_service_department_id'    => $request->citizen_service_department_id,
 
+            'type_institution'                 =>$request->type_institution,
             'institution_name'                 => $request->institution_name,
             'rif'                              => $request->rif,
             'institution_address'              => $request->institution_address,
             'web'                              => $request->web,
 
-            'team'                             => $request->team,
+            'type_team'                        => $request->type_team,
             'brand'                            => $request->brand,
             'model'                            => $request->model,
             'serial'                           => $request->serial,
@@ -119,7 +121,7 @@ class CitizenServiceRequestController extends Controller
             'entryhour'                        => $request->entryhour,
             'exithour'                         => $request->exithour,
             'informationteam'                  => $request->informationteam,
-            
+
         ]);
 
 
@@ -133,6 +135,8 @@ class CitizenServiceRequestController extends Controller
                 ]));
             }
         }
+        $request->session()->flash('message', ['type' => 'store']);
+        return response()->json(['result' => true, 'redirect' => route('citizenservice.request.index')], 200);
     }
 
     /**
@@ -159,7 +163,7 @@ class CitizenServiceRequestController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $citizenServiceRequest = CitizenServiceRequest::find($id);
         $this->validate($request, [
@@ -173,17 +177,15 @@ class CitizenServiceRequestController extends Controller
             'address'                          => ['required', 'max:200'],
             'motive_request'                   => ['required', 'max:200'],
             'citizen_service_request_type_id'  => ['required'],
+            'citizen_service_department_id'    => ['required'],
 
-            'institution_name'                 => ['required', 'max:200'],
-            'rif'                              => ['required', 'max:100'],
-            'institution_address'              => ['required', 'max:200'],
-            'web'                              => ['required', 'max:200'],
-          
         ]);
+
+
 
         if ($request->citizen_service_request_type_id == 1) {
             $this->validate($request, [
-                'team'                             => ['required'],
+                'type_team'                        => ['required'],
                 'brand'                            => ['required'],
                 'model'                            => ['required'],
                 'serial'                           => ['required'],
@@ -195,6 +197,29 @@ class CitizenServiceRequestController extends Controller
                 'informationteam'                  => ['required'],
             ]);
         }
+
+
+        error_log($request->type_institution);
+        if ($request->type_institution) {
+            $this->validate($request, [
+                'institution_name'              => ['required', 'max:200'],
+                'rif'                           => ['required', 'max:100'],
+                'institution_address'           => ['required', 'max:200'],
+                'web'                           => ['required', 'max:200'],
+            ]);
+            $citizenServiceRequest->type_institution = $request->type_institution;
+            $citizenServiceRequest->institution_name = $request->institution_name;
+            $citizenServiceRequest->rif = $request->rif;
+            $citizenServiceRequest->institution_address = $request->institution_address;
+            $citizenServiceRequest->web = $request->web;
+        } else {
+            $citizenServiceRequest->type_institution = false;
+            $citizenServiceRequest->institution_name = null;
+            $citizenServiceRequest->rif = null;
+            $citizenServiceRequest->institution_address = null;
+            $citizenServiceRequest->web = null;
+        }
+
 
 
         $i = 0;
@@ -218,14 +243,10 @@ class CitizenServiceRequestController extends Controller
         $citizenServiceRequest->motive_request                   = $request->motive_request;
         $citizenServiceRequest->state                            = 'Pendiente';
         $citizenServiceRequest->citizen_service_request_type_id  = $request->citizen_service_request_type_id;
-
-        $citizenServiceRequest->institution_name                 = $request->institution_name;
-        $citizenServiceRequest->rif                              = $request->rif;
-        $citizenServiceRequest->institution_address              = $request->institution_address;
-        $citizenServiceRequest->web                              = $request->web;
+        $citizenServiceRequest->citizen_service_department_id  = $request->citizen_service_department_id;
 
 
-        $citizenServiceRequest->team                             = $request->team;
+        $citizenServiceRequest->type_team                        = $request->type_team;
         $citizenServiceRequest->brand                            = $request->brand;
         $citizenServiceRequest->model                            = $request->model;
         $citizenServiceRequest->serial                           = $request->serial;
@@ -236,6 +257,20 @@ class CitizenServiceRequestController extends Controller
         $citizenServiceRequest->exithour                         = $request->exithour;
         $citizenServiceRequest->informationteam                  = $request->informationteam;
         $citizenServiceRequest->save();
+
+        if ($request->phones && !empty($request->phones)) {
+            foreach ($request->phones as $phone) {
+                $citizenserviceRequest->phones()->save(new Phone([
+                    'type' => $phone['type'],
+                    'area_code' => $phone['area_code'],
+                    'number' => $phone['number'],
+                    'extension' => $phone['extension']
+                ]));
+            }
+        }
+
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true, 'redirect' => route('citizenservice.request.index')], 200);
     }
 
     /**
@@ -260,7 +295,7 @@ class CitizenServiceRequestController extends Controller
 
     public function vueInfo($id)
     {
-        $citizenServiceRequest = CitizenServiceRequest::where('id', $id)->with('phones')->first();
+        $citizenServiceRequest = CitizenServiceRequest::where('id', $id)->with(['phones','citizenServiceDepartment'])->first();
         return response()->json(['record' => $citizenServiceRequest], 200);
     }
     public function vueListPending()
@@ -286,7 +321,7 @@ class CitizenServiceRequestController extends Controller
         $citizenServiceRequest = CitizenServiceRequest::find($id);
         $citizenServiceRequest->state = 'Iniciado';
 
-      
+
         $citizenServiceRequest->save();
 
         $request->session()->flash('message', ['type' => 'update']);
@@ -298,10 +333,10 @@ class CitizenServiceRequestController extends Controller
     {
         $citizenServiceRequest = CitizenServiceRequest::find($id);
         $citizenServiceRequest->state = 'Rechazado';
-      
+
 
         $citizenServiceRequest->save();
-        
+
         $request->session()->flash('message', ['type' => 'update']);
         return response()->json(['result' => true, 'redirect' => route('citizenservice.request.index')], 200);
     }

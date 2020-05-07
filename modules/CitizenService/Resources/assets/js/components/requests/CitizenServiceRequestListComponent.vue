@@ -67,7 +67,7 @@
 			/**
 			 * Inicializa los datos del formulario
 			 *
-			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+			 * @author Ing. Yennifer Ramirez <yramirez@cenditel.gob.ve>
 			 */
 			reset() {
 				
