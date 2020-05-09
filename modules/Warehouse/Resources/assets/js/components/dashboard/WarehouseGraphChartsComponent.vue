@@ -5,7 +5,7 @@
 <script>
     import Chart from 'chart.js';
     var warehouse_datachart;
-    
+
     export default {
         data() {
             return {
@@ -80,14 +80,14 @@
                         enabled: true,
                         mode: 'single',
                         callbacks: {
-                            title: function (tooltipItem, data) { 
-                                return data.labels[tooltipItem[0].index]; 
+                            title: function (tooltipItem, data) {
+                                return data.labels[tooltipItem[0].index];
                             },
                             label: function(tooltipItems, data) {
                                 return "Total: " + tooltipItems.yLabel;
                             },
                             footer: function (tooltipItem, data) {
-                                return ''; 
+                                return '';
                             }
                         }
                     },
@@ -101,7 +101,7 @@
                     }
                 }
             });
-        },  
+        },
         watch: {
             data: function(data) {
                 warehouse_datachart.config.data.datasets[0].data = data;
@@ -117,7 +117,7 @@
             },
             type: function(type) {
                 const vm = this;
-                if (warehouse_datachart.config.type == type) { 
+                if (warehouse_datachart.config.type == type) {
                     warehouse_datachart.update();
                     return;
                 }
@@ -148,8 +148,8 @@
                                 enabled: true,
                                 mode: 'single',
                                 callbacks: {
-                                    title: function (tooltipItem, data) { 
-                                        return data.labels[tooltipItem[0].index]; 
+                                    title: function (tooltipItem, data) {
+                                        return data.labels[tooltipItem[0].index];
                                     },
                                     label: function(tooltipItems, data) {
                                         return "Total: " + tooltipItems.yLabel;
@@ -198,14 +198,14 @@
                                 enabled: true,
                                 mode: 'single',
                                 callbacks: {
-                                    title: function (tooltipItem, data) { 
-                                        return data.labels[tooltipItem[0].index]; 
+                                    title: function (tooltipItem, data) {
+                                        return data.labels[tooltipItem[0].index];
                                     },
                                     label: function(tooltipItems, data) {
                                         return "Total: " + tooltipItems.yLabel;
                                     },
                                     footer: function (tooltipItem, data) {
-                                        return vm.descriptions[tooltipItem[0].index]; 
+                                        return vm.descriptions[tooltipItem[0].index];
                                     }
                                 }
                             }

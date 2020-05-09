@@ -168,26 +168,3 @@
 		</div>
 	</div>
 @stop
-
-@section('extra-js')
-    @parent
-    {!! Html::script('js/ckeditor.js', [], Request::secure()) !!}
-    <script>
-        $(document).ready(function() {
-            $('textarea').each(function() {
-                CkEditor.create(this, {
-                    toolbar: [
-                        'heading', '|',
-                        'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|',
-                        'insertTable'
-                    ],
-                    language: '{{ app()->getLocale() }}',
-                }).then(editor => {
-                    window.editor = editor;
-                }).catch(error => {
-                    logs('setting-institution', 489, error);
-                });
-            });
-        });
-    </script>
-@stop

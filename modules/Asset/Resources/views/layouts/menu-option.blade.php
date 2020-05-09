@@ -1,6 +1,6 @@
 {{-- Gestión de bienes --}}
 <li>
-    <a href="#" title="Gestión de bienes institucionales" data-toggle="tooltip" 
+    <a href="javascript:void(0)" title="Gestión de bienes institucionales" data-toggle="tooltip" 
        data-placement="right">
         <i class="ion-ios-pricetags-outline"></i><span>Bienes</span>
     </a>

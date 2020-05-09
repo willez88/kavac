@@ -21,21 +21,20 @@
 	<div class="col-12">
 		<div class="card" id="cardWarehouseReportForm">
 			<div class="card-header">
-				<h6 class="card-title text-uppercase">Inventario de Productos Almacén
+				<h6 class="card-title text-uppercase">Productos Registrados en Almacén
 					@include('buttons.help', [
 					    'helpId' => 'WarehouseReportForm',
 					    'helpSteps' => get_json_resource('ui-guides/reports/report_form.json', 'warehouse')
 				    ])
-				</h6>
 				</h6>
 				<div class="card-btns">
 					@include('buttons.previous', ['route' => url()->previous()])
 					@include('buttons.minimize')
 				</div>
 			</div>
-			<warehouse-reports
+			<warehouse-report-products
 				route_list="{{ url()->previous() }}">
-			</warehouse-reports>
+			</warehouse-report-products>
 		</div>
 	</div>
 </div>

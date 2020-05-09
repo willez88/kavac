@@ -196,6 +196,14 @@ Vue.component('payroll-salary-assignment-type', require('./components/PayrollSal
 Vue.component('payroll-salary-assignment', require('./components/PayrollSalaryAssignmentComponent.vue').default);
 
 /**
+ * Componente para la gestión de conceptos de nómina
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('payroll-concepts', require('./components/settings/PayrollConceptsComponent.vue').default);
+Vue.component('payroll-concept-types', require('./components/settings/PayrollConceptTypesComponent.vue').default);
+
+/**
  * Componente para la gestión de calculos de salario
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>

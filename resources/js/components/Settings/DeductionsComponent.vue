@@ -42,8 +42,10 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Descripción:</label>
-                                    <textarea v-model="record.description" class="form-control" rows="3" data-toggle="tooltip"
-                                              title="Indique la descripción de la deducción"></textarea>
+                                    <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+                                              title="Indique la descripción de la deducción"
+                                              :config="ckeditor.editorConfig" class="form-control"
+                                              tag-name="textarea" rows="3" v-model="record.description"></ckeditor>
                                 </div>
                             </div>
                         </div>
@@ -180,17 +182,6 @@
         </div>
     </div>
 </template>
-
-<style>
-    .btn-sm.btn-formula, .btn-sm.btn-formula-clear {
-        font-size: .65rem;
-        font-weight: bold;
-    }
-    .col-btn-block {
-        padding-left: 36px;
-        padding-right: 36px;
-    }
-</style>
 
 <script>
     export default {

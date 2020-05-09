@@ -135,6 +135,11 @@
         @include('layouts.messages')
         <script>
             $(document).ready(function() {
+                $('#form-lockscreen').on('submit', function() {
+                    unlockScreen();
+                    return false;
+                });
+
                 /** Coloca el año actual en el pie de página */
                 $('.currentYear').text(new Date().getFullYear());
 
@@ -181,6 +186,8 @@
                         event.preventDefault();
                     }
                 });
+
+                Inputmask().mask(document.querySelectorAll("input"));
 
                 /** Instrucciones a implementar en campos de formularios */
                 //$("input[type=date]").attr('readonly', true);
@@ -422,6 +429,7 @@
                         password: password.val()
                     });
 
+
                     if (response.data.result) {
                         let new_csrf = response.data.new_csrf;
                         /** @type {Boolean} actualiza el estatus del bloqueo de pantalla */
@@ -443,6 +451,11 @@
                         /** Oculta la pantalla de bloqueo */
                         $(".modal-lockscreen").modal('hide');
 
+                        app.lockscreen.time = 0;
+                        app.lockscreen.lock = false;
+                        clearTimeout(app._data.lockscreen.timer_timeout);
+                        app.lockScreen();
+
                         return false;
                     }
                 }
@@ -455,6 +468,19 @@
                     sticky: false,
                     time: 2500
                 });
+            }
+
+            function fullScreen(elem) {
+                var elem = (typeof(elem) !== "undefined") ? elem : document.documentElement;
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.mozRequestFullScreen) { /* Firefox */
+                    elem.mozRequestFullScreen();
+                } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                    elem.webkitRequestFullscreen();
+                } else if (elem.msRequestFullscreen) { /* IE/Edge */
+                    elem.msRequestFullscreen();
+                }
             }
         </script>
 

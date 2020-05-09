@@ -35,7 +35,7 @@
                     	</div>
 				    </div>
 				</div>
-				<div class="col-md-4" id="helpAssetRequestDeliveryDate">
+				<div class="col-md-6" id="helpAssetRequestDeliveryDate">
 			        <div class="form-group is-required">
 			            <label>Fecha de Entrega</label>
 			            <div class="input-group input-sm">
@@ -49,19 +49,28 @@
 			            </div>
 			        </div>
 			    </div>
-			    <div class="col-md-4" id="helpAssetRequestType">
+			    <div class="col-md-6" id="helpAssetRequestType">
 					<div class="form-group is-required">
 						<label>Tipo de Solicitud</label>
 						<select2 :options="types"
 								 v-model="record.type_id"></select2>
 					</div>
 				</div>
-				<div class="col-md-12" id="helpAssetRequestMotive">
+				<div class="col-md-6" id="helpAssetRequestMotive">
 				    <div class="form-group is-required">
 				        <label>Motivo de la solicitud</label>
-				        <textarea  data-toggle="tooltip" title="Indique el motivo de la solicitud" id="details"
-								   class="form-control input-sm" v-model="record.motive"></textarea>
+                        <ckeditor :editor="ckeditor.editor" id="motive" data-toggle="tooltip"
+                                  title="Indique el motivo de la solicitud" :config="ckeditor.editorConfig"
+                                  class="form-control" name="motive" tag-name="textarea" rows="3"
+                                  v-model="record.motive"></ckeditor>
 				    </div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<label> Adjuntar archivos </label>
+						<input id="files" name="files" type="file"
+							   accept=".odt, .pdf" multiple>
+					</div>
 				</div>
 			</div>
 			<div v-if="record.type_id > 1">
@@ -108,10 +117,10 @@
 					<div class="col-md-6" id="helpAssetAddress">
 						<div class="form-group is-required">
 							<label>Dirección</label>
-							<textarea  data-toggle="tooltip"
-									   title="Indique dirección física del bien"
-									   class="form-control" v-model="record.address">
-						   </textarea>
+                            <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+                                      title="Indique dirección física del bien" :config="ckeditor.editorConfig"
+                                      class="form-control" name="address" tag-name="textarea" rows="3"
+                                      v-model="record.address"></ckeditor>
 						</div>
 					</div>
 
@@ -229,7 +238,7 @@
 		        			<i class="fa fa-ban"></i>
 		        	</button>
 
-		        	<button type="button"  @click="createForm('asset/requests')"
+		        	<button type="button"  @click="createRecord('asset/requests')"
 		        			class="btn btn-success btn-icon btn-round btn-modal-save"
 		        			title="Guardar registro">
 		        		<i class="fa fa-save"></i>
@@ -268,6 +277,7 @@
 
 				},
 				records: [],
+				files: [],
 				page: 1,
 				total: '',
 				perPage: 10,
@@ -341,19 +351,6 @@
 			if(this.requestid){
 				this.loadForm(this.requestid);
 			}
-
-            CkEditor.create(document.querySelector(`#details`), {
-                toolbar: [
-                    'heading', '|',
-                    'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|',
-                    'insertTable'
-                ],
-                language: window.currentLocale,
-            }).then(editor => {
-                window.editor = editor;
-            }).catch(error => {
-                console.warn(error);
-            });
 		},
 		props: {
 			requestid: Number,
@@ -398,7 +395,8 @@
 					address: '',
 				};
 
-				this.selected = [];
+				this.selected  = [];
+				this.files     = [];
 				this.selectAll = false;
 
 			},
@@ -439,15 +437,63 @@
                     vm.pageValues.push(pag + i);
                 }
             },
-			createForm(url) {
-				const vm = this
+			createRecord(url, list = true, reset = true) {
+				const vm = this;
+				var inputFiles = document.querySelector('#files');
+				var formData   = new FormData();
+
 				vm.errors = [];
 				if(!vm.selected.length > 0){
                 	bootbox.alert("Debe agregar almenos un elemento a la solicitud");
 					return false;
 				};
-				vm.record.assets = vm.selected;
-				vm.createRecord(url);
+
+				if (this.record.id) {
+	                //this.updateRecord(url);
+	            } else {
+	            	vm.loading = true;
+	            	for (var index in vm.record) {
+	                	if (index == "motive") {
+	                		formData.append("motive", window.editor.getData());
+	                	} else {
+	                		formData.append(index, vm.record[index]);
+	                	}
+	                }
+	                formData.append("file", inputFiles.files[0]);
+	                formData.append("assets", vm.selected);
+	                axios.post('/' + url, formData, {
+	                    headers: {
+	                        'Content-Type': 'multipart/form-data'
+	                    }
+	                }).then(response => {
+	                    if (typeof(response.data.redirect) !== "undefined") {
+	                        location.href = response.data.redirect;
+	                    }
+	                    else {
+	                        vm.errors = [];
+	                        if (reset) {
+	                            vm.reset();
+	                        }
+	                        if (list) {
+	                            vm.readRecords(url);
+	                        }
+	                        vm.loading = false;
+	                        vm.showMessage('store');
+	                    }
+	                }).catch(error => {
+	                    vm.errors = [];
+
+	                    if (typeof(error.response) !="undefined") {
+	                        for (var index in error.response.data.errors) {
+	                            if (error.response.data.errors[index]) {
+	                                vm.errors.push(error.response.data.errors[index][0]);
+	                            }
+	                        }
+	                    }
+
+	                    vm.loading = false;
+	                });
+	            }
 			},
 		    loadForm(id){
 				const vm = this;

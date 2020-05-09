@@ -73,10 +73,10 @@ class BudgetSpecificAction extends Model implements Auditable
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @return string Devuelve el código y nombre de la acción específica
      */
-    public function getDescriptionAttribute()
+    /*public function getDescriptionAttribute()
     {
         return "{$this->code} - {$this->name}";
-    }
+    }*/
 
     /**
      * Get all of the owning specificable models.

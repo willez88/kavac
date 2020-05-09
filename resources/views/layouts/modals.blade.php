@@ -9,7 +9,7 @@
                 <div class="modal-body lockscreen">
                     <div class="lockscreen-wrapper">
                         <div class="lockscreen-logo">
-                            <img src="{{ asset('images/logo-white.png') }}" alt="Logo SAID" />
+                            <img src="{{ asset('images/app-logo-white.png') }}" alt="Logo KAVAC" />
                         </div>
                         <div class="lockscreen-name text-white">@if (Auth::check()) {{ Auth::user()->name }} @endif</div>
 
@@ -19,7 +19,7 @@
                                      alt="perfil">
                             </div>
 
-                            {!! Form::open(array('class' => 'lockscreen-credentials', 'id' => 'form-lockscreen')) !!}
+                            {!! Form::open(['class' => 'lockscreen-credentials', 'id' => 'form-lockscreen']) !!}
                                 <div class="input-group">
                                     {!! Form::password('password', array(
                                         'class' => 'form-control', 'placeholder' => 'contraseña de acceso',

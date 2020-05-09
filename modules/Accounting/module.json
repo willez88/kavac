@@ -1,15 +1,17 @@
 {
-    "version": "1.0",
+    "version": "1.0.0",
     "name": "Accounting",
     "alias": "accounting",
     "name_es": "Contabilidad",
     "description": "Gestión de asientos contables",
+    "long_description": "",
     "authors": [
         {
             "name": "Ing. Juan Rosas",
             "email": ["jrosas@cenditel.gob.ve"]
         }
     ],
+    "logo": "accounting-logo.png",
     "keywords": [],
     "active": 1,
     "order": 0,

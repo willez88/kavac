@@ -8,6 +8,9 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Jobs\AssetCreateAssets;
+use Maatwebsite\Excel\Facades\Excel;
+use Modules\Asset\Exports\AssetExport;
+use Modules\Asset\Imports\AssetImport;
 
 use Modules\Asset\Rules\AcquisitionYear;
 use Modules\Asset\Rules\RequiredItem;
@@ -88,7 +91,7 @@ class AssetController extends Controller
                 'asset_subcategory_id' => ['required'],
                 'asset_specific_category_id' => ['required'],
                 'asset_acquisition_type_id' => ['required'],
-                'acquisition_year' => ['required', 'regex:/^\d+$/u', new AcquisitionYear(Date("Y"))],
+                'acquisition_date' => ['required', new AcquisitionYear(Date("Y"))],
                 'asset_status_id' => ['required'],
                 'asset_condition_id' => ['required'],
                 'value' => ['required', 'regex:/^\d+(\.\d+)?$/u'],
@@ -110,7 +113,7 @@ class AssetController extends Controller
                 'asset_subcategory_id' => ['required'],
                 'asset_specific_category_id' => ['required'],
                 'asset_acquisition_type_id' => ['required'],
-                'acquisition_year' => ['required', 'regex:/^\d+$/u', new AcquisitionYear(Date("Y"))],
+                'acquisition_date' => ['required', new AcquisitionYear(Date("Y"))],
                 'asset_status_id' => ['required'],
                 'asset_condition_id' => ['required'],
                 'value' => ['required', 'regex:/^\d+(\.\d+)?$/u'],
@@ -157,7 +160,7 @@ class AssetController extends Controller
             'asset_subcategory_id' => ['required'],
             'asset_specific_category_id' => ['required'],
             'asset_acquisition_type_id' => ['required'],
-            'acquisition_year' => ['required', 'max:8'],
+            'acquisition_date' => ['required', new AcquisitionYear(Date("Y"))],
             'asset_status_id' => ['required'],
             'asset_condition_id' => ['required'],
             'value' => ['required', 'regex:/^\d+(\.\d+)?$/u'],
@@ -187,7 +190,7 @@ class AssetController extends Controller
         //$asset->proveedor_id = $request->proveedor_id;
         $asset->asset_condition_id = $request->asset_condition_id;
         $asset->asset_acquisition_type_id = $request->asset_acquisition_type_id;
-        $asset->acquisition_year = $request->acquisition_year;
+        $asset->acquisition_date = $request->acquisition_date;
         $asset->serial = $request->serial;
         $asset->marca = $request->marca;
         $asset->model = $request->model;
@@ -386,9 +389,12 @@ class AssetController extends Controller
             $request->asset_category,
             $request->asset_subcategory,
             $request->asset_specific_category
-        )->with('institution', 'assetCondition', 'assetStatus')->get();
+        )->with('institution', 'assetCondition', 'assetStatus');
+        if ($request->asset_status > 0) {
+            $assets = $assets->where('asset_status_id', $request->asset_status);
+        }
 
-        return response()->json(['records' => $assets], 200);
+        return response()->json(['records' => $assets->get()], 200);
     }
 
     /**
@@ -401,9 +407,12 @@ class AssetController extends Controller
     public function searchGeneral(Request $request)
     {
         $assets = Asset::DateClasification($request->start_date, $request->end_date, $request->mes_id, $request->year)
-            ->with('institution', 'assetCondition', 'assetStatus')->get();
+            ->with('institution', 'assetCondition', 'assetStatus');
+        if ($request->asset_status > 0) {
+            $assets = $assets->where('asset_status_id', $request->asset_status);
+        }
 
-        return response()->json(['records' => $assets], 200);
+        return response()->json(['records' => $assets->get()], 200);
     }
 
     /**
@@ -422,5 +431,29 @@ class AssetController extends Controller
          */
         //Asset::with('assetCondition','assetStatus')->get();
         return response()->json(['records' => []], 200);
+    }
+
+    /**
+     * Realiza la acción necesaria para exportar los datos del modelo Asset
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return object    Objeto que permite descargar el archivo con la información a ser exportada
+     */
+    public function export()
+    {
+        return Excel::download(new AssetExport, 'assets.xlsx');
+    }
+
+    /**
+     * Realiza la acción necesaria para importar los datos suministrados en un archivo para el modelo Asset
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @return object    Objeto que permite descargar el archivo con la información a ser exportada
+     */
+    public function import(Request $request)
+    {
+        Excel::import(new AssetImport, request()->file('file'));
+        return response()->json(['result' => true], 200);
     }
 }

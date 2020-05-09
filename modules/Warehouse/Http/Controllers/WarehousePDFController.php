@@ -11,7 +11,8 @@ use Modules\Warehouse\Models\WarehouseInstitutionWarehouse;
 use App\Models\Institution;
 use App\Models\Parameter;
 
-use Modules\Warehouse\Pdf\Pdf;
+use Modules\Warehouse\Pdf\WarehouseReport as ReportRepository;
+use Carbon\Carbon;
 
 /**
  * @class WarehousePDFController
@@ -178,35 +179,33 @@ class WarehousePDFController extends Controller
     
     public function createReport($inventory_product)
     {
-        $pdf = new Pdf('L', 'mm', 'Letter');
-
+        $multi_inst =  Parameter::where('p_key', 'multi_institution')
+            ->where('active', true)->first();
+        $institution = Institution::where('default', true)
+            ->where('active', true)->first();
+        $pdf = new ReportRepository();
+        
         /*
          *  Definicion de las caracteristicas generales de la página
          */
-        $paramReportBanner = Parameter::where([
-            'active' => true, 'required_by' => 'core',
-            'p_key' => 'report_banner', 'p_value' => 'true'
-        ])->first();
+        $pdf->setConfig(
+            [
+                'institution' => $institution,
+                'urlVerify'   => 'www.google.com',
+                'orientation' => 'L',
+                'filename'    => 'warehouse-report-' . Carbon::now() . '.pdf'
+            ]
+        );
 
-        if (isset($paramReportBanner) and $paramReportBanner->p_value == true) {
-            $pdf->SetMargins(10, 65, 10);
-        } else {
-            $pdf->SetMargins(10, 55, 10);
-        }
-
-        $pdf->SetHeaderMargin(10);
-        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $pdf->SetAutoPageBreak(true, PDF_MARGIN_FOOTER);
-
-        $pdf->setTitleReport('Inventario de Productos de Almacén');
-        $pdf->Open();
-        $pdf->AddPage();
-
-        $view = \View::make('warehouse::pdf.warehouse-report-product', compact('inventory_product', 'pdf'));
-        $html = $view->render();
-        $pdf->SetFont('Courier', 'B', 8);
-        $pdf->writeHTML($html, true, false, true, false, '');
-        
-        $pdf->Output("ReporteInventario_".date("d-m-Y").".pdf");
+        $pdf->setHeader('Inventario de Productos de Almacén');
+        $pdf->setFooter();
+        $pdf->setBody(
+            'warehouse::pdf.warehouse-report-product',
+            true,
+            [
+                'pdf'    => $pdf,
+                'inventory_product' => $inventory_product
+            ]
+        );
     }
 }

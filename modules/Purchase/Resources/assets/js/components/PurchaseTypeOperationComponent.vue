@@ -36,10 +36,11 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Descripción:</label>
-                                    <textarea class="form-control input-sm" rows="3"
+                                    <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
                                               title="Indique la descripción para tipo de compra"
-                                              placeholder="Descripción del tipo de compra"
-                                              v-model="record.description" data-toggle="tooltip"></textarea>
+                                              :config="ckeditor.editorConfig" class="form-control" tag-name="textarea"
+                                              rows="3" v-model="record.description"
+                                              placeholder="Descripción del tipo de compra"></ckeditor>
                                 </div>
                             </div>
                         </div>

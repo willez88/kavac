@@ -50,6 +50,22 @@
 					</div>
 				</div>
 			</div>
+			<div v-show="this.record.type_report != ''">
+				<div class="row">
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>Estatus de Uso:</label>
+							<select2 :options="asset_status"
+								 	 data-toggle="tooltip"
+								 	 title="Seleccione un registro de la lista"
+								 	 v-model="record.asset_status_id"></select2>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<strong>Tipo de Busqueda</strong>
+				</div>
+			</div>
 			<div v-show="this.record.type_report == 'general'">
 				<div class="row">
 					<div class="col-md-2">
@@ -279,6 +295,7 @@
 					asset_category_id: '',
 					asset_subcategory_id:'',
 					asset_specific_category_id: '',
+					asset_status_id: '',
 
 					department_id: '',
 					institution_id: '',
@@ -328,6 +345,7 @@
 				asset_categories: [],
 				asset_subcategories: [],
 				asset_specific_categories: [],
+				asset_status: [],
 				institutions: [],
 				departments: [],
 
@@ -362,6 +380,7 @@
 			this.loadAssets('/asset/registers/vue-list/' + this.perPage + '/' + this.page);
 			this.getInstitutions();
 			this.getAssetTypes();
+			this.getAssetStatus();
 		},
 		mounted() {
 			this.switchHandler('type_report');
@@ -379,6 +398,7 @@
 					asset_category_id: '',
 					asset_subcategory_id:'',
 					asset_specific_category_id: '',
+					asset_status_id: '',
 
 					department_id: '',
 					institution_id: '',
@@ -389,6 +409,18 @@
 					end_date: '',
 				};
 
+			},
+			/**
+			 * Obtiene los datos de los estatus de uso de los bienes institucionales
+			 *
+			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
+			 */
+			getAssetStatus() {
+				const vm = this;
+				vm.asset_status = [];
+				axios.get('/asset/get-status').then(response => {
+					vm.asset_status = response.data;
+				});
 			},
 
 			loadAssets(url) {
@@ -475,12 +507,14 @@
 						fields = {
 							start_date: vm.record.start_date,
 							end_date: vm.record.end_date,
+							asset_status: vm.record.asset_status_id
 						};
 					}
 					else if(vm.record.type_search == 'mes'){
 						fields = {
 							mes_id: vm.record.mes_id,
 							year: vm.record.year,
+							asset_status: vm.record.asset_status_id
 						};
 					}
 				}
@@ -490,14 +524,16 @@
 						asset_type: vm.record.asset_type_id,
 						asset_category: vm.record.asset_category_id,
 						asset_subcategory: vm.record.asset_subcategory_id,
-						asset_specific_category: vm.record.asset_specific_category_id
+						asset_specific_category: vm.record.asset_specific_category_id,
+						asset_status: vm.record.asset_status_id
 					}
 				}
 				else if(vm.record.type_report == 'dependence') {
 					url += '/dependence';
 					fields = {
 						department: vm.record.department_id,
-						institution: vm.record.instituion_id
+						institution: vm.record.instituion_id,
+						asset_status: vm.record.asset_status_id
 					}
 				}
 				if((vm.record.type_report != '')||((vm.record.type_report == 'general')&&(vm.record.type_search != ''))){

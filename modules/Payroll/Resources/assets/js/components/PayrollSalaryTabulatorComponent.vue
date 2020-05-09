@@ -90,7 +90,7 @@
 								</div>
 								<div class="row">
 									<div class="col-md-12">
-										<div class="form-group is-required">
+										<div class="form-group">
 											<label>Moneda:</label>
 											<select2 :options="currencies" v-model="record.currency_id"></select2>
 					                    </div>
@@ -100,9 +100,11 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label>Descripción:</label>
-									<textarea  data-toggle="tooltip" id="description_tabulator"
-                                               title="Indique alguna descripción asociada al tabulador"
-											   class="form-control" rows="1" v-model="record.description"></textarea>
+                                    <ckeditor :editor="ckeditor.editor" id="description_tabulator" data-toggle="tooltip"
+                                              title="Indique alguna descripción asociada al tabulador"
+                                              :config="ckeditor.editorConfig" class="form-control"
+                                              name="description_tabulator" tag-name="textarea" rows="2"
+                                              v-model="record.description"></ckeditor>
 			                    </div>
 							</div>
 						</div>
@@ -909,18 +911,6 @@
 				}
 			});
 
-            CkEditor.create(document.querySelector(`#description_tabulator`), {
-                toolbar: [
-                    'heading', '|',
-                    'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|',
-                    'insertTable'
-                ],
-                language: window.currentLocale,
-            }).then(editor => {
-                window.editor = editor;
-            }).catch(error => {
-                console.warn(error);
-            });
 		},
 		watch: {
 			record: {

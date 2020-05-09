@@ -26,7 +26,7 @@
 					</div>
 				</div>
 				<h6>{{ __('Interfaz') }}</h6>
-				<div class="row">
+                <div class="row">
 					<div class="col-3">
 						<a href="{{ route('dev.show.element', ['el' => 'icons']) }}"
 						   class="btn btn-primary btn-simple btn-lg btn-block"

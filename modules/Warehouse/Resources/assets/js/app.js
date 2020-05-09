@@ -151,7 +151,9 @@ Vue.component('warehouse-movement-info', require('./components/movements/Warehou
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-reports', require('./components/reports/WarehouseReportCreateComponent.vue').default);
+Vue.component('warehouse-report-products', require('./components/reports/WarehouseReportProductsComponent.vue').default);
+Vue.component('warehouse-report-stocks', require('./components/reports/WarehouseReportStocksComponent.vue').default);
+Vue.component('warehouse-report-request-products', require('./components/reports/WarehouseReportRequestProductsComponent.vue').default);
 
 /**
  * Componentes para mostrar los gráficos del panel de control asociados al módulo de almacén

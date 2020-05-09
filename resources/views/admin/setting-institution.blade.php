@@ -271,11 +271,15 @@
                             <div class="col-md-8">
                                 <div class="form-group is-required">
                                     {!! Form::label('legal_address', __('Dirección Fiscal'), []) !!}
-                                    {!! Form::textarea('legal_address', null, [
-                                        'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip',
-                                        'title' => __('Indique la dirección fiscal de la institución  (requerido)'),
-                                        'id' => 'legal_address'
-                                    ]) !!}
+                                    <ckeditor :editor="ckeditor.editor" id="legal_address" data-toggle="tooltip"
+                                              title="{!! __('Indique la dirección fiscal de la institución  (requerido)') !!}"
+                                              :config="ckeditor.editorConfig" class="form-control" name="legal_address"
+                                              tag-name="textarea" rows="4"
+                                              value="{!!
+                                                (isset($model_institution))
+                                                ? $model_institution->legal_address
+                                                : old('legal_address')
+                                              !!}"></ckeditor>
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -349,21 +353,29 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									{!! Form::label('legal_base', __('Base Legal'), []) !!}
-									{!! Form::textarea('legal_base', null, [
-										'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip',
-										'title' => __('Indique la base legal constitutiva de la institución'),
-										'id' => 'legal_base'
-									]) !!}
+                                    <ckeditor :editor="ckeditor.editor" id="legal_base" data-toggle="tooltip"
+                                              title="{!! __('Indique la base legal constitutiva de la institución') !!}"
+                                              :config="ckeditor.editorConfig" class="form-control" name="legal_base"
+                                              tag-name="textarea" rows="4"
+                                              value="{!!
+                                                (isset($model_institution))
+                                                ? $model_institution->legal_base
+                                                : old('legal_base')
+                                              !!}"></ckeditor>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									{!! Form::label('legal_form', __('Forma Jurídica'), []) !!}
-									{!! Form::textarea('legal_form', null, [
-										'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip',
-										'title' => __('Indique la forma jurídica de la institución'),
-										'id' => 'legal_form'
-									]) !!}
+                                    <ckeditor :editor="ckeditor.editor" id="legal_form" data-toggle="tooltip"
+                                              title="{!! __('Indique la forma jurídica de la institución') !!}"
+                                              :config="ckeditor.editorConfig" class="form-control" name="legal_form"
+                                              tag-name="textarea" rows="4"
+                                              value="{!!
+                                                (isset($model_institution))
+                                                ? $model_institution->legal_form
+                                                : old('legal_form')
+                                              !!}"></ckeditor>
 								</div>
 							</div>
 						</div>
@@ -371,20 +383,29 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									{!! Form::label('main_activity', __('Actividad Principal'), []) !!}
-									{!! Form::textarea('main_activity', null, [
-										'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip',
-										'title' => __('Indique la actividad principal a la cual se dedica la institución'),
-										'id' => 'main_activity'
-									]) !!}
+                                    <ckeditor :editor="ckeditor.editor" id="main_activity" data-toggle="tooltip"
+                                              title="{!! __('Indique la actividad principal a la cual se dedica la institución') !!}"
+                                              :config="ckeditor.editorConfig" class="form-control" name="main_activity"
+                                              tag-name="textarea" rows="4"
+                                              value="{!!
+                                                (isset($model_institution))
+                                                ? $model_institution->main_activity
+                                                : old('main_activity')
+                                              !!}"></ckeditor>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									{!! Form::label('mission', __('Misión'), []) !!}
-									{!! Form::textarea('mission', null, [
-										'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip',
-										'title' => __('Indique la misión de la institución'), 'id' => 'mission'
-									]) !!}
+                                    <ckeditor :editor="ckeditor.editor" id="mission" data-toggle="tooltip"
+                                              title="{!! __('Indique la misión de la institución') !!}"
+                                              :config="ckeditor.editorConfig" class="form-control" name="mission"
+                                              tag-name="textarea" rows="4"
+                                              value="{!!
+                                                (isset($model_institution))
+                                                ? $model_institution->mission
+                                                : old('mission')
+                                              !!}"></ckeditor>
 								</div>
 							</div>
 						</div>
@@ -392,20 +413,29 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									{!! Form::label('vision', __('Visión'), []) !!}
-									{!! Form::textarea('vision', null, [
-										'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip',
-										'title' => __('Indique la visión de la institución'), 'id' => 'vision'
-									]) !!}
+                                    <ckeditor :editor="ckeditor.editor" id="vision" data-toggle="tooltip"
+                                              title="{!! __('Indique la visión de la institución') !!}"
+                                              :config="ckeditor.editorConfig" class="form-control" name="vision"
+                                              tag-name="textarea" rows="4"
+                                              value="{!!
+                                                (isset($model_institution))
+                                                ? $model_institution->vision
+                                                : old('vision')
+                                              !!}"></ckeditor>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									{!! Form::label('composition_assets', __('Composición de Patrimonio'), []) !!}
-									{!! Form::textarea('composition_assets', null, [
-										'class' => 'form-control', 'rows' => '4', 'data-toggle' => 'tooltip',
-										'title' => __('Indique la composición patrimonial de la institución'),
-										'id' => 'composition_assets'
-									]) !!}
+                                    <ckeditor :editor="ckeditor.editor" id="composition_assets" data-toggle="tooltip"
+                                              title="{!! __('Indique la composición patrimonial de la institución') !!}"
+                                              :config="ckeditor.editorConfig" class="form-control"
+                                              name="composition_assets" tag-name="textarea" rows="4"
+                                              value="{!!
+                                                (isset($model_institution))
+                                                ? $model_institution->composition_assets
+                                                : old('composition_assets')
+                                              !!}"></ckeditor>
 								</div>
 							</div>
 						</div>

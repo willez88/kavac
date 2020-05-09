@@ -1,11 +1,14 @@
 {
+    "version": "1.0.0",
     "name": "Asset",
     "alias": "asset",
     "name_es": "Bienes",
     "description": "Gestión de bienes institucionales",
+    "long_description": "",
     "keywords": [],
     "active": 1,
     "order": 0,
+    "logo": "asset-logo.png",
     "providers": [
         "Modules\\Asset\\Providers\\AssetServiceProvider"
     ],

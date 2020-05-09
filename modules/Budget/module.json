@@ -1,8 +1,10 @@
 {
+    "version": "1.0.0",
     "name": "Budget",
     "alias": "budget",
     "name_es": "Presupuesto",
     "description": "Gestión de recursos presupuestarios",
+    "long_description": "",
     "authors": [
         {
             "name": "Ing. Roldan Vargas",
@@ -13,6 +15,7 @@
         "name": "ion-arrow-graph-up-right",
         "color": "#0073b7"
     },
+    "logo": "budget-logo.png",
     "keywords": [],
     "active": 1,
     "order": 0,

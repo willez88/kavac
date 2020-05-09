@@ -86,7 +86,7 @@
                         @includeIf(strtolower($module->getName()) . '::layouts.menu-option')
                     @endforeach
 
-                    <li>
+                    {{-- <li>
                         <a href="javascript:void(0)" title="{{ __('Gestión de cuentas por pagar') }}"
                            data-toggle="tooltip" data-placement="right">
                             <i class="ion-ios-paper-outline"></i><span>{{ __('Cuentas Por Pagar') }}</span>
@@ -103,10 +103,10 @@
                                 </ul>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
 
                     {{-- Gestión de cuentas por cobrar --}}
-                    <li>
+                    {{-- <li>
                         <a href="javascript:void(0)" title="{{ __('Gestión de cuentas por cobrar') }}"
                            data-toggle="tooltip" data-placement="right">
                             <i class="ion-ios-paper-outline"></i><span>{{ __('Cuentas Por Cobrar') }}</span>
@@ -129,7 +129,7 @@
                                 </ul>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
 
                     {{-- Cierre de ejercicio económico --}}
                     <li>

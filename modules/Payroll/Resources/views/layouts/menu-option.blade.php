@@ -1,6 +1,7 @@
 {{-- Gestión de nómina --}}
 <li>
-    <a href="#" title="Datos de personal y nómina" data-toggle="tooltip" data-placement="right">
+    <a href="javascript:void(0)" title="Datos de personal y nómina"
+       data-toggle="tooltip" data-placement="right">
         <i class="ion-ios-folder-outline"></i><span>Talento Humano</span>
     </a>
     <ul class="submenu" style="{!! display_submenu('payroll') !!}">
@@ -9,7 +10,7 @@
                 title="Configuración de nómina">Configuración</a>
         </li>
         <li>
-            <a href="#" data-toggle="tooltip" data-placement="right"
+            <a href="javascript:void(0)" data-toggle="tooltip" data-placement="right"
                 title="Expediente del personal">Expediente</a>
             <ul class="submenu" style="{!! display_submenu([
                     'staffs', 'socioeconomic-informations', 'professional-informations',
@@ -33,7 +34,7 @@
             <a href="#">Registros de Nómina</a>
         </li>
         <li>
-            <a href="#">Reportes</a>
+            <a href="javascript:void(0)">Reportes</a>
             <ul class="submenu">
                 <li><a href="#">Reporte 1</a></li>
                 <li><a href="#">Reporte 2</a></li>

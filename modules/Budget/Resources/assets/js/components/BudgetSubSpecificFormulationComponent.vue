@@ -100,7 +100,7 @@
 									title="Presione para exportar la información.">
 								<i class="fa fa-download"></i>
 							</button>
-							<input type="file" id="import_formulation" style="display:none"
+							<input type="file" id="import_formulation" class="nodisplay"
 								   @change="getImportFormulation('import_formulation')">
 		                </form>
 					</div>
@@ -256,29 +256,6 @@
 		</div>
 	</div>
 </template>
-
-<style>
-	.table-formulation {
-		font-size: .58rem;
-	}
-	.table-formulation .form-control {
-		border-radius:.25rem !important;
-		padding: .375rem .1rem;
-	    font-size: .6rem;
-	    text-align: right;
-	}
-	.table-formulation tbody tr.disable-row {
-		background-color: #d1d1d1;
-	}
-	.table-formulation tbody tr td.td-with-border {
-		border-right: 1px solid #d1d1d1;
-		border-left: 1px solid #d1d1d1;
-	}
-	.btn-import {
-		font-size: .639rem;
-		font-weight: bold;
-	}
-</style>
 
 <script>
 	export default {
@@ -849,6 +826,6 @@
 				}
 			});
 
-		},
+		}
 	};
 </script>

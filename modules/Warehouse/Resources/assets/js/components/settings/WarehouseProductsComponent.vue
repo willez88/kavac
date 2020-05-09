@@ -1,4 +1,4 @@
-	<template>
+<template>
 	<div class="col-xs-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="#" title="Registros de Productos Almacenables" data-toggle="tooltip"
@@ -10,6 +10,24 @@
 			<div class="modal-dialog vue-crud" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
+						<button type="button" data-toggle="tooltip"
+                                class="btn btn-primary btn-xs btn-icon btn-action"
+                                style="margin-right: 3.5rem; margin-top: -.1rem;"
+                                title="Presione para subir los registros mediante hoja de cálculo."
+                                @click="setFile('importFile')">
+                            <i class="fa fa-upload"></i>
+                        </button>
+                        <input  id="importFile" name="importFile"
+                        		type="file" style="display:none;"
+                        		@change="importData()">
+
+                        <button type="button" data-toggle="tooltip"
+                                class="btn btn-primary btn-xs btn-icon btn-action"
+                                style="margin-right: 1.5rem; margin-top: -.1rem;"
+                                title="Presione para descargar el documento con la información de los registros."
+                                @click="exportData()">
+                            <i class="fa fa-download"></i>
+                        </button>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
@@ -55,11 +73,10 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Descripción:</label>
-									<textarea   data-toggle="tooltip"
-												placeholder="Descripción del Producto"
-											    title="Indique una breve descripción del nuevo producto (requerido)"
-										   		class="form-control input-sm" v-model="record.description">
-								   </textarea>
+                                    <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+                                              title="Indique una breve descripción del nuevo producto (requerido)"
+                                              :config="ckeditor.editorConfig" class="form-control" tag-name="textarea"
+                                              rows="3" v-model="record.description"></ckeditor>
 			                    </div>
 							</div>
 						</div>
@@ -179,6 +196,7 @@
 				records: [],
 				columns: ['name', 'description', 'attributes', 'id'],
 				measurement_units: [],
+				formImport: false,
 
 			}
 		},
@@ -222,6 +240,32 @@
 					vm.measurement_units = response.data;
 				});
 			},
+			exportData() {
+                //instrucciones para exportar registros
+                location.href = '/warehouse/products/export/all';
+            },
+            importData() {
+                //instrucciones para exportar registros
+                const vm = this;
+                var url = '/warehouse/products/import/all' ;
+	            var formData = new FormData();
+	            var importFile = document.querySelector('#importFile');
+	            formData.append("file", importFile.files[0]);
+	            vm.loading = true;
+	            axios.post(url, formData, {
+	                headers: {
+	                    'Content-Type': 'multipart/form-data'
+	                }
+	            }).then(response => {
+	            	console.log('exit');
+	            	vm.loading = false;
+	            	vm.showMessage('store');
+	            }).catch(error => {
+	                console.log('failure');
+	                vm.loading = false;
+
+	            });
+            }
 
 		},
 		created() {

@@ -44,11 +44,19 @@
 			    <div class="col-md-6" id="helpDisincorporationObservation">
 			        <div class="form-group is-required">
 			            <label>Observaciones generales</label>
-			            <textarea  data-toggle="tooltip" class="form-control" v-model="record.observation"
-                                   title="Indique alguna observación referente a la desincorporación" id="observations">
-					   </textarea>
+                        <ckeditor :editor="ckeditor.editor" data-toggle="tooltip" id="observations"
+                                  title="Indique alguna observación referente a la desincorporación"
+                                  :config="ckeditor.editorConfig" class="form-control" name="observations"
+                                  tag-name="textarea" rows="3" v-model="record.observation"></ckeditor>
 			        </div>
 			    </div>
+			    <div class="col-md-3">
+					<div class="form-group">
+						<label> Adjuntar archivos </label>
+						<input  id="files" name="files" type="file"
+							    accept=".odt, .pdf, .png, .jpg, .jpeg" multiple>
+					</div>
+				</div>
 			</div>
 
 			<div class="row">
@@ -193,7 +201,7 @@
 		        			<i class="fa fa-ban"></i>
 		        	</button>
 
-		        	<button type="button"  @click="createForm('asset/disincorporations')"
+		        	<button type="button"  @click="createRecord('asset/disincorporations')"
 		        			class="btn btn-success btn-icon btn-round btn-modal-save"
 		        			title="Guardar registro">
 		        		<i class="fa fa-save"></i>
@@ -227,6 +235,7 @@
 				},
 
 				records: [],
+				files: [],
 				page: 1,
 				total: '',
 				perPage: 10,
@@ -306,19 +315,6 @@
 			else if((!this.disincorporationid)&&(this.assetid)) {
 				this.selected.push(this.assetid);
             }
-
-            CkEditor.create(document.querySelector(`#observations`), {
-                toolbar: [
-                    'heading', '|',
-                    'bold', 'italic', 'blockQuote', 'link', 'numberedList', 'bulletedList', '|',
-                    'insertTable'
-                ],
-                language: window.currentLocale,
-            }).then(editor => {
-                window.editor = editor;
-            }).catch(error => {
-                console.warn(error);
-            });
 		},
 		props: {
 			disincorporationid: Number,
@@ -357,7 +353,8 @@
 					asset_subcategory_id: '',
 					asset_specific_category_id: '',
 				};
-				this.selected = [];
+				this.selected  = [];
+				this.files     = [];
 				this.selectAll = false;
 
 			},
@@ -398,15 +395,62 @@
                     vm.pageValues.push(pag + i);
                 }
             },
-			createForm(url) {
-				const vm = this
+			createRecord(url, list = true, reset = true) {
+				const vm = this;
+				var inputFiles = document.querySelector('#files');
+				var formData   = new FormData();
+
 				vm.errors = [];
 				if(!vm.selected.length > 0){
                 	bootbox.alert("Debe agregar almenos un elemento a la solicitud");
 					return false;
 				};
-				vm.record.assets = vm.selected;
-				vm.createRecord(url);
+				if (this.record.id) {
+	                //this.updateRecord(url);
+	            } else {
+	            	vm.loading = true;
+	            	for (var index in vm.record) {
+	                	if (index == "observation") {
+	                		formData.append("observation", window.editor.getData());
+	                	} else {
+	                		formData.append(index, vm.record[index]);
+	                	}
+	                }
+	                formData.append("file", inputFiles.files[0]);
+	                formData.append("assets", vm.selected);
+	                axios.post('/' + url, formData, {
+	                    headers: {
+	                        'Content-Type': 'multipart/form-data'
+	                    }
+	                }).then(response => {
+	                    if (typeof(response.data.redirect) !== "undefined") {
+	                        location.href = response.data.redirect;
+	                    }
+	                    else {
+	                        vm.errors = [];
+	                        if (reset) {
+	                            vm.reset();
+	                        }
+	                        if (list) {
+	                            vm.readRecords(url);
+	                        }
+	                        vm.loading = false;
+	                        vm.showMessage('store');
+	                    }
+	                }).catch(error => {
+	                    vm.errors = [];
+
+	                    if (typeof(error.response) !="undefined") {
+	                        for (var index in error.response.data.errors) {
+	                            if (error.response.data.errors[index]) {
+	                                vm.errors.push(error.response.data.errors[index][0]);
+	                            }
+	                        }
+	                    }
+
+	                    vm.loading = false;
+	                });
+	            }
 			},
 			loadForm(id){
 				const vm = this;

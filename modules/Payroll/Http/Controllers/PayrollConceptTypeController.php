@@ -44,8 +44,7 @@ class PayrollConceptTypeController extends Controller
      */
     public function index()
     {
-        $concept_types = PayrollConceptType::all();
-        return view('payroll::concept-types.index', compact('concept_types'));
+        return response()->json(['records' => PayrollConceptType::all()], 200);
     }
 
     /**
@@ -72,13 +71,13 @@ class PayrollConceptTypeController extends Controller
             'description' => ['nullable', 'max:200'],
             'sign' => ['required', 'max:1']
         ]);
-        $concept_type = new PayrollConceptType;
-        $concept_type->name  = $request->name;
-        $concept_type->description = $request->description;
-        $concept_type->sign = $request->sign;
-        $concept_type->save();
-        $request->session()->flash('message', ['type' => 'store']);
-        return redirect()->route('payroll.concept-types.index');
+        
+        $payrollConceptType = PayrollConceptType::create([
+            'name'        => $request->name,
+            'description' => $request->description,
+            'sign'        => $request->sign
+        ]);
+        return response()->json(['record' => $payrollConceptType, 'message' => 'Success'], 200);
     }
 
     /**
@@ -87,7 +86,6 @@ class PayrollConceptTypeController extends Controller
      */
     public function show()
     {
-        return view('payroll::show');
     }
 
     /**
@@ -96,11 +94,6 @@ class PayrollConceptTypeController extends Controller
      */
     public function edit(PayrollConceptType $concept_type)
     {
-        $header = [
-            'route' => ['payroll.concept-types.update', $concept_type], 'method' => 'PUT',
-            'role' => 'form', 'class' => 'form',
-        ];
-        return view('payroll::concept-types.create-edit', compact('concept_type', 'header'));
     }
 
     /**
@@ -108,32 +101,40 @@ class PayrollConceptTypeController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request, PayrollConceptType $concept_type)
+    public function update(Request $request, $id)
     {
+        $payrollConceptType = PayrollConceptType::find($id);
         $this->validate($request, [
-            'name' => ['required', 'max:100'],
+            'name'        => ['required', 'max:100'],
             'description' => ['nullable', 'max:200'],
-            'sign' => ['required', 'max:1']
+            'sign'        => ['required', 'max:1']
         ]);
-        $concept_type->name  = $request->name;
-        $concept_type->description = $request->description;
-        $concept_type->sign = $request->sign;
-        $concept_type->save();
-        $request->session()->flash('message', ['type' => 'update']);
-        return redirect()->route('payroll.concept-types.index');
+        $payrollConceptType->name  = $request->name;
+        $payrollConceptType->description = $request->description;
+        $payrollConceptType->sign = $request->sign;
+        $payrollConceptType->save();
+
+        return response()->json(['message' => 'Success'], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy(Request $request, PayrollConceptType $concept_type)
+    public function destroy($id)
     {
-        if ($request->ajax()) {
-            $concept_type->delete();
-            $request->session()->flash('message', ['type' => 'destroy']);
-            return response()->json(['result' => true]);
-        }
-        return redirect()->route('payroll.concept-types.index');
+        $payrollConceptType = PayrollConceptType::find($id);
+        $payrollConceptType->delete();
+        return response()->json(['record' => $payrollConceptType, 'message' => 'Success'], 200);
+    }
+
+    /**
+     * Obtiene los tipos de conceptos registrados
+     *
+     * @return Array Listado de los registros a mostrar
+     */
+    public function getPayrollConceptTypes()
+    {
+        return template_choices('Modules\Payroll\Models\PayrollConceptType', ['name'], '', true);
     }
 }

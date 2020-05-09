@@ -120,8 +120,10 @@
                 </div>
                 <div class="col-md-10">
                     <div class="form-group is-required">
-                        <textarea v-model="record.description" class="form-control" rows="3" data-toggle="tooltip"
-                                  title="Indique una descripción para el compromiso" id="description"></textarea>
+                        <ckeditor :editor="ckeditor.editor" id="description" data-toggle="tooltip"
+                                  title="Indique una descripción para el compromiso" :config="ckeditor.editorConfig"
+                                  class="form-control" name="description" tag-name="textarea" rows="3"
+                                  v-model="record.description"></ckeditor>
                     </div>
                 </div>
             </div>
