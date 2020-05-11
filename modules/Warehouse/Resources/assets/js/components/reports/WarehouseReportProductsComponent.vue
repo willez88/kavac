@@ -11,34 +11,6 @@
 				<div class="col-md-12">
 					<strong>Filtros</strong>
 				</div>
-				<div class="col-md-6" id="helpWarehouseRequestProject">
-					<div class=" form-group is-required">
-						<label class="mb-4">
-                            <div class="bootstrap-switch-mini">
-    							<input type="radio" name="project_centralized_action" value="project" id="sel_project"
-    							   class="form-control bootstrap-switch bootstrap-switch-mini sel_pry_acc"
-    							   data-on-label="SI" data-off-label="NO">
-    							Proyecto
-                            </div>
-                        </label>
-						<select2 :options="budget_projects" id="budget_project_id" @input="getBudgetSpecificActions('Project')" disabled
-							v-model="record.budget_project_id"></select2>
-
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<strong>Filtros</strong>
-				</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<label>Operación:</label>
-						<select2 :options="warehouse_operations"
-								 v-model="record.warehouse_operation_id"></select2>
-						<input type="hidden" v-model="record.id">
-	                </div>
-				</div>
 				<div class="col-md-4">
 					<div class="form-group">
 						<label>Producto:</label>
@@ -48,66 +20,21 @@
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
+						<label>Institución:</label>
+						<select2 :options="institutions"
+								 v-model="record.institution_id"></select2>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
 						<label>Almacén:</label>
 						<select2 :options="warehouses"
 								 v-model="record.warehouse_id"></select2>
 	                </div>
 				</div>
-				<div class="col-md-6" id="helpWarehouseRequestProject">
-					<div class=" form-group is-required">
-						<label class="mb-4">
-                            <div class="bootstrap-switch-mini">
-    							<input type="radio" name="project_centralized_action" value="project" id="sel_project"
-    							   class="form-control bootstrap-switch bootstrap-switch-mini sel_pry_acc"
-    							   data-on-label="SI" data-off-label="NO">
-    							Proyecto
-                            </div>
-                        </label>
-						<select2 :options="budget_projects" id="budget_project_id" @input="getBudgetSpecificActions('Project')" disabled
-							v-model="record.budget_project_id"></select2>
+			</div>
 
-					</div>
-				</div>
-				<div class="col-md-6" id="helpWarehouseRequestCentralizedAction">
-					<div class=" form-group is-required">
-						<label class="mb-4">
-                            <div class="bootstrap-switch-mini">
-    							<input type="radio" name="project_centralized_action" value="project"
-    								   class="form-control bootstrap-switch bootstrap-switch-mini sel_pry_acc"
-    								   id="sel_centralized_action" data-on-label="SI" data-off-label="NO">
-    							Acción Centralizada
-                            </div>
-                        </label>
-						<select2 :options="budget_centralized_actions" id="budget_centralized_action_id" @input="getBudgetSpecificActions('CentralizedAction')" disabled
-							v-model="record.budget_centralized_action_id"></select2>
-					</div>
-				</div>
-				<div class="col-md-12" id="helpWarehouseRequestSpecificAction">
-					<div class=" form-group is-required">
-						<label>Acción Específica</label>
-						<select2 :options="budget_specific_actions" id="budget_specific_action_id"
-							v-model="record.budget_specific_action_id" disabled></select2>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<div class="form-group">
-						<label>Institución:</label>
-						<select2 :options="institutions"
-								 @input="getDepartments()"
-								 v-model="record.institution_id"></select2>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="form-group">
-						<label>Departamento/Dependencia:</label>
-						<select2 :options="departments"
-								v-model="record.department_id"></select2>
-					</div>
-				</div>
-			</div>
-			<div class="row">
+			<div class="row text-center">
 				<div class="col-md-6">
 					<div class="form-group">
 						<label>Busqueda por Periodo</label>
@@ -135,9 +62,7 @@
 			</div>
 
 			<div v-show="this.record.type_search == 'mes'">
-				<div class="row">
-					<div class="col-md-2">
-					</div>
+				<div class="row justify-content-center">
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>Mes:</label>
@@ -156,9 +81,7 @@
 				</div>
 			</div>
 			<div v-show="this.record.type_search == 'date'">
-				<div class="row">
-					<div class="col-md-2">
-					</div>
+				<div class="row justify-content-center">
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>Desde:</label>
@@ -189,7 +112,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<button type="button" @click="loadInventaryProduct('/warehouse/report/vue-list')"
+					<button type="button" @click="loadInventoryProduct('inventory-products')"
                             class='btn btn-sm btn-info float-right' title="Buscar registro" data-toggle="tooltip">
 						<i class="fa fa-search"></i>
 					</button>
@@ -230,7 +153,7 @@
 			<div class="row">
 				<div class="col-md-3 offset-md-9" id="helpParamButtons">
 		        	<button type="button" class='btn btn-sm btn-primary btn-custom'
-							@click="createRecord()">
+							@click="createReport('inventory-products')">
 						<i class="fa fa-file-pdf-o"></i>
 						<span>Generar Reporte</span>
 					</button>
@@ -248,13 +171,8 @@
 					id: '',
 					warehouse_product_id: '',
 					warehouse_id: '',
-					warehouse_operation_id: '',
-					budget_project_id: '',
-					budget_centralized_action_id: '',
-					budget_specific_action_id: '',
 
 					type_search: '',
-					department_id: '',
 					institution_id: '',
 
 					mes_id: '',
@@ -267,15 +185,6 @@
 				records: [],
 				errors: [],
 				columns: ['code', 'description', 'inventory'],
-				warehouse_operations: [
-					{"id":"","text":"Todos"},
-					{"id":1,"text":"Recepciones"},
-					{"id":2,"text":"Movimientos"},
-					{"id":3,"text":"Solicitudes"}
-				],
-				budget_projects: [],
-				budget_centralized_actions: [],
-				budget_specific_actions: [],
 				mes: [
 					{"id":"","text":"Todos"},
 					{"id":1,"text":"Enero"},
@@ -291,9 +200,7 @@
 					{"id":11,"text":"Noviembre"},
 					{"id":12,"text":"Diciembre"}
 				],
-				institutions: [],
-				departments: [],
-
+				institutions: []
 			}
 		},
 		methods: {
@@ -302,12 +209,8 @@
 					id: '',
 					warehouse_product_id: '',
 					warehouse_id: '',
-					budget_project_id: '',
-					budget_centralized_action_id: '',
-					budget_specific_action_id: '',
 
 					type_search: '',
-					department_id: '',
 					institution_id: '',
 
 					mes_id: '',
@@ -322,35 +225,50 @@
 					vm.warehouse_products = response.data;
 				});
 			},
-			createReport() {
-				var url = '/warehouse/pdf';
+			createReport(current) {
 				const vm = this;
-				if(typeof(url) != 'undefined'){
-					if(vm.record.warehouse_product_id == '' && vm.record.warehouse_id == '')
-						url = url +'/warehouse-products';
-					else if(vm.record.warehouse_product_id != '' && vm.record.warehouse_id == '')
-						url = url +'/product/'+ vm.record.warehouse_product_id;
-					else if(vm.record.warehouse_product_id == '' && vm.record.warehouse_id != '')
-						url = url +'/warehouse/'+ vm.record.warehouse_id;
-					else
-						url = url +'/warehouse/'+ vm.record.warehouse_product_id +'/product/'+ vm.record.warehouse_id;
-					window.open(url, '_blank');
-				}
+				vm.loading = true;
+				var fields = {};
+                for (var index in this.record) {
+                    fields[index] = this.record[index];
+                }
+                fields["current"] = current;
+				axios.post("/warehouse/reports/inventory-products/create", fields).then(response => {
+                    if (response.data.result == false)
+						location.href = response.data.redirect;
+					else if (typeof(response.data.redirect) !== "undefined") {
+						window.open(response.data.redirect, '_blank');
+					}
+					else {
+						vm.reset();
+					}
+                    vm.loading = false;
+                }).catch(error => {
+                    if (typeof(error.response) != "undefined") {
+                        console.log("error");
+                    }
+                    vm.loading = false;
+                });
 			},
-			loadInventaryProduct(url){
+			loadInventoryProduct(current) {
 				const vm = this;
-				if(vm.record.warehouse_product_id == '' && vm.record.warehouse_id == '')
-					url = url +'/products/1';
-				else if(vm.record.warehouse_product_id != '' && vm.record.warehouse_id == '')
-					url = url +'/products/1/'+ vm.record.warehouse_product_id;
-				else if(vm.record.warehouse_product_id == '' && vm.record.warehouse_id != '')
-					url = url +'/products/2/'+ vm.record.warehouse_id;
-				else
-					url = url + '/' + vm.record.warehouse_id + '/' + vm.record.warehouse_product_id;
-				axios.get(url).then(function (response) {
-					if(typeof(response.data.records) !== "undefined")
+				vm.loading = true;
+				var fields = {};
+                for (var index in this.record) {
+                    fields[index] = this.record[index];
+                }
+                fields["current"] = current;
+				axios.post("/warehouse/reports/inventory-products/vue-list", fields).then(response => {
+                    if (typeof(response.data.records) != "undefined") {
 						vm.records = response.data.records;
-				});
+                    }
+                    vm.loading = false;
+                }).catch(error => {
+                    if (typeof(error.response) != "undefined") {
+                        console.log("error");
+                    }
+                    vm.loading = false;
+                });
 	        },
 		},
 		created() {
@@ -359,46 +277,15 @@
 				'description': 'Descripción',
 				'inventory': 'Inventario',
 			};
-			this.table_options.sortable = ['code', 'description', 'inventory']
+			this.table_options.sortable = ['code', 'description', 'inventory'];
 			this.table_options.filterable = ['code', 'description', 'inventory'];
-		},
-		watch: {
-
-			/**
-			 * Función que permite monitorear modificaciones en el campo budget_specific_actions
-			 *
-			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-			 */
-			budget_specific_actions: function() {
-				$("#budget_specific_action_id").attr('disabled', (this.budget_specific_actions.length <= 1));
-			},
-
 		},
 		mounted() {
 			this.switchHandler('type_search');
 			this.getInstitutions();
-			this.getBudgetProjects();
-			this.getBudgetCentralizedActions();
 			this.getWarehouseProducts();
 			this.getWarehouses();
-			this.loadInventaryProduct('/warehouse/report/vue-list');
-			/**
-			 * Evento para determinar los datos a requerir según el tipo de formulación
-			 * (por proyecto o acción centralizada)
-			 */
-			$('.sel_pry_acc').on('switchChange.bootstrapSwitch', function(e) {
-				$('#budget_project_id').attr('disabled', (e.target.id!=="sel_project"));
-				$('#budget_centralized_action_id').attr('disabled', (e.target.id!=="sel_centralized_action"));
-
-				if (e.target.id === "sel_project") {
-					$("#budget_centralized_action_id").closest('.form-group').removeClass('is-required');
-					$("#budget_project_id").closest('.form-group').addClass('is-required');
-				}
-				else if (e.target.id === "sel_centralized_action") {
-					$("#budget_centralized_action_id").closest('.form-group').addClass('is-required');
-					$("#budget_project_id").closest('.form-group').removeClass('is-required');
-				}
-			});
+			this.loadInventoryProduct('inventory-products');
 		}
 	};
 </script>

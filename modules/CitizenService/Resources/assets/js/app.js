@@ -27,6 +27,13 @@ Vue.component('citizenservice-request-close', require('./components/requests/Cit
 
 Vue.component('citizenservice-report-create', require('./components/reports/CitizenServiceReportCreateComponent.vue').default);
 
+Vue.component('citizenservice-register-create', require('./components/registers/CitizenServiceRegisterCreateComponent.vue').default);
+
+Vue.component('citizenservice-register-list', require('./components/registers/CitizenServiceRegisterListComponent.vue').default);
+
+Vue.component('citizenservice-register-info', require('./components/registers/CitizenServiceRegisterInfoComponent.vue').default);
+
+Vue.component('citizenservice-departments', require('./components/settings/CitizenServiceDepartmentsComponent.vue').default);
 /**
  * Opciones de configuración global del módulo de Atención al Ciudadano
  *
@@ -41,6 +48,13 @@ Vue.mixin({
 				this.citizen_service_request_types = response.data;
 			});
 		},
+		getCitizenServiceDepartments() {
+			this.citizen_service_departments = [];
+			axios.get('/citizenservice/get-departments').then(response => {
+				this.citizen_service_departments = response.data;
+			});
+		},
+		
 	},
 });
 

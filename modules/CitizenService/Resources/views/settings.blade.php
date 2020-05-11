@@ -33,6 +33,8 @@
 					<div class="row">
 						{{-- Configuración de tipos de solicitud --}}
 						<citizenservice-request-types></citizenservice-request-types>
+						{{-- Configuración de departamentos --}}
+						<citizenservice-departments></citizenservice-departments>
 					</div>
 				</div>
 			</div>

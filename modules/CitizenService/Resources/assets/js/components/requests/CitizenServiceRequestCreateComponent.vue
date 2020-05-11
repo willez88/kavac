@@ -144,19 +144,20 @@
                                    title="Indique la dirección" v-model="record.address">
 						</div>
 					</div>
-					<div class="col-md-4">
-						<div class="form-group is-required">
-							<label for="citizenserviceRequestTypes">Tipo de Solicitud</label>
-							<select2 :options="citizen_service_request_types"
-									 v-model="record.citizen_service_request_type_id"></select2>
-                        </div>
-					</div>
+					
 					<div class="col-md-4">
 						<div class="form-group is-required">
 							<label for="motive_request">Motivo de la solicitud</label>
         					<input type="text" id="motive_request" class="form-control input-sm" data-toggle="tooltip"
                                    title="Indique el motivo de la solicitud" v-model="record.motive_request">
 						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group is-required">
+							<label for="citizenserviceRequestTypes">Tipo de Solicitud</label>
+							<select2 :options="citizen_service_request_types"
+									 v-model="record.citizen_service_request_type_id"></select2>
+                        </div>
 					</div>
 
 				</div>
@@ -168,9 +169,11 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="form-group is-required">
-							<label for="team">Tipo de Equipo</label>
-        					<input type="text" id="team" class="form-control input-sm" data-toggle="tooltip"
-                                   title="Indique el tipo de equipo" v-model="record.team">
+							<label for="type_team">Tipo de Equipo</label>
+        					<input type="text" id="type_team" class="form-control input-sm" 
+        					data-toggle="tooltip"
+                            title="Indique el tipo de equipo" 
+                            v-model="record.type_team">
 						</div>
 					</div>
                     <div class="col-md-4">
@@ -245,8 +248,8 @@
 
 				<div class="col-md-4">
 					<div class="form-group is-required">
-						<label for="direction">Dirección</label>
-						<select2 :options="directions" v-model="record.direction_id"></select2>
+						<label for="citizenserviceDepartment">Dirección de departamento</label>
+						<select2 :options="citizen_service_departments" v-model="record.citizen_service_department_id"></select2>
 					</div>
 				</div>
 			</div>
@@ -255,15 +258,18 @@
 					<label>Institución</label>
 					<div class="col-12">
                         <div class="col-12 bootstrap-switch-mini">
-    						<input type="checkbox" name="type_institution" value="institution" id="sel_type_institution"
-    							   class="form-control bootstrap-switch bootstrap-switch-mini sel_type_institution"
-    							   data-on-label="SI" data-off-label="NO">
+    						<input type="checkbox" name="type_institution" 
+    							   id="type_institution"
+    							   class="form-control bootstrap-switch"
+    							   data-toggle="tooltip"
+    							   data-on-label="SI" data-off-label="NO"
+    							   v-model="record.type_institution"
+    							   value="true"/>
                         </div>
-						<input type="hidden" v-model="record.type_institution">
 					</div>
 				</div>
 			</div>
-			<div v-show="this.record.type_institution == 'institution'">
+			<div v-show="this.record.type_institution">
 				<div class="col-md-12">
 					<b>Datos de la institución</b>
 				</div>
@@ -334,17 +340,18 @@
         			address: '',
         			motive_request: '',
         			citizen_service_request_type_id: '',
+        			citizen_service_department_id: '',
 
-
+        			type_institution: '',
 					institution_name: '',
 					rif: '',
         			institution_address: '',
         			web: '',
-        			type_institution: '',
+        			
 
 
         // Datos del equipo
-        			team: '',
+        			type_team: '',
         			brand: '',
         			model: '',
         			serial: '',
@@ -362,40 +369,7 @@
 				cities: [],
 				municipalities: [],
 				citizen_service_request_types: [],
-				directions: [
-					{
-						id: '',
-						text: 'Seleccione..'
-					},
-					{
-						id: 1,
-						text: 'Desarrollo'
-					},
-					{
-						id: 2,
-						text: 'Apropiación'
-					},
-					{
-						id: 3,
-						text: 'Reflexión'
-					},
-					{
-						id: 4,
-						text: 'Investigación'
-					},
-					{
-						id: 5,
-						text: 'Presidencia'
-					},
-					{
-						id: 6,
-						text: 'Gestión Interna'
-					},
-					{
-						id: 7,
-						text: 'Dirección Ejecutiva'
-					},
-				]
+				citizen_service_departments: [],
 			}
 		},
 		methods: {
@@ -428,14 +402,16 @@
         			address: '',
         			motive_request: '',
 					citizen_service_request_type_id: '',
+					citizen_service_department_id: '',
 
+					type_institution: false,
 					institution_name: '',
         			rif: '',
         			institution_address: '',
         			web: '',
 
 
-        			team: '',
+        			type_team: '',
         			brand: '',
         			model: '',
         			serial: '',
@@ -461,7 +437,20 @@
 			const vm = this;
 			vm.getCountries();
 			vm.getCitizenServiceRequestTypes();
+			vm.getCitizenServiceDepartments();
             vm.record.phones = [];
+            this.record.type_institution = false;
 		},
+		watch: {
+			record: {
+				deep: true,
+				handler: function() {
+					const vm = this;
+					if (vm.record.type_institution) {
+						$('#type_institution').bootstrapSwitch('state', true, true);
+					}
+				}
+			}
+		}
 	};
 </script>

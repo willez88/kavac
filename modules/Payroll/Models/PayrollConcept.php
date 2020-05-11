@@ -24,5 +24,13 @@ class PayrollConcept extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'code', 'name', 'description', 'active', 'incidence_type', 'affect',
+        'payroll_concept_type_id', 'institution_id'
+    ];
+
+    public function payrollConceptType()
+    {
+        return $this->belongsTo(PayrollConceptType::class);
+    }
 }

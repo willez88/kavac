@@ -14,5 +14,8 @@
          <li class="{!! set_active_menu(['citizenservice.report.index']) !!}">
              <a href="{{ route('citizenservice.report.index') }}">Reportes</a>
         </li>
+        <li class="{!! set_active_menu(['citizenservice.register.index']) !!}">
+             <a href="{{ route('citizenservice.register.index') }}">Ingresar Cronograma</a>
+        </li>
     </ul>
 </li>

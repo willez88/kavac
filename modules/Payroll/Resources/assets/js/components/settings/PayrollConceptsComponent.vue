@@ -3,7 +3,7 @@
         <a class="btn-simplex btn-simplex-md btn-simplex-primary"
            href="#" title="Registros de conceptos" data-toggle="tooltip"
            @click="addRecord('add_payroll_concept', 'concepts', $event)">
-            <i class="icofont icofont-bill-alt ico-3x"></i>
+            <i class=""></i>
             <span>Conceptos</span>
         </a>
         <div class="modal fade text-left" role="dialog" id="add_payroll_concept">
@@ -14,7 +14,7 @@
                             <span aria-hidden="true">×</span>
                         </button>
                         <h6>
-                            <i class="icofont icofont-bill-alt ico-2x"></i>
+                            <i class=""></i>
                             Concepto
                         </h6>
                     </div>
@@ -94,7 +94,7 @@
                                 <div class=" form-group is-required">
                                     <label>¿Incide sobre?</label>
                                     <select2 :options="affects"
-                                             v-model="affect_id"></select2>
+                                             v-model="record.affect"></select2>
                                 </div>
                             </div>
                             <div class="col-md-8">
@@ -107,7 +107,7 @@
                                             <label>Valor</label>
                                             <div class="col-12">
                                                 <div class="col-12 bootstrap-switch-mini">
-                                                    <input type="radio" name="incidence_type" value="Valor"
+                                                    <input type="radio" name="incidence_type" value="value"
                                                            id="sel_neto_value"
                                                            class="form-control bootstrap-switch bootstrap-switch-mini sel_incidence_value"
                                                             data-on-label="SI" data-off-label="NO">
@@ -120,7 +120,7 @@
                                             <label>Valor Absoluto</label>
                                             <div class="col-12">
                                                 <div class="col-12 bootstrap-switch-mini">
-                                                    <input type="radio" name="incidence_type" value="Valor Neto"
+                                                    <input type="radio" name="incidence_type" value="absolute_value"
                                                            id="sel_neto_value"
                                                            class="form-control bootstrap-switch bootstrap-switch-mini sel_incidence_value"
                                                             data-on-label="SI" data-off-label="NO">
@@ -134,7 +134,7 @@
                                             <div class="col-12">
                                                 <div class="col-12 bootstrap-switch-mini">
                                                     <input type="radio" name="incidence_type"
-                                                           value="Unidad Tributaria" id="sel_tax_unit"
+                                                           value="tax_unit" id="sel_tax_unit"
                                                            class="form-control bootstrap-switch bootstrap-switch-mini sel_incidence_value"
                                                            data-on-label="SI" data-off-label="NO">
                                                 </div>
@@ -146,7 +146,7 @@
                                             <label>Porcentaje</label>
                                             <div class="col-12">
                                                 <div class="col-12 bootstrap-switch-mini">
-                                                    <input type="radio" name="incidence_type" value="Porcentaje"
+                                                    <input type="radio" name="incidence_type" value="percent"
                                                            id="sel_percent"
                                                            class="form-control bootstrap-switch bootstrap-switch-mini sel_incidence_value"
                                                            data-on-label="SI" data-off-label="NO">
@@ -160,12 +160,12 @@
                                 <div class=" form-group is-required">
                                     <label>Forma de cálculo:</label>
                                     <select2 :options="calculation_ways"
-                                             v-model="calculation_way_id"></select2>
+                                             v-model="record.calculation_way_id"></select2>
                                 </div>
                             </div>
                         </div>
                         <div class="row"
-                             v-show="calculation_way_id == 1">
+                             v-show="record.calculation_way_id == 1">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Fórmula</label>
@@ -254,7 +254,7 @@
                         </div>
                         <div class="modal-footer">
                             <div class="form-group">
-                                <modal-form-buttons :saveRoute="'payroll/salary-assignments'"></modal-form-buttons>
+                                <modal-form-buttons :saveRoute="'payroll/concepts'"></modal-form-buttons>
                             </div>
                         </div>
                         <div class="modal-body modal-table">
@@ -265,7 +265,7 @@
                                             title="Modificar registro" data-toggle="tooltip" type="button">
                                         <i class="fa fa-edit"></i>
                                     </button>
-                                    <button @click="deleteRecord(props.index, 'salary-assignments')"
+                                    <button @click="deleteRecord(props.index, 'concepts')"
                                             class="btn btn-danger btn-xs btn-icon btn-action"
                                             title="Eliminar registro" data-toggle="tooltip"
                                             type="button">
@@ -290,12 +290,14 @@
                     name: '',
                     description:'',
                     active: '',
+                    affect: '',
                     incidence: '',
                     incidence_type: '',
                     formula: '',
 
-                    payroll_assign_to_id: '',
                     payroll_concept_type_id: '',
+                    calculation_way_id: '',
+                    payroll_assign_to_id: '',
 
                     institution_id: '',
 
@@ -308,20 +310,18 @@
                 institutions: [],
                 payroll_concept_types: [],
 
-                calculation_way_id: '',
                 calculation_ways: [
                     {"id":"","text":"Seleccione..."},
                     {"id":1,"text":"Fórmula"},
                     {"id":2,"text":"Tabulador"},
                     {"id":3,"text":"Escalafón"}
                 ],
-                affect_id: '',
                 affects: [
                     {"id":"","text":"Seleccione..."},
-                    {"id":1,"text":"Salario Base"},
-                    {"id":2,"text":"Salario Normal"},
-                    {"id":3,"text":"Salario Diario"},
-                    {"id":3,"text":"Salario Integral"}
+                    {"id":"base_salary","text":"Salario Base"},
+                    {"id":"normal_salary","text":"Salario Normal"},
+                    {"id":"dialy_salary","text":"Salario Diario"},
+                    {"id":"comprehensive_salary","text":"Salario Integral"}
                 ],
                 payroll_assign_to: [
                     {"id": '', "text": "Seleccione..."},
@@ -375,12 +375,14 @@
                     name: '',
                     description:'',
                     active: '',
+                    affect: '',
                     incidence: '',
                     incidence_type: '',
                     formula: '',
 
-                    payroll_assign_to_id: '',
                     payroll_concept_type_id: '',
+                    calculation_way_id: '',
+                    payroll_assign_to_id: '',
 
                     institution_id: ''
                 };
@@ -392,10 +394,6 @@
                 axios.get('/payroll/get-concept-types').then(response => {
                     vm.payroll_concept_types = response.data;
                 });
-            },
-            createRecord(url) {
-                const vm = this;
-                console.log(vm.record);
             }
         }
     };

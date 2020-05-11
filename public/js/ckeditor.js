@@ -81,7 +81,11 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 5);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+>>>>>>> master
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -97,14 +101,22 @@ eval("try {\n  /*window.CkEditor = require('@ckeditor/ckeditor5-build-classic');
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ 5:
+=======
+/***/ 4:
+>>>>>>> master
 /*!****************************************!*\
   !*** multi ./resources/js/ckeditor.js ***!
   \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 module.exports = __webpack_require__(/*! /home/rvargas/RESPALDOS/PROYECTOS/CENDITEL/kavac/resources/js/ckeditor.js */"./resources/js/ckeditor.js");
+=======
+module.exports = __webpack_require__(/*! /home/yennifer/Programación/php/proyectos_laravel/kavac/resources/js/ckeditor.js */"./resources/js/ckeditor.js");
+>>>>>>> master
 
 
 /***/ })

@@ -7,3 +7,13 @@
         }
     }
 }
+
+.list-group-item {
+    &:hover {text-decoration: none}
+
+    .media {
+        .media-left {
+            img {height:60px;}
+        }
+    }
+}

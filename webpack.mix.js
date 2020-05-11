@@ -1,6 +1,7 @@
 const mix = require('laravel-mix');
-/*const fs = require('fs');
-const path = require('path');*/
+const webpack = require('webpack');
+const fs = require('fs');
+const path = require('path');
 
 /* Allow multiple Laravel Mix applications*/
 require('laravel-mix-merge-manifest');
@@ -24,11 +25,8 @@ mix.js([
 		'resources/js/jquery-menu.js', 'resources/js/custom.js'
       //'resources/js/loading-message.js'
 	], 'public/js')
-   .js('resources/js/core-settings.js', 'public/js')
-   .js('resources/js/module-settings.js', 'public/js')
    .js(['resources/js/shared.js', 'resources/js/mixins.js'], 'public/js/shared-components.js')
    .js('resources/js/chart.js', 'public/js')
-   .js('resources/js/ckeditor.js', 'public/js')
    .copy('resources/js/generic-classes.js', 'public/js/generic-classes.js')
    .copy('resources/js/common.js', 'public/js/common.js')
    .sass('resources/sass/app.scss', 'public/css')
@@ -40,8 +38,7 @@ mix.js([
    .combine([
    		'public/css/app.css', 'public/css/font-awesome.css', 'public/css/ionicons.css',
    		'public/css/now-ui-kit.css', 'public/css/materialdesignicons.css', 'public/css/custom.css'
-   ], 'public/css/app.css')
-   .sourceMaps();
+   ], 'public/css/app.css');
 
 
 /*
@@ -54,18 +51,25 @@ mix.js([
  | file for the application as well as bundling up all the JS files.
  |
  */
-/*const moduleFolder = './modules';
+/*if (mix.inProduction()) {
+    const moduleFolder = './modules';
 
-const dirs = p => fs.readdirSync(p).filter(f => fs.statSync(path.resolve(p,f)).isDirectory());
+    const dirs = p => fs.readdirSync(p).filter(f => fs.statSync(path.resolve(p,f)).isDirectory());
 
-let modules = dirs(moduleFolder);
+    let modules = dirs(moduleFolder);
 
-modules.forEach(function(m) {
-   let js = path.resolve(moduleFolder,m,'Resources/assets','js', '_all.js');
-   mix.js(js, `public/modules/${m.toLowerCase()}/js/app.js`);
-   let scss = path.resolve(moduleFolder,m,'Resources/assets','scss', 'app.scss');
-   mix.sass(scss, `public/modules/${m}/css/app.css`);
-});*/
+    modules.forEach(function(m) {
+       let js = path.resolve(moduleFolder,m,'Resources/assets','js', 'app.js');
+       mix.js(js, `public/modules/${m.toLowerCase()}/js/app.js`);
+       let scss = path.resolve(moduleFolder,m,'Resources/assets','scss', 'app.scss');
+       mix.sass(scss, `public/modules/${m}/css/app.css`);
+       mix.webpackConfig({
+            output:{
+                chunkFilename: `modules/${m}/components/${(mix.inProduction()) ? 'prod/[chunkhash]' : '[name]'}.js`,
+            }
+        });
+    });
+}*/
 
 /*
  |--------------------------------------------------------------------------
@@ -82,8 +86,26 @@ mix.webpackConfig({
         new WebpackShellPlugin({
             onBuildStart:['php artisan lang:js --quiet'],
             onBuildEnd: []
-        })
-    ]
+        }),
+        new webpack.IgnorePlugin({
+            resourceRegExp: /^\.\/locale$/,
+            contextRegExp: /moment$/
+        }),
+    ],
+    resolve: {
+        alias: {
+            moment$: 'moment/moment.js'
+        }
+    },
+    output:{
+        chunkFilename: `js/components/${(mix.inProduction()) ? 'core/[chunkhash]' : '[name]'}.js`,
+    },
+    /*optimization: {
+        splitChunks: {
+          chunks: 'initial',
+          name: ''
+        }
+      },*/
 });
 
 
@@ -99,4 +121,8 @@ mix.webpackConfig({
 /** Publica la versión de la compilación */
 if (mix.inProduction()) {
    mix.version();
+   //mix.versionHash();
+}
+else {
+    mix.sourceMaps();
 }

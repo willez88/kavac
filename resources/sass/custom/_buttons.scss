@@ -38,6 +38,20 @@
 	margin-left:10px;
 }
 
+.btn-sm {
+    font-size: 0.8571em;
+
+    &.btn-formula, &.btn-formula-clear {
+        font-size: .65rem;
+        font-weight: bold;
+    }
+}
+
+.btn-import {
+    font-size: .639rem;
+    font-weight: bold;
+}
+
 /** Botones personalizados para Apps */
 .btn-app {
 	border-radius: 3px;
@@ -81,4 +95,11 @@
     &:hover {
         background-color: #f94d18;
     }
+}
+
+.btn-collapse, .btn-collapse:hover {
+    background-color: transparent;
+}
+.btn-collapse {
+    padding:4px;font-size:0.7em;color:#0073b7;
 }

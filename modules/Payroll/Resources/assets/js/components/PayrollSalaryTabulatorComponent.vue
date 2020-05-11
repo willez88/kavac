@@ -90,7 +90,7 @@
 								</div>
 								<div class="row">
 									<div class="col-md-12">
-										<div class="form-group is-required">
+										<div class="form-group">
 											<label>Moneda:</label>
 											<select2 :options="currencies" v-model="record.currency_id"></select2>
 					                    </div>

@@ -109,7 +109,6 @@
 
 @section('extra-js')
 	@parent
-    {!! Html::script('js/module-settings.js', [], Request::secure()) !!}
 	<script>
 		$(document).ready(function() {
 			$(".btn-enable").on("click", function() {

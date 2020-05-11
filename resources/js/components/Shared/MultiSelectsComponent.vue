@@ -85,16 +85,3 @@
 		},
 	};
 </script>
-
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
-
-<style>
-	/* Custom styles */
-	.multiselect {margin: 25px auto;}
-	.multiselect__option--highlight, .multiselect__option--highlight:after {background: #2CA8FF;}
-	.multiselect__spinner:after,
-	.multiselect__spinner:before {border-top-color: #2CA8FF;}
-	.multiselect__tag {background-color: #F76231;}
-	.multiselect__tag-icon::after {color: #fff;}
-	.multiselect__tag-icon:focus,.multiselect__tag-icon:hover {background: #F44b18;}
-</style>

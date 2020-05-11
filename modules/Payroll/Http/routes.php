@@ -90,7 +90,7 @@ Route::group([
     Route::resource(
         'concept-types',
         'PayrollConceptTypeController',
-        ['as' => 'payroll', 'except' => ['show']]
+        ['as' => 'payroll', 'except' => ['show','create','edit']]
     );
 
     Route::get(

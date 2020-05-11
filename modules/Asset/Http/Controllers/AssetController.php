@@ -389,9 +389,12 @@ class AssetController extends Controller
             $request->asset_category,
             $request->asset_subcategory,
             $request->asset_specific_category
-        )->with('institution', 'assetCondition', 'assetStatus')->get();
+        )->with('institution', 'assetCondition', 'assetStatus');
+        if ($request->asset_status > 0) {
+            $assets = $assets->where('asset_status_id', $request->asset_status);
+        }
 
-        return response()->json(['records' => $assets], 200);
+        return response()->json(['records' => $assets->get()], 200);
     }
 
     /**
@@ -404,9 +407,12 @@ class AssetController extends Controller
     public function searchGeneral(Request $request)
     {
         $assets = Asset::DateClasification($request->start_date, $request->end_date, $request->mes_id, $request->year)
-            ->with('institution', 'assetCondition', 'assetStatus')->get();
+            ->with('institution', 'assetCondition', 'assetStatus');
+        if ($request->asset_status > 0) {
+            $assets = $assets->where('asset_status_id', $request->asset_status);
+        }
 
-        return response()->json(['records' => $assets], 200);
+        return response()->json(['records' => $assets->get()], 200);
     }
 
     /**

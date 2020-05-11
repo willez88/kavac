@@ -14,9 +14,20 @@ a.resalt-link {
     background-color:rgb(245,245,245);
     height: 1px;
 }
-.text-bold {
+.text-bold, .text-module {
 	font-weight: bold;
 }
+
+select {
+    width: 100%;
+}
+small {font-size: 70%;}
+
+.col-btn-block {
+    padding-left: 36px;
+    padding-right: 36px;
+}
+
 /** Perfil de usuario */
 .img-profile {
 	border:3px solid $color-info; padding:15px; border-radius: 50%;height:250px;width: 250px;
@@ -487,3 +498,12 @@ a.level-notice:hover, a.level-info:hover, a.level-debug:hover {
 		}
 	}
 }
+
+
+.multiselect {margin: 25px auto;}
+.multiselect__option--highlight, .multiselect__option--highlight:after {background: #2CA8FF;}
+.multiselect__spinner:after,
+.multiselect__spinner:before {border-top-color: #2CA8FF;}
+.multiselect__tag {background-color: #F76231;}
+.multiselect__tag-icon::after {color: #fff;}
+.multiselect__tag-icon:focus,.multiselect__tag-icon:hover {background: #F44b18;}

@@ -188,9 +188,16 @@ Route::group(
          * ------------------------------------------------------------
          */
 
-        Route::get('report/create', 'WarehouseReportController@create')->name('warehouse.report.create');
-        Route::get('report/vue-list/{type}/{code?}', 'WarehouseReportController@vueListProduct');
-        Route::get('report/vue-list/{product?}/{warehouse?}', 'WarehouseReportController@vueList');
+        Route::get('reports/inventory-products', 'WarehouseReportController@inventoryProducts')
+            ->name('warehouse.report.inventory-products');
+        Route::get('reports/request-products', 'WarehouseReportController@requestProducts')
+            ->name('warehouse.report.request-products');
+        Route::get('reports/stocks', 'WarehouseReportController@stocks')
+            ->name('warehouse.report.stocks');
+        Route::post('reports/inventory-products/vue-list', 'WarehouseReportController@vueList');
+        Route::post('reports/inventory-products/create', 'WarehouseReportController@create');
+
+        Route::get('report/show/{code}', 'WarehouseReportController@show');
 
         /**
          * ------------------------------------------------------------

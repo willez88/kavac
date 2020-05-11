@@ -14,7 +14,7 @@ use App\Traits\ModelsTrait;
  *
  * Gestiona el modelo de ingresar solicitud
  *
- * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
+ * @author Ing. Yennifer Ramirez <yramirez@cenditel.gob.ve>
  * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
@@ -37,10 +37,12 @@ class CitizenServiceRequest extends Model implements Auditable
      */
     protected $fillable = [
         'first_name','last_name','id_number','email', 'date',
-        'city_id', 'municipality_id', 'address', 'motive_request', 'state', 'institution_name',
-        'institution_address', 'rif',
-        'web','citizen_service_request_type_id',
-        
+        'city_id', 'municipality_id', 'address', 'motive_request', 'state',
+        'institution_name','institution_address', 'rif', 'web',
+        'citizen_service_request_type_id', 'type_institution', 'citizen_service_department_id',
+
+        'type_team', 'brand', 'model', 'serial', 'color', 'transfer',
+        'code', 'entryhour', 'exithour', 'informationteam'
 
     ];
 
@@ -64,6 +66,17 @@ class CitizenServiceRequest extends Model implements Auditable
     public function documents()
     {
         return $this->morphMany(\App\Models\Document::class, 'documentable');
+    }
+
+    /**
+     * Método que obtiene la solicitud asociado a un departamento
+     *
+     * @author
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function citizenServiceDepartment()
+    {
+        return $this->belongsTo(CitizenServiceDepartment::class);
     }
 
     public function scopeSearchPeriod(
