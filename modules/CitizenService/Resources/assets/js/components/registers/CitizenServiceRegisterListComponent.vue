@@ -9,32 +9,25 @@
 		<div slot="id" slot-scope="props" class="text-center">
 			<div class="d-inline-flex">
 				
-				<citizenservice-request-info
-					:route_list="'requests/vue-info/' + props.row.id">
-				</citizenservice-request-info>
+				<citizenservice-register-info
+					:route_list="'registers/vue-info/' + props.row.id">
+				</citizenservice-register-info>
 
 	    		<button @click="editForm(props.row.id)" 
 	    				class="btn btn-warning btn-xs btn-icon btn-action" 
-	    				title="Modificar registro" data-toggle="tooltip" type="button"
-	    				:disabled="props.row.state != 'Pendiente'">
+	    				title="Modificar registro" data-toggle="tooltip" 
+	    				type="button">
 	    			<i class="fa fa-edit"></i>
 	    		</button>
 	    		<button @click="deleteRecord(props.index, '')" 
 						class="btn btn-danger btn-xs btn-icon btn-action" 
-						title="Eliminar registro" data-toggle="tooltip" type="button"
-						:disabled="props.row.state != 'Pendiente'">
+						title="Eliminar registro" data-toggle="tooltip" 
+						type="button">
 					<i class="fa fa-trash-o"></i>
 				</button>
 			</div>
 		</div>
-		<div slot="requested_by" slot-scope="props" class="text-center">
-                <span>
-                    {{ 
-                        props.row.first_name + ' ' + props.row.last_name
-                    }}
-
-                </span>
-        </div>
+		
 	</v-client-table>
 
 
@@ -46,19 +39,21 @@
 		data() {
 			return {
 				records: [],
-				columns: ['requested_by', 'motive_request', 'state', 'date', 'id']
+				columns: ['first_name', 'date_register', 'project_name',
+				'activities','email', 'id']
 			}
 		},
 		created() {
 			this.table_options.headings = {
-				'requested_by': 'Solicitado por',
-				'motive_request': 'Motivo',
-				'state': 'Estado de la Solicitud',
-				'date': 'Fecha de la Solicitud',
+				'first_name': 'Nombre del director',
+				'date_register': 'Fecha del registro',
+				'project_name': 'Nombre del proyecto',
+				'activities': 'Actividades',
+				'email': 'Correo del responsable',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['requested_by', 'motive_request', 'state', 'date'];
-			this.table_options.filterable = ['requested_by', 'motive_request', 'state', 'date'];
+			this.table_options.sortable = ['first_name', 'date_register', 'project_name', 'activities', 'email'];
+			this.table_options.filterable = ['first_name', 'date_register', 'project_name', 'activities', 'email'];
 		},
 		mounted () {
 			this.initRecords(this.route_list, '');

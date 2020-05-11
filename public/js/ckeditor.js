@@ -104,7 +104,7 @@ eval("try {\n  /*window.CkEditor = require('@ckeditor/ckeditor5-build-classic');
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/rvargas/RESPALDOS/PROYECTOS/CENDITEL/kavac/resources/js/ckeditor.js */"./resources/js/ckeditor.js");
+module.exports = __webpack_require__(/*! /home/yennifer/Programación/php/proyectos_laravel/kavac/resources/js/ckeditor.js */"./resources/js/ckeditor.js");
 
 
 /***/ })
