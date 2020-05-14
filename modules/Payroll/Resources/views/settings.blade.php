@@ -202,6 +202,9 @@
 
 						{{-- Conceptos --}}
 						<payroll-concepts></payroll-concepts>
+
+						{{-- Tipos de Pago --}}
+						<payroll-payment-types></payroll-payment-types>
 					</div>
 				</div>
 			</div>

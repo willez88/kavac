@@ -204,6 +204,13 @@ Vue.component('payroll-concepts', require('./components/settings/PayrollConcepts
 Vue.component('payroll-concept-types', require('./components/settings/PayrollConceptTypesComponent.vue').default);
 
 /**
+ * Componente para la gestión de tipos de pago
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('payroll-payment-types', require('./components/settings/PayrollPaymentTypesComponent.vue').default);
+
+/**
  * Componente para la gestión de calculos de salario
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
