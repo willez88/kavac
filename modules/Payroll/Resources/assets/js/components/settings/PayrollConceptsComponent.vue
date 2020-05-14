@@ -40,6 +40,7 @@
 
                         <div class="row">
                             <div class="col-md-6">
+                                <!-- código -->
                                 <div class="form-group is-required">
                                     <label>Código:</label>
                                     <input type="text" placeholder="Código" data-toggle="tooltip"
@@ -47,14 +48,18 @@
                                            class="form-control input-sm" v-model="record.code">
                                     <input type="hidden" v-model="record.id">
                                 </div>
-                                <div class=" form-group is-required">
+                                <!-- ./código -->
+                                <!-- nombre -->
+                                <div class="form-group is-required">
                                     <label>Nombre:</label>
                                     <input type="text" placeholder="Nombre del concepto"
                                            data-toggle="tooltip"
                                            title="Indique el nombre del concepto (requerido)"
                                            class="form-control input-sm" v-model="record.name">
                                 </div>
+                                <!-- ./nombre -->
                             </div>
+                            <!-- descripción -->
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Descripción:</label>
@@ -66,6 +71,8 @@
                                               v-model="record.description"></ckeditor>
                                 </div>
                             </div>
+                            <!-- ./descripción -->
+                            <!-- tipo de concepto -->
                             <div class="col-md-4">
                                 <div class=" form-group is-required">
                                     <label>Tipo de concepto</label>
@@ -73,6 +80,8 @@
                                              v-model="record.payroll_concept_type_id"></select2>
                                 </div>
                             </div>
+                            <!-- ./tipo de concepto -->
+                            <!-- activa -->
                             <div class="col-md-2">
                                 <div class=" form-group">
                                     <label>¿Activa?</label>
@@ -88,8 +97,10 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- ./activa -->
                         </div>
                         <div class="row">
+                            <!-- ¿incide sobre? -->
                             <div class="col-md-4">
                                 <div class=" form-group is-required">
                                     <label>¿Incide sobre?</label>
@@ -97,6 +108,8 @@
                                              v-model="record.affect"></select2>
                                 </div>
                             </div>
+                            <!-- ./¿incide sobre? -->
+                            <!-- tipo de incidencia -->
                             <div class="col-md-8">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -156,6 +169,8 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- ./tipo de incidencia -->
+                            <!-- forma de cálculo -->
                             <div class="col-md-4">
                                 <div class=" form-group is-required">
                                     <label>Forma de cálculo:</label>
@@ -163,9 +178,11 @@
                                              v-model="record.calculation_way_id"></select2>
                                 </div>
                             </div>
+                            <!-- ./forma de cálculo -->
                         </div>
                         <div class="row"
                              v-show="record.calculation_way_id == 1">
+                             <!-- fórmula -->
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Fórmula</label>
@@ -235,14 +252,18 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- ./fórmula -->
                         </div>
                         <div class="row">
+                            <!-- institución -->
                             <div class="col-md-4">
                                 <div class=" form-group is-required">
                                     <label>Institución:</label>
                                     <select2 :options="institutions" v-model="record.institution_id"></select2>
                                 </div>
                             </div>
+                            <!-- ./institución -->
+                            <!-- ¿asignar a? -->
                             <div class="col-md-4">
                                 <div class=" form-group is-required">
                                     <label>¿Asignar a?</label>
@@ -251,29 +272,30 @@
                                     </select2>
                                 </div>
                             </div>
+                            <!-- ./¿asignar a? -->
                         </div>
-                        <div class="modal-footer">
-                            <div class="form-group">
-                                <modal-form-buttons :saveRoute="'payroll/concepts'"></modal-form-buttons>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <modal-form-buttons :saveRoute="'payroll/concepts'"></modal-form-buttons>
+                        </div>
+                    </div>
+                    <div class="modal-body modal-table">
+                        <v-client-table :columns="columns" :data="records" :options="table_options">
+                            <div slot="id" slot-scope="props" class="text-center">
+                                <button @click="initUpdate(props.index, $event)"
+                                        class="btn btn-warning btn-xs btn-icon  btn-action"
+                                        title="Modificar registro" data-toggle="tooltip" type="button">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                <button @click="deleteRecord(props.index, 'concepts')"
+                                        class="btn btn-danger btn-xs btn-icon btn-action"
+                                        title="Eliminar registro" data-toggle="tooltip"
+                                        type="button">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
                             </div>
-                        </div>
-                        <div class="modal-body modal-table">
-                            <v-client-table :columns="columns" :data="records" :options="table_options">
-                                <div slot="id" slot-scope="props" class="text-center">
-                                    <button @click="initUpdate(props.index, $event)"
-                                            class="btn btn-warning btn-xs btn-icon  btn-action"
-                                            title="Modificar registro" data-toggle="tooltip" type="button">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button @click="deleteRecord(props.index, 'concepts')"
-                                            class="btn btn-danger btn-xs btn-icon btn-action"
-                                            title="Eliminar registro" data-toggle="tooltip"
-                                            type="button">
-                                        <i class="fa fa-trash-o"></i>
-                                    </button>
-                                </div>
-                            </v-client-table>
-                        </div>
+                        </v-client-table>
                     </div>
                 </div>
             </div>
@@ -286,70 +308,67 @@
         data() {
             return {
                 record: {
-                    id: '',
-                    name: '',
-                    description:'',
-                    active: '',
-                    affect: '',
-                    incidence: '',
-                    incidence_type: '',
-                    formula: '',
-
+                    id:                      '',
+                    name:                    '',
+                    description:             '',
+                    active:                  '',
+                    affect:                  '',
+                    incidence:               '',
+                    incidence_type:          '',
+                    formula:                 '',
                     payroll_concept_type_id: '',
-                    calculation_way_id: '',
-                    payroll_assign_to_id: '',
-
-                    institution_id: '',
+                    calculation_way_id:      '',
+                    payroll_assign_to_id:    '',
+                    institution_id:          ''
 
                 },
 
-                errors: [],
-                records: [],
-                columns: ['code', 'name', 'description', 'incidence_type', 'id'],
-
-                institutions: [],
+                errors:                [],
+                records:               [],
+                columns:               ['code', 'name', 'description', 'incidence_type', 'id'],
+                institutions:          [],
                 payroll_concept_types: [],
 
                 calculation_ways: [
-                    {"id":"","text":"Seleccione..."},
-                    {"id":1,"text":"Fórmula"},
-                    {"id":2,"text":"Tabulador"},
-                    {"id":3,"text":"Escalafón"}
+                    {"id": "",          "text": "Seleccione..."},
+                    {"id": "formula",   "text": "Fórmula"},
+                    {"id": "tabulator", "text": "De acuerdo a tabulador"}
                 ],
                 affects: [
-                    {"id":"","text":"Seleccione..."},
-                    {"id":"base_salary","text":"Salario Base"},
-                    {"id":"normal_salary","text":"Salario Normal"},
-                    {"id":"dialy_salary","text":"Salario Diario"},
-                    {"id":"comprehensive_salary","text":"Salario Integral"}
+                    {"id": "",                    "text":  "Seleccione..."},
+                    {"id": "base_salary",         "text":  "Salario Base"},
+                    {"id": "normal_salary",        "text": "Salario Normal"},
+                    {"id": "dialy_salary",         "text": "Salario Diario"},
+                    {"id": "comprehensive_salary", "text": "Salario Integral"}
                 ],
                 payroll_assign_to: [
-                    {"id": '', "text": "Seleccione..."},
-                    {"id": 1,  "text": "Tipo de Personal"},
-                    {"id": 2,  "text": "Tipo de Cargo"},
-                    {"id": 3,  "text": "Todos"},
-                    {"id": 4,  "text": "Trabajador"},
-                    {"id": 5,  "text": "Tabulador"},
+                    {"id": "",                              "text": "Seleccione..."},
+                    {"id": "staff",                         "text": "Trabajadores"},
+                    {"id": "all",                           "text": "Todos"},
+                    {"id": "all_except_staffs_in_vacation", "text": "Todos excepto trabajadores que se " +
+                                                                    "encuentren en período de disfrute vacaciones"},
+                    {"id": "all_except_staffs_at_rest",     "text": "Todos excepto trabajadores que se " +
+                                                                    "encuentren de reposo"},
                 ],
             }
         },
         created() {
             const vm = this;
             vm.table_options.headings = {
-                'code': 'Código',
-                'name': 'Nombre',
-                'description': 'Descripción',
+                'code':           'Código',
+                'name':           'Nombre',
+                'description':    'Descripción',
                 'incidence_type': 'Tipo de Incidencia',
-                'id': 'Acción'
+                'id':              'Acción'
             };
             vm.table_options.sortable       = ['code', 'name', 'description', 'incidence_type'];
             vm.table_options.filterable     = ['code', 'name', 'description', 'incidence_type'];
             vm.table_options.columnsClasses = {
-                'code': 'col-xs-2',
-                'name': 'col-xs-2',
-                'description': 'col-xs-4',
+                'code':           'col-xs-2',
+                'name':           'col-xs-2',
+                'description':    'col-xs-4',
                 'incidence_type': 'col-xs-2',
-                'id': 'col-xs-2',
+                'id':             'col-xs-2'
             }
         },
         mounted() {
@@ -368,26 +387,35 @@
             });
         },
         methods: {
+            /**
+             * Método que permite borrar todos los datos del formulario
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+             */
             reset() {
                 const vm = this;
                 vm.record = {
-                    id: '',
-                    name: '',
-                    description:'',
-                    active: '',
-                    affect: '',
-                    incidence: '',
-                    incidence_type: '',
-                    formula: '',
-
+                    id:                      '',
+                    name:                    '',
+                    description:             '',
+                    active:                  '',
+                    affect:                  '',
+                    incidence:               '',
+                    incidence_type:          '',
+                    formula:                 '',
                     payroll_concept_type_id: '',
-                    calculation_way_id: '',
-                    payroll_assign_to_id: '',
-
-                    institution_id: ''
+                    calculation_way_id:      '',
+                    payroll_assign_to_id:    '',
+                    institution_id:          ''
                 };
                 vm.errors = [];
             },
+
+            /**
+             * Método que obtiene un arreglo con los tipos de conceptos registrados
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+             */
             getPayrollConceptTypes() {
                 const vm = this;
                 vm.payroll_concept_types = [];

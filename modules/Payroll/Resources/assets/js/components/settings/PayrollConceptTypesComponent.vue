@@ -25,6 +25,7 @@
                             </ul>
                         </div>
                         <div class="row">
+                            <!-- nombre -->
                             <div class="col-md-6">
                                 <div class="form-group is-required">
                                     <label for="name">Nombre:</label>
@@ -34,6 +35,8 @@
                                     <input type="hidden" name="id" id="id" v-model="record.id">
                                 </div>
                             </div>
+                            <!-- ./nombre -->
+                            <!-- descripción -->
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="description">Descripción:</label>
@@ -42,6 +45,8 @@
                                            title="Indique la descripción del tipo de concepto">
                                 </div>
                             </div>
+                            <!-- ./descripción -->
+                            <!-- signo -->
                             <div class="col-md-6">
                                 <div class="form-group is-required">
                                     <label for="sign">Signo:</label>
@@ -49,6 +54,7 @@
                                              v-model="record.sign"></select2>
                                 </div>
                             </div>
+                            <!-- ./signo -->
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -124,10 +130,10 @@
             this.table_options.sortable = ['name', 'description', 'sign'];
             this.table_options.filterable = ['name', 'description', 'sign'];
             this.table_options.columnsClasses = {
-                'name':        'col-md-4',
-                'description': 'col-md-4',
-                'sign':        'col-md-2',
-                'id':          'col-md-2'
+                'name':        'col-xs-4',
+                'description': 'col-xs-4',
+                'sign':        'col-xs-2',
+                'id':          'col-xs-2'
             };
         },
     };
