@@ -143,27 +143,7 @@
                 /** Coloca el año actual en el pie de página */
                 $('.currentYear').text(new Date().getFullYear());
 
-                if ($('.ckeditor').length && typeof(CkEditor) !== 'undefined') {
-                    $('.ckeditor').each(function() {
-                        CkEditor.create(document.querySelector('.ckeditor'), {
-                            toolbar: [
-                                'heading', '|',
-                                'bold', 'italic', 'blockQuote', 'link',
-                                'numberedList', 'bulletedList', '|',
-                                'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells', '|',
-                                'undo', 'redo'
-                            ],
-                            language: '{{ app()->getLocale() }}',
-                        }).then(editor => {
-                            window.editor = editor;
-                            // Descomentar para entornos de desarrollo
-                            //console.log(Array.from( window.editor.ui.componentFactory.names() ));
-                        }).catch(error => {
-                            logs('app', 143, error);
-                        });
 
-                    });
-                }
 
                 /** Restringe el rango de fechas del campo tipo date al año de ejercicio económico */
                 /*$("input[type=date]").attr({

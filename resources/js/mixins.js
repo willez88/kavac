@@ -3,7 +3,8 @@ import moment from 'moment';
 /** Import del editor clásico de CKEditor */
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 /** Requerimiento para traducción de CKEditor al español */
-require('@ckeditor/ckeditor5-build-classic/build/translations/es.js');
+//require('@ckeditor/ckeditor5-build-classic/build/translations/es.js');
+import '@ckeditor/ckeditor5-build-classic/build/translations/es';
 
 /**
  * Opciones de configuración global para utilizar en todos los componentes vuejs de la aplicación

@@ -75,7 +75,8 @@ window.Echo = new Echo({
     key: process.env.MIX_PUSHER_APP_KEY,
     wsHost: process.env.MIX_WEBSOCKETS_HOST,
     wsPort: process.env.MIX_WEBSOCKETS_PORT,
-    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-    //encrypted: true,
+    wssPort: process.env.MIX_WEBSOCKETS_PORT,
+    enabledTransports: ['ws', 'wss'],
+    //encrypted: process.env.MIX_PUSHER_APP_TLS, //Descomentar al usar protocolos con ssl
     disableStats: true
 });
