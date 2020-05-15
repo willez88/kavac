@@ -8,7 +8,7 @@ return [
      * Set a custom dashboard configuration
      */
     'dashboard' => [
-        'port' => env('LARAVEL_WEBSOCKETS_PORT', 6001),
+        'port' => env('WEBSOCKETS_PORT', 6001),
     ],
 
     /*
@@ -110,18 +110,20 @@ return [
          * certificate chain of issuers. The private key also may be contained
          * in a separate file specified by local_pk.
          */
-        'local_cert' => env('LARAVEL_WEBSOCKETS_SSL_LOCAL_CERT', null),
+        'local_cert' => env('WEBSOCKETS_SSL_LOCAL_CERT', null),
 
         /*
          * Path to local private key file on filesystem in case of separate files for
          * certificate (local_cert) and private key.
          */
-        'local_pk' => env('LARAVEL_WEBSOCKETS_SSL_LOCAL_PK', null),
+        'local_pk' => env('WEBSOCKETS_SSL_LOCAL_PK', null),
 
         /*
          * Passphrase for your local_cert file.
          */
-        'passphrase' => env('LARAVEL_WEBSOCKETS_SSL_PASSPHRASE', null),
+        //'passphrase' => env('WEBSOCKETS_SSL_PASSPHRASE', null),
+        'passphrase' => null,
+        'verify_peer' => false,
     ],
 
     /*
