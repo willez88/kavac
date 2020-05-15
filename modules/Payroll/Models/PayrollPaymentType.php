@@ -9,17 +9,17 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
- * @class      PayrollConcept
- * @brief      Datos de conceptos
+ * @class PayrollPaymentType
+ * @brief Datos de tipos de pago
  *
- * Gestiona el modelo de conceptos
+ * Gestiona el modelo de tipos de pago
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
  * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
  *                 LICENCIA DE SOFTWARE CENDITEL
  *             </a>
  */
-class PayrollConcept extends Model implements Auditable
+class PayrollPaymentType extends Model implements Auditable
 {
     use SoftDeletes;
     use AuditableTrait;
@@ -38,12 +38,21 @@ class PayrollConcept extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'code', 'name', 'description', 'active', 'incidence_type', 'affect',
-        'payroll_concept_type_id', 'institution_id'
+        'code', 'name', 'payment_periodicity', 'correlative', 'start_date', 'payment_relationship',
+        'accounting_account_id'
     ];
 
-    public function payrollConceptType()
+    /**
+     * Método que obtiene la cuenta contable asociada al tipo de pago
+     *
+     * @author William Páez <wpaezs@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado
+     * al modelo AccountingAccount
+     */
+    public function accountingAccount()
     {
-        return $this->belongsTo(PayrollConceptType::class);
+        return Module::has('Accounting')
+            ? $this->belongsTo(\Modules\Accounting\Models\AccountingAccount::class)
+            : [];
     }
 }

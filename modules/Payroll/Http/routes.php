@@ -87,6 +87,11 @@ Route::group([
         ['as' => 'payroll', 'except' => ['show','create','edit']]
     );
 
+    Route::get(
+        'get-concepts',
+        'PayrollConceptController@getPayrollConcepts'
+    )->name('payroll.get-payroll-concepts');
+
     Route::resource(
         'concept-types',
         'PayrollConceptTypeController',
@@ -98,6 +103,11 @@ Route::group([
         'PayrollConceptTypeController@getPayrollConceptTypes'
     )->name('payroll.get-payroll-concept-types');
 
+    Route::resource(
+        'payment-types',
+        'PayrollPaymentTypeController',
+        ['as' => 'payroll', 'except' => ['show','create','edit']]
+    );
 
     Route::resource('language-levels', 'PayrollLanguageLevelController', ['as' => 'payroll', 'except' => ['show']]);
     Route::get(
