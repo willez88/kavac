@@ -253,24 +253,40 @@ El sistema cuenta con procedimientos que permiten establecer colas de trabajo pa
 
 Dentro del archivo config/queue.php se encuentra las distintas variables a configurar para el uso de colas, por lo que se deben configurar el driver a usar para la gestión de las colas y posteriormente configurar los datos necesarios del servidor seleccionado.
 
-Lo primero es configuar dentro del archivo de entorno (.env) la variable **QUEUE_CONNECTION** para el uso con base de datos de la siguiente manera:
+Lo primero es configuar dentro del archivo de entorno (.env) la variable **QUEUE_CONNECTION** para el uso del driver a implementar en la gestión de colas, por defecto esta configurado para hacer uso del driver mediante base de datos de la siguiente manera:
 
     QUEUE_CONNECTION=database
 
-Posteriormente se debe instalar y configurar el servidor que atenderá las peticiones de la colas de trabajo **Redis**, del cual se puede obtener información en la documentación oficial del framework [Larave](https://docs.laravel.com).
+Si se desea configurar otro driver para la gestión de colas se puede obtener información en la documentación oficial del framework [Larave](https://docs.laravel.com).
 
-Una vez instalado y configurado el servidor de colas, se debe establecer los valores correspondientes de las siguientes variables en el archivo de entorno .env como se muestra a continuación:
+Una vez configurado el servidor de colas es necesario realizar los procedimientos necesarios para que los
+**workers** que procesan las colas de trabajo esten activo en todo momento, para esto es recomendable configurar a supervisorctl  de la siguiente forma:
 
-    REDIS_HOST=<NOMBRE O IP DEL SERVIDOR REDIS>
-    REDIS_PASSWORD=null
-    REDIS_PORT=<PUERTO DE CONEXION DEL SERVIDOR REDIS>
-    REDIS_CLIENT=predis
-    REDIS_DB=<NUMERO DE BASE DE DATOS REDIS>
+* crear un archivo llamado **kavac-worker.conf** en la ruta **/etc/supervisor/conf.d/** con el siguiente contenido:
 
-Donde
-`<NOMBRE O IP DEL SERVIDOR REDIS>` es el nombre o dirección IP del servidor REDIS. Ej. 127.0.0.1 o localhost
-`<PUERTO DE CONEXION DEL SERVIDOR REDIS>` es el puerto de conexión del servidor REDIS. Ej. 6379
-`<NUMERO DE BASE DE DATOS REDIS>` es el número de base de datos del servidor REDIS. Ej. 16
+    [program:laravel-worker]
+    process_name=%(program_name)s_%(process_num)02d
+    command=/usr/bin/php <ruta-de-la-aplicacion-kavac>/artisan queue:work sqs --sleep=3 --tries=3
+    autostart=true
+    autorestart=true
+    user=<usuario-del-sistema>
+    numprocs=1
+    redirect_stderr=true
+    stdout_logfile=<ruta-de-la-aplicacion-kavac>/storage/logs/worker.log
+    stopwaitsecs=3600
+
+    Donde:
+`/user/bin/php` es la ruta en donde se encuentra el comando php
+`<ruta-de-la-aplicacion-kavac>` es la ruta en donde se encuentra instalada la aplicación
+`<usuario-del-sistema>` es el usuario del sistema operativo en donde se encuentra la aplicación, el cual tendrá los permisos necesarios para ejecutar los distintos procesos
+
+* actualizar y ejecutar supervisorctl de la siguiente forma:
+
+    sudo supervisorctl reread
+
+    sudo supervisorctl update
+
+    sudo supervisorctl start kavac-worker:*
 
 ## Websockets
 
@@ -280,14 +296,19 @@ La aplicación viene con un sistema de notificaciones en tiempo real con websock
     PUSHER_APP_KEY=<API_KEY>
     PUSHER_APP_SECRET=<API_SECRET>
     PUSHER_APP_CLUSTER=mt1
+    PUSHER_APP_TLS=false
 
     WEBSOCKETS_HOST=<WEBSOCKET_IP>
     WEBSOCKETS_PORT=<WEBSOCKET_PORT>
+    WEBSOCKETS_SSL_LOCAL_CERT=null
+    WEBSOCKETS_SSL_LOCAL_PK=null
+    WEBSOCKETS_SSL_PASSPHRASE=null
 
     MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
     MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
     MIX_WEBSOCKETS_HOST="${WEBSOCKETS_HOST}"
     MIX_WEBSOCKETS_PORT="${WEBSOCKETS_PORT}"
+    MIX_PUSHER_APP_TLS="${PUSHER_APP_TLS}"
 
 Luego de realizada la configuración en el archivo de entorno **.env** se requiere tener instalado en el servidor de aplicaciones una aplicación que monitoree y ejecute este servicio para lo cual se utiliza la aplicación ***supervisor***.
 
