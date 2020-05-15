@@ -187,6 +187,8 @@ En el archivo .env, localizado en la raíz del sistema, se deben establecer los 
 > APP_LOG_LEVEL
 > APP_URL
 >
+> AUDIT_LIMIT
+>
 > DB_CONNECTION
 > DB_HOST
 > DB_PORT
