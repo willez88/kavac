@@ -19,18 +19,6 @@
     </div>
 </template>
 
-<style>
-    .default-image-style {
-        cursor:pointer;
-    }
-    .hide-image-file {
-        display:none;
-    }
-    .btn-img-action {
-        padding: 0.1rem 0.3rem !important;
-    }
-</style>
-
 <script>
     export default {
         data() {

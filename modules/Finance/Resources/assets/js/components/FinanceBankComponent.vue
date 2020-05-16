@@ -108,13 +108,6 @@
 	</div>
 </template>
 
-<style>
-	.bank-logo {
-		width: 48px;
-		height: 48px;
-	}
-</style>
-
 <script>
 	export default {
 		data() {
