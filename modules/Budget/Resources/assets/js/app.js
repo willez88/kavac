@@ -47,7 +47,7 @@ Vue.component('budget-sub-specific-formulation', () => import('./components/Budg
  *
  * @todo Problema al cargar con lazy load
  */
-Vue.component('budget-mod', require('./components/BudgetModificationComponent.vue').default);
+Vue.component('budget-mod', () => import('./components/BudgetModificationComponent.vue'));
 
 /**
  * Componente para mostrar listado de créditos adicionales
@@ -56,7 +56,7 @@ Vue.component('budget-mod', require('./components/BudgetModificationComponent.vu
  *
  * @todo Problema al cargar con lazy load
  */
-Vue.component('budget-mod-list', require('./components/BudgetModificationListComponent.vue').default);
+Vue.component('budget-mod-list', () => import('./components/BudgetModificationListComponent.vue'));
 
 /**
  * Componente para agregar cuentas al registro o actualización de créditos adicionales
@@ -70,14 +70,14 @@ Vue.component('budget-aditional-credit-add', require('./components/BudgetAdition
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('budget-compromise-list', require('./components/BudgetCompromisesListComponent.vue').default);
+Vue.component('budget-compromise-list', () => import('./components/BudgetCompromisesListComponent.vue'));
 
 /**
  * Componente para getionar los compromisos presupuestarios
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('budget-compromise', require('./components/BudgetCompromiseComponent.vue').default);
+Vue.component('budget-compromise', () => import('./components/BudgetCompromiseComponent.vue'));
 
 /**
  * Opciones de configuración global del módulo de presupuesto
