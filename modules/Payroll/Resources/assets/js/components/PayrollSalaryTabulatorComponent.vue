@@ -381,15 +381,6 @@
 	</div>
 </template>
 
-<style>
-	.table-ladder thead tr.selected-row {
-		background-color: #d1d1d1;
-	}
-	.table-ladder tbody tr.config-row {
-		background-color: #fff;
-	}
-</style>
-
 <script>
 	export default {
 		data() {

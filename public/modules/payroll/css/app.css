@@ -1,1 +1,94 @@
-.col-xs-1{width:8.33333333%}.col-xs-2{width:16.66666667%}.col-xs-3{width:25%}.col-xs-4{width:33.33333333%}.col-xs-5{width:41.66666667%}.col-xs-6{width:50%}.col-xs-7{width:58.33333333%}.col-xs-8{width:66.66666667%}.col-xs-9{width:75%}.col-xs-10{width:83.33333333%}.col-xs-11{width:91.66666667%}.col-xs-12{width:100%}
+.col-xs-1 {
+  width: 8.33333333%;
+}
+
+.col-xs-2 {
+  width: 16.66666667%;
+}
+
+.col-xs-3 {
+  width: 25%;
+}
+
+.col-xs-4 {
+  width: 33.33333333%;
+}
+
+.col-xs-5 {
+  width: 41.66666667%;
+}
+
+.col-xs-6 {
+  width: 50%;
+}
+
+.col-xs-7 {
+  width: 58.33333333%;
+}
+
+.col-xs-8 {
+  width: 66.66666667%;
+}
+
+.col-xs-9 {
+  width: 75%;
+}
+
+.col-xs-10 {
+  width: 83.33333333%;
+}
+
+.col-xs-11 {
+  width: 91.66666667%;
+}
+
+.col-xs-12 {
+  width: 100%;
+}
+
+.table-assignment .form-control {
+  border-radius: .25rem !important;
+  padding: .375rem .1rem;
+  font-size: .6rem;
+  text-align: center;
+}
+
+.table-assignment tbody tr.selected-row {
+  background-color: #d1d1d1;
+}
+
+.table-assignment tbody tr.config-row {
+  background-color: #fff;
+}
+
+.table-assignment {
+  margin: 0 auto !important;
+}
+
+.table-scale .form-control {
+  border-radius: .25rem !important;
+  padding: .375rem .1rem;
+  font-size: .6rem;
+  text-align: center;
+}
+
+.table-scale tbody tr.selected-row {
+  background-color: #d1d1d1;
+}
+
+.table-scale tbody tr.config-row {
+  background-color: #fff;
+}
+
+div.multiselect {
+  margin: 0px;
+}
+
+.table-ladder thead tr.selected-row {
+  background-color: #d1d1d1;
+}
+
+.table-ladder tbody tr.config-row {
+  background-color: #fff;
+}
+

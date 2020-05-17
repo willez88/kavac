@@ -68,6 +68,9 @@
 			selected: {
 				type: Array,
 				required: false,
+                default: function() {
+                    return [];
+                }
 			},
 		},
 		methods: {

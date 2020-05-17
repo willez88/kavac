@@ -331,24 +331,6 @@
 	</div>
 </template>
 
-<style>
-	.table-assignment .form-control {
-		border-radius:.25rem !important;
-		padding: .375rem .1rem;
-	    font-size: .6rem;
-	    text-align: center;
-	}
-	.table-assignment tbody tr.selected-row {
-		background-color: #d1d1d1;
-	}
-	.table-assignment tbody tr.config-row {
-		background-color: #fff;
-	}
-	.table-assignment {
-		margin: 0 auto !important;
-	}
-</style>
-
 <script>
 	export default {
 		data() {

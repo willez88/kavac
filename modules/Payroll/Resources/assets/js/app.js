@@ -11,211 +11,302 @@
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-staff-types', require('./components/settings/PayrollStaffTypesComponent.vue').default);
+Vue.component('payroll-staff-types', () => import(
+    /* webpackChunkName: "payroll-staff-types" */
+    './components/settings/PayrollStaffTypesComponent.vue')
+);
 
 /**
  * Componente para listar, crear, actualizar y borrar datos de tipos de cargo
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-position-types', require('./components/settings/PayrollPositionTypesComponent.vue').default);
+Vue.component('payroll-position-types', () => import(
+    /* webpackChunkName: "payroll-position-types" */
+    './components/settings/PayrollPositionTypesComponent.vue')
+);
 
 /**
  * Componente para listar, crear, actualizar y borrar datos de cargos
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-positions', require('./components/settings/PayrollPositionsComponent.vue').default);
+Vue.component('payroll-positions', () => import(
+    /* webpackChunkName: "payroll-positions" */
+    './components/settings/PayrollPositionsComponent.vue')
+);
 
 /**
  * Componente para listar, crear, actualizar y borrar datos de la clasificación del personal
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-staff-classifications', require('./components/settings/PayrollStaffClassificationsComponent.vue').default);
+Vue.component('payroll-staff-classifications', () => import(
+    /* webpackChunkName: "payroll-staff-classifications" */
+    './components/settings/PayrollStaffClassificationsComponent.vue')
+);
 
 /**
  * Componente para listar, crear, actualizar y borrar datos del grado de instrucción
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-instruction-degrees', require('./components/settings/PayrollInstructionDegreesComponent.vue').default);
+Vue.component('payroll-instruction-degrees', () => import(
+    /* webpackChunkName: "payroll-instruction-degrees" */
+    './components/settings/PayrollInstructionDegreesComponent.vue')
+);
 
 /**
  * Componente para listar, crear, actualizar y borrar datos del tipo de estudio
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-study-types', require('./components/settings/PayrollStudyTypesComponent.vue').default);
+Vue.component('payroll-study-types', () => import(
+    /* webpackChunkName: "payroll-study-types" */
+    './components/settings/PayrollStudyTypesComponent.vue')
+);
 
 /**
  * Componente para listar, crear, actualizar y borrar datos de nacionalidades
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-nationalities', require('./components/settings/PayrollNationalitiesComponent.vue').default);
+Vue.component('payroll-nationalities', () => import(
+    /* webpackChunkName: "payroll-nationalities" */
+    './components/settings/PayrollNationalitiesComponent.vue')
+);
 
 /**
  * Componente para listar, crear, actualizar y borrar datos de los idiomas
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-languages', require('./components/settings/PayrollLanguagesComponent.vue').default);
+Vue.component('payroll-languages', () => import(
+    /* webpackChunkName: "payroll-languages" */
+    './components/settings/PayrollLanguagesComponent.vue')
+);
 
 /**
  * Componente para listar, crear, actualizar y borrar datos de los niveles de idioma
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-language-levels', require('./components/settings/PayrollLanguageLevelsComponent.vue').default);
+Vue.component('payroll-language-levels', () => import(
+    /* webpackChunkName: "payroll-language-levels" */
+    './components/settings/PayrollLanguageLevelsComponent.vue')
+);
 
 /**
  * Componente para listar, crear, actualizar y borrar datos de los géneros
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-genders', require('./components/settings/PayrollGendersComponent.vue').default);
+Vue.component('payroll-genders', () => import(
+    /* webpackChunkName: "payroll-genders" */
+    './components/settings/PayrollGendersComponent.vue')
+);
 
 /**
  * Componente para listar, crear, actualizar y borrar datos de tipos de inactividad
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-inactivity-types', require('./components/settings/PayrollInactivityTypesComponent.vue').default);
+Vue.component('payroll-inactivity-types', () => import(
+    /* webpackChunkName: "payroll-inactivity-types" */
+    './components/settings/PayrollInactivityTypesComponent.vue')
+);
 
 /**
  * Componente para listar, crear, actualizar y borrar datos de tipos de contrato
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-contract-types', require('./components/settings/PayrollContractTypesComponent.vue').default);
+Vue.component('payroll-contract-types', () => import(
+    /* webpackChunkName: "payroll-contract-types" */
+    './components/settings/PayrollContractTypesComponent.vue')
+);
 
 /**
  * Componente para listar, crear, actualizar y borrar datos de tipos de sector
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-sector-types', require('./components/settings/PayrollSectorTypesComponent.vue').default);
+Vue.component('payroll-sector-types', () => import(
+    /* webpackChunkName: "payroll-sector-types" */
+    './components/settings/PayrollSectorTypesComponent.vue')
+);
 
 /**
  * Componente para listar, crear, actualizar y borrar datos de grados de licencia de conducir
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-license-degrees', require('./components/settings/PayrollLicenseDegreesComponent.vue').default);
+Vue.component('payroll-license-degrees', () => import(
+    /* webpackChunkName: "payroll-license-degrees" */
+    './components/settings/PayrollLicenseDegreesComponent.vue')
+);
 
 /**
  * Componente para listar, crear, actualizar y borrar datos de tipos de sangre
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-blood-types', require('./components/settings/PayrollBloodTypesComponent.vue').default);
+Vue.component('payroll-blood-types', () => import(
+    /* webpackChunkName: "payroll-blood-types" */
+    './components/settings/PayrollBloodTypesComponent.vue')
+);
 
 /**
  * Componente para mostrar listado de información personal
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-staffs-list', require('./components/PayrollStaffListComponent.vue').default);
+Vue.component('payroll-staffs-list', () => import(
+    /* webpackChunkName: "payroll-staffs-list" */
+    './components/PayrollStaffListComponent.vue')
+);
 
 /**
  * Componente para registrar o actualizar información personal
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-staff', require('./components/PayrollStaffComponent.vue').default);
+Vue.component('payroll-staff', () => import(
+    /* webpackChunkName: "payroll-staff" */
+    './components/PayrollStaffComponent.vue')
+);
 
 /**
  * Componente para mostrar listado de información socioeconómica
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-socioeconomic-informations-list', require('./components/PayrollSocioeconomicInformationListComponent.vue').default);
+Vue.component('payroll-socioeconomic-informations-list', () => import(
+    /* webpackChunkName: "payroll-socioeconomic-informations-list" */
+    './components/PayrollSocioeconomicInformationListComponent.vue')
+);
 
 /**
  * Componente para registrar o actualizar información socioeconómica
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-socioeconomic-information', require('./components/PayrollSocioeconomicInformationComponent.vue').default);
+Vue.component('payroll-socioeconomic-information', () => import(
+    /* webpackChunkName: "payroll-socioeconomic-information" */
+    './components/PayrollSocioeconomicInformationComponent.vue')
+);
 
 /**
  * Componente para mostrar listado de información profesional
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-professional-informations-list', require('./components/PayrollProfessionalInformationListComponent.vue').default);
+Vue.component('payroll-professional-informations-list', () => import(
+    /* webpackChunkName: "payroll-professional-informations-list" */
+    './components/PayrollProfessionalInformationListComponent.vue')
+);
 
 /**
  * Componente para registrar o actualizar información profesional
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-professional-information', require('./components/PayrollProfessionalInformationComponent.vue').default);
+Vue.component('payroll-professional-information', () => import(
+    /* webpackChunkName: "payroll-professional-information" */
+    './components/PayrollProfessionalInformationComponent.vue')
+);
 
 /**
  * Componente para mostrar listado de información laboral
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-employment-informations-list', require('./components/PayrollEmploymentInformationListComponent.vue').default);
+Vue.component('payroll-employment-informations-list', () => import(
+    /* webpackChunkName: "payroll-employment-informations-list" */
+    './components/PayrollEmploymentInformationListComponent.vue')
+);
 
 /**
  * Componente para registrar o actualizar información laboral
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-employment-information', require('./components/PayrollEmploymentInformationComponent.vue').default);
+Vue.component('payroll-employment-information', () => import(
+    /* webpackChunkName: "payroll-employment-information" */
+    './components/PayrollEmploymentInformationComponent.vue')
+);
 
 /**
  * Componente para la gestión de los escalafones de nomina
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-salary-scale', require('./components/PayrollSalaryScaleComponent.vue').default);
+Vue.component('payroll-salary-scale', () => import(
+    /* webpackChunkName: "payroll-salary-scale" */
+    './components/PayrollSalaryScaleComponent.vue')
+);
 
 /**
  * Componente para la gestión de tabuladores de nómina
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-salary-tabulator', require('./components/PayrollSalaryTabulatorComponent.vue').default);
+Vue.component('payroll-salary-tabulator', () => import(
+    /* webpackChunkName: "payroll-salary-tabulator" */
+    './components/PayrollSalaryTabulatorComponent.vue')
+);
 
 /**
  * Componente para la gestión de tipos de asignaciones de nómina
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-salary-assignment-type', require('./components/PayrollSalaryAssignmentTypeComponent.vue').default);
+Vue.component('payroll-salary-assignment-type', () => import(
+    /* webpackChunkName: "payroll-salary-assignment-type" */
+    './components/PayrollSalaryAssignmentTypeComponent.vue')
+);
 
 /**
  * Componente para la gestión de asignaciones de nómina
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-salary-assignment', require('./components/PayrollSalaryAssignmentComponent.vue').default);
+Vue.component('payroll-salary-assignment', () => import(
+    /* webpackChunkName: "payroll-salary-assignment" */
+    './components/PayrollSalaryAssignmentComponent.vue')
+);
 
 /**
  * Componente para la gestión de conceptos de nómina
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-concepts', require('./components/settings/PayrollConceptsComponent.vue').default);
-Vue.component('payroll-concept-types', require('./components/settings/PayrollConceptTypesComponent.vue').default);
+Vue.component('payroll-concepts', () => import(
+    /* webpackChunkName: "payroll-concepts" */
+    './components/settings/PayrollConceptsComponent.vue')
+);
+
+Vue.component('payroll-concept-types', () => import(
+    /* webpackChunkName: "payroll-concept-types" */
+    './components/settings/PayrollConceptTypesComponent.vue')
+);
 
 /**
  * Componente para la gestión de tipos de pago
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-payment-types', require('./components/settings/PayrollPaymentTypesComponent.vue').default);
+Vue.component('payroll-payment-types', () => import(
+    /* webpackChunkName: "payroll-payment-types" */
+    './components/settings/PayrollPaymentTypesComponent.vue')
+);
 
 /**
  * Componente para la gestión de calculos de salario
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-//Vue.component('payroll-salary-simulator', require('./components/PayrollSalarySimulatorComponent.vue').default);
+//Vue.component('payroll-salary-simulator', () => import('./components/PayrollSalarySimulatorComponent.vue'));
 
 /**
  * Opciones de configuración global del módulo de Nómina

@@ -16,7 +16,7 @@ Vue.mixin({
     data() {
         return {
             /** @type {Boolean} Establece si se esta o no cargando una petición del sistema */
-            loading: true,
+            //loading: true,
             /** @type {Object} Objeto que contiene los atributos y métodos para obtener traducciones del sistema  */
             //i18n: Lang,
             /** @type {Object} Objeto que contiene datos a gestionar para el bloque de pantalla por inactividad */

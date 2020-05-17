@@ -131,8 +131,8 @@
                                 <div class="form-group is-required">
                                     <label>Conceptos:</label>
                                     <v-multiselect :options="payroll_concepts" track_by="text"
-                                                   :hide_selected="false" :selected="record.payroll_concepts"
-                                                   v-model="record.payroll_concepts">
+                                                   :hide_selected="false"
+                                                   v-model="record.payroll_concepts"><!--:selected="record.payroll_concepts"-->
                                     </v-multiselect>
                                 </div>
                             </div>
