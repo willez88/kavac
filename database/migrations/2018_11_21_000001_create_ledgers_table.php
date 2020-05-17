@@ -15,7 +15,7 @@ class CreateLedgersTable extends Migration
      */
     public function up(): void
     {
-        Schema::create('ledgers', function (Blueprint $table) {
+        /*Schema::create('ledgers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('user_type')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
@@ -36,7 +36,7 @@ class CreateLedgersTable extends Migration
                 'user_id',
                 'user_type',
             ]);
-        });
+        });*/
     }
 
     /**
