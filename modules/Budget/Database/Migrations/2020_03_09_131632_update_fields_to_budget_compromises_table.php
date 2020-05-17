@@ -17,8 +17,8 @@ class UpdateFieldsToBudgetCompromisesTable extends Migration
             if (!Schema::hasColumn('budget_compromises', 'document_number')) {
                 $table->string('document_number')->unique()
                       ->comment(<<<EOT
-                          Número del documento que identifica el compromiso. Si es manual se agrega el número indicado 
-                          en el campo Documento Origen, de lo contrarió si proviene de otro proceso se coloca el código 
+                          Número del documento que identifica el compromiso. Si es manual se agrega el número indicado
+                          en el campo Documento Origen, de lo contrarió si proviene de otro proceso se coloca el código
                           del documento
                       EOT);
             }
@@ -26,7 +26,7 @@ class UpdateFieldsToBudgetCompromisesTable extends Migration
             if (!Schema::hasColumn('budget_compromises', 'institution_id')) {
                 $table->bigInteger('institution_id')->unsigned()->nullable()
                       ->comment('Identificador asociado a la institución');
-                $table->foreign('institution_id')->references('id')
+                $table->foreign('institution_id', 'institution_fk')->references('id')
                       ->on('institutions')->onUpdate('cascade');
             }
 

@@ -21,7 +21,7 @@ class CreateBudgetCompromisesTable extends Migration
                 $table->string('code', 20)->unique()->comment("Código único que identifica el compromiso");
                 $table->bigInteger('document_status_id')->unsigned()
                       ->comment('Identificador del estatus del documento');
-                $table->foreign('document_status_id')->references('id')
+                $table->foreign('document_status_id', 'document_status_fk')->references('id')
                       ->on('document_status')->onDelete('restrict')->onUpdate('cascade');
                 /** Relación para los beneficiarios del compromiso */
                 $table->morphs('compromiseable');
