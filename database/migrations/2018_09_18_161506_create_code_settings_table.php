@@ -32,7 +32,7 @@ class CreateCodeSettingsTable extends Migration
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
                 $table->unique([
                     'module', 'table', 'field', 'active', 'format_prefix', 'format_digits', 'format_year'
-                ])->comment('Clave única para el registro');
+                ], 'code_settings_unique_id')->comment('Clave única para el registro');
             });
         }
     }
