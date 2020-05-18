@@ -29,8 +29,10 @@ class PayrollProfessionalInformationProfessionTable extends Migration
             Schema::create('payroll_professional_information_profession', function (Blueprint $table) {
                 $table->bigIncrements('id')->unsigned();
                 $table->bigInteger('payroll_professional_information_id')->unsigned()->index();
-                $table->foreign('payroll_professional_information_id')
-                      ->references('id')->on('payroll_professional_informations')->onDelete('cascade');
+                $table->foreign(
+                    'payroll_professional_information_id',
+                    'payroll_professional_information_profession_professional_fk'
+                )->references('id')->on('payroll_professional_informations')->onDelete('cascade');
 
                 $table->bigInteger('profession_id')->unsigned()->index();
                 $table->foreign('profession_id')->references('id')->on('professions')->onDelete('cascade');

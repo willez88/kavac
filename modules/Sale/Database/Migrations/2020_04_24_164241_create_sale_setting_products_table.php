@@ -23,7 +23,7 @@ class CreateSaleSettingProductsTable extends Migration
             $table->string('code')->comment('Código');
             $table->string('description')->comment('Descripción');
             $table->string('price')->comment('Precio unitario');
-            $table->string('iva')->unsigned()->nullable()
+            $table->string('iva')->nullable()
                   ->comment('IVA');
 
             $table->timestamps();

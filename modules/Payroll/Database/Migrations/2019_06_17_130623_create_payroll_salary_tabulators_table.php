@@ -39,13 +39,17 @@ class CreatePayrollSalaryTabulatorsTable extends Migration
 
                 $table->bigInteger('payroll_horizontal_salary_scale_id')->unsigned()->nullable()
                       ->comment('Identificador único del escalafón salarial horizontal asociado al tabulador');
-                $table->foreign('payroll_horizontal_salary_scale_id')->references('id')->on('payroll_salary_scales')
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreign(
+                    'payroll_horizontal_salary_scale_id',
+                    'payroll_salary_tabulators_horizontal_salary_scale_fk'
+                )->references('id')->on('payroll_salary_scales')->onDelete('restrict')->onUpdate('cascade');
 
                 $table->bigInteger('payroll_vertical_salary_scale_id')->unsigned()->nullable()
                       ->comment('Identificador único del escalafón vertical salarial asociado al tabulador');
-                $table->foreign('payroll_vertical_salary_scale_id')->references('id')->on('payroll_salary_scales')
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreign(
+                    'payroll_vertical_salary_scale_id',
+                    'payroll_salary_tabulators_vertical_salary_scale_fk'
+                )->references('id')->on('payroll_salary_scales')->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

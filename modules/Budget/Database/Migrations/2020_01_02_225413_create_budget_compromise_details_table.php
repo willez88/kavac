@@ -22,19 +22,19 @@ class CreateBudgetCompromiseDetailsTable extends Migration
                       ->comment('Monto del impuesto aplicado al comprometido de la cuenta presupuestaria');
                 $table->bigInteger('tax_id')->unsigned()
                       ->comment('Identificador asociado al tipo de impuesto');
-                $table->foreign('tax_id', 'tax_fk')->references('id')
+                $table->foreign('tax_id')->references('id')
                       ->on('taxes')->onUpdate('cascade');
                 $table->bigInteger('budget_compromise_id')->unsigned()
                       ->comment('Identificador asociado al compromiso');
-                $table->foreign('budget_compromise_id', 'budget_compromise_fk')->references('id')
+                $table->foreign('budget_compromise_id')->references('id')
                       ->on('budget_compromises')->onUpdate('cascade');
                 $table->bigInteger('budget_account_id')->unsigned()
                       ->comment('Identificador asociado a la cuenta presupuestaria');
-                $table->foreign('budget_account_id', 'budget_account_fk')->references('id')
+                $table->foreign('budget_account_id')->references('id')
                       ->on('budget_accounts')->onUpdate('cascade');
                 $table->bigInteger('budget_sub_specific_formulation_id')->unsigned()
                       ->comment('Identificador asociado a la Formulación');
-                $table->foreign('budget_sub_specific_formulation_id', 'sub_specific_formulation_fk')
+                $table->foreign('budget_sub_specific_formulation_id', 'budget_compromise_details_formulation_fk')
                       ->references('id')->on('budget_sub_specific_formulations')->onUpdate('cascade');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

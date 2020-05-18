@@ -24,7 +24,7 @@ class CreateBudgetAditionalCreditsTable extends Migration
                       ->comment('Identificador asociado a la institución');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-                $table->foreign('institution_id', 'institution_fk')->references('id')
+                $table->foreign('institution_id')->references('id')
                       ->on('institutions')->onUpdate('cascade');
             });
         }

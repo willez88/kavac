@@ -26,7 +26,7 @@ class UpdateFieldsToBudgetCompromisesTable extends Migration
             if (!Schema::hasColumn('budget_compromises', 'institution_id')) {
                 $table->bigInteger('institution_id')->unsigned()->nullable()
                       ->comment('Identificador asociado a la institución');
-                $table->foreign('institution_id', 'institution_fk')->references('id')
+                $table->foreign('institution_id')->references('id')
                       ->on('institutions')->onUpdate('cascade');
             }
 

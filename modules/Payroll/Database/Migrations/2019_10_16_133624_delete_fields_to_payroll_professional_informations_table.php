@@ -26,7 +26,9 @@ class DeleteFieldsToPayrollProfessionalInformationsTable extends Migration
     public function up()
     {
         Schema::table('payroll_professional_informations', function (Blueprint $table) {
+            $table->dropForeign('payroll_professional_informations_payroll_language_id_foreign');
             $table->dropColumn('payroll_language_id');
+            $table->dropForeign('payroll_professional_informations_language_level_pk');
             $table->dropColumn('payroll_language_level_id');
         });
     }

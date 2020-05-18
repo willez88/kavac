@@ -20,16 +20,17 @@ class CreateTechnicalSupportRequestsTable extends Migration
                 $table->text('description')->comment('Descripción de la avería del bien');
 
                 $table->bigInteger('user_id')->comment('Identificador único del usuario que solicita la reparación');
-                $table->foreign('user_id')->references('id')->on('users')
-                      ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->bigInteger('asset_id')
                       ->comment('Identificador único del bien asociado a la solicitud de reparación');
-                $table->foreign('asset_id')->references('id')
-                      ->on('assets')->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
+
+                $table->foreign('user_id')->references('id')->on('users')
+                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreign('asset_id')->references('id')
+                      ->on('assets')->onDelete('restrict')->onUpdate('cascade');
             });
         }
     }

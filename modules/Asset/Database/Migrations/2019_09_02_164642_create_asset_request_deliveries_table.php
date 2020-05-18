@@ -34,13 +34,13 @@ class CreateAssetRequestDeliveriesTable extends Migration
 
                 $table->bigInteger('asset_request_id')
                       ->comment('Identificador único de la solicitud asociada a la entrega');
-                $table->foreign('asset_request_id')->references('id')->on('asset_requests')
-                      ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->bigInteger('user_id')->comment('Identificador único del usuario que solicita la entrega');
-                $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
+                $table->foreign('asset_request_id')->references('id')->on('asset_requests')
+                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
             });
         }
     }

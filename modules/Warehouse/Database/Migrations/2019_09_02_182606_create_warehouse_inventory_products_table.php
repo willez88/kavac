@@ -50,8 +50,12 @@ class CreateWarehouseInventoryProductsTable extends Migration
 
                 $table->bigInteger('warehouse_institution_warehouse_id')->nullable()
                       ->comment('Identificador único de la institución que gestiona el almacén donde está el producto');
-                $table->foreign('warehouse_institution_warehouse_id')->references('id')
-                      ->on('warehouse_institution_warehouses')->onDelete('restrict')->onUpdate('cascade');
+                $table->foreign(
+                    'warehouse_institution_warehouse_id',
+                    'warehouse_inventory_products_institution_warehouse_pk'
+                )->references('id')->on(
+                    'warehouse_institution_warehouses'
+                )->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

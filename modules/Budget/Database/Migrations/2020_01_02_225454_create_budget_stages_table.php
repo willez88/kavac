@@ -28,7 +28,7 @@ class CreateBudgetStagesTable extends Migration
                       ->comment('Monto por el que se establece la etapa presupuestaria del compromiso');
                 $table->bigInteger('budget_compromise_id')->unsigned()
                       ->comment('Identificador asociado al compromiso');
-                $table->foreign('budget_compromise_id', 'budget_compromise_fk')->references('id')
+                $table->foreign('budget_compromise_id')->references('id')
                       ->on('budget_compromises')->onUpdate('cascade');
                 /** Relación para los documentos de origen que generan la etapa presupuestaria del compromiso */
                 $table->morphs('sourceable');

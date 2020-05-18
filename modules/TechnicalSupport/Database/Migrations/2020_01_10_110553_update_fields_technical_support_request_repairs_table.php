@@ -16,8 +16,8 @@ class UpdateFieldsTechnicalSupportRequestRepairsTable extends Migration
         if (Schema::hasTable('technical_support_request_repairs')) {
             Schema::table('technical_support_request_repairs', function (Blueprint $table) {
                 if (Schema::hasColumn('technical_support_request_repairs', 'user_id')) {
-                    $table->dropForeign(['user_id']);
-                    $table->dropColumn(['user_id']);
+                    //$table->dropForeign('user_id');
+                    $table->dropColumn('user_id');
                 };
                 if (Schema::hasColumn('technical_support_request_repairs', 'state')) {
                     $table->dropColumn(['state']);

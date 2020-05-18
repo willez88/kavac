@@ -48,11 +48,11 @@ class CreateAssetReportsTable extends Migration
                 $table->bigInteger('institution_id')->nullable()->unsigned()
                       ->comment('Identificador único de la institución');
 
-                $table->integer('mes')->nullable()->unsigned()->comment('Identificador único del mes de busqueda');
-                $table->year('year')->nullable()->unsigned()->comment('Año de busqueda');
+                $table->integer('mes')->nullable()->comment('Identificador único del mes de busqueda');
+                $table->year('year')->nullable()->comment('Año de busqueda');
 
-                $table->date('start_date')->nullable()->unsigned()->comment('Fecha inicial de busqueda');
-                $table->date('end_date')->nullable()->unsigned()->comment('Fecha final de busqueda');
+                $table->date('start_date')->nullable()->comment('Fecha inicial de busqueda');
+                $table->date('end_date')->nullable()->comment('Fecha final de busqueda');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

@@ -145,27 +145,6 @@
     </div>
 </template>
 
-<style>
-    .accordion hr {
-        margin-top:0;
-        margin-bottom: 0;
-    }
-    .accordion h6 .btn {
-        font-size: 1em;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-    .accordion .card-body {
-        padding-top: 0;
-    }
-    .accordion .list-group-item {padding:0;}
-    .custom-control-input:checked ~ .custom-control-label::before {
-        color: #fff;
-        border-color: #f96332;
-        background-color: #f96332;
-    }
-</style>
-
 <script>
     export default {
         data() {

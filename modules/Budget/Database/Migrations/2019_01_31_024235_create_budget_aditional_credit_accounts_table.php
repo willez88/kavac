@@ -25,12 +25,16 @@ class CreateBudgetAditionalCreditAccountsTable extends Migration
                       ->comment('Identificador asociado al crédito adicional');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-                $table->foreign('budget_sub_specific_formulation_id', 'sub_specific_formulation_fk')
-                      ->references('id')->on('budget_sub_specific_formulations')->onUpdate('cascade');
-                $table->foreign('budget_account_id', 'budget_account_fk')->references('id')
-                      ->on('budget_accounts')->onUpdate('cascade');
-                $table->foreign('budget_aditional_credit_id', 'budget_aditional_credit_fk')
-                      ->references('id')->on('budget_aditional_credits')->onUpdate('cascade');
+                $table->foreign(
+                    'budget_sub_specific_formulation_id',
+                    'budget_aditional_credit_accounts_sub_specific_fk'
+                )->references('id')->on('budget_sub_specific_formulations')->onUpdate('cascade');
+                $table->foreign('budget_account_id', 'budget_aditional_credit_accounts_account_fk')
+                      ->references('id')->on('budget_accounts')->onUpdate('cascade');
+                $table->foreign(
+                    'budget_aditional_credit_id',
+                    'budget_aditional_credit_accounts_aditional_credit_id'
+                )->references('id')->on('budget_aditional_credits')->onUpdate('cascade');
             });
         }
     }

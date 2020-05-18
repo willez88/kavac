@@ -40,11 +40,15 @@ class CreateAssetDisincorporationsTable extends Migration
                 $table->string('observation')->nullable()
                       ->comment('Observaciones generales del estado del bien a desincorporar');
 
-                $table->bigInteger('user_id')->comment('Identificador único del usuario que realiza la desincorporación');
-                $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
+                $table->bigInteger('user_id')
+                      ->comment('Identificador único del usuario que realiza la desincorporación');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
+            });
+
+            Schema::table('asset_disincorporations', function (Blueprint $table) {
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
             });
         }
     }

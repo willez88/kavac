@@ -12,9 +12,9 @@ use Modules\Accounting\Models\AccountingAccountConverter;
 /**
  * @class AccountingAccountsTableSeeder
  * @brief Información por defecto para cuentas patrimoniales
- * 
+ *
  * Gestiona la información por defecto a registrar inicialmente para las cuentas patrimoniales
- * 
+ *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
  */
@@ -23,9 +23,9 @@ class AccountingAccountsTableSeeder extends Seeder
     /**
      * @class AccountingAccountsTableSeeder
      * @brief Información por defecto para cuentas patrimoniales
-     * 
+     *
      * Gestiona la información por defecto y la registra inicialmente para las cuentas patrimoniales
-     * 
+     *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
      */
@@ -3757,35 +3757,41 @@ class AccountingAccountsTableSeeder extends Seeder
                 'denomination' => 'Utilidades de acciones y participaciones de capital de otros entes del sector externo'
             ],
         ];
-        DB::transaction(function() use ($accounting_acounts, $accounting_acounts_to_delete) {
+        DB::transaction(function () use ($accounting_acounts, $accounting_acounts_to_delete) {
             foreach ($accounting_acounts as $account) {
 
                 /** @var Object que almacena la consulta de la cuenta, si esta no existe retorna null */
-                $acc = AccountingAccount::where('group',$account['group'])
-                                    ->where('subgroup',$account['subgroup'])
-                                    ->where('item',$account['item'])
-                                    ->where('generic',$account['generic'])
-                                    ->where('specific',$account['specific'])
-                                    ->where('subspecific',$account['subspecific'])->first();
+                $acc = AccountingAccount::where('group', $account['group'])
+                                    ->where('subgroup', $account['subgroup'])
+                                    ->where('item', $account['item'])
+                                    ->where('generic', $account['generic'])
+                                    ->where('specific', $account['specific'])
+                                    ->where('subspecific', $account['subspecific'])->first();
 
                 /** @var Object que almacena la consulta de la cuenta de nivel superior de la cuanta actual, si esta no posee retorna false */
                 $parent = AccountingAccount::getParent(
-                        $account['group'], $account['subgroup'], $account['item'], $account['generic'], $account['specific'], $account['subspecific']
+                    $account['group'],
+                    $account['subgroup'],
+                    $account['item'],
+                    $account['generic'],
+                    $account['specific'],
+                    $account['subspecific']
                     );
 
                 AccountingAccount::updateOrCreate(
                     [
                         'group' => $account['group'], 'subgroup' => $account['subgroup'],
                         'item' => $account['item'], 'generic' => $account['generic'],
-                        'specific' => $account['specific'], 'subspecific' => $account['subspecific'], 
-                    ],[
+                        'specific' => $account['specific'], 'subspecific' => $account['subspecific'],
+                    ],
+                    [
                         'denomination' => $account['denomination'],
                         'active' => $account['active'],
                         'inactivity_date' => (!$account['active'])?date('Y-m-d'):null,
 
                         /**
                         * Si existe, al ejecutar nuevamente el seeder o refrescar la base de datos evita que se asigne en la columna parent_id a si mismo como su parent
-                        */ 
+                        */
                         'parent_id' => ($acc != null && $parent != false) ? (($acc->id == $parent->id)?null:$parent->id) : (($parent == false)?null:$parent->id) ,
                     ]
                 );
@@ -3797,38 +3803,38 @@ class AccountingAccountsTableSeeder extends Seeder
             * en caso de ya tener informacion relacionada se toman las medidas necesarias para evitar la perdida de datos
             */
             foreach ($accounting_acounts_to_delete as $account) {
-                $account_to = AccountingAccount::where('group',$account['group'])
-                    ->where('subgroup',$account['subgroup'])
-                    ->where('item',$account['item'])
-                    ->where('generic',$account['generic'])
-                    ->where('specific',$account['specific'])
-                    ->where('subspecific',$account['subspecific'])
-                    ->where('denomination',$account['denomination'])->first();
+                $account_to = AccountingAccount::where('group', $account['group'])
+                    ->where('subgroup', $account['subgroup'])
+                    ->where('item', $account['item'])
+                    ->where('generic', $account['generic'])
+                    ->where('specific', $account['specific'])
+                    ->where('subspecific', $account['subspecific'])
+                    ->where('denomination', $account['denomination'])->first();
 
                 if (!is_null($account_to)) {
-                    $acc_new = AccountingAccount::where('denomination',$account['denomination'])
-                                ->where('group','<>',$account['group'])
-                                ->where('group','<>',$account['subgroup'])
-                                ->where('group','<>',$account['item'])
-                                ->where('group','<>',$account['generic'])
-                                ->where('group','<>',$account['specific'])
-                                ->where('group','<>',$account['subspecific'])->first();
+                    $acc_new = AccountingAccount::where('denomination', $account['denomination'])
+                                ->where('group', '<>', $account['group'])
+                                ->where('group', '<>', $account['subgroup'])
+                                ->where('group', '<>', $account['item'])
+                                ->where('group', '<>', $account['generic'])
+                                ->where('group', '<>', $account['specific'])
+                                ->where('group', '<>', $account['subspecific'])->first();
 
                     if (!is_null($acc_new)) {
                         /**
                         * Se actualizan los valores de las llaves foraneas en el modelo AccountingSeatAccount que tenia la cuenta por el nuevo registro actualizado
                         * se actualiza la información en la base de datos
                         */
-                        foreach (AccountingSeatAccount::where('accounting_account_id',$account_to->id)->get() as $acc) {
+                        /*foreach (AccountingSeatAccount::where('accounting_account_id',$account_to->id)->get() as $acc) {
                             $acc->accounting_account_id = $acc_new->id;
                             $acc->save();
-                        }
+                        }*/
 
                         /**
                         * Se actualizan los valores de las llaves foraneas en el modelo AccountingAccountConverter que tenia la cuenta por el nuevo registro actualizado
                         * se actualiza la información en la base de datos
                         */
-                        foreach (AccountingAccountConverter::where('accounting_account_id',$account_to->id)->get() as $acc) {
+                        foreach (AccountingAccountConverter::where('accounting_account_id', $account_to->id)->get() as $acc) {
                             $acc->accounting_account_id = $acc_new->id;
                             $acc->save();
                         }

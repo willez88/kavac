@@ -38,8 +38,10 @@ class CreatePayrollEmploymentInformationsTable extends Migration
 
                 $table->bigInteger('payroll_inactivity_type_id')->unsigned()->nullable()
                       ->comment('identificador del tipo de inactividad que pertenece a la información laboral');
-                $table->foreign('payroll_inactivity_type_id')->references('id')->on('payroll_inactivity_types')
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreign(
+                    'payroll_inactivity_type_id',
+                    'payroll_employment_informations_inactivity_type_fk'
+                )->references('id')->on('payroll_inactivity_types')->onDelete('restrict')->onUpdate('cascade');
 
                 $table->bigInteger('payroll_position_type_id')->unsigned()
                       ->comment('identificador del tipo de cargo que pertenece a la información laboral');

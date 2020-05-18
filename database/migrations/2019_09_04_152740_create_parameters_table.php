@@ -22,7 +22,7 @@ class CreateParametersTable extends Migration
                     'Indica quien requiere del parámetro (aplicación base o módulo). ' .
                     'Por defecto se establece la aplicación base, para modulos se debe indicar el nombre del mismo'
                 );
-                $table->boolean('active')->default('true')->comment(
+                $table->boolean('active')->default(true)->comment(
                     'Indica si el parámetro se encuentra activo o no. El valor por defecto es activo.'
                 );
                 $table->timestamps();

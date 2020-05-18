@@ -25,7 +25,10 @@ class CreateNotificationSettingsUsersTable extends Migration
                 $table->bigInteger('user_id')->unsigned()->nullable()->comment('Identificador del usuario');
                 $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
                 $table->timestamps();
-                $table->unique(['notification_setting_id', 'user_id', 'type'])->comment('Clave única para el registro');
+                $table->unique(
+                    ['notification_setting_id', 'user_id', 'type'],
+                    'notification_setting_user_unique'
+                )->comment('Clave única para el registro');
             });
         }
     }

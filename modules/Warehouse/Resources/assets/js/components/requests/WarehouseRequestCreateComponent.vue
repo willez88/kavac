@@ -165,20 +165,6 @@
 	</section>
 </template>
 
-<style>
-	.selected-row {
-		background-color: #d1d1d1 !important;
-	}
-	.table-form {
-		border-radius:.25rem !important;
-		padding: .375rem .1rem;
-	    font-size: .6rem;
-	    text-align: right;
-	    border-right: 1px solid #d1d1d1;
-		border-left: 1px solid #d1d1d1;
-	}
-</style>
-
 <script>
 	export default {
 		data() {

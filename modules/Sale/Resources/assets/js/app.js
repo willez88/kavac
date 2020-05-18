@@ -11,41 +11,59 @@
  *
  * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
  */
-Vue.component('sale-payment-method', require('./components/settings/SalePaymentMethodComponent.vue').default);
+Vue.component('sale-payment-method', () => import(
+    /* webpackChunkName: "sale-payment-method" */
+    './components/settings/SalePaymentMethodComponent.vue')
+);
 /**
  * Componente para listar, crear, actualizar y borrar datos de almacén
  *
  * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
  */
-Vue.component('sale-warehouse-method', require('./components/settings/SaleWarehouseMethodComponent.vue').default);
+Vue.component('sale-warehouse-method', () => import(
+    /* webpackChunkName: "sale-warehouse-method" */
+    './components/settings/SaleWarehouseMethodComponent.vue')
+);
 
 /**
  * Componente para gestionar el formato de codigo
  *
  * @author José Puentes <jpuentes@cenditel.gob.ve>
  */
-Vue.component('register-formatcode', require('./components/settings/SaleCodeFormatComponent.vue').default);
+Vue.component('register-formatcode', () => import(
+    /* webpackChunkName: "register-formatcode" */
+    './components/settings/SaleCodeFormatComponent.vue')
+);
 
 /**
  * Componente para gestionar los clientes
  *
  * @author José Puentes <jpuentes@cenditel.gob.ve>
  */
-Vue.component('register-clients', require('./components/settings/SaleClientsComponent.vue').default);
+Vue.component('register-clients', () => import(
+    /* webpackChunkName: "register-clients" */
+    './components/settings/SaleClientsComponent.vue')
+);
 
 /**
  * Componente para listar, crear, actualizar y borrar datos de los productos
  *
  * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
  */
-Vue.component('sale-setting-product', require('./components/settings/SaleSettingProductComponent.vue').default);
+Vue.component('sale-setting-product', () => import(
+    /* webpackChunkName: "sale-setting-product" */
+    './components/settings/SaleSettingProductComponent.vue')
+);
 
 /**
  * Componente para listar, crear, actualizar y borrar datos de los productos
  *
  * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
  */
-Vue.component('sale-setting-product-type', require('./components/settings/SaleSettingProductTypeComponent.vue').default);
+Vue.component('sale-setting-product-type', () => import(
+    /* webpackChunkName: "sale-setting-product-type" */
+    './components/settings/SaleSettingProductTypeComponent.vue')
+);
 
 /**
  * Opciones de configuración global del módulo de Commercialización
