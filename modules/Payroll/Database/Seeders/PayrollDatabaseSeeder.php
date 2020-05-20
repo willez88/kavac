@@ -54,5 +54,8 @@ class PayrollDatabaseSeeder extends Seeder
 
         /** Seeder para la configuración general del módulo nómina */
         $this->call(PayrollLanguageLevelsTableSeeder::class);
+
+        /** Seeder para la configuración general del módulo nómina */
+        $this->call(PayrollSettingsTableSeeder::class);
     }
 }

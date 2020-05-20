@@ -155,7 +155,7 @@
 									Reconocimientos:
 	                            </label>
 								<input id="acknowledgments" name="acknowledgments" type="file"
-									accept=".png, .jpg, .pdf, .odt" multiple>
+									accept=".png, .jpg, .pdf, .odt" @change="processFiles()" multiple>
 							</div>
 						</div>
 					</div>
@@ -170,7 +170,7 @@
 							title="Cancelar y regresar" @click="redirect_back(route_list)">
 						<i class="fa fa-ban"></i>
 					</button>
-	                <button type="button" @click="create"
+	                <button type="button" @click="createRecord('payroll/professional-informations')"
 	                	class="btn btn-success btn-icon btn-round">
 	                	<i class="fa fa-save"></i>
 		            </button>
@@ -199,7 +199,6 @@
 					class_schedule: '',
 					professions: [],
 					language_details: [],
-					acknowledgments: '',
 				},
 				errors: [],
 				payroll_staffs: [],
@@ -216,7 +215,6 @@
 			getProfessionalInformation() {
 				const vm = this;
 				axios.get('/payroll/professional-informations/' + vm.payroll_professional_information_id).then(response => {
-					//vm.record = response.data.record;
 					vm.record.id = response.data.record.id;
 					vm.record.payroll_staff_id = response.data.record.payroll_staff_id;
 					vm.record.payroll_instruction_degree_id = response.data.record.payroll_instruction_degree_id;
@@ -257,7 +255,7 @@
 			},
 
 			/**
-			 * Agrega una nueva columna para el registro de detalles de idiomas
+			 * Agrega una nueva Fila para el registro de detalles de idiomas
 			 *
 			 * @author William Páez <wpaez@cenditel.gob.ve>
 			 */
@@ -268,19 +266,15 @@
 				});
 			},
 
-			create() {
+			processFiles() {
                 const vm = this;
-				formData.append('payroll_staff_id', vm.record.payroll_staff_id);
-				formData.append('payroll_instruction_degree_id', vm.record.payroll_instruction_degree_id);
                 var inputFile = document.querySelector('#acknowledgments');
 				var tam = inputFile.files.length;
+				console.log(tam);
 				for (var x = 0; x < tam; x++) {
     				formData.append('acknowledgments[]', document.getElementById('acknowledgments').files[x]);
 				}
-                //formData.append('acknowledgments[]', inputFile.files);
-				//vm.record.acknowledgment = inputFile.files;
-				//console.log(vm.record.acknowledgment);
-                axios.post('/payroll/professional-informations', formData, {
+                /*axios.post('upload-image.store', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -300,7 +294,7 @@
                             }
                         }
                     }
-                });
+                });*/
 			}
 		},
 		created() {

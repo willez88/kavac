@@ -73,23 +73,19 @@ class PayrollProfessionalInformationController extends Controller
      * @param  \Illuminate\Http\Request $request    Solicitud con los datos a guardar
      * @return \Illuminate\Http\JsonResponse        Json: result en verdadero y redirect con la url a donde ir
      */
-    public function store(Request $request, UploadImageRepository $upImage, UploadDocRepository $upDoc)
+    public function store(Request $request)
     {
         $this->validate($request, [
             'payroll_staff_id' => ['required', 'unique:payroll_professional_informations,payroll_staff_id'],
             'payroll_instruction_degree_id' => ['required']
         ]);
 
-        $acknowledgments = $request->file('acknowledgments');
+        /*$acknowledgments = $request->file('acknowledgments');
         if ($request->hasFile('acknowledgments')) {
             foreach ($acknowledgments as $acknowledgment) {
                 error_log($acknowledgment->getClientOriginalExtension());
             }
-        }
-
-        return response()->json([
-            'result' => true, 'hola' => $request->acknowledgments
-        ], 200);
+        }*/
 
         $payrollInstructionDegree1 = PayrollInstructionDegree::where('name', 'TSU Universitario')->first()->id;
         $payrollInstructionDegree2 = PayrollInstructionDegree::where('name', 'Universitario Pregrado')->first()->id;
