@@ -42,6 +42,18 @@ class WarehouseRequest extends Model implements Auditable
     ];
 
     /**
+     * Método que obtiene la institución que realiza la solicitud
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * Institution
+     */
+    public function institution()
+    {
+        return $this->belongsTo(\App\Models\Institution::class);
+    }
+
+    /**
      * Método que obtiene el departamento o dependencia que realiza la solicitud
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>

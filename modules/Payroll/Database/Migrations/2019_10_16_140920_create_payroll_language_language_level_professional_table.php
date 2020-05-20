@@ -35,9 +35,11 @@ class CreatePayrollLanguageLanguageLevelProfessionalTable extends Migration
                 /*$table->foreign('payroll_language_level_id')
                       ->references('id')->on('payroll_language_levels')->onDelete('cascade');*/
 
-                $table->bigInteger('payroll_professional_information_id')->unsigned()->index();
-                /*$table->foreign('payroll_professional_information_id')
-                      ->references('id')->on('payroll_professional_informations')->onDelete('cascade');*/
+                $table->bigInteger('payroll_professional_information_id')->unsigned();
+                $table->foreign(
+                    'payroll_professional_information_id',
+                    'payroll_language_language_level_professional_information_fk'
+                )->references('id')->on('payroll_professional_informations')->onDelete('cascade');
 
                 $table->unique(['payroll_language_id', 'payroll_professional_information_id',])
                       ->comment('Clave única para el registro');

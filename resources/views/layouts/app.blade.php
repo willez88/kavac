@@ -98,7 +98,7 @@
         @yield('modals')
         {{-- Scripts --}}
         {{-- Plugin Sliders --}}
-        {!! Html::script('js/nouislider.min.js', [], Request::secure()) !!}
+        {{-- {!! Html::script('js/nouislider.min.js', [], Request::secure()) !!} --}}
         {{-- Scripts de la aplicación --}}
         {!! Html::script('js/generic-classes.js', [], Request::secure()) !!}
         {!! Html::script('js/app.js', [], Request::secure()) !!}
@@ -106,26 +106,18 @@
         @yield('modules-js')
 
         {{-- Plugin Bootbox --}}
-        {!! Html::script('js/bootbox.min.js', [], Request::secure()) !!}
+        <script src="{{ asset('js/bootbox.min.js', Request::secure()) }}" defer></script>
         {{-- Plugin Datatable --}}
-        {!! Html::script('vendor/datatable/js/jquery.dataTables.min.js', [], Request::secure()) !!}
-        {!! Html::script('vendor/datatable/js/dataTables.select.min.js', [], Request::secure()) !!}
-        {!! Html::script('vendor/datatable/js/dataTables.buttons.min.js', [], Request::secure()) !!}
-        {!! Html::script(
-            'vendor/datatable/js/dataTables.bootstrap4.min.js', [], Request::secure()
-        ) !!}
-        {!! Html::script(
-            'vendor/datatable/js/dataTables.responsive.min.js', [], Request::secure()
-        ) !!}
-        {!! Html::script(
-            'vendor/datatable/js/responsive.bootstrap4.min.js', [], Request::secure()
-        ) !!}
+        <script src="{{ asset('vendor/datatable/js/jquery.dataTables.min.js', Request::secure()) }}" defer></script>
+        <script src="{{ asset('vendor/datatable/js/dataTables.select.min.js', Request::secure()) }}" defer></script>
+        <script src="{{ asset('vendor/datatable/js/dataTables.buttons.min.js', Request::secure()) }}" defer></script>
+        <script src="{{ asset('vendor/datatable/js/dataTables.bootstrap4.min.js', Request::secure()) }}" defer></script>
+        <script src="{{ asset('vendor/datatable/js/dataTables.responsive.min.js', Request::secure()) }}" defer></script>
+        <script src="{{ asset('vendor/datatable/js/responsive.bootstrap4.min.js', Request::secure()) }}" defer></script>
         {{-- Plugin Gritter --}}
-        {!! Html::script(
-            'vendor/jquery.gritter/js/jquery.gritter.min.js', [], Request::secure()
-        ) !!}
+        <script src="{{ asset('vendor/jquery.gritter/js/jquery.gritter.min.js', Request::secure()) }}" defer></script>
         {{-- Scripts comúnes --}}
-        {!! Html::script('js/common.js', [], Request::secure()) !!}
+        <script src="{{ asset('js/common.js', Request::secure()) }}" defer></script>
 
         {{-- Botón de ir al inicio de la página cuando se excede de un alto preestablecido --}}
         @include('buttons.to-top')
@@ -143,27 +135,7 @@
                 /** Coloca el año actual en el pie de página */
                 $('.currentYear').text(new Date().getFullYear());
 
-                if ($('.ckeditor').length && typeof(CkEditor) !== 'undefined') {
-                    $('.ckeditor').each(function() {
-                        CkEditor.create(document.querySelector('.ckeditor'), {
-                            toolbar: [
-                                'heading', '|',
-                                'bold', 'italic', 'blockQuote', 'link',
-                                'numberedList', 'bulletedList', '|',
-                                'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells', '|',
-                                'undo', 'redo'
-                            ],
-                            language: '{{ app()->getLocale() }}',
-                        }).then(editor => {
-                            window.editor = editor;
-                            // Descomentar para entornos de desarrollo
-                            //console.log(Array.from( window.editor.ui.componentFactory.names() ));
-                        }).catch(error => {
-                            logs('app', 143, error);
-                        });
 
-                    });
-                }
 
                 /** Restringe el rango de fechas del campo tipo date al año de ejercicio económico */
                 /*$("input[type=date]").attr({
@@ -189,14 +161,13 @@
 
                 Inputmask().mask(document.querySelectorAll("input"));
 
-                /** Instrucciones a implementar en campos de formularios */
-                //$("input[type=date]").attr('readonly', true);
-
                 /** oculta el mensaje de carga al renderizar por completo el DOM de la página */
                 $('.preloader').fadeOut(1000);
             });
+
             /** Establece el tema por defecto, para elementos select2, a bootstrap 4 */
             $.fn.select2.defaults.set( "theme", "bootstrap" );
+
             /*
              * Función que permite eliminar registros mediante ajax
              *
@@ -396,22 +367,6 @@
                 }
             }
 
-            /*try {
-                throw new HandleJSError('app', {
-                    'message': 'prueba'
-                });
-            } catch(e) {
-                console.log(e);
-                console.log(e.fileName)
-                console.warn("error");
-                console.log(e.lineNumber)
-                console.log(e.name);
-                console.log(e.view);
-                console.log(e.message);
-                console.log(e.stack.split("\n"));
-                console.log(e.date);
-            }*/
-
             /**
              * Desbloquea la pantalla de la aplicación bloqueada por inactividad
              *
@@ -486,27 +441,13 @@
 
         {{-- Sección para scripts extras dispuestos por las plantillas según requerimientos particulares --}}
         @yield('extra-js')
+
         {{-- Sección que permite renderizar los componentes de VueJS --}}
-        <script defer>
+        <script>
             /** @type {object} Constante que crea el elemento Vue */
             var app = new Vue({
                 el: '#app',
             });
-
-            /*if ($("#app-nav").length) {
-                var appNav = new Vue({
-                    el: '#app-nav',
-                });
-            }*/
-        </script>
-        <script>
-            /*Echo.channel('home').listen('NewMessage', (e) => {
-                console.log("entro");
-                console.log(e.message);
-            });*/
         </script>
     </body>
 </html>
-<script>
-    document.write();
-</script>

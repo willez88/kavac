@@ -46,3 +46,49 @@
   width: 100%;
 }
 
+.table-assignment .form-control {
+  border-radius: .25rem !important;
+  padding: .375rem .1rem;
+  font-size: .6rem;
+  text-align: center;
+}
+
+.table-assignment tbody tr.selected-row {
+  background-color: #d1d1d1;
+}
+
+.table-assignment tbody tr.config-row {
+  background-color: #fff;
+}
+
+.table-assignment {
+  margin: 0 auto !important;
+}
+
+.table-scale .form-control {
+  border-radius: .25rem !important;
+  padding: .375rem .1rem;
+  font-size: .6rem;
+  text-align: center;
+}
+
+.table-scale tbody tr.selected-row {
+  background-color: #d1d1d1;
+}
+
+.table-scale tbody tr.config-row {
+  background-color: #fff;
+}
+
+div.multiselect {
+  margin: 0px;
+}
+
+.table-ladder thead tr.selected-row {
+  background-color: #d1d1d1;
+}
+
+.table-ladder tbody tr.config-row {
+  background-color: #fff;
+}
+

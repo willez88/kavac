@@ -17,8 +17,8 @@ class UpdateFieldsToBudgetCompromisesTable extends Migration
             if (!Schema::hasColumn('budget_compromises', 'document_number')) {
                 $table->string('document_number')->unique()
                       ->comment(<<<EOT
-                          Número del documento que identifica el compromiso. Si es manual se agrega el número indicado 
-                          en el campo Documento Origen, de lo contrarió si proviene de otro proceso se coloca el código 
+                          Número del documento que identifica el compromiso. Si es manual se agrega el número indicado
+                          en el campo Documento Origen, de lo contrarió si proviene de otro proceso se coloca el código
                           del documento
                       EOT);
             }

@@ -3,7 +3,8 @@ import moment from 'moment';
 /** Import del editor clásico de CKEditor */
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 /** Requerimiento para traducción de CKEditor al español */
-require('@ckeditor/ckeditor5-build-classic/build/translations/es.js');
+//require('@ckeditor/ckeditor5-build-classic/build/translations/es.js');
+import '@ckeditor/ckeditor5-build-classic/build/translations/es';
 
 /**
  * Opciones de configuración global para utilizar en todos los componentes vuejs de la aplicación
@@ -15,7 +16,7 @@ Vue.mixin({
     data() {
         return {
             /** @type {Boolean} Establece si se esta o no cargando una petición del sistema */
-            loading: true,
+            //loading: true,
             /** @type {Object} Objeto que contiene los atributos y métodos para obtener traducciones del sistema  */
             //i18n: Lang,
             /** @type {Object} Objeto que contiene datos a gestionar para el bloque de pantalla por inactividad */

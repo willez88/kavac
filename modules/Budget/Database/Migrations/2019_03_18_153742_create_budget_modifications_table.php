@@ -28,7 +28,8 @@ class CreateBudgetModificationsTable extends Migration
                       ->comment('Número del documento que avala la modificación presupuestaria');
                 $table->bigInteger('institution_id')->unsigned()
                       ->comment('Identificador asociado a la institución');
-                $table->foreign('institution_id')->references('id')->on('institutions')->onUpdate('cascade');
+                $table->foreign('institution_id')->references('id')
+                      ->on('institutions')->onUpdate('cascade');
                 $table->bigInteger('document_status_id')->unsigned()
                       ->comment('Identificador asociado a la institución');
                 $table->foreign('document_status_id')->references('id')

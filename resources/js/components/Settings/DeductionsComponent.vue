@@ -183,17 +183,6 @@
     </div>
 </template>
 
-<style>
-    .btn-sm.btn-formula, .btn-sm.btn-formula-clear {
-        font-size: .65rem;
-        font-weight: bold;
-    }
-    .col-btn-block {
-        padding-left: 36px;
-        padding-right: 36px;
-    }
-</style>
-
 <script>
     export default {
         data() {

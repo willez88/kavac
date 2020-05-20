@@ -3,77 +3,111 @@
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('budget-accounts-list', require('./components/BudgetAccountsListComponent.vue').default);
+Vue.component('budget-accounts-list', () => import(
+    /* webpackChunkName: "budget-accounts-list" */
+    './components/BudgetAccountsListComponent.vue')
+);
 
 /**
  * Componente para mostrar listado de proyectos
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('budget-projects-list', require('./components/BudgetProjectsListComponent.vue').default);
+Vue.component('budget-projects-list', () => import(
+    /* webpackChunkName: "budget-projects-list" */
+    './components/BudgetProjectsListComponent.vue')
+);
 
 /**
  * Componente para mostrar listado de acciones centralizadas
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('budget-centralized-actions-list', require('./components/BudgetCentralizedActionsListComponent.vue').default);
+Vue.component('budget-centralized-actions-list', () => import(
+    /* webpackChunkName: "budget-centralized-actions-list" */
+    './components/BudgetCentralizedActionsListComponent.vue')
+);
 
 /**
  * Componente para mostrar listado de acciones centralizadas
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('budget-specific-actions-list', require('./components/BudgetSpecificActionsListComponent.vue').default);
+Vue.component('budget-specific-actions-list', () => import(
+    /* webpackChunkName: "budget-specific-actions-list" */
+    './components/BudgetSpecificActionsListComponent.vue')
+);
 
 /**
  * Componente para mostrar listado de formulaciones de presupuesto
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('budget-formulation-list', require('./components/BudgetSubSpecificFormulationListComponent.vue').default);
+Vue.component('budget-formulation-list', () => import(
+    /* webpackChunkName: "budget-subspecific-formulation-list" */
+    './components/BudgetSubSpecificFormulationListComponent.vue')
+);
 
 /**
  * Componente para mostrar formulario de formulación de presupuesto por sub específica
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('budget-sub-specific-formulation', require('./components/BudgetSubSpecificFormulationComponent.vue').default);
+Vue.component('budget-sub-specific-formulation', () => import(
+    /* webpackChunkName: "budget-subspecific-formulation" */
+    './components/BudgetSubSpecificFormulationComponent.vue')
+);
 
 /**
  * Componente para getionar las modificaciones presupuestarias
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
+ * @todo Problema al cargar con lazy load
  */
-Vue.component('budget-mod', require('./components/BudgetModificationComponent.vue').default);
+Vue.component('budget-mod', () => import(
+    /* webpackChunkName: "budget-modification" */
+    './components/BudgetModificationComponent.vue')
+);
 
 /**
  * Componente para mostrar listado de créditos adicionales
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
+ * @todo Problema al cargar con lazy load
  */
-Vue.component('budget-mod-list', require('./components/BudgetModificationListComponent.vue').default);
+Vue.component('budget-mod-list', () => import(
+    /* webpackChunkName: "budget-modification-list" */
+    './components/BudgetModificationListComponent.vue')
+);
 
 /**
  * Componente para agregar cuentas al registro o actualización de créditos adicionales
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('budget-aditional-credit-add', require('./components/BudgetAditionalCreditAddComponent.vue').default);
+//Vue.component('budget-aditional-credit-add', require('./components/BudgetAditionalCreditAddComponent.vue').default);
 
 /**
  * Componente para mostrar listado de compromisos
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('budget-compromise-list', require('./components/BudgetCompromisesListComponent.vue').default);
+Vue.component('budget-compromise-list', () => import(
+    /* webpackChunkName: "budget-compromises-list" */
+    './components/BudgetCompromisesListComponent.vue')
+);
 
 /**
  * Componente para getionar los compromisos presupuestarios
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('budget-compromise', require('./components/BudgetCompromiseComponent.vue').default);
+Vue.component('budget-compromise', () => import(
+    /* webpackChunkName: "budget-compromise" */
+    './components/BudgetCompromiseComponent.vue')
+);
 
 /**
  * Opciones de configuración global del módulo de presupuesto

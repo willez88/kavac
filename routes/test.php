@@ -158,3 +158,16 @@ Route::get('test-notify', function () {
     $user->notify(new SystemNotification('prueba', 'prueba de notificación'));
     echo "Notificación enviada";
 });
+
+Route::get('clear-database', function () {
+    \Modules\Accounting\Models\AccountingAccount::where('subspecific', '<>', '00')->delete();
+    \Modules\Budget\Models\BudgetAccount::where('subspecific', '<>', '00')->delete();
+    \Modules\Asset\Models\AssetSpecificCategory::where('code', '<>', '08')->delete();
+    \Modules\Purchase\Models\PurchaseSupplierSpecialty::where(
+        'name',
+        '<>',
+        'Mobiliario de equipos de oficina'
+    )->delete();
+
+    return redirect()->route('index');
+});

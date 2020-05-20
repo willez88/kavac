@@ -40,8 +40,8 @@ class CreateBudgetAccountOpensTable extends Migration
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
                 $table->foreign('budget_account_id')->references('id')
                       ->on('budget_accounts')->onUpdate('cascade');
-                $table->foreign('budget_sub_specific_formulation_id')->references('id')
-                      ->on('budget_sub_specific_formulations')->onUpdate('cascade');
+                $table->foreign('budget_sub_specific_formulation_id')
+                      ->references('id')->on('budget_sub_specific_formulations')->onUpdate('cascade');
             });
         }
     }

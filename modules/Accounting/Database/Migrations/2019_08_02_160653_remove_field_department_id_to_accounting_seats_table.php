@@ -14,6 +14,7 @@ class RemoveFieldDepartmentIdToAccountingSeatsTable extends Migration
     public function up()
     {
         Schema::table('accounting_seats', function (Blueprint $table) {
+            $table->dropForeign('accounting_seats_department_id_foreign');
             $table->dropColumn('department_id');
         });
     }

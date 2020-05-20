@@ -8,8 +8,16 @@ var moduleName = m[m.length-1].toLowerCase()
 
 mix.js(__dirname + '/Resources/assets/js/app.js', `modules/${moduleName}/js`)
    .sass( __dirname + '/Resources/assets/sass/app.scss', `modules/${moduleName}/css`);
-   // .sourceMaps();
+
+mix.webpackConfig({
+    output:{
+        chunkFilename: `modules/${moduleName}/components/${(mix.inProduction()) ? 'prod/[chunkhash]' : '[name]'}.js`,
+    }
+});
 
 if (mix.inProduction()) {
     mix.version();
+}
+else {
+    mix.sourceMaps();
 }

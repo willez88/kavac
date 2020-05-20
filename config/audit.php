@@ -93,7 +93,7 @@ return [
     |
     */
 
-    'threshold' => 0,
+    'threshold' => env('AUDIT_LIMIT', 0),
 
     /*
     |--------------------------------------------------------------------------
@@ -131,5 +131,5 @@ return [
     |
     */
 
-    'console' => true,
+    'console' => false, //false para no auditar cuando se hace una migración por consola
 ];

@@ -27,8 +27,10 @@ class CreateBudgetModificationAccountsTable extends Migration
                       ->comment('Identificador asociado a la modificación presupuestaria');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-                $table->foreign('budget_sub_specific_formulation_id')->references('id')
-                      ->on('budget_sub_specific_formulations')->onUpdate('cascade');
+                $table->foreign(
+                    'budget_sub_specific_formulation_id',
+                    'budget_modification_accounts_sub_specific_formulation_fk'
+                )->references('id')->on('budget_sub_specific_formulations')->onUpdate('cascade');
                 $table->foreign('budget_account_id')->references('id')
                       ->on('budget_accounts')->onUpdate('cascade');
                 $table->foreign('budget_modification_id')->references('id')

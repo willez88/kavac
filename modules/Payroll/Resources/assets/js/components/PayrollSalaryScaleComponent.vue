@@ -378,24 +378,6 @@
 	</div>
 </template>
 
-<style>
-	.table-scale .form-control {
-		border-radius:.25rem !important;
-		padding: .375rem .1rem;
-	    font-size: .6rem;
-	    text-align: center;
-	}
-	.table-scale tbody tr.selected-row {
-		background-color: #d1d1d1;
-	}
-	.table-scale tbody tr.config-row {
-		background-color: #fff;
-	}
-	div.multiselect {
-		margin: 0px;
-	}
-</style>
-
 <script>
 	export default {
 		data() {

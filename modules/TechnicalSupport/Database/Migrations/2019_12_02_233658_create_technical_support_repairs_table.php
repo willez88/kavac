@@ -40,8 +40,12 @@ class CreateTechnicalSupportRepairsTable extends Migration
 
                 $table->bigInteger('technical_support_request_repair_id')->unsigned()
                       ->comment('Identificador único de la solcitud asociada a la reparación');
-                $table->foreign('technical_support_request_repair_id')->references('id')
-                      ->on('technical_support_request_repairs')->onDelete('restrict')->onUpdate('cascade');
+                $table->foreign(
+                    'technical_support_request_repair_id',
+                    'technical_support_repairs_request_fk'
+                )->references('id')->on(
+                    'technical_support_request_repairs'
+                )->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

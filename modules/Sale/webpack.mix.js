@@ -6,10 +6,18 @@ mix.setPublicPath('../../public').mergeManifest();
 var m = __dirname.split("/");
 var moduleName = m[m.length-1].toLowerCase()
 
-mix.js(__dirname + '/Resources/assets/js/app.js', `modules/sale/js`)
-   .sass( __dirname + '/Resources/assets/sass/app.scss', `modules/sale/css`)
-   .sourceMaps();
+mix.js(__dirname + '/Resources/assets/js/app.js', `modules/${moduleName}/js`)
+   .sass( __dirname + '/Resources/assets/sass/app.scss', `modules/${moduleName}/css`);
+
+mix.webpackConfig({
+    output:{
+        chunkFilename: `modules/${moduleName}/components/${(mix.inProduction()) ? 'prod/[chunkhash]' : '[name]'}.js`,
+    }
+});
 
 if (mix.inProduction()) {
     mix.version();
+}
+else {
+    mix.sourceMaps();
 }

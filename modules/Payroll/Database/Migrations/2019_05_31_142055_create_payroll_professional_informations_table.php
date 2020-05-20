@@ -30,8 +30,10 @@ class CreatePayrollProfessionalInformationsTable extends Migration
 
             $table->bigInteger('payroll_instruction_degree_id')->unsigned()
                   ->comment('identificador del grado de instrucción que pertenece a la información profesional');
-            $table->foreign('payroll_instruction_degree_id')->references('id')->on('payroll_instruction_degrees')
-                  ->onDelete('restrict')->onUpdate('cascade');
+            $table->foreign(
+                'payroll_instruction_degree_id',
+                'payroll_professional_informations_instruction_degree_fk'
+            )->references('id')->on('payroll_instruction_degrees')->onDelete('restrict')->onUpdate('cascade');
 
             $table->bigInteger('profession_id')->unsigned()->nullable()
                   ->comment('identificador de la profesión que pertenecen a la información profesional');
@@ -59,8 +61,10 @@ class CreatePayrollProfessionalInformationsTable extends Migration
 
             $table->bigInteger('payroll_language_level_id')->unsigned()
                   ->comment('identificador de nivel del idioma que pertenece a la información profesional');
-            $table->foreign('payroll_language_level_id')->references('id')->on('payroll_language_levels')
-                  ->onDelete('restrict')->onUpdate('cascade');
+            $table->foreign(
+                'payroll_language_level_id',
+                'payroll_professional_informations_language_level_pk'
+            )->references('id')->on('payroll_language_levels')->onDelete('restrict')->onUpdate('cascade');
 
             $table->bigInteger('payroll_staff_id')->unsigned()->unique()
                   ->comment('identificador del trabajador que pertenece a la información profesional');

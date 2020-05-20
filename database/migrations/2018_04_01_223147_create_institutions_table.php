@@ -26,7 +26,7 @@ class CreateInstitutionsTable extends Migration
                       ->comment('Razón social de la institución');
                 $table->date('start_operations_date')->comment('Fecha de inicio de operaciones');
                 $table->text('legal_base')->nullable()->comment('Base legal');
-                $table->string('legal_form', 20)->nullable()->comment('Forma Jurídica');
+                $table->text('legal_form')->nullable()->comment('Forma Jurídica');
                 $table->text('main_activity')->nullable()->comment('Actividad principal');
                 $table->text('mission')->nullable()->comment('Misión');
                 $table->text('vision')->nullable()->comment('Visión');

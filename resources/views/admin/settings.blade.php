@@ -25,7 +25,6 @@
 
 @section('extra-js')
 	@parent
-	{!! Html::script('js/core-settings.js', [], Request::secure()) !!}
 	<script>
 		$(document).ready(function() {
 			$('#active').closest('.bootstrap-switch-wrapper').attr({

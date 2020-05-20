@@ -41,7 +41,11 @@ return [
                 'encrypted' => true,
                 'host' => env('WEBSOCKETS_HOST', '127.0.0.1'),
                 'port' => env('WEBSOCKETS_PORT', 6001),
-                'scheme' => 'http'
+                'scheme' => 'http',
+                'curl_options' => [
+                    CURLOPT_SSL_VERIFYHOST => 0,
+                    CURLOPT_SSL_VERIFYPEER => 0,
+                ]
             ],
         ],
 

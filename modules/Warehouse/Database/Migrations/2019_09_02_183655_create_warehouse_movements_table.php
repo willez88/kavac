@@ -40,13 +40,21 @@ class CreateWarehouseMovementsTable extends Migration
 
                 $table->bigInteger('warehouse_institution_warehouse_initial_id')->unsigned()->nullable()
                   ->comment('Identificador único de la ubicación inicial del producto en la tabla institución-almacén');
-                $table->foreign('warehouse_institution_warehouse_initial_id')->references('id')
-                      ->on('warehouse_institution_warehouses')->onDelete('restrict')->onUpdate('cascade');
+                $table->foreign(
+                    'warehouse_institution_warehouse_initial_id',
+                    'warehouse_movements_institution_warehouse_initial_fk'
+                )->references('id')->on(
+                    'warehouse_institution_warehouses'
+                )->onDelete('restrict')->onUpdate('cascade');
 
                 $table->bigInteger('warehouse_institution_warehouse_end_id')->unsigned()->nullable()
                   ->comment('Identificador único de la ubicación final del producto en la tabla institución-almacén)');
-                $table->foreign('warehouse_institution_warehouse_end_id')->references('id')
-                      ->on('warehouse_institution_warehouses')->onDelete('restrict')->onUpdate('cascade');
+                $table->foreign(
+                    'warehouse_institution_warehouse_end_id',
+                    'warehouse_movements_institution_warehouse_end_fk'
+                )->references('id')->on(
+                    'warehouse_institution_warehouses'
+                )->onDelete('restrict')->onUpdate('cascade');
 
                 $table->bigInteger('user_id')->unsigned()
                       ->comment('Identificador único del usuario que registra el movimiento');

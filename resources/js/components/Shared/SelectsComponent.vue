@@ -43,9 +43,3 @@
 		}
 	};
 </script>
-
-<style>
-	select {
-		width: 100%;
-	}
-</style>

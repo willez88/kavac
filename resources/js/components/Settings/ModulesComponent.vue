@@ -128,13 +128,6 @@
     </div>
 </template>
 
-<style>
-    small {font-size: 70%;}
-    .list-group-item:hover {text-decoration: none}
-    .list-group-item .media .media-left img {height:60px;}
-    .btn-sm {font-size: 0.8571em;}
-</style>
-
 <script>
     export default {
         data() {

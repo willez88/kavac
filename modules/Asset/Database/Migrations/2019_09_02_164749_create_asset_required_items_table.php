@@ -37,10 +37,10 @@ class CreateAssetRequiredItemsTable extends Migration
 
                 $table->bigInteger('asset_specific_category_id')
                       ->comment('Identificador único de la clasificación asociada a los requerimentos');
-                $table->foreign('asset_specific_category_id')->references('id')->on('asset_specific_categories')
-                      ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
+                $table->foreign('asset_specific_category_id')->references('id')->on('asset_specific_categories')
+                      ->onDelete('restrict')->onUpdate('cascade');
                 $table->unique(['asset_specific_category_id'])->comment('Clave única para el registro');
             });
         }

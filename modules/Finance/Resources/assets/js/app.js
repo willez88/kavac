@@ -3,42 +3,60 @@
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('finance-banks', require('./components/FinanceBankComponent.vue').default);
+Vue.component('finance-banks', () => import(
+    /* webpackChunkName: "finance-banks" */
+    './components/FinanceBankComponent.vue')
+);
 
 /**
  * Componente para la gestión de agencias bancarias
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('finance-banking-agencies', require('./components/FinanceBankingAgencyComponent.vue').default);
+Vue.component('finance-banking-agencies', () => import(
+    /* webpackChunkName: "finance-banking-agencies" */
+    './components/FinanceBankingAgencyComponent.vue')
+);
 
 /**
  * Componente para la gestión de tipos de cuenta bancaria
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('finance-account-types', require('./components/FinanceAccountTypeComponent.vue').default);
+Vue.component('finance-account-types', () => import(
+    /* webpackChunkName: "finance-account-types" */
+    './components/FinanceAccountTypeComponent.vue')
+);
 
 /**
  * Componente para la gestión de cuentas bancarias
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('finance-bank-accounts', require('./components/FinanceBankAccountComponent.vue').default);
+Vue.component('finance-bank-accounts', () => import(
+    /* webpackChunkName: "finance-bank-accounts" */
+    './components/FinanceBankAccountComponent.vue')
+);
 
 /**
  * Componente para la gestión de chequeras
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('finance-checkbooks', require('./components/FinanceCheckBookComponent.vue').default);
+Vue.component('finance-checkbooks', () => import(
+    /* webpackChunkName: "finance-checkbooks" */
+    './components/FinanceCheckBookComponent.vue')
+);
 
 /**
  * Componente para gestionar y configurar el diseño del voucher para la impresión de cheques
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('finance-voucher-design', require('./components/FinanceVoucherDesignComponent.vue').default);
+Vue.component('finance-voucher-design', () => import(
+    /* webpackChunkName: "finance-voucher-design" */
+    './components/FinanceVoucherDesignComponent.vue')
+);
 
 /**
  * Opciones de configuración global del módulo de finanzas

@@ -42,8 +42,10 @@ class CreatePayrollSalaryAssignmentsTable extends Migration
 
                 $table->bigInteger('payroll_salary_assignment_type_id')->unsigned()->nullable()
                   ->comment('Identificador único del tipo de asignación salarial');
-                $table->foreign('payroll_salary_assignment_type_id')->references('id')
-                      ->on('payroll_salary_assignment_types')->onDelete('restrict')->onUpdate('cascade');
+                $table->foreign(
+                    'payroll_salary_assignment_type_id',
+                    'payroll_salary_assignments_salary_assignment_type_fk'
+                )->references('id')->on('payroll_salary_assignment_types')->onDelete('restrict')->onUpdate('cascade');
 
                 $table->bigInteger('payroll_salary_scale_id')->unsigned()->nullable()
                   ->comment('Identificador único del escalafón asociado a la asignación salarial');

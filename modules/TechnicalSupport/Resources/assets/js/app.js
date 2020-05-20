@@ -11,63 +11,90 @@
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('technicalsupport-request-list', require('./components/requests/TechnicalSupportRequestListComponent.vue').default);
+Vue.component('technicalsupport-request-list', () => import(
+    /* webpackChunkName: "technicalsupport-request-list" */
+    './components/requests/TechnicalSupportRequestListComponent.vue')
+);
 
 /**
  * Componente para mostrar la información de una solicitud de reparación registrada
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('technicalsupport-request-info', require('./components/requests/TechnicalSupportRequestInfoComponent.vue').default);
+Vue.component('technicalsupport-request-info', () => import(
+    /* webpackChunkName: "technicalsupport-request-info" */
+    './components/requests/TechnicalSupportRequestInfoComponent.vue')
+);
 
 /**
  * Componente para gestionar la asignación de responsable a una reparación de averías de bienes institucionales
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('technicalsupport-assign-repair-manager', require('./components/requests/TechnicalSupportAssignRepairManagerComponent.vue').default);
+Vue.component('technicalsupport-assign-repair-manager', () => import(
+    /* webpackChunkName: "technicalsupport-assign-repair-manager" */
+    './components/requests/TechnicalSupportAssignRepairManagerComponent.vue')
+);
 
 /**
  * Componente para la gestión de las reparación asignadas
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('technicalsupport-repair-list', require('./components/repairs/TechnicalSupportRepairListComponent.vue').default);
+Vue.component('technicalsupport-repair-list', () => import(
+    /* webpackChunkName: "technicalsupport-repair-list" */
+    './components/repairs/TechnicalSupportRepairListComponent.vue')
+);
 
 /**
  * Componente para mostrar la información de una reparación asignada
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('technicalsupport-repair-info', require('./components/repairs/TechnicalSupportRepairInfoComponent.vue').default);
+Vue.component('technicalsupport-repair-info', () => import(
+    /* webpackChunkName: "technicalsupport-repair-info" */
+    './components/repairs/TechnicalSupportRepairInfoComponent.vue')
+);
 
 /**
  * Componente para
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('technicalsupport-diagnostic', require('./components/repairs/TechnicalSupportDiagnosticComponent.vue').default);
+Vue.component('technicalsupport-diagnostic', () => import(
+    /* webpackChunkName: "technicalsupport-diagnostic" */
+    './components/repairs/TechnicalSupportDiagnosticComponent.vue')
+);
 
 /**
  * Componente para gestionar la entrega de los equipos en reparación
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('technicalsupport-deliver-equipment', require('./components/repairs/TechnicalSupportDeliverEquipmentComponent.vue').default);
+Vue.component('technicalsupport-deliver-equipment', () => import(
+    /* webpackChunkName: "technicalsupport-deliver-equipment" */
+    './components/repairs/TechnicalSupportDeliverEquipmentComponent.vue')
+);
 
 /**
  * Componente para gestionar el diagnóstico de los equipos en reparación
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('technicalsupport-diagnostic-create', require('./components/diagnostics/TechnicalSupportDiagnosticCreateComponent.vue').default);
+Vue.component('technicalsupport-diagnostic-create', () => import(
+    /* webpackChunkName: "technicalsupport-diagnostic-create" */
+    './components/diagnostics/TechnicalSupportDiagnosticCreateComponent.vue')
+);
 
 /**
  * Componente para gestionar el diagnóstico de los equipos en reparación
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('technicalsupport-diagnostic-asset', require('./components/diagnostics/TechnicalSupportDiagnosticAssetComponent.vue').default);
+Vue.component('technicalsupport-diagnostic-asset', () => import(
+    /* webpackChunkName: "technicalsupport-diagnostic-asset" */
+    './components/diagnostics/TechnicalSupportDiagnosticAssetComponent.vue')
+);
 
 /**
  * Opciones de configuración global del módulo de soporte técnico

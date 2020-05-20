@@ -23,11 +23,11 @@ class AddFieldsToCitizenServiceReportsTable extends Migration
             }
 
             if (!Schema::hasColumn('citizen_service_reports', 'start_date')) {
-                $table->date('start_date')->nullable()->unsigned()->comment('Fecha inicial de busqueda');
+                $table->date('start_date')->nullable()->comment('Fecha inicial de busqueda');
             }
 
             if (!Schema::hasColumn('citizen_service_reports', 'end_date')) {
-                $table->date('end_date')->nullable()->unsigned()->comment('Fecha final de busqueda');
+                $table->date('end_date')->nullable()->comment('Fecha final de busqueda');
             }
         });
     }

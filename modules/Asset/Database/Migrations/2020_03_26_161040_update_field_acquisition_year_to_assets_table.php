@@ -28,7 +28,7 @@ class UpdateFieldAcquisitionYearToAssetsTable extends Migration
         if (Schema::hasTable('assets')) {
             Schema::table('assets', function (Blueprint $table) {
                 if (Schema::hasColumn('assets', 'acquisition_year')) {
-                    $table->date('acquisition_date')->nullable()->unsigned()->comment('Fecha de adquisicion del bien');
+                    $table->date('acquisition_date')->nullable()->comment('Fecha de adquisicion del bien');
                     $table->dropColumn('acquisition_year');
                 }
             });

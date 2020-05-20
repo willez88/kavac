@@ -34,8 +34,8 @@ class CreateBudgetCompromiseDetailsTable extends Migration
                       ->on('budget_accounts')->onUpdate('cascade');
                 $table->bigInteger('budget_sub_specific_formulation_id')->unsigned()
                       ->comment('Identificador asociado a la Formulación');
-                $table->foreign('budget_sub_specific_formulation_id')->references('id')
-                      ->on('budget_sub_specific_formulations')->onUpdate('cascade');
+                $table->foreign('budget_sub_specific_formulation_id', 'budget_compromise_details_formulation_fk')
+                      ->references('id')->on('budget_sub_specific_formulations')->onUpdate('cascade');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });

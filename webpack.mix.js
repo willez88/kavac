@@ -1,6 +1,7 @@
 const mix = require('laravel-mix');
-/*const fs = require('fs');
-const path = require('path');*/
+const webpack = require('webpack');
+const fs = require('fs');
+const path = require('path');
 
 /* Allow multiple Laravel Mix applications*/
 require('laravel-mix-merge-manifest');
@@ -17,31 +18,37 @@ mix.mergeManifest();
  |
  */
 
+/** Procesa el archivo javascript principal app.js */
 mix.js([
-		'resources/js/app.js', 'resources/js/now-ui-kit/plugins/nouislider.min.js',
-		'resources/js/now-ui-kit/now-ui-kit.js',
-		'resources/js/now-ui-kit/plugins/bootstrap-switch.js',
-		'resources/js/jquery-menu.js', 'resources/js/custom.js'
-      //'resources/js/loading-message.js'
-	], 'public/js')
-   .js('resources/js/core-settings.js', 'public/js')
-   .js('resources/js/module-settings.js', 'public/js')
-   .js(['resources/js/shared.js', 'resources/js/mixins.js'], 'public/js/shared-components.js')
-   .js('resources/js/chart.js', 'public/js')
-   .js('resources/js/ckeditor.js', 'public/js')
-   .copy('resources/js/generic-classes.js', 'public/js/generic-classes.js')
-   .copy('resources/js/common.js', 'public/js/common.js')
-   .sass('resources/sass/app.scss', 'public/css')
-   .sass('resources/sass/font-awesome/font-awesome.scss', 'public/css')
-   .sass('resources/sass/ionicons/ionicons.scss', 'public/css')
-   .sass('resources/sass/now-ui-kit/now-ui-kit.scss', 'public/css')
-   .sass('node_modules/@mdi/font/scss/materialdesignicons.scss', 'public/css')
-   .sass('resources/sass/custom/custom.scss', 'public/css')
-   .combine([
-   		'public/css/app.css', 'public/css/font-awesome.css', 'public/css/ionicons.css',
-   		'public/css/now-ui-kit.css', 'public/css/materialdesignicons.css', 'public/css/custom.css'
-   ], 'public/css/app.css')
-   .sourceMaps();
+	'resources/js/app.js', 'resources/js/now-ui-kit/plugins/nouislider.min.js',
+	'resources/js/now-ui-kit/now-ui-kit.js',
+	'resources/js/now-ui-kit/plugins/bootstrap-switch.js',
+	'resources/js/jquery-menu.js', 'resources/js/custom.js'
+], 'public/js');
+
+/** Procesa elementos compartidos de la aplicación */
+mix.js(['resources/js/shared.js', 'resources/js/mixins.js'], 'public/js/shared-components.js');
+
+/** Procesa el archivo que gestiona los gráficos de la aplicación */
+mix.js('resources/js/chart.js', 'public/js');
+
+/** Copia el archivo de clases genéricas a la carpeta public */
+mix.copy('resources/js/generic-classes.js', 'public/js/generic-classes.js');
+
+/** Copia el archivo de instrucciones comúnes a la carpeta public */
+mix.copy('resources/js/common.js', 'public/js/common.js');
+
+/** Procesa los estilos de la aplicación en el archivo app.css */
+mix.sass('resources/sass/app.scss', 'public/css');
+mix.sass('resources/sass/font-awesome/font-awesome.scss', 'public/css');
+mix.sass('resources/sass/ionicons/ionicons.scss', 'public/css');
+mix.sass('resources/sass/now-ui-kit/now-ui-kit.scss', 'public/css');
+mix.sass('node_modules/@mdi/font/scss/materialdesignicons.scss', 'public/css');
+mix.sass('resources/sass/custom/custom.scss', 'public/css');
+mix.combine([
+    'public/css/app.css', 'public/css/font-awesome.css', 'public/css/ionicons.css',
+    'public/css/now-ui-kit.css', 'public/css/materialdesignicons.css', 'public/css/custom.css'
+], 'public/css/app.css');
 
 
 /*
@@ -54,18 +61,25 @@ mix.js([
  | file for the application as well as bundling up all the JS files.
  |
  */
-/*const moduleFolder = './modules';
+/*if (mix.inProduction()) {
+    const moduleFolder = './modules';
 
-const dirs = p => fs.readdirSync(p).filter(f => fs.statSync(path.resolve(p,f)).isDirectory());
+    const dirs = p => fs.readdirSync(p).filter(f => fs.statSync(path.resolve(p,f)).isDirectory());
 
-let modules = dirs(moduleFolder);
+    let modules = dirs(moduleFolder);
 
-modules.forEach(function(m) {
-   let js = path.resolve(moduleFolder,m,'Resources/assets','js', '_all.js');
-   mix.js(js, `public/modules/${m.toLowerCase()}/js/app.js`);
-   let scss = path.resolve(moduleFolder,m,'Resources/assets','scss', 'app.scss');
-   mix.sass(scss, `public/modules/${m}/css/app.css`);
-});*/
+    modules.forEach(function(m) {
+       let js = path.resolve(moduleFolder,m,'Resources/assets','js', 'app.js');
+       mix.js(js, `public/modules/${m.toLowerCase()}/js/app.js`);
+       let scss = path.resolve(moduleFolder,m,'Resources/assets','scss', 'app.scss');
+       mix.sass(scss, `public/modules/${m}/css/app.css`);
+       mix.webpackConfig({
+            output:{
+                chunkFilename: `modules/${m}/components/${(mix.inProduction()) ? 'prod/[chunkhash]' : '[name]'}.js`,
+            }
+        });
+    });
+}*/
 
 /*
  |--------------------------------------------------------------------------
@@ -82,8 +96,26 @@ mix.webpackConfig({
         new WebpackShellPlugin({
             onBuildStart:['php artisan lang:js --quiet'],
             onBuildEnd: []
-        })
-    ]
+        }),
+        new webpack.IgnorePlugin({
+            resourceRegExp: /^\.\/locale$/,
+            contextRegExp: /moment$/
+        }),
+    ],
+    resolve: {
+        alias: {
+            moment$: 'moment/moment.js'
+        }
+    },
+    output:{
+        chunkFilename: `js/components/${(mix.inProduction()) ? 'core/[chunkhash]' : '[name]'}.js`,
+    },
+    /*optimization: {
+        splitChunks: {
+          chunks: 'initial',
+          name: ''
+        }
+      },*/
 });
 
 
@@ -99,4 +131,7 @@ mix.webpackConfig({
 /** Publica la versión de la compilación */
 if (mix.inProduction()) {
    mix.version();
+}
+else {
+    mix.sourceMaps();
 }

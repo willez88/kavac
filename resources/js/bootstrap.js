@@ -15,7 +15,7 @@ try {
     /** Requerido para tour giados en funcionalidades del sistema */
     window.introJs = require('intro.js');
     /** Requerido para agregar mascara a campos de texto */
-    window.Inputmask = require('inputmask')
+    window.Inputmask = require('inputmask');
     /** Requerido para los componentes switch */
     //require('bootstrap-switch');
     /** JQuery.Complexify required for validate strong password */
@@ -23,12 +23,16 @@ try {
     require('jquery.complexify');
     /** Required for select list element */
     require('select2');
+    //import(/* webpackChunkName: "select2" */ 'select2');
     /** Requerido para el uso del componente vue-tables-2 */
-    require('vue-tables-2');
+    //require('vue-tables-2');
+    //import(/* webpackChunkName: "vue-tables-2" */ 'vue-tables-2');
     /** Requerido para componentes personalizados checkbox y radio en vue */
     require('pretty-checkbox-vue');
     /** Requerido para la gestión de fechas y horas */
-    require('moment');
+    //require('moment');
+    //import(/* webpackChunkName: "moment" */ 'moment');
+    //import(/* webpackChunkName: "moment-locales" */'moment/min/locales');
 
 } catch (e) {}
 
@@ -71,7 +75,8 @@ window.Echo = new Echo({
     key: process.env.MIX_PUSHER_APP_KEY,
     wsHost: process.env.MIX_WEBSOCKETS_HOST,
     wsPort: process.env.MIX_WEBSOCKETS_PORT,
-    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-    //encrypted: true,
+    wssPort: process.env.MIX_WEBSOCKETS_PORT,
+    enabledTransports: ['ws', 'wss'],
+    //encrypted: process.env.MIX_PUSHER_APP_TLS, //Descomentar al usar protocolos con ssl
     disableStats: true
 });

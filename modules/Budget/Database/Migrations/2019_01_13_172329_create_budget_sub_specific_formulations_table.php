@@ -27,8 +27,8 @@ class CreateBudgetSubSpecificFormulationsTable extends Migration
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
                 $table->foreign('currency_id')->references('id')->on('currencies')->onUpdate('cascade');
-                $table->foreign('budget_specific_action_id')->references('id')
-                      ->on('budget_specific_actions')->onUpdate('cascade');
+                $table->foreign('budget_specific_action_id', 'budget_sub_specific_formulations_specific_action_fk')
+                      ->references('id')->on('budget_specific_actions')->onUpdate('cascade');
             });
         }
     }

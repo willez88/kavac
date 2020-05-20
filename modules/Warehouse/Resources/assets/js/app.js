@@ -11,186 +11,272 @@
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouses', require('./components/settings/WarehousesComponent.vue').default);
+Vue.component('warehouses', () => import(
+    /* webpackChunkName: "warehouses" */
+    './components/settings/WarehousesComponent.vue')
+);
 
 /**
  * Componente para la gestión de productos almacenables
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-products', require('./components/settings/WarehouseProductsComponent.vue').default);
+Vue.component('warehouse-products', () => import(
+    /* webpackChunkName: "warehouse-products" */
+    './components/settings/WarehouseProductsComponent.vue')
+);
 
 /**
  * Componente para la gestión de cierres de almacén
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-closes', require('./components/settings/WarehouseClosesComponent.vue').default);
+Vue.component('warehouse-closes', () => import(
+    /* webpackChunkName: "warehouse-closes" */
+    './components/settings/WarehouseClosesComponent.vue')
+);
 
 /**
  * Componente para la gestión de las reglas del almacén
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-rules', require('./components/settings/WarehouseProductRulesComponent.vue').default);
+Vue.component('warehouse-rules', () => import(
+    /* webpackChunkName: "warehouse-rules" */
+    './components/settings/WarehouseProductRulesComponent.vue')
+);
 
 /**
  * Componentes para gestionar las solicitudes de almacén
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-request-create', require('./components/requests/WarehouseRequestCreateComponent.vue').default);
+Vue.component('warehouse-request-create', () => import(
+    /* webpackChunkName: "warehouse-request-create" */
+    './components/requests/WarehouseRequestCreateComponent.vue')
+);
 
 /**
  * Componente para mostrar un listado de las solicitudes de almacén registradas
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-request-list', require('./components/requests/WarehouseRequestListComponent.vue').default);
+Vue.component('warehouse-request-list', () => import(
+    /* webpackChunkName: "warehouse-request-list" */
+    './components/requests/WarehouseRequestListComponent.vue')
+);
 
 /**
  * Componentes para gestionar las solicitudes por trabajadores de almacén
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-request-staff-create', require('./components/requests/WarehouseRequestStaffCreateComponent.vue').default);
+Vue.component('warehouse-request-staff-create', () => import(
+    /* webpackChunkName: "warehouse-request-staff-create" */
+    './components/requests/WarehouseRequestStaffCreateComponent.vue')
+);
 
 /**
  * Componente para mostrar un listado de las solicitudes por trabajadores registradas
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-request-staff-list', require('./components/requests/WarehouseRequestStaffListComponent.vue').default);
+Vue.component('warehouse-request-staff-list', () => import(
+    /* webpackChunkName: "warehouse-request-staff-list" */
+    './components/requests/WarehouseRequestStaffListComponent.vue')
+);
 
 /**
  * Componentes para gestionar las solicitudes pendientes de almacén
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-request-pending', require('./components/requests/WarehouseRequestPendingComponent.vue').default);
+Vue.component('warehouse-request-pending', () => import(
+    /* webpackChunkName: "warehouse-request-pending" */
+    './components/requests/WarehouseRequestPendingComponent.vue')
+);
 
 /**
  * Componente para mostrar un listado de las solicitudes pendientes de almacén registradas
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-request-pending-list', require('./components/requests/WarehouseRequestPendingListComponent.vue').default);
+Vue.component('warehouse-request-pending-list', () => import(
+    /* webpackChunkName: "warehouse-request-pending-list" */
+    './components/requests/WarehouseRequestPendingListComponent.vue')
+);
 
 /**
  * Componente para mostrar la información de las solicitudes de almacén
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-request-info', require('./components/requests/WarehouseRequestInfoComponent.vue').default);
+Vue.component('warehouse-request-info', () => import(
+    /* webpackChunkName: "warehouse-request-info" */
+    './components/requests/WarehouseRequestInfoComponent.vue')
+);
 
 /**
  * Componentes para gestionar los ingresos de productos al almacén
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-reception-create', require('./components/receptions/WarehouseReceptionCreateComponent.vue').default);
+Vue.component('warehouse-reception-create', () => import(
+    /* webpackChunkName: "warehouse-reception-create" */
+    './components/receptions/WarehouseReceptionCreateComponent.vue')
+);
 
 /**
  * Componente para mostrar un listado de los ingresos de productos al almacén
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-reception-list', require('./components/receptions/WarehouseReceptionListComponent.vue').default);
+Vue.component('warehouse-reception-list', () => import(
+    /* webpackChunkName: "warehouse-reception-list" */
+    './components/receptions/WarehouseReceptionListComponent.vue')
+);
 
 /**
  * Componente para mostrar un listado de los ingresos de productos al almacén pendientes por ejecutar
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-reception-pending-list', require('./components/receptions/WarehouseReceptionPendingListComponent.vue').default);
+Vue.component('warehouse-reception-pending-list', () => import(
+    /* webpackChunkName: "warehouse-reception-pending-list" */
+    './components/receptions/WarehouseReceptionPendingListComponent.vue')
+);
 
 /**
  * Componente para mostrar la información de los ingresos de almacén
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-reception-info', require('./components/receptions/WarehouseReceptionInfoComponent.vue').default);
+Vue.component('warehouse-reception-info', () => import(
+    /* webpackChunkName: "warehouse-reception-info" */
+    './components/receptions/WarehouseReceptionInfoComponent.vue')
+);
 
 /**
  * Componentes para gestionar los movimientos de almacén
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-movement-create', require('./components/movements/WarehouseMovementCreateComponent.vue').default);
+Vue.component('warehouse-movement-create', () => import(
+    /* webpackChunkName: "warehouse-movement-create" */
+    './components/movements/WarehouseMovementCreateComponent.vue')
+);
 
 /**
  * Componente para mostrar un listado de los movimientos de almacén registradas
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-movement-list', require('./components/movements/WarehouseMovementListComponent.vue').default);
+Vue.component('warehouse-movement-list', () => import(
+    /* webpackChunkName: "warehouse-movement-list" */
+    './components/movements/WarehouseMovementListComponent.vue')
+);
 
 /**
  * Componente para mostrar un listado de los movimientos de almacén pendientes
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-movement-pending-list', require('./components/movements/WarehouseMovementPendingListComponent.vue').default);
+Vue.component('warehouse-movement-pending-list', () => import(
+    /* webpackChunkName: "warehouse-movement-pending-list" */
+    './components/movements/WarehouseMovementPendingListComponent.vue')
+);
 
 /**
  * Componente para gestionar la confirmación de los movimientos de productos al almacén
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-movement-confirm-create', require('./components/movements/WarehouseMovementConfirmComponent.vue').default);
+Vue.component('warehouse-movement-confirm-create', () => import(
+    /* webpackChunkName: "warehouse-movement-confirm-create" */
+    './components/movements/WarehouseMovementConfirmComponent.vue')
+);
 
 /**
  * Componente para mostrar la información de los movimientos de almacén
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-movement-info', require('./components/movements/WarehouseMovementInfoComponent.vue').default);
+Vue.component('warehouse-movement-info', () => import(
+    /* webpackChunkName: "warehouse-movement-info" */
+    './components/movements/WarehouseMovementInfoComponent.vue')
+);
 
 /**
- * Componente para gestionar la creación de los reportes de almacén 
+ * Componente para gestionar la creación de los reportes de almacén
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-reports', require('./components/reports/WarehouseReportCreateComponent.vue').default);
+Vue.component('warehouse-report-products', () => import(
+    /* webpackChunkName: "warehouse-report-products" */
+    './components/reports/WarehouseReportProductsComponent.vue')
+);
+Vue.component('warehouse-report-stocks', () => import(
+    /* webpackChunkName: "warehouse-report-stocks" */
+    './components/reports/WarehouseReportStocksComponent.vue')
+);
+Vue.component('warehouse-report-request-products', () => import(
+    /* webpackChunkName: "warehouse-report-request-products" */
+    './components/reports/WarehouseReportRequestProductsComponent.vue')
+);
 
 /**
  * Componentes para mostrar los gráficos del panel de control asociados al módulo de almacén
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-dashboard-graphs', require('./components/dashboard/WarehouseDashboardGraphsComponent.vue').default);
+Vue.component('warehouse-dashboard-graphs', () => import(
+    /* webpackChunkName: "warehouse-dashboard-graphs" */
+    './components/dashboard/WarehouseDashboardGraphsComponent.vue')
+);
 
 /**
  * Componentes para mostrar los gráficos estadisticos del módulo de almacén
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-graph-charts', require('./components/dashboard/WarehouseGraphChartsComponent.vue').default);
+Vue.component('warehouse-graph-charts', () => import(
+    /* webpackChunkName: "warehouse-graph-charts" */
+    './components/dashboard/WarehouseGraphChartsComponent.vue')
+);
 
 /**
  * Componente para mostrar un listado de los productos inventariados con su nivel de existencia
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-dashboard-product-list', require('./components/dashboard/WarehouseDashboardMinProductListComponent.vue').default);
+Vue.component('warehouse-dashboard-product-list', () => import(
+    /* webpackChunkName: "warehouse-dashboard-product-list" */
+    './components/dashboard/WarehouseDashboardMinProductListComponent.vue')
+);
 
 /**
  * Componentes para mostrar un listado de las operaciones del modulo de almacén
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-operations-history-list', require('./components/dashboard/WarehouseOperationsHistoryListComponent.vue').default);
+Vue.component('warehouse-operations-history-list', () => import(
+    /* webpackChunkName: "warehouse-operations-history-list" */
+    './components/dashboard/WarehouseOperationsHistoryListComponent.vue')
+);
 
 /**
  * Componente para mostrar la información de las operaciones del modulo de almacén
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('warehouse-operations-history-info', require('./components/dashboard/WarehouseOperationsHistoryInfoComponent.vue').default);
+Vue.component('warehouse-operations-history-info', () => import(
+    /* webpackChunkName: "warehouse-operations-history-info" */
+    './components/dashboard/WarehouseOperationsHistoryInfoComponent.vue')
+);
 
 /**
  * Opciones de configuración global del módulo de bienes
- * 
+ *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
 Vue.mixin({
@@ -274,7 +360,7 @@ Vue.mixin({
 
         /**
          * Obtiene las Acciones Específicas
-         * 
+         *
          * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
          * @param {string} type Tipo de registro
          */

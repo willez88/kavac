@@ -15,7 +15,10 @@ class RenameFieldNameToAccountingReportHistoriesTable extends Migration
     {
         Schema::table('accounting_report_histories', function (Blueprint $table) {
             if (!Schema::hasColumn('accounting_report_histories', 'report')) {
-                $table->renameColumn('name', 'report');
+                DB::statement(
+                    "ALTER TABLE accounting_report_histories CHANGE name report ENUM('1', '2', '3', '4', '5', '6') DEFAULT 1 AFTER url"
+                );
+                //$table->renameColumn('name', 'report');
             }
         });
     }

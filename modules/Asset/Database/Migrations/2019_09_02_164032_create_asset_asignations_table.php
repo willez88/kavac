@@ -41,10 +41,10 @@ class CreateAssetAsignationsTable extends Migration
                       ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->bigInteger('user_id')->comment('Identificador único del usuario que realiza la asignación');
-                $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
             });
         }
     }
