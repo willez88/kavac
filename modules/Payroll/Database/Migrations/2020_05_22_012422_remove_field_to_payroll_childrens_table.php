@@ -26,6 +26,10 @@ class RemoveFieldToPayrollChildrensTable extends Migration
     public function up()
     {
         Schema::table('payroll_childrens', function (Blueprint $table) {
+            $foreignKeys = list_table_foreign_keys('payroll_childrens');
+            if (in_array('payroll_childrens_payroll_socioeconomic_information_id_foreign', $foreignKeys)) {
+                $table->dropForeign('payroll_childrens_payroll_socioeconomic_information_id_foreign');
+            }
             if (Schema::hasColumn('payroll_childrens', 'payroll_socioeconomic_information_id')) {
                 $table->dropColumn('payroll_socioeconomic_information_id');
             }

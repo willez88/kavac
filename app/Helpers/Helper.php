@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Schema;
 use Carbon\Carbon;
 
 if (! function_exists('set_active_menu')) {
@@ -472,5 +473,28 @@ if (! function_exists('set_current_timestamp')) {
     function set_current_timestamp()
     {
         return Carbon::now();
+    }
+}
+
+
+if (! function_exists('list_table_foreign_keys')) {
+    /**
+     * Obtiene un listado de claves foráneas de una tabla
+     *
+     * @method    list_table_foreign_keys
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     string                     $table    Nombre de la tabla de la cual obtener las claves foráneas
+     *
+     * @return    array                      Listado de claves foráneas encontradas en la tabla
+     */
+    function list_table_foreign_keys($table)
+    {
+        $conn = Schema::getConnection()->getDoctrineSchemaManager();
+
+        return array_map(function ($key) {
+            return $key->getName();
+        }, $conn->listTableForeignKeys($table));
     }
 }

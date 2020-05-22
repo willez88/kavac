@@ -25,6 +25,12 @@ class DropPayrollSocioeconomicInformationsTable extends Migration
      */
     public function up()
     {
+        Schema::table('payroll_socioeconomic_informations', function (Blueprint $table) {
+            $foreignKeys = list_table_foreign_keys('payroll_socioeconomic_informations');
+            if (in_array('payroll_childrens_payroll_socioeconomic_information_id_foreign', $foreignKeys)) {
+                $table->dropForeign('payroll_childrens_payroll_socioeconomic_information_id_foreign');
+            }
+        });
         Schema::dropIfExists('payroll_socioeconomic_informations');
     }
 
