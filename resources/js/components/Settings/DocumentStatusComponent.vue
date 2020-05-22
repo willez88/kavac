@@ -64,7 +64,8 @@
     					                    		<input type="radio" class="form-control bootstrap-switch"
     					                    			   name="action" data-toggle="tooltip" data-on-label="SI"
                                                            data-off-label="NO" title="Indique si aprueba procesos"
-    													   v-model.lazy="record.action" value="AP" data-record="action">
+    													   v-model.lazy="record.action" value="AP" data-record="action"
+                                                           id="action_ap">
 				                    			    Aprueba procesos
                                                 </div>
 				                    		</label>
@@ -75,7 +76,8 @@
     					                    		<input type="radio" class="form-control bootstrap-switch"
     					                    			   name="action" data-toggle="tooltip" data-on-label="SI"
                                                            data-off-label="NO" title="Indique si rechaza procesos"
-    													   v-model="record.action" value="RE" data-record="action">
+    													   v-model="record.action" value="RE" data-record="action"
+                                                           id="action_re">
     				                    			Rechaza procesos
                                                 </div>
 				                    		</label>
@@ -86,7 +88,8 @@
     					                    		<input type="radio" class="form-control bootstrap-switch"
     					                    			   name="action" data-toggle="tooltip" data-on-label="SI"
                                                            data-off-label="NO" title="Indique si elimina procesos"
-    													   v-model="record.action" value="EL" data-record="action">
+    													   v-model="record.action" value="EL" data-record="action"
+                                                           id="action_el">
     				                    			Elimina procesos
                                                 </div>
 				                    		</label>
@@ -97,7 +100,8 @@
     					                    		<input type="radio" class="form-control bootstrap-switch"
     					                    			   name="action" data-toggle="tooltip" data-on-label="SI"
                                                            data-off-label="NO" title="Indique si inicia procesos"
-    													   v-model="record.action" value="PR" data-record="action">
+    													   v-model="record.action" value="PR" data-record="action"
+                                                           id="action_pr">
     				                    			Inicia procesos
                                                 </div>
 				                    		</label>
@@ -108,7 +112,8 @@
     					                    		<input type="radio" class="form-control bootstrap-switch"
     					                    			   name="action" data-toggle="tooltip" data-on-label="SI"
                                                            data-off-label="NO" title="Indique si anula procesos"
-    													   v-model="record.action" value="AN" data-record="action">
+    													   v-model="record.action" value="AN" data-record="action"
+                                                           id="action_an">
     				                    			Anula procesos
                                                 </div>
 				                    		</label>
