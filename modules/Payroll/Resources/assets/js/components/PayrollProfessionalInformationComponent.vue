@@ -151,11 +151,11 @@
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="acknowledgment">
+								<label for="acknowledgments">
 									Reconocimientos:
 	                            </label>
-								<input id="acknowledgment" name="acknowledgment" type="file"
-									accept=".png, .jpg, .pdf, .odt" @change="processFiles" multiple>
+								<input id="acknowledgments" name="acknowledgments" type="file"
+									accept=".png, .jpg, .pdf, .odt" @change="processFiles()" multiple>
 							</div>
 						</div>
 					</div>
@@ -181,6 +181,7 @@
 	</div>
 </template>
 <script>
+	var formData = new FormData();
 	export default {
 		props: {
 			payroll_professional_information_id: Number,
@@ -198,7 +199,6 @@
 					class_schedule: '',
 					professions: [],
 					language_details: [],
-					acknowledgment: '',
 				},
 				errors: [],
 				payroll_staffs: [],
@@ -215,7 +215,6 @@
 			getProfessionalInformation() {
 				const vm = this;
 				axios.get('/payroll/professional-informations/' + vm.payroll_professional_information_id).then(response => {
-					//vm.record = response.data.record;
 					vm.record.id = response.data.record.id;
 					vm.record.payroll_staff_id = response.data.record.payroll_staff_id;
 					vm.record.payroll_instruction_degree_id = response.data.record.payroll_instruction_degree_id;
@@ -256,7 +255,7 @@
 			},
 
 			/**
-			 * Agrega una nueva columna para el registro de detalles de idiomas
+			 * Agrega una nueva Fila para el registro de detalles de idiomas
 			 *
 			 * @author William Páez <wpaez@cenditel.gob.ve>
 			 */
@@ -269,11 +268,13 @@
 
 			processFiles() {
                 const vm = this;
-                var inputFile = document.querySelector('#acknowledgment');
-                //formData.append("acknowledgment", inputFile.files);
-				vm.record.acknowledgment = inputFile.files;
-				console.log(vm.record.acknowledgment);
-                /*axios.post('/payroll/professional-informations/document-save', formData, {
+                var inputFile = document.querySelector('#acknowledgments');
+				var tam = inputFile.files.length;
+				console.log(tam);
+				for (var x = 0; x < tam; x++) {
+    				formData.append('acknowledgments[]', document.getElementById('acknowledgments').files[x]);
+				}
+                /*axios.post('upload-image.store', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }

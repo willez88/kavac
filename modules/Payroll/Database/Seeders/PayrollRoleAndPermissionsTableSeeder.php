@@ -357,37 +357,6 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'slug_alt' => 'genero.eliminar'
             ],
             /**
-             * Socioeconomic informations
-             */
-            [
-                'name' => 'Ver los datos de información socioeconómica',
-                'slug' => 'payroll.socioeconomic.informations.list',
-                'description' => 'Acceso para ver los datos de información socioeconómica',
-                'model' => 'Modules\Payroll\Models\PayrollSocioeconomicInformation', 'model_prefix' => 'nomina',
-                'slug_alt' => 'informacion.socioeconomica.ver'
-            ],
-            [
-                'name' => 'Crear datos de información socioeconómica',
-                'slug' => 'payroll.socioeconomic.informations.create',
-                'description' => 'Acceso para crear datos de información socioeconómica',
-                'model' => 'Modules\Payroll\Models\PayrollSocioeconomicInformation', 'model_prefix' => 'nomina',
-                'slug_alt' => 'informacion.socioeconomica.crear'
-            ],
-            [
-                'name' => 'Editar datos de información socioeconómica',
-                'slug' => 'payroll.socioeconomic.informations.edit',
-                'description' => 'Acceso para editar datos de información socioeconómica',
-                'model' => 'Modules\Payroll\Models\PayrollSocioeconomicInformation', 'model_prefix' => 'nomina',
-                'slug_alt' => 'informacion.socioeconomica.editar'
-            ],
-            [
-                'name' => 'Eliminar datos de información socioeconómica',
-                'slug' => 'payroll.socioeconomic.informations.delete',
-                'description' => 'Acceso para eliminar datos de información socioeconómica',
-                'model' => 'Modules\Payroll\Models\PayrollSocioeconomicInformation', 'model_prefix' => 'nomina',
-                'slug_alt' => 'informacion.socioeconomica.eliminar'
-            ],
-            /**
              * Professional informations
              */
             [
@@ -526,32 +495,6 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'slug_alt' => 'informacion.laboral.eliminar'
             ],
             /**
-             * Work age settings
-             */
-            [
-                'name' => 'Crear datos de configuración de la edad laboral',
-                'slug' => 'payroll.age.work.settings.create',
-                'description' => 'Acceso para crear datos de configuración de la edad laboral',
-                'model' => 'Modules\Payroll\Models\PayrollWorkAgeSetting', 'model_prefix' => 'nomina',
-                'slug_alt' => 'configuracion.edad.laboral.crear'
-            ],
-            [
-                'name' => 'Editar datos de configuración de la edad laboral',
-                'slug' => 'payroll.age.work.settings.edit',
-                'description' => 'Acceso para editar datos de configuración de la edad laboral',
-                'model' => 'Modules\Payroll\Models\PayrollWorkAgeSetting', 'model_prefix' => 'nomina',
-                'slug_alt' => 'configuracion.edad.laboral.editar'
-            ],
-            /**
-             * Dashboard
-             */
-            [
-                'name' => 'vista principal del panel de control del módulo de nómina', 'slug' => 'payroll.dashboard',
-                'description' => 'Acceso para visualizar el panel de control del módulo',
-                'model' => '', 'model_prefix' => 'nomina', 'slug_alt' => 'panel.de.control.ver',
-                'short_description' => 'Visualizar panel de control del módulo de nómina'
-            ],
-            /**
              * driver licenses
              */
             [
@@ -622,39 +565,39 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'slug_alt' => 'tipo.sangre.eliminar'
             ],
             /**
-             * roles
+             * socioeconomic
              */
             [
-                'name' => 'Ver los datos de roles',
-                'slug' => 'payroll.roles.list',
-                'description' => 'Acceso para ver los datos de roles',
-                'model' => 'Modules\Payroll\Models\PayrollRole',
+                'name' => 'Ver los datos socioeconómicos',
+                'slug' => 'payroll.socioeconomics.list',
+                'description' => 'Acceso para ver los datos socioeconómicos',
+                'model' => 'Modules\Payroll\Models\PayrollSocioeconomic',
                 'model_prefix' => 'nomina',
-                'slug_alt' => 'rol.ver'
+                'slug_alt' => 'socioeconomico.ver'
             ],
             [
-                'name' => 'Crear datos de roles',
-                'slug' => 'payroll.roles.create',
-                'description' => 'Acceso para crear datos de roles',
-                'model' => 'Modules\Payroll\Models\PayrollRoles',
+                'name' => 'Crear datos socioeconómicos',
+                'slug' => 'payroll.socioeconomics.create',
+                'description' => 'Acceso para crear datos socioeconómicos',
+                'model' => 'Modules\Payroll\Models\PayrollSocioeconomic',
                 'model_prefix' => 'nomina',
-                'slug_alt' => 'rol.crear'
+                'slug_alt' => 'socioeconomico.crear'
             ],
             [
-                'name' => 'Editar datos de roles',
-                'slug' => 'payroll.roles.edit',
-                'description' => 'Acceso para editar datos de roles',
-                'model' => 'Modules\Payroll\Models\PayrollRole',
+                'name' => 'Editar datos socioeconómicos',
+                'slug' => 'payroll.socioeconomics.edit',
+                'description' => 'Acceso para editar datos socioeconómicos',
+                'model' => 'Modules\Payroll\Models\PayrollSocioeconomic',
                 'model_prefix' => 'nomina',
-                'slug_alt' => 'rol.editar'
+                'slug_alt' => 'socioeconomico.editar'
             ],
             [
-                'name' => 'Eliminar datos de roles',
-                'slug' => 'payroll.roles.delete',
-                'description' => 'Acceso para eliminar datos de roles',
-                'model' => 'Modules\Payroll\Models\PayrollRole',
+                'name' => 'Eliminar datos socioeconómicos',
+                'slug' => 'payroll.socioeconomics.delete',
+                'description' => 'Acceso para eliminar datos socioeconómicos',
+                'model' => 'Modules\Payroll\Models\PayrollSocioeconomic',
                 'model_prefix' => 'nomina',
-                'slug_alt' => 'rol.eliminar'
+                'slug_alt' => 'socioeconomico.eliminar'
             ],
         ];
 

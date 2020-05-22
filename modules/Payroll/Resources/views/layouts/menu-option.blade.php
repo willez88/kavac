@@ -22,8 +22,8 @@
                 <li class="{!! set_active_menu(['payroll.professional-informations.index']) !!}">
                     <a href="{{ route('payroll.professional-informations.index') }}">Datos Profesionales</a>
                 </li>
-                <li class="{!! set_active_menu(['payroll.socioeconomic-informations.index']) !!}">
-                    <a href="{{ route('payroll.socioeconomic-informations.index') }}">Datos Socioeconómicos</a>
+                <li class="{!! set_active_menu(['payroll.socioeconomics.index']) !!}">
+                    <a href="{{ route('payroll.socioeconomics.index') }}">Datos Socioeconómicos</a>
                 </li>
                 <li class="{!! set_active_menu(['payroll.employment-informations.index']) !!}">
                     <a href="{{ route('payroll.employment-informations.index') }}">Datos Laborales</a>

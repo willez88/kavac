@@ -3,14 +3,13 @@
 namespace Modules\Payroll\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
- * @class PayrollSocioeconomicInformation
+ * @class PayrollSocioeconomic
  * @brief Datos de información socioeconómica del trabajador
  *
  * Gestiona el modelo de información socioeconómica
@@ -20,13 +19,11 @@ use App\Traits\ModelsTrait;
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class PayrollSocioeconomicInformation extends Model implements Auditable
+class PayrollSocioeconomic extends Model implements Auditable
 {
     use SoftDeletes;
     use AuditableTrait;
     use ModelsTrait;
-
-    protected $table = 'payroll_socioeconomic_informations';
 
     /**
      * Lista de atributos para la gestión de fechas
@@ -36,7 +33,6 @@ class PayrollSocioeconomicInformation extends Model implements Auditable
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
-     *
      * @var array $fillable
      */
     protected $fillable = [
@@ -67,7 +63,7 @@ class PayrollSocioeconomicInformation extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la información socioeconómica del trabajador que está asociado a muchos hijos del mismo
+     * Método que obtiene lo socioeconómico del trabajador asociado a muchos hijos
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
