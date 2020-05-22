@@ -38,7 +38,7 @@ class PayrollChildren extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'first_name', 'last_name', 'id_number', 'birthdate', 'payroll_socioeconomic_information_id'
+        'first_name', 'last_name', 'id_number', 'birthdate', 'payroll_socioeconomic_id'
     ];
 
     /**
@@ -47,8 +47,8 @@ class PayrollChildren extends Model implements Auditable
      * @author William Páez <wpaezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function payrollSocioecomicInformation()
+    public function payrollSocioecomic()
     {
-        return $this->belongsTo(PayrollSocioeconomicInformation::class);
+        return $this->belongsTo(PayrollSocioeconomic::class);
     }
 }

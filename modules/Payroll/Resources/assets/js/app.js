@@ -181,9 +181,9 @@ Vue.component('payroll-staff', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-socioeconomic-informations-list', () => import(
-    /* webpackChunkName: "payroll-socioeconomic-informations-list" */
-    './components/PayrollSocioeconomicInformationListComponent.vue')
+Vue.component('payroll-socioeconomic-list', () => import(
+    /* webpackChunkName: "payroll-socioeconomic-list" */
+    './components/PayrollSocioeconomicListComponent.vue')
 );
 
 /**
@@ -191,9 +191,9 @@ Vue.component('payroll-socioeconomic-informations-list', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-socioeconomic-information', () => import(
-    /* webpackChunkName: "payroll-socioeconomic-information" */
-    './components/PayrollSocioeconomicInformationComponent.vue')
+Vue.component('payroll-socioeconomic', () => import(
+    /* webpackChunkName: "payroll-socioeconomic" */
+    './components/PayrollSocioeconomicComponent.vue')
 );
 
 /**

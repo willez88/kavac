@@ -20,7 +20,7 @@
     			</button>
     		</div>
     	</v-client-table>
-        <div class="modal fade" tabindex="-1" role="dialog" id="show_socioeconomic_information">
+        <div class="modal fade" tabindex="-1" role="dialog" id="show_socioeconomic">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -147,7 +147,7 @@
             },
 
             show_info(id) {
-                axios.get('/payroll/socioeconomic-informations/' + id).then(response => {
+                axios.get('/payroll/socioeconomics/' + id).then(response => {
 					this.record = response.data.record;
                     $('#payroll_staff').val(this.record.payroll_staff.first_name + ' ' + this.record.payroll_staff.last_name);
                     $('#marital_status').val(this.record.marital_status.name);
@@ -155,7 +155,7 @@
                     $('#id_number_twosome').val(this.record.id_number_twosome);
                     $('#birthdate_twosome').val(this.record.birthdate_twosome);
 				});
-                $('#show_socioeconomic_information').modal('show');
+                $('#show_socioeconomic').modal('show');
             }
         }
     };

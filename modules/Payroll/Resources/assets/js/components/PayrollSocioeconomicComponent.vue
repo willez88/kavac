@@ -121,7 +121,7 @@
 							title="Cancelar y regresar" @click="redirect_back(route_list)">
 						<i class="fa fa-ban"></i>
 					</button>
-					<button type="button" @click="createRecord('payroll/socioeconomic-informations')"
+					<button type="button" @click="createRecord('payroll/socioeconomics')"
 	                	class="btn btn-success btn-icon btn-round">
 	                	<i class="fa fa-save"></i>
 					</button>
@@ -135,7 +135,7 @@
 <script>
 	export default {
 		props: {
-			payroll_socioeconomic_information_id: Number,
+			payroll_socioeconomic_id: Number,
 		},
 		data() {
 			return {
@@ -171,8 +171,8 @@
 				};
 			},
 
-			getSocioeconomicInformation() {
-				axios.get('/payroll/socioeconomic-informations/' + this.payroll_socioeconomic_information_id).then(response => {
+			getSocioeconomic() {
+				axios.get('/payroll/socioeconomics/' + this.payroll_socioeconomic_id).then(response => {
 					this.record = response.data.record;
 				});
 			},
@@ -197,8 +197,8 @@
 			this.record.payroll_childrens = [];
 		},
 		mounted() {
-			if(this.payroll_socioeconomic_information_id) {
-				this.getSocioeconomicInformation();
+			if(this.payroll_socioeconomic_id) {
+				this.getSocioeconomic();
 			}
 		}
 	};

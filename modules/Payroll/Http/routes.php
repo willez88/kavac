@@ -121,11 +121,11 @@ Route::group([
     Route::resource('genders', 'PayrollGenderController', ['as' => 'payroll', 'except' => ['show']]);
     Route::get('get-genders', 'PayrollGenderController@getPayrollGenders')->name('payroll.get-payroll-genders');
 
-    Route::resource('socioeconomic-informations', 'PayrollSocioeconomicInformationController', ['as' => 'payroll']);
+    Route::resource('socioeconomics', 'PayrollSocioeconomicController', ['as' => 'payroll']);
     Route::get(
-        'socioeconomic-informations/show/vue-list',
-        'PayrollSocioeconomicInformationController@vueList'
-    )->name('payroll.socioeconomic-informations.vue-list');
+        'socioeconomics/show/vue-list',
+        'PayrollSocioeconomicController@vueList'
+    )->name('payroll.socioeconomics.vue-list');
 
     Route::resource('professional-informations', 'PayrollProfessionalInformationController', ['as' => 'payroll']);
     Route::get(
