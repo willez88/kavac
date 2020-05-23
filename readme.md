@@ -404,3 +404,23 @@ Genera nuevo controlador restful para el módulo especificado
 Genera nuevo seeder para el módulo especificado (nombre del modelo en plural)
 
 	php artisan module:make-seed ModuleNameModelName ModuleName
+
+## Laravel ER Diagram Generator
+
+Este paquete permite generar diagramas de entidad relación inspeccionando las relaciones definidas en sus archivos de modelo. Por defecto busca los modelos en la carpeta app. Para agregar los modelos que se encuentran en cada módulo hay que hacer lo siguiente:
+
+	// Editar en el archivo
+	vendor/beyondcode/laravel-er-diagram-generator/config/config.php
+
+	// Esta sección en la linea 9
+	'directories' => [
+        base_path('app'),
+		// Carpeta agregada para el módulo Payroll
+        base_path('modules/Payroll/Models'),
+    ],
+
+En ese ejemplo genera el diagrama del sistema base y del módulo Talento Humano.
+
+Comando para generar el diagrama:
+
+	php artisan generate:erd kavac.svg --format=svg
