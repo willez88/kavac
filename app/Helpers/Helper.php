@@ -546,7 +546,7 @@ if (! function_exists('get_database_info')) {
         }
 
 
-        return [
+        return (object)[
             'database_type' => $databaseType,
             'version' => $version
         ];
