@@ -498,3 +498,57 @@ if (! function_exists('list_table_foreign_keys')) {
         }, $conn->listTableForeignKeys($table));
     }
 }
+
+if (! function_exists('get_database_info')) {
+    /**
+     * Obtiene información de la base de datos
+     *
+     * @method    get_database_info
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return    array               Devuelve un arreglo con información de la base de datos
+     */
+    function get_database_info()
+    {
+        if (env('DB_CONNECTION') === 'sqlite') {
+            /** @var PDO Conexión a base de datos SQLite */
+            $conn = new PDO('sqlite:'.env('DB_DATABASE'));
+        } else {
+            /** @var PDO Conexión a base de datos PostgreSQL o MySQL */
+            $conn = new PDO(
+                env('DB_CONNECTION').':host='.env('DB_HOST').';port='.env('DB_PORT').';dbname='.env('DB_DATABASE'),
+                env('DB_USERNAME'),
+                env('DB_PASSWORD')
+            );
+        }
+        /** @var string Versión de la base de datos */
+        $version = $conn->getAttribute(PDO::ATTR_SERVER_VERSION);
+        if (env('DB_CONNECTION')==='pgsql') {
+            $version = substr($version, 0, strpos($version, ' '));
+        } elseif (env('DB_CONNECTION')==='mysql') {
+            $version = substr($version, 0, strpos($version, '-'));
+        }
+
+        switch (env('DB_CONNECTION')) {
+            case 'pgsql':
+                $databaseType = 'PostgreSQL';
+                break;
+            case 'mysql':
+                $databaseType = 'MySQL';
+                break;
+            case 'sqlite':
+                $databaseType = 'SQLite';
+                break;
+            default:
+                $databaseType = env('DB_CONNECTION');
+                break;
+        }
+
+
+        return [
+            'database_type' => $databaseType,
+            'version' => $version
+        ];
+    }
+}
