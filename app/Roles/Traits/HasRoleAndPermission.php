@@ -218,7 +218,8 @@ trait HasRoleAndPermission
             ->orWhere('roles.level', '<', $this->level())
             ->groupBy([
                 'permissions.id', 'permissions.name', 'permissions.slug', 'permissions.description',
-                'permissions.model', 'permissions.created_at', 'permissions.updated_at',
+                'permissions.model', 'permissions.model_prefix', 'permissions.slug_alt',
+                'permissions.created_at', 'permissions.updated_at',
                 'permission_role.created_at', 'permission_role.updated_at'
             ]);
     }
