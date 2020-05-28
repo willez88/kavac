@@ -24,7 +24,7 @@ class Permission extends Model implements PermissionHasRelationsContract
      *
      * @var array
      */
-    protected $fillable = ['name', 'slug', 'description', 'model', 'model_prefix', 'slug_alt'];
+    protected $fillable = ['name', 'slug', 'description', 'model', 'model_prefix', 'slug_alt', 'short_description'];
 
     /**
      * Create a new model instance.
