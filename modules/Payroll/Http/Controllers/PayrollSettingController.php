@@ -7,12 +7,10 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use App\Models\CodeSetting;
-use Modules\Payroll\Models\PayrollStaff;
 use App\Rules\CodeSetting as CodeSettingRule;
+use App\Models\CodeSetting;
 use Modules\Payroll\Models\Parameter;
 
-//use \Modules\Payroll\Models\PayrollWorkAgeSetting;
 
 class PayrollSettingController extends Controller
 {
@@ -25,11 +23,13 @@ class PayrollSettingController extends Controller
     public function index()
     {
         $codeSettings = CodeSetting::where('module', 'payroll')->get();
-        $sCode = $codeSettings->where('table', 'payroll_staffs')->first();
+        $sCode  = $codeSettings->where('table', 'payroll_staffs')->first();
+        $ssCode = $codeSettings->where('table', 'payroll_salary_scales')->first();
+        $stCode = $codeSettings->where('table', 'payroll_salary_tabulators')->first();
         $parameter = Parameter::where([
             'active' => true, 'required_by' => 'payroll', 'p_key' => 'work_age'
         ])->first();
-        return view('payroll::settings', compact('codeSettings', 'sCode', 'parameter'));
+        return view('payroll::settings', compact('codeSettings', 'sCode','ssCode','stCode', 'parameter'));
     }
 
     /**
@@ -48,62 +48,63 @@ class PayrollSettingController extends Controller
      */
     public function store(Request $request)
     {
+        /** Reglas de validación para la configuración de códigos */
         $this->validate($request, [
-            'staffs_code' => [new CodeSettingRule]
+            'staffs_code'            => [new CodeSettingRule],
+            'salary_scales_code'     => [new CodeSettingRule],
+            'salary_tabulators_code' => [new CodeSettingRule]
         ]);
 
-        $staffsCode = $request->staffs_code;
-        if (!is_null($staffsCode)) {
-            $model = PayrollStaff::class;
-            list($prefix, $digits, $sufix) = CodeSetting::divideCode($staffsCode);
-            CodeSetting::updateOrCreate([
-                'module' => 'payroll',
-                'table' => 'payroll_staffs',
-                'field' => 'code',
-            ], [
-                'format_prefix' => $prefix,
-                'format_digits' => $digits,
-                'format_year' => $sufix,
-                'model' => $model,
-            ]);
+        /** @var array Arreglo con información de los campos de códigos configurados */
+        $codes = $request->input();
+        /** @var boolean Define el estatus falso para indicar que no se ha registrado información */
+        $saved = false;
+
+        foreach ($codes as $key => $value) {
+            /** @var string Define el campo model a emplear en la generación del código */
+            $model = '';
+
+            if ($key !== '_token' && !is_null($value)) {
+                list($prefix, $digits, $sufix) = CodeSetting::divideCode($value);
+                /** @var string Define el campo field */
+                $field = "code";
+                
+                if ($key === "staffs_code") {
+                    /** @var string Define el campo model para asociarlo al personal */
+                    $model = \Modules\Payroll\Models\PayrollStaff::class;
+                    /** @var string Define el campo table para asociarlo al personal */
+                    $table = "staffs";
+                } elseif ($key === "salary_scales_code") {
+                    /** @var string Define el campo model para asociarlo a los escalafones salariales */
+                    $model = \Modules\Payroll\Models\PayrollSalaryScale::class;
+                    /** @var string Define el campo table para asociarlo al personal */
+                    $table = "salary_scales";
+                } elseif ($key === "salary_tabulators_code") {
+                    /** @var string Define el campo model para asociarlo a los tabuladores salariales */
+                    $model = \Modules\Payroll\Models\PayrollSalaryTabulator::class;
+                    /** @var string Define el campo table para asociarlo al personal */
+                    $table = "salary_tabulators";
+                }
+
+                CodeSetting::updateOrCreate([
+                    'module' => 'payroll',
+                    'table'  => 'payroll_' . $table,
+                    'field'  => $field,
+                ], [
+                    'format_prefix' => $prefix,
+                    'format_digits' => $digits,
+                    'format_year'   => $sufix,
+                    'model'         => $model,
+                ]);
+                
+                /** @var boolean Define el estatus verdadero para indicar que se ha registrado información */
+                $saved = true;
+            }
+        }
+        if ($saved) {
             $request->session()->flash('message', ['type' => 'store']);
         }
 
         return redirect()->back();
-    }
-
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
-    public function show()
-    {
-        //return view('budget::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @return Response
-     */
-    public function edit()
-    {
-        //return view('budget::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function update(Request $request)
-    {
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
-    public function destroy()
-    {
     }
 }

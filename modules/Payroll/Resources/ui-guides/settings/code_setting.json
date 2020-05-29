@@ -1,0 +1,18 @@
+[
+    {
+        "element" : "#codeSettingForm",
+        "intro" : "Esta sección permite establecer el formato a utilizar por los códigos en cada uno de los registros descritos, para comenzar en su implementación tenga especial cuidado en seguir las instrucciones en cuanto al formato que acepta esta configuración"
+    },
+    {
+        "element" : "#staffsCode",
+        "intro" : "La configuración de este código permite identificar los registros del personal mediante un formato único."
+    },
+    {
+        "element" : "#salaryScalesCode",
+        "intro" : "La configuración de este código permite identificar los registros de los escalafones salariales mediante un formato único."
+    },
+    {
+        "element" : "#salaryTabulatorsCode",
+        "intro" : "La configuración de este código permite identificar los registros de los tabuladores salariales mediante un formato único."
+    }
+]

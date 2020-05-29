@@ -237,13 +237,23 @@ Vue.component('payroll-employment-information', () => import(
 );
 
 /**
+ * Componente para la gestión de los parámetros de nómina
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('payroll-parameters', () => import(
+    /* webpackChunkName: "payroll-parameters" */
+    './components/settings/PayrollParametersComponent.vue')
+);
+
+/**
  * Componente para la gestión de los escalafones de nomina
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-salary-scale', () => import(
-    /* webpackChunkName: "payroll-salary-scale" */
-    './components/PayrollSalaryScaleComponent.vue')
+Vue.component('payroll-salary-scales', () => import(
+    /* webpackChunkName: "payroll-salary-scales" */
+    './components/settings/PayrollSalaryScalesComponent.vue')
 );
 
 /**
@@ -251,32 +261,22 @@ Vue.component('payroll-salary-scale', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-salary-tabulator', () => import(
-    /* webpackChunkName: "payroll-salary-tabulator" */
-    './components/PayrollSalaryTabulatorComponent.vue')
+Vue.component('payroll-salary-tabulators', () => import(
+    /* webpackChunkName: "payroll-salary-tabulators" */
+    './components//settings/PayrollSalaryTabulatorsComponent.vue')
 );
 
 /**
- * Componente para la gestión de tipos de asignaciones de nómina
+ * Componente para la gestión de tipos de conceptos de nómina
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-salary-assignment-type', () => import(
-    /* webpackChunkName: "payroll-salary-assignment-type" */
-    './components/PayrollSalaryAssignmentTypeComponent.vue')
+ Vue.component('payroll-concept-types', () => import(
+    /* webpackChunkName: "payroll-concept-types" */
+    './components/settings/PayrollConceptTypesComponent.vue')
 );
 
-/**
- * Componente para la gestión de asignaciones de nómina
- *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- */
-Vue.component('payroll-salary-assignment', () => import(
-    /* webpackChunkName: "payroll-salary-assignment" */
-    './components/PayrollSalaryAssignmentComponent.vue')
-);
-
-/**
+ /**
  * Componente para la gestión de conceptos de nómina
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
@@ -284,11 +284,6 @@ Vue.component('payroll-salary-assignment', () => import(
 Vue.component('payroll-concepts', () => import(
     /* webpackChunkName: "payroll-concepts" */
     './components/settings/PayrollConceptsComponent.vue')
-);
-
-Vue.component('payroll-concept-types', () => import(
-    /* webpackChunkName: "payroll-concept-types" */
-    './components/settings/PayrollConceptTypesComponent.vue')
 );
 
 /**

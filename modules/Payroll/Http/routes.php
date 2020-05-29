@@ -194,6 +194,15 @@ Route::group([
     )->name('payroll.employment-informations.vue-list');
 
 
+    /**
+     * ------------------------------------------------------------
+     * Rutas para gestionar los parámetros de nómina
+     * ------------------------------------------------------------
+     */
+    Route::resource('parameters', 'PayrollParameterController', ['except' => ['show','create','edit']]);
+    Route::get('get-parameters',  'PayrollParameterController@getPayrollParameters');
+    Route::get('get-parameter-options/{code}',  'PayrollParameterController@getPayrollParameterOptions');
+    Route::get('get-parameter-types',  'PayrollParameterController@getPayrollParameterTypes');
 
     /**
      * ------------------------------------------------------------
@@ -212,6 +221,13 @@ Route::group([
     Route::resource('salary-tabulators', 'PayrollSalaryTabulatorController', ['except' => ['show','create','edit']]);
     Route::get('salary-tabulators/export/{tabulator}', 'PayrollSalaryTabulatorController@export');
     Route::get('get-salary-tabulators', 'PayrollSalaryTabulatorController@getSalaryTabulators');
+    /**
+     * ------------------------------------------------------------
+     * Rutas para gestionar las agrupaciones de los tabuladores salariales
+     * ------------------------------------------------------------
+     */
+    Route::get('get-salary-tabulators-groups', 'PayrollParameterController@getSalaryTabulatorsGroups');
+    Route::get('get-associated-records', 'PayrollParameterController@getAssociatedRecords');
 
     /**
      * ------------------------------------------------------------
