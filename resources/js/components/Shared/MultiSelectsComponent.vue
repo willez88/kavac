@@ -65,8 +65,8 @@
 				required: false,
 				default: true
 			},
-			selected: {
-				type: Array,
+			value: {
+				type: [String, Array],
 				required: false,
                 default: function() {
                     return [];
@@ -82,7 +82,7 @@
 			selected_values: function() {
 				this.$emit('input', this.selected_values)
 			},
-			selected: function(selected) {
+			value: function(selected) {
 				this.selected_values = selected;
 			}
 		},
