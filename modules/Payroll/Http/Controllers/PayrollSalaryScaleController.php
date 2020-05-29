@@ -13,10 +13,8 @@ use Modules\Payroll\Models\PayrollScale;
 
 use Modules\Payroll\Models\PayrollPosition;
 use Modules\Payroll\Models\PayrollInstructionDegree;
-use Modules\Payroll\Models\PayrollScaleRequirement;
 use App\Models\Institution;
-
-use Modules\Payroll\Rules\PayrollScaleRequirements;
+use App\Models\CodeSetting;
 
 /**
  * @class PayrollSalaryScaleController
@@ -52,9 +50,7 @@ class PayrollSalaryScaleController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => PayrollSalaryScale::with(['payrollScales' => function ($query) {
-            $query->with('PayrollScaleRequirements')->orderBy('code');
-        }])->get()], 200);
+        return response()->json(['records' => PayrollSalaryScale::with('payrollScales')->get()], 200);
     }
 
     /**
@@ -67,49 +63,45 @@ class PayrollSalaryScaleController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'code'           => ['required'],
             'name'           => ['required'],
             'institution_id' => ['required'],
-            'payroll_scales' => ['required', new PayrollScaleRequirements(
-                $request->group_by_years,
-                $request->group_by_clasification
-            )],
+            'payroll_scales' => ['required'],
         ]);
+
+        $codeSetting = CodeSetting::where('table', 'payroll_salary_scales')->first();
+        if (is_null($codeSetting)) {
+            $request->session()->flash('message', [
+                'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
+                'text' => 'Debe configurar previamente el formato para el código a generar'
+                ]);
+            return response()->json(['result' => false, 'redirect' => route('payroll.setting.index')], 200);
+        }
+
+        $code  = generate_registration_code(
+            $codeSetting->format_prefix,
+            strlen($codeSetting->format_digits),
+            (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'),
+            $codeSetting->model,
+            $codeSetting->field
+        );
         
-        DB::transaction(function () use ($request) {
+        DB::transaction(function () use ($request, $code) {
             $salaryScale = PayrollSalaryScale::create([
-                'code'                   => $request->input('code'),
+                'code'                   => $code,
                 'name'                   => $request->input('name'),
-                'active'                 => !empty($request->input('active'))?$request->input('active'):false,
+                'active'                 => !empty($request->input('active'))
+                                                ? $request->input('active')
+                                                : false,
                 'description'            => $request->input('description'),
                 'institution_id'         => $request->input('institution_id'),
-                'group_by_years'         => $request->input('group_by_years'),
-                'group_by_clasification' => $request->input('group_by_clasification'),
+                'group_by'               => $request->input('group_by')
             ]);
             foreach ($request->payroll_scales as $payrollScale) {
                 $scale = PayrollScale::create([
-                    'code'                    => $payrollScale['code'],
                     'name'                    => $payrollScale['name'],
-                    'description'             => $payrollScale['description'],
+                    'value'                   => json_encode($payrollScale['value']),
                     'payroll_salary_scale_id' => $salaryScale->id,
                 ]);
-                $payrollScaleRequirements = $payrollScale['payroll_scale_requirements'];
-                foreach ($payrollScaleRequirements as $payrollScaleRequirement) {
-                    $scaleRequirement = PayrollScaleRequirement::create([
-                        'payroll_scale_id'    => $scale->id,
-                        'scale_years_minimum' => $payrollScaleRequirement['scale_years_minimum'],
-                        'scale_years_maximum' => $payrollScaleRequirement['scale_years_maximum'],
-                    ]);
-                    if ($request->group_by_clasification === "position") {
-                        /** @var object Objeto que contiene información de un cargo */
-                        $posInst = PayrollPosition::find($payrollScaleRequirement['clasificable_id']);
-                        $posInst->payrollScaleRequirements()->save($scaleRequirement);
-                    } elseif ($request->group_by_clasification === "instruction_degree") {
-                        /** @var object Objeto que contiene información de un grado de instrucción */
-                        $posInst = PayrollInstructionDegree::find($payrollScaleRequirement['clasificable_id']);
-                        $posInst->payrollScaleRequirements()->save($scaleRequirement);
-                    }
-                }
             }
         });
         return response()->json(['result' => true], 200);
@@ -127,24 +119,20 @@ class PayrollSalaryScaleController extends Controller
     {
         $payrollSalaryScale = PayrollSalaryScale::find($id);
         $this->validate($request, [
-            'code'           => ['required'],
             'name'           => ['required'],
             'institution_id' => ['required'],
-            'payroll_scales' => ['required', new PayrollScaleRequirements(
-                $request->group_by_years,
-                $request->group_by_clasification
-            )],
+            'payroll_scales' => ['required'],
         ]);
+
         DB::transaction(function () use ($request, $payrollSalaryScale) {
-            $payrollSalaryScale->code                   = $request->input('code');
             $payrollSalaryScale->name                   = $request->input('name');
             $payrollSalaryScale->description            = $request->input('description');
             $payrollSalaryScale->institution_id         = $request->input('institution_id');
             $payrollSalaryScale->active                 = !empty($request->input('active'))
                                                               ? $request->input('active')
                                                               : $payrollSalaryScale->active;
-            $payrollSalaryScale->group_by_years         = $request->input('group_by_years');
-            $payrollSalaryScale->group_by_clasification = $request->input('group_by_clasification');
+            $payrollSalaryScale->group_by               = $request->input('group_by');
+
             $payrollSalaryScale->save();
             $updated_at = now();
 
@@ -152,62 +140,24 @@ class PayrollSalaryScaleController extends Controller
             foreach ($request->payroll_scales as $payrollScale) {
                 if ($payrollScale['id'] > 0) {
                     $scale              = PayrollScale::find($payrollScale['id']);
-                    $scale->code        = $payrollScale['code'];
                     $scale->name        = $payrollScale['name'];
-                    $scale->description = $payrollScale['description'];
+                    $scale->value       = json_encode($payrollScale['value']);
                     $scale->updated_at  = $updated_at;
                     $scale->save();
                 } else {
                     $scale = PayrollScale::Create([
-                        'code'                    => $payrollScale['code'],
                         'name'                    => $payrollScale['name'],
-                        'description'             => $payrollScale['description'],
+                        'value'                   => json_encode($payrollScale['value']),
                         'payroll_salary_scale_id' => $payrollSalaryScale->id,
                         'updated_at'              => $updated_at,
                     ]);
                 }
-                $payrollScaleRequirements = $payrollScale['payroll_scale_requirements'];
-                
-                foreach ($payrollScaleRequirements as $payrollScaleRequirement) {
-                    $scaleRequirement = PayrollScaleRequirement::updateOrCreate([
-                        'payroll_scale_id'    => $scale->id,
-                        'scale_years_minimum' => $payrollScaleRequirement['scale_years_minimum'],
-                        'scale_years_maximum' => $payrollScaleRequirement['scale_years_maximum'],
-                    ]);
-                    $posInst = null;
-                    if ($request->group_by_clasification === "position") {
-                        /** @var object Objeto que contiene información de un cargo */
-                        $posInst           = PayrollPosition::find(
-                            $payrollScaleRequirement['clasificable_id']
-                        );
-                        $clasificable_type = PayrollPosition::class;
-                    } elseif ($request->group_by_clasification === "instruction_degree") {
-                        /** @var object Objeto que contiene información de un grado de instrucción */
-                        $posInst           = PayrollInstructionDegree::find(
-                            $payrollScaleRequirement['clasificable_id']
-                        );
-                        $clasificable_type = PayrollInstructionDegree::class;
-                    }
-                    if ($posInst) {
-                        $scaleRequirement->clasificable_type = $clasificable_type;
-                        $scaleRequirement->clasificable_id   = $posInst->id;
-                    }
-                    $scaleRequirement->updated_at = $updated_at;
-                    $scaleRequirement->save();
-                }
             }
 
             /** Se eliminan los demas niveles o escalas del escalafón salarial */
-            $payrollScales = PayrollScale::where('payroll_salary_scale_id', $payrollSalaryScale->id)
-                ->with('payrollScaleRequirements')->get();
+            $payrollScales = PayrollScale::where('payroll_salary_scale_id', $payrollSalaryScale->id)->get();
 
             foreach ($payrollScales as $payrollScale) {
-                $scaleRequirements = PayrollScaleRequirement::where('payroll_scale_id', $payrollScale->id)
-                    ->where('updated_at', '!=', $updated_at)->get();
-
-                foreach ($scaleRequirements as $scaleRequirement) {
-                    $scaleRequirement->delete();
-                }
                 if ($payrollScale->updated_at->format('Y-m-d H:i:s') != $updated_at->format('Y-m-d H:i:s')) {
                     $payrollScale->delete();
                 }
@@ -237,6 +187,7 @@ class PayrollSalaryScaleController extends Controller
      */
     public function getSalaryScales(Request $request)
     {
+        /**Falta incluir el except_id en templatechoices */
         $institution  = $request->institution_id ?? Institution::where([
             'default' => true,
             'active'  => true
@@ -245,9 +196,7 @@ class PayrollSalaryScaleController extends Controller
             'Modules\Payroll\Models\PayrollSalaryScale',
             'name',
             [
-                'institution_id'         => $request->institution_id ?? $institution->id,
-                'group_by_years'         => $request->group_by_years,
-                'group_by_clasification' => $request->group_by_clasification,
+                'institution_id'         => $request->institution_id ?? $institution->id
             ],
             true
         );

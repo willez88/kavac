@@ -38,7 +38,7 @@ class PayrollSalaryScale extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'name', 'code', 'description', 'active', 'group_by_years', 'group_by_clasification', 'institution_id'
+        'name', 'code', 'description', 'active', 'group_by', 'institution_id'
     ];
 
     /**
@@ -50,17 +50,6 @@ class PayrollSalaryScale extends Model implements Auditable
     public function payrollSalaryTabulators()
     {
         return $this->hasMany(PayrollSalaryTabulator::class);
-    }
-
-    /**
-     * Método que obtiene las asignaciones salariales asociadas al escalafón
-     *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function payrollSalaryAssignments()
-    {
-        return $this->hasMany(PayrollSalaryAssignment::class);
     }
 
     /**

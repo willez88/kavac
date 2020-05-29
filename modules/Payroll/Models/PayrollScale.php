@@ -37,7 +37,7 @@ class PayrollScale extends Model implements Auditable
      *
      * @var array $fillable
      */
-    protected $fillable = ['name', 'code', 'description', 'payroll_salary_scale_id'];
+    protected $fillable = ['name', 'value', 'payroll_salary_scale_id'];
 
     /**
      * Método que obtiene el eslacafón salarial al que pertenece la escala
@@ -48,27 +48,5 @@ class PayrollScale extends Model implements Auditable
     public function payrollSalaryScale()
     {
         return $this->belongsTo(PayrollSalaryScale::class);
-    }
-
-    /**
-     * Método que obtiene los requisitos asociados a la escala
-     *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function payrollScaleRequirements()
-    {
-        return $this->hasMany(PayrollScaleRequirement::class);
-    }
-
-    /**
-     * Método que obtiene información de los modelos asociados a la escala
-     *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function clasificable()
-    {
-        return $this->morphTo();
     }
 }

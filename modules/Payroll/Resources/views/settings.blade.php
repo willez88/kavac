@@ -23,10 +23,10 @@
 				<div class="card-header">
 					<h6 class="card-title">
 						{{ __('Formatos de Códigos') }}
-						@include('buttons.help', [
+						{{-- @include('buttons.help', [
 							'helpId' => 'PayrollCodeSetting',
 							'helpSteps' => get_json_resource('ui-guides/settings/code_settings.json', 'payroll')
-						])
+						]) --}}
 					</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
