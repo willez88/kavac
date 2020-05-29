@@ -132,7 +132,7 @@
                                     <label>Conceptos:</label>
                                     <v-multiselect :options="payroll_concepts" track_by="text"
                                                    :hide_selected="false"
-                                                   v-model="record.payroll_concepts"><!--:selected="record.payroll_concepts"-->
+                                                   v-model="record.payroll_concepts">
                                     </v-multiselect>
                                 </div>
                             </div>
@@ -284,7 +284,6 @@
 
             /**
              * Obtiene un listado de cuentas patrimoniales
-             *
              *
              * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
              */
