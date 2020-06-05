@@ -42,7 +42,7 @@ class PayrollSalaryScales implements Rule
     {
         foreach ((array) $value as $payrollSalaryScale) {
             if (is_null($payrollSalaryScale['value'])) {
-                $this->message = 'son requeridos.';
+                $this->message = 'son obligatorios.';
                 return false;
             } elseif ((float)$payrollSalaryScale['value'] < 0) {
                 $this->message = 'deben ser positivos.';

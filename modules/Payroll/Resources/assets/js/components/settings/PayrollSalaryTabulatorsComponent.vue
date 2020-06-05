@@ -15,7 +15,7 @@
 						</button>
 						<h6>
 							<i class="icofont icofont-table ico-2x"></i>
-							 Nuevo Tabulador
+							 Tabulador de Nómina
 						</h6>
 					</div>
 
@@ -38,15 +38,39 @@
                             </div>
                         </div>
                         <div class="wizard-tabs with-border">
-                            <ul class="nav wizard-steps">
+                            <ul class="nav wizard-steps"
+                                v-if="panel == 'Form'">
                                 <li class="nav-item active">
-                                    <a href="#w-tabulatorForm" data-toggle="tab" class="nav-link text-center" id="tabuladorForm">
+                                    <a href="#w-tabulatorForm" data-toggle="tab"
+                                       class="nav-link text-center" id="tabuladorForm"
+                                       @click="changePanel('Form')">
                                         <span class="badge">1</span>
                                         Definir Tabulador
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#w-tabulatorShow" data-toggle="tab" class="nav-link text-center" id="tabuladorShow">
+                                    <a href="#w-tabulatorShow" data-toggle="tab"
+                                       class="nav-link text-center" id="tabuladorShow"
+                                       @click="changePanel('Show')">
+                                        <span class="badge">2</span>
+                                        Cargar Tabulador
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav wizard-steps"
+                                v-else>
+                                <li class="nav-item">
+                                    <a href="#w-tabulatorForm" data-toggle="tab"
+                                       class="nav-link text-center" id="tabuladorForm"
+                                       @click="changePanel('Form')">
+                                        <span class="badge">1</span>
+                                        Definir Tabulador
+                                    </a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a href="#w-tabulatorShow" data-toggle="tab"
+                                       class="nav-link text-center" id="tabuladorShow"
+                                       @click="changePanel('Show')">
                                         <span class="badge">2</span>
                                         Cargar Tabulador
                                     </a>
@@ -69,15 +93,11 @@
             										<div class="form-group">
             											<label>¿Activa?</label>
                                                         <div class="col-12">
-                                                            <div class="pretty p-switch p-fill p-bigger p-toggle">
-                                                                <input type="checkbox" v-model="record.active">
-                                                                    <div class="state p-off">
-                                                                        <label>NO</label>
-                                                                    </div>
-                                                                    <div class="state p-on p-success">
-                                                                        <label>SI</label>
-                                                                    </div>
-                                                            </div>
+                                                            <p-check class="pretty p-switch p-fill p-bigger"
+                                                                     color="success" off-color="text-gray" toggle
+                                                                     v-model="record.active">
+                                                                <label slot="off-label"></label>
+                                                            </p-check>
                                                         </div>
             										</div>
             									</div>
@@ -125,10 +145,12 @@
                                                    record.payroll_salary_tabulator_type != 'mixed'">
                                             <div class="form-group is-required">
                                                 <label>Escalafón:</label>
-                                                <select2 :options="payroll_horizontal_salary_scales"
+                                                <select2 id="payroll_horizontal_salary_scale"
+                                                         :options="payroll_horizontal_salary_scales"
                                                          v-if="record.payroll_salary_tabulator_type =='horizontal'"
                                                          v-model="record.payroll_horizontal_salary_scale_id"></select2>
-                                                <select2 :options="payroll_vertical_salary_scales"
+                                                <select2 id="payroll_vertical_salary_scale"
+                                                         :options="payroll_vertical_salary_scales"
                                                          v-else
                                                          v-model="record.payroll_vertical_salary_scale_id"></select2>
                                             </div>
@@ -139,17 +161,29 @@
                                         <div class="col-md-6">
                                             <div class="form-group is-required">
                                                 <label>Escalafón horizontal:</label>
-                                                <select2 :options="payroll_horizontal_salary_scales"
-                                                         @input="loadSalaryScale('horizontal')"
-                                                         v-model="record.payroll_horizontal_salary_scale_id"></select2>
+                                                <select id="payroll_horizontal_salary_scale"
+                                                        class="form-control select2"
+                                                        @change="isDisable('horizontal')"
+                                                        v-model="record.payroll_horizontal_salary_scale_id">
+                                                    <option v-for="option in payroll_horizontal_salary_scales"
+                                                            :id="option.id + '_h'" :value="option.id">
+                                                        {{ option.text }}
+                                                    </option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group is-required">
                                                 <label>Escalafón vertical:</label>
-                                                <select2 :options="payroll_vertical_salary_scales"
-                                                         @input="loadSalaryScale('vertical')"
-                                                         v-model="record.payroll_vertical_salary_scale_id"></select2>
+                                                <select id="payroll_vertical_salary_scale"
+                                                        class="form-control select2"
+                                                        @change="isDisable('vertical')"
+                                                        v-model="record.payroll_vertical_salary_scale_id">
+                                                    <option v-for="option in payroll_vertical_salary_scales"
+                                                            :id="option.id + '_v'" :value="option.id">
+                                                        {{ option.text }}
+                                                    </option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -158,13 +192,17 @@
                                     <!-- Visible para ambos escalafones -->
                                     <div class="modal-table"
                                          v-if="((record.payroll_horizontal_salary_scale_id > 0)
+                                            && (payroll_salary_scale_h.payroll_scales)
                                             && (payroll_salary_scale_h.payroll_scales.length > 0))
                                             || ((record.payroll_vertical_salary_scale_id > 0)
+                                            && (payroll_salary_scale_v.payroll_scales)
                                             && (payroll_salary_scale_v.payroll_scales.length > 0))">
                                         <table class="table table-hover table-striped table-responsive  table-assignment"
-                                               v-if="record.payroll_horizontal_salary_scale_id > 0">
+                                               v-if="record.payroll_horizontal_salary_scale_id > 0
+                                                  && record.payroll_salary_tabulator_type != 'vertical'">
                                             <thead>
-                                                <th :colspan="1 + payroll_salary_scale_h.payroll_scales.length">
+                                                <th :colspan="1 + payroll_salary_scale_h.payroll_scales.length"
+                                                     v-if="payroll_salary_scale_h.payroll_scales">
                                                     <strong>{{ record.name }}</strong>
                                                 </th>
                                             </thead>
@@ -177,7 +215,7 @@
                                                     </th>
                                                 </tr>
                                                 <tr class="text-center"
-                                                    v-if="payroll_salary_scale_v.payroll_scales.length == 0">
+                                                    v-if="record.payroll_salary_tabulator_type == 'horizontal'">
                                                     <th>Incidencia:</th>
                                                     <td class="td-with-border"
                                                         v-for="(field_h, index) in payroll_salary_scale_h.payroll_scales">
@@ -189,11 +227,11 @@
                                                     </td>
                                                 </tr>
 
-                                                <tr class="text-center" v-else
+                                                <tr class="text-center"
+                                                    v-if="record.payroll_vertical_salary_scale_id > 0
+                                                       && record.payroll_salary_tabulator_type == 'mixed'"
                                                     v-for="(field_v, index_v) in payroll_salary_scale_v.payroll_scales">
-                                                    <th
-                                                        v-if="((record.payroll_vertical_salary_scale_id > 0) &&
-                                                            (payroll_salary_scale_v.payroll_scales.length > 0))">
+                                                    <th>
                                                         {{field_v.name}}
                                                     </th>
                                                     <td class="td-with-border"
@@ -208,9 +246,8 @@
                                             </tbody>
                                         </table>
                                         <table  class="table table-hover table-striped table-responsive  table-assignment"
-                                                v-else-if="record.payroll_horizontal_salary_scale_id == ''
-                                                    && record.payroll_vertical_salary_scale_id > 0
-                                                    && payroll_salary_scale_v.payroll_scales.length > 0">
+                                                v-else-if="record.payroll_salary_tabulator_type == 'vertical'
+                                                       && record.payroll_vertical_salary_scale_id > 0">
                                             <thead>
                                                 <th colspan="2">
                                                     <strong>{{ record.name }}</strong>
@@ -218,7 +255,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr class="text-center">
-                                                    <th>Código</th>
+                                                    <th>Nombre</th>
                                                     <th>Incidencia</th>
                                                 </tr>
                                                 <tr class="text-center"
@@ -240,15 +277,17 @@
                                 </div>
                             </div>
                             <div class="wizard-footer">
-                                <div class="pull-right">
-                                    <button type="button" @click="changePanel('Show')"
+                                <div class="pull-right"
+                                     v-if="panel == 'Form'">
+                                    <button type="button" @click="loadSalaryScales()"
                                             class="btn btn-primary btn-wd btn-sm"
                                             data-toggle="tooltip" title=""
                                             >
                                         Siguiente
                                     </button>
                                 </div>
-                                <div class="pull-left">
+                                <div class="pull-left"
+                                     v-else>
                                     <button type="button" @click="changePanel('Form')"
                                             class="btn btn-default btn-wd btn-sm"
                                             data-toggle="tooltip" title=""
@@ -267,12 +306,15 @@
                     <div class="modal-body modal-table">
 	                	<hr>
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
+                            <div slot="description" slot-scope="props">
+                                <span v-html="props.row.description"></span>
+                            </div>
 	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button @click="exportRecord(props.index, $event)"
+	                			<!-- <button @click="exportRecord(props.index, $event)"
                                         class="btn btn-primary btn-xs btn-icon btn-action"
                                         title="Descargar/Exportar tabulador" data-toggle="tooltip" type="button">
 	                                <i class="fa fa-download"></i>
-	                            </button>
+	                            </button> -->
 	                			<button @click="initUpdate(props.index, $event)"
 		                				class="btn btn-warning btn-xs btn-icon btn-action"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
@@ -297,18 +339,18 @@
 		data() {
 			return {
 				record: {
-					id:                              '',
-                    name:                            '',
-                    active:                          '',
-                    description:                     '',
-                    institution_id:                  '',
-                    currency_id:                     '',
-                    payroll_salary_tabulator_type:   '',
-                    payroll_staff_types:             [],
+					id:                                 '',
+                    name:                               '',
+                    active:                             false,
+                    description:                        '',
+                    institution_id:                     '',
+                    currency_id:                        '',
+                    payroll_salary_tabulator_type:      '',
+                    payroll_staff_types:                [],
 
                     payroll_horizontal_salary_scale_id: '',
                     payroll_vertical_salary_scale_id:   '',
-                    payroll_salary_tabulator_scales: []
+                    payroll_salary_tabulator_scales:    []
 				},
                 errors:                         [],
                 records:                        [],
@@ -326,6 +368,7 @@
                 payroll_vertical_salary_scales: [],
                 payroll_salary_scale_h: [],
                 payroll_salary_scale_v: [],
+                panel: 'Form'
 
 			}
 		},
@@ -354,47 +397,73 @@
             });
             vm.switchHandler('active');
         },
+        watch: {
+            record: {
+                deep: true,
+                handler: function() {
+                    const vm = this;
+                    if (vm.record.id) {
+                        if (vm.payroll_horizontal_salary_scales.length > 0) {
+                            if (vm.record.payroll_horizontal_salary_scale && vm.record.payroll_horizontal_salary_scale_id == '') {
+                                vm.record.payroll_horizontal_salary_scale_id = vm.record.payroll_horizontal_salary_scale['id'];
+                            }
+                        }
+                        if (vm.payroll_vertical_salary_scales.length > 0) {
+                            if (vm.record.payroll_vertical_salary_scale && vm.record.payroll_vertical_salary_scale_id == '') {
+                                vm.record.payroll_vertical_salary_scale_id = vm.record.payroll_vertical_salary_scale['id'];
+                            }
+                        }
+                    }
+                }
+            }
+        },
 		methods: {
             changePanel(panel) {
-                const vm = this;
+                const vm    = this;
+                vm.panel    = panel;
                 let element = document.getElementById('tabulador' + panel);
                 element.click();
             },
-            loadSalaryScale(ladder) {
+            isDisable(ladder) {
                 const vm = this;
-
                 if (ladder == 'horizontal') {
-                    if(vm.record.payroll_horizontal_salary_scale_id > 0) {
-                        var id = vm.record.payroll_horizontal_salary_scale_id;
-                        axios.get('/payroll/salary-scales/info/'+ id).then(response => {
-                            vm.payroll_salary_scale_h = response.data.record;
-                        });
-                    }
-                } else if (ladder == 'vertical') {
-                    if(vm.record.payroll_vertical_salary_scale_id > 0) {
-                        var id = vm.record.payroll_vertical_salary_scale_id;
-                        axios.get('/payroll/salary-scales/info/'+ id).then(response => {
-                            vm.payroll_salary_scale_v = response.data.record;
-                        });
-                    }
+                    $.each(vm.payroll_vertical_salary_scales, function(index, field) {
+                        if ((field.id == vm.record.payroll_horizontal_salary_scale_id) &&
+                            (vm.record.payroll_horizontal_salary_scale_id != '')) {
+                            $('#' + field.id + '_v').prop("disabled", true);
+                        } else
+                            $('#' + field.id + '_v').prop("disabled", false);
+                    })
+                } else {
+                    $.each(vm.payroll_horizontal_salary_scales, function(index, field) {
+                        if ((field.id == vm.record.payroll_vertical_salary_scale_id) &&
+                            (vm.record.payroll_vertical_salary_scale_id != '')) {
+                            $('#' + field.id + '_h').prop("disabled", true);
+                        } else
+                            $('#' + field.id + '_h').prop("disabled", false);
+                    })
                 }
             },
 			reset() {
 				const vm  = this;
                 vm.errors = [];
 				vm.record = {
-					id:                              '',
-                    name:                            '',
-                    active:                          '',
-                    description:                     '',
-                    institution_id:                  '',
-                    currency_id:                     '',
-                    payroll_salary_tabulator_type:   '',
-                    payroll_staff_types:             [],
-                    payroll_salary_tabulator_scales: {}
+					id:                                 '',
+                    name:                               '',
+                    active:                             false,
+                    description:                        '',
+                    institution_id:                     '',
+                    currency_id:                        '',
+                    payroll_salary_tabulator_type:      '',
+                    payroll_staff_types:                [],
+                    payroll_horizontal_salary_scale_id: '',
+                    payroll_vertical_salary_scale_id:   '',
+                    payroll_salary_tabulator_scales:    []
 				};
-                vm.payroll_salary_scales_h = [];
-                vm.payroll_salary_scales_v = [];
+                vm.payroll_salary_scale_h = [];
+                vm.payroll_salary_scale_v = [];
+                vm.panel                  = 'Form';
+                vm.changePanel(vm.panel)
 
 			},
 			exportRecord(index, event) {
@@ -403,40 +472,24 @@
 				window.open('/payroll/salary-tabulators/export/' + fields.id);
 				event.preventDefault();
 			},
-            getPayrollSalaryScales(ladder = 'all') {
-                const vm = this;
-                let except_id = null;
-                if (ladder == 'vertical')
-                    except_id = vm.record.payroll_horizontal_salary_scale_id;
-                else if (ladder == 'horizontal')
-                    except_id = vm.record.payroll_vertical_salary_scale_id;
+            getPayrollSalaryScales() {
+                const vm  = this;
                 let field = {
                     institution_id: vm.record.institution_id,
-                    except_id: except_id
+                    except_id:      ''
                 };
+                vm.record.payroll_horizontal_salary_scale_id = '';
+                vm.record.payroll_vertical_salary_scale_id = '';
 
-                if ((vm.record.payroll_vertical_salary_scale_id > 0) && (vm.record.payroll_vertical_salary_scale_id > 0))
-                    return;
-                else if (((ladder == 'vertical') && (vm.record.payroll_horizontal_salary_scale_id > 0)) ||
-                    ((ladder == 'horizontal') && (vm.record.payroll_vertical_salary_scale_id > 0)) ||
-                    (ladder == 'all')) {
-
+                if (vm.record.payroll_salary_tabulator_type != '') {
                     axios.post('/payroll/get-salary-scales', field).then(response => {
                         if (typeof(response.data) !== "undefined") {
-                            if (vm.payroll_salary_tabulator_type == 'horizontal') {
-                                vm.payroll_horizontal_salary_scales = response.data;
-                            } else if (vm.payroll_salary_tabulator_type == 'vertical') {
-                                vm.payroll_vertical_salary_scales = response.data;
-                            } else if (ladder == 'horizontal') {
-                                vm.payroll_horizontal_salary_scale_id = '';
-                                vm.payroll_horizontal_salary_scales   = response.data;
-                            } else if (ladder == 'vertical') {
-                                vm.payroll_vertical_salary_scale_id = '';
-                                vm.payroll_vertical_salary_scales   = response.data;
-                            } else {
-                                vm.payroll_horizontal_salary_scales = response.data;
-                                vm.payroll_vertical_salary_scales   = response.data;
-                            }
+                            vm.payroll_horizontal_salary_scales = (vm.record.payroll_salary_tabulator_type == 'vertical')
+                                ? []
+                                : response.data;
+                            vm.payroll_vertical_salary_scales   = (vm.record.payroll_salary_tabulator_type == 'horizontal')
+                                ? []
+                                : response.data;
                         }
                     }).catch(error => {
                         if (typeof(error.response) !== "undefined") {
@@ -447,6 +500,189 @@
                             }
                             else {
                                 vm.logs('modules/Payroll/Resources/assets/js/_all.js', 343, error, 'getPayrollSalaryScales');
+                            }
+                        }
+                    });
+                };
+            },
+            getPayrollSalary(ladder) {
+                const vm      = this;
+                let field     = {
+                    institution_id: vm.record.institution_id,
+                    except_id:      ''
+                };
+
+                if (ladder == 'horizontal') {
+                    if (vm.record.payroll_horizontal_salary_scale_id == '') {
+                        if (vm.record.payroll_vertical_salary_scale_id == '')
+                            if (vm.payroll_vertical_salary_scales.length == vm.payroll_horizontal_salary_scales.length)
+                                return
+                    } else {
+                        if (vm.record.payroll_vertical_salary_scale_id == '') {
+                            field = {
+                                institution_id: vm.record.institution_id,
+                                except_id:      vm.record.payroll_horizontal_salary_scale_id
+                            };
+                        } else {
+                            field = {
+                                institution_id: vm.record.institution_id,
+                                except_id:      vm.record.payroll_horizontal_salary_scale_id
+                            };
+                        }
+                    }
+                    axios.post('/payroll/get-salary-scales', field).then(response => {
+                        if (typeof(response.data) !== "undefined") {
+                            vm.payroll_vertical_salary_scales = response.data;
+                        }
+                    }).catch(error => {
+                        if (typeof(error.response) !== "undefined") {
+                            if (error.response.status == 403) {
+                                vm.showMessage(
+                                    'custom', 'Acceso Denegado', 'danger', 'screen-error', error.response.data.message
+                                );
+                            }
+                            else {
+                                vm.logs('modules/Payroll/Resources/assets/js/_all.js', 343, error, 'getPayrollSalaryScales');
+                            }
+                        }
+                    });
+                } else {
+                    if (vm.record.payroll_vertical_salary_scale_id == '') {
+                        if (vm.record.payroll_horizontal_salary_scale_id == '')
+                            if (vm.payroll_vertical_salary_scales.length == vm.payroll_horizontal_salary_scales.length)
+                                return
+                    } else {
+                        if (vm.record.payroll_horizontal_salary_scale_id == '') {
+                            field = {
+                                institution_id: vm.record.institution_id,
+                                except_id:      vm.record.payroll_vertical_salary_scale_id
+                            };
+                        } else {
+                            field = {
+                                institution_id: vm.record.institution_id,
+                                except_id:      vm.record.payroll_vertical_salary_scale_id
+                            };
+                        }
+                    }
+                    axios.post('/payroll/get-salary-scales', field).then(response => {
+                        if (typeof(response.data) !== "undefined") {
+                            vm.payroll_horizontal_salary_scales = response.data;
+                        }
+                    }).catch(error => {
+                        if (typeof(error.response) !== "undefined") {
+                            if (error.response.status == 403) {
+                                vm.showMessage(
+                                    'custom', 'Acceso Denegado', 'danger', 'screen-error', error.response.data.message
+                                );
+                            }
+                            else {
+                                vm.logs('modules/Payroll/Resources/assets/js/_all.js', 343, error, 'getPayrollSalaryScales');
+                            }
+                        }
+                    });
+                }
+
+
+            },
+            loadSalaryScales() {
+                const vm = this;
+                let id   = '';
+                /** Validar campos y si ya esta activo el panel tabulatorShow para no hacer la consulta */
+                if (vm.record.payroll_horizontal_salary_scale_id > 0) {
+                    id = vm.record.payroll_horizontal_salary_scale_id;
+                    axios.get('/payroll/salary-scales/info/' + id).then(response => {
+                        vm.payroll_salary_scale_h = response.data.record;
+                    });
+                };
+                if (vm.record.payroll_vertical_salary_scale_id > 0) {
+                    id = vm.record.payroll_vertical_salary_scale_id;
+                    axios.get('/payroll/salary-scales/info/' + id).then(response => {
+                        vm.payroll_salary_scale_v = response.data.record;
+                    });
+                }
+                vm.changePanel('Show')
+            },
+            createRecord(url) {
+                const vm = this;
+                var payroll_scales = [];
+
+                if ((vm.record.payroll_horizontal_salary_scale_id > 0
+                    && vm.payroll_salary_scale_h.payroll_scales.length > 0)
+                    || (vm.record.payroll_vertical_salary_scale_id > 0
+                    && vm.payroll_salary_scale_v.payroll_scales.length > 0)) {
+
+                    if (vm.record.payroll_vertical_salary_scale_id == '') {
+                        $.each(vm.payroll_salary_scale_h.payroll_scales, function (index, campo) {
+                            var element = document.getElementById("salary_scale_h_" + campo.id);
+                            if (element) {
+                                var field = {
+                                    payroll_horizontal_scale_id:   campo.id,
+                                    payroll_horizontal_scale_code: campo.code,
+                                    value:                         element.value
+                                };
+                                payroll_scales.push(field);
+                            }
+                        });
+                    } else if (vm.record.payroll_horizontal_salary_scale_id == '') {
+                        $.each(vm.payroll_salary_scale_v.payroll_scales, function (index, campo) {
+                            var element = document.getElementById("salary_scale_v_" + campo.id);
+                            if (element) {
+                                var field = {
+                                    payroll_vertical_scale_id:   campo.id,
+                                    payroll_vertical_scale_code: campo.code,
+                                    value:                       element.value
+                                };
+                                payroll_scales.push(field);
+                            }
+                        });
+                    } else {
+                        $.each(vm.payroll_salary_scale_v.payroll_scales, function (index_v, campo_v) {
+                            $.each(vm.payroll_salary_scale_h.payroll_scales, function (index_h, campo_h) {
+                                var element = document.getElementById(
+                                    "salary_scale_" + campo_v.id + '_' + campo_h.id
+                                );
+                                if (element) {
+                                    var field = {
+                                        payroll_vertical_scale_id:     campo_v.id,
+                                        payroll_vertical_scale_code:   campo_v.code,
+                                        payroll_horizontal_scale_id:   campo_h.id,
+                                        payroll_horizontal_scale_code: campo_h.code,
+                                        value:                         element.value,
+                                    };
+                                    payroll_scales.push(field);
+                                }
+                            });
+                        });
+                    }
+                    vm.record.payroll_salary_tabulator_scales = payroll_scales;
+                }
+
+                if (vm.record.id) {
+                    vm.updateRecord(url);
+                }
+                else {
+                    var fields = {};
+                    for (var index in vm.record) {
+                        fields[index] = vm.record[index];
+                    }
+                    axios.post('/' + url, fields).then(response => {
+                        if (typeof(response.data.redirect) !== "undefined") {
+                            location.href = response.data.redirect;
+                        }
+                        else {
+                            vm.errors = [];
+                            vm.reset();
+                            vm.readRecords(url);
+                            vm.showMessage('store');
+                        }
+                    }).catch(error => {
+                        vm.errors = [];
+
+                        if (typeof(error.response) !="undefined") {
+                            for (var index in error.response.data.errors) {
+                                if (error.response.data.errors[index]) {
+                                    vm.errors.push(error.response.data.errors[index][0]);
+                                }
                             }
                         }
                     });

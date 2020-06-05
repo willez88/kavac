@@ -9,15 +9,15 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
- * @class PayrollSalaryTabulator
- * @brief Datos de los tabuladores salariales
+ * @class      PayrollSalaryTabulator
+ * @brief      Datos de los tabuladores salariales
  *
  * Gestiona el modelo de datos de los tabuladores salariales
  *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class PayrollSalaryTabulator extends Model implements Auditable
 {
@@ -38,26 +38,28 @@ class PayrollSalaryTabulator extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'code', 'name', 'description', 'active', 'payroll_staff_type_id', 'payroll_horizontal_salary_scale_id',
-        'payroll_vertical_salary_scale_id', 'institution_id', 'currency_id'
+        'code', 'name', 'description', 'active', 'payroll_salary_tabulator_type',
+        'payroll_horizontal_salary_scale_id', 'payroll_vertical_salary_scale_id',
+        'institution_id', 'currency_id'
     ];
 
     /**
-     * Método que obtiene el tipo de personal al que pertenece el tabulador
+     * Método que obtiene la información de los tipos de personal asociados al tabulador
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function payrollStaffType()
+    public function payrollStaffTypes()
     {
-        return $this->belongsTo(PayrollStaffType::class);
+        return $this->belongsToMany(PayrollStaffType::class);
+        
     }
 
     /**
-     * Método que obtiene el escalafón vertical asociado al tabulador
+     * Método que obtiene la información del escalafón vertical asociado al tabulador
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function payrollVerticalSalaryScale()
     {
@@ -65,10 +67,10 @@ class PayrollSalaryTabulator extends Model implements Auditable
     }
 
     /**
-     * Método que obtine el escalafón horizontal asociado al tabulador
+     * Método que obtine la información del escalafón horizontal asociado al tabulador
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function payrollHorizontalSalaryScale()
     {
@@ -76,10 +78,10 @@ class PayrollSalaryTabulator extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene las escalas asociadas al tabulador salarial
+     * Método que obtiene la información del las escalas asociadas al tabulador salarial
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function payrollSalaryTabulatorScales()
     {
@@ -87,13 +89,24 @@ class PayrollSalaryTabulator extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la institución asociada al tabulador salarial
+     * Método que obtiene la información del la institución asociada al tabulador salarial
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function institution()
     {
         return $this->belongsTo(\App\Models\Institution::class);
+    }
+
+    /**
+     * Método que obtiene la información del la moneda asociada al tabulador salarial
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function currency()
+    {
+        return $this->belongsTo(\App\Models\Currency::class);
     }
 }

@@ -9,6 +9,12 @@
             <a href="{{ route('payroll.settings.index') }}" data-toggle="tooltip" data-placement="right"
                 title="Configuración de nómina">Configuración</a>
         </li>
+        <li class="">
+            <a href="#" data-toggle="tooltip" data-placement="right"
+               title="Gestiona las actualizaciones de tablas salariales, de acuerdo a un aumento oficial de salarios.">
+                Actualizar Tablas Salariales
+            </a>
+        </li>
         <li>
             <a href="javascript:void(0)" data-toggle="tooltip" data-placement="right"
                 title="Expediente del personal">Expediente</a>
