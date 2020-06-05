@@ -122,8 +122,21 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-7 pad-top-10 with-border with-radius table-responsive">
+                                <div class="alert alert-danger" v-if="payroll_salary_tabulators_groups.length == 0">
+                                    <div class="container">
+                                        <strong>No se ha registrado ninguna agrupación</strong> Debe dirigirse a Configuración de parámetros de nómina y registrar al menos un grupo de tablas salariales antes de continuar.
+                                    </div>
+                                </div>
+                                <div class="col-7 pad-top-10 with-border with-radius table-responsive"
+                                     v-if="payroll_salary_tabulators_groups.length > 0">
                                     <h6 class="text-center">Escalas o Niveles del Escalafón</h6>
+                                    <div class="row" v-if="record.payroll_scales.length == 0">
+                                        <div class="alert alert-danger">
+                                            <div class="container">
+                                                <strong>No existen registros</strong> Debe seleccionar una agrupación y agregar una nueva escala antes de continuar.
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div v-show="record.payroll_scales.length > 0">
                                         <table class="table table-hover table-striped table-responsive  table-scale">
                                             <thead>
@@ -175,9 +188,11 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-4 offset-1 pad-top-10 with-border with-radius table-responsive">
+                                <div class="col-4 offset-1 pad-top-10 with-border with-radius table-responsive"
+                                     v-if="payroll_salary_tabulators_groups.length > 0">
                                     <h6 class="text-center">Nueva Escala</h6>
-                                    <div class="row">
+                                    <div class="row"
+                                        v-if="record.group_by">
                                         <div class="col-md-12">
                                             <div class="form-group is-required">
                                                 <label>Nombre</label>
@@ -309,7 +324,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row"
+                                         v-if="record.group_by">
                                         <div class="col-md-12">
                                             <button type="button" @click="addScale($event)"
                                                     class="btn btn-sm btn-primary btn-custom float-right"
@@ -426,7 +442,14 @@
                 $.each(vm.payroll_salary_tabulators_groups, function(index, field) {
                     if (field.code == vm.record.group_by) {
                         response = field.name;
-                        vm.getOptions(field, false);
+                        
+                        if (field.type == 'list') {
+                            vm.type = field.type;
+                            vm.options = [];
+                            axios.get('get-parameter-options/' + field.code).then(response => {
+                                vm.options = response.data;
+                            });
+                        }
                     }
                 });
                 return response;
@@ -476,15 +499,14 @@
             },
             getOptions(object, reset = true) {
                 const vm = this;
-                if (object.type != '') {
-                    vm.type = object.type;
-                    if (object.type == 'list') {
-                        vm.options = [];
-                        axios.get('get-parameter-options/' + object.code).then(response => {
-                            vm.options = response.data;
-                        });
-                    }
+                vm.type = object.type;
+                if (object.type == 'list') {
+                    vm.options = [];
+                    axios.get('get-parameter-options/' + object.code).then(response => {
+                        vm.options = response.data;
+                    });
                 }
+
                 vm.resetScale(reset);
             },
             getPayrollSalaryTabulatorsGroups() {
