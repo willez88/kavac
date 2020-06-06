@@ -212,12 +212,6 @@
 	</section>
 </template>
 
-<style>
-	.selected-row {
-		background-color: #d1d1d1 !important;
-	}
-</style>
-
 <script>
 	export default {
 		data() {
@@ -255,7 +249,10 @@
 						'text': '50'
 					}
 				],
-				columns: ['check', 'inventory_serial', 'institution', 'asset_condition', 'asset_status', 'serial', 'marca', 'model'],
+				columns: [
+                    'check', 'inventory_serial', 'institution', 'asset_condition', 'asset_status', 'serial',
+                    'marca', 'model'
+                ],
 				errors: [],
 
 				asset_disincorporation_motives: [],
@@ -282,8 +279,12 @@
 						'marca': 'Marca',
 						'model': 'Modelo',
 					},
-					sortable: ['inventory_serial', 'institution', 'asset_condition', 'asset_status', 'serial', 'marca', 'model'],
-					filterable: ['inventory_serial', 'institution', 'asset_condition', 'asset_status', 'serial', 'marca', 'model'],
+					sortable: [
+                        'inventory_serial', 'institution', 'asset_condition', 'asset_status', 'serial', 'marca', 'model'
+                    ],
+					filterable: [
+                        'inventory_serial', 'institution', 'asset_condition', 'asset_status', 'serial', 'marca', 'model'
+                    ],
 				}
 			}
 		},
@@ -330,15 +331,18 @@
 					if (index >= 0){
 						vm.selected.splice(index,1);
 					}
-					else
+					else {
 						checkbox.click();
+                    }
 				}
 				else if ((checkbox)&&(checkbox.checked == true)) {
 					var index = vm.selected.indexOf(row.id);
-					if (index >= 0)
+					if (index >= 0) {
 						checkbox.click();
-					else
+                    }
+					else {
 						vm.selected.push(row.id);
+                    }
 				}
 		    },
 			reset() {
@@ -364,8 +368,9 @@
 				$.each(vm.records, function(index,campo){
 					var checkbox = document.getElementById('checkbox_' + campo.id);
 
-					if(!vm.selectAll)
+					if(!vm.selectAll) {
 						vm.selected.push(campo.id);
+                    }
 					else if(checkbox && checkbox.checked){
 						checkbox.click();
 					}

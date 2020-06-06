@@ -176,12 +176,6 @@
 	</div>
 </template>
 
-<style>
-	.selected-row {
-		background-color: #d1d1d1 !important;
-	}
-</style>
-
 <script>
 	var formData = new FormData();
 	export default {
@@ -240,15 +234,18 @@
 					if (index >= 0){
 						vm.selected.splice(index,1);
 					}
-					else
+					else {
 						checkbox.click();
+                    }
 				}
 				else if ((checkbox)&&(checkbox.checked == true)) {
 					var index = vm.selected.indexOf(row.asset_id);
-					if (index >= 0)
+					if (index >= 0) {
 						checkbox.click();
-					else
+                    }
+					else {
 						vm.selected.push(row.asset_id);
+                    }
 				}
 		    },
 		    select()
@@ -258,8 +255,9 @@
 				$.each(vm.equipments, function(index,campo){
 					var checkbox = document.getElementById('checkbox_' + campo.asset_id);
 
-					if(!vm.selectAll)
+					if(!vm.selectAll) {
 						vm.selected.push(campo.asset_id);
+                    }
 					else if(checkbox && checkbox.checked){
 						checkbox.click();
 					}
@@ -339,7 +337,10 @@
 			},
 			viewMessage() {
             	const vm = this;
-            	vm.showMessage('custom', 'Alerta', 'danger', 'screen-error', 'La solicitud está en un tramite que no le permite acceder a esta funcionalidad');
+            	vm.showMessage(
+                    'custom', 'Alerta', 'danger', 'screen-error',
+                    'La solicitud está en un tramite que no le permite acceder a esta funcionalidad'
+                );
             	return false;
             },
             processFile() {
@@ -385,5 +386,5 @@
 			this.getEquipments();
 			this.record.equipments = [];
 		},
-	}
+	};
 </script>

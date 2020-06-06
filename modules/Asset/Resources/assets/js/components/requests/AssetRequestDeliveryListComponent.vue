@@ -1,4 +1,4 @@
-<template>																																		
+<template>
 	<div class="col-md-12">
 		<hr>
 		<v-client-table :columns="columns" :data="records" :options="table_options">
@@ -8,18 +8,18 @@
 				</span>
 			</div>
 			<div slot="id" slot-scope="props" class="text-center">
-				<button @click="acceptRequest(props.index)" 
+				<button @click="acceptRequest(props.index)"
 						class="btn btn-success btn-xs btn-icon btn-action"
 						title="Aceptar Solicitud" data-toggle="tooltip" type="button">
 					<i class="fa fa-check"></i>
 				</button>
-				
-				<button @click="rejectedRequest(props.index)" 
+
+				<button @click="rejectedRequest(props.index)"
 						class="btn btn-danger btn-xs btn-icon btn-action" title="Rechazar Solicitud" data-toggle="tooltip" type="button">
 					<i class="fa fa-ban"></i>
 				</button>
 
-				<button @click="deleteRecord(props.index, 'requests/deliveries')" 
+				<button @click="deleteRecord(props.index, 'requests/deliveries')"
 						class="btn btn-danger btn-xs btn-icon btn-action" title="Eliminar registro" data-toggle="tooltip" type="button">
 					<i class="fa fa-trash-o"></i>
 				</button>
@@ -28,7 +28,7 @@
 		</v-client-table>
 
 	</div>
-	
+
 </template>
 
 <script>
@@ -125,9 +125,9 @@
 	    				}
 	    			}
 	    		});
-				
+
 			},
 
 		}
-	}
+	};
 </script>

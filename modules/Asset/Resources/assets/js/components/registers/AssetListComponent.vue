@@ -100,18 +100,6 @@
 	</section>
 </template>
 
-<style type="text/css">
-	.VueTables__search {
-		display: none;
-	}
-	.VueTables__limit {
-		display: none;
-	}
-	.VuePagination {
-		display: none;
-	}
-</style>
-
 <script>
 	export default {
 		data() {
@@ -137,7 +125,9 @@
 						'text': '50'
 					}
 				],
-				columns: ['inventory_serial', 'institution', 'asset_condition','asset_status','serial','marca','model', 'id']
+				columns: [
+                    'inventory_serial', 'institution', 'asset_condition','asset_status','serial','marca','model', 'id'
+                ]
 			}
 		},
 		created() {
@@ -151,8 +141,12 @@
 				'model': 'Modelo',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['inventory_serial', 'institution', 'asset_condition', 'asset_status', 'serial', 'marca', 'model'];
-			this.table_options.filterable = ['inventory_serial', 'institution', 'asset_condition', 'asset_status', 'serial', 'marca', 'model'];
+			this.table_options.sortable = [
+                'inventory_serial', 'institution', 'asset_condition', 'asset_status', 'serial', 'marca', 'model'
+            ];
+			this.table_options.filterable = [
+                'inventory_serial', 'institution', 'asset_condition', 'asset_status', 'serial', 'marca', 'model'
+            ];
 			this.table_options.orderBy = { 'column': 'id'};
 		},
 		mounted () {

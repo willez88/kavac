@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<a class="btn btn-info btn-xs btn-icon btn-action" 
-		   href="#" title="Ver información de la operación" data-toggle="tooltip" 
+		<a class="btn btn-info btn-xs btn-icon btn-action"
+		   href="#" title="Ver información de la operación" data-toggle="tooltip"
 		   @click="addRecord('view_operation', route_list, $event)">
 			<i class="fa fa-info-circle"></i>
 		</a>
@@ -13,11 +13,11 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-read-book ico-2x"></i> 
+							<i class="icofont icofont-read-book ico-2x"></i>
 							Información de la Operación Registrada
 						</h6>
 					</div>
-					
+
 					<div class="modal-body">
 
 						<div class="alert alert-danger" v-if="errors.length > 0">
@@ -68,7 +68,7 @@
 		                            </div>
 		                        </div>
 	                    	</div>
-	                    	
+
 	                    	<div class="tab-pane" id="equipment" role="tabpanel">
 	                    		<div class="row">
 		                            <div class="col-md-12">
@@ -106,8 +106,8 @@
 					</div>
 
 	                <div class="modal-footer">
-	                	
-	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
@@ -145,7 +145,7 @@
 		methods: {
 			/**
              * Método que borra todos los datos del formulario
-             * 
+             *
              * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
              */
             reset() {
@@ -161,12 +161,12 @@
             	const vm = this;
             	vm.errors = [];
 				vm.reset();
-            	
+
             	document.getElementById("info_general").click();
-            	
+
             	$(".modal-body #url_search").val( vm.operation.type_operation + '/' + vm.operation.code );
             	document.getElementById('created_at').innerText = (vm.operation.created_at)?vm.operation.created_at:'N/A';
-            	document.getElementById('type_operation').innerText = 
+            	document.getElementById('type_operation').innerText =
         		(vm.operation.type_operation == 'registers')?'Registro de bienes':(
         			(vm.operation.type_operation == 'asignations')?'Asignación de bienes':(
         				(vm.operation.type_operation == 'requests')?'Solicitud de bienes':(
@@ -187,5 +187,5 @@
 				});
 			}
 		},
-	}
+	};
 </script>
