@@ -287,16 +287,6 @@ Vue.component('asset-dashboard-graphs', () => import(
 );
 
 /**
- * Componente para la gestión de gráficos estadísticos del módulo de bienes
- *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- */
-Vue.component('asset-graph-charts', () => import(
-    /* webpackChunkName: "asset-graph-charts" */
-    './components/dashboard/AssetGraphChartsComponent.vue')
-);
-
-/**
  * Componente para mostrar la información de una operación asociada al módulo de bienes
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
@@ -314,6 +304,16 @@ Vue.component('asset-operations-history-info', () => import(
 Vue.component('asset-operations-history-list', () => import(
     /* webpackChunkName: "asset-operations-history-list" */
     './components/dashboard/AssetOperationsHistoryListComponent.vue')
+);
+
+/**
+ * Componente para la gestión de gráficos estadísticos del módulo de bienes
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('asset-graph-charts', () => import(
+    /* webpackChunkName: "asset-graph-charts" */
+    './components/dashboard/AssetGraphChartsComponent.vue')
 );
 
 /**
