@@ -19,9 +19,9 @@
 @section('content')
 	<div class="row">
 		<div class="col-12">
-			<payroll-professional-information :payroll_professional_information_id="{!! (isset($payrollProfessionalInformation)) ? $payrollProfessionalInformation->id : "null" !!}"
-                route_list='{{ url('payroll/professional-informations') }}'>
-            </payroll-professional-information>
+			<payroll-professional :payroll_professional_id="{!! (isset($payrollProfessional)) ? $payrollProfessional->id : "null" !!}"
+                route_list='{{ url('payroll/professionals') }}'>
+            </payroll-professional>
 		</div>
 	</div>
 @stop

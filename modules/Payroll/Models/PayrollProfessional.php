@@ -9,7 +9,7 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
- * @class PayrollProfessionalInformation
+ * @class PayrollProfessional
  * @brief Datos de la información profesional del trabajador
  *
  * Gestiona el modelo de información profesional del trabajador
@@ -19,13 +19,11 @@ use App\Traits\ModelsTrait;
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class PayrollProfessionalInformation extends Model implements Auditable
+class PayrollProfessional extends Model implements Auditable
 {
     use SoftDeletes;
     use AuditableTrait;
     use ModelsTrait;
-
-    protected $table = 'payroll_professional_informations';
 
     /**
      * Lista de atributos para la gestión de fechas
@@ -35,13 +33,11 @@ class PayrollProfessionalInformation extends Model implements Auditable
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
-     *
      * @var array $fillable
      */
     protected $fillable = [
-        'payroll_instruction_degree_id', 'instruction_degree_name', 'is_student',
-        'payroll_study_type_id', 'study_program_name', 'class_schedule',
-        'payroll_staff_id'
+        'instruction_degree_name', 'is_student', 'study_program_name', 'class_schedule',
+        'payroll_staff_id', 'payroll_instruction_degree_id', 'payroll_study_type_id',
     ];
 
     /**
@@ -67,17 +63,6 @@ class PayrollProfessionalInformation extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene las informacines profesionales del trabajador que están asociadas a muchas profesiones
-     *
-     * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function professions()
-    {
-        return $this->belongsToMany(Profession::class)->withTimestamps();
-    }
-
-    /**
      * Método que obtiene la información profesional del trabajador asociado a un tipo de estudio
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
@@ -89,7 +74,18 @@ class PayrollProfessionalInformation extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene las informaciones profesionales del trabajador que están asociados a muchos idiomas
+     * Método que obtiene las informacines profesionales del trabajador asociadas a muchas profesiones
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function professions()
+    {
+        return $this->belongsToMany(Profession::class)->withTimestamps();
+    }
+
+    /**
+     * Método que obtiene las informaciones profesionales del trabajador asociados a muchos idiomas
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -99,13 +95,13 @@ class PayrollProfessionalInformation extends Model implements Auditable
         return $this->belongsToMany(
             PayrollLanguage::class,
             'payroll_language_language_level_professional',
-            'payroll_professional_information_id',
+            'payroll_professional_id',
             'payroll_language_id'
         )->withPivot('payroll_language_level_id')->withTimestamps();
     }
 
     /**
-     * Método que obtiene las informaciones profesionales del trabajador que están asociados a muchos niveles de idioma
+     * Método que obtiene las informaciones profesionales del trabajador asociados a muchos niveles de idioma
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -115,7 +111,7 @@ class PayrollProfessionalInformation extends Model implements Auditable
         return $this->belongsToMany(
             PayrollLanguageLevel::class,
             'payroll_language_language_level_professional',
-            'payroll_professional_information_id',
+            'payroll_professional_id',
             'payroll_language_level_id'
         )->withPivot('payroll_language_id')->withTimestamps();
     }

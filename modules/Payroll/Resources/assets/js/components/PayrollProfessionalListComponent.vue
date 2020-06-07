@@ -31,7 +31,7 @@
                 <span v-else>NO</span>
             </div>
     	</v-client-table>
-        <div class="modal fade" tabindex="-1" role="dialog" id="show_professional_information">
+        <div class="modal fade" tabindex="-1" role="dialog" id="show_professional">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -110,7 +110,7 @@
                                     <ckeditor :editor="ckeditor.editor" id="class_schedule" data-toggle="tooltip"
                                               title="Indique el horario de clase" :config="ckeditor.editorConfig"
                                               class="form-control" name="class_schedule" tag-name="textarea"
-                                              rows="4" disabled="true"></ckeditor>
+                                              rows="4"></ckeditor>
                                 </div>
                             </div>
                         </div>
@@ -178,7 +178,7 @@
             },
 
             show_info(id) {
-                axios.get('/payroll/professional-informations/' + id).then(response => {
+                axios.get('/payroll/professionals/' + id).then(response => {
 					this.record = response.data.record;
                     $('#payroll_staff').val(this.record.payroll_staff.first_name + ' ' + this.record.payroll_staff.last_name);
                     $('#payroll_instruction_degree').val(this.record.payroll_instruction_degree.name);
@@ -188,7 +188,7 @@
                     $('#study_program_name').val(this.record.study_program_name);
                     $('#class_schedule').val(this.record.class_schedule);
 				});
-                $('#show_professional_information').modal('show');
+                $('#show_professional').modal('show');
             }
         }
     };

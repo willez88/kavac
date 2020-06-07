@@ -24,16 +24,16 @@
 					<h6 class="card-title">Datos Profesionales</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
-						@include('buttons.new', ['route' => route('payroll.professional-informations.create')])
+						@include('buttons.new', ['route' => route('payroll.professionals.create')])
 						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-					<payroll-professional-informations-list route_list="{{ url('payroll/professional-informations/show/vue-list') }}"
-										  route_delete="{{ url('payroll/professional-informations') }}"
-										  route_edit="{{ url('payroll/professional-informations/{id}/edit') }}"
-										  route_show="{{ url('payroll/professional-informations/{id}') }}">
-					</payroll-professional-informations-list>
+					<payroll-professional-list route_list="{{ url('payroll/professionals/show/vue-list') }}"
+										  route_delete="{{ url('payroll/professionals') }}"
+										  route_edit="{{ url('payroll/professionals/{id}/edit') }}"
+										  route_show="{{ url('payroll/professionals/{id}') }}">
+					</payroll-professional-list>
 				</div>
 			</div>
 		</div>

@@ -127,14 +127,14 @@ Route::group([
         'PayrollSocioeconomicController@vueList'
     )->name('payroll.socioeconomics.vue-list');
 
-    Route::resource('professional-informations', 'PayrollProfessionalInformationController', ['as' => 'payroll']);
+    Route::resource('professionals', 'PayrollProfessionalController', ['as' => 'payroll']);
     Route::get(
-        'professional-informations/show/vue-list',
-        'PayrollProfessionalInformationController@vueList'
-    )->name('payroll.professional-informations.vue-list');
+        'professionals/show/vue-list',
+        'PayrollProfessionalController@vueList'
+    )->name('payroll.professionals.vue-list');
     Route::get(
         'get-json-professions',
-        'PayrollProfessionalInformationController@getJsonProfessions'
+        'PayrollProfessionalController@getJsonProfessions'
     )->name('payroll.get-json-professions');
 
     Route::resource(

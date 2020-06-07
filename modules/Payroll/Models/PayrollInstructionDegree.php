@@ -46,9 +46,9 @@ class PayrollInstructionDegree extends Model implements Auditable
      * @author William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function payrollProfessionalInformations()
+    public function payrollProfessionals()
     {
-        return $this->hasMany(PayrollProfessionalInformation::class);
+        return $this->hasMany(PayrollProfessional::class);
     }
 
     /**

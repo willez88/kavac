@@ -116,9 +116,9 @@ class PayrollStaff extends Model implements Auditable
      * @author William Páez <wpaezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function payrollSocioecomicInformation()
+    public function payrollSocioeconomic()
     {
-        return $this->hasOne(PayrollSocioeconomicInformation::class);
+        return $this->hasOne(PayrollSocioeconomic::class);
     }
 
     /**
@@ -127,9 +127,9 @@ class PayrollStaff extends Model implements Auditable
      * @author William Páez <wpaezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function payrollProfessionalInformation()
+    public function payrollProfessional()
     {
-        return $this->hasOne(PayrollProfessionalInformation::class);
+        return $this->hasOne(PayrollProfessional::class);
     }
 
     /**
