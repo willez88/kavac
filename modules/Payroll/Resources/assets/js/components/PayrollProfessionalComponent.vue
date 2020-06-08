@@ -44,7 +44,7 @@
 						<div class="col-md-4" v-show="record.payroll_instruction_degree_id == 4 || record.payroll_instruction_degree_id == 5">
 							<div class="form-group is-required">
 								<label>Profesiones:</label>
-								<v-multiselect :options="json_professions" v-if="payroll_professional_information_id" track_by="name"
+								<v-multiselect :options="json_professions" v-if="payroll_professional_id" track_by="name"
 									:hide_selected="false" :selected="record.professions" v-model="record.professions">
 								</v-multiselect>
 								<v-multiselect :options="professions" v-else track_by="text"
@@ -170,7 +170,7 @@
 							title="Cancelar y regresar" @click="redirect_back(route_list)">
 						<i class="fa fa-ban"></i>
 					</button>
-	                <button type="button" @click="createRecord('payroll/professional-informations')"
+	                <button type="button" @click="createRecord('payroll/professionals')"
 	                	class="btn btn-success btn-icon btn-round">
 	                	<i class="fa fa-save"></i>
 		            </button>
@@ -184,7 +184,7 @@
 	var formData = new FormData();
 	export default {
 		props: {
-			payroll_professional_information_id: Number,
+			payroll_professional_id: Number,
 		},
 		data() {
 			return {
@@ -212,9 +212,9 @@
 		},
 		methods: {
 
-			getProfessionalInformation() {
+			getProfessional() {
 				const vm = this;
-				axios.get('/payroll/professional-informations/' + vm.payroll_professional_information_id).then(response => {
+				axios.get('/payroll/professionals/' + vm.payroll_professional_id).then(response => {
 					vm.record.id = response.data.record.id;
 					vm.record.payroll_staff_id = response.data.record.payroll_staff_id;
 					vm.record.payroll_instruction_degree_id = response.data.record.payroll_instruction_degree_id;
@@ -309,8 +309,8 @@
 			this.record.is_student = false;
 		},
 		mounted() {
-			if(this.payroll_professional_information_id) {
-				this.getProfessionalInformation();
+			if(this.payroll_professional_id) {
+				this.getProfessional();
 				this.getJsonProfessions();
 			}
 			this.switchHandler('is_student');

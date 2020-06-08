@@ -565,7 +565,7 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'slug_alt' => 'tipo.sangre.eliminar'
             ],
             /**
-             * socioeconomic
+             * socioeconomics
              */
             [
                 'name' => 'Ver los datos socioeconómicos',
@@ -598,6 +598,41 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollSocioeconomic',
                 'model_prefix' => 'nomina',
                 'slug_alt' => 'socioeconomico.eliminar'
+            ],
+            /**
+             * Professionals
+             */
+            [
+                'name' => 'Ver los datos de profesionales',
+                'slug' => 'payroll.professionals.list',
+                'description' => 'Acceso para ver los datos profesionales',
+                'model' => 'Modules\Payroll\Models\PayrollProfessional',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'profesional.ver'
+            ],
+            [
+                'name' => 'Crear datos profesionales',
+                'slug' => 'payroll.professionals.create',
+                'description' => 'Acceso para crear datos profesionales',
+                'model' => 'Modules\Payroll\Models\PayrollProfessional',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'profesional.crear'
+            ],
+            [
+                'name' => 'Editar datos profesionales',
+                'slug' => 'payroll.professionals.edit',
+                'description' => 'Acceso para editar datos profesionales',
+                'model' => 'Modules\Payroll\Models\PayrollProfessional',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'profesional.editar'
+            ],
+            [
+                'name' => 'Eliminar datos profesionales',
+                'slug' => 'payroll.professionals.delete',
+                'description' => 'Acceso para eliminar datos profesionales',
+                'model' => 'Modules\Payroll\Models\PayrollProfessional',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'profesional.eliminar'
             ],
         ];
 

@@ -46,8 +46,8 @@ class PayrollStudyType extends Model implements Auditable
      * @author William Páez <wpaezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function payrollProfessionalInformations()
+    public function payrollProfessionals()
     {
-        return $this->hasMany(PayrollProfessionalInformation::class);
+        return $this->hasMany(PayrollProfessional::class);
     }
 }
