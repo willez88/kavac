@@ -92,7 +92,7 @@ class AssetRequestController extends Controller
             'type_id'       => ['required'],
             'motive'        => ['required'],
             'delivery_date' => ['required'],
-            'file'          => ['max:5000', 'mimes:pdf,docx,doc,odt']
+            'files.*'       => ['max:5000', 'mimes:pdf,docx,doc,odt']
 
         ]);
 
@@ -151,19 +151,19 @@ class AssetRequestController extends Controller
             ]);
         }
 
-        $documentFormat = ['doc', 'docx', 'pdf', 'odt'];
-        $extensionFile = $request->file('file')->getClientOriginalExtension();
-        if (in_array($extensionFile, $documentFormat)) {
-            $upDoc->uploadDoc(
-                $request->file('file'),
-                'documents',
-                AssetRequest::class,
-                $asset_request->id,
-                null,
-                false,
-                false,
-                true
-            );
+        if ($request->files) {
+            foreach ($request->file('files') as $file) {
+                $upDoc->uploadDoc(
+                    $file,
+                    'documents',
+                    AssetRequest::class,
+                    $asset_request->id,
+                    null,
+                    false,
+                    false,
+                    true
+                );
+            }
         }
 
         $request->session()->flash('message', ['type' => 'store']);
