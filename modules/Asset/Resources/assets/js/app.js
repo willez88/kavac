@@ -311,10 +311,11 @@ Vue.component('asset-operations-history-list', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('asset-graph-charts', () => import(
+//Vue.component('asset-graph-charts', () => import(
     /* webpackChunkName: "asset-graph-charts" */
-    './components/dashboard/AssetGraphChartsComponent.vue')
-);
+    //'./components/dashboard/AssetGraphChartsComponent.vue')
+//);
+Vue.component('asset-graph-charts', require('./components/dashboard/AssetGraphChartsComponent.vue').default);
 
 /**
  * Opciones de configuración global del módulo de bienes
