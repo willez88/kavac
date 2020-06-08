@@ -101,23 +101,42 @@ div.multiselect {
   float: right;
 }
 
-.pretty.p-switch .state:before {
-  width: 3em !important;
+.pretty.p-switch.p-bigger .state:before {
+  content: "NO";
+  color: #FFFFFF;
   background-color: #f96332 !important;
-  border-color: #f96332 !important;
+  border-color: #f96332;
+  height: calc(1em);
+  width: 3em !important;
+  top: calc((0% - (100% - 1em)) + 2px);
+  font-size: 10px;
+  font-weight: bold;
+  text-align: right;
+  padding: 2px 5px;
 }
 
-.pretty.p-switch .state label {
-  text-indent: 4em !important;
+.pretty.p-switch.p-bigger input {
+  min-width: 3em;
 }
 
-.pretty.p-switch input:checked ~ .state label:after {
-  left: 25px !important;
+.pretty.p-switch.p-fill.p-bigger input:checked ~ .state label:after {
+  left: 2em !important;
 }
 
 .pretty.p-bigger label:before,
 .pretty.p-bigger label:after {
   font-size: 1.3em !important;
-  top: calc((0% - (100% - 1em)) - 20%) !important;
+  top: calc((0% - (100% - 1em)) - 3px) !important;
+  left: 3px !important;
+}
+
+.pretty.p-bigger label:after {
+  margin-left: -3px;
+}
+
+.pretty.p-switch.p-bigger input:checked ~ .state:before {
+  content: "SI";
+  text-align: left;
+  padding: 3px 0px 2px 10px;
 }
 

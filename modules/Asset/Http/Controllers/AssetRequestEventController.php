@@ -10,7 +10,6 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Auth;
 use Modules\Asset\Models\AssetRequestEvent;
 use Modules\Asset\Models\Asset;
-use App\Models\Document;
 use App\Repositories\UploadDocRepository;
 
 use Modules\TechnicalSupport\Models\TechnicalSupportRequest;
@@ -48,7 +47,7 @@ class AssetRequestEventController extends Controller
      * @param  \Illuminate\Http\Request  $request   Datos de la petición
      * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
      */
-    public function store(Request $request, UploadDocRepository $up)
+    public function store(Request $request, UploadDocRepository $upDoc)
     {
         $this->validate($request, [
             'type'             => ['required', 'max:100'],
@@ -59,25 +58,34 @@ class AssetRequestEventController extends Controller
         ]);
         if ($request->type == 2) {
             $this->validate($request, [
-                'file' => ['required', 'mimes:doc,pdf,odt,docx']
+                'files.*' => ['required', 'mimes:doc,pdf,odt,docx']
             ]);
-            $doc = null;
-            if ($request->file('file')) {
-                /** Gestiona la carga del archivo del documento al servidor y la asigna al campo correspondiente */
-                if ($up->uploadDoc($request->file('file'), 'documents')) {
-                    $doc = $up->getDocStored()->id;
-                }
-            }
-            $document = Document::find($doc);
         }
+
         $request->equipments = json_decode($request->equipments);
 
         $event = AssetRequestEvent::create([
             'type'             => $request->input('type'),
-            'document_id'      => $document->id ?? null,
             'description'      => $request->input('description'),
             'asset_request_id' => $request->input('asset_request_id')
         ]);
+        if ($request->type == 2) {
+            /** Carga los documentos en el servidor */
+            if ($request->files) {
+                foreach ($request->file('files') as $file) {
+                    $upDoc->uploadDoc(
+                        $file,
+                        'documents',
+                        AssetRequestEvent::class,
+                        $event->id,
+                        null,
+                        false,
+                        false,
+                        true
+                    );
+                }
+            }
+        }
         foreach ($request->equipments as $equipment) {
             $asset = Asset::find($equipment);
             /** Si se selecciona la opción averiado */

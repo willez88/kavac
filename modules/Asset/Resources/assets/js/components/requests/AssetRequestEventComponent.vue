@@ -61,45 +61,11 @@
 						</div>
 						<div class="row">
 							<div class="col-md-6" v-show="record.type == 2">
-								<input type="hidden" id="documents" name="documents" readonly>
-								<div class="form-group is-required">
-									<div class="feature-list-content p-0">
-					                    <div class="feature-list-content-wrapper">
-					                        <div class="feature-list-content-left">
-					                            <div class="feature-list-heading">
-					                            	<label>Informe de Especificación:</label>
-					                                <div class="badge badge-danger ml-2"
-					                                	 title="El documento aún no ha sido cargado"
-					                                	 data-toggle="tooltip">
-					                                	por cargar
-					                                </div>
-					                            </div>
-					                            <div class="feature-list-subheading">
-					                            	<i>Operaciones</i>
-					                            </div>
-					                        </div>
-					                        <div class="feature-list-content-right feature-list-content-actions">
-					                        	<button class="btn btn-simple btn-success btn-events"
-					                        			title="Presione para cargar el documento"
-					                        			data-toggle="tooltip" type="button"
-					                        			onclick="$('#file').click()">
-					                        		<i class="fa fa-cloud-upload fa-2x"></i>
-					                        	</button>
-					                        	<button class="btn btn-simple btn-primary btn-events"
-					                        			title="Presione para descargar el documento"
-					                        			data-toggle="tooltip" type="button">
-					                        		<i class="fa fa-cloud-download fa-2x"></i>
-					                        	</button>
-				                                <button class="btn btn-sm btn-danger btn-action" type="button"
-				                                        title="Eliminar documento" data-toggle="tooltip">
-				                                    <i class="fa fa-minus-circle"></i>
-				                                </button>
-												<input type="file" id="file" name="file" style="display:none"
-					                        		   accept=".doc, .pdf, .odt, .docx" @change="processFile()">
-					                        </div>
-					                    </div>
-					                </div>
-			                    </div>
+								<div class="form-group">
+									<label> Informe de especificaciones </label>
+									<input id="files" name="files" type="file"
+										   accept=".docx, .doc, .odt, .pdf" multiple>
+								</div>
 							</div>
 						</div>
 						<hr>
@@ -165,7 +131,7 @@
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
-	                	<button type="button" @click="createRequest('asset/requests/request-event')"
+	                	<button type="button" @click="createRecord('asset/requests/request-event')"
 	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
 	                		Guardar
 		                </button>
@@ -176,14 +142,7 @@
 	</div>
 </template>
 
-<style>
-	.selected-row {
-		background-color: #d1d1d1 !important;
-	}
-</style>
-
 <script>
-	var formData = new FormData();
 	export default {
 		data() {
 			return {
@@ -192,8 +151,7 @@
 					type: '',
 					asset_request_id: '',
 					description: '',
-					equipments: [],
-					document_id: ''
+					equipments: []
 
 				},
 				types: [],
@@ -240,15 +198,18 @@
 					if (index >= 0){
 						vm.selected.splice(index,1);
 					}
-					else
+					else {
 						checkbox.click();
+                    }
 				}
 				else if ((checkbox)&&(checkbox.checked == true)) {
 					var index = vm.selected.indexOf(row.asset_id);
-					if (index >= 0)
+					if (index >= 0) {
 						checkbox.click();
-					else
+                    }
+					else {
 						vm.selected.push(row.asset_id);
+                    }
 				}
 		    },
 		    select()
@@ -258,8 +219,9 @@
 				$.each(vm.equipments, function(index,campo){
 					var checkbox = document.getElementById('checkbox_' + campo.asset_id);
 
-					if(!vm.selectAll)
+					if(!vm.selectAll) {
 						vm.selected.push(campo.asset_id);
+                    }
 					else if(checkbox && checkbox.checked){
 						checkbox.click();
 					}
@@ -276,26 +238,51 @@
 					type: '',
 					asset_request_id: '',
 					description: '',
-					equipments: [],
-					document_id: ''
+					equipments: []
 				};
 			},
-			createRequest(url) {
+			/**
+             * Reescribe el método createRecord para cambiar su comportamiento por defecto
+             * Método que permite crear o actualizar un registro
+             *
+             * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             *
+             * @param     {string}    url      Ruta de la acción a ejecutar para la creación o actualización de datos
+             * @param     {string}    list     Condición para establecer si se cargan datos en un listado de tabla.
+             *                                 El valor por defecto es verdadero.
+             * @param     {string}    reset    Condición que evalúa si se inicializan datos del formulario.
+             *                                 El valor por defecto es verdadero.
+             */
+            createRecord(url, list = true, reset = true) {
 				const vm = this;
+				if(!vm.selected.length > 0){
+                	bootbox.alert("Debe agregar almenos un elemento a la solicitud");
+					return false;
+				};
+				var inputFiles = document.querySelector('#files');
+				var formData   = new FormData();
+
+				vm.errors = [];
 				vm.record.asset_request_id = vm.id;
 				vm.record.equipments = vm.selected;
+
 	            if (vm.record.id) {
 	                vm.updateRecord(url);
 	            } else {
 	                vm.loading = true;
 
-	                for (var index in this.record) {
+	                for (var index in vm.record) {
 	                	if (index == 'equipments') {
 	                		formData.append(index, JSON.stringify(vm.record[index]));
 	                	}else {
 	                		formData.append(index, vm.record[index]);
 	                	}
 	                }
+	                for( var i = 0; i < inputFiles.files.length; i++ ){
+					  let file = inputFiles.files[i];
+
+					  formData.append('files[' + i + ']', file);
+					}
 	                axios.post('/' + url, formData, {
                     	headers: {
                         	'Content-Type': 'multipart/form-data'
@@ -305,11 +292,15 @@
 	                        location.href = response.data.redirect;
 	                    }
 	                    else {
-	                        vm.errors = [];
-	                        vm.reset();
-	                        vm.readRecords(url);
-	                        vm.loading = false;
-	                        vm.showMessage('store');
+	                    	vm.errors = [];
+                            if (reset) {
+                                vm.reset();
+                            }
+                            if (list) {
+                                vm.readRecords(url);
+                            }
+                            vm.loading = false;
+                            vm.showMessage('store');
 	                    }
 
 	                }).catch(error => {
@@ -339,51 +330,23 @@
 			},
 			viewMessage() {
             	const vm = this;
-            	vm.showMessage('custom', 'Alerta', 'danger', 'screen-error', 'La solicitud está en un tramite que no le permite acceder a esta funcionalidad');
+            	vm.showMessage(
+                    'custom', 'Alerta', 'danger', 'screen-error',
+                    'La solicitud está en un tramite que no le permite acceder a esta funcionalidad'
+                );
             	return false;
             },
-            processFile() {
-                const vm = this;
-                var inputFile = document.querySelector('#file');
-                formData.append("file", inputFile.files[0]);
-                vm.showMessage(
-                    'custom', 'Éxito', 'success', 'screen-ok',
-                    'Documento cargado de manera existosa.'
-                );
-                return;
-                axios.post('/asset/requests/validate-document', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                }).then(response => {
-
-                    if ( ! response.data.result) {
-                        vm.showMessage(
-                            'custom', 'Error', 'danger', 'screen-error',
-                            response.data.message
-                        );
-                    } else {
-
-                    }
-                }).catch(error => {
-                    if (typeof(error.response) !== "undefined") {
-                        if (error.response.status == 422 || error.response.status == 500) {
-                            vm.showMessage(
-                                'custom',
-                                'Error',
-                                'danger',
-                                'screen-error',
-                                "El documento debe ser un archivo en formato: .doc, .pdf, .odt, .docx"
-                            );
-                        }
-                    }
-                });
-			},
 		},
+		mounted() {
+            const vm = this;
+            $("#add_event").on('show.bs.modal', function() {
+                vm.reset();
+                vm.getTypes();
+				vm.getEquipments();
+            });
+        },
 		created() {
-			this.getTypes();
-			this.getEquipments();
-			this.record.equipments = [];
+			//
 		},
-	}
+	};
 </script>

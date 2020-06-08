@@ -48,6 +48,22 @@
   width: 100%;
 }
 
+.selected-row {
+  background-color: #d1d1d1 !important;
+}
+
+.VueTables__search {
+  display: none;
+}
+
+.VueTables__limit {
+  display: none;
+}
+
+.VuePagination {
+  display: none;
+}
+
 var map = {
 	"./af": "../../node_modules/moment/locale/af.js",
 	"./af.js": "../../node_modules/moment/locale/af.js",

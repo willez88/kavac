@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<a class="btn btn-info btn-xs btn-icon btn-action" 
-		   href="#" title="Ver información del Bien" data-toggle="tooltip" 
+		<a class="btn btn-info btn-xs btn-icon btn-action"
+		   href="#" title="Ver información del Bien" data-toggle="tooltip"
 		   @click="addRecord('add_asset', route_list ,$event)">
 			<i class="fa fa-info-circle"></i>
 		</a>
@@ -13,11 +13,11 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-read-book ico-2x"></i> 
+							<i class="icofont icofont-read-book ico-2x"></i>
 							Información del Bien Registrado
 						</h6>
 					</div>
-					
+
 					<div class="modal-body">
 
 						<ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
@@ -68,7 +68,7 @@
 											</div>
 										</div>
 									</div>
-							                
+
 
 							        <div class="col-md-6">
 										<div class="form-group">
@@ -79,7 +79,7 @@
 											</div>
 										</div>
 									</div>
-							                
+
 									<div class="col-md-6">
 										<div class="form-group">
 											<strong>Código</strong>
@@ -98,7 +98,7 @@
 											</div>
 										</div>
 									</div>
-							                
+
 
 							        <div class="col-md-6">
 										<div class="form-group">
@@ -133,7 +133,7 @@
 											</div>
 										</div>
 									</div>
-							                
+
 
 							        <div class="col-md-6">
 										<div class="form-group">
@@ -144,7 +144,7 @@
 											</div>
 										</div>
 									</div>
-							                
+
 
 							        <div class="col-md-6">
 										<div class="form-group">
@@ -155,7 +155,7 @@
 											</div>
 										</div>
 									</div>
-							                
+
 							        <div class="col-md-6">
 										<div class="form-group">
 											<strong>Proveedor</strong>
@@ -165,7 +165,7 @@
 											</div>
 										</div>
 									</div>
-							                
+
 
 							        <div class="col-md-6">
 										<div class="form-group">
@@ -176,7 +176,7 @@
 											</div>
 										</div>
 									</div>
-							                
+
 
 							        <div class="col-md-6">
 										<div class="form-group">
@@ -187,7 +187,7 @@
 											</div>
 										</div>
 									</div>
-							                
+
 							        <div class="col-md-6">
 										<div class="form-group">
 											<strong>Función de Uso</strong>
@@ -197,7 +197,7 @@
 											</div>
 										</div>
 									</div>
-							                
+
 
 							        <div class="col-md-6">
 										<div class="form-group">
@@ -214,7 +214,7 @@
 	                </div>
 
 	                <div class="modal-footer">
-	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
@@ -236,7 +236,7 @@
 		methods: {
 			/**
              * Método que borra todos los datos del formulario
-             * 
+             *
              * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
              */
             reset() {
@@ -254,7 +254,7 @@
 
 				const vm = this;
             	var fields = {};
-            	
+
             	document.getElementById("info_general").click();
 
             	axios.get(url).then(response => {
@@ -296,7 +296,7 @@
 					}
 				});
             }
-			
+
 		},
-	}
+	};
 </script>

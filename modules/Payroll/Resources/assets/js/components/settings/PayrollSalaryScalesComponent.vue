@@ -2,7 +2,7 @@
 	<section id="PayrollSalaryScalesFormComponent">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="#" title="Registros de los escalafones salariales" data-toggle="tooltip"
-		   @click="addRecord('add_payroll_salary_scale', 'salary-scale', $event)">
+		   @click="addRecord('add_payroll_salary_scale', 'salary-scales', $event)">
 		   <i class="icofont icofont-growth ico-3x"></i>
 			<span>Escalafones Salariales</span>
 		</a>
@@ -58,17 +58,13 @@
 			                            <div class="form-group">
 			                                <label for="active">¿Activa?</label>
 			                                <div class="col-12">
-			                                    <div class="pretty p-switch p-fill p-bigger p-toggle">
-			                                        <input type="checkbox" data-toggle="tooltip"
-			                                               title="Indique si el escalafón está activo"
-			                                               v-model="record.active">
-			                                            <div class="state p-off">
-			                                                <label>NO</label>
-			                                            </div>
-			                                            <div class="state p-on p-success">
-			                                                <label>SI</label>
-			                                            </div>
-			                                    </div>
+                                                <p-check class="pretty p-switch p-fill p-bigger"
+                                                         color="success" off-color="text-gray" toggle
+                                                         data-toggle="tooltip"
+                                                         title="Indique si el escalafón está activo"
+                                                         v-model="record.active">
+                                                    <label slot="off-label"></label>
+                                                </p-check>
 			                                </div>
 			                            </div>
 			                            <!-- ./activa -->
@@ -111,22 +107,36 @@
                                         <label>{{ field.name }}</label>
                                         <div class="col-12">
                                             <div class="pretty p-switch p-fill p-bigger p-toggle">
-                                                <input type="radio" @input="getOptions(field)"
+                                                <input type="radio"
+                                                       @input="getOptions(field)"
                                                        v-model="record.group_by" :value="field.code">
-                                                    <div class="state p-off">
-                                                        <label>NO</label>
-                                                    </div>
-                                                    <div class="state p-on p-success">
-                                                        <label>SI</label>
-                                                    </div>
+                                                <div class="state p-off">
+                                                    <label></label>
+                                                </div>
+                                                <div class="state p-on p-success">
+                                                    <label></label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-7 pad-top-10 with-border with-radius table-responsive">
+                                <div class="alert alert-danger" v-if="payroll_salary_tabulators_groups.length == 0">
+                                    <div class="container">
+                                        <strong>No se ha registrado ninguna agrupación</strong> Debe dirigirse a Configuración de parámetros de nómina y registrar al menos un grupo de tablas salariales antes de continuar.
+                                    </div>
+                                </div>
+                                <div class="col-7 pad-top-10 with-border with-radius table-responsive"
+                                     v-if="payroll_salary_tabulators_groups.length > 0">
                                     <h6 class="text-center">Escalas o Niveles del Escalafón</h6>
+                                    <div class="row" v-if="record.payroll_scales.length == 0">
+                                        <div class="alert alert-danger">
+                                            <div class="container">
+                                                <strong>No existen registros</strong> Debe seleccionar una agrupación y agregar una nueva escala antes de continuar.
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div v-show="record.payroll_scales.length > 0">
                                         <table class="table table-hover table-striped table-responsive  table-scale">
                                             <thead>
@@ -136,14 +146,18 @@
                                             </thead>
                                             <tbody>
                                                 <tr class="selected-row text-center">
-                                                    <th>{{record.group_by}}</th>
+                                                    <th>{{ getGroupBy }}</th>
                                                     <th v-for="(field,index) in record.payroll_scales">
-                                                        {{
-                                                            (type == 'range') 
-                                                            ? field.value['from'] + ' - ' + field.value['to']
-                                                            : field.value
-                                                            
-                                                        }}
+                                                        <span v-if="type == 'list'
+                                                                 && options.length > 0">
+                                                            {{ getValueScale(field.value) }}
+                                                        </span>
+                                                        <span v-else-if="type == 'range'">
+                                                            {{ field.value['from'] + ' - ' + field.value['to'] }}
+                                                        </span>
+                                                        <span v-else>
+                                                            {{ field.value }}
+                                                        </span>
                                                     </th>
                                                 </tr>
                                                 <tr class="selected-row text-center">
@@ -174,9 +188,11 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-4 offset-1 pad-top-10 with-border with-radius table-responsive">
+                                <div class="col-4 offset-1 pad-top-10 with-border with-radius table-responsive"
+                                     v-if="payroll_salary_tabulators_groups.length > 0">
                                     <h6 class="text-center">Nueva Escala</h6>
-                                    <div class="row">
+                                    <div class="row"
+                                        v-if="record.group_by">
                                         <div class="col-md-12">
                                             <div class="form-group is-required">
                                                 <label>Nombre</label>
@@ -211,12 +227,12 @@
                                                                title="Indique si el valor está expresado puntualmente"
                                                                @input="resetType()"
                                                                v-model="type" value="value">
-                                                            <div class="state p-off">
-                                                                <label>NO</label>
-                                                            </div>
-                                                            <div class="state p-on p-success">
-                                                                <label>SI</label>
-                                                            </div>
+                                                        <div class="state p-off">
+                                                            <label></label>
+                                                        </div>
+                                                        <div class="state p-on p-success">
+                                                            <label></label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -231,12 +247,12 @@
                                                                title="Indique si el valor está expresado en rangos"
                                                                @input="resetType('range')"
                                                                v-model="type" value="range">
-                                                            <div class="state p-off">
-                                                                <label>NO</label>
-                                                            </div>
-                                                            <div class="state p-on p-success">
-                                                                <label>SI</label>
-                                                            </div>
+                                                        <div class="state p-off">
+                                                            <label></label>
+                                                        </div>
+                                                        <div class="state p-on p-success">
+                                                            <label></label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -251,12 +267,12 @@
                                                                title="Indique si el valor está expresado en bool"
                                                                @input="resetType()"
                                                                v-model="type" value="boolean">
-                                                            <div class="state p-off">
-                                                                <label>NO</label>
-                                                            </div>
-                                                            <div class="state p-on p-success">
-                                                                <label>SI</label>
-                                                            </div>
+                                                        <div class="state p-off">
+                                                            <label></label>
+                                                        </div>
+                                                        <div class="state p-on p-success">
+                                                            <label></label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -298,17 +314,18 @@
                                                                title="Indique si el campo está activo"
                                                                v-model="scale.value">
                                                             <div class="state p-off">
-                                                                <label>NO</label>
+                                                                <label></label>
                                                             </div>
                                                             <div class="state p-on p-success">
-                                                                <label>SI</label>
+                                                                <label></label>
                                                             </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row"
+                                         v-if="record.group_by">
                                         <div class="col-md-12">
                                             <button type="button" @click="addScale($event)"
                                                     class="btn btn-sm btn-primary btn-custom float-right"
@@ -325,14 +342,14 @@
 					</div>
 					<div class="modal-footer">
                         <div class="form-group">
-                            <modal-form-buttons :saveRoute="'payroll/salary-scale'"></modal-form-buttons>
+                            <modal-form-buttons :saveRoute="'payroll/salary-scales'"></modal-form-buttons>
                         </div>
                     </div>
 					<div class="modal-body modal-table">
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
-	                		<div slot="description" slot-scope="props" class="text-center">
-	                			<span>{{ (props.row.description) ? props.row.description : 'N/A' }}</span>
-	                		</div>
+	                		<div slot="description" slot-scope="props">
+                                <span v-html="props.row.description"></span>
+                            </div>
 	                		<div slot="active" slot-scope="props" class="text-center">
 	                			<span>{{ (props.row.active) ? 'Activo' : 'Inactivo' }}</span>
 	                		</div>
@@ -342,7 +359,7 @@
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'salary-scale')"
+		                		<button @click="deleteRecord(props.index, 'salary-scales')"
 										class="btn btn-danger btn-xs btn-icon btn-action"
 										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
@@ -366,7 +383,7 @@
                     code:           '',
                     name:           '',
                     description:    '',
-                    active:         '',
+                    active:         false,
                     institution_id: '',
                     group_by:       '',
                     payroll_scales: [],
@@ -412,6 +429,32 @@
                 vm.getPayrollSalaryTabulatorsGroups();
             });
         },
+        computed: {
+            /**
+             * Método que obtiene el nombre de la agrupación de los tabuladores
+             *
+             * @author Henry Paredes <hparedes@cenditel.gob.ve> | <henryp2804@gmail.com>
+             * @return {string}
+             */
+            getGroupBy: function() {
+                const vm = this;
+                let response = '';
+                $.each(vm.payroll_salary_tabulators_groups, function(index, field) {
+                    if (field.code == vm.record.group_by) {
+                        response = field.name;
+                        
+                        if (field.type == 'list') {
+                            vm.type = field.type;
+                            vm.options = [];
+                            axios.get('get-parameter-options/' + field.code).then(response => {
+                                vm.options = response.data;
+                            });
+                        }
+                    }
+                });
+                return response;
+            }
+        },
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
@@ -425,7 +468,7 @@
 					code:           '',
 					name:           '',
 					description:    '',
-					active:         '',
+					active:         false,
 					institution_id: '',
                     group_by:       '',
                     payroll_scales: [],
@@ -443,16 +486,28 @@
                 if (vm.record.payroll_scales.length > 0)
                     vm.resetScale(true);
             },
-            getOptions(object) {
+            getValueScale(value) {
                 const vm = this;
-                    vm.type = object.type;
+                let id = JSON.parse(value);
+                let response = '';
+                $.each(vm.options, function(index, field) {
+                    if (id == field['id']) {
+                        response = field['text'];
+                    }
+                });
+                return response;
+            },
+            getOptions(object, reset = true) {
+                const vm = this;
+                vm.type = object.type;
                 if (object.type == 'list') {
                     vm.options = [];
                     axios.get('get-parameter-options/' + object.code).then(response => {
                         vm.options = response.data;
                     });
                 }
-                vm.resetScale(true);
+
+                vm.resetScale(reset);
             },
             getPayrollSalaryTabulatorsGroups() {
                 const vm = this;
@@ -478,7 +533,11 @@
             editScale(index,event){
                 const vm = this;
                 vm.editIndex = index;
-                vm.scale = vm.record.payroll_scales[index];
+                vm.scale = {
+                    id:    vm.record.payroll_scales[index].id,
+                    name:  vm.record.payroll_scales[index].name,
+                    value: JSON.parse(vm.record.payroll_scales[index].value)
+                },
                 event.preventDefault();
             },
             removeScale(index,event) {

@@ -328,19 +328,21 @@
 					}
 				],
 				columns: ['inventory_serial', 'condition', 'status', 'serial', 'marca', 'model'],
-				mes: [{"id":"","text":"Todos"},
-						{"id":1,"text":"Enero"},
-						{"id":2,"text":"Febrero"},
-						{"id":3,"text":"Marzo"},
-						{"id":4,"text":"Abril"},
-						{"id":5,"text":"Mayo"},
-						{"id":6,"text":"Junio"},
-						{"id":7,"text":"Julio"},
-						{"id":8,"text":"Agosto"},
-						{"id":9,"text":"Septiempre"},
-						{"id":10,"text":"Octubre"},
-						{"id":11,"text":"Noviembre"},
-						{"id":12,"text":"Diciembre"}],
+				mes: [
+                    {"id":"","text":"Todos"},
+                    {"id":1,"text":"Enero"},
+                    {"id":2,"text":"Febrero"},
+                    {"id":3,"text":"Marzo"},
+                    {"id":4,"text":"Abril"},
+                    {"id":5,"text":"Mayo"},
+                    {"id":6,"text":"Junio"},
+                    {"id":7,"text":"Julio"},
+                    {"id":8,"text":"Agosto"},
+                    {"id":9,"text":"Septiempre"},
+                    {"id":10,"text":"Octubre"},
+                    {"id":11,"text":"Noviembre"},
+                    {"id":12,"text":"Diciembre"}
+                ],
 				asset_types: [],
 				asset_categories: [],
 				asset_subcategories: [],
@@ -475,8 +477,9 @@
 					fields[index] = this.record[index];
 				}
 				axios.post('/' + url, fields).then(response => {
-					if (response.data.result == false)
+					if (response.data.result == false) {
 						location.href = response.data.redirect;
+                    }
 					else if (typeof(response.data.redirect) !== "undefined") {
 						window.open(response.data.redirect, '_blank');
 					}
@@ -526,7 +529,7 @@
 						asset_subcategory: vm.record.asset_subcategory_id,
 						asset_specific_category: vm.record.asset_specific_category_id,
 						asset_status: vm.record.asset_status_id
-					}
+					};
 				}
 				else if(vm.record.type_report == 'dependence') {
 					url += '/dependence';
@@ -534,7 +537,7 @@
 						department: vm.record.department_id,
 						institution: vm.record.instituion_id,
 						asset_status: vm.record.asset_status_id
-					}
+					};
 				}
 				if((vm.record.type_report != '')||((vm.record.type_report == 'general')&&(vm.record.type_search != ''))){
 					axios.post(url, fields).then(response => {

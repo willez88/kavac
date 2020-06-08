@@ -174,11 +174,13 @@
                 if (vm.records.length > num_pag) {
                     if (vm.pag <= num_pag){
                         return true;
-                    } else
+                    } else {
                         return vm.checkPag(num_pag + vm.num_pag);
+                    }
                 }
-                else
+                else {
                     return false;
+                }
             },
             firstPag() {
                 const vm = this;

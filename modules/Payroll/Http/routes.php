@@ -209,7 +209,7 @@ Route::group([
      * Rutas para gestionar los escalafones de nómina
      * ------------------------------------------------------------
      */
-    Route::resource('salary-scale', 'PayrollSalaryScaleController', ['except' => ['show','create','edit']]);
+    Route::resource('salary-scales', 'PayrollSalaryScaleController', ['except' => ['show','create','edit']]);
     Route::post('get-salary-scales', 'PayrollSalaryScaleController@getSalaryScales');
     Route::get('salary-scales/info/{id}', 'PayrollSalaryScaleController@info');
 

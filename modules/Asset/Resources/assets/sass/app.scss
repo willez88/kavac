@@ -46,3 +46,17 @@
 .col-xs-12 {
   width: 100%;
 }
+
+.selected-row {
+    background-color: #d1d1d1 !important;
+}
+
+.VueTables__search {
+    display: none;
+}
+.VueTables__limit {
+    display: none;
+}
+.VuePagination {
+    display: none;
+}

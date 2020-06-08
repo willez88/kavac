@@ -17,11 +17,11 @@
 
 			</div>
 			<div slot="id" slot-scope="props" class="text-center d-inline-flex">
-				
-				<asset-request-info 
+
+				<asset-request-info
 					:route_list="'requests/vue-info/' + props.row.id">
 				</asset-request-info>
-				
+
 				<asset-request-extension :requestid="props.row.id"
 										 :state="props.row.state">
 				</asset-request-extension>
@@ -30,21 +30,21 @@
 										:state="props.row.state">
 				</asset-request-event>
 
-				<button @click="deliverEquipment(props.index)" 
+				<button @click="deliverEquipment(props.index)"
 						class="btn btn-primary btn-xs btn-icon btn-action"
 						:disabled="((props.row.state == 'Aprobado')||(props.row.state == 'Pendiente por entrega'))?false:true"
 						data-toggle="tooltip" title="Entregar Equipos" type="button">
 					<i class="icofont icofont-computer"></i>
 				</button>
 
-				<button @click="editForm(props.row.id)" 
+				<button @click="editForm(props.row.id)"
 						class="btn btn-warning btn-xs btn-icon btn-action"
 						:disabled="(props.row.state == 'Pendiente')?false:true"
 						title="Editar Solicitud" data-toggle="tooltip" type="button">
 					<i class="icofont icofont-edit"></i>
 				</button>
 
-				<button @click="deleteRecord(props.index, '')" 
+				<button @click="deleteRecord(props.index, '')"
 						class="btn btn-danger btn-xs btn-icon btn-action" title="Eliminar registro" data-toggle="tooltip" type="button">
 					<i class="fa fa-trash-o"></i>
 				</button>
@@ -54,7 +54,7 @@
 		</v-client-table>
 	</div>
 
-	
+
 </template>
 
 <script>
@@ -65,10 +65,12 @@
 				errors: [],
 				columns: ['code', 'type', 'motive', 'created_at', 'state', 'id'],
 
-				types: [{"id":"","text":"Seleccione..."},
-						{"id":1,"text":"Prestamo de Equipos (Uso Interno)"},
-						{"id":2,"text":"Prestamo de Equipos (Uso Externo)"},
-						{"id":3,"text":"Prestamo de Equipos para Agentes Externos"}],
+				types: [
+                    {"id":"","text":"Seleccione..."},
+                    {"id":1,"text":"Prestamo de Equipos (Uso Interno)"},
+                    {"id":2,"text":"Prestamo de Equipos (Uso Externo)"},
+                    {"id":3,"text":"Prestamo de Equipos para Agentes Externos"}
+                ],
 			}
 		},
 		created() {
@@ -94,7 +96,7 @@
 			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 			 */
 			reset() {
-				
+
 			},
 			deliverEquipment(index) {
 				const vm = this;
@@ -176,5 +178,5 @@
 	        },
 
 		}
-	}
+	};
 </script>

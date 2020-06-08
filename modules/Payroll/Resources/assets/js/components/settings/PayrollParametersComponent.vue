@@ -142,10 +142,10 @@
                                                    title="Indique si el valor indicado está expresado en porcentaje (requerido)"
                                                    v-model="record.percentage">
                                                 <div class="state p-off">
-                                                    <label>NO</label>
+                                                    <label></label>
                                                 </div>
                                                 <div class="state p-on p-success">
-                                                    <label>SI</label>
+                                                    <label></label>
                                                 </div>
                                         </div>
                                     </div>
@@ -171,10 +171,10 @@
                                                            title="Indique si desea utilizar una variable del expediente del Trabajador"
                                                            v-model="variable" value="worker_record">
                                                         <div class="state p-off">
-                                                            <label>NO</label>
+                                                            <label></label>
                                                         </div>
                                                         <div class="state p-on p-success">
-                                                            <label>SI</label>
+                                                            <label></label>
                                                         </div>
                                                 </div>
                                             </div>
@@ -190,10 +190,10 @@
                                                            title="Indique si desea utilizar un parámetro previamente registrado"
                                                            v-model="variable" value="parameter">
                                                         <div class="state p-off">
-                                                            <label>NO</label>
+                                                            <label></label>
                                                         </div>
                                                         <div class="state p-on p-success">
-                                                            <label>SI</label>
+                                                            <label></label>
                                                         </div>
                                                 </div>
                                             </div>

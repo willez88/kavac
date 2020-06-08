@@ -17,36 +17,64 @@ use App\Models\Institution;
 use App\Models\CodeSetting;
 
 /**
- * @class PayrollSalaryScaleController
- * @brief Controlador de los escalafones salariales
+ * @class      PayrollSalaryScaleController
+ * @brief      Controlador de los escalafones salariales
  *
  * Clase que gestiona los escalafones salariales
  *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class PayrollSalaryScaleController extends Controller
 {
     use ValidatesRequests;
 
     /**
+     * Arreglo con las reglas de validación sobre los datos de un formulario
+     *
+     * @var Array $validateRules
+     */
+    protected $validateRules;
+
+    /**
+     * Arreglo con los mensajes para las reglas de validación
+     *
+     * @var Array $messages
+     */
+    protected $messages;
+
+    /**
      * Define la configuración de la clase
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      */
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
         //$this->middleware('permission:payroll.setting.salary-scale');
+
+        /** Define las reglas de validación para el formulario */
+        $this->validateRules = [
+            'name'           => ['required'],
+            'institution_id' => ['required'],
+            'payroll_scales' => ['required']
+        ];
+
+        /** Define los mensajes de validación para las reglas del formulario */
+        $this->messages = [
+            'institution_id.required' => 'El campo institución es obligatorio.',
+            'payroll_scales.required' => 'Debe registrar al menos una escala o nivel.'
+        ];
     }
     
     /**
      * Muestra un listado de los escalafones salariales registrados
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\Response Objeto con los registros a mostrar
+     * @method    index
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function index()
     {
@@ -56,17 +84,14 @@ class PayrollSalaryScaleController extends Controller
     /**
      * Valida y registra un nuevo escalafón salarial
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request Datos de la petición
-     * @return \Illuminate\Http\Response          Objeto con los registros a mostrar
+     * @method    store
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name'           => ['required'],
-            'institution_id' => ['required'],
-            'payroll_scales' => ['required'],
-        ]);
+        $this->validate($request, $this->validateRules, $this->messages);
 
         $codeSetting = CodeSetting::where('table', 'payroll_salary_scales')->first();
         if (is_null($codeSetting)) {
@@ -110,19 +135,16 @@ class PayrollSalaryScaleController extends Controller
     /**
      * Actualiza la información del escalafón salarial
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  Integer $id                        Identificador único del registro asociado al escalafón salarial
-     * @param  \Illuminate\Http\Request  $request Datos de la petición
-     * @return \Illuminate\Http\JsonResponse      Objeto con los registros a mostrar
+     * @method    update
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     Integer                          $id         Identificador único asociado al escalafón salarial
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function update(Request $request, $id)
     {
         $payrollSalaryScale = PayrollSalaryScale::find($id);
-        $this->validate($request, [
-            'name'           => ['required'],
-            'institution_id' => ['required'],
-            'payroll_scales' => ['required'],
-        ]);
+        $this->validate($request, $this->validateRules, $this->messages);
 
         DB::transaction(function () use ($request, $payrollSalaryScale) {
             $payrollSalaryScale->name                   = $request->input('name');
@@ -169,9 +191,10 @@ class PayrollSalaryScaleController extends Controller
     /**
      * Elimina un escalafón salarial
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Modules\Payroll\Models\PayrollSalaryScale $salaryScale Datos del escalafón salarial
-     * @return \Illuminate\Http\JsonResponse                           Objeto con los registros a mostrar
+     * @method    destroy
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Modules\Payroll\Models\PayrollSalaryScale    $salaryScale    Datos del escalafón salarial
+     * @return    \Illuminate\Http\JsonResponse                 Objeto con los registros a mostrar
      */
     public function destroy(PayrollSalaryScale $salaryScale)
     {
@@ -182,8 +205,9 @@ class PayrollSalaryScaleController extends Controller
     /**
      * Obtiene el listado de los escalafones salariales a implementar en elementos select
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return Array Listado de los registros a mostrar
+     * @method    getSalaryScales
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    Array    Listado de los registros a mostrar
      */
     public function getSalaryScales(Request $request)
     {
@@ -205,9 +229,10 @@ class PayrollSalaryScaleController extends Controller
     /**
      * Obtiene la información de un escalafón salarial
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  Integer $id                   Identificador único del escalafón salarial
-     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     * @method    info
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     Integer                          $id    Identificador único sociado al escalafón salarial
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function info($id)
     {

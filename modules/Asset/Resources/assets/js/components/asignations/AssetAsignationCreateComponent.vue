@@ -216,14 +216,6 @@
 	</section>
 </template>
 
-<style>
-
-	.selected-row {
-		background-color: #d1d1d1 !important;
-	}
-
-</style>
-
 <script>
 	export default {
 		data() {
@@ -263,7 +255,10 @@
 						'text': '50'
 					}
 				],
-				columns: ['check', 'inventory_serial', 'institution', 'asset_condition', 'asset_status', 'serial', 'marca', 'model'],
+				columns: [
+                    'check', 'inventory_serial', 'institution', 'asset_condition', 'asset_status', 'serial',
+                    'marca', 'model'
+                ],
 
 				payroll_position_types:[],
 				payroll_positions:[],
@@ -318,10 +313,12 @@
 		},
 		mounted() {
 			this.loadAssets('/asset/registers/vue-list/' + this.perPage + '/' + this.page);
-			if((this.asignationid)&&(!this.assetid))
+			if((this.asignationid)&&(!this.assetid)) {
 				this.loadForm(this.asignationid);
-			else if((!this.asignationid)&&(this.assetid))
+            }
+			else if((!this.asignationid)&&(this.assetid)) {
 				this.selected.push(this.assetid);
+            }
 		},
 		props: {
 			asignationid: Number,
@@ -338,15 +335,18 @@
 					if (index >= 0){
 						vm.selected.splice(index,1);
 					}
-					else
+					else {
 						checkbox.click();
+                    }
 				}
 				else if ((checkbox)&&(checkbox.checked == true)) {
 					var index = vm.selected.indexOf(row.id);
-					if (index >= 0)
+					if (index >= 0) {
 						checkbox.click();
-					else
+                    }
+					else {
 						vm.selected.push(row.id);
+                    }
 				}
 		    },
 
@@ -376,9 +376,10 @@
 				$.each(vm.records, function(index,campo){
 					var checkbox = document.getElementById('checkbox_' + campo.id);
 
-					if(!vm.selectAll)
+					if(!vm.selectAll) {
 						vm.selected.push(campo.id);
-					else if(checkbox && checkbox.checked){
+                    }
+					else if(checkbox && checkbox.checked) {
 						checkbox.click();
 					}
 				});
@@ -409,7 +410,7 @@
             },
 			createForm(url)
 			{
-				const vm = this
+				const vm = this;
 				vm.errors = [];
 				if(!vm.selected.length > 0){
                 	bootbox.alert("Debe agregar almenos un elemento a la solicitud");

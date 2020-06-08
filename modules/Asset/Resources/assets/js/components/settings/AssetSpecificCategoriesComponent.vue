@@ -179,5 +179,5 @@
 				event.preventDefault();
 			},
 		},
-	}
+	};
 </script>

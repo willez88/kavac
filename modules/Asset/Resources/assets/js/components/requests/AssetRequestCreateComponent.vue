@@ -69,7 +69,7 @@
 					<div class="form-group">
 						<label> Adjuntar archivos </label>
 						<input id="files" name="files" type="file"
-							   accept=".odt, .pdf" multiple>
+							   accept=".docx, .doc, .odt, .pdf" multiple>
 					</div>
 				</div>
 			</div>
@@ -249,12 +249,6 @@
 	</section>
 </template>
 
-<style>
-	.selected-row {
-		background-color: #d1d1d1 !important;
-	}
-</style>
-
 <script>
 	export default {
 		data() {
@@ -300,10 +294,12 @@
 				columns: ['check', 'inventory_serial', 'condition', 'status', 'serial', 'marca', 'model'],
 				errors: [],
 
-				types: [{"id":"","text":"Seleccione..."},
-						{"id":1,"text":"Prestamo de Equipos (Uso Interno)"},
-						{"id":2,"text":"Prestamo de Equipos (Uso Externo)"},
-						{"id":3,"text":"Prestamo de Equipos para Agentes Externos"}],
+				types: [
+                    {"id":"","text":"Seleccione..."},
+                    {"id":1,"text":"Prestamo de Equipos (Uso Interno)"},
+                    {"id":2,"text":"Prestamo de Equipos (Uso Externo)"},
+                    {"id":3,"text":"Prestamo de Equipos para Agentes Externos"}
+                ],
 
 				selected: [],
 				selectAll: false,
@@ -365,15 +361,18 @@
 					if (index >= 0){
 						vm.selected.splice(index,1);
 					}
-					else
+					else {
 						checkbox.click();
+                    }
 				}
 				else if ((checkbox)&&(checkbox.checked == true)) {
 					var index = vm.selected.indexOf(row.id);
-					if (index >= 0)
+					if (index >= 0) {
 						checkbox.click();
-					else
+                    }
+					else {
 						vm.selected.push(row.id);
+                    }
 				}
 		    },
 
@@ -406,8 +405,9 @@
 				$.each(vm.records, function(index,campo){
 					var checkbox = document.getElementById('checkbox_' + campo.id);
 
-					if(!vm.selectAll)
+					if(!vm.selectAll) {
 						vm.selected.push(campo.id);
+                    }
 					else if(checkbox && checkbox.checked){
 						checkbox.click();
 					}
@@ -449,17 +449,17 @@
 				};
 
 				if (this.record.id) {
-	                //this.updateRecord(url);
+	                this.updateRecord(url);
 	            } else {
 	            	vm.loading = true;
 	            	for (var index in vm.record) {
-	                	if (index == "motive") {
-	                		formData.append("motive", window.editor.getData());
-	                	} else {
-	                		formData.append(index, vm.record[index]);
-	                	}
+	            		formData.append(index, vm.record[index]);
 	                }
-	                formData.append("file", inputFiles.files[0]);
+	                for( var i = 0; i < inputFiles.files.length; i++ ){
+					  let file = inputFiles.files[i];
+
+					  formData.append('files[' + i + ']', file);
+					}
 	                formData.append("assets", vm.selected);
 	                axios.post('/' + url, formData, {
 	                    headers: {

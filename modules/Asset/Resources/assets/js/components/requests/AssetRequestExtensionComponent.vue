@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<a class="btn btn-default btn-xs btn-icon btn-action" 
+		<a class="btn btn-default btn-xs btn-icon btn-action"
 		   href="#" title="Solicitud de Prorroga" data-toggle="tooltip"
 		   :disabled="((state == 'Aprobado')||(state == 'Pendiente por entrega'))?false:true"
 		   @click="((state == 'Aprobado')||(state == 'Pendiente por entrega'))?addRecord('add_prorroga','request/request-extensions', $event):viewMessage()">
@@ -15,11 +15,11 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-meeting-add ico-2x"></i> 
+							<i class="icofont icofont-meeting-add ico-2x"></i>
 							Solicitud de Prorroga
 						</h6>
 					</div>
-					
+
 					<div class="modal-body">
 
 						<div class="alert alert-danger" v-if="errors.length > 0">
@@ -45,18 +45,18 @@
 								<div class="form-group">
 									<label>Fecha de Entrega Actual</label>
 					        		<input type="date"
-										data-toggle="tooltip" 
+										data-toggle="tooltip"
 										class="form-control input-sm" v-model="record.date"
 										id="delivery_date">
 									<input type="hidden" v-model="record.id">
-								</div>        
+								</div>
 							</div>
-						</div>	
+						</div>
 					</div>
 
 	                <div class="modal-footer">
 
-	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
 	                			data-dismiss="modal">
 	                		Cerrar
 	                	</button>
@@ -77,7 +77,7 @@
 		data() {
 			return {
 				record: {
-					id: '',                    
+					id: '',
 					date: '',
 					asset_request_id: ''
 				},
@@ -92,12 +92,12 @@
 		methods: {
 			/**
              * Método que borra todos los datos del formulario
-             * 
+             *
              * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
              */
             reset() {
                 this.record = {
-                    id: '',                    
+                    id: '',
 					date: '',
 					asset_request_id: ''
                 };
@@ -140,9 +140,12 @@
             },
             viewMessage() {
             	const vm = this;
-            	vm.showMessage('custom', 'Alerta', 'danger', 'screen-error', 'La solicitud está en un tramite que no le permite acceder a esta funcionalidad');
+            	vm.showMessage(
+                    'custom', 'Alerta', 'danger', 'screen-error',
+                    'La solicitud está en un tramite que no le permite acceder a esta funcionalidad'
+                );
             	return false;
             },
 		},
-	}
+	};
 </script>

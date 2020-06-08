@@ -204,7 +204,10 @@
 				asset_types: [],
 				asset_categories: [],
 				asset_subcategories: [],
-				columns: ['asset_subcategory.asset_category.asset_type.name','asset_subcategory.asset_category.name','asset_subcategory.name', 'name', 'code', 'id'],
+				columns: [
+                    'asset_subcategory.asset_category.asset_type.name','asset_subcategory.asset_category.name',
+                    'asset_subcategory.name', 'name', 'code', 'id'
+                ],
 			}
 		},
 		created() {
@@ -216,8 +219,14 @@
 				'code': 'Código',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['asset_subcategory.asset_category.asset_type.name', 'asset_subcategory.asset_category.name','asset_subcategory.name','name', 'code'];
-			this.table_options.filterable = ['asset_subcategory.asset_category.asset_type.name', 'asset_subcategory.asset_category.name','asset_subcategory.name','name', 'code'];
+			this.table_options.sortable = [
+                'asset_subcategory.asset_category.asset_type.name', 'asset_subcategory.asset_category.name',
+                'asset_subcategory.name','name', 'code'
+            ];
+			this.table_options.filterable = [
+                'asset_subcategory.asset_category.asset_type.name', 'asset_subcategory.asset_category.name',
+                'asset_subcategory.name','name', 'code'
+            ];
 
 		},
 		mounted() {
@@ -378,8 +387,9 @@
 				$("#type_id").attr('disabled', (index > 0));
 				if (index > 0){
 					$("#type_id").closest('.form-group').removeClass('is-required');
-				}else
+				}else {
 					$("#type_id").closest('.form-group').addClass('is-required');
+                }
 				this.getAssetCategories();
 			},
 			checkCategory(){
@@ -492,5 +502,5 @@
 				});
 		    },
 		},
-	}
+	};
 </script>
