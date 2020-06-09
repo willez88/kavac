@@ -68,4 +68,15 @@ class Image extends Model implements Auditable
     {
         return $this->hasMany(Institution::class);
     }
+
+    /**
+     * Image morphs to models in imageable_type
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function imageable()
+    {
+        return $this->morphTo();
+    }
 }

@@ -411,17 +411,17 @@
 					return false;
 				};
 				if (this.record.id) {
-	                //this.updateRecord(url);
+	                this.updateRecord(url);
 	            } else {
 	            	vm.loading = true;
 	            	for (var index in vm.record) {
-	                	if (index == "observation") {
-	                		formData.append("observation", window.editor.getData());
-	                	} else {
-	                		formData.append(index, vm.record[index]);
-	                	}
+	            		formData.append(index, vm.record[index]);
 	                }
-	                formData.append("file", inputFiles.files[0]);
+	                for( var i = 0; i < inputFiles.files.length; i++ ){
+					  let file = inputFiles.files[i];
+
+					  formData.append('files[' + i + ']', file);
+					}
 	                formData.append("assets", vm.selected);
 	                axios.post('/' + url, formData, {
 	                    headers: {

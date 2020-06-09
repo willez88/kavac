@@ -40,6 +40,8 @@ class UploadImageRepository
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  object|array|null  $file       Objeto con el archivo a subir
      * @param  string  $store      Ruta en la que se va a almacenar el archivo
+     * @param  string  $model        Modelo con el que se relaciona
+     * @param  integer $model_id     Id del modelo con el que se relaciona
      * @param  boolean $originalName Indica si el archivo a subir es con el nombre original del mismo
      * @param  boolean $verifySize Indica si será verificado o no el tamaño de la imagen
      * @return boolean             Retorna falso en caso de cualquier error, de lo contrario retorna verdadero
@@ -47,6 +49,8 @@ class UploadImageRepository
     public function uploadImage(
         $file,
         $store,
+        $model = null,
+        $model_id = null,
         $originalName = false,
         $verifySize = false,
         $checkAllowed = false
@@ -73,7 +77,9 @@ class UploadImageRepository
                     if ($upload) {
                         $this->image_stored = Image::create([
                             'file' => $this->image_name,
-                            'url' => 'storage/pictures/'. $this->image_name
+                            'url' => 'storage/pictures/'. $this->image_name,
+                            'imageable_type' => $model,
+                            'imageable_id' => $model_id
                         ]);
 
                         return true;
