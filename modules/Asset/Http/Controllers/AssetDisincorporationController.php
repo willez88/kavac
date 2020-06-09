@@ -81,7 +81,7 @@ class AssetDisincorporationController extends Controller
             'date'                             => ['required'],
             'asset_disincorporation_motive_id' => ['required'],
             'observation'                      => ['required'],
-            'file'                             => ['required', 'max:5000', 'mimes:jpeg,jpg,png,pdf,docx,doc,odt']
+            'files.*'                          => ['required', 'max:5000', 'mimes:jpeg,jpg,png,pdf,docx,doc,odt']
 
         ]);
 
@@ -123,26 +123,27 @@ class AssetDisincorporationController extends Controller
 
         $documentFormat = ['doc', 'docx', 'pdf', 'odt'];
         $imageFormat = ['jpeg', 'jpg', 'png'];
-        $extensionFile = $request->file('file')->getClientOriginalExtension();
+        if ($request->files) {
+            foreach ($request->file('files') as $file) {
+                $extensionFile = $file->getClientOriginalExtension();
 
-        if (in_array($extensionFile, $documentFormat)) {
-            $upDoc->uploadDoc(
-                $request->file('file'),
-                'documents',
-                AssetDisincorporation::class,
-                $disincorporation->id,
-                null,
-                false,
-                false,
-                true
-            );
-        } elseif (in_array($extensionFile, $imageFormat)) {
-            $upImage->uploadImage(
-                $request->file('file'),
-                'pictures'
-            );
+                if (in_array($extensionFile, $documentFormat)) {
+                    $upDoc->uploadDoc(
+                        $file,
+                        'documents',
+                        AssetDisincorporation::class,
+                        $disincorporation->id
+                    );
+                } else if (in_array($extensionFile, $imageFormat)) {
+                    $upImage->uploadImage(
+                        $file,
+                        'pictures',
+                        AssetDisincorporation::class,
+                        $disincorporation->id
+                    );
+                }
+            }
         }
-
         $request->session()->flash('message', ['type' => 'store']);
         return response()->json(['result' => true, 'redirect' => route('asset.disincorporation.index')], 200);
     }
