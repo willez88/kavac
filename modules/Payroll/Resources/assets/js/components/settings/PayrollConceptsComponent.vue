@@ -1,5 +1,5 @@
 <template>
-    <div class="text-center">
+    <section id="PayrollConceptsFormComponent">
         <a class="btn-simplex btn-simplex-md btn-simplex-primary"
            href="#" title="Registros de conceptos" data-toggle="tooltip"
            @click="addRecord('add_payroll_concept', 'concepts', $event)">
@@ -18,8 +18,8 @@
                             Concepto
                         </h6>
                     </div>
-
                     <div class="modal-body">
+                        <!-- mensajes de error -->
                         <div class="alert alert-danger" v-if="errors.length > 0">
                             <div class="container">
                                 <div class="alert-icon">
@@ -37,18 +37,9 @@
                                 </ul>
                             </div>
                         </div>
-
+                        <!-- ./mensajes de error -->
                         <div class="row">
                             <div class="col-md-6">
-                                <!-- código -->
-                                <div class="form-group is-required">
-                                    <label>Código:</label>
-                                    <input type="text" placeholder="Código" data-toggle="tooltip"
-                                           title="Indique el código del concepto (requerido)"
-                                           class="form-control input-sm" v-model="record.code">
-                                    <input type="hidden" v-model="record.id">
-                                </div>
-                                <!-- ./código -->
                                 <!-- nombre -->
                                 <div class="form-group is-required">
                                     <label>Nombre:</label>
@@ -56,8 +47,44 @@
                                            data-toggle="tooltip"
                                            title="Indique el nombre del concepto (requerido)"
                                            class="form-control input-sm" v-model="record.name">
+                                    <input type="hidden" v-model="record.id">
                                 </div>
                                 <!-- ./nombre -->
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <!-- código -->
+                                        <div class="form-group is-required">
+                                            <label>Código:</label>
+                                            <input type="text" placeholder="Código" data-toggle="tooltip"
+                                                   title="Indique el código del concepto (requerido)"
+                                                   class="form-control input-sm" v-model="record.code">
+                                        </div>
+                                        <!-- ./código -->
+                                    </div>
+                                    <!-- activa -->
+                                    <div class="col-md-4">
+                                        <div class=" form-group">
+                                            <label>¿Activo?</label>
+                                            <div class="col-12">
+                                                <p-check class="pretty p-switch p-fill p-bigger"
+                                                         color="success" off-color="text-gray" toggle
+                                                         data-toggle="tooltip"
+                                                         title="¿El concepto se encuentra activo actualmente?"
+                                                         v-model="record.active">
+                                                    <label slot="off-label"></label>
+                                                </p-check>
+                                              </div>
+                                        </div>
+                                    </div>
+                                    <!-- ./activa -->
+                                </div>
+                                <!-- tipo de concepto -->
+                                <div class=" form-group is-required">
+                                    <label>Tipo de concepto</label>
+                                    <select2 :options="payroll_concept_types"
+                                             v-model="record.payroll_concept_type_id"></select2>
+                                </div>
+                                <!-- ./tipo de concepto -->
                             </div>
                             <!-- descripción -->
                             <div class="col-md-6">
@@ -72,32 +99,6 @@
                                 </div>
                             </div>
                             <!-- ./descripción -->
-                            <!-- tipo de concepto -->
-                            <div class="col-md-4">
-                                <div class=" form-group is-required">
-                                    <label>Tipo de concepto</label>
-                                    <select2 :options="payroll_concept_types"
-                                             v-model="record.payroll_concept_type_id"></select2>
-                                </div>
-                            </div>
-                            <!-- ./tipo de concepto -->
-                            <!-- activa -->
-                            <div class="col-md-2">
-                                <div class=" form-group">
-                                    <label>¿Activa?</label>
-                                    <div class="col-12" data-toggle="tooltip"
-                                         title="¿El concepto se encuentra activo actualmente?">
-                                        <div class="col-12 bootstrap-switch-mini">
-                                            <input type="checkbox" class="form-control bootstrap-switch"
-                                                   data-toggle="tooltip" name="active"
-                                                   title="Indique si el concepto esta activo"
-                                                   data-on-label="SI" data-off-label="NO"
-                                                   v-model="record.active" value="true">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- ./activa -->
                         </div>
                         <div class="row">
                             <!-- ¿incide sobre? -->
@@ -111,87 +112,221 @@
                             <!-- ./¿incide sobre? -->
                             <!-- tipo de incidencia -->
                             <div class="col-md-8">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <strong>Tipo de Incidencia</strong>
-                                    </div>
-                                    <div class="col-md-3">
+                                <h6 class="text-center">Tipo de incidencia</h6>
+                                <div class="row" style="align-items: flex-end;">
+                                    <div class="col-xs-3">
                                         <div class="form-group">
                                             <label>Valor</label>
                                             <div class="col-12">
-                                                <div class="col-12 bootstrap-switch-mini">
-                                                    <input type="radio" name="incidence_type" value="value"
-                                                           id="sel_neto_value"
-                                                           class="form-control bootstrap-switch bootstrap-switch-mini sel_incidence_value"
-                                                            data-on-label="SI" data-off-label="NO">
-                                                </div>
+                                                <p-radio class="pretty p-switch p-fill p-bigger"
+                                                         color="success" off-color="text-gray" toggle
+                                                         v-model="record.incidence_type" value="value">
+                                                    <label slot="off-label"></label>
+                                                </p-radio>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-xs-3">
                                         <div class="form-group">
                                             <label>Valor Absoluto</label>
                                             <div class="col-12">
-                                                <div class="col-12 bootstrap-switch-mini">
-                                                    <input type="radio" name="incidence_type" value="absolute_value"
-                                                           id="sel_neto_value"
-                                                           class="form-control bootstrap-switch bootstrap-switch-mini sel_incidence_value"
-                                                            data-on-label="SI" data-off-label="NO">
-                                                </div>
+                                                <p-radio class="pretty p-switch p-fill p-bigger"
+                                                         color="success" off-color="text-gray" toggle
+                                                         v-model="record.incidence_type" value="absolute_value">
+                                                    <label slot="off-label"></label>
+                                                </p-radio>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-xs-3">
                                         <div class="form-group">
                                             <label>Unidad Tributaria</label>
                                             <div class="col-12">
-                                                <div class="col-12 bootstrap-switch-mini">
-                                                    <input type="radio" name="incidence_type"
-                                                           value="tax_unit" id="sel_tax_unit"
-                                                           class="form-control bootstrap-switch bootstrap-switch-mini sel_incidence_value"
-                                                           data-on-label="SI" data-off-label="NO">
-                                                </div>
+                                                <p-radio class="pretty p-switch p-fill p-bigger"
+                                                         color="success" off-color="text-gray" toggle
+                                                         v-model="record.incidence_type" value="tax_unit">
+                                                    <label slot="off-label"></label>
+                                                </p-radio>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-xs-3">
                                         <div class="form-group">
                                             <label>Porcentaje</label>
                                             <div class="col-12">
-                                                <div class="col-12 bootstrap-switch-mini">
-                                                    <input type="radio" name="incidence_type" value="percent"
-                                                           id="sel_percent"
-                                                           class="form-control bootstrap-switch bootstrap-switch-mini sel_incidence_value"
-                                                           data-on-label="SI" data-off-label="NO">
-                                                </div>
+                                                <p-radio class="pretty p-switch p-fill p-bigger"
+                                                         color="success" off-color="text-gray" toggle
+                                                         v-model="record.incidence_type" value="percent">
+                                                    <label slot="off-label"></label>
+                                                </p-radio>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- ./tipo de incidencia -->
+                            <!-- cuenta contable -->
+                            <div class="col-md-4">
+                                <div class="form-group is-required">
+                                    <label>Cuenta contable</label>
+                                    <select2 :options="accounting_accounts"
+                                             v-model="record.accounting_account_id"></select2>
+                                </div>
+                            </div>
+                            <!-- ./cuenta contable -->
+                            <!-- cuenta presupuestaria -->
+                            <div class="col-md-4">
+                                <div class="form-group is-required">
+                                    <label>Cuenta presupuestario</label>
+                                    <select2 :options="budget_accounts"
+                                             v-model="record.budget_account_id"></select2>
+                                </div>
+                            </div>
+                            <!-- ./cuenta presupuestaria -->
+                            <!-- institución -->
+                            <div class="col-md-4">
+                                <div class=" form-group is-required">
+                                    <label>Institución:</label>
+                                    <select2 :options="institutions" v-model="record.institution_id"></select2>
+                                </div>
+                            </div>
+                            <!-- ./institución -->
                             <!-- forma de cálculo -->
                             <div class="col-md-4">
                                 <div class=" form-group is-required">
                                     <label>Forma de cálculo:</label>
                                     <select2 :options="calculation_ways"
-                                             v-model="record.calculation_way_id"></select2>
+                                             v-model="record.calculation_way"></select2>
                                 </div>
                             </div>
                             <!-- ./forma de cálculo -->
+                            <!-- tabla salarial -->
+                            <div class="col-md-4"
+                                 v-if="record.calculation_way == 'tabulator'">
+                                <div class="form-group is-required">
+                                    <label>Tabulador:</label>
+                                    <select2 :options="payroll_salary_tabulators"
+                                             v-model="record.payroll_salary_tabulator_id"></select2>
+                                    
+                                </div>
+                            </div>
+                            <!-- ./tabla salarial -->
+                            <!-- ¿asignar a? -->
+                            <div class="col-md-8">
+                                <div class=" form-group is-required">
+                                    <label>¿Asignar a?</label>
+                                    <v-multiselect :options="assign_to" track_by="name"
+                                                   :hide_selected="false" data-toggle="tooltip"
+                                                   title="Indique los registros a los que se les va asignar el concepto"
+                                                   @input="updateAssignOptions"
+                                                   v-model="record.assign_to">
+                                    </v-multiselect>
+                                </div>
+                            </div>
+                            <!-- ./¿asignar a? -->
+                        </div>
+                        <div class="row" style="align-items: flex-end;"
+                             v-if="record.assign_to">
+                             <div class="col-md-4"
+                                  v-for="field in record.assign_to"
+                                  v-if="field['required']">
+                                <!-- registro de opciones a asignar -->
+                                 <div class="form-group is-required">
+                                    <label>{{ field['name'] }}</label>
+                                    <v-multiselect v-if="assign_options[field['id']]
+                                                      && record.assign_options[field['id']]"
+                                                   :options="assign_options[field['id']]" track_by="text"
+                                                   :hide_selected="false" data-toggle="tooltip"
+                                                   title="Indique los registros a los que se les va asignar el concepto"
+                                                   v-model="record.assign_options[field['id']]">
+                                    </v-multiselect>
+                                </div>
+                                 <!-- ./registro de opciones a asignar -->
+                            </div>
                         </div>
                         <div class="row"
-                             v-show="record.calculation_way_id == 1">
-                             <!-- fórmula -->
+                             v-show="record.calculation_way == 'formula'">
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <!-- fórmula -->
+                                <div class="form-group is-required">
                                     <label>Fórmula</label>
                                     <input type="text" class="form-control input-sm" data-toggle="tooltip"
                                            title="Fórmula a aplicar para el concepto. Utilice la siguiente calculadora para establecer los parámetros de la fórmula" v-model="record.formula" readonly>
                                 </div>
+                                <!-- ./fórmula -->
+                                <div class="row" style="align-items: flex-end;">
+                                    <div class="col-xs-3 col-md-3">
+                                        <div class="form-group">
+                                            <label for="worker_record">¿Expediente del Trabajador?</label>
+                                            <div class="col-12">
+                                                <p-radio class="pretty p-switch p-fill p-bigger"
+                                                         color="success" off-color="text-gray" toggle
+                                                         data-toggle="tooltip"
+                                                         title="Indique si desea utilizar una variable del expediente del Trabajador"
+                                                         v-model="variable" value="worker_record">
+                                                    <label slot="off-label"></label>
+                                                </p-radio>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3 col-md-3">
+                                        <div class="form-group">
+                                            <label for="parameter">¿Parámetro?</label>
+                                            <div class="col-12">
+                                                <p-radio class="pretty p-switch p-fill p-bigger"
+                                                         color="success" off-color="text-gray" toggle
+                                                         data-toggle="tooltip"
+                                                         title="Indique si desea utilizar un parámetro previamente registrado"
+                                                         v-model="variable" value="parameter">
+                                                    <label slot="off-label"></label>
+                                                </p-radio>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3 col-md-3">
+                                        <div class="form-group">
+                                            <label for="vacation">¿Vacaciones?</label>
+                                            <div class="col-12">
+                                                <p-radio class="pretty p-switch p-fill p-bigger"
+                                                         color="success" off-color="text-gray" toggle
+                                                         data-toggle="tooltip"
+                                                         title="Indique si desea utilizar una variable asociada a la configuración de vacaciones"
+                                                         v-model="variable" value="vacation">
+                                                    <label slot="off-label"></label>
+                                                </p-radio>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3 col-md-3">
+                                        <div class="form-group">
+                                            <label for="concept">¿Concepto?</label>
+                                            <div class="col-12">
+                                                <p-radio class="pretty p-switch p-fill p-bigger"
+                                                         color="success" off-color="text-gray" toggle
+                                                         data-toggle="tooltip"
+                                                         title="Indique si desea utilizar un concepto previamente registrado"
+                                                         v-model="variable" value="concept">
+                                                    <label slot="off-label"></label>
+                                                </p-radio>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12"
+                                         v-if="variable">
+                                        <!-- opciones -->
+                                        <div class="form-group">
+                                            <select2 :options="variable_options"
+                                                     v-model="variable_option"></select2>
+                                        </div>
+                                        <!-- ./opciones -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <!-- calculadora -->
                                 <div class="form-group">
                                     <div class="row">
-                                        <div class="offset-sm-3 col-sm-6 text-center">
+                                        <div class="col-sm-12 text-center">
                                             <div class="btn btn-info btn-sm btn-formula" data-toggle="tooltip"
                                                  title="presione para agregar este dígito" data-value="1">1</div>
                                             <div class="btn btn-info btn-sm btn-formula" data-toggle="tooltip"
@@ -203,7 +338,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="offset-sm-3 col-sm-6 text-center">
+                                        <div class="col-sm-12 text-center">
                                             <div class="btn btn-info btn-sm btn-formula" data-toggle="tooltip"
                                                  title="presione para agregar este dígito" data-value="4">4</div>
                                             <div class="btn btn-info btn-sm btn-formula" data-toggle="tooltip"
@@ -215,7 +350,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="offset-sm-3 col-sm-6 text-center">
+                                        <div class="col-sm-12 text-center">
                                             <div class="btn btn-info btn-sm btn-formula" data-toggle="tooltip"
                                                  title="presione para agregar este dígito" data-value="7">7</div>
                                             <div class="btn btn-info btn-sm btn-formula" data-toggle="tooltip"
@@ -228,7 +363,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="offset-sm-3 col-sm-6 text-center">
+                                        <div class="col-sm-12 text-center">
                                             <div class="btn btn-info btn-sm btn-formula-clear" data-toggle="tooltip"
                                                  title="Reinicia el campo de la fórmula"
                                                  @click="record.formula = ''">C</div>
@@ -242,37 +377,19 @@
                                                  data-value="/">/</div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="offset-sm-3 col-sm-6 col-btn-block text-center">
-                                            <div class="btn btn-info btn-sm btn-formula btn-block" data-toggle="tooltip"
-                                                 title="Variable a usar para el monto deducible cuando se realice el cálculo" data-value="monto">
-                                                DEDUCIBLE
+                                    <div class="row"
+                                         v-if="variable_option">
+                                        <div class="col-sm-12 col-btn-block text-center">
+                                            <div class="btn btn-info btn-sm" data-toggle="tooltip"
+                                                 title="Variable a usar cuando se realice el cálculo"
+                                                 @click="getAcronymVariable()">
+                                                {{ updateNameVariable }}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- ./calculadora -->
                             </div>
-                            <!-- ./fórmula -->
-                        </div>
-                        <div class="row">
-                            <!-- institución -->
-                            <div class="col-md-4">
-                                <div class=" form-group is-required">
-                                    <label>Institución:</label>
-                                    <select2 :options="institutions" v-model="record.institution_id"></select2>
-                                </div>
-                            </div>
-                            <!-- ./institución -->
-                            <!-- ¿asignar a? -->
-                            <div class="col-md-4">
-                                <div class=" form-group is-required">
-                                    <label>¿Asignar a?</label>
-                                    <select2 :options="payroll_assign_to"
-                                             v-model="record.payroll_assign_to_id">
-                                    </select2>
-                                </div>
-                            </div>
-                            <!-- ./¿asignar a? -->
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -282,6 +399,9 @@
                     </div>
                     <div class="modal-body modal-table">
                         <v-client-table :columns="columns" :data="records" :options="table_options">
+                            <div slot="description" slot-scope="props">
+                                <span v-html="props.row.description"></span>
+                            </div>
                             <div slot="id" slot-scope="props" class="text-center">
                                 <button @click="initUpdate(props.index, $event)"
                                         class="btn btn-warning btn-xs btn-icon  btn-action"
@@ -300,7 +420,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </template>
 
 <script>
@@ -308,48 +428,52 @@
         data() {
             return {
                 record: {
-                    id:                      '',
-                    name:                    '',
-                    description:             '',
-                    active:                  '',
-                    affect:                  '',
-                    incidence:               '',
-                    incidence_type:          '',
-                    formula:                 '',
-                    payroll_concept_type_id: '',
-                    calculation_way_id:      '',
-                    payroll_assign_to_id:    '',
-                    institution_id:          ''
+                    id:                          '',
+                    name:                        '',
+                    code:                        '',
+                    description:                 '',
+                    active:                      false,
+                    affect:                      '',
+                    incidence_type:              '',
+                    formula:                     '',
+                    payroll_concept_type_id:     '',
+                    calculation_way:             '',
+                    institution_id:              '',
+                    assign_to:                   '',
+                    payroll_salary_tabulator_id: '',
+                    accounting_account_id:       '',
+                    budget_account_id:           '',
+                    assign_options:              {}
 
                 },
+                variable:                  '',
+                variable_option:           '',
+                assign_options:            {},
 
-                errors:                [],
-                records:               [],
-                columns:               ['code', 'name', 'description', 'incidence_type', 'id'],
-                institutions:          [],
-                payroll_concept_types: [],
+                errors:                    [],
+                records:                   [],
+                columns:                   ['code', 'name', 'description', 'incidence_type', 'id'],
 
-                calculation_ways: [
+                variable_options:          [],
+                institutions:              [],
+                payroll_concept_types:     [],
+                assign_to:                 [],
+                payroll_salary_tabulators: [],
+                budget_accounts:           [],
+                accounting_accounts:       [],
+
+                calculation_ways:          [
                     {"id": "",          "text": "Seleccione..."},
                     {"id": "formula",   "text": "Fórmula"},
                     {"id": "tabulator", "text": "De acuerdo a tabulador"}
                 ],
-                affects: [
-                    {"id": "",                    "text":  "Seleccione..."},
-                    {"id": "base_salary",         "text":  "Salario Base"},
+                affects:                   [
+                    {"id": "",                     "text": "Seleccione..."},
+                    {"id": "base_salary",          "text": "Salario Base"},
                     {"id": "normal_salary",        "text": "Salario Normal"},
                     {"id": "dialy_salary",         "text": "Salario Diario"},
                     {"id": "comprehensive_salary", "text": "Salario Integral"}
-                ],
-                payroll_assign_to: [
-                    {"id": "",                              "text": "Seleccione..."},
-                    {"id": "staff",                         "text": "Trabajadores"},
-                    {"id": "all",                           "text": "Todos"},
-                    {"id": "all_except_staffs_in_vacation", "text": "Todos excepto trabajadores que se " +
-                                                                    "encuentren en período de disfrute vacaciones"},
-                    {"id": "all_except_staffs_at_rest",     "text": "Todos excepto trabajadores que se " +
-                                                                    "encuentren de reposo"},
-                ],
+                ]
             }
         },
         created() {
@@ -373,18 +497,109 @@
         },
         mounted() {
             const vm = this;
-            vm.switchHandler('active');
-            vm.switchHandler('incidence');
-            vm.switchHandler('incidence_type');
-
             $("#add_payroll_concept").on('show.bs.modal', function() {
                 vm.reset();
                 vm.getPayrollConceptTypes();
                 vm.getInstitutions();
+                vm.getAccountingAccounts();
+                vm.getBudgetAccounts();
+                vm.getOptions('payroll/get-associated-records');
+                vm.getPayrollConceptAssignTo();
+                vm.getPayrollSalaryTabulators();
             });
             $('.btn-formula').on('click', function() {
                 vm.record.formula += $(this).data('value');
             });
+        },
+        watch: {
+            /**
+             * Método que supervisa los cambios en el campo variable y actualiza el listado de opciones
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve> | <henryp2804@gmail.com>
+             */
+            variable: function(variable) {
+                const vm = this;
+                if (vm.variable == 'parameter') {
+                    vm.getOptions('payroll/get-parameters');
+
+                } else if (vm.variable == 'worker_record') {
+                    vm.getOptions('payroll/get-associated-records');
+                } else if (vm.variable == 'concept') {
+                    vm.variable_options = [
+                        {id: '', text: 'Seleccione...'}
+                    ];
+                    $.each(vm.records, function() {
+                        vm.variable_options.push({
+                            id: this.code,
+                            text: this.name
+                        });
+                    });
+                } else {
+                    vm.variable_options = [];
+                }
+            }
+        },
+        computed: {
+            /**
+             * Método que actualiza el nombre de la variable a emplear en el cálculo
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve> | <henryp2804@gmail.com>
+             * @return    {string}
+             */
+            updateNameVariable: function() {
+                const vm = this;
+                var response = '';
+                if (vm.variable_option != '') {
+                    $.each(vm.variable_options, function(index, field) {
+                        if (field['id'] == vm.variable_option) {
+                            response = field['text'];
+                        } else if (typeof field['children'] !== 'undefined') {
+                            $.each(field['children'], function(index, field) {
+                                if (field['id'] == vm.variable_option) {
+                                    response = field['text'];
+                                }
+                            });
+                        }
+                    });
+                }
+                return response;
+            },
+            /**
+             * Método que actualiza los inputs de opciones a asignar
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve> | <henryp2804@gmail.com>
+             * @return    {void}
+             */
+            updateAssignOptions: function() {
+                const vm = this;
+                /** Recorrer las opciones "asignar a" para agregar los nuevos inputs */
+                $.each(vm.record.assign_to, function(index, field) {
+                    if (field['required']) {
+                        if (typeof(vm.record.assign_options[field['id']] ) == 'undefined') {
+                            vm.record.assign_options[field['id']] = [];
+                        }
+                        if (typeof(vm.assign_options[field['id']] ) == 'undefined') {
+                            vm.assign_options[field['id']] = [];
+                            axios.get('get-parameter-options/' + field['required']).then(response => {
+                                vm.assign_options[field['id']] = response.data;
+                            });
+                        }
+                    }
+                });
+                /** Recorrer las opciones "asignar a" para eliminar los inputs desmarcados */
+                $.each(vm.record.assign_options, function(index, field) {
+                    let id = index;
+                    let find = false;
+                    $.each(vm.record.assign_to, function(index, field) {
+                        if (id == field['id']) {
+                            find = true;
+                        }
+                    });
+                    if (!find) {
+                        delete vm.record.assign_options[index];
+                    }
+                });
+            }
         },
         methods: {
             /**
@@ -394,36 +609,138 @@
              */
             reset() {
                 const vm = this;
-                vm.record = {
-                    id:                      '',
-                    name:                    '',
-                    description:             '',
-                    active:                  '',
-                    affect:                  '',
-                    incidence:               '',
-                    incidence_type:          '',
-                    formula:                 '',
-                    payroll_concept_type_id: '',
-                    calculation_way_id:      '',
-                    payroll_assign_to_id:    '',
-                    institution_id:          ''
-                };
+                vm.variable = '';
                 vm.errors = [];
+                vm.record = {
+                    id:                          '',
+                    name:                        '',
+                    code:                        '',
+                    description:                 '',
+                    active:                      false,
+                    affect:                      '',
+                    incidence_type:              '',
+                    formula:                     '',
+                    payroll_concept_type_id:     '',
+                    calculation_way:             '',
+                    institution_id:              '',
+                    assign_to:                   '',
+                    payroll_salary_tabulator_id: '',
+                    accounting_account_id:       '',
+                    budget_account_id:           '',
+                    assign_options:              {}
+                };
             },
 
             /**
-             * Método que obtiene un arreglo con los tipos de conceptos registrados
+             * Obtiene un listado de cuentas patrimoniales
+             *
+             * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             */
+            getAccountingAccounts() {
+                const vm = this;
+                vm.accounting_accounts = [];
+                axios.get('/accounting/accounts').then(response => {
+                    if (response.data.records.length > 0) {
+                        vm.accounting_accounts.push({
+                            id:   '',
+                            text: 'Seleccione...'
+                        });
+                        $.each(response.data.records, function() {
+                            vm.accounting_accounts.push({
+                                id:   this.id,
+                                text: `${this.code} - ${this.denomination}`
+                            });
+                        });
+                    }
+                }).catch(error => {
+                    vm.logs('PayrollConceptsComponent', 258, error, 'getAccountingAccounts');
+                });
+            },
+
+            /**
+             * Obtiene un listado de cuentas presupuestarias
+             *
+             * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             */
+            getBudgetAccounts() {
+                const vm = this;
+                vm.budget_accounts = [];
+                axios.get('/budget/accounts/vue-list').then(response => {
+                    if (response.data.records.length > 0) {
+                        vm.budget_accounts.push({
+                            id:   '',
+                            text: 'Seleccione...'
+                        });
+                        $.each(response.data.records, function() {
+                            vm.budget_accounts.push({
+                                id:   this.id,
+                                text: `${this.code} - ${this.denomination}`
+                            });
+                        });
+                    }
+                }).catch(error => {
+                    vm.logs('PayrollConceptsComponent', 258, error, 'getBudgetAccounts');
+                });
+            },
+
+            /**
+             * Método que obtiene un arreglo con las opciones a listar
              *
              * @author    Henry Paredes <hparedes@cenditel.gob.ve>
              */
-            getPayrollConceptTypes() {
+            getOptions(url) {
                 const vm = this;
-                vm.payroll_concept_types = [];
-                axios.get('/payroll/get-concept-types').then(response => {
-                    vm.payroll_concept_types = response.data;
+                vm.variable_options = [];
+                axios.get('/' + url).then(response => {
+                    vm.variable_options = response.data;
                 });
+            },
+            /**
+             * Método que obtiene un arreglo con las opciones de "asignar a" de un concepto
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+             */
+            getPayrollConceptAssignTo() {
+                const vm = this;
+                vm.assign_to = [];
+                axios.get('/payroll/get-concept-assign-to').then(response => {
+                    vm.assign_to = response.data;
+                });
+            },
+            /**
+             * Método que obtiene el acrónimo de la variable a emplear en el cálculo
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve> | <henryp2804@gmail.com>
+             * @return    {string}
+             */
+            getAcronymVariable() {
+                const vm = this;
+                var response = '';
+                if (vm.variable_option != '') {
+                    $.each(vm.variable_options, function(index, field) {
+                        if (field['id'] == vm.variable_option) {
+                            if (typeof field['acronym'] !== 'undefined') {
+                                response = field['acronym'];
+                            } else if (typeof field['id'] !== 'undefined') {
+                                response = field['id'];
+                            }
+                        } else if (typeof field['children'] !== 'undefined') {
+                            $.each(field['children'], function(index, field) {
+                                if (field['id'] == vm.variable_option) {
+                                    if (typeof field['acronym'] !== 'undefined') {
+                                        response = field['acronym'];
+                                    } else if (typeof field['id'] !== 'undefined') {
+                                        response = field['id'];
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+                if (response != '') {
+                    vm.record.formula += response;
+                }
             }
         }
     };
 </script>
-

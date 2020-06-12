@@ -1,5 +1,5 @@
 <template>
-    <div class="text-center">
+    <section id="PayrollConceptTypesFormComponent">
         <a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
            title="Registros de tipos de concepto" data-toggle="tooltip"
            @click="addRecord('add_payroll_concept_type', 'concept-types', $event)">
@@ -19,14 +19,28 @@
                         </h6>
                     </div>
                     <div class="modal-body">
+                        <!-- mensajes de error -->
                         <div class="alert alert-danger" v-if="errors.length > 0">
-                            <ul>
-                                <li v-for="error in errors">{{ error }}</li>
-                            </ul>
+                            <div class="container">
+                                <div class="alert-icon">
+                                    <i class="now-ui-icons objects_support-17"></i>
+                                </div>
+                                <strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                                        @click.prevent="errors = []">
+                                    <span aria-hidden="true">
+                                        <i class="now-ui-icons ui-1_simple-remove"></i>
+                                    </span>
+                                </button>
+                                <ul>
+                                    <li v-for="error in errors">{{ error }}</li>
+                                </ul>
+                            </div>
                         </div>
+                        <!-- ./mensajes de error -->
                         <div class="row">
-                            <!-- nombre -->
                             <div class="col-md-6">
+                                <!-- nombre -->
                                 <div class="form-group is-required">
                                     <label for="name">Nombre:</label>
                                     <input type="text" id="name" placeholder="Nombre"
@@ -34,27 +48,27 @@
                                            title="Indique el nombre del tipo de concepto (requerido)">
                                     <input type="hidden" name="id" id="id" v-model="record.id">
                                 </div>
-                            </div>
-                            <!-- ./nombre -->
-                            <!-- descripción -->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="description">Descripción:</label>
-                                    <input type="text" id="description" placeholder="Descripción"
-                                           class="form-control input-sm" v-model="record.description" data-toggle="tooltip"
-                                           title="Indique la descripción del tipo de concepto">
-                                </div>
-                            </div>
-                            <!-- ./descripción -->
-                            <!-- signo -->
-                            <div class="col-md-6">
+                                <!-- ./nombre -->
+                                <!-- signo -->
                                 <div class="form-group is-required">
                                     <label for="sign">Signo:</label>
                                     <select2 :options="signs"
                                              v-model="record.sign"></select2>
                                 </div>
+                                <!-- ./signo -->
                             </div>
-                            <!-- ./signo -->
+                            <div class="col-md-6">
+                                <!-- descripción -->
+                                <div class="form-group">
+                                    <label for="description">Descripción:</label>
+                                    <ckeditor :editor="ckeditor.editor" id="description" data-toggle="tooltip"
+                                              title="Indique la descripción del tipo de concepto"
+                                              :config="ckeditor.editorConfig" class="form-control"
+                                              name="description" tag-name="textarea"
+                                              v-model="record.description"></ckeditor>
+                                </div>
+                                <!-- ./descripción -->
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -64,6 +78,9 @@
                     </div>
                     <div class="modal-body modal-table">
                         <v-client-table :columns="columns" :data="records" :options="table_options">
+                            <div slot="description" slot-scope="props">
+                                <span v-html="props.row.description"></span>
+                            </div>
                             <div slot="id" slot-scope="props" class="text-center">
                                 <button @click="initUpdate(props.index, $event)"
                                         class="btn btn-warning btn-xs btn-icon btn-action"
@@ -82,7 +99,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </template>
 
 <script>
@@ -112,24 +129,26 @@
              * @author  William Páez <wpaez@cenditel.gob.ve>
              */
             reset() {
-                this.record = {
+                const vm  = this;
+                vm.record = {
                     id:          '',
                     name:        '',
                     description: '',
-                    sign:        '',
+                    sign:        ''
                 };
             },
         },
         created() {
-            this.table_options.headings = {
+            const vm = this;
+            vm.table_options.headings = {
                 'name':        'Nombre',
                 'description': 'Descripción',
                 'sign':        'Signo',
                 'id':          'Acción'
             };
-            this.table_options.sortable = ['name', 'description', 'sign'];
-            this.table_options.filterable = ['name', 'description', 'sign'];
-            this.table_options.columnsClasses = {
+            vm.table_options.sortable       = ['name', 'description', 'sign'];
+            vm.table_options.filterable     = ['name', 'description', 'sign'];
+            vm.table_options.columnsClasses = {
                 'name':        'col-xs-4',
                 'description': 'col-xs-4',
                 'sign':        'col-xs-2',

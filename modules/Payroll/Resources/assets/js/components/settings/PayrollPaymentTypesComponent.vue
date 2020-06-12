@@ -1,5 +1,5 @@
 <template>
-    <div class="text-center">
+    <section id="PayrollPaymentTypesComponent">
         <a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
            title="Registros de tipos de pago" data-toggle="tooltip"
            @click="addRecord('add_payroll_payment_type', 'payment-types', $event)">
@@ -19,11 +19,25 @@
                         </h6>
                     </div>
                     <div class="modal-body">
+                        <!-- mensajes de error -->
                         <div class="alert alert-danger" v-if="errors.length > 0">
-                            <ul>
-                                <li v-for="error in errors">{{ error }}</li>
-                            </ul>
+                            <div class="container">
+                                <div class="alert-icon">
+                                    <i class="now-ui-icons objects_support-17"></i>
+                                </div>
+                                <strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                                        @click.prevent="errors = []">
+                                    <span aria-hidden="true">
+                                        <i class="now-ui-icons ui-1_simple-remove"></i>
+                                    </span>
+                                </button>
+                                <ul>
+                                    <li v-for="error in errors">{{ error }}</li>
+                                </ul>
+                            </div>
                         </div>
+                        <!-- ./mensajes de error -->
                         <div class="row">
                             <!-- código -->
                             <div class="col-md-4">
@@ -85,13 +99,14 @@
                             <div class="col-md-4">
                                 <div class=" form-group">
                                     <label>¿Correlativo al expediente del trabajador?</label>
-                                    <div class="col-12" data-toggle="tooltip"
-                                         title="¿El tipo de pago es correlativo al expediente del trabajador?">
-                                        <div class="col-12 bootstrap-switch-mini">
-                                            <input type="checkbox" class="form-control bootstrap-switch"
-                                                   name="correlative" data-on-label="SI" data-off-label="NO"
-                                                   v-model="record.correlative" value="true">
-                                        </div>
+                                    <div class="col-12">
+                                        <p-check class="pretty p-switch p-fill p-bigger"
+                                                 color="success" off-color="text-gray" toggle
+                                                 data-toggle="tooltip"
+                                                 title="¿El tipo de pago es correlativo al expediente del trabajador?"
+                                                 v-model="record.correlative">
+                                            <label slot="off-label"></label>
+                                        </p-check>
                                     </div>
                                 </div>
                             </div>
@@ -115,14 +130,13 @@
                                 </div>
                             </div>
                             <!-- ./relación de pago -->
-
                             <div class="col-md-6"
                                  v-if="record.correlative">
                                 <div class="form-group is-required">
                                     <label>Campos del expediente del trabajador:</label>
-                                    <v-multiselect :options="payroll_concepts" track_by="text"
-                                                   :hide_selected="false" :selected="record.payroll_concepts"
-                                                   v-model="record.payroll_concepts">
+                                    <v-multiselect :options="associated_records" track_by="text"
+                                                   :hide_selected="false" group-values="children"
+                                                   group-label="text" v-model="record.associated_records">
                                     </v-multiselect>
                                 </div>
                             </div>
@@ -164,7 +178,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </template>
 
 <script>
@@ -177,12 +191,13 @@
                     name:                  '',
                     payment_periodicity:   '',
                     periods_number:        '',
-                    correlative:           '',
+                    correlative:           false,
                     start_date:            '',
                     payment_relationship:  '',
                     budget_account_id:     '',
                     accounting_account_id: '',
-                    payroll_concepts:      []
+                    payroll_concepts:      [],
+                    associated_records:    []
 
                 },
                 errors:                [],
@@ -217,7 +232,8 @@
                 ],
                 payroll_concepts:      [],
                 budget_accounts:       [],
-                accounting_accounts:   []
+                accounting_accounts:   [],
+                associated_records:    []
             }
         },
         created() {
@@ -243,8 +259,9 @@
                 vm.reset();
                 vm.getPayrollConcepts();
                 vm.getAccountingAccounts();
+                vm.getBudgetAccounts();
+                vm.getOptions('payroll/get-associated-records');
             });
-            vm.switchHandler('correlative');
         },
         methods: {
             /**
@@ -260,26 +277,14 @@
                     name:                  '',
                     payment_periodicity:   '',
                     periods_number:        '',
-                    correlative:           '',
+                    correlative:           false,
                     start_date:            '',
                     payment_relationship:  '',
                     budget_account_id:     '',
                     accounting_account_id: '',
-                    payroll_concepts:      []
+                    payroll_concepts:      [],
+                    associated_records:    []
                 };
-            },
-
-            /**
-             * Método que obtiene un arreglo con los conceptos registrados
-             *
-             * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-             */
-            getPayrollConcepts() {
-                const vm = this;
-                vm.payroll_concepts = [];
-                axios.get('/payroll/get-concepts').then(response => {
-                    vm.payroll_concepts = response.data;
-                });
             },
 
             /**
@@ -306,7 +311,46 @@
                 }).catch(error => {
                     vm.logs('PayrollPaymentTypesComponent', 258, error, 'getAccountingAccounts');
                 });
-            }
+            },
+
+            /**
+             * Obtiene un listado de cuentas presupuestarias
+             *
+             * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             */
+            getBudgetAccounts() {
+                const vm = this;
+                vm.budget_accounts = [];
+                axios.get('/budget/accounts/vue-list').then(response => {
+                    if (response.data.records.length > 0) {
+                        vm.budget_accounts.push({
+                            id:   '',
+                            text: 'Seleccione...'
+                        });
+                        $.each(response.data.records, function() {
+                            vm.budget_accounts.push({
+                                id:   this.id,
+                                text: `${this.code} - ${this.denomination}`
+                            });
+                        });
+                    }
+                }).catch(error => {
+                    vm.logs('PayrollPaymentTypesComponent', 258, error, 'getBudgetAccounts');
+                });
+            },
+            /**
+             * Reescribe el método "getOptions" para cambiar su comportamiento por defecto
+             * Método que obtiene un arreglo con las opciones a listar
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+             */
+            getOptions(url) {
+                const vm = this;
+                vm.associated_records = [];
+                axios.get('/' + url).then(response => {
+                    vm.associated_records = response.data;
+                });
+            },
         }
     };
 </script>

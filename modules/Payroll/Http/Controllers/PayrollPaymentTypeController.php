@@ -94,6 +94,7 @@ class PayrollPaymentTypeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, $this->validateRules, $this->messages);
+        return response()->json(['message' => 'Success'], 200);
 
         /**
          * Objeto asociado al modelo PayrollPaymentType
@@ -123,6 +124,7 @@ class PayrollPaymentTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        return response()->json(['message' => 'Success'], 200);
         /**
          * Objeto con la información del tipo de pago a editar asociado al modelo PayrollPaymentType
          *

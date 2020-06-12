@@ -1,5 +1,5 @@
 <template>
-    <section id="PayrollParametersFormComponent">
+    <section id="PayrollParametersComponent">
         <a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
            title="Registros de parámetros" data-toggle="tooltip"
            @click="addRecord('add_payroll_parameter', 'parameters', $event)">
@@ -19,6 +19,7 @@
                         </h6>
                     </div>
                     <div class="modal-body">
+                      <!-- mensajes de error -->
                         <div class="alert alert-danger" v-if="errors.length > 0">
                             <div class="container">
                                 <div class="alert-icon">
@@ -36,6 +37,7 @@
                                 </ul>
                             </div>
                         </div>
+                        <!-- ./mensajes de error -->
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="row">
@@ -48,14 +50,6 @@
                                                      v-model="record.parameter_type"></select2>
                                         </div>
                                         <!-- ./tipo de parámetro -->
-                                        <!-- registro associado -->
-                                        <div class="form-group is-required"
-                                             v-if="record.parameter_type == 'group_by_tabs'">
-                                            <label for="">Registro asociado:</label>
-                                            <select2 :options="options"
-                                                     v-model="record.code"></select2>
-                                        </div>
-                                        <!-- ./registro associado -->
                                     </div>
                                     <div class="col-md-12">
                                         <!-- nombre -->
@@ -67,18 +61,8 @@
                                             <input type="hidden" name="id" id="id" v-model="record.id">
                                         </div>
                                         <!-- ./nombre -->
-                                        <!-- código -->
-                                        <div class="form-group is-required"
-                                             v-if="record.parameter_type == 'group_by_tabs'">
-                                            <label for="code">Código:</label>
-                                            <input type="text" id="code" placeholder="Código" readonly 
-                                                   class="form-control input-sm" v-model="record.code" data-toggle="tooltip"
-                                                   title="Indique el código del parámetro (requerido)">
-                                        </div>
-                                        <!-- ./código -->
                                     </div>
-                                    <div class="col-md-6"
-                                         v-if="record.parameter_type != 'group_by_tabs'">
+                                    <div class="col-md-6">
                                         <!-- código -->
                                         <div class="form-group is-required">
                                             <label for="code">Código:</label>
@@ -88,8 +72,7 @@
                                         </div>
                                         <!-- ./código -->
                                     </div>
-                                    <div class="col-md-6"
-                                         v-if="record.parameter_type != 'group_by_tabs'">
+                                    <div class="col-md-6">
                                         <!-- acrónimo -->
                                         <div class="form-group is-required">
                                             <label for="acronym">Acrónimo:</label>

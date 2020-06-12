@@ -76,7 +76,8 @@ class PayrollParameterController extends Controller
         $this->validateRules = [
             'parameter_type' => ['required'],
             'name'           => ['required'],
-            'code'           => ['required']
+            'code'           => ['required'],
+            'acronym'        => ['required']
         ];
 
         /** Define los mensajes de validación para las reglas del formulario */
@@ -92,8 +93,7 @@ class PayrollParameterController extends Controller
         $this->parameterTypes = [
             ['id' => 'global_value',        'name' => 'Valor global'],
             ['id' => 'resettable_variable', 'name' => 'Variable reiniciable a cero por período de nómina'],
-            ['id' => 'processed_variable',  'name' => 'Variabe procesada'],
-            ['id' => 'group_by_tabs',       'name' => 'Grupo de tablas salariales']
+            ['id' => 'processed_variable',  'name' => 'Variabe procesada']
         ];
 
         /** Define los campos del expediente del trabajador a emplear en el formulario */
@@ -107,14 +107,14 @@ class PayrollParameterController extends Controller
                     [
                         'id'        => 'NATIONALITY',
                         'name'      => 'Nacionalidad',
+                        'type'      => 'list',
                         'model'     => 'Modules\Payroll\Models\PayrollNationality',
-                        'required'  => [
-                            'field' => 'payroll_nationality_id'
-                        ]
+                        'required'  => ['payroll_nationality_id']
                     ],
                     [
                         'id'        => 'GENDER',
                         'name'      => 'Género',
+                        'type'      => 'list',
                         'model'     => 'Modules\Payroll\Models\PayrollGender',
                         'required'  => ['payroll_gender_id']
                         
@@ -122,51 +122,58 @@ class PayrollParameterController extends Controller
                     [
                         'id'        => 'DISABLE',
                         'name'      => 'Estatus Discapacitado',
+                        'type'      => 'boolean',
                         'model'     => '',
                         'required'  => ['has_disability']
                     ],
                     [
                         'id'        => 'BLOOD_TYPE',
                         'name'      => 'Tipo de sangre',
+                        'type'      => 'list',
                         'model'     => 'Modules\Payroll\Models\PayrollBloodType',
                         'required'  => ['payroll_blood_type_id']
                     ],
                     [
                         'id'        => 'LICENSE_DEGREE',
                         'name'      => 'Grado de licencia de conducir',
+                        'type'      => 'list',
                         'model'     => 'Modules\Payroll\Models\PayrollLicenseDegree',
                         'required'  => ['payroll_license_degree_id']
                     ]
                 ]
             ],
             [
-                'id'       => 'PROFESIONAL_INFORMATION',
+                'id'       => 'PROFESIONAL',
                 'name'     => 'Datos Profesionales',
-                'model'    => 'Modules\Payroll\Models\PayrollProfesionalInformation',
-                'required' => ['payrollProfesionalInformation'],
+                'model'    => 'Modules\Payroll\Models\PayrollProfesional',
+                'required' => ['payrollProfesional'],
                 'children' =>
                 [
                     [
                         'id'        => 'INSTRUCTION_DEGREE',
                         'name'      => 'Grado de instrucción',
+                        'type'      => 'list',
                         'model'     => 'Modules\Payroll\Models\PayrollInstructionDegree',
                         'required'  => ['payroll_instruction_degree_id']
                     ],
                     [
                         'id'        => 'PROFESSION',
                         'name'      => 'Profesión',
+                        'type'      => 'list',
                         'model'     => 'Modules\Payroll\Models\Profession',
                         'required'  => ['Profession_id']
                     ],
                     [
                         'id'        => 'STUDENT',
                         'name'      => 'Estatus Estudiante',
+                        'type'      => 'boolean',
                         'model'     => '',
                         'required'  => ['is_student']
                     ],
                     [
                         'id'        => 'NUMBER_LANG',
                         'name'      => 'Número de idiomas',
+                        'type'      => '',
                         'model'     => '',
                         'required'  => ['payrollLanguages','payroll_language_id']
                     ]
@@ -182,12 +189,14 @@ class PayrollParameterController extends Controller
                     [
                         'id'       => 'MARITAL_STATUS',
                         'name'     => 'Estado Civil',
+                        'type'     => 'list',
                         'model'    => 'Modules\Payroll\Models\MaritalStatus',
                         'required' => ['marital_status_id']
                     ],
                     [
                         'id'       => 'NUMBER_CHILDREN',
                         'name'     => 'Número de hijos',
+                        'type'     => '',
                         'model'    => '',
                         'required' => ['payrollChildrens']
                     ]
@@ -201,49 +210,50 @@ class PayrollParameterController extends Controller
                 [
                     [
                         'id'       => 'START_APN',
-                        'name'     => 'Fecha de ingreso a la administración pública',
+                        'name'     => 'Años en la administración pública',
+                        'type'     => '',
                         'model'    => '',
                         'required' => ['start_date_apn']
                     ],
                     [
                         'id'       => 'START_DATE',
-                        'name'     => 'Fecha de ingreso a la institución',
+                        'name'     => 'Años en la institución',
+                        'type'     => '',
                         'model'    => '',
                         'required' => ['start_date']
                     ],
                     [
-                        'id'       => 'END_DATE',
-                        'name'     => 'Fecha de egreso a la institución',
-                        'model'    => '',
-                        'required' => ['end_date']
-                    ],
-                    [
                         'id'       => 'POSITION_TYPE',
                         'name'     => 'Tipo de cargo',
+                        'type'     => 'list',
                         'model'    => 'Modules\Payroll\Models\PayrollPositionType',
                         'required' => ['payroll_position_type_id']
                     ],
                     [
                         'id'       => 'POSITION',
                         'name'     => 'Cargo',
+                        'type'     => 'list',
                         'model'    => 'Modules\Payroll\Models\PayrollPosition',
                         'required' => ['payroll_position_id']
                     ],
                     [
                         'id'       => 'DEPARTMENT',
                         'name'     => 'Departamento',
+                        'type'     => 'list',
                         'model'    => 'Modules\Payroll\Models\Department',
                         'required' => ['department_id']
                     ],
                     [
                         'id'       => 'STAFF_TYPE',
                         'name'     => 'Tipo de personal',
+                        'type'     => 'list',
                         'model'    => 'Modules\Payroll\Models\PayrollStaffType',
                         'required' => ['payroll_staff_type_id']
                     ],
                     [
                         'id'       => 'CONTRACT_TYPE',
                         'name'     => 'Tipo de contrato',
+                        'type'     => 'list',
                         'model'    => 'Modules\Payroll\Models\PayrollContractType',
                         'required' => ['payroll_contract_type_id']
                     ]
@@ -300,22 +310,12 @@ class PayrollParameterController extends Controller
     public function store(Request $request)
     {
         $validateRules = $this->validateRules;
-        $messages = $this->messages;
-        if($request->parameter_type == 'group_by_tabs') {
-            $validateRules = array_replace($validateRules, ['code' => ['required']]);
-            $messages = array_replace($messages, ['code.required' => 'El campo registro asociado es obligatorio.']);
-        } else {
-            $validateRules = array_merge($validateRules, ['acronym' => ['required']]);
-            if($request->parameter_type == 'global_value') {
-                $validateRules = array_merge($validateRules, ['value' => ['required']]);
-            } elseif($request->parameter_type == 'processed_variable') {
-                $validateRules = array_merge($validateRules, ['formula' => ['required']]);
-            }
+        if($request->parameter_type == 'global_value') {
+            $validateRules = array_merge($validateRules, ['value' => ['required']]);
+        } elseif($request->parameter_type == 'processed_variable') {
+            $validateRules = array_merge($validateRules, ['formula' => ['required']]);
         }
-        $this->validate($request, $validateRules, $messages);
-        $key = ($request->parameter_type == 'group_by_tabs')
-                    ? 'global_parameter_group_by_tabs_'
-                    : 'global_parameter_';
+        $this->validate($request, $validateRules, $this->messages);
         $index = 0;
         $errors = [];
         $listGlobalParameters = [];
@@ -325,7 +325,7 @@ class PayrollParameterController extends Controller
                 'required_by' => 'payroll',
                 'active'      => true,
             ]
-        )->where('p_key', 'like', 'global_parameter_%')->withTrashed()->get();
+        )->where('p_key', 'like', 'global_parameter_%')->withTrashed()->orderBy('created_at')->get();
 
         if (!is_null($parameters)) {
             foreach ($parameters as $parameter) {
@@ -334,10 +334,10 @@ class PayrollParameterController extends Controller
                 if ($request->name == $param->name) {
                     $errors = array_merge($errors, ["name" => ["El campo nombre contiene un valor duplicado."]]);
                 }
-                if (($request->code == $param->code) && ($request->parameter_type != 'group_by_tabs')) {
+                if ($request->code == $param->code) {
                     $errors = array_merge($errors, ["code" => ["El campo código contiene un valor duplicado."]]);
                 }
-                if (($request->acronym == $param->acronym) && ($request->parameter_type != 'group_by_tabs')) {
+                if ($request->acronym == $param->acronym) {
                     $errors = array_merge($errors, ["acronym" => ["El campo acrónimo contiene un valor duplicado."]]);
                 }
                 if (!empty($errors)) {
@@ -378,7 +378,7 @@ class PayrollParameterController extends Controller
          * @var Object $parameter
          */
         $parameter = Parameter::create([
-            'p_key'       =>  $key . $payrollParameter['id'],
+            'p_key'       => 'global_parameter_' . $payrollParameter['id'],
             'p_value'     => json_encode($payrollParameter),
             'required_by' => 'payroll',
             'active'      => true
@@ -397,25 +397,15 @@ class PayrollParameterController extends Controller
     public function update(Request $request, $id)
     {
         $validateRules = $this->validateRules;
-        $messages = $this->messages;
-        if($request->parameter_type == 'group_by_tabs') {
-            $validateRules = array_replace($validateRules, ['code' => ['required']]);
-            $messages = array_replace($messages, ['code.required' => 'El campo registro asociado es obligatorio.']);
-        } else {
-            $validateRules = array_merge($validateRules, ['acronym' => ['required']]);
-            if($request->parameter_type == 'global_value') {
-                $validateRules = array_merge($validateRules, ['value' => ['required']]);
-            } elseif($request->parameter_type == 'processed_variable') {
-                $validateRules = array_merge($validateRules, ['formula' => ['required']]);
-            }
+        if($request->parameter_type == 'global_value') {
+            $validateRules = array_merge($validateRules, ['value' => ['required']]);
+        } elseif($request->parameter_type == 'processed_variable') {
+            $validateRules = array_merge($validateRules, ['formula' => ['required']]);
         }
-        $this->validate($request, $validateRules, $messages);
-        $key = ($request->parameter_type == 'group_by_tabs')
-                    ? 'global_parameter_group_by_tabs_'
-                    : 'global_parameter_';
+        $this->validate($request, $validateRules, $this->messages);
+
         $errors = [];
         $listGlobalParameters = [];
-
         $parameters = Parameter::where(
             [
                 'required_by' => 'payroll',
@@ -431,10 +421,10 @@ class PayrollParameterController extends Controller
                     if ($request->name == $param->name) {
                         $errors = array_merge($errors, ["name" => ["El campo nombre contiene un valor duplicado."]]);
                     }
-                    if (($request->code == $param->code) && ($request->parameter_type != 'group_by_tabs')) {
+                    if ($request->code == $param->code) {
                         $errors = array_merge($errors, ["code" => ["El campo código contiene un valor duplicado."]]);
                     }
-                    if (($request->acronym == $param->acronym) && ($request->parameter_type != 'group_by_tabs')) {
+                    if ($request->acronym == $param->acronym) {
                         $errors = array_merge($errors, ["acronym" => ["El campo acrónimo contiene un valor duplicado."]]);
                     }
                     array_push($listGlobalParameters, [
@@ -473,7 +463,7 @@ class PayrollParameterController extends Controller
          * @var Object $parameter
          */
         $parameter = Parameter::updateOrCreate([
-            'p_key'       => $key . $payrollParameter['id'],
+            'p_key'       => 'global_parameter_' . $payrollParameter['id'],
             'required_by' => 'payroll',
             'active'      => true
         ],
@@ -502,8 +492,20 @@ class PayrollParameterController extends Controller
         )->first();
 
         if (!is_null($parameter)) {
-            $parameter->delete();
+            $parameter->forceDelete();
             return response()->json(['message' => 'destroy'], 200);
+        } else {
+            $parameter = Parameter::where(
+            [
+                'p_key'       => 'global_parameter_group_by_tabs_' . $id,
+                'required_by' => 'payroll',
+                'active'      => true,
+            ]
+            )->first();
+            if (!is_null($parameter)) {
+                $parameter->forceDelete();
+                return response()->json(['message' => 'destroy'], 200);
+            }
         }
     }
 
@@ -516,38 +518,33 @@ class PayrollParameterController extends Controller
      */
     public function getSalaryTabulatorsGroups()
     {
-        $listGlobalParameters = [];
-        $parameters = Parameter::where(
-            [
-                'required_by' => 'payroll',
-                'active'      => true,
-            ]
-        )->where('p_key', 'like', 'global_parameter_group_by_tabs_%')->get();
+        $list = [['id' => '', 'text' => 'Seleccione...']];
+        $childrens = [];
 
-        if (!is_null($parameters)) {
-            foreach ($parameters as $parameter) {
-                $param = json_decode($parameter->p_value);
-                foreach ($this->associatedRecords as $record) {
-                    if (!empty($record['children'])) {
-                        foreach ($record['children'] as $children) {
-                            if ($children['id'] == $param->code) {
-                                $type = $children['model']
-                                    ? 'list'
-                                    : '';
-                                array_push($listGlobalParameters, [
-                                    'id'    => $param->id,
-                                    'code'  => $param->code,
-                                    'name'  => $param->name,
-                                    'type'  => $type
-                                ]);
-                            }
-                            
-                        }
-                    }
+        foreach ($this->associatedRecords as $record) {
+            if (empty($record['children'])) {
+                array_push($list, [
+                    'id'   => $record['id'],
+                    'text' => $record['name']
+                ]);
+            } else {
+                $childrens = [];
+                foreach ($record['children'] as $children) {
+                    array_push($childrens, [
+                        'id'   => $children['id'],
+                        'text' => $children['name'],
+                        'type' => $children['type']
+                    ]);
                 }
+                array_push($list, [
+                    'id'       => $record['id'],
+                    'text'     => $record['name'],
+                    'children' => $childrens
+                ]);
             }
         }
-        return $listGlobalParameters;
+        
+        return $list;
     }
 
     /**
@@ -611,7 +608,10 @@ class PayrollParameterController extends Controller
     public function getPayrollParameterOptions($code)
     {
         foreach ($this->associatedRecords as $record) {
-            if (!empty($record['children'])) {
+            /** Revisar: Cuando el padre sea el match */
+            if ($record['id'] == $code) {
+                return template_choices($record['model'], ['first_name', ' ', 'last_name'], '', true);
+            } elseif (!empty($record['children'])) {
                 foreach ($record['children'] as $children) {
                     if ($children['id'] == $code) {
                         return template_choices($children['model'], ['name'], '', true);
