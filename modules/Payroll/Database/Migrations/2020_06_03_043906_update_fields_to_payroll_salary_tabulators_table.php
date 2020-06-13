@@ -55,16 +55,16 @@ class UpdateFieldsToPayrollSalaryTabulatorsTable extends Migration
             if (Schema::hasColumn('payroll_salary_tabulators', 'code')) {
                     $table->string('code')->nullable()
                           ->comment('Código asociado al tabulador')->change();
-                }
-                if (Schema::hasColumn('payroll_salary_tabulators', 'payroll_salary_tabulator_type')) {
-                    $table->dropColumn('payroll_salary_tabulator_type');
-                }
-                if (!Schema::hasColumn('payroll_salary_tabulators', 'payroll_staff_type_id')) {
-                    $table->bigInteger('payroll_staff_type_id')->unsigned()->nullable()
-                          ->comment('Identificador único del tipo de personal al que se aplica el tabulador salarial');
-                    $table->foreign('payroll_staff_type_id')->references('id')->on('payroll_staff_types')
-                          ->onDelete('restrict')->onUpdate('cascade');
-                }
+            }
+            if (Schema::hasColumn('payroll_salary_tabulators', 'payroll_salary_tabulator_type')) {
+                $table->dropColumn('payroll_salary_tabulator_type');
+            }
+            if (!Schema::hasColumn('payroll_salary_tabulators', 'payroll_staff_type_id')) {
+                $table->bigInteger('payroll_staff_type_id')->unsigned()->nullable()
+                      ->comment('Identificador único del tipo de personal al que se aplica el tabulador salarial');
+                $table->foreign('payroll_staff_type_id')->references('id')->on('payroll_staff_types')
+                      ->onDelete('restrict')->onUpdate('cascade');
+            }
         });
     }
 }

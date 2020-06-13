@@ -1,5 +1,5 @@
 <template>
-	<section id="PayrollSalaryTabulatorComponent">
+	<section id="PayrollSalaryTabulatorsComponent">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="#" title="Registros Tabuladores de Nómina" data-toggle="tooltip"
 		   @click="addRecord('add_payroll_salary_tabulator', 'salary-tabulators', $event)">
@@ -20,6 +20,7 @@
 					</div>
 
 					<div class="modal-body">
+                        <!-- mensajes de error -->
                 		<div class="alert alert-danger" v-if="errors.length > 0">
                             <div class="container">
                                 <div class="alert-icon">
@@ -37,6 +38,7 @@
                                 </ul>
                             </div>
                         </div>
+                        <!-- ./mensajes de error -->
                         <div class="wizard-tabs with-border">
                             <ul class="nav wizard-steps"
                                 v-if="panel == 'Form'">
@@ -82,32 +84,44 @@
                                 <div id="w-tabulatorForm" class="tab-pane p-3 active">
             						<div class="row">
             							<div class="col-md-6">
-                                            <div class=" form-group is-required">
+                                            <!-- nombre -->
+                                            <div class="form-group is-required">
                                                 <label>Nombre</label>
-                                                <input type="text" placeholder="Nombre del tabulador" data-toggle="tooltip"
-                                                       class="form-control input-sm" v-model="record.name">
+                                                <input type="text" class="form-control input-sm"
+                                                       placeholder="Nombre del tabulador" data-toggle="tooltip"
+                                                       title="Indique el nombre del tabulador (requerido)"
+                                                       v-model="record.name">
                                                 <input type="hidden" v-model="record.id">
                                             </div>
+                                            <!-- ./nombre -->
             								<div class="row">
             									<div class="col-md-4">
+                                                    <!-- activa -->
             										<div class="form-group">
             											<label>¿Activa?</label>
                                                         <div class="col-12">
                                                             <p-check class="pretty p-switch p-fill p-bigger"
                                                                      color="success" off-color="text-gray" toggle
+                                                                     data-toggle="tooltip"
+                                                                     title="Indique si el tabulador esá activo"
                                                                      v-model="record.active">
                                                                 <label slot="off-label"></label>
                                                             </p-check>
                                                         </div>
             										</div>
+                                                    <!-- ./activa -->
             									</div>
                                                 <div class="col-md-8">
+                                                    <!-- moneda -->
                                                     <div class="form-group">
                                                         <label>Moneda:</label>
-                                                        <select2 :options="currencies" v-model="record.currency_id"></select2>
+                                                        <select2 :options="currencies"
+                                                                 v-model="record.currency_id"></select2>
                                                     </div>
+                                                    <!-- ./moneda -->
                                                 </div>
                                             </div>
+                                            <!-- tipo de personal -->
                                             <div class="form-group is-required">
                                                 <label>Tipo de Personal</label>
                                                 <v-multiselect :options="payroll_staff_types" track_by="text"
@@ -115,34 +129,45 @@
                                                                v-model="record.payroll_staff_types">
                                                 </v-multiselect>
                                             </div>
+                                            <!-- ./tipo de personal -->
             							</div>
             							<div class="col-md-6">
+                                            <!-- descripción -->
                                             <div class="form-group">
                                                 <label>Descripción:</label>
-                                                <ckeditor :editor="ckeditor.editor" id="description_tabulator" data-toggle="tooltip"
+                                                <ckeditor :editor="ckeditor.editor" id="description_tabulator"
+                                                          data-toggle="tooltip"
                                                           title="Indique alguna descripción asociada al tabulador"
                                                           :config="ckeditor.editorConfig" class="form-control"
                                                           name="description_tabulator" tag-name="textarea" rows="2"
                                                           v-model="record.description"></ckeditor>
                                             </div>
+                                            <!-- ./descripción -->
             							</div>
                                         <div class="col-md-6">
+                                            <!-- institución -->
                                             <div class="form-group is-required">
                                                 <label>Institución:</label>
-                                                <select2 :options="institutions" v-model="record.institution_id"></select2>
+                                                <select2 :options="institutions"
+                                                         v-model="record.institution_id"></select2>
                                             </div>
+                                            <!-- ./institución -->
                                         </div>
                                         <div class="col-md-6">
+                                            <!-- tipo de tabulador -->
                                             <div class="form-group is-required">
                                                 <label>Tipo de tabulador:</label>
                                                 <select2 :options="payroll_salary_tabulator_types"
                                                          @input="getPayrollSalaryScales()"
                                                          v-model="record.payroll_salary_tabulator_type"></select2>
                                             </div>
+                                            <!-- ./tipo de tabulador -->
                                         </div>
+                                        <!-- Visible si el tipo de tabulador es horizontal o vertical -->
                                         <div class="col-md-6"
                                              v-if="record.payroll_salary_tabulator_type &&
                                                    record.payroll_salary_tabulator_type != 'mixed'">
+                                            <!-- escalafón -->
                                             <div class="form-group is-required">
                                                 <label>Escalafón:</label>
                                                 <select2 id="payroll_horizontal_salary_scale"
@@ -154,11 +179,14 @@
                                                          v-else
                                                          v-model="record.payroll_vertical_salary_scale_id"></select2>
                                             </div>
+                                            <!-- ./escalafón -->
                                         </div>
             						</div>
+                                    <!-- visible si el tipo de tabulador es mixto -->
                                     <div class="row"
                                          v-if="record.payroll_salary_tabulator_type == 'mixed'">
                                         <div class="col-md-6">
+                                            <!-- escalafón horizontal -->
                                             <div class="form-group is-required">
                                                 <label>Escalafón horizontal:</label>
                                                 <select id="payroll_horizontal_salary_scale"
@@ -171,8 +199,10 @@
                                                     </option>
                                                 </select>
                                             </div>
+                                            <!-- ./escalafón horizontal -->
                                         </div>
                                         <div class="col-md-6">
+                                            <!-- escalafón vertical -->
                                             <div class="form-group is-required">
                                                 <label>Escalafón vertical:</label>
                                                 <select id="payroll_vertical_salary_scale"
@@ -185,9 +215,11 @@
                                                     </option>
                                                 </select>
                                             </div>
+                                            <!-- ./escalafón vertical -->
                                         </div>
                                     </div>
                                 </div>
+
                                 <div id="w-tabulatorShow" class="tab-pane p-3">
                                     <!-- Visible para ambos escalafones -->
                                     <div class="modal-table"
@@ -197,7 +229,7 @@
                                             || ((record.payroll_vertical_salary_scale_id > 0)
                                             && (payroll_salary_scale_v.payroll_scales)
                                             && (payroll_salary_scale_v.payroll_scales.length > 0))">
-                                        <table class="table table-hover table-striped table-responsive  table-assignment"
+                                        <table class="table table-hover table-striped table-responsive table-assignment"
                                                v-if="record.payroll_horizontal_salary_scale_id > 0
                                                   && record.payroll_salary_tabulator_type != 'vertical'">
                                             <thead>
@@ -221,8 +253,8 @@
                                                         v-for="(field_h, index) in payroll_salary_scale_h.payroll_scales">
                                                         <div>
                                                             <input type="number" :id="'salary_scale_h_' + field_h.id"
-                                                                   class="form-control input-sm" data-toggle="tooltip" min="0"
-                                                                   step=".01" onfocus="this.select()">
+                                                                   class="form-control input-sm" data-toggle="tooltip"
+                                                                   min="0" step=".01" onfocus="this.select()">
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -237,16 +269,17 @@
                                                     <td class="td-with-border"
                                                         v-for="(field_h, index_h) in payroll_salary_scale_h.payroll_scales">
                                                         <div>
-                                                            <input type="number" class="form-control input-sm"
+                                                            <input type="number"
                                                                    :id="'salary_scale_' + field_v.id + '_' + field_h.id"
-                                                                   data-toggle="tooltip" min="0" step=".01" onfocus="this.select()">
+                                                                   class="form-control input-sm" data-toggle="tooltip"
+                                                                   min="0" step=".01" onfocus="this.select()">
                                                         </div>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <table  class="table table-hover table-striped table-responsive  table-assignment"
-                                                v-else-if="record.payroll_salary_tabulator_type == 'vertical'
+                                        <table class="table table-hover table-striped table-responsive table-assignment"
+                                               v-else-if="record.payroll_salary_tabulator_type == 'vertical'
                                                        && record.payroll_vertical_salary_scale_id > 0">
                                             <thead>
                                                 <th colspan="2">
@@ -266,8 +299,8 @@
                                                     <td>
                                                         <div>
                                                             <input type="number" :id="'salary_scale_v_' + field.id"
-                                                                   class="form-control input-sm" data-toggle="tooltip" min="0"
-                                                                   step=".01" onfocus="this.select()">
+                                                                   class="form-control input-sm" data-toggle="tooltip"
+                                                                   min="0" step=".01" onfocus="this.select()">
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -310,11 +343,11 @@
                                 <span v-html="props.row.description"></span>
                             </div>
 	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<!-- <button @click="exportRecord(props.index, $event)"
+	                			<button @click="exportRecord(props.index, $event)"
                                         class="btn btn-primary btn-xs btn-icon btn-action"
                                         title="Descargar/Exportar tabulador" data-toggle="tooltip" type="button">
 	                                <i class="fa fa-download"></i>
-	                            </button> -->
+	                            </button>
 	                			<button @click="initUpdate(props.index, $event)"
 		                				class="btn btn-warning btn-xs btn-icon btn-action"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
@@ -352,23 +385,23 @@
                     payroll_vertical_salary_scale_id:   '',
                     payroll_salary_tabulator_scales:    []
 				},
-                errors:                         [],
-                records:                        [],
-                columns:                        ['name', 'description', 'id'],
-                payroll_salary_tabulator_types: [
+                errors:                           [],
+                records:                          [],
+                columns:                          ['name', 'description', 'id'],
+                payroll_salary_tabulator_types:   [
                     {"id": "",           "text": "Seleccione..."},
                     {"id": "horizontal", "text": "Horizontal"},
                     {"id": "vertical",   "text": "Vertical"},
                     {"id": "mixed",      "text": "Mixto"}
                 ],
-                institutions:                   [],
-                currencies:                     [],
-                payroll_staff_types:            [],
+                institutions:                     [],
+                currencies:                       [],
+                payroll_staff_types:              [],
                 payroll_horizontal_salary_scales: [],
-                payroll_vertical_salary_scales: [],
-                payroll_salary_scale_h: [],
-                payroll_salary_scale_v: [],
-                panel: 'Form'
+                payroll_vertical_salary_scales:   [],
+                payroll_salary_scale_h:           [],
+                payroll_salary_scale_v:           [],
+                panel:                            'Form'
 
 			}
 		},
@@ -395,55 +428,40 @@
                 vm.getInstitutions();
                 vm.getCurrencies();
             });
-            vm.switchHandler('active');
         },
         watch: {
+            /**
+             * Método que permite actualizar los escalafones horizontal y vertical cuando detecta cambios 
+             * en la variable "record"
+             *
+             * @method    record
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+             */
             record: {
                 deep: true,
                 handler: function() {
                     const vm = this;
                     if (vm.record.id) {
-                        if (vm.payroll_horizontal_salary_scales.length > 0) {
-                            if (vm.record.payroll_horizontal_salary_scale && vm.record.payroll_horizontal_salary_scale_id == '') {
-                                vm.record.payroll_horizontal_salary_scale_id = vm.record.payroll_horizontal_salary_scale['id'];
-                            }
+                        if ((vm.payroll_horizontal_salary_scales.length > 0)
+                            && (vm.record.payroll_horizontal_salary_scale)
+                            && (vm.record.payroll_horizontal_salary_scale_id == '')) {
+                            vm.record.payroll_horizontal_salary_scale_id = vm.record.payroll_horizontal_salary_scale['id'];
                         }
-                        if (vm.payroll_vertical_salary_scales.length > 0) {
-                            if (vm.record.payroll_vertical_salary_scale && vm.record.payroll_vertical_salary_scale_id == '') {
-                                vm.record.payroll_vertical_salary_scale_id = vm.record.payroll_vertical_salary_scale['id'];
-                            }
+                        if ((vm.payroll_vertical_salary_scales.length > 0)
+                            && (vm.record.payroll_vertical_salary_scale)
+                            && (vm.record.payroll_vertical_salary_scale_id == '')) {
+                            vm.record.payroll_vertical_salary_scale_id = vm.record.payroll_vertical_salary_scale['id'];
                         }
                     }
                 }
             }
         },
 		methods: {
-            changePanel(panel) {
-                const vm    = this;
-                vm.panel    = panel;
-                let element = document.getElementById('tabulador' + panel);
-                element.click();
-            },
-            isDisable(ladder) {
-                const vm = this;
-                if (ladder == 'horizontal') {
-                    $.each(vm.payroll_vertical_salary_scales, function(index, field) {
-                        if ((field.id == vm.record.payroll_horizontal_salary_scale_id) &&
-                            (vm.record.payroll_horizontal_salary_scale_id != '')) {
-                            $('#' + field.id + '_v').prop("disabled", true);
-                        } else
-                            $('#' + field.id + '_v').prop("disabled", false);
-                    })
-                } else {
-                    $.each(vm.payroll_horizontal_salary_scales, function(index, field) {
-                        if ((field.id == vm.record.payroll_vertical_salary_scale_id) &&
-                            (vm.record.payroll_vertical_salary_scale_id != '')) {
-                            $('#' + field.id + '_h').prop("disabled", true);
-                        } else
-                            $('#' + field.id + '_h').prop("disabled", false);
-                    })
-                }
-            },
+            /**
+             * Método que borra todos los datos del formulario
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+             */
 			reset() {
 				const vm  = this;
                 vm.errors = [];
@@ -466,12 +484,69 @@
                 vm.changePanel(vm.panel)
 
 			},
+            /**
+             * Método que cambia el panel de visualización 
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+             *
+             * @param     {string}     panel    Panel seleccionado
+             */
+            changePanel(panel) {
+                const vm    = this;
+                vm.panel    = panel;
+                let element = document.getElementById('tabulador' + panel);
+                element.click();
+            },
+            /**
+             * Método que permite habilitar/deshabilitar las opciones de los escalafones salariales
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+             *
+             * @param     {string}     ladder    Escalafón que invoco el método
+             */
+            isDisable(ladder) {
+                const vm = this;
+                if (ladder == 'horizontal') {
+                    $.each(vm.payroll_vertical_salary_scales, function(index, field) {
+                        if ((field.id == vm.record.payroll_horizontal_salary_scale_id)
+                            && (vm.record.payroll_horizontal_salary_scale_id != '')) {
+                            $('#' + field.id + '_v').prop("disabled", true);
+                        } else
+                            $('#' + field.id + '_v').prop("disabled", false);
+                    })
+                } else {
+                    $.each(vm.payroll_horizontal_salary_scales, function(index, field) {
+                        if ((field.id == vm.record.payroll_vertical_salary_scale_id)
+                            && (vm.record.payroll_vertical_salary_scale_id != '')) {
+                            $('#' + field.id + '_h').prop("disabled", true);
+                        } else
+                            $('#' + field.id + '_h').prop("disabled", false);
+                    })
+                }
+            },
+            /**
+             * Método que exporta el tabulador seleccionado en formato ".xls"
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+             *
+             * @param     {integer}    index    Identificador del registro a ser exportado
+             * @param     {object}     event    Objeto que gestiona los eventos
+             */
 			exportRecord(index, event) {
 				const vm = this;
 				var fields = vm.records[index - 1];
 				window.open('/payroll/salary-tabulators/export/' + fields.id);
 				event.preventDefault();
 			},
+            /**
+             * Método que obtiene los escalafones salariales, para posteriormente,
+             * cargarlos en el formulario según sea el tipo de tabulador
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+             *
+             * @param     {integer}    index    Identificador del registro a ser modificado
+             * @param     {object}     event    Objeto que gestiona los eventos
+             */
             getPayrollSalaryScales() {
                 const vm  = this;
                 let field = {
@@ -479,17 +554,20 @@
                     except_id:      ''
                 };
                 vm.record.payroll_horizontal_salary_scale_id = '';
-                vm.record.payroll_vertical_salary_scale_id = '';
+                vm.record.payroll_vertical_salary_scale_id   = '';
 
                 if (vm.record.payroll_salary_tabulator_type != '') {
                     axios.post('/payroll/get-salary-scales', field).then(response => {
                         if (typeof(response.data) !== "undefined") {
-                            vm.payroll_horizontal_salary_scales = (vm.record.payroll_salary_tabulator_type == 'vertical')
-                                ? []
-                                : response.data;
-                            vm.payroll_vertical_salary_scales   = (vm.record.payroll_salary_tabulator_type == 'horizontal')
-                                ? []
-                                : response.data;
+                            if (vm.record.payroll_salary_tabulator_type == 'vertical')
+                                vm.payroll_horizontal_salary_scales = [];
+                            else
+                                vm.payroll_horizontal_salary_scales = response.data;
+                            
+                            if (vm.record.payroll_salary_tabulator_type == 'horizontal')
+                                vm.payroll_vertical_salary_scales   = [];
+                            else
+                                vm.payroll_vertical_salary_scales   = response.data;
                         }
                     }).catch(error => {
                         if (typeof(error.response) !== "undefined") {
@@ -499,95 +577,27 @@
                                 );
                             }
                             else {
-                                vm.logs('modules/Payroll/Resources/assets/js/_all.js', 343, error, 'getPayrollSalaryScales');
+                                vm.logs(
+                                    'modules/Payroll/Resources/assets/js/_all.js',
+                                    343,
+                                    error,
+                                    'getPayrollSalaryScales'
+                                );
                             }
                         }
                     });
                 };
             },
-            getPayrollSalary(ladder) {
-                const vm      = this;
-                let field     = {
-                    institution_id: vm.record.institution_id,
-                    except_id:      ''
-                };
-
-                if (ladder == 'horizontal') {
-                    if (vm.record.payroll_horizontal_salary_scale_id == '') {
-                        if (vm.record.payroll_vertical_salary_scale_id == '')
-                            if (vm.payroll_vertical_salary_scales.length == vm.payroll_horizontal_salary_scales.length)
-                                return
-                    } else {
-                        if (vm.record.payroll_vertical_salary_scale_id == '') {
-                            field = {
-                                institution_id: vm.record.institution_id,
-                                except_id:      vm.record.payroll_horizontal_salary_scale_id
-                            };
-                        } else {
-                            field = {
-                                institution_id: vm.record.institution_id,
-                                except_id:      vm.record.payroll_horizontal_salary_scale_id
-                            };
-                        }
-                    }
-                    axios.post('/payroll/get-salary-scales', field).then(response => {
-                        if (typeof(response.data) !== "undefined") {
-                            vm.payroll_vertical_salary_scales = response.data;
-                        }
-                    }).catch(error => {
-                        if (typeof(error.response) !== "undefined") {
-                            if (error.response.status == 403) {
-                                vm.showMessage(
-                                    'custom', 'Acceso Denegado', 'danger', 'screen-error', error.response.data.message
-                                );
-                            }
-                            else {
-                                vm.logs('modules/Payroll/Resources/assets/js/_all.js', 343, error, 'getPayrollSalaryScales');
-                            }
-                        }
-                    });
-                } else {
-                    if (vm.record.payroll_vertical_salary_scale_id == '') {
-                        if (vm.record.payroll_horizontal_salary_scale_id == '')
-                            if (vm.payroll_vertical_salary_scales.length == vm.payroll_horizontal_salary_scales.length)
-                                return
-                    } else {
-                        if (vm.record.payroll_horizontal_salary_scale_id == '') {
-                            field = {
-                                institution_id: vm.record.institution_id,
-                                except_id:      vm.record.payroll_vertical_salary_scale_id
-                            };
-                        } else {
-                            field = {
-                                institution_id: vm.record.institution_id,
-                                except_id:      vm.record.payroll_vertical_salary_scale_id
-                            };
-                        }
-                    }
-                    axios.post('/payroll/get-salary-scales', field).then(response => {
-                        if (typeof(response.data) !== "undefined") {
-                            vm.payroll_horizontal_salary_scales = response.data;
-                        }
-                    }).catch(error => {
-                        if (typeof(error.response) !== "undefined") {
-                            if (error.response.status == 403) {
-                                vm.showMessage(
-                                    'custom', 'Acceso Denegado', 'danger', 'screen-error', error.response.data.message
-                                );
-                            }
-                            else {
-                                vm.logs('modules/Payroll/Resources/assets/js/_all.js', 343, error, 'getPayrollSalaryScales');
-                            }
-                        }
-                    });
-                }
-
-
-            },
+            /**
+             * Método que obtiene la información de los escalafones salariales seleccionados
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+             *
+             */
             loadSalaryScales() {
                 const vm = this;
                 let id   = '';
-                /** Validar campos y si ya esta activo el panel tabulatorShow para no hacer la consulta */
+                /** Validar campos */
                 if (vm.record.payroll_horizontal_salary_scale_id > 0) {
                     id = vm.record.payroll_horizontal_salary_scale_id;
                     axios.get('/payroll/salary-scales/info/' + id).then(response => {
@@ -602,7 +612,19 @@
                 }
                 vm.changePanel('Show')
             },
-            createRecord(url) {
+            /**
+             * Reescribe el método createRecord para cambiar su comportamiento por defecto
+             * Método que permite crear o actualizar un registro
+             *
+             * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             *
+             * @param     {string}    url      Ruta de la acción a ejecutar para la creación o actualización de datos
+             * @param     {string}    list     Condición para establecer si se cargan datos en un listado de tabla.
+             *                                 El valor por defecto es verdadero.
+             * @param     {string}    reset    Condición que evalúa si se inicializan datos del formulario.
+             *                                 El valor por defecto es verdadero.
+             */
+            createRecord(url, list = true, reset = true) {
                 const vm = this;
                 var payroll_scales = [];
 
@@ -661,9 +683,10 @@
                     vm.updateRecord(url);
                 }
                 else {
+                    vm.loading = true;
                     var fields = {};
-                    for (var index in vm.record) {
-                        fields[index] = vm.record[index];
+                    for (var index in this.record) {
+                        fields[index] = this.record[index];
                     }
                     axios.post('/' + url, fields).then(response => {
                         if (typeof(response.data.redirect) !== "undefined") {
@@ -671,10 +694,16 @@
                         }
                         else {
                             vm.errors = [];
-                            vm.reset();
-                            vm.readRecords(url);
+                            if (reset) {
+                                vm.reset();
+                            }
+                            if (list) {
+                                vm.readRecords(url);
+                            }
+                            vm.loading = false;
                             vm.showMessage('store');
                         }
+
                     }).catch(error => {
                         vm.errors = [];
 
@@ -685,6 +714,8 @@
                                 }
                             }
                         }
+
+                        vm.loading = false;
                     });
                 }
             },

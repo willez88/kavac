@@ -56,7 +56,7 @@ class CreatePayrollPaymentTypesTable extends Migration
                 $table->bigInteger('accounting_account_id')->nullable()->unsigned()
                       ->comment('Identificador único asociado a la cuenta contable');
                 $table->foreign('accounting_account_id')->references('id')
-                      ->on('accounting_accounts')->onUpdate('restrict')->onDelete('restrict');
+                      ->on('accounting_accounts')->onDelete('restrict')->onUpdate('cascade');
                 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

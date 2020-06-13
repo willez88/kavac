@@ -39,6 +39,13 @@ class PayrollConceptController extends Controller
     protected $messages;
 
     /**
+     * Arreglo con los registros de opciones a asignar el concepto
+     *
+     * @var Array $assignTo
+     */
+    protected $assignTo;
+
+    /**
      * Define la configuración de la clase
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
@@ -73,6 +80,125 @@ class PayrollConceptController extends Controller
             'payroll_assign_to_id.required'    => 'El campo ¿asignar a? es obligatorio.',
             'calculation_way_id.required'      => 'El campo forma de cálculo es obligatorio.'
         ];
+
+        /** Define las opciones del campo "asignar a" a emplear en el formulario */
+        $this->assignTo = [
+            [
+                'id'   => 'all',
+                'name' => 'Todos los trabajadores',
+                'required' => ''
+            ],
+            [
+                'id'   => 'all_active_staff',
+                'name' => 'Todos los trabajadores activos',
+                'required' => ''
+            ],
+            [
+                'id'   => 'all_except_staffs_in_vacation',
+                'name' => 'Todos excepto trabajadores que se encuentren en período de vacaciones',
+                'required' => ''
+            ],
+            [
+                'id'   => 'all_except_staffs_at_rest',
+                'name' => 'Todos excepto trabajadores que se encuentren de reposo',
+                'required' => ''
+            ],
+            [
+                'id'   => 'all_except_staffs_in_vacation_and_rest',
+                'name' => 'Todos excepto trabajadores que se encuentren en período de vacaciones y reposo',
+                'required' => ''
+            ],
+            [
+                'id'   => 'all_except_disabled_staff',
+                'name' => 'Todos excepto trabajadores discapacitados',
+                'required' => ''
+            ],
+            [
+                'id'   => 'all_except_staff_on_leave',
+                'name' => 'Todos excepto trabajadores que se encuentren de permiso',
+                'required' => ''
+            ],
+            [
+                'id'   => 'all_retired_staff',
+                'name' => 'Todos los trabajadores jubilados',
+                'required' => ''
+            ],
+            [
+                'id'   => 'all_disabled_staff',
+                'name' => 'Todos los trabajadores con discapacidad',
+                'required' => ''
+            ],
+            [
+                'id'   => 'all_studying_staff',
+                'name' => 'Todos los trabajadores que cursen estudios',
+                'required' => ''
+            ],
+            [
+                'id'   => 'all_staff_with_sons',
+                'name' => 'Todos los trabajadores con hijos',
+                'required' => ''
+            ],
+            [
+                'id'   => 'all_staff_with_sons_studying',
+                'name' => 'Todos los trabajadores con hijos que cursen estudios',
+                'required' => ''
+            ],
+            [
+                'id'   => 'staff',
+                'name' => 'Trabajadores',
+                'required' => 'STAFF'
+            ],
+            [
+                'id'   => 'staff_master_the_languages',
+                'name' => 'Trabajadores que dominen más de un idioma',
+                'required' => 'LANGUAGE'
+            ],
+            [
+                'id'   => 'staff_according_instruction_degree',
+                'name' => 'Trabajadores de acuerdo su nivel de instrucción',
+                'required' => 'INSTRUCTION_DEGREE'
+            ],
+            [
+                'id'   => 'staff_according_antiquity_years',
+                'name' => 'Trabajadores de acuerdo sus años de antiguedad',
+                'required' => '' /** Lista de ragos de antiguedad? */
+            ],
+            [
+                'id'   => 'staff_according_department',
+                'name' => 'Trabajadores de acuerdo al departamento al que pertenece',
+                'required' => 'DEPARTMENT'
+            ],
+            [
+                'id'   => 'staff_according_position_type',
+                'name' => 'Trabajadores de acuerdo al tipo de cargo al que pertenece',
+                'required' => 'POSITION_TYPE'
+            ],
+            [
+                'id'   => 'staff_according_contract_type',
+                'name' => 'Trabajadores de acuerdo al tipo de contrato al que pertenece',
+                'required' => 'CONTRACT_TYPE'
+            ],
+            [
+                'id'   => 'staff_according_rol',
+                'name' => 'Trabajadores de acuerdo al rol al que pertenece',
+                'required' => 'ROL'
+            ],
+            [
+                'id'   => 'staff_according_staff_type',
+                'name' => 'Trabajadores de acuerdo al tipo de personal al que pertenece',
+                'required' => 'STAFF_TYPE'
+            ],
+            [
+                'id'   => 'staff_according_gender',
+                'name' => 'Trabajadores de acuerdo al género al que pertenece',
+                'required' => 'GENDER'
+            ],
+            [
+                'id'   => 'staff_according_years_old',
+                'name' => 'Trabajadores de acuerdo a la edad que poseen',
+                'required' => '' /** Lista de ragos de edad? */
+            ]
+        ];
     }
     
     /**
@@ -98,6 +224,7 @@ class PayrollConceptController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, $this->validateRules, $this->messages);
+        return response()->json(['message' => 'Success'], 200);
 
         /**
          * Objeto asociado al modelo PayrollConcept
@@ -128,6 +255,7 @@ class PayrollConceptController extends Controller
      */
     public function update(Request $request, $id)
     {
+        return response()->json(['message' => 'Success'], 200);
         /**
          * Objeto con la información del concepto a editar asociado al modelo PayrollConcept
          *
@@ -171,11 +299,22 @@ class PayrollConceptController extends Controller
      *
      * @method    getPayrollConcepts
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param     Integer $id    Identificador único del concepto a eliminar
      * @return    Array          Listado de los registros a mostrar
      */
     public function getPayrollConcepts()
     {
         return template_choices('Modules\Payroll\Models\PayrollConcept', ['code', '-', 'name'], '', true);
+    }
+
+    /**
+     * Obtiene los tipos de conceptos registrados
+     *
+     * @method    getPayrollConceptAssignTo
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    Array          Listado de los registros a mostrar
+     */
+    public function getPayrollConceptAssignTo()
+    {
+        return $this->assignTo;
     }
 }

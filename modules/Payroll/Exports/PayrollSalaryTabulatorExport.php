@@ -76,13 +76,13 @@ class PayrollSalaryTabulatorExport extends \App\Exports\DataExport implements
                 && ($payrollSalaryTabulator->payroll_vertical_salary_scale_id > 0)) {
                     $horizontalScale = $payrollSalaryTabulatorScale->payrollHorizontalScale;
                     $verticalScale = $payrollSalaryTabulatorScale->payrollVerticalScale;
-                    $fields[$horizontalScale->code . '-' . $verticalScale->code] = $payrollSalaryTabulatorScale->value;
+                    $fields[$horizontalScale->name . '-' . $verticalScale->name] = $payrollSalaryTabulatorScale->value;
                 } elseif ($payrollSalaryTabulator->payroll_horizontal_salary_scale_id > 0) {
                     $horizontalScale = $payrollSalaryTabulatorScale->payrollHorizontalScale;
-                    $fields[$horizontalScale->code] = $payrollSalaryTabulatorScale->value;
+                    $fields[$horizontalScale->name] = $payrollSalaryTabulatorScale->value;
                 } elseif ($payrollSalaryTabulator->payroll_vertical_salary_scale_id > 0) {
                     $verticalScale = $payrollSalaryTabulatorScale->payrollVerticalScale;
-                    $fields[$verticalScale->code] = $payrollSalaryTabulatorScale->value;
+                    $fields[$verticalScale->name] = $payrollSalaryTabulatorScale->value;
                 }
             }
 
@@ -92,11 +92,11 @@ class PayrollSalaryTabulatorExport extends \App\Exports\DataExport implements
                 $payrollVerticalSalaryScale = $payrollSalaryTabulator->payrollVerticalSalaryScale;
 
                 foreach ($payrollVerticalSalaryScale->payrollScales as $payrollVerticalScale) {
-                    array_push($records, $payrollVerticalScale->code);
+                    array_push($records, $payrollVerticalScale->name);
                     foreach ($payrollHorizontalSalaryScale->payrollScales as $payrollHorizontalScale) {
                         array_push(
                             $records,
-                            $fields[$payrollHorizontalScale->code . '-' . $payrollVerticalScale->code]
+                            $fields[$payrollHorizontalScale->name . '-' . $payrollVerticalScale->name]
                         );
                     }
                 }
@@ -105,14 +105,14 @@ class PayrollSalaryTabulatorExport extends \App\Exports\DataExport implements
                 $payrollHorizontalSalaryScale = $payrollSalaryTabulator->payrollHorizontalSalaryScale;
                 array_push($records, 'Incidencia');
                 foreach ($payrollHorizontalSalaryScale->payrollScales as $payrollHorizontalScale) {
-                    array_push($records, $fields[$payrollHorizontalScale->code]);
+                    array_push($records, $fields[$payrollHorizontalScale->name]);
                 }
                 $records = array_chunk($records, count($payrollHorizontalSalaryScale->payrollScales) + 1);
             } elseif ($payrollSalaryTabulator->payroll_vertical_salary_scale_id > 0) {
                 $payrollVerticalSalaryScale = $payrollSalaryTabulator->payrollVerticalSalaryScale;
                 foreach ($payrollVerticalSalaryScale->payrollScales as $payrollVerticalScale) {
-                    array_push($records, $payrollVerticalScale->code);
-                    array_push($records, $fields[$payrollVerticalScale->code]);
+                    array_push($records, $payrollVerticalScale->name);
+                    array_push($records, $fields[$payrollVerticalScale->name]);
                 }
                 $records = array_chunk($records, 2);
             }
@@ -131,13 +131,13 @@ class PayrollSalaryTabulatorExport extends \App\Exports\DataExport implements
         $fields = [];
         if ($payrollSalaryTabulator) {
             if ($payrollSalaryTabulator->payroll_horizontal_salary_scale_id > 0) {
-                array_push($fields, 'Código');
+                array_push($fields, 'Nombre');
                 $payrollHorizontalSalaryScale = $payrollSalaryTabulator->payrollHorizontalSalaryScale;
                 foreach ($payrollHorizontalSalaryScale->payrollScales as $payrollScale) {
-                    array_push($fields, $payrollScale->code);
+                    array_push($fields, $payrollScale->name);
                 }
             } elseif ($payrollSalaryTabulator->payroll_vertical_salary_scale_id > 0) {
-                array_push($fields, 'Código');
+                array_push($fields, 'Nombre');
                 array_push($fields, 'Incidencia');
             }
             return $fields;

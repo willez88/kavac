@@ -263,7 +263,7 @@ Vue.component('payroll-salary-scales', () => import(
  */
 Vue.component('payroll-salary-tabulators', () => import(
     /* webpackChunkName: "payroll-salary-tabulators" */
-    './components//settings/PayrollSalaryTabulatorsComponent.vue')
+    './components/settings/PayrollSalaryTabulatorsComponent.vue')
 );
 
 /**
@@ -309,18 +309,42 @@ Vue.component('payroll-payment-types', () => import(
 Vue.mixin({
 	methods: {
 
-		/**
-		 * Obtiene los datos de los tipos de asignaciones salariales registradas
-		 *
-		 * @author Henry Paredes (henryp2804@gmail.com)
-		 */
-		getPayrollSalaryAssignmentTypes() {
-			const vm = this;
-			vm.payroll_salary_assignment_types = [];
-			axios.get('/payroll/get-salary-assignment-types').then(response => {
-				vm.payroll_salary_assignment_types = response.data;
-			});
-		},
+        /**
+         * Método que obtiene un arreglo con los conceptos registrados
+         *
+         * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+         */
+        getPayrollConcepts() {
+            const vm = this;
+            vm.payroll_concepts = [];
+            axios.get('/payroll/get-concepts').then(response => {
+                vm.payroll_concepts = response.data;
+            });
+        },
+        /**
+         * Método que obtiene un arreglo con los tipos de conceptos registrados
+         *
+         * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+         */
+        getPayrollConceptTypes() {
+            const vm = this;
+            vm.payroll_concept_types = [];
+            axios.get('/payroll/get-concept-types').then(response => {
+                vm.payroll_concept_types = response.data;
+            });
+        },
+        /**
+         * Método que obtiene un arreglo con los tipos de conceptos registrados
+         *
+         * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+         */
+        getPayrollSalaryTabulators() {
+            const vm = this;
+            vm.payroll_salary_tabulators = [];
+            axios.get('/payroll/get-salary-tabulators').then(response => {
+                vm.payroll_salary_tabulators = response.data;
+            });
+        },
 
 		/**
 		 * Obtiene los datos de las nacionalidades registradas

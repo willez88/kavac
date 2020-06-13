@@ -92,6 +92,11 @@ Route::group([
         'PayrollConceptController@getPayrollConcepts'
     )->name('payroll.get-payroll-concepts');
 
+    Route::get(
+        'get-concept-assign-to',
+        'PayrollConceptController@getPayrollConceptAssignTo'
+    )->name('payroll.get-payroll-concept-assign-to');
+
     Route::resource(
         'concept-types',
         'PayrollConceptTypeController',

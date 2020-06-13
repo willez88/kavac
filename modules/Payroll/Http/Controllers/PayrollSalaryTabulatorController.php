@@ -265,10 +265,20 @@ class PayrollSalaryTabulatorController extends Controller
                         'payroll_salary_tabulator_id' => $salaryTabulator->id,
                         'payroll_vertical_scale_id'   => $payrollScale['payroll_vertical_scale_id'] ?? null,
                         'payroll_horizontal_scale_id' => $payrollScale['payroll_horizontal_scale_id'] ?? null,
+                    ])->orWhere([
+                        'payroll_salary_tabulator_id' => $salaryTabulator->id,
+                        'payroll_vertical_scale_id'   => null,
+                        'payroll_horizontal_scale_id' => $payrollScale['payroll_horizontal_scale_id'] ?? null,
+                    ])->orWhere([
+                        'payroll_salary_tabulator_id' => $salaryTabulator->id,
+                        'payroll_vertical_scale_id'   => $payrollScale['payroll_vertical_scale_id'] ?? null,
+                        'payroll_horizontal_scale_id' => null,
                     ])->first();
 
-                    $salaryTabulatorScale->value      = $payrollScale['value'];
-                    $salaryTabulatorScale->updated_at = $updated_at;
+                    $salaryTabulatorScale->payroll_horizontal_scale_id = $payrollScale['payroll_horizontal_scale_id'] ?? null;
+                    $salaryTabulatorScale->payroll_vertical_scale_id   = $payrollScale['payroll_vertical_scale_id'] ?? null;
+                    $salaryTabulatorScale->value                       = $payrollScale['value'];
+                    $salaryTabulatorScale->updated_at                  = $updated_at;
                     $salaryTabulatorScale->save();
                 }
                 if (is_null($salaryTabulatorScale)) {
