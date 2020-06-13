@@ -63,6 +63,7 @@ class UpdateFieldsTechnicalSupportRequestRepairsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         if (Schema::hasTable('technical_support_request_repairs')) {
             Schema::table('technical_support_request_repairs', function (Blueprint $table) {
                 if (!Schema::hasColumn('technical_support_request_repairs', 'user_id')) {
@@ -73,14 +74,15 @@ class UpdateFieldsTechnicalSupportRequestRepairsTable extends Migration
                 };
 
                 if (Schema::hasColumn('technical_support_request_repairs', 'technical_support_request_id')) {
-                    $table->dropForeign(['technical_support_request_id']);
+                    $table->dropForeign('technical_support_request_repairs_request_fk');
                     $table->dropColumn(['technical_support_request_id']);
                 };
                 if (Schema::hasColumn('technical_support_request_repairs', 'technical_support_repair_id')) {
-                    $table->dropForeign(['technical_support_repair_id']);
+                    $table->dropForeign('technical_support_request_repairs_repair_fk');
                     $table->dropColumn(['technical_support_repair_id']);
                 };
             });
         }
+        Schema::enableForeignKeyConstraints();
     }
 }

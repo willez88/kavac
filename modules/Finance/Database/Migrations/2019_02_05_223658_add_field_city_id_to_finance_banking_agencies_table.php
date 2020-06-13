@@ -26,6 +26,7 @@ class AddFieldCityIdToFinanceBankingAgenciesTable extends Migration
     public function down()
     {
         Schema::table('finance_banking_agencies', function (Blueprint $table) {
+            $table->dropForeign(['city_id']);
             $table->dropColumn('city_id');
         });
     }

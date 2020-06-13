@@ -43,6 +43,7 @@ class AddFieldPayrollRoleIdToPayrollEmploymentInformationsTable extends Migratio
     {
         Schema::table('payroll_employment_informations', function (Blueprint $table) {
             if (Schema::hasColumn('payroll_employment_informations', 'payroll_role_id')) {
+                $table->dropForeign(['payroll_role_id']);
                 $table->dropColumn('payroll_role_id');
             }
         });

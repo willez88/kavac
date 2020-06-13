@@ -31,6 +31,7 @@ class AddFieldCurrencyIdToAccountingReportHistoriesTable extends Migration
     {
         Schema::table('accounting_report_histories', function (Blueprint $table) {
             if (Schema::hasColumn('accounting_report_histories', 'currency_id')) {
+                $table->dropForeign(['currency_id']);
                 $table->dropColumn('currency_id');
             }
         });

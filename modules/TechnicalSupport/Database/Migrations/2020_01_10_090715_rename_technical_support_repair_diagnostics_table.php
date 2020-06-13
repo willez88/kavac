@@ -33,7 +33,9 @@ class RenameTechnicalSupportRepairDiagnosticsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('technical_support_diagnostics');
+        Schema::enableForeignKeyConstraints();
 
         if (!Schema::hasTable('technical_support_repair_diagnostics')) {
             Schema::create('technical_support_repair_diagnostics', function (Blueprint $table) {

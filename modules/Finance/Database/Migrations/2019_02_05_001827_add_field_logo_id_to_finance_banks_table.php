@@ -14,7 +14,7 @@ class AddFieldLogoIdToFinanceBanksTable extends Migration
     public function up()
     {
         Schema::table('finance_banks', function (Blueprint $table) {
-            $table->bigInteger('logo_id')->unsigned()->nullable()
+            $table->unsignedBigInteger('logo_id')->nullable()
                   ->comment('Identificador del logotipo del banco');
             $table->foreign('logo_id')->references('id')
                   ->on('images')->onDelete('restrict')->onUpdate('cascade');
@@ -28,9 +28,17 @@ class AddFieldLogoIdToFinanceBanksTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::table('finance_banks', function (Blueprint $table) {
-            $table->dropForeign('finance_banks_logo_id_foreign');
-            $table->dropColumn('institution_id');
+            if (Schema::hasColumn('finance_banks', 'logo_id')) {
+                $table->dropForeign(['logo_id']);
+                $table->dropColumn('logo_id');
+            }
+            if (Schema::hasColumn('finance_banks', 'institution_id')) {
+                $table->dropForeign(['institution_id']);
+                $table->dropColumn('institution_id');
+            }
         });
+        Schema::enableForeignKeyConstraints();
     }
 }

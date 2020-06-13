@@ -29,7 +29,7 @@ class AddFieldDocumentStatusIdToBudgetSubSpecificFormulationsTable extends Migra
     public function down()
     {
         Schema::table('budget_sub_specific_formulations', function (Blueprint $table) {
-            $table->dropForeign('document_status_fk');
+            $table->dropForeign(['document_status_id']);
             $table->dropColumn('document_status_id');
         });
     }

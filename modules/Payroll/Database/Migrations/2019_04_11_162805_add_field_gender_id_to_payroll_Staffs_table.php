@@ -41,6 +41,7 @@ class AddFieldGenderIdToPayrollStaffsTable extends Migration
     public function down()
     {
         Schema::table('payroll_staffs', function (Blueprint $table) {
+            $table->dropForeign(['payroll_gender_id']);
             $table->dropColumn('payroll_gender_id');
         });
     }

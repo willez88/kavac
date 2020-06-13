@@ -25,6 +25,7 @@ class ChangeFieldToPayrollLanguageLanguageLevelProfessionalTable extends Migrati
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::table('payroll_language_language_level_professional', function (Blueprint $table) {
             if (Schema::hasColumn(
                 'payroll_language_language_level_professional',
@@ -33,7 +34,7 @@ class ChangeFieldToPayrollLanguageLanguageLevelProfessionalTable extends Migrati
             ) {
                 //$table->dropUnique('payroll_language_id');
                 //$table->dropUnique('payroll_professional_information_id');
-                //$table->dropForeign('payroll_language_language_level_professional_information_fk');
+                $table->dropForeign('payroll_language_language_level_professional_information_fk');
                 $table->dropColumn(['payroll_professional_information_id']);
             }
 
@@ -47,11 +48,13 @@ class ChangeFieldToPayrollLanguageLanguageLevelProfessionalTable extends Migrati
                 )->references('id')->on('payroll_professionals')->onDelete('restrict')->onUpdate('cascade');
             }
 
+            /*$table->dropUnique('payroll_language_language_level_professional_unique');
             $table->unique(
                 ['payroll_language_id', 'payroll_professional_id'],
                 'payroll_language_language_level_professional_unique'
-            )->comment('Clave única para el registro');
+            )->comment('Clave única para el registro');*/
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -69,6 +72,7 @@ class ChangeFieldToPayrollLanguageLanguageLevelProfessionalTable extends Migrati
             )
             ) {
                 //$table->dropUnique(['payroll_language_id', 'payroll_professional_id']);
+                $table->dropForeign('payroll_language_language_level_professional_professional_fk');
                 $table->dropColumn(['payroll_professional_id']);
             }
 
@@ -77,19 +81,20 @@ class ChangeFieldToPayrollLanguageLanguageLevelProfessionalTable extends Migrati
                 'payroll_professional_information_id'
             )
             ) {
-                $table->unsignedBigInteger('payroll_professional_id')->nullable()->comment(
+                $table->unsignedBigInteger('payroll_professional_information_id')->nullable()->comment(
                     'Identificador profesional del trabajador'
                 );
                 $table->foreign(
-                    'payroll_professional_id',
-                    'payroll_language_language_level_professional_professional_fk'
-                )->references('id')->on('payroll_professionals')->onDelete('restrict')->onUpdate('cascade');
+                    'payroll_professional_information_id',
+                    'payroll_language_language_level_professional_information_fk'
+                )->references('id')->on('payroll_professional_informations')->onDelete('restrict')->onUpdate('cascade');
             }
 
+            /*$table->dropUnique('payroll_language_language_level_professional_unique');
             $table->unique(
                 ['payroll_language_id', 'payroll_professional_information_id'],
-                'payroll_language_language_level_professional'
-            )->comment('Clave única para el registro');
+                'payroll_language_language_level_professional_unique'
+            )->comment('Clave única para el registro');*/
         });
     }
 }

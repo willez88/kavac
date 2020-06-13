@@ -31,6 +31,7 @@ class AddFieldInstitutionIdToAccountingReportHistoriesTable extends Migration
     {
         Schema::table('accounting_report_histories', function (Blueprint $table) {
             if (Schema::hasColumn('accounting_report_histories', 'institution_id')) {
+                $table->dropForeign(['institution_id']);
                 $table->dropColumn('institution_id');
             }
         });

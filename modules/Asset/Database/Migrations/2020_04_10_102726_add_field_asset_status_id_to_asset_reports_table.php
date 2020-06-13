@@ -43,6 +43,7 @@ class AddFieldAssetStatusIdToAssetReportsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         if (Schema::hasTable('asset_reports')) {
             Schema::table('asset_reports', function (Blueprint $table) {
                 if (Schema::hasColumn('asset_reports', 'asset_status_id')) {
@@ -51,5 +52,6 @@ class AddFieldAssetStatusIdToAssetReportsTable extends Migration
                 };
             });
         };
+        Schema::enableForeignKeyConstraints();
     }
 }

@@ -60,6 +60,8 @@ class CreatePayrollProfessionalsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('payroll_professionals');
+        Schema::enableForeignKeyConstraints();
     }
 }

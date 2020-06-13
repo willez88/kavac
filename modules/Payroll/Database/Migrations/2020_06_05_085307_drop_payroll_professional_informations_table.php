@@ -25,7 +25,9 @@ class DropPayrollProfessionalInformationsTable extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('payroll_professional_informations');
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

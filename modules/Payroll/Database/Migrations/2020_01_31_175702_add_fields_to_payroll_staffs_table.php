@@ -80,10 +80,12 @@ class AddFieldsToPayrollStaffsTable extends Migration
             }
 
             if (Schema::hasColumn('payroll_staffs', 'payroll_license_degree_id')) {
+                $table->dropForeign(['payroll_license_degree_id']);
                 $table->dropColumn('payroll_license_degree_id');
             }
 
             if (Schema::hasColumn('payroll_staffs', 'payroll_blood_type_id')) {
+                $table->dropForeign(['payroll_blood_type_id']);
                 $table->dropColumn('payroll_blood_type_id');
             }
         });

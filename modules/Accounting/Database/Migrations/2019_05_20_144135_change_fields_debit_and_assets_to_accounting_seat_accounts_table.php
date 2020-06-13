@@ -30,8 +30,10 @@ class ChangeFieldsDebitAndAssetsToAccountingSeatAccountsTable extends Migration
      */
     public function down()
     {
-        Schema::table('accounting_seat_accounts', function (Blueprint $table) {
-            $table->dropColumn(['debit', 'assets']);
-        });
+        if (Schema::hasTable('accounting_seat_accounts')) {
+            Schema::table('accounting_seat_accounts', function (Blueprint $table) {
+                $table->dropColumn(['debit', 'assets']);
+            });
+        }
     }
 }

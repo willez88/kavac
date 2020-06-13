@@ -31,6 +31,7 @@ class AddFieldInstitutionIdToAccountingEntryCategoriesTable extends Migration
     {
         Schema::table('accounting_entry_categories', function (Blueprint $table) {
             if (Schema::hasColumn('accounting_entry_categories', 'institution_id')) {
+                $table->dropForeign(['institution_id']);
                 $table->dropColumn('institution_id');
             }
         });

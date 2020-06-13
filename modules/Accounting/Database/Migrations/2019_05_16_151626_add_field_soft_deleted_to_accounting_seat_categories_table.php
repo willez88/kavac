@@ -25,8 +25,10 @@ class AddFieldSoftDeletedToAccountingSeatCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::table('accounting_seat_categories', function (Blueprint $table) {
-            $table->dropSoftDeletes();
-        });
+        if (Schema::hasTable('accounting_seat_categories')) {
+            Schema::table('accounting_seat_categories', function (Blueprint $table) {
+                $table->dropSoftDeletes();
+            });
+        }
     }
 }

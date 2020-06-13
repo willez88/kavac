@@ -30,6 +30,7 @@ class AddFieldCitizenServiceDepartmentIdToCitizenServiceRequestsTable extends Mi
     {
         Schema::table('citizen_service_requests', function (Blueprint $table) {
             if (Schema::hasColumn('citizen_service_requests', 'citizen_service_department_id')) {
+                $table->dropForeign(['citizen_service_department_id']);
                 $table->dropColumn('citizen_service_department_id');
             }
         });

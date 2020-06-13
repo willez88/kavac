@@ -55,7 +55,8 @@ class DropPayrollSocioeconomicInformationsTable extends Migration
                 $table->foreignId('payroll_staff_id')->unique()->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->foreignId('marital_status_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('marital_status_id')->constrained('marital_status')
+                      ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

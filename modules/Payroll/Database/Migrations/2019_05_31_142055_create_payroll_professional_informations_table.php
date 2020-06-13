@@ -57,8 +57,14 @@ class CreatePayrollProfessionalInformationsTable extends Migration
 
                 $table->foreignId('payroll_language_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
-                $table->foreignId('payroll_language_level_id')->constrained()
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->unsignedBigInteger('payroll_language_level_id')->comment(
+                    'identificador de nivel del idioma que pertenece a la información profesional'
+                );
+                $table->foreign(
+                    'payroll_language_level_id',
+                    'payroll_professional_informations_language_level_pk'
+                )->references('id')->on('payroll_language_levels')->onDelete('restrict')->onUpdate('cascade');
+
 
                 $table->foreignId('payroll_staff_id')->unique()->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');

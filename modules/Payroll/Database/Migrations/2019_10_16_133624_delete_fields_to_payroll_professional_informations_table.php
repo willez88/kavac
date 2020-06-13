@@ -33,6 +33,7 @@ class DeleteFieldsToPayrollProfessionalInformationsTable extends Migration
                 $table->dropColumn('payroll_language_id');
             }
             if (Schema::hasColumn('payroll_professional_informations', 'payroll_language_level_id')) {
+                $table->dropForeign('payroll_professional_informations_language_level_pk');
                 $table->dropColumn('payroll_language_level_id');
             }
 

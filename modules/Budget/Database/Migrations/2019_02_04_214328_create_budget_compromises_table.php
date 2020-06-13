@@ -19,7 +19,8 @@ class CreateBudgetCompromisesTable extends Migration
                 $table->date('compromised_at')->comment("Fecha en la que se establece el compromiso");
                 $table->text('description')->comment("Descripción del compromiso");
                 $table->string('code', 20)->unique()->comment("Código único que identifica el compromiso");
-                $table->foreignId('document_status_id')->nullable()->constrained()->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('document_status_id')->nullable()->constrained('document_status')
+                      ->onDelete('restrict')->onUpdate('cascade');
                 /** Relación para los beneficiarios del compromiso */
                 $table->morphs('compromiseable');
                 /** Relación para los documentos de origen que generan el compromiso */

@@ -34,7 +34,12 @@ class PayrollProfessionalInformationProfessionTable extends Migration
                     'payroll_professional_information_profession_professional_fk'
                 )->references('id')->on('payroll_professional_informations')->onDelete('cascade');
 
-                $table->foreignId('profession_id')->constrained()->onDelete('cascade');
+                $table->unsignedBigInteger('profession_id');
+                $table->foreign(
+                    'profession_id',
+                    'payroll_professional_information_profession_fk'
+                )->references('id')->on('professions')->onDelete('cascade');
+
                 $table->timestamps();
             });
         }
