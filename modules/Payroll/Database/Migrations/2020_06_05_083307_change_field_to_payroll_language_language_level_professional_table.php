@@ -31,8 +31,8 @@ class ChangeFieldToPayrollLanguageLanguageLevelProfessionalTable extends Migrati
                 'payroll_professional_information_id'
             )
             ) {
-                $table->dropUnique(['payroll_language_id', 'payroll_professional_information_id']);
-                $table->dropColumn(['payroll_professional_information_id']);
+                /*$table->dropUnique(['payroll_language_id', 'payroll_professional_information_id']);
+                $table->dropColumn(['payroll_professional_information_id']);*/
             }
 
             if (!Schema::hasColumn('payroll_language_language_level_professional', 'payroll_professional_id')) {
