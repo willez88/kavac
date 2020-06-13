@@ -20,15 +20,15 @@ class CreateBudgetSubSpecificFormulationsTable extends Migration
                 $table->float('total_formulated', 30, 10)->comment('Monto total formulado');
                 $table->boolean('assigned')->default(false)
                       ->comment('Establece si la formulación fue asignada para su ejecución');
-                $table->bigInteger('currency_id')->unsigned()
-                      ->comment('Identificador asociado a la moneda');
-                $table->bigInteger('budget_specific_action_id')->unsigned()
-                      ->comment('Identificador asociado a la acción específica de la formulación');
-                $table->timestamps();
-                $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-                $table->foreign('currency_id')->references('id')->on('currencies')->onUpdate('cascade');
+                $table->foreignId('currency_id')->constrained()->onUpdate('cascade');
+                $table->unsignedBigInteger('budget_specific_action_id')->comment(
+                    'Identificador asociado a la acción específica de la formulación'
+                );
                 $table->foreign('budget_specific_action_id', 'budget_sub_specific_formulations_specific_action_fk')
                       ->references('id')->on('budget_specific_actions')->onUpdate('cascade');
+
+                $table->timestamps();
+                $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });
         }
     }

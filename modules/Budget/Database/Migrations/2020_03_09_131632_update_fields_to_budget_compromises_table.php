@@ -15,24 +15,24 @@ class UpdateFieldsToBudgetCompromisesTable extends Migration
     {
         Schema::table('budget_compromises', function (Blueprint $table) {
             if (!Schema::hasColumn('budget_compromises', 'document_number')) {
-                $table->string('document_number')->unique()
-                      ->comment(<<<EOT
-                          Número del documento que identifica el compromiso. Si es manual se agrega el número indicado
-                          en el campo Documento Origen, de lo contrarió si proviene de otro proceso se coloca el código
-                          del documento
-                      EOT);
+                $table->string('document_number')->unique()->comment(
+                    'Número del documento que identifica el compromiso. Si es manual se agrega el número indicado' .
+                    'en el campo Documento Origen, de lo contrarió si proviene de otro proceso se coloca el código' .
+                    'del documento'
+                );
             }
 
             if (!Schema::hasColumn('budget_compromises', 'institution_id')) {
-                $table->bigInteger('institution_id')->unsigned()->nullable()
-                      ->comment('Identificador asociado a la institución');
-                $table->foreign('institution_id')->references('id')
-                      ->on('institutions')->onUpdate('cascade');
+                $table->foreignId('institution_id')->nullable()->constrained()->onUpdate('cascade');
             }
 
             $table->date('compromised_at')->nullable()->comment("Fecha en la que se establece el compromiso")->change();
 
-            $table->dropMorphs('sourceable');
+            if (Schema::hasColumn('budget_compromises', 'sourceable_id')) {
+                Schema::disableForeignKeyConstraints();
+                $table->dropColumn(['sourceable_type', 'sourceable_id']);
+                Schema::enableForeignKeyConstraints();
+            }
         });
 
         Schema::table('budget_compromises', function (Blueprint $table) {

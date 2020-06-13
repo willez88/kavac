@@ -41,10 +41,18 @@ class AddFieldsToDocumentsTable extends Migration
     public function down()
     {
         Schema::table('documents', function (Blueprint $table) {
-            $table->dropColumn('archive_number');
-            $table->dropColumn('physical_support');
-            $table->dropColumn('digital_support_original');
-            $table->dropColumn('digital_support_signed');
+            if (Schema::hasColumn('documents', 'archive_number')) {
+                $table->dropColumn('archive_number');
+            }
+            if (Schema::hasColumn('documents', 'physical_support')) {
+                $table->dropColumn('physical_support');
+            }
+            if (Schema::hasColumn('documents', 'digital_support_original')) {
+                $table->dropColumn('digital_support_original');
+            }
+            if (Schema::hasColumn('documents', 'digital_support_signed')) {
+                $table->dropColumn('digital_support_signed');
+            }
         });
     }
 }

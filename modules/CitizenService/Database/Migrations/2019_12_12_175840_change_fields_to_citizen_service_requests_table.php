@@ -58,10 +58,8 @@ class ChangeFieldsToCitizenServiceRequestsTable extends Migration
                 $table->string('information', 200)->nullable()->comment('Información Adicional');
             }
             if (!Schema::hasColumn('citizen_service_requests', 'payroll_sector_type_id')) {
-                $table->bigInteger('payroll_sector_type_id')->unsigned()->nullable()
-                  ->comment('Identificador unico del tipo de sector de un organismo');
-                $table->foreign('payroll_sector_type_id')->references('id')->on('payroll_sector_types')
-                  ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('payroll_sector_type_id')->nullable()->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade');
             }
             if (Schema::hasColumn('citizen_service_requests', 'rif')) {
                 $table->dropUnique(['rif']);

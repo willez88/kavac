@@ -29,21 +29,21 @@ class CreatePayrollSalaryTabulatorPayrollStaffTypeTable extends Migration
             Schema::create('payroll_salary_tabulator_payroll_staff_type', function (Blueprint $table) {
                 $table->id()->comment('Identificador único del registro');
 
-                $table->bigInteger('payroll_staff_type_id')->unsigned()->nullable()
-                      ->comment('Identificador único del tipo de personal asociado al registro');
+                $table->unsignedBigInteger('payroll_staff_type_id')->nullable()->comment(
+                    'Identificador único del tipo de personal asociado al registro'
+                );
                 $table->foreign(
                     'payroll_staff_type_id',
-                    'payroll_salary_tabulator_staff_type_staff_type_fk')
-                      ->references('id')->on('payroll_staff_types')
-                      ->onDelete('restrict')->onUpdate('cascade');
+                    'payroll_salary_tabulator_staff_type_staff_type_fk'
+                )->references('id')->on('payroll_staff_types')->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('payroll_salary_tabulator_id')->unsigned()->nullable()
-                      ->comment('Identificador único del tabulador asociado al registro');
+                $table->unsignedBigInteger('payroll_salary_tabulator_id')->nullable()->comment(
+                    'Identificador único del tabulador asociado al registro'
+                );
                 $table->foreign(
                     'payroll_salary_tabulator_id',
-                    'payroll_salary_tabulator_staff_type_salary_tabulator_fk')
-                      ->references('id')->on('payroll_salary_tabulators')
-                      ->onDelete('restrict')->onUpdate('cascade');
+                    'payroll_salary_tabulator_staff_type_salary_tabulator_fk'
+                )->references('id')->on('payroll_salary_tabulators')->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
             });

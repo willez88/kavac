@@ -31,17 +31,11 @@ class CreateAssetRequestExtensionsTable extends Migration
 
                 $table->date('delivery_date')->comment('Nueva fecha de entrega de la solicitud asociada');
                 $table->string('state')->nullable()->comment('Estado de la solicitud');
-                $table->bigInteger('asset_request_id')
-                      ->comment('Identificador único de la solicitud asociada a la prorroga');
-
-                $table->bigInteger('user_id')->comment('Identificador único del usuario que solicita la prorroga');
+                $table->foreignId('asset_request_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('user_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-
-                $table->foreign('asset_request_id')->references('id')->on('asset_requests')
-                      ->onDelete('restrict')->onUpdate('cascade');
-                $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
             });
         }
     }

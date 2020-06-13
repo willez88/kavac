@@ -28,8 +28,10 @@ class AddCitiableMorphsFieldToCitiesTable extends Migration
     public function down()
     {
         Schema::table('cities', function (Blueprint $table) {
-            $table->dropColumn('citiable_id');
-            $table->dropColumn('citiable_type');
+            if (Schema::hasColumns('cities', ['citiable_id', 'ciatiable_type'])) {
+                $table->dropColumn('citiable_id');
+                $table->dropColumn('citiable_type');
+            }
         });
     }
 }

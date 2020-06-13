@@ -15,10 +15,7 @@ class CreateSaleSettingProductsTable extends Migration
     {
         Schema::create('sale_setting_products', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('sale_setting_product_type_id')->unsigned()
-                  ->comment('Tipo de producto');
-            $table->foreign('sale_setting_product_type_id')->references('id')->on('sale_setting_product_types')
-                  ->onDelete('restrict')->onUpdate('cascade');
+            $table->foreignId('sale_setting_product_type_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
             $table->string('name')->comment('Nombre');
             $table->string('code')->comment('Código');
             $table->string('description')->comment('Descripción');

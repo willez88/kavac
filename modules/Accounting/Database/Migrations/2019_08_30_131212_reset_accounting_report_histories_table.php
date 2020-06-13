@@ -39,7 +39,7 @@ class ResetAccountingReportHistoriesTable extends Migration
     {
         if (!Schema::hasTable('accounting_report_histories')) {
             Schema::create('accounting_report_histories', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id');
                 $table->string('url');
                 $table->string('report')->comment('Tipo de reporte')
                 ->comment(

@@ -30,8 +30,9 @@ class CreateTechnicalSupportRepairDiagnosticsTable extends Migration
                 $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->text('description')->nullable()->comment('Descripción del diagnóstico');
 
-                $table->bigInteger('technical_support_repair_id')->unsigned()
-                      ->comment('Identificador único de la reparación asociada al diagnóstico');
+                $table->unsignedBigInteger('technical_support_repair_id')->comment(
+                    'Identificador único de la reparación asociada al diagnóstico'
+                );
                 $table->foreign(
                     'technical_support_repair_id',
                     'technical_support_repair_diagnostics_repair_fk'

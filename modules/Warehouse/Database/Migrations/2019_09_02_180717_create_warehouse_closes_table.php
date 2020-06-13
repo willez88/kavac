@@ -31,25 +31,22 @@ class CreateWarehouseClosesTable extends Migration
                 $table->date('initial_date')->comment('Fecha y hora en que inicia el cierre de almacén');
                 $table->date('end_date')->nullable()->comment('Fecha y hora en que termina el cierre de almacén');
 
-                $table->bigInteger('initial_user_id')
+                $table->unsignedBigInteger('initial_user_id')
                       ->comment('Identificador único del usuario que inicia el cierre de almacén');
 
-                $table->bigInteger('end_user_id')->nullable()
+                $table->unsignedBigInteger('end_user_id')->nullable()
                       ->comment('Identificador único del usuario que termina el cierre de almacén');
-
-                $table->bigInteger('warehouse_id')->comment('Identificador único del almacén que cierra sus funciones');
-
-                $table->text('observations')->nullable()->comment('Observación asociada al cierre de almacén');
-
-                $table->timestamps();
-                $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
 
                 $table->foreign('initial_user_id')->references('id')->on('users')
                       ->onDelete('restrict')->onUpdate('cascade');
                 $table->foreign('end_user_id')->references('id')->on('users')
                       ->onDelete('restrict')->onUpdate('cascade');
-                $table->foreign('warehouse_id')->references('id')->on('warehouses')
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('warehouse_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
+
+                $table->text('observations')->nullable()->comment('Observación asociada al cierre de almacén');
+
+                $table->timestamps();
+                $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });
         }
     }

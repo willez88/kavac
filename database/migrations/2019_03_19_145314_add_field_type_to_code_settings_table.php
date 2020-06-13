@@ -42,8 +42,10 @@ class AddFieldTypeToCodeSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::table('code_settings', function (Blueprint $table) {
-            $table->dropColumn('type');
-        });
+        if (Schema::hasColumn('code_settings', 'type')) {
+            Schema::table('code_settings', function (Blueprint $table) {
+                $table->dropColumn('type');
+            });
+        }
     }
 }

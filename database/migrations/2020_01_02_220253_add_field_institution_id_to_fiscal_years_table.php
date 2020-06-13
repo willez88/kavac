@@ -15,10 +15,8 @@ class AddFieldInstitutionIdToFiscalYearsTable extends Migration
     {
         Schema::table('fiscal_years', function (Blueprint $table) {
             if (!Schema::hasColumn('fiscal_years', 'institution_id')) {
-                $table->bigInteger('institution_id')->unsigned()->nullable()
-                      ->comment('Identificador de la institución');
-                $table->foreign('institution_id')->references('id')
-                      ->on('institutions')->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('institution_id')->nullable()->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade');
             }
         });
     }

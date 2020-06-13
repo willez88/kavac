@@ -25,10 +25,16 @@ class DeleteFieldToPayrollProfessionalInformationsTable extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
+
         Schema::table('payroll_professional_informations', function (Blueprint $table) {
-            $table->dropForeign('payroll_professional_informations_profession_id_foreign');
-            $table->dropColumn('profession_id');
+            if (Schema::hasColumn('payroll_professional_informations', 'profession_id')) {
+                $table->dropForeign('payroll_professional_informations_profession_id_foreign');
+                $table->dropColumn('profession_id');
+            }
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -40,10 +46,7 @@ class DeleteFieldToPayrollProfessionalInformationsTable extends Migration
     public function down()
     {
         Schema::table('payroll_professional_informations', function (Blueprint $table) {
-            $table->bigInteger('profession_id')->unsigned()->nullable()
-                  ->comment('identificador de la profesión que pertenecen a la información profesional');
-            $table->foreign('profession_id')->references('id')->on('professions')
-                  ->onDelete('restrict')->onUpdate('cascade');
+            $table->foreignId('profession_id')->nullable()->constrained()->onDelete('restrict')->onUpdate('cascade');
         });
     }
 }

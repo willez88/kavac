@@ -27,10 +27,8 @@ class AddFieldToPayrollChildrensTable extends Migration
     {
         Schema::table('payroll_childrens', function (Blueprint $table) {
             if (!Schema::hasColumn('payroll_childrens', 'payroll_socioeconomic_id')) {
-                $table->bigInteger('payroll_socioeconomic_id')->unsigned()->nullable()
-                      ->comment('identificador de socioeconómico que pertenecen al hijo');
-                $table->foreign('payroll_socioeconomic_id')->references('id')
-                      ->on('payroll_socioeconomics')->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('payroll_socioeconomic_id')->nullable()->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade');
             }
         });
     }
@@ -45,6 +43,7 @@ class AddFieldToPayrollChildrensTable extends Migration
     {
         Schema::table('payroll_childrens', function (Blueprint $table) {
             if (Schema::hasColumn('payroll_childrens', 'payroll_socioeconomic_id')) {
+                $table->dropForeign(['payroll_socioeconomic_id']);
                 $table->dropColumn('payroll_socioeconomic_id');
             }
         });

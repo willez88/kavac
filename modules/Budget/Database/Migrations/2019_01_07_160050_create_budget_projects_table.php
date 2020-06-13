@@ -20,17 +20,11 @@ class CreateBudgetProjectsTable extends Migration
                 $table->string('code')->unique()->comment('Código del Proyecto');
                 $table->string('onapre_code')->nullable()->comment('Código otorgado por la ONAPRE');
                 $table->boolean('active')->default(true)->comment('Indica si el proyecto esta activo');
-                $table->bigInteger('department_id')->unsigned()
-                      ->comment('Identificador asociado al departamento o dependencia administrativa');
-                $table->bigInteger('payroll_position_id')->unsigned()
-                      ->comment('Identificador asociado al cargo de la persona responsable del proyecto');
-                $table->bigInteger('payroll_staff_id')->unsigned()
-                      ->comment('Identificador asociado al cargo de la persona responsable del proyecto');
+                $table->foreignId('department_id')->constrained()->onUpdate('cascade');
+                $table->foreignId('payroll_position_id')->constrained()->onUpdate('cascade');
+                $table->foreignId('payroll_staff_id')->constrained()->onUpdate('cascade');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-                $table->foreign('department_id')->references('id')->on('departments')->onUpdate('cascade');
-                $table->foreign('payroll_position_id')->references('id')->on('payroll_positions')->onUpdate('cascade');
-                $table->foreign('payroll_staff_id')->references('id')->on('payroll_staffs')->onUpdate('cascade');
             });
         }
     }

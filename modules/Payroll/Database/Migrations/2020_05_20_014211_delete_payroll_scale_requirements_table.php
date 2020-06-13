@@ -37,10 +37,7 @@ class DeletePayrollScaleRequirementsTable extends Migration
                 $table->float('scale_years_maximum')->unsigned()->nullable()
                     ->comment('Cantidad minima de años requeridas por la escala');
 
-                $table->bigInteger('payroll_scale_id')->unsigned()
-                      ->comment('Identificador único de la escala o nivel asociado al registro');
-                $table->foreign('payroll_scale_id')->references('id')->on('payroll_scales')
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('payroll_scale_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
                 $table->nullableMorphs('clasificable', 'payroll_scale_requirements_clasificable_index');
                 $table->timestamps();

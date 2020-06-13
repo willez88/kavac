@@ -21,10 +21,7 @@ class CreateFinanceBankingAgenciesTable extends Migration
                 $table->boolean('headquarters')->default(false)->comment('Indica si es la sede principal del banco');
                 $table->string('contact_person')->nullable()->comment('Nombre de la persona de contacto');
                 $table->string('contact_email')->nullable()->comment('Correo electrónico de la persona de contacto');
-                $table->bigInteger('finance_bank_id')->unsigned()
-                      ->comment('Identificador del banco al que pertenece la agencia o sucursal');
-                $table->foreign('finance_bank_id')->references('id')
-                      ->on('finance_banks')->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('finance_bank_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });

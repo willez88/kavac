@@ -28,13 +28,11 @@ class CreateBudgetAccountsTable extends Migration
                 $table->boolean('egress')->comment('Indica si es una cuenta de egresos');
                 $table->boolean('original')->default(true)
                       ->comment('Indica si la cuenta es del clasificador presupuestario original');
-                $table->bigInteger('tax_id')->nullable()->unsigned()
-                      ->comment('Identificador asociado al impuesto');
                 $table->bigInteger('parent_id')->nullable()->unsigned()
                       ->comment('Identificador asociado a la cuenta padre');
+                $table->foreignId('tax_id')->nullable()->constrained()->onUpdate('cascade');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-                $table->foreign('tax_id')->references('id')->on('taxes')->onUpdate('cascade');
             });
 
             Schema::table('budget_accounts', function (Blueprint $table) {

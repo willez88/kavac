@@ -19,10 +19,7 @@ class CreateCurrenciesTable extends Migration
                 $table->string('symbol', 4)->comment('Símbolo de la moneda');
                 $table->string('name', 40)->comment('Nombre de la moneda');
                 $table->boolean('default')->default(false)->comment('Moneda por defecto');
-                $table->bigInteger('country_id')->unsigned()
-                      ->comment('Identificador del Pais al que pertenece la moneda');
-                $table->foreign('country_id')->references('id')
-                      ->on('countries')->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('country_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });

@@ -30,7 +30,7 @@ class CreatePayrollPaymentTypesTable extends Migration
                 $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('code')->comment('Código del tipo de pago');
                 $table->string('name')->comment('Nombre del tipo de pago');
-                
+
                 $table->enum(
                     'payment_periodicity',
                     [
@@ -53,11 +53,9 @@ class CreatePayrollPaymentTypesTable extends Migration
                     'social_benefits_guarantees, social_benefit_interests, liquidations, ' .
                     'ticket_basket, kindergarten, special_payroll, others)');
 
-                $table->bigInteger('accounting_account_id')->nullable()->unsigned()
-                      ->comment('Identificador único asociado a la cuenta contable');
-                $table->foreign('accounting_account_id')->references('id')
-                      ->on('accounting_accounts')->onDelete('restrict')->onUpdate('cascade');
-                
+                $table->foreignId('accounting_account_id')->nullable()->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade');
+
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });

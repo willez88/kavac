@@ -18,13 +18,8 @@ class CreateProfilesTable extends Migration
                 $table->bigIncrements('id');
                 $table->string('first_name')->comment('Nombres');
                 $table->string('last_name')->nullable()->comment('Apellidos');
-                $table->bigInteger('image_id')->nullable()->unsigned()
-                      ->comment('Identificador asociado a la imagen de perfil');
-                $table->foreign('image_id')->references('id')->on('images')->onUpdate('cascade');
-                $table->bigInteger('user_id')->unsigned()->nullable()
-                      ->comment('Identificador del usuario');
-                $table->foreign('user_id')->references('id')
-                      ->on('users')->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('image_id')->nullable()->counstrained()->onUpdate('cascade');
+                $table->foreignId('user_id')->nullable()->constrained()->onDelete('restrict')->onUpdate('cascade');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });

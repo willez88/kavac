@@ -31,10 +31,7 @@ class CreateAssetSpecificCategoriesTable extends Migration
                 $table->string('code', 10)->comment('Código de la categoria específica');
                 $table->string('name', 100)->comment('Nombre de la categoria específica del bien');
 
-                $table->bigInteger('asset_subcategory_id')->unsigned()
-                      ->comment('Identificador único de la subcategoria a la que pertenece el registro');
-                $table->foreign('asset_subcategory_id')->references('id')->on('asset_subcategories')
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('asset_subcategory_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

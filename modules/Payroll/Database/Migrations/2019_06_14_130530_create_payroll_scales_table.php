@@ -34,10 +34,7 @@ class CreatePayrollScalesTable extends Migration
                 $table->text('description')->nullable()->comment('Descripción de la escala o nivel');
 
 
-                $table->bigInteger('payroll_salary_scale_id')->unsigned()
-                      ->comment('Identificador único del escalafón salarial al que pertenece la escala o nivel');
-                $table->foreign('payroll_salary_scale_id')->references('id')->on('payroll_salary_scales')
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('payroll_salary_scale_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

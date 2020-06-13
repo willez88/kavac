@@ -37,15 +37,10 @@ class CreateAssetRequestsTable extends Migration
                 $table->string('agent_telf')->nullable()->comment('Teléfono del agente externo');
                 $table->string('agent_email')->nullable()->comment('Correo del agente externo');
 
-                $table->bigInteger('user_id')->comment('Identificador único del usuario que realiza la solicitud');
+                $table->foreignId('user_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-            });
-
-            Schema::table('asset_requests', function (Blueprint $table) {
-                $table->foreign('user_id', 'asset_requests_user_fk')->references('id')
-                      ->on('users')->onDelete('restrict')->onUpdate('cascade');
             });
         }
     }

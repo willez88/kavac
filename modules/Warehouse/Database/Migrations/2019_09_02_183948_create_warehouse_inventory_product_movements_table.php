@@ -32,26 +32,28 @@ class CreateWarehouseInventoryProductMovementsTable extends Migration
                 $table->integer('quantity')->unsigned()->comment('Cantidad del producto movilizado');
                 $table->float('new_value')->comment('Nuevo precio del producto movilizado');
 
-                $table->bigInteger('warehouse_movement_id')->unsigned()
-                      ->comment('Identificador único del movimiento de almacén realizado');
+                $table->unsignedBigInteger('warehouse_movement_id')->comment(
+                    'Identificador único del movimiento de almacén realizado'
+                );
                 $table->foreign(
                     'warehouse_movement_id',
                     'warehouse_inventory_product_movements_warehouse_movement_fk'
                 )->references('id')->on('warehouse_movements')->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('warehouse_initial_inventory_product_id')->nullable()->unsigned()
+                $table->unsignedBigInteger('warehouse_initial_inventory_product_id')->nullable()
                       ->comment('Identificador único de la ubicación inicial del producto en el inventario');
                 $table->foreign(
                     'warehouse_initial_inventory_product_id',
                     'warehouse_inventory_product_movements_initial_inventory_fk'
                 )->references('id')->on('warehouse_inventory_products')->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('warehouse_inventory_product_id')->unsigned()
+                $table->unsignedBigInteger('warehouse_inventory_product_id')
                       ->comment('Identificador único del producto en el inventario');
                 $table->foreign(
                     'warehouse_inventory_product_id',
                     'warehouse_inventory_product_movements_inventory_product_fk'
                 )->references('id')->on('warehouse_inventory_products')->onDelete('restrict')->onUpdate('cascade');
+
 
                 $table->timestamps();
             });

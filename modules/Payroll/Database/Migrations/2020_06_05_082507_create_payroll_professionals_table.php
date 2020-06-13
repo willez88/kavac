@@ -37,19 +37,13 @@ class CreatePayrollProfessionalsTable extends Migration
                 $table->text('class_schedule')->nullable()->comment('Horario de clase');
                 $table->boolean('is_student')->default(false)->comment('Establece si el trabajdor es estudiante o no');
 
-                $table->bigInteger('payroll_staff_id')->unsigned()->unique()
-                      ->comment('identificador del trabajador que pertenece a la información profesional');
-                $table->foreign('payroll_staff_id')->references('id')->on('payroll_staffs')
+                $table->foreignId('payroll_staff_id')->unique()->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('payroll_instruction_degree_id')->unsigned()
-                      ->comment('identificador del grado de instrucción que pertenece a la información profesional');
-                $table->foreign('payroll_instruction_degree_id')->references('id')->on('payroll_instruction_degrees')
+                $table->foreignId('payroll_instruction_degree_id')->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('payroll_study_type_id')->unsigned()->nullable()
-                      ->comment('identificador del tipo de estudio que pertenecen a la información profesional');
-                $table->foreign('payroll_study_type_id')->references('id')->on('payroll_study_types')
+                $table->foreignId('payroll_study_type_id')->nullable()->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();

@@ -18,12 +18,9 @@ class CreateNotificationSettingsUsersTable extends Migration
                 $table->bigIncrements('id');
                 $table->enum('type', ['N', 'E', 'S'])->default('N')
                       ->comment('Tipo de notificacion. Ej. (N)otify, (E)mail, (S)MS');
-                $table->bigInteger('notification_setting_id')->unsigned()->nullable()
-                      ->comment('Identificador del usuario');
-                $table->foreign('notification_setting_id')->references('id')->on('notification_settings')
+                $table->foreignId('notification_setting_id')->nullable()->constrained()
                       ->onDelete('cascade')->onUpdate('cascade');
-                $table->bigInteger('user_id')->unsigned()->nullable()->comment('Identificador del usuario');
-                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+                $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
                 $table->timestamps();
                 $table->unique(
                     ['notification_setting_id', 'user_id', 'type'],

@@ -30,14 +30,10 @@ class CreateWarehouseProductValuesTable extends Migration
                 $table->bigIncrements('id')->comment('Identificador único del registro');
 
                 $table->string('value', 100)->comment('Valor o descripción del atributo');
-                $table->bigInteger('warehouse_product_attribute_id')->unsigned()
-                      ->comment('Identificador único del atributo del producto');
-                $table->foreign('warehouse_product_attribute_id')->references('id')->on('warehouse_product_attributes')
+                $table->foreignId('warehouse_product_attribute_id')->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('warehouse_inventory_product_id')->unsigned()
-                      ->comment('Identificador único del producto en el inventario');
-                $table->foreign('warehouse_inventory_product_id')->references('id')->on('warehouse_inventory_products')
+                $table->foreignId('warehouse_inventory_product_id')->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();

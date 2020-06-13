@@ -33,13 +33,9 @@ class CreateAssetInventoryAssetsTable extends Migration
                 $table->string('asset_status')->nullable()->comment('Estatus de uso actual del bien');
                 $table->string('asset_use_function')->nullable()->comment('Función de uso actual del bien');
 
-                $table->bigInteger('asset_id')->unsigned()->nullable()
-                      ->comment('Identificador único del bien en la tabla de bienes');
-                $table->foreign('asset_id')->references('id')->on('assets')->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('asset_id')->nullable()->constrained()->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('asset_inventory_id')->unsigned()->nullable()
-                      ->comment('Identificador único del registro de inventario generado');
-                $table->foreign('asset_inventory_id')->references('id')->on('asset_inventories')
+                $table->foreignId('asset_inventory_id')->nullable()->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();

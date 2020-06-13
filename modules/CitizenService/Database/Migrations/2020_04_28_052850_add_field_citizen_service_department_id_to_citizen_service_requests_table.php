@@ -15,10 +15,7 @@ class AddFieldCitizenServiceDepartmentIdToCitizenServiceRequestsTable extends Mi
     {
         Schema::table('citizen_service_requests', function (Blueprint $table) {
             if (!Schema::hasColumn('citizen_service_requests', 'citizen_service_department_id')) {
-                $table->bigInteger('citizen_service_department_id')->unsigned()->nullable()
-                      ->comment('Dirección de departamentos');
-                $table->foreign('citizen_service_department_id')
-                      ->references('id')->on('citizen_service_departments')
+                $table->foreignId('citizen_service_department_id')->nullable()->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');
             }
         });

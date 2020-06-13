@@ -34,13 +34,10 @@ class CreateWarehousesTable extends Migration
                       ->comment('Estatus de actividad. (true) activo, (false) inactivo');
                 $table->text('address')->comment('Dirección física del almacen');
 
-                $table->bigInteger('parish_id')->nullable()->comment('Parroquia está ubicado el almacen');
+                $table->foreignId('parish_id')->nullable()->constrained()->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-
-                $table->foreign('parish_id')->references('id')->on('parishes')
-                      ->onDelete('restrict')->onUpdate('cascade');
             });
         }
     }

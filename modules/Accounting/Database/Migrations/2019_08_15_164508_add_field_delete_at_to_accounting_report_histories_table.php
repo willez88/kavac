@@ -28,6 +28,9 @@ class AddFieldDeleteAtToAccountingReportHistoriesTable extends Migration
     public function down()
     {
         Schema::table('accounting_report_histories', function (Blueprint $table) {
+            if (Schema::hasColumn('accounting_report_histories', 'deleted_at')) {
+                $table->dropSoftDeletes();
+            }
         });
     }
 }

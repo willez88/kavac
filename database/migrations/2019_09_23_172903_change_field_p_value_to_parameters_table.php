@@ -13,9 +13,11 @@ class ChangeFieldPValueToParametersTable extends Migration
      */
     public function up()
     {
-        Schema::table('parameters', function (Blueprint $table) {
-            $table->longText('p_value')->comment('Valor establecido para el parámetro')->change();
-        });
+        if (Schema::hasColumn('parameters', 'p_value')) {
+            Schema::table('parameters', function (Blueprint $table) {
+                $table->longText('p_value')->comment('Valor establecido para el parámetro')->change();
+            });
+        }
     }
 
     /**
@@ -25,8 +27,10 @@ class ChangeFieldPValueToParametersTable extends Migration
      */
     public function down()
     {
-        Schema::table('parameters', function (Blueprint $table) {
-            $table->string('p_value')->comment('Valor establecido para el parámetro')->change();
-        });
+        if (Schema::hasColumn('parameters', 'p_value')) {
+            Schema::table('parameters', function (Blueprint $table) {
+                $table->string('p_value')->comment('Valor establecido para el parámetro')->change();
+            });
+        }
     }
 }

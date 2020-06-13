@@ -40,34 +40,22 @@ class CreateInstitutionsTable extends Migration
                       ->comment('Institución por defecto. (true) SI, (false) NO');
                 $table->boolean('retention_agent')->default(false)
                       ->comment('Agente de retención de impuestos. (true) SI, (false) NO');
-                $table->bigInteger('institution_sector_id')->unsigned()
-                      ->comment('Identificador asociado al sector al que pertenece');
-                $table->bigInteger('municipality_id')->nullable()->unsigned()
-                      ->comment('Identificador asociado al municipio en donde se encuentra ubicada');
-                $table->bigInteger('city_id')->nullable()->unsigned()
-                      ->comment('Identificador asociado a la ciudad en donde se encuentra ubicada');
-                $table->bigInteger('institution_type_id')->unsigned()
-                      ->comment('Identificador asociado al tipo de institución');
-                $table->bigInteger('logo_id')->nullable()->unsigned()
-                      ->comment('Identificador asociado al logotipo institucional');
-                $table->bigInteger('banner_id')->nullable()->unsigned()
-                      ->comment('Identificador asociado al cintillo institucional');
+                $table->foreignId('institution_sector_id')->constrained()->onUpdate('cascade');
+                $table->foreignId('municipality_id')->constrained()->onUpdate('cascade');
+                $table->foreignId('city_id')->constrained()->onUpdate('cascade');
+                $table->foreignId('institution_type_id')->constrained()->onUpdate('cascade');
+                $table->unsignedBigInteger('logo_id')->nullable()->comment(
+                    'Identificador asociado al logotipo institucional'
+                );
+                $table->foreign('logo_id')->references('id')->on('images')->onUpdate('cascade');
+                $table->unsignedBigInteger('banner_id')->nullable()->comment(
+                    'Identificador asociado al cintillo institucional'
+                );
+                $table->foreign('banner_id')->references('id')->on('images')->onUpdate('cascade');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
 
                 $table->unique(['rif', 'active'])->comment('Clave única para el registro');
-            });
-
-            Schema::table('institutions', function (Blueprint $table) {
-                $table->foreign('institution_sector_id')->references('id')->on('institution_sectors')
-                      ->onUpdate('cascade');
-                $table->foreign('municipality_id')->references('id')->on('municipalities')
-                      ->onUpdate('cascade');
-                $table->foreign('city_id')->references('id')->on('cities')->onUpdate('cascade');
-                $table->foreign('institution_type_id')->references('id')->on('institution_types')
-                      ->onUpdate('cascade');
-                $table->foreign('logo_id')->references('id')->on('images')->onUpdate('cascade');
-                $table->foreign('banner_id')->references('id')->on('images')->onUpdate('cascade');
             });
         }
     }

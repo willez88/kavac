@@ -17,11 +17,13 @@ class CreateAccountingAccountConvertersTable extends Migration
             Schema::create('accounting_account_converters', function (Blueprint $table) {
                 $table->bigIncrements('id');
 
-                $table->bigInteger('accounting_account_id')->unsigned()->comment('llave foranea a registro en la tabla accounting_accounts');
-                $table->foreign('accounting_account_id')->references('id')->on('accounting_accounts')->onDelete('cascade')->comment('llave foranea a registro en la tabla accounting_accounts');
+                $table->foreignId('accounting_account_id')->constrained()->onDelete('cascade')->comment(
+                    'llave foranea a registro en la tabla accounting_accounts'
+                );
 
-                $table->bigInteger('budget_account_id')->unsigned()->comment('llave foranea a registro en la tabla budget_accounts');
-                $table->foreign('budget_account_id')->references('id')->on('budget_accounts')->onDelete('cascade')->comment('llave foranea a registro en la tabla budget_accounts');
+                $table->foreignId('budget_account_id')->constrained()->onDelete('cascade')->comment(
+                    'llave foranea a registro en la tabla budget_accounts'
+                );
 
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
                 $table->timestamps();

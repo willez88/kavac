@@ -20,10 +20,8 @@ class CreateDeductionsTable extends Migration
                 $table->text('description')->nullable()->comment("Descripción de la deducción");
                 $table->text('formula')->comment("Fórmula de la deducción a aplicar");
                 $table->boolean('active')->default(true)->comment('Establece si la deducción esta activa o no');
-                $table->bigInteger('accounting_account_id')->nullable()->unsigned()
-                      ->comment('Identificador asociado a la cuenta contable');
-                $table->foreign('accounting_account_id')->references('id')
-                      ->on('accounting_accounts')->onUpdate('restrict')->onDelete('restrict');
+                $table->foreignId('accounting_account_id')->nullable()->constrained()
+                      ->onUpdate('restrict')->onDelete('restrict');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });

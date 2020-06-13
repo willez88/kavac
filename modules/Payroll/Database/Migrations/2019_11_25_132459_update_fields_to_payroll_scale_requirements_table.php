@@ -28,12 +28,14 @@ class UpdateFieldsToPayrollScaleRequirementsTable extends Migration
         if (Schema::hasTable('payroll_scale_requirements')) {
             Schema::table('payroll_scale_requirements', function (Blueprint $table) {
                 if (Schema::hasColumn('payroll_scale_requirements', 'scale_years_minimum')) {
-                    $table->float('scale_years_minimum')->unsigned()->nullable()
-                        ->comment('Cantidad minima de años requeridas por la escala')->change();
+                    $table->float('scale_years_minimum')->unsigned()->nullable()->comment(
+                        'Cantidad minima de años requeridas por la escala'
+                    )->change();
                 }
                 if (Schema::hasColumn('payroll_scale_requirements', 'scale_years_maximum')) {
-                    $table->float('scale_years_maximum')->unsigned()->nullable()
-                        ->comment('Cantidad minima de años requeridas por la escala')->change();
+                    $table->float('scale_years_maximum')->unsigned()->nullable()->comment(
+                        'Cantidad minima de años requeridas por la escala'
+                    )->change();
                 }
             });
         }

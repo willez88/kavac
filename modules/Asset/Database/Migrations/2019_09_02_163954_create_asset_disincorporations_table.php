@@ -29,10 +29,7 @@ class CreateAssetDisincorporationsTable extends Migration
             Schema::create('asset_disincorporations', function (Blueprint $table) {
                 $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('code', 20)->unique()->comment('Código identificador de la desincorporación');
-                $table->bigInteger('asset_disincorporation_motive_id')->nullable()->unsigned()
-                      ->comment('Identificador único del motivo de la desincorporación del bien');
-                $table->foreign('asset_disincorporation_motive_id')->references('id')
-                      ->on('asset_disincorporation_motives')
+                $table->foreignId('asset_disincorporation_motive_id')->nullable()->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->date('date')->nullable()->comment('Fecha de la desincorporación del bien');
@@ -40,15 +37,10 @@ class CreateAssetDisincorporationsTable extends Migration
                 $table->string('observation')->nullable()
                       ->comment('Observaciones generales del estado del bien a desincorporar');
 
-                $table->bigInteger('user_id')
-                      ->comment('Identificador único del usuario que realiza la desincorporación');
+                $table->foreignId('user_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-            });
-
-            Schema::table('asset_disincorporations', function (Blueprint $table) {
-                $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
             });
         }
     }

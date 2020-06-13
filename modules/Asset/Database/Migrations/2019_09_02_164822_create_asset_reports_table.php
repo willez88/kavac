@@ -34,19 +34,18 @@ class CreateAssetReportsTable extends Migration
                 $table->string('type_report', 20)->nullable()->comment('Tipo de reporte');
                 $table->string('type_search', 20)->nullable()->comment('Tipo de búsqueda');
 
-                $table->bigInteger('asset_type_id')->nullable()->unsigned()
-                      ->comment('Identificador único del tipo de bien');
-                $table->bigInteger('asset_category_id')->nullable()->unsigned()
-                      ->comment('Identificador único de la categoria de bien');
-                $table->bigInteger('asset_subcategory_id')->nullable()->unsigned()
-                      ->comment('Identificador único de la subcategoria de bien');
-                $table->bigInteger('asset_specific_category_id')->nullable()->unsigned()
-                      ->comment('Identificador único de la categoria especifica de bien');
-
-                $table->bigInteger('department_id')->nullable()->unsigned()
-                      ->comment('Identificador único del departamento');
-                $table->bigInteger('institution_id')->nullable()->unsigned()
-                      ->comment('Identificador único de la institución');
+                $table->foreignId('asset_type_id')->nullable()->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('asset_category_id')->nullable()->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('asset_subcategory_id')->nullable()->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('asset_specific_category_id')->nullable()->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('department_id')->nullable()->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('institution_id')->nullable()->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->integer('mes')->nullable()->comment('Identificador único del mes de busqueda');
                 $table->year('year')->nullable()->comment('Año de busqueda');

@@ -32,18 +32,17 @@ class AddFieldsToPayrollSalaryScalesTable extends Migration
                           ->comment('Código del escalafón');
                 }
                 if (!Schema::hasColumn('payroll_salary_scales', 'group_by_years')) {
-                    $table->string('group_by_years')->nullable()
-                    ->comment('Tipo de agrupación, (antiquity) años se servicio, (experience) años de experiencia');
+                    $table->string('group_by_years')->nullable()->comment(
+                        'Tipo de agrupación, (antiquity) años se servicio, (experience) años de experiencia'
+                    );
                 }
                 if (!Schema::hasColumn('payroll_salary_scales', 'group_by_clasification')) {
-                    $table->string('group_by_clasification')->nullable()
-                    ->comment('Tipo de agrupación, (position) cargo, (instruction_degree) grado de instrucción');
+                    $table->string('group_by_clasification')->nullable()->comment(
+                        'Tipo de agrupación, (position) cargo, (instruction_degree) grado de instrucción'
+                    );
                 }
                 if (!Schema::hasColumn('payroll_salary_scales', 'institution_id')) {
-                    $table->bigInteger('institution_id')->unsigned()->nullable()
-                          ->comment('Identificador único de la institución asociada al escalafón');
-                    $table->foreign('institution_id')
-                          ->references('id')->on('institutions')
+                    $table->foreignId('institution_id')->nullable()->constrained()
                           ->onDelete('restrict')->onUpdate('cascade');
                 }
             });

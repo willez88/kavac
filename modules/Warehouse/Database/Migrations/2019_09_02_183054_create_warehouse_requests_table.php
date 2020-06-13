@@ -39,18 +39,12 @@ class CreateWarehouseRequestsTable extends Migration
                 $table->date('delivery_date')->nullable()
                       ->comment('Fecha en la que se hizo la entrega de la solicitud');
 
-                $table->bigInteger('budget_specific_action_id')->nullable()->unsigned()
-                      ->comment('Identificador único de la acción específica asociada a la solicitud');
-                $table->foreign('budget_specific_action_id')->references('id')->on('budget_specific_actions')
+                $table->foreignId('budget_specific_action_id')->nullable()->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('payroll_staff_id')->nullable()->unsigned()
-                      ->comment('Identificador único del trabajador que realiza la solicitud');
-                $table->foreign('payroll_staff_id')->references('id')->on('payroll_staffs');
+                $table->foreignId('payroll_staff_id')->nullable()->constrained();
 
-                $table->bigInteger('department_id')->nullable()->unsigned()
-                      ->comment('Identificador único del departamento o dependencia que solicita los productos');
-                $table->foreign('department_id')->references('id')->on('departments')
+                $table->foreignId('department_id')->nullable()->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();

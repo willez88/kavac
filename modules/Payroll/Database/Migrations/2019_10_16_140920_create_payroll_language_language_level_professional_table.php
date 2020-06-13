@@ -28,21 +28,28 @@ class CreatePayrollLanguageLanguageLevelProfessionalTable extends Migration
         if (!Schema::hasTable('payroll_language_language_level_professional')) {
             Schema::create('payroll_language_language_level_professional', function (Blueprint $table) {
                 $table->bigIncrements('id')->unsigned();
-                $table->bigInteger('payroll_language_id')->unsigned();
-                //$table->foreign('payroll_language_id')->references('id')->on('payroll_languages')->onDelete('cascade');
+                $table->unsignedBigInteger('payroll_language_id');
+                $table->foreign(
+                    'payroll_language_id',
+                    'payroll_language_language_level_professional_language_fk'
+                )->references('id')->on('payroll_languages')->onDelete('cascade');
 
-                $table->bigInteger('payroll_language_level_id')->unsigned()->index();
-                /*$table->foreign('payroll_language_level_id')
-                      ->references('id')->on('payroll_language_levels')->onDelete('cascade');*/
+                $table->unsignedBigInteger('payroll_language_level_id');
+                $table->foreign(
+                    'payroll_language_level_id',
+                    'payroll_language_language_level_professional_level_fk'
+                )->references('id')->on('payroll_language_levels')->onDelete('cascade');
 
-                $table->bigInteger('payroll_professional_information_id')->unsigned();
+                $table->unsignedBigInteger('payroll_professional_information_id');
                 $table->foreign(
                     'payroll_professional_information_id',
                     'payroll_language_language_level_professional_information_fk'
                 )->references('id')->on('payroll_professional_informations')->onDelete('cascade');
 
-                $table->unique(['payroll_language_id', 'payroll_professional_information_id',])
-                      ->comment('Clave única para el registro');
+                $table->unique(
+                    ['payroll_language_id', 'payroll_professional_information_id'],
+                    'payroll_language_language_level_professional_unique'
+                )->comment('Clave única para el registro');
 
                 $table->timestamps();
             });

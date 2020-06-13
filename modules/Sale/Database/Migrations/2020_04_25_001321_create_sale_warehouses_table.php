@@ -17,7 +17,6 @@ class CreateSaleWarehousesTable extends Migration
             Schema::create('sale_warehouses', function (Blueprint $table) {
                 $table->bigIncrements('id');
 
-                $table->bigInteger('institution_id')->nullable()->comment('Institución');
 
                 $table->string('name', 100)->comment('Nombre o descripción del almacen');
 
@@ -27,20 +26,15 @@ class CreateSaleWarehousesTable extends Migration
                 $table->boolean('active')->default(true)
                       ->comment('Estatus de actividad. (true) activo, (false) inactivo');
 
+                $table->text('address')->comment('Dirección física del almacen');
 
-                $table->bigInteger('parish_id')->nullable()->comment('Parroquia donde está ubicado el almacen');
-
-                $table->foreign('parish_id')->references('id')->on('parishes')
+                $table->foreignId('institution_id')->nullable()->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->text('address')->comment('Dirección física del almacen');
+                $table->foreignId('parish_id')->nullable()->constrained()->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-
-                $table->foreign('institution_id')
-                      ->references('id')->on('institutions')
-                      ->onDelete('restrict')->onUpdate('cascade');
             });
         }
     }

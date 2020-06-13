@@ -28,20 +28,12 @@ class CreateAssetRulesTable extends Migration
         if (!Schema::hasTable('asset_rules')) {
             Schema::create('asset_rules', function (Blueprint $table) {
                 $table->bigIncrements('id')->comment('Identificador único del registro');
-                $table->bigInteger('asset_inventory_id')->unsigned()
-                      ->comment('Identificador único del articulo en la tabla de inventario de bienes');
-                $table->foreign('asset_inventory_id')->references('id')->on('asset_inventories')
-                      ->onDelete('restrict')->onUpdate('cascade');
-
+                $table->foreignId('asset_inventory_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
                 $table->integer('min')->nullable()->unsigned()
                       ->comment('Cantidad minima permitida en el inventario de bienes');
                 $table->integer('max')->nullable()->unsigned()
                       ->comment('Cantidad maxima permitida en el inventario de bienes');
-
-                $table->bigInteger('user_id')->unsigned()
-                      ->comment('Identificador único del usuario que realiza el cambio de regla');
-                $table->foreign('user_id')->references('id')->on('users')
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('user_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

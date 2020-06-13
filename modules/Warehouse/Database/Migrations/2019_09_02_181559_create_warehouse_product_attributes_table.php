@@ -32,11 +32,9 @@ class CreateWarehouseProductAttributesTable extends Migration
                 $table->string('name', 100)->nullable()
                       ->comment('Nombre o descripción del atributo o característica específica del producto');
 
-                $table->bigInteger('warehouse_product_id')->comment('Identificador único del producto');
+                $table->foreignId('warehouse_product_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
-                $table->foreign('warehouse_product_id')->references('id')->on('warehouse_products')
-                      ->onDelete('restrict')->onUpdate('cascade');
             });
         }
     }

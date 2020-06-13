@@ -32,16 +32,10 @@ class CreateBudgetAccountOpensTable extends Migration
                 $table->float('total_real_amount', 30, 10)->comment('Monto o cantidad total real del año anterior');
                 $table->float('total_estimated_amount', 30, 10)
                       ->comment('Monto o cantidad total estimada para el año de formulación');
-                $table->bigInteger('budget_account_id')->unsigned()
-                      ->comment('Identificador asociado a la cuenta patrimonial');
-                $table->bigInteger('budget_sub_specific_formulation_id')->unsigned()
-                      ->comment('Identificación asociado a la formulación');
+                $table->foreignId('budget_account_id')->constrained()->onUpdate('cascade');
+                $table->foreignId('budget_sub_specific_formulation_id')->constrained()->onUpdate('cascade');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-                $table->foreign('budget_account_id')->references('id')
-                      ->on('budget_accounts')->onUpdate('cascade');
-                $table->foreign('budget_sub_specific_formulation_id')
-                      ->references('id')->on('budget_sub_specific_formulations')->onUpdate('cascade');
             });
         }
     }

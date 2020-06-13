@@ -30,21 +30,16 @@ class CreateAssetAsignationsTable extends Migration
                 $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('code', 20)->unique()->comment('Código identificador de la asignación');
 
-                $table->bigInteger('payroll_staff_id')->nullable()->unsigned()
-                      ->comment('Identificador único del trabajador responsable del bien');
-                $table->foreign('payroll_staff_id')->references('id')->on('payroll_staffs')
+                $table->foreignId('payroll_staff_id')->nullable()->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('department_id')->nullable()->unsigned()
-                      ->comment('Identificador único del departamento donde recide el bien mueble');
-                $table->foreign('department_id')->references('id')->on('departments')
+                $table->foreignId('department_id')->nullable()->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('user_id')->comment('Identificador único del usuario que realiza la asignación');
+                $table->foreignId('user_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-                $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
             });
         }
     }

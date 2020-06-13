@@ -18,11 +18,9 @@ class CreateHistoryTaxesTable extends Migration
                 $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->date('operation_date')->comment('Fecha de entrada en vigencia del impuesto');
                 $table->decimal('percentage', 5, 2)->comment('Porcentaje del impuesto');
-                $table->bigInteger('tax_id')->unsigned()
-                      ->comment('Identificador asociado al impuesto');
+                $table->foreignId('tax_id')->constrained()->onUpdate('cascade');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-                $table->foreign('tax_id')->references('id')->on('taxes')->onUpdate('cascade');
             });
         }
     }

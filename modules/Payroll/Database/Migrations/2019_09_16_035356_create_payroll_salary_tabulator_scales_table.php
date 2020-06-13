@@ -29,23 +29,24 @@ class CreatePayrollSalaryTabulatorScalesTable extends Migration
             Schema::create('payroll_salary_tabulator_scales', function (Blueprint $table) {
                 $table->bigIncrements('id')->comment('Identificador único del registro');
 
-                $table->bigInteger('payroll_horizontal_scale_id')->unsigned()->nullable()
+                $table->unsignedBigInteger('payroll_horizontal_scale_id')->nullable()
                       ->comment('Identificador único de la escala horizontal asociado al registro');
                 $table->foreign('payroll_horizontal_scale_id', 'payroll_salary_tabulator_scales_horizontal_scale_fk')
                       ->references('id')->on('payroll_scales')
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('payroll_vertical_scale_id')->unsigned()->nullable()
+                $table->unsignedBigInteger('payroll_vertical_scale_id')->nullable()
                       ->comment('Identificador único de la escala vertical asociado al registro');
                 $table->foreign('payroll_vertical_scale_id', 'payroll_salary_tabulator_scales_vertical_scale_fk')
                       ->references('id')->on('payroll_scales')
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('payroll_salary_tabulator_id')->unsigned()
+                $table->unsignedBigInteger('payroll_salary_tabulator_id')
                       ->comment('Identificador único del tabulador salarial asociado al registro');
                 $table->foreign('payroll_salary_tabulator_id', 'payroll_salary_tabulator_scales_salary_tabulator_fk')
                       ->references('id')->on('payroll_salary_tabulators')
                       ->onDelete('restrict')->onUpdate('cascade');
+
 
                 $table->float('value')->comment('Valor de la escala asociada al tabulador salarial');
 

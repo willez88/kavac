@@ -34,15 +34,10 @@ class CreateWarehouseInventoryRulesTable extends Migration
                 $table->integer('maximum')->unsigned()->nullable()
                       ->comment('Cantidad máxima permitida de un producto en el almacén');
 
-                $table->bigInteger('warehouse_inventory_product_id')->unsigned()
-                      ->comment('Identificador único del producto inventariado');
-                $table->foreign('warehouse_inventory_product_id')->references('id')->on('warehouse_inventory_products')
+                $table->foreignId('warehouse_inventory_product_id')->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('user_id')->unsigned()
-                      ->comment('Identificador único del usuario que registra el cambio de regla');
-                $table->foreign('user_id')->references('id')->on('users')
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('user_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

@@ -29,14 +29,9 @@ class CreateWarehouseInstitutionWarehousesTable extends Migration
             Schema::create('warehouse_institution_warehouses', function (Blueprint $table) {
                 $table->bigIncrements('id')->comment('Identificador único del registro');
 
-                $table->bigInteger('institution_id')->unsigned()
-                      ->comment('Identificador único de la institución que gestiona el almacén');
-                $table->foreign('institution_id')->references('id')->on('institutions')
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('institution_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('warehouse_id')->unsigned()->comment('Identificador único del almacén');
-                $table->foreign('warehouse_id')->references('id')->on('warehouses')
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('warehouse_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
                 $table->boolean('main')->default(false)
                       ->comment('Define si es el almacen principal');

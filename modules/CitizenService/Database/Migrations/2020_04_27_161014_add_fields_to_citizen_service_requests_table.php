@@ -47,7 +47,6 @@ class AddFieldsToCitizenServiceRequestsTable extends Migration
             if (!Schema::hasColumn('citizen_service_requests', 'type_institution')) {
                 $table->boolean('type_institution')->default(false)->comment('Establece si es institución o no');
             }
-
         });
     }
 
@@ -92,8 +91,6 @@ class AddFieldsToCitizenServiceRequestsTable extends Migration
             if (Schema::hasColumn('citizen_service_requests', 'type_institution')) {
                 $table->dropColumn(['type_institution']);
             }
-
-
         });
     }
 }

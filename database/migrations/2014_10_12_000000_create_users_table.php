@@ -31,7 +31,7 @@ class CreateUsersTable extends Migration
                       ->comment('Clave pública para la verificación de firma de documentos');
                 $table->boolean('active')->default(true)
                       ->comment('Estatus actual del usuario. (False) inactivo, (True) activo');
-                $table->integer('employee_id')->unsigned()->nullable()
+                $table->unsignedBigInteger('employee_id')->nullable()
                       ->comment('Identificador del empleado asociado al usuario');
                 $table->rememberToken();
                 $table->timestamps();

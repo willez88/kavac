@@ -17,9 +17,8 @@ class CreateInstitutionTypesTable extends Migration
             Schema::create('institution_types', function (Blueprint $table) {
                 $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('name', 250)->comment('Nombre del tipo de institución');
-                $table->char('acronym', 4)->comment('Siglas o acrónimo de la institución');
+                $table->char('acronym', 4)->unique()->comment('Siglas o acrónimo de la institución');
                 $table->timestamps();
-                $table->unique('acronym')->comment('Clave única del registro');
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });
         }

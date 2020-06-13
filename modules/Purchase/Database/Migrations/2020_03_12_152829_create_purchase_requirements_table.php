@@ -25,11 +25,7 @@ class CreatePurchaseRequirementsTable extends Migration
             *
             * Define la estructura de relación al año fiscal
             */
-            $table->bigInteger('fiscal_year_id')->unsigned()
-                      ->comment('Identificador del año fiscal');
-            $table->foreign('fiscal_year_id')->references('id')
-                      ->on('fiscal_years')->onDelete('restrict')
-                      ->onUpdate('cascade');
+            $table->foreignId('fiscal_year_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
             /*
             * -----------------------------------------------------------------------
@@ -39,11 +35,8 @@ class CreatePurchaseRequirementsTable extends Migration
             * Define la estructura de relación a la unidad o departamento contratante del
             * requerimiento a registrar
             */
-            $table->bigInteger('contracting_department_id')->unsigned()->nullable()
-                      ->comment('Identificador de la unidad o departamento contratante. Opcional');
-            $table->foreign('contracting_department_id')->references('id')
-                      ->on('departments')->onDelete('restrict')
-                      ->onUpdate('cascade');
+            $table->foreignId('contracting_department_id')->nullable()->constrained('departments')
+                  ->onDelete('restrict')->onUpdate('cascade');
 
             /*
             * -----------------------------------------------------------------------
@@ -53,11 +46,8 @@ class CreatePurchaseRequirementsTable extends Migration
             * Define la estructura de relación a la unidad o departamento usuaria del
             * requerimiento a registrar
             */
-            $table->bigInteger('user_department_id')->unsigned()
-                      ->comment('Identificador de la unidad o departamento usuaria del requerimiento');
-            $table->foreign('user_department_id')->references('id')
-                      ->on('departments')->onDelete('restrict')
-                      ->onUpdate('cascade');
+            $table->foreignId('user_department_id')->constrained('departments')
+                  ->onDelete('restrict')->onUpdate('cascade');
 
             /*
             * -----------------------------------------------------------------------
@@ -67,25 +57,16 @@ class CreatePurchaseRequirementsTable extends Migration
             * Define la estructura de relación al tipo de proveedor según el requerimiento
             * a ser registrado
             */
-            $table->bigInteger('purchase_supplier_type_id')->unsigned()
-                      ->comment('Identificador del tipo de requerimiento (tipo de proveedor)');
-            $table->foreign('purchase_supplier_type_id')->references('id')
-                      ->on('purchase_supplier_types')->onDelete('restrict')
-                      ->onUpdate('cascade');
+            $table->foreignId('purchase_supplier_type_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
-            $table->bigInteger('purchase_base_budget_id')->unsigned()
-                      ->comment('Identificador del presupuesto base');
-            $table->foreign('purchase_base_budget_id')->references('id')
-                      ->on('purchase_base_budgets')->onDelete('restrict')
-                      ->onUpdate('cascade');
+            $table->foreignId('purchase_base_budget_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
-            $table->enum('requirement_status', ['WAIT', 'PROCESSED', 'BOUGHT'])->default('WAIT')
-                      ->comment(
-                          'Determina el estatus del requerimiento 
-                          (WAIT) - en espera. 
-                          (PROCESSED) - Procesado,
-                          (BOUGHT) - comprado',
-                      );
+            $table->enum('requirement_status', ['WAIT', 'PROCESSED', 'BOUGHT'])->default('WAIT')->comment(
+                'Determina el estatus del requerimiento
+                (WAIT) - en espera.
+                (PROCESSED) - Procesado,
+                (BOUGHT) - comprado',
+            );
 
             $table->timestamps();
             $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

@@ -26,14 +26,8 @@ class CreateBudgetModificationsTable extends Migration
                       ->comment('Descripción del documento que avala la modificación presupuestaria');
                 $table->string('document')
                       ->comment('Número del documento que avala la modificación presupuestaria');
-                $table->bigInteger('institution_id')->unsigned()
-                      ->comment('Identificador asociado a la institución');
-                $table->foreign('institution_id')->references('id')
-                      ->on('institutions')->onUpdate('cascade');
-                $table->bigInteger('document_status_id')->unsigned()
-                      ->comment('Identificador asociado a la institución');
-                $table->foreign('document_status_id')->references('id')
-                      ->on('document_status')->onUpdate('cascade');
+                $table->foreignId('institution_id')->constrained()->onUpdate('cascade');
+                $table->foreignId('document_status_id')->constrained('document_status')->onUpdate('cascade');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });

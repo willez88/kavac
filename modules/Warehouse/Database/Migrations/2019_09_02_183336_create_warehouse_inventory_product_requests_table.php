@@ -30,19 +30,20 @@ class CreateWarehouseInventoryProductRequestsTable extends Migration
                 $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->integer('quantity')->unsigned()->comment('Cantidad solicitada del producto');
 
-                $table->bigInteger('warehouse_request_id')->nullable()->unsigned()
+                $table->unsignedBigInteger('warehouse_request_id')->nullable()
                       ->comment('Identificador único de la solicitud');
                 $table->foreign(
                     'warehouse_request_id',
                     'warehouse_inventory_product_requests_warehouse_request_fk'
                 )->references('id')->on('warehouse_requests')->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('warehouse_inventory_product_id')->nullable()->unsigned()
+                $table->unsignedBigInteger('warehouse_inventory_product_id')->nullable()
                       ->comment('Identificador único del producto solicitado en el inventario');
                 $table->foreign(
                     'warehouse_inventory_product_id',
                     'warehouse_inventory_product_requests_inventory_product_fk'
                 )->references('id')->on('warehouse_inventory_products')->onDelete('restrict')->onUpdate('cascade');
+
 
                 $table->timestamps();
             });

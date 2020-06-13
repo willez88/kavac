@@ -15,16 +15,13 @@ class CreateAccountingEntryAccountsTable extends Migration
     {
         Schema::create('accounting_entry_accounts', function (Blueprint $table) {
             $table->bigIncrements('id');
-
-            $table->bigInteger('accounting_entry_id')->unsigned()->comment('id del asiento contable');
-            $table->foreign('accounting_entry_id')->references('id')->on('accounting_entries')->onDelete('cascade')->comment('id del asiento contable');
-
-            $table->bigInteger('accounting_account_id')->unsigned()->nullable()->comment('registro de cuentas patrimoniales en el asiento contable');
-            $table->foreign('accounting_account_id')->references('id')->on('accounting_accounts')->onDelete('cascade')->comment('registro de cuentas patrimoniales en el asiento contable');
-
+            $table->foreignId('accounting_entry_id')->constrained()->onDelete('cascade')
+                  ->comment('id del asiento contable');
+            $table->foreignId('accounting_account_id')->nullable()->constrained()->onDelete('cascade')->comment(
+                'registro de cuentas patrimoniales en el asiento contable'
+            );
             $table->float('debit', 30, 10)->comment('Monto asignado al Debe total del asiento');
             $table->float('assets', 30, 10)->comment('Monto asignado al Haber total del Asiento');
-
             $table->timestamps();
             $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
         });

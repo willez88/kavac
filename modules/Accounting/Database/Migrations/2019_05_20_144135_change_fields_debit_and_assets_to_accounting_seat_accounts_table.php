@@ -14,8 +14,12 @@ class ChangeFieldsDebitAndAssetsToAccountingSeatAccountsTable extends Migration
     public function up()
     {
         Schema::table('accounting_seat_accounts', function (Blueprint $table) {
-            $table->float('debit', 30, 10)->comment('Monto asignado al Debe')->change();
-            $table->float('assets', 30, 10)->comment('Monto asignado al Haber')->change();
+            if (Schema::hasColumn('accounting_seat_accounts', 'debit')) {
+                $table->float('debit', 30, 10)->comment('Monto asignado al Debe')->change();
+            }
+            if (Schema::hasColumn('accounting_seat_accounts', 'assets')) {
+                $table->float('assets', 30, 10)->comment('Monto asignado al Haber')->change();
+            }
         });
     }
 
@@ -26,6 +30,8 @@ class ChangeFieldsDebitAndAssetsToAccountingSeatAccountsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('accounting_seat_accounts', function (Blueprint $table) {
+            $table->dropColumn(['debit', 'assets']);
+        });
     }
 }

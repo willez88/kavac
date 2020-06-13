@@ -36,41 +36,25 @@ class CreatePayrollEmploymentInformationsTable extends Migration
                       ->unique()->nullable()->comment('Correo electrónico institucional');
                 $table->text('function_description')->nullable()->comment('Descripción de funciones');
 
-                $table->bigInteger('payroll_inactivity_type_id')->unsigned()->nullable()
+                $table->unsignedBigInteger('payroll_inactivity_type_id')->nullable()
                       ->comment('identificador del tipo de inactividad que pertenece a la información laboral');
                 $table->foreign(
                     'payroll_inactivity_type_id',
                     'payroll_employment_informations_inactivity_type_fk'
                 )->references('id')->on('payroll_inactivity_types')->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('payroll_position_type_id')->unsigned()
-                      ->comment('identificador del tipo de cargo que pertenece a la información laboral');
-                $table->foreign('payroll_position_type_id')->references('id')->on('payroll_position_types')
-                      ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('payroll_position_id')->unsigned()
-                      ->comment('identificador del cargo que pertenece a la información laboral');
-                $table->foreign('payroll_position_id')->references('id')->on('payroll_positions')
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('payroll_position_type_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('payroll_staff_type_id')->unsigned()
-                      ->comment('identificador del tipo de personal que pertenece a la información laboral');
-                $table->foreign('payroll_staff_type_id')->references('id')->on('payroll_staff_types')
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('payroll_position_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('department_id')->unsigned()
-                      ->comment('identificador del departamento que pertenece a la información laboral');
-                $table->foreign('department_id')->references('id')->on('departments')
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('payroll_staff_type_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('payroll_contract_type_id')->unsigned()
-                      ->comment('identificador del tipo de contrato que pertenece a la información laboral');
-                $table->foreign('payroll_contract_type_id')->references('id')->on('payroll_contract_types')
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('department_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('payroll_staff_id')->unsigned()->unique()
-                      ->comment('identificador del personal que pertenece a la información laboral');
-                $table->foreign('payroll_staff_id')->references('id')->on('payroll_staffs')
+                $table->foreignId('payroll_contract_type_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
+
+                $table->foreignId('payroll_staff_id')->unique()->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();

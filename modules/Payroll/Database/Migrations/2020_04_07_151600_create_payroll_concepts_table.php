@@ -39,18 +39,12 @@ class CreatePayrollConceptsTable extends Migration
                       ->comment('Incide sobre: salario base, salario normal, ' .
                         'salario diario, salario integral');
 
-                $table->bigInteger('payroll_concept_type_id')->unsigned()->nullable()
-                      ->comment('Identificador único del tipo de concepto asociado al concepto');
-                $table->foreign('payroll_concept_type_id')
-                      ->references('id')->on('payroll_concept_types')
+                $table->foreignId('payroll_concept_type_id')->nullable()->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('institution_id')->unsigned()->nullable()
-                      ->comment('Identificador único de la institución asociada al concepto');
-                $table->foreign('institution_id')
-                      ->references('id')->on('institutions')
+                $table->foreignId('institution_id')->nullable()->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');
-                
+
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });

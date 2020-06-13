@@ -19,10 +19,7 @@ class CreateFinanceCheckBooksTable extends Migration
             $table->string('number', 12)->comment('Numeración del cheque');
             $table->boolean('used')->default(false)->comment('Determina si el cheque ya fue emitido');
             $table->boolean('annulled')->default(false)->comment('Determina si el cheque se encuentra anulado');
-            $table->bigInteger('finance_bank_account_id')->unsigned()
-                  ->comment('Identificador de la cuenta bancaria a la cual pertenece el cheque');
-            $table->foreign('finance_bank_account_id')->references('id')
-                  ->on('finance_bank_accounts')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreignId('finance_bank_account_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
             $table->timestamps();
             $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             $table->unique(['code', 'number', 'finance_bank_account_id'])->comment('Clave única para el registro');

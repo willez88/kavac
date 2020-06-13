@@ -25,6 +25,8 @@ class RenameGeneratedByIdInAccountingSeatsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('accounting_seats', function (Blueprint $table) {
+            $table->renameColumn('accounting_seat_categories_id', 'generated_by_id');
+        });
     }
 }

@@ -18,10 +18,7 @@ class CreateParishesTable extends Migration
                 $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('name', 100)->comment('Nombre de la Parroquia');
                 $table->string('code', 10)->nullable()->comment('Código que identifica a la Parroquia');
-                $table->bigInteger('municipality_id')->unsigned()
-                      ->comment('Identificador asociado al Municipio al que pertenece');
-                $table->foreign('municipality_id')->references('id')->on('municipalities')
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('municipality_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
                 $table->unique(['municipality_id', 'name'])->comment('Clave única para el registro');

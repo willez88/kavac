@@ -14,8 +14,6 @@ class ChangeFieldMorphToDocumentsTable extends Migration
     public function up()
     {
         Schema::table('documents', function (Blueprint $table) {
-            /*$table->dropColumn('documentable_type');
-            $table->dropColumn('documentable_id');*/
             $table->dropMorphs('documentable');
         });
 
@@ -32,8 +30,7 @@ class ChangeFieldMorphToDocumentsTable extends Migration
     public function down()
     {
         Schema::table('documents', function (Blueprint $table) {
-            $table->dropColumn('documentable_type');
-            $table->dropColumn('documentable_id');
+            $table->dropMorphs('documentable');
         });
 
         Schema::table('documents', function (Blueprint $table) {

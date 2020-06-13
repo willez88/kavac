@@ -32,15 +32,9 @@ class CreatePayrollOrganizationsTable extends Migration
                 $table->date('start_date')->comment('Fecha de ingreso');
                 $table->date('end_date')->comment('Fecha de egreso');
 
-                $table->bigInteger('payroll_sector_type_id')->unsigned()
-                      ->comment('identificador del tipo de sector que pertenece a la organización');
-                $table->foreign('payroll_sector_type_id')->references('id')->on('payroll_sector_types')
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('payroll_sector_type_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('payroll_employment_information_id')->unsigned()
-                      ->comment('identificador de la información laboral que pertenece a la organización');
-                $table->foreign('payroll_employment_information_id')
-                      ->references('id')->on('payroll_employment_informations')
+                $table->foreignId('payroll_employment_information_id')->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();

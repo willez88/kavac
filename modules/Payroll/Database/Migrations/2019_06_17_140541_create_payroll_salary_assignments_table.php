@@ -35,22 +35,19 @@ class CreatePayrollSalaryAssignmentsTable extends Migration
                 $table->enum('incidence_type', ['absolute_value', 'tax_unit', 'percent'])
                       ->comment('Tipo de incidencia de la asignación, valor absoluto, unidad tributaria o porcentaje');
 
-                $table->bigInteger('payroll_position_type_id')->unsigned()->nullable()
-                  ->comment('Identificador único del tipo de cargo al que se aplica la asignación salarial');
-                $table->foreign('payroll_position_type_id')->references('id')->on('payroll_position_types')
-                  ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('payroll_position_type_id')->nullable()->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('payroll_salary_assignment_type_id')->unsigned()->nullable()
-                  ->comment('Identificador único del tipo de asignación salarial');
+                $table->unsignedBigInteger('payroll_salary_assignment_type_id')->nullable()->comment(
+                    'Identificador único del tipo de asignación salarial'
+                );
                 $table->foreign(
                     'payroll_salary_assignment_type_id',
                     'payroll_salary_assignments_salary_assignment_type_fk'
                 )->references('id')->on('payroll_salary_assignment_types')->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('payroll_salary_scale_id')->unsigned()->nullable()
-                  ->comment('Identificador único del escalafón asociado a la asignación salarial');
-                $table->foreign('payroll_salary_scale_id')->references('id')->on('payroll_salary_assignment_types')
-                  ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('payroll_salary_scale_id')->nullable()->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

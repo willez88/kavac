@@ -33,10 +33,7 @@ class CreatePayrollChildrensTable extends Migration
                 $table->string('id_number', 12)->nullable()->comment('Cédula del hijo del trabajador');
                 $table->date('birthdate')->comment('Fecha de nacimiento del hijo del trabajador');
 
-                $table->bigInteger('payroll_socioeconomic_information_id')->unsigned()
-                      ->comment('identificador de la información socioeconómica que pertenece al hijo');
-                $table->foreign('payroll_socioeconomic_information_id')
-                      ->references('id')->on('payroll_socioeconomic_informations')
+                $table->foreignId('payroll_socioeconomic_information_id')->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();

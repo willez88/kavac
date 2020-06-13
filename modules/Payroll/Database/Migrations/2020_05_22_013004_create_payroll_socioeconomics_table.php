@@ -35,14 +35,10 @@ class CreatePayrollSocioeconomicsTable extends Migration
                 $table->date('birthdate_twosome')->nullable()
                       ->comment('Fecha de nacimiento de la pareja del trabajador');
 
-                $table->bigInteger('payroll_staff_id')->unsigned()->unique()
-                      ->comment('identificador del trabajador que pertenece al dato socioeconómico');
-                $table->foreign('payroll_staff_id')->references('id')->on('payroll_staffs')
+                $table->foreignId('payroll_staff_id')->unique()->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('marital_status_id')->unsigned()
-                      ->comment('identificador del estado civil que pertenece al dato socioeconómico');
-                $table->foreign('marital_status_id')->references('id')->on('marital_status')
+                $table->foreignId('marital_status_id')->constrained('marital_status')
                       ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();

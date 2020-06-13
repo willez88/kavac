@@ -35,20 +35,13 @@ class CreateWarehouseInventoryProductsTable extends Migration
                       ->comment('Cantidad de productos reservados por solicitudes de almacén');
                 $table->float('unit_value')->unsigned()->comment('Valor por unidad del producto en el almacén');
 
-                $table->bigInteger('currency_id')->unsigned()->nullable()
-                      ->comment('Identificador único asociado a la moneda');
-                $table->foreign('currency_id')->references('id')->on('currencies')->onUpdate('cascade');
+                $table->foreignId('currency_id')->nullable()->constrained()->onUpdate('cascade');
 
-                $table->bigInteger('warehouse_product_id')->unsigned()->comment('Identificador único del producto');
-                $table->foreign('warehouse_product_id')->references('id')->on('warehouse_products')
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('warehouse_product_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('measurement_unit_id')->unsigned()
-                      ->comment('Identificador único de la unidad de medida del producto');
-                $table->foreign('measurement_unit_id')->references('id')->on('measurement_units')
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('measurement_unit_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('warehouse_institution_warehouse_id')->nullable()
+                $table->unsignedBigInteger('warehouse_institution_warehouse_id')->nullable()
                       ->comment('Identificador único de la institución que gestiona el almacén donde está el producto');
                 $table->foreign(
                     'warehouse_institution_warehouse_id',
@@ -56,6 +49,7 @@ class CreateWarehouseInventoryProductsTable extends Migration
                 )->references('id')->on(
                     'warehouse_institution_warehouses'
                 )->onDelete('restrict')->onUpdate('cascade');
+
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

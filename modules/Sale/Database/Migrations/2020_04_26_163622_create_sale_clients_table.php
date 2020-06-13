@@ -14,20 +14,17 @@ class CreateSaleClientsTable extends Migration
     public function up()
     {
         Schema::create('sale_clients', function (Blueprint $table) {
-            $table->bigIncrements('id'); 
+            $table->bigIncrements('id');
             $table->string('rif', 100)->unique()->comment('Rif');
             $table->string('name', 200)->nullable()->comment('Name or Social reason');
             $table->string('type_person_juridica', 200)->nullable()->comment('Type of person');
-            $table->bigInteger('country_id')->unsigned()->comment('Country of residence');
-            $table->foreign('country_id')->references('id')->on('countries')->onDelete('restrict')->onUpdate('cascade');
-            $table->bigInteger('estate_id')->unsigned()->comment('Identifier of the Estate in which you reside');
-            $table->foreign('estate_id')->references('id')->on('estates')->onDelete('restrict')->onUpdate('cascade');
-            $table->bigInteger('city_id')->unsigned()->comment('Identifier of the City in which you reside');
-            $table->foreign('city_id')->references('id')->on('cities')->onDelete('restrict')->onUpdate('cascade');
-            $table->bigInteger('municipality_id')->unsigned()->comment('Identifier of the Municipality in which you reside');
-            $table->foreign('municipality_id')->references('id')->on('municipalities')->onDelete('restrict')->onUpdate('cascade');
-            $table->bigInteger('parish_id')->unsigned()->comment('Identifier of the parish in which you reside');
-            $table->foreign('parish_id')->references('id')->on('parishes')->onDelete('restrict')->onUpdate('cascade');
+
+            $table->foreignId('country_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
+            $table->foreignId('estate_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
+            $table->foreignId('city_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
+            $table->foreignId('municipality_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
+            $table->foreignId('parish_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
+
             $table->string('address', 200)->comment('location of client');
             $table->string('address_tax', 200)->comment('location tax of client');
             $table->string('name_client', 100)->comment('Name of client');

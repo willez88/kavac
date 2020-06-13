@@ -37,10 +37,18 @@ class AddFieldsToImagesTable extends Migration
     public function down()
     {
         Schema::table('images', function (Blueprint $table) {
-            $table->dropColumn('max_width');
-            $table->dropColumn('max_height');
-            $table->dropColumn('min_width');
-            $table->dropColumn('min_height');
+            if (Schema::hasColumn('images', 'max_width')) {
+                $table->dropColumn('max_width');
+            }
+            if (Schema::hasColumn('images', 'max_height')) {
+                $table->dropColumn('max_height');
+            }
+            if (Schema::hasColumn('images', 'min_width')) {
+                $table->dropColumn('min_width');
+            }
+            if (Schema::hasColumn('images', 'min_height')) {
+                $table->dropColumn('min_height');
+            }
         });
     }
 }

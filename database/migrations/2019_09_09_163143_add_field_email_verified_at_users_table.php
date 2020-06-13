@@ -28,8 +28,10 @@ class AddFieldEmailVerifiedAtUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('email_verified_at');
-        });
+        if (Schema::hasColumn('users', 'email_verified_at')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->dropColumn('email_verified_at');
+            });
+        }
     }
 }

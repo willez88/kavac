@@ -28,10 +28,7 @@ class AddFieldInstitutionIdToAssetRequestsTable extends Migration
         if (Schema::hasTable('asset_requests')) {
             Schema::table('asset_requests', function (Blueprint $table) {
                 if (!Schema::hasColumn('asset_requests', 'institution_id')) {
-                    $table->bigInteger('institution_id')->unsigned()->nullable()
-                          ->comment('Identificador único de la institución asociada al registro');
-                    $table->foreign('institution_id')
-                          ->references('id')->on('institutions')
+                    $table->foreignId('institution_id')->nullable()->constrained()
                           ->onDelete('restrict')->onUpdate('cascade');
                 };
             });

@@ -28,7 +28,9 @@ class AddFieldShortDescriptionToPermissionsTable extends Migration
     public function down()
     {
         Schema::table('permissions', function (Blueprint $table) {
-            $table->dropColumn('short_description');
+            if (Schema::hasColumn('permissions', 'short_description')) {
+                $table->dropColumn('short_description');
+            }
         });
     }
 }

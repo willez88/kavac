@@ -19,22 +19,17 @@ class CreateBudgetModificationAccountsTable extends Migration
                 $table->float('amount', 30, 10)->comment('Monto asignado a la cuenta presupuestaria');
                 $table->enum('operation', ['I', 'D'])
                       ->comment('Operación a realizar: (I)ncrementa o (D)isminuye');
-                $table->bigInteger('budget_sub_specific_formulation_id')->unsigned()
+                $table->unsignedBigInteger('budget_sub_specific_formulation_id')
                       ->comment('Identificador asociado a la Formulación');
-                $table->bigInteger('budget_account_id')->unsigned()
-                      ->comment('Identificador asociado a la cuenta presupuestaria');
-                $table->bigInteger('budget_modification_id')->unsigned()
-                      ->comment('Identificador asociado a la modificación presupuestaria');
-                $table->timestamps();
-                $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
                 $table->foreign(
                     'budget_sub_specific_formulation_id',
                     'budget_modification_accounts_sub_specific_formulation_fk'
                 )->references('id')->on('budget_sub_specific_formulations')->onUpdate('cascade');
-                $table->foreign('budget_account_id')->references('id')
-                      ->on('budget_accounts')->onUpdate('cascade');
-                $table->foreign('budget_modification_id')->references('id')
-                      ->on('budget_modifications')->onUpdate('cascade');
+
+                $table->foreignId('budget_account_id')->constrained()->onUpdate('cascade');
+                $table->foreignId('budget_modification_id')->constrained()->onUpdate('cascade');
+                $table->timestamps();
+                $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });
         }
     }

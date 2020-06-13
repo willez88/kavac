@@ -28,8 +28,8 @@ class AddFieldAssetStatusIdToAssetReportsTable extends Migration
         if (Schema::hasTable('asset_reports')) {
             Schema::table('asset_reports', function (Blueprint $table) {
                 if (!Schema::hasColumn('asset_reports', 'asset_status_id')) {
-                    $table->bigInteger('asset_status_id')->unsigned()->nullable()
-                          ->comment('Identificador único del estatus de uso asociado al bien');
+                    $table->foreignId('asset_status_id')->nullable()->constrained('asset_status')
+                          ->onDelete('restrict')->onUpdate('cascade');
                 }
             });
         };
@@ -46,6 +46,7 @@ class AddFieldAssetStatusIdToAssetReportsTable extends Migration
         if (Schema::hasTable('asset_reports')) {
             Schema::table('asset_reports', function (Blueprint $table) {
                 if (Schema::hasColumn('asset_reports', 'asset_status_id')) {
+                    $table->dropForeign(['asset_status_id']);
                     $table->dropColumn(['asset_status_id']);
                 };
             });

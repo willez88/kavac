@@ -21,8 +21,9 @@ class UpdateFieldsToCitizenserviceRequestsTable extends Migration
                 $table->dropUnique(['email']);
             }
             if (Schema::hasColumn('citizen_service_requests', 'document_id')) {
-                $table->bigInteger('document_id')->unsigned()->nullable()
-                  ->comment('Identificador unico del archivo adjuntar')->change();
+                $table->bigInteger('document_id')->unsigned()->nullable()->comment(
+                    'Identificador unico del archivo adjuntar'
+                )->change();
             }
         });
     }
@@ -42,8 +43,9 @@ class UpdateFieldsToCitizenserviceRequestsTable extends Migration
                 $table->string('email')->unique()->nullable()->comment('Correo electrónico del Solicitante')->change();
             }
             if (Schema::hasColumn('citizen_service_requests', 'document_id')) {
-                $table->integer('document_id')->unsigned()
-                  ->comment('Identificador unico del archivo adjuntar')->change();
+                $table->integer('document_id')->unsigned()->comment(
+                    'Identificador unico del archivo adjuntar'
+                )->change();
             }
         });
     }

@@ -16,12 +16,10 @@ class CreateFailedLoginAttemptsTable extends Migration
         if (!Schema::hasTable('failed_login_attempts')) {
             Schema::create('failed_login_attempts', function (Blueprint $table) {
                 $table->bigIncrements('id');
-                $table->bigInteger('user_id')->unsigned()->nullable()->comment('Identificador del usuario');
                 $table->string('username')->comment('Nombre de usuario utilizado para el acceso fallido');
                 $table->ipAddress('ip')->comment('Dirección IP desde donde se intento acceder al sistema');
+                $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
                 $table->timestamps();
-                $table->foreign('user_id')->references('id')->on('users')
-                      ->onDelete('cascade')->onUpdate('cascade');
             });
         }
     }

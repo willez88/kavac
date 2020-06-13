@@ -28,8 +28,10 @@ class AddFieldDecimalPlacesToCurrenciesTable extends Migration
      */
     public function down()
     {
-        Schema::table('currencies', function (Blueprint $table) {
-            $table->dropColumn('decimal_places');
-        });
+        if (Schema::hasColumn('currencies', 'decimal_places')) {
+            Schema::table('currencies', function (Blueprint $table) {
+                $table->dropColumn('decimal_places');
+            });
+        }
     }
 }

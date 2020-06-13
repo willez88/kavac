@@ -43,9 +43,7 @@ class RemoveFieldPayrollRoleIdToPayrollEmploymentInformationsTable extends Migra
     {
         Schema::table('payroll_employment_informations', function (Blueprint $table) {
             if (!Schema::hasColumn('payroll_employment_informations', 'payroll_role_id')) {
-                $table->bigInteger('payroll_role_id')->unsigned()->nullable()
-                      ->comment('identificador del rol que pertenecen a la información laboral');
-                $table->foreign('payroll_role_id')->references('id')->on('payroll_roles')
+                $table->foreignId('payroll_role_id')->nullable()->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');
             }
         });

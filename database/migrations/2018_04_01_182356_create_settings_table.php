@@ -25,7 +25,6 @@ class CreateSettingsTable extends Migration
                 $table->boolean('digital_sign')->default(false)->comment('Firma electrónica');
                 $table->boolean('active')->default(true)->comment('Configuración actualmente activa');
                 $table->timestamps();
-                $table->unique('active')->comment('Clave única del registro');
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });
         }

@@ -15,11 +15,9 @@ class AddFieldCurrencyIdToAccountingSeatsTable extends Migration
     {
         Schema::table('accounting_seats', function (Blueprint $table) {
             if (!Schema::hasColumn('accounting_seats', 'currency_id')) {
-                $table->bigInteger('currency_id')->unsigned()->nullable()
-                ->comment('id del tipo de moneda en que se guardar el asiento contable');
-
-                $table->foreign('currency_id')->references('id')->on('currencies')
-                ->onDelete('cascade')->comment('id del tipo de moneda en que se guardar el asiento contable');
+                $table->foreignId('currency_id')->nullable()->constrained()->onDelete('cascade')->comment(
+                    'id del tipo de moneda en que se guardar el asiento contable'
+                );
             }
         });
     }

@@ -28,9 +28,11 @@ class UpdateFieldsToWarehouseReportsTable extends Migration
         if (Schema::hasTable('warehouse_reports')) {
             Schema::table('warehouse_reports', function (Blueprint $table) {
                 if (Schema::hasColumn('warehouse_reports', 'warehouse_product_id')) {
+                    $table->dropForeign('warehouse_reports_warehouse_product_id_foreign');
                     $table->dropColumn(['warehouse_product_id']);
                 };
                 if (Schema::hasColumn('warehouse_reports', 'warehouse_id')) {
+                    $table->dropForeign('warehouse_reports_warehouse_id_foreign');
                     $table->dropColumn(['warehouse_id']);
                 };
                 if (!Schema::hasColumn('warehouse_reports', 'filename')) {
@@ -51,11 +53,13 @@ class UpdateFieldsToWarehouseReportsTable extends Migration
         if (Schema::hasTable('warehouse_reports')) {
             Schema::table('warehouse_reports', function (Blueprint $table) {
                 if (!Schema::hasColumn('warehouse_reports', 'warehouse_product_id')) {
-                    $table->bigInteger('warehouse_product_id')->nullable()->unsigned()
+                    $table->foreignId('warehouse_product_id')->nullable()->constrained()
+                          ->onDelete('restrict')->onUpdate('cascade')
                           ->comment('Identificador único del producto almacenable asociado al reporte');
                 };
                 if (!Schema::hasColumn('warehouse_reports', 'warehouse_id')) {
-                    $table->bigInteger('warehouse_id')->nullable()->unsigned()
+                    $table->foreignId('warehouse_id')->nullable()->constrained()
+                          ->onDelete('restrict')->onUpdate('cascade')
                           ->comment('Identificador único del almacén asociado al reporte');
                 };
                 if (Schema::hasColumn('warehouse_reports', 'filename')) {

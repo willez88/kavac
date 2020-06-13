@@ -30,12 +30,10 @@ class CreateTechnicalSupportRequestRepairsTable extends Migration
                 $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('state')->comment('Estado de la solicitud');
 
-                $table->bigInteger('user_id')->comment('Identificador único del usuario que solicita la reparación');
+                $table->foreignId('user_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-
-                $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
             });
         };
     }

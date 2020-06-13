@@ -38,8 +38,9 @@ class CreateWarehouseMovementsTable extends Migration
                 $table->text('observations')->nullable()->comment('Observaciones sobre la operación');
                 $table->string('state', 100)->nullable()->comment('Estado de la operación');
 
-                $table->bigInteger('warehouse_institution_warehouse_initial_id')->unsigned()->nullable()
-                  ->comment('Identificador único de la ubicación inicial del producto en la tabla institución-almacén');
+                $table->unsignedBigInteger('warehouse_institution_warehouse_initial_id')->nullable()->comment(
+                    'Identificador único de la ubicación inicial del producto en la tabla institución-almacén'
+                );
                 $table->foreign(
                     'warehouse_institution_warehouse_initial_id',
                     'warehouse_movements_institution_warehouse_initial_fk'
@@ -47,8 +48,9 @@ class CreateWarehouseMovementsTable extends Migration
                     'warehouse_institution_warehouses'
                 )->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('warehouse_institution_warehouse_end_id')->unsigned()->nullable()
-                  ->comment('Identificador único de la ubicación final del producto en la tabla institución-almacén)');
+                $table->unsignedBigInteger('warehouse_institution_warehouse_end_id')->nullable()->comment(
+                    'Identificador único de la ubicación final del producto en la tabla institución-almacén)'
+                );
                 $table->foreign(
                     'warehouse_institution_warehouse_end_id',
                     'warehouse_movements_institution_warehouse_end_fk'
@@ -56,9 +58,8 @@ class CreateWarehouseMovementsTable extends Migration
                     'warehouse_institution_warehouses'
                 )->onDelete('restrict')->onUpdate('cascade');
 
-                $table->bigInteger('user_id')->unsigned()
-                      ->comment('Identificador único del usuario que registra el movimiento');
-                $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
+
+                $table->foreignId('user_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

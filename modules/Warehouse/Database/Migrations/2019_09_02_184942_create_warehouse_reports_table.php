@@ -33,11 +33,14 @@ class CreateWarehouseReportsTable extends Migration
 
                 $table->string('type_report', 20)->nullable()->comment('Tipo de reporte');
 
-                $table->bigInteger('warehouse_product_id')->nullable()->unsigned()
+                $table->foreignId('warehouse_product_id')->nullable()->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade')
                       ->comment('Identificador único del producto almacenable asociado al reporte');
-                $table->bigInteger('warehouse_id')->nullable()->unsigned()
+                $table->foreignId('warehouse_id')->nullable()->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade')
                       ->comment('Identificador único del almacén asociado al reporte');
-                $table->bigInteger('institution_id')->nullable()->unsigned()
+                $table->foreignId('institution_id')->nullable()->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade')
                       ->comment('Identificador único de la institución asociada al reporte');
 
                 $table->timestamps();

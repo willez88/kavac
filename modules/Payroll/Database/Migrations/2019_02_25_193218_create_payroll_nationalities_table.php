@@ -29,10 +29,7 @@ class CreatePayrollNationalitiesTable extends Migration
             Schema::create('payroll_nationalities', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->string('name', 100)->comment('Nombre de la nacionalidad de la persona');
-                $table->bigInteger('country_id')->unsigned()
-                      ->comment('identificador del país al que pertenece el gentilicio');
-                $table->foreign('country_id')->references('id')->on('countries')
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('country_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
                 $table->unique('country_id')->comment('Clave única para el registro');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

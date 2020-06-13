@@ -35,12 +35,10 @@ class CreateAssetRequiredItemsTable extends Migration
                 $table->boolean('model')->default(false)->comment('Define si el modelo es requerido');
                 $table->boolean('address')->default(false)->comment('Define si la dirección es requerida');
 
-                $table->bigInteger('asset_specific_category_id')
-                      ->comment('Identificador único de la clasificación asociada a los requerimentos');
+                $table->foreignId('asset_specific_category_id')->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
-                $table->foreign('asset_specific_category_id')->references('id')->on('asset_specific_categories')
-                      ->onDelete('restrict')->onUpdate('cascade');
                 $table->unique(['asset_specific_category_id'])->comment('Clave única para el registro');
             });
         }

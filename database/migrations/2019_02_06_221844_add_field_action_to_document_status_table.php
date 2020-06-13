@@ -31,8 +31,10 @@ class AddFieldActionToDocumentStatusTable extends Migration
      */
     public function down()
     {
-        Schema::table('document_status', function (Blueprint $table) {
-            $table->dropColumn('action');
-        });
+        if (Schema::hasColumn('document_status', 'action')) {
+            Schema::table('document_status', function (Blueprint $table) {
+                $table->dropColumn('action');
+            });
+        }
     }
 }

@@ -27,12 +27,10 @@ class CreateDepartmentsTable extends Migration
                       ->comment('Indica si se encuentra activa');
                 $table->boolean('administrative')->default(false)
                       ->comment('Es una unidad, departamento o dependencia administrativa');
-                $table->bigInteger('parent_id')->unsigned()->nullable()
-                      ->comment('Unidad, departamento o dependencia a la cual esta subordinado');
-                $table->bigInteger('institution_id')->unsigned()
-                      ->comment('Identificador del Pais al que pertenece el Estado');
-                $table->foreign('institution_id')->references('id')
-                      ->on('institutions')->onDelete('restrict')->onUpdate('cascade');
+                $table->unsignedBigInteger('parent_id')->nullable()->comment(
+                    'Unidad, departamento o dependencia a la cual esta subordinado'
+                );
+                $table->foreignId('institution_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });
@@ -51,9 +49,10 @@ class CreateDepartmentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('departments', function (Blueprint $table) {
-            $table->dropForeign('parent_id');
-        });
+        Schema::disableForeignKeyConstraints();
+
         Schema::dropIfExists('departments');
+
+        Schema::enableForeignKeyConstraints();
     }
 }

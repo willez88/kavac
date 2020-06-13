@@ -43,18 +43,12 @@ class AddFieldsToPayrollStaffsTable extends Migration
             }
 
             if (!Schema::hasColumn('payroll_staffs', 'payroll_license_degree_id')) {
-                $table->bigInteger('payroll_license_degree_id')->unsigned()->nullable()
-                      ->comment('Identificador del grado de licencia de conducir que pertenece al trabajador');
-                $table->foreign('payroll_license_degree_id')
-                      ->references('id')->on('payroll_license_degrees')
+                $table->foreignId('payroll_license_degree_id')->nullable()->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');
             }
 
             if (!Schema::hasColumn('payroll_staffs', 'payroll_blood_type_id')) {
-                $table->bigInteger('payroll_blood_type_id')->unsigned()->nullable()
-                      ->comment('Identificador del tipo de sangre que pertenece al trabajador');
-                $table->foreign('payroll_blood_type_id')
-                      ->references('id')->on('payroll_blood_types')
+                $table->foreignId('payroll_blood_type_id')->nullable()->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');
             }
         });

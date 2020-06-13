@@ -20,12 +20,9 @@ class CreateBudgetAditionalCreditsTable extends Migration
                 $table->date('credit_date')->comment('Fecha en la que se otorgó el crédito');
                 $table->text('description')->comment('Descripción del documento que avala el crédito');
                 $table->string('document')->unique()->comment('Número del documento que avala el crédito');
-                $table->bigInteger('institution_id')->unsigned()->nullable()
-                      ->comment('Identificador asociado a la institución');
+                $table->foreignId('institution_id')->nullable()->constrained()->onUpdate('cascade');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-                $table->foreign('institution_id')->references('id')
-                      ->on('institutions')->onUpdate('cascade');
             });
         }
     }

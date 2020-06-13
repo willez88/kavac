@@ -13,9 +13,11 @@ class AddFieldActiveToAccountingAccountConvertersTable extends Migration
      */
     public function up()
     {
-        Schema::table('accounting_account_converters', function (Blueprint $table) {
-            $table->boolean('active')->default(true)->comment('Indica si la conversión esta activa');
-        });
+        if (!Schema::hasColumn('accounting_account_converters', 'active')) {
+            Schema::table('accounting_account_converters', function (Blueprint $table) {
+                $table->boolean('active')->default(true)->comment('Indica si la conversión esta activa');
+            });
+        }
     }
 
     /**
@@ -25,8 +27,10 @@ class AddFieldActiveToAccountingAccountConvertersTable extends Migration
      */
     public function down()
     {
-        Schema::table('accounting_account_converters', function (Blueprint $table) {
-
-        });
+        if (Schema::hasColumn('accounting_account_converters', 'active')) {
+            Schema::table('accounting_account_converters', function (Blueprint $table) {
+                $table->dropColumn('active');
+            });
+        }
     }
 }

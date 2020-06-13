@@ -28,10 +28,7 @@ class AddFieldMeasurementUnitIdToWarehouseProductsTable extends Migration
         if (Schema::hasTable('warehouse_products')) {
             Schema::table('warehouse_products', function (Blueprint $table) {
                 if (!Schema::hasColumn('warehouse_products', 'measurement_unit_id')) {
-                    $table->bigInteger('measurement_unit_id')->unsigned()->nullable()
-                          ->comment('Identificador único de la unidad de medida del producto');
-                    $table->foreign('measurement_unit_id')
-                          ->references('id')->on('measurement_units')
+                    $table->foreignId('measurement_unit_id')->nullable()->constrained()
                           ->onDelete('restrict')->onUpdate('cascade');
                 };
             });

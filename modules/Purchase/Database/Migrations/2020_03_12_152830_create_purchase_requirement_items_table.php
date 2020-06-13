@@ -28,11 +28,7 @@ class CreatePurchaseRequirementItemsTable extends Migration
             *
             * Define la estructura de relación al producto
             */
-            $table->bigInteger('measurement_unit_id')->unsigned()
-                      ->comment('Identificador de la unidad de medida');
-            $table->foreign('measurement_unit_id')->references('id')
-                      ->on('measurement_units')->onDelete('restrict')
-                      ->onUpdate('cascade');
+            $table->foreignId('measurement_unit_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
             /*
             * -----------------------------------------------------------------------
@@ -41,15 +37,14 @@ class CreatePurchaseRequirementItemsTable extends Migration
             *
             * Define la estructura de relación al producto
             */
-            $table->bigInteger('warehouse_product_id')->unsigned()->nullable()
-                      ->comment(
-                          'Identificador del producto a solicitar para su compra si ya existe un producto
-                                registrado con las mismas características'
-                      );
+            $table->bigInteger('warehouse_product_id')->unsigned()->nullable()->comment(
+                'Identificador del producto a solicitar para su compra si ya existe un producto
+                registrado con las mismas características'
+            );
+
             if (Module::has('Wareouse')) {
-                $table->foreign('warehouse_product_id')->references('id')
-                          ->on('warehouse_products')->onDelete('restrict')
-                          ->onUpdate('cascade');
+                $table->foreign('warehouse_product_id')->references('id')->on('warehouse_products')
+                      ->onDelete('restrict')->onUpdate('cascade');
             }
 
             /*
@@ -59,11 +54,7 @@ class CreatePurchaseRequirementItemsTable extends Migration
             *
             * Define la estructura de relación al requerimiento
             */
-            $table->bigInteger('purchase_requirement_id')->unsigned()
-                      ->comment('Identificador del requerimiento de compra');
-            $table->foreign('purchase_requirement_id')->references('id')
-                      ->on('purchase_requirements')->onDelete('restrict')
-                      ->onUpdate('cascade');
+            $table->foreignId('purchase_requirement_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
             $table->timestamps();
             $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

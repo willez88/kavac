@@ -46,10 +46,7 @@ class DeleteFieldDocumentIdToAssetRequestEventsTable extends Migration
         if (Schema::hasTable('asset_request_events')) {
             Schema::table('asset_request_events', function (Blueprint $table) {
                 if (!Schema::hasColumn('asset_request_events', 'document_id')) {
-                    $table->bigInteger('document_id')->unsigned()->nullable()
-                          ->comment('Identificador único del documento físico asociado al reporte');
-                    $table->foreign('document_id')
-                          ->references('id')->on('documents')
+                    $table->foreignId('document_id')->nullable()->constrained()
                           ->onDelete('restrict')->onUpdate('cascade');
                 };
             });

@@ -31,9 +31,7 @@ class CreateAssetCategoriesTable extends Migration
                 $table->string('code', 10)->comment('Código de la categoria general');
                 $table->string('name', 100)->comment('Nombre de la categoria general del bien');
 
-                $table->bigInteger('asset_type_id')->unsigned()->comment('Identificador único del tipo de bien');
-                $table->foreign('asset_type_id')->references('id')->on('asset_types')
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('asset_type_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

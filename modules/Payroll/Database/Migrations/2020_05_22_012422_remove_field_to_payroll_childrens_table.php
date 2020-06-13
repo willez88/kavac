@@ -46,10 +46,8 @@ class RemoveFieldToPayrollChildrensTable extends Migration
     {
         Schema::table('payroll_childrens', function (Blueprint $table) {
             if (!Schema::hasColumn('payroll_childrens', 'payroll_socioeconomic_information_id')) {
-                $table->bigInteger('payroll_socioeconomic_information_id')->unsigned()->nullable()
-                      ->comment('identificador de información socioeconómica que pertenecen al hijo');
-                $table->foreign('payroll_socioeconomic_information_id')->references('id')
-                      ->on('payroll_socioeconomic_informations')->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('payroll_socioeconomic_information_id')->nullable()->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade');
             }
         });
     }

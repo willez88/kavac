@@ -35,11 +35,8 @@ class CreatePurchaseSuppliersTable extends Migration
                 *
                 * Define la estructura de relación a la información del objeto del proveedor
                 */
-                $table->bigInteger('purchase_supplier_object_id')->unsigned()
-                      ->comment('Identificador del objeto del proveedor');
-                $table->foreign('purchase_supplier_object_id')->references('id')
-                      ->on('purchase_supplier_objects')->onDelete('restrict')
-                      ->onUpdate('cascade');
+                $table->foreignId('purchase_supplier_object_id')->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade');
 
                 /*
                 * -----------------------------------------------------------------------
@@ -48,11 +45,8 @@ class CreatePurchaseSuppliersTable extends Migration
                 *
                 * Define la estructura de relación a la información de la rama del proveedor
                 */
-                $table->bigInteger('purchase_supplier_branch_id')->unsigned()
-                      ->comment('Identificador de la rama del proveedor');
-                $table->foreign('purchase_supplier_branch_id')->references('id')
-                      ->on('purchase_supplier_branches')->onDelete('restrict')
-                      ->onUpdate('cascade');
+                $table->foreignId('purchase_supplier_branch_id')->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade');
 
                 /*
                 * -----------------------------------------------------------------------
@@ -61,11 +55,8 @@ class CreatePurchaseSuppliersTable extends Migration
                 *
                 * Define la estructura de relación a la información de la especialidad del proveedor
                 */
-                $table->bigInteger('purchase_supplier_specialty_id')->unsigned()
-                      ->comment('Identificador de la especialidad del proveedor');
-                $table->foreign('purchase_supplier_specialty_id')->references('id')
-                      ->on('purchase_supplier_specialties')->onDelete('restrict')
-                      ->onUpdate('cascade');
+                $table->foreignId('purchase_supplier_specialty_id')->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade');
 
                 /*
                 * -----------------------------------------------------------------------
@@ -74,10 +65,8 @@ class CreatePurchaseSuppliersTable extends Migration
                 *
                 * Define la estructura de relación a la información del tipo de proveedor
                 */
-                $table->bigInteger('purchase_supplier_type_id')->unsigned()
-                      ->comment('Identificador del tipo de proveedor (Denominación comercial)');
-                $table->foreign('purchase_supplier_type_id')->references('id')
-                      ->on('purchase_supplier_types')->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('purchase_supplier_type_id')->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade');
 
                 /*
                 * -----------------------------------------------------------------------
@@ -87,12 +76,7 @@ class CreatePurchaseSuppliersTable extends Migration
                 * Define la estructura de relación a la información de la ciudad en donde
                 * se encuentra ubicado proveedor
                 */
-                $table->bigInteger('city_id')->unsigned()
-                      ->comment(
-                          'Identificador de la Ciudad donde se encuentra ubicado el proveedor'
-                      );
-                $table->foreign('city_id')->references('id')
-                      ->on('cities')->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('city_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
