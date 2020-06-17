@@ -6,10 +6,12 @@ Route::group([
     'namespace' => 'Modules\CitizenService\Http\Controllers'
 ], function () {
     Route::get('/', 'CitizenServiceController@index');
-    Route::get('/settings', function () {
+    /*Route::get('/settings', function () {
         return view('citizenservice::settings');
     })->name('citizenservice.setting');
-
+    */
+    Route::get('settings', 'CitizenServiceSettingController@index')->name('citizenservice.settings.index');
+    Route::post('settings', 'CitizenServiceSettingController@store')->name('citizenservice.settings.store');
    
    /* Ruta para solicitudes*/
     Route::resource('requests', 'CitizenServiceRequestController', ['only' => ['update']]);

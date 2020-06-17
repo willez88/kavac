@@ -6,7 +6,7 @@
     </a>
     <ul class="submenu" style="{!! display_submenu('citizenservice') !!}">
         <li class="{!! set_active_menu(['citizenservice.setting']) !!}">
-             <a href="{{ route('citizenservice.setting') }}">Configuración</a>
+             <a href="{{ route('citizenservice.settings.index') }}">Configuración</a>
         </li>
         <li class="{!! set_active_menu(['citizenservice.request.index']) !!}">
              <a href="{{ route('citizenservice.request.index') }}">Solicitudes</a>
