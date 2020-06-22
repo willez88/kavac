@@ -81,8 +81,8 @@ class AccountingEntryController extends Controller
          */
         $yearOld = '';
 
-        if ($entries['from_date'] !== null) {
-            $yearOld = explode('-', $entries['from_date'])[0];
+        if ($entries && $entries->from_date !== null) {
+            $yearOld = explode('-', $entries->from_date)[0];
         }
 
         /** si no existe asientos contables la fecha mas antigua es la actual*/
