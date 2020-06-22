@@ -59,7 +59,7 @@ class AccountingEntryController extends Controller
          * @var Currency
          */
         $currency     = Currency::where('default', true)->first();
-        
+
         $institutions = json_encode($this->getInstitutionAvailables('Todas'));
 
         $currencies              = json_encode(template_choices(
@@ -79,7 +79,11 @@ class AccountingEntryController extends Controller
          * [$yearOld determinara el año mas antiguo para el filtrado]
          * @var date
          */
-        $yearOld = explode('-', $entries['from_date'])[0];
+        $yearOld = '';
+
+        if ($entries['from_date'] !== null) {
+            $yearOld = explode('-', $entries['from_date'])[0];
+        }
 
         /** si no existe asientos contables la fecha mas antigua es la actual*/
         if ($yearOld == '') {
@@ -126,9 +130,9 @@ class AccountingEntryController extends Controller
          * @var Currency
          */
         $currency     = Currency::where('default', true)->orderBy('id', 'ASC')->first();
-        
+
         $currencies   = json_encode(template_choices('App\Models\Currency', ['symbol', '-', 'name'], [], true));
-        
+
         $institutions = json_encode($this->getInstitutionAvailables('Seleccione...'));
 
         /**
@@ -252,7 +256,7 @@ class AccountingEntryController extends Controller
         /**
          * se guarda en variables la información necesaria para la edición del asiento contable
          */
-        
+
         $date         = $entry->from_date;
         $reference    = $entry->reference;
         $concept      = $entry->concept;
@@ -341,7 +345,7 @@ class AccountingEntryController extends Controller
 
         // Validar acceso para el registro
         $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
-        
+
         /**
          * [$entry informaciónd el asiento contable]
          * @var AccountingEntry
@@ -448,7 +452,7 @@ class AccountingEntryController extends Controller
              * Se realiza la consulta si selecciono una institución o departamento para el filtrado
             */
             $allRecords = [];
-            
+
             $search = ($request->search)?$request->search:'';
 
             $query = AccountingEntry::column('from_date', (($search)?$search:''))
@@ -477,7 +481,7 @@ class AccountingEntryController extends Controller
 
                     $allRecords = ($request->category == 0) ?
                                     $query->where('institution_id', $institution_id) :
-                                    
+
                                     $query->where('institution_id', $institution_id)
                                             ->where('accounting_entry_categories_id', $request->category);
                 } else {
@@ -539,7 +543,7 @@ class AccountingEntryController extends Controller
             $records = $allRecords->whereBetween("from_date", [$request->init,$request->end])
                                 ->orderBy('reference', 'ASC');
         }
-        
+
 
         $total = $allRecords->count();
         $records = $allRecords->offset(($page - 1) * $perPage)->limit($perPage)->get();
@@ -639,7 +643,7 @@ class AccountingEntryController extends Controller
     {
         // Validar acceso para el registro
         $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
-        
+
         /**
          * [$entry contendra el asiento al que se le cambiara el estado]
          * @var AccountingEntry
