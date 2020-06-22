@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\CitizenService\Models\CitizenServiceRequest;
+use App\Models\CodeSetting;
 use App\Models\Phone;
 
 class CitizenServiceRequestController extends Controller
@@ -50,25 +51,32 @@ class CitizenServiceRequestController extends Controller
             'address'                          => ['required', 'max:200'],
             'motive_request'                   => ['required', 'max:200'],
             'citizen_service_request_type_id'  => ['required'],
-            'citizen_service_department_id'    => ['required'],
 
         ]);
 
-
+        error_log($request->inventory_code);
         if ($request->citizen_service_request_type_id == 1) {
             $this->validate($request, [
+                'inventory_code'  => ['required'],
                 'type_team'       => ['required'],
                 'brand'           => ['required'],
                 'model'           => ['required'],
                 'serial'          => ['required'],
                 'color'           => ['required'],
                 'transfer'        => ['required'],
-                'code'            => ['required'],
                 'entryhour'       => ['required'],
                 'exithour'        => ['required'],
                 'informationteam' => ['required'],
+
             ]);
         }
+        if ($request->citizen_service_request_type_id ==2 || $request->citizen_service_request_type_id ==3 || $request->citizen_service_request_type_id ==4 ){
+            $this->validate($request,[
+                'citizen_service_department_id'    => ['required'],
+
+            ]);
+        }
+
 
         if ($request->type_institution) {
             $this->validate($request, [
@@ -90,8 +98,28 @@ class CitizenServiceRequestController extends Controller
             $i++;
         }
 
+        $codeSetting = CodeSetting::where('table', 'citizen_service_requests')->first();
+        if (is_null($codeSetting)) {
+            $request->session()->flash('message', [
+                'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
+                'text' => 'Debe configurar previamente el formato para el código a generar'
+                ]);
+            return response()->json(['result' => false, 'redirect' => route('citizenservice.settings.index')], 200);
+        }
+
+        $code  = generate_registration_code(
+            $codeSetting->format_prefix,
+            strlen($codeSetting->format_digits),
+            (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'),
+            $codeSetting->model,
+            $codeSetting->field
+        );
+
+
+
         //Guardar los registros del formulario en  CitizenServiceRequest
         $citizenServiceRequest = CitizenServiceRequest::create([
+            'code'                             => $code,
             'date'                             => $request->date,
             'first_name'                       => $request->first_name,
             'last_name'                        => $request->last_name,
@@ -111,13 +139,13 @@ class CitizenServiceRequestController extends Controller
             'institution_address'              => $request->institution_address,
             'web'                              => $request->web,
 
+            'inventory_code'                   => $request->inventory_code,
             'type_team'                        => $request->type_team,
             'brand'                            => $request->brand,
             'model'                            => $request->model,
             'serial'                           => $request->serial,
             'color'                            => $request->color,
             'transfer'                         => $request->transfer,
-            'code'                             => $request->code,
             'entryhour'                        => $request->entryhour,
             'exithour'                         => $request->exithour,
             'informationteam'                  => $request->informationteam,
@@ -185,13 +213,13 @@ class CitizenServiceRequestController extends Controller
 
         if ($request->citizen_service_request_type_id == 1) {
             $this->validate($request, [
+                'inventory_code'                   => ['required'],
                 'type_team'                        => ['required'],
                 'brand'                            => ['required'],
                 'model'                            => ['required'],
                 'serial'                           => ['required'],
                 'color'                            => ['required'],
                 'transfer'                         => ['required'],
-                'code'                             => ['required'],
                 'entryhour'                        => ['required'],
                 'exithour'                         => ['required'],
                 'informationteam'                  => ['required'],
@@ -243,16 +271,16 @@ class CitizenServiceRequestController extends Controller
         $citizenServiceRequest->motive_request                   = $request->motive_request;
         $citizenServiceRequest->state                            = 'Pendiente';
         $citizenServiceRequest->citizen_service_request_type_id  = $request->citizen_service_request_type_id;
-        $citizenServiceRequest->citizen_service_department_id  = $request->citizen_service_department_id;
+        $citizenServiceRequest->citizen_service_department_id    = $request->citizen_service_department_id;
 
 
+        $citizenServiceRequest->inventory_code                   = $request->inventory_code;
         $citizenServiceRequest->type_team                        = $request->type_team;
         $citizenServiceRequest->brand                            = $request->brand;
         $citizenServiceRequest->model                            = $request->model;
         $citizenServiceRequest->serial                           = $request->serial;
         $citizenServiceRequest->color                            = $request->color;
         $citizenServiceRequest->transfer                         = $request->transfer;
-        $citizenServiceRequest->code                             = $request->code;
         $citizenServiceRequest->entryhour                        = $request->entryhour;
         $citizenServiceRequest->exithour                         = $request->exithour;
         $citizenServiceRequest->informationteam                  = $request->informationteam;

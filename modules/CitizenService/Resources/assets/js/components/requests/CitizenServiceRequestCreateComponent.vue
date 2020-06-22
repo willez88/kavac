@@ -213,9 +213,9 @@
 					</div>
 					<div class="col-md-4">
 						<div class="form-group is-required">
-							<label for="code">Código de Inventario</label>
-        					<input type="text" id="code" class="form-control input-sm" data-toggle="tooltip"
-                                   title="Indique el código de inventario" v-model="record.code">
+							<label for="inventory_code">Código de Inventario</label>
+        					<input type="text" id="inventory_code" class="form-control input-sm" data-toggle="tooltip"
+                                   title="Indique el código de inventario" v-model="record.inventory_code">
 						</div>
 					</div>
                     <div class="col-md-4">
@@ -357,7 +357,7 @@
         			serial: '',
         			color: '',
         			transfer: '',
-        			code: '',
+        			inventory_code: '',
         			entryhour: '',
         			exithour: '',
         			informationteam: ''
@@ -417,7 +417,7 @@
         			serial: '',
         			color: '',
         			transfer: '',
-        			code: '',
+        			inventory_code: '',
         			entryhour: '',
         			exithour: '',
         			informationteam: ''
