@@ -552,3 +552,30 @@ if (! function_exists('get_database_info')) {
         ];
     }
 }
+
+if (! function_exists('strpos_array')) {
+    /**
+     * Verifica si los datos en un arraglo se encuentran en una cadena de texto
+     *
+     * @method    strpos_array
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     string          $haystack    Texto de la cadena en donde buscar
+     * @param     string|array    $needle      Texto o arreglo de palabras a buscar
+     *
+     * @return    boolean         Devuelve verdadero si el texto a buscar es encontrado, de lo contrario devuelve falso
+     */
+    function strpos_array($haystack, $needle)
+    {
+        if (!is_array($needle)) {
+            $needle = [$needle];
+        }
+        foreach ($needle as $what) {
+            if (strpos(strtoupper($haystack), strtoupper($what)) !== false) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
