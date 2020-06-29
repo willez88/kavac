@@ -1,4 +1,4 @@
-#Configuración módulo de contabilidad
+#Configuración Módulo de Contabilidad
 *************************************
 <div style="text-align: justify;" >
 
@@ -16,9 +16,9 @@ El formato se establece de la siguiente manera: prefijo - digitos - año
 - digitos (requerido): 6 carácteres (mínimo), 8 carácteres (máximo)
 - año (requerido): 2 o 4 carácteres (YY o YYYY)
 
-Longitud total máxima: 
+Por Ejemplo:
 
-Ejemplo: XXX-00000000-YYYY
+Se podría establecer un formato para registros como REG-00000000-YYYY. REG hace referencia al prefijo registro, 00000000 será el número del registro y YYYY corresponde al año. 
 
 Una vez se establezca el formato de códigos deseado se puede ejecutar cualquier cambio haciendo uso de los **Botones de Acciones de Formulario**, ya sea **Guardar**, **Cancelar** o **Borrar datos del formulario**.    
 
@@ -100,10 +100,8 @@ Se puede hacer una carga masiva importando una hoja de cálculo con nuestras cue
 
 - Dirigirse al **Módulo de Contabilidad**, luego a **Configuración**, ubicarse en **Configuraciones del Módulo de Contabilidad** e ingresar en **Catálogos de cuentas**
 - En la sección **Cuentas Patrimoniales** presionar el boton **Importar Hoja de Cálculo**
-- En esta nueva ventana podemos importar un archivo haciendo uso del boton que se muestra a continuación:
+- En esta ventana es posible importar un archivo haciendo uso del boton importar.
+- Una vez cargado el archivo se **Guardan** los cambios y se verifica el registro
 
-![Screenshot](../img/boton_importar.png)	
 
-- Una vez cargado el archivo podemos **Guardar** los cambios y verificar el registro
-	
 </div>

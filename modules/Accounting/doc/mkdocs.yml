@@ -1,15 +1,16 @@
 site_name: Documentación de Usuario.
 nav:
-      - Módulo de contabilidad: index.md
-      - Convertidor de cuentas: account_converter.md
-      - Asientos contables: accounting_entry.md
+      - Módulo de Contabilidad: index.md
+      - Convertidor de Cuentas: account_converter.md
+      - Asientos Contables: accounting_entry.md
       - Reportes: reports.md
       - Configuración: 
-        - Configuración: setting/configuracion.md 
+        - Configuración: setting/setting.md 
+        - Lista de Cuentas: setting/accounts_list.md  
       - Panel de Control: 
-        - Panel de control: control_panel/control_panel.md 
-      - Preguntas frecuentes: 
-        - Preguntas frecuentes: frequent_questions/frequent_questions.md  
+        - Panel de Control: control_panel/control_panel.md 
+      - Preguntas Frecuentes: 
+        - Preguntas Frecuentes: frequent_questions/frequent_questions.md  
       
 
     
@@ -29,7 +30,7 @@ site_description: A Material Design theme for MkDocs
 # Configuration
 theme:
   name: null
-  custom_dir: material
+  custom_dir: ../material
 
   # 404 page
   static_templates:
