@@ -11,7 +11,7 @@ El Manual de Documentación del sistema KAVAC a nivel de usuario tiene como obje
 ## KAVAC sistema de gestión de recursos
 
 
-  KAVAC es un sistema de planificación y gestión de recursos organizacionales, que abarca diferentes aristas como los recursos financieros, económicos, bienes, recursos materiales y humanos, además de incluir herramientas para el manejo de las relaciones con los proveedores y los clientes.   Este sistema integra y automatiza los procesos administrativos, con elementos de seguridad de la información como la firma electrónica, garantizando la autenticidad e integridad de cada documento y archivo generado por el sistema.    Es un sistema intuitivo, que brinda elementos gráficos, analíticos que garantiza el manejo eficiente de los recursos de la organización, además de establecer canales de información en tiempo real acerca de la situación actual de cada uno de los departamentos, suministrando información útil y oportuna para la toma de decisiones y el logro de los objetivos.
+KAVAC es un sistema de planificación y gestión de recursos organizacionales, que abarca diferentes aristas como los recursos financieros, económicos, bienes, recursos materiales y humanos, además de incluir herramientas para el manejo de las relaciones con los proveedores y los clientes.   Este sistema integra y automatiza los procesos administrativos, con elementos de seguridad de la información como la firma electrónica, garantizando la autenticidad e integridad de cada documento y archivo generado por el sistema.    Es un sistema intuitivo, que brinda elementos gráficos, analíticos que garantiza el manejo eficiente de los recursos de la organización, además de establecer canales de información en tiempo real acerca de la situación actual de cada uno de los departamentos, suministrando información útil y oportuna para la toma de decisiones y el logro de los objetivos.
 
 
 ##Aplicaciones
@@ -21,7 +21,7 @@ KAVAC está diseñado de forma modular, cuenta con independencia entre los módu
 
 
 ![Screenshot](img/infografia-aplicaciones.png#imagen)
-
+<div style="text-align: center;font-weight: bold">Figura: Aplicaciones Kavac</div>
 
 ##Funcionalidades 
 

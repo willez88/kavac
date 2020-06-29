@@ -1,4 +1,4 @@
-# Administración del sistema 
+# Administración del Sistema 
 ****************************
 <div style="text-align: justify;">
 
@@ -21,6 +21,7 @@ En la sección de parámetros generales, el usuario con permisos sobre la **Conf
 
 
 ![Screenshot](img/parametros-generales.png)
+<div style="text-align: center;font-weight: bold">Figura: Parámetros Generales</div>
 
 Para ingresar  a esta sección es necesario:
 
@@ -29,21 +30,23 @@ Para ingresar  a esta sección es necesario:
 - Haciendo uso de los botones de selección podemos activar o desactivar cualquiera de la funciones del sistema
 - Para ejecutar o cancelar cualquiera de los cambios hacemos uso de los [botones de acciones de formulario](/information/#botones), ubicados en la parte inferior de la sección. 
 
-###Registros Comunes
+###Registros comunes
 
 
 La sección de registros comunes es una herramienta de la **Configuración** que permite al usuario administrador o un usuario con permisos sobre la **Configuración** ajustar a través de parámetros preestablecidos, el sistema a la organización usuaria.   Los datos registrados en esta sección serán considerados a largo de todo el sistema.
 
 
 ![Screenshot](img/registros-comunes.png)
+<div style="text-align: center;font-weight: bold">Figura: Registros Comunes</div>
 
-###Registrar Institución  
+###Registrar institución  
 
 
 La **Configuración General del Sistema** incluye una sección titulada **Instituciones Registradas** donde se muestra un historial de instituciones registradas e información relacionada a cada una de ellas, en esta sección además se puede registrar otra institución haciendo uso del boton de acción de registro.   
 
 
 ![Screenshot](img/institucion-registro.png)
+<div style="text-align: center;font-weight: bold">Figura: Instituciones Registradas</div>
 
 Para realizar el registro de una Institución se debe:
 
@@ -61,6 +64,8 @@ En la **Configuración General del Sistema** se presenta una sección para el **
 
 
 ![Screenshot](img/registro-institucion.png)
+<div style="text-align: center;font-weight: bold">Figura: Configurar Institución</div>
+
 
 Para configurar la institución se debe seguir los siguientes pasos: 
 
@@ -69,13 +74,13 @@ Para configurar la institución se debe seguir los siguientes pasos:
 - Completar los datos básicos y complementarios de la institución
 - Para ejecutar o cancelar cualquiera de los cambios hacemos uso de los botones de [acciones de formulario](/information/#botones), ubicados en la parte inferior de la sección
 
-Configurar Logos y banners institucionales 
+**Configurar Logos y banners institucionales** 
 
 
 En la sección **Configurar Institución** de la **Configuración General del Sistema** podemos añadir el logotipo y el banner institucional.  Para adjuntar la imagen simplemente ingresamos en alguno de los recuadros, y el sistema nos conducirá a un directorio para cargar la imagen. 
 
 ![Screenshot](img/logotipo-banner.png)
-
+<div style="text-align: center;font-weight: bold">Figura: Logotipo y Banner Institucional</div>
 
 ##Configuración de acceso al sistema 
 
@@ -87,6 +92,7 @@ En esta sección el usuario administrador puede observar los distintos permisos 
 
 
 ![Screenshot](img/roles-permisos.png)
+<div style="text-align: center;font-weight: bold">Figura: Roles y Permisos</div>
 
 Para La designación de roles y permisos: 
 
@@ -102,6 +108,7 @@ A través de la sección **Usuarios** de la **Configuración de Acceso al Sistem
 
 
 ![Screenshot](img/registro-usuario.png)
+<div style="text-align: center;font-weight: bold">Figura: Gestión de Usuarios</div>
 
 Para la creación de una nueva cuenta usuario se debe:
 
@@ -136,10 +143,10 @@ Como se observo en el capítulo previo en la **Instalación del Sistema** especi
 ###Incorporar y desincorporar módulos
 
 
-Para la gestión de módulos del sistema, es necesario dirigirse a la Configuración y seleccionar Módulos. En esta sección del sistema podemos apreciar los módulos disponibles, instalados o por instalar, de igual forma, la opción para desinstalar alguno de ellos. A través del botón de color verde podemos realizar la instalación y el botón de color rojo nos permite desinstalar el módulo; de igual forma, se muestra un indicador del estado del módulo ya sea instalado o por instalar.
+Para la gestión de módulos del sistema, es necesario dirigirse a la Configuración y seleccionar Módulos. En esta sección del sistema es posible apreciar los módulos disponibles, instalados o por instalar, de igual forma, la opción para desinstalar alguno de ellos. 
 
-
-![Screenshot](img/gestion-modulos.png)
+![Screenshot](img/modulos-kavac.png)
+<div style="text-align: center;font-weight: bold">Figura: Gestión de Aplicaciones</div>
 
 ##Catálogo de aplicaciones 
 
@@ -157,7 +164,9 @@ Para la gestión de módulos del sistema, es necesario dirigirse a la Configurac
  
 [Talento Humano](#) 
 
-[Compras](#) 
+[Compras](#)
+
+[Comercialización](#) 
 
 [Soporte técnico](#)
 

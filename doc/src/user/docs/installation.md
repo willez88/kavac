@@ -1,4 +1,4 @@
-# Instalación del sistema 
+# Instalación del Sistema 
 *************************
 <div style="text-align: justify;" >
 ##Pre-requisitos
