@@ -9,18 +9,17 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
- * @class      PayrollConceptType
- * @brief      Datos de tipos de concepto
+ * @class      PayrollConceptAssignOption
+ * @brief      Datos de las opciones a asignar de un concepto
  *
- * Gestiona el modelo de tipos de concepto
+ * Gestiona el modelo de opciones a asignar en concepto conceptos
  *
- * @author     William Páez <wpaez@cenditel.gob.ve>
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
  * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
  *                 LICENCIA DE SOFTWARE CENDITEL
  *             </a>
  */
-class PayrollConceptType extends Model implements Auditable
+class PayrollConceptAssignOption extends Model implements Auditable
 {
     use SoftDeletes;
     use AuditableTrait;
@@ -38,18 +37,16 @@ class PayrollConceptType extends Model implements Auditable
      *
      * @var array $fillable
      */
-    protected $fillable = [
-        'name', 'description', 'sign'
-    ];
+    protected $fillable = ['payroll_concept_id', 'key', 'value'];
 
     /**
-     * Método que obtiene la información de los conceptos asociados al tipo de concepto
+     * Método que obtine la información del concepto asociado al registro
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function payrollConcepts()
+    public function payrollConcept()
     {
-        return $this->hasMany(PayrollConcept::class);
+        return $this->belongsTo(PayrollConcept::class);
     }
 }
