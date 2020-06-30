@@ -37,7 +37,10 @@
             </ul>
         </li>
         <li>
-            <a href="#">Registros de Nómina</a>
+            <a href="{{ route('payroll.registers.index') }}" data-toggle="tooltip"
+               data-placement="right" title="Gestión de registros de la relación de pago de la nómina.">
+                Registros de Nómina
+            </a>
         </li>
         <li>
             <a href="javascript:void(0)">Reportes</a>

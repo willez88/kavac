@@ -16,7 +16,6 @@ class PayrollController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:payroll.dashboard', ['only' => 'index']);
     }
 
     /**
@@ -25,7 +24,7 @@ class PayrollController extends Controller
      */
     public function index()
     {
-        return view('payroll::index');
+        return view('payroll::registers.index');
     }
 
     /**
@@ -34,7 +33,7 @@ class PayrollController extends Controller
      */
     public function create()
     {
-        return view('payroll::create');
+        return view('payroll::registers.create-edit');
     }
 
     /**

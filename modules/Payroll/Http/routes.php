@@ -7,6 +7,7 @@ Route::group([
 ], function () {
 
     //Route::get('', 'PayrollController@index', ['as'=>'payroll'])->name('payroll.index');
+    Route::resource('registers', 'PayrollController', ['as' => 'payroll']);
 
     Route::get('settings', 'PayrollSettingController@index')->name('payroll.settings.index');
     Route::post('settings', 'PayrollSettingController@store')->name('payroll.settings.store');
@@ -97,6 +98,11 @@ Route::group([
         'PayrollConceptController@getPayrollConceptAssignTo'
     )->name('payroll.get-payroll-concept-assign-to');
 
+    Route::get(
+        'get-concept-assign-options/{code}',
+        'PayrollConceptController@getPayrollConceptAssignOptions'
+    )->name('payroll.get-payroll-concept-assign-options');
+
     Route::resource(
         'concept-types',
         'PayrollConceptTypeController',
@@ -113,6 +119,11 @@ Route::group([
         'PayrollPaymentTypeController',
         ['as' => 'payroll', 'except' => ['show','create','edit']]
     );
+
+    Route::get(
+        'get-payment-types',
+        'PayrollPaymentTypeController@getPayrollPaymentTypes'
+    )->name('payroll.get-payroll-payment-types');
 
     Route::resource('language-levels', 'PayrollLanguageLevelController', ['as' => 'payroll', 'except' => ['show']]);
     Route::get(
@@ -233,18 +244,4 @@ Route::group([
      */
     Route::get('get-salary-tabulators-groups', 'PayrollParameterController@getSalaryTabulatorsGroups');
     Route::get('get-associated-records', 'PayrollParameterController@getAssociatedRecords');
-
-    /**
-     * ------------------------------------------------------------
-     * Rutas para gestionar las asignaciones de nómina
-     * ------------------------------------------------------------
-     */
-    Route::resource('salary-assignments', 'PayrollSalaryAssignmentController', ['except' => ['show','create','edit']]);
-    Route::get('salary-assignments/export/{assignment}', 'PayrollSalaryAssignmentController@export');
-    Route::resource(
-        'salary-assignment-types',
-        'PayrollSalaryAssignmentTypeController',
-        ['except' => ['show','create','edit']]
-    );
-    Route::get('get-salary-assignment-types', 'PayrollSalaryAssignmentTypeController@getAssignmentTypes');
 });
