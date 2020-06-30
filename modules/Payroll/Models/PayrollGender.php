@@ -9,15 +9,16 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
- * @class PayrollGender
- * @brief Datos de género
+ * @class      PayrollGender
+ * @brief      Datos de género
  *
  * Gestiona el modelo de géneros
  *
- * @author William Páez <wpaez@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     William Páez <wpaez@cenditel.gob.ve>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class PayrollGender extends Model implements Auditable
 {
@@ -43,11 +44,22 @@ class PayrollGender extends Model implements Auditable
     /**
      * Método que obtiene el género que está asociado a muchas informaciones personales del trabajador
      *
-     * @author William Páez <wpaezs@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @author    William Páez <wpaezs@cenditel.gob.ve>
+     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function payrollStaffs()
     {
         return $this->hasMany(PayrollStaff::class);
+    }
+
+    /**
+     * Obtiene información de las opciones asignadas asociadas a un género
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function payrollConceptAssignOptions()
+    {
+        return $this->morphMany(PayrollConceptAssignOption::class, 'assignable');
     }
 }

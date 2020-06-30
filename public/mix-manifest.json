@@ -278,5 +278,6 @@
     "/modules/citizenservice/components/citizenservice-request-list.js": "/modules/citizenservice/components/citizenservice-request-list.js",
     "/modules/citizenservice/components/citizenservice-request-list-closing.js": "/modules/citizenservice/components/citizenservice-request-list-closing.js",
     "/modules/citizenservice/components/citizenservice-request-list-pending.js": "/modules/citizenservice/components/citizenservice-request-list-pending.js",
-    "/modules/citizenservice/components/citizenservice-request-types.js": "/modules/citizenservice/components/citizenservice-request-types.js"
+    "/modules/citizenservice/components/citizenservice-request-types.js": "/modules/citizenservice/components/citizenservice-request-types.js",
+    "/modules/payroll/components/payroll-registers-form.js": "/modules/payroll/components/payroll-registers-form.js"
 }

@@ -9,15 +9,16 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
- * @class PayrollStaff
- * @brief Datos de la información personal del trabajador
+ * @class      PayrollStaff
+ * @brief      Datos de la información personal del trabajador
  *
  * Gestiona el modelo de datos del personal
  *
- * @author William Páez <wpaez@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     William Páez <wpaez@cenditel.gob.ve>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class PayrollStaff extends Model implements Auditable
 {
@@ -174,5 +175,16 @@ class PayrollStaff extends Model implements Auditable
     public function payrollBloodType()
     {
         return $this->belongsTo(PayrollBloodType::class);
+    }
+
+    /**
+     * Obtiene información de las opciones asignadas asociadas a un trabajador
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function payrollConceptAssignOptions()
+    {
+        return $this->morphMany(PayrollConceptAssignOption::class, 'assignable');
     }
 }

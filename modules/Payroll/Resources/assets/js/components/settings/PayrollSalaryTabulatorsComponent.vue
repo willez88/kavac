@@ -1,5 +1,5 @@
 <template>
-	<section id="PayrollSalaryTabulatorsComponent">
+	<section id="payrollSalaryTabulatorsFormComponent">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="#" title="Registros Tabuladores de Nómina" data-toggle="tooltip"
 		   @click="addRecord('add_payroll_salary_tabulator', 'salary-tabulators', $event)">

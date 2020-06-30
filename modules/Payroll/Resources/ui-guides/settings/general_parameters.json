@@ -1,0 +1,30 @@
+[
+    {
+        "element" : "#cardPayrollGeneralParametersSettingForm",
+        "intro" : "Esta sección permite gestionar las configuraciones generales de nómina del módulo de talento humano"
+    },
+    {
+        "element" : "#payrollParametersFormComponent",
+        "intro" : "Gestiona información acerca de los parámetros globales de nómina"
+    },
+    {
+        "element" : "#payrollSalaryScalesFormComponent",
+        "intro" : "Gestiona información acerca de las escalas salariales de nómina"
+    },
+    {
+        "element" : "#payrollSalaryTabulatorsFormComponent",
+        "intro" : "Gestiona información acerca de los tabuladores salariales de nómina"
+    },
+    {
+        "element" : "#payrollConceptTypesFormComponent",
+        "intro" : "Gestiona información acerca de los tipos de conceptos de nómina"
+    },
+    {
+        "element" : "#payrollConceptsFormComponent",
+        "intro" : "Gestiona información acerca de los conceptos de nómina"
+    },
+    {
+        "element" : "#payrollPaymentTypesFormComponent",
+        "intro" : "Gestiona información acerca de los tipos de pago de nómina"
+    }
+]

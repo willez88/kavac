@@ -10,15 +10,16 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
- * @class PayrollLanguage
- * @brief Datos de idiomas
+ * @class      PayrollLanguage
+ * @brief      Datos de idiomas
  *
  * Gestiona el modelo de idiomas
  *
- * @author William Páez <wpaez@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     William Páez <wpaez@cenditel.gob.ve>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class PayrollLanguage extends Model implements Auditable
 {
@@ -71,5 +72,16 @@ class PayrollLanguage extends Model implements Auditable
             'payroll_language_id',
             'payroll_language_level_id'
         )->withPivot('payroll_professional_id')->withTimestamps();
+    }
+
+    /**
+     * Obtiene información de las opciones asignadas asociadas a un lenguaje
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function payrollConceptAssignOptions()
+    {
+        return $this->morphMany(PayrollConceptAssignOption::class, 'assignable');
     }
 }

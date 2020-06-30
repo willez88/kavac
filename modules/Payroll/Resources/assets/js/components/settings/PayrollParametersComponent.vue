@@ -1,5 +1,5 @@
 <template>
-    <section id="PayrollParametersComponent">
+    <section id="payrollParametersFormComponent">
         <a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
            title="Registros de parámetros" data-toggle="tooltip"
            @click="addRecord('add_payroll_parameter', 'parameters', $event)">
