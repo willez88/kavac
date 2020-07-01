@@ -39,6 +39,7 @@ Route::group(
 
         Route::get('get-warehouses/{institution?}', 'WarehouseController@getWarehouses');
         Route::get('get-warehouse-products', 'WarehouseProductController@getWarehouseProducts');
+        Route::get('get-warehouse-product/{product}', 'WarehouseProductController@getProductMeasurementUnit');
         Route::get('attributes/product/{product}', 'WarehouseProductController@getProductAttributes');
         Route::get('get-measurement-units', 'WarehouseProductController@getMeasurementUnits');
 

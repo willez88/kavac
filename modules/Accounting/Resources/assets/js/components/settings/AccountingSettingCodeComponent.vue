@@ -3,7 +3,7 @@
         <h6>Asientos contables</h6>
         <form @submit.prevent="">
             <div class="card-body">
-                <accounting-show-errors ref="settingCode" />
+                <accounting-show-errors refs="settingCode" />
                 <div class="row">
                     <div class="col-3" id="helpCodeReference">
                         <label for="entries_reference" class="control-label">Código de referencia</label>
@@ -39,6 +39,7 @@
     </div>
 </template>
 <script>
+    
     export default{
         props:{
             ref_code:{
@@ -98,7 +99,9 @@
         },
         watch:{
             code:function(res){
-                this.$refs.settingCode.reset();
+                if (this.$refs.settingCode) {
+                    this.$refs.settingCode.reset();
+                }
             }
         }
     };

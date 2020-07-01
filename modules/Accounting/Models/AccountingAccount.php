@@ -37,6 +37,7 @@ class AccountingAccount extends Model implements Auditable
         'generic',
         'specific',
         'subspecific',
+        'institutional',
         'denomination',
         'active',
         'inactivity_date',
@@ -71,7 +72,7 @@ class AccountingAccount extends Model implements Auditable
      * @return [boolean|object]      Retorna falso si no existe una cuenta de nivel superior,
      *                               de lo contrario obtiene los datos de la misma
      */
-    public static function getParent($group, $subgroup, $item, $generic, $specific, $subspecific)
+    public static function getParent($group, $subgroup, $item, $generic, $specific, $subspecific, $institutional)
     {
         if ($subgroup !== '0') {
             $parent = self::where('group', $group);
@@ -83,6 +84,11 @@ class AccountingAccount extends Model implements Auditable
                         $parent = $parent->where('generic', $generic);
                         if ($subspecific !== '00') {
                             $parent = $parent->where('specific', $specific);
+                            if ($institutional !== '000') {
+                                $parent = $parent->where('institutional', $institutional);
+                            } else {
+                                $parent = $parent->where('institutional', '000');
+                            }
                         } else {
                             $parent = $parent->where('specific', '00');
                         }
@@ -135,6 +141,6 @@ class AccountingAccount extends Model implements Auditable
      */
     public function getCodeAttribute()
     {
-        return "{$this->group}.{$this->subgroup}.{$this->item}.{$this->generic}.{$this->specific}.{$this->subspecific}";
+        return "{$this->group}.{$this->subgroup}.{$this->item}.{$this->generic}.{$this->specific}.{$this->subspecific}.{$this->institutional}";
     }
 }

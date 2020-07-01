@@ -175,6 +175,20 @@ class WarehouseProductController extends Controller
     }
 
     /**
+     * Consulta la informacion de un producto
+     *
+     * @author Juan Rosas <juan.rosasr01@gmail.com | jrosas@cenditel.gob.ve>
+     * @return Objeto con los registros a mostrar
+     */
+
+    public function getProductMeasurementUnit($product_id)
+    {
+        return response()->json(
+            ['record' => WarehouseProduct::with('MeasurementUnit')->find($product_id)]
+        );
+    }
+
+    /**
      * Muestra una lista de los atributos de un producto
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
@@ -184,7 +198,7 @@ class WarehouseProductController extends Controller
     public function getProductAttributes($product_id)
     {
         return response()->json(
-            ['records' => WarehouseProductAttribute::where('warehouse_product_id', $product_id)->get()]
+            ['records' => WarehouseProductAttribute::with('MeasurementUnit')->where('warehouse_product_id', $product_id)->get()]
         );
     }
 

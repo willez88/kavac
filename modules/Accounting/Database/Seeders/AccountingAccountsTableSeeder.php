@@ -3766,7 +3766,8 @@ class AccountingAccountsTableSeeder extends Seeder
                                     ->where('item', $account['item'])
                                     ->where('generic', $account['generic'])
                                     ->where('specific', $account['specific'])
-                                    ->where('subspecific', $account['subspecific'])->first();
+                                    ->where('subspecific', $account['subspecific'])
+                                    ->where('institutional', ($account['institutional'])??'000')->first();
 
                 /** @var Object que almacena la consulta de la cuenta de nivel superior de la cuanta actual, si esta no posee retorna false */
                 $parent = AccountingAccount::getParent(
@@ -3775,18 +3776,20 @@ class AccountingAccountsTableSeeder extends Seeder
                     $account['item'],
                     $account['generic'],
                     $account['specific'],
-                    $account['subspecific']
+                    $account['subspecific'],
+                    ($account['institutional'])??'000',
                     );
 
                 AccountingAccount::updateOrCreate(
                     [
-                        'group' => $account['group'], 'subgroup' => $account['subgroup'],
-                        'item' => $account['item'], 'generic' => $account['generic'],
-                        'specific' => $account['specific'], 'subspecific' => $account['subspecific'],
+                        'group'         => $account['group'],        'subgroup'    => $account['subgroup'],
+                        'item'          => $account['item'],         'generic'     => $account['generic'],
+                        'specific'      => $account['specific'],     'subspecific' => $account['subspecific'],
+                        'institutional' => ($account['institutional'])??'000',
                     ],
                     [
-                        'denomination' => $account['denomination'],
-                        'active' => $account['active'],
+                        'denomination'    => $account['denomination'],
+                        'active'          => $account['active'],
                         'inactivity_date' => (!$account['active'])?date('Y-m-d'):null,
 
                         /**
