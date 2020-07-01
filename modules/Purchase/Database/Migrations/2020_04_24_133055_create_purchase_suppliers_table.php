@@ -78,6 +78,22 @@ class CreatePurchaseSuppliersTable extends Migration
                 */
                 $table->foreignId('city_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 
+
+                $table->enum('rnc_status', ['INH', 'ISH', 'IHC', 'NOI'])->default('NOI')
+                      ->comment(
+                          'Determina el estatus en el Registro Nacional de Contratistas. Los Valores posibles son: 
+                          (INH) - Inscrito y no habilitado. 
+                          (ISH) - Inscrito y habilitado. 
+                          (IHC) - Inscrito, habilitado y calificado. 
+                          (NOI) - No inscrito'
+                      );
+
+
+                $table->string('rnc_certificate_number')->nullable()
+                      ->comment('Número de certificado en el Registro Nacional de Contratistas');
+
+
+
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
                 $table->unique(['code', 'active'])->comment('Clave única para el registro');

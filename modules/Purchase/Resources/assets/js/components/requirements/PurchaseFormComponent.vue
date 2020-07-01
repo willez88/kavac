@@ -2,7 +2,7 @@
     <div class="form-horizontal">
         <div class="card-body">
             
-            <purchase-show-errors ref="PurchaseFormComponent" />
+            <purchase-show-errors refs="PurchaseFormComponent" />
 
             <div class="row">
                 <div class="col-md-12">
@@ -20,26 +20,26 @@
                         <label class="control-label"><h5>{{ fiscal_years.year }}</h5></label>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-6">
                     <div class="form-group is-required">
                         <label class="control-label" for="institutions">Institución</label><br>
                         <select2 :options="institutions" id="institutions" v-model="record.institution_id"
                                 @input="getDepartments()"></select2>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-6">
                     <div class="form-group is-required">
                         <label class="control-label" for="departments1">Unidad contratante</label><br>
                         <select2 :options="(requirement_edit)?department_list:departments" id="departments1" v-model="record.contracting_department_id"></select2>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-6">
                     <div class="form-group is-required">
                         <label class="control-label" for="departments2">Unidad usuario</label><br>
                         <select2 :options="(requirement_edit)?department_list:departments" id="departments2" v-model="record.user_department_id"></select2>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-6">
                     <div class="form-group">
                         <label for="purchase_supplier_types">Tipo</label>
                         <select2 :options="purchase_supplier_types" id="purchase_supplier_types" v-model='record.purchase_supplier_type_id'></select2>
@@ -67,10 +67,10 @@
 
             <hr>
             <v-client-table :columns="columns" :data="record_products" :options="table_options" class="row">
-                <div slot="measurement_unit" slot-scope="props" class="text-center">
+                <!-- <div slot="measurement_unit_id" slot-scope="props" class="text-center">
                     <select2 :options="measurement_units" v-model="props.row.measurement_unit_id"
                             @input="changeMeasurementUnit(props.index, props.row.measurement_unit_id)"></select2>
-                </div>
+                </div> -->
                 <div slot="technical_specifications" slot-scope="props" class="text-center">
                     <span>
                         <input type="text" :id="props.index" 
@@ -111,7 +111,6 @@
         props:{
             date:{
                 type: String,
-                default: '',
             },
             fiscal_years:{
                 type:Object,
@@ -241,7 +240,9 @@
                                 }
                             }
                         }
-                        this.$refs.PurchaseFormComponent.showAlertMessages(errors);
+                        if (this.$refs.PurchaseFormComponent) {
+                            this.$refs.PurchaseFormComponent.showAlertMessages(errors);
+                        }
                     });
                 }else{
                     axios.post('/purchase/requirements',vm.record).then(response=>{
@@ -261,7 +262,9 @@
                                 }
                             }
                         }
-                        this.$refs.PurchaseFormComponent.showAlertMessages(errors);
+                        if (this.$refs.PurchaseFormComponent) {
+                            this.$refs.PurchaseFormComponent.showAlertMessages(errors);
+                        }
                     });
                 }
             },
@@ -323,17 +326,18 @@
             // },
             product(res){
                 if (res) {
-                    for (var i = 0; i < this.products.length; i++) {
-                        if (this.products[i].id == res) {
+                    axios.get('/warehouse/get-warehouse-product/'+res).then(response=>{
+                        if (response.data.record) {
+                            var product = response.data.record;
                             this.record_products.push({
                                 id:res,
-                                name:this.products[i].text,
+                                name:product.name,
                                 quantity:0,
                                 technical_specifications:'',
-                                measurement_unit_id:'',
+                                measurement_unit:product.measurement_unit.name,
                             });
                         }
-                    }
+                    });
                 }
             },
         }

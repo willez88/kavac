@@ -67,7 +67,16 @@ class PurchaseRequirementController extends Controller
             'contratingDepartment',
             'userDepartment'
         )->orderBy('code', 'ASC')->get();
-        return view('purchase::requirements.index', ['requirements' => $requirements]);
+
+        $codeAvailable = (CodeSetting::where('table', 'purchase_requirements')->first())?true:false;
+
+
+        return view(
+            'purchase::requirements.index', 
+            [
+                'requirements' => $requirements, 
+                'codeAvailable'=> $codeAvailable
+            ]);
     }
 
     /**
@@ -93,7 +102,7 @@ class PurchaseRequirementController extends Controller
             ['id' => 'accounting', 'text' => 'Contabilidad'],
         ];
 
-        $date = date('d-m-Y');
+        $date = date('Y-m-d');
         
         return view('purchase::requirements.form', [
                                                     'supplier_objects'        => json_encode($supplier_objects),
@@ -195,7 +204,7 @@ class PurchaseRequirementController extends Controller
         $department_list         = template_choices('App\Models\Department', 'name', [], true);
         $measurement_units       = template_choices('App\Models\MeasurementUnit', 'name', [], true);
         $purchase_supplier_types = template_choices('Modules\Purchase\Models\PurchaseSupplierType', 'name', [], true);
-        $warehouses              = template_choices('Modules\Warehouse\Models\Warehouse', 'name', [], true);
+        $warehouses              = template_choices('Modules\Warehouse\Models\Warehouse', ['name', 'measurement_unit_id'], [], true);
 
 
         $supplier_objects = $this->supplier_objects;
@@ -213,7 +222,7 @@ class PurchaseRequirementController extends Controller
 
 
         
-        $date = date('d-m-Y');
+        $date = date('Y-m-d');
         
         return view('purchase::requirements.form', [
                                                     'supplier_objects'        => json_encode($supplier_objects),
@@ -279,5 +288,18 @@ class PurchaseRequirementController extends Controller
     {
         $items = PurchaseRequirementItem::where('purchase_requirement_id', $id)->get();
         return response()->json(['items'=>$items], 200);
+    }
+
+    public function getWarehouseProducts()
+    {
+        $records = [];
+        foreach (WarehouseProduct::with('MeasurementUnit')->orderBy('id','ASC')->get() as $record) {
+            array_push($records, [
+                'id' => $record->id,
+                'text' => $record->name,
+                'measurement_unit' => $record->measurement_unit['name']
+            ]);
+        }
+        return $records;
     }
 }

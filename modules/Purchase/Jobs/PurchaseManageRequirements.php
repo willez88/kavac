@@ -104,7 +104,6 @@ class PurchaseManageRequirements implements ShouldQueue
                     'description'              => $warehouseProd->description,
                     'technical_specifications' => $prod['technical_specifications'],
                     'quantity'                 => $prod['quantity'],
-                    'measurement_unit_id'      => $prod['measurement_unit_id'],
                     'warehouse_product_id'     => $prod['id'],
                     'purchase_requirement_id'  => $requirement->id
                 ]);
@@ -128,11 +127,6 @@ class PurchaseManageRequirements implements ShouldQueue
     {
         $codeSetting = CodeSetting::where('table', 'purchase_requirements')
                                     ->first();
-
-        if (!$codeSetting) {
-            $codeSetting = CodeSetting::where('table', 'purchase_requirements')
-                                    ->first();
-        }
 
         if ($codeSetting) {
             $code  = generate_registration_code(

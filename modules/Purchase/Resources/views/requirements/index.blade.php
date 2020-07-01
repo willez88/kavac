@@ -24,11 +24,26 @@
                     <h6 class="card-title">Listado de Requerimientos</h6>
                     <div class="card-btns">
                         @include('buttons.previous', ['route' => url()->previous()])
-                        @include('buttons.new', ['route' => route('purchase.requirements.create')])
+                        @if($codeAvailable)
+                            @include('buttons.new', ['route' => route('purchase.requirements.create')])
+                        @endif
                         @include('buttons.minimize')
                     </div>
                 </div>
                 <div class="card-body">
+                    @if(!$codeAvailable)
+                        <div class="alert alert-danger" role="alert">
+                            <div class="container">
+                                <div class="alert-icon">
+                                    <i class="now-ui-icons objects_support-17"></i>
+                                </div>
+                                <strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+                                <ul>
+                                    <li>Configurar el formato de código para el requerimiento en configuración de compras</li>
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
                     <purchase-requirements :record_list="{{ $requirements }}" 
                                             route_edit="/purchase/requirements/{id}/edit" />
                 </div>
