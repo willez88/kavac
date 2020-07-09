@@ -158,7 +158,7 @@
 				multi_institution: null,
 				errors: [],
 				records: [],
-				columns: ['name', 'main', 'active', 'address', 'id'],
+				columns: ['name', 'country', 'estate', 'address', 'institution', 'active',  'id'],
 				institutions: [],
 				countries: [],
 				estates: [],
@@ -203,14 +203,22 @@
 			this.table_options.sortable = ['name'];
 			this.table_options.filterable = ['name'];
 			this.table_options.columnsClasses = {
-				'name': 'col-md-4',
-				'main': 'col-md-2',
-				'active': 'col-md-2',
-                'address': 'col-md-2',
-				'id': 'col-md-2'
+                'name': 'col-xs-1',
+                'country': 'col-xs-2',
+                'estate': 'col-xs-2',
+                'address': 'col-xs-2',
+                'institution': 'col-xs-2',
+                'active': 'col-xs-2',
+                'id': 'col-xs-1'
 			};
 			this.getCountries();
 			this.getInstitutions();
+			this.getSaleWarehouseMethod();
 		},
+		//Estilo de botones principal y activar
+		mounted() {
+			this.switchHandler('main');
+			this.switchHandler('active');
+		}
 	};
 </script>

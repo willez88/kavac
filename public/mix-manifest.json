@@ -188,8 +188,8 @@
     "/modules/purchase/components/prod/9174baae24032b3b3d16.js": "/modules/purchase/components/prod/9174baae24032b3b3d16.js?id=2f91de693c77bbd820c7",
     "/modules/purchase/components/prod/aed3a994e40f5e6ebe93.js": "/modules/purchase/components/prod/aed3a994e40f5e6ebe93.js?id=c0f6d6aef49407163a7f",
     "/modules/purchase/components/prod/00ebadb0e601487b618a.js": "/modules/purchase/components/prod/00ebadb0e601487b618a.js?id=307550eaf1f57805f0ad",
-    "/modules/sale/js/app.js": "/modules/sale/js/app.js?id=226c3f8e56faa2c54884",
-    "/modules/sale/css/app.css": "/modules/sale/css/app.css?id=d41d8cd98f00b204e980",
+    "/modules/sale/js/app.js": "/modules/sale/js/app.js",
+    "/modules/sale/css/app.css": "/modules/sale/css/app.css",
     "/modules/sale/components/prod/96638f5f4accbd6ba09f.js": "/modules/sale/components/prod/96638f5f4accbd6ba09f.js?id=2d821db3cec3ca357ba5",
     "/modules/sale/components/prod/43b935bca2955d97b9b5.js": "/modules/sale/components/prod/43b935bca2955d97b9b5.js?id=ad2ce076b550734b2248",
     "/modules/sale/components/prod/2f8ab9e93bd823d9ad89.js": "/modules/sale/components/prod/2f8ab9e93bd823d9ad89.js?id=70bc3c244b1a1d4b1eea",
@@ -278,5 +278,11 @@
     "/modules/citizenservice/components/citizenservice-request-list.js": "/modules/citizenservice/components/citizenservice-request-list.js",
     "/modules/citizenservice/components/citizenservice-request-list-closing.js": "/modules/citizenservice/components/citizenservice-request-list-closing.js",
     "/modules/citizenservice/components/citizenservice-request-list-pending.js": "/modules/citizenservice/components/citizenservice-request-list-pending.js",
-    "/modules/citizenservice/components/citizenservice-request-types.js": "/modules/citizenservice/components/citizenservice-request-types.js"
+    "/modules/citizenservice/components/citizenservice-request-types.js": "/modules/citizenservice/components/citizenservice-request-types.js",
+    "/modules/sale/components/register-clients.js": "/modules/sale/components/register-clients.js",
+    "/modules/sale/components/register-formatcode.js": "/modules/sale/components/register-formatcode.js",
+    "/modules/sale/components/sale-payment-method.js": "/modules/sale/components/sale-payment-method.js",
+    "/modules/sale/components/sale-setting-product.js": "/modules/sale/components/sale-setting-product.js",
+    "/modules/sale/components/sale-setting-product-type.js": "/modules/sale/components/sale-setting-product-type.js",
+    "/modules/sale/components/sale-warehouse-method.js": "/modules/sale/components/sale-warehouse-method.js"
 }

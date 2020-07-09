@@ -16,7 +16,7 @@ class SaleWarehouseController extends Controller
      * Display a listing of the resource.
      * @return Response
      */
-    public function index()
+    public function index($institution = null)
     {
         return response()->json(['records' => SaleWarehouse::all()], 200);
     }
@@ -41,11 +41,11 @@ class SaleWarehouseController extends Controller
             'name' => ['required', 'max:200'],
             'institution_id' => ['required', 'max:200'],
             'address' => ['required', 'max:900'],
-            'parish_id' => ['required', 'max:300'],
-            'main' => ['required'],
-            'active' => ['required'],
+            'parish_id' => ['required'],
         ]);
-        $SaleWarehouse = SaleWarehouse::create(['name' => $request->name,'address' => $request->address,'institution_id' => $request->institution_id,'parish_id' => $request->parish_id,'main' => $request->main,'active' => $request->active]);
+
+        $SaleWarehouse = SaleWarehouse::create(['name' => $request->name,'address' => $request->address,'institution_id' => $request->institution_id,'parish_id' => $request->parish_id,'main' => !empty($request->input('main')) ? $request->input('main'): false,'active' => !empty($request->input('active')) ? $request->input('active') : false]);
+
         return response()->json(['record' => $SaleWarehouse, 'message' => 'Success'], 200);
     }
 
@@ -80,13 +80,19 @@ class SaleWarehouseController extends Controller
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy()
+    public function destroy($id)
     {
         $SaleWarehouse = SaleWarehouse::find($id);
         $SaleWarehouse->delete();
         return response()->json(['record' => $SaleWarehouse, 'message' => 'Success'], 200);
     }
 
+   /**
+   * Obtiene los alamacenes registrados
+   *
+   * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+   * @return \Illuminate\Http\JsonResponse    Json con los datos de los alamacenes registrados
+   */
     public function getSaleWarehouseMethod()
     {
         return response()->json(template_choices('Modules\Sale\Models\SaleWarehouse', 'name', '', true));

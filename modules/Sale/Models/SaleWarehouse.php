@@ -34,5 +34,5 @@ class SaleWarehouse extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = [];
+    protected $fillable = ['name','main','active','address','institution_id','parish_id'];
 }
