@@ -1,11 +1,11 @@
-# Administración del sistema 
+# Administración del Sistema 
 ****************************
 <div style="text-align: justify;" >
 
 La aplicación inicialmente contará con una configuración por defecto que el usuario administrador debe completar a través de los elementos funcionales del sistema, que permitirán ajustar el uso del KAVAC a la estructura organizativa y características de la institución usuaria.   A través del **Panel de Control** y la **Configuración** se definirán los parámetros útiles para la consolidación del sistema con relación a las instituciones, sus sedes y características organizacionales.   
 
 
-##Panel de Control  
+##Panel de control  
 
 
 El **Panel de Control** es una herramienta de administración del sistema KAVAC que permite observar los datos de transacción de operaciones conjuntas a los distintos módulos que integran el sistema.   Las distintas secciones de este módulo permiten visualizar, buscar y organizar datos relacionados con el acceso a la aplicación, auditoria de registros, operaciones en los módulos de contabilidad, bienes y almacén, estatus de datos que se muestran a través de gráficos o datos tabulados.   Además; posee una sección útil para el manejo de elementos del sistema destinada para desarrolladores. 
@@ -18,6 +18,7 @@ Esta sección está dirigida para usuarios desarrolladores, muestra elementos ú
 
 
 ![Screenshot](img/herramientas-desarrolladores.png)
+<div style="text-align: center;font-weight: bold">Figura: Herramientas para Desarrolladores</div>
 
 
 ##Control de acceso a la aplicación 
@@ -28,6 +29,7 @@ Esta sección permite llevar un control de acceso a la aplicación, además de v
 
 
 ![Screenshot](img/acceso-aplicacion.png)
+<div style="text-align: center;font-weight: bold">Fig. Acceso a la Aplicación</div>
 
 
 Los botones ubicados en la columna titulada **Acción** son herramientas que permiten:  
@@ -36,7 +38,7 @@ Los botones ubicados en la columna titulada **Acción** son herramientas que per
  - Configurar cuenta de usuario 
  - Enviar notificación 
  - Ver información del usuario  
- - Asignar permisos de acceso respectivamente	      
+ - Asignar permisos de acceso 	      
  
 
 
@@ -47,7 +49,7 @@ Esta sección es una herramienta para visualizar e inspeccionar los registros de
 
 
 ![Screenshot](img/auditoria-registros.png)
-
+<div style="text-align: center;font-weight: bold">Figura: Auditoría de Registros</div>
 
 Para realizar una auditoría o seguimiento de un registro de cuenta usuario, es necesario seguir los siguientes pasos: 
  
@@ -64,6 +66,7 @@ Esta sección permite renovar los registros que han sido eliminados, la sección
 
 
 ![Screenshot](img/restaurar-registros.png)
+<div style="text-align: center;font-weight: bold">Figura: Restaurar Registros Eliminados</div>
 
 Para completar la restauración de un registro es necesario:
 
@@ -83,6 +86,7 @@ A través del **Panel de Control** es posible realizar un seguimiento de los asi
 
 
 ![Screenshot](img/operaciones-contabilidad.png)
+<div style="text-align: center;font-weight: bold">Figura: Asientos Contables</div>
 
 ###Reportes de contabilidad
 
@@ -91,7 +95,7 @@ El **Panel de Control** permite visualizar los diferentes reportes generados a p
 
 
 ![Screenshot](img/reportes-contabilidad.png)
-
+<div style="text-align: center;font-weight: bold">Figura: Reportes de Contabilidad</div>
 
 Los reportes son generados desde el **Módulo de contabilidad**, y a través del **Panel de Control** es posible visualizar detalles de estos reportes. 
 
@@ -106,9 +110,8 @@ El **Panel de Control** presenta una sección relacionada con los bienes institu
 
 ![Screenshot](img/graficos-bienes.png)
 
-
 ![Screenshot](img/graphics.png)
-
+<div style="text-align: center;font-weight: bold">Figura Gráficos del Inventario de Bienes</div>
 
 El sistema permite seleccionar un modo de visualización de gráficas, ya sea gráfica de barras, circular o lineal (estas gráficas son configuradas previamente por el desarrollador en el **Panel de Control**). 
 
@@ -121,21 +124,17 @@ El sistema permite contar con un seguimiento de las operaciones en el **Módulo 
 
 
 ![Screenshot](img/operaciones-bienes.png)
-
+<div style="text-align: center;font-weight: bold">Figura: Historial de Operaciones en el Módulo de Bienes</div>
 
 ##Módulo de almacén 
 
-
-El **Panel de Control** a través de tres secciones relacionadas con el módulo de almacén permite tener un control de algunas operaciones específicas que se llevan a cabo sobre este módulo.  La sección del **Estado del inventario** permite visualizar la disponibilidad de productos expresado en términos porcentuales, además de expresar estos datos de manera gráfica, en la sección de **Gráficos del Inventario de Productos en Almacén**.      
-
+El **Panel de Control** permite llevar un seguimiento de las operaciones que se llevan a cabo sobre el módulo de almacén.  La sección del **Estado del inventario** permite visualizar la disponibilidad de productos expresado en términos porcentuales, además de expresar estos datos de manera gráfica, en la sección de **Gráficos del Inventario de Productos en Almacén** y a través de la sección **Histórico de Operaciones del Módulo de Almacén** podemos observar cada una de las operaciones registradas sobre el módulo. Los datos tabulados muestran una descripción y fecha de la operación, haciendo uso de los botones ubicados en la columna titulada **Acción** es posible generar un reporte y ver mas detalles de la operación.
 
 ![Screenshot](img/inventario-almacen.png)
-
-
-El sistema permite contar con un seguimiento de las operaciones en el **Módulo de Almacén**, a través de la sección **Histórico de Operaciones del Módulo de Almacén**. Los datos tabulados muestran una descripción y fecha de la operación, haciendo uso de los botones ubicados en la columna titulada **Acción** es posible generar un reporte y ver mas detalles de la operación.
-
+<div style="text-align: center;font-weight: bold">Figura: Estado del Inventario de Almacén</div>
 
 ![Screenshot](img/operaciones-almacen.png)
+<div style="text-align: center;font-weight: bold">Figura: Histórico de Operaciones del Módulo de Almacén</div>
 
 </div>
 

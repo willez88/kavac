@@ -49,9 +49,6 @@ class PayrollDatabaseSeeder extends Seeder
         /** Seeder para los tipos de inactividad disponibles en el módulo */
         $this->call(PayrollInactivityTypesTableSeeder::class);
 
-        /** Seeder para los tipos de asignacion disponibles en el módulo */
-        $this->call(PayrollSalaryAssignmentTypesTableSeeder::class);
-
         /** Seeder para la configuración general del módulo nómina */
         $this->call(PayrollLanguageLevelsTableSeeder::class);
 

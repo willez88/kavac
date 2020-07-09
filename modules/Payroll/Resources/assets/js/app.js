@@ -297,6 +297,16 @@ Vue.component('payroll-payment-types', () => import(
 );
 
 /**
+ * Componente para registrar o actualizar la nómina de sueldos
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('payroll-registers-form', () => import(
+    /* webpackChunkName: "payroll-registers-form" */
+    './components/registers/PayrollFormComponent.vue')
+);
+
+/**
  * Componente para la gestión de calculos de salario
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
@@ -331,6 +341,18 @@ Vue.mixin({
             vm.payroll_concept_types = [];
             axios.get('/payroll/get-concept-types').then(response => {
                 vm.payroll_concept_types = response.data;
+            });
+        },
+        /**
+         * Método que obtiene un arreglo con los tipos de pago registrados
+         *
+         * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+         */
+        getPayrollPaymentTypes() {
+            const vm = this;
+            vm.payroll_payment_types = [];
+            axios.get('/payroll/get-payment-types').then(response => {
+                vm.payroll_payment_types = response.data;
             });
         },
         /**

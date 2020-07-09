@@ -1,6 +1,6 @@
 <template>
     <section>
-        <purchase-show-errors ref="PurchaseOrderFormComponent" />
+        <purchase-show-errors refs="PurchaseOrderFormComponent" />
         
         <div class="row">
             <div class="col-3">

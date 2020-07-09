@@ -12,46 +12,11 @@
                     <div class='form-group'>
                         <label class='control-label'>Código</label>
                         <div class='row inline-inputs'>
-                            <div class='col-1'>
-                                <input type='text' :onkeyup="record.group=onlyNumbers(record.group)" step='1' id='group'
-                                       name='group' class='form-control input-sm' data-toggle='tooltip' maxlength='1'
-                                       title='Grupo al que pertenece la cuenta' v-model='record.group'>
-                            </div>
-                            <div class='col-1'>.</div>
-                            <div class='col-1'>
-                                <input type='text' :onkeyup="record.subgroup=onlyNumbers(record.subgroup)" step='1'
-                                       id='subgroup' name='subgroup' class='form-control input-sm' data-toggle='tooltip'
-                                       title='Sub-grupo al que pertenece la cuenta' maxlength='1'
-                                       v-model='record.subgroup'>
-                            </div>
-                            <div class='col-1'>.</div>
-                            <div class='col-1'>
-                                <input type='text' :onkeyup="record.item=onlyNumbers(record.item)" step='1' id='item'
-                                       name='item' class='form-control input-sm' data-toggle='tooltip'
-                                       title='Rubro al que pertenece la cuenta' maxlength='1' v-model='record.item'>
-                            </div>
-                            <div class='col-1'>.</div>
-                            <div class='col-1'>
-                                <input type='text' :onkeyup="record.generic=onlyNumbers(record.generic)" step='1'
-                                       id='generic' name='generic' class='form-control input-sm' data-toggle='tooltip'
-                                       title='identificador de cuenta a la que pertenece' maxlength='2'
-                                       v-model='record.generic'>
-                            </div>
-                            <div class='col-1'>.</div>
-                            <div class='col-1'>
-                                <input type='text' :onkeyup="record.specific=onlyNumbers(record.specific)" step='1'
-                                       id='specific' name='specific' class='form-control input-sm' data-toggle='tooltip'
-                                       title='Identificador de cuenta de 1er orden' maxlength='2'
-                                       v-model='record.specific'>
-                            </div>
-                            <div class='col-1'>.</div>
-                            <div class='col-1'>
-                                <input type='text' :onkeyup="record.subspecific=onlyNumbers(record.subspecific)"
-                                       step='1' id='subspecific' name='subspecific' class='form-control input-sm'
-                                       data-toggle='tooltip' title='Identificador de cuenta de 2do orden' maxlength='2'
-                                       v-model='record.subspecific'>
+                            <div class="col-6">
+                                <input id="code" type="text" class="form-control input-sm" placeholder="0.0.0.00.00.00.000" data-toggle="tooltip" title="Código de la cuenta patrimonial" v-model='record.code'>
                             </div>
                         </div>
+                        <!-- :onkeyup="record.code=onlyNumbers(record.code)" -->
                     </div>
                 </div>
                 <div class='col-md-6'>
@@ -86,6 +51,7 @@
 
 <script>
 
+//import Inputmask from "inputmask";
     export default {
         props:{
             records:{
@@ -99,6 +65,7 @@
                 record_select:'',
                 record:{
                     id:'',
+                    code:'',
                     group:'',
                     subgroup:'',
                     item:'',
@@ -122,15 +89,9 @@
                     this.reset(false);
                 }
                 else{
-                    var dt = data.code.split('.');
                     this.record={
                         id:data.id,
-                        group:dt[0],
-                        subgroup:dt[1],
-                        item:dt[2],
-                        generic:dt[3],
-                        specific:dt[4],
-                        subspecific:dt[5],
+                        code:data.code,
                         denomination:data.denomination,
                         active:data.active,
                     };
@@ -141,6 +102,9 @@
             });
         },
         mounted(){
+            var selector = document.getElementById("code");
+            Inputmask("9.9.9.99.99.99.999").mask(selector);
+
             this.switchHandler('active');
             this.reset();
         },
@@ -179,12 +143,8 @@
                 var res = true;
                 var errors = [];
 
-                if (this.record.group.length < 1 ||this.record.subgroup.length < 1 ||
-                    this.record.item.length < 1 || this.record.generic.length < 1 ||
-                    this.record.specific.length < 1 || this.record.subspecific.length < 1) {
-
-                    /** Cargo el error para ser mostrado*/
-                    errors.push('Los campos del código de la cuenta son obligatorios');
+                if (this.record.code.split('_').length > 1) {
+                    errors.push('El campo código debe ser llenado completamente');
                     res = false;
                 }
                 if (this.record.denomination == '') {
@@ -207,19 +167,39 @@
 
                 var dt = vm.record;
 
+                var auxRecord = {
+                    id:'',
+                    group:'',
+                    subgroup:'',
+                    item:'',
+                    generic:'',
+                    specific:'',
+                    subspecific:'',
+                    institutional:'',
+                    denomination:'',
+                    active:false,
+                };
                 /**
                  * Se formatean los ultimos tres campos del codigo de ser necesario
                  */
-                vm.record.generic     = (dt.generic.length < 2) ? '0'+dt.generic : dt.generic ;
-                vm.record.specific    = (dt.specific.length < 2) ? '0'+dt.specific : dt.specific ;
-                vm.record.subspecific = (dt.subspecific.length < 2) ? '0'+dt.subspecific : dt.subspecific ;
+                auxRecord.id            = dt.id;
 
-                vm.record.active      = $('#active').prop('checked');
+                auxRecord.group         = dt.code.split('.')[0];
+                auxRecord.subgroup      = dt.code.split('.')[1];
+                auxRecord.item          = dt.code.split('.')[2];
+                auxRecord.generic       = dt.code.split('.')[3];
+                auxRecord.specific      = dt.code.split('.')[4];
+                auxRecord.subspecific   = dt.code.split('.')[5];
+                auxRecord.institutional = dt.code.split('.')[6];
 
-                vm.loading            = true;
+                auxRecord.denomination  = dt.denomination;
+
+                auxRecord.active        = $('#active').prop('checked');
+
+                vm.loading              = true;
 
                 if (vm.operation == 'create') {
-                    axios.post(url, vm.record).then(response=>{
+                    axios.post(url, auxRecord).then(response=>{
 
                         /** Se emite un evento para actualizar el listado de cuentas en el select */
                         vm.accRecords = [];
@@ -243,7 +223,7 @@
                         }
                     });
                 } else {
-                    axios.put(url+vm.record.id, vm.record).then(response=>{
+                    axios.put(url+auxRecord.id, vm.record).then(response=>{
 
                         /** Se emite un evento para actualizar el listado de cuentas en el select */
                         vm.accRecords = [];
@@ -283,12 +263,7 @@
                              * Selecciona en pantalla la nueva cuentas
                              */
                             this.record = {
-                                group:account.group,
-                                subgroup:account.subgroup,
-                                item:account.item,
-                                generic:account.generic,
-                                specific:account.specific,
-                                subspecific:account.subspecific,
+                                code:account.code,
                                 denomination:account.denomination,
                                 active:account.active
                             };

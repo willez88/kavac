@@ -1,9 +1,9 @@
 <template>
-    <section id="PayrollPaymentTypesComponent">
+    <section id="payrollPaymentTypesFormComponent">
         <a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
            title="Registros de tipos de pago" data-toggle="tooltip"
            @click="addRecord('add_payroll_payment_type', 'payment-types', $event)">
-           <i class=""></i>
+           <i class="icofont icofont icofont-law-document ico-3x"></i>
            <span>Tipos de<br>Pago</span>
         </a>
         <div class="modal fade text-left" tabindex="-1" role="dialog" id="add_payroll_payment_type">
@@ -14,8 +14,8 @@
                             <span aria-hidden="true">×</span>
                         </button>
                         <h6>
-                            <i class=""></i>
-                            Tipo de Pago
+                            <i class="icofont icofont-law-document ico-3x"></i>
+                            Tipo de Pago de Nómina
                         </h6>
                     </div>
                     <div class="modal-body">
@@ -43,9 +43,9 @@
                             <div class="col-md-4">
                                 <div class="form-group is-required">
                                     <label for="code">Código:</label>
-                                    <input type="text" id="code" placeholder="Código"
-                                           class="form-control input-sm" v-model="record.code" data-toggle="tooltip"
-                                           title="Indique el códigoe del tipo de pago (requerido)">
+                                    <input type="text" id="code" placeholder="Código" data-toggle="tooltip"
+                                           title="Indique el códigoe del tipo de pago (requerido)"
+                                           class="form-control input-sm" v-model="record.code">
                                     <input type="hidden" name="id" id="id" v-model="record.id">
                                 </div>
                             </div>
@@ -54,15 +54,15 @@
                             <div class="col-md-4">
                                 <div class="form-group is-required">
                                     <label for="name">Nombre:</label>
-                                    <input type="text" id="name" placeholder="Nombre"
-                                           class="form-control input-sm" v-model="record.name" data-toggle="tooltip"
-                                           title="Indique el nombre del tipo de pago (requerido)">
+                                    <input type="text" id="name" placeholder="Nombre" data-toggle="tooltip"
+                                           title="Indique el nombre del tipo de pago (requerido)"
+                                           class="form-control input-sm" v-model="record.name">
                                 </div>
                             </div>
                             <!-- ./nombre -->
                             <!-- cuenta contable -->
                             <div class="col-md-4">
-                                <div class="form-group">
+                                <div class="form-group is-required">
                                     <label>Cuenta contable</label>
                                     <select2 :options="accounting_accounts"
                                              v-model="record.accounting_account_id"></select2>
@@ -80,9 +80,10 @@
                             <!-- ./cuenta presupuestaria -->
                             <!-- periodicidad de pago -->
                             <div class="col-md-4">
-                                <div class="form-group">
+                                <div class="form-group is-required">
                                     <label>Periodicidad de pago</label>
                                     <select2 :options="payment_periodicities"
+                                             @input="record.periods_number = '';record.payroll_payment_periods = [];"
                                              v-model="record.payment_periodicity"></select2>
                                 </div>
                             </div>
@@ -90,9 +91,9 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="periods">Períodos:</label>
-                                    <input type="text" id="periods" placeholder="Número de períodos"
-                                           class="form-control input-sm" v-model="record.description"
-                                           data-toggle="tooltip" title="Número de períodos del tipo de pago">
+                                    <input type="text" id="periods" placeholder="0" readonly 
+                                           data-toggle="tooltip" title="Número de períodos del tipo de pago"
+                                           class="form-control input-sm" v-model="record.periods_number">
                                 </div>
                             </div>
                             <!-- correlativo al expediente de trabajador -->
@@ -116,14 +117,14 @@
                                 <div class="form-group is-required">
                                     <label>Fecha de inicio del primer período:</label>
                                     <input type="date" id="start_date" placeholder="Fecha de inicio"
-                                           class="form-control input-sm" v-model="record.start_date"
-                                           data-toggle="tooltip" title="Indique la fecha de inicio del primer período">
+                                           data-toggle="tooltip" title="Indique la fecha de inicio del primer período"
+                                           class="form-control input-sm" v-model="record.start_date">
                                 </div>
                             </div>
                             <!-- ./fecha de inicio -->
                             <!-- relación de pago -->
                             <div class="col-md-4">
-                                <div class="form-group">
+                                <div class="form-group is-required">
                                     <label>Relación de pago</label>
                                     <select2 :options="payment_relationships"
                                              v-model="record.payment_relationship"></select2>
@@ -131,12 +132,12 @@
                             </div>
                             <!-- ./relación de pago -->
                             <div class="col-md-6"
-                                 v-if="record.correlative">
+                                 v-show="record.correlative">
                                 <div class="form-group is-required">
                                     <label>Campos del expediente del trabajador:</label>
                                     <v-multiselect :options="associated_records" track_by="text"
-                                                   :hide_selected="false" group-values="children"
-                                                   group-label="text" v-model="record.associated_records">
+                                                   :hide_selected="false"
+                                                   v-model="record.associated_records">
                                     </v-multiselect>
                                 </div>
                             </div>
@@ -151,6 +152,41 @@
                                 </div>
                             </div>
                             <!-- ./conceptos -->
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-right"
+                                 v-if="view_periods == true">
+                                <button class="btn btn-primary btn-sm" type="button"
+                                        @click="view_periods = false;"
+                                        title="Ocultar períodos de nómina" data-toggle="tooltip">
+                                    Ocultar períodos
+                                </button>
+                            </div>
+                            <div class="col-12 text-right"
+                                 v-else-if="record.payment_periodicity
+                                    && record.start_date">
+                                <button class="btn btn-primary btn-sm" type="button"
+                                        @click="view_periods = true;"
+                                        title="Ver períodos de nómina" data-toggle="tooltip">
+                                    Ver períodos
+                                </button>
+                            </div>
+
+                            <div class="col-12 modal-table"
+                                 v-if="view_periods">
+                                <v-client-table :columns="periods_columns" :data="record.payroll_payment_periods"
+                                                :options="table_options">
+                                    <div slot="payment_status" slot-scope="props" class="text-center">
+                                        <span>
+                                            {{
+                                                (props.row.payment_status == 'pending')
+                                                    ? 'Pendiente'
+                                                    : 'Generado'
+                                            }}
+                                        </span>
+                                    </div>
+                                </v-client-table>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -186,23 +222,26 @@
         data() {
             return {
                 record: {
-                    id:                    '',
-                    code:                  '',
-                    name:                  '',
-                    payment_periodicity:   '',
-                    periods_number:        '',
-                    correlative:           false,
-                    start_date:            '',
-                    payment_relationship:  '',
-                    budget_account_id:     '',
-                    accounting_account_id: '',
-                    payroll_concepts:      [],
-                    associated_records:    []
+                    id:                      '',
+                    code:                    '',
+                    name:                    '',
+                    payment_periodicity:     '',
+                    periods_number:          '',
+                    correlative:             false,
+                    start_date:              '',
+                    payment_relationship:    '',
+                    budget_account_id:       '',
+                    accounting_account_id:   '',
+                    payroll_concepts:        [],
+                    associated_records:      [],
+                    payroll_payment_periods: []
 
                 },
+                view_periods:          false,
                 errors:                [],
                 records:               [],
                 columns:               ['code', 'name', 'payment_periodicity', 'id'],
+                periods_columns:       ['number', 'start_date', 'start_day', 'end_date', 'end_day', 'payment_status'],
                 payment_periodicities: [
                     {"id": "",              "text": "Seleccione..."},
                     {"id": "daily",         "text": "Diario"},
@@ -242,7 +281,13 @@
                 'code':                'Código',
                 'name':                'Nombre',
                 'payment_periodicity': 'Periodicidad',
-                'id':                  'Acción'
+                'id':                  'Acción',
+                'number':              'N°',
+                'start_date':          'Inicio de Período',
+                'start_day':           'Día Inicial',
+                'end_date':            'Fin de Período',
+                'end_day':             'Día Final',
+                'payment_status':      'Status de Pago'
             };
             vm.table_options.sortable       = ['code', 'name', 'payment_periodicity', 'id'];
             vm.table_options.filterable     = ['code', 'name', 'payment_periodicity', 'id'];
@@ -263,6 +308,56 @@
                 vm.getOptions('payroll/get-associated-records');
             });
         },
+        watch: {
+            /**
+             * Método que supervisa los cambios en el objeto record y actualiza el número de períodos
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve> | <henryp2804@gmail.com>
+             */
+            record: {
+                deep: true,
+                handler: function() {
+                    if (this.record.payment_periodicity != '' && this.record.periods_number == '') {
+                        let number = 0;
+                        if (this.record.payment_periodicity == 'daily') {
+                            number = 365;
+                        } else if (this.record.payment_periodicity == 'weekly') {
+                            number = 48;
+                        } else if (this.record.payment_periodicity == 'biweekly') {
+                            number = 24;
+                        } else if (this.record.payment_periodicity == 'monthly') {
+                            number = 12;
+                        } else if (this.record.payment_periodicity == 'bimonthly') {
+                            number = 6;
+                        } else if (this.record.payment_periodicity == 'three-monthly') {
+                            number = 4;
+                        } else if (this.record.payment_periodicity == 'four-monthly') {
+                            number = 3;
+                        } else if (this.record.payment_periodicity == 'biannual') {
+                            number = 2;
+                        } else if (this.record.payment_periodicity == 'annual') {
+                            number = 1;
+                        } else {
+                            number = 0;
+                        }
+                        this.record.periods_number = number;
+                    };
+                    if ((this.record.periods_number > 0) && (this.record.payroll_payment_periods.length == 0)) {
+                        for (var i = 1; i <= this.record.periods_number; i++) {
+                            this.record.payroll_payment_periods.push({
+                                number:         i,
+                                start_date:     '',
+                                start_day:      '',
+                                end_date:       '',
+                                end_day:        '',
+                                payment_status: 'pending'
+
+                            });
+                        }
+                    }
+                }
+            }
+        },
         methods: {
             /**
              * Método que permite borrar todos los datos del formulario
@@ -272,19 +367,21 @@
             reset() {
                 const vm = this;
                 vm.record = {
-                    id:                    '',
-                    code:                  '',
-                    name:                  '',
-                    payment_periodicity:   '',
-                    periods_number:        '',
-                    correlative:           false,
-                    start_date:            '',
-                    payment_relationship:  '',
-                    budget_account_id:     '',
-                    accounting_account_id: '',
-                    payroll_concepts:      [],
-                    associated_records:    []
+                    id:                      '',
+                    code:                    '',
+                    name:                    '',
+                    payment_periodicity:     '',
+                    periods_number:          '',
+                    correlative:             false,
+                    start_date:              '',
+                    payment_relationship:    '',
+                    budget_account_id:       '',
+                    accounting_account_id:   '',
+                    payroll_concepts:        [],
+                    associated_records:      [],
+                    payroll_payment_periods: []
                 };
+                vm.view_periods = false;
             },
 
             /**
@@ -348,7 +445,17 @@
                 const vm = this;
                 vm.associated_records = [];
                 axios.get('/' + url).then(response => {
-                    vm.associated_records = response.data;
+                    if (response.data.length > 0) {
+                        $.each(response.data, function(index, field) {
+                            if (typeof(field['children']) != 'undefined') {
+                                $.each(field['children'], function(index, field) {
+                                    vm.associated_records.push(field);
+                                });
+                            } else {
+                                vm.associated_records.push(field);
+                            }
+                        });
+                    }
                 });
             },
         }

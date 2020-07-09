@@ -9,11 +9,11 @@
 @stop
 
 @section('maproute-actual')
-	Nómina
+	{{ __('Nómina') }}
 @stop
 
 @section('maproute-title')
-	Configuración
+	{{ __('Configuración') }}
 @stop
 
 @section('content')
@@ -39,7 +39,7 @@
 						@include('layouts.form-errors')
 						<div class="row">
 							<div class="col-12">
-								<h6>Personal</h6>
+								<h6>{{ __('Personal') }}</h6>
 							</div>
 						</div>
 						<div class="row">
@@ -58,7 +58,7 @@
 						<hr>
 						<div class="row">
 							<div class="col-12">
-								<h6>Nómina</h6>
+								<h6>{{ __('Nómina') }}</h6>
 							</div>
 						</div>
 						<div class="row">
@@ -103,12 +103,12 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Configuración de la Edad Laboral Permitida</h6>
+					<h6 class="card-title">
+						{{ __('Configuración de la Edad Laboral Permitida') }}
+						@include('buttons.help')
+					</h6>
 					<div class="card-btns">
-						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
-						   data-toggle="tooltip">
-							<i class="now-ui-icons arrows-1_minimal-up"></i>
-						</a>
+						@include('buttons.minimize')
 					</div>
 				</div>
 				{!! Form::open(['route' => 'parameters.store', 'method' => 'post']) !!}
@@ -144,12 +144,12 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Registros Comúnes</h6>
+					<h6 class="card-title">
+						{{ __('Registros Comúnes') }}
+						@include('buttons.help')
+					</h6>
 					<div class="card-btns">
-						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
-						   data-toggle="tooltip">
-							<i class="now-ui-icons arrows-1_minimal-up"></i>
-						</a>
+						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
@@ -218,14 +218,17 @@
 
 	<div class="row">
 		<div class="col-12">
-			<div class="card">
+			<div class="card" id="cardPayrollGeneralParametersSettingForm">
 				<div class="card-header">
-					<h6 class="card-title">Parámetros Generales de Nómina</h6>
+					<h6 class="card-title">
+						{{ __('Parámetros Generales de Nómina') }}
+						@include('buttons.help', [
+							'helpId' => 'GeneralParams',
+							'helpSteps' => get_json_resource('ui-guides/settings/general_parameters.json', 'payroll')
+						])
+					</h6>
 					<div class="card-btns">
-						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
-						   data-toggle="tooltip">
-							<i class="now-ui-icons arrows-1_minimal-up"></i>
-						</a>
+						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">

@@ -15,10 +15,11 @@
    Tras 11 años de la creación del Sistema Administrativo SAID y los nuevos requerimientos demandantes de las instituciones que hacen uso del sistema, se toma la iniciativa de realizar una reestructuración del mismo y así poder ofrecer un mejor servicio a nuestros usuarios, blindando su seguridad en el ofrecimiento de un sistema más robusto y completo. Esta iniciativa surge por la complejidad del mantenimiento y soporte al SAID, limitaciones de extensibilidad de funcionalidades, instrucciones de códigos complejos, interfaz poco amigable, procesos complejos para auditar, limitaciones para la actualización del lenguaje, así como el desarrollo de la aplicación bajo un esquema monolítico. Por cada una de estas razones y el declive del sistema, decidimos ofrecer una solución adaptada a las necesidades y requerimientos de nuestros usuarios.
 
    
-Para más información:[tibisay.cenditel.gob.ve](https://tibisay.cenditel.gob.ve/sistema-administrativo-integrado/)
+Para más información: [tibisay.cenditel.gob.ve](https://tibisay.cenditel.gob.ve/sistema-administrativo-integrado/)
 
    Interfaz Gráfica del Sistema SAID
 
 ![Screenshot](../img/programa-said.jpg)
+<div style="text-align: center;font-weight: bold">Figura: Sistema SAID</div>
 
 </div>

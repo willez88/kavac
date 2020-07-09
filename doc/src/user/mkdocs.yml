@@ -4,14 +4,15 @@ nav:
       - Información General: information.md
       - Instalación: installation.md
       - Panel de Control: control_panel.md
-      - Configuración: settings.md  
+      - Configuración: settings.md
+      - Desarrolladores: developers.md   
       - Acerca de: 
-        - Acerca del Sistema KAVAC: about_kavac/about.md 
-        - Un software Innovador: about_kavac/innovative_software.md
-      - Gestión de proyecto: 
-        - Metodología de desarrollo: project_management/development_methodology.md 
-      - Preguntas frecuentes: 
-        - Preguntas frecuentes: frequent_questions/frequent_questions.md  
+        - Antecedentes: about_kavac/about.md 
+        - Un Software Innovador: about_kavac/innovative_software.md
+      - Gestión de Proyecto: 
+        - Metodología de Desarrollo: project_management/development_methodology.md 
+      - Preguntas Frecuentes: 
+        - Preguntas Frecuentes: frequent_questions/frequent_questions.md  
         
 
     
@@ -31,7 +32,7 @@ site_description: A Material Design theme for MkDocs
 # Configuration
 theme:
   name: null
-  custom_dir: material
+  custom_dir: ../material
 
   # 404 page
   static_templates:

@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use Modules\Payroll\Models\PayrollPaymentType;
+use Modules\Payroll\Models\PayrollConcept;
 
 /**
  * @class      PayrollPaymentTypeController
@@ -53,12 +54,14 @@ class PayrollPaymentTypeController extends Controller
 
         /** Define las reglas de validación para el formulario */
         $this->validateRules = [
-            'code'                  => ['required'],
+            'code'                  => ['required', 'unique:payroll_payment_types,code'],
             'name'                  => ['required'],
             'payment_periodicity'   => ['required'],
             'start_date'            => ['required'],
             'payment_relationship'  => ['required'],
-            'accounting_account_id' => ['required']
+            'accounting_account_id' => ['required'],
+            'budget_account_id'     => ['required'],
+            'payroll_concepts'      => ['required']
         ];
 
         /** Define los mensajes de validación para las reglas del formulario */
@@ -67,7 +70,9 @@ class PayrollPaymentTypeController extends Controller
             'payment_periodicity.required'   => 'El campo periodicidad de pago es obligatorio.',
             'start_date.required'            => 'El campo fecha de inicio del primer período es obligatorio.',
             'payment_relationship.required'  => 'El campo relación de pago es obligatorio.',
-            'accounting_account_id.required' => 'El campo cuenta contable es obligatorio.'
+            'accounting_account_id.required' => 'El campo cuenta contable es obligatorio.',
+            'budget_account_id.required'     => 'El campo cuenta presupuestaria es obligatorio.',
+            'payroll_concepts.required'      => 'El campo conceptos es obligatorio.'
         ];
     }
 
@@ -80,7 +85,39 @@ class PayrollPaymentTypeController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => PayrollPaymentType::all()], 200);
+        $listPaymentType = [];
+        $payrollPaymentTypes = PayrollPaymentType::with('accountingAccount', 'budgetAccount', 'payrollConcepts')->get();
+        foreach ($payrollPaymentTypes as $payrollPaymentType) {
+            $listConcepts = [];
+            foreach ($payrollPaymentType->payrollConcepts as $payrollConcept) {
+                array_push(
+                $listConcepts,
+                    [
+                        'id' => $payrollConcept->id,
+                        'text' => $payrollConcept->code . ' - ' . $payrollConcept->name
+                    ]
+                );
+            }
+            $associated_records = json_decode($payrollPaymentType->associated_records);
+            array_push(
+                $listPaymentType,
+                [
+                    'id'                    => $payrollPaymentType->id,
+                    'code'                  => $payrollPaymentType->code,
+                    'name'                  => $payrollPaymentType->name,
+                    'payment_periodicity'   => $payrollPaymentType->payment_periodicity,
+                    'periods_number'        => '',
+                    'correlative'           => $payrollPaymentType->correlative,
+                    'start_date'            => $payrollPaymentType->start_date,
+                    'payment_relationship'  => $payrollPaymentType->payment_relationship,
+                    'accounting_account_id' => $payrollPaymentType->accounting_account_id,
+                    'budget_account_id'     => $payrollPaymentType->budget_account_id,
+                    'associated_records'    => json_decode($payrollPaymentType->associated_records),
+                    'payroll_concepts'      => $listConcepts
+                ]
+            );
+        }
+        return response()->json(['records' => json_decode(json_encode($listPaymentType))], 200);
     }
 
     /**
@@ -94,7 +131,6 @@ class PayrollPaymentTypeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, $this->validateRules, $this->messages);
-        return response()->json(['message' => 'Success'], 200);
 
         /**
          * Objeto asociado al modelo PayrollPaymentType
@@ -106,12 +142,21 @@ class PayrollPaymentTypeController extends Controller
             'name'                  => $request->name,
             'payment_periodicity'   => $request->payment_periodicity,
             'correlative'           => !empty($request->correlative)
-                                          ? $request->correlative
-                                          : false,
+                                           ? $request->correlative
+                                           : false,
             'start_date'            => $request->start_date,
             'payment_relationship'  => $request->payment_relationship,
-            'accounting_account_id' => $request->accounting_account_id
+            'accounting_account_id' => $request->accounting_account_id,
+            'budget_account_id'     => $request->budget_account_id,
+            'associated_records'    => json_encode($request->associated_records)
         ]);
+        /** Se agregan los conceptos asociados al tipo de pago a la tabla pivote */
+        foreach ($request->payroll_concepts as $payrollConcept) {
+            if ($payrollConcept['id'] != '') {
+                $concept = PayrollConcept::find($payrollConcept['id']);
+                $payrollPaymentType->payrollConcepts()->attach($concept);
+            }
+        }
         return response()->json(['record' => $payrollPaymentType, 'message' => 'Success'], 200);
     }
 
@@ -124,25 +169,41 @@ class PayrollPaymentTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return response()->json(['message' => 'Success'], 200);
         /**
          * Objeto con la información del tipo de pago a editar asociado al modelo PayrollPaymentType
          *
          * @var Object $payrollPaymentType
          */
         $payrollPaymentType = PayrollPaymentType::find($id);
-        $this->validate($request, $this->validateRules, $this->messages);
+        $validateRules = $this->validateRules;
+        $validateRules = array_replace($validateRules, ['code' => ['required', 'unique:payroll_payment_types,code,' . $payrollPaymentType->id]]);
+        $this->validate($request, $validateRules, $this->messages);
 
         $payrollPaymentType->code                  = $request->code;
         $payrollPaymentType->name                  = $request->name;
         $payrollPaymentType->payment_periodicity   = $request->payment_periodicity;
         $payrollPaymentType->correlative           = !empty($request->correlative)
-                                                       ? $request->correlative
-                                                       : $payrollPaymentType->correlative;
+                                                         ? $request->correlative
+                                                         : $payrollPaymentType->correlative;
         $payrollPaymentType->start_date            = $request->start_date;
         $payrollPaymentType->payment_relationship  = $request->payment_relationship;
         $payrollPaymentType->accounting_account_id = $request->accounting_account_id;
+        $payrollPaymentType->budget_account_id     = $request->budget_account_id;
+        $payrollPaymentType->associated_records    = json_encode($request->associated_records);
         $payrollPaymentType->save();
+
+        /** Se eliminan los conceptos asociados al tipo de pago a la tabla pivote */
+        foreach ($payrollPaymentType->payrollConcepts as $payrollConcept) {
+            $concept = PayrollConcept::find($payrollConcept['id']);
+            $payrollPaymentType->payrollConcepts()->detach($concept);
+        }
+        /** Se agregan los nuevos conceptos asociados al tipo de pago a la tabla pivote */
+        foreach ($request->payroll_concepts as $payrollConcept) {
+            if ($payrollConcept['id'] != '') {
+                $concept = PayrollConcept::find($payrollConcept['id']);
+                $payrollPaymentType->payrollConcepts()->attach($concept);
+            }
+        }
         return response()->json(['message' => 'Success'], 200);
     }
 
@@ -164,5 +225,17 @@ class PayrollPaymentTypeController extends Controller
         $payrollPaymentType = PayrollPaymentType::find($id);
         $payrollPaymentType->delete();
         return response()->json(['record' => $payrollPaymentType, 'message' => 'Success'], 200);
+    }
+
+    /**
+     * Obtiene los tipos de pago registrados
+     *
+     * @method    getPayrollPaymentTypes
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    Array          Listado de los registros a mostrar
+     */
+    public function getPayrollPaymentTypes()
+    {
+        return template_choices('Modules\Payroll\Models\PayrollPaymentType', ['code', '-', 'name'], '', true);
     }
 }

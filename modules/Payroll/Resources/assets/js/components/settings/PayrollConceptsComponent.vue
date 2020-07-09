@@ -1,9 +1,9 @@
 <template>
-    <section id="PayrollConceptsFormComponent">
+    <section id="payrollConceptsFormComponent">
         <a class="btn-simplex btn-simplex-md btn-simplex-primary"
            href="#" title="Registros de conceptos" data-toggle="tooltip"
            @click="addRecord('add_payroll_concept', 'concepts', $event)">
-            <i class=""></i>
+            <i class="icofont icofont-calculator-alt-1 ico-3x"></i>
             <span>Conceptos</span>
         </a>
         <div class="modal fade text-left" role="dialog" id="add_payroll_concept">
@@ -14,7 +14,7 @@
                             <span aria-hidden="true">×</span>
                         </button>
                         <h6>
-                            <i class=""></i>
+                            <i class="icofont icofont-calculator-alt-1 ico-3x"></i>
                             Concepto
                         </h6>
                     </div>
@@ -196,6 +196,7 @@
                                 <div class=" form-group is-required">
                                     <label>Forma de cálculo:</label>
                                     <select2 :options="calculation_ways"
+                                             @input="record.payroll_salary_tabulator_id = ''"
                                              v-model="record.calculation_way"></select2>
                                 </div>
                             </div>
@@ -229,17 +230,46 @@
                              v-if="record.assign_to">
                              <div class="col-md-4"
                                   v-for="field in record.assign_to"
-                                  v-if="field['required']">
+                                  v-if="field['type']
+                                     && assign_options[field['id']]
+                                     && record.assign_options[field['id']]">
                                 <!-- registro de opciones a asignar -->
-                                 <div class="form-group is-required">
+                                <div class="form-group is-required"
+                                      v-if="field['type'] == 'list'">
                                     <label>{{ field['name'] }}</label>
-                                    <v-multiselect v-if="assign_options[field['id']]
-                                                      && record.assign_options[field['id']]"
+                                    <v-multiselect
                                                    :options="assign_options[field['id']]" track_by="text"
                                                    :hide_selected="false" data-toggle="tooltip"
                                                    title="Indique los registros a los que se les va asignar el concepto"
                                                    v-model="record.assign_options[field['id']]">
                                     </v-multiselect>
+                                </div>
+                                <!-- ./registro de opciones a asignar -->
+                                <!-- registro de rangos a asignar -->
+                                <div class="form-group"
+                                      v-if="field['type'] == 'range'
+                                         && assign_options[field['id']]">
+                                    <label>{{ field['name'] }}</label>
+                                    <div class="row" style="align-items: baseline;">
+                                        <dir class="col-6">
+                                            <div class="form-group is-required">
+                                                <label>Minimo:</label>
+                                                <input type="number" min="0" step=".01"
+                                                       placeholder="Minimo" data-toggle="tooltip"
+                                                       title="Indique el minimo requerido para asignar el concepto"
+                                                       class="form-control input-sm" v-model="record.assign_options[field['id']]['minimum']">
+                                            </div>
+                                        </dir>
+                                        <div class="col-6">
+                                            <div class="form-group is-required">
+                                                <label>Máximo:</label>
+                                                <input type="number" min="0" step=".01"
+                                                       placeholder="Máximo" data-toggle="tooltip"
+                                                       title="Indique el máximo requerido para asignar el concepto"
+                                                       class="form-control input-sm" v-model="record.assign_options[field['id']]['maximum']">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                  <!-- ./registro de opciones a asignar -->
                             </div>
@@ -513,6 +543,19 @@
         },
         watch: {
             /**
+             * Método que supervisa los cambios en el objeto record y actualiza el tabulador seleccionado
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve> | <henryp2804@gmail.com>
+             */
+            record: {
+                deep: true,
+                handler: function() {
+                    if (this.record.payroll_salary_tabulator && this.record.payroll_salary_tabulator_id == "") {
+                        this.record.payroll_salary_tabulator_id = this.record.payroll_salary_tabulator.id;
+                    }
+                }
+            },
+            /**
              * Método que supervisa los cambios en el campo variable y actualiza el listado de opciones
              *
              * @author    Henry Paredes <hparedes@cenditel.gob.ve> | <henryp2804@gmail.com>
@@ -574,15 +617,29 @@
                 const vm = this;
                 /** Recorrer las opciones "asignar a" para agregar los nuevos inputs */
                 $.each(vm.record.assign_to, function(index, field) {
-                    if (field['required']) {
+                    if (field['type'] == 'list') {
                         if (typeof(vm.record.assign_options[field['id']] ) == 'undefined') {
                             vm.record.assign_options[field['id']] = [];
                         }
                         if (typeof(vm.assign_options[field['id']] ) == 'undefined') {
                             vm.assign_options[field['id']] = [];
-                            axios.get('get-parameter-options/' + field['required']).then(response => {
+                            axios.get('get-concept-assign-options/' + field['id']).then(response => {
                                 vm.assign_options[field['id']] = response.data;
                             });
+                        }
+                    }
+                    if (field['type'] == 'range') {
+                        if (typeof(vm.record.assign_options[field['id']] ) == 'undefined') {
+                            vm.record.assign_options[field['id']] = {
+                                minimum: '',
+                                maximum: ''
+                            };
+                        }
+                        if (typeof(vm.assign_options[field['id']] ) == 'undefined') {
+                            vm.assign_options[field['id']] = {
+                                minimum: '',
+                                maximum: ''
+                            };
                         }
                     }
                 });

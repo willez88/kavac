@@ -609,9 +609,7 @@ class PayrollParameterController extends Controller
     {
         foreach ($this->associatedRecords as $record) {
             /** Revisar: Cuando el padre sea el match */
-            if ($record['id'] == $code) {
-                return template_choices($record['model'], ['first_name', ' ', 'last_name'], '', true);
-            } elseif (!empty($record['children'])) {
+            if (!empty($record['children'])) {
                 foreach ($record['children'] as $children) {
                     if ($children['id'] == $code) {
                         return template_choices($children['model'], ['name'], '', true);

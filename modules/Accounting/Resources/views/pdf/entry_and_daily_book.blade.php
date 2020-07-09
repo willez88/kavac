@@ -38,14 +38,14 @@
 		{{-- Cuentas patrimoniales --}}
 		<table cellspacing="1" cellpadding="1" border="0">
 			<tr>
-				<th width="12%" style="font-size:9rem; background-color: #BDBDBD;" align="center">CÓDIGO</th>
-				<th width="53%" style="font-size:9rem; background-color: #BDBDBD;" align="center">CUENTAS</th>
+				<th width="14%" style="font-size:9rem; background-color: #BDBDBD;" align="center">CÓDIGO</th>
+				<th width="51%" style="font-size:9rem; background-color: #BDBDBD;" align="center">CUENTAS</th>
 				<th width="17%" style="font-size:9rem; background-color: #BDBDBD;" align="center">DEBE</th>
 				<th width="17%" style="font-size:9rem; background-color: #BDBDBD;" align="center">HABER</th>
 			</tr>
 			@foreach($entry['accountingAccounts'] as $entryAccount)
 				<tr>
-					<td style="font-size: 9rem;" align="center">
+					<td style="font-size: 8rem;" align="center">
 						{{$entryAccount['account']->getCodeAttribute() }}
 					</td>
 					<td style="font-size:9rem;">

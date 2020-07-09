@@ -109,4 +109,15 @@ class PayrollSalaryTabulator extends Model implements Auditable
     {
         return $this->belongsTo(\App\Models\Currency::class);
     }
+
+    /**
+     * Método que obtiene la información de los conceptos asociados al tabulador salarial
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payrollConcepts()
+    {
+        return $this->hasMany(PayrollConcept::class);
+    }
 }

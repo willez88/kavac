@@ -9,15 +9,16 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
- * @class PayrollConceptType
- * @brief Datos de tipos de concepto
+ * @class      PayrollConceptType
+ * @brief      Datos de tipos de concepto
  *
  * Gestiona el modelo de tipos de concepto
  *
- * @author William Páez <wpaez@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     William Páez <wpaez@cenditel.gob.ve>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class PayrollConceptType extends Model implements Auditable
 {
@@ -40,4 +41,15 @@ class PayrollConceptType extends Model implements Auditable
     protected $fillable = [
         'name', 'description', 'sign'
     ];
+
+    /**
+     * Método que obtiene la información de los conceptos asociados al tipo de concepto
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payrollConcepts()
+    {
+        return $this->hasMany(PayrollConcept::class);
+    }
 }

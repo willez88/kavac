@@ -31,8 +31,7 @@
 					<accounting-entry-listing 
 					route_list = "{{ url('accounting/entries/Filter-Records') }}"
 					route_edit = "{{ url('accounting/entries/{id}/edit') }}" 
-					:entries = "{{ $entries }}" 
-					:show = " 'unapproved'" />
+					:entries = "{{ $entries }}"> </accounting-entry-listing>
 				</div>
 			</div>
 		</div>

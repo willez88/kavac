@@ -2,7 +2,7 @@
     <section>
         <div class="form-horizontal">
 
-            <purchase-show-errors ref="PurchaseBaseBudgetComponent" />
+            <purchase-show-errors refs="PurchaseBaseBudgetComponent" />
 
             <div class="card-body">
                 <div class="row">
@@ -217,93 +217,94 @@
             //     this.CalculateTot();
             // },
             createRecord(){
-                this.$refs.PurchaseBaseBudgetComponent.reset();
-                if (!this.record_tax) {
-                    this.$refs.PurchaseBaseBudgetComponent.showAlertMessages("Debe configurar el IVA en el sistema.");
-                    this.showMessage(
+                const vm = this;
+                vm.showMessageError(vm.$refs.PurchaseBaseBudgetComponent, null, true);
+                if (!vm.record_tax) {
+                    vm.showMessageError(vm.$refs.PurchaseBaseBudgetComponent, 'Debe configurar el IVA en el sistema.');
+                    vm.showMessage(
                         'custom', 'Error', 'danger', 'screen-error', 
                         'Debe configurar el IVA en el sistema.'
                     );
                     return;
                 }
-                if (!this.currency_id) {
-                    this.$refs.PurchaseBaseBudgetComponent.showAlertMessages("Debe seleccionar un tipo de moneda.");
-                    this.showMessage(
+                if (!vm.currency_id) {
+                    vm.showMessageError(vm.$refs.PurchaseBaseBudgetComponent, 'Debe seleccionar un tipo de moneda.');
+                    vm.showMessage(
                         'custom', 'Error', 'danger', 'screen-error', 
                         'Debe seleccionar un tipo de moneda.'
                     );
                     return;
                 }
-                for (var i = 0; i < this.record_items.length; i++) {
-                    if (!this.record_items[i].qty_price) {
-                        this.$refs.PurchaseBaseBudgetComponent.showAlertMessages("El precio unitario de los registros son obligatorios.");
-                        this.showMessage(
+                for (var i = 0; i < vm.record_items.length; i++) {
+                    if (!vm.record_items[i].qty_price) {
+                        vm.showMessageError(vm.$refs.PurchaseBaseBudgetComponent, 'El precio unitario de los registros son obligatorios.');
+                        vm.showMessage(
                             'custom', 'Error', 'danger', 'screen-error', 
                             'El precio unitario de los registros son obligatorios.'
                         );
                         return;
                     }
-                    this.record_items[i].qty_price = (this.record_items[i].qty_price).toFixed((this.currency)?this.currency.decimal_places:'');
+                    vm.record_items[i].qty_price = (vm.record_items[i].qty_price).toFixed((vm.currency)?vm.currency.decimal_places:'');
                 }
-                this.loading = true;
-                if(!this.base_budget_edit){
+                vm.loading = true;
+                if(!vm.base_budget_edit){
                     axios.post('/purchase/base_budget',{   
-                            'list':this.requirement_list, 
-                            'currency_id':this.currency_id,
-                            'subtotal':this.sub_total,
-                            'tax_id':this.record_tax.id,
+                            'list':vm.requirement_list, 
+                            'currency_id':vm.currency_id,
+                            'subtotal':vm.sub_total,
+                            'tax_id':vm.record_tax.id,
                         }).then(response=>{
-                        this.loading = false;
-                        this.showMessage('store');
+                        vm.loading = false;
+                        vm.showMessage('store');
                         setTimeout(function() {
                             location.href = '/purchase/requirements';
                         }, 2000);
                     }).catch(error=>{
-                        this.loading = false;
-                        this.$refs.PurchaseBaseBudgetComponent.reset();
+                        vm.loading = false;
+                        vm.showMessageError(vm.$refs.PurchaseBaseBudgetComponent, null, true);
                         var errors = [];
                         if (typeof(error.response) != 'undefined') {
                             for (var index in error.response.data.errors) {
                                 if (error.response.data.errors[index]) {
                                     errors.push(error.response.data.errors[index][0]);
-                                    this.showMessage(
+                                    vm.showMessage(
                                         'custom', 'Error', 'danger', 'screen-error', 
                                         error.response.data.errors[index][0]
                                     );
                                 }
                             }
                         }
-                        this.$refs.PurchaseBaseBudgetComponent.showAlertMessages(errors);
+                        vm.showMessageError(vm.$refs.PurchaseBaseBudgetComponent, errors);
                     });
                 }else{
-                    axios.put('/purchase/base_budget/'+this.base_budget_edit.id,{   
-                            'list':this.requirement_list, 
-                            'list_to_delete':this.requirement_list_deleted, 
-                            'currency_id':this.currency_id,
-                            'subtotal':this.sub_total,
-                            'tax_id':this.record_tax.id,
+                    axios.put('/purchase/base_budget/'+vm.base_budget_edit.id,{   
+                            'list':vm.requirement_list, 
+                            'list_to_delete':vm.requirement_list_deleted, 
+                            'currency_id':vm.currency_id,
+                            'subtotal':vm.sub_total,
+                            'tax_id':vm.record_tax.id,
                         }).then(response=>{
-                        this.loading = false;
-                        this.showMessage('update');
+                        vm.loading = false;
+                        vm.showMessage('update');
                         setTimeout(function() {
                             location.href = '/purchase/requirements';
                         }, 2000);
                     }).catch(error=>{
-                        this.loading = false;
-                        this.$refs.PurchaseBaseBudgetComponent.reset();
+                        vm.loading = false;
+                        vm.showMessageError(vm.$refs.PurchaseBaseBudgetComponent, null, true);
                         var errors = [];
                         if (typeof(error.response) != 'undefined') {
                             for (var index in error.response.data.errors) {
                                 if (error.response.data.errors[index]) {
                                     errors.push(error.response.data.errors[index][0]);
-                                    this.showMessage(
+                                    vm.showMessage(
                                         'custom', 'Error', 'danger', 'screen-error', 
                                         error.response.data.errors[index][0]
                                     );
                                 }
                             }
                         }
-                        this.$refs.PurchaseBaseBudgetComponent.showAlertMessages(errors);
+                        vm.showMessageError(vm.$refs.PurchaseBaseBudgetComponent, errors);
                     });
                 }
             },
@@ -370,7 +371,7 @@
         mounted(){
             const vm = this;
             if (!vm.record_tax) {
-                vm.$refs.PurchaseBaseBudgetComponent.showAlertMessages('Debe configurar el IVA en el sistema.');
+                vm.showMessageError(vm.$refs.PurchaseBaseBudgetComponent, 'Debe configurar el IVA en el sistema.');
             }
             if (vm.base_budget_edit) {
                 vm.currency_id = vm.base_budget_edit.currency_id;

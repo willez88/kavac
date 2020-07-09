@@ -15,7 +15,7 @@
 						</button>
 						<h6>
 							<i class="fa fa-tags inline-block"></i>
-							Categorias
+							Categorias de origen
 						</h6>
 					</div>
 					<div class="modal-body">

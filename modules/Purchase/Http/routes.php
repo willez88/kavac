@@ -170,4 +170,18 @@ Route::group([
     Route::resource('budgetary_availability', 'PurchaseBudgetaryAvailabilityController', [
         'as'     => 'purchase',
     ]);
+
+
+
+
+
+
+    /*
+     * -----------------------------------------------------------------------
+     * Rutas para la consulta de producto del modulo Warehouse con la informacion de 
+     * -----------------------------------------------------------------------
+     *
+     * Gestiona los datos de los tipos de operaciones
+     */
+    Route::get('get-warehouse-products', 'PurchaseRequirementController@getWarehouseProducts');
 });

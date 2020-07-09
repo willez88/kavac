@@ -74,14 +74,15 @@ class AccountingAccountController extends Controller
         $this->validate(
             $request,
             [
-                'group'        => 'required|digits:1',
-                'subgroup'     => 'required|digits:1',
-                'item'         => 'required|digits:1',
-                'generic'      => 'required|digits:2',
-                'specific'     => 'required|digits:2',
-                'subspecific'  => 'required|digits:2',
-                'denomination' => 'required',
-                'active'       => 'required',
+                'group'          => 'required|digits:1',
+                'subgroup'       => 'required|digits:1',
+                'item'           => 'required|digits:1',
+                'generic'        => 'required|digits:2',
+                'specific'       => 'required|digits:2',
+                'subspecific'    => 'required|digits:2',
+                'institutional'  => 'required|digits:3',
+                'denomination'   => 'required',
+                'active'         => 'required',
             ]
         );
 
@@ -94,7 +95,8 @@ class AccountingAccountController extends Controller
             ->where('item', $request['item'])
             ->where('generic', $request['generic'])
             ->where('specific', $request['specific'])
-            ->where('subspecific', $request['subspecific'])->first();
+            ->where('subspecific', $request['subspecific'])
+            ->where('institutional', $request['institutional'])->first();
 
         /**
          * [$parent almacena la consulta de la cuenta de nivel superior de la cuanta actual,
@@ -107,13 +109,15 @@ class AccountingAccountController extends Controller
             $request['item'],
             $request['generic'],
             $request['specific'],
-            $request['subspecific']
+            $request['subspecific'],
+            $request['institutional']
         );
         AccountingAccount::updateOrCreate(
             [
-                'group'    => $request['group'], 'subgroup' => $request['subgroup'],
-                'item'     => $request['item'], 'generic' => $request['generic'],
-                'specific' => $request['specific'], 'subspecific' => $request['subspecific'],
+                'group'         => $request['group'],        'subgroup'    => $request['subgroup'],
+                'item'          => $request['item'],         'generic'     => $request['generic'],
+                'specific'      => $request['specific'],     'subspecific' => $request['subspecific'],
+                'institutional' => $request['institutional'],
             ],
             [
                 'denomination'    => $request['denomination'],
@@ -144,14 +148,15 @@ class AccountingAccountController extends Controller
         $this->validate(
             $request,
             [
-                'group'        => 'required|digits:1',
-                'subgroup'     => 'required|digits:1',
-                'item'         => 'required|digits:1',
-                'generic'      => 'required|digits:2',
-                'specific'     => 'required|digits:2',
-                'subspecific'  => 'required|digits:2',
-                'denomination' => 'required',
-                'active'       => 'required',
+                'group'          => 'required|digits:1',
+                'subgroup'       => 'required|digits:1',
+                'item'           => 'required|digits:1',
+                'generic'        => 'required|digits:2',
+                'specific'       => 'required|digits:2',
+                'subspecific'    => 'required|digits:2',
+                'institutional'  => 'required|digits:3',
+                'denomination'   => 'required',
+                'active'         => 'required',
             ]
         );
 
@@ -160,14 +165,15 @@ class AccountingAccountController extends Controller
          */
         $record               = AccountingAccount::find($id);
         
-        $record->group        = $request['group'];
-        $record->subgroup     = $request['subgroup'];
-        $record->item         = $request['item'];
-        $record->generic      = $request['generic'];
-        $record->specific     = $request['specific'];
-        $record->subspecific  = $request['subspecific'];
-        $record->denomination = $request['denomination'];
-        $record->active       = $request['active'];
+        $record->group          = $request['group'];
+        $record->subgroup       = $request['subgroup'];
+        $record->item           = $request['item'];
+        $record->generic        = $request['generic'];
+        $record->specific       = $request['specific'];
+        $record->subspecific    = $request['subspecific'];
+        $record->institutional  = $request['institutional'];
+        $record->denomination   = $request['denomination'];
+        $record->active         = $request['active'];
         $record->save();
 
         return response()->json(['records'=>$this->getAccounts(), 'message'=>'Success']);
@@ -225,26 +231,31 @@ class AccountingAccountController extends Controller
         $subgroup    = $parent->subgroup;
 
         /**
-         * [$subgroup valor del campo item]
+         * [$item valor del campo item]
          * @var [string]
          */
         $item        = $parent->item;
         
         /**
-         * [$subgroup valor del campo generic]
+         * [$generic valor del campo generic]
          * @var [string]
          */
         $generic     = $parent->generic;
         /**
-         * [$subgroup valor del campo specific]
+         * [$specific valor del campo specific]
          * @var [string]
          */
         $specific    = $parent->specific;
         /**
-         * [$subgroup valor del campo subspecific]
+         * [$subspecific valor del campo subspecific]
          * @var [string]
          */
         $subspecific = $parent->subspecific;
+        /**
+         * [$institutional valor del campo institutional]
+         * @var [string]
+         */
+        $institutional = $parent->institutional;
 
         if ($parent->subgroup === "0") {
             /**
@@ -323,21 +334,59 @@ class AccountingAccountController extends Controller
                         ? (intval($currentSubSpecific->subspecific) + 1) : $currentSubSpecific->subspecific;
             $subspecific = (strlen($subspecific) === 1) ? "0$subspecific" : $subspecific;
         }
+        /////////////
+        /// por verificar
+        /////////////
+         elseif ($parent->subspecific === "00") {
+            /**
+             * [$currentInstitutional almacena registro]
+             * @var [Modules\Accounting\Models\AccountingAccount]
+             */
+            $currentInstitutional = AccountingAccount::where(
+                [
+                    'group'    => $parent->group,
+                    'subgroup' => $parent->subgroup,
+                    'item'     => $parent->item,
+                    'generic'  => $parent->generic,
+                    'specific' => $parent->specific,
+                    'subspecific' => $parent->subspecific
+                ]
+            )->orderBy('institutional', 'desc')->first();
+
+            $institutional = (strlen(intval($currentInstitutional->institutional)) < 2
+                            || intval($currentInstitutional->institutional) < 999)
+                        ? (intval($currentInstitutional->institutional) + 1) : $currentInstitutional->institutional;
+
+            if (strlen($institutional) === 1) {
+                $institutional = "00$institutional";
+            }elseif (strlen($institutional) === 2) {
+                $institutional = "0$institutional";
+            }
+        }
 
         /**
          * [$account informacion de la cuenta]
          * @var array
          */
         $account = [
-            'group'        => (string)$parent->group,
-            'subgroup'     => (string)$subgroup,
-            'item'         => (string)$item,
-            'generic'      => (string)$generic,
-            'specific'     => (string)$specific,
-            'subspecific'  => (string)$subspecific,
+            'code' => (string)$parent->group.'.'.(string)$parent->subgroup.'.'.
+                        (string)$parent->item.'.'.(string)$parent->generic.'.'.
+                        (string)$parent->specific.'.'.(string)$parent->subspecific.'.'.
+                        (string)$parent->institutional,
             'denomination' => $parent->denomination,
             'active'       => $parent->active
         ];
+
+        // $account = [
+        //     'group'        => (string)$parent->group,
+        //     'subgroup'     => (string)$subgroup,
+        //     'item'         => (string)$item,
+        //     'generic'      => (string)$generic,
+        //     'specific'     => (string)$specific,
+        //     'subspecific'  => (string)$subspecific,
+        //     'denomination' => $parent->denomination,
+        //     'active'       => $parent->active
+        // ];
         return response()->json(['account'=> $account, 'message' => 'Success'], 200);
     }
 
@@ -362,10 +411,11 @@ class AccountingAccountController extends Controller
                                     ->orderBy('generic', 'ASC')
                                     ->orderBy('specific', 'ASC')
                                     ->orderBy('subspecific', 'ASC')
+                                    ->orderBy('institutional', 'ASC')
                                     ->get() as $record) {
             array_push($records, [
                 'id'           => $record->id,
-                'code'         =>   $record->getCodeAttribute(),
+                'code'         => $record->getCodeAttribute(),
                 'denomination' => $record->denomination,
                 'active'       => $record->active,
                 'text'         =>"{$record->getCodeAttribute()} - {$record->denomination}",

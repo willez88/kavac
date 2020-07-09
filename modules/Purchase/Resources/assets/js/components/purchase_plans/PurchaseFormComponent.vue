@@ -2,7 +2,7 @@
     <div class="form-horizontal">
         <div class="card-body">
             
-            <purchase-show-errors ref="PurchaseFormComponent" />
+            <purchase-show-errors refs="PurchaseFormComponent" />
 
             <div class="row">
                 <div class="col-3">
