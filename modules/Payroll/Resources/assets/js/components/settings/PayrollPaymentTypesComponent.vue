@@ -218,6 +218,8 @@
 </template>
 
 <script>
+    import moment from 'moment';
+
     export default {
         data() {
             return {
@@ -268,6 +270,9 @@
                     {"id": "kindergarten",               "text": "Guardería"},
                     {"id": "special_payroll",            "text": "Nómina especial"},
                     {"id": "others",                     "text": "Otros"}
+                ],
+                days:                  [
+                    'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'
                 ],
                 payroll_concepts:      [],
                 budget_accounts:       [],
@@ -342,14 +347,57 @@
                         }
                         this.record.periods_number = number;
                     };
-                    if ((this.record.periods_number > 0) && (this.record.payroll_payment_periods.length == 0)) {
-                        for (var i = 1; i <= this.record.periods_number; i++) {
+                    if ((this.record.periods_number > 0) && (this.record.payroll_payment_periods) && (this.record.payroll_payment_periods.length == 0) && (this.record.start_date != '')) {
+                        let array_start = '';
+                        let array_end = '';
+                        let number_day_start = '';
+                        let number_day_end = '';
+                        let current_date = this.record.start_date;
+                        let start_date = '';
+                        let end_date = '';
+                        let start_day = '';
+                        let end_day = '';
+                        
+                        for (var i = 0; i <= this.record.periods_number - 1; i++) {
+                            if (this.record.payment_periodicity == 'daily') {
+                                start_date = moment(String(current_date)).add(i, 'days').format('DD/MM/YYYY');
+                                end_date = moment(String(current_date)).add(i+1, 'days').format('DD/MM/YYYY');
+                            } else if (this.record.payment_periodicity == 'weekly') {
+                                start_date = moment(String(current_date)).add(8 * i, 'days').format('DD/MM/YYYY');
+                                end_date = moment(String(current_date)).add(8 * (i + 1), 'days').format('DD/MM/YYYY');
+                            } else if (this.record.payment_periodicity == 'biweekly') {
+                                start_date = moment(String(current_date)).add(15 * i, 'days').format('DD/MM/YYYY');
+                                end_date = moment(String(current_date)).add(15 * (i + 1), 'days').format('DD/MM/YYYY');
+                            } else if (this.record.payment_periodicity == 'monthly') {
+                                start_date = moment(String(current_date)).add(1 * i, 'months').format('DD/MM/YYYY');
+                                end_date = moment(String(current_date)).add(1 * (i + 1), 'months').format('DD/MM/YYYY');
+                            } else if (this.record.payment_periodicity == 'bimonthly') {
+                                start_date = moment(String(current_date)).add(2 * i, 'months').format('DD/MM/YYYY');
+                                end_date = moment(String(current_date)).add(2 * (i + 1), 'months').format('DD/MM/YYYY');
+                            } else if (this.record.payment_periodicity == 'three-monthly') {
+                                start_date = moment(String(current_date)).add(3 * i, 'months').format('DD/MM/YYYY');
+                                end_date = moment(String(current_date)).add(3 * (i + 1), 'months').format('DD/MM/YYYY');
+                            } else if (this.record.payment_periodicity == 'four-monthly') {
+                                start_date = moment(String(current_date)).add(4 * i, 'months').format('DD/MM/YYYY');
+                                end_date = moment(String(current_date)).add(4 * (i + 1), 'months').format('DD/MM/YYYY');
+                            } else if (this.record.payment_periodicity == 'biannual') {
+                                start_date = moment(String(current_date)).add(6 * i, 'months').format('DD/MM/YYYY');
+                                end_date = moment(String(current_date)).add(6 * (i + 1), 'months').format('DD/MM/YYYY');
+                            } else if (this.record.payment_periodicity == 'annual') {
+                                start_date = moment(String(current_date)).add(1 * i, 'years').format('DD/MM/YYYY');
+                                end_date = moment(String(current_date)).add(1 * (i + 1), 'years').format('DD/MM/YYYY');
+                            }
+                            /** Revisar: moment(String(current_date)).weekday();  retorna NaN */
+                            array_start = start_date.split('/');
+                            array_end = end_date.split('/');
+                            number_day_start = new Date(array_start[2] + '/' + array_start[1] + '/' + array_start[0]).getDay();
+                            number_day_end = new Date(array_end[2] + '/' + array_end[1] + '/' + array_end[0]).getDay();
                             this.record.payroll_payment_periods.push({
-                                number:         i,
-                                start_date:     '',
-                                start_day:      '',
-                                end_date:       '',
-                                end_day:        '',
+                                number:         i + 1,
+                                start_date:     start_date,
+                                start_day:      this.days[number_day_start],
+                                end_date:       end_date,
+                                end_day:        this.days[number_day_end],
                                 payment_status: 'pending'
 
                             });

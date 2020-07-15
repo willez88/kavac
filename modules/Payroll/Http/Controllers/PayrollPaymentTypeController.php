@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use Modules\Payroll\Models\PayrollPaymentType;
+use Modules\Payroll\Models\PayrollPaymentPeriod;
 use Modules\Payroll\Models\PayrollConcept;
 
 /**
@@ -86,7 +87,12 @@ class PayrollPaymentTypeController extends Controller
     public function index()
     {
         $listPaymentType = [];
-        $payrollPaymentTypes = PayrollPaymentType::with('accountingAccount', 'budgetAccount', 'payrollConcepts')->get();
+        /**
+         * Objeto asociado al modelo PayrollPaymentType
+         *
+         * @var Object $payrollPaymentTypes
+         */
+        $payrollPaymentTypes = PayrollPaymentType::with('accountingAccount', 'budgetAccount', 'payrollConcepts', 'payrollPaymentPeriods')->get();
         foreach ($payrollPaymentTypes as $payrollPaymentType) {
             $listConcepts = [];
             foreach ($payrollPaymentType->payrollConcepts as $payrollConcept) {
@@ -113,7 +119,8 @@ class PayrollPaymentTypeController extends Controller
                     'accounting_account_id' => $payrollPaymentType->accounting_account_id,
                     'budget_account_id'     => $payrollPaymentType->budget_account_id,
                     'associated_records'    => json_decode($payrollPaymentType->associated_records),
-                    'payroll_concepts'      => $listConcepts
+                    'payroll_concepts'      => $listConcepts,
+                    'payroll_payment_periods' => $payrollPaymentType->payrollPaymentPeriods
                 ]
             );
         }
@@ -157,6 +164,18 @@ class PayrollPaymentTypeController extends Controller
                 $payrollPaymentType->payrollConcepts()->attach($concept);
             }
         }
+        /** Se agregan los períodos de pago asociados al tipo de pago */
+        foreach ($request->payroll_payment_periods as $paymentPeriod) {
+            $payrollPaymentPeriod = PayrollPaymentPeriod::create([
+                'number'                  => $paymentPeriod['number'],
+                'start_date'              => $paymentPeriod['start_date'],
+                'start_day'               => $paymentPeriod['start_day'],
+                'end_date'                => $paymentPeriod['end_date'],
+                'end_day'                 => $paymentPeriod['end_day'],
+                'payment_status'          => $paymentPeriod['payment_status'],
+                'payroll_payment_type_id' => $payrollPaymentType->id
+            ]);
+        }
         return response()->json(['record' => $payrollPaymentType, 'message' => 'Success'], 200);
     }
 
@@ -192,7 +211,7 @@ class PayrollPaymentTypeController extends Controller
         $payrollPaymentType->associated_records    = json_encode($request->associated_records);
         $payrollPaymentType->save();
 
-        /** Se eliminan los conceptos asociados al tipo de pago a la tabla pivote */
+        /** Se eliminan los conceptos asociados al tipo de pago de la tabla pivote */
         foreach ($payrollPaymentType->payrollConcepts as $payrollConcept) {
             $concept = PayrollConcept::find($payrollConcept['id']);
             $payrollPaymentType->payrollConcepts()->detach($concept);
@@ -203,6 +222,28 @@ class PayrollPaymentTypeController extends Controller
                 $concept = PayrollConcept::find($payrollConcept['id']);
                 $payrollPaymentType->payrollConcepts()->attach($concept);
             }
+        }
+
+        /** Se eliminan los períodos de pago asociados al tipo de pago */
+        foreach ($payrollPaymentType->payrollPaymentPeriods as $payrollPaymentPeriod) {
+            $payrollPaymentPeriod->forceDelete();;
+        }
+        /** Se agregan los períodos de pago asociados al tipo de pago */
+        foreach ($request->payroll_payment_periods as $paymentPeriod) {
+            /**
+             * Objeto asociado al modelo PayrollPaymentPeriod
+             *
+             * @var Object $payrollPaymentPeriod
+             */
+            $payrollPaymentPeriod = PayrollPaymentPeriod::create([
+                'number'                  => $paymentPeriod['number'],
+                'start_date'              => $paymentPeriod['start_date'],
+                'start_day'               => $paymentPeriod['start_day'],
+                'end_date'                => $paymentPeriod['end_date'],
+                'end_day'                 => $paymentPeriod['end_day'],
+                'payment_status'          => $paymentPeriod['payment_status'],
+                'payroll_payment_type_id' => $payrollPaymentType->id
+            ]);
         }
         return response()->json(['message' => 'Success'], 200);
     }
@@ -232,10 +273,40 @@ class PayrollPaymentTypeController extends Controller
      *
      * @method    getPayrollPaymentTypes
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return    Array          Listado de los registros a mostrar
+     * @return    Array    Listado de los registros a mostrar
      */
     public function getPayrollPaymentTypes()
     {
         return template_choices('Modules\Payroll\Models\PayrollPaymentType', ['code', '-', 'name'], '', true);
+    }
+
+    /**
+     * Obtiene los períodos asociados al tipo de pago registrado
+     *
+     * @method    getPayrollPaymentPeriods
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    Array    Listado de los registros a mostrar
+     */
+    public function getPayrollPaymentPeriods($payment_type_id = null)
+    {
+        $listPayrollPaymentPeriods = [];
+        if (is_null($payment_type_id)) {
+            $payrollPaymentPeriods = PayrollPaymentPeriod::orderBy('number')->get();
+        } else {
+            $payrollPaymentType = PayrollPaymentType::find($payment_type_id);
+            $payrollPaymentPeriods = PayrollPaymentPeriod::where(
+                'payroll_payment_type_id', $payrollPaymentType->id
+            )->orderBy('number')->get();
+        }
+        if (!is_null($payrollPaymentPeriods)) {
+            foreach ($payrollPaymentPeriods as $payrollPaymentPeriod) {
+                array_push($listPayrollPaymentPeriods, [
+                    'id'             => $payrollPaymentPeriod->id,
+                    'text'           => $payrollPaymentPeriod->start_date,
+                    'payment_status' => $payrollPaymentPeriod->payment_status
+                ]);
+            }
+            return $listPayrollPaymentPeriods;
+        }
     }
 }
