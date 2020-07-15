@@ -272,6 +272,11 @@ class PayrollParameterController extends Controller
     public function index()
     {
         $listGlobalParameters = [];
+        /**
+         * Objeto asociado al modelo Parameter
+         *
+         * @var Object $parameters
+         */
         $parameters = Parameter::where(
             [
                 'required_by' => 'payroll',
@@ -320,6 +325,11 @@ class PayrollParameterController extends Controller
         $errors = [];
         $listGlobalParameters = [];
 
+        /**
+         * Objeto asociado al modelo Parameter
+         *
+         * @var Object $parameters
+         */
         $parameters = Parameter::where(
             [
                 'required_by' => 'payroll',
@@ -406,6 +416,12 @@ class PayrollParameterController extends Controller
 
         $errors = [];
         $listGlobalParameters = [];
+
+        /**
+         * Objeto asociado al modelo Parameter
+         *
+         * @var Object $parameter
+         */
         $parameters = Parameter::where(
             [
                 'required_by' => 'payroll',
@@ -483,6 +499,11 @@ class PayrollParameterController extends Controller
      */
     public function destroy($id)
     {
+        /**
+         * Objeto asociado al modelo Parameter
+         *
+         * @var Object $parameter
+         */
         $parameter = Parameter::where(
             [
                 'p_key'       => 'global_parameter_' . $id,
@@ -557,6 +578,11 @@ class PayrollParameterController extends Controller
     public function getPayrollParameters()
     {
         $listGlobalParameters = [['id' => '', 'text' => 'Seleccione...']];
+        /**
+         * Objeto asociado al modelo Parameter
+         *
+         * @var Object $parameter
+         */
         $parameters = Parameter::where(
             [
                 'required_by' => 'payroll',
@@ -652,7 +678,6 @@ class PayrollParameterController extends Controller
                 ]);
             }
         }
-        
         return $list;
     }
 }

@@ -11,15 +11,15 @@ use Modules\Asset\Models\AssetSubcategory;
 use Modules\Asset\Models\AssetCategory;
 
 /**
- * @class AssetSubcategoryController
- * @brief Controlador de Subcategorias de Bienes
+ * @class      AssetSubcategoryController
+ * @brief      Controlador de Subcategorias de Bienes
  *
  * Clase que gestiona las Subcategorias de bienes
  *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class AssetSubcategoryController extends Controller
 {
@@ -28,7 +28,7 @@ class AssetSubcategoryController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      */
     public function __construct()
     {
@@ -39,8 +39,8 @@ class AssetSubcategoryController extends Controller
     /**
      * Muestra un listado de las subcategorias de una categoria general de los bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function index()
     {
@@ -50,9 +50,9 @@ class AssetSubcategoryController extends Controller
     /**
      * Valida y registra un nueva subcategoria
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request   Datos de la petición
-     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
@@ -63,6 +63,11 @@ class AssetSubcategoryController extends Controller
         ]);
 
 
+        /**
+         * Objeto asociado al modelo AssetSubcategory
+         *
+         * @var Object $subcategory
+         */
         $subcategory = AssetSubcategory::create([
             'name' => $request->input('name'),
             'code' => $request->input('code'),
@@ -75,10 +80,10 @@ class AssetSubcategoryController extends Controller
     /**
      * Actualiza la información de la subcategoria de un bien institucional
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request                   Datos de la petición
-     * @param  \Modules\Asset\Models\AssetSubcategory  $subcategory Datos de la subcategoria
-     * @return \Illuminate\Http\JsonResponse                        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request                  $request        Datos de la petición
+     * @param     \Modules\Asset\Models\AssetSubcategory    $subcategory    Datos de la subcategoria
+     * @return    \Illuminate\Http\JsonResponse             Objeto con los registros a mostrar
      */
     public function update(Request $request, AssetSubcategory $subcategory)
     {
@@ -99,9 +104,9 @@ class AssetSubcategoryController extends Controller
     /**
      * Elimina la subcategoria de un bien institucional
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Modules\Asset\Models\AssetSubcategory  $subcategory Datos de la subcategoria
-     * @return \Illuminate\Http\JsonResponse                        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Modules\Asset\Models\AssetSubcategory    $subcategory    Datos de la subcategoria
+     * @return    \Illuminate\Http\JsonResponse             Objeto con los registros a mostrar
      */
     public function destroy(AssetSubcategory $subcategory)
     {
@@ -112,9 +117,9 @@ class AssetSubcategoryController extends Controller
     /**
      * Obtiene el listado de subcategorias de un bien  institucional
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Modules\Asset\Models\AssetSubcategory  $subcategory Datos de la subcategoria
-     * @return \Illuminate\Http\JsonResponse                        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Modules\Asset\Models\AssetSubcategory    $subcategory    Datos de la subcategoria
+     * @return    \Illuminate\Http\JsonResponse             Objeto con los registros a mostrar
      */
     public function getSubcategories($category_id = null)
     {

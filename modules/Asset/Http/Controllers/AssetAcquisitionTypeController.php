@@ -10,15 +10,15 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Models\AssetAcquisitionType;
 
 /**
- * @class AssetAcquisitionTypeController
- * @brief Controlador de los tipos de adquisición de bienes institucionales
+ * @class      AssetAcquisitionTypeController
+ * @brief      Controlador de los tipos de adquisición de bienes institucionales
  *
  * Clase que gestiona los tipos de adquisición de bienes institucionales
  *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class AssetAcquisitionTypeController extends Controller
 {
@@ -27,7 +27,7 @@ class AssetAcquisitionTypeController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      */
     public function __construct()
     {
@@ -38,8 +38,8 @@ class AssetAcquisitionTypeController extends Controller
     /**
      * Muestra un listado de los tipos de adquisición bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function index()
     {
@@ -49,9 +49,9 @@ class AssetAcquisitionTypeController extends Controller
     /**
      * Valida y registra un nuevo tipo adquisición de bien institucional
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request $request    Datos de la petición
-     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
@@ -60,6 +60,11 @@ class AssetAcquisitionTypeController extends Controller
         ]);
 
 
+        /**
+         * Objeto asociado al modelo AssetAcquisitionType
+         *
+         * @var Object $acquisition_type
+         */
         $acquisition_type = AssetAcquisitionType::create([
             'name' => $request->input('name')
         ]);
@@ -70,10 +75,10 @@ class AssetAcquisitionTypeController extends Controller
     /**
      * Actualiza la información del tipo de adquisición de un bien institucional
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request                              Datos de la petición
-     * @param  \Modules\Asset\Models\AssetAcquisitionType  $acquisition_type   Datos del tipo de adquisición de un bien
-     * @return \Illuminate\Http\JsonResponse                                   Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request                      $request             Datos de la petición
+     * @param     \Modules\Asset\Models\AssetAcquisitionType    $acquisition_type    Datos del tipo de adquisición de un bien
+     * @return    \Illuminate\Http\JsonResponse                 Objeto con los registros a mostrar
      */
     
     public function update(Request $request, AssetAcquisitionType $acquisition_type)
@@ -91,9 +96,9 @@ class AssetAcquisitionTypeController extends Controller
     /**
      * Elimina el tipo de adquisición de un bien institucional
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Modules\Asset\Models\AssetAcquisitionType  $acquisition_type   Datos del tipo de adquisición de un bien
-     * @return \Illuminate\Http\JsonResponse                                   Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Modules\Asset\Models\AssetAcquisitionType    $acquisition_type    Datos del tipo de adquisición de un bien
+     * @return    \Illuminate\Http\JsonResponse                 Objeto con los registros a mostrar
      */
     public function destroy(AssetAcquisitionType $acquisition_type)
     {
@@ -104,8 +109,8 @@ class AssetAcquisitionTypeController extends Controller
     /**
      * Obtiene el listado de tipos de adquisición de los bienes institucionales a implementar en elementos select
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return [Array] Arreglo con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    Array Arreglo con los registros a mostrar
      */
     public function getAcquisitionTypes()
     {

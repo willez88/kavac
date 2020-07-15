@@ -473,8 +473,8 @@
              *
              * @author    Henry Paredes <hparedes@cenditel.gob.ve>
              *
-             * @param    {integer}    index    Identificador del registro a ser modificado
-             * @param    {object}     event    Objeto que gestiona los eventos
+             * @param     {integer}    index    Identificador del registro a ser modificado
+             * @param     {object}     event    Objeto que gestiona los eventos
              */
             editSalaryScale(index, event) {
                 let vm = this;

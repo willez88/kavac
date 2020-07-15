@@ -99,7 +99,7 @@ class PayrollSalaryScaleController extends Controller
                 'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
                 'text' => 'Debe configurar previamente el formato para el código a generar'
                 ]);
-            return response()->json(['result' => false, 'redirect' => route('payroll.setting.index')], 200);
+            return response()->json(['result' => false, 'redirect' => route('payroll.settings.index')], 200);
         }
 
         $code  = generate_registration_code(
@@ -111,6 +111,11 @@ class PayrollSalaryScaleController extends Controller
         );
         
         DB::transaction(function () use ($request, $code) {
+            /**
+             * Objeto asociado al modelo PayrollSalaryScale
+             *
+             * @var Object $salaryScale
+             */
             $salaryScale = PayrollSalaryScale::create([
                 'code'                   => $code,
                 'name'                   => $request->input('name'),
@@ -122,6 +127,11 @@ class PayrollSalaryScaleController extends Controller
                 'group_by'               => $request->input('group_by')
             ]);
             foreach ($request->payroll_scales as $payrollScale) {
+                /**
+                 * Objeto asociado al modelo PayrollScale
+                 *
+                 * @var Object $scale
+                 */
                 $scale = PayrollScale::create([
                     'name'                    => $payrollScale['name'],
                     'value'                   => json_encode($payrollScale['value']),
@@ -219,9 +229,7 @@ class PayrollSalaryScaleController extends Controller
         return template_choices(
             'Modules\Payroll\Models\PayrollSalaryScale',
             'name',
-            [
-                'institution_id'         => $request->institution_id ?? $institution->id
-            ],
+            ['institution_id' => $request->institution_id ?? $institution->id],
             true
         );
     }

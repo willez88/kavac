@@ -10,15 +10,15 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Models\AssetUseFunction;
 
 /**
- * @class AssetUseFunctionController
- * @brief Controlador de las funciones de uso de los bienes institucionales
+ * @class      AssetUseFunctionController
+ * @brief      Controlador de las funciones de uso de los bienes institucionales
  *
  * Clase que gestiona las funciones de uso de los bienes institucionales
  *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class AssetUseFunctionController extends Controller
 {
@@ -27,7 +27,7 @@ class AssetUseFunctionController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      */
     public function __construct()
     {
@@ -38,8 +38,8 @@ class AssetUseFunctionController extends Controller
     /**
      * Muestra un listado de las funciones de uso de los bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function index()
     {
@@ -49,9 +49,9 @@ class AssetUseFunctionController extends Controller
     /**
      * Valida y registra una nueva funcion de uso
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request $request    Datos de la petición
-     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
@@ -60,6 +60,11 @@ class AssetUseFunctionController extends Controller
         ]);
 
 
+        /**
+         * Objeto asociado al modelo AssetUseFunction
+         *
+         * @var Object $function
+         */
         $function = AssetUseFunction::create([
             'name' => $request->input('name')
         ]);
@@ -70,10 +75,10 @@ class AssetUseFunctionController extends Controller
     /**
      * Actualiza la información de la función de uso de un bien
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request                  Datos de la petición
-     * @param  \Modules\Asset\Models\AssetUseFunction  $function   Datos de la función de uso de un bien
-     * @return \Illuminate\Http\JsonResponse                       Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @param     Integer                          $id         Identificador único de la función de usa a editar
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     
     public function update(Request $request, $id)
@@ -94,9 +99,9 @@ class AssetUseFunctionController extends Controller
     /**
      * Elimina la función de uso de un bien
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Modules\Asset\Models\AssetUseFunction  $function   Datos de la función de uso de un bien
-     * @return \Illuminate\Http\JsonResponse                       Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     Integer                          $id    Identificador único de la función de usa a eliminar
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function destroy($id)
     {
@@ -110,8 +115,8 @@ class AssetUseFunctionController extends Controller
     /**
      * Obtiene el listado de las funciones de uso registradas a implementar en elementos select
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return [Array] Arreglo con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    Array    Arreglo con los registros a mostrar
      */
     public function getUseFunctions()
     {

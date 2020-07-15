@@ -64,6 +64,7 @@
                         <div class=" form-group is-required">
                             <label>Tipo de pago de nómina:</label>
                             <select2 :options="payroll_payment_types"
+                                     @input="getPayrollPaymentPeriod()"
                                      v-model="record.payroll_payment_type_id"></select2>
                         </div>
                         <!-- ./tipo de pago de nómina -->
@@ -127,6 +128,7 @@
 </template>
 
 <script>
+    import moment from 'moment';
     export default {
         data() {
             return {
@@ -161,6 +163,34 @@
             vm.getPayrollPaymentTypes();
             vm.getOptions('payroll/get-parameters');
         },
+        mounted() {
+            const vm = this;
+            if (vm.payroll_id) {
+
+            } else {
+                vm.record.created_at = moment(String(new Date())).format('YYYY-MM-DD hh:mm:ss');
+            }
+        },
+        watch: {
+            /**
+             * Método que supervisa los cambios en el objeto record y actualiza el período de pago seleccionado
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve> | <henryp2804@gmail.com>
+             */
+            record: {
+                deep: true,
+                handler: function() {
+                    const vm = this;
+                    if (vm.record.payroll_payment_period_id == '') {
+                        $.each(this.payroll_payment_periods, function(index, field) {
+                            if ((field['payment_status'] == 'pending') && (vm.record.payroll_payment_period_id == '')) {
+                                vm.record.payroll_payment_period_id = field['id'];
+                            }
+                        });
+                    }
+                }
+            }
+        },
         methods: {
             /**
              * Método que permite borrar todos los datos del formulario
@@ -187,6 +217,21 @@
                     vm.payroll_parameters = response.data;
                 });
             },
+            /**
+             * Método que obtiene un arreglo con los periodos de pago asociados al tipo de pago
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+             */
+            getPayrollPaymentPeriod() {
+                const vm = this;
+                vm.payroll_payment_periods = [];
+                if (vm.record.payroll_payment_type_id) {
+                    axios.get('/payroll/get-payment-periods/' + vm.record.payroll_payment_type_id).then(response => {
+                        vm.payroll_payment_periods = response.data;
+                        vm.record.payroll_payment_period_id = '';
+                    });
+                }
+            }
         }
     };
 </script>

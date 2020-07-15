@@ -16,15 +16,15 @@ use Modules\Asset\Models\Asset;
 use App\Models\Profile;
 
 /**
- * @class AssetAsignationController
- * @brief Controlador de asignaciones de bienes institucionales
+ * @class      AssetAsignationController
+ * @brief      Controlador de asignaciones de bienes institucionales
  *
  * Clase que gestiona las asignaciones de bienes institucionales
  *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class AssetAsignationController extends Controller
 {
@@ -33,7 +33,7 @@ class AssetAsignationController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      */
     public function __construct()
     {
@@ -47,8 +47,8 @@ class AssetAsignationController extends Controller
     /**
      * Muestra el listado de las asignaciones de bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\View\View
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\View\View
      */
     public function index()
     {
@@ -58,8 +58,8 @@ class AssetAsignationController extends Controller
     /**
      * Muestra el formulario para registrar una nueva asignación de bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\View\View
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\View\View
      */
     public function create()
     {
@@ -69,9 +69,9 @@ class AssetAsignationController extends Controller
     /**
      * Muestra el formulario para registrar una nueva asignación de un bien nstitucional
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  Integer $id Identificador único del bien a asignar
-     * @return \Illuminate\View\View
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     Integer                  $id    Identificador único del bien a asignar
+     * @return    \Illuminate\View\View
      */
     public function assetAssign($id)
     {
@@ -82,9 +82,9 @@ class AssetAsignationController extends Controller
     /**
      * Valida y registra una nueva asignación de bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request Datos de la petición
-     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
@@ -109,6 +109,11 @@ class AssetAsignationController extends Controller
             $codeSetting->field
         );
 
+        /**
+         * Objeto asociado al modelo AssetAsignation
+         *
+         * @var Object $asignation
+         */
         $asignation = AssetAsignation::create([
             'code' => $code,
             'payroll_staff_id' => $request->input('payroll_staff_id'),
@@ -119,6 +124,12 @@ class AssetAsignationController extends Controller
             $asset = Asset::find($product);
             $asset->asset_status_id = 1;
             $asset->save();
+            
+            /**
+             * Objeto asociado al modelo AssetAsignationAsset
+             *
+             * @var Object $asset_asignation
+             */
             $asset_asignation = AssetAsignationAsset::create([
                 'asset_id' => $asset->id,
                 'asset_asignation_id' => $asignation->id,
@@ -131,9 +142,9 @@ class AssetAsignationController extends Controller
     /**
      * Muestra el formulario para actualizar la información de las asignaciones de bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Modules\Asset\Models\AssetAsignation  $asignation Datos de la asignación de un bien
-     * @return \Illuminate\View\View
+     * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param      \Modules\Asset\Models\AssetAsignation    $asignation    Datos de la asignación de un bien
+     * @return     \Illuminate\View\View
      */
     public function edit($id)
     {
@@ -144,10 +155,10 @@ class AssetAsignationController extends Controller
     /**
      * Actualiza la información de las asignaciones de bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request Datos de la petición
-     * @param  Integer $id Identificador único de la asignación
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request     $request    Datos de la petición
+     * @param     Integer                      $id         Identificador único de la asignación
+     * @return    \Illuminate\Http\Response    JSON con los registros a mostrar
      */
     public function update(Request $request, $id)
     {
@@ -161,6 +172,12 @@ class AssetAsignationController extends Controller
             $asset = Asset::find($asset_id);
             $asset->asset_status_id = 1;
             $asset->save();
+
+            /**
+             * Objeto asociado al modelo AssetAsignationAsset
+             *
+             * @var Object $asset_asignation
+             */
             $asset_asignation = AssetAsignationAsset::updateOrCreate([
                     'asset_id' => $asset->id,
                     'asset_asignation_id' => $asignation->id,
@@ -186,9 +203,9 @@ class AssetAsignationController extends Controller
     /**
      * Elimina una asignación de un bien institucional
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Modules\Asset\Models\AssetAsignation $asignation Datos de la asignación de un bien
-     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Modules\Asset\Models\AssetAsignation    $asignation    Datos de la asignación de un bien
+     * @return    \Illuminate\Http\JsonResponse            Objeto con los registros a mostrar
      */
     public function destroy(AssetAsignation $asignation)
     {
@@ -199,9 +216,9 @@ class AssetAsignationController extends Controller
     /**
      * Obtiene la información de la asignación de un bien institucional
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Modules\Asset\Models\AssetAsignation $asignation Datos de la asignación de un bien
-     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Modules\Asset\Models\AssetAsignation    $asignation    Datos de la asignación de un bien
+     * @return    \Illuminate\Http\JsonResponse            Objeto con los registros a mostrar
      */
     public function vueInfo($id)
     {
@@ -230,8 +247,8 @@ class AssetAsignationController extends Controller
     /**
      * Otiene un listado de las asignaciones registradas
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function vueList()
     {
