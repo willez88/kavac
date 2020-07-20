@@ -1,5 +1,6 @@
 <?php
 
+/** Eliminar */
 namespace Modules\Asset\Http\Controllers;
 
 use Illuminate\Routing\Controller;

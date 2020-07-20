@@ -13,23 +13,23 @@ use Modules\Asset\Models\AssetInventory;
 use Modules\Asset\Models\Asset;
 
 /**
- * @class AssetInventoryController
- * @brief Controlador del historico de inventario de bienes institucionales
+ * @class      AssetInventoryController
+ * @brief      Controlador del historico de inventario de bienes institucionales
  *
  * Clase que gestiona el historico del inventario de bienes institucionales
  *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class AssetInventoryController extends Controller
 {
     /**
      * Muestra un listado de los inventarios registrados
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\View\View
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\View\View
      */
     public function index()
     {
@@ -39,9 +39,9 @@ class AssetInventoryController extends Controller
     /**
      * Valida y registra el estado actual del inventario
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request $request    Datos de la petición
-     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
@@ -62,6 +62,11 @@ class AssetInventoryController extends Controller
             $codeSetting->field
         );
 
+        /**
+         * Objeto asociado al modelo AssetInventory
+         *
+         * @var Object $inventory
+         */
         $inventory = AssetInventory::create([
             'code' => $code,
         ]);
@@ -100,9 +105,9 @@ class AssetInventoryController extends Controller
     /**
      * Elimina un registro de inventario
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Modules\Asset\Models\AssetInventory $inventory Datos del registro de inventario
-     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     Integer                                 $id    Identificador único del registro a eliminar
+     * @return    \Illuminate\Http\JsonResponse           Objeto con los registros a mostrar
      */
     public function destroy($id)
     {
@@ -114,8 +119,8 @@ class AssetInventoryController extends Controller
     /**
      * Otiene un listado de las inventarios registradas
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function vueList()
     {

@@ -18,15 +18,15 @@ use Modules\Asset\Models\Asset;
 use App\Models\Profile;
 
 /**
- * @class AssetDisincorporationController
- * @brief Controlador de las desincorporaciones de bienes institucionales
+ * @class     AssetDisincorporationController
+ * @brief     Controlador de las desincorporaciones de bienes institucionales
  *
  * Clase que gestiona las desincorporaciones de bienes institucionales
  *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class AssetDisincorporationController extends Controller
 {
@@ -35,7 +35,7 @@ class AssetDisincorporationController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      */
     public function __construct()
     {
@@ -49,8 +49,8 @@ class AssetDisincorporationController extends Controller
     /**
      * Muestra un listado de las Ddsincorporaciones de bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\View\View
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\View\View
      */
     public function index()
     {
@@ -60,8 +60,8 @@ class AssetDisincorporationController extends Controller
     /**
      * Muestra el formulario para registrar una nueva desincorporación de bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\View\View
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\View\View
      */
     public function create()
     {
@@ -71,9 +71,9 @@ class AssetDisincorporationController extends Controller
     /**
     * Valida y registra una nueva desincorporación de bienes institucionales
     *
-    * @author Henry Paredes <hparedes@cenditel.gob.ve>
-    * @param  \Illuminate\Http\Request  $request   Datos de la petición
-    * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar)
+    * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+    * @param     \Illuminate\Http\Request         $request    Datos de la petición
+    * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar)
     */
     public function store(Request $request, UploadImageRepository $upImage, UploadDocRepository $upDoc)
     {
@@ -102,6 +102,11 @@ class AssetDisincorporationController extends Controller
             $codeSetting->field
         );
 
+        /**
+         * Objeto asociado al modelo AssetDisincorporation
+         *
+         * @var Object $disincorporation
+         */
         $disincorporation = AssetDisincorporation::create([
             'code' => $code,
             'date' => $request->date,
@@ -121,8 +126,9 @@ class AssetDisincorporationController extends Controller
             ]);
         }
 
+        /** Se guardan los docmentos, según sea el tipo (imágenes y/o documentos)*/
         $documentFormat = ['doc', 'docx', 'pdf', 'odt'];
-        $imageFormat = ['jpeg', 'jpg', 'png'];
+        $imageFormat    = ['jpeg', 'jpg', 'png'];
         if ($request->files) {
             foreach ($request->file('files') as $file) {
                 $extensionFile = $file->getClientOriginalExtension();
@@ -152,9 +158,9 @@ class AssetDisincorporationController extends Controller
     /**
      * Muestra el formulario para desincorporar un bien institucional
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  [Integer] $id                    Identificador único del bien a desincorporar
-     * @return \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     Integer                          $id    Identificador único del bien a desincorporar
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function assetDisassign($id)
     {
@@ -165,9 +171,9 @@ class AssetDisincorporationController extends Controller
     /**
      * Muestra el formulario para actualizar la información de las desincorporaciones de bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  [Integer]  $id                   Identificador único de la desincorporación a editar
-     * @return \Illuminate\Http\JsonResponse    Objeto con los datos a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     Integer                          $id    Identificador único de la desincorporación a editar
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los datos a mostrar
      */
     public function edit($id)
     {
@@ -178,10 +184,10 @@ class AssetDisincorporationController extends Controller
     /**
      * Actualiza la información de las desincorporaciones de bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request   Datos de la petición
-     * @param  [Integer] $id                        Identificador único de la desincorporación
-     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @param     Integer                          $id         Identificador único de la desincorporación
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function update(Request $request, $id)
     {
@@ -229,9 +235,10 @@ class AssetDisincorporationController extends Controller
     /**
      * Elimina una desincorporación de bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Modules\Asset\Models\AssetDisincorporation $disincorporation    Datos de la desincorporación de un bien
-     * @return \Illuminate\Http\JsonResponse                                    Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Modules\Asset\Models\AssetDisincorporation    $disincorporation    Datos de la desincorporación
+     *                                                                                de un bien
+     * @return    \Illuminate\Http\JsonResponse                  Objeto con los registros a mostrar
      */
     public function destroy(AssetDisincorporation $disincorporation)
     {
@@ -242,9 +249,9 @@ class AssetDisincorporationController extends Controller
     /**
      * Vizualiza la información de la desincorporación de un bien institucional
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  [Integer] $id                  Identificador único de la desincorporación
-     * @return \Illuminate\Http\JsonResponse  Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     Integer                          $id    Identificador único de la desincorporación
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function vueInfo($id)
     {
@@ -272,8 +279,8 @@ class AssetDisincorporationController extends Controller
     /**
      * Otiene un listado de las desincorporaciones registradas
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function vueList()
     {
@@ -298,8 +305,8 @@ class AssetDisincorporationController extends Controller
     /**
      * Otiene un listado de los motivos de las desincorporaciones registradas
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return [array] Array con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    Array    Array con los registros a mostrar
      */
     public function getAssetDisincorporationMotives()
     {

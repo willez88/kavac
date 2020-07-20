@@ -15,25 +15,25 @@ use App\Repositories\UploadDocRepository;
 use Modules\TechnicalSupport\Models\TechnicalSupportRequest;
 
 /**
- * @class AssetRequestEventController
- * @brief Controlador de eventos en bienes institucionales solicitados
+ * @class      AssetRequestEventController
+ * @brief      Controlador de eventos en bienes institucionales solicitados
  *
  * Clase que gestiona los eventos ocurridos a los bienes institucionales solicitados
  *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class AssetRequestEventController extends Controller
 {
     use ValidatesRequests;
 
     /**
-     * Muestra un listado de las solicitudes de bienes institucionales
+     * Muestra un listado de las solicitudes de eventos de bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function index()
     {
@@ -43,9 +43,9 @@ class AssetRequestEventController extends Controller
     /**
      * Valida y registra un nuevo evento
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request   Datos de la petición
-     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function store(Request $request, UploadDocRepository $upDoc)
     {
@@ -64,6 +64,11 @@ class AssetRequestEventController extends Controller
 
         $request->equipments = json_decode($request->equipments);
 
+        /**
+         * Objeto asociado al modelo AssetRequestEvent
+         *
+         * @var Object $event
+         */
         $event = AssetRequestEvent::create([
             'type'             => $request->input('type'),
             'description'      => $request->input('description'),
@@ -107,10 +112,10 @@ class AssetRequestEventController extends Controller
     /**
      * Actualiza la información de las solicitudes de bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request             Datos de la petición
-     * @param  Modules\Asset\Models\AssetRequestEvent $event  Datos del evento
-     * @return \Illuminate\Http\JsonResponse                  Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @param     Integer                          $id         Identificador único del evento
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function update(Request $request, $id)
     {
@@ -132,9 +137,9 @@ class AssetRequestEventController extends Controller
     /**
      * Elimina un evento
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  Modules\Asset\Models\AssetRequestEvent $event    Datos del evento
-     * @return \Illuminate\Http\JsonResponse                    Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     Integer                          $id         Identificador único del evento
+     * @return    \Illuminate\Http\JsonResponse                    Objeto con los registros a mostrar
      */
     public function destroy($id)
     {

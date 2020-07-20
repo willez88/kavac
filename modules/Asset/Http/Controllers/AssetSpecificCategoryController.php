@@ -12,22 +12,22 @@ use Modules\Asset\Models\AssetSpecificCategory;
 use Modules\Asset\Models\AssetRequiredItem;
 
 /**
- * @class AssetSpecificCategoryController
- * @brief Controlador de Categorias Especificas de Bienes
+ * @class      AssetSpecificCategoryController
+ * @brief      Controlador de Categorias Especificas de Bienes
  *
  * Clase que gestiona las Categorias Especificas de bienes
  *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class AssetSpecificCategoryController extends Controller
 {
     /**
      * Define la configuración de la clase
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      */
     public function __construct()
     {
@@ -38,8 +38,8 @@ class AssetSpecificCategoryController extends Controller
     /**
      * Muestra un listado de las Subcategorias de una categoria de Bien
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function index()
     {
@@ -57,8 +57,8 @@ class AssetSpecificCategoryController extends Controller
     /**
      * Muestra el formulario para crear un nueva Categoria Especifica
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function create()
     {
@@ -67,9 +67,9 @@ class AssetSpecificCategoryController extends Controller
     /**
      * Valida y Registra un nueva Categoria Especifica
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
@@ -80,6 +80,11 @@ class AssetSpecificCategoryController extends Controller
         ]);
 
 
+        /**
+         * Objeto asociado al modelo AssetSpecificCategory
+         *
+         * @var Object $specific_category
+         */
         $specific_category = AssetSpecificCategory::create([
             'name' => $request->input('name'),
             'code' => $request->input('code'),
@@ -90,34 +95,12 @@ class AssetSpecificCategoryController extends Controller
     }
 
     /**
-     * Muestra los datos de la Categoria Especifica de un Bien
-     *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Modules\Asset\Models\AssetSpecificCategory  $specific_category (Datos de la categoria especifica)
-     * @return \Illuminate\Http\Response (Objeto con los datos a mostrar)
-     */
-    public function show(AssetSpecificCategory $specific_category)
-    {
-    }
-
-    /**
-     * Muestra el formulario para actualizar información de la Categoria Especifica de un Bien
-     *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Modules\Asset\Models\AssetSpecificCategory  $specific_category (Datos de la categoria especifica)
-     * @return \Illuminate\Http\Response (Objeto con los datos a mostrar)
-     */
-    public function edit(AssetSpecificCategory $specific_category)
-    {
-    }
-
-    /**
      * Actualiza la información de la Categoria Especifica de un Bien
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @param  \Modules\Asset\Models\AssetSpecificCategory  $specific_category (Datos de la categoria especifica)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request                       $request              Datos de la petición
+     * @param     \Modules\Asset\Models\AssetSpecificCategory    $specific_category    Datos de la categoria especifica
+     * @return    \Illuminate\Http\JsonResponse                  Objeto con los registros a mostrar
      */
     public function update(Request $request, AssetSpecificCategory $specific_category)
     {
@@ -140,9 +123,9 @@ class AssetSpecificCategoryController extends Controller
     /**
      * Elimina la Categoria Especifica de un Bien
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Modules\Asset\Models\AssetSpecificCategory  $specific_category (Datos de la categoria especifica)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     Integer                          Identificador único de la categoría específica a eliminar
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function destroy($id)
     {
@@ -151,6 +134,13 @@ class AssetSpecificCategoryController extends Controller
         return response()->json(['record' => $specific_category, 'message' => 'Success'], 200);
     }
 
+    /**
+     * Obtiene el listado de las categorias específicas de bienes institucionales a implementar en elementos select
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     Integer    $subcategory_id    Identificador único de la sub-categoría
+     * @return    Array      Arreglo con los registros a mostrar
+     */
     public function getSpecificCategories($subcategory_id = null)
     {
         if (is_null($subcategory_id)) {
@@ -165,6 +155,13 @@ class AssetSpecificCategoryController extends Controller
         ):[];
     }
 
+    /**
+     * Obtiene el listado de los requerimientos de las categorias específicas de bienes institucionales
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     Integer    $id    Identificador único de la categoría específica
+     * @return    Array      Arreglo con los registros a mostrar
+     */
     public function getRequired($id)
     {
         $required = AssetRequiredItem::where('asset_specific_category_id', $id)->first();

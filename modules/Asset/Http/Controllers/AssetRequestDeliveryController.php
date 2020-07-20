@@ -14,15 +14,15 @@ use Modules\Asset\Models\AssetRequestAsset;
 use Modules\Asset\Models\AssetRequestDelivery;
 
 /**
- * @class AssetRequestDeliveryController
- * @brief Controlador de las solicitudes de entrega de equipos
+ * @class      AssetRequestDeliveryController
+ * @brief      Controlador de las solicitudes de entrega de equipos
  *
  * Clase que gestiona las solicitudes de entrega de equipos
  *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class AssetRequestDeliveryController extends Controller
 {
@@ -31,8 +31,8 @@ class AssetRequestDeliveryController extends Controller
     /**
      * Muestra un listado de las solicitudes de entrega bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function index()
     {
@@ -42,9 +42,9 @@ class AssetRequestDeliveryController extends Controller
     /**
      * Valida y registra una nueva solicitud de entrega
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request   Datos de la petición
-     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
@@ -52,6 +52,11 @@ class AssetRequestDeliveryController extends Controller
             'asset_request_id' => ['required']
         ]);
     
+        /**
+         * Objeto asociado al modelo AssetRequestDelivery
+         *
+         * @var Object $request_delivery
+         */
         $request_delivery = AssetRequestDelivery::create([
             'state' => 'Pendiente',
             'asset_request_id' => $request->input('asset_request_id'),
@@ -65,10 +70,10 @@ class AssetRequestDeliveryController extends Controller
     /**
      * Actualiza la información de las solicitudes de entrega de bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request                   Datos de la petición
-     * @param  Modules\Asset\Models\AssetRequestDelivery $delivery  Datos de la solicitud
-     * @return \Illuminate\Http\JsonResponse                        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request                     $request     Datos de la petición
+     * @param     Modules\Asset\Models\AssetRequestDelivery    $delivery    Datos de la solicitud
+     * @return    \Illuminate\Http\JsonResponse                Objeto con los registros a mostrar
      */
     public function update(Request $request, AssetRequestDelivery $delivery)
     {
@@ -105,9 +110,9 @@ class AssetRequestDeliveryController extends Controller
     /**
      * Elimina una solicitud de entrega
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  Modules\Asset\Models\AssetRequestDelivery $delivery  Datos de la solicitud
-     * @return \Illuminate\Http\JsonResponse                        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     Modules\Asset\Models\AssetRequestDelivery    $delivery    Datos de la solicitud
+     * @return    \Illuminate\Http\JsonResponse                Objeto con los registros a mostrar
      */
     public function destroy(AssetRequestDelivery $delivery)
     {

@@ -11,15 +11,15 @@ use App\Models\CodeSetting;
 use App\Rules\CodeSetting as CodeSettingRule;
 
 /**
- * @class AssetSettingController
- * @brief Controlador del panel de configuración del módulo de bienes
+ * @class      AssetSettingController
+ * @brief      Controlador del panel de configuración del módulo de bienes
  *
  * Clase que gestiona la configuración general del módulo de bienes
  *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class AssetSettingController extends Controller
 {
@@ -28,7 +28,7 @@ class AssetSettingController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      */
     public function __construct()
     {
@@ -37,8 +37,10 @@ class AssetSettingController extends Controller
     }
     
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Muestra la configuración del módulo de bienes
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\View\View
      */
     public function index()
     {
@@ -51,6 +53,13 @@ class AssetSettingController extends Controller
         return view('asset::settings', compact('codeSettings', 'asCode', 'dsCode', 'rqCode', 'rpCode', 'ivCode'));
     }
 
+    /**
+     * Valida y registra la configuración de códigos del módulo de bienes
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @return    \Illuminate\View\View
+     */
     public function store(Request $request)
     {
         /** Reglas de validación para la configuración de códigos */

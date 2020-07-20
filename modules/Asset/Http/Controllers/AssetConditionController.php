@@ -10,15 +10,15 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Models\AssetCondition;
 
 /**
- * @class AssetConditionController
- * @brief Controlador de la condición física de los bienes institucionales
+ * @class      AssetConditionController
+ * @brief      Controlador de la condición física de los bienes institucionales
  *
  * Clase que gestiona la condición física de los bienes institucionales
  *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class AssetConditionController extends Controller
 {
@@ -27,7 +27,7 @@ class AssetConditionController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      */
     public function __construct()
     {
@@ -38,8 +38,8 @@ class AssetConditionController extends Controller
     /**
      * Muestra un listado de las condiciones físicas de los bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function index()
     {
@@ -49,9 +49,9 @@ class AssetConditionController extends Controller
     /**
      * Valida y registra una nueva condición física
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request $request    Datos de la petición
-     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
@@ -60,6 +60,11 @@ class AssetConditionController extends Controller
         ]);
 
 
+        /**
+         * Objeto asociado al modelo AssetCondition
+         *
+         * @var Object $condition
+         */
         $condition = AssetCondition::create([
             'name' => $request->input('name')
         ]);
@@ -70,12 +75,11 @@ class AssetConditionController extends Controller
     /**
      * Actualiza la información de la condición física de un bien
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request                 Datos de la petición
-     * @param  \Modules\Asset\Models\AssetCondition  $condition   Datos de la condición física
-     * @return \Illuminate\Http\JsonResponse                      Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request                $request      Datos de la petición
+     * @param     \Modules\Asset\Models\AssetCondition    $condition    Datos de la condición física
+     * @return    \Illuminate\Http\JsonResponse           Objeto con los registros a mostrar
      */
-    
     public function update(Request $request, AssetCondition $condition)
     {
         $this->validate($request, [
@@ -91,9 +95,9 @@ class AssetConditionController extends Controller
     /**
      * Elimina la condición física de un bien
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Modules\Asset\Models\AssetCondition  $condition   Datos de la condición física
-     * @return \Illuminate\Http\JsonResponse                      Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Modules\Asset\Models\AssetCondition    $condition    Datos de la condición física
+     * @return    \Illuminate\Http\JsonResponse           Objeto con los registros a mostrar
      */
     public function destroy(AssetCondition $condition)
     {
@@ -104,8 +108,8 @@ class AssetConditionController extends Controller
     /**
      * Obtiene el listado de las condiciones físicas de los bienes institucionales a implementar en elementos select
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return [Array] Arreglo con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    Array    Arreglo con los registros a mostrar
      */
     public function getConditions()
     {

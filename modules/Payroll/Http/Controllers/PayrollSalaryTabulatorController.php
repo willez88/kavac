@@ -125,7 +125,7 @@ class PayrollSalaryTabulatorController extends Controller
                 'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
                 'text' => 'Debe configurar previamente el formato para el código a generar'
                 ]);
-            return response()->json(['result' => false, 'redirect' => route('payroll.setting.index')], 200);
+            return response()->json(['result' => false, 'redirect' => route('payroll.settings.index')], 200);
         }
 
         $code  = generate_registration_code(
@@ -137,6 +137,11 @@ class PayrollSalaryTabulatorController extends Controller
         );
         
         DB::transaction(function () use ($request, $code) {
+            /**
+             * Objeto asociado al modelo PayrollSalaryTabulator
+             *
+             * @var Object $salaryTabulator
+             */
             $salaryTabulator = PayrollSalaryTabulator::create([
                 'code'                               => $code,
                 'name'                               => $request->input('name'),
@@ -152,11 +157,18 @@ class PayrollSalaryTabulatorController extends Controller
             ]);
 
             if ($salaryTabulator) {
+                /** Se agregan los registros de tipos de personal a la tabla intermedia */
                 foreach ($request->payroll_staff_types as $payroll_staff_type) {
                     $staff_type_id = PayrollStaffType::find($payroll_staff_type['id']);
                     $salaryTabulator->payrollStaffTypes()->attach($staff_type_id);
                 }
+                /** Se agregan las escalas del tabulador salarial */
                 foreach ($request->payroll_salary_tabulator_scales as $payrollScale) {
+                    /**
+                     * Objeto asociado al modelo PayrollSalaryTabulatorScale
+                     *
+                     * @var Object $salaryTabulatorScale
+                     */
                     $salaryTabulatorScale = PayrollSalaryTabulatorScale::create([
                         'value'                       => $payrollScale['value'],
                         'payroll_vertical_scale_id'   => $payrollScale['payroll_vertical_scale_id'] ?? null,
@@ -197,11 +209,12 @@ class PayrollSalaryTabulatorController extends Controller
                 'payroll_horizontal_salary_scale_id' => $request->input('payroll_horizontal_salary_scale_id')
             ]);
 
-            /** Se actualizan las relaciones entre tabuladores salariales y tipos de personal */
+            /** Se eliminan los registros en desuso de tipos de personal de la tabla intermedia */
             foreach ($salaryTabulator->payrollStaffTypes() as $payrollStaffType) {
                 $staffType_id = PayrollStaffType::find($payrollStaffType['id']);
                 $salaryTabulator->payrollStaffTypes()->detach($staffType_id);
             }
+            /** Se agregan los nuevos registros de tipos de personal a la tabla intermedia */
             foreach ($request->payroll_staff_types as $payrollStaffType) {
                 $staffType_id = PayrollStaffType::find($payrollStaffType['id']);
                 $salaryTabulator->payrollStaffTypes()->attach($staffType_id);

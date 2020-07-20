@@ -11,15 +11,15 @@ use Modules\Asset\Models\AssetCategory;
 use Modules\Asset\Models\AssetType;
 
 /**
- * @class AssetCategoryController
- * @brief Controlador de categorias de bienes institucionales
+ * @class      AssetCategoryController
+ * @brief      Controlador de categorias de bienes institucionales
  *
  * Clase que gestiona las categorias de bienes institucionales
  *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class AssetCategoryController extends Controller
 {
@@ -28,7 +28,7 @@ class AssetCategoryController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      */
     public function __construct()
     {
@@ -39,8 +39,8 @@ class AssetCategoryController extends Controller
     /**
      * Muestra un listado de las categorias de un tipo de bien institucional
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function index()
     {
@@ -50,9 +50,9 @@ class AssetCategoryController extends Controller
     /**
      * Valida y registra un nueva categoria general
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request   Datos de la petición
-     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
@@ -63,6 +63,11 @@ class AssetCategoryController extends Controller
         ]);
 
 
+        /**
+         * Objeto asociado al modelo AssetCategory
+         *
+         * @var Object $category
+         */
         $category = AssetCategory::create([
             'name' => $request->input('name'),
             'code' => $request->input('code'),
@@ -75,10 +80,10 @@ class AssetCategoryController extends Controller
     /**
      * Actualiza la información de la categoria general
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request               Datos de la petición
-     * @param  \Modules\Asset\Models\AssetCategory  $category   Datos de la categoria
-     * @return \Illuminate\Http\JsonResponse                    Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request               $request     Datos de la petición
+     * @param     \Modules\Asset\Models\AssetCategory    $category    Datos de la categoria
+     * @return    \Illuminate\Http\JsonResponse          Objeto con los registros a mostrar
      */
     public function update(Request $request, AssetCategory $category)
     {
@@ -100,9 +105,9 @@ class AssetCategoryController extends Controller
     /**
      * Elimina la categoria general
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Modules\Asset\Models\AssetCategory  $category   Datos de la categoria
-     * @return \Illuminate\Http\JsonResponse                    Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Modules\Asset\Models\AssetCategory    $category    Datos de la categoria
+     * @return    \Illuminate\Http\JsonResponse          Objeto con los registros a mostrar
      */
     public function destroy(AssetCategory $category)
     {
@@ -113,9 +118,9 @@ class AssetCategoryController extends Controller
     /**
      * Obtiene el listado de las categorias generales de bienes institucionales a implementar en elementos select
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  [Integer]  $type_id   Identificador único del tipo de bien
-     * @return [Array] Arreglo con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     Integer    $type_id    Identificador único del tipo de bien
+     * @return    Array      Arreglo con los registros a mostrar
      */
     public function getCategories($type_id = null)
     {

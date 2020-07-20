@@ -1,5 +1,6 @@
 <?php
 
+/**Revisar */
 namespace Modules\Asset\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -14,23 +15,25 @@ use Modules\Asset\Models\AssetRequest;
 use Modules\Asset\Rules\DateExtension;
 
 /**
- * @class AssetRequestExtensionController
- * @brief Controlador de prorrogas de entrega en bienes institucionales solicitados
+ * @class      AssetRequestExtensionController
+ * @brief      Controlador de prorrogas de entrega en bienes institucionales solicitados
  *
  * Clase que gestiona las prorrogas de entrega solicitadas
  *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class AssetRequestExtensionController extends Controller
 {
     use ValidatesRequests;
 
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Muestra un listado de las solicitudes de de prorroga de bienes institucionales
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function index()
     {
@@ -38,17 +41,11 @@ class AssetRequestExtensionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
-    public function create()
-    {
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Valida y registra una nueva prorroga
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {

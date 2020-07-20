@@ -23,15 +23,15 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Profile;
 
 /**
- * @class AssetController
- * @brief Controlador de bienes institucionales
+ * @class      AssetController
+ * @brief      Controlador de bienes institucionales
  *
  * Clase que gestiona los bienes institucionales
  *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class AssetController extends Controller
 {
@@ -40,7 +40,7 @@ class AssetController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      */
     public function __construct()
     {
@@ -54,8 +54,8 @@ class AssetController extends Controller
     /**
      * Muestra un listado de los bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\View\View
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\View\View
      */
     public function index()
     {
@@ -65,8 +65,8 @@ class AssetController extends Controller
     /**
      * Muestra el formulario para registrar un nuevo bien institucional
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\View\View
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\View\View
      */
     public function create()
     {
@@ -76,9 +76,9 @@ class AssetController extends Controller
     /**
      * Valida y registra un nuevo bien institucional
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request   Datos de la petición
-     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
@@ -132,9 +132,9 @@ class AssetController extends Controller
     /**
      * Muestra el formulario para actualizar la información de los bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Modules\Asset\Models\Asset  $asset  Datos del Bien
-     * @return \Illuminate\View\View
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Modules\Asset\Models\Asset    $asset    Datos del Bien
+     * @return    \Illuminate\View\View
      */
     public function edit($id)
     {
@@ -145,10 +145,10 @@ class AssetController extends Controller
     /**
      * Actualiza la información de los bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request   Datos de la petición
-     * @param  [Integer] $id                        Identificador único del bien
-     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @param     Integer                          $id         Identificador único del bien
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function update(Request $request, $id)
     {
@@ -211,9 +211,9 @@ class AssetController extends Controller
     /**
      * Elimina un bien institucional
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Modules\Asset\Models\Asset $asset   Datos del Bien
-     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Modules\Asset\Models\Asset      $asset    Datos del Bien
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function destroy(Asset $asset)
     {
@@ -224,9 +224,9 @@ class AssetController extends Controller
     /**
      * Obtiene la información del bien institucional registrado
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Modules\Asset\Models\Asset $asset   Datos del bien institucional
-     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Modules\Asset\Models\Asset      $asset    Datos del bien institucional
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function vueInfo($id)
     {
@@ -257,8 +257,12 @@ class AssetController extends Controller
     /**
      * Otiene un listado de los bienes registradas
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     Integer                          $perPage         Número de registros por página
+     * @param     Integer                          $page            Número de la página seleccionada
+     * @param     String                           $operation       Tipo de operación realizada
+     * @param     Integer                          $operation_id    Identificador único de la operación
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function vueList($perPage = 10, $page = 1, $operation = null, $operation_id = null)
     {
@@ -378,9 +382,9 @@ class AssetController extends Controller
     /**
      * Filtra por su código de clasificación los bienes registradas
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request   Datos de la petición
-     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function searchClasification(Request $request)
     {
@@ -400,9 +404,9 @@ class AssetController extends Controller
     /**
      * Filtra por su fecha de registro los bienes registradas
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request   Datos de la petición
-     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function searchGeneral(Request $request)
     {
@@ -418,9 +422,9 @@ class AssetController extends Controller
     /**
      * Filtra por su ubicación en la institución los bienes registradas
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request   Datos de la petición
-     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function searchDependence(Request $request)
     {
@@ -436,8 +440,8 @@ class AssetController extends Controller
     /**
      * Realiza la acción necesaria para exportar los datos del modelo Asset
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return object    Objeto que permite descargar el archivo con la información a ser exportada
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    object    Objeto que permite descargar el archivo con la información a ser exportada
      */
     public function export()
     {
@@ -447,9 +451,8 @@ class AssetController extends Controller
     /**
      * Realiza la acción necesaria para importar los datos suministrados en un archivo para el modelo Asset
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     *
-     * @return object    Objeto que permite descargar el archivo con la información a ser exportada
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    object    Objeto que permite descargar el archivo con la información a ser exportada
      */
     public function import(Request $request)
     {

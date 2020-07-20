@@ -10,15 +10,15 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Models\AssetStatus;
 
 /**
- * @class AssetStatusController
- * @brief Controlador de los estatus de uso de bienes institucionales
+ * @class      AssetStatusController
+ * @brief      Controlador de los estatus de uso de bienes institucionales
  *
  * Clase que gestiona los estatus de uso de bienes institucionales
  *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class AssetStatusController extends Controller
 {
@@ -27,7 +27,7 @@ class AssetStatusController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      */
     public function __construct()
     {
@@ -38,8 +38,8 @@ class AssetStatusController extends Controller
     /**
      * Muestra un listado de los estatus de uso de bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function index()
     {
@@ -49,9 +49,9 @@ class AssetStatusController extends Controller
     /**
      * Valida y registra un nuevo estatus de uso de un bien
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request $request    Datos de la petición
-     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
@@ -60,6 +60,11 @@ class AssetStatusController extends Controller
         ]);
 
 
+        /**
+         * Objeto asociado al modelo AssetStatus
+         *
+         * @var Object $status
+         */
         $status = AssetStatus::create([
             'name' => $request->input('name')
         ]);
@@ -70,10 +75,10 @@ class AssetStatusController extends Controller
     /**
      * Actualiza la información del estatus de uso de un bien
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request           Datos de la petición
-     * @param  \Modules\Asset\Models\AssetStatus  $status   Datos del status de uso de un bien
-     * @return \Illuminate\Http\JsonResponse                Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request             $request    Datos de la petición
+     * @param     \Modules\Asset\Models\AssetStatus    $status     Datos del status de uso de un bien
+     * @return    \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
      */
     
     public function update(Request $request, AssetStatus $status)
@@ -91,9 +96,9 @@ class AssetStatusController extends Controller
     /**
      * Elimina el estatus de uso de un bien
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Modules\Asset\Models\AssetStatus  $status   Datos del estatus de uso de un bien
-     * @return \Illuminate\Http\JsonResponse                Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Modules\Asset\Models\AssetStatus    $status    Datos del estatus de uso de un bien
+     * @return    \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
      */
     public function destroy(AssetStatus $status)
     {
@@ -104,8 +109,8 @@ class AssetStatusController extends Controller
     /**
      * Obtiene el listado de los estatus de uso de los bienes institucionales a implementar en elementos select
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return [Array] Arreglo con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    Array    Arreglo con los registros a mostrar
      */
     public function getStatus()
     {

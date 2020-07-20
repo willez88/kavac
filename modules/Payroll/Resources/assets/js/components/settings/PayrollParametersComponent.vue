@@ -350,7 +350,7 @@
             /**
              * Método que supervisa los cambios en el campo variable y actualiza el listado de opciones
              *
-             * @author Henry Paredes <hparedes@cenditel.gob.ve> | <henryp2804@gmail.com>
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve> | <henryp2804@gmail.com>
              */
             variable: function(variable) {
                 const vm = this;
@@ -366,8 +366,8 @@
             /**
              * Método que actualiza el nombre de la variable a emplear en el cálculo
              *
-             * @author Henry Paredes <hparedes@cenditel.gob.ve> | <henryp2804@gmail.com>
-             * @return {string}
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve> | <henryp2804@gmail.com>
+             * @return    {string}
              */
             updateNameVariable: function() {
                 const vm = this;
@@ -416,11 +416,19 @@
              * @author    Henry Paredes <hparedes@cenditel.gob.ve>
              */
             changeParameterType() {
-                const vm             = this;
-                vm.variable          = '';
-                vm.record.code       = '';
-                vm.record.formula    = '';
-                vm.record.percentage = '';
+                const vm = this;
+                
+                if (vm.record.parameter_type == 'processed_variable') {
+                    vm.variable = '';
+                } else if (vm.record.parameter_type == 'global_value') {
+                    vm.variable       = '';
+                    vm.record.formula = '';
+
+                } else if (vm.record.parameter_type == 'resettable_variable') {
+                    vm.variable          = '';
+                    vm.record.formula    = '';
+                    vm.record.percentage = '';
+                }
             },
             /**
              * Método que obtiene un arreglo con los tipos de parámetros
@@ -449,8 +457,8 @@
             /**
              * Método que obtiene el acrónimo de la variable a emplear en el cálculo
              *
-             * @author Henry Paredes <hparedes@cenditel.gob.ve> | <henryp2804@gmail.com>
-             * @return {string}
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve> | <henryp2804@gmail.com>
+             * @return    {string}
              */
             getAcronymVariable() {
                 const vm = this;

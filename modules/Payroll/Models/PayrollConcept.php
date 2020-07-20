@@ -116,8 +116,8 @@ class PayrollConcept extends Model implements Auditable
     /**
      * Método que obtiene los tipos de pago de nómina asociados a muchos conceptos
      *
-     * @author     Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return     \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function payrollPaymentTypes()
     {

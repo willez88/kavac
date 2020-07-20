@@ -10,8 +10,8 @@ use App\Traits\ModelsTrait;
 use Module;
 
 /**
- * @class PayrollPaymentType
- * @brief Datos de tipos de pago
+ * @class      PayrollPaymentType
+ * @brief      Datos de tipos de pago
  *
  * Gestiona el modelo de tipos de pago
  *
@@ -46,8 +46,8 @@ class PayrollPaymentType extends Model implements Auditable
     /**
      * Método que obtiene la cuenta contable asociada al tipo de pago
      *
-     * @author     Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return     \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function accountingAccount()
     {
@@ -59,8 +59,8 @@ class PayrollPaymentType extends Model implements Auditable
     /**
      * Método que obtiene la cuenta presupuestaria asociada al tipo de pago
      *
-     * @author     Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return     \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function budgetAccount()
     {
@@ -72,8 +72,8 @@ class PayrollPaymentType extends Model implements Auditable
     /**
      * Método que obtiene los conceptos asociados a muchos tipos de pago de nómina
      *
-     * @author     Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return     \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function payrollConcepts()
     {

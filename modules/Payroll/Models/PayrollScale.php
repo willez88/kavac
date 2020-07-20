@@ -9,15 +9,15 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
- * @class PayrollScale
- * @brief Datos de las escalas o niveles de un escalafón
+ * @class      PayrollScale
+ * @brief      Datos de las escalas o niveles de un escalafón
  *
  * Gestiona el modelo de datos de las escalas o niveles de un escalafón
  *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class PayrollScale extends Model implements Auditable
 {
@@ -42,8 +42,8 @@ class PayrollScale extends Model implements Auditable
     /**
      * Método que obtiene el eslacafón salarial al que pertenece la escala
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function payrollSalaryScale()
     {

@@ -20,15 +20,15 @@ use Modules\Asset\Models\Asset;
 use App\Models\Profile;
 
 /**
- * @class AssetRequestController
- * @brief Controlador de las solicitudes de bienes institucionales
+ * @class      AssetRequestController
+ * @brief      Controlador de las solicitudes de bienes institucionales
  *
  * Clase que gestiona las solicitudes de bienes institucionales
  *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class AssetRequestController extends Controller
 {
@@ -60,8 +60,8 @@ class AssetRequestController extends Controller
     /**
      * Muestra un listado de las solicitudes de bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\View\View
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\View\View
      */
     public function index()
     {
@@ -71,8 +71,8 @@ class AssetRequestController extends Controller
     /**
      * Muestra el formulario para registrar una nueva solicitud
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\View\View
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\View\View
      */
     public function create()
     {
@@ -82,9 +82,10 @@ class AssetRequestController extends Controller
     /**
      * Valida y registra una nueva solicitud de bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request   Datos de la petición
-     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request                 $request    Datos de la petición
+     * @param     \App\Repositories\UploadDocRepository    $upDoc      Instancia del documento a subir
+     * @return    \Illuminate\Http\JsonResponse            Objeto con los registros a mostrar
      */
      public function store(Request $request, UploadDocRepository $upDoc)
     {
@@ -127,6 +128,11 @@ class AssetRequestController extends Controller
             $codeSetting->field
         );
 
+        /**
+         * Objeto asociado al modelo AssetRequest
+         *
+         * @var Object $asset_request
+         */
         $asset_request = AssetRequest::create([
             'code' => $code,
             'type' => $request->type_id,
@@ -173,9 +179,9 @@ class AssetRequestController extends Controller
     /**
      * Muestra el formulario para actualizar la información de las solicitudes de bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  [Integer] $id                    Identificador único de la solicitud
-     * @return \Illuminate\Http\JsonResponse    Objeto con los datos a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     Integer                          $id    Identificador único de la solicitud
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los datos a mostrar
      */
     public function edit($id)
     {
@@ -186,10 +192,10 @@ class AssetRequestController extends Controller
     /**
      * Actualiza la información de las solicitudes de bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request   Datos de la petición
-     * @param  [Integer] $id                        Identificador único de la solicitud
-     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @param     Integer                          $id         Identificador único de la solicitud
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function update(Request $request, $id)
     {
@@ -256,9 +262,9 @@ class AssetRequestController extends Controller
     /**
      * Elimina una solicitud de bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Modules\Asset\Models\AssetRequest $request  Datos de la solicitud de un bien
-     * @return \Illuminate\Http\JsonResponse                Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Modules\Asset\Models\AssetRequest    $request    Datos de la solicitud de un bien
+     * @return    \Illuminate\Http\JsonResponse         Objeto con los registros a mostrar
      */
     public function destroy(AssetRequest $request)
     {
@@ -278,8 +284,8 @@ class AssetRequestController extends Controller
     /**
      * Otiene un listado de las solicitudes registradas
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function vueList()
     {
@@ -300,8 +306,8 @@ class AssetRequestController extends Controller
     /**
      * Otiene un listado de las solicitudes pendientes por ejecutar
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function vuePendingList()
     {
@@ -324,9 +330,10 @@ class AssetRequestController extends Controller
     /**
      * Actualiza el estado de una solicitud a aprovado
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  [Integer] $id                        Identificador único de la solicitud
-     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @param     Integer                          $id         Identificador único de la solicitud
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function approved(Request $request, $id)
     {
@@ -348,9 +355,10 @@ class AssetRequestController extends Controller
     /**
      * Actualiza el estado de una solicitud a rechazado
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  [Integer] $id                        Identificador único de la solicitud
-     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @param     Integer                          $id         Identificador único de la solicitud
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function rejected(Request $request, $id)
     {
@@ -372,9 +380,10 @@ class AssetRequestController extends Controller
     /**
      * Actualiza el estado de una solicitud a entregado
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  [Integer] $id                        Identificador único de la solicitud
-     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @param     Integer                          $id         Identificador único de la solicitud
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function deliver(Request $request, $id)
     {
@@ -395,9 +404,9 @@ class AssetRequestController extends Controller
     /**
      * Obtiene la información de la solicitud registrada
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  [Integer] $id                    Identificador único de la solicitud
-     * @return \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     Integer                          $id    Identificador único de la solicitud
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function vueInfo($id)
     {
@@ -410,6 +419,12 @@ class AssetRequestController extends Controller
         return response()->json(['records' => $asset_request], 200);
     }
 
+    /**
+     * Obtiene el listado de tipos de eventos de los bienes institucionales a implementar en elementos select
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    Array Arreglo con los registros a mostrar
+     */
     public function getTypes()
     {
         $this->data[1] = [
@@ -423,6 +438,13 @@ class AssetRequestController extends Controller
         return response()->json($this->data);
     }
 
+    /**
+     * Obtiene el listado de los bienes institucionales asociados a una solicitud
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     Integer                          $id    Identificador único de la solicitud
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     */
     public function getEquipments($id)
     {
         $assetRequest = AssetRequest::where('id', $id)->with(

@@ -9,15 +9,15 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
- * @class PayrollSalaryScale
- * @brief Datos de las escalas o niveles de un escalafón
+ * @class      PayrollSalaryScale
+ * @brief      Datos de las escalas o niveles de un escalafón
  *
  * Gestiona el modelo de datos de las escalas o niveles de un escalafón
  *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class PayrollSalaryScale extends Model implements Auditable
 {
@@ -44,8 +44,8 @@ class PayrollSalaryScale extends Model implements Auditable
     /**
      * Método que obtiene los tabuladores salariales asociados al escalafón
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function payrollSalaryTabulators()
     {
@@ -55,8 +55,8 @@ class PayrollSalaryScale extends Model implements Auditable
     /**
      * Método que obtiene las escalas del escalafón salarial
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function payrollScales()
     {

@@ -1,5 +1,6 @@
 <?php
 
+/** Revisar */
 namespace Modules\Asset\Http\Controllers;
 
 use Illuminate\Http\Response;
@@ -11,27 +12,37 @@ use Modules\Asset\Models\AssetDisincorporation;
 use Modules\Asset\Models\AssetRequest;
 
 /**
- * @class AssetDashboardController
- * @brief Controlador del panel de control módulo de bienes
+ * @class      AssetDashboardController
+ * @brief      Controlador del panel de control módulo de bienes
  *
  * Clase que gestiona las peticiones realizadas desde el panel de control del módulo de bienes
  *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class AssetDashboardController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Muestra la sección del dashboard del módulo de bienes
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\View\View
      */
     public function index()
     {
         return view('asset::dashboard');
     }
 
+    /**
+     * Otiene un listado de las existencias en inventario de los bienes registradas
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     String                           $type     Tipo de solicitud
+     * @param     String                           $order    Orden en el que se expresan los registros
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     */
     public function getInventoryAssets($type, $order = 'desc')
     {
         $fields = [];
@@ -63,15 +74,29 @@ class AssetDashboardController extends Controller
         return response()->json(['records' => $fields]);
     }
 
+    /**
+     * Obtiene la url de la operación a mostrar
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     String                           $type_operation    Tipo de operación a mostrar
+     * @param     String                           $code              Identificador único de la operación
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     */
     public function getOperation($type_operation, $code)
     {
         if ($type_operation == 'registers') {
-            return response()->json(['result' => true, 'redirect' => '/asset/reports/show/'.$code], 200);
+            return response()->json(['result' => true, 'redirect' => '/asset/reports/show/' . $code], 200);
         } else {
-            return response()->json(['result' => true, 'redirect' => '/asset/reports/show/'.$code], 200);
+            return response()->json(['result' => true, 'redirect' => '/asset/reports/show/' . $code], 200);
         }
     }
 
+    /**
+     * Otiene un listado de las operaciones registradas
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     */
     public function vueListOperations()
     {
         $tables = ['assets', 'asset_asignations', 'asset_disincorporations', 'asset_requests'];
@@ -121,6 +146,14 @@ class AssetDashboardController extends Controller
         return response()->json(['records' => $fields]);
     }
 
+    /**
+     * Obtiene la información de una operación registrada
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     String                           $type_operation    Tipo de operación a mostrar
+     * @param     String                           $filter            Identificador único de la operación
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     */
     public function vueInfo($type_operation, $filter)
     {
         if ($type_operation == 'registers') {

@@ -1,5 +1,6 @@
 <?php
 
+/** Revisar */
 namespace Modules\Asset\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -13,15 +14,15 @@ use Modules\Asset\Models\AssetReport;
 use App\Models\CodeSetting;
 
 /**
- * @class AssetReportController
- * @brief Controlador de los reportes generados en el módulo de bienes
+ * @class      AssetReportController
+ * @brief      Controlador de los reportes generados en el módulo de bienes
  *
  * Clase que gestiona los reportes generados en el módulo de bienes
  *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class AssetReportController extends Controller
 {
@@ -30,7 +31,7 @@ class AssetReportController extends Controller
     /**
      * Define la configuración de la clase
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      */
     public function __construct()
     {
@@ -41,8 +42,8 @@ class AssetReportController extends Controller
     /**
      * Muestra un listado de las solicitudes de bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\View\View
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\View\View
      */
     public function index()
     {
@@ -52,9 +53,9 @@ class AssetReportController extends Controller
     /**
      * Valida y registra un nuevo reporte de bienes institucionales
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request $request    Datos de la petición
-     * @return \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
@@ -79,6 +80,11 @@ class AssetReportController extends Controller
             $codeSetting->field
         );
         
+        /**
+         * Objeto asociado al modelo AssetReport
+         *
+         * @var Object $report
+         */
         $report = AssetReport::create([
             'code'                       => $code,
             'type_report'                => $request->input('type_report'),
@@ -130,8 +136,11 @@ class AssetReportController extends Controller
     }
 
     /**
-     * Show the specified resource.
-     * @return Response
+     * Obtiene la información de un reporte registrado
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     String    $code_report    Identificador único del reporte
+     * @return    void
      */
     public function show($code_report)
     {

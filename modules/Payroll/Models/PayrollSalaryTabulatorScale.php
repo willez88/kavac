@@ -9,15 +9,15 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
- * @class PayrollSalaryTabulatorScale
- * @brief Datos de las escalas de los tabuladores salariales
+ * @class      PayrollSalaryTabulatorScale
+ * @brief      Datos de las escalas de los tabuladores salariales
  *
  * Gestiona el modelo de datos de las escalas de los tabuladores salariales
  *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
  */
 class PayrollSalaryTabulatorScale extends Model implements Auditable
 {
@@ -44,8 +44,8 @@ class PayrollSalaryTabulatorScale extends Model implements Auditable
     /**
      * Método que obtiene el tabulador salarial asociado al registro
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function payrollSalaryTabulator()
     {
@@ -55,8 +55,8 @@ class PayrollSalaryTabulatorScale extends Model implements Auditable
     /**
      * Método que obtiene la escala horizontal asociada al registro
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function payrollHorizontalScale()
     {
@@ -66,8 +66,8 @@ class PayrollSalaryTabulatorScale extends Model implements Auditable
     /**
      * Método que obtiene la escala vertical asociada al registro
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function payrollVerticalScale()
     {

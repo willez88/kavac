@@ -243,6 +243,11 @@ class PayrollConceptController extends Controller
      */
     public function index()
     {
+        /**
+         * Objeto asociado al modelo PayrollConcept
+         *
+         * @var Object $payrollConcepts
+         */
         $payrollConcepts = PayrollConcept::with('payrollSalaryTabulator', 'payrollConceptAssignOptions')->get();
         foreach ($payrollConcepts as $payrollConcept) {
             $assign_to = json_decode($payrollConcept->assign_to);
@@ -320,7 +325,7 @@ class PayrollConceptController extends Controller
             'payroll_concept_type_id'     => $request->payroll_concept_type_id,
             'payroll_salary_tabulator_id' => ($request->calculation_way == 'tabulator')
                                                  ? $request->payroll_salary_tabulator_id
-                                                 : '',
+                                                 : null,
             'accounting_account_id'       => $request->accounting_account_id,
             'budget_account_id'           => $request->budget_account_id,
             'assign_to'                   => json_encode($request->assign_to)
@@ -336,11 +341,16 @@ class PayrollConceptController extends Controller
 
             } elseif ($assign_to['type'] == 'list') {
                 foreach ($request->assign_options[$assign_to['id']] as $assign_option) {
+                    /**
+                     * Objeto asociado al modelo PayrollConceptAssignOption
+                     *
+                     * @var Object $payrollConceptAssignOption
+                     */
                     $payrollConceptAssignOption = PayrollConceptAssignOption::create([
                         'key'                => $assign_to['id'],
                         'payroll_concept_id' => $payrollConcept->id
                     ]);
-                    /** Guarda variable morphs */
+                    /** Se guarda la información en el campo morphs */
                     $option = $assign_to['model']::find($assign_option['id']);
                     $option->payrollConceptAssignOptions()->save($payrollConceptAssignOption);
                 }
@@ -365,7 +375,10 @@ class PayrollConceptController extends Controller
          */
         $payrollConcept = PayrollConcept::find($id);
         $validateRules  = $this->validateRules;
-        $validateRules  = array_replace($validateRules, ['code' => ['required', 'unique:payroll_concepts,code,' . $payrollConcept->id]]);
+        $validateRules  = array_replace(
+            $validateRules,
+            ['code' => ['required', 'unique:payroll_concepts,code,' . $payrollConcept->id]]
+        );
         $this->validate($request, $validateRules, $this->messages);
 
         $payrollConcept->code                        = $request->code;
@@ -384,7 +397,7 @@ class PayrollConceptController extends Controller
         $payrollConcept->payroll_concept_type_id     = $request->payroll_concept_type_id;
         $payrollConcept->payroll_salary_tabulator_id = ($request->calculation_way == 'tabulator')
                                                            ? $request->payroll_salary_tabulator_id
-                                                           : '';
+                                                           : null;
         $payrollConcept->accounting_account_id       = $request->accounting_account_id;
         $payrollConcept->budget_account_id           = $request->budget_account_id;
         $payrollConcept->assign_to                   = json_encode($request->assign_to);
@@ -408,11 +421,16 @@ class PayrollConceptController extends Controller
 
             } elseif ($assign_to['type'] == 'list') {
                 foreach ($request->assign_options[$assign_to['id']] as $assign_option) {
+                    /**
+                     * Objeto asociado al modelo PayrollConceptAssignOption
+                     *
+                     * @var Object $payrollConceptAssignOption
+                     */
                     $payrollConceptAssignOption = PayrollConceptAssignOption::create([
                         'key'                => $assign_to['id'],
                         'payroll_concept_id' => $payrollConcept->id
                     ]);
-                    /** Guarda variable morphs */
+                    /** Se guarda la información en el campo morphs */
                     $option = $assign_to['model']::find($assign_option['id']);
                     $option->payrollConceptAssignOptions()->save($payrollConceptAssignOption);
                 }
@@ -446,7 +464,7 @@ class PayrollConceptController extends Controller
      *
      * @method    getPayrollConcepts
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return    Array          Listado de los registros a mostrar
+     * @return    Array    Listado de los registros a mostrar
      */
     public function getPayrollConcepts()
     {
@@ -454,11 +472,11 @@ class PayrollConceptController extends Controller
     }
 
     /**
-     * Obtiene los tipos de conceptos registrados
+     * Obtiene las opciones a asignar registrados asociadas a un concepto
      *
      * @method    getPayrollConceptAssignTo
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return    Array          Listado de los registros a mostrar
+     * @return    Array    Listado de los registros a mostrar
      */
     public function getPayrollConceptAssignTo()
     {
