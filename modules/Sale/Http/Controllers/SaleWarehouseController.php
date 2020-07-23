@@ -16,9 +16,43 @@ class SaleWarehouseController extends Controller
      * Display a listing of the resource.
      * @return Response
      */
-    public function index($institution = null)
+    public function index()
     {
+
         return response()->json(['records' => SaleWarehouse::all()], 200);
+        /*
+        if (!is_null($institution)) {
+            return response()->json(['records' => SaleWarehouse::where('institution_id', $institution)
+                ->with(
+                    ['sale_warehouses' =>
+                    function ($query) {
+                        $query->with(['parish' => function ($query) {
+                            $query->with(['municipality' => function ($query) {
+                                $query->with(['estate' => function ($query) {
+                                    $query->with('country');
+                                }]);
+                            }]);
+                        }]);
+                    },'institution']
+                )->get()], 200);
+        } else {
+            $institution = Institution::where('active', true)->where('default', true)->first();
+            $institution = $institution->id;
+            return response()->json(['records' => SaleWarehouse::where('institution_id', $institution)
+                ->with(
+                    ['sale_warehouses' =>
+                    function ($query) {
+                        $query->with(['parish' => function ($query) {
+                            $query->with(['municipality' => function ($query) {
+                                $query->with(['estate' => function ($query) {
+                                    $query->with('country');
+                                }]);
+                            }]);
+                        }]);
+                    },'institution']
+                )->get()], 200);
+        }
+        */
     }
 
     /**
@@ -43,7 +77,11 @@ class SaleWarehouseController extends Controller
             'address' => ['required', 'max:900'],
             'parish_id' => ['required'],
         ]);
-
+        //Define almacén principal
+        if ($request->input('main') == true) {
+            $main = SaleWarehouse::where('main', '=', true)->update(array('main' => false));
+        }
+        //Guarda datos de almacen.
         $SaleWarehouse = SaleWarehouse::create(['name' => $request->name,'address' => $request->address,'institution_id' => $request->institution_id,'parish_id' => $request->parish_id,'main' => !empty($request->input('main')) ? $request->input('main'): false,'active' => !empty($request->input('active')) ? $request->input('active') : false]);
 
         return response()->json(['record' => $SaleWarehouse, 'message' => 'Success'], 200);
@@ -95,6 +133,6 @@ class SaleWarehouseController extends Controller
    */
     public function getSaleWarehouseMethod()
     {
-        return response()->json(template_choices('Modules\Sale\Models\SaleWarehouse', 'name', '', true));
+        //return response()->json(template_choices('Modules\Sale\Models\SaleWarehouse', 'name', '', true));
     }
 }

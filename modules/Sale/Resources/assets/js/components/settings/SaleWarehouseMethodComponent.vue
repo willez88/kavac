@@ -200,8 +200,8 @@
 				'municipality_id':'Municipio',
 				'parish_id': 'Parroquia',
 			};
-			this.table_options.sortable = ['name'];
-			this.table_options.filterable = ['name'];
+			this.table_options.sortable = ['name', 'country', 'estate', 'address', 'institution', 'active'];
+			this.table_options.filterable = ['name', 'country', 'estate', 'address', 'institution', 'active'];
 			this.table_options.columnsClasses = {
                 'name': 'col-xs-1',
                 'country': 'col-xs-2',
@@ -213,7 +213,6 @@
 			};
 			this.getCountries();
 			this.getInstitutions();
-			this.getSaleWarehouseMethod();
 		},
 		//Estilo de botones principal y activar
 		mounted() {
