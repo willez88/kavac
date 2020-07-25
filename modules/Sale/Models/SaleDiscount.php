@@ -8,17 +8,17 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 /**
- * @class SaleWarehouse
- * @brief Datos Almacenes
+ * @class SaleDiscount
+ * @brief Datos de Descuneto
  *
- * Gestiona el modelo de almacenes
+ * Gestiona el modelo de Descuento
  *
  * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
  * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class SaleWarehouse extends Model implements Auditable
+class SaleDiscount extends Model implements Auditable
 {
     use SoftDeletes;
     use AuditableTrait;
@@ -34,5 +34,5 @@ class SaleWarehouse extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['name','main','active','address','institution_id','parish_id'];
+    protected $fillable = ['name', 'description','percent'];
 }

@@ -8,6 +8,7 @@
 	<i class="ion-settings"></i>
 @stop
 
+
 @section('maproute-actual')
 	Comercialización
 @stop
@@ -41,6 +42,8 @@
 						<sale-setting-product-type></sale-setting-product-type>
 						{{-- Configuración de Clientes --}}
 						<register-formatcode></register-formatcode>
+						{{-- Configuración de Descuento --}}
+						<sale-discount></sale-discount>
 					</div>
 				</div>
 			</div>

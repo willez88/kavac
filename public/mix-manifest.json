@@ -331,5 +331,6 @@
     "/modules/purchase/components/purchase-type.js": "/modules/purchase/components/purchase-type.js",
     "/modules/purchase/components/purchase-type-hiring.js": "/modules/purchase/components/purchase-type-hiring.js",
     "/modules/purchase/components/purchase-type-operations.js": "/modules/purchase/components/purchase-type-operations.js",
-    "/modules/payroll/components/vendors~payroll-payment-types~payroll-registers-form.js": "/modules/payroll/components/vendors~payroll-payment-types~payroll-registers-form.js"
+    "/modules/payroll/components/vendors~payroll-payment-types~payroll-registers-form.js": "/modules/payroll/components/vendors~payroll-payment-types~payroll-registers-form.js",
+    "/modules/sale/components/sale-discount.js": "/modules/sale/components/sale-discount.js"
 }

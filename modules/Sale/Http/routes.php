@@ -7,12 +7,12 @@ Route::group(
     ['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'sale', 'namespace' => 'Modules\Sale\Http\Controllers'],
     function () {
         /**
-             * -----------------------------------------------------------------------
-             * Ruta para el panel de control del módulo de Comercialización
-             * -----------------------------------------------------------------------
-             *
-             * Muestra información del módulo de Comercialización
-             */
+         * -----------------------------------------------------------------------
+         * Ruta para el panel de control del módulo de Comercialización
+         * -----------------------------------------------------------------------
+         *
+         * Muestra información del módulo de Comercialización
+         */
         Route::get('settings', 'SaleSettingController@index')->name('sale.settings.index');
         //Route::post('settings', 'SaleSettingController@store')->name('sale.settings.store');
 
@@ -97,4 +97,21 @@ Route::group(
         'get-salewarehousemethod',
         'SaleWarehouseController@getSaleWarehouseMethod'
     )->name('sale.get-sale-warehousemethod');
+
+    /**
+     * -----------------------------------------------------------------------
+     * Rutas para la configuración de Descuento
+     * -----------------------------------------------------------------------
+     *
+     * Gestiona los datos de configuración de Descuento de Comercialización
+     */
+        Route::resource(
+            'discount-method',
+            'SaleDiscountController',
+            ['as' => 'sale', 'except' => ['create','edit','show']]
+        );
+        Route::get(
+            'get-discountmethod',
+            'SaleDiscountController@getSaleDiscount'
+        )->name('sale.get-sale-paymentmethod');
 });

@@ -66,6 +66,16 @@ Vue.component('sale-setting-product-type', () => import(
 );
 
 /**
+ * Componente para listar, crear, actualizar y borrar datos de Descuento
+ *
+ * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+ */
+Vue.component('sale-discount', () => import(
+    /* webpackChunkName: "sale-discount" */
+    './components/settings/SaleDiscountComponent.vue')
+);
+
+/**
  * Opciones de configuración global del módulo de Commercialización
  */
 Vue.mixin({
@@ -117,6 +127,19 @@ Vue.mixin({
 			vm.sale_warehouse_method = [];
 			axios.get('/sale/get-salewarehousemethod').then(response => {
 				vm.sale_warehouse_method = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene los datos de las formas de Descuento
+		 *
+		 * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+		 */
+		getSaleDescountMethod() {
+			const vm = this;
+			vm.sale_descount_method = [];
+			axios.get('/sale/get-saledescountmethod').then(response => {
+				vm.sale_descount_method = response.data;
 			});
 		},
 	},

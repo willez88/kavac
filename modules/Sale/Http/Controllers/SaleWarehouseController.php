@@ -133,6 +133,6 @@ class SaleWarehouseController extends Controller
    */
     public function getSaleWarehouseMethod()
     {
-        //return response()->json(template_choices('Modules\Sale\Models\SaleWarehouse', 'name', '', true));
+        return response()->json(template_choices('Modules\Sale\Models\SaleWarehouse', 'name', '', true));
     }
 }
