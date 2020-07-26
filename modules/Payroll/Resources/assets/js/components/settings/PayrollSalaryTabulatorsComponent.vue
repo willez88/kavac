@@ -343,17 +343,17 @@
                                 <span v-html="props.row.description"></span>
                             </div>
 	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button @click="exportRecord(props.index, $event)"
+	                			<button @click="exportRecord(props.row.id, $event)"
                                         class="btn btn-primary btn-xs btn-icon btn-action"
                                         title="Descargar/Exportar tabulador" data-toggle="tooltip" type="button">
 	                                <i class="fa fa-download"></i>
 	                            </button>
-	                			<button @click="initUpdate(props.index, $event)"
+	                			<button @click="initUpdate(props.row.id, $event)"
 		                				class="btn btn-warning btn-xs btn-icon btn-action"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'salary-tabulators')"
+		                		<button @click="deleteRecord(props.row.id, 'salary-tabulators')"
 										class="btn btn-danger btn-xs btn-icon btn-action" title="Eliminar registro"
                                         data-toggle="tooltip" type="button">
 									<i class="fa fa-trash-o"></i>
@@ -431,7 +431,7 @@
         },
         watch: {
             /**
-             * Método que permite actualizar los escalafones horizontal y vertical cuando detecta cambios 
+             * Método que permite actualizar los escalafones horizontal y vertical cuando detecta cambios
              * en la variable "record"
              *
              * @method    record
@@ -485,7 +485,7 @@
 
 			},
             /**
-             * Método que cambia el panel de visualización 
+             * Método que cambia el panel de visualización
              *
              * @author    Henry Paredes <hparedes@cenditel.gob.ve>
              *
@@ -532,10 +532,8 @@
              * @param     {integer}    index    Identificador del registro a ser exportado
              * @param     {object}     event    Objeto que gestiona los eventos
              */
-			exportRecord(index, event) {
-				const vm = this;
-				var fields = vm.records[index - 1];
-				window.open('/payroll/salary-tabulators/export/' + fields.id);
+			exportRecord(id, event) {
+				window.open('/payroll/salary-tabulators/export/' + id);
 				event.preventDefault();
 			},
             /**
@@ -563,7 +561,7 @@
                                 vm.payroll_horizontal_salary_scales = [];
                             else
                                 vm.payroll_horizontal_salary_scales = response.data;
-                            
+
                             if (vm.record.payroll_salary_tabulator_type == 'horizontal')
                                 vm.payroll_vertical_salary_scales   = [];
                             else

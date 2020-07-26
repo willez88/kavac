@@ -85,20 +85,20 @@
 		            		<div slot="id" slot-scope="props" class="text-center">
 		            			<div class="d-inline-flex">
 				            		<div v-if="checkClose(props.index)">
-				            			<button @click="warehouseClose(props.index)"
+				            			<button @click="warehouseClose(props.row.id)"
 				                				class="btn btn-success btn-xs btn-icon btn-action"
 				                				title="Abrir Almacén" data-toggle="tooltip" type="button">
 				                			<i class="fa fa-check"></i>
 				                		</button>
 				                	</div>
 
-			            			<button @click="initUpdate(props.index, $event)"
+			            			<button @click="initUpdate(props.row.id, $event)"
 			                				class="btn btn-warning btn-xs btn-icon btn-action"
 			                				title="Editar Registro" data-toggle="tooltip" type="button">
 			                			<i class="fa fa-edit"></i>
 			                		</button>
 
-			                		<button @click="deleteRecord(props.index, 'closes')"
+			                		<button @click="deleteRecord(props.row.id, 'closes')"
 											class="btn btn-danger btn-xs btn-icon btn-action"
 											title="Eliminar registro" data-toggle="tooltip"
 											type="button">
@@ -168,9 +168,8 @@
 	         *
 	         * @author Henry Paredes <hparedes@cenditel.gob.ve>
 	         */
-			warehouseClose(index)
+			warehouseClose(id)
 			{
-				var id = this.records[index-1].id;
 				var url = '/warehouse/closes/finish';
 
 				axios.put(url +'/'+ id).then(response => {

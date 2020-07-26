@@ -416,10 +416,15 @@ Vue.mixin({
          * @param  {integer} index Identificador del registro a ser modificado
          * @param {object} event   Objeto que gestiona los eventos
          */
-        initUpdate(index, event) {
+        initUpdate(id, event) {
             let vm = this;
             vm.errors = [];
-            vm.record = vm.records[index - 1];
+
+            let recordEdit = JSON.parse(JSON.stringify(vm.records.filter((rec) => {
+                return rec.id === id;
+            })[0])) || vm.reset();
+
+            vm.record = recordEdit;
 
             /**
              * Recorre todos los campos para determinar si existe un elemento booleano para, posteriormente,
@@ -902,5 +907,8 @@ Vue.mixin({
                 //vm.lockScreen();
             //});
         }
+        $('.modal').on('hidden.bs.modal', function() {
+            $("input[class^='VueTables__search']").val('');
+        });
     }
 });

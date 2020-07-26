@@ -62,12 +62,12 @@
 	                <div class="modal-body modal-table">
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button @click="initUpdate(props.index, $event)"
+	                			<button @click="initUpdate(props.row.id, $event)"
 		                				class="btn btn-warning btn-xs btn-icon btn-round"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, '/required-documents/' + model + '/' + module)"
+		                		<button @click="deleteRecord(props.row.id, '/required-documents/' + model + '/' + module)"
 										class="btn btn-danger btn-xs btn-icon btn-round"
 										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
