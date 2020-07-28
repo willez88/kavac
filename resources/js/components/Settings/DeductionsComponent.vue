@@ -277,9 +277,7 @@
             vm.switchHandler('active');
             $("#add_deduction").on('show.bs.modal', function() {
                 vm.reset();
-                if (vm.accountingAccount) {
-                    vm.getAccountingAccounts();
-                }
+                vm.getAccountingAccounts();
             });
             $('.btn-formula').on('click', function() {
                 vm.record.formula += $(this).data('value');

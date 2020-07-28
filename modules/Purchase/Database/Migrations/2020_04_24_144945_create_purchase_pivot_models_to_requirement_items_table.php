@@ -16,18 +16,15 @@ class CreatePurchasePivotModelsToRequirementItemsTable extends Migration
         if (!Schema::hasTable('purchase_pivot_models_to_requirement_items')){
             Schema::create('purchase_pivot_models_to_requirement_items', function (Blueprint $table) {
                 $table->bigIncrements('id');
-                
+
                 $table->morphs('relatable');
 
-                $table->integer('purchase_requirement_item_id')->unsigned()
-                          ->comment('Llave foranea a un producto en un requerimiento');
-                $table->foreign('purchase_requirement_item_id')->references('id')
-                          ->on('purchase_requirement_items')->onDelete('cascade')
-                          ->onUpdate('cascade');
+                $table->foreignId('purchase_requirement_item_id')->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->float('unit_price', 10, 10)->nullable()
                               ->comment('Precio unitario del producto o servicio. asignado en orden de compra');
-                              
+
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });

@@ -882,6 +882,9 @@ Vue.mixin({
                 }
             }
         },
+        clearFilters() {
+            //this.$refs['table'].setFilter('');
+        }
         /*loadRelationalSelect(parent_id, target_url) {
             var parent_id = (typeof(parent_id) !== "undefined")?parent_id:false;
             var target_url = (typeof(target_url) !== "undefined")?target_url:false;
@@ -908,7 +911,11 @@ Vue.mixin({
             //});
         }
         $('.modal').on('hidden.bs.modal', function() {
-            $("input[class^='VueTables__search']").val('');
+            //$("input[class^='VueTables__search']").val('');
+            vm.clearFilters();
+        });
+        $('.modal').on('shown.bs.modal', function() {
+            //vm.records = vm.data;
         });
     }
 });

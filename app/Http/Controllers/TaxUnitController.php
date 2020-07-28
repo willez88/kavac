@@ -69,6 +69,8 @@ class TaxUnitController extends Controller
             $rules['end_date'] = ['date', 'after:start_date'];
         }
         $this->validate($request, $rules, [
+            'value.required' => 'El campo valor es requerido',
+            'value.numeric' => 'El campo valor debe ser numérico',
             'end_date.after' => 'La fecha final debe ser mayor a la fecha inicial'
         ]);
 
@@ -121,6 +123,8 @@ class TaxUnitController extends Controller
             $rules['end_date'] = ['date', 'after:start_date'];
         }
         $this->validate($request, $rules, [
+            'value.required' => 'El campo valor es requerido',
+            'value.numeric' => 'El campo valor debe ser numérico',
             'end_date.after' => 'La fecha final debe ser mayor a la fecha inicial'
         ]);
 
