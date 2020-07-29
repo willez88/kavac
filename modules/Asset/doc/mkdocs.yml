@@ -1,25 +1,27 @@
 site_name: Documentación de Usuario.
 nav:
-      - Inicio: index.md
-      - Información General: information.md
-      - Instalación: installation.md
-      - Panel de Control: control_panel.md
-      - Configuración: settings.md
-      - Desarrolladores: developers.md   
-      - Acerca de: 
-        - Antecedentes: about_kavac/about.md 
-        - Un Software Innovador: about_kavac/innovative_software.md
-      - Gestión de Proyecto: 
-        - Metodología de Desarrollo: project_management/development_methodology.md 
+      - Módulo de Bienes: index.md
+      - Registros: registers.md
+      - Asignaciones: assignments.md
+      - Desincorporaciones: disincorporations.md
+      - Solicitudes: requests.md
+      - Historial de Inventario: inventory_history.md
+      - Reportes: reports.md
+      - Configuración: 
+        - Formato de Códigos: setting/code_format.md
+        - Parámetros Generales: setting/general_parameters.md
+        - Parámetros Específicos: setting/specific_parameters.md 
+      - Panel de Control: 
+        - Panel de Control: control_panel/control_panel.md 
       - Preguntas Frecuentes: 
         - Preguntas Frecuentes: frequent_questions/frequent_questions.md  
-        
+      
 
     
 # Project information
 site_description: A Material Design theme for MkDocs
 # site_author: 
-# site_url:
+# site_url: 
 
 # # Repository
 # repo_name: 
@@ -53,7 +55,7 @@ theme:
     text: Roboto
     code: Roboto Mono
   favicon: assets/images/favicon.ico
-  logo: assets/images/logo1.png  
+  logo: assets/images/logo.png  
 
 # Plugins
 plugins:

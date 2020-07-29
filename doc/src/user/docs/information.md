@@ -12,7 +12,7 @@ PHP es considerado uno de los lenguajes Open Source más utilizados en el desarr
 
 Por su parte, Laravel es un framework de desarrollo para PHP el cual cuenta con una gran cantidad de funcionalidades que permite: mejorar el rendimiento de los procesos, prevenir la exposición ante ataques conocidos, continua actualización en pro de mejoras sustanciales, amplia comunidad de desarrollo, núcleo basado en Symfony, documentación sustancial en todos los componentes del framework, disponibilidad de una gran diversidad de paquetes Open Source que pueden ser implementados sin complejidad, configuración sencilla, gestión de recursos del servidor de aplicación,  base de datos de una forma óptima y sintaxis intuitiva.
 
-En el desarrollo de la aplicación administrativa para la gestión de recursos KAVAK se plantea implementar, en cuanto a la optimización de algunos procesos que requieren cálculos a gran escala, el uso de:
+En el desarrollo de la aplicación administrativa para la gestión de recursos KAVAC se plantea implementar, en cuanto a la optimización de algunos procesos que requieren cálculos a gran escala, el uso de:
 
   
    - Procedimientos almacenados: No dependen del lenguaje de desarrollo sino de la capacidad del gestor de base de datos en las tareas de cálculo y gestión de la información.
@@ -38,7 +38,7 @@ En el desarrollo de la aplicación administrativa para la gestión de recursos K
 
 **Página de ingreso**
    
-La ventana de ingreso está formada por una imagen de fondo, una serie de campos de verificación correspondientes a la cuenta de usuario, contraseña y un campo de verificación de captcha. El campo de verificación de captcha se completa conforme al texto descrito en la imagen, dicha imagen tiene la posibilidad de ser actualizada para mejorar la visualización del texto descrito. Los botones de selección permiten recordar contraseña al momento de un nuevo inicio de sesión.
+La ventana de ingreso está formada por una imagen de fondo, una serie de campos de verificación correspondientes a la cuenta de usuario, contraseña y un campo de verificación de captcha. El campo de verificación de captcha se completa conforme al texto descrito en la imagen, dicha imagen tiene la posibilidad de ser actualizada para mejorar la visualización del texto descrito. El botón de selección permiten recordar contraseña al momento de un nuevo inicio de sesión.
 
 ![Screenshot](img/pagina-ingreso.png)
 <div style="text-align: center;font-weight: bold">Figura: Página Ingreso</div>
@@ -59,7 +59,7 @@ La ventana de ingreso está formada por una imagen de fondo, una serie de campos
 
 **Panel superior**
 
-   Panel superior o barra de navegación, se distribuye de la siguiente manera, en la parte izquierda se muestra el logo KAVAC y un botón de despliegue para ocultar y mostrar el panel lateral, a la derecha se muestran una serie de herramientas funcionales como lo son: buzón de mensajería, <!-- selector de idioma --> configuración de base de datos y configuración de cuenta usuario.
+   Panel superior o barra de navegación, se distribuye de la siguiente manera, en la parte izquierda se muestra el logo KAVAC y un botón de despliegue para ocultar y mostrar el panel lateral, a la derecha se muestran una serie de herramientas funcionales como lo son: notificaciones, buzón de mensajes, <!-- selector de idioma --> configuración de base de datos y configuración de cuenta usuario.
 
 ![Screenshot](img/panel-superior.png)
 <div style="text-align: center;font-weight: bold">Figura: Panel Superior</div>
@@ -136,7 +136,7 @@ El rol de usuario como desarrollador le permitirá a este actor contar con la pe
 
 **Otros usuarios**:
 
-Los roles de usuarios listados a continuación: soporte, contabilidad, bienes, presupuesto, finanzas, nómina, almacén, compra; permitirán al usuario acceder a las funcionalidades asociadas a los módulos respectivos a los que pertenecen, como lo son: soporte técnico, contabilidad, bienes, presupuesto, finanzas, talento humano, almacén y compras. 
+Los roles de usuarios listados a continuación: soporte, contabilidad, bienes, presupuesto, finanzas, nómina, almacén, compra, comercializacion, OAC; permitirán al usuario acceder a las funcionalidades asociadas a los módulos respectivos a los que pertenecen, como lo son: soporte técnico, contabilidad, bienes, presupuesto, finanzas, talento humano, almacén compras, comercialización y OAC. 
 
 
 </div>

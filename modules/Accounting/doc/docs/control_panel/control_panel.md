@@ -6,7 +6,7 @@
 
 ##Operaciones en el módulo de contabilidad
 
-Esta sección permite llevar un seguimiento de los **Asientos Contables** registrados en el sistema. Los datos tabulados muestran la fecha de la operación, referencia, concepto, total y el estado de la operación de los ultimos diez asientos contables.
+Esta sección permite llevar un seguimiento de los **Asientos Contables** registrados en el sistema. Los datos tabulados muestran la fecha de la operación, referencia, concepto, total y el estado de la operación de los últimos diez asientos contables.
 
 ##Reportes en el módulo de contabilidad
 

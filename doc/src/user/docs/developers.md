@@ -24,6 +24,9 @@ Estos elementos de interfaz mantienen una uniformidad en el desarrollo de la apl
 
 ##Ajustes
 
+Los ajustes del panel de control permiten al desarrollador o usuarios con permisos sobre el módulo establecer un estado o modo para el sistema.  Estos son activados o desactivados a través de los botones de selección, se hace uso de ellos cuando se requiere realizar algun cambio que podría afectar otras áreas del sistema, evaluar el correcto funcionamiento antes de un entorno de producción o consultar sobre los logs de la aplicación.         
+
+
 ![Screenshot](img/herramientas-ajustes.png)
 <div style="text-align: center;font-weight: bold">Figura: Ajustes</div>
 
@@ -39,6 +42,7 @@ Es importante considerar que cuando el sistema está en modo mantenimiento las c
 
 ###Modo demostración
 
+El modo demostración puede ser activado una vez la aplicación sea implementada en un servidor, con el objetivo de que sirva como demostración de los procesos que ejecuta el sistema y no tenga incidencia sobre una base de datos en entorno de producción. 
 
 ###Modo debug 
 
@@ -57,3 +61,4 @@ Los **Logs** de **Laravel** permiten tener un registro de incidencias en el sist
 <div style="text-align: center;font-weight: bold">Figura: Lista de Logs</div>
 
 </div>
+

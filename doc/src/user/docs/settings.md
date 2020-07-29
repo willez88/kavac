@@ -19,6 +19,19 @@ El módulo de **Configuración**, permite integrar las herramientas que van a se
 
 En la sección de parámetros generales, el usuario con permisos sobre la **Configuración** del sistema puede controlar las funcionalidades de la aplicación, habilitando o deshabilitando funciones a través de los botones de selección. 
 
+Estas funcionalidades permiten:
+
+- Soporte Técnico: Mediante esta funcionalidad el sistema permite la comunicación con soporte técnico
+
+- Chat: Mediante esta funcionalidad el sistema activa la comunicación por chat interno
+
+- Notificaciones: Mediante esta funcionalidad el sistema activa las notificaciones del sistema 
+
+- Multi-Gestión: Mediante esta funcionalidad el sistema activa la gestión administrativa para el uso con múltiples instituciones
+
+- Mantenimiento: Mediante esta funcionalidad la aplicación se encontrará inactiva, se usa cuando es necesario realizar grandes cambios en el sistema
+
+- Firma electrónica: Mediante esta funcionalidad el sistema activa la firma electrónica para todos los procesos del sistema
 
 ![Screenshot](img/parametros-generales.png)
 <div style="text-align: center;font-weight: bold">Figura: Parámetros Generales</div>
@@ -42,7 +55,7 @@ La sección de registros comunes es una herramienta de la **Configuración** que
 ###Registrar institución  
 
 
-La **Configuración General del Sistema** incluye una sección titulada **Instituciones Registradas** donde se muestra un historial de instituciones registradas e información relacionada a cada una de ellas, en esta sección además se puede registrar otra institución haciendo uso del boton de acción de registro.   
+La **Configuración General del Sistema** incluye una sección titulada **Instituciones Registradas** donde se muestra un historial de instituciones registradas e información relacionada a cada una de ellas, en esta sección además se puede registrar otra institución haciendo uso del botón de acción de registro.   
 
 
 ![Screenshot](img/institucion-registro.png)
@@ -52,7 +65,7 @@ Para realizar el registro de una Institución se debe:
 
 - Acceder como usuario administrador o con un rol de usuario con permisos sobre la **Configuración General** del sistema
 - Ubicarse en la sección **Instituciones Registradas**
-- Haciendo uso del boton de [acciones de registro ](/information/#botones), accedemos al formulario de registro de institución 
+- Haciendo uso del botón de [acciones de registro ](/information/#botones), accedemos al formulario de registro de institución 
 - Completamos el formulario y guardamos los cambios.
 - Finalmente el registro se mostrará en el historial en la sección **Instituciones Registradas** 	
 
@@ -104,7 +117,7 @@ Para La designación de roles y permisos:
 ###Crear un nuevo usuario
 
 
-A través de la sección **Usuarios** de la **Configuración de Acceso al Sistema** podemos crear una cuenta de usuario y gestionar sus roles y permisos.  En la sección se muestra información asociada a las cuentas de usuarios por un historial de registros, haciendo uso de los botones ubicados en la columna titulada **Acción** podemos ver mas detalles del usuario, modificar el registro o eliminar el registro.    
+A través de la sección **Usuarios** de la **Configuración de Acceso al Sistema** podemos crear una cuenta de usuario y gestionar sus roles y permisos.  En la sección se muestra información asociada a las cuentas de usuarios por un historial de registros, haciendo uso de los botones ubicados en la columna titulada **Acción**, donde podemos ver más detalles del usuario, modificar el registro o eliminar el registro.    
 
 
 ![Screenshot](img/registro-usuario.png)
@@ -123,7 +136,7 @@ Para la creación de una nueva cuenta usuario se debe:
 Gestión de usuario
 
 
-Una vez iniciado el registro de usuario, se despliega una ventana titulada **Gestión de Usuario**, donde se procederá a completar los campos requeridos, designación de roles y permisos.   Los campos corresponden a tipo de empleado, dirección de correo electrónico y nombre del usuario. Los roles y permisos son designados a través de los botones de selección habilitando cada una de la acciones pertinentes según corresponda al rol de usuario.   Para la designación de permisos se presentan clasificadas cada una de las acciones pertenecientes a cada módulo.   Una vez se culmine el registro y la designación podemos guardar los cambios al desplazarnos al final del formulario. 
+Una vez iniciado el registro de usuario, se despliega una ventana titulada **Gestión de Usuario**, donde se procederá a completar los campos requeridos, designación de roles y permisos.   Los campos corresponden a tipo de empleado, dirección de correo electrónico y nombre del usuario. Los roles y permisos son designados a través de los botones de selección habilitando cada una de las acciones pertinentes según corresponda al rol de usuario.   Para la designación de permisos se presentan clasificadas cada una de las acciones pertenecientes a cada módulo.   Una vez se culmine el registro y la designación podemos guardar los cambios al desplazarnos al final del formulario y pulsar la opción **Guardar**. 
 
 
 ##Configuración de módulos del sistema 
@@ -137,7 +150,7 @@ El rol de usuario como desarrollador habilita la funcionalidad de configuración
 ###Gestión de módulos 
 
 
-Como se observo en el capítulo previo en la **Instalación del Sistema** especificamente en la sección de **Registros Iniciales**, ejecutamos el comando **php artisan module: seed** para revisar que módulos del sistema están habilitados y registrar información requerida por cada uno de ellos.  Desde la instalación del sistema podemos gestionar cada módulo y sus propiedades, sin embargo, es posible realizar gestión de módulos como usuario administrador y desarrollador desde la interfaz gráfica del sistema ya instalado.   
+Como se observó en el capítulo previo en la **Instalación del Sistema** específicamente en la sección de **Registros Iniciales**, ejecutamos el comando **php artisan module: seed** para revisar que módulos del sistema están habilitados y registrar información requerida por cada uno de ellos.  Desde la instalación del sistema podemos gestionar cada módulo y sus propiedades, sin embargo, es posible realizar gestión de módulos como usuario administrador y desarrollador desde la interfaz gráfica del sistema ya instalado.   
 
 
 ###Incorporar y desincorporar módulos

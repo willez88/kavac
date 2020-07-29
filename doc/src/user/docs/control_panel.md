@@ -45,7 +45,7 @@ Los botones ubicados en la columna titulada **Acción** son herramientas que per
 ###Auditoría de registros 
 
 
-Esta sección es una herramienta para visualizar e inspeccionar los registros de cuenta usuario realizados.    Es versátil al momento de filtrar nuestras búsquedas a través de parámetros establecidos por el usuario. 
+Esta sección es una herramienta que permite visualizar e inspeccionar los registros realizados desde una cuenta de usuario.    Es versátil al momento de filtrar nuestras búsquedas a través de parámetros establecidos por el usuario. 
 
 
 ![Screenshot](img/auditoria-registros.png)
@@ -53,16 +53,16 @@ Esta sección es una herramienta para visualizar e inspeccionar los registros de
 
 Para realizar una auditoría o seguimiento de un registro de cuenta usuario, es necesario seguir los siguientes pasos: 
  
- - Acceder al **Panel de Control** y ubicarse en la sección **Auditoria de Registro**
+ - Acceder al **Panel de Control** y ubicarse en la sección **Auditoría de Registro**
  - Proceder a buscar el registro en los datos tabulados.   Es posible filtrar la información indicando los parámetros de búsqueda como la fecha comprendida del registro, nombre de usuario o módulo al que pertenece. 
  - De igual manera se muestra una serie de datos tabulados con información asociada a los registros de cuenta usuario  
- - Haciendo uso del boton ubicado en la columna titulada **Acción** es posible observar mas detalles sobre el registro  
+ - Haciendo uso del botón ubicado en la columna titulada **Acción** es posible observar de forma más detallada la información del registro  
 
 
 ###Restaurar registros eliminados 
 
 
-Esta sección permite renovar los registros que han sido eliminados, la sección presenta un historial de registros eliminados con información relacionada  de forma tabulada.  
+Esta sección permite restaurar los registros que han sido eliminados, la sección presenta un historial de registros eliminados con información detallada del registro de forma tabulada.  
 
 
 ![Screenshot](img/restaurar-registros.png)
@@ -82,7 +82,7 @@ Para completar la restauración de un registro es necesario:
 ###Operaciones módulo de contabilidad
 
 
-A través del **Panel de Control** es posible realizar un seguimiento de los asientos contables registrados en el sistema a partir de la sección de **Operaciones en Módulo de Contabilidad** del **Panel de Control**.   En esta sección se muestra en forma tabulada registros de los asientos contables con información relacionada con la fecha de registro, referencia, concepto referente a la operación, total relacionado con la partida doble (debe y haber del asiento) y el estado  del asiento contable. Es posible generar una impresión haciendo uso del boton ubicado en la columna titulada acción para obtener mas detalles. 
+A través del **Panel de Control** es posible realizar un seguimiento de los asientos contables registrados en el sistema a partir de la sección de **Operaciones en Módulo de Contabilidad** del **Panel de Control**.   En esta sección se muestra en forma tabulada registros de los asientos contables con información relacionada con la fecha de registro, referencia, concepto referente a la operación, total relacionado con la partida doble (debe y haber del asiento) y el estado  del asiento contable. Es posible generar una impresión haciendo uso del botón ubicado en la columna titulada **Acción** para obtener más detalles. 
 
 
 ![Screenshot](img/operaciones-contabilidad.png)
@@ -91,7 +91,7 @@ A través del **Panel de Control** es posible realizar un seguimiento de los asi
 ###Reportes de contabilidad
 
 
-El **Panel de Control** permite visualizar los diferentes reportes generados a partir del módulo de contabilidad.    En la sección de **Reportes de Contabilidad** se muestra de forma tabulada los reportes generados e información relacionada con cada uno de ellos. 
+El **Panel de Control** permite visualizar los diferentes reportes generados a partir del módulo de contabilidad.    En la sección de **Reportes de Contabilidad** se muestra de forma tabulada los reportes generados e información relacionada a cada uno de ellos. 
 
 
 ![Screenshot](img/reportes-contabilidad.png)
@@ -120,7 +120,7 @@ El sistema permite seleccionar un modo de visualización de gráficas, ya sea gr
 ###Historial de operaciones módulo de bienes
 
 
-El sistema permite contar con un seguimiento de las operaciones en el **Módulo de Bienes**, a través de la sección **Histórico de Operaciones del Módulo de Bienes**. Los datos tabulados muestran una descripción y fecha de la operación, haciendo uso de los botones ubicados en la columna titulada **Acción** es posible generar un reporte y ver mas detalles de la operación.      
+El sistema permite contar con un seguimiento de las operaciones en el **Módulo de Bienes**, a través de la sección **Histórico de Operaciones del Módulo de Bienes**. Los datos tabulados muestran una descripción y fecha de la operación, haciendo uso de los botones ubicados en la columna titulada **Acción**, donde es posible generar un reporte y ver más detalles de la operación.      
 
 
 ![Screenshot](img/operaciones-bienes.png)
@@ -128,7 +128,7 @@ El sistema permite contar con un seguimiento de las operaciones en el **Módulo 
 
 ##Módulo de almacén 
 
-El **Panel de Control** permite llevar un seguimiento de las operaciones que se llevan a cabo sobre el módulo de almacén.  La sección del **Estado del inventario** permite visualizar la disponibilidad de productos expresado en términos porcentuales, además de expresar estos datos de manera gráfica, en la sección de **Gráficos del Inventario de Productos en Almacén** y a través de la sección **Histórico de Operaciones del Módulo de Almacén** podemos observar cada una de las operaciones registradas sobre el módulo. Los datos tabulados muestran una descripción y fecha de la operación, haciendo uso de los botones ubicados en la columna titulada **Acción** es posible generar un reporte y ver mas detalles de la operación.
+El **Panel de Control** permite llevar un seguimiento de las operaciones que se llevan a cabo sobre el módulo de almacén.  La sección del **Estado del inventario** permite visualizar la disponibilidad de productos expresado en términos porcentuales, además de expresar estos datos de manera gráfica, en la sección de **Gráficos del Inventario de Productos en Almacén** y a través de la sección **Histórico de Operaciones del Módulo de Almacén** podemos observar cada una de las operaciones registradas sobre el módulo. Los datos tabulados muestran una descripción y fecha de la operación, haciendo uso de los botones ubicados en la columna titulada **Acción**, donde es posible generar un reporte y ver más detalles de la operación.
 
 ![Screenshot](img/inventario-almacen.png)
 <div style="text-align: center;font-weight: bold">Figura: Estado del Inventario de Almacén</div>
