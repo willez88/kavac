@@ -83,7 +83,7 @@ class CitizenServiceRequestController extends Controller
                 'institution_name'              => ['required', 'max:200'],
                 'rif'                           => ['required', 'max:100'],
                 'institution_address'           => ['required', 'max:200'],
-                'web'                           => ['required', 'max:200'],
+                'web'                           => ['max:200'],
             ]);
         }
 
@@ -233,7 +233,7 @@ class CitizenServiceRequestController extends Controller
                 'institution_name'              => ['required', 'max:200'],
                 'rif'                           => ['required', 'max:100'],
                 'institution_address'           => ['required', 'max:200'],
-                'web'                           => ['required', 'max:200'],
+                'web'                           => ['max:200'],
             ]);
             $citizenServiceRequest->type_institution = $request->type_institution;
             $citizenServiceRequest->institution_name = $request->institution_name;

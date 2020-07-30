@@ -3,6 +3,10 @@
 			<div class="card-header">
 				<h6 class="card-title">Datos de la Persona Solicitante</h6>
 				<div class="card-btns">
+					<a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)"
+                       title="Ir atrás" data-toggle="tooltip">
+                        <i class="fa fa-reply"></i>
+                    </a>
 					<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
 						data-toggle="tooltip">
 						<i class="now-ui-icons arrows-1_minimal-up"></i>
@@ -31,7 +35,7 @@
 					<div class="col-md-4">
 						<div class="form-group is-required">
 							<label for="date">Fecha</label>
-        					<input type="date" id="date" class="form-control input-sm" data-toggle="tooltip"
+        					<input type="text" readonly id="date" class="form-control input-sm" data-toggle="tooltip"
                                    title="Indique la fecha de solicitud" v-model="record.date">
         				</div>
 					</div>
@@ -309,21 +313,23 @@
 		<div class="card-footer text-right">
         	<button type="button" @click="reset()" class="btn btn-default btn-icon btn-round"
                     title ="Borrar datos del formulario">
-				<i class="fa fa-eraser"></i>
+					<i class="fa fa-eraser"></i>
 			</button>
-        	<button type="button" class="btn btn-warning btn-icon btn-round btn-modal-close" data-dismiss="modal"
-                    title="Cancelar y regresar">
-        		<i class="fa fa-ban"></i>
-        	</button>
-        	<button type="button"  @click="createRecord('citizenservice/requests')" title="Guardar registro"
+        	<button type="button" @click="redirect_back(route_list)"
+                        class="btn btn-warning btn-icon btn-round" data-toggle="tooltip"
+                        title="Cancelar y regresar">
+                    <i class="fa fa-ban"></i>
+            </button>
+			<button type="button"  @click="createRecord('citizenservice/requests')" 		title="Guardar registro"
                     class="btn btn-success btn-icon btn-round btn-modal-save">
-        		<i class="fa fa-save"></i>
+        			<i class="fa fa-save"></i>
             </button>
         </div>
    	</div>
 </template>
 
 <script>
+	import moment from 'moment';
 	export default {
 		data() {
 			return {
@@ -425,10 +431,17 @@
 			},
 		},
 		mounted() {
+
+			const vm = this;
 			this.switchHandler('type_institution');
 			if(this.requestid){
 				this.loadForm(this.requestid);
 			}
+
+            else {
+                vm.record.date = moment(String(new Date())).format('YYYY-MM-DD');
+                console.log(vm.record.date);
+            }
 		},
 		props: {
 			requestid: Number,
