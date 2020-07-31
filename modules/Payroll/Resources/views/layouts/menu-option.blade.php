@@ -9,10 +9,11 @@
             <a href="{{ route('payroll.settings.index') }}" data-toggle="tooltip" data-placement="right"
                 title="Configuración de nómina">Configuración</a>
         </li>
-        <li class="">
-            <a href="#" data-toggle="tooltip" data-placement="right"
+        <li class="{!! set_active_menu(['payroll.salary-adjustments.create']) !!}">
+            <a href="{{ route('payroll.salary-adjustments.create') }}"
+               data-toggle="tooltip" data-placement="right"
                title="Gestiona las actualizaciones de tablas salariales, de acuerdo a un aumento oficial de salarios.">
-                Actualizar Tablas Salariales
+                Ajustes en Tablas Salariales
             </a>
         </li>
         <li>

@@ -307,6 +307,26 @@ Vue.component('payroll-registers-form', () => import(
 );
 
 /**
+ * Componente para mostrar listado de registros de nómina
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('payroll-registers-list', () => import(
+    /* webpackChunkName: "payroll-registers-list" */
+    './components/registers/PayrollListComponent.vue')
+);
+
+/**
+ * Componente para registrar ajustes en tablas salariales
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('payroll-salary-adjustments-form', () => import(
+    /* webpackChunkName: "payroll-salary-adjustments-form" */
+    './components/salary_adjustments/PayrollSalaryAdjustmentsFormComponent.vue')
+);
+
+/**
  * Componente para la gestión de calculos de salario
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>

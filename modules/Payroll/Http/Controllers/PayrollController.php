@@ -5,22 +5,74 @@ namespace Modules\Payroll\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
+use Modules\Payroll\Models\Payroll;
+
+/**
+ * @class      PayrollController
+ * @brief      Controlador de registros de nómina
+ *
+ * Clase que gestiona los registros de nómina
+ *
+ * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                 LICENCIA DE SOFTWARE CENDITEL
+ *             </a>
+ */
 class PayrollController extends Controller
 {
+    use ValidatesRequests;
+
+    /**
+     * Arreglo con las reglas de validación sobre los datos de un formulario
+     * @var Array $validateRules
+     */
+    protected $validateRules;
+
+    /**
+     * Arreglo con los mensajes para las reglas de validación
+     * @var Array $messages
+     */
+    protected $messages;
+
     /**
      * Define la configuración de la clase
      *
-     * @author William Páez <wpaez@cenditel.gob.ve>
+     * @author     Henry Paredes <hparedes@cenditel.gob.ve>
      */
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
+        //$this->middleware('permission:payroll.registers.list',   ['only' => ['index', 'vueList']]);
+        //$this->middleware('permission:payroll.registers.create', ['only' => ['create', 'store']]);
+        //$this->middleware('permission:payroll.registers.edit',   ['only' => ['edit', 'update']]);
+        //$this->middleware('permission:payroll.registers.delete', ['only' => 'destroy']);
+
+        /** Define las reglas de validación para el formulario */
+        $this->validateRules = [
+            'created_at'                => ['required'],
+            'name'                      => ['required'],
+            'payroll_payment_type_id'   => ['required'],
+            'payroll_payment_period_id' => ['required'],
+            'payroll_concepts'          => ['required']
+        ];
+
+        /** Define los mensajes de validación para las reglas del formulario */
+        $this->messages = [
+            'created_at.required'                => 'El campo fecha de generación es obligatorio.',
+            'payroll_payment_type_id.required'   => 'El campo tipo de pago de nómina es obligatorio.',
+            'payroll_payment_period_id.required' => 'El campo período de pago es obligatorio.',
+            'payroll_concepts.required'          => 'El campo concepto es obligatorio.'
+        ];
     }
 
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Muestra un listado de las nóminas de sueldos registradas
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\View\View
      */
     public function index()
     {
@@ -28,8 +80,11 @@ class PayrollController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Response
+     * Muestra el formulario para registrar una nueva nómina de sueldos
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\View\View
      */
     public function create()
     {
@@ -37,46 +92,135 @@ class PayrollController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Valida y registra una nueva nómina de sueldos
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     *
+     * @return    \Illuminate\Http\JsonResponse                Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
+        /**
+         * FALTA:
+         * 1-. validar payroll_parameters
+         * Revisar regla de validación
+         */
+        $this->validate($request, $this->validateRules, $this->messages);
+        return response()->json(['redirect' => route('payroll.registers.index')], 200);
+        /**
+         * Objeto asociado al modelo Payroll
+         * @var Object $payroll
+         */
+        $payroll = Payroll::create([
+            'name'                      => $request->name,
+            'payroll_payment_period_id' => $request->payroll_payment_period_id,
+            'payroll_parameters'        => json_encode($request->payroll_parameters),
+            'created_at'                => $request->created_at
+        ]);
+        
+        $request->session()->flash('message', ['type' => 'store']);
+        return response()->json(['redirect' => route('payroll.registers.index')], 200);
     }
 
     /**
-     * Show the specified resource.
-     * @return Response
+     * Obtiene la información de una nómina de sueldos registrada
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @param     Integer                          $id    Identificador único del registro de nómina
+     *
+     * @return    \Illuminate\Http\JsonResponse           Objeto con los registros a mostrar
      */
-    public function show()
+    public function show($id)
     {
-        return view('payroll::show');
+        /**
+         * Objeto asociado al modelo Payroll
+         * @var Object $payroll
+         */
+        $payroll = Payroll::find($id);
+        return response()->json(['record' => $payroll], 200);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * @return Response
+     * Muestra el formulario para actualizar la información de una nómina de sueldos
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @param     Integer                  $id    Identificador único del registro de nómina
+     *
+     * @return    \Illuminate\View\View
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('payroll::edit');
+        /**
+         * Objeto asociado al modelo Payroll
+         * @var Object $payroll
+         */
+        $payroll = Payroll::find($id);
+        return view('payroll::registers.create-edit', compact('payroll'));
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
+     * Actualiza la información de una nómina de sueldos
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @param     Integer                          $id         Identificador único del registro de nómina
+     *
+     * @return    \Illuminate\Http\JsonResponse                Objeto con los registros a mostrar
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        /**
+         * Objeto asociado al modelo Payroll
+         * @var Object $payroll
+         */
+        $payroll = Payroll::find($id);
+        $this->validate($request, $this->validateRules, $this->messages);
+
+        $payroll->update([
+            'name'                      => $request->name,
+            'payroll_payment_period_id' => $request->payroll_payment_period_id,
+            'payroll_parameters'        => json_encode($request->payroll_parameters),
+            'created_at'                => $request->created_at
+        ]);
+        
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['redirect' => route('payroll.registers.index')], 200);
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @return Response
+     * Elimina una nómina de sueldos
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @param     Integer                          $id    Identificador único del registro de nómina
+     *
+     * @return    \Illuminate\Http\JsonResponse           Objeto con los registros a mostrar
      */
-    public function destroy()
+    public function destroy($id)
     {
+        /**
+         * Objeto asociado al modelo Payroll
+         * @var Object $payroll
+         */
+        $payroll = Payroll::find($id);
+        $payroll->delete();
+        return response()->json(['message' => 'destroy'], 200);
+    }
+
+    /**
+     * Obtiene un listado de los registros de nómina
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     */
+    public function vueList()
+    {
+        return response()->json(['records' => Payroll::with(['payrollPaymentPeriod'])->get()], 200);
     }
 }

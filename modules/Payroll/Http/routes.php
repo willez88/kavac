@@ -17,7 +17,16 @@ Route::group([
 ], function () {
 
     /** Rutas para gestionar la nómina de trabajadores de la institución */
-    Route::resource('registers', 'PayrollController', ['as' => 'payroll']);
+    Route::resource('registers', 'PayrollController', ['as' => 'payroll', 'except' => ['edit','show']]);
+
+    /** Ruta que permite editar la información de un registro de nómina */
+    Route::get('registers/edit/{register}', 'PayrollController@edit')->name('payroll.registers.edit');
+    
+    /** Ruta que obtiene la información de un registro de nómina */
+    Route::get('registers/show/{register}', 'PayrollController@show')->name('payroll.registers.show');
+
+    /** Ruta que obtiene un listado de los registros de nómina */
+    Route::get('registers/vue-list', 'PayrollController@vueList')->name('payroll.registers.vue-list');
 
     /** Ruta para visualizar la sección de configuración del módulo */
     Route::get('settings', 'PayrollSettingController@index')->name('payroll.settings.index');
@@ -32,7 +41,7 @@ Route::group([
         ['as' => 'payroll', 'except' => ['create','edit','show']]
     );
 
-    /** Ruta que obtiene un array con los tipos de personal registrados */
+    /** Ruta que obtiene un arreglo con los tipos de personal registrados */
     Route::get(
         'get-staff-types',
         'PayrollStaffTypeController@getPayrollStaffTypes'
@@ -45,7 +54,7 @@ Route::group([
         ['as' => 'payroll', 'except' => ['create','edit','show']]
     );
 
-    /** Ruta que obtiene un array con los tipos de cargo registrados */
+    /** Ruta que obtiene un arreglo con los tipos de cargo registrados */
     Route::get(
         'get-position-types',
         'PayrollPositionTypeController@getPayrollPositionTypes'
@@ -58,7 +67,7 @@ Route::group([
         ['as' => 'payroll', 'except' => ['create','edit','show']]
     );
 
-    /** Ruta que obtiene un array con los cargos registrados */
+    /** Ruta que obtiene un arreglo con los cargos registrados */
     Route::get(
         'get-positions',
         'PayrollPositionController@getPayrollPositions'
@@ -71,7 +80,7 @@ Route::group([
         ['as' => 'payroll', 'except' => ['create','edit','show']]
     );
 
-    /** Ruta que obtiene un array con las clasificaciones del personal registrados */
+    /** Ruta que obtiene un arreglo con las clasificaciones del personal registrados */
     Route::get(
         'get-staff-classifications',
         'PayrollStaffClassificationController@getPayrollStaffClassifications'
@@ -83,7 +92,7 @@ Route::group([
     /** Ruta que obtiene un listado del peronal activo */
     Route::get('staffs/show/vue-list', 'PayrollStaffController@vueList')->name('payroll.staffs.vue-list');
 
-    /** Ruta que obtiene un array con los registros del personal registrados */
+    /** Ruta que obtiene un arreglo con los registros del personal registrados */
     Route::get('get-staffs', 'PayrollStaffController@getPayrollStaffs')->name('payroll.get-payroll-staffs');
 
     /** Rutas para gestionar los grados de instrucción */
@@ -93,7 +102,7 @@ Route::group([
         ['as' => 'payroll', 'except' => ['show']]
     );
 
-    /** Ruta que obtiene un array con los grados de instrucción registrados */
+    /** Ruta que obtiene un arreglo con los grados de instrucción registrados */
     Route::get(
         'get-instruction-degrees',
         'PayrollInstructionDegreeController@getPayrollInstructionDegrees'
@@ -106,7 +115,7 @@ Route::group([
         ['as' => 'payroll', 'except' => ['create','edit','show']]
     );
 
-    /** Ruta que obtiene un array con los tipos de estudios registrados */
+    /** Ruta que obtiene un arreglo con los tipos de estudios registrados */
     Route::get(
         'get-study-types',
         'PayrollStudyTypeController@getPayrollStudyTypes'
@@ -119,7 +128,7 @@ Route::group([
         ['as' => 'payroll', 'except' => ['show']]
     );
 
-    /** Ruta que obtiene un array con las nacionalidades registradas */
+    /** Ruta que obtiene un arreglo con las nacionalidades registradas */
     Route::get(
         'get-nationalities',
         'PayrollNationalityController@getPayrollNationalities'
@@ -132,19 +141,19 @@ Route::group([
         ['as' => 'payroll', 'except' => ['show','create','edit']]
     );
 
-    /** Ruta que obtiene un array con los conceptos registrados */
+    /** Ruta que obtiene un arreglo con los conceptos registrados */
     Route::get(
         'get-concepts',
         'PayrollConceptController@getPayrollConcepts'
     )->name('payroll.get-payroll-concepts');
 
-    /** Ruta que obtiene un array con las opciones a asignar un concepto */
+    /** Ruta que obtiene un arreglo con las opciones a asignar un concepto */
     Route::get(
         'get-concept-assign-to',
         'PayrollConceptController@getPayrollConceptAssignTo'
     )->name('payroll.get-payroll-concept-assign-to');
 
-    /** Ruta que obtiene un array con las opciones a asignar un concepto, de acuerdo al parámetro seleccionado */
+    /** Ruta que obtiene un arreglo con las opciones a asignar un concepto, de acuerdo al parámetro seleccionado */
     Route::get(
         'get-concept-assign-options/{code}',
         'PayrollConceptController@getPayrollConceptAssignOptions'
@@ -157,7 +166,7 @@ Route::group([
         ['as' => 'payroll', 'except' => ['show','create','edit']]
     );
 
-    /** Ruta que obtiene un array con los tipos de concepto registrados */
+    /** Ruta que obtiene un arreglo con los tipos de concepto registrados */
     Route::get(
         'get-concept-types',
         'PayrollConceptTypeController@getPayrollConceptTypes'
@@ -170,15 +179,15 @@ Route::group([
         ['as' => 'payroll', 'except' => ['show','create','edit']]
     );
 
-    /** Ruta que obtiene un array con los tipos de pago registrados */
+    /** Ruta que obtiene un arreglo con los tipos de pago registrados */
     Route::get(
         'get-payment-types',
         'PayrollPaymentTypeController@getPayrollPaymentTypes'
     )->name('payroll.get-payroll-payment-types');
 
-    /** Ruta que obtiene un array con los períodos de pago registrados, de acuerdo al tipo de pago seleccionado */
+    /** Ruta que obtiene un arreglo con los períodos de pago registrados, de acuerdo al tipo de pago seleccionado */
     Route::get(
-        'get-payment-periods/{payment_type?}',
+        'get-payment-periods/{payment_type}',
         'PayrollPaymentTypeController@getPayrollPaymentPeriods'
     )->name('payroll.get-payroll-payment-periods');
 
@@ -189,7 +198,7 @@ Route::group([
         ['as' => 'payroll', 'except' => ['show']]
     );
 
-    /** Ruta que obtiene un array con los niveles de idioma registrados */
+    /** Ruta que obtiene un arreglo con los niveles de idioma registrados */
     Route::get(
         'get-language-levels',
         'PayrollLanguageLevelController@getPayrollLanguageLevels'
@@ -198,13 +207,13 @@ Route::group([
     /** Rutas para gestionar los idiomas */
     Route::resource('languages', 'PayrollLanguageController', ['as' => 'payroll', 'except' => ['show']]);
 
-    /** Ruta que obtiene un array con los idiomas registrados */
+    /** Ruta que obtiene un arreglo con los idiomas registrados */
     Route::get('get-languages', 'PayrollLanguageController@getPayrollLanguages')->name('payroll.get-payroll-languages');
 
     /** Rutas para gestionar los géneros */
     Route::resource('genders', 'PayrollGenderController', ['as' => 'payroll', 'except' => ['show']]);
 
-    /** Ruta que obtiene un array con los géneros registrados */
+    /** Ruta que obtiene un arreglo con los géneros registrados */
     Route::get('get-genders', 'PayrollGenderController@getPayrollGenders')->name('payroll.get-payroll-genders');
 
     /** Rutas para gestionar los datos socioeconómicos del personal */
@@ -225,7 +234,7 @@ Route::group([
         'PayrollProfessionalController@vueList'
     )->name('payroll.professionals.vue-list');
 
-    /** Ruta que obtiene un array con las profesiones registrados */
+    /** Ruta que obtiene un arreglo con las profesiones registrados */
     Route::get(
         'get-json-professions',
         'PayrollProfessionalController@getJsonProfessions'
@@ -238,7 +247,7 @@ Route::group([
         ['as' => 'payroll', 'except' => ['show','create','edit']]
     );
     
-    /** Ruta que obtiene un array con los tipos de inactividad registrados */
+    /** Ruta que obtiene un arreglo con los tipos de inactividad registrados */
     Route::get(
         'get-inactivity-types',
         'PayrollInactivityTypeController@getPayrollInactivityTypes'
@@ -251,7 +260,7 @@ Route::group([
         ['as' => 'payroll', 'except' => ['show','create','edit']]
     );
 
-    /** Ruta que obtiene un array con los tipos de contrato registrados */
+    /** Ruta que obtiene un arreglo con los tipos de contrato registrados */
     Route::get(
         'get-contract-types',
         'PayrollContractTypeController@getPayrollContractTypes'
@@ -264,7 +273,7 @@ Route::group([
         ['as' => 'payroll', 'except' => ['show','create','edit']]
     );
     
-    /** Ruta que obtiene un array con los tipos de sector registrados */
+    /** Ruta que obtiene un arreglo con los tipos de sector registrados */
     Route::get(
         'get-sector-types',
         'PayrollSectorTypeController@getPayrollSectorTypes'
@@ -277,7 +286,7 @@ Route::group([
         ['as' => 'payroll', 'except' => ['show','create','edit']]
     );
 
-    /** Ruta que obtiene un array con los grados de licencia de conducir registrados */
+    /** Ruta que obtiene un arreglo con los grados de licencia de conducir registrados */
     Route::get(
         'get-license-degrees',
         'PayrollLicenseDegreeController@getPayrollLicenseDegrees'
@@ -290,7 +299,7 @@ Route::group([
         ['as' => 'payroll', 'except' => ['show','create','edit']]
     );
 
-    /** Ruta que obtiene un array con los tipos de sangre registrados */
+    /** Ruta que obtiene un arreglo con los tipos de sangre registrados */
     Route::get(
         'get-blood-types',
         'PayrollBloodTypeController@getPayrollBloodTypes'
@@ -310,20 +319,23 @@ Route::group([
     /** Rutas para gestionar los parámetros de nómina */
     Route::resource('parameters', 'PayrollParameterController', ['except' => ['show','create','edit']]);
 
-    /** Ruta que obtiene un array con los parámetros de nómina registrados */
+    /** Ruta que obtiene un arreglo con los parámetros de nómina registrados */
     Route::get('get-parameters',  'PayrollParameterController@getPayrollParameters');
 
-    /** Ruta que obtiene un array con los parámetros asociados al expediente del trabajador registrados */
+    /** Ruta que obtiene un arreglo con parámetros de nómina registrados asociados a un concepto */
+    Route::post('get-parameters', 'PayrollParameterController@getPayrollParameters');
+
+    /** Ruta que obtiene un arreglo con los parámetros asociados al expediente del trabajador registrados */
     Route::get('get-parameter-options/{code}',  'PayrollParameterController@getPayrollParameterOptions');
 
-    /** Ruta que obtiene un array con los tipos de parámetros de nómina registrados */
+    /** Ruta que obtiene un arreglo con los tipos de parámetros de nómina registrados */
     Route::get('get-parameter-types',  'PayrollParameterController@getPayrollParameterTypes');
 
     
     /** Rutas para gestionar los escalafones de nómina */
     Route::resource('salary-scales', 'PayrollSalaryScaleController', ['except' => ['show','create','edit']]);
 
-    /** Ruta que obtiene un array con los escalafones de nómina registrados */
+    /** Ruta que obtiene un arreglo con los escalafones de nómina registrados */
     Route::post('get-salary-scales', 'PayrollSalaryScaleController@getSalaryScales');
 
     /** Ruta que obtiene la información de un escalafón de nómina registrado */
@@ -332,15 +344,26 @@ Route::group([
     /** Rutas para gestionar los tabuladores de nómina */
     Route::resource('salary-tabulators', 'PayrollSalaryTabulatorController', ['except' => ['show','create','edit']]);
 
+    /** Ruta que obtiene la información de un registro de nómina */
+    Route::get('salary-tabulators/show/{tabulator}', 'PayrollSalaryTabulatorController@show')->name('payroll.salary-tabulators.show');
+
     /** Ruta que permite exportar la información de los tabuladores salariales registrados */
     Route::get('salary-tabulators/export/{tabulator}', 'PayrollSalaryTabulatorController@export');
 
-    /** Ruta que obtiene un array con los tabuladores salariales registrados */
+    /** Ruta que obtiene un arreglo con los tabuladores salariales registrados */
     Route::get('get-salary-tabulators', 'PayrollSalaryTabulatorController@getSalaryTabulators');
     
-    /** Ruta que obtiene un array con las agrupaciones de los tabuladores salariales registrados */
+    /** Ruta que obtiene un arreglo con las agrupaciones de los tabuladores salariales registrados */
     Route::get('get-salary-tabulators-groups', 'PayrollParameterController@getSalaryTabulatorsGroups');
 
-    /** Ruta que obtiene un array con los registros asociados al expediente del trabajador registrados */
+    /** Ruta que obtiene un arreglo con los registros asociados al expediente del trabajador registrados */
     Route::get('get-associated-records', 'PayrollParameterController@getAssociatedRecords');
+
+    /** Rutas para gestionar los ajustes en las tablas salariales */
+    Route::resource(
+        'salary-adjustments',
+        'PayrollSalaryAdjustmentController',
+        ['as' => 'payroll'],
+        ['only' => ['create', 'store']]
+    );
 });
