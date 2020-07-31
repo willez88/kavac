@@ -27,21 +27,18 @@ class PayrollScaleRequirement extends Model implements Auditable
 
     /**
      * Establece las relaciones por defecto que se retornan con las consultas
-     *
      * @var array $with
      */
     protected $with = ['clasificable'];
 
     /**
      * Lista de atributos para la gestión de fechas
-     *
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
-     *
      * @var array $fillable
      */
     protected $fillable = ['payroll_scale_id', 'scale_years_minimum', 'scale_years_maximum'];
@@ -50,6 +47,7 @@ class PayrollScaleRequirement extends Model implements Auditable
      * Método que obtiene los módelos morfológicos asociados al requisito de una escala de nómina
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function clasificable()
@@ -61,6 +59,7 @@ class PayrollScaleRequirement extends Model implements Auditable
      * Método que obtiene la escala asociada al registro
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function payrollScale()

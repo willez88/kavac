@@ -27,21 +27,18 @@ class PayrollConceptController extends Controller
 
     /**
      * Arreglo con las reglas de validación sobre los datos de un formulario
-     *
      * @var Array $validateRules
      */
     protected $validateRules;
 
     /**
      * Arreglo con los mensajes para las reglas de validación
-     *
      * @var Array $messages
      */
     protected $messages;
 
     /**
      * Arreglo con los registros de opciones a asignar el concepto
-     *
      * @var Array $assignTo
      */
     protected $assignTo;
@@ -71,9 +68,6 @@ class PayrollConceptController extends Controller
             'institution_id'          => ['required'],
             'calculation_way'         => ['required'],
             'assign_to'               => ['required']
-            
-
-            
         ];
 
         /** Define los mensajes de validación para las reglas del formulario */
@@ -238,14 +232,15 @@ class PayrollConceptController extends Controller
      * Muestra un listado de los conceptos registradas (activos e inactivos)
      *
      * @method    index
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return    \Illuminate\Http\Response    JSON con los registros a mostrar
+     *
+     * @return    \Illuminate\Http\Response    Objeto con los registros a mostrar
      */
     public function index()
     {
         /**
          * Objeto asociado al modelo PayrollConcept
-         *
          * @var Object $payrollConcepts
          */
         $payrollConcepts = PayrollConcept::with('payrollSalaryTabulator', 'payrollConceptAssignOptions')->get();
@@ -289,9 +284,12 @@ class PayrollConceptController extends Controller
      * Valida y registra un nuevo concepto
      *
      * @method    store
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @param     \Illuminate\Http\Request     $request    Datos de la petición
-     * @return    \Illuminate\Http\Response    JSON con los registros a mostrar
+     *
+     * @return    \Illuminate\Http\Response                Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
@@ -305,13 +303,12 @@ class PayrollConceptController extends Controller
 
         /**
          * Objeto asociado al modelo PayrollConcept
-         *
          * @var Object $payrollConcept
          */
         $payrollConcept = PayrollConcept::create([
             'code'                        => $request->code,
             'name'                        => $request->name,
-            'description'                 => $request->description,
+            'description'                 => $request->description ?? '',
             'active'                      => !empty($request->active)
                                                  ? $request->active
                                                  : false,
@@ -343,7 +340,6 @@ class PayrollConceptController extends Controller
                 foreach ($request->assign_options[$assign_to['id']] as $assign_option) {
                     /**
                      * Objeto asociado al modelo PayrollConceptAssignOption
-                     *
                      * @var Object $payrollConceptAssignOption
                      */
                     $payrollConceptAssignOption = PayrollConceptAssignOption::create([
@@ -363,14 +359,15 @@ class PayrollConceptController extends Controller
      * Actualiza la información de una asignación salarial
      *
      * @method    update
+     *
      * @param     \Illuminate\Http\Request         $request    Datos de la petición
-     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     *
+     * @return    \Illuminate\Http\JsonResponse                Objeto con los registros a mostrar
      */
     public function update(Request $request, $id)
     {
         /**
          * Objeto con la información del concepto a editar asociado al modelo PayrollConcept
-         *
          * @var Object $payrollConcept
          */
         $payrollConcept = PayrollConcept::find($id);
@@ -383,7 +380,7 @@ class PayrollConceptController extends Controller
 
         $payrollConcept->code                        = $request->code;
         $payrollConcept->name                        = $request->name;
-        $payrollConcept->description                 = $request->description;
+        $payrollConcept->description                 = $request->description ?? '';
         $payrollConcept->active                      = !empty($request->active)
                                                            ? $request->active
                                                            : $payrollConcept->active;
@@ -423,7 +420,6 @@ class PayrollConceptController extends Controller
                 foreach ($request->assign_options[$assign_to['id']] as $assign_option) {
                     /**
                      * Objeto asociado al modelo PayrollConceptAssignOption
-                     *
                      * @var Object $payrollConceptAssignOption
                      */
                     $payrollConceptAssignOption = PayrollConceptAssignOption::create([
@@ -443,15 +439,17 @@ class PayrollConceptController extends Controller
      * Elimina un concepto
      *
      * @method    destroy
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param     Integer $id                      Identificador único del concepto a eliminar
-     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     *
+     * @param     Integer                          $id    Identificador único del concepto a eliminar
+     *
+     * @return    \Illuminate\Http\JsonResponse           Objeto con los registros a mostrar
      */
     public function destroy($id)
     {
         /**
          * Objeto con la información del concepto a eliminar asociado al modelo PayrollConcept
-         *
          * @var Object $payrollConcept
          */
         $payrollConcept = PayrollConcept::find($id);
@@ -463,8 +461,10 @@ class PayrollConceptController extends Controller
      * Obtiene los tipos de conceptos registrados
      *
      * @method    getPayrollConcepts
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return    Array    Listado de los registros a mostrar
+     *
+     * @return    {array}    Listado de los registros a mostrar
      */
     public function getPayrollConcepts()
     {
@@ -475,8 +475,10 @@ class PayrollConceptController extends Controller
      * Obtiene las opciones a asignar registrados asociadas a un concepto
      *
      * @method    getPayrollConceptAssignTo
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return    Array    Listado de los registros a mostrar
+     *
+     * @return    {array}    Listado de los registros a mostrar
      */
     public function getPayrollConceptAssignTo()
     {
@@ -487,8 +489,10 @@ class PayrollConceptController extends Controller
      * Obtiene la lista de opciones de acuerdo al parametro seleccionado
      *
      * @method    getPayrollParametersTypes
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return    Array    Listado de los registros a mostrar
+     *
+     * @return    {array}    Listado de los registros a mostrar
      */
     public function getPayrollConceptAssignOptions($id)
     {

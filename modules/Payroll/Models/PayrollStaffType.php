@@ -34,7 +34,6 @@ class PayrollStaffType extends Model implements Auditable
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
-     *
      * @var array $fillable
      */
     protected $fillable = [
@@ -45,6 +44,7 @@ class PayrollStaffType extends Model implements Auditable
      * Método que obtiene el tipo de personal asociado a muchas informaciones laborales
      *
      * @author    William Páez <wpaez@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function payrollEmploymentInformations()
@@ -56,6 +56,7 @@ class PayrollStaffType extends Model implements Auditable
      * Obtiene información de las opciones asignadas asociadas a un tipo de personal
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function payrollConceptAssignOptions()

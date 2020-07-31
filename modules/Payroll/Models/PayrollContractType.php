@@ -35,7 +35,6 @@ class PayrollContractType extends Model implements Auditable
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
-     *
      * @var array $fillable
      */
     protected $fillable = ['name'];
@@ -44,6 +43,7 @@ class PayrollContractType extends Model implements Auditable
      * Método que obtiene el tipo de contrato asociado a muchas informaciones laborales del trabajador
      *
      * @author    William Páez <wpaez@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function payrollEmploymentInformations()
@@ -55,6 +55,7 @@ class PayrollContractType extends Model implements Auditable
      * Obtiene información de las opciones asignadas asociadas a un tipo de contrato
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function payrollConceptAssignOptions()

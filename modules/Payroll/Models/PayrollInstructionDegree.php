@@ -34,7 +34,6 @@ class PayrollInstructionDegree extends Model implements Auditable
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
-     *
      * @var array $fillable
      */
     protected $fillable = [
@@ -45,6 +44,7 @@ class PayrollInstructionDegree extends Model implements Auditable
      * Método que obtiene el grado de instrucción asociado a muchas informaciones profesionales del trabajador
      *
      * @author    William Páez <wpaez@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function payrollProfessionals()
@@ -56,6 +56,7 @@ class PayrollInstructionDegree extends Model implements Auditable
      * Método que obtiene los requerimientos de las escalas asociados a un grado de instrucción
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function payrollScaleRequirements()
@@ -67,6 +68,7 @@ class PayrollInstructionDegree extends Model implements Auditable
      * Obtiene información de las opciones asignadas asociadas a un grado de instrucción
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function payrollConceptAssignOptions()

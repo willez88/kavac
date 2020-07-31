@@ -28,14 +28,12 @@ class PayrollPaymentType extends Model implements Auditable
 
     /**
      * Lista de atributos para la gestión de fechas
-     *
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
-     *
      * @var array $fillable
      */
     protected $fillable = [
@@ -47,6 +45,7 @@ class PayrollPaymentType extends Model implements Auditable
      * Método que obtiene la cuenta contable asociada al tipo de pago
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function accountingAccount()
@@ -60,6 +59,7 @@ class PayrollPaymentType extends Model implements Auditable
      * Método que obtiene la cuenta presupuestaria asociada al tipo de pago
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function budgetAccount()
@@ -73,6 +73,7 @@ class PayrollPaymentType extends Model implements Auditable
      * Método que obtiene los conceptos asociados a muchos tipos de pago de nómina
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function payrollConcepts()
@@ -89,6 +90,7 @@ class PayrollPaymentType extends Model implements Auditable
      * Método que obtiene la información de los períodos asociados al tipo de pago de nómina
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function payrollPaymentPeriods()
