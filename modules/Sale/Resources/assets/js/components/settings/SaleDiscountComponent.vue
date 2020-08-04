@@ -2,11 +2,11 @@
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de Descuentos" data-toggle="tooltip"
-		   @click="addRecord('add_sale_payment_method', 'payment-method', $event)">
+		   @click="addRecord('add_sale_discount_method', 'discount-method', $event)">
            <i class="icofont icofont-sale-discount ico-3x"></i>
 		   <span>Descuentos</span>
 		</a>
-		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_sale_payment_method">
+		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_sale_discount_method">
 			<div class="modal-dialog vue-crud" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -26,7 +26,7 @@
 							</ul>
 						</div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
         						<div class="form-group is-required">
         							<label for="name">Nombre:</label>
         							<input type="text" id="name" placeholder="Nombre"
@@ -35,7 +35,7 @@
         							<input type="hidden" name="id" id="id" v-model="record.id">
         	                    </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group is-required">
         							<label for="description">Descripción:</label>
         							<input type="text" id="description" placeholder="Descripción"
@@ -43,11 +43,19 @@
         								   title="Indique la descripción (requerido)">
         	                    </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="form-group is-required">
+        							<label for="percent">Porcentaje:</label>
+        							<input type="number" id="percent" placeholder="Descripción"
+        								   class="form-control input-sm" v-model="record.percent" data-toggle="tooltip"
+        								   title="Indique la descripción (requerido)">
+        	                    </div>
+                            </div>
                         </div>
 	                </div>
 					<div class="modal-footer">
 	                	<div class="form-group">
-	                		<modal-form-buttons :saveRoute="'sale/payment-method'"></modal-form-buttons>
+	                		<modal-form-buttons :saveRoute="'sale/discount-method'"></modal-form-buttons>
 	                	</div>
 	                </div>
 	                <div class="modal-body modal-table">
@@ -58,7 +66,7 @@
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'payment-method')"
+		                		<button @click="deleteRecord(props.index, 'discount-method')"
 										class="btn btn-danger btn-xs btn-icon btn-action"
 										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
@@ -81,11 +89,12 @@
 				record: {
 					id: '',
 					name: '',
-                    description: ''
+                    description: '',
+                    percent: ''
 				},
 				errors: [],
 				records: [],
-				columns: ['name', 'description', 'id'],
+				columns: ['name', 'description', 'percent', 'id'],
 			}
 		},
 		methods: {
@@ -98,7 +107,8 @@
 				this.record = {
 					id: '',
 					name: '',
-                    description: ''
+                    description: '',
+                    percent: ''
 				};
 			},
 		},
@@ -106,14 +116,16 @@
 			this.table_options.headings = {
 				'name': 'Nombre',
                 'description': 'Descripción',
+                'percent': 'Porcentaje',
 				'id': 'Acción'
 			};
 			this.table_options.sortable = ['name'];
 			this.table_options.filterable = ['name'];
 			this.table_options.columnsClasses = {
-				'name': 'col-md-5',
-                'description': 'col-md-5',
-				'id': 'col-md-2'
+				'name': 'col-md-3',
+                'description': 'col-md-3',
+                'percent': 'col-md-3',
+				'id': 'col-md-3'
 			};
 		},
 	};

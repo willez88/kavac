@@ -135,10 +135,10 @@ Vue.mixin({
 		 *
 		 * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
 		 */
-		getSaleDescountMethod() {
+		getSaleDiscount() {
 			const vm = this;
 			vm.sale_descount_method = [];
-			axios.get('/sale/get-saledescountmethod').then(response => {
+			axios.get('/sale/get-saledescount').then(response => {
 				vm.sale_descount_method = response.data;
 			});
 		},

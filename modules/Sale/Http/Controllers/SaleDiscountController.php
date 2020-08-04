@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Modules\Sale\Models\SaleDiscount;
+
 class SaleDiscountController extends Controller
 {
     /**
@@ -36,8 +39,7 @@ class SaleDiscountController extends Controller
         $this->validate($request, [
             'name' => ['required', 'max:100'],
             'description' => ['required', 'max:200'],
-            'percent' => ['required', 'max:100']
-
+            'percent' => ['required', 'max:3']
         ]);
         $SaleDiscount = SaleDiscount::create(['name' => $request->name,'description' => $request->description, 'percent' => $request->percent]);
         return response()->json(['record' => $SaleDiscount, 'message' => 'Success'], 200);
@@ -66,13 +68,13 @@ class SaleDiscountController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request $id)
+    public function update(Request $request, $id)
     {
         $SaleDiscount = SaleDiscount::find($id);
         $this->validate($request, [
             'name' => ['required', 'max:100'],
             'description' => ['required', 'max:200'],
-            'percent' => ['required', 'max:100']
+            'percent' => ['required', 'max:3']
         ]);
         $SaleDiscount->name  = $request->name;
         $SaleDiscount->description = $request->description;
