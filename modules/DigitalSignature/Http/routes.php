@@ -10,6 +10,8 @@ Route::group(
     		return view('digitalsignature::fileprofile');
 		})->name('fileprofile');
         Route::post('signprofilestore', 'DigitalSignatureController@store')->name('signprofilestore');
+        Route::get('certificateDetails', 'DigitalSignatureController@getCertificate')->name('certificateDetails');
+        Route::post('updateCertificate', 'DigitalSignatureController@update')->name('updateCertificate');
     }
 );
 
