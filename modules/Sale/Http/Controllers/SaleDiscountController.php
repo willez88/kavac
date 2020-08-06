@@ -11,6 +11,7 @@ use Modules\Sale\Models\SaleDiscount;
 
 class SaleDiscountController extends Controller
 {
+    use ValidatesRequests;
     /**
      * Display a listing of the resource.
      * @return Response

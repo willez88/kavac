@@ -66,8 +66,8 @@
     											name="active" data-toggle="tolltip" title="Indique si es el almacén principal"
     											data-on-label="Si" data-off-label="No" value="true"
     											v-model="record.active">
-    										</div>
-                                        </div>
+    									</div>
+                                    </div>
 								</div>
 							</div>
 						</div>
@@ -119,6 +119,10 @@
 	                </div>
 	                <div class="modal-body modal-table">
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
+	                		<div slot="active" slot-scope="props">
+	                			<span v-if="props.row.active == true">Activo</span>
+	                			<span v-else>Inactivo</span>
+	                		</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.index, $event)"
 		                				class="btn btn-warning btn-xs btn-icon btn-action"
@@ -158,7 +162,7 @@
 				multi_institution: null,
 				errors: [],
 				records: [],
-				columns: ['name', 'country', 'estate', 'address', 'institution', 'active',  'id'],
+				columns: ['name', 'address', 'active',  'id'],
 				institutions: [],
 				countries: [],
 				estates: [],
@@ -200,24 +204,21 @@
 				'municipality_id':'Municipio',
 				'parish_id': 'Parroquia',
 			};
-			this.table_options.sortable = ['name', 'country', 'estate', 'address', 'institution', 'active'];
-			this.table_options.filterable = ['name', 'country', 'estate', 'address', 'institution', 'active'];
+			this.table_options.sortable = ['name','address', 'active'];
+			this.table_options.filterable = ['name','address', 'active'];
 			this.table_options.columnsClasses = {
-                'name': 'col-xs-1',
-                'country': 'col-xs-2',
-                'estate': 'col-xs-2',
-                'address': 'col-xs-2',
-                'institution': 'col-xs-2',
-                'active': 'col-xs-2',
-                'id': 'col-xs-1'
+                'name': 'col-xs-3',
+                'address': 'col-xs-3',
+                'active': 'col-xs-3',
+                'id': 'col-xs-3'
 			};
 			this.getCountries();
 			this.getInstitutions();
 		},
 		//Estilo de botones principal y activar
 		mounted() {
-			this.switchHandler('main');
-			this.switchHandler('active');
+			//this.switchHandler('active');
+			//this.switchHandler('main');
 		}
 	};
 </script>
