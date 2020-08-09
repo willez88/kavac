@@ -39,7 +39,6 @@ class DashboardController extends Controller
                     $trashed[$model_name] = $model->onlyTrashed()->get();
                 }
             }
-
             /** Si el usuario esta autenticado redirecciona a la página del panel de control */
             return view('dashboard.index', compact('trashed'));
         } else {
