@@ -20,7 +20,7 @@ class CreatePurchaseProcessesTable extends Migration
                 $table->text('description')->comment('Descripción del proceso de compra');
                 $table->boolean('require_documents')->default(false)
                       ->comment('Indica si el proceso de compra require cargar documentos');
-                $table->json('list_documents')->nullable()
+                $table->longText('list_documents')->nullable()
                       ->comment('Listado de documentos a consignar en el proceso de compra');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
