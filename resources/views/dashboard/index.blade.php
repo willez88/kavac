@@ -12,15 +12,17 @@
 	@endrole
 	@yield('dashboard')
 
-	@foreach(Module::all() as $module)
-		@php
-			$perm = App\Roles\Models\Permission::where('slug', strtolower($module) . '.dashboard')->first();
-			$hasPerm = (!is_null($perm));
-		@endphp
-		@if (auth()->user()->hasRole(strtolower($module)) || $hasPerm)
-			@includeIf(strtolower($module) . '::index')
-		@endif
-	@endforeach
+    @if (!(bool)env('APP_TESTING', false))
+    	@foreach(Module::all() as $module)
+    		@php
+    			$perm = App\Roles\Models\Permission::where('slug', strtolower($module) . '.dashboard')->first();
+    			$hasPerm = (!is_null($perm));
+    		@endphp
+    		@if (auth()->user()->hasRole(strtolower($module)) || $hasPerm)
+    			@includeIf(strtolower($module) . '::index')
+    		@endif
+    	@endforeach
+    @endif
 @stop
 
 @section('extra-js')
