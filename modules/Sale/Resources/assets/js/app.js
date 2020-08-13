@@ -76,6 +76,15 @@ Vue.component('sale-discount', () => import(
 );
 
 /**
+ * Componente para listar, crear, actualizar y borrar cotizaciones
+ *
+ * @author Jose Puentes <jpuentes@cenditel.gob.ve>
+ */
+Vue.component('sale-quote', () => import(
+    './components/settings/SaleQuoteComponent.vue')
+);
+
+/**
  * Opciones de configuración global del módulo de Commercialización
  */
 Vue.mixin({

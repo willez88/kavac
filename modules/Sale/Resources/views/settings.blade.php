@@ -44,6 +44,8 @@
 						<register-formatcode></register-formatcode>
 						{{-- Configuración de Descuento --}}
 						<sale-discount></sale-discount>
+                                                {{-- Solicitar cotización --}}
+						<sale-quote></sale-quote>
 					</div>
 				</div>
 			</div>
