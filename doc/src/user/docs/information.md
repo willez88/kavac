@@ -38,78 +38,71 @@ En el desarrollo de la aplicación administrativa para la gestión de recursos K
 
 **Página de ingreso**
    
-La ventana de ingreso está formada por una imagen de fondo, una serie de campos de verificación correspondientes a la cuenta de usuario, contraseña y un campo de verificación de captcha. El campo de verificación de captcha se completa conforme al texto descrito en la imagen, dicha imagen tiene la posibilidad de ser actualizada para mejorar la visualización del texto descrito. El botón de selección permiten recordar contraseña al momento de un nuevo inicio de sesión.
+La ventana de ingreso (Figura 3) está conformada por una imagen de fondo, una serie de campos de verificación correspondientes a la cuenta de usuario, contraseña y un campo de verificación de captcha. El campo de verificación de captcha se completa conforme al texto descrito en la imagen, dicha imagen tiene la posibilidad de ser actualizada para mejorar la visualización del texto descrito. El botón de selección permiten recordar contraseña al momento de un nuevo inicio de sesión.
 
-![Screenshot](img/pagina-ingreso.png)
-<div style="text-align: center;font-weight: bold">Figura: Página Ingreso</div>
+![Screenshot](img/figure_3.png)<div style="text-align: center;font-weight: bold">Figura 3: Página Ingreso</div>
 
 **Elementos de identificación**
 
-   Dentro de los elementos de identificación como componentes de nuestra interfaz gráfica se encuentra el logo original y título del sistema KAVAC.
+Dentro de los elementos de identificación como componentes de nuestra interfaz gráfica se encuentra el logo original y título del sistema KAVAC (Figura 4).
 
-![Screenshot](img/interfaz-logo.png)
-<div style="text-align: center;font-weight: bold">Figura: Elemento de Identificación</div>
+![Screenshot](img/figure_4.png)<div style="text-align: center;font-weight: bold">Figura 4: Elemento de Identificación</div>
 
 **Página inicial**
 
-   Página inicial o área de trabajo, se encuentra estructurada por una serie de elementos de navegación conformando el sistema y haciéndolo intuitivo a través de una barra de navegación superior, un panel lateral o menú del sistema, y el panel principal de operaciones.
+Página inicial o área de trabajo (Figura 5), se encuentra estructurada por una serie de elementos de navegación conformando el sistema y haciéndolo intuitivo a través de una barra de navegación superior, un panel lateral o menú del sistema, y el panel principal de operaciones.
 
-![Screenshot](img/pagina-principal.png)
-<div style="text-align: center;font-weight: bold">Figura: Página Inicial</div>
+![Screenshot](img/figure_5.png)<div style="text-align: center;font-weight: bold">Figura 5: Página Inicial</div>
 
 **Panel superior**
 
-   Panel superior o barra de navegación, se distribuye de la siguiente manera, en la parte izquierda se muestra el logo KAVAC y un botón de despliegue para ocultar y mostrar el panel lateral, a la derecha se muestran una serie de herramientas funcionales como lo son: notificaciones, buzón de mensajes, <!-- selector de idioma --> configuración de base de datos y configuración de cuenta usuario.
+Panel superior o barra de navegación (Figura 6), se distribuye de la siguiente manera, en la parte izquierda se muestra el logo KAVAC y un botón de despliegue para ocultar y mostrar el panel lateral, a la derecha se muestran una serie de herramientas funcionales como lo son: notificaciones, buzón de mensajes, <!-- selector de idioma --> configuración de base de datos y configuración de cuenta usuario.
 
-![Screenshot](img/panel-superior.png)
-<div style="text-align: center;font-weight: bold">Figura: Panel Superior</div>
+![Screenshot](img/figure_6.png)<div style="text-align: center;font-weight: bold">Figura 6: Panel Superior</div>
 
 **Panel lateral**
 
-   Panel lateral o menú del sistema, ubicado al lado izquierdo es el menú principal del sistema donde se ubican cada uno de los módulos o aplicaciones, cada módulo posee un botón con opción de despliegue para las subcategorías en que se divide dicho módulo.
+Panel lateral o menú del sistema (Figura 7), ubicado al lado izquierdo es el menú principal del sistema donde se ubican cada uno de los módulos o aplicaciones, cada módulo posee un botón con opción de despliegue para las subcategorías en que se divide dicho módulo.
 
-![Screenshot](img/panel-kavac.png)
-<div style="text-align: center;font-weight: bold">Figura: Panel Lateral</div>
+![Screenshot](img/figure_7.png)<div style="text-align: center;font-weight: bold">Figura 7: Panel Lateral</div>
 
 **Panel principal**
 
-   Panel principal, es la ventana de operaciones en general de todas las actividades a realizar y registradas, cuenta con barras de navegación, buscadores, tablas de contenido en forma clasificada, gráficos y campos de registro. Se encuentra identificado en la parte superior de la ventana dependiendo el área en la que se está trabajando. 
+Panel principal (Figura 8), es la ventana de operaciones en general de todas las actividades a realizar y registradas, cuenta con barras de navegación, buscadores, tablas de contenido en forma clasificada, gráficos y campos de registro. Se encuentra identificado en la parte superior de la ventana dependiendo el área en la que se está trabajando. 
 
-![Screenshot](img/panel-principal.png)
-<div style="text-align: center;font-weight: bold">Figura: Panel Principal</div>
+![Screenshot](img/figure_8.png)<div style="text-align: center;font-weight: bold">Figura 8: Panel Principal</div>
 
 ##Botones
 
-   Dentro de los elementos funcionales comunes de la interfaz gráfica del sistema se encuentran los siguientes elementos:
+Dentro de los elementos funcionales comunes de la interfaz gráfica del sistema se encuentran los siguientes elementos:
 
 **Acciones de formulario**
 
-   Se muestran tres botones comunes para las ventanas del sistema, elementos que corresponden a las funciones de borrar datos, cancelar y guardar respectivamente.
+Se muestran tres botones comunes para las ventanas del sistema, elementos que corresponden a las funciones de borrar datos, cancelar y guardar respectivamente.
 
-![Screenshot](img/botones-comunesdos.png)
+![Screenshot](img/figure_btn_1.png)
 
 **Acciones de registro**
 
-   Estos elementos corresponden a las funciones de regresar, crear nuevo registro e imprimir respectivamente.
+Estos elementos corresponden a las funciones de regresar, crear nuevo registro e imprimir respectivamente.
 
-![Screenshot](img/acciones_registro-1.png)
+![Screenshot](img/figure_btn_2.png)
    
-   Estos elementos corresponden a las funciones de editar, borrar, ver y aprobar registro respectivamente.
+Estos elementos corresponden a las funciones de editar, borrar, ver y aprobar registro respectivamente.
 
-![Screenshot](img/acciones_registro-2.png)
+![Screenshot](img/figure_btn_3.png)
 
-   Estos elementos corresponden a las funciones de buscar, subir y descargar datos respectivamente.
+Estos elementos corresponden a las funciones de buscar, subir y descargar datos respectivamente.
 
-![Screenshot](img/acciones_registro-3.png)
+![Screenshot](img/figure_btn_4.png)
 
 **Botón de ayuda**
 
-El botón de ayuda que observamos en el encabezado de cada sección es un elemento que tiene la función de guiar al usuario en el sistema a través de un tutorial a nivel de interfaz gráfica. Este muestra detalladamente las especificaciones de cada funcionalidad del sistema. 
+El botón de ayuda que observamos en el encabezado de cada sección es un elemento que tiene la función de guiar al usuario en el sistema a través de un tutorial a nivel de interfaz gráfica (Figura 9). Este muestra detalladamente las especificaciones de cada funcionalidad del sistema. 
 
-![Screenshot](img/boton-ayuda.png)
+![Screenshot](img/figure_btn_5.png)
 
-![Screenshot](img/tutorial-ayuda.png)
-<div style="text-align: center;font-weight: bold">Figura: Botón de Ayuda</div>
+![Screenshot](img/figure_9.png)<div style="text-align: center;font-weight: bold">Figura 9: Botón de Ayuda</div>
 
 ##Sobre los usuarios
 

@@ -17,10 +17,7 @@ Para registrar condición física:
 - Completar el formulario ingresando el nombre de la condición física   
 - Presionar el botón **Guardar** y verificar que se haya almacenado 
 
-Ejemplo de registros para condición física:
-
-
-
+![Screenshot](../img/condiciones_fisicas.jpg)<div style="text-align: center;font-weight: bold">Figura: Condiciones Físicas</div>
 
 Esta sección permite **Editar** o **Eliminar** cualquier registro, haciendo uso de los botones ubicados en la columna titulada **Acción** de la tabla de registros.  
 
@@ -35,9 +32,7 @@ Para registrar estatus de uso:
 - Completar el formulario ingresando el nombre del estatus de uso   
 - Presionar el botón **Guardar** y verificar que se haya almacenado 
 
-Ejemplo de registros para estatus de uso:
-
-
+![Screenshot](../img/estatus_uso.jpg)<div style="text-align: center;font-weight: bold">Figura: Estatus de Uso</div>
 
 Esta sección permite **Editar** o **Eliminar** cualquier registro, haciendo uso de los botones ubicados en la columna titulada **Acción** de la tabla de registros.  
 
@@ -52,14 +47,11 @@ Para registrar una función de uso:
 - Completar el formulario ingresando el nombre de la función de uso   
 - Presionar el botón **Guardar** y verificar que se haya almacenado 
 
-Ejemplo de registros para función de uso:
-
-
-
+![Screenshot](../img/funciones_uso.jpg)<div style="text-align: center;font-weight: bold">Figura: Funciones de Uso</div>
 
 Esta sección permite **Editar** o **Eliminar** cualquier registro, haciendo uso de los botones ubicados en la columna titulada **Acción** de la tabla de registros.  
 
-###Tipo de adquisión 
+###Tipo de adquisición 
 
 A través de esta funcionalidad se gestiona información sobre el tipo de adquisición de los bienes institucionales.   
 
@@ -70,8 +62,7 @@ Para registrar estatus de uso:
 - Completar el formulario ingresando el nombre del tipo de adquisición   
 - Presionar el botón **Guardar** y verificar que se haya almacenado 
 
-Ejemplo de registros para tipo de adquisición:
-
+![Screenshot](../img/tipo_adquisicion.jpg)<div style="text-align: center;font-weight: bold">Figura: Tipo de Adquisición</div>
 
 Esta sección permite **Editar** o **Eliminar** cualquier registro, haciendo uso de los botones ubicados en la columna titulada **Acción** de la tabla de registros.  
 

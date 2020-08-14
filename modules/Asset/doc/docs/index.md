@@ -4,7 +4,7 @@
 
 ![Screenshot](img/logokavac.png#imagen)
 
-El Manual de Documentación del sistema KAVAC a nivel de usuario tiene como objetivo facilitar la tarea de conocimiento, uso y aprendizaje del sistema desarrollado. Presenta información acerca de todas las operaciones básicas que el sistema ofrece, así como capturas de pantalla útiles para el seguimiento de la explicación. A continuación se muestra la documentación de usuario para el módulo de bienes, este módulo esta dirigido a la gestión de bienes institucionales, dicha gestión se lleva a cabo a través de las funcionalidades registro de bienes, incorporación de bienes, solicitud de prestamos externos o internos, inventario y reportes. Los requerimientos de cada institución para la gestión de bienes, pueden ser ajustados a través de la configuración del módulo.  En este manual se presenta una descripción de las funcionalidades de este módulo, como usarlo y como ajustarlo a una institución u organización.     
+El Manual de Documentación del sistema KAVAC a nivel de usuario tiene como objetivo facilitar la tarea de conocimiento, uso y aprendizaje del sistema desarrollado. Presenta información acerca de todas las operaciones básicas que el sistema ofrece, así como capturas de pantalla útiles para el seguimiento de la explicación de los procesos. A continuación se muestra la documentación de usuario para el módulo de bienes, este módulo esta dirigido a la gestión de bienes institucionales, dicha gestión se lleva a cabo a través de las funcionalidades registro de bienes, incorporación de bienes, solicitud de prestamos externos o internos, inventario y reportes. Los requerimientos de cada institución para la gestión de bienes, pueden ser ajustados a través de la configuración del módulo.  En este manual se presenta una descripción de las funcionalidades de este módulo, como usarlo y como ajustarlo a una institución u organización.     
 
 
 ##Módulo de bienes
@@ -17,7 +17,7 @@ KAVAC incorpora una funcionalidad para gestionar la asignación de bienes a cada
 
 La sección **Desincorporaciones**, permite la gestión de registro para el retiro de algun bien, el bien es registrado para desincorporación por obsolescencia, inservibilidad o reparación.
 
-La gestión de prestamos de bienes institucionales se lleva a cabo en la sección **Solicitudes**, esta sección permite ademas tener un control de todas los registros de las solicitudes, prorrogas y entregas pendientes.      
+La gestión de prestamos de bienes institucionales se lleva a cabo en la sección **Solicitudes**, esta sección permite, además, tener un control de todas los registros de las solicitudes, prorrogas y entregas pendientes.      
 
 A través de la sección **Historial del inventario** se generan los diferentes reportes para bienes registrados, que contiene una relación detallada y ordenada de los elementos que componen el activo o patrimonio de la institución.      
 
@@ -26,7 +26,7 @@ A través de la sección **Reportes de bienes**, es posible generar un reporte g
 ##Sobre los usuarios
 
 
-Los usuarios que interactuan en este módulo, serán todos aquellos usuarios con roles y permisos sobre el módulo de contabilidad, previamente gestionados por el usuario con el rol de administrador. Para conocer mas sobre la gestión de roles y permisos visite el [Manual de Documentación del Sistema KAVAC](http://192.168.12.180/manual/base/).
+Los usuarios que interactuan en este módulo, serán todos aquellos usuarios con roles y permisos sobre el módulo de bienes, previamente gestionados por el usuario con el rol de administrador. Para conocer mas sobre la gestión de roles y permisos visite el [Manual de Documentación del Sistema KAVAC](http://192.168.12.180/manual/base/).
 
 
 
