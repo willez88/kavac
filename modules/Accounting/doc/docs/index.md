@@ -4,7 +4,7 @@
 
 ![Screenshot](img/logokavac.png#imagen)
 
-El Manual de Documentación del sistema KAVAC a nivel de usuario tiene como objetivo facilitar la tarea de conocimiento, uso y aprendizaje del sistema desarrollado. Presenta información acerca de todas las operaciones básicas que el sistema ofrece, así como capturas de pantalla útiles para el seguimiento de la explicación. A continuación se muestra la documentación de usuario para el módulo de contabilidad, este módulo tiene incidencias en la gestión de estados financieros, gestión de tres libros contables y generación de reportes. Cuenta con una configuración y un panel de control que permiten ajustarlo a las necesidades de la institución usuaria. En este manual se presenta una descripción de las funcionalidades de este módulo, como usarlo y como ajustarlo a una institución u organización.
+El Manual de Documentación del sistema KAVAC a nivel de usuario tiene como objetivo facilitar la tarea de conocimiento, uso y aprendizaje del sistema desarrollado. Presenta información acerca de todas las operaciones básicas que el sistema ofrece, así como capturas de pantalla útiles para el seguimiento de la explicación de los procesos. A continuación se muestra la documentación de usuario para el módulo de contabilidad, este módulo tiene incidencias en la gestión de estados financieros, gestión de tres libros contables y generación de reportes. Cuenta con una configuración y un panel de control que permiten ajustarlo a las necesidades de la institución usuaria. En este manual se presenta una descripción de las funcionalidades de este módulo, como usarlo y como ajustarlo a una institución u organización.
 
 
 ##Módulo de contabilidad

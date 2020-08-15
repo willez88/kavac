@@ -17,8 +17,7 @@ Para registrar un tipo de bien:
 - Completar el formulario ingresando el nombre del tipo de bien   
 - Presionar el botón **Guardar** y verificar que se haya almacenado 
 
-Ejemplo de registros para tipo de bien:
-
+![Screenshot](../img/tipo_bien.jpg)<div style="text-align: center;font-weight: bold">Figura: Tipos de Bienes</div>
 
 Esta sección permite **Editar** o **Eliminar** cualquier registro, haciendo uso de los botones ubicados en la columna titulada **Acción** de la tabla de registros.  
 
@@ -31,13 +30,9 @@ Para registrar estatus de uso:
 - Dirigirse a la **Configuración** del módulo de **Bienes**
 - Ingresar a **Estatus de uso** en la sección **Parámetros Generales**
 - Completar el formulario ingresando el tipo de bien al que pertenece la categoria, código de la categoría general y el nombre de la categoría general
-
 - Presionar el botón **Guardar** y verificar que se haya almacenado 
 
-Ejemplo de registros para tipo de adquisición:
-
-
-**Nota**: 
+![Screenshot](../img/categoria_general.jpg)<div style="text-align: center;font-weight: bold">Figura: Categorias Generales</div>
 
 Esta sección permite **Editar** o **Eliminar** cualquier registro, haciendo uso de los botones ubicados en la columna titulada **Acción** de la tabla de registros.  
 
@@ -52,8 +47,7 @@ Para registrar estatus de uso:
 - Completar el formulario ingresando el nombre del tipo de adquisición   
 - Presionar el botón **Guardar** y verificar que se haya almacenado 
 
-Ejemplo de registros para tipo de adquisición:
-
+![Screenshot](../img/subcategorias.jpg)<div style="text-align: center;font-weight: bold">Figura: Subcategorias</div>
 
 Esta sección permite **Editar** o **Eliminar** cualquier registro, haciendo uso de los botones ubicados en la columna titulada **Acción** de la tabla de registros.  
 
@@ -68,8 +62,7 @@ Para registrar estatus de uso:
 - Completar el formulario ingresando el nombre del tipo de adquisición   
 - Presionar el botón **Guardar** y verificar que se haya almacenado 
 
-Ejemplo de registros para tipo de adquisición:
-
+![Screenshot](../img/categoria_especifica.jpg)<div style="text-align: center;font-weight: bold">Figura: Categorias Especificas</div>
 
 Esta sección permite **Editar** o **Eliminar** cualquier registro, haciendo uso de los botones ubicados en la columna titulada **Acción** de la tabla de registros. 
 
