@@ -11,24 +11,24 @@
         <title>{{ config('app.name') }} | {{ __('Sistema de Gestión Administrativa') }}</title>
         <link rel="shortcut icon" href="{{ asset('images/favicon.png', Request::secure()) }}">
         {{-- Estilos de la aplicación --}}
-        {!! Html::style('css/app.css', [], Request::secure()) !!}
+        {!! Html::style('css/app.css', ['media' => 'screen'], Request::secure()) !!}
         {{-- Icofont --}}
         {!! Html::style('css/icofont.css', [], Request::secure()) !!}
         {{-- Estilos de Plugins --}}
         {{-- Datatable --}}
         {!! Html::style(
-            'vendor/datatable/css/dataTables.bootstrap4.min.css', [], Request::secure()
+            'vendor/datatable/css/dataTables.bootstrap4.min.css', ['media' => 'screen'], Request::secure()
         ) !!}
-        {!! Html::style('vendor/datatable/css/jquery.dataTables.min.css', [], Request::secure()) !!}
-        {!! Html::style('vendor/datatable/css/select.dataTables.min.css', [], Request::secure()) !!}
+        {!! Html::style('vendor/datatable/css/jquery.dataTables.min.css', ['media' => 'screen'], Request::secure()) !!}
+        {!! Html::style('vendor/datatable/css/select.dataTables.min.css', ['media' => 'screen'], Request::secure()) !!}
         {!! Html::style(
-            'vendor/datatable/css/buttons.dataTables.min.css', [], Request::secure()
+            'vendor/datatable/css/buttons.dataTables.min.css', ['media' => 'screen'], Request::secure()
         ) !!}
         {!! Html::style(
-            'vendor/datatable/responsive/css/responsive.bootstrap4.min.css', [], Request::secure()
+            'vendor/datatable/responsive/css/responsive.bootstrap4.min.css', ['media' => 'screen'], Request::secure()
         ) !!}
         {{-- Hoja de estilo para los mensajes de la aplicación (requerida) --}}
-        {!! Html::style('vendor/jquery.gritter/css/jquery.gritter.css', [], Request::secure()) !!}
+        {!! Html::style('vendor/jquery.gritter/css/jquery.gritter.css', ['media' => 'screen'], Request::secure()) !!}
 
         @yield('modules-css')
         <script>
@@ -100,9 +100,9 @@
         {{-- Plugin Sliders --}}
         {{-- {!! Html::script('js/nouislider.min.js', [], Request::secure()) !!} --}}
         {{-- Scripts de la aplicación --}}
-        {!! Html::script('js/generic-classes.js', [], Request::secure()) !!}
-        {!! Html::script('js/app.js', [], Request::secure()) !!}
-        {!! Html::script('js/shared-components.js', [], Request::secure()) !!}
+        <script src="{{ asset('js/app.js', Request::secure()) }}"></script>
+        <script src="{{ asset('js/generic-classes.js', Request::secure()) }}" defer></script>
+        <script src="{{ asset('js/shared-components.js', Request::secure()) }}" defer></script>
         @yield('modules-js')
 
         {{-- Plugin Bootbox --}}

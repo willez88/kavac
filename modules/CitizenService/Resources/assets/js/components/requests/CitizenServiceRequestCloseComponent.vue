@@ -122,7 +122,7 @@
 			/**
              * Método que borra todos los datos del formulario
              *
-             * 
+             *
              */
             reset() {
             },
@@ -165,4 +165,3 @@
 
 	};
 </script>
-

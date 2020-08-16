@@ -73,7 +73,7 @@ class AccountingDashboardController extends Controller
 
         $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
 
-        if ($user_profile['institution']['id']) {
+        if ($user_profile && $user_profile['institution']['id']) {
             $records = AccountingEntry::with('accountingAccounts.account.accountConverters.budgetAccount')
                         ->where('institution_id', $user_profile['institution']['id'])
                         ->orderBy('from_date', 'ASC')->get();
@@ -102,12 +102,12 @@ class AccountingDashboardController extends Controller
         $report_histories = [];
 
         $reports = [];
-        
+
         $institution      = get_institution();
 
         $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
 
-        if ($user_profile['institution']['id']) {
+        if ($user_profile && $user_profile['institution']['id']) {
             $reports = AccountingReportHistory::with('institution')
                         ->where('institution_id', $user_profile['institution']['id'])
                                             ->orderBy('updated_at', 'DESC')->get();
