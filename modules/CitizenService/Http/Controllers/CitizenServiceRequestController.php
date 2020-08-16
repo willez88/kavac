@@ -119,6 +119,7 @@ class CitizenServiceRequestController extends Controller
 
         //Guardar los registros del formulario en  CitizenServiceRequest
         $citizenServiceRequest = CitizenServiceRequest::create([
+            'file_counter'                     => 0,
             'code'                             => $code,
             'date'                             => $request->date,
             'first_name'                       => $request->first_name,
