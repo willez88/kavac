@@ -122,9 +122,9 @@
       this.table_options.sortable = ['formatcode'];
       this.table_options.filterable = ['formatcode'];
       this.table_options.columnsClasses = {
-        'formatcode': 'col-md-4',
-        'type_formatcode': 'col-md-4',
-        'id': 'col-md-4'
+        'formatcode': 'col-xs-4',
+        'type_formatcode': 'col-xs-4',
+        'id': 'col-xs-4'
       };
     }
   };
