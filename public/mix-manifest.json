@@ -90,5 +90,6 @@
     "/modules/payroll/components/payroll-staff-types.js": "/modules/payroll/components/payroll-staff-types.js",
     "/modules/payroll/components/payroll-staffs-list.js": "/modules/payroll/components/payroll-staffs-list.js",
     "/modules/payroll/components/payroll-study-types.js": "/modules/payroll/components/payroll-study-types.js",
-    "/modules/payroll/components/vendors~payroll-payment-types~payroll-registers-form~payroll-salary-adjustments-form.js": "/modules/payroll/components/vendors~payroll-payment-types~payroll-registers-form~payroll-salary-adjustments-form.js"
+    "/modules/payroll/components/vendors~payroll-payment-types~payroll-registers-form~payroll-salary-adjustments-form.js": "/modules/payroll/components/vendors~payroll-payment-types~payroll-registers-form~payroll-salary-adjustments-form.js",
+    "/js/components/restore-records.js": "/js/components/restore-records.js"
 }

@@ -188,6 +188,11 @@ Vue.component('all-notifications', () => import(
     './components/Notifications/AllNotificationsComponent.vue'
 ));
 
+Vue.component('restore-records', () => import(
+    /* webpackChunkName: "restore-records" */
+    './components/Admins/RestoreRecordsComponent.vue'
+));
+
 /**
  * Componente para la gestión de estados civiles
  *
