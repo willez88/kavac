@@ -579,3 +579,22 @@ if (! function_exists('strpos_array')) {
         return false;
     }
 }
+
+if (! function_exists('secure_record')) {
+    /**
+     * Cifra y descifra registros
+     *
+     * @method    secure_record
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     string           $record     Cadena de texto a ser cifrada / descifrada
+     * @param     boolean          $decrypt    Indica si el registro va a ser descifrado
+     *
+     * @return    string|integer   Devuelve el registro cifrado / descifrado
+     */
+    function secure_record($record, $decrypt = false)
+    {
+        return ($decrypt) ? Crypt::decrypt($record) : Crypt::encrypt($record);
+    }
+}
