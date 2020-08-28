@@ -101,8 +101,8 @@
         {{-- {!! Html::script('js/nouislider.min.js', [], Request::secure()) !!} --}}
         {{-- Scripts de la aplicación --}}
         <script src="{{ asset('js/app.js', Request::secure()) }}"></script>
-        <script src="{{ asset('js/generic-classes.js', Request::secure()) }}" defer></script>
-        <script src="{{ asset('js/shared-components.js', Request::secure()) }}" defer></script>
+        <script src="{{ asset('js/generic-classes.js', Request::secure()) }}"></script>
+        <script src="{{ asset('js/shared-components.js', Request::secure()) }}"></script>
         @yield('modules-js')
 
         {{-- Plugin Bootbox --}}
@@ -159,7 +159,9 @@
                     }
                 });
 
-                Inputmask().mask(document.querySelectorAll("input"));
+                if (typeof(Inputmask) !== "undefined" && typeof(Inputmask) === "function") {
+                    Inputmask().mask(document.querySelectorAll("input"));
+                }
 
                 /** oculta el mensaje de carga al renderizar por completo el DOM de la página */
                 $('.preloader').fadeOut(1000);
