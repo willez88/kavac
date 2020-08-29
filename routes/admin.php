@@ -46,6 +46,9 @@ Route::group(['middleware' => ['auth', 'verified', 'role:admin']], function () {
             /** Gestión de registros eliminados */
             Route::post('deleted-records', 'AppManagementController@getDeletedRecords');
             Route::post('restore-record', 'AppManagementController@restoreRecord');
+            /** Gestión de auditoria de registros */
+            Route::post('audit-records', 'AppManagementController@getAuditRecords');
+            Route::post('audit-details', 'AppManagementController@getAuditDetails');
         });
     });
 

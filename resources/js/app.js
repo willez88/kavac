@@ -188,9 +188,24 @@ Vue.component('all-notifications', () => import(
     './components/Notifications/AllNotificationsComponent.vue'
 ));
 
+/**
+ * Componente para mostrar un listado de registros eliminados
+ *
+ * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ */
 Vue.component('restore-records', () => import(
     /* webpackChunkName: "restore-records" */
     './components/Admins/RestoreRecordsComponent.vue'
+));
+
+/**
+ * Componente para mostrar un listado de registros a auditar
+ *
+ * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ */
+Vue.component('audit-records', () => import(
+    /* webpackChunkName: "audit-records" */
+    './components/Admins/AuditRecordsComponent.vue'
 ));
 
 /**

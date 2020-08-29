@@ -53,7 +53,7 @@
                     <div class="row">
                         <div class="col-12">
                             <span class="form-text text-muted">
-                                A continuación se muestran los últimos 20 registros recientemente eliminados.
+                                A continuación se muestran los 20 registros eliminados más recientes.
                                 Si desea obtener mayor información, debe indicar los parámetros de búsqueda.
                             </span>
                         </div>
@@ -146,8 +146,8 @@
                 'registers': 'Registros',
                 'id': 'Acción'
             };
-            vm.table_options.sortable = ['deleted_at'];
-            vm.table_options.filterable = ['deleted_at'];
+            vm.table_options.sortable = ['deleted_at', 'module', 'registers'];
+            vm.table_options.filterable = ['deleted_at', 'module', 'registers'];
             vm.table_options.columnsClasses = {
                 'deleted_at': 'col-md-1',
                 'module': 'col-md-4',

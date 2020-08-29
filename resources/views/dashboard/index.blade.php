@@ -7,7 +7,7 @@
 
 	@role('admin')
 		@include('dashboard.users-connected')
-		@include('dashboard.logs-list')
+        <audit-records></audit-records>
         <restore-records></restore-records>
 	@endrole
 	@yield('dashboard')
