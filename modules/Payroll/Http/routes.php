@@ -191,6 +191,13 @@ Route::group([
         'PayrollPaymentTypeController@getPayrollPaymentPeriods'
     )->name('payroll.get-payroll-payment-periods');
 
+    /** Rutas para gestionar las políticas vacacionales registradas */
+    Route::resource(
+        'vacation-policies',
+        'PayrollVacationPolicyController',
+        ['as' => 'payroll', 'except' => ['show','create','edit']]
+    );
+
     /** Rutas para gestionar los niveles de idioma */
     Route::resource(
         'language-levels',
@@ -365,5 +372,13 @@ Route::group([
         'PayrollSalaryAdjustmentController',
         ['as' => 'payroll'],
         ['only' => ['create', 'store']]
+    );
+
+    /** Rutas para gestionar las solicitudes de vacaciones */
+    Route::resource(
+        'vacation-requests',
+        'PayrollVacationRequestController',
+        ['as' => 'payroll'],
+        ['except' => ['edit','show']]
     );
 });
