@@ -11,8 +11,9 @@
         <li>
             <a href="#">Facturas</a>
         </li>
-        <li>
-            <a href="#">Reportes</a>
+        <li class="{!! set_active_menu('sale.reception.index') !!}">
+            <a href="/sale/receptions" data-toggle="tooltip" data-placement="right"
+               title="Reportes">Reportes</a>
         </li>
     </ul>
 </li>

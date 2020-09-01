@@ -76,6 +76,46 @@ Vue.component('sale-discount', () => import(
 );
 
 /**
+ * Componentes para gestionar los ingresos de productos al almacén
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-warehouse-reception-create', () => import(
+    /* webpackChunkName: "warehouse-reception-create" */
+    './components/receptions/SaleWarehouseReceptionCreateComponent.vue')
+);
+
+/**
+ * Componente para mostrar un listado de los ingresos de productos al almacén
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-warehouse-reception-list', () => import(
+    /* webpackChunkName: "warehouse-reception-list" */
+    './components/receptions/SaleWarehouseReceptionListComponent.vue')
+);
+
+/**
+ * Componente para mostrar un listado de los ingresos de productos al almacén pendientes por ejecutar
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-warehouse-reception-pending-list', () => import(
+    /* webpackChunkName: "warehouse-reception-pending-list" */
+    './components/receptions/SaleWarehouseReceptionPendingListComponent.vue')
+);
+
+/**
+ * Componente para mostrar la información de los ingresos de almacén
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-warehouse-reception-info', () => import(
+    /* webpackChunkName: "warehouse-reception-info" */
+    './components/receptions/SaleWarehouseReceptionInfoComponent.vue')
+);
+
+/**
  * Opciones de configuración global del módulo de Commercialización
  */
 Vue.mixin({

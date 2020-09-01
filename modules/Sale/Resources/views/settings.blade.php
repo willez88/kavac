@@ -31,7 +31,7 @@
 				<div class="card-body">
 					<div class="row">
 						{{-- Configuración de Almacén--}}
-						<sale-warehouse-method></sale-warehouse-method>
+						<sale-warehouse-method id="saleHelpWarehouse"></sale-warehouse-method>
 						{{-- Configuración de Formas de cobro --}}
 						<register-clients></register-clients>
 						{{-- Configuración de Formas de cobro--}}
