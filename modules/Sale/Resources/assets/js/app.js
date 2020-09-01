@@ -115,6 +115,15 @@ Vue.component('sale-warehouse-reception-info', () => import(
     './components/receptions/SaleWarehouseReceptionInfoComponent.vue')
 );
 
+/*
+ * Componente para listar, crear, actualizar y borrar cotizaciones
+ *
+ * @author Jose Puentes <jpuentes@cenditel.gob.ve>
+ */
+Vue.component('sale-quote', () => import(
+    './components/settings/SaleQuoteComponent.vue')
+);
+
 /**
  * Opciones de configuración global del módulo de Commercialización
  */

@@ -261,10 +261,10 @@
       this.table_options.sortable = ['rif'];
       this.table_options.filterable = ['rif'];
       this.table_options.columnsClasses = {
-        'type_person_juridica': 'col-md-3',
-        'rif': 'col-md-3',
-        'name_client': 'col-md-4',
-        'id': 'col-md-2'
+        'type_person_juridica': 'col-xs-3',
+        'rif': 'col-xs-3',
+        'name_client': 'col-xs-4',
+        'id': 'col-xs-2'
       };
     }
   };
