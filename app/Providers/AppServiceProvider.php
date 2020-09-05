@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Models\NotificationSetting;
 use App\Observers\ModelObserver;
+use Nwidart\Modules\Module;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -38,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
         if (!app()->runningInConsole()) {
             /** Solo ejecuta esta instrucción si no se esta ejecutando en consola de comandos */
             foreach (NotificationSetting::all() as $notifySetting) {
-                if (!is_null($notifySetting->module) && \Module::isDisabled($notifySetting->module)) {
+                if (!is_null($notifySetting->module) && Module::isDisabled($notifySetting->module)) {
                     continue;
                 }
 

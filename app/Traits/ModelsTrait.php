@@ -36,7 +36,8 @@ trait ModelsTrait
             $filename = $result;
 
             if (is_dir($filename)) {
-                $out = array_merge($out, 'App\Models\\' . $this->getModels($filename));
+                //$out = array_merge($out, 'App\Models\\' . $this->getModels($filename));
+                $out = array_merge($out, $this->getModels($filename));
             } else {
                 $out[] = 'App\Models\\' . substr($filename, 0, -4);
             }
@@ -62,7 +63,8 @@ trait ModelsTrait
                 if (is_dir($filename_m) || strpos($model, '.php') <=0) {
                     $out = array_merge(
                         $out,
-                        'Modules\\' . $filename_module . '\\Models\\' . $this->getModels($filename_m)
+                        //'Modules\\' . $filename_module . '\\Models\\' . $this->getModels($filename_m)
+                        $this->getModels($filename_m)
                     );
                 } else {
                     $out[] = 'Modules\\' . $filename_module . '\\Models\\' . substr($filename_m, 0, -4);

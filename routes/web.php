@@ -173,7 +173,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('institution-sectors', 'InstitutionSectorController', ['except' => ['show']]);
 
     /** Rutas para la gestión de Países */
-    Route::resource('countries', 'CountryController', ['except' => ['show']]);
+    Route::resource('countries', 'CountryController', ['except' => ['create', 'show', 'edit']]);
 
     /** Rutas para la gestión de Estados de Países */
     Route::resource('estates', 'EstateController', ['except' => ['show']]);
@@ -182,7 +182,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('municipalities', 'MunicipalityController', ['except' => ['show']]);
 
     /** Rutas para la gestión de Ciudades de Estados */
-    Route::resource('cities', 'CityController', ['except' => ['show']]);
+    Route::resource('cities', 'CityController', ['except' => ['create', 'show', 'edit']]);
 
     /** Rutas para la gestión de Parroquias de Municipios */
     Route::resource('parishes', 'ParishController', ['except' => ['show']]);

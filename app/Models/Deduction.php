@@ -15,6 +15,12 @@ use Module;
  *
  * Gestiona el modelo de datos para las Deducciones
  *
+ * @property  string  $name
+ * @property  string  $description
+ * @property  string  $formula
+ * @property  boolean $active
+ * @property  integer $accounting_account_id
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
  *              LICENCIA DE SOFTWARE CENDITEL

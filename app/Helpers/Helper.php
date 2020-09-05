@@ -232,6 +232,7 @@ if (!function_exists('rif_exists')) {
         // Conectar al organismo rector para verificar la existencia del RIF
         $connectionExists = check_connection();
         $rifExists = false;
+        // TODO: Agregar lógica que permita validar el número de rif ante la autoridad que los emite
         return ($connectionExists && $rifExists);
     }
 }
@@ -269,7 +270,8 @@ if (!function_exists('ci_exists')) {
      * Comprueba la existencia de un número de cédula de identidad
      * @param  string $ci  Número de cédula de identidad
      * @param  string $nac Indica la nacionalidad de la cédula a validar
-     * @return boolean     Devuelve verdadero si el número de cédula existe, de lo contrario devuelve falso
+     * @return array       Devuelve un arreglo con los datos de comprobación de la cédula, si existe devuelve la
+     *                     información de la persona
      */
     function ci_exists($ci, $nac = 'V')
     {
@@ -391,7 +393,8 @@ if (! function_exists('get_institution')) {
      *
      * @param  int|null $id [identificador unico de la institución]
      *
-     * @return Institution     [informacion de la institución]
+     * @return Institution     Devuelve un objeto con información de la institución, si no se indica un ID devuelve
+     *                         el primer registro, de lo contrario devuelve los datos de la institución solicitada
      */
     function get_institution($id = null)
     {
