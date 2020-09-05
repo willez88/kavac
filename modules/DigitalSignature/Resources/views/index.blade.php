@@ -17,6 +17,7 @@
                     <h3 class="h4 border-bottom border-primary text-center pb-1">
                         Datos personales
                     </h3>
+                        <p> {{ greet('Brian') }} </p>
                     <p>
                         <span class="font-weight-bold"> Usuario: </span>
                         <span class="text-gray-900"> {{ $user->name }} </span>
@@ -44,8 +45,6 @@
                         @if($cert == 'true')
                             <a class="dropdown-item" href="{{ route('certificateDetails') }}">
                                 {{ __('Detalles del certificado') }}
-
-                                <p> {{ greet('Brian') }} </p>
                             </a>
                         @endif
                     </p>
