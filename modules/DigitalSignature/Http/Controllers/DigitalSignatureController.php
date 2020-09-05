@@ -26,11 +26,12 @@ class DigitalSignatureController extends Controller
             $userprofile = User::find(auth()->user()->id)->signprofiles;
             $certuser = Crypt::decryptString($userprofile['cert']);
             $cert = openssl_x509_parse($certuser);
+            $fecha = date('d-m-y H:i:s', $cert['validFrom_time_t']);
 
-            return view('digitalsignature::index', ['Identidad' => $cert['subject']['CN'], 'Verificado' => $cert['issuer']['CN'], 'Caduca' => $cert['validFrom_time_t'], 'cert' => 'true']);
+            return view('digitalsignature::index', ['Identidad' => $cert['subject']['CN'], 'Verificado' => $cert['issuer']['CN'], 'Caduca' => $fecha, 'cert' => 'true', 'certdetail' => 'false']);
         }
         else {
-            return view('digitalsignature::index',['informacion' => 'No posee una certificado firmante', 'cert' => 'false']);
+            return view('digitalsignature::index',['informacion' => 'No posee un certificado firmante', 'cert' => 'false', 'certdetail' => 'false']);
         }
     }
 
@@ -169,7 +170,58 @@ class DigitalSignatureController extends Controller
             'signatureTypeNID' => $cert['signatureTypeNID'],
             ];
             print_r($certificateDetails);
+            //return view('digitalsignature::index', ['certificateDetail' => $certificateDetails, 'cert' => 'true', 'certdetail' => 'true']);
         }
+    }
+
+    public function signFile() 
+    {
+        print_r("signFile");
+        if(Auth::user() && User::find(auth()->user()->id)->signprofiles) {
+
+            //Crear archivo pkcs#12
+            $profile = 
+            $cert = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['cert']);
+            $pkey = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['pkey']);
+            //$passphrase = $request->get('password');
+            $passphrase = Str::random(10);
+            //Datos para la firma
+            $filename = Str::random(10) . '.p12';
+            $storeCertificated = '/home/pbuitrago/Cenditel/Proyecto_kavac/kavac_cenditel/storage/temporary' . $filename;
+            $createpkcs12 = openssl_pkcs12_export_to_file($cert,$storeCertificated,$pkey,$passphrase);
+            
+            //Ubicación del ejecutable PortableSigner
+            $pathPortableSigner = '/home/pbuitrago/Cenditel/Proyecto_kavac/kavac_cenditel/modules/DigitalSignature/PortableSigner/PortableSigner.jar';
+            
+            //Documento pdf 
+            $namepdf = 'pruebaPDF-sign.pdf';
+            $namepdfsign = 'pruebaPDF-sign-4.pdf';
+            $storePdfSign =  '/home/pbuitrago/Cenditel/Proyecto_kavac/kavac_cenditel/storage/temporary/' . $namepdfsign;
+            $storePdf = '/home/pbuitrago/Cenditel/Proyecto_kavac/kavac_cenditel/storage/temporary/'. $namepdf;
+
+            $comand = 'java -jar ' . $pathPortableSigner . ' -n -t ' . $storePdf . ' -o ' . $storePdfSign . ' -s ' . $storeCertificated . ' -p ' . $passphrase;
+            $run = exec($comand, $output);
+            Storage::disk('temporary')->delete($filename);
+            print_r($output);
+
+        }
+
+        else { return redirect()->route('login'); } 
+    }
+
+    public function verifysign() {
+
+        //informacion para realizar la verificación de firma electrónica 
+        $namepdfsign = 'pruebaPDF-sign.pdf';
+        $storePdfSign = '/home/pbuitrago/Cenditel/Proyecto_kavac/kavac_cenditel/storage/temporary/'. $namepdfsign;
+        
+        $comand = 'pdfsig ' . $storePdfSign;
+
+        $run = exec($comand, $output);
+        $cont = 0;
+        $size = count($output);
+        print_r($output);
+
     }
 }
     

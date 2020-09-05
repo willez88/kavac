@@ -40,6 +40,13 @@
                         </a>
                         <span class="text-gray-900"> </span>
                     </p>
+                    <p>
+                        @if($cert == 'true')
+                            <a class="dropdown-item" href="{{ route('certificateDetails') }}">
+                                {{ __('Detalles del certificado') }}
+                            </a>
+                        @endif
+                    </p>
                 </div>
             </div>
         </div>
