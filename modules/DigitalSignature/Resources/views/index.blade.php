@@ -44,6 +44,8 @@
                         @if($cert == 'true')
                             <a class="dropdown-item" href="{{ route('certificateDetails') }}">
                                 {{ __('Detalles del certificado') }}
+
+                                <p> {{ greet('Brian') }} </p>
                             </a>
                         @endif
                     </p>
