@@ -26,22 +26,22 @@
               <div class="col-md-4">
                 <div class="form-group is-required">
                   <label for="name">Nombre de la Empresa:</label>
-                  <input type="text" id="name" class="form-control input-sm" data-toggle="tooltip"
-                    title="Nombre de la Empresa" v-model="record.name">
+                  <input type="text" id="name_enterprise" class="form-control input-sm" data-toggle="tooltip"
+                    title="Nombre de la Empresa" v-model="record.name_enterprise">
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group is-required">
                   <label for="name">Nombre y Apellido:</label>
-                  <input type="text" id="lastname" class="form-control input-sm" data-toggle="tooltip"
-                    title="Nombre y Apellido" v-model="record.lastname">
+                  <input type="text" id="name_applicant" class="form-control input-sm" data-toggle="tooltip"
+                    title="Nombre y Apellido" v-model="record.name_applicant">
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group is-required">
-                  <label for="email_client">Correo electrónico:</label>
+                  <label for="email_applicant">Correo electrónico:</label>
                   <input type="text" id="email_client" class="form-control input-sm" data-toggle="tooltip"
-                  title="Correo electrónico" v-model="record.email_client">
+                  title="Correo electrónico" v-model="record.email_applicant">
                 </div>
               </div>
             </div>
@@ -84,8 +84,8 @@
               <div class="col-md-12">
                 <div class="form-group is-required">
                   <label for="address">Dirección:</label>
-                    <input type="text" id="address" placeholder="Descripción"
-                      class="form-control input-sm" v-model="record.address" data-toggle="tooltip"
+                    <input type="text" id="address_applicant" placeholder="Descripción"
+                      class="form-control input-sm" v-model="record.address_applicant" data-toggle="tooltip"
                       title="Indique una breve dirección del nuevo almacén (requerido)">
                 </div>
               </div>
@@ -97,16 +97,16 @@
               <div class="col-md-4">
 		<div class="form-group is-required">
 		  <label>Unidad de Medida:</label>
-		  <select2 :options="measurement_units" v-model="record.measurement_unit_id"></select2>
+		  <select2 :options="measurement_units" v-model="record.unit_product"></select2>
 		</div>
 	      </div>
               <div class="col-md-3" id="quantity">
 		<div class="form-group is-required">
 		  <label>Cantidad:</label>
-		  <input type="number" min="1" placeholder="Cantidad del Producto" data-toggle="tooltip" 			   class="form-control input-sm">
+		  <input type="number" min="1" placeholder="Cantidad del Producto" data-toggle="tooltip" 			   class="form-control input-sm" id="quantity_product">
                 </div>
               </div>
-              <div class="col-md-3" id="quantity">
+              <div class="col-md-3" id="product_type">
 		<div class="form-group is-required">
                   <label>Típo de producto</label>
                   <select2 :options="sale_setting_product_type"
@@ -118,7 +118,7 @@
           </div>
           <div class="modal-footer">
             <div class="form-group">
-              <modal-form-buttons :saveRoute="'sale/add-quote'"></modal-form-buttons>
+              <modal-form-buttons :saveRoute="'sale/register-quote'"></modal-form-buttons>
             </div>
           </div>
           <div class="modal-body modal-table">
@@ -151,7 +151,7 @@
         record: {
           company_name: '',
           name: '',
-          measurement_unit_id: '',
+          unit_product: '',
           product_type_id: '',
           address: '',
           lastname: '',
@@ -170,7 +170,7 @@
         this.record = {
           company_name: '',
           name: '',
-          measurement_unit_id: '',
+          unit_product: '',
           product_type_id: '',
           address: '',
           lastname: '',
