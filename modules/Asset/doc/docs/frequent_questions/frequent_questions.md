@@ -1,8 +1,8 @@
 ![Screenshot](../img/logokavac.png#imagen)
 
-#Pregunta ?
+#¿Cómo realizar una importación de registros ?
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis perspiciatis vero nemo tenetur! Animi molestiae provident voluptate quisquam error laboriosam, nisi. Veniam expedita, quia autem architecto harum dolores? Rerum, ipsa.
+Para información detallada sobre el uso de la funcionalidad de carga masiva visite la sección de **Registros** de este manual, en el apartado [funcionalidad para importar registros](/registers/#funcionalidad-para-importar-registros).	 
 
 
 

@@ -30,18 +30,8 @@ class DashboardController extends Controller
     public function index()
     {
         if (auth()->check()) {
-            $trashed = [];
-
-            foreach ($this->getModels() as $model_name) {
-                $model = app($model_name);
-
-                if ($this->isModelSoftDelete($model) && count($model->onlyTrashed()->get()) > 0) {
-                    $trashed[$model_name] = $model->onlyTrashed()->get();
-                }
-            }
-
             /** Si el usuario esta autenticado redirecciona a la página del panel de control */
-            return view('dashboard.index', compact('trashed'));
+            return view('dashboard.index');
         } else {
             /** Si el usuario no está autenticado muestra la página de acceso */
             return view('auth.login');
@@ -112,22 +102,5 @@ class DashboardController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-     * Restaura registros eliminados
-     *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  string  $model Nombre del modelo del cual se desea restaurar registros eliminados
-     * @param  integer $id    Identificador del registro a restaurar
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function restore($model, $id)
-    {
-        $model = '\\' . Crypt::decryptString($model);
-        $model::withTrashed()->find($id)->restore();
-        request()->session()->flash('message', ['type' => 'restore']);
-
-        return response()->json(['result' => true, 'message' => 'Success'], 200);
     }
 }

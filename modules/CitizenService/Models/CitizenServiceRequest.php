@@ -39,7 +39,7 @@ class CitizenServiceRequest extends Model implements Auditable
         'code','first_name','last_name','id_number','email', 'date',
         'city_id', 'municipality_id', 'address', 'motive_request', 'state',
         'institution_name','institution_address', 'rif', 'web',
-        'citizen_service_request_type_id', 'type_institution', 'citizen_service_department_id',
+        'citizen_service_request_type_id', 'type_institution', 'citizen_service_department_id', 'file_counter',
 
         'type_team', 'brand', 'model', 'serial', 'color', 'transfer',
         'inventory_code','entryhour', 'exithour', 'informationteam'

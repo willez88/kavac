@@ -68,10 +68,11 @@ class PayrollSalaryTabulatorController extends Controller
 
         /** Define los mensajes de validación para las reglas del formulario */
         $this->messages = [
-            'currency_id.required'        => 'El campo moneda es obligatorio.',
-            'payroll_staff_types.required' => 'El campo tipo de personal es obligatorio.',
-            'institution_id.required'          => 'El campo institución es obligatorio.',
-            'payroll_salary_tabulator_type.required'   => 'El campo tipo de tabulador es obligatorio.'
+            'currency_id.required'                     => 'El campo moneda es obligatorio.',
+            'payroll_staff_types.required'             => 'El campo tipo de personal es obligatorio.',
+            'institution_id.required'                  => 'El campo institución es obligatorio.',
+            'payroll_salary_tabulator_type.required'   => 'El campo tipo de tabulador es obligatorio.',
+            'payroll_salary_tabulator_scales.required' => 'Las escalas del tabulador salarial son obligatorias.'
         ];
     }
     

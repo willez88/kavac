@@ -5,7 +5,8 @@ nav:
       - Asientos Contables: accounting_entry.md
       - Reportes: reports.md
       - Configuración: 
-        - Configuración: setting/setting.md 
+        - Formatos de Códigos: setting/code_format.md
+        - Configuración del Módulo: setting/setting.md 
         - Lista de Cuentas: setting/accounts_list.md  
       - Panel de Control: 
         - Panel de Control: control_panel/control_panel.md 

@@ -19,8 +19,9 @@ class CreatePurchasePivotModelsToRequirementItemsTable extends Migration
 
                 $table->morphs('relatable');
 
-                $table->foreignId('purchase_requirement_item_id')->constrained()
-                      ->onDelete('restrict')->onUpdate('cascade');
+                /*$table->foreignId('purchase_requirement_item_id')->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade');*/
+                $table->unsignedBigInteger('purchase_requirement_item_id');
 
                 $table->float('unit_price', 10, 10)->nullable()
                               ->comment('Precio unitario del producto o servicio. asignado en orden de compra');

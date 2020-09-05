@@ -322,7 +322,7 @@
                                 <span>{{ (props.row.active) ? 'Activo' : 'Inactivo' }}</span>
                             </div>
                             <div slot="id" slot-scope="props" class="text-center">
-                                <button @click="editSalaryScale(props.index, $event)"
+                                <button @click="editSalaryScale(props.row.id, $event)"
                                         class="btn btn-warning btn-xs btn-icon btn-action"
                                         title="Modificar registro" data-toggle="tooltip" type="button">
                                     <i class="fa fa-edit"></i>
@@ -473,13 +473,13 @@
              *
              * @author    Henry Paredes <hparedes@cenditel.gob.ve>
              *
-             * @param     {integer}    index    Identificador del registro a ser modificado
+             * @param     {integer}    id       Identificador del registro a ser modificado
              * @param     {object}     event    Objeto que gestiona los eventos
              */
-            editSalaryScale(index, event) {
+            editSalaryScale(id, event) {
                 let vm = this;
                 vm.resetScale = false;
-                vm.initUpdate(index, event);
+                vm.initUpdate(id, event);
             },
             /**
              * Método que obtiene el valor de la escala según el identificador único

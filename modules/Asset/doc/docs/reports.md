@@ -6,11 +6,20 @@
 
 ## Generar reporte de bienes institucionales 
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt, sapiente! Perspiciatis voluptate dignissimos dolorum odit esse atque nesciunt. Necessitatibus explicabo magnam velit quis incidunt, mollitia doloribus accusantium, quos quidem maiores?
+Las sección de reportes del módulo de bienes permite generar informes sobre los bienes institucionales, esta funcionalidad permite filtrar los bienes para los cuales se va a generar un reporte.   Es posible generar un reporte general, por clasificación, o por dependencia.   
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, rerum, laudantium. Rem veritatis ratione, necessitatibus dignissimos harum iste quas dolore, quo, ab voluptatum aliquid vitae ex. Natus, laudantium quaerat odio!
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione rerum maiores consectetur laboriosam inventore, vero expedita veniam nihil laudantium, porro labore reprehenderit nulla molestias tempore at sunt reiciendis totam itaque?
+![Screenshot](/img/generar_reporte.jpg)<div style="text-align: center;font-weight: bold">Figura: Filtrar Registros de Bienes Institucionales</div>
+
+El usuario puede ver todos los registros al presionar el botón **Buscar** y generar un reporte de cualquier tipo.
+
+###Filtrar los registros 
+
+- En el reporte general los registros pueden ser filtrados por estatus de uso 
+- En el reporte por clasificación los registros pueden ser filtrados por estatus de uso, tipo de bien, categoria general, subcategoria, categoria especifica.
+- En el reporte por dependencia los registros pueden ser filtrados por por estatus de uso, intitución y departamento o depencia. 
+
+![Screenshot](/img/filtrar_registros.jpg)<div style="text-align: center;font-weight: bold">Figura: Generar Reporte de Bienes Institucionales</div>
 
 </div>
 

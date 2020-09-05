@@ -53,20 +53,17 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         /** Rutas para la gestión de la aplicación base */
-        Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/web.php'));
+        Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/web.php'));
 
         /** Rutas generales para la gestión de módulos */
-        Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/module.php'));
+        Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/module.php'));
+
+        /** Rutas para la gestión esclusiva del administrador de la aplicación */
+        Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/admin.php'));
 
         if (config('app.debug') || config('app.debug')==="true") {
             /** Rutas para pruebas de desarrollo */
-            Route::middleware('web')
-                 ->namespace($this->namespace)
-                 ->group(base_path('routes/test.php'));
+            Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/test.php'));
         }
     }
 

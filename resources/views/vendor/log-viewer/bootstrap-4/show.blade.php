@@ -134,7 +134,7 @@
                                     {{-- Formulario de búsqueda --}}
                                     <form action="{{ route('log-viewer::logs.search', [$log->date, $level]) }}"
                                           method="GET">
-                                        <div class=form-group">
+                                        <div class="form-group">
                                             <div class="input-group">
                                                 <input id="query" name="query" class="form-control"
                                                        value="{!! $query !!}" placeholder="{{ __('Buscar') }}"
@@ -367,7 +367,7 @@
             $('.stack-content').each(function() {
                 var $this = $(this);
                 var html = $this.html().trim()
-                    .replace(/({!! join(log_styler()->toHighlight(), '|') !!})/gm, '<strong>$1</strong>');
+                    .replace(/({!! join('|', log_styler()->toHighlight()) !!})/gm, '<strong>$1</strong>');
 
                 $this.html(html);
             });

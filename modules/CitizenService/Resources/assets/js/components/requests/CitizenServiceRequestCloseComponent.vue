@@ -122,7 +122,7 @@
 			/**
              * Método que borra todos los datos del formulario
              *
-             * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+             *
              */
             reset() {
             },
@@ -145,17 +145,6 @@
                     }
                 }).then(response => {
 
-
-                	console.log(response.data.file_id);
-                	console.log(response.data.file_url);
-                	vm.records.push({
-                		file: response.data.file_name,
-                		size: '',
-                		state: '',
-                		id: response.data.file_id,
-                		url: response.data.file_url
-                	});
-
                     vm.showMessage(
 	                    'custom', 'Éxito', 'success', 'screen-ok',
 	                    'Documento cargado de manera existosa.'
@@ -174,6 +163,5 @@
 			},
 		},
 
-	}
+	};
 </script>
-
