@@ -120,4 +120,45 @@ Route::group(
             'get-discountmethod',
             'SaleDiscountController@getSaleDiscount'
         )->name('sale.get-sale-paymentmethod');
+
+    /**
+     * ------------------------------------------------------------
+     * Rutas para gestionar los Ingresos de Almacén
+     * ------------------------------------------------------------
+     */
+
+        Route::resource('receptions', 'SaleWarehouseReceptionController', ['only' => 'store']);
+        Route::patch('receptions/{reception}', 'SaleWarehouseReceptionController@update');
+        Route::get('receptions', 'SaleWarehouseReceptionController@index')->name('sale.reception.index');
+        Route::get('receptions/create', 'SaleWarehouseReceptionController@create')->name('sale.reception.create');
+        Route::get('receptions/info/{reception}', 'SaleWarehouseReceptionController@vueInfo');
+        Route::get('receptions/vue-list', 'SaleWarehouseReceptionController@vueList');
+
+        Route::get(
+            'receptions/edit/{reception}',
+            'SaleWarehouseReceptionController@edit'
+        )->name('sale.reception.edit');
+        Route::delete(
+            'receptions/delete/{reception}',
+            'SaleWarehouseReceptionController@destroy'
+        )->name('sale.reception.destroy');
+
+        Route::put(
+            'receptions/reception-rejected/{reception}',
+            'SaleWarehouseReceptionController@rejectedReception'
+        );
+        Route::put(
+            'receptions/reception-approved/{reception}',
+            'SaleWarehouseReceptionController@approvedReception'
+        );
+
+        /**
+         * ------------------------------------------------------------
+         * Rutas para gestionar los Elementos select de reportes
+         * ------------------------------------------------------------
+         */
+
+        Route::get('get-salewarehousemethod/{institution?}', 'SaleWarehouseController@getSaleWarehouseMethod');
+        Route::get('get-sale-setting-product/{get-salewarehousemethod}', 'SaleSettingProductController@getSaleSettingProduct');
+        Route::get('get-measurement-units', 'SaleWarehouseReceptionController@getMeasurementUnits');
 });
