@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('module-css')
+    @parent
+    {!! Html::style(mix('css/$LOWER_NAME$.css'), ['media' => 'screen'], Request::secure()) !!}
+@endsection
+
 @section('modules-js')
     @parent
     {!! Html::script(mix('modules/$LOWER_NAME$/js/app.js'), [], Request::secure()) !!}
