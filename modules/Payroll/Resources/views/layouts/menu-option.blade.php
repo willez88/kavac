@@ -44,6 +44,15 @@
             </a>
         </li>
         <li>
+            <a href="javascript:void(0)" data-toggle="tooltip" data-placement="right"
+                title="Gestiona las solicitudes de vacaciones, prestaciones y constancias.">Solicitudes</a>
+            <ul class="submenu" style="{!! display_submenu(['vacation-requests']) !!}">
+                <li class="{!! set_active_menu(['payroll.vacation-requests.index']) !!}">
+                    <a href="{{ route('payroll.vacation-requests.index') }}">Solicitud de vacaciones</a>
+                </li>
+            </ul>
+        </li>
+        <li>
             <a href="javascript:void(0)">Reportes</a>
             <ul class="submenu">
                 <li><a href="#">Reporte 1</a></li>

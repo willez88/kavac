@@ -6,6 +6,9 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 //require('@ckeditor/ckeditor5-build-classic/build/translations/es.js');
 import '@ckeditor/ckeditor5-build-classic/build/translations/es';
 
+/** Requerimiento del paquete inputmask para uso de mascara en campos de texto con vue */
+import Inputmask from "inputmask";
+
 /** Configuración de la directiva input-mask para uso de mascara en campos de texto de los componentes vuejs */
 Vue.directive('input-mask', {
     bind: function(el) {

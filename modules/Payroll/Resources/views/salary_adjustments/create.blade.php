@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-    Ajustes en tablas salariales
+    Gestión de tablas salariales
 @stop
 
 @section('content')
