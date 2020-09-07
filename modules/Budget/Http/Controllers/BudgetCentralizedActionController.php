@@ -3,7 +3,7 @@
 namespace Modules\Budget\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -46,7 +46,7 @@ class BudgetCentralizedActionController extends Controller
      * Muestra un listado de acciones centralizadas
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return Response
+     * @return Renderable
      */
     public function index()
     {
@@ -57,7 +57,7 @@ class BudgetCentralizedActionController extends Controller
      * Muestra el formulario para la creación de acciones centralizadas
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return Response
+     * @return Renderable
      */
     public function create()
     {
@@ -102,7 +102,7 @@ class BudgetCentralizedActionController extends Controller
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request $request
-     * @return Response
+     * @return Renderable
      */
     public function store(Request $request)
     {
@@ -145,7 +145,7 @@ class BudgetCentralizedActionController extends Controller
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador de la acción centralizada a mostrar
-     * @return Response
+     * @return Renderable
      */
     public function show($id)
     {
@@ -157,7 +157,7 @@ class BudgetCentralizedActionController extends Controller
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador de la acción centralizada a modificar
-     * @return Response
+     * @return Renderable
      */
     public function edit($id)
     {
@@ -210,7 +210,7 @@ class BudgetCentralizedActionController extends Controller
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request $request
      * @param  integer $id      Identificador de la acción centralizada a modificar
-     * @return Response
+     * @return Renderable
      */
     public function update(Request $request, $id)
     {
@@ -243,7 +243,7 @@ class BudgetCentralizedActionController extends Controller
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id      Identificador de la acción centralizada a eliminar
-     * @return Response
+     * @return Renderable
      */
     public function destroy($id)
     {

@@ -23,10 +23,12 @@ class ComposerStaticInit6dca1433eacbf30474ac61f4d46fe62b
     public static $classMap = array (
         'Modules\\Budget\\Database\\Seeders\\BudgetAccountsTableSeeder' => __DIR__ . '/../..' . '/Database/Seeders/BudgetAccountsTableSeeder.php',
         'Modules\\Budget\\Database\\Seeders\\BudgetDatabaseSeeder' => __DIR__ . '/../..' . '/Database/Seeders/BudgetDatabaseSeeder.php',
+        'Modules\\Budget\\Database\\Seeders\\BudgetNotificationSettingsTableSeeder' => __DIR__ . '/../..' . '/Database/Seeders/BudgetNotificationSettingsTableSeeder.php',
         'Modules\\Budget\\Database\\Seeders\\BudgetRoleAndPermissionsTableSeeder' => __DIR__ . '/../..' . '/Database/Seeders/BudgetRoleAndPermissionsTableSeeder.php',
         'Modules\\Budget\\Http\\Controllers\\BudgetAccountController' => __DIR__ . '/../..' . '/Http/Controllers/BudgetAccountController.php',
         'Modules\\Budget\\Http\\Controllers\\BudgetAditionalCreditController' => __DIR__ . '/../..' . '/Http/Controllers/BudgetAditionalCreditController.php',
         'Modules\\Budget\\Http\\Controllers\\BudgetCentralizedActionController' => __DIR__ . '/../..' . '/Http/Controllers/BudgetCentralizedActionController.php',
+        'Modules\\Budget\\Http\\Controllers\\BudgetCompromiseController' => __DIR__ . '/../..' . '/Http/Controllers/BudgetCompromiseController.php',
         'Modules\\Budget\\Http\\Controllers\\BudgetController' => __DIR__ . '/../..' . '/Http/Controllers/BudgetController.php',
         'Modules\\Budget\\Http\\Controllers\\BudgetModificationController' => __DIR__ . '/../..' . '/Http/Controllers/BudgetModificationController.php',
         'Modules\\Budget\\Http\\Controllers\\BudgetProjectController' => __DIR__ . '/../..' . '/Http/Controllers/BudgetProjectController.php',
@@ -41,16 +43,19 @@ class ComposerStaticInit6dca1433eacbf30474ac61f4d46fe62b
         'Modules\\Budget\\Models\\BudgetAditionalCreditAccount' => __DIR__ . '/../..' . '/Models/BudgetAditionalCreditAccount.php',
         'Modules\\Budget\\Models\\BudgetCentralizedAction' => __DIR__ . '/../..' . '/Models/BudgetCentralizedAction.php',
         'Modules\\Budget\\Models\\BudgetCompromise' => __DIR__ . '/../..' . '/Models/BudgetCompromise.php',
+        'Modules\\Budget\\Models\\BudgetCompromiseDetail' => __DIR__ . '/../..' . '/Models/BudgetCompromiseDetail.php',
         'Modules\\Budget\\Models\\BudgetModification' => __DIR__ . '/../..' . '/Models/BudgetModification.php',
         'Modules\\Budget\\Models\\BudgetModificationAccount' => __DIR__ . '/../..' . '/Models/BudgetModificationAccount.php',
         'Modules\\Budget\\Models\\BudgetProject' => __DIR__ . '/../..' . '/Models/BudgetProject.php',
         'Modules\\Budget\\Models\\BudgetSpecificAction' => __DIR__ . '/../..' . '/Models/BudgetSpecificAction.php',
+        'Modules\\Budget\\Models\\BudgetStage' => __DIR__ . '/../..' . '/Models/BudgetStage.php',
         'Modules\\Budget\\Models\\BudgetSubSpecificFormulation' => __DIR__ . '/../..' . '/Models/BudgetSubSpecificFormulation.php',
         'Modules\\Budget\\Models\\Currency' => __DIR__ . '/../..' . '/Models/Currency.php',
         'Modules\\Budget\\Models\\Department' => __DIR__ . '/../..' . '/Models/Department.php',
         'Modules\\Budget\\Models\\DocumentStatus' => __DIR__ . '/../..' . '/Models/DocumentStatus.php',
         'Modules\\Budget\\Models\\Institution' => __DIR__ . '/../..' . '/Models/Institution.php',
         'Modules\\Budget\\Providers\\BudgetServiceProvider' => __DIR__ . '/../..' . '/Providers/BudgetServiceProvider.php',
+        'Modules\\Budget\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/Providers/RouteServiceProvider.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

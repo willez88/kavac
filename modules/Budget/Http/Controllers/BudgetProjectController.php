@@ -3,7 +3,7 @@
 namespace Modules\Budget\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
@@ -60,7 +60,7 @@ class BudgetProjectController extends Controller
      * Muestra un listado de proyectos
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return Response
+     * @return Renderable
      */
     public function index()
     {
@@ -71,7 +71,7 @@ class BudgetProjectController extends Controller
      * Muestra el formulario para crear un proyecto
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return Response
+     * @return Renderable
      */
     public function create()
     {
@@ -113,7 +113,7 @@ class BudgetProjectController extends Controller
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
-     * @return Response
+     * @return Renderable
      */
     public function store(Request $request)
     {
@@ -141,7 +141,7 @@ class BudgetProjectController extends Controller
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador del proyecto a mostrar
-     * @return Response
+     * @return Renderable
      */
     public function show($id)
     {
@@ -153,7 +153,7 @@ class BudgetProjectController extends Controller
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador del proyecto a modificar
-     * @return Response
+     * @return Renderable
      */
     public function edit($id)
     {
@@ -201,7 +201,7 @@ class BudgetProjectController extends Controller
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
      * @param  integer $id Identificador del proyecto a modificar
-     * @return Response
+     * @return Renderable
      */
     public function update(Request $request, $id)
     {
@@ -223,7 +223,7 @@ class BudgetProjectController extends Controller
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador del proyecto a eliminar
-     * @return Response
+     * @return Renderable
      */
     public function destroy($id)
     {
