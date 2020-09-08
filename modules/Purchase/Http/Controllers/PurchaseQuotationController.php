@@ -3,7 +3,7 @@
 namespace Modules\Purchase\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -15,17 +15,12 @@ use Modules\Purchase\Models\PurchasePivotModelsToRequirementItem;
 
 use Modules\Purchase\Models\HistoryTax;
 use Modules\Purchase\Models\TaxUnit;
-use Modules\Purchase\Models\Currency;
 
-use Modules\Purchase\Models\PurchaseSupplier;
 
 
 use App\Repositories\UploadDocRepository;
 
 use App\Models\CodeSetting;
-use App\Rules\CodeSetting as CodeSettingRule;
-
-use App\Models\ExchangeRate;
 
 class PurchaseQuotationController extends Controller
 {
@@ -33,7 +28,7 @@ class PurchaseQuotationController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return Renderable
      */
     public function index()
     {
@@ -45,14 +40,14 @@ class PurchaseQuotationController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * @return Response
+     * @return Renderable
      */
     public function create()
     {
         $suppliers  = template_choices('Modules\Purchase\Models\PurchaseSupplier', ['rif','-', 'name'], [], true);
-        
+
         $currencies = template_choices('Modules\Purchase\Models\Currency', ['name'], [], true);
-        
+
         $historyTax = HistoryTax::with('tax')->whereHas('tax', function ($query) {
             $query->where('active', true);
         })->where('operation_date', '<=', date('Y-m-d'))->orderBy('operation_date', 'DESC')->first();
@@ -78,7 +73,7 @@ class PurchaseQuotationController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
@@ -134,7 +129,7 @@ class PurchaseQuotationController extends Controller
 
     /**
      * Show the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function show()
     {
@@ -143,7 +138,7 @@ class PurchaseQuotationController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function edit()
     {
@@ -153,7 +148,7 @@ class PurchaseQuotationController extends Controller
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return Renderable
      */
     public function update(Request $request)
     {
@@ -161,7 +156,7 @@ class PurchaseQuotationController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @return Response
+     * @return Renderable
      */
     public function destroy()
     {
@@ -170,16 +165,14 @@ class PurchaseQuotationController extends Controller
     /**
      * [generateCodeAvailable genera el código disponible]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return string [código que se asignara]
+     * @return string código que se asignara
      */
     public function generateCodeAvailable()
     {
-        $codeSetting = CodeSetting::where('table', 'purchase_quotations')
-                                    ->first();
+        $codeSetting = CodeSetting::where('table', 'purchase_quotations')->first();
 
         if (!$codeSetting) {
-            $codeSetting = CodeSetting::where('table', 'purchase_quotations')
-                                    ->first();
+            $codeSetting = CodeSetting::where('table', 'purchase_quotations')->first();
         }
 
         if ($codeSetting) {

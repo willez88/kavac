@@ -3,7 +3,7 @@
 namespace Modules\Payroll\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
@@ -61,7 +61,7 @@ class PayrollVacationRequestController extends Controller
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      *
-     * @return    \Illuminate\View\View
+     * @return    Renderable
      */
     public function index()
     {
@@ -73,7 +73,7 @@ class PayrollVacationRequestController extends Controller
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      *
-     * @return    \Illuminate\View\View
+     * @return    Renderable
      */
     public function create()
     {
@@ -83,7 +83,7 @@ class PayrollVacationRequestController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return Renderable
      */
     public function store(Request $request)
     {
@@ -92,7 +92,7 @@ class PayrollVacationRequestController extends Controller
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return Renderable
      */
     public function update(Request $request)
     {
@@ -100,7 +100,7 @@ class PayrollVacationRequestController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @return Response
+     * @return Renderable
      */
     public function destroy()
     {

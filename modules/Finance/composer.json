@@ -9,11 +9,9 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [
-                "Modules\\Finance\\Providers\\FinanceServiceProvider"
-            ],
+            "providers": [],
             "aliases": {
-                
+
             }
         }
     },

@@ -3,6 +3,7 @@
 namespace Modules\Purchase\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use App\Models\CodeSetting;
 use App\Rules\CodeSetting as CodeSettingRule;
@@ -26,7 +27,7 @@ class PurchaseSettingController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @return \Illuminate\View\View
+     * @return Renderable
      */
     public function index()
     {
@@ -50,7 +51,7 @@ class PurchaseSettingController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * @return \Illuminate\View\View
+     * @return Renderable
      */
     public function create()
     {
@@ -137,7 +138,7 @@ class PurchaseSettingController extends Controller
 
     /**
      * Show the specified resource.
-     * @return \Illuminate\View\View
+     * @return Renderable
      */
     public function show()
     {
@@ -146,7 +147,7 @@ class PurchaseSettingController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @return \Illuminate\View\View
+     * @return Renderable
      */
     public function edit()
     {
@@ -156,7 +157,7 @@ class PurchaseSettingController extends Controller
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return \Illuminate\View\View
+     * @return Renderable
      */
     public function update(Request $request)
     {
@@ -164,7 +165,7 @@ class PurchaseSettingController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @return \Illuminate\View\View
+     * @return Renderable
      */
     public function destroy()
     {

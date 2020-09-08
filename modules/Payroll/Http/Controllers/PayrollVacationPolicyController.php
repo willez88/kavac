@@ -3,7 +3,7 @@
 namespace Modules\Payroll\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
@@ -111,7 +111,7 @@ class PayrollVacationPolicyController extends Controller
      *
      * @param     Integer                          $id    Identificador único de la política vacacional a eliminar
      *
-     * @return    \Illuminate\Http\JsonResponse           Objeto con los registros a mostrar
+     * @return    Renderable
      */
     public function destroy($id)
     {

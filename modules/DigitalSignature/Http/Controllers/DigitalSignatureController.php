@@ -3,14 +3,14 @@
 namespace Modules\DigitalSignature\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 class DigitalSignatureController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return Renderable
      */
     public function index()
     {
@@ -19,7 +19,7 @@ class DigitalSignatureController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * @return Response
+     * @return Renderable
      */
     public function create()
     {
@@ -29,7 +29,7 @@ class DigitalSignatureController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return Renderable
      */
     public function store(Request $request)
     {
@@ -37,7 +37,7 @@ class DigitalSignatureController extends Controller
 
     /**
      * Show the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function show()
     {
@@ -46,7 +46,7 @@ class DigitalSignatureController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function edit()
     {
@@ -56,7 +56,7 @@ class DigitalSignatureController extends Controller
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return Renderable
      */
     public function update(Request $request)
     {
@@ -64,7 +64,7 @@ class DigitalSignatureController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @return Response
+     * @return Renderable
      */
     public function destroy()
     {

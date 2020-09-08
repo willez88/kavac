@@ -3,7 +3,7 @@
 namespace Modules\Purchase\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Modules\Purchase\Models\PurchaseOrder;
@@ -12,9 +12,7 @@ use Modules\Purchase\Models\PurchasePivotModelsToRequirementItem;
 
 use Modules\Purchase\Models\HistoryTax;
 use Modules\Purchase\Models\TaxUnit;
-use Modules\Purchase\Models\Currency;
 
-use Modules\Purchase\Models\PurchaseSupplier;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
@@ -28,7 +26,7 @@ class PurchaseOrderController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return Renderable
      */
     public function index()
     {
@@ -39,20 +37,20 @@ class PurchaseOrderController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * @return Response
+     * @return Renderable
      */
     public function create()
     {
         $suppliers  = template_choices('Modules\Purchase\Models\PurchaseSupplier', ['rif','-', 'name'], [], true);
-        
+
         $currencies = template_choices('Modules\Purchase\Models\Currency', ['name'], [], true);
-        
+
         $historyTax = HistoryTax::with('tax')->whereHas('tax', function ($query) {
             $query->where('active', true);
         })->where('operation_date', '<=', date('Y-m-d'))->orderBy('operation_date', 'DESC')->first();
 
         $taxUnit    = TaxUnit::where('active', true)->first();
-        
+
         $requirements = PurchaseRequirement::with(
             'contratingDepartment',
             'userDepartment',
@@ -72,7 +70,7 @@ class PurchaseOrderController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
@@ -122,7 +120,7 @@ class PurchaseOrderController extends Controller
 
     /**
      * Show the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function show()
     {
@@ -131,7 +129,7 @@ class PurchaseOrderController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function edit($id)
     {
@@ -146,15 +144,15 @@ class PurchaseOrderController extends Controller
         )->find($id);
 
         $suppliers  = template_choices('Modules\Purchase\Models\PurchaseSupplier', ['rif','-', 'name'], [], true);
-        
+
         $currencies = template_choices('Modules\Purchase\Models\Currency', ['name'], [], true);
-        
+
         $historyTax = HistoryTax::with('tax')->whereHas('tax', function ($query) {
             $query->where('active', true);
         })->where('operation_date', '<=', date('Y-m-d'))->orderBy('operation_date', 'DESC')->first();
 
         $taxUnit    = TaxUnit::where('active', true)->first();
-        
+
         $requirements = PurchaseRequirement::with(
             'contratingDepartment',
             'userDepartment',
@@ -177,9 +175,9 @@ class PurchaseOrderController extends Controller
     /**
      * [updatePurchaseOrder the specified resource in storage]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  Request $request [description]
-     * @param  [type]  $id      [description]
-     * @return [type]           [description]
+     * @param  Request $request  Objeto con información de la petición
+     * @param  integer  $id      Identificador de la orden de compra
+     * @return JsonResponse
      */
     public function updatePurchaseOrder(Request $request, $id)
     {
@@ -236,7 +234,7 @@ class PurchaseOrderController extends Controller
                     $rq->requirement_status = 'BOUGHT';
                     $rq->purchase_order_id = $purchase_order->id;
                     $rq->save();
-                
+
                     foreach ($requirement['purchase_requirement_items'] as $item) {
                         PurchasePivotModelsToRequirementItem::create([
                             'purchase_requirement_item_id' => $item['id'],
@@ -253,7 +251,7 @@ class PurchaseOrderController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @return Response
+     * @return JsonResponse
      */
     public function destroy($id)
     {

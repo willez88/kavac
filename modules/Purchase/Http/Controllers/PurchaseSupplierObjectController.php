@@ -3,7 +3,7 @@
 namespace Modules\Purchase\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Purchase\Models\PurchaseSupplierObject;
@@ -15,7 +15,7 @@ class PurchaseSupplierObjectController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return JsonResponse
      */
     public function index()
     {
@@ -24,7 +24,7 @@ class PurchaseSupplierObjectController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * @return Response
+     * @return Renderable
      */
     public function create()
     {
@@ -34,7 +34,7 @@ class PurchaseSupplierObjectController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
@@ -54,7 +54,7 @@ class PurchaseSupplierObjectController extends Controller
 
     /**
      * Show the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function show()
     {
@@ -63,7 +63,7 @@ class PurchaseSupplierObjectController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function edit()
     {
@@ -73,7 +73,7 @@ class PurchaseSupplierObjectController extends Controller
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function update(Request $request)
     {
@@ -95,7 +95,7 @@ class PurchaseSupplierObjectController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @return Response
+     * @return JsonResponse
      */
     public function destroy()
     {
@@ -108,8 +108,8 @@ class PurchaseSupplierObjectController extends Controller
     /**
      * [getPurchaseSupplierObject retorna el obeto del proveedor]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @param  [type] $id [id del proveedor]
-     * @return [type]     [description]
+     * @param  integer $id ID del proveedor
+     * @return JsonResponse
      */
     public function getPurchaseSupplierObject($id)
     {

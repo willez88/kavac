@@ -3,7 +3,6 @@
 namespace Modules\Payroll\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 
@@ -11,8 +10,6 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Payroll\Models\PayrollSalaryScale;
 use Modules\Payroll\Models\PayrollScale;
 
-use Modules\Payroll\Models\PayrollPosition;
-use Modules\Payroll\Models\PayrollInstructionDegree;
 use App\Models\Institution;
 use App\Models\CodeSetting;
 
@@ -66,7 +63,7 @@ class PayrollSalaryScaleController extends Controller
             'payroll_scales.required' => 'Debe registrar al menos una escala o nivel.'
         ];
     }
-    
+
     /**
      * Muestra un listado de los escalafones salariales registrados
      *
@@ -112,7 +109,7 @@ class PayrollSalaryScaleController extends Controller
             $codeSetting->model,
             $codeSetting->field
         );
-        
+
         DB::transaction(function () use ($request, $code) {
             /**
              * Objeto asociado al modelo PayrollSalaryScale

@@ -1,9 +1,19 @@
 <?php
 
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
 Route::group([
     'middleware' => ['web', 'auth', 'verified'],
     'prefix' => 'purchase',
-    'namespace' => 'Modules\Purchase\Http\Controllers'
 ], function () {
     /*
      * -----------------------------------------------------------------------
@@ -178,7 +188,7 @@ Route::group([
 
     /*
      * -----------------------------------------------------------------------
-     * Rutas para la consulta de producto del modulo Warehouse con la informacion de 
+     * Rutas para la consulta de producto del modulo Warehouse con la informacion de
      * -----------------------------------------------------------------------
      *
      * Gestiona los datos de los tipos de operaciones

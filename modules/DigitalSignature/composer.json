@@ -1,20 +1,18 @@
 {
-    "name": "nwidart/digitalsignature",
+    "name": "kavac/digitalsignature",
     "description": "",
     "keywords": ["kavac", "digitalsignature"],
     "authors": [
         {
-            "name": "Nicolas Widart",
-            "email": "n.widart@gmail.com"
+            "name": "Ing. Roldan Vargas",
+            "email": "rvargas@cenditel.gob.ve | roldandvg@gmail.com"
         }
     ],
     "require": {},
     "require-dev": {},
     "extra": {
         "laravel": {
-            "providers": [
-                "Modules\\DigitalSignature\\Providers\\DigitalSignatureServiceProvider"
-            ],
+            "providers": [],
             "aliases": {
 
             }
@@ -23,11 +21,6 @@
     "autoload": {
         "psr-4": {
             "Modules\\DigitalSignature\\": ""
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "Tests/"
         }
     }
 }

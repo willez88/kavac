@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +12,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/$LOWER_NAME$', function (Request $request) {
-    return $request->user();
+Route::group([
+    'middleware' => 'auth:api', 'prefix' => 'citizenservice', 'namespace' => '$MODULE_NAMESPACE$\Http\Controllers'
+], function () {
+    Route::get('/', '$STUDLY_NAME$Controller@index');
 });

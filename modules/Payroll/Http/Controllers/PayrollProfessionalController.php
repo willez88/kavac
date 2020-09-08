@@ -3,7 +3,7 @@
 namespace Modules\Payroll\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Payroll\Models\PayrollProfessional;
@@ -45,7 +45,7 @@ class PayrollProfessionalController extends Controller
      * Muestra todos los registros de información profesional del trabajador
      *
      * @author William Páez <wpaez@cenditel.gob.ve>
-     * @return \Illuminate\View\View    Muestra los datos organizados en una tabla
+     * @return Renderable    Muestra los datos organizados en una tabla
      */
     public function index()
     {
@@ -56,7 +56,7 @@ class PayrollProfessionalController extends Controller
      * Muestra el formulario de registro de información profesional del trabajador
      *
      * @author William Páez <wpaez@cenditel.gob.ve>
-     * @return \Illuminate\View\View    Vista con el formulario
+     * @return Renderable    Vista con el formulario
      */
     public function create()
     {
@@ -165,7 +165,7 @@ class PayrollProfessionalController extends Controller
      *
      * @author William Páez <wpaez@cenditel.gob.ve>
      * @param  integer $id              Identificador con el dato a actualizar
-     * @return \Illuminate\View\View    Vista con el formulario y el objeto con el dato a actualizar
+     * @return Renderable    Vista con el formulario y el objeto con el dato a actualizar
      */
     public function edit($id)
     {

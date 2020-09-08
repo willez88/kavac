@@ -1,19 +1,19 @@
 <?php
 
-/**
- * -----------------------------------------------------------------------
- * Grupo de rutas para la gestión del módulo Talento Humano
- * -----------------------------------------------------------------------
- *
- * Permite gestionar los datos del personal de la institución 
- * así como las operaciones necesarias para la emisión de la nómina;
- * y solicitudes de los trabajadores
- *
- */
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
 Route::group([
     'middleware' => ['web', 'auth', 'verified'],
-    'prefix' => 'payroll',
-    'namespace' => 'Modules\Payroll\Http\Controllers'
+    'prefix' => 'payroll'
 ], function () {
 
     /** Rutas para gestionar la nómina de trabajadores de la institución */
@@ -21,7 +21,7 @@ Route::group([
 
     /** Ruta que permite editar la información de un registro de nómina */
     Route::get('registers/edit/{register}', 'PayrollController@edit')->name('payroll.registers.edit');
-    
+
     /** Ruta que obtiene la información de un registro de nómina */
     Route::get('registers/show/{register}', 'PayrollController@show')->name('payroll.registers.show');
 
@@ -30,7 +30,7 @@ Route::group([
 
     /** Ruta para visualizar la sección de configuración del módulo */
     Route::get('settings', 'PayrollSettingController@index')->name('payroll.settings.index');
-    
+
     /** Ruta para guardar los cambios en la sección de configuración del módulo */
     Route::post('settings', 'PayrollSettingController@store')->name('payroll.settings.store');
 
@@ -253,7 +253,7 @@ Route::group([
         'PayrollInactivityTypeController',
         ['as' => 'payroll', 'except' => ['show','create','edit']]
     );
-    
+
     /** Ruta que obtiene un arreglo con los tipos de inactividad registrados */
     Route::get(
         'get-inactivity-types',
@@ -279,7 +279,7 @@ Route::group([
         'PayrollSectorTypeController',
         ['as' => 'payroll', 'except' => ['show','create','edit']]
     );
-    
+
     /** Ruta que obtiene un arreglo con los tipos de sector registrados */
     Route::get(
         'get-sector-types',
@@ -322,23 +322,23 @@ Route::group([
     )->name('payroll.employment-informations.vue-list');
 
 
-    
+
     /** Rutas para gestionar los parámetros de nómina */
     Route::resource('parameters', 'PayrollParameterController', ['except' => ['show','create','edit']]);
 
     /** Ruta que obtiene un arreglo con los parámetros de nómina registrados */
-    Route::get('get-parameters',  'PayrollParameterController@getPayrollParameters');
+    Route::get('get-parameters', 'PayrollParameterController@getPayrollParameters');
 
     /** Ruta que obtiene un arreglo con parámetros de nómina registrados asociados a un concepto */
     Route::post('get-parameters', 'PayrollParameterController@getPayrollParameters');
 
     /** Ruta que obtiene un arreglo con los parámetros asociados al expediente del trabajador registrados */
-    Route::get('get-parameter-options/{code}',  'PayrollParameterController@getPayrollParameterOptions');
+    Route::get('get-parameter-options/{code}', 'PayrollParameterController@getPayrollParameterOptions');
 
     /** Ruta que obtiene un arreglo con los tipos de parámetros de nómina registrados */
-    Route::get('get-parameter-types',  'PayrollParameterController@getPayrollParameterTypes');
+    Route::get('get-parameter-types', 'PayrollParameterController@getPayrollParameterTypes');
 
-    
+
     /** Rutas para gestionar los escalafones de nómina */
     Route::resource('salary-scales', 'PayrollSalaryScaleController', ['except' => ['show','create','edit']]);
 
@@ -359,7 +359,7 @@ Route::group([
 
     /** Ruta que obtiene un arreglo con los tabuladores salariales registrados */
     Route::get('get-salary-tabulators', 'PayrollSalaryTabulatorController@getSalaryTabulators');
-    
+
     /** Ruta que obtiene un arreglo con las agrupaciones de los tabuladores salariales registrados */
     Route::get('get-salary-tabulators-groups', 'PayrollParameterController@getSalaryTabulatorsGroups');
 
