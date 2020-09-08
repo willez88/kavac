@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Modules\Sale\Models\SaleQuote;
+use Modules\Sale\Models\SaleQuoteProducts;
 
 class SaleQuoteController extends Controller
 {
@@ -21,7 +21,7 @@ class SaleQuoteController extends Controller
      */
     public function index()
     {
-      return response()->json(['records' => SaleQuote::all()], 200);
+      return response()->json(['records' => SaleQuoteProducts::all()], 200);
     }
 
     /**
@@ -47,25 +47,24 @@ class SaleQuoteController extends Controller
         'email_applicant' => ['required'],
         'phone_applicant' => ['nullable', 'regex:/^\d{2}-\d{3}-\d{7}$/u'],
         'quantity_product' => ['required', 'max:200'],
-        'unit_product' => ['required', 'max:200'],
+        'measurement_units' => ['required', 'max:200'],
         'payment_type_product' => ['required'],
         'reply_deadline_product' => ['required']
       ]);
 
-      $quote = new SaleQuote;
-      $quote->name_enterprise = $request->name_enterprise;
-      $quote->address_applicant = $request->address_applicant;
-      $quote->name_applicant = $request->name_applicant;
-      $quote->email_applicant = $request->email_applicant;
-      $quote->phone_applicant = $request->phone_applicant;
-      $quote->quantity_product = $request->quantity_product;
-      $quote->unit_product = $request->measurement_units;
-      $quote->payment_type_product = $request->payment_type_product;
-      $quote->reply_deadline_product = $request->reply_deadline_product;
-      $quote->save();
+      $quote = SaleQuoteProducts::create([
+        'name_enterprise' => $request->name_enterprise,
+        'address_applicant' => $request->address_applicant,
+        'name_applicant' => $request->name_applicant,
+        'email_applicant' => $request->email_applicant,
+        'phone_applicant' => $request->phone_applicant,
+        'quantity_product' => $request->quantity_product,
+        'unit_product' => $request->measurement_units,
+        'payment_type_product' => $request->payment_type_product,
+        'reply_deadline_product' => $request->reply_deadline_product
+      ]);
 
-      $request->session()->flash('message', ['type' => 'store']);
-      return response()->json(['result' => true, 'redirect' => route('sale.register-quote.index')], 200);
+      return response()->json(['record' => $quote, 'message' => 'Success'], 200);
     }
 
     /**
@@ -94,7 +93,7 @@ class SaleQuoteController extends Controller
     public function update(Request $request)
     {
       /** @var object Datos de la entidad bancaria */
-      $quote = SaleQuote::find($id);
+      $quote = SaleQuoteProducts::find($id);
 
       $this->validate($request, [
         'name_enterprise' => ['required'],
@@ -129,7 +128,7 @@ class SaleQuoteController extends Controller
      */
     public function destroy()
     {
-      $quote = quote::find($id);
+      $quote = SaleQuoteProducts::find($id);
       $quote->delete();
       return response()->json(['record' => $quote, 'message' => 'Success'], 200);
     }

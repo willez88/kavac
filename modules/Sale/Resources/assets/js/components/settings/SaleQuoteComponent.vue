@@ -91,19 +91,19 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-12 mt-3">
                 <h6 class="card-title">Descripción de productos:</h6>
               </div>
               <div class="col-md-4">
 		<div class="form-group is-required">
 		  <label>Unidad de Medida:</label>
-		  <select2 :options="measurement_units" v-model="record.unit_product"></select2>
+		  <select2 :options="measurement_units_product" v-model="record.measurement_units"></select2>
 		</div>
 	      </div>
               <div class="col-md-3" id="quantity">
 		<div class="form-group is-required">
 		  <label>Cantidad:</label>
-		  <input type="number" min="1" placeholder="Cantidad del Producto" data-toggle="tooltip" 			   class="form-control input-sm" id="quantity_product">
+		  <input type="number" min="1" placeholder="Cantidad del Producto" data-toggle="tooltip" 			   class="form-control input-sm" v-model="record.quantity_product">
                 </div>
               </div>
               <div class="col-md-3" id="product_type">
@@ -112,6 +112,25 @@
                   <select2 :options="sale_setting_product_type"
                     v-model="record.product_type_ids" id="product_type_id">
                   </select2>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 mt-3">
+                <h6 class="card-title">Complementarios:</h6>
+              </div>
+              <div class="col-md-4">
+		<div class="form-group is-required">
+		  <label>Modalidad de pago:</label>
+		  <select2 :options="payment_type_products" v-model="record.payment_type_product"></select2>
+		</div>
+	      </div>
+              <div class="col-md-3" id="quantity">
+		<div class="form-group is-required">
+		  <label>Fecha límite de respuesta:</label>
+                  <input type="date" v-model="record.reply_deadline_product" class="form-control input-sm"
+                    data-toggle="tooltip"
+                    title="Indique la fecha límite de respuesta">
                 </div>
               </div>
             </div>
@@ -129,7 +148,7 @@
                   title="Modificar registro" data-toggle="tooltip" type="button">
                     <i class="fa fa-edit"></i>
                 </button>
-                <button @click="deleteRecord(props.index, 'register-formatcode')"
+                <button @click="deleteRecord(props.index, 'register-quote')"
                   class="btn btn-danger btn-xs btn-icon btn-action"
                   title="Eliminar registro" data-toggle="tooltip"
                   type="button">
@@ -153,6 +172,9 @@
           name: '',
           unit_product: '',
           product_type_id: '',
+          payment_type_product: '',
+          reply_deadline_product: '',
+          quantity_product: '',
           address: '',
           lastname: '',
           email: '',
@@ -161,8 +183,9 @@
         errors: [],
         records: [],
         columns: ['company_name', 'lastname', 'email', 'id'],
-        measurement_units: [],
+        measurement_units_product: [],
         product_type_ids: [],
+        payment_type_products: ['prueba'],
       }
     },
     methods: {
@@ -172,6 +195,9 @@
           name: '',
           unit_product: '',
           product_type_id: '',
+          payment_type_product: '',
+          reply_deadline_product: '',
+          quantity_product: '',
           address: '',
           lastname: '',
           email: '',
@@ -180,10 +206,10 @@
       },
       getMeasurementUnits() {
         const vm = this;
-        vm.measurement_units = [];
+        vm.measurement_units_product = [];
 
         axios.get('/warehouse/get-measurement-units').then(response => {
-  	  vm.measurement_units = response.data;
+  	  vm.measurement_units_product = response.data;
         });
       },
     },
