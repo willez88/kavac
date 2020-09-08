@@ -3,17 +3,15 @@
 namespace Modules\Warehouse\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Models\CodeSetting;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Warehouse\Pdf\WarehouseReport as ReportRepository;
 use Modules\Warehouse\Models\WarehouseInventoryProductRequest;
-use Modules\Warehouse\Models\WarehouseInstitutionWarehouse;
 use Modules\Warehouse\Models\WarehouseInventoryProduct;
 use Modules\Warehouse\Models\WarehouseInventoryRule;
-use Modules\Warehouse\Models\WarehouseProduct;
 use Modules\Warehouse\Models\WarehouseReport;
 use Modules\Warehouse\Models\Warehouse;
 use App\Models\Institution;
@@ -49,7 +47,7 @@ class WarehouseReportController extends Controller
      * Muestra un listado de los reportes generados
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\View\View
+     * @return Renderable
      */
     public function index()
     {
@@ -174,10 +172,10 @@ class WarehouseReportController extends Controller
                     }
                 ]
             );
-            /*
-            Revisar filtros
-                whereHas
-            */
+        /*
+        Revisar filtros
+            whereHas
+        */
         } elseif ($request->current == "stocks") {
             $fields = WarehouseInventoryRule::with(
                 [
@@ -293,10 +291,10 @@ class WarehouseReportController extends Controller
                     }
                 ]
             );
-            /*
-            Revisar filtros
-                whereHas
-            */
+        /*
+        Revisar filtros
+            whereHas
+        */
         } elseif ($request->current == "stocks") {
             $fields = WarehouseInventoryRule::with(
                 [
@@ -328,14 +326,14 @@ class WarehouseReportController extends Controller
             $codeSetting->model,
             $codeSetting->field
         );
-        
+
         $report = WarehouseReport::create([
             'code'           => $code,
             'type_report'    => $request->current,
             'institution_id' => $institution->id,
             'filename'       => $filename
         ]);
-        
+
         /*
          *  Definicion de las caracteristicas generales de la página
          */

@@ -2,7 +2,7 @@
 
 namespace Modules\Warehouse\Http\Controllers;
 
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Modules\Warehouse\Models\WarehouseMovement;
@@ -13,7 +13,7 @@ class WarehouseDashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return Renderable
      */
     public function index()
     {

@@ -3,7 +3,7 @@
 namespace Modules\Warehouse\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -52,7 +52,7 @@ class WarehouseReceptionController extends Controller
      * Muestra un listado de las Recepciones o Ingresos de Almacén
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return Renderable (JSON con los registros a mostrar)
      */
     public function index()
     {
@@ -63,7 +63,7 @@ class WarehouseReceptionController extends Controller
      * Muestra el formulario para registrar un nuevo Ingreso de Almacén
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return Renderable (JSON con los registros a mostrar)
      */
     public function create()
     {
@@ -75,7 +75,7 @@ class WarehouseReceptionController extends Controller
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function store(Request $request)
     {
@@ -85,7 +85,7 @@ class WarehouseReceptionController extends Controller
             'institution_id' => ['required'],
 
         ]);
-        
+
         $codeSetting = CodeSetting::where('table', 'warehouse_movements')->first();
         if (is_null($codeSetting)) {
             $request->session()->flash('message', [
@@ -122,7 +122,7 @@ class WarehouseReceptionController extends Controller
                 'warehouse_inventory_products.'.$i.'.quantity' => ['required'],
                 'warehouse_inventory_products.'.$i.'.currency_id' => ['required'],
                 'warehouse_inventory_products.'.$i.'.unit_value' => ['required'],
-                
+
             ]);
             /*
              * Hacer validación mas detallada (ej: diferenciar tipo de dato en atributos)
@@ -137,7 +137,7 @@ class WarehouseReceptionController extends Controller
 
 
         /*********************************************************/
-    
+
         $inst_ware = WarehouseInstitutionWarehouse::where('warehouse_id', $request->warehouse_id)
             ->where('institution_id', $request->institution_id)->first();
 
@@ -151,7 +151,7 @@ class WarehouseReceptionController extends Controller
                 'user_id' => Auth::id(),
             ]);
             $equal = null;
-                
+
             foreach ($request->warehouse_inventory_products as $product) {
                 $product_id = $product['warehouse_product_id'];
                 $currency = $product['currency_id'];
@@ -193,7 +193,7 @@ class WarehouseReceptionController extends Controller
                             }
                         }
                         if ($equal === true) {
-                            
+
                             /** Se genera el movimiento, para su posterior aprobación */
 
                             $inventory_movement = WarehouseInventoryProductMovement::create([
@@ -210,7 +210,7 @@ class WarehouseReceptionController extends Controller
                      * se genera un nuevo registro
                      */
                     $codeSetting = CodeSetting::where('table', 'warehouse_inventory_products')->first();
-                    
+
                     $codep  = generate_registration_code(
                         $codeSetting->format_prefix,
                         strlen($codeSetting->format_digits),
@@ -218,7 +218,7 @@ class WarehouseReceptionController extends Controller
                         $codeSetting->model,
                         $codeSetting->field
                     );
-                    
+
                     $product_inventory = WarehouseInventoryProduct::create([
                         'code' => $codep,
                         'warehouse_product_id' => $product_id,
@@ -227,7 +227,7 @@ class WarehouseReceptionController extends Controller
                         'warehouse_institution_warehouse_id' => $inst_ware->id,
                     ]);
 
-            
+
                     $inventory_movement = WarehouseInventoryProductMovement::create([
                         'quantity' => $quantity,
                         'new_value' => $value,
@@ -276,7 +276,7 @@ class WarehouseReceptionController extends Controller
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  Integer $id Identificador único del ingreso de almacén
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return Renderable
      */
     public function edit($id)
     {
@@ -290,7 +290,7 @@ class WarehouseReceptionController extends Controller
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
      * @param  Integer $id Identificador único del ingreso de almacén
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function update(Request $request, $id)
     {
@@ -311,7 +311,7 @@ class WarehouseReceptionController extends Controller
                 'warehouse_inventory_products.'.$i.'.quantity' => ['required'],
                 'warehouse_inventory_products.'.$i.'.currency_id' => ['required'],
                 'warehouse_inventory_products.'.$i.'.unit_value' => ['required'],
-                
+
             ]);
 
             for ($j=0; $j < $att; $j++) {
@@ -400,7 +400,7 @@ class WarehouseReceptionController extends Controller
                  */
                 if ((count($inventory) == 0) || ($equal == false)) {
                     $codeSetting = CodeSetting::where('table', 'warehouse_inventory_products')->first();
-                    
+
                     $codep  = generate_registration_code(
                         $codeSetting->format_prefix,
                         strlen($codeSetting->format_digits),
@@ -408,7 +408,7 @@ class WarehouseReceptionController extends Controller
                         $codeSetting->model,
                         $codeSetting->field
                     );
-                    
+
                     $product_inventory = WarehouseInventoryProduct::create([
                         'code' => $codep,
                         'warehouse_product_id' => $product_id,
@@ -416,7 +416,7 @@ class WarehouseReceptionController extends Controller
                         'unit_value' => $value,
                         'warehouse_institution_warehouse_id' => $inst_ware->id,
                     ]);
-            
+
                     $inventory_movement = WarehouseInventoryProductMovement::create([
                         'quantity' => $quantity,
                         'new_value' => $value,
@@ -460,7 +460,7 @@ class WarehouseReceptionController extends Controller
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  Integer $id Identificador único del ingreso de almacén
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function destroy($id)
     {
@@ -474,9 +474,9 @@ class WarehouseReceptionController extends Controller
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  Integer $id Identificador único del movimiento de almacén
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
-    
+
     public function vueInfo($id)
     {
         return response()->json(['records' => WarehouseMovement::where('id', $id)
@@ -517,7 +517,7 @@ class WarehouseReceptionController extends Controller
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  Integer $id Identificador único del ingreso de almacén
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function rejectedReception(Request $request, $id)
     {
@@ -535,7 +535,7 @@ class WarehouseReceptionController extends Controller
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  Integer $id Identificador único del ingreso de almacén
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function approvedReception(Request $request, $id)
     {

@@ -3,7 +3,7 @@
 namespace Modules\Sale\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -11,7 +11,6 @@ use Modules\Sale\Models\SaleSettingProductType;
 
 class SaleSettingProductTypeController extends Controller
 {
-
     use ValidatesRequests;
 
     /**
@@ -37,12 +36,12 @@ class SaleSettingProductTypeController extends Controller
      */
     public function index()
     {
-         return response()->json(['records' => SaleSettingProductType::all()], 200);
+        return response()->json(['records' => SaleSettingProductType::all()], 200);
     }
 
     /**
      * Show the form for creating a new resource.
-     * @return Response
+     * @return Renderable
      */
     public function create()
     {
@@ -67,7 +66,7 @@ class SaleSettingProductTypeController extends Controller
 
     /**
      * Show the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function show()
     {
@@ -76,7 +75,7 @@ class SaleSettingProductTypeController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function edit()
     {
@@ -124,6 +123,6 @@ class SaleSettingProductTypeController extends Controller
      */
     public function getSaleSettingProductType()
     {
-        return response()->json(template_choices('Modules\Sale\Models\SaleSettingProductType', 'name',  '', true));
+        return response()->json(template_choices('Modules\Sale\Models\SaleSettingProductType', 'name', '', true));
     }
 }
