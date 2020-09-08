@@ -4,7 +4,7 @@
 namespace Modules\Asset\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -56,14 +56,14 @@ class AssetRequestExtensionController extends Controller
         $this->validate($request, [
             'date' => [new DateExtension($asset_request->delivery_date, '2')],
         ]);
-        
+
         $prorroga = new AssetRequestExtension;
         $prorroga->delivery_date = $request->date;
         $prorroga->asset_request_id = $request->asset_request_id;
         $prorroga->state = 'Pendiente';
         $prorroga->user_id = Auth::id();
         $prorroga->save();
-            
+
 
         $request->session()->flash('message', ['type' => 'store']);
         return response()->json(['result' => true, 'redirect' => route('asset.request.index')], 200);
@@ -71,7 +71,7 @@ class AssetRequestExtensionController extends Controller
 
     /**
      * Show the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function show()
     {
@@ -80,7 +80,7 @@ class AssetRequestExtensionController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function edit()
     {
@@ -90,7 +90,7 @@ class AssetRequestExtensionController extends Controller
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return Renderable
      */
     public function update(Request $request)
     {
@@ -98,7 +98,7 @@ class AssetRequestExtensionController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @return Response
+     * @return Renderable
      */
     public function destroy()
     {
@@ -120,7 +120,7 @@ class AssetRequestExtensionController extends Controller
         $asset_request = $request_prorroga->assetRequest;
         $asset_request->delivery_date = $request_prorroga->delivery_date;
         $asset_request->save();
-        
+
         $request_prorroga->save();
 
         $request->session()->flash('message', ['type' => 'update']);
@@ -132,7 +132,7 @@ class AssetRequestExtensionController extends Controller
         $asset_request = AssetRequestExtension::find($id);
         $asset_request->state = 'Rechazado';
         $asset_request->save();
-        
+
         $request->session()->flash('message', ['type' => 'update']);
         return response()->json(['result' => true, 'redirect' => route('asset.request.index')], 200);
     }

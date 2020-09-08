@@ -13,8 +13,6 @@
         "Modules\\Asset\\Providers\\AssetServiceProvider"
     ],
     "aliases": {},
-    "files": [
-        "start.php"
-    ],
+    "files": [],
     "requires": []
 }

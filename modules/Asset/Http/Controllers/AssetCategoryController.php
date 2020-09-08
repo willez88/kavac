@@ -3,7 +3,6 @@
 namespace Modules\Asset\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -92,13 +91,13 @@ class AssetCategoryController extends Controller
             'code' => ['required', 'max:10'],
             'asset_type_id' => ['required']
         ]);
- 
-        
+
+
         $category->name = $request->input('name');
         $category->code = $request->input('code');
         $category->asset_type_id = $request->asset_type_id;
         $category->save();
- 
+
         return response()->json(['message' => 'Success'], 200);
     }
 

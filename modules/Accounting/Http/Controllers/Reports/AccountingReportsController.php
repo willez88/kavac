@@ -2,19 +2,11 @@
 
 namespace Modules\Accounting\Http\Controllers\Reports;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
-use Modules\Accounting\Models\AccountingReportHistory;
-use Modules\Accounting\Models\AccountingEntryAccount;
 use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingEntry;
-use Modules\Accounting\Models\Currency;
-use Modules\Accounting\Models\Setting;
-
-use Modules\Accounting\Pdf\Pdf;
-use Auth;
 
 /**
  * @class AccountingReportPdfCheckupBalanceController
@@ -42,7 +34,7 @@ class AccountingReportsController extends Controller
     }
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return Renderable
      */
     public function accountingBooks()
     {
@@ -52,7 +44,7 @@ class AccountingReportsController extends Controller
          * @var array
          */
         $records          = [];
-        
+
         $yearOld          = $this->calcualteYearOld();
 
         $records_auxiliar = [];
@@ -94,7 +86,7 @@ class AccountingReportsController extends Controller
         $records_auxiliar = json_encode($records_auxiliar);
         $records          = json_encode($records);
         $currencies       = json_encode(template_choices('App\Models\Currency', ['symbol', '-', 'name'], [], true));
-        
+
         return view('accounting::reports.accounting_books', compact(
             'yearOld',
             'records',
@@ -104,7 +96,7 @@ class AccountingReportsController extends Controller
     }
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return Renderable
      */
     public function financeStatements()
     {
@@ -115,7 +107,7 @@ class AccountingReportsController extends Controller
          * @var string
          */
         $type_report_1 = 'BalanceSheet';
-        
+
         /**
          * [$type_report_2 tipo de reporte que abrira]
          * @var string
@@ -139,7 +131,7 @@ class AccountingReportsController extends Controller
          * @var AccountingEntry
          */
         $entries = AccountingEntry::where('approved', true)->orderBy('from_date', 'ASC')->first();
-        
+
         /**
          * [$yearOld determinara el año mas antiguo para el filtrado]
          * @var string

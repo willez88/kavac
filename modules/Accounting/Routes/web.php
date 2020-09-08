@@ -8,10 +8,7 @@
  * Permite gestionar las cuentas patrimoniales, asientos contables y generar reportes
  *
  */
-Route::group(['middleware' => ['web', 'auth', 'verified'],
-              'prefix' => 'accounting',
-              'namespace' => 'Modules\Accounting\Http\Controllers'
-], function () {
+Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'accounting'], function () {
 
     /**
      * Rutas temporal para la visualizacion del dashboard del modulo de contabilidad

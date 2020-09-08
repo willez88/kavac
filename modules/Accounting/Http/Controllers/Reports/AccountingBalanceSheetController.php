@@ -2,7 +2,6 @@
 
 namespace Modules\Accounting\Http\Controllers\Reports;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
@@ -70,7 +69,7 @@ class AccountingBalanceSheetController extends Controller
     {
         return $this->currency->id;
     }
-    
+
     public function getCurrency()
     {
         return $this->currency;
@@ -168,7 +167,7 @@ class AccountingBalanceSheetController extends Controller
                             $currency->id
                         );
                     }
-                    
+
                     foreach ($convertions as $convertion) {
                         foreach ($convertion as $convert) {
                             if ($entryAccount['entries']['from_date'] >= $convert['start_at'] &&
@@ -241,7 +240,7 @@ class AccountingBalanceSheetController extends Controller
             $report->institution_id = $institution_id;
             $report->save();
         }
-        
+
         return response()->json(['result'=>true, 'id'=>$report->id], 200);
     }
 

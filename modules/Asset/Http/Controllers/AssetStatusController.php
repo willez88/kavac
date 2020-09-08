@@ -3,7 +3,6 @@
 namespace Modules\Asset\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -34,7 +33,7 @@ class AssetStatusController extends Controller
         /** Establece permisos de acceso para cada método del controlador */
         //$this->middleware('permission:asset.setting.status');
     }
-    
+
     /**
      * Muestra un listado de los estatus de uso de bienes institucionales
      *
@@ -80,16 +79,16 @@ class AssetStatusController extends Controller
      * @param     \Modules\Asset\Models\AssetStatus    $status     Datos del status de uso de un bien
      * @return    \Illuminate\Http\JsonResponse        Objeto con los registros a mostrar
      */
-    
+
     public function update(Request $request, AssetStatus $status)
     {
         $this->validate($request, [
             'name' => ['required', 'max:100']
         ]);
- 
+
         $status->name = $request->input('name');
         $status->save();
- 
+
         return response()->json(['message' => 'Success'], 200);
     }
 

@@ -3,7 +3,6 @@
 namespace Modules\Asset\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -110,7 +109,7 @@ class AssetClasificationController extends Controller
                 'asset_category_id' => $category->id,
             ]);
         }
-        
+
         /**
          * Objeto asociado al modelo AssetSpecificCategory
          *
@@ -167,7 +166,7 @@ class AssetClasificationController extends Controller
          * @var Object $specific
          */
         $specific = AssetSpecificCategory::find($request->id);
-        
+
         $specific->name = $request->input('name');
         $specific->code = $request->input('code');
         $specific->asset_subcategory_id = $request->input('asset_subcategory_id');
