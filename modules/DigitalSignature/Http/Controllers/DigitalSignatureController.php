@@ -149,6 +149,32 @@ class DigitalSignatureController extends Controller
      */
     public function destroy()
     {
+        if(User::find(auth()->user()->id)->signprofiles) {
+            $userprofile = User::find(auth()->user()->id)->signprofiles;
+            $userprofile->delete();
+            session()->flash(
+                    'msg',
+                    [
+                        'autohide' => 'true',
+                        'type'     => 'success',
+                        'title'    => 'Éxito',
+                        'text'     => 'Registro eliminado con éxito.'
+                    ]
+                );
+            return redirect()->route('digitalsignature');
+        }
+        else {
+            session()->flash(
+                'msg',
+                [
+                    'autohide' => 'true',
+                    'type'     => 'error',
+                    'title'    => 'Alerta',
+                    'text'     => 'El registro fue eliminado previamente.'
+                ]
+            );
+            return redirect()->route('digitalsignature');
+        }
     }
 
     /**
@@ -255,6 +281,29 @@ class DigitalSignatureController extends Controller
         $size = count($output);
         print_r($output);
 
+    }
+
+    /**
+     * Lista los usuarios que asociado certificado firmante
+     *
+     * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
+     * @return 
+     */
+    public function listCertificate() {
+
+        $users = User::all();
+        $userlist = [];
+        foreach ($users as $user) {
+            $profile = User::find($user->id);
+            if ($profile->signprofiles) {
+                print_r('############');
+                print_r($user->name);
+                print_r('############');
+                print_r($user->email);
+                print_r('############');
+                print_r(Crypt::decryptString($profile->signprofiles['cert']));
+            }
+        } 
     }
 }
     

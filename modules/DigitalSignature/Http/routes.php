@@ -14,6 +14,7 @@ Route::group(
         Route::post('updateCertificate', 'DigitalSignatureController@update')->name('updateCertificate');
         Route::get('signFile', 'DigitalSignatureController@signFile')->name('signFile');
         Route::get('verifysign', 'DigitalSignatureController@verifysign')->name('verifysign');
+        Route::get('listCertificate', 'DigitalSignatureController@listCertificate')->name('listCertificate');
     }
 );
 
