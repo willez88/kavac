@@ -14,6 +14,19 @@ use Illuminate\Support\Str;
 use Modules\DigitalSignature\Models\Signprofile;
 use Modules\DigitalSignature\Models\User;
 
+
+/**
+ * @class DigitalSignatureController
+ * @brief Controlador para la gestión de firma electrónica
+ *
+ * Clase que gestiona la firma electrónica
+ *
+ * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
+ */
+
 class DigitalSignatureController extends Controller
 {
     /**
@@ -138,6 +151,12 @@ class DigitalSignatureController extends Controller
     {
     }
 
+    /**
+     * Obtiene la información detallada del certificado del firmante
+     *
+     * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
+     * @return 
+     */
     public function getCertificate() {
 
         if(User::find(auth()->user()->id)->signprofiles) {
@@ -174,47 +193,61 @@ class DigitalSignatureController extends Controller
         }
     }
 
+    /**
+     * Realiza la firma electrónica de un documento
+     *
+     * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
+     * @return 
+     */
     public function signFile() 
     {
-        print_r("signFile");
+        
         if(Auth::user() && User::find(auth()->user()->id)->signprofiles) {
 
             //Crear archivo pkcs#12
-            $profile = 
             $cert = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['cert']);
             $pkey = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['pkey']);
-            //$passphrase = $request->get('password');
             $passphrase = Str::random(10);
+            
             //Datos para la firma
             $filename = Str::random(10) . '.p12';
-            $storeCertificated = '/home/pbuitrago/Cenditel/Proyecto_kavac/kavac_cenditel/storage/temporary' . $filename;
+            $storeCertificated = getPathSign($filename);
             $createpkcs12 = openssl_pkcs12_export_to_file($cert,$storeCertificated,$pkey,$passphrase);
-            
-            //Ubicación del ejecutable PortableSigner
-            $pathPortableSigner = '/home/pbuitrago/Cenditel/Proyecto_kavac/kavac_cenditel/modules/DigitalSignature/PortableSigner/PortableSigner.jar';
+            $pathPortableSigner = getPathSign('PortableSigner');
             
             //Documento pdf 
-            $namepdf = 'pruebaPDF-sign.pdf';
-            $namepdfsign = 'pruebaPDF-sign-4.pdf';
-            $storePdfSign =  '/home/pbuitrago/Cenditel/Proyecto_kavac/kavac_cenditel/storage/temporary/' . $namepdfsign;
-            $storePdf = '/home/pbuitrago/Cenditel/Proyecto_kavac/kavac_cenditel/storage/temporary/'. $namepdf;
-
+            $namepdf = 'pruebaPDF.pdf';
+            $namepdfsign = 'pruebaPDF-sign.pdf';
+            $storePdfSign = getPathSign($namepdfsign);
+            $storePdf = getPathSign($namepdf);
+            
+            //ejecución del comando para firmar 
             $comand = 'java -jar ' . $pathPortableSigner . ' -n -t ' . $storePdf . ' -o ' . $storePdfSign . ' -s ' . $storeCertificated . ' -p ' . $passphrase;
             $run = exec($comand, $output);
-            Storage::disk('temporary')->delete($filename);
-            print_r($output);
 
+            //elimina el certficado .p12
+            Storage::disk('temporary')->delete($filename);
+            
+            print_r($output);
         }
 
         else { return redirect()->route('login'); } 
     }
 
+
+    /**
+     * Verifica la firma electrónica de un documento
+     *
+     * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
+     * @return 
+     */
     public function verifysign() {
 
         //informacion para realizar la verificación de firma electrónica 
         $namepdfsign = 'pruebaPDF-sign.pdf';
-        $storePdfSign = '/home/pbuitrago/Cenditel/Proyecto_kavac/kavac_cenditel/storage/temporary/'. $namepdfsign;
+        $storePdfSign = getPathSign($namepdfsign);
         
+        //ejecución del comando para firmar
         $comand = 'pdfsig ' . $storePdfSign;
 
         $run = exec($comand, $output);

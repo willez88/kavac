@@ -17,7 +17,7 @@
                     <h3 class="h4 border-bottom border-primary text-center pb-1">
                         Datos personales
                     </h3>
-                        <p> {{ greet('Brian') }} </p>
+                        <p>{{ getPathSign('pruebaPDF.pdf') }}</p>
                     <p>
                         <span class="font-weight-bold"> Usuario: </span>
                         <span class="text-gray-900"> {{ $user->name }} </span>
