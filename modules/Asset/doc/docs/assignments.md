@@ -19,20 +19,18 @@ KAVAC permite gestionar la asignación de bienes a cada trabajador de la institu
 
 ![Screenshot](/img/asignar_bien.jpg)<div style="text-align: center;font-weight: bold">Figura: Asignar Bien Institucional</div>
 
+!!! note "Nota"
+	En la parte inferior de esta sección (Asignación de Bienes Institucionales) se muestran los resultados filtrados una vez que el usuario completa la información de los bienes a ser asignados y presiona el botón **Buscar**, si el usuario no introduce ningun dato del bien y presiona el botón **Buscar** entonces el sistema muestra todos los bienes que pueden ser asignados.    
 
-**Nota**
-
-En la parte inferior de esta sección se muestran los resultados filtrados una vez que el usuario presione el botón **Buscar**, si el usuario no introduce ningun dato del bien y presiona el botón **Buscar** entonces el sistema muestra todos los registros realizados.    
-
-Para asignar varios bienes, se hace uso del botón **Checkbox** ubicado en la primera columna de la tabla de registros, finalmente se presiona el botón **Guardar** para registrar la asignación.
+	Para asignar varios bienes, se hace uso del botón **Checkbox** ubicado en la primera columna de la tabla de registros, finalmente se presiona el botón **Guardar** para registrar la asignación.
 
 ###Editar una asignación 
 
-Hacer uso de los botones ubicados en la columna titulada **Acción** en la sección [Asignación de Bienes Institucionales](#desincorporacion-de-bienes-institucionales_1).
+Hacer uso de los botones ubicados en la columna titulada **Acción** en la sección [Asignación de Bienes Institucionales](#asignacion-de-bienes-institucionales_1).
 
 ###Eliminar una asignación 
 
-Hacer uso de los botones ubicados en la columna titulada **Acción** en la sección [Asignación de Bienes Institucionales](#desincorporacion-de-bienes-institucionales_1).
+Hacer uso de los botones ubicados en la columna titulada **Acción** en la sección [Asignación de Bienes Institucionales](#asignacion-de-bienes-institucionales_1).
 
 
 </div>

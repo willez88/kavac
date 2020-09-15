@@ -6,7 +6,7 @@
 
 ##Buscador de asientos contables 
 
-Esta funcionalidad se ubica en la sección principal de **Asientos Contables**, a través de esta herramienta es posible listar todos los registros de **Asientos Contables Aprobados** o **Sin Aprobar**, la funcionalidad cuenta con elementos que permiten filtrar los registros almacenados en el sistema. 
+Esta funcionalidad se ubica en la sección principal de **Asientos Contables**, a través de esta herramienta es posible listar todos los registros de **Asientos Contables Aprobados** o **Sin Aprobar**.	La funcionalidad cuenta con elementos que permiten filtrar los registros almacenados en el sistema. 
 
 Inicialmente, cuando se ingresa a la sección principal de **Asientos Contables** esta funcionalidad permite realizar la búsqueda para **Asientos Contables Aprobados**.  
 
@@ -29,11 +29,14 @@ Para listar los **Asientos Contables No Aprobados**, el usuario se ubica en la v
 
 Para el registro de **Asientos Contables** es necesario completar el formulario de la sección **Gestión de Asientos Contables** (Figura 5).  Los campos de selección que se muestran en esta sección corresponden a registros previos realizados en el sistema (Institución que genera, Categoría del asiento y Tipo de moneda). Estos datos se adjuntan al nuevo registro de **Asiento Contable**. 
 
+!! note "Nota"
+	Los tipos de moneda son registrados inicialmente en la Configuración General del Sistema KAVAC, específicamente en la opción "Monedas" de la sección de "Registros Comúnes".
+
 ![Screenshot](/img/figure_5.png)<div style="text-align: center;font-weight: bold">Figura 5: Gestión de Asientos Contables</div>
 
 ###Asiento contable
 
-En la sección **Asiento Contable** se formula el registro, ingresando la cuenta y los datos numéricos de la partida doble (Debe y Haber). 
+En la sección **Asiento Contable** se formula el registro, ingresando la cuenta patrimonial y los datos numéricos de la partida doble (Debe y Haber).	Cabe mencionar, que el sistema no permitirá guardar el asiento contable sin haber registrado en ambas partidas.
 
 A continuación se muestra un registro de **Asiento Contable** para póliza de Nomina (Figura 6). 
 

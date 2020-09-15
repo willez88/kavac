@@ -28,7 +28,10 @@ Este registro corresponde al método de forma manual, a través de esta funciona
 
 ###Importar registro
 
-El sistema permite realizar una carga masiva de registros de bienes, para realizar esta importación de registros se debe tomar en cuenta seguir un formato de hoja de calculo y cumplir con los formatos permitidos para la carga del archivo, los cuales son:  **csv**, **xls**, **xlsx** y **ods**.   
+El sistema permite realizar una carga masiva de registros de bienes, para realizar esta importación de registros se debe tomar en cuenta seguir un formato de hoja de calculo y cumplir con los formatos permitidos para la carga del archivo.
+
+!!! warning "Advertencia"
+	Los formatos permitidos para la carga de archivos son:  **csv**, **xls**, **xlsx** y **ods**.   
 
 ###Funcionalidad para importar registros
 

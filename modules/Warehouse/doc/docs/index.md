@@ -4,12 +4,28 @@
 
 ![Screenshot](img/logokavac.png#imagen)
 
-El Manual de Documentación del sistema KAVAC a nivel de usuario tiene como objetivo facilitar la tarea de conocimiento, uso y aprendizaje del sistema desarrollado. Presenta información acerca de todas las operaciones básicas que el sistema ofrece, así como capturas de pantallas útiles para el seguimiento de la explicación. A continuación se muestra la documentación de usuario para el módulo de almacén, dicho módulo permite a la institución usuaria llevar a cabo la gestión del stock de sus productos y servicios.  El módulo de almacén se encuentran enmarcado dentro las opciones gestión de recepciones o ingreso de articulos, gestión de solicitud de artículos de almacén, gestión de movimientos de artículos entre almacenes y una sección de reportes. Este módulo cuenta con una configuración y un panel de control que permiten ajustarlo a las necesidades de la institución usuaria. En este manual se presenta una descripción de las opciones de este módulo, como usarlo y como ajustarlo a una institución u organización.
+El Manual de Documentación del sistema KAVAC a nivel de usuario tiene como objetivo facilitar la tarea de conocimiento, uso y aprendizaje del sistema desarrollado. Presenta información acerca de todas las operaciones básicas que el sistema ofrece, así como capturas de pantallas útiles para el seguimiento de la explicación. A continuación se muestra la documentación de usuario para el módulo de almacén, dicho módulo permite a la institución usuaria llevar a cabo la gestión del stock de sus productos.  El módulo de almacén permite llevar a cabo la gestión de recepciones o ingreso de articulos, gestión de solicitud de artículos de almacén, gestión de movimientos de artículos entre almacenes y gestión de reportes. Este módulo cuenta con una configuración y un panel de control que permiten ajustarlo a las necesidades de la institución usuaria. En este manual se presenta una descripción de las opciones de este módulo, cómo usarlo y cómo ajustarlo a una institución u organización.
 
 
 ##Módulo de almacén
 
- En este módulo se llava a cabo la gestión de insumos y materiales que la organización maneja y requiere para su funcionamiento, maneja además “n” número de almacenes asociados a la i-ésima sede de la organización. Entre los procesos administrativos que este módulo contempla se encuentra:
+En este módulo se lleva a cabo la gestión de insumos y materiales que la organización maneja y requiere para su funcionamiento, maneja además “n” número de almacenes asociados a la i-ésima sede de la organización. 
+
+A través de la sección Recepciones de Almacén se gestiona el ingreso de artículos.  Esta sección permite formular solicitudes de ingreso de artículos a los diferentes almacenes registrados en el sistema. 
+
+En la sección Solicitudes de Almacén se gestionan las solicitudes por requerimiento de artículos o materiales que un usuario o departamento necesitan.   
+
+Desde la sección Movimientos de Almacén se lleva a cabo la gestión para el traspaso de artículos entre almacenes. 
+
+La sección de Reportes permite generar informes en tiempo real para inventario de productos, solicitudes de productos y stock mínimo y máximo. 
+
+##Sobre los usuarios
+
+
+Los usuarios que interactuan en este módulo, serán todos aquellos usuarios con roles y permisos sobre el módulo de almacén, previamente gestionados por el usuario con el rol de administrador. Para conocer mas sobre la gestión de roles y permisos visite el [Manual de Documentación del Sistema KAVAC](http://192.168.12.180/manual/base/).
+
+
+##Funcionalidades
 
    - Registro de materiales e insumos. 
 
@@ -25,18 +41,7 @@ El Manual de Documentación del sistema KAVAC a nivel de usuario tiene como obje
 
    - Reportes de almacén: Entre los cuales se encuentra el inventario de productos, solicitudes de productos y stock mínimo y máximo. 
 
-   - Desincorporación de materiales: Esta funcionalidad le permite al usuario gestionar los materiales que han sido dañados o deteriorados. 
-
-##Sobre los usuarios
-
-
-Los usuarios que interactuan en este módulo, serán todos aquellos usuarios con roles y permisos sobre el módulo de contabilidad, previamente gestionados por el usuario con el rol de administrador. Para conocer mas sobre la gestión de roles y permisos visite el [Manual de Documentación del Sistema KAVAC](http://192.168.12.180/manual/base/).
-
-
-
-##Funcionalidades
-
-- Generación de reportes en tiempo real 
+   - Desincorporación de materiales: Esta funcionalidad le permite al usuario gestionar los materiales que han sido dañados o deteriorados.  
 
 ##Licencia
 

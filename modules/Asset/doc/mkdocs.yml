@@ -54,7 +54,7 @@ theme:
   font:
     text: Roboto
     code: Roboto Mono
-  favicon: assets/images/favicon.ico
+  favicon: assets/images/favicon.png
   logo: assets/images/logo.png  
 
 # Plugins
@@ -75,8 +75,9 @@ plugins:
 #     - type: linkedin
 #       link: 
 
-
-
+markdown_extensions:
+  - admonition
+  - pymdownx.details
 
 
 
