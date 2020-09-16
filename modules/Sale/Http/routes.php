@@ -40,11 +40,17 @@ Route::group(
             'SalePaymentMethodController',
             ['as' => 'sale', 'except' => ['create','edit','show']]
         );
+
         Route::get(
             'get-paymentmethod',
             'SalePaymentMethodController@getSalePaymentMethod'
         )->name('sale.get-sale-paymentmethod');
 
+        Route::resource(
+          'register-quote',
+          'SaleQuoteController',
+          ['as' => 'sale', 'except' => ['create','edit','show']]
+        );
 
 	/**
      * -----------------------------------------------------------------------
