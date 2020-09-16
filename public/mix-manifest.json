@@ -367,5 +367,6 @@
     "/js/components/taxes.js": "/js/components/taxes.js",
     "/js/components/users.js": "/js/components/users.js",
     "/js/components/vendors~multi-selects.js": "/js/components/vendors~multi-selects.js",
-    "/js/components/vue-tables-2.js": "/js/components/vue-tables-2.js"
+    "/js/components/vue-tables-2.js": "/js/components/vue-tables-2.js",
+    "/modules/sale/components/sale-setting-deposit.js": "/modules/sale/components/sale-setting-deposit.js"
 }

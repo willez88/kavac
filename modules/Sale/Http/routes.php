@@ -80,6 +80,15 @@ Route::group(
         'get-setting-product-type',
         'SaleSettingProductTypeController@getSaleSettingProductType'
     )->name('sale.get-sale-setting-product-type');
+    Route::resource(
+        'setting-deposit',
+        'SaleSettingDepositController',
+        ['as' => 'sale', 'except' => ['create','edit','show']]
+    );
+    Route::get(
+        'get-setting-deposit',
+        'SaleSettingDepositController@getSaleSettingDeposit'
+    )->name('sale.get-sale-setting-deposit');
 
     /**
      * -----------------------------------------------------------------------

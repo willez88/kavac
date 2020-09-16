@@ -46,6 +46,8 @@
 						<sale-discount></sale-discount>
                                                 {{-- Solicitar cotización --}}
 						<sale-quote></sale-quote>
+						{{-- Configuración de Formas de pago--}}
+						<sale-setting-deposit></sale-setting-deposit>
 					</div>
 				</div>
 			</div>

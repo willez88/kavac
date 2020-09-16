@@ -125,6 +125,16 @@ Vue.component('sale-quote', () => import(
 );
 
 /**
+ * Componente para listar, crear, actualizar y borrar datos de las formas de pago
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-setting-deposit', () => import(
+    /* webpackChunkName: "sale-setting-deposit" */
+    './components/settings/SaleSettingDepositComponent.vue')
+);
+
+/**
  * Opciones de configuración global del módulo de Commercialización
  */
 Vue.mixin({
@@ -189,6 +199,19 @@ Vue.mixin({
 			vm.sale_descount_method = [];
 			axios.get('/sale/get-saledescount').then(response => {
 				vm.sale_descount_method = response.data;
+			});
+		},
+		
+		/**
+		 * Obtiene los datos de las formas de pago
+		 *
+		 * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+		 */
+		getSaleSettingDeposit() {
+			const vm = this;
+			vm.sale_setting_deposit = [];
+			axios.get('/sale/get-setting-deposit').then(response => {
+				vm.sale_setting_deposit = response.data;
 			});
 		},
 	},

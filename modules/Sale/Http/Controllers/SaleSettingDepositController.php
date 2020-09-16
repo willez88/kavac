@@ -7,11 +7,10 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Modules\Sale\Models\SaleSettingProductType;
+use Modules\Sale\Models\SaleSettingDeposit;
 
-class SaleSettingProductTypeController extends Controller
+class SaleSettingDepositController extends Controller
 {
-
     use ValidatesRequests;
 
     /**
@@ -22,22 +21,26 @@ class SaleSettingProductTypeController extends Controller
 
     public function __construct()
     {
-        /** Establece permisos de acceso para cada método del controlador *//*
-        $this->middleware('permission:sale.setting.product.list', ['only' => 'index']);
-        $this->middleware('permission:sale.setting.product.create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:sale.setting.product.edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:sale.setting.product.delete', ['only' => 'destroy']);*/
+        /** Establece permisos de acceso para cada forma del controlador *//*
+        $this->middleware('permission:sale.setting.deposit.list', ['only' => 'index']);
+        $this->middleware('permission:sale.setting.deposit.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:sale.setting.deposit.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:sale.setting.deposit.delete', ['only' => 'destroy']);*/
     }
+    /**
+     * Display a listing of the resource.
+     * @return Response
+     */
 
     /**
-     * Muestra todos los registros de los tipos de productos
+     * Muestra todos los registros de las formas de pago
      *
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
      * @return \Illuminate\Http\JsonResponse    Json con los datos
      */
     public function index()
     {
-         return response()->json(['records' => SaleSettingProductType::all()], 200);
+         return response()->json(['records' => SaleSettingDeposit::all()], 200);
     }
 
     /**
@@ -46,11 +49,11 @@ class SaleSettingProductTypeController extends Controller
      */
     public function create()
     {
-        return view('sale::create');
+        //return view('sale::create');
     }
 
     /**
-     * Valida y registra un nuevo tipo de producto
+     * Valida y registra un nuevo tipo de forma de pago
      *
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request $request    Solicitud con los datos a guardar
@@ -60,9 +63,11 @@ class SaleSettingProductTypeController extends Controller
     {
         $this->validate($request, [
             'name' => ['required', 'max:100'],
+            'description' => ['required'],
+            'deposit_attributes' => ['required']
         ]);
-        $saleSettingProductType = SaleSettingProductType::create(['name' => $request->name]);
-        return response()->json(['record' => $saleSettingProductType, 'message' => 'Success'], 200);
+        $saleSettingDeposit = SaleSettingDeposit::create(['name' => $request->name, 'description' => $request->description, 'deposit_attributes' => $request->deposit_attributes]);
+        return response()->json(['record' => $saleSettingDeposit, 'message' => 'Success'], 200);
     }
 
     /**
@@ -71,7 +76,7 @@ class SaleSettingProductTypeController extends Controller
      */
     public function show()
     {
-        return view('sale::show');
+        //return view('sale::show');
     }
 
     /**
@@ -80,11 +85,11 @@ class SaleSettingProductTypeController extends Controller
      */
     public function edit()
     {
-        return view('sale::edit');
+        //return view('sale::edit');
     }
 
     /**
-     * Actualiza la información del tipo producto
+     * Actualiza la información de las formas de pago
      *
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request   Solicitud con los datos a actualizar
@@ -93,17 +98,21 @@ class SaleSettingProductTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $saleSettingProduct = SaleSettingProductType::find($id);
+        $saleSettingDeposit = SaleSettingDeposit::find($id);
         $this->validate($request, [
             'name' => ['required', 'max:100'],
+            'description' => ['required'],
+            'deposit_attributes' => ['required'],
         ]);
-        $saleSettingProduct->name  = $request->name;
-        $saleSettingProduct->save();
+        $saleSettingDeposit->name  = $request->name;
+        $saleSettingDeposit->description  = $request->description;
+        $saleSettingDeposit->deposit_attributes  = $request->deposit_attributes;
+        $saleSettingDeposit->save();
         return response()->json(['message' => 'Success'], 200);
     }
 
     /**
-     * Elimina el tipo de producto
+     * Elimina la forma de pago
      *
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
      * @param  integer $id                      Identificador del producto a eliminar
@@ -111,19 +120,19 @@ class SaleSettingProductTypeController extends Controller
      */
     public function destroy($id)
     {
-        $saleSettingProductType = SaleSettingProductType::find($id);
-        $saleSettingProductType->delete();
-        return response()->json(['record' => $saleSettingProductType, 'message' => 'Success'], 200);
+        $saleSettingDeposit = SaleSettingDeposit::find($id);
+        $saleSettingDeposit->delete();
+        return response()->json(['record' => $saleSettingDeposit, 'message' => 'Success'], 200);
     }
 
     /**
-     * Obtiene los tipos de productos registrados
+     * Obtiene las formas de pago registradas
      *
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
-     * @return \Illuminate\Http\JsonResponse    Json con los datos de los tipos de productos
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de los tipos de forma de pago
      */
-    public function getSaleSettingProductType()
+    public function getSaleSettingDeposit()
     {
-        return response()->json(template_choices('Modules\Sale\Models\SaleSettingProductType', 'name',  '', true));
+        return response()->json(template_choices('Modules\Sale\Models\SaleSettingDeposit', 'name',  '', '', true));
     }
 }
