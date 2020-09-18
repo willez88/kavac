@@ -35,16 +35,25 @@ class DigitalSignatureController extends Controller
      */
     public function index()
     {
-        if(User::find(auth()->user()->id)->signprofiles) {
+        if (User::find(auth()->user()->id)->signprofiles) {
             $userprofile = User::find(auth()->user()->id)->signprofiles;
             $certuser = Crypt::decryptString($userprofile['cert']);
             $cert = openssl_x509_parse($certuser);
             $fecha = date('d-m-y H:i:s', $cert['validFrom_time_t']);
 
-            return view('digitalsignature::index', ['Identidad' => $cert['subject']['CN'], 'Verificado' => $cert['issuer']['CN'], 'Caduca' => $fecha, 'cert' => 'true', 'certdetail' => 'false']);
-        }
-        else {
-            return view('digitalsignature::index',['informacion' => 'No posee un certificado firmante', 'cert' => 'false', 'certdetail' => 'false']);
+            return view('digitalsignature::index', ['Identidad' => $cert['subject']['CN'],
+                                                    'Verificado' => $cert['issuer']['CN'],
+                                                    'Caduca' => $fecha,
+                                                    'cert' => 'true',
+                                                    'certdetail' => 'false'
+                                                   ]
+            );
+        } else {
+            return view('digitalsignature::index',['informacion' => 'No posee un certificado firmante',
+                                                   'cert' => 'false',
+                                                   'certdetail' => 'false'
+                                                  ]
+            );
         }
     }
 
@@ -64,28 +73,28 @@ class DigitalSignatureController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $filename = Str::random(10) . '.p12';
         $path = $request->file('pkcs12')->storeAs('',$filename, 'temporary');
         $certStore = file_get_contents(storage_path('temporary') . '/' . $filename);
         $passphrase = $request->get('password');
         if (!$certStore) {
             echo "Error: No se puede leer el fichero del certificado\n";
-            exit;   
+            exit;
         }
-        
+
         $pkcs12 = openssl_pkcs12_read($certStore, $certInfo, $passphrase );
         $cert = Crypt::encryptString($certInfo['cert']);
         $pkey = Crypt::encryptString($certInfo['pkey']);
 
-       
+
         $profile = new Signprofile();
-        $profile->cert = $cert; 
+        $profile->cert = $cert;
         $profile->pkey = $pkey;
         $profile->user_id = Auth::user()->id;
         $profile->save();
         Storage::disk('temporary')->delete($filename);
-    
+
         return redirect()->route('digitalsignature');
     }
 
@@ -114,32 +123,32 @@ class DigitalSignatureController extends Controller
      */
     public function update(Request $request)
     {
-        if(User::find(auth()->user()->id)->signprofiles) { 
+        if(User::find(auth()->user()->id)->signprofiles) {
             $userprofile = User::find(auth()->user()->id)->signprofiles;
             $userprofile->delete();
         }
-        
+
         $filename = Str::random(10) . '.p12';
         $path = $request->file('pkcs12')->storeAs('',$filename, 'temporary');
         $certStore = file_get_contents(storage_path('temporary') . '/' . $filename);
         $passphrase = $request->get('password');
         if (!$certStore) {
             echo "Error: No se puede leer el fichero del certificado\n";
-            exit;   
+            exit;
         }
-        
+
         $pkcs12 = openssl_pkcs12_read($certStore, $certInfo, $passphrase );
         $cert = Crypt::encryptString($certInfo['cert']);
         $pkey = Crypt::encryptString($certInfo['pkey']);
 
-       
+
         $profile = new Signprofile();
-        $profile->cert = $cert; 
+        $profile->cert = $cert;
         $profile->pkey = $pkey;
         $profile->user_id = Auth::user()->id;
         $profile->save();
         Storage::disk('temporary')->delete($filename);
-    
+
         return redirect()->route('digitalsignature');
     }
 
@@ -181,7 +190,7 @@ class DigitalSignatureController extends Controller
      * Obtiene la información detallada del certificado del firmante
      *
      * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
-     * @return 
+     * @return
      */
     public function getCertificate() {
 
@@ -190,7 +199,7 @@ class DigitalSignatureController extends Controller
             $userprofile = User::find(auth()->user()->id)->signprofiles;
             $certuser = Crypt::decryptString($userprofile['cert']);
             $cert = openssl_x509_parse($certuser);
-            
+
             $certificateDetails = (object) [
             'subjCountry' => $cert['subject']['C'],
             'subjState' => $cert['subject']['ST'],
@@ -223,41 +232,41 @@ class DigitalSignatureController extends Controller
      * Realiza la firma electrónica de un documento
      *
      * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
-     * @return 
+     * @return
      */
-    public function signFile() 
+    public function signFile()
     {
-        
+
         if(Auth::user() && User::find(auth()->user()->id)->signprofiles) {
 
             //Crear archivo pkcs#12
             $cert = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['cert']);
             $pkey = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['pkey']);
             $passphrase = Str::random(10);
-            
+
             //Datos para la firma
             $filename = Str::random(10) . '.p12';
             $storeCertificated = getPathSign($filename);
             $createpkcs12 = openssl_pkcs12_export_to_file($cert,$storeCertificated,$pkey,$passphrase);
             $pathPortableSigner = getPathSign('PortableSigner');
-            
-            //Documento pdf 
+
+            //Documento pdf
             $namepdf = 'pruebaPDF.pdf';
             $namepdfsign = 'pruebaPDF-sign.pdf';
             $storePdfSign = getPathSign($namepdfsign);
             $storePdf = getPathSign($namepdf);
-            
-            //ejecución del comando para firmar 
+
+            //ejecución del comando para firmar
             $comand = 'java -jar ' . $pathPortableSigner . ' -n -t ' . $storePdf . ' -o ' . $storePdfSign . ' -s ' . $storeCertificated . ' -p ' . $passphrase;
             $run = exec($comand, $output);
 
             //elimina el certficado .p12
             Storage::disk('temporary')->delete($filename);
-            
+
             print_r($output);
         }
 
-        else { return redirect()->route('login'); } 
+        else { return redirect()->route('login'); }
     }
 
 
@@ -265,14 +274,14 @@ class DigitalSignatureController extends Controller
      * Verifica la firma electrónica de un documento
      *
      * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
-     * @return 
+     * @return
      */
     public function verifysign() {
 
-        //informacion para realizar la verificación de firma electrónica 
+        //informacion para realizar la verificación de firma electrónica
         $namepdfsign = 'pruebaPDF-sign.pdf';
         $storePdfSign = getPathSign($namepdfsign);
-        
+
         //ejecución del comando para firmar
         $comand = 'pdfsig ' . $storePdfSign;
 
@@ -287,7 +296,7 @@ class DigitalSignatureController extends Controller
      * Lista los usuarios que asociado certificado firmante
      *
      * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
-     * @return 
+     * @return
      */
     public function listCertificate() {
 
@@ -303,7 +312,7 @@ class DigitalSignatureController extends Controller
                 print_r('############');
                 print_r(Crypt::decryptString($profile->signprofiles['cert']));
             }
-        } 
+        }
     }
 }
-    
+
