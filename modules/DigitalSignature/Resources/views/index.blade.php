@@ -133,7 +133,7 @@
                     </div>
                 </div>
 
-                <a class="btn btn-info btn-xs btn-icon btn-action" href="#" data-target="#modalDetailCert"
+                <a class="btn btn-info btn-xs btn-icon btn-action" href="#" onclick="certificateDetails()" data-target="#modalDetailCert"
                    data-toggle="modal" title="Detalles del certificado">
                     <i class="fa fa-eye"></i>
                 </a>
@@ -147,9 +147,48 @@
                                   <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                <p> Details from the certificate. </p>
+                            <div class="modal-header">     
+                            <p>
+                                Nombre del asunto
+                            </p>
                             </div>
+                            <ul class="fa-ul">
+                                <li id="idsubjC"></li>
+                                <li id="idsubjST"></li>
+                                <li id="idsubjL"></li>
+                                <li id="idsubjO"></li>
+                                <li id="idsubjOU"></li>
+                                <li id="idsubjCN"></li>
+                                <li id="idsubjEMAIL"></li>
+                            </ul>
+                            <di class="modal-header">
+                                <p>
+                                    Nombre del emisor
+                                </p>
+                            </di>
+                            <ul class="fa-ul">
+                                <li id="idissC"></li>
+                                <li id="idissST"></li>
+                                <li id="idissL"></li>
+                                <li id="idissO"></li>
+                                <li id="idissOU"></li>
+                                <li id="idissCN"></li>
+                                <li id="idissEMAIL"></li>
+                            </ul>
+                            <di class="modal-header">
+                                <p>
+                                    Certificado
+                                </p>
+                            </di>
+                            <ul class="fa-ul">
+                                <li id="idsignatureTypeLN"></li>
+                                <li id="idsignatureTypeNID"></li>
+                                <li id="idsignatureTypeSN"></li>
+                                <li id="idserialNumber"></li>
+                                <li id="idvalidFrom"></li>
+                                <li id="idvalidTo"></li>
+                                <li id="idversion"></li>
+                            </ul>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
                                         data-dismiss="modal">
@@ -280,3 +319,38 @@
 </div>
 
 @stop
+
+<script>
+
+    /* Función que muestra el detalle del certificado firmante 
+    */
+   
+    function certificateDetails() {
+        
+            axios.get('{{ route('certificateDetails') }}', {
+            })
+            .then(response => {
+                $("#idsubjC").text( 'C(País): ' + response.data['certificateDetail']['subjCountry']);
+                $("#idsubjST").text( 'ST(Estado): ' + response.data['certificateDetail']['subjState']);
+                $("#idsubjL").text( 'L(Localidad): ' + response.data['certificateDetail']['subjLocality']);
+                $("#idsubjO").text( 'O(Organización): ' + response.data['certificateDetail']['subjOrganization']);
+                $("#idsubjOU").text( 'OU(Unidad de organización): ' + response.data['certificateDetail']['subjUnitOrganization']);
+                $("#idsubjCN").text( 'CN(Nombre común): ' + response.data['certificateDetail']['subjName']);
+                $("#idsubjEMAIL").text( 'EMAIL(Dirección de correo electrónico): ' + response.data['certificateDetail']['subjMail']);
+                $("#idissC").text( 'C(País): ' + response.data['certificateDetail']['issCountry']);
+                $("#idissST").text( 'ST(Estado): ' + response.data['certificateDetail']['issState']);
+                $("#idissjL").text( 'L(Localidad): ' + response.data['certificateDetail']['issLocality']);
+                $("#idissO").text( 'O(Organización): ' + response.data['certificateDetail']['issOrganization']);
+                $("#idissOU").text( 'OU(Unidad de organización): ' + response.data['certificateDetail']['issUnitOrganization']);
+                $("#idissCN").text( 'CN(Nombre común): ' + response.data['certificateDetail']['issName']);
+                $("#idissEMAIL").text( 'EMAIL(Dirección de correo electrónico): ' + response.data['certificateDetail']['issMail']);
+                $("#idsignatureTypeLN").text( 'Algoritmo de firma LN: ' + response.data['certificateDetail']['signatureTypeLN']);
+                $("#idsignatureTypeNID").text( 'Algoritmo de firma NID: ' + response.data['certificateDetail']['signatureTypeNID']);
+                $("#idsignatureTypeSN").text( 'Algoritmo de firma SN: ' + response.data['certificateDetail']['signatureTypeSN']);
+                $("#idserialNumber").text( 'Serial: ' + response.data['certificateDetail']['serialNumber']);
+                $("#idvalidTo").text( 'Valido desde: ' + response.data['certificateDetail']['validTo']);
+                $("#idvalidFrom").text( 'Valido hasta: ' + response.data['certificateDetail']['validFrom']);
+                $("#idversion").text( 'Version: ' + response.data['certificateDetail']['version']);
+            });
+    }
+</script>

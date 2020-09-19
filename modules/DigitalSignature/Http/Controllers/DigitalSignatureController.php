@@ -217,14 +217,20 @@ class DigitalSignatureController extends Controller
             'issMail' => $cert['issuer']['emailAddress'],
             'version' => $cert['version'],
             'serialNumber' => $cert['serialNumber'],
-            'validFrom' => $cert['validFrom'],
-            'validTo' => $cert['validTo'],
+            'validFrom' => date('d-m-y H:i:s', $cert['validFrom_time_t']),
+            'validTo' => date('d-m-y H:i:s', $cert['validTo_time_t']),
             'signatureTypeSN' => $cert['signatureTypeSN'],
             'signatureTypeLN' => $cert['signatureTypeLN'],
             'signatureTypeNID' => $cert['signatureTypeNID'],
             ];
-            print_r($certificateDetails);
-            //return view('digitalsignature::index', ['certificateDetail' => $certificateDetails, 'cert' => 'true', 'certdetail' => 'true']);
+            $fecha = date('d-m-y H:i:s', $cert['validFrom_time_t']);
+            //print_r($certificateDetails);
+            return response()->json(['certificateDetail' => $certificateDetails, 
+                                                    'cert' => 'true', 
+                                                    'certdetail' => 'true', 
+                                                    'Identidad' => $cert['subject']['CN'],
+                                                    'Verificado' => $cert['issuer']['CN'],
+                                                    'Caduca' => $fecha], 200);
         }
     }
 
