@@ -15,7 +15,7 @@ Route::group(
         Route::get('signFile', 'DigitalSignatureController@signFile')->name('signFile');
         Route::get('verifysign', 'DigitalSignatureController@verifysign')->name('verifysign');
         Route::get('listCertificate', 'DigitalSignatureController@listCertificate')->name('listCertificate');
-        Route::get('deletecertificate', 'DigitalSignatureController@destroy')->name('deletecertificate');
+        Route::get('deleteCertificate', 'DigitalSignatureController@destroy')->name('deleteCertificate');
     }
 );
 
