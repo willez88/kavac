@@ -9,11 +9,9 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [
-                "Modules\\CitizenService\\Providers\\CitizenServiceServiceProvider"
-            ],
+            "providers": [],
             "aliases": {
-                
+
             }
         }
     },

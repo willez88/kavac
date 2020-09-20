@@ -3,7 +3,7 @@
 namespace Modules\Purchase\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Purchase\Models\PurchaseSupplierBranch;
@@ -14,7 +14,7 @@ class PurchaseSupplierBranchController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return JsonResponse
      */
     public function index()
     {
@@ -23,7 +23,7 @@ class PurchaseSupplierBranchController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * @return Response
+     * @return Renderable
      */
     public function create()
     {
@@ -33,7 +33,7 @@ class PurchaseSupplierBranchController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
@@ -51,7 +51,7 @@ class PurchaseSupplierBranchController extends Controller
 
     /**
      * Show the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function show($id)
     {
@@ -60,7 +60,7 @@ class PurchaseSupplierBranchController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function edit($id)
     {
@@ -70,7 +70,7 @@ class PurchaseSupplierBranchController extends Controller
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function update(Request $request)
     {
@@ -90,7 +90,7 @@ class PurchaseSupplierBranchController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @return Response
+     * @return JsonResponse
      */
     public function destroy(Request $request, $id)
     {

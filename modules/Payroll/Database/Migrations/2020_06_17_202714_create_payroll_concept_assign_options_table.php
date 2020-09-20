@@ -31,10 +31,10 @@ class CreatePayrollConceptAssignOptionsTable extends Migration
 
                 $table->foreignId('payroll_concept_id')->comment('Identificador único asociado al concepto')
                       ->constrained()->onDelete('restrict')->onUpdate('cascade');
-                $table->nullableMorphs('assignable');
+                $table->nullableMorphs('assignable', 'payroll_concept_assign_options_assignable_morphs_index');
                 $table->string('key')->comment('Clave de referencia para asignar el concepto');
                 $table->string('value')->nullable()->comment('Valor establecido para asignar concepto');
-                
+
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });

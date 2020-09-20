@@ -3,7 +3,6 @@
 namespace Modules\Warehouse\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -16,7 +15,7 @@ use Modules\Warehouse\Models\WarehouseProductAttribute;
 class WarehouseProductAttributeController extends Controller
 {
     use ValidatesRequests;
-    
+
     /**
      * Define la configuración de la clase
      *
@@ -30,7 +29,7 @@ class WarehouseProductAttributeController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return JsonResponse
      */
     public function index()
     {
@@ -45,7 +44,7 @@ class WarehouseProductAttributeController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
@@ -53,21 +52,21 @@ class WarehouseProductAttributeController extends Controller
             'name' => ['required', 'max:100'],
             'product_id' => ['required'],
         ]);
-        
+
         $id = $request->input('product_id');
 
         $attribute = WarehouseProductAttribute::create([
             'name' => $request->input('name'),
             'product_id' => $request->input('product_id'),
         ]);
-        
+
         return response()->json(['records' => WarehouseProductAttribute::where('product_id', '=', $id)->get()], 200);
     }
 
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function update(Request $request, WarehouseProductAttribute $attribute)
     {
@@ -75,19 +74,19 @@ class WarehouseProductAttributeController extends Controller
             'name' => ['required', 'max:100'],
             'product_id' => ['required'],
         ]);
- 
+
         $attribute->name = $request->input('name');
         $attribute->product_id = $request->input('product_id');
         $attribute->save();
 
         $id = $attribute->product_id;
- 
+
         return response()->json(['records' => WarehouseProductAttribute::where('product_id', '=', $id)->get()], 200);
     }
 
     /**
      * Remove the specified resource from storage.
-     * @return Response
+     * @return JsonResponse
      */
     public function destroy(WarehouseProductAttribute $attribute)
     {

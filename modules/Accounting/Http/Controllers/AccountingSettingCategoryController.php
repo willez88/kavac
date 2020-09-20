@@ -3,11 +3,10 @@
 namespace Modules\Accounting\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Accounting\Models\AccountingEntryCategory;
-use Auth;
 
 /**
  * @class AccountingEntryCategoryController
@@ -47,7 +46,7 @@ class AccountingSettingCategoryController extends Controller
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
-     * @return Response
+     * @return Renderable
      */
     public function store(Request $request)
     {
@@ -69,7 +68,7 @@ class AccountingSettingCategoryController extends Controller
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
      * @param  integer $id      Identificador de la categoria de origen a modificar
-     * @return Response
+     * @return Renderable
      */
     public function update(Request $request, $id)
     {
@@ -96,7 +95,7 @@ class AccountingSettingCategoryController extends Controller
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  integer $id Identificador de la categoria de origen a eliminar
-     * @return Response
+     * @return Renderable
      */
     public function destroy($id)
     {

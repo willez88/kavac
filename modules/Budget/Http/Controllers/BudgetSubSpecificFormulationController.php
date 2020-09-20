@@ -3,7 +3,7 @@
 namespace Modules\Budget\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -49,7 +49,7 @@ class BudgetSubSpecificFormulationController extends Controller
      * Muestra un listado de formulaciones de presupuesto registradas
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\View\View
+     * @return Renderable
      */
     public function index()
     {
@@ -61,7 +61,7 @@ class BudgetSubSpecificFormulationController extends Controller
      * Muestra el formulario para el registro de datos de la formulación de presupuesto
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\View\View
+     * @return Renderable
      */
     public function create()
     {
@@ -151,7 +151,7 @@ class BudgetSubSpecificFormulationController extends Controller
      * Muestra información de una formulación de presupuesto
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\View\View
+     * @return Renderable
      */
     public function show($id)
     {
@@ -163,7 +163,7 @@ class BudgetSubSpecificFormulationController extends Controller
      * Muestra el formulario de modificación para una formulación de presupuesto
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\View\View
+     * @return Renderable
      */
     public function edit($id)
     {

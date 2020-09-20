@@ -9,11 +9,9 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [
-                "Modules\\Budget\\Providers\\BudgetServiceProvider"
-            ],
+            "providers": [],
             "aliases": {
-                
+
             }
         }
     },

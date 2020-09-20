@@ -13,8 +13,6 @@
         "Modules\\TechnicalSupport\\Providers\\TechnicalSupportServiceProvider"
     ],
     "aliases": {},
-    "files": [
-        "start.php"
-    ],
+    "files": [],
     "requires": []
 }

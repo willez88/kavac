@@ -3,27 +3,21 @@
 namespace Modules\Purchase\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use Modules\Purchase\Jobs\PurchaseManageRequirements;
 
-use Modules\Purchase\Models\PurchaseBaseBudget;
 use Modules\Purchase\Models\PurchaseRequirement;
 use Modules\Purchase\Models\PurchaseRequirementItem;
 use Modules\Purchase\Models\PurchaseSupplierType;
 
 use Modules\Warehouse\Models\WarehouseProduct;
-use Modules\Warehouse\Models\Warehouse;
 
 use Modules\Purchase\Models\FiscalYear;
-use Modules\Purchase\Models\Currency;
-use Modules\Purchase\Models\MeasurementUnit;
 
 use App\Models\CodeSetting;
-use App\Rules\CodeSetting as CodeSettingRule;
-use Auth;
 
 class PurchaseRequirementController extends Controller
 {
@@ -59,7 +53,7 @@ class PurchaseRequirementController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return Renderable
      */
     public function index()
     {
@@ -72,16 +66,17 @@ class PurchaseRequirementController extends Controller
 
 
         return view(
-            'purchase::requirements.index', 
+            'purchase::requirements.index',
             [
-                'requirements' => $requirements, 
+                'requirements' => $requirements,
                 'codeAvailable'=> $codeAvailable
-            ]);
+            ]
+        );
     }
 
     /**
      * Show the form for creating a new resource.
-     * @return Response
+     * @return Renderable
      */
     public function create()
     {
@@ -103,7 +98,7 @@ class PurchaseRequirementController extends Controller
         ];
 
         $date = date('Y-m-d');
-        
+
         return view('purchase::requirements.form', [
                                                     'supplier_objects'        => json_encode($supplier_objects),
                                                     'date'                    => json_encode($date),
@@ -117,7 +112,7 @@ class PurchaseRequirementController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
@@ -148,7 +143,7 @@ class PurchaseRequirementController extends Controller
     /**
      * [generateReferenceCodeAvailable genera el código disponible]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return string [código que se asignara]
+     * @return string código que se asignara
      */
     public function generateReferenceCodeAvailable()
     {
@@ -178,7 +173,7 @@ class PurchaseRequirementController extends Controller
 
     /**
      * Show the specified resource.
-     * @return Response
+     * @return JsonResponse
      */
     public function show($id)
     {
@@ -191,7 +186,7 @@ class PurchaseRequirementController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function edit($id)
     {
@@ -221,9 +216,9 @@ class PurchaseRequirementController extends Controller
         ];
 
 
-        
+
         $date = date('Y-m-d');
-        
+
         return view('purchase::requirements.form', [
                                                     'supplier_objects'        => json_encode($supplier_objects),
                                                     'date'                    => json_encode($date),
@@ -239,7 +234,7 @@ class PurchaseRequirementController extends Controller
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function update(Request $request, $id)
     {
@@ -270,7 +265,7 @@ class PurchaseRequirementController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @return Response
+     * @return JsonResponse
      */
     public function destroy($id)
     {
@@ -293,7 +288,7 @@ class PurchaseRequirementController extends Controller
     public function getWarehouseProducts()
     {
         $records = [];
-        foreach (WarehouseProduct::with('MeasurementUnit')->orderBy('id','ASC')->get() as $record) {
+        foreach (WarehouseProduct::with('MeasurementUnit')->orderBy('id', 'ASC')->get() as $record) {
             array_push($records, [
                 'id' => $record->id,
                 'text' => $record->name,

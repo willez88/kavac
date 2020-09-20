@@ -3,7 +3,6 @@
 namespace Modules\Asset\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -35,7 +34,7 @@ class AssetSubcategoryController extends Controller
         /** Establece permisos de acceso para cada método del controlador */
         $this->middleware('permission:asset.setting.subcategory');
     }
-    
+
     /**
      * Muestra un listado de las subcategorias de una categoria general de los bienes institucionales
      *
@@ -92,12 +91,12 @@ class AssetSubcategoryController extends Controller
             'code' => ['required', 'max:10'],
             'asset_category_id' => ['required']
         ]);
- 
+
         $subcategory->name = $request->input('name');
         $subcategory->code = $request->input('code');
         $subcategory->asset_category_id = $request->asset_category_id;
         $subcategory->save();
- 
+
         return response()->json(['message' => 'Success'], 200);
     }
 

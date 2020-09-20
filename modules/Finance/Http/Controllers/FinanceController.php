@@ -3,7 +3,7 @@
 namespace Modules\Finance\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use App\Models\CodeSetting;
 use App\Rules\CodeSetting as CodeSettingRule;
@@ -24,7 +24,7 @@ class FinanceController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * @return \Illuminate\View\View
+     * @return Renderable
      */
     public function index()
     {
@@ -33,7 +33,7 @@ class FinanceController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * @return \Illuminate\View\View
+     * @return Renderable
      */
     public function create()
     {
@@ -72,7 +72,7 @@ class FinanceController extends Controller
 
     /**
      * Show the specified resource.
-     * @return \Illuminate\View\View
+     * @return Renderable
      */
     public function show()
     {
@@ -81,7 +81,7 @@ class FinanceController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @return \Illuminate\View\View
+     * @return Renderable
      */
     public function edit()
     {
@@ -91,7 +91,7 @@ class FinanceController extends Controller
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return Renderable
      */
     public function update(Request $request)
     {
@@ -99,7 +99,7 @@ class FinanceController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @return Response
+     * @return Renderable
      */
     public function destroy()
     {
@@ -109,7 +109,7 @@ class FinanceController extends Controller
      * Gestiona la configuración para los cheques a emitir
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\View\View
+     * @return Renderable
      */
     public function setting()
     {

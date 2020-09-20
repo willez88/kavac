@@ -3,7 +3,7 @@
 namespace Modules\Purchase\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Purchase\Models\PurchaseProcess;
@@ -38,7 +38,7 @@ class PurchaseProcessController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
-     * @return Response
+     * @return JsonResponse
      */
     public function index()
     {
@@ -52,7 +52,7 @@ class PurchaseProcessController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
-     * @return Response
+     * @return Renderable
      */
     public function create()
     {
@@ -68,7 +68,7 @@ class PurchaseProcessController extends Controller
      *
      * @param  Request $request
      *
-     * @return Response
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
@@ -94,7 +94,7 @@ class PurchaseProcessController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
-     * @return Response
+     * @return Renderable
      */
     public function show()
     {
@@ -108,7 +108,7 @@ class PurchaseProcessController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
-     * @return Response
+     * @return Renderable
      */
     public function edit()
     {
@@ -124,7 +124,7 @@ class PurchaseProcessController extends Controller
      *
      * @param  Request $request
      *
-     * @return Response
+     * @return JsonResponse
      */
     public function update(Request $request)
     {
@@ -156,7 +156,7 @@ class PurchaseProcessController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
-     * @return Response
+     * @return JsonResponse
      */
     public function destroy(PurchaseProcess $purchaseProcess)
     {
@@ -171,7 +171,7 @@ class PurchaseProcessController extends Controller
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
-     * @return     Response
+     * @return     JsonResponse
      */
     public function getProcesses()
     {
@@ -194,7 +194,7 @@ class PurchaseProcessController extends Controller
      *
      * @param      Request $request    Datos de la petición
      *
-     * @return     Response
+     * @return     JsonResponse
      */
     public function getProcessDocuments(Request $request)
     {

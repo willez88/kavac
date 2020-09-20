@@ -27,14 +27,12 @@ class PayrollSalaryScale extends Model implements Auditable
 
     /**
      * Lista de atributos para la gestión de fechas
-     *
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
-     *
      * @var array $fillable
      */
     protected $fillable = [
@@ -45,6 +43,7 @@ class PayrollSalaryScale extends Model implements Auditable
      * Método que obtiene los tabuladores salariales asociados al escalafón
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function payrollSalaryTabulators()
@@ -56,6 +55,7 @@ class PayrollSalaryScale extends Model implements Auditable
      * Método que obtiene las escalas del escalafón salarial
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function payrollScales()

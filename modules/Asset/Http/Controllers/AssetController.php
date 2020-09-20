@@ -3,7 +3,7 @@
 namespace Modules\Asset\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -55,7 +55,7 @@ class AssetController extends Controller
      * Muestra un listado de los bienes institucionales
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return    \Illuminate\View\View
+     * @return    Renderable
      */
     public function index()
     {
@@ -66,7 +66,7 @@ class AssetController extends Controller
      * Muestra el formulario para registrar un nuevo bien institucional
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return    \Illuminate\View\View
+     * @return    Renderable
      */
     public function create()
     {
@@ -134,7 +134,7 @@ class AssetController extends Controller
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      * @param     \Modules\Asset\Models\Asset    $asset    Datos del Bien
-     * @return    \Illuminate\View\View
+     * @return    Renderable
      */
     public function edit($id)
     {
@@ -282,7 +282,6 @@ class AssetController extends Controller
                     'assetStatus'
                 ])->orderBy('id');
             }
-            
         } elseif ($operation_id == null) {
             if ($operation == 'asignations') {
                 if (Auth()->user()->isAdmin()) {

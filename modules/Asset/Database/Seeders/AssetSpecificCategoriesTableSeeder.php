@@ -19,7 +19,7 @@ use Modules\Asset\Models\AssetRequiredItem;
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class AssetSpecificcategoriesTableSeeder extends Seeder
+class AssetSpecificCategoriesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

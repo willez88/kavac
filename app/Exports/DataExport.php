@@ -17,12 +17,4 @@ class DataExport implements FromCollection, WithHeadingRow
     {
         $this->model = $model;
     }
-
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
-    {
-        //
-    }
 }

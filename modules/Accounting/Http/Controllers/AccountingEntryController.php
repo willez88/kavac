@@ -3,7 +3,7 @@
 namespace Modules\Accounting\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -11,7 +11,6 @@ use Modules\Accounting\Models\AccountingEntryCategory;
 use Modules\Accounting\Models\AccountingEntryAccount;
 use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingEntry;
-use Modules\Accounting\Models\Institution;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Profile;
 use Modules\Accounting\Jobs\AccountingManageEntries;
@@ -50,7 +49,7 @@ class AccountingEntryController extends Controller
      * muestra la vista donde se mostraran los asientos contables aprobados
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return view
+     * @return Renderable
      */
     public function index()
     {
@@ -121,7 +120,7 @@ class AccountingEntryController extends Controller
      * Muestra un formulario para la creación de asientos contables
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return Response
+     * @return Renderable
      */
     public function create()
     {
@@ -179,7 +178,7 @@ class AccountingEntryController extends Controller
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
-     * @return Response
+     * @return Renderable
      */
     public function store(Request $request)
     {
@@ -211,7 +210,7 @@ class AccountingEntryController extends Controller
 
     /**
      * Show the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function show($id)
     {
@@ -227,7 +226,7 @@ class AccountingEntryController extends Controller
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  integer $id Identificador del asiento contable a modificar
-     * @return Response
+     * @return Renderable
      */
     public function edit($id)
     {
@@ -315,7 +314,7 @@ class AccountingEntryController extends Controller
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
      * @param  integer $id      Identificador del asiento contable a modificar
-     * @return Response
+     * @return Renderable
      */
     public function update(Request $request, $id)
     {
@@ -370,7 +369,7 @@ class AccountingEntryController extends Controller
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  integer $id Identificador del asiento contable a eliminar
-     * @return Response
+     * @return JsonResponse
      */
     public function destroy($id)
     {
@@ -395,7 +394,7 @@ class AccountingEntryController extends Controller
      * @param  Request $request
      * @param  integer $perPage [pagina anterior]
      * @param  integer $page    [pagina actual a mostrar]
-     * @return Response
+     * @return JsonResponse
      */
     public function filterRecords(Request $request, $perPage = 10, $page = 1)
     {
@@ -603,7 +602,7 @@ class AccountingEntryController extends Controller
     /**
      * [unapproved vista con listado de asientos contable no aprobados]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return [type] [description]
+     * @return Renderable
      */
     public function unapproved()
     {
@@ -637,7 +636,7 @@ class AccountingEntryController extends Controller
      * [approve aprueba el asiento contable]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  Integer $id identificador del asiento contable
-     * @return Response
+     * @return JsonResponse
      */
     public function approve($id)
     {

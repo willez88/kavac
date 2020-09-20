@@ -3,15 +3,15 @@
 namespace Modules\Payroll\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
+use Modules\Payroll\Models\PayrollConcept;
 use App\Models\Parameter;
 
-/** 
+/**
  * FALTA:
- * 
+ *
  * 1-. Mover las variables parameterTypes y associatedRecords a base de datos (Crear Seeders)
  * 2-. Ajustar el comportamiento de los siguientes métodos para busquedas desde el modelo parameter
  */
@@ -33,28 +33,24 @@ class PayrollParameterController extends Controller
 
     /**
      * Arreglo con las reglas de validación sobre los datos de un formulario
-     *
      * @var Array $validateRules
      */
     protected $validateRules;
 
     /**
      * Arreglo con los mensajes para las reglas de validación
-     *
      * @var Array $messages
      */
     protected $messages;
 
     /**
      * Arreglo con los tipos de parámetros de nómina
-     *
      * @var Array $parameterTypes
      */
     protected $parameterTypes;
 
     /**
      * Arreglo con los registros asociados al expediente del trabajador
-     *
      * @var Array $associatedRecords
      */
     protected $associatedRecords;
@@ -117,7 +113,7 @@ class PayrollParameterController extends Controller
                         'type'      => 'list',
                         'model'     => 'Modules\Payroll\Models\PayrollGender',
                         'required'  => ['payroll_gender_id']
-                        
+
                     ],
                     [
                         'id'        => 'DISABLE',
@@ -266,15 +262,16 @@ class PayrollParameterController extends Controller
      * Muestra un listado de los parámetros globales de nómina registrados
      *
      * @method    index
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return    \Illuminate\Http\Response    JSON con los registros a mostrar
+     *
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function index()
     {
         $listGlobalParameters = [];
         /**
          * Objeto asociado al modelo Parameter
-         *
          * @var Object $parameters
          */
         $parameters = Parameter::where(
@@ -308,16 +305,19 @@ class PayrollParameterController extends Controller
      * Valida y registra un nuevo parámetro global de nómina
      *
      * @method    store
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @param     \Illuminate\Http\Request     $request    Datos de la petición
-     * @return    \Illuminate\Http\Response    JSON con los registros a mostrar
+     *
+     * @return    \Illuminate\Http\JsonResponse                Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
         $validateRules = $this->validateRules;
-        if($request->parameter_type == 'global_value') {
+        if ($request->parameter_type == 'global_value') {
             $validateRules = array_merge($validateRules, ['value' => ['required']]);
-        } elseif($request->parameter_type == 'processed_variable') {
+        } elseif ($request->parameter_type == 'processed_variable') {
             $validateRules = array_merge($validateRules, ['formula' => ['required']]);
         }
         $this->validate($request, $validateRules, $this->messages);
@@ -327,7 +327,6 @@ class PayrollParameterController extends Controller
 
         /**
          * Objeto asociado al modelo Parameter
-         *
          * @var Object $parameters
          */
         $parameters = Parameter::where(
@@ -384,7 +383,6 @@ class PayrollParameterController extends Controller
 
         /**
          * Objeto asociado al modelo Parameter
-         *
          * @var Object $parameter
          */
         $parameter = Parameter::create([
@@ -400,16 +398,19 @@ class PayrollParameterController extends Controller
      * Actualiza la información de un parámetro global de nómina
      *
      * @method    update
+     *
      * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     *
      * @param     Integer                          $id         Identificador único del parámetro a editar
-     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     *
+     * @return    \Illuminate\Http\JsonResponse                Objeto con los registros a mostrar
      */
     public function update(Request $request, $id)
     {
         $validateRules = $this->validateRules;
-        if($request->parameter_type == 'global_value') {
+        if ($request->parameter_type == 'global_value') {
             $validateRules = array_merge($validateRules, ['value' => ['required']]);
-        } elseif($request->parameter_type == 'processed_variable') {
+        } elseif ($request->parameter_type == 'processed_variable') {
             $validateRules = array_merge($validateRules, ['formula' => ['required']]);
         }
         $this->validate($request, $validateRules, $this->messages);
@@ -419,7 +420,6 @@ class PayrollParameterController extends Controller
 
         /**
          * Objeto asociado al modelo Parameter
-         *
          * @var Object $parameter
          */
         $parameters = Parameter::where(
@@ -448,7 +448,7 @@ class PayrollParameterController extends Controller
                         'name'           => $param->name,
                         'code'           => $param->code,
                         'acronym'        => $param->acronym,
-                        'description'    => $param->description,
+                        'description'    => $param->description ?? '',
                         'parameter_type' => $param->parameter_type,
                         'percentage'     => $param->percentage ?? '',
                         'value'          => $param->value ?? '',
@@ -475,17 +475,18 @@ class PayrollParameterController extends Controller
 
         /**
          * Objeto asociado al modelo Parameter
-         *
          * @var Object $parameter
          */
-        $parameter = Parameter::updateOrCreate([
+        $parameter = Parameter::updateOrCreate(
+            [
             'p_key'       => 'global_parameter_' . $payrollParameter['id'],
             'required_by' => 'payroll',
             'active'      => true
         ],
-        [
+            [
             'p_value'     => json_encode($payrollParameter)
-        ]);
+        ]
+        );
         return response()->json(['record' => $parameter, 'message' => 'Success'], 200);
     }
 
@@ -493,15 +494,17 @@ class PayrollParameterController extends Controller
      * Elimina un parámetro global de nómina
      *
      * @method    destroy
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param     Integer $id                      Identificador único del parámetro a eliminar
-     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     *
+     * @param     Integer                          $id    Identificador único del parámetro a eliminar
+     *
+     * @return    \Illuminate\Http\JsonResponse           Objeto con los registros a mostrar
      */
     public function destroy($id)
     {
         /**
          * Objeto asociado al modelo Parameter
-         *
          * @var Object $parameter
          */
         $parameter = Parameter::where(
@@ -517,7 +520,7 @@ class PayrollParameterController extends Controller
             return response()->json(['message' => 'destroy'], 200);
         } else {
             $parameter = Parameter::where(
-            [
+                [
                 'p_key'       => 'global_parameter_group_by_tabs_' . $id,
                 'required_by' => 'payroll',
                 'active'      => true,
@@ -534,7 +537,9 @@ class PayrollParameterController extends Controller
      * Obtiene los grupos de tabuladores salariales registrados
      *
      * @method    getSalaryTabulatorsGroups
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    Array    Listado de los registros a mostrar
      */
     public function getSalaryTabulatorsGroups()
@@ -564,7 +569,7 @@ class PayrollParameterController extends Controller
                 ]);
             }
         }
-        
+
         return $list;
     }
 
@@ -572,42 +577,96 @@ class PayrollParameterController extends Controller
      * Obtiene los parámetros globales de nómina registrados
      *
      * @method    getPayrollParameters
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return    Array    Listado de los registros a mostrar
+     *
+     * @param     \Illuminate\Http\Request     $request    Datos de la petición
+     *
+     * @return    Array                                    Listado de los registros a mostrar
      */
-    public function getPayrollParameters()
+    public function getPayrollParameters(Request $request)
     {
-        $listGlobalParameters = [['id' => '', 'text' => 'Seleccione...']];
-        /**
-         * Objeto asociado al modelo Parameter
-         *
-         * @var Object $parameter
-         */
-        $parameters = Parameter::where(
-            [
-                'required_by' => 'payroll',
-                'active'      => true,
-            ]
-        )->where('p_key', 'like', 'global_parameter_%')->get();
+        if (is_null($request->payroll_concepts)) {
+            $listGlobalParameters = [['id' => '', 'text' => 'Seleccione...']];
+            /**
+             * Objeto asociado al modelo Parameter
+             * @var Object $parameter
+             */
+            $parameters = Parameter::where(
+                [
+                    'required_by' => 'payroll',
+                    'active'      => true,
+                ]
+            )->where('p_key', 'like', 'global_parameter_%')->get();
 
-        if (!is_null($parameters)) {
-            foreach ($parameters as $parameter) {
-                $param = json_decode($parameter->p_value);
-                array_push($listGlobalParameters, [
-                    'id'             => $param->id,
-                    'text'           => $param->name,
-                    'acronym'        => $param->acronym
-                ]);
+            if (!is_null($parameters)) {
+                foreach ($parameters as $parameter) {
+                    $param = json_decode($parameter->p_value);
+                    array_push($listGlobalParameters, [
+                        'id'             => $param->id,
+                        'text'           => $param->name,
+                        'acronym'        => $param->acronym
+                    ]);
+                }
             }
+            return $listGlobalParameters;
+        } else {
+            $payrollParameters = [];
+            foreach ($request->payroll_concepts as $payroll_concept) {
+                $payrollConcept = PayrollConcept::find($payroll_concept['id']);
+                if ($payrollConcept && $payrollConcept->calculation_way == 'formula') {
+                    $exploded = multiexplode(['+','-','*','/'], $payrollConcept->formula);
+                    foreach ($exploded as $explod) {
+                        /**
+                         * Objeto asociado al modelo Parameter
+                         * @var Object $parameters
+                         */
+                        $parameters = Parameter::where(
+                            [
+                                'required_by' => 'payroll',
+                                'active'      => true,
+                            ]
+                        )->where('p_value', 'like', '%' . $explod . '%')->get();
+                        if ($parameters) {
+                            foreach ($parameters as $parameter) {
+                                $jsonValue = json_decode($parameter->p_value);
+                                if ($jsonValue->code == $explod) {
+                                    if ($jsonValue->parameter_type == 'global_value') {
+                                        /** Si el parámetro es de valor global */
+                                        array_push($payrollParameters, [
+                                            'code'  => $jsonValue->code,
+                                            'value' => $jsonValue->value
+                                        ]);
+                                    } elseif ($jsonValue->parameter_type == 'resettable_variable') {
+                                        /** Si el parámetro es reiniciable a cero por período de nómina */
+                                        array_push($payrollParameters, [
+                                            'code'  => $jsonValue->code,
+                                            'value' => ''
+                                        ]);
+                                    } elseif ($jsonValue->parameter_type == 'processed_variable') {
+                                        /** Si el parámetro es una variable procesada */
+                                        array_push($payrollParameters, [
+                                            'code'  => $jsonValue->code,
+                                            'value' => $jsonValue->formula
+                                        ]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return $payrollParameters;
         }
-        return $listGlobalParameters;
     }
 
     /**
      * Obtiene los tipos de parámetros globales de nómina
      *
      * @method    getPayrollParametersTypes
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    Array    Listado de los registros a mostrar
      */
     public function getPayrollParameterTypes()
@@ -628,8 +687,12 @@ class PayrollParameterController extends Controller
      * Obtiene la lista de opciones de acuerdo al parametro seleccionado
      *
      * @method    getPayrollParametersTypes
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return    Array    Listado de los registros a mostrar
+     *
+     * @param     Integer    $code    Código del parámetro seleccionado
+     *
+     * @return    Array               Listado de los registros a mostrar
      */
     public function getPayrollParameterOptions($code)
     {
@@ -649,7 +712,9 @@ class PayrollParameterController extends Controller
      * Obtiene los registros asociados a los campos del expediente del trabajador
      *
      * @method    getAssociatedRecords
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    Array    Listado de los registros a mostrar
      */
     public function getAssociatedRecords()

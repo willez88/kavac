@@ -3,7 +3,6 @@
 namespace Modules\Payroll\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
@@ -28,14 +27,12 @@ class PayrollPaymentTypeController extends Controller
 
     /**
      * Arreglo con las reglas de validación sobre los datos de un formulario
-     *
      * @var Array $validateRules
      */
     protected $validateRules;
 
     /**
      * Arreglo con los mensajes para las reglas de validación
-     *
      * @var Array $messages
      */
     protected $messages;
@@ -81,15 +78,16 @@ class PayrollPaymentTypeController extends Controller
      * Muestra un listado de los tipos de pago
      *
      * @method    index
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return    \Illuminate\Http\Response    JSON con los registros a mostrar
+     *
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function index()
     {
         $listPaymentType = [];
         /**
          * Objeto asociado al modelo PayrollPaymentType
-         *
          * @var Object $payrollPaymentTypes
          */
         $payrollPaymentTypes = PayrollPaymentType::with('accountingAccount', 'budgetAccount', 'payrollConcepts', 'payrollPaymentPeriods')->get();
@@ -97,7 +95,7 @@ class PayrollPaymentTypeController extends Controller
             $listConcepts = [];
             foreach ($payrollPaymentType->payrollConcepts as $payrollConcept) {
                 array_push(
-                $listConcepts,
+                    $listConcepts,
                     [
                         'id' => $payrollConcept->id,
                         'text' => $payrollConcept->code . ' - ' . $payrollConcept->name
@@ -131,9 +129,12 @@ class PayrollPaymentTypeController extends Controller
      * Valida y registra un nuevo tipo de pago
      *
      * @method    store
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param     \Illuminate\Http\Request     $request    Datos de la petición
-     * @return    \Illuminate\Http\Response    JSON con los registros a mostrar
+     *
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     *
+     * @return    \Illuminate\Http\JsonResponse                Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
@@ -141,7 +142,6 @@ class PayrollPaymentTypeController extends Controller
 
         /**
          * Objeto asociado al modelo PayrollPaymentType
-         *
          * @var Object $payrollPaymentType
          */
         $payrollPaymentType = PayrollPaymentType::create([
@@ -183,14 +183,15 @@ class PayrollPaymentTypeController extends Controller
      * Actualiza la información de un tipo de pago
      *
      * @method    update
+     *
      * @param     \Illuminate\Http\Request         $request    Datos de la petición
-     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     *
+     * @return    \Illuminate\Http\JsonResponse                Objeto con los registros a mostrar
      */
     public function update(Request $request, $id)
     {
         /**
          * Objeto con la información del tipo de pago a editar asociado al modelo PayrollPaymentType
-         *
          * @var Object $payrollPaymentType
          */
         $payrollPaymentType = PayrollPaymentType::find($id);
@@ -226,13 +227,13 @@ class PayrollPaymentTypeController extends Controller
 
         /** Se eliminan los períodos de pago asociados al tipo de pago */
         foreach ($payrollPaymentType->payrollPaymentPeriods as $payrollPaymentPeriod) {
-            $payrollPaymentPeriod->forceDelete();;
+            $payrollPaymentPeriod->forceDelete();
+            ;
         }
         /** Se agregan los períodos de pago asociados al tipo de pago */
         foreach ($request->payroll_payment_periods as $paymentPeriod) {
             /**
              * Objeto asociado al modelo PayrollPaymentPeriod
-             *
              * @var Object $payrollPaymentPeriod
              */
             $payrollPaymentPeriod = PayrollPaymentPeriod::create([
@@ -252,15 +253,17 @@ class PayrollPaymentTypeController extends Controller
      * Elimina un tipo de pago
      *
      * @method    destroy
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param     Integer $id                      Identificador único del tipo de pago a eliminar
-     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     *
+     * @param     Integer                          $id    Identificador único del tipo de pago a eliminar
+     *
+     * @return    \Illuminate\Http\JsonResponse           Objeto con los registros a mostrar
      */
     public function destroy($id)
     {
         /**
          * Objeto con la información del tipo de pago a eliminar asociado al modelo PayrollPaymentType
-         *
          * @var Object $payrollPaymentType
          */
         $payrollPaymentType = PayrollPaymentType::find($id);
@@ -272,7 +275,9 @@ class PayrollPaymentTypeController extends Controller
      * Obtiene los tipos de pago registrados
      *
      * @method    getPayrollPaymentTypes
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    Array    Listado de los registros a mostrar
      */
     public function getPayrollPaymentTypes()
@@ -284,29 +289,40 @@ class PayrollPaymentTypeController extends Controller
      * Obtiene los períodos asociados al tipo de pago registrado
      *
      * @method    getPayrollPaymentPeriods
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return    Array    Listado de los registros a mostrar
+     *
+     * @param     Integer    $payment_type_id    Identificador único asociado al tipo de pago
+     *
+     * @return    Array                          Listado de los registros a mostrar
      */
     public function getPayrollPaymentPeriods($payment_type_id = null)
     {
         $listPayrollPaymentPeriods = [];
-        if (is_null($payment_type_id)) {
-            $payrollPaymentPeriods = PayrollPaymentPeriod::orderBy('number')->get();
-        } else {
-            $payrollPaymentType = PayrollPaymentType::find($payment_type_id);
-            $payrollPaymentPeriods = PayrollPaymentPeriod::where(
-                'payroll_payment_type_id', $payrollPaymentType->id
-            )->orderBy('number')->get();
+        $listPayrollConcepts = [];
+        $payrollPaymentType = PayrollPaymentType::find($payment_type_id);
+        foreach ($payrollPaymentType->payrollConcepts as $payrollConcept) {
+            array_push($listPayrollConcepts, [
+                    'id'             => $payrollConcept->id,
+                    'text'           => $payrollConcept->code . ' - ' . $payrollConcept->name
+                ]);
         }
+        $payrollPaymentPeriods = PayrollPaymentPeriod::where(
+            'payroll_payment_type_id',
+            $payrollPaymentType->id
+        )->orderBy('number')->get();
+
         if (!is_null($payrollPaymentPeriods)) {
             foreach ($payrollPaymentPeriods as $payrollPaymentPeriod) {
                 array_push($listPayrollPaymentPeriods, [
                     'id'             => $payrollPaymentPeriod->id,
-                    'text'           => $payrollPaymentPeriod->start_date,
+                    'text'           => date("d/m/Y", strtotime($payrollPaymentPeriod->start_date)),
                     'payment_status' => $payrollPaymentPeriod->payment_status
                 ]);
             }
-            return $listPayrollPaymentPeriods;
+            return response()->json([
+                'records' => $listPayrollPaymentPeriods, 'concepts' => $listPayrollConcepts
+            ], 200);
         }
     }
 }

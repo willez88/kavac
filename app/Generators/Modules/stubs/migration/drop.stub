@@ -24,7 +24,7 @@ class $CLASS$ extends Migration
     public function down()
     {
         Schema::create('$TABLE$', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $FIELDS$
             $table->timestamps();
             $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

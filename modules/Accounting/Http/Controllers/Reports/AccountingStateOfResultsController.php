@@ -2,8 +2,6 @@
 
 namespace Modules\Accounting\Http\Controllers\Reports;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Modules\Accounting\Models\AccountingReportHistory;
@@ -399,7 +397,7 @@ class AccountingStateOfResultsController extends Controller
          */
         $lastOfThePreviousMonth = date('d', (mktime(0, 0, 0, explode('-', $date)[1], 1, explode('-', $date)[0])-1));
         $last                   = ($lastOfThePreviousMonth.'/'.(explode('-', $date)[1]-1).'/'.explode('-', $date)[0]);
-        
+
         $institution            = Institution::find(1);
 
         $pdf->setConfig(['institution' => $institution, 'urlVerify' => url('report/stateOfResults/'.$report->id)]);
@@ -415,7 +413,7 @@ class AccountingStateOfResultsController extends Controller
             'monthBefore' =>$last,
         ]);
     }
-    
+
     /**
      * [formatDataInArray sintetiza la información de una cuenta en un array con sus respectivas subcuentas]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>

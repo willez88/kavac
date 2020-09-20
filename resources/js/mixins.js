@@ -6,6 +6,16 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 //require('@ckeditor/ckeditor5-build-classic/build/translations/es.js');
 import '@ckeditor/ckeditor5-build-classic/build/translations/es';
 
+/** Requerimiento del paquete inputmask para uso de mascara en campos de texto con vue */
+import Inputmask from "inputmask";
+
+/** Configuración de la directiva input-mask para uso de mascara en campos de texto de los componentes vuejs */
+Vue.directive('input-mask', {
+    bind: function(el) {
+        new Inputmask().mask(el);
+    },
+});
+
 /**
  * Opciones de configuración global para utilizar en todos los componentes vuejs de la aplicación
  *
@@ -416,10 +426,15 @@ Vue.mixin({
          * @param  {integer} index Identificador del registro a ser modificado
          * @param {object} event   Objeto que gestiona los eventos
          */
-        initUpdate(index, event) {
+        initUpdate(id, event) {
             let vm = this;
             vm.errors = [];
-            vm.record = vm.records[index - 1];
+
+            let recordEdit = JSON.parse(JSON.stringify(vm.records.filter((rec) => {
+                return rec.id === id;
+            })[0])) || vm.reset();
+
+            vm.record = recordEdit;
 
             /**
              * Recorre todos los campos para determinar si existe un elemento booleano para, posteriormente,
@@ -877,6 +892,9 @@ Vue.mixin({
                 }
             }
         },
+        clearFilters() {
+            //this.$refs['table'].setFilter('');
+        }
         /*loadRelationalSelect(parent_id, target_url) {
             var parent_id = (typeof(parent_id) !== "undefined")?parent_id:false;
             var target_url = (typeof(target_url) !== "undefined")?target_url:false;
@@ -902,5 +920,12 @@ Vue.mixin({
                 //vm.lockScreen();
             //});
         }
+        $('.modal').on('hidden.bs.modal', function() {
+            //$("input[class^='VueTables__search']").val('');
+            vm.clearFilters();
+        });
+        $('.modal').on('shown.bs.modal', function() {
+            //vm.records = vm.data;
+        });
     }
 });

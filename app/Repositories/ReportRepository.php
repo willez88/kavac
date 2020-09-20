@@ -28,7 +28,7 @@ class ReportRepository implements ReportInterface
     private $urlVerify;
     /** @var string Fecha en la que se genera el reporte */
     private $reportDate;
-    /** @var integer Identificador de la institución que genera el reporte */
+    /** @var object Identificador de la institución que genera el reporte */
     private $institution;
     /** @var string Nombre del archivo a generar con el reporte */
     private $filename;
@@ -343,7 +343,7 @@ class ReportRepository implements ReportInterface
             /** Configuración de la fuenta a utilizar */
             $pdf->SetFont($fontFamily, 'I', 8);
             if ($pages) {
-                /** @var Número de página del reporte [description] */
+                /** @var $pageNumber Número de página del reporte */
                 $pageNumber = __('Pág. ').$pdf->getAliasNumPage().'/'.$pdf->getAliasNbPages();
                 /** Texto a mostrar para el número de página */
                 $pdf->MultiCell(20, 4, $pageNumber, 0, 'R', false, 1, 185, -8, true, 1, false, true, 1, 'T', true);
@@ -359,6 +359,6 @@ class ReportRepository implements ReportInterface
     {
         $filename = storage_path() . '/reports/' . $file ?? 'report' . Carbon::now() . '.pdf';
         $this->pdf->Output($filename, 'F');
-        return Response::download($filename);
+        return response()->download($filename);
     }
 }

@@ -137,12 +137,12 @@
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 
 	                		<div slot="id" slot-scope="props" class="text-center">
-	                			<button @click="initUpdate(props.index, $event)"
+	                			<button @click="initUpdate(props.row.id, $event)"
 		                				class="btn btn-warning btn-xs btn-icon btn-action"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'clasifications')"
+		                		<button @click="deleteRecord(props.row.id, 'clasifications')"
 										class="btn btn-danger btn-xs btn-icon btn-action"
 										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
@@ -466,17 +466,13 @@
 				}
 
 			},
-			initUpdate(index, event) {
+			initUpdate(id, event) {
+                const vm = this;
 				this.errors = [];
-				var field = this.records[index - 1];
-				this.record = {
-					id: field.id,
-					asset_type_id: field.asset_subcategory.asset_category.asset_type_id,
-					asset_category_id: field.asset_subcategory.asset_category_id,
-					asset_subcategory_id: field.asset_subcategory_id,
-					code: field.code,
-					name: field.name,
-				};
+				let recordEdit = JSON.parse(JSON.stringify(vm.records.filter((rec) => {
+                    return rec.id === id;
+                })[0])) || vm.reset();
+				this.record = recordEdit;
 				event.preventDefault();
 			},
 			updateRecord(url) {

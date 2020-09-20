@@ -15,7 +15,9 @@ class AddFieldInstitutionalToAccountingAccountsTable extends Migration
     {
         if (Schema::hasTable('accounting_accounts')) {
             Schema::table('accounting_accounts', function (Blueprint $table) {
-                $table->char('institutional', 3)->default('000')->nullable()->comment('Numero para la cuenta utilizado por instituciones');
+                $table->char('institutional', 3)->default('000')->nullable()->comment(
+                    'Numero para la cuenta utilizado por instituciones'
+                );
             });
         }
     }
@@ -28,7 +30,7 @@ class AddFieldInstitutionalToAccountingAccountsTable extends Migration
     public function down()
     {
         if (Schema::hasTable('accounting_accounts')) {
-                Schema::table('accounting_accounts', function (Blueprint $table) {
+            Schema::table('accounting_accounts', function (Blueprint $table) {
                 $table->dropColumn('institutional');
             });
         }

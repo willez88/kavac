@@ -3,7 +3,7 @@
 namespace Modules\TechnicalSupport\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -40,6 +40,8 @@ class TechnicalSupportRepairController extends Controller
      * Muestra el formulario con un listado de reparaciones de bienes institucionales
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @return  Renderable
      */
     public function index()
     {
@@ -75,7 +77,7 @@ class TechnicalSupportRepairController extends Controller
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return Renderable
      */
     public function update(Request $request, $id)
     {

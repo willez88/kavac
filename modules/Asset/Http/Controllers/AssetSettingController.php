@@ -3,7 +3,7 @@
 namespace Modules\Asset\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -35,12 +35,12 @@ class AssetSettingController extends Controller
         /** Establece permisos de acceso para cada método del controlador */
         $this->middleware('permission:asset.setting', ['only' => 'index']);
     }
-    
+
     /**
      * Muestra la configuración del módulo de bienes
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return    \Illuminate\View\View
+     * @return    Renderable
      */
     public function index()
     {
@@ -58,7 +58,7 @@ class AssetSettingController extends Controller
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      * @param     \Illuminate\Http\Request         $request    Datos de la petición
-     * @return    \Illuminate\View\View
+     * @return    Renderable
      */
     public function store(Request $request)
     {
@@ -83,7 +83,7 @@ class AssetSettingController extends Controller
             if ($key !== '_token' && !is_null($value)) {
                 list($table, $field) = explode("_", $key);
                 list($prefix, $digits, $sufix) = CodeSetting::divideCode($value);
-                
+
                 if ($table === "asignations") {
                     /** @var string Define el modelo para asociado a las asignaciones de bienes */
                     $model = \Modules\Asset\Models\AssetAsignation::class;
@@ -111,16 +111,16 @@ class AssetSettingController extends Controller
                     'format_year' => $sufix,
                     'model' => $model,
                 ]);
-                
+
                 /** @var boolean Define el estatus verdadero para indicar que se ha registrado información */
                 $saved = true;
             }
         }
-        
+
         if ($saved) {
             $request->session()->flash('message', ['type' => 'store']);
         }
-        
+
         return redirect()->back();
     }
 }

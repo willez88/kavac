@@ -3,7 +3,7 @@
 namespace Modules\Budget\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
@@ -43,7 +43,7 @@ class BudgetTransferController extends Controller
      * Muestra un listado de transferencias presupuestarias
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\View\View
+     * @return Renderable
      */
     public function index()
     {
@@ -57,7 +57,7 @@ class BudgetTransferController extends Controller
      * Muestra el formulario para la creación de transferencias presupuestarias
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\View\View
+     * @return Renderable
      */
     public function create()
     {
@@ -79,7 +79,7 @@ class BudgetTransferController extends Controller
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param Request $request Objeto con datos de la petición realizada
-     * @return Response
+     * @return Renderable
      */
     public function store(Request $request)
     {
@@ -91,7 +91,7 @@ class BudgetTransferController extends Controller
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param int $id Identificador de la transferencia presupuesaria a mostrar
-     * @return \Illuminate\View\View
+     * @return Renderable
      */
     public function show($id)
     {
@@ -103,7 +103,7 @@ class BudgetTransferController extends Controller
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param int $id Identificador de la transferencia presupuestaria a modificar
-     * @return \Illuminate\View\View
+     * @return Renderable
      */
     public function edit($id)
     {
@@ -116,7 +116,7 @@ class BudgetTransferController extends Controller
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param Request $request Objeto con datos de la petición realizada
      * @param int $id Identificador de la transferencia presupuestaria a modificar
-     * @return Response
+     * @return Renderable
      */
     public function update(Request $request, $id)
     {

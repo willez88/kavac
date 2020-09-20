@@ -3,7 +3,6 @@
 namespace Modules\Warehouse\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -117,7 +116,7 @@ class WarehouseCloseController extends Controller
             $close->end_date     = $request->input('end_date');
         }
         $close->save();
- 
+
         return response()->json(['message' => 'Success'], 200);
     }
 

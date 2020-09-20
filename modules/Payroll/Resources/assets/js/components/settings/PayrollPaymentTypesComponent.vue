@@ -91,7 +91,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="periods">Períodos:</label>
-                                    <input type="text" id="periods" placeholder="0" readonly 
+                                    <input type="text" id="periods" placeholder="0" readonly
                                            data-toggle="tooltip" title="Número de períodos del tipo de pago"
                                            class="form-control input-sm" v-model="record.periods_number">
                                 </div>
@@ -197,7 +197,7 @@
                     <div class="modal-body modal-table">
                         <v-client-table :columns="columns" :data="records" :options="table_options">
                             <div slot="id" slot-scope="props" class="text-center">
-                                <button @click="initUpdate(props.index, $event)"
+                                <button @click="initUpdate(props.row.id, $event)"
                                         class="btn btn-warning btn-xs btn-icon btn-action"
                                         title="Modificar registro" data-toggle="tooltip" type="button">
                                     <i class="fa fa-edit"></i>
@@ -357,7 +357,7 @@
                         let end_date = '';
                         let start_day = '';
                         let end_day = '';
-                        
+
                         for (var i = 0; i <= this.record.periods_number - 1; i++) {
                             if (this.record.payment_periodicity == 'daily') {
                                 start_date = moment(String(current_date)).add(i, 'days').format('DD/MM/YYYY');

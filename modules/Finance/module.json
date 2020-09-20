@@ -13,8 +13,6 @@
         "Modules\\Finance\\Providers\\FinanceServiceProvider"
     ],
     "aliases": {},
-    "files": [
-        "start.php"
-    ],
+    "files": [],
     "requires": []
 }

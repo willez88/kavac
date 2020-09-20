@@ -45,17 +45,6 @@ class CountryController extends Controller
     }
 
     /**
-     * Muestra el formulario para crear un nuevo registro de Pais
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Valida y registra un nuevo Pais
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
@@ -76,30 +65,6 @@ class CountryController extends Controller
         ]);
 
         return response()->json(['record' => $country, 'message' => 'Success'], 200);
-    }
-
-    /**
-     * Muestra información acerca del Pais
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\Country  $country
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Country $country)
-    {
-        //
-    }
-
-    /**
-     * Muestra el formulario para actualizar información de un Pais
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\Country  $country
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Country $country)
-    {
-        //
     }
 
     /**

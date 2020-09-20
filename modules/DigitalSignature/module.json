@@ -13,8 +13,6 @@
         "Modules\\DigitalSignature\\Providers\\DigitalSignatureServiceProvider"
     ],
     "aliases": {},
-    "files": [
-        "start.php"
-    ],
+    "files": [],
     "requires": []
 }

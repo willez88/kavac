@@ -3,7 +3,6 @@
 namespace Modules\Asset\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -34,7 +33,7 @@ class AssetTypeController extends Controller
         /** Establece permisos de acceso para cada método del controlador */
         $this->middleware('permission:asset.setting.type');
     }
-    
+
     /**
      * Muestra un listado de los tipos de bienes institucionales
      *
@@ -85,10 +84,10 @@ class AssetTypeController extends Controller
         $this->validate($request, [
             'name' => ['required', 'max:100']
         ]);
- 
+
         $type->name = $request->input('name');
         $type->save();
- 
+
         return response()->json(['message' => 'Success'], 200);
     }
 

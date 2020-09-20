@@ -3,7 +3,7 @@
 namespace Modules\Sale\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Sale\Models\SaleCodeFormat;
@@ -17,7 +17,7 @@ class SaleCodeFormatController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return JsonResponse
      */
     public function index()
     {
@@ -26,7 +26,7 @@ class SaleCodeFormatController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * @return Response
+     * @return Renderable
      */
     public function create()
     {
@@ -36,26 +36,26 @@ class SaleCodeFormatController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
-       $this->validate($request, [
+        $this->validate($request, [
           'formatcode' => ['required', 'max:17'],
           'type_formatcode' => ['required', 'max:50']
        ]);
 
-       $formatCode = SaleCodeFormat::create([
+        $formatCode = SaleCodeFormat::create([
          'formatcode' => $request->formatcode,
          'type_formatcode' => $request->type_formatcode
        ]);
 
-       return response()->json(['record' => $formatCode, 'message' => 'Success'], 200);
+        return response()->json(['record' => $formatCode, 'message' => 'Success'], 200);
     }
 
     /**
      * Show the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function show()
     {
@@ -64,7 +64,7 @@ class SaleCodeFormatController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function edit()
     {
@@ -74,51 +74,51 @@ class SaleCodeFormatController extends Controller
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function update(Request $request, $id)
     {
-      /** @var object Datos de la entidad bancaria */
-      $formatCode = SaleCodeFormat::find($id);
+        /** @var object Datos de la entidad bancaria */
+        $formatCode = SaleCodeFormat::find($id);
 
-      $this->validate($request, [
+        $this->validate($request, [
         'formatcode' => ['required', 'max:17'],
         'type_formatcode' => ['required', 'max:50']
       ]);
 
-      $formatCode->formatcode = $request->formatcode;
-      $formatCode->type_formatcode = $request->type_formatcode;
-      $formatCode->save();
+        $formatCode->formatcode = $request->formatcode;
+        $formatCode->type_formatcode = $request->type_formatcode;
+        $formatCode->save();
 
-      return response()->json(['message' => 'Registro actualizado correctamente'], 200);
+        return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 
     /**
      * Obtiene los datos de los distintos formatos de codigo
-     * @return \Illuminate\Http\JsonResponse Devuelve un JSON con los dinstintos formatos de codigo
+     * @return JsonResponse Devuelve un JSON con los dinstintos formatos de codigo
      */
     public function getCodeFormat()
     {
-      foreach (SaleCodeFormat::all() as $code) {
-         $this->data[] = [
+        foreach (SaleCodeFormat::all() as $code) {
+            $this->data[] = [
            'id' => $code->id,
            'formatcode' => $code->formatcode,
            'type_formatcode' => $code->type_formatcode
          ];
-      }
+        }
 
-      return response()->json($this->data);
+        return response()->json($this->data);
     }
 
     /**
      * Remove the specified resource from storage.
-     * @return Response
+     * @return JsonResponse
      */
     public function destroy($id)
     {
-      /** @var object Datos de la entidad bancaria */
-      $formatCode = SaleCodeFormat::find($id);
-      $formatCode->delete();
-      return response()->json(['record' => $formatCode, 'message' => 'Success'], 200);
+        /** @var object Datos de la entidad bancaria */
+        $formatCode = SaleCodeFormat::find($id);
+        $formatCode->delete();
+        return response()->json(['record' => $formatCode, 'message' => 'Success'], 200);
     }
 }

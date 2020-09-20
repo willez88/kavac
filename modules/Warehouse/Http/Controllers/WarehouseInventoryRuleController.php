@@ -3,7 +3,6 @@
 namespace Modules\Warehouse\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -27,7 +26,7 @@ use Modules\Warehouse\Models\WarehouseInventoryRule;
 class WarehouseInventoryRuleController extends Controller
 {
     use ValidatesRequests;
-    
+
     /**
      * Define la configuración de la clase
      *
@@ -95,7 +94,7 @@ class WarehouseInventoryRuleController extends Controller
         $this->validate($request, [
             'minimum' => ['required'],
         ]);
-        
+
         $rule->minimum = $request->minimum;
         $rule->maximum = $request->maximum;
         $rule->save();

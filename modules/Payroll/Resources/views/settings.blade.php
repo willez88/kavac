@@ -250,6 +250,9 @@
 
 						{{-- Tipos de Pago --}}
 						<payroll-payment-types></payroll-payment-types>
+
+						{{-- Políticas Vacacionales --}}
+						<payroll-vacation-policies></payroll-vacation-policies>
 					</div>
 				</div>
 			</div>

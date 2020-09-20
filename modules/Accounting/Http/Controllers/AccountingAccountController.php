@@ -4,14 +4,12 @@ namespace Modules\Accounting\Http\Controllers;
 
 use App\Imports\DataImport;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\HeadingRowImport;
 use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingEntryAccount;
-use Auth;
 
 /**
  * Clase que gestiona las Cuentas patrimoniales
@@ -164,7 +162,7 @@ class AccountingAccountController extends Controller
          * Actualiza el registro de la cuenta
          */
         $record               = AccountingAccount::find($id);
-        
+
         $record->group          = $request['group'];
         $record->subgroup       = $request['subgroup'];
         $record->item           = $request['item'];
@@ -235,7 +233,7 @@ class AccountingAccountController extends Controller
          * @var [string]
          */
         $item        = $parent->item;
-        
+
         /**
          * [$generic valor del campo generic]
          * @var [string]
@@ -333,11 +331,10 @@ class AccountingAccountController extends Controller
                             || intval($currentSubSpecific->subspecific) < 99)
                         ? (intval($currentSubSpecific->subspecific) + 1) : $currentSubSpecific->subspecific;
             $subspecific = (strlen($subspecific) === 1) ? "0$subspecific" : $subspecific;
-        }
-        /////////////
-        /// por verificar
-        /////////////
-         elseif ($parent->subspecific === "00") {
+        } elseif ($parent->subspecific === "00") {
+            /////////////
+            /// por verificar
+            /////////////
             /**
              * [$currentInstitutional almacena registro]
              * @var [Modules\Accounting\Models\AccountingAccount]
@@ -359,7 +356,7 @@ class AccountingAccountController extends Controller
 
             if (strlen($institutional) === 1) {
                 $institutional = "00$institutional";
-            }elseif (strlen($institutional) === 2) {
+            } elseif (strlen($institutional) === 2) {
                 $institutional = "0$institutional";
             }
         }
@@ -637,7 +634,7 @@ class AccountingAccountController extends Controller
             array_push($errors, 'La columna subgrupo en la fila '.$currentRow.
                 ' debe ser entero y no debe contener caracteres ni simbolos.');
         }
-        
+
         if ((int)$record['subgrupo'] > 9 || (int)$record['subgrupo'] < 0) {
             array_push($errors, 'La columna subgrupo en la fila '.$currentRow.
                 ' no cumple con el formato valido, Número entero entre 0 y 9.');
