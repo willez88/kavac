@@ -27,6 +27,11 @@ class PayrollEmploymentInformation extends Model implements Auditable
     use ModelsTrait;
 
     protected $table = 'payroll_employment_informations';
+    /**
+     * Lista de atributos de relacion consultados automáticamente
+     * @var array $with
+     */
+    protected $with = ['payrollPosition', 'department'];
 
     /**
      * Lista de atributos para la gestión de fechas

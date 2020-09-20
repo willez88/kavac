@@ -54,7 +54,7 @@
 					<div class="form-group">
 						<label> Adjuntar archivos </label>
 						<input  id="files" name="files" type="file"
-							    accept=".odt, .pdf, .png, .jpg, .jpeg" multiple>
+							    accept=".doc, .docx, .odt, .pdf, .png, .jpg, .jpeg" multiple>
 					</div>
 				</div>
 			</div>

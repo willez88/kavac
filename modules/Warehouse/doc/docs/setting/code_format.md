@@ -6,7 +6,7 @@
 
 ##Formatos de códigos
 
-La sección de **Formatos de Códigos** permite establecer un código de referencia para los registros posteriores (productos, movimientos, solicitudes, reportes e inventario), para completar esta configuración el usuario debe dirigirse al **Módulo de Alamacén**, luego a **Configuración** y ubicarse en la sección **Formatos de Códigos**.
+La sección de Formatos de Códigos permite establecer un código de referencia para los registros posteriores (productos, movimientos, solicitudes, reportes e inventario), para completar esta configuración el usuario debe dirigirse al módulo de Almacén, luego a Configuración y ubicarse en la sección Formatos de Códigos.
 
 Para establecer el código de referencia es necesario seguir los parámetros que se muestran a continuación:
 
@@ -22,7 +22,7 @@ Ejemplos de códigos:
 |--- |--- |--- |--- |--- |
 |PRO-00000000-YYYY |MOV-00000000-YYYY |SOL-00000000-YYYY |REP-00000000-YYYY |INV-00000000-YYYY |
 
-Una vez se establezca el formato de códigos deseado se puede ejecutar cualquier cambio haciendo uso de los Botones de **Acciones de Formulario**, ya sea **Guardar**, **Cancelar** o **Borrar** datos del formulario. 
+Una vez se establezca el formato de códigos deseado se puede ejecutar cualquier cambio haciendo uso de los botones de acciones de formulario, ya sea Guardar, Cancelar o Borrar datos del formulario. 
 
 	
 </div>

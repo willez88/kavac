@@ -3,7 +3,6 @@
 namespace Modules\Payroll\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
@@ -227,7 +226,7 @@ class PayrollConceptController extends Controller
             ]
         ];
     }
-    
+
     /**
      * Muestra un listado de los conceptos registradas (activos e inactivos)
      *
@@ -235,7 +234,7 @@ class PayrollConceptController extends Controller
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      *
-     * @return    \Illuminate\Http\Response    Objeto con los registros a mostrar
+     * @return    JsonResponse    Objeto con los registros a mostrar
      */
     public function index()
     {
@@ -289,7 +288,7 @@ class PayrollConceptController extends Controller
      *
      * @param     \Illuminate\Http\Request     $request    Datos de la petición
      *
-     * @return    \Illuminate\Http\Response                Objeto con los registros a mostrar
+     * @return    JsonResponse                Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
@@ -326,7 +325,7 @@ class PayrollConceptController extends Controller
             'accounting_account_id'       => $request->accounting_account_id,
             'budget_account_id'           => $request->budget_account_id,
             'assign_to'                   => json_encode($request->assign_to)
-            
+
         ]);
         foreach ($request->assign_to as $assign_to) {
             if ($assign_to['type'] == 'range') {
@@ -335,7 +334,6 @@ class PayrollConceptController extends Controller
                     'value'              => json_encode($request->assign_options[$assign_to['id']]),
                     'payroll_concept_id' => $payrollConcept->id
                 ]);
-
             } elseif ($assign_to['type'] == 'list') {
                 foreach ($request->assign_options[$assign_to['id']] as $assign_option) {
                     /**
@@ -415,7 +413,6 @@ class PayrollConceptController extends Controller
                     'value'              => json_encode($request->assign_options[$assign_to['id']]),
                     'payroll_concept_id' => $payrollConcept->id
                 ]);
-
             } elseif ($assign_to['type'] == 'list') {
                 foreach ($request->assign_options[$assign_to['id']] as $assign_option) {
                     /**

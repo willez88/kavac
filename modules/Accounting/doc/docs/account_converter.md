@@ -17,7 +17,7 @@ presupuestario o código patrimonial
 - De otra forma es posible observar todos los registros según su categoría ya sea por código presupuestario o código patrimonial haciendo uso del botón de selección **Seleccionar Todas**
 - Se presiona el botón **Buscar** y el sistema filtra los registros y los muestra en la sección **Lista de conversiones** (Figura 3)
 
-![Screenshot](img/figura_1.png#imagen)<div style="text-align: center;font-weight: bold">Figura 1: Buscador de Conversiones</div>
+![Screenshot](img/figure_1.png#imagen)<div style="text-align: center;font-weight: bold">Figura 1: Buscador de Conversiones</div>
   
 
 ###Crear conversión

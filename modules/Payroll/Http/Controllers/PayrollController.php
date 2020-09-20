@@ -3,7 +3,7 @@
 namespace Modules\Payroll\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
@@ -72,7 +72,7 @@ class PayrollController extends Controller
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      *
-     * @return    \Illuminate\View\View
+     * @return    Renderable
      */
     public function index()
     {
@@ -84,7 +84,7 @@ class PayrollController extends Controller
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      *
-     * @return    \Illuminate\View\View
+     * @return    Renderable
      */
     public function create()
     {
@@ -119,7 +119,7 @@ class PayrollController extends Controller
             'payroll_parameters'        => json_encode($request->payroll_parameters),
             'created_at'                => $request->created_at
         ]);
-        
+
         $request->session()->flash('message', ['type' => 'store']);
         return response()->json(['redirect' => route('payroll.registers.index')], 200);
     }
@@ -150,7 +150,7 @@ class PayrollController extends Controller
      *
      * @param     Integer                  $id    Identificador único del registro de nómina
      *
-     * @return    \Illuminate\View\View
+     * @return    Renderable
      */
     public function edit($id)
     {
@@ -187,7 +187,7 @@ class PayrollController extends Controller
             'payroll_parameters'        => json_encode($request->payroll_parameters),
             'created_at'                => $request->created_at
         ]);
-        
+
         $request->session()->flash('message', ['type' => 'update']);
         return response()->json(['redirect' => route('payroll.registers.index')], 200);
     }

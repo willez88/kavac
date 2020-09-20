@@ -3,7 +3,7 @@
 namespace Modules\Sale\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -13,7 +13,7 @@ use Modules\Sale\Models\SaleSettingProductType;
 class SaleSettingProductController extends Controller
 {
     use ValidatesRequests;
-    
+
     /**
      * Define la configuración de la clase
      *
@@ -37,12 +37,12 @@ class SaleSettingProductController extends Controller
      */
     public function index()
     {
-         return response()->json(['records' => SaleSettingProduct::all()], 200);
+        return response()->json(['records' => SaleSettingProduct::all()], 200);
     }
 
     /**
      * Show the form for creating a new resource.
-     * @return Response
+     * @return Renderable
      */
     public function create()
     {
@@ -74,7 +74,7 @@ class SaleSettingProductController extends Controller
                 'price' => ['required', 'max:100'],
                 'iva' => ['required', 'max:100'],
             ]);
-        
+
             $saleSettingProduct = SaleSettingProduct::create(['sale_setting_product_type_id' => $request->sale_setting_product_type_id,'name' => $request->name,'code' => $request->code,'description' => $request->description,'price' => $request->price,'iva' => $request->iva,]);
             return response()->json(['record' => $saleSettingProduct, 'message' => 'Success'], 200);
         }
@@ -88,16 +88,15 @@ class SaleSettingProductController extends Controller
                 'price' => ['required', 'max:100'],
                 'iva' => ['nullable'],
             ]);
-        
+
             $saleSettingProduct = SaleSettingProduct::create(['sale_setting_product_type_id' => $request->sale_setting_product_type_id,'name' => $request->name,'code' => $request->code,'description' => $request->description,'price' => $request->price,'iva' => $request->iva,]);
             return response()->json(['record' => $saleSettingProduct, 'message' => 'Success'], 200);
         }
-
     }
 
     /**
      * Show the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function show()
     {
@@ -106,7 +105,7 @@ class SaleSettingProductController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function edit()
     {
@@ -140,7 +139,7 @@ class SaleSettingProductController extends Controller
                 'price' => ['required', 'max:100'],
                 'iva' => ['required', 'max:100'],
             ]);
-        
+
             $saleSettingProduct->sale_setting_product_type_id  = $request->sale_setting_product_type_id;
             $saleSettingProduct->name  = $request->name;
             $saleSettingProduct->code  = $request->code;
@@ -149,7 +148,6 @@ class SaleSettingProductController extends Controller
             $saleSettingProduct->iva  = $request->iva;
             $saleSettingProduct->save();
             return response()->json(['message' => 'Success'], 200);
-            
         }
 
         if ($request->sale_setting_product_type_id == $saleSettingProductType2
@@ -161,7 +159,7 @@ class SaleSettingProductController extends Controller
                 'price' => ['required', 'max:100'],
                 'iva' => ['nullable'],
             ]);
-        
+
             $saleSettingProduct->sale_setting_product_type_id  = $request->sale_setting_product_type_id;
             $saleSettingProduct->name  = $request->name;
             $saleSettingProduct->code  = $request->code;
@@ -195,6 +193,6 @@ class SaleSettingProductController extends Controller
      */
     public function getSaleSettingProduct()
     {
-        return response()->json(template_choices('Modules\Sale\Models\SaleSettingProduct','', 'name', '', '', '', '', true));
+        return response()->json(template_choices('Modules\Sale\Models\SaleSettingProduct', '', 'name', '', '', '', '', true));
     }
 }

@@ -3,16 +3,15 @@
 namespace Modules\Payroll\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use Modules\Payroll\Models\PayrollConcept;
 use App\Models\Parameter;
 
-/** 
+/**
  * FALTA:
- * 
+ *
  * 1-. Mover las variables parameterTypes y associatedRecords a base de datos (Crear Seeders)
  * 2-. Ajustar el comportamiento de los siguientes métodos para busquedas desde el modelo parameter
  */
@@ -114,7 +113,7 @@ class PayrollParameterController extends Controller
                         'type'      => 'list',
                         'model'     => 'Modules\Payroll\Models\PayrollGender',
                         'required'  => ['payroll_gender_id']
-                        
+
                     ],
                     [
                         'id'        => 'DISABLE',
@@ -266,7 +265,7 @@ class PayrollParameterController extends Controller
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      *
-     * @return    \Illuminate\Http\Response    Objeto con los registros a mostrar
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function index()
     {
@@ -311,14 +310,14 @@ class PayrollParameterController extends Controller
      *
      * @param     \Illuminate\Http\Request     $request    Datos de la petición
      *
-     * @return    \Illuminate\Http\Response                Objeto con los registros a mostrar
+     * @return    \Illuminate\Http\JsonResponse                Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
         $validateRules = $this->validateRules;
-        if($request->parameter_type == 'global_value') {
+        if ($request->parameter_type == 'global_value') {
             $validateRules = array_merge($validateRules, ['value' => ['required']]);
-        } elseif($request->parameter_type == 'processed_variable') {
+        } elseif ($request->parameter_type == 'processed_variable') {
             $validateRules = array_merge($validateRules, ['formula' => ['required']]);
         }
         $this->validate($request, $validateRules, $this->messages);
@@ -409,9 +408,9 @@ class PayrollParameterController extends Controller
     public function update(Request $request, $id)
     {
         $validateRules = $this->validateRules;
-        if($request->parameter_type == 'global_value') {
+        if ($request->parameter_type == 'global_value') {
             $validateRules = array_merge($validateRules, ['value' => ['required']]);
-        } elseif($request->parameter_type == 'processed_variable') {
+        } elseif ($request->parameter_type == 'processed_variable') {
             $validateRules = array_merge($validateRules, ['formula' => ['required']]);
         }
         $this->validate($request, $validateRules, $this->messages);
@@ -478,14 +477,16 @@ class PayrollParameterController extends Controller
          * Objeto asociado al modelo Parameter
          * @var Object $parameter
          */
-        $parameter = Parameter::updateOrCreate([
+        $parameter = Parameter::updateOrCreate(
+            [
             'p_key'       => 'global_parameter_' . $payrollParameter['id'],
             'required_by' => 'payroll',
             'active'      => true
         ],
-        [
+            [
             'p_value'     => json_encode($payrollParameter)
-        ]);
+        ]
+        );
         return response()->json(['record' => $parameter, 'message' => 'Success'], 200);
     }
 
@@ -519,7 +520,7 @@ class PayrollParameterController extends Controller
             return response()->json(['message' => 'destroy'], 200);
         } else {
             $parameter = Parameter::where(
-            [
+                [
                 'p_key'       => 'global_parameter_group_by_tabs_' . $id,
                 'required_by' => 'payroll',
                 'active'      => true,
@@ -568,7 +569,7 @@ class PayrollParameterController extends Controller
                 ]);
             }
         }
-        
+
         return $list;
     }
 
@@ -614,7 +615,7 @@ class PayrollParameterController extends Controller
             foreach ($request->payroll_concepts as $payroll_concept) {
                 $payrollConcept = PayrollConcept::find($payroll_concept['id']);
                 if ($payrollConcept && $payrollConcept->calculation_way == 'formula') {
-                    $exploded = multiexplode(array('+','-','*','/'), $payrollConcept->formula);
+                    $exploded = multiexplode(['+','-','*','/'], $payrollConcept->formula);
                     foreach ($exploded as $explod) {
                         /**
                          * Objeto asociado al modelo Parameter
@@ -636,14 +637,12 @@ class PayrollParameterController extends Controller
                                             'code'  => $jsonValue->code,
                                             'value' => $jsonValue->value
                                         ]);
-
                                     } elseif ($jsonValue->parameter_type == 'resettable_variable') {
                                         /** Si el parámetro es reiniciable a cero por período de nómina */
                                         array_push($payrollParameters, [
                                             'code'  => $jsonValue->code,
                                             'value' => ''
                                         ]);
-                                        
                                     } elseif ($jsonValue->parameter_type == 'processed_variable') {
                                         /** Si el parámetro es una variable procesada */
                                         array_push($payrollParameters, [
@@ -658,7 +657,6 @@ class PayrollParameterController extends Controller
                 }
             }
             return $payrollParameters;
-
         }
     }
 

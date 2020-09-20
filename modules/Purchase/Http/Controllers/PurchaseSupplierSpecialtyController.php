@@ -3,7 +3,7 @@
 namespace Modules\Purchase\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Purchase\Models\PurchaseSupplierSpecialty;
@@ -14,7 +14,7 @@ class PurchaseSupplierSpecialtyController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @return \Illuminate\View\View
+     * @return JsonResponse
      */
     public function index()
     {
@@ -23,7 +23,7 @@ class PurchaseSupplierSpecialtyController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * @return \Illuminate\View\View
+     * @return Renderable
      */
     public function create()
     {
@@ -33,7 +33,7 @@ class PurchaseSupplierSpecialtyController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param  Request $request
-     * @return \Illuminate\View\View
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
@@ -51,7 +51,7 @@ class PurchaseSupplierSpecialtyController extends Controller
 
     /**
      * Show the specified resource.
-     * @return \Illuminate\View\View
+     * @return Renderable
      */
     public function show()
     {
@@ -60,7 +60,7 @@ class PurchaseSupplierSpecialtyController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @return \Illuminate\View\View
+     * @return Renderable
      */
     public function edit()
     {
@@ -70,7 +70,7 @@ class PurchaseSupplierSpecialtyController extends Controller
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return \Illuminate\View\View
+     * @return JsonResponse
      */
     public function update(Request $request)
     {
@@ -89,7 +89,7 @@ class PurchaseSupplierSpecialtyController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @return \Illuminate\View\View
+     * @return JsonResponse
      */
     public function destroy()
     {

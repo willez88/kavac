@@ -3,7 +3,7 @@
 namespace Modules\Asset\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -48,7 +48,7 @@ class AssetAsignationController extends Controller
      * Muestra el listado de las asignaciones de bienes institucionales
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return    \Illuminate\View\View
+     * @return    Renderable
      */
     public function index()
     {
@@ -59,7 +59,7 @@ class AssetAsignationController extends Controller
      * Muestra el formulario para registrar una nueva asignación de bienes institucionales
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return    \Illuminate\View\View
+     * @return    Renderable
      */
     public function create()
     {
@@ -71,7 +71,7 @@ class AssetAsignationController extends Controller
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      * @param     Integer                  $id    Identificador único del bien a asignar
-     * @return    \Illuminate\View\View
+     * @return    Renderable
      */
     public function assetAssign($id)
     {
@@ -124,7 +124,7 @@ class AssetAsignationController extends Controller
             $asset = Asset::find($product);
             $asset->asset_status_id = 1;
             $asset->save();
-            
+
             /**
              * Objeto asociado al modelo AssetAsignationAsset
              *
@@ -144,7 +144,7 @@ class AssetAsignationController extends Controller
      *
      * @author     Henry Paredes <hparedes@cenditel.gob.ve>
      * @param      \Modules\Asset\Models\AssetAsignation    $asignation    Datos de la asignación de un bien
-     * @return     \Illuminate\View\View
+     * @return     Renderable
      */
     public function edit($id)
     {
@@ -158,7 +158,7 @@ class AssetAsignationController extends Controller
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      * @param     \Illuminate\Http\Request     $request    Datos de la petición
      * @param     Integer                      $id         Identificador único de la asignación
-     * @return    \Illuminate\Http\Response    JSON con los registros a mostrar
+     * @return    \Illuminate\Http\JsonResponse    JSON con los registros a mostrar
      */
     public function update(Request $request, $id)
     {
@@ -192,7 +192,7 @@ class AssetAsignationController extends Controller
             $asset = Asset::find($asset_asignation->asset_id);
             $asset->asset_status_id = 10;
             $asset->save();
-            
+
             $asset_asignation->delete();
         }
 

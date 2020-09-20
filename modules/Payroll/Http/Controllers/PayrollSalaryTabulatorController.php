@@ -3,12 +3,10 @@
 namespace Modules\Payroll\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Validation\Rule;
 use Modules\Payroll\Rules\PayrollSalaryScales;
 
 use Maatwebsite\Excel\Facades\Excel;
@@ -75,7 +73,7 @@ class PayrollSalaryTabulatorController extends Controller
             'payroll_salary_tabulator_scales.required' => 'Las escalas del tabulador salarial son obligatorias.'
         ];
     }
-    
+
     /**
      * Muestra un listado de los tabuladores salariales registrados
      *
@@ -101,7 +99,6 @@ class PayrollSalaryTabulatorController extends Controller
             if ($payrollSalaryTabulator->payrollStaffTypes) {
                 foreach ($payrollSalaryTabulator->payrollStaffTypes as $payrollStaffType) {
                     $payrollStaffType['text'] = $payrollStaffType['name'];
-                    
                 }
             }
         }
@@ -139,7 +136,7 @@ class PayrollSalaryTabulatorController extends Controller
             $codeSetting->model,
             $codeSetting->field
         );
-        
+
         DB::transaction(function () use ($request, $code) {
             /**
              * Objeto asociado al modelo PayrollSalaryTabulator

@@ -3,7 +3,7 @@
 namespace Modules\Warehouse\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -46,7 +46,7 @@ class WarehouseRequestStaffController extends Controller
      * Muestra el formulario para registrar una nueva solicitud de almacén
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return Renderable
      */
     public function create()
     {
@@ -59,7 +59,7 @@ class WarehouseRequestStaffController extends Controller
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function store(Request $request)
     {
@@ -145,7 +145,7 @@ class WarehouseRequestStaffController extends Controller
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  Integer $id Identificador único del ingreso de almacén
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return Renderable
      */
     public function edit($id)
     {
@@ -160,7 +160,7 @@ class WarehouseRequestStaffController extends Controller
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
      * @param  Integer $id Identificador único de la solicitud de almacén
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function update(Request $request, $id)
     {
@@ -172,7 +172,7 @@ class WarehouseRequestStaffController extends Controller
             'motive' => ['required']
 
         ]);
-            
+
         DB::transaction(function () use ($request, $warehouse_request) {
             $warehouse_request->motive = $request->input('motive');
             $warehouse_request->department_id = $request->input('department_id');
@@ -230,13 +230,13 @@ class WarehouseRequestStaffController extends Controller
         $request->session()->flash('message', ['type' => 'update']);
         return response()->json(['result' => true, 'redirect' => route('warehouse.request.index')], 200);
     }
-    
+
     /**
      * Vizualiza información de una solicitud de almacén
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  Integer $id Identificador único de la solicitud de almacén
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function vueInfo($id)
     {

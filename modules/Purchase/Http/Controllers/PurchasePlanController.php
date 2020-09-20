@@ -5,13 +5,12 @@ namespace Modules\Purchase\Http\Controllers;
 use App\Repositories\UploadDocRepository;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use Modules\Purchase\Models\PurchasePlan;
-use Modules\Purchase\Models\PurchaseProcess;
 use Modules\Purchase\Models\PurchaseType;
 
 class PurchasePlanController extends Controller
@@ -20,7 +19,7 @@ class PurchasePlanController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return Renderable
      */
     public function index()
     {
@@ -30,7 +29,7 @@ class PurchasePlanController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * @return Response
+     * @return Renderable
      */
     public function create()
     {
@@ -59,7 +58,7 @@ class PurchasePlanController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
@@ -85,7 +84,7 @@ class PurchasePlanController extends Controller
 
     /**
      * Show the specified resource.
-     * @return Response
+     * @return JsonResponse
      */
     public function show($id)
     {
@@ -94,7 +93,7 @@ class PurchasePlanController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function edit($id)
     {
@@ -127,7 +126,7 @@ class PurchasePlanController extends Controller
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function update(Request $request, $id)
     {
@@ -142,7 +141,7 @@ class PurchasePlanController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @return Response
+     * @return JsonResponse
      */
     public function destroy($id)
     {

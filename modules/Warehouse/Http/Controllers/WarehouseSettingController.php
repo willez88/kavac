@@ -3,7 +3,7 @@
 namespace Modules\Warehouse\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -41,7 +41,7 @@ class WarehouseSettingController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return Renderable
      */
     public function index()
     {
@@ -71,7 +71,7 @@ class WarehouseSettingController extends Controller
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\Redirect
      */
     public function store(Request $request)
     {
@@ -96,7 +96,7 @@ class WarehouseSettingController extends Controller
             if ($key !== '_token' && !is_null($value)) {
                 list($table, $field) = explode("_", $key);
                 list($prefix, $digits, $sufix) = CodeSetting::divideCode($value);
-                
+
                 if ($table === "products") {
                     /** @var string $table Define la tabla asociado a los productos inventariados */
                     $table = "inventory_products";
@@ -134,11 +134,11 @@ class WarehouseSettingController extends Controller
                 }
             }
         }
-        
+
         if ($saved) {
             $request->session()->flash('message', ['type' => 'store']);
         }
-        
+
         return redirect()->route('warehouse.setting.index');
     }
 
@@ -147,7 +147,7 @@ class WarehouseSettingController extends Controller
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\Redirect
      */
     public function storeParameter(Request $request, ParameterRepository $parameterRepository)
     {
@@ -165,7 +165,7 @@ class WarehouseSettingController extends Controller
      * Muesta todos los registros de los parámetros de configuración del requeridos por el módulo de almacén
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function vueSetting()
     {

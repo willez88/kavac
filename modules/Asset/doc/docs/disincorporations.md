@@ -21,11 +21,10 @@ La gestión para retiro de bienes institucionales se lleva a cabo a través de l
 
 ![Screenshot](/img/desincorporar_bien.jpg)<div style="text-align: center;font-weight: bold">Figura: Desincorporar Bienes Institucionales</div>
 
-**Nota**
+!!! note "Nota"
+	En la parte inferior de esta sección (Desincorporar Bienes Institucionales) se muestran los resultados filtrados una vez que el usuario completa la información de los bienes a ser asignados y presiona el botón **Buscar**, si el usuario no introduce ningun dato del bien y presiona el botón **Buscar** entonces el sistema muestra todos los bienes que pueden ser desincorporados.    
 
-En la parte inferior de esta sección se muestran los resultados filtrados una vez que el usuario presione el botón **Buscar**, si el usuario no introduce ningun dato del bien y presiona el botón **Buscar** entonces el sistema muestra todos los registros realizados.    
-
-Para asignar varios bienes, se hace uso del botón **Checkbox** ubicado en la primera columna de la tabla de registros, finalmente se presiona el botón **Guardar** para registrar la asignación.
+	Para asignar varios bienes, se hace uso del botón **Checkbox** ubicado en la primera columna de la tabla de registros, finalmente se presiona el botón **Guardar** para registrar la asignación.
 
 ###Editar una asignación 
 

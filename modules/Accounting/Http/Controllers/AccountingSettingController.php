@@ -3,15 +3,12 @@
 namespace Modules\Accounting\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Accounting\Models\AccountingEntry;
 use App\Models\CodeSetting;
 use App\Rules\CodeSetting as CodeSettingRule;
-use Modules\Accounting\Models\Institution;
-use Auth;
-use Session;
 
 /**
  * @class AccountingConfigurationCategoryController
@@ -40,7 +37,7 @@ class AccountingSettingController extends Controller
 
     /**
      * Muestra la vista la configuración del modulo
-     * @return view
+     * @return Renderable
      */
     public function index()
     {
@@ -70,7 +67,7 @@ class AccountingSettingController extends Controller
          * @var boolean
          */
         $saved = false;
-        
+
         foreach ($codes as $key => $value) {
             /**
              * [$model Define el modelo al cual hace referencia el código]
@@ -81,7 +78,7 @@ class AccountingSettingController extends Controller
             if ($key !== '_token' && !is_null($value)) {
                 list($table, $field) = explode("_", $key);
                 list($prefix, $digits, $sufix) = CodeSetting::divideCode($value);
-                
+
                 /**
                  * [$model define el modelo asociado a asientos contables]
                  * @var string
@@ -97,7 +94,7 @@ class AccountingSettingController extends Controller
                     'format_year'   => $sufix,
                     'model'         => $model,
                 ]);
-                
+
                 /**
                  * [$saved Define el estatus verdadero para indicar que se ha registrado información]
                  * @var boolean
@@ -105,11 +102,11 @@ class AccountingSettingController extends Controller
                 $saved = true;
             }
         }
-        
+
         if ($saved) {
             $request->session()->flash('message', ['type' => 'store']);
         }
-        
+
         return redirect()->back();
     }
 
@@ -125,7 +122,7 @@ class AccountingSettingController extends Controller
                 'title' => 'Alerta',
                 'icon'  => 'screen-error',
                 'class' => 'growl-danger',
-                'text'  => 'Se debe configurar previamente el formato para el código de referencia del asiento. 
+                'text'  => 'Se debe configurar previamente el formato para el código de referencia del asiento.
                 De lo contrario el sistema les asignara números de forma progresiva'
             ]);
         } else {

@@ -3,7 +3,6 @@
 namespace Modules\Asset\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -110,13 +109,13 @@ class AssetSpecificCategoryController extends Controller
             'asset_subcategory_id' => ['required'],
         ]);
         $specific_category = AssetSpecificCategory::find($request->id);
- 
+
         $specific_category->name = $request->input('name');
         $specific_category->code = $request->input('code');
         $specific_category->asset_subcategory_id = $request->input('asset_subcategory_id');
 
         $specific_category->save();
- 
+
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
     }
 

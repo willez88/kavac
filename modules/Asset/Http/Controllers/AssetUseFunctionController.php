@@ -3,7 +3,6 @@
 namespace Modules\Asset\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -34,7 +33,7 @@ class AssetUseFunctionController extends Controller
         /** Establece permisos de acceso para cada método del controlador */
         //$this->middleware('permission:asset.setting.use-function');
     }
-    
+
     /**
      * Muestra un listado de las funciones de uso de los bienes institucionales
      *
@@ -80,19 +79,19 @@ class AssetUseFunctionController extends Controller
      * @param     Integer                          $id         Identificador único de la función de usa a editar
      * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
-    
+
     public function update(Request $request, $id)
     {
         $function = AssetUseFunction::find($id);
         $this->validate($request, [
             'name' => ['required', 'max:100']
         ]);
-        
+
         if ($function) {
             $function->name = $request->input('name');
             $function->save();
         }
- 
+
         return response()->json(['message' => 'Success'], 200);
     }
 

@@ -3,7 +3,7 @@
 namespace Modules\Sale\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -32,7 +32,7 @@ class SalePaymentMethodController extends Controller
      * Muestra todos los registros de tipos de personal
      *
      * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
-     * @return \Illuminate\Http\JsonResponse    Json con los datos
+     * @return JsonResponse    Json con los datos
      */
     public function index()
     {
@@ -41,7 +41,7 @@ class SalePaymentMethodController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * @return Response
+     * @return Renderable
      */
     public function create()
     {
@@ -53,7 +53,7 @@ class SalePaymentMethodController extends Controller
      *
      * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request $request    Solicitud con los datos a guardar
-     * @return \Illuminate\Http\JsonResponse        Json: objeto guardado y mensaje de confirmación de la operación
+     * @return JsonResponse        Json: objeto guardado y mensaje de confirmación de la operación
      */
     public function store(Request $request)
     {
@@ -67,7 +67,7 @@ class SalePaymentMethodController extends Controller
 
     /**
      * Show the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function show()
     {
@@ -76,7 +76,7 @@ class SalePaymentMethodController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function edit()
     {
@@ -89,7 +89,7 @@ class SalePaymentMethodController extends Controller
      * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request   Solicitud con los datos a actualizar
      * @param  integer $id                          Identificador del datos a actualizar
-     * @return \Illuminate\Http\JsonResponse        Json con mensaje de confirmación de la operación
+     * @return JsonResponse        Json con mensaje de confirmación de la operación
      */
     public function update(Request $request, $id)
     {
@@ -109,7 +109,7 @@ class SalePaymentMethodController extends Controller
      *
      * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
      * @param  integer $id                      Identificador del metodo de pago a eliminar
-     * @return \Illuminate\Http\JsonResponse    Json: objeto eliminado y mensaje de confirmación de la operación
+     * @return JsonResponse    Json: objeto eliminado y mensaje de confirmación de la operación
      */
     public function destroy($id)
     {
@@ -122,7 +122,7 @@ class SalePaymentMethodController extends Controller
      * Obtiene los tipos de pago registrados
      *
      * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
-     * @return \Illuminate\Http\JsonResponse    Json con los datos de los tipos de pago
+     * @return JsonResponse    Json con los datos de los tipos de pago
      */
     public function getSalePaymentMethod()
     {

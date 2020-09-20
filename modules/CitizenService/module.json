@@ -13,8 +13,6 @@
         "Modules\\CitizenService\\Providers\\CitizenServiceServiceProvider"
     ],
     "aliases": {},
-    "files": [
-        "start.php"
-    ],
+    "files": [],
     "requires": []
 }

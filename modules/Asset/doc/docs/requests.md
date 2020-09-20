@@ -14,7 +14,8 @@ A través de los botones ubicados en la columna titulada **Acción** el usuario 
 
 ###Crear una nueva solicitud 
 
-Los bienes disponibles para la sección de solicitudes, son aquellos identificados bajo el estatus de uso **En Almacen o Deposito para su Asignación**.   
+!!! warning "Advertencia"
+	Los bienes disponibles para la sección de solicitudes, son aquellos identificados bajo el estatus de uso **En Almacen o Deposito para su Asignación**.   
 
 **Para crear un nuevo registro**
 
@@ -25,12 +26,10 @@ Los bienes disponibles para la sección de solicitudes, son aquellos identificad
 
 ![Screenshot](/img/solicitud_bienes.jpg)<div style="text-align: center;font-weight: bold">Figura: Solicitud de Bienes Institucionales</div>
 
-**Nota**
+!!! note "Nota"
+	En la parte inferior de esta sección (Solicitudes de Bienes Institucionales) se muestran los resultados filtrados una vez que el usuario completa la información de los bienes a ser asignados y presiona el botón **Buscar**, si el usuario no introduce ningun dato del bien y presiona el botón **Buscar** entonces el sistema muestra todos los bienes disponibles.    
 
-En la parte inferior de esta sección se muestran los resultados filtrados una vez que el usuario presione el botón **Buscar**, si el usuario no introduce ningun dato del bien y presiona el botón **Buscar** entonces el sistema muestra todos los registros realizados.    
-
-Para asignar varios bienes, se hace uso del botón **Checkbox** ubicado en la primera columna de la tabla de registros, finalmente se presiona el botón **Guardar** para registrar la asignación.
-
+	Para asignar varios bienes, se hace uso del botón **Checkbox** ubicado en la primera columna de la tabla de registros, finalmente se presiona el botón **Guardar** para registrar la asignación.
 
 ##Entrega de equipo 
 

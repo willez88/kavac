@@ -523,7 +523,6 @@
                 } else {
                     return true;
                 }
-
             },
             /**
              * Método que cambia el panel de visualización
@@ -672,7 +671,6 @@
                                 && (vm.record.payroll_horizontal_salary_scale != null)
                                 && (vm.record.payroll_horizontal_salary_scale_id == vm.record.payroll_horizontal_salary_scale['id'])) {
                                 $.each(vm.record.payroll_salary_tabulator_scales, function (index, field) {
-                                    console.log(field);
                                     let element = document.getElementById("salary_scale_h_" + field['payroll_horizontal_scale_id']);
                                     if (element) {
                                         element.value = field['value'];
@@ -685,7 +683,6 @@
                                 && (vm.record.payroll_vertical_salary_scale != null)
                                 && (vm.record.payroll_vertical_salary_scale_id == vm.record.payroll_vertical_salary_scale['id'])) {
                                 $.each(vm.record.payroll_salary_tabulator_scales, function (index, field) {
-                                    console.log(field);
                                     var element = document.getElementById("salary_scale_v_" + field['payroll_vertical_scale_id']);
                                     if (element) {
                                         element.value = field['value'];
@@ -784,7 +781,6 @@
                     }
                     vm.record.payroll_salary_tabulator_scales = payroll_scales;
                 }
-                console.log(vm.record);
 
                 if (vm.record.id) {
                     vm.updateRecord(url);

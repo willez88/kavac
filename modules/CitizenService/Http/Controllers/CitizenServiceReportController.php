@@ -3,7 +3,7 @@
 namespace Modules\CitizenService\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\CitizenService\Models\CitizenServiceRequest;
@@ -13,7 +13,7 @@ class CitizenServiceReportController extends Controller
     use ValidatesRequests;
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return Renderable
      */
     public function index()
     {
@@ -22,7 +22,7 @@ class CitizenServiceReportController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * @return Response
+     * @return Renderable
      */
     public function create()
     {
@@ -32,7 +32,6 @@ class CitizenServiceReportController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param  Request $request
-     * @return Response
      */
     public function store(Request $request)
     {
@@ -51,7 +50,7 @@ class CitizenServiceReportController extends Controller
 
     /**
      * Show the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function show()
     {
@@ -60,7 +59,7 @@ class CitizenServiceReportController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function edit()
     {
@@ -70,7 +69,7 @@ class CitizenServiceReportController extends Controller
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return Renderable
      */
     public function update(Request $request)
     {
@@ -78,7 +77,7 @@ class CitizenServiceReportController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @return Response
+     * @return Renderable
      */
     public function destroy()
     {
@@ -92,7 +91,7 @@ class CitizenServiceReportController extends Controller
             $request->citizen_service_request_type_id,
             $request->citizen_service_id
         )->get();
-        
+
         return response()->json(['records' => $citizenservice], 200);
     }
 
@@ -103,7 +102,7 @@ class CitizenServiceReportController extends Controller
             $request->citizen_service_request_type_id,
             $request->citizen_service_id
         )->get();
-        
+
         return response()->json(['records' => $citizenservice], 200);
     }
 }

@@ -3,8 +3,8 @@
 namespace Modules\Budget\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Budget\Models\BudgetAccount;
 
@@ -70,7 +70,7 @@ class BudgetAccountController extends Controller
      * Muestra un listado de cuentas presupuestarias
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return Response
+     * @return Renderable
      */
     public function index()
     {
@@ -83,7 +83,7 @@ class BudgetAccountController extends Controller
      * Muestra un formulario ara la creación de una cuenta presupuestaria
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return Response
+     * @return Renderable
      */
     public function create()
     {
@@ -101,7 +101,7 @@ class BudgetAccountController extends Controller
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
-     * @return Response
+     * @return Renderable
      */
     public function store(Request $request)
     {
@@ -154,7 +154,7 @@ class BudgetAccountController extends Controller
      * Muestra información de la cuenta presupuestaria
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return Response
+     * @return Renderable
      */
     public function show()
     {
@@ -166,7 +166,7 @@ class BudgetAccountController extends Controller
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador de la cuenta presupuestaria a modificar
-     * @return Response
+     * @return Renderable
      */
     public function edit($id)
     {
@@ -193,7 +193,7 @@ class BudgetAccountController extends Controller
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
      * @param  integer $id      Identificador de la cuenta presupuestaria a modificar
-     * @return Response
+     * @return Renderable
      */
     public function update(Request $request, $id)
     {
@@ -219,7 +219,7 @@ class BudgetAccountController extends Controller
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador de la cuenta presupuestaria a eliminar
-     * @return Response
+     * @return Renderable
      */
     public function destroy($id)
     {

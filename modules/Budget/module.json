@@ -24,7 +24,6 @@
     ],
     "aliases": [],
     "files": [
-        "start.php",
         "Helpers\/Helper.php"
     ],
     "requires": {

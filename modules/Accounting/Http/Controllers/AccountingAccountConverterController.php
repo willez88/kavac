@@ -3,7 +3,7 @@
 namespace Modules\Accounting\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Accounting\Models\AccountingAccount;
@@ -44,7 +44,7 @@ class AccountingAccountConverterController extends Controller
     /**
      * [index Muestra la vista principal para mostrar las conversiones]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return [view] [vista]
+     * @return Renderable
      */
     public function index()
     {
@@ -79,7 +79,7 @@ class AccountingAccountConverterController extends Controller
     /**
      * [create Muestra un formulario para crear conversiones de cuentas]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return [view]
+     * @return Renderable
      */
     public function create()
     {
@@ -148,7 +148,7 @@ class AccountingAccountConverterController extends Controller
      * [edit Muestra el formulario para la edición de conversión de cuentas]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  [integer] $id [Identificador de la conversión a modificar]
-     * @return [view]
+     * @return Renderable
      */
     public function edit($id)
     {

@@ -466,7 +466,7 @@
 				}
 
 			},
-			initUpdate(index, event) {
+			initUpdate(id, event) {
                 const vm = this;
 				this.errors = [];
 				let recordEdit = JSON.parse(JSON.stringify(vm.records.filter((rec) => {

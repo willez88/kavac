@@ -2,8 +2,7 @@
 
 namespace Modules\TechnicalSupport\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 /**
@@ -35,6 +34,8 @@ class TechnicalSupportSettingController extends Controller
      * Muestra el formulario de configuración del módulo de soporte técnico.
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @return  Renderable
      */
     public function index()
     {

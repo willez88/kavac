@@ -3,14 +3,12 @@
 namespace Modules\Payroll\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use Modules\Payroll\Models\PayrollPaymentType;
 use Modules\Payroll\Models\PayrollPaymentPeriod;
 use Modules\Payroll\Models\PayrollConcept;
-use Modules\Payroll\Models\parameter;
 
 /**
  * @class      PayrollPaymentTypeController
@@ -97,7 +95,7 @@ class PayrollPaymentTypeController extends Controller
             $listConcepts = [];
             foreach ($payrollPaymentType->payrollConcepts as $payrollConcept) {
                 array_push(
-                $listConcepts,
+                    $listConcepts,
                     [
                         'id' => $payrollConcept->id,
                         'text' => $payrollConcept->code . ' - ' . $payrollConcept->name
@@ -229,7 +227,8 @@ class PayrollPaymentTypeController extends Controller
 
         /** Se eliminan los períodos de pago asociados al tipo de pago */
         foreach ($payrollPaymentType->payrollPaymentPeriods as $payrollPaymentPeriod) {
-            $payrollPaymentPeriod->forceDelete();;
+            $payrollPaymentPeriod->forceDelete();
+            ;
         }
         /** Se agregan los períodos de pago asociados al tipo de pago */
         foreach ($request->payroll_payment_periods as $paymentPeriod) {
@@ -309,7 +308,8 @@ class PayrollPaymentTypeController extends Controller
                 ]);
         }
         $payrollPaymentPeriods = PayrollPaymentPeriod::where(
-            'payroll_payment_type_id', $payrollPaymentType->id
+            'payroll_payment_type_id',
+            $payrollPaymentType->id
         )->orderBy('number')->get();
 
         if (!is_null($payrollPaymentPeriods)) {

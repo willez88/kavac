@@ -3,7 +3,7 @@
 namespace Modules\CitizenService\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -17,7 +17,7 @@ class CitizenServiceRequestController extends Controller
 
     /**
      * Muestra un listado de las solicitudes de atención al ciudadano
-     * @return Response
+     * @return Renderable
      */
     public function index()
     {
@@ -26,7 +26,7 @@ class CitizenServiceRequestController extends Controller
 
     /**
      * Muestra el formulario para registrar una nueva solicitud
-     * @return Response
+     * @return Renderable
      */
     public function create()
     {
@@ -36,7 +36,7 @@ class CitizenServiceRequestController extends Controller
     /**
      * Valida y registra una nueva solicitud de atención al ciudadano
      * @param  Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
@@ -70,8 +70,8 @@ class CitizenServiceRequestController extends Controller
 
             ]);
         }
-        if ($request->citizen_service_request_type_id ==2 || $request->citizen_service_request_type_id ==3 || $request->citizen_service_request_type_id ==4 ){
-            $this->validate($request,[
+        if ($request->citizen_service_request_type_id ==2 || $request->citizen_service_request_type_id ==3 || $request->citizen_service_request_type_id ==4) {
+            $this->validate($request, [
                 'citizen_service_department_id'    => ['required'],
 
             ]);
@@ -170,7 +170,7 @@ class CitizenServiceRequestController extends Controller
 
     /**
      * Show the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function show()
     {
@@ -179,7 +179,7 @@ class CitizenServiceRequestController extends Controller
 
     /**
      * Muestra el formulario para actualizar la información de las solicitudes de atención al ciudadano
-     * @return Response
+     * @return Renderable
      */
     public function edit($id)
     {
@@ -190,7 +190,7 @@ class CitizenServiceRequestController extends Controller
     /**
      * Actualiza la información de las solicitudes de atención al ciudadano
      * @param  Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function update(Request $request, $id)
     {
@@ -304,7 +304,7 @@ class CitizenServiceRequestController extends Controller
 
     /**
      * Elimina una solicitud de atención al ciudadano
-     * @return Response
+     * @return JsonResponse
      */
     public function destroy(CitizenServiceRequest $request)
     {
@@ -313,9 +313,7 @@ class CitizenServiceRequestController extends Controller
     }
 
     /**
-    * Obtiene un listado de las solicitudes registradas
-
-
+     * Obtiene un listado de las solicitudes registradas
      */
     public function vueList()
     {
@@ -327,24 +325,29 @@ class CitizenServiceRequestController extends Controller
         $citizenServiceRequest = CitizenServiceRequest::where('id', $id)->with(['phones','citizenServiceDepartment'])->first();
         return response()->json(['record' => $citizenServiceRequest], 200);
     }
+
     public function vueListPending()
     {
         return response()->json(['records' => CitizenServiceRequest::where('state', 'Pendiente')->get()], 200);
     }
+
     public function vueListClosing()
     {
         $citizenServiceRequest = CitizenServiceRequest::where('state', 'Iniciado')->get();
         return response()->json(['records' => $citizenServiceRequest], 200);
     }
+
     public function vueClose($id)
     {
         $citizenServiceRequest = CitizenServiceRequest::find($id);
         return response()->json(['record' => $citizenServiceRequest], 200);
     }
+
     public function vueCloseImageUpdate()
     {
         dd("entro");
     }
+
     public function approved(Request $request, $id)
     {
         $citizenServiceRequest = CitizenServiceRequest::find($id);

@@ -3,7 +3,7 @@
 namespace Modules\Budget\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Crypt;
@@ -61,7 +61,7 @@ class BudgetSpecificActionController extends Controller
      * Muestra un listado de acciones específicas
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return Response
+     * @return Renderable
      */
     public function index()
     {
@@ -72,7 +72,7 @@ class BudgetSpecificActionController extends Controller
      * Muestra el formulario para crear una acción específica
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return Response
+     * @return Renderable
      */
     public function create()
     {
@@ -101,7 +101,7 @@ class BudgetSpecificActionController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
-     * @return Response
+     * @return Renderable
      */
     public function store(Request $request)
     {
@@ -142,7 +142,7 @@ class BudgetSpecificActionController extends Controller
      * Muestra información de una acción específica
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return Response
+     * @return Renderable
      */
     public function show()
     {
@@ -154,7 +154,7 @@ class BudgetSpecificActionController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador de la acción específica a modificar
-     * @return Response
+     * @return Renderable
      */
     public function edit($id)
     {
@@ -188,7 +188,7 @@ class BudgetSpecificActionController extends Controller
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  Request $request Objeto con datos de la petición realizada
      * @param  integer $id Identificador de la acción específica a modificar
-     * @return Response
+     * @return Renderable
      */
     public function update(Request $request, $id)
     {
@@ -229,7 +229,7 @@ class BudgetSpecificActionController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  integer $id Identificador de la acción específica a eliminar
-     * @return Response
+     * @return Renderable
      */
     public function destroy($id)
     {

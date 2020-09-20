@@ -15,36 +15,35 @@ El módulo de bienes posee una sección para **Registros**, desde esta sección 
 
 KAVAC incorpora una funcionalidad para gestionar la asignación de bienes a cada trabajador a través de la sección **Asignaciones**.
 
-La sección **Desincorporaciones**, permite la gestión de registro para el retiro de algun bien, el bien es registrado para desincorporación por obsolescencia, inservibilidad o reparación.
+La sección **Desincorporaciones**, permite la gestión de registro para el retiro de algún bien, el bien es registrado para desincorporación por inservible, obsolescencia, o reparación.
 
-La gestión de prestamos de bienes institucionales se lleva a cabo en la sección **Solicitudes**, esta sección permite, además, tener un control de todas los registros de las solicitudes, prorrogas y entregas pendientes.      
+La gestión de prestamos de bienes institucionales se lleva a cabo en la sección **Solicitudes**, esta sección permite, además, tener un control de todas los registros de las solicitudes, prórrogas y entregas pendientes.      
 
 A través de la sección **Historial del inventario** se generan los diferentes reportes para bienes registrados, que contiene una relación detallada y ordenada de los elementos que componen el activo o patrimonio de la institución.      
 
-A través de la sección **Reportes de bienes**, es posible generar un reporte general, por clasificación o por dependencia de los registros realizados.  Información del reporte... 
+De la misma forma, la sección **Reportes de bienes**,  permite generar un reporte general, por clasificación o por dependencia de los registros realizados.  Información del reporte...(Agregar información sobre generación de reportes) 
 
 ##Sobre los usuarios
 
 
-Los usuarios que interactuan en este módulo, serán todos aquellos usuarios con roles y permisos sobre el módulo de bienes, previamente gestionados por el usuario con el rol de administrador. Para conocer mas sobre la gestión de roles y permisos visite el [Manual de Documentación del Sistema KAVAC](http://192.168.12.180/manual/base/).
-
+Los usuarios que interactúan en este módulo, serán todos aquellos usuarios con roles y permisos sobre el módulo de bienes, previamente gestionados por el usuario con el rol de administrador. Para conocer mas sobre la gestión de roles y permisos visite el [Manual de Documentación del Sistema KAVAC](#).
 
 
 ##Funcionalidades
 
-- Relación directa con el módulo de Compras
+- Relación directa con el Módulo de Compras
 - Carga masiva a través de la importación de hojas de calculo
 
 
 ##Licencia
 
-Nombre del producto: KAVAC Sistema de Gestión de Recursos
+Nombre del producto: KAVAC ‘Sistema de Gestión de Recursos’
 
-   Nombre del licenciante y año: Fundación CENDITEL (Año)
+   Nombre del licenciante y año:  Licencia Combinada de Software y Contenidos de la Fundación CENDITEL . Versión 1.2 (Año: 2015).
 
    Créditos: 
    
-   **Lider de proyecto / Diseño / Desarrollo / Autor**
+   **Líder de proyecto / Diseño / Desarrollo / Autor**
 
 - Roldan Vargas (rvargas@cenditel.gob.ve | roldandvg@gmail.com)
 
@@ -85,18 +84,23 @@ Nombre del producto: KAVAC Sistema de Gestión de Recursos
 - Angelo Osorio (adosorio@cenditel.gob.ve)
 
 
-Licencia Combinada de Software y Contenidos de la Fundación CENDITEL   
+Licencia Combinada de Software y Contenidos de la Fundación CENDITEL (2015)   
 
 
-La Fundación Centro Nacional de Desarrollo e Investigación en Tecnologías Libres (CENDITEL), ente adscrito al Ministerio del Poder Popular para  Ciencia y Tecnología (MINCYT), concede permiso, para usar, copiar, modificar y distribuir libremente y sin fines comerciales el Software KAVAC Sistema de Gestión de Recursos (sin garantía alguna) asimismo permite, copiar, adaptar, publicar y comunicar los contenidos, preservando en ambos casos los derechos morales de los autores y manteniendo los mismos principios para las obras derivadas, de conformidad con los términos y condiciones de las licencias de software y contenidos de la Fundación CENDITEL.
+La Fundación Centro Nacional de Desarrollo e Investigación en Tecnologías Libres (CENDITEL), ente adscrito al Ministerio del Poder Popular para  Ciencia y Tecnología  (Mincyt), concede permiso, para usar, copiar, modificar y distribuir libremente y sin fines comerciales el Software KAVAC ‘Sistema deGestión de Recursos’ (sin garantía alguna) asimismo permite, copiar, adaptar, publicar y comunicar los contenidos, preservando en ambos casos los derechos morales de los autores y manteniendo los mismos principios para las obras derivadas, de conformidad con los términos y condiciones de las licencias de software y contenidos de la Fundación CENDITEL.
 
 
 Cada vez que copie y distribuya este producto debe acompañarlo de una copia de las licencias. Para más información sobre los términos y condiciones de las licencias visite las siguientes direcciones electrónicas:  
 
 
-[Licencia de Software]( http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+<!-- [Licencia de Software]( http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
 
-[Licencia de Contenidos]( http://conocimientolibre.cenditel.gob.ve/licencias/)
+[Licencia de Contenidos]( http://conocimientolibre.cenditel.gob.ve/licencias/) -->
+
+
+[Licencia de Software](https://conocimientolibre.cenditel.gob.ve/legislacion)
+
+[Licencia de Contenidos]( https://conocimientolibre.cenditel.gob.ve/legislacion)
 
 ![Screenshot](img/licencia.png)
 

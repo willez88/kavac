@@ -2,7 +2,7 @@
     <section id="PayrollSalaryAdjustmentsFormComponent">
         <div class="card">
             <div class="card-header">
-                <h6 class="card-title">Actualizar tablas salariales</h6>
+                <h6 class="card-title">Ajustes en tablas salariales</h6>
                 <div class="card-btns">
                     <a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)"
                        title="Ir atrás" data-toggle="tooltip">
@@ -35,70 +35,191 @@
                     </div>
                 </div>
                 <!-- ./mensajes de error -->
-                <div class="row">
-                    <div class="col-md-6">
-                        <!-- fecha de generación -->
-                        <div class="form-group is-required">
-                            <label>Fecha de generación:</label>
-                            <input type="date" readonly
-                                   data-toggle="tooltip"
-                                   title="Fecha de generación del ajuste salarial"
-                                   class="form-control input-sm"
-                                   v-model="record.created_at">
+                <section class="form-horizontal">
+                    <div id="salaryAdjustmentsForm" v-if="panel == 'Form'">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- fecha de generación -->
+                                <div class="form-group is-required">
+                                    <label>Fecha de generación:</label>
+                                    <input type="date" readonly
+                                           data-toggle="tooltip"
+                                           title="Fecha de generación del ajuste salarial"
+                                           class="form-control input-sm"
+                                           v-model="record.created_at">
+                                </div>
+                                <!-- ./fecha de generación -->
+                            </div>
+                            <div class="col-md-6">
+                                <!-- fecha del aumento -->
+                                <div class="form-group is-required">
+                                    <label>Fecha del aumento:</label>
+                                    <input type="date" data-toggle="tooltip"
+                                           title="Fecha del aumento salarial"
+                                           class="form-control input-sm"
+                                           v-model="record.increase_of_date">
+                                </div>
+                                <!-- ./fecha del aumento -->
+                            </div>
+                            <div class="col-md-6">
+                                <!-- tabulador salarial -->
+                                <div class="form-group is-required">
+                                    <label>Tabulador salarial:</label>
+                                    <select2 :options="payroll_salary_tabulators"
+                                             @input="showRecord()"
+                                             v-model="record.payroll_salary_tabulator_id">
+                                    </select2>
+                                </div>
+                                <!-- ./tabulador salarial -->
+                            </div>
+                            <div class="col-md-6">
+                                <!-- tipo de aumento -->
+                                <div class="form-group is-required">
+                                    <label>Tipo de aumento:</label>
+                                    <select2 :options="increase_of_types"
+                                             v-model="record.increase_of_type">
+                                    </select2>
+                                </div>
+                                <!-- ./tipo de aumento -->
+                            </div>
+                            <div class="col-md-6"
+                                 v-if="record.increase_of_type == 'percentage'
+                                    || record.increase_of_type == 'absolute_value'">
+                                <!-- valor -->
+                                <div class="form-group is-required">
+                                    <label>Valor:</label>
+                                    <input type="text"
+                                           data-toggle="tooltip" title="Indique el valor"
+                                           class="form-control input-sm"
+                                           v-input-mask data-inputmask="
+                                                'alias': 'numeric',
+                                                'allowMinus': 'false',
+                                                'digits': '2'"
+                                           v-model="record.value">
+                                </div>
+                                <!-- ./valor -->
+                            </div>
                         </div>
-                        <!-- ./fecha de generación -->
                     </div>
-                    <div class="col-md-6">
-                        <!-- fecha del aumento -->
-                        <div class="form-group is-required">
-                            <label>Fecha del aumento:</label>
-                            <input type="date" data-toggle="tooltip"
-                                   title="Fecha del aumento salarial"
-                                   class="form-control input-sm"
-                                   v-model="record.increase_of_date">
+                    <div id="salaryAdjustmentsShow" v-else>
+                        <div class="modal-table"
+                             v-if="(payroll_salary_tabulator &&
+                                (((payroll_salary_tabulator.payroll_horizontal_salary_scale_id > 0)
+                                && (payroll_salary_tabulator.payroll_horizontal_salary_scale.payroll_scales) &&
+                                (payroll_salary_tabulator.payroll_horizontal_salary_scale.payroll_scales.length > 0))
+                                || ((payroll_salary_tabulator.payroll_vertical_salary_scale_id > 0)
+                                && (payroll_salary_tabulator.payroll_vertical_salary_scale.payroll_scales) &&
+                                (payroll_salary_tabulator.payroll_vertical_salary_scale.payroll_scales.length > 0))))">
+                            
+                            <table class="table table-hover table-striped table-responsive"
+                                   v-if="((payroll_salary_tabulator.payroll_horizontal_salary_scale_id > 0)
+                                      && (payroll_salary_tabulator.payroll_vertical_salary_scale_id == null))">
+                                <thead>
+                                    <th :colspan="1 + payroll_salary_tabulator.payroll_horizontal_salary_scale.payroll_scales.length"
+                                        v-if="payroll_salary_tabulator.payroll_horizontal_salary_scale.payroll_scales">
+                                        <strong>{{ payroll_salary_tabulator.name }}</strong>
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr class="text-center">
+                                        <th>Nombre:</th>
+                                        <th
+                                            v-for="(field_h, index) in
+                                            payroll_salary_tabulator.payroll_horizontal_salary_scale.payroll_scales">
+                                            {{ field_h.name }}
+                                        </th>
+                                    </tr>
+                                    <tr class="text-center"
+                                        v-if="payroll_salary_tabulator.payroll_vertical_salary_scale_id == null">
+                                        <th>Incidencia:</th>
+                                        <td class="td-with-border"
+                                            v-for="(field_h, index) in
+                                            payroll_salary_tabulator.payroll_horizontal_salary_scale.payroll_scales">
+                                            <div>
+                                                <input type="text" :id="'salary_scale_h_' + field_h.id"
+                                                       class="form-control input-sm" data-toggle="tooltip"
+                                                       :disabled="record.increase_of_type != 'different'"
+                                                       onfocus="this.select()"
+                                                       :value="getScaleValue(null, field_h.id)">
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="text-center"
+                                        v-else
+                                        v-for="(field_v, index_v) in
+                                        payroll_salary_tabulator.payroll_vertical_salary_scale.payroll_scales">
+                                        <th>
+                                            {{field_v.name}}
+                                        </th>
+                                        <td class="td-with-border"
+                                            v-for="(field_h, index_h) in
+                                            payroll_salary_tabulator.payroll_horizontal_salary_scale.payroll_scales">
+                                            <div>
+                                                <input type="text"
+                                                       :id="'salary_scale_' + field_v.id + '_' + field_h.id"
+                                                       class="form-control input-sm" data-toggle="tooltip"
+                                                       :disabled="record.increase_of_type != 'different'"
+                                                       onfocus="this.select()"
+                                                       :value="getScaleValue(field_v.id, field_h.id)">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-hover table-striped table-responsive table-assignment"
+                                   v-else-if="payroll_salary_tabulator.payroll_horizontal_salary_scale_id == null
+                                           && payroll_salary_tabulator.payroll_vertical_salary_scale_id > 0">
+                                <thead>
+                                    <th colspan="2">
+                                        <strong>{{ payroll_salary_tabulator.name }}</strong>
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr class="text-center">
+                                        <th>Nombre</th>
+                                        <th>Incidencia</th>
+                                    </tr>
+                                    <tr class="text-center"
+                                        v-for="(field, index) in
+                                        payroll_salary_tabulator.payroll_vertical_salary_scale.payroll_scales">
+                                        <th>
+                                            {{field.name}}
+                                        </th>
+                                        <td>
+                                            <div>
+                                                <input type="text" :id="'salary_scale_v_' + field.id"
+                                                       class="form-control input-sm" data-toggle="tooltip"
+                                                       :disabled="record.increase_of_type != 'different'"
+                                                       onfocus="this.select()"
+                                                       :value="getScaleValue(field.id, null)">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <!-- ./fecha del aumento -->
                     </div>
-                    <div class="col-md-6">
-                        <!-- tabulador salarial -->
-                        <div class="form-group is-required">
-                            <label>Tabulador salarial:</label>
-                            <select2 :options="payroll_salary_tabulators"
-                                     @input="showRecord()"
-                                     v-model="record.payroll_salary_tabulator_id">
-                            </select2>
+                    <div style="padding-bottom: 20px;">
+                        <div class="pull-right"
+                             v-if="panel == 'Form'">
+                            <button type="button" @click="loadSalaryScales()"
+                                    class="btn btn-primary btn-wd btn-sm"
+                                    :disabled="isDisableNext()"
+                                    data-toggle="tooltip" title="">
+                                Siguiente
+                            </button>
                         </div>
-                        <!-- ./tabulador salarial -->
-                    </div>
-                    <div class="col-md-6">
-                        <!-- tipo de aumento -->
-                        <div class="form-group is-required">
-                            <label>Tipo de aumento:</label>
-                            <select2 :options="increase_of_types"
-                                     v-model="record.increase_of_type">
-                            </select2>
+                        <div class="pull-left"
+                             v-else>
+                            <button type="button" @click="changePanel('Form')"
+                                    class="btn btn-default btn-wd btn-sm"
+                                    data-toggle="tooltip" title="">
+                                Regresar
+                            </button>
                         </div>
-                        <!-- ./tipo de aumento -->
                     </div>
-                    <div class="col-md-6"
-                         v-if="record.increase_of_type == 'percentage'
-                            || record.increase_of_type == 'absolute_value'">
-                        <!-- valor -->
-                        <div class="form-group is-required">
-                            <label>Valor:</label>
-                            <input type="text"
-                                   data-toggle="tooltip"
-                                   title="Indique el valor"
-                                   class="form-control input-sm"
-                                   v-input-mask data-inputmask-regex="^[0-9]+\.{0,1}[0-9]{2}$"
-                                   v-model="record.value">
-                        </div>
-                        <!-- ./valor -->
-                    </div>
-                </div>
-                <pre>
-                    {{ payroll_salary_tabulator }}
-                </pre>
+                </section>
             </div>
             <div class="card-footer text-right">
                 <button type="button" @click="reset()"
@@ -143,7 +264,8 @@
                     { id: 'different',      text: 'Diferente'}
                 ],
                 errors:                    [],
-                records:                   []
+                records:                   [],
+                panel:                     'Form'
             }
         },
         created() {
@@ -208,6 +330,83 @@
                     }
                 }
             },
+            /**
+             * Método que habilita o deshabilita el botón siguiente
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+             */
+            isDisableNext() {
+                const vm = this;
+                if ((vm.record.increase_of_date != '') && (vm.record.increase_of_type != '') &&
+                    (vm.record.payroll_salary_tabulator_id != '')) {
+                    if (vm.record.increase_of_type == 'different') {
+                        return false;
+                    } else if (vm.record.value != '') {
+                            return false;
+                    } else {
+                        return true;
+                    }
+                } else {
+                    return true;
+                }
+
+            },
+            /**
+             * Método que cambia el panel de visualización
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+             *
+             * @param     {string}     panel    Panel seleccionado
+             */
+            changePanel(panel) {
+                const vm    = this;
+                let complete;
+                if (panel == 'Show') {
+                    complete = !vm.isDisableNext();
+                } else {
+                    complete = true;
+                }
+                if (complete == true) {
+                    vm.panel    = panel;
+                }
+            },
+            /**
+             * Método que obtiene la información de los escalafones salariales seleccionados
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+             *
+             */
+            loadSalaryScales() {
+                const vm = this;
+                vm.changePanel('Show');
+            },
+            /**
+             * Método que obtiene el valor de la escala según sea el caso
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+             *
+             * @param    {integer}    vertical      Identificador único del escalafón vertical. Este campo es opcional
+             * @param    {integer}    horizontal    Identificador único del escalafón horizontal. Este campo es opcional
+             *
+             */
+            getScaleValue(vertical, horizontal) {
+                const vm = this;
+                let value = 0;
+                $.each(vm.payroll_salary_tabulator.payroll_salary_tabulator_scales, function(index, field) {
+                    if (field["payroll_vertical_scale_id"] == vertical &&
+                        field["payroll_horizontal_scale_id"] == horizontal) {
+                        if (vm.record.increase_of_type == 'percentage') {
+                            value = JSON.parse(field.value) * JSON.parse(vm.record.value) / 100;
+                        } else if (vm.record.increase_of_type == 'absolute_value') {
+                            value = JSON.parse(field.value) + JSON.parse(vm.record.value);
+                        } else {
+                            value = JSON.parse(field.value);
+                        }
+                    }
+                });
+                return value;
+
+            }
         }
     };
 </script>

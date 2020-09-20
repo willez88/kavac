@@ -8,7 +8,7 @@
 
 Las categorías de origen y el catálogo de cuentas corresponden a los registros iniciales, registros que serán usados en las demás secciones del módulo según la configuración que se realice. 
 
-![Screenshot](../img/configuracion_contabilidad.png)<div style="text-align: center;font-weight: bold">Figura: Configuración Módulo de Contabilidad</div>
+![Screenshot](../img/figure_11.png)<div style="text-align: center;font-weight: bold">Figura 11: Configuración Módulo de Contabilidad</div>
 
 Para ingresar a esta configuración debemos dirigirnos al **Módulo de Contabilidad**, luego a **Configuración** y ubicarnos en la sección **Configuraciones del Módulo de Contabilidad**.  Al ingresar los registros iniciales pertinentes configuraremos el módulo según los requerimientos de cada institución.  
 
@@ -23,16 +23,16 @@ Esta sección está orientada a la gestión de categorías de origen que generan
 - Oprimir el botón **Guardar**
 - Verificar que la categoría se muestre en la lista de **Registros** 
 
-![Screenshot](../img/categorias.png)<div style="text-align: center;font-weight: bold">Figura: Crear Categoría de Origen</div>
+![Screenshot](../img/figure_12.png)<div style="text-align: center;font-weight: bold">Figura 12: Crear Categoría de Origen</div>
 
-![Screenshot](../img/registros_categorias.png)<div style="text-align: center;font-weight: bold">Figura: Lista de Categorías de Origen</div>
+![Screenshot](../img/figure_13.png)<div style="text-align: center;font-weight: bold">Figura 13: Lista de Categorías de Origen</div>
 
 
 **Editar una categoría registrada** 
 
 - Dirigirse al **Módulo de Contabilidad**, luego a **Configuración**, ubicarse en **Configuraciones del Módulo de Contabilidad** e ingresar en **Categorías de Origen**
 - Ubicarse en los **Registros** de la sección **Categorías de Origen** 
-- Desde la tabla de **Registros** nos ubicamos en la columna titulada **Acción** y haciendo uso de los botones que se ubican en esta columna podemos editar o eliminar el registro
+- Desde la tabla de **Registros** nos ubicamos en la columna titulada **Acción** y haciendo uso de los botones que se ubican en esta columna podemos **Editar** o **Eliminar** el registro
 
 
 ###Catálogo de cuentas
@@ -50,9 +50,9 @@ Esta sección permite listar las cuentas patrimoniales del sistema, importar cue
 - Verificar que la cuenta se muestre en la lista de **Registros**
 
 
-![Screenshot](../img/registro_cuentas.png)<div style="text-align: center;font-weight: bold">Figura: Registro de Cuentas Patrimoniales</div>
+![Screenshot](../img/figure_14.png)<div style="text-align: center;font-weight: bold">Figura 14: Registro de Cuentas Patrimoniales</div>
 
-![Screenshot](../img/registros_patrimoniales.png)<div style="text-align: center;font-weight: bold">Figura: Lista de Cuentas Patrimoniales</div>
+![Screenshot](../img/figure_15.png)<div style="text-align: center;font-weight: bold">Figura 15: Lista de Cuentas Patrimoniales</div>
 
 **Parámetros para asignación de código para un nuevo registro**
 
@@ -67,15 +67,17 @@ Esta sección permite listar las cuentas patrimoniales del sistema, importar cue
 
 - Dirigirse al **Módulo de Contabilidad**, luego a **Configuración**, ubicarse en **Configuraciones del Módulo de Contabilidad** e ingresar en **Catálogos de cuentas**
 - Ubicarse en los **Registros** de la sección **Catálogos de cuentas**
-- Desde la tabla de **Registros** nos ubicamos en la columna titulada **Acción** y haciendo uso de los botones que se ubican en esta columna podemos editar o eliminar el registro
-
-![Screenshot](../img/registros_patrimoniales.png)<div style="text-align: center;font-weight: bold">Figura: Lista de Cuentas Patrimoniales</div>
+- Desde la tabla de **Registros** (Figura 15) nos ubicamos en la columna titulada **Acción** y haciendo uso de los botones que se ubican en esta columna podemos **Editar** o **Eliminar** el registro
 
 **Importar cuentas desde una hoja de cálculo**
 
-Se puede hacer una carga masiva importando una hoja de cálculo con nuestras cuentas patrimoniales, los formatos permitidos son csv, xls, xlsx, ods. El formato de hoja de cálculo debe ser el siguiente:
+Se puede hacer una carga masiva importando una hoja de cálculo de cuentas patrimoniales.	El formato de hoja de cálculo debe ser el siguiente:
 
-![Screenshot](../img/importacion_cuentas.png)<div style="text-align: center;font-weight: bold">Figura: Importar Cuentas Patrimoniales</div>
+!!! warning "Advertencia"
+	Los formatos permitidos son csv, xls, xlsx y ods.
+
+
+![Screenshot](../img/figure_16.png)<div style="text-align: center;font-weight: bold">Figura 16: Importar Cuentas Patrimoniales</div>
 
 **Para importar una hoja de cálculo** 
 

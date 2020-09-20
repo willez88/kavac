@@ -93,34 +93,82 @@
                         <!-- ./conceptos -->
                     </div>
                 </div>
-                <div v-if="payroll_parameters.length > 0">
+                <section v-show="payroll_parameters.length > 0">
                     <hr>
-                    <h6 class="card-title">Parámetros de nómina</h6>
                     <div class="row">
-                        <!-- parámetros globales de nómina -->
-                        <div class="col-md-6"
-                             v-for="payroll_parameter in payroll_parameters">
-                            <div class="form-group is-required">
-                                <label>{{ payroll_parameter['code'] }}:</label>
-                                <input :id="'parameter_' + payroll_parameter['code']"
-                                       class="form-control input-sm"
-                                       type="text" data-toggle="tooltip"
-                                       :disabled="payroll_parameter['value'] != ''"
-                                       :value="payroll_parameter['value']"
-                                       v-if="payroll_parameter['value']">
+                        <div class="col-md-6" v-if="payroll_parameters.length > 0">
+                            <h6 class="card-title"> Parámetros de nómina </h6>
+                            <div class="row">
+                                <!-- parámetros globales de nómina -->
+                                <div class="col-md-6"
+                                     v-for="payroll_parameter in payroll_parameters">
+                                    <div class="form-group is-required">
+                                        <label>{{ payroll_parameter['code'] }}:</label>
+                                        <input :id="'parameter_' + payroll_parameter['code']"
+                                               class="form-control input-sm"
+                                               type="text" data-toggle="tooltip"
+                                               :disabled="payroll_parameter['value'] != ''"
+                                               :value="payroll_parameter['value']"
+                                               v-if="payroll_parameter['value']">
 
-                                <input :id="'parameter_' + payroll_parameter['code']"
-                                       type="text" data-toggle="tooltip"
-                                       :title="'Indique el parámetro '+ payroll_parameter['code'] + ' (requerido)'"
-                                       class="form-control input-sm"
-                                       v-input-mask data-inputmask-regex="^[0-9]+\.[0-9]{2}$"
-                                       v-else>
+                                        <input :id="'parameter_' + payroll_parameter['code']"
+                                               type="text" data-toggle="tooltip"
+                                               :title="'Indique el parámetro '+ payroll_parameter['code'] + ' (requerido)'"
+                                               class="form-control input-sm"
+                                               v-input-mask data-inputmask-regex="^[0-9]+\.[0-9]{2}$"
+                                               v-else>
+                                    </div>
+                                </div>
+                                <!-- ./parámetros globales de nómina -->
                             </div>
-                        
                         </div>
-                        <!-- ./parámetros globales de nómina -->
+                        <div class="col-md-6">
+                            <h6 class="card-title"> Información general </h6>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <strong>Cantidad de días lunes de mes:</strong>
+                                        <div class="row" style="margin: 1px 0">
+                                            <span class="col-md-12" id="number_of_days_monday"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <strong>Fecha de primer lunes de mes:</strong>
+                                        <div class="row" style="margin: 1px 0">
+                                            <span class="col-md-12" id="first_monday"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <strong>Inicio de mes:</strong>
+                                        <div class="row" style="margin: 1px 0">
+                                            <span class="col-md-12" id="start_month"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <strong>Día de semana de inicio de mes:</strong>
+                                        <div class="row" style="margin: 1px 0">
+                                            <span class="col-md-12" id="start_month_day"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <strong>Código de día de semana de inicio de mes:</strong>
+                                        <div class="row" style="margin: 1px 0">
+                                            <span class="col-md-12" id="start_month_date"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </section>
             </div>
 
             <div class="card-footer text-right">
@@ -201,6 +249,8 @@
                         $.each(vm.payroll_payment_periods, function(index, field) {
                             if ((field['payment_status'] == 'pending') && (vm.record.payroll_payment_period_id == '')) {
                                 vm.record.payroll_payment_period_id = field['id'];
+                                /** Calcular las fechas de información general con moment */
+                                vm.getGeneralInformation(field['text']);
                             }
                         });
                     }
@@ -283,6 +333,23 @@
                     vm.record.payroll_parameters = payroll_parameters;
                     vm.createRecord(url);
                 }
+            },
+            getGeneralInformation(date) {
+                const vm =this;
+                let mondays = [];
+                let monday = moment(date, "DD/MM/YYYY")
+                    .startOf('month')
+                    .day("Monday");
+                let month_init = moment(date, "DD/MM/YYYY").startOf('month').day(1);
+                console.log(month_init);
+                if (monday.date() > 7) monday.add(7,'d');
+                let month = monday.month();
+                while(month === monday.month()){
+                    mondays.push(monday.toString());
+                    monday.add(7,'d');
+                }
+                document.getElementById('number_of_days_monday').innerText = mondays.length;
+                document.getElementById('first_monday').innerText = mondays[0];
             }
         }
     };
