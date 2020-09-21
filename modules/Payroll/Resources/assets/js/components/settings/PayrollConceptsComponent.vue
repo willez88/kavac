@@ -280,8 +280,10 @@
                                 <!-- fórmula -->
                                 <div class="form-group is-required">
                                     <label>Fórmula</label>
-                                    <input type="text" class="form-control input-sm" data-toggle="tooltip"
-                                           title="Fórmula a aplicar para el concepto. Utilice la siguiente calculadora para establecer los parámetros de la fórmula" v-model="record.formula" readonly>
+                                    <textarea type="text" class="form-control input-sm" data-toggle="tooltip"
+                                              title="Fórmula a aplicar para el concepto. Utilice la siguiente calculadora para establecer los parámetros de la fórmula"
+                                              rows="3" v-model="record.formula" readonly>
+                                    </textarea>
                                 </div>
                                 <!-- ./fórmula -->
                                 <div class="row" style="align-items: flex-end;">
@@ -502,7 +504,8 @@
                     {"id": "base_salary",          "text": "Salario Base"},
                     {"id": "normal_salary",        "text": "Salario Normal"},
                     {"id": "dialy_salary",         "text": "Salario Diario"},
-                    {"id": "comprehensive_salary", "text": "Salario Integral"}
+                    {"id": "comprehensive_salary", "text": "Salario Integral"},
+                    {"id": "none",                 "text": "Ninguno"}
                 ]
             }
         },
