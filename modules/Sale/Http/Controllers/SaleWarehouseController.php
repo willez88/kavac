@@ -20,7 +20,7 @@ class SaleWarehouseController extends Controller
     {
 
         return response()->json(['records' => SaleWarehouse::all()], 200);
-        /*
+        
         if (!is_null($institution)) {
             return response()->json(['records' => SaleWarehouse::where('institution_id', $institution)
                 ->with(
