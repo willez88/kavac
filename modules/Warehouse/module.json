@@ -13,8 +13,6 @@
         "Modules\\Warehouse\\Providers\\WarehouseServiceProvider"
     ],
     "aliases": {},
-    "files": [
-        "start.php"
-    ],
+    "files": [],
     "requires": []
 }

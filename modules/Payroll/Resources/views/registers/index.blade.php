@@ -29,6 +29,12 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    <payroll-registers-list
+                        route_list="{{ url('payroll/registers/vue-list') }}"
+                        route_show="{{ url('payroll/registers/show/{id}') }}"
+                        route_edit="{{ url('payroll/registers/edit/{id}') }}"
+                        route_delete="{{ url('payroll/registers') }}">
+                    </payroll-registers-lit>
                 </div>
             </div>
         </div>

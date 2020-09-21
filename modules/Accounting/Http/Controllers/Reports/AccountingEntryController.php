@@ -2,12 +2,9 @@
 
 namespace Modules\Accounting\Http\Controllers\Reports;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Modules\Accounting\Models\AccountingEntry;
-use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Setting;
 use Modules\Accounting\Models\Profile;
 use Modules\Accounting\Models\Institution;
@@ -72,7 +69,7 @@ class AccountingEntryController extends Controller
          * @var Setting
          */
         $setting = Setting::all()->first();
-        
+
         $OnlyOneEntry   = true;
 
         /**

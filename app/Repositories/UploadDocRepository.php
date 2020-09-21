@@ -78,8 +78,8 @@ class UploadDocRepository
                         'url' => ($public_url)
                                  ? 'public/documents/'. $this->doc_name
                                  : 'storage/documents/'. $this->doc_name,
-                        'signs' => ($sign && isset($signCrypt) && $signCrypt)
-                                   ? $sygnCrypt : null,
+                        'signs' => ($sign && isset($signCrypt))
+                                   ? $signCrypt : null,
                         'documentable_type' => $model,
                         'documentable_id' => $model_id
                     ]);

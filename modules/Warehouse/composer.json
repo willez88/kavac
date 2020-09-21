@@ -9,11 +9,9 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [
-                "Modules\\Warehouse\\Providers\\WarehouseServiceProvider"
-            ],
+            "providers": [],
             "aliases": {
-                
+
             }
         }
     },

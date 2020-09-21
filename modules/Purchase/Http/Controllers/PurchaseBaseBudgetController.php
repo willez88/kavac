@@ -3,7 +3,7 @@
 namespace Modules\Purchase\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -13,7 +13,6 @@ use Modules\Purchase\Jobs\PurchaseManageBaseBudget;
 
 use Modules\Purchase\Models\PurchaseBaseBudget;
 use Modules\Purchase\Models\PurchaseRequirement;
-use Modules\Purchase\Models\PurchaseRequirementItem;
 use Modules\Purchase\Models\PurchasePivotModelsToRequirementItem;
 use Modules\Purchase\Models\HistoryTax;
 
@@ -30,7 +29,7 @@ class PurchaseBaseBudgetController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return JsonResponse
      */
     public function index()
     {
@@ -47,7 +46,7 @@ class PurchaseBaseBudgetController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * @return Response
+     * @return Renderable
      */
     public function create()
     {
@@ -70,7 +69,7 @@ class PurchaseBaseBudgetController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
@@ -83,7 +82,7 @@ class PurchaseBaseBudgetController extends Controller
             'list.array'           => 'Los registros deben estar en una lista.',
             'currency_id.required' => 'El campo moneda es obligatorio.',
             'currency_id.int'      => 'El campo moneda debe ser numerico.',
-            'tax_id.required'      => 'El campo del IVA es obligatorio, verifique que este registrado en la 
+            'tax_id.required'      => 'El campo del IVA es obligatorio, verifique que este registrado en la
             configuración base del sistema',
             'tax_id.int'           => 'El campo del IVA debe ser numerico.',
         ]);
@@ -95,7 +94,7 @@ class PurchaseBaseBudgetController extends Controller
 
     /**
      * Show the specified resource.
-     * @return Response
+     * @return JsonResponse
      */
     public function show($id)
     {
@@ -109,7 +108,7 @@ class PurchaseBaseBudgetController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function edit($id)
     {
@@ -141,7 +140,7 @@ class PurchaseBaseBudgetController extends Controller
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function update(Request $request, $id)
     {
@@ -154,7 +153,7 @@ class PurchaseBaseBudgetController extends Controller
             'list.array'           => 'Los registros deben estar en una lista.',
             'currency_id.required' => 'El campo moneda es obligatorio.',
             'currency_id.int'      => 'El campo moneda debe ser numerico.',
-            'tax_id.required'      => 'El campo del IVA es obligatorio, verifique que este registrado en la 
+            'tax_id.required'      => 'El campo del IVA es obligatorio, verifique que este registrado en la
             configuración base del sistema',
             'tax_id.int'           => 'El campo del IVA debe ser numerico.',
         ]);
@@ -168,7 +167,7 @@ class PurchaseBaseBudgetController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @return Response
+     * @return JsonResponse
      */
     public function destroy($id)
     {

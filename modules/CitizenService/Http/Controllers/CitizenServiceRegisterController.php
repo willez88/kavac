@@ -3,7 +3,7 @@
 namespace Modules\CitizenService\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -14,7 +14,7 @@ class CitizenServiceRegisterController extends Controller
     use ValidatesRequests;
     /**
      * Muestra un listado de registos de actividades
-     * @return Response
+     * @return Renderable
      */
     public function index()
     {
@@ -24,7 +24,7 @@ class CitizenServiceRegisterController extends Controller
     /**
      * Muestra el formulario para registrar un cronograma de
      * actividades
-     * @return Response
+     * @return Renderable
      */
     public function create()
     {
@@ -34,7 +34,6 @@ class CitizenServiceRegisterController extends Controller
     /**
      * Valida y registra un nuevo cronograma de actividades
      * @param  Request $request
-     * @return Response
      */
     public function store(Request $request)
     {
@@ -47,8 +46,8 @@ class CitizenServiceRegisterController extends Controller
             'end_date'                   => ['required'],
             'email'                      => ['required', 'email'],
             'percent'                    => ['required', 'max:10'],
-        
-        ]);  
+
+        ]);
 
         //Guardar los registros del formulario en  CitizenServiceRegister
         $citizenserviceRegister = CitizenServiceRegister::create([
@@ -60,15 +59,14 @@ class CitizenServiceRegisterController extends Controller
             'end_date'                   => $request->end_date,
             'email'                      => $request->email,
             'percent'                    => $request->percent,
-            
-        ]); 
-       
+
+        ]);
     }
 
 
     /**
      * Show the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function show()
     {
@@ -76,24 +74,25 @@ class CitizenServiceRegisterController extends Controller
     }
 
     /**
-     * Muestra el formulario para actualizar la información 
-     * @return Response
+     * Muestra el formulario para actualizar la información
+     * @return Renderable
      */
     public function edit($id)
     {
         $request = CitizenServiceRegister::find($id);
-        return view('citizenservice::registers.create',
-               compact('request'));
+        return view(
+            'citizenservice::registers.create',
+            compact('request')
+        );
     }
 
     /**
-     * Actualiza un registro de actividades 
+     * Actualiza un registro de actividades
      * @param  Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function update(Request $request, $id)
     {
-        
         $citizenServiceRegister = CitizenServiceRegister::find($id);
         $this->validate($request, [
             'date_register'              => ['required'],
@@ -104,7 +103,7 @@ class CitizenServiceRegisterController extends Controller
             'end_date'                   => ['required'],
             'email'                      => ['required', 'email'],
             'percent'                    => ['required', 'max:10'],
-          
+
         ]);
 
         $citizenServiceRegister->date_register         = $request->date_register;
@@ -116,17 +115,15 @@ class CitizenServiceRegisterController extends Controller
         $citizenServiceRegister->email                 = $request->email;
         $citizenServiceRegister->percent               = $request->percent;
         $citizenServiceRegister->save();
-        
+
         $request->session()->flash('message', ['type' => 'update']);
         return response()->json(['result' => true, 'redirect' => route('citizenservice.register.index')], 200);
-                    
-    
     }
 
-    
+
     /**
      * Elimina un registro de actividad
-     * @return Response
+     * @return JsonResponse
      */
     public function destroy($id)
     {
@@ -150,7 +147,6 @@ class CitizenServiceRegisterController extends Controller
     */
     public function vueInfo($id)
     {
-
         $citizenServiceRegister = CitizenServiceRegister::where('id', $id)
             ->first();
         return response()->json(['record' => $citizenServiceRegister], 200);

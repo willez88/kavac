@@ -3,12 +3,10 @@
 namespace Modules\Payroll\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Validation\Rule;
 use Modules\Payroll\Rules\PayrollSalaryScales;
 
 use Maatwebsite\Excel\Facades\Excel;
@@ -36,14 +34,12 @@ class PayrollSalaryTabulatorController extends Controller
 
     /**
      * Arreglo con las reglas de validación sobre los datos de un formulario
-     *
      * @var Array $validateRules
      */
     protected $validateRules;
 
     /**
      * Arreglo con los mensajes para las reglas de validación
-     *
      * @var Array $messages
      */
     protected $messages;
@@ -70,18 +66,21 @@ class PayrollSalaryTabulatorController extends Controller
 
         /** Define los mensajes de validación para las reglas del formulario */
         $this->messages = [
-            'currency_id.required'        => 'El campo moneda es obligatorio.',
-            'payroll_staff_types.required' => 'El campo tipo de personal es obligatorio.',
-            'institution_id.required'          => 'El campo institución es obligatorio.',
-            'payroll_salary_tabulator_type.required'   => 'El campo tipo de tabulador es obligatorio.'
+            'currency_id.required'                     => 'El campo moneda es obligatorio.',
+            'payroll_staff_types.required'             => 'El campo tipo de personal es obligatorio.',
+            'institution_id.required'                  => 'El campo institución es obligatorio.',
+            'payroll_salary_tabulator_type.required'   => 'El campo tipo de tabulador es obligatorio.',
+            'payroll_salary_tabulator_scales.required' => 'Las escalas del tabulador salarial son obligatorias.'
         ];
     }
-    
+
     /**
      * Muestra un listado de los tabuladores salariales registrados
      *
      * @method    index
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function index()
@@ -100,7 +99,6 @@ class PayrollSalaryTabulatorController extends Controller
             if ($payrollSalaryTabulator->payrollStaffTypes) {
                 foreach ($payrollSalaryTabulator->payrollStaffTypes as $payrollStaffType) {
                     $payrollStaffType['text'] = $payrollStaffType['name'];
-                    
                 }
             }
         }
@@ -111,9 +109,12 @@ class PayrollSalaryTabulatorController extends Controller
      * Valida y registra un nuevo tabulador salarial
      *
      * @method    store
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @param     \Illuminate\Http\Request         $request    Datos de la petición
-     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     *
+     * @return    \Illuminate\Http\JsonResponse                Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
@@ -135,11 +136,10 @@ class PayrollSalaryTabulatorController extends Controller
             $codeSetting->model,
             $codeSetting->field
         );
-        
+
         DB::transaction(function () use ($request, $code) {
             /**
              * Objeto asociado al modelo PayrollSalaryTabulator
-             *
              * @var Object $salaryTabulator
              */
             $salaryTabulator = PayrollSalaryTabulator::create([
@@ -166,7 +166,6 @@ class PayrollSalaryTabulatorController extends Controller
                 foreach ($request->payroll_salary_tabulator_scales as $payrollScale) {
                     /**
                      * Objeto asociado al modelo PayrollSalaryTabulatorScale
-                     *
                      * @var Object $salaryTabulatorScale
                      */
                     $salaryTabulatorScale = PayrollSalaryTabulatorScale::create([
@@ -185,10 +184,14 @@ class PayrollSalaryTabulatorController extends Controller
      * Actualiza la información del tabulador salarial
      *
      * @method    update
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @param     Integer                          $id         Identificador único asociado al tabulador salarial
+     *
      * @param     \Illuminate\Http\Request         $request    Datos de la petición
-     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     *
+     * @return    \Illuminate\Http\JsonResponse                Objeto con los registros a mostrar
      */
     public function update(Request $request, $id)
     {
@@ -321,9 +324,12 @@ class PayrollSalaryTabulatorController extends Controller
      * Elimina un tabulador salarial
      *
      * @method    destroy
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @param     \Modules\Payroll\Models\PayrollSalaryTabulator    $salaryTabulator    Datos del tabulador salarial
-     * @return    \Illuminate\Http\JsonResponse                     Objeto con los registros a mostrar
+     *
+     * @return    \Illuminate\Http\JsonResponse                                         Objeto con los registros a mostrar
      */
     public function destroy(PayrollSalaryTabulator $salaryTabulator)
     {
@@ -335,7 +341,9 @@ class PayrollSalaryTabulatorController extends Controller
      * Obtiene el listado de los tabuladores salariales registrados a implementar en elementos select
      *
      * @method    getSalaryTabulators
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    Array    Listado de registros a mostrar
      */
     public function getSalaryTabulators()
@@ -347,9 +355,12 @@ class PayrollSalaryTabulatorController extends Controller
      * Exporta un tabulador salarial
      *
      * @method    export
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param     Integer                       $id    Identificador único asociado al tabulador salarial
-     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     *
+     * @param     Integer                          $id    Identificador único asociado al tabulador salarial
+     *
+     * @return    \Illuminate\Http\JsonResponse           Objeto con los registros a mostrar
      */
     public function export($id)
     {
@@ -359,5 +370,29 @@ class PayrollSalaryTabulatorController extends Controller
             $export->setSalaryTabulatorId($payrollSalaryTabulator->id);
             return Excel::download($export, 'salary_tabulator'. $payrollSalaryTabulator->created_at . '.xlsx');
         }
+    }
+
+    /**
+     * Obtiene la información de un tabulador salarial registrado
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @param     integer                          $id    Identificador único del registro de nómina
+     *
+     * @return    \Illuminate\Http\JsonResponse           Objeto con los registros a mostrar
+     */
+    public function show($id)
+    {
+        /**
+         * Objeto asociado al modelo PayrollSalaryTabulator
+         * @var Object $payrollSalaryTabulator
+         */
+        $payrollSalaryTabulator = PayrollSalaryTabulator::with([
+            'payrollVerticalSalaryScale' => function ($query) {
+                $query->with('payrollScales')->get();
+            }, 'payrollHorizontalSalaryScale' => function ($query) {
+                $query->with('payrollScales')->get();
+            }, 'payrollSalaryTabulatorScales'])->find($id);
+        return response()->json(['record' => $payrollSalaryTabulator], 200);
     }
 }

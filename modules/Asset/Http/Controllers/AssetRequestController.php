@@ -3,7 +3,7 @@
 namespace Modules\Asset\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -36,7 +36,7 @@ class AssetRequestController extends Controller
 
     /** @var array Lista de elementos a mostrar */
     protected $data = [];
-    
+
     /**
      * Define la configuración de la clase
      *
@@ -61,7 +61,7 @@ class AssetRequestController extends Controller
      * Muestra un listado de las solicitudes de bienes institucionales
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return    \Illuminate\View\View
+     * @return    Renderable
      */
     public function index()
     {
@@ -72,7 +72,7 @@ class AssetRequestController extends Controller
      * Muestra el formulario para registrar una nueva solicitud
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return    \Illuminate\View\View
+     * @return    Renderable
      */
     public function create()
     {
@@ -87,7 +87,7 @@ class AssetRequestController extends Controller
      * @param     \App\Repositories\UploadDocRepository    $upDoc      Instancia del documento a subir
      * @return    \Illuminate\Http\JsonResponse            Objeto con los registros a mostrar
      */
-     public function store(Request $request, UploadDocRepository $upDoc)
+    public function store(Request $request, UploadDocRepository $upDoc)
     {
         $this->validate($request, [
             'type_id'       => ['required'],
@@ -181,7 +181,7 @@ class AssetRequestController extends Controller
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      * @param     Integer                          $id    Identificador único de la solicitud
-     * @return    \Illuminate\Http\JsonResponse    Objeto con los datos a mostrar
+     * @return    Renderable    Objeto con los datos a mostrar
      */
     public function edit($id)
     {
@@ -200,7 +200,7 @@ class AssetRequestController extends Controller
     public function update(Request $request, $id)
     {
         $asset_request = AssetRequest::find($id);
-        
+
         $this->validate($request, [
             'type_id' => ['required'],
             'motive' => ['required'],
@@ -251,7 +251,7 @@ class AssetRequestController extends Controller
             $asset = Asset::find($asset_request_asset->asset_id);
             $asset->asset_status_id = 10;
             $asset->save();
-            
+
             $asset_request_asset->delete();
         }
 
@@ -277,7 +277,7 @@ class AssetRequestController extends Controller
             $assetRequestDelivery->delete();
         }
         $request->delete();
-        Session()->flash('message', ['type' => 'destroy']);
+        session()->flash('message', ['type' => 'destroy']);
         return response()->json(['redirect' => route('asset.request.index')], 200);
     }
 
@@ -372,7 +372,7 @@ class AssetRequestController extends Controller
             $asset->save();
         }
         $asset_request->save();
-        
+
         $request->session()->flash('message', ['type' => 'update']);
         return response()->json(['result' => true, 'redirect' => route('asset.request.index')], 200);
     }
@@ -390,13 +390,13 @@ class AssetRequestController extends Controller
         $asset_request = AssetRequest::find($id);
         $asset_request->state = 'Procesando entrega';
         $asset_request->save();
-        
+
         $request_delivery = AssetRequestDelivery::create([
             'state' => 'Pendiente',
             'asset_request_id' => $asset_request->id,
             'user_id' => Auth::id(),
         ]);
-        
+
         $request->session()->flash('message', ['type' => 'update']);
         return response()->json(['result' => true, 'redirect' => route('asset.request.index')], 200);
     }

@@ -38,7 +38,6 @@ class PayrollStaff extends Model implements Auditable
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
-     *
      * @var array $fillable
      */
     protected $fillable = [
@@ -50,7 +49,7 @@ class PayrollStaff extends Model implements Auditable
     /**
      * PayrollPosition has many BudgetProjects.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function budgetProjects()
     {
@@ -60,7 +59,7 @@ class PayrollStaff extends Model implements Auditable
     /**
      * PayrollPosition has many BudgetCentralizedAction.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function budgetCentralizedActions()
     {
@@ -70,8 +69,8 @@ class PayrollStaff extends Model implements Auditable
     /**
      * Obtiene el nombre completo de la persona
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return string Nombre completo de la persona
+     * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     * @return    string    Nombre completo de la persona
      */
     public function getFullNameAttribute()
     {
@@ -81,8 +80,9 @@ class PayrollStaff extends Model implements Auditable
     /**
      * Método que obtiene la información personal del trabajador asociada a una parroquia
      *
-     * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @author    William Páez <wpaez@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function parish()
     {
@@ -92,8 +92,9 @@ class PayrollStaff extends Model implements Auditable
     /**
      * Método que obtiene la información personal del trabajador asociada a un género
      *
-     * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @author    William Páez <wpaez@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function payrollGender()
     {
@@ -103,8 +104,9 @@ class PayrollStaff extends Model implements Auditable
     /**
      * Método que obtiene la información personal del trabajador asociada a una nacionalidad
      *
-     * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @author    William Páez <wpaez@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function payrollNationality()
     {
@@ -114,8 +116,9 @@ class PayrollStaff extends Model implements Auditable
     /**
      * Método que obtiene la información personal del trabajador asociada a una información socioeconómica del mismo
      *
-     * @author William Páez <wpaezs@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @author    William Páez <wpaez@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function payrollSocioeconomic()
     {
@@ -125,8 +128,9 @@ class PayrollStaff extends Model implements Auditable
     /**
      * Método que obtiene la información personal del trabajador asociada a una información profesional del mismo
      *
-     * @author William Páez <wpaezs@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @author    William Páez <wpaez@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function payrollProfessional()
     {
@@ -136,8 +140,9 @@ class PayrollStaff extends Model implements Auditable
     /**
      * Obtiene todos los número telefónicos asociados al trabajador
      *
-     * @author William Páez <wpaez@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     * @author    William Páez <wpaez@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function phones()
     {
@@ -147,8 +152,9 @@ class PayrollStaff extends Model implements Auditable
     /**
      * Método que obtiene la información personal del trabajador asociada a una información laboral del mismo
      *
-     * @author William Páez <wpaezs@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @author    William Páez <wpaez@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function payrollEmploymentInformation()
     {
@@ -158,8 +164,9 @@ class PayrollStaff extends Model implements Auditable
     /**
      * Método que obtiene la información personal del trabajador asociada a un grado de licencia de conducir
      *
-     * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @author    William Páez <wpaez@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function payrollLicenseDegree()
     {
@@ -169,8 +176,9 @@ class PayrollStaff extends Model implements Auditable
     /**
      * Método que obtiene la información personal del trabajador asociada a un tipo de sangre
      *
-     * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @author    William Páez <wpaez@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function payrollBloodType()
     {
@@ -181,6 +189,7 @@ class PayrollStaff extends Model implements Auditable
      * Obtiene información de las opciones asignadas asociadas a un trabajador
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function payrollConceptAssignOptions()

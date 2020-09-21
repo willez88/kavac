@@ -14,6 +14,12 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  *
  * Gestiona el modelo de datos para las Monedas
  *
+ * @property  string  $symbol
+ * @property  string  $name
+ * @property  integer $country_id
+ * @property  boolean $default
+ * @property  integer $decimal_places
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
  *              LICENCIA DE SOFTWARE CENDITEL

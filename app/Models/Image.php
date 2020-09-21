@@ -14,6 +14,13 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  *
  * Gestiona el modelo de datos para las imágenes
  *
+ * @property  string  $file
+ * @property  string  $url
+ * @property  integer $max_width
+ * @property  integer $max_height
+ * @property  integer $min_width
+ * @property  integer $min_height
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
  *              LICENCIA DE SOFTWARE CENDITEL

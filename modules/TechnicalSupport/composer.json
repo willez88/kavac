@@ -9,9 +9,7 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [
-                "Modules\\TechnicalSupport\\Providers\\TechnicalSupportServiceProvider"
-            ],
+            "providers": [],
             "aliases": {
 
             }

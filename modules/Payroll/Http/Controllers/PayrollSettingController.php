@@ -3,7 +3,7 @@
 namespace Modules\Payroll\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -11,14 +11,13 @@ use App\Rules\CodeSetting as CodeSettingRule;
 use App\Models\CodeSetting;
 use Modules\Payroll\Models\Parameter;
 
-
 class PayrollSettingController extends Controller
 {
     use ValidatesRequests;
 
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return Renderable
      */
     public function index()
     {
@@ -29,12 +28,12 @@ class PayrollSettingController extends Controller
         $parameter = Parameter::where([
             'active' => true, 'required_by' => 'payroll', 'p_key' => 'work_age'
         ])->first();
-        return view('payroll::settings', compact('codeSettings', 'sCode','ssCode','stCode', 'parameter'));
+        return view('payroll::settings', compact('codeSettings', 'sCode', 'ssCode', 'stCode', 'parameter'));
     }
 
     /**
      * Show the form for creating a new resource.
-     * @return Response
+     * @return Renderable
      */
     public function create()
     {
@@ -44,7 +43,7 @@ class PayrollSettingController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param  Request $request
-     * @return Response
+     * @return Redirect
      */
     public function store(Request $request)
     {
@@ -68,7 +67,7 @@ class PayrollSettingController extends Controller
                 list($prefix, $digits, $sufix) = CodeSetting::divideCode($value);
                 /** @var string Define el campo field */
                 $field = "code";
-                
+
                 if ($key === "staffs_code") {
                     /** @var string Define el campo model para asociarlo al personal */
                     $model = \Modules\Payroll\Models\PayrollStaff::class;
@@ -96,7 +95,7 @@ class PayrollSettingController extends Controller
                     'format_year'   => $sufix,
                     'model'         => $model,
                 ]);
-                
+
                 /** @var boolean Define el estatus verdadero para indicar que se ha registrado información */
                 $saved = true;
             }

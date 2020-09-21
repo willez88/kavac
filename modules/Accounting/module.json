@@ -19,8 +19,6 @@
         "Modules\\Accounting\\Providers\\AccountingServiceProvider"
     ],
     "aliases": [],
-    "files": [
-        "start.php"
-    ],
+    "files": [],
     "requires": []
 }

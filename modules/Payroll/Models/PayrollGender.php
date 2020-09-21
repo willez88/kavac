@@ -34,7 +34,6 @@ class PayrollGender extends Model implements Auditable
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
-     *
      * @var array $fillable
      */
     protected $fillable = [
@@ -45,6 +44,7 @@ class PayrollGender extends Model implements Auditable
      * Método que obtiene el género que está asociado a muchas informaciones personales del trabajador
      *
      * @author    William Páez <wpaezs@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function payrollStaffs()
@@ -56,6 +56,7 @@ class PayrollGender extends Model implements Auditable
      * Obtiene información de las opciones asignadas asociadas a un género
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function payrollConceptAssignOptions()

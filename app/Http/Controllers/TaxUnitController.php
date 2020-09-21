@@ -62,13 +62,17 @@ class TaxUnitController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'value' => ['required'],
-            'start_date' => ['required', 'date'],
+            'value' => ['required', 'numeric'],
+            'start_date' => ['required', 'date']
         ];
         if (!is_null($request->end_date)) {
-            $rules['end_date'] = ['date'];
+            $rules['end_date'] = ['date', 'after:start_date'];
         }
-        $this->validate($request, $rules);
+        $this->validate($request, $rules, [
+            'value.required' => 'El campo valor es requerido',
+            'value.numeric' => 'El campo valor debe ser numérico',
+            'end_date.after' => 'La fecha final debe ser mayor a la fecha inicial'
+        ]);
 
         $taxUnit = TaxUnit::create([
             'value' => $request->value,
@@ -111,10 +115,17 @@ class TaxUnitController extends Controller
      */
     public function update(Request $request, TaxUnit $taxUnit)
     {
-        $this->validate($request, [
+        $rules = [
             'value' => ['required', 'numeric'],
-            'start_date' => ['required', 'date'],
-            'end_date' => ['date']
+            'start_date' => ['required', 'date']
+        ];
+        if (!is_null($request->end_date)) {
+            $rules['end_date'] = ['date', 'after:start_date'];
+        }
+        $this->validate($request, $rules, [
+            'value.required' => 'El campo valor es requerido',
+            'value.numeric' => 'El campo valor debe ser numérico',
+            'end_date.after' => 'La fecha final debe ser mayor a la fecha inicial'
         ]);
 
         $taxUnit->value = $request->value;

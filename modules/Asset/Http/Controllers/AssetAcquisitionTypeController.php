@@ -3,7 +3,6 @@
 namespace Modules\Asset\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -34,7 +33,7 @@ class AssetAcquisitionTypeController extends Controller
         /** Establece permisos de acceso para cada método del controlador */
         //$this->middleware('permission:asset.setting.acquisition-type');
     }
-    
+
     /**
      * Muestra un listado de los tipos de adquisición bienes institucionales
      *
@@ -77,19 +76,20 @@ class AssetAcquisitionTypeController extends Controller
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      * @param     \Illuminate\Http\Request                      $request             Datos de la petición
-     * @param     \Modules\Asset\Models\AssetAcquisitionType    $acquisition_type    Datos del tipo de adquisición de un bien
+     * @param     \Modules\Asset\Models\AssetAcquisitionType    $acquisition_type    Datos del tipo de adquisición
+     *                                                                               de un bien
      * @return    \Illuminate\Http\JsonResponse                 Objeto con los registros a mostrar
      */
-    
+
     public function update(Request $request, AssetAcquisitionType $acquisition_type)
     {
         $this->validate($request, [
             'name' => ['required', 'max:100']
         ]);
- 
+
         $acquisition_type->name = $request->input('name');
         $acquisition_type->save();
- 
+
         return response()->json(['message' => 'Success'], 200);
     }
 
@@ -97,7 +97,8 @@ class AssetAcquisitionTypeController extends Controller
      * Elimina el tipo de adquisición de un bien institucional
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param     \Modules\Asset\Models\AssetAcquisitionType    $acquisition_type    Datos del tipo de adquisición de un bien
+     * @param     \Modules\Asset\Models\AssetAcquisitionType    $acquisition_type    Datos del tipo de adquisición de
+     *                                                                               un bien
      * @return    \Illuminate\Http\JsonResponse                 Objeto con los registros a mostrar
      */
     public function destroy(AssetAcquisitionType $acquisition_type)

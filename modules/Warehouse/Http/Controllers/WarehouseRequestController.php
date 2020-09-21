@@ -3,7 +3,7 @@
 namespace Modules\Warehouse\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -47,7 +47,7 @@ class WarehouseRequestController extends Controller
      * Muestra un listado de las solicitudes de almacén registradas
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return Renderable
      */
     public function index()
     {
@@ -58,7 +58,7 @@ class WarehouseRequestController extends Controller
      * Muestra el formulario para registrar una nueva solicitud de almacén
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return Renderable
      */
     public function create()
     {
@@ -70,7 +70,7 @@ class WarehouseRequestController extends Controller
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function store(Request $request)
     {
@@ -157,7 +157,7 @@ class WarehouseRequestController extends Controller
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  Integer $id Identificador único del ingreso de almacén
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return Renderable
      */
     public function edit($id)
     {
@@ -171,7 +171,7 @@ class WarehouseRequestController extends Controller
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
      * @param  Integer $id Identificador único de la solicitud de almacén
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function update(Request $request, $id)
     {
@@ -183,7 +183,7 @@ class WarehouseRequestController extends Controller
             'motive' => ['required']
 
         ]);
-            
+
         DB::transaction(function () use ($request, $warehouse_request) {
             $warehouse_request->motive = $request->input('motive');
             $warehouse_request->budget_specific_action_id = $request->input('budget_specific_action_id');
@@ -244,7 +244,7 @@ class WarehouseRequestController extends Controller
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  Integer $id Identificador único de la solicitud de almacén
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
 
     public function confirmRequest(Request $request, $id)
@@ -267,7 +267,7 @@ class WarehouseRequestController extends Controller
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  Integer $id Identificador único de la solicitud de almacén
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function rejectedRequest(Request $request, $id)
     {
@@ -285,7 +285,7 @@ class WarehouseRequestController extends Controller
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  Integer $id Identificador único de la solicitud de almacén
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function approvedRequest(Request $request, $id)
     {
@@ -346,7 +346,7 @@ class WarehouseRequestController extends Controller
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  Integer $id Identificador único de la solicitud de almacén
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function destroy($id)
     {
@@ -359,7 +359,7 @@ class WarehouseRequestController extends Controller
      * Obtiene la información de los productos inventariados
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function getInventoryProduct()
     {
@@ -377,7 +377,7 @@ class WarehouseRequestController extends Controller
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  Integer $id Identificador único de la solicitud de almacén
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function vueInfo($id)
     {

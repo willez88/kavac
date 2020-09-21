@@ -3,11 +3,10 @@
 namespace Modules\TechnicalSupport\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Modules\TechnicalSupport\Models\TechnicalSupportRepair;
 use Modules\TechnicalSupport\Models\TechnicalSupportRequest;
 
 class TechnicalSupportRequestController extends Controller
@@ -29,7 +28,7 @@ class TechnicalSupportRequestController extends Controller
      * Obtiene un listado de las solicitudes de reparaciones de bienes institucionales registradas.
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     * @return Renderable    Objeto con los registros a mostrar
      */
     public function index()
     {

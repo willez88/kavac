@@ -40,7 +40,7 @@
                         <!-- fecha de generación -->
                         <div class="form-group is-required">
                             <label>Fecha de generación:</label>
-                            <input type="text" readonly 
+                            <input type="date" readonly
                                    data-toggle="tooltip"
                                    title="Fecha de generación del registro de nómina"
                                    class="form-control input-sm" v-model="record.created_at">
@@ -54,6 +54,7 @@
                             <input type="text" placeholder="Nombre del concepto"
                                    data-toggle="tooltip"
                                    title="Indique el nombre del registro de nómina (requerido)"
+                                   v-input-mask data-inputmask-regex="[a-zA-Z ]*"
                                    class="form-control input-sm" v-model="record.name">
                             <input type="hidden" v-model="record.id">
                         </div>
@@ -61,7 +62,7 @@
                     </div>
                     <div class="col-md-6">
                         <!-- tipo de pago de nómina -->
-                        <div class=" form-group is-required">
+                        <div class="form-group is-required">
                             <label>Tipo de pago de nómina:</label>
                             <select2 :options="payroll_payment_types"
                                      @input="getPayrollPaymentPeriod()"
@@ -82,28 +83,92 @@
                         <!-- conceptos -->
                         <div class="form-group is-required">
                             <label>Conceptos:</label>
-                            <v-multiselect :options="payroll_concepts" track_by="text"
+                            <v-multiselect id="payroll_concepts"
+                                           :options="payroll_concepts" track_by="text"
                                            :hide_selected="false"
+                                           @input="getPayrollParameters()"
                                            v-model="record.payroll_concepts">
                             </v-multiselect>
                         </div>
                         <!-- ./conceptos -->
                     </div>
-                    <div class="col-md-6">
-                        <!-- parámetros globales de nómina -->
-                        <div class="form-group is-required">
-                            <label>Parámetros de nómina:</label>
-                            <v-multiselect :options="payroll_parameters" track_by="text"
-                                           :hide_selected="false"
-                                           v-model="record.payroll_parameters">
-                            </v-multiselect>
-                        </div>
-                        <!-- ./parámetros globales de nómina -->
-                    </div>
-                    
                 </div>
+                <section v-show="payroll_parameters.length > 0">
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6" v-if="payroll_parameters.length > 0">
+                            <h6 class="card-title"> Parámetros de nómina </h6>
+                            <div class="row">
+                                <!-- parámetros globales de nómina -->
+                                <div class="col-md-6"
+                                     v-for="payroll_parameter in payroll_parameters">
+                                    <div class="form-group is-required">
+                                        <label>{{ payroll_parameter['code'] }}:</label>
+                                        <input :id="'parameter_' + payroll_parameter['code']"
+                                               class="form-control input-sm"
+                                               type="text" data-toggle="tooltip"
+                                               :disabled="payroll_parameter['value'] != ''"
+                                               :value="payroll_parameter['value']"
+                                               v-if="payroll_parameter['value']">
 
-                
+                                        <input :id="'parameter_' + payroll_parameter['code']"
+                                               type="text" data-toggle="tooltip"
+                                               :title="'Indique el parámetro '+ payroll_parameter['code'] + ' (requerido)'"
+                                               class="form-control input-sm"
+                                               v-input-mask data-inputmask-regex="^[0-9]+\.[0-9]{2}$"
+                                               v-else>
+                                    </div>
+                                </div>
+                                <!-- ./parámetros globales de nómina -->
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="card-title"> Información general </h6>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <strong>Cantidad de días lunes de mes:</strong>
+                                        <div class="row" style="margin: 1px 0">
+                                            <span class="col-md-12" id="number_of_days_monday"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <strong>Fecha de primer lunes de mes:</strong>
+                                        <div class="row" style="margin: 1px 0">
+                                            <span class="col-md-12" id="first_monday"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <strong>Inicio de mes:</strong>
+                                        <div class="row" style="margin: 1px 0">
+                                            <span class="col-md-12" id="start_month"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <strong>Día de semana de inicio de mes:</strong>
+                                        <div class="row" style="margin: 1px 0">
+                                            <span class="col-md-12" id="start_month_day"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <strong>Código de día de semana de inicio de mes:</strong>
+                                        <div class="row" style="margin: 1px 0">
+                                            <span class="col-md-12" id="start_month_date"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
 
             <div class="card-footer text-right">
@@ -117,7 +182,7 @@
                         title="Cancelar y regresar">
                     <i class="fa fa-ban"></i>
                 </button>
-                <button type="button" @click="createRecord('payroll/registers')"
+                <button type="button" @click="createForm('payroll/registers')"
                         class="btn btn-success btn-icon btn-round">
                     <i class="fa fa-save"></i>
                 </button>
@@ -161,14 +226,13 @@
             vm.reset();
             vm.getPayrollConcepts();
             vm.getPayrollPaymentTypes();
-            vm.getOptions('payroll/get-parameters');
         },
         mounted() {
             const vm = this;
             if (vm.payroll_id) {
 
             } else {
-                vm.record.created_at = moment(String(new Date())).format('YYYY-MM-DD hh:mm:ss');
+                vm.record.created_at = moment(String(new Date())).format('YYYY-MM-DD');
             }
         },
         watch: {
@@ -182,9 +246,11 @@
                 handler: function() {
                     const vm = this;
                     if (vm.record.payroll_payment_period_id == '') {
-                        $.each(this.payroll_payment_periods, function(index, field) {
+                        $.each(vm.payroll_payment_periods, function(index, field) {
                             if ((field['payment_status'] == 'pending') && (vm.record.payroll_payment_period_id == '')) {
                                 vm.record.payroll_payment_period_id = field['id'];
+                                /** Calcular las fechas de información general con moment */
+                                vm.getGeneralInformation(field['text']);
                             }
                         });
                     }
@@ -200,22 +266,14 @@
             reset() {
                 const vm  = this;
                 vm.record = {
-                    id:          '',
-                    name:        '',
-                    payroll_payment_type_id: ''
+                    id:                        '',
+                    name:                      '',
+                    payroll_payment_type_id:   '',
+                    payroll_payment_period_id: '',
+                    payroll_concepts:          [],
+                    payroll_parameters:        []
                 };
-            },
-            /**
-             * Método que obtiene un arreglo con las opciones a listar
-             *
-             * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-             */
-            getOptions(url) {
-                const vm = this;
-                vm.payroll_parameters = [];
-                axios.get('/' + url).then(response => {
-                    vm.payroll_parameters = response.data;
-                });
+                vm.record.created_at = moment(String(new Date())).format('YYYY-MM-DD');
             },
             /**
              * Método que obtiene un arreglo con los periodos de pago asociados al tipo de pago
@@ -224,13 +282,74 @@
              */
             getPayrollPaymentPeriod() {
                 const vm = this;
-                vm.payroll_payment_periods = [];
-                if (vm.record.payroll_payment_type_id) {
+                vm.payroll_parameters               = [];
+                vm.record.payroll_concepts          = [];
+                vm.payroll_payment_periods          = [];
+                vm.record.payroll_payment_period_id = '';
+                
+                if (vm.record.payroll_payment_type_id > 0) {
                     axios.get('/payroll/get-payment-periods/' + vm.record.payroll_payment_type_id).then(response => {
-                        vm.payroll_payment_periods = response.data;
-                        vm.record.payroll_payment_period_id = '';
+                        vm.payroll_payment_periods = response.data.records;
+                        vm.record.payroll_concepts = response.data.concepts;
                     });
                 }
+            },
+            /**
+             * Método que obtiene un arreglo con los parámetros de nómina asociados a un concepto
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+             */
+            getPayrollParameters() {
+                const vm = this;
+                vm.payroll_parameters = [];
+                if (vm.record.payroll_concepts.length > 0) {
+                    var fields = {};
+                    fields['payroll_concepts'] = vm.record['payroll_concepts']
+                                                     ? vm.record['payroll_concepts']
+                                                     : [];
+                    axios.post('/payroll/get-parameters', fields).then(response => {
+                        vm.payroll_parameters = response.data;
+                    });
+                }
+            },
+            createForm(url) {
+                const vm   = this;
+                vm.errors  = [];
+                let result = true;
+                let payroll_parameters = [];
+
+                $.each(vm.payroll_parameters, function(index, field) {
+                    let input = document.getElementById('parameter_' + field['code']);
+                    payroll_parameters.push({
+                        code:  field['code'],
+                        value: input.value
+                    });
+                    if(input.value.trim() == '') {
+                        bootbox.alert("Debe establecer todos los parámetros de nómina antes de continuar");
+                        result = false;
+                    };
+                });
+                if (result) {
+                    vm.record.payroll_parameters = payroll_parameters;
+                    vm.createRecord(url);
+                }
+            },
+            getGeneralInformation(date) {
+                const vm =this;
+                let mondays = [];
+                let monday = moment(date, "DD/MM/YYYY")
+                    .startOf('month')
+                    .day("Monday");
+                let month_init = moment(date, "DD/MM/YYYY").startOf('month').day(1);
+                console.log(month_init);
+                if (monday.date() > 7) monday.add(7,'d');
+                let month = monday.month();
+                while(month === monday.month()){
+                    mondays.push(monday.toString());
+                    monday.add(7,'d');
+                }
+                document.getElementById('number_of_days_monday').innerText = mondays.length;
+                document.getElementById('first_monday').innerText = mondays[0];
             }
         }
     };

@@ -9,10 +9,11 @@
             <a href="{{ route('payroll.settings.index') }}" data-toggle="tooltip" data-placement="right"
                 title="Configuración de nómina">Configuración</a>
         </li>
-        <li class="">
-            <a href="#" data-toggle="tooltip" data-placement="right"
+        <li class="{!! set_active_menu(['payroll.salary-adjustments.create']) !!}">
+            <a href="{{ route('payroll.salary-adjustments.create') }}"
+               data-toggle="tooltip" data-placement="right"
                title="Gestiona las actualizaciones de tablas salariales, de acuerdo a un aumento oficial de salarios.">
-                Actualizar Tablas Salariales
+                Ajustes en Tablas Salariales
             </a>
         </li>
         <li>
@@ -41,6 +42,15 @@
                data-placement="right" title="Gestión de registros de la relación de pago de la nómina.">
                 Registros de Nómina
             </a>
+        </li>
+        <li>
+            <a href="javascript:void(0)" data-toggle="tooltip" data-placement="right"
+                title="Gestiona las solicitudes de vacaciones, prestaciones y constancias.">Solicitudes</a>
+            <ul class="submenu" style="{!! display_submenu(['vacation-requests']) !!}">
+                <li class="{!! set_active_menu(['payroll.vacation-requests.index']) !!}">
+                    <a href="{{ route('payroll.vacation-requests.index') }}">Solicitud de vacaciones</a>
+                </li>
+            </ul>
         </li>
         <li>
             <a href="javascript:void(0)">Reportes</a>

@@ -1,6 +1,6 @@
 <div style="text-align: justify;" >
 
-EL sistema Kavac cuenta con un registro por defecto para la estructura del Plan de Cuentas Patrimoniales, que está fundamentado en la Ley Orgánica de la Administración Financiera del Sector Público, sobre el Sistema de Contabilidad Pública.
+EL sistema KAVAC cuenta con un registro por defecto para la estructura del Plan de Cuentas Patrimoniales, que está fundamentado en la Ley Orgánica de la Administración Financiera del Sector Público, sobre el Sistema de Contabilidad Pública.
 
 </div>
 

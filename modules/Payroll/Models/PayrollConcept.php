@@ -28,14 +28,12 @@ class PayrollConcept extends Model implements Auditable
 
     /**
      * Lista de atributos para la gestión de fechas
-     *
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
-     *
      * @var array $fillable
      */
     protected $fillable = [
@@ -46,9 +44,10 @@ class PayrollConcept extends Model implements Auditable
     ];
 
     /**
-     * Método que obtine la información del tipo de concepto asociado al concepto
+     * Método que obtiene la información del tipo de concepto asociado al concepto
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function institution()
@@ -57,9 +56,10 @@ class PayrollConcept extends Model implements Auditable
     }
 
     /**
-     * Método que obtine la información del tipo de concepto asociado al concepto
+     * Método que obtiene la información del tipo de concepto asociado al concepto
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function payrollConceptType()
@@ -68,9 +68,10 @@ class PayrollConcept extends Model implements Auditable
     }
 
     /**
-     * Método que obtine la información del tabulador salarial asociado al concepto
+     * Método que obtiene la información del tabulador salarial asociado al concepto
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function payrollSalaryTabulator()
@@ -82,6 +83,7 @@ class PayrollConcept extends Model implements Auditable
      * Método que obtiene la información de las opciones a asignar asociadas al concepto
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function payrollConceptAssignOptions()
@@ -93,6 +95,7 @@ class PayrollConcept extends Model implements Auditable
      * Método que obtiene la información de la cuenta contable asociada al concepto
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function accountingAccount()
@@ -105,6 +108,7 @@ class PayrollConcept extends Model implements Auditable
      * Método que obtiene la información de la cuenta presupuestaria asociada al concepto
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function budgetAccount()
@@ -117,6 +121,7 @@ class PayrollConcept extends Model implements Auditable
      * Método que obtiene los tipos de pago de nómina asociados a muchos conceptos
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function payrollPaymentTypes()

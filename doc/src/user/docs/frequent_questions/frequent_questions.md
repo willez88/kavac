@@ -13,11 +13,9 @@ El sistema KAVAC está diseñado de forma modular, aun cuando los módulos se re
 
 #¿Cómo usar la funcionalidad de registro de formato de códigos?
 
-El **Formato de Códigos** es una funcionalidad que posee la mayoría de módulos del sistema, se usa para generar referencias sobre los registros.  Cada sección de **Formato de Códigos** posee una descripción de los parametros a seguir para establecer un formato.  
+El **Formato de Códigos** es una funcionalidad que posee la mayoría de módulos del sistema, se usa para generar referencias sobre los registros.  Cada sección de **Formato de Códigos** posee una descripción de los parámetros a seguir para establecer un formato.  
 
-Por Ejemplo:
-
-Se podría establecer un formato para solicitudes como SOL-00000000-YYYY. SOL hace referencia al prefijo solicitud, 00000000 será el número de la solicitud y YYYY corresponde al año. 
+Por Ejemplo: Se podría establecer un formato para solicitudes como SOL-00000000-YYYY. SOL hace referencia al prefijo solicitud, 00000000 será el número de la solicitud y YYYY corresponde al año. 
 
 
 

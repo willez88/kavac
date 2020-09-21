@@ -16,6 +16,9 @@ use App\Traits\ModelsTrait;
  *
  * Gestiona el modelo de datos para las Ciudades
  *
+ * @property string  $name
+ * @property integer $estate_id
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
  *              LICENCIA DE SOFTWARE CENDITEL

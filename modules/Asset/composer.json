@@ -9,11 +9,9 @@
     ],
     "extra": {
         "laravel": {
-            "providers": [
-                "Modules\\Asset\\Providers\\AssetServiceProvider"
-            ],
+            "providers": [],
             "aliases": {
-                
+
             }
         }
     },

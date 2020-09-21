@@ -2,12 +2,9 @@
 
 namespace Modules\Accounting\Http\Controllers\Reports;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Modules\Accounting\Models\AccountingReportHistory;
-use Modules\Accounting\Models\AccountingEntryAccount;
 use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\ExchangeRate;
@@ -71,11 +68,11 @@ class AccountingAuxiliaryBookController extends Controller
          * @var string
          */
         $endDate     = $date.'-'.$day;
-        
+
         $institution_id = null;
 
         $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
-        
+
         if ($user_profile['institution']) {
             $institution_id = $user_profile['institution']['id'];
         }
@@ -306,7 +303,7 @@ class AccountingAuxiliaryBookController extends Controller
             $initMonth = '0'.$initMonth;
         }
         $date     = $initYear.'-'.$initMonth;
-        
+
         $currency = $report->currency;
 
         /**
@@ -314,7 +311,7 @@ class AccountingAuxiliaryBookController extends Controller
          * @var string
          */
         $initDate = $date.'-01';
-        
+
         /**
          * [$day ultimo dia correspondiente al mes]
          * @var date
@@ -495,7 +492,7 @@ class AccountingAuxiliaryBookController extends Controller
         $setting  = Setting::all()->first();
         $initDate = new DateTime($initDate);
         $endDate  = new DateTime($endDate);
-        
+
         $initDate = $initDate->format('d/m/Y');
         $endDate  = $endDate->format('d/m/Y');
 

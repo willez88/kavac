@@ -3,7 +3,7 @@
 namespace Modules\Asset\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -50,7 +50,7 @@ class AssetDisincorporationController extends Controller
      * Muestra un listado de las Ddsincorporaciones de bienes institucionales
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return    \Illuminate\View\View
+     * @return    Renderable
      */
     public function index()
     {
@@ -61,7 +61,7 @@ class AssetDisincorporationController extends Controller
      * Muestra el formulario para registrar una nueva desincorporación de bienes institucionales
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return    \Illuminate\View\View
+     * @return    Renderable
      */
     public function create()
     {
@@ -114,7 +114,7 @@ class AssetDisincorporationController extends Controller
             'observation' => $request->observation,
             'user_id' => Auth::id()
         ]);
-        
+
         $assets = explode(",", $request->assets);
         foreach ($assets as $asset_id) {
             $asset = Asset::find($asset_id);
@@ -140,7 +140,7 @@ class AssetDisincorporationController extends Controller
                         AssetDisincorporation::class,
                         $disincorporation->id
                     );
-                } else if (in_array($extensionFile, $imageFormat)) {
+                } elseif (in_array($extensionFile, $imageFormat)) {
                     $upImage->uploadImage(
                         $file,
                         'pictures',
@@ -154,13 +154,13 @@ class AssetDisincorporationController extends Controller
         return response()->json(['result' => true, 'redirect' => route('asset.disincorporation.index')], 200);
     }
 
-    
+
     /**
      * Muestra el formulario para desincorporar un bien institucional
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      * @param     Integer                          $id    Identificador único del bien a desincorporar
-     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     * @return    Renderable    Objeto con los registros a mostrar
      */
     public function assetDisassign($id)
     {
@@ -173,7 +173,7 @@ class AssetDisincorporationController extends Controller
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      * @param     Integer                          $id    Identificador único de la desincorporación a editar
-     * @return    \Illuminate\Http\JsonResponse    Objeto con los datos a mostrar
+     * @return    Renderable    Objeto con los datos a mostrar
      */
     public function edit($id)
     {
@@ -224,10 +224,10 @@ class AssetDisincorporationController extends Controller
             $asset = Asset::find($asset_disincorporation->asset_id);
             $asset->asset_status_id = 10;
             $asset->save();
-            
+
             $asset_disincorporation->delete();
         }
-    
+
         $request->session()->flash('message', ['type' => 'update']);
         return response()->json(['result' => true, 'redirect' => route('asset.disincorporation.index')], 200);
     }

@@ -4,6 +4,7 @@
 namespace Modules\Asset\Http\Controllers;
 
 use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Modules\Asset\Models\Asset;
@@ -28,7 +29,7 @@ class AssetDashboardController extends Controller
      * Muestra la sección del dashboard del módulo de bienes
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return    \Illuminate\View\View
+     * @return    Renderable
      */
     public function index()
     {

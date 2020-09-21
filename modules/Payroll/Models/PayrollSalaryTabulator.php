@@ -27,14 +27,12 @@ class PayrollSalaryTabulator extends Model implements Auditable
 
     /**
      * Lista de atributos para la gestión de fechas
-     *
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
-     *
      * @var array $fillable
      */
     protected $fillable = [
@@ -47,6 +45,7 @@ class PayrollSalaryTabulator extends Model implements Auditable
      * Método que obtiene la información de los tipos de personal asociados al tabulador
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function payrollStaffTypes()
@@ -59,6 +58,7 @@ class PayrollSalaryTabulator extends Model implements Auditable
      * Método que obtiene la información del escalafón vertical asociado al tabulador
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function payrollVerticalSalaryScale()
@@ -70,6 +70,7 @@ class PayrollSalaryTabulator extends Model implements Auditable
      * Método que obtine la información del escalafón horizontal asociado al tabulador
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function payrollHorizontalSalaryScale()
@@ -81,6 +82,7 @@ class PayrollSalaryTabulator extends Model implements Auditable
      * Método que obtiene la información del las escalas asociadas al tabulador salarial
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function payrollSalaryTabulatorScales()
@@ -92,6 +94,7 @@ class PayrollSalaryTabulator extends Model implements Auditable
      * Método que obtiene la información del la institución asociada al tabulador salarial
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function institution()
@@ -103,6 +106,7 @@ class PayrollSalaryTabulator extends Model implements Auditable
      * Método que obtiene la información del la moneda asociada al tabulador salarial
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function currency()
@@ -114,6 +118,7 @@ class PayrollSalaryTabulator extends Model implements Auditable
      * Método que obtiene la información de los conceptos asociados al tabulador salarial
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function payrollConcepts()

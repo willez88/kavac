@@ -4,7 +4,7 @@
 namespace Modules\Asset\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -38,12 +38,12 @@ class AssetReportController extends Controller
         /** Establece permisos de acceso para cada método del controlador */
         $this->middleware('permission:asset.report.create', ['only' => 'create']);
     }
-    
+
     /**
      * Muestra un listado de las solicitudes de bienes institucionales
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return    \Illuminate\View\View
+     * @return    Renderable
      */
     public function index()
     {
@@ -79,7 +79,7 @@ class AssetReportController extends Controller
             $codeSetting->model,
             $codeSetting->field
         );
-        
+
         /**
          * Objeto asociado al modelo AssetReport
          *

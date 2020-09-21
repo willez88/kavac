@@ -3,7 +3,6 @@
 namespace Modules\Warehouse\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -95,7 +94,7 @@ class WarehouseController extends Controller
             'name' => ['required', 'max:100'],
             'address' => ['required'],
             'parish_id' => ['required'],
-            
+
         ]);
 
         $warehouse = Warehouse::create([
@@ -114,12 +113,12 @@ class WarehouseController extends Controller
             'warehouse_id'   => $warehouse->id,
             'main'           => !empty($request->main)?$request->input('main'):false,
         ]);
-        
+
         $paramMultiWarehouse = Parameter::where([
             'active' => true, 'required_by' => 'warehouse',
             'p_key' => 'multi_warehouse', 'p_value' => 'true'
         ])->first();
-        
+
         if (is_null($paramMultiWarehouse) || ($paramMultiWarehouse->p_value == false)) {
             $inst_wares = WarehouseInstitutionWarehouse::where('institution_id', $institution_id)
                 ->with('warehouse')->get();
@@ -157,7 +156,7 @@ class WarehouseController extends Controller
             'address'   => ['required'],
             'parish_id' => ['required'],
         ]);
- 
+
         $warehouse->name      = $request->input('name');
         $warehouse->address   = $request->input('address');
         $warehouse->parish_id = $request->input('parish_id');
@@ -175,7 +174,7 @@ class WarehouseController extends Controller
             'active' => true, 'required_by' => 'warehouse',
             'p_key' => 'multi_warehouse', 'p_value' => 'true'
         ])->first();
-        
+
         if (is_null($paramMultiWarehouse) || ($paramMultiWarehouse->p_value == false)) {
             $inst_wares = WarehouseInstitutionWarehouse::where('institution_id', $institution_id)
                 ->with('warehouse')->get();
@@ -193,7 +192,7 @@ class WarehouseController extends Controller
                 }
             }
         }
- 
+
         return response()->json(['message' => 'Success'], 200);
     }
 

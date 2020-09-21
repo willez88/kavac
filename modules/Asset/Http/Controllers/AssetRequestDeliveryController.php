@@ -3,7 +3,6 @@
 namespace Modules\Asset\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -51,7 +50,7 @@ class AssetRequestDeliveryController extends Controller
         $this->validate($request, [
             'asset_request_id' => ['required']
         ]);
-    
+
         /**
          * Objeto asociado al modelo AssetRequestDelivery
          *
@@ -89,9 +88,9 @@ class AssetRequestDeliveryController extends Controller
             $asset_request = AssetRequest::find($request->asset_request_id);
             $asset_request->state = 'Entregados';
             $asset_request->save();
-            
+
             $assets_requested = AssetRequestAsset::where('asset_request_id', $asset_request->id)->get();
-            
+
             foreach ($assets_requested as $requested) {
                 $asset = $requested->asset;
                 $asset->asset_status_id = 10;

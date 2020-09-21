@@ -4,7 +4,7 @@ namespace Modules\Accounting\Http\Controllers\Reports;
 
 use DateTime;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
@@ -130,7 +130,7 @@ class AccountingAnalyticalMajorController extends Controller
      * [getAccAccount ruta para actualizar el listado de cuentas patrimoniales en un rango de fecha determinado]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  {Request} $request [datos del rango de busqueda de las cuentas]
-     * @return [Response] [cuentas patrimoniales]
+     * @return Renderable [cuentas patrimoniales]
      */
     public function getAccAccount(Request $request)
     {
@@ -337,7 +337,7 @@ class AccountingAnalyticalMajorController extends Controller
         if ($report && $report->queryAccess($user_profile['institution']['id'])) {
             return view('errors.403');
         }
-        
+
         $initDate = explode('/', $report->url)[1];
         $endDate  = explode('/', $report->url)[2];
         $initAcc  = explode('/', $report->url)[3];
@@ -462,10 +462,10 @@ class AccountingAnalyticalMajorController extends Controller
          * @var [Modules\Accounting\Models\Setting]
          */
         $setting  = Setting::all()->first();
-        
+
         $initDate = new DateTime($initDate);
         $endDate  = new DateTime($endDate);
-        
+
         $initDate = $initDate->format('d/m/Y');
         $endDate  = $endDate->format('d/m/Y');
 

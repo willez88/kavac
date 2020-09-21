@@ -3,7 +3,6 @@
 namespace Modules\Asset\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -34,7 +33,7 @@ class AssetConditionController extends Controller
         /** Establece permisos de acceso para cada método del controlador */
         //$this->middleware('permission:asset.setting.condition');
     }
-    
+
     /**
      * Muestra un listado de las condiciones físicas de los bienes institucionales
      *
@@ -85,10 +84,10 @@ class AssetConditionController extends Controller
         $this->validate($request, [
             'name' => ['required', 'max:100']
         ]);
- 
+
         $condition->name = $request->input('name');
         $condition->save();
- 
+
         return response()->json(['message' => 'Success'], 200);
     }
 

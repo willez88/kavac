@@ -272,7 +272,7 @@
                     <div class="modal-body modal-table">
                         <v-client-table :columns="columns" :data="records" :options="table_options">
                             <div slot="id" slot-scope="props" class="text-center">
-                                <button @click="initUpdate(props.index, $event)"
+                                <button @click="initUpdate(props.row.id, $event)"
                                         class="btn btn-warning btn-xs btn-icon btn-action"
                                         title="Modificar registro" data-toggle="tooltip" type="button">
                                     <i class="fa fa-edit"></i>
@@ -417,7 +417,7 @@
              */
             changeParameterType() {
                 const vm = this;
-                
+
                 if (vm.record.parameter_type == 'processed_variable') {
                     vm.variable = '';
                 } else if (vm.record.parameter_type == 'global_value') {

@@ -4,13 +4,11 @@ namespace Modules\Accounting\Http\Controllers;
 
 use Auth;
 use DateTime;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Contracts\Support\Renderable;
 use Modules\Accounting\Models\AccountingReportHistory;
 use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Currency;
-use Modules\Accounting\Models\Institution;
 use Modules\Accounting\Models\Profile;
 
 /**
@@ -45,7 +43,7 @@ class AccountingDashboardController extends Controller
     /**
      * [index Despliega la vista principal]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return [view]
+     * @return Renderable
      */
     public function index()
     {
@@ -73,7 +71,7 @@ class AccountingDashboardController extends Controller
 
         $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
 
-        if ($user_profile['institution']['id']) {
+        if ($user_profile && $user_profile['institution']['id']) {
             $records = AccountingEntry::with('accountingAccounts.account.accountConverters.budgetAccount')
                         ->where('institution_id', $user_profile['institution']['id'])
                         ->orderBy('from_date', 'ASC')->get();
@@ -91,7 +89,7 @@ class AccountingDashboardController extends Controller
      * Obtiene los registros de los ultimos reportes generados
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return View
+     * @return JsonResponse
      */
     public function getReportHistories()
     {
@@ -102,12 +100,12 @@ class AccountingDashboardController extends Controller
         $report_histories = [];
 
         $reports = [];
-        
+
         $institution      = get_institution();
 
         $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
 
-        if ($user_profile['institution']['id']) {
+        if ($user_profile && $user_profile['institution']['id']) {
             $reports = AccountingReportHistory::with('institution')
                         ->where('institution_id', $user_profile['institution']['id'])
                                             ->orderBy('updated_at', 'DESC')->get();

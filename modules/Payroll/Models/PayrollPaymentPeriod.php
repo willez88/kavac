@@ -27,14 +27,12 @@ class PayrollPaymentPeriod extends Model implements Auditable
 
     /**
      * Lista de atributos para la gestión de fechas
-     *
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
-     *
      * @var array $fillable
      */
     protected $fillable = [
@@ -42,13 +40,26 @@ class PayrollPaymentPeriod extends Model implements Auditable
     ];
 
     /**
-     * Método que obtine la información del tipo de pago asociado al período de pago de nómina
+     * Método que obtiene la información del tipo de pago asociado al período de pago de nómina
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function payrollPaymentType()
     {
         return $this->belongsTo(PayrollPaymentType::class);
+    }
+
+    /**
+     * Método que obtiene la información del registro de nómina asociado al período de pago
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function payroll()
+    {
+        return $this->hasOne(Payroll::class);
     }
 }

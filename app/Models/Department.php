@@ -14,6 +14,15 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  *
  * Gestiona el modelo de datos para las Unidades, Departamentos o Dependencias
  *
+ * @property  string  $name
+ * @property  string  $acronym
+ * @property  string  $hierarchy
+ * @property  boolean $issue_requests
+ * @property  boolean $active
+ * @property  boolean $administrative
+ * @property  integer $parent_id
+ * @property  integer $institution_id
+ *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
  *              LICENCIA DE SOFTWARE CENDITEL

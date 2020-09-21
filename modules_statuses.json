@@ -9,5 +9,6 @@
     "Purchase": true,
     "TechnicalSupport": true,
     "Warehouse": true,
-    "Sale": true
+    "Sale": true,
+    "Prueba": true
 }

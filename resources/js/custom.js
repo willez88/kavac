@@ -339,7 +339,9 @@ $(document).ready(function() {
                 $('.dataTables_filter input').tooltip('hide');
             }, 1500);
         });
-
+        $('.modal').on('hidden.bs.modal', function() {
+            $("input[class^='VueTables__search']").val('');
+        });
     }
 
     /** Gestiona elementos de tablas VueTables */

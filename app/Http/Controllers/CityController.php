@@ -45,17 +45,6 @@ class CityController extends Controller
     }
 
     /**
-     * Muestra el formulario para crear una nueva Ciudad
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\Http\JsonResponse Objeto con los datos a mostrar en el formulario
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Registra una nueva Ciudad
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
@@ -75,30 +64,6 @@ class CityController extends Controller
         ]);
 
         return response()->json(['record' => $city, 'message' => 'Success'], 200);
-    }
-
-    /**
-     * Muestra los datos de una Ciudad
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param \App\Models\City $city Datos de la Ciudad
-     * @return \Illuminate\Http\JsonResponse Objeto con los datos a mostrar
-     */
-    public function show(City $city)
-    {
-        //
-    }
-
-    /**
-     * Muestra el formulario con los datos a modificar de una Ciudad
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param \App\Models\City $city Datos de la Ciudad
-     * @return \Illuminate\Http\JsonResponse Objeto con los datos a mostrar en el formulario de edición
-     */
-    public function edit(City $city)
-    {
-        //
     }
 
     /**

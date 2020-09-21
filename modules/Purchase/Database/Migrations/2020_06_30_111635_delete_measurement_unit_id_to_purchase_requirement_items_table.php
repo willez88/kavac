@@ -15,6 +15,7 @@ class DeleteMeasurementUnitIdToPurchaseRequirementItemsTable extends Migration
     {
         if (Schema::hasTable('purchase_requirement_items')) {
             Schema::table('purchase_requirement_items', function (Blueprint $table) {
+                $table->dropForeign(['measurement_unit_id']);
                 $table->dropColumn('measurement_unit_id');
             });
         }
@@ -36,12 +37,8 @@ class DeleteMeasurementUnitIdToPurchaseRequirementItemsTable extends Migration
                 *
                 * Define la estructura de relación al producto
                 */
-                $table->bigInteger('measurement_unit_id')->unsigned()
-                          ->comment('Identificador de la unidad de medida');
-                $table->foreign('measurement_unit_id')->references('id')
-                          ->on('measurement_units')->onDelete('restrict')
-                          ->onUpdate('cascade');
-            });   
+                $table->foreignId('measurement_unit_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
+            });
         }
     }
 }

@@ -7,5 +7,5 @@
 
 @section('modules-css')
     @parent
-    {!! Html::style(mix('modules/budget/css/app.css'), [], Request::secure()) !!}
+    {!! Html::style(mix('modules/budget/css/app.css'), ['media' => 'screen'], Request::secure()) !!}
 @endsection

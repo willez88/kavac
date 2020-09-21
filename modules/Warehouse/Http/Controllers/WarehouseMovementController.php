@@ -3,7 +3,7 @@
 namespace Modules\Warehouse\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -52,7 +52,7 @@ class WarehouseMovementController extends Controller
      * Muestra un listado de los movimientos de almacén registrados
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return Renderable (JSON con los registros a mostrar)
      */
     public function index()
     {
@@ -63,7 +63,7 @@ class WarehouseMovementController extends Controller
      * Muestra el formulario para registrar un nuevo Movimiento de Almacén
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return Renderable (JSON con los registros a mostrar)
      */
     public function create()
     {
@@ -75,7 +75,7 @@ class WarehouseMovementController extends Controller
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function store(Request $request)
     {
@@ -137,7 +137,7 @@ class WarehouseMovementController extends Controller
                         )
                             ->where('warehouse_product_id', $inventory_product_init->warehouse_product_id)
                             ->where('unit_value', $inventory_product_init->unit_value)->get();
-                            
+
                         /** Si existe se comparan los atributos perzonalizados si los tiene */
                         if ((count($products_inventory) > 0)) {
                             foreach ($products_inventory as $inventory_product_finish) {
@@ -187,7 +187,7 @@ class WarehouseMovementController extends Controller
                         /** Si no existe registro previo se genera un nuevo registro de inventario y un movimiento */
                         if ((count($products_inventory) == 0) || ($equal == false)) {
                             $codeSetting = CodeSetting::where('table', 'warehouse_inventory_products')->first();
-                    
+
                             $codep  = generate_registration_code(
                                 $codeSetting->format_prefix,
                                 strlen($codeSetting->format_digits),
@@ -251,7 +251,7 @@ class WarehouseMovementController extends Controller
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param $id Identificador único del movimiento de almacén
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return Renderable
      */
     public function edit($id)
     {
@@ -265,7 +265,7 @@ class WarehouseMovementController extends Controller
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
      * @param  $id Identificador único del movimiento de almacén
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function update(Request $request, $id)
     {
@@ -288,7 +288,7 @@ class WarehouseMovementController extends Controller
             $equal = null;
 
             $update = now();
-            
+
             /** Se agregan los nuevos elementos a la solicitud */
             foreach ($request->warehouse_inventory_products as $product) {
                 $inventory_product_init = WarehouseInventoryProduct::find($product['id']);
@@ -313,18 +313,18 @@ class WarehouseMovementController extends Controller
                             'warehouse_product_id',
                             $inventory_product_init->warehouse_product_id
                         )->where('unit_value', $inventory_product_init->unit_value)->get();
-                            
+
                         /** Si existe un registro se comparan los atributos perzonalizados, si los tiene */
                         if (!empty($products_inventory)) {
                             foreach ($products_inventory as $inventory_product_finish) {
                                 /** @var boolean $equal Define si los atributos coinciden con los registrados */
                                 $equal = true;
-                                
+
                                 $attributes = WarehouseProductAttribute::where(
                                     'warehouse_product_id',
                                     $inventory_product_init->warehouse_product_id
                                 )->with('warehouseProductValue')->get();
-                                
+
                                 foreach ($attributes as $attribute) {
                                     $value_init = WarehouseProductValue::where(
                                         'warehouse_product_attribute_id',
@@ -341,7 +341,7 @@ class WarehouseMovementController extends Controller
                                         'warehouse_inventory_product_id',
                                         $inventory_product_finish->id
                                     )->first();
-                                    
+
                                     /**
                                      * Si algun atributo no existe o es diferente termina el ciclo de control
                                      */
@@ -367,7 +367,7 @@ class WarehouseMovementController extends Controller
                         /** Si no existe registro previo se genera un nuevo registro de inventario y un movimiento */
                         if (empty($products_inventory) || $equal == false) {
                             $codeSetting = CodeSetting::where('table', 'warehouse_inventory_products')->first();
-                    
+
                             $codep  = generate_registration_code(
                                 $codeSetting->format_prefix,
                                 strlen($codeSetting->format_digits),
@@ -426,7 +426,7 @@ class WarehouseMovementController extends Controller
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  $id Identificador único del movimiento de almacén
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function destroy($id)
     {
@@ -467,7 +467,7 @@ class WarehouseMovementController extends Controller
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  Integer $id Identificador único del movimiento de almacén
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function vueInfo($id)
     {
@@ -492,7 +492,7 @@ class WarehouseMovementController extends Controller
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  Integer $id Identificador único del movimiento de almacén
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function confirmMovement(Request $request, $id)
     {
@@ -503,7 +503,7 @@ class WarehouseMovementController extends Controller
             $warehouse_movement->save();
 
             $warehouse_inventory_product_movements = $warehouse_movement->WarehouseInventoryProductMovements;
-            
+
             foreach ($warehouse_inventory_product_movements as $warehouse_inventory_product_movement) {
                 $warehouse_inventory_product = $warehouse_inventory_product_movement->WarehouseInventoryProduct;
                 $warehouse_initial_inventory_product =
@@ -518,7 +518,7 @@ class WarehouseMovementController extends Controller
                         $warehouse_inventory_product_movement->quantity;
                     $warehouse_inventory_product->save();
                 }
-                
+
                 /** Se extraen los productos del inventario inicial */
                 if (($warehouse_initial_inventory_product->reserved >= $warehouse_inventory_product_movement->quantity)
                 && ($warehouse_initial_inventory_product->exist >= $warehouse_inventory_product_movement->quantity)) {
@@ -558,7 +558,7 @@ class WarehouseMovementController extends Controller
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  Integer $id Identificador único del movimiento de almacén
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function rejectedMovement(Request $request, $id)
     {
@@ -576,7 +576,7 @@ class WarehouseMovementController extends Controller
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  Integer $id Identificador único del movimiento de almacén
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function approvedMovement(Request $request, $id)
     {
@@ -586,7 +586,7 @@ class WarehouseMovementController extends Controller
             $warehouse_movement->save();
 
             $warehouse_inventory_product_movements = $warehouse_movement->WarehouseInventoryProductMovements;
-            
+
             foreach ($warehouse_inventory_product_movements as $warehouse_inventory_product_movement) {
                 $warehouse_inventory_product = $warehouse_inventory_product_movement->WarehouseInventoryProduct;
                 $warehouse_initial_inventory_product =

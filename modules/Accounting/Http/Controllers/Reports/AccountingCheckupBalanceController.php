@@ -2,7 +2,6 @@
 
 namespace Modules\Accounting\Http\Controllers\Reports;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
@@ -143,7 +142,7 @@ class AccountingCheckupBalanceController extends Controller
     {
         return $this->currency['id'];
     }
-    
+
     public function getCurrency()
     {
         return $this->currency;
@@ -224,11 +223,11 @@ class AccountingCheckupBalanceController extends Controller
          * @var array
          */
         $arrAux = [];
-        
+
         $institution_id = null;
 
         $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
-        
+
         if ($user_profile['institution']) {
             $institution_id = $user_profile['institution']['id'];
         }
@@ -359,7 +358,7 @@ class AccountingCheckupBalanceController extends Controller
          * @var AccountingEntry
          */
         $entries = AccountingEntry::where('approved', true)->orderBy('from_date', 'ASC')->first();
-       
+
         $accounts = $this->getAccAccount($initDate, $endDate, true, $all, null);
 
         $institution_id = null;
@@ -433,7 +432,7 @@ class AccountingCheckupBalanceController extends Controller
         $institution_id = null;
 
         $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
-        
+
         if ($user_profile['institution']) {
             $institution_id = $user_profile['institution']['id'];
         }
@@ -545,9 +544,9 @@ class AccountingCheckupBalanceController extends Controller
         * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
         */
         $all         = ($all != false)?'true':'';
-        
+
         $url         = 'balanceCheckUp/'.$initDate.'/'.$endDate.'/'.$all;
-        
+
         $currentDate = new DateTime;
         $currentDate = $currentDate->format('Y-m-d');
 
@@ -625,16 +624,16 @@ class AccountingCheckupBalanceController extends Controller
          * @var array
          */
         $beginningBalance = $this->getBeginningBalance();
-        
+
         /**
          * [$accountRecords asociativo con la información base]
          * @var array
          */
         $accountRecords = $this->getAccAccount($initDate, $endDate, false, $all, $beginningBalance);
-        
+
         $initDate       = new DateTime($initDate);
         $endDate        = new DateTime($endDate);
-        
+
         $initDate       = $initDate->format('d/m/Y');
         $endDate        = $endDate->format('d/m/Y');
 

@@ -34,7 +34,6 @@ class PayrollPositionType extends Model implements Auditable
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
-     *
      * @var array $fillable
      */
     protected $fillable = [
@@ -45,6 +44,7 @@ class PayrollPositionType extends Model implements Auditable
      * Método que obtiene el tipo de cargo asociado a muchas informaciones laborales
      *
      * @author    William Páez <wpaez@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function payrollEmploymentInformations()
@@ -56,6 +56,7 @@ class PayrollPositionType extends Model implements Auditable
      * Obtiene información de las opciones asignadas asociadas a un tipo de cargo
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function payrollConceptAssignOptions()

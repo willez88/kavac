@@ -3,7 +3,7 @@
 namespace Modules\CitizenService\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -24,7 +24,7 @@ class CitizenServiceRequestTypeController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * @return Response
+     * @return Renderable
      */
     public function create()
     {
@@ -36,7 +36,7 @@ class CitizenServiceRequestTypeController extends Controller
      *
      * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
      * @param  Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
@@ -54,7 +54,7 @@ class CitizenServiceRequestTypeController extends Controller
 
     /**
      * Show the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function show()
     {
@@ -63,7 +63,7 @@ class CitizenServiceRequestTypeController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @return Response
+     * @return Renderable
      */
     public function edit()
     {
@@ -75,14 +75,14 @@ class CitizenServiceRequestTypeController extends Controller
      *
      * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
      * @param  Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function update(Request $request, $id)
     {
         $citizenserviceRequestType = CitizenServiceRequestType::find($id);
         $this->validate($request, [
             'name' => ['required', 'max:100'],
-            'description' => ['max:200']
+            'description' => ['required','max:200']
         ]);
         $citizenserviceRequestType->name        = $request->name;
         $citizenserviceRequestType->description = $request->description;
@@ -94,7 +94,7 @@ class CitizenServiceRequestTypeController extends Controller
      * Elimina el tipo de solicitud
      *
      * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
-     * @return Response
+     * @return JsonResponse
      */
     public function destroy($id)
     {

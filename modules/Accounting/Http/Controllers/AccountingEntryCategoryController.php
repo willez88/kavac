@@ -3,12 +3,10 @@
 namespace Modules\Accounting\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use Modules\Accounting\Models\AccountingEntryCategory;
-use Auth;
 
 /**
  * @class AccountingEntryCategoryController

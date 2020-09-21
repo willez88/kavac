@@ -3,7 +3,6 @@
 namespace Modules\Warehouse\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -29,7 +28,7 @@ use Modules\Warehouse\Models\WarehouseProduct;
 class WarehouseProductController extends Controller
 {
     use ValidatesRequests;
-    
+
     /**
      * Define la configuración de la clase
      *
@@ -45,7 +44,7 @@ class WarehouseProductController extends Controller
      * Muestra un listado de los productos almacenables registrados
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function index()
     {
@@ -57,7 +56,7 @@ class WarehouseProductController extends Controller
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function store(Request $request)
     {
@@ -65,7 +64,7 @@ class WarehouseProductController extends Controller
             'name'                => ['required', 'max:100'],
             'description'         => ['required'],
             'measurement_unit_id' => ['required']
-            
+
         ]);
 
         $product = WarehouseProduct::create([
@@ -94,7 +93,7 @@ class WarehouseProductController extends Controller
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
      * @param  \Modules\Warehouse\Models\WarehouseProduct $product (Registro a ser actualizado)
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function update(Request $request, WarehouseProduct $product)
     {
@@ -154,14 +153,14 @@ class WarehouseProductController extends Controller
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      * @param  $id Identificador único del movimiento de almacén
-     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function destroy(WarehouseProduct $product)
     {
         $product->delete();
         return response()->json(['record' => $product, 'message' => 'Success'], 200);
     }
-    
+
     /**
      * Muestra una lista de los productos almacenables para elementos del tipo select
      *
@@ -178,7 +177,7 @@ class WarehouseProductController extends Controller
      * Consulta la informacion de un producto
      *
      * @author Juan Rosas <juan.rosasr01@gmail.com | jrosas@cenditel.gob.ve>
-     * @return Objeto con los registros a mostrar
+     * @return JsonResponse
      */
 
     public function getProductMeasurementUnit($product_id)
@@ -192,7 +191,7 @@ class WarehouseProductController extends Controller
      * Muestra una lista de los atributos de un producto
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return Objeto con los registros a mostrar
+     * @return JsonResponse
      */
 
     public function getProductAttributes($product_id)
@@ -217,7 +216,7 @@ class WarehouseProductController extends Controller
      * Muestra una lista de los productos registrados para su uso en elementos gráficos del sistema
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return Array con los registros a mostrar
+     * @return JsonResponse
      */
     public function getInventoryProducts($type, $order = 'desc')
     {
@@ -250,7 +249,7 @@ class WarehouseProductController extends Controller
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
      *
-     * @return object    Objeto que permite descargar el archivo con la información a ser exportada
+     * @return JsonResponse    Objeto que permite descargar el archivo con la información a ser exportada
      */
     public function import(Request $request)
     {

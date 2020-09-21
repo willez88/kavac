@@ -69,6 +69,12 @@ return [
             'visibility' => 'public',
         ],
 
+        /** Ruta para almacenar archivos temporales de la aplicación */
+        'temporary' => [
+            'driver' => 'local',
+            'root'   => storage_path('temporary')
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

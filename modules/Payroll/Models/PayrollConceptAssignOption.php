@@ -27,14 +27,12 @@ class PayrollConceptAssignOption extends Model implements Auditable
 
     /**
      * Lista de atributos para la gestión de fechas
-     *
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
-     *
      * @var array $fillable
      */
     protected $fillable = ['payroll_concept_id', 'key', 'value'];
@@ -43,6 +41,7 @@ class PayrollConceptAssignOption extends Model implements Auditable
      * Método que obtine la información del concepto asociado al registro
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
      * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function payrollConcept()

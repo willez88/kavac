@@ -3,7 +3,7 @@
 namespace Modules\Budget\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
@@ -59,7 +59,7 @@ class BudgetReductionController extends Controller
      * Muestra un listado de reducciones de presupuesto
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return Response
+     * @return Renderable
      */
     public function index()
     {
@@ -73,7 +73,7 @@ class BudgetReductionController extends Controller
      * Muestra un formulario para la creación de redcciones presupuestarias
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return Response
+     * @return Renderable
      */
     public function create()
     {
@@ -90,7 +90,7 @@ class BudgetReductionController extends Controller
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param Request $request Objeto con datos de la petición realizada
-     * @return Response
+     * @return Renderable
      */
     public function store(Request $request)
     {
@@ -102,7 +102,7 @@ class BudgetReductionController extends Controller
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param int $id Identificador de la reducción presupuestaria a mostrar
-     * @return Response
+     * @return Renderable
      */
     public function show($id)
     {
@@ -114,7 +114,7 @@ class BudgetReductionController extends Controller
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param int $id Identificador de la reducción presupuestaria a modificar
-     * @return Response
+     * @return Renderable
      */
     public function edit($id)
     {
@@ -127,7 +127,7 @@ class BudgetReductionController extends Controller
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param Request $request Objeto con datos de la petición realizada
      * @param int $id          Identificador de la reducción presupuestaria a modificar
-     * @return Response
+     * @return Renderable
      */
     public function update(Request $request, $id)
     {
@@ -140,7 +140,7 @@ class BudgetReductionController extends Controller
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param Request $request Objeto con datos de la petición realizada
      * @param int $id Identificador de la reducción presupuestaria a eliminar
-     * @return Response
+     * @return Renderable
      */
     public function destroy(Request $request, $id)
     {
