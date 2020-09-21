@@ -296,10 +296,13 @@ class DigitalSignatureController extends Controller
      * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
      * @return
      */
-    public function verifysign() {
+    public function verifysign(Request $request) {
 
-        //informacion para realizar la verificación de firma electrónica
-        $namepdfsign = 'pruebaPDF-sign.pdf';
+        //Documento pdf
+        $filename = Str::random(10);
+        $namepdfsign = $filename . '.pdf';
+        $path = $request->file('pdf')->storeAs('',$namepdfsign, 'temporary');
+        
         $storePdfSign = getPathSign($namepdfsign);
 
         //ejecución del comando para firmar

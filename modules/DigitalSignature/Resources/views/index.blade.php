@@ -260,6 +260,47 @@
                     </div>
                 </div>
                 <div class="col-xs-2 text-center">
+                    <a class="btn-simplex btn-simplex-md btn-simplex-primary" href="#" data-toggle="modal"
+                       data-target="#modalVerify" title="Verificar Firmar de documentos pdf">
+                        <i class="icofont icofont-file-pdf ico-3x"></i>
+                        <span> Verificar firma PDF </span>
+                    </a>
+                    <div class="modal fade" id="modalVerify" tabindex="-1" aria-labelledby="modalVerifyLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog vue-crud">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h6><i class="icofont icofont-file-pdf"></i> Verificar firma de documento PDF </h6>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body text-left">
+                                    <form method="POST" enctype="multipart/form-data" accept-charset="UTF-8" action="{{ route('verifysign') }}">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                        <p>
+                                            <label for="pdf">Cargar PDF a verificar firma</label>
+                                            <input id="pdf" type="file" class="form-control" name="pdf" required />
+                                        </p>
+                                        <p class="text-right">
+                                            <button type="submit" class="btn btn-success btn-icon btn-round" data-toggle="tooltip"
+                                                    title="Verificar firma de documento PDF">
+                                                <i class="icofont icofont-fountain-pen"></i>
+                                            </button>
+                                        </p>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
+                                            data-dismiss="modal">
+                                        Cerrar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-2 text-center">
                     @if($cert == 'true')
                         <a class="btn-simplex btn-simplex-md btn-simplex-primary" href="#"
                            title="Formulario de carga del certificado" data-toggle="modal"
