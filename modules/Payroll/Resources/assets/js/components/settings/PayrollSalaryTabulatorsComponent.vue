@@ -193,8 +193,7 @@
                                                 <label>Escalafón horizontal:</label>
                                                 <select id="payroll_horizontal_salary_scale"
                                                         class="form-control select2"
-                                                        @change="isDisable('horizontal')"
-                                                        @input="loadSalaryScales('horizontal')"
+                                                        @change="isDisable('horizontal');loadSalaryScales('horizontal')"
                                                         v-model="record.payroll_horizontal_salary_scale_id">
                                                     <option v-for="option in payroll_horizontal_salary_scales"
                                                             :id="option.id + '_h'" :value="option.id">
@@ -210,8 +209,7 @@
                                                 <label>Escalafón vertical:</label>
                                                 <select id="payroll_vertical_salary_scale"
                                                         class="form-control select2"
-                                                        @change="isDisable('vertical')"
-                                                        @input="loadSalaryScales('vertical')"
+                                                        @change="isDisable('vertical');loadSalaryScales('vertical')"
                                                         v-model="record.payroll_vertical_salary_scale_id">
                                                     <option v-for="option in payroll_vertical_salary_scales"
                                                             :id="option.id + '_v'" :value="option.id">
@@ -416,7 +414,8 @@
                 payroll_vertical_salary_scales:   [],
                 payroll_salary_scale_h:           [],
                 payroll_salary_scale_v:           [],
-                panel:                            'Form'
+                panel:                            'Form',
+                edit:                             false
 
 			}
 		},
@@ -496,6 +495,7 @@
                 vm.payroll_salary_scale_h = [];
                 vm.payroll_salary_scale_v = [];
                 vm.panel                  = 'Form';
+                vm.edit                   = false;
                 vm.changePanel(vm.panel);
 
 			},
@@ -601,10 +601,17 @@
                     institution_id: vm.record.institution_id,
                     except_id:      ''
                 };
+                if (vm.edit == false) {
+                    delete vm.record.payroll_salary_tabulator_scales;
+                    delete vm.record.payroll_horizontal_salary_scale;
+                    delete vm.record.payroll_vertical_salary_scale;
+                }
+                vm.edit = false;
 
                 if (vm.record.payroll_salary_tabulator_type != '') {
                     axios.post('/payroll/get-salary-scales', field).then(response => {
                         if (typeof(response.data) !== "undefined") {
+
                             if (vm.record.payroll_salary_tabulator_type == 'vertical') {
                                 vm.payroll_horizontal_salary_scales = [];
                                 vm.record.payroll_horizontal_salary_scale_id = '';
@@ -677,7 +684,7 @@
                                     }
                                 });
                                 vm.changePanel('Show');
-                            }
+                            };
                         } else if (vm.record.payroll_salary_tabulator_type == 'vertical') {
                             if ((typeof(vm.record.payroll_vertical_salary_scale) != 'undefined')
                                 && (vm.record.payroll_vertical_salary_scale != null)
@@ -822,6 +829,32 @@
                     });
                 }
             },
+            /**
+             * Reescribe el método initUpdate para cambiar su comportamiento por defecto
+             * Método que carga el formulario con los datos a modificar
+             *
+             * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             *
+             * @param     {integer}    id       Identificador del registro a ser modificado
+             * @param     {object}     event    Objeto que gestiona los eventos
+             */
+            initUpdate(id, event) {
+                const vm = this;
+                vm.errors = [];
+                let recordEdit = JSON.parse(JSON.stringify(vm.records.filter((rec) => {
+                    return rec.id === id;
+                })[0])) || vm.reset();
+
+                vm.record = recordEdit;
+                vm.edit   = true;
+                vm.payroll_salary_scale_v = (vm.record.payroll_vertical_salary_scale)
+                                                ? vm.record.payroll_vertical_salary_scale
+                                                : [];
+                vm.payroll_salary_scale_h = (vm.record.payroll_horizontal_salary_scale)
+                                                ? vm.record.payroll_horizontal_salary_scale
+                                                : [];
+                event.preventDefault();
+            }
 		}
 	};
 </script>

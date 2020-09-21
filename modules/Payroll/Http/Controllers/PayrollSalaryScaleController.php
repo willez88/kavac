@@ -175,7 +175,7 @@ class PayrollSalaryScaleController extends Controller
                 if ($payrollScale['id'] > 0) {
                     $scale              = PayrollScale::find($payrollScale['id']);
                     $scale->name        = $payrollScale['name'];
-                    $scale->value       = json_encode($payrollScale['value']);
+                    $scale->value       = json_encode(json_decode($payrollScale['value']));
                     $scale->updated_at  = $updated_at;
                     $scale->save();
                 } else {
