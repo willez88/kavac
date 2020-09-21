@@ -2,8 +2,8 @@
 
 @font-face {
   font-family: "Material Design Icons";
-  src: url(/fonts/vendor/@mdi/materialdesignicons-webfont.eot?4a837d054b5f2a37170df8a275a13816);
-  src: url(/fonts/vendor/@mdi/materialdesignicons-webfont.eot?4a837d054b5f2a37170df8a275a13816) format("embedded-opentype"), url(/fonts/vendor/@mdi/materialdesignicons-webfont.woff2?f1997a8aba8a498fe4032e3b56e871ca) format("woff2"), url(/fonts/vendor/@mdi/materialdesignicons-webfont.woff?31d47085569e772c0f57aa8ec8381a5c) format("woff"), url(/fonts/vendor/@mdi/materialdesignicons-webfont.ttf?b0fd91bb29dcb296a9a37f8bda0a2d85) format("truetype");
+  src: url(/fonts/vendor/@mdi/materialdesignicons-webfont.eot?cdac4fb864d0816f2cbef6c78d4f6490);
+  src: url(/fonts/vendor/@mdi/materialdesignicons-webfont.eot?cdac4fb864d0816f2cbef6c78d4f6490) format("embedded-opentype"), url(/fonts/vendor/@mdi/materialdesignicons-webfont.woff2?3a0b3b123a2a3ffd394505a9966231b8) format("woff2"), url(/fonts/vendor/@mdi/materialdesignicons-webfont.woff?92b716858bfb2c48f54b8e5d996830f7) format("woff"), url(/fonts/vendor/@mdi/materialdesignicons-webfont.ttf?3e81ae3d5da947449b00c686bfe100af) format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -43,32 +43,12 @@
   content: "\F0003";
 }
 
-.mdi-access-point-check::before {
-  content: "\F1538";
-}
-
-.mdi-access-point-minus::before {
-  content: "\F1539";
-}
-
 .mdi-access-point-network::before {
   content: "\F0002";
 }
 
 .mdi-access-point-network-off::before {
   content: "\F0BE1";
-}
-
-.mdi-access-point-off::before {
-  content: "\F1511";
-}
-
-.mdi-access-point-plus::before {
-  content: "\F153A";
-}
-
-.mdi-access-point-remove::before {
-  content: "\F153B";
 }
 
 .mdi-account::before {
@@ -331,14 +311,6 @@
   content: "\F0B5A";
 }
 
-.mdi-account-reactivate::before {
-  content: "\F152B";
-}
-
-.mdi-account-reactivate-outline::before {
-  content: "\F152C";
-}
-
 .mdi-account-remove::before {
   content: "\F0015";
 }
@@ -377,10 +349,6 @@
 
 .mdi-account-supervisor-circle::before {
   content: "\F0A8C";
-}
-
-.mdi-account-supervisor-circle-outline::before {
-  content: "\F14EC";
 }
 
 .mdi-account-supervisor-outline::before {
@@ -575,14 +543,6 @@
   content: "\F0CE5";
 }
 
-.mdi-alert-minus::before {
-  content: "\F14BB";
-}
-
-.mdi-alert-minus-outline::before {
-  content: "\F14BE";
-}
-
 .mdi-alert-octagon::before {
   content: "\F0029";
 }
@@ -601,22 +561,6 @@
 
 .mdi-alert-outline::before {
   content: "\F002A";
-}
-
-.mdi-alert-plus::before {
-  content: "\F14BA";
-}
-
-.mdi-alert-plus-outline::before {
-  content: "\F14BD";
-}
-
-.mdi-alert-remove::before {
-  content: "\F14BC";
-}
-
-.mdi-alert-remove-outline::before {
-  content: "\F14BF";
 }
 
 .mdi-alert-rhombus::before {
@@ -1395,20 +1339,12 @@
   content: "\F0614";
 }
 
-.mdi-application-cog::before {
-  content: "\F1577";
-}
-
 .mdi-application-export::before {
   content: "\F0DAD";
 }
 
 .mdi-application-import::before {
   content: "\F0DAE";
-}
-
-.mdi-application-settings::before {
-  content: "\F1555";
 }
 
 .mdi-approximately-equal::before {
@@ -1433,14 +1369,6 @@
 
 .mdi-archive::before {
   content: "\F003C";
-}
-
-.mdi-archive-alert::before {
-  content: "\F14FD";
-}
-
-.mdi-archive-alert-outline::before {
-  content: "\F14FE";
 }
 
 .mdi-archive-arrow-down::before {
@@ -1503,10 +1431,6 @@
   content: "\F09B8";
 }
 
-.mdi-arrow-bottom-left-thin-circle-outline::before {
-  content: "\F1596";
-}
-
 .mdi-arrow-bottom-right::before {
   content: "\F0043";
 }
@@ -1517,10 +1441,6 @@
 
 .mdi-arrow-bottom-right-thick::before {
   content: "\F09BA";
-}
-
-.mdi-arrow-bottom-right-thin-circle-outline::before {
-  content: "\F1595";
 }
 
 .mdi-arrow-collapse::before {
@@ -1627,10 +1547,6 @@
   content: "\F0046";
 }
 
-.mdi-arrow-down-thin-circle-outline::before {
-  content: "\F1599";
-}
-
 .mdi-arrow-expand::before {
   content: "\F0616";
 }
@@ -1735,10 +1651,6 @@
   content: "\F004E";
 }
 
-.mdi-arrow-left-thin-circle-outline::before {
-  content: "\F159A";
-}
-
 .mdi-arrow-right::before {
   content: "\F0054";
 }
@@ -1795,10 +1707,6 @@
   content: "\F0055";
 }
 
-.mdi-arrow-right-thin-circle-outline::before {
-  content: "\F1598";
-}
-
 .mdi-arrow-split-horizontal::before {
   content: "\F093B";
 }
@@ -1827,10 +1735,6 @@
   content: "\F09C4";
 }
 
-.mdi-arrow-top-left-thin-circle-outline::before {
-  content: "\F1593";
-}
-
 .mdi-arrow-top-right::before {
   content: "\F005C";
 }
@@ -1849,10 +1753,6 @@
 
 .mdi-arrow-top-right-thick::before {
   content: "\F09C6";
-}
-
-.mdi-arrow-top-right-thin-circle-outline::before {
-  content: "\F1594";
 }
 
 .mdi-arrow-up::before {
@@ -1921,10 +1821,6 @@
 
 .mdi-arrow-up-thick::before {
   content: "\F005E";
-}
-
-.mdi-arrow-up-thin-circle-outline::before {
-  content: "\F1597";
 }
 
 .mdi-arrow-vertical-lock::before {
@@ -2211,22 +2107,6 @@
   content: "\F0E13";
 }
 
-.mdi-bag-suitcase::before {
-  content: "\F158B";
-}
-
-.mdi-bag-suitcase-off::before {
-  content: "\F158D";
-}
-
-.mdi-bag-suitcase-off-outline::before {
-  content: "\F158E";
-}
-
-.mdi-bag-suitcase-outline::before {
-  content: "\F158C";
-}
-
 .mdi-baguette::before {
   content: "\F0F3E";
 }
@@ -2339,40 +2219,8 @@
   content: "\F0077";
 }
 
-.mdi-basket-minus::before {
-  content: "\F1523";
-}
-
-.mdi-basket-minus-outline::before {
-  content: "\F1524";
-}
-
-.mdi-basket-off::before {
-  content: "\F1525";
-}
-
-.mdi-basket-off-outline::before {
-  content: "\F1526";
-}
-
 .mdi-basket-outline::before {
   content: "\F1181";
-}
-
-.mdi-basket-plus::before {
-  content: "\F1527";
-}
-
-.mdi-basket-plus-outline::before {
-  content: "\F1528";
-}
-
-.mdi-basket-remove::before {
-  content: "\F1529";
-}
-
-.mdi-basket-remove-outline::before {
-  content: "\F152A";
 }
 
 .mdi-basket-unfill::before {
@@ -2787,10 +2635,6 @@
   content: "\F10CE";
 }
 
-.mdi-beekeeper::before {
-  content: "\F14E2";
-}
-
 .mdi-beer::before {
   content: "\F0098";
 }
@@ -3055,14 +2899,6 @@
   content: "\F061D";
 }
 
-.mdi-book-check::before {
-  content: "\F14F3";
-}
-
-.mdi-book-check-outline::before {
-  content: "\F14F4";
-}
-
 .mdi-book-cross::before {
   content: "\F00A2";
 }
@@ -3107,10 +2943,6 @@
   content: "\F00BD";
 }
 
-.mdi-book-open-blank-variant::before {
-  content: "\F00BE";
-}
-
 .mdi-book-open-outline::before {
   content: "\F0B63";
 }
@@ -3120,7 +2952,7 @@
 }
 
 .mdi-book-open-variant::before {
-  content: "\F14F7";
+  content: "\F00BE";
 }
 
 .mdi-book-outline::before {
@@ -3559,14 +3391,6 @@
   content: "\F0C43";
 }
 
-.mdi-briefcase-variant::before {
-  content: "\F1494";
-}
-
-.mdi-briefcase-variant-outline::before {
-  content: "\F1495";
-}
-
 .mdi-brightness-1::before {
   content: "\F00DA";
 }
@@ -3743,14 +3567,6 @@
   content: "\F1014";
 }
 
-.mdi-butterfly::before {
-  content: "\F1589";
-}
-
-.mdi-butterfly-outline::before {
-  content: "\F158A";
-}
-
 .mdi-cable-data::before {
   content: "\F1394";
 }
@@ -3781,10 +3597,6 @@
 
 .mdi-calculator-variant::before {
   content: "\F0A9A";
-}
-
-.mdi-calculator-variant-outline::before {
-  content: "\F15A6";
 }
 
 .mdi-calendar::before {
@@ -3833,10 +3645,6 @@
 
 .mdi-calendar-clock::before {
   content: "\F00F0";
-}
-
-.mdi-calendar-cursor::before {
-  content: "\F157B";
 }
 
 .mdi-calendar-edit::before {
@@ -4243,10 +4051,6 @@
   content: "\F0B6D";
 }
 
-.mdi-car-lifted-pickup::before {
-  content: "\F152D";
-}
-
 .mdi-car-light-dimmed::before {
   content: "\F0C4A";
 }
@@ -4269,10 +4073,6 @@
 
 .mdi-car-off::before {
   content: "\F0E1C";
-}
-
-.mdi-car-outline::before {
-  content: "\F14ED";
 }
 
 .mdi-car-parking-lights::before {
@@ -4333,10 +4133,6 @@
 
 .mdi-car-windshield-outline::before {
   content: "\F101C";
-}
-
-.mdi-carabiner::before {
-  content: "\F14C0";
 }
 
 .mdi-caravan::before {
@@ -4517,18 +4313,6 @@
 
 .mdi-cash-100::before {
   content: "\F0115";
-}
-
-.mdi-cash-check::before {
-  content: "\F14EE";
-}
-
-.mdi-cash-lock::before {
-  content: "\F14EA";
-}
-
-.mdi-cash-lock-open::before {
-  content: "\F14EB";
 }
 
 .mdi-cash-marker::before {
@@ -4761,18 +4545,6 @@
 
 .mdi-chart-bell-curve-cumulative::before {
   content: "\F0FA7";
-}
-
-.mdi-chart-box::before {
-  content: "\F154D";
-}
-
-.mdi-chart-box-outline::before {
-  content: "\F154E";
-}
-
-.mdi-chart-box-plus-outline::before {
-  content: "\F154F";
 }
 
 .mdi-chart-bubble::before {
@@ -5413,14 +5185,6 @@
 
 .mdi-clipboard-check-outline::before {
   content: "\F08A8";
-}
-
-.mdi-clipboard-edit::before {
-  content: "\F14E5";
-}
-
-.mdi-clipboard-edit-outline::before {
-  content: "\F14E6";
 }
 
 .mdi-clipboard-file::before {
@@ -6067,14 +5831,6 @@
   content: "\F09E4";
 }
 
-.mdi-comment-bookmark::before {
-  content: "\F15AE";
-}
-
-.mdi-comment-bookmark-outline::before {
-  content: "\F15AF";
-}
-
 .mdi-comment-check::before {
   content: "\F017F";
 }
@@ -6097,14 +5853,6 @@
 
 .mdi-comment-eye-outline::before {
   content: "\F0A3B";
-}
-
-.mdi-comment-flash::before {
-  content: "\F15B0";
-}
-
-.mdi-comment-flash-outline::before {
-  content: "\F15B1";
 }
 
 .mdi-comment-multiple::before {
@@ -6185,14 +5933,6 @@
 
 .mdi-compare::before {
   content: "\F018A";
-}
-
-.mdi-compare-horizontal::before {
-  content: "\F1492";
-}
-
-.mdi-compare-vertical::before {
-  content: "\F1493";
 }
 
 .mdi-compass::before {
@@ -6707,10 +6447,6 @@
   content: "\F0865";
 }
 
-.mdi-currency-mnt::before {
-  content: "\F1512";
-}
-
 .mdi-currency-ngn::before {
   content: "\F01B0";
 }
@@ -6756,7 +6492,7 @@
 }
 
 .mdi-current-ac::before {
-  content: "\F1480";
+  content: "\F095B";
 }
 
 .mdi-current-dc::before {
@@ -6797,34 +6533,6 @@
 
 .mdi-cursor-text::before {
   content: "\F05E7";
-}
-
-.mdi-dance-pole::before {
-  content: "\F1578";
-}
-
-.mdi-data-matrix::before {
-  content: "\F153C";
-}
-
-.mdi-data-matrix-edit::before {
-  content: "\F153D";
-}
-
-.mdi-data-matrix-minus::before {
-  content: "\F153E";
-}
-
-.mdi-data-matrix-plus::before {
-  content: "\F153F";
-}
-
-.mdi-data-matrix-remove::before {
-  content: "\F1540";
-}
-
-.mdi-data-matrix-scan::before {
-  content: "\F1541";
 }
 
 .mdi-database::before {
@@ -6961,14 +6669,6 @@
 
 .mdi-delete-circle-outline::before {
   content: "\F0B88";
-}
-
-.mdi-delete-clock::before {
-  content: "\F1556";
-}
-
-.mdi-delete-clock-outline::before {
-  content: "\F1557";
 }
 
 .mdi-delete-empty::before {
@@ -7351,10 +7051,6 @@
   content: "\F10AB";
 }
 
-.mdi-dock-top::before {
-  content: "\F1513";
-}
-
 .mdi-dock-window::before {
   content: "\F10AC";
 }
@@ -7665,10 +7361,6 @@
 
 .mdi-egg-outline::before {
   content: "\F13F2";
-}
-
-.mdi-eiffel-tower::before {
-  content: "\F156B";
 }
 
 .mdi-eight-track::before {
@@ -7991,14 +7683,6 @@
   content: "\F01F8";
 }
 
-.mdi-emoticon-sick::before {
-  content: "\F157C";
-}
-
-.mdi-emoticon-sick-outline::before {
-  content: "\F157D";
-}
-
 .mdi-emoticon-tongue::before {
   content: "\F01F9";
 }
@@ -8097,30 +7781,6 @@
 
 .mdi-ethernet-cable-off::before {
   content: "\F0202";
-}
-
-.mdi-ev-plug-ccs1::before {
-  content: "\F1519";
-}
-
-.mdi-ev-plug-ccs2::before {
-  content: "\F151A";
-}
-
-.mdi-ev-plug-chademo::before {
-  content: "\F151B";
-}
-
-.mdi-ev-plug-tesla::before {
-  content: "\F151C";
-}
-
-.mdi-ev-plug-type1::before {
-  content: "\F151D";
-}
-
-.mdi-ev-plug-type2::before {
-  content: "\F151E";
 }
 
 .mdi-ev-station::before {
@@ -8271,14 +7931,6 @@
   content: "\F0D70";
 }
 
-.mdi-face-mask::before {
-  content: "\F1586";
-}
-
-.mdi-face-mask-outline::before {
-  content: "\F1587";
-}
-
 .mdi-face-outline::before {
   content: "\F0B96";
 }
@@ -8305,10 +7957,6 @@
 
 .mdi-facebook::before {
   content: "\F020C";
-}
-
-.mdi-facebook-gaming::before {
-  content: "\F07DD";
 }
 
 .mdi-facebook-messenger::before {
@@ -8405,10 +8053,6 @@
 
 .mdi-fedora::before {
   content: "\F08DB";
-}
-
-.mdi-fencing::before {
-  content: "\F14C1";
 }
 
 .mdi-ferris-wheel::before {
@@ -8537,14 +8181,6 @@
 
 .mdi-file-document-edit-outline::before {
   content: "\F0DC9";
-}
-
-.mdi-file-document-multiple::before {
-  content: "\F1517";
-}
-
-.mdi-file-document-multiple-outline::before {
-  content: "\F1518";
 }
 
 .mdi-file-document-outline::before {
@@ -8937,14 +8573,6 @@
 
 .mdi-filter-minus-outline::before {
   content: "\F0EEF";
-}
-
-.mdi-filter-off::before {
-  content: "\F14EF";
-}
-
-.mdi-filter-off-outline::before {
-  content: "\F14F0";
 }
 
 .mdi-filter-outline::before {
@@ -9471,14 +9099,6 @@
   content: "\F0255";
 }
 
-.mdi-folder-multiple-plus::before {
-  content: "\F147E";
-}
-
-.mdi-folder-multiple-plus-outline::before {
-  content: "\F147F";
-}
-
 .mdi-folder-music::before {
   content: "\F1359";
 }
@@ -9657,14 +9277,6 @@
 
 .mdi-food-fork-drink::before {
   content: "\F05F2";
-}
-
-.mdi-food-halal::before {
-  content: "\F1572";
-}
-
-.mdi-food-kosher::before {
-  content: "\F1573";
 }
 
 .mdi-food-off::before {
@@ -10057,10 +9669,6 @@
 
 .mdi-format-text-variant::before {
   content: "\F0E32";
-}
-
-.mdi-format-text-variant-outline::before {
-  content: "\F150F";
 }
 
 .mdi-format-text-wrapping-clip::before {
@@ -10835,10 +10443,6 @@
   content: "\F0877";
 }
 
-.mdi-grass::before {
-  content: "\F1510";
-}
-
 .mdi-grave-stone::before {
   content: "\F0BA2";
 }
@@ -10939,10 +10543,6 @@
   content: "\F10F1";
 }
 
-.mdi-hand-heart-outline::before {
-  content: "\F157E";
-}
-
 .mdi-hand-left::before {
   content: "\F0E46";
 }
@@ -10983,14 +10583,6 @@
   content: "\F0E48";
 }
 
-.mdi-hand-wash::before {
-  content: "\F157F";
-}
-
-.mdi-hand-wash-outline::before {
-  content: "\F1580";
-}
-
 .mdi-hand-water::before {
   content: "\F139F";
 }
@@ -11005,10 +10597,6 @@
 
 .mdi-handshake::before {
   content: "\F1218";
-}
-
-.mdi-handshake-outline::before {
-  content: "\F15A1";
 }
 
 .mdi-hanger::before {
@@ -11663,24 +11251,8 @@
   content: "\F138B";
 }
 
-.mdi-human-cane::before {
-  content: "\F1581";
-}
-
-.mdi-human-capacity-decrease::before {
-  content: "\F159B";
-}
-
-.mdi-human-capacity-increase::before {
-  content: "\F159C";
-}
-
 .mdi-human-child::before {
   content: "\F02E7";
-}
-
-.mdi-human-edit::before {
-  content: "\F14E8";
 }
 
 .mdi-human-female::before {
@@ -11701,10 +11273,6 @@
 
 .mdi-human-greeting::before {
   content: "\F064A";
-}
-
-.mdi-human-greeting-proximity::before {
-  content: "\F159D";
 }
 
 .mdi-human-handsdown::before {
@@ -11751,14 +11319,6 @@
   content: "\F05CF";
 }
 
-.mdi-human-queue::before {
-  content: "\F1571";
-}
-
-.mdi-human-scooter::before {
-  content: "\F11E9";
-}
-
 .mdi-human-wheelchair::before {
   content: "\F138D";
 }
@@ -11769,10 +11329,6 @@
 
 .mdi-hvac::before {
   content: "\F1352";
-}
-
-.mdi-hvac-off::before {
-  content: "\F159E";
 }
 
 .mdi-hydraulic-oil-level::before {
@@ -12039,14 +11595,6 @@
   content: "\F1274";
 }
 
-.mdi-inbox-remove::before {
-  content: "\F159F";
-}
-
-.mdi-inbox-remove-outline::before {
-  content: "\F15A0";
-}
-
 .mdi-incognito::before {
   content: "\F05F9";
 }
@@ -12167,10 +11715,6 @@
   content: "\F0D87";
 }
 
-.mdi-kangaroo::before {
-  content: "\F1558";
-}
-
 .mdi-karate::before {
   content: "\F082C";
 }
@@ -12221,14 +11765,6 @@
 
 .mdi-key-arrow-right::before {
   content: "\F1312";
-}
-
-.mdi-key-chain::before {
-  content: "\F1574";
-}
-
-.mdi-key-chain-variant::before {
-  content: "\F1575";
 }
 
 .mdi-key-change::before {
@@ -12439,10 +11975,6 @@
   content: "\F0ACE";
 }
 
-.mdi-ladder::before {
-  content: "\F15A2";
-}
-
 .mdi-ladybug::before {
   content: "\F082D";
 }
@@ -12453,10 +11985,6 @@
 
 .mdi-lamp::before {
   content: "\F06B5";
-}
-
-.mdi-lamps::before {
-  content: "\F1576";
 }
 
 .mdi-lan::before {
@@ -12589,10 +12117,6 @@
 
 .mdi-laravel::before {
   content: "\F0AD0";
-}
-
-.mdi-laser-pointer::before {
-  content: "\F1484";
 }
 
 .mdi-lasso::before {
@@ -12911,10 +12435,6 @@
   content: "\F13B5";
 }
 
-.mdi-list-status::before {
-  content: "\F15AB";
-}
-
 .mdi-litecoin::before {
   content: "\F0A61";
 }
@@ -13025,22 +12545,6 @@
 
 .mdi-looks::before {
   content: "\F0344";
-}
-
-.mdi-lotion::before {
-  content: "\F1582";
-}
-
-.mdi-lotion-outline::before {
-  content: "\F1583";
-}
-
-.mdi-lotion-plus::before {
-  content: "\F1584";
-}
-
-.mdi-lotion-plus-outline::before {
-  content: "\F1585";
 }
 
 .mdi-loupe::before {
@@ -13479,14 +12983,6 @@
   content: "\F12F5";
 }
 
-.mdi-message-bookmark::before {
-  content: "\F15AC";
-}
-
-.mdi-message-bookmark-outline::before {
-  content: "\F15AD";
-}
-
 .mdi-message-bulleted::before {
   content: "\F06A2";
 }
@@ -13505,14 +13001,6 @@
 
 .mdi-message-draw::before {
   content: "\F0363";
-}
-
-.mdi-message-flash::before {
-  content: "\F15A9";
-}
-
-.mdi-message-flash-outline::before {
-  content: "\F15AA";
 }
 
 .mdi-message-image::before {
@@ -13899,6 +13387,10 @@
   content: "\F087F";
 }
 
+.mdi-mixer::before {
+  content: "\F07DD";
+}
+
 .mdi-molecule::before {
   content: "\F0BAC";
 }
@@ -13953,10 +13445,6 @@
 
 .mdi-monitor-screenshot::before {
   content: "\F0E51";
-}
-
-.mdi-monitor-share::before {
-  content: "\F1483";
 }
 
 .mdi-monitor-speaker::before {
@@ -14019,30 +13507,6 @@
   content: "\F0D21";
 }
 
-.mdi-motion::before {
-  content: "\F15B2";
-}
-
-.mdi-motion-outline::before {
-  content: "\F15B3";
-}
-
-.mdi-motion-pause::before {
-  content: "\F1590";
-}
-
-.mdi-motion-pause-outline::before {
-  content: "\F1592";
-}
-
-.mdi-motion-play::before {
-  content: "\F158F";
-}
-
-.mdi-motion-play-outline::before {
-  content: "\F1591";
-}
-
 .mdi-motion-sensor::before {
   content: "\F0D91";
 }
@@ -14061,18 +13525,6 @@
 
 .mdi-mouse-bluetooth::before {
   content: "\F098B";
-}
-
-.mdi-mouse-move-down::before {
-  content: "\F1550";
-}
-
-.mdi-mouse-move-up::before {
-  content: "\F1551";
-}
-
-.mdi-mouse-move-vertical::before {
-  content: "\F1552";
 }
 
 .mdi-mouse-off::before {
@@ -14547,22 +13999,6 @@
   content: "\F082E";
 }
 
-.mdi-notebook-check::before {
-  content: "\F14F5";
-}
-
-.mdi-notebook-check-outline::before {
-  content: "\F14F6";
-}
-
-.mdi-notebook-edit::before {
-  content: "\F14E7";
-}
-
-.mdi-notebook-edit-outline::before {
-  content: "\F14E9";
-}
-
 .mdi-notebook-multiple::before {
   content: "\F0E55";
 }
@@ -14985,18 +14421,6 @@
 
 .mdi-office-building::before {
   content: "\F0991";
-}
-
-.mdi-office-building-marker::before {
-  content: "\F1520";
-}
-
-.mdi-office-building-marker-outline::before {
-  content: "\F1521";
-}
-
-.mdi-office-building-outline::before {
-  content: "\F151F";
 }
 
 .mdi-oil::before {
@@ -15603,14 +15027,6 @@
   content: "\F1279";
 }
 
-.mdi-phone-dial::before {
-  content: "\F1559";
-}
-
-.mdi-phone-dial-outline::before {
-  content: "\F155A";
-}
-
 .mdi-phone-forward::before {
   content: "\F03F4";
 }
@@ -15717,14 +15133,6 @@
 
 .mdi-phone-plus-outline::before {
   content: "\F119B";
-}
-
-.mdi-phone-remove::before {
-  content: "\F152F";
-}
-
-.mdi-phone-remove-outline::before {
-  content: "\F1530";
 }
 
 .mdi-phone-return::before {
@@ -15895,10 +15303,6 @@
   content: "\F088A";
 }
 
-.mdi-pitchfork::before {
-  content: "\F1553";
-}
-
 .mdi-pizza::before {
   content: "\F0409";
 }
@@ -16039,10 +15443,6 @@
   content: "\F0993";
 }
 
-.mdi-plus-minus-variant::before {
-  content: "\F14C9";
-}
-
 .mdi-plus-network::before {
   content: "\F041A";
 }
@@ -16121,10 +15521,6 @@
 
 .mdi-poll-box-outline::before {
   content: "\F127B";
-}
-
-.mdi-polo::before {
-  content: "\F14C3";
 }
 
 .mdi-polymer::before {
@@ -16247,10 +15643,6 @@
   content: "\F1108";
 }
 
-.mdi-power-socket-it::before {
-  content: "\F14FF";
-}
-
 .mdi-power-socket-jp::before {
   content: "\F1109";
 }
@@ -16281,10 +15673,6 @@
 
 .mdi-presentation-play::before {
   content: "\F0429";
-}
-
-.mdi-pretzel::before {
-  content: "\F1562";
 }
 
 .mdi-printer::before {
@@ -16375,10 +15763,6 @@
   content: "\F0997";
 }
 
-.mdi-progress-question::before {
-  content: "\F1522";
-}
-
 .mdi-progress-upload::before {
   content: "\F0998";
 }
@@ -16443,56 +15827,8 @@
   content: "\F1427";
 }
 
-.mdi-puzzle-edit::before {
-  content: "\F14D3";
-}
-
-.mdi-puzzle-edit-outline::before {
-  content: "\F14D9";
-}
-
-.mdi-puzzle-heart::before {
-  content: "\F14D4";
-}
-
-.mdi-puzzle-heart-outline::before {
-  content: "\F14DA";
-}
-
-.mdi-puzzle-minus::before {
-  content: "\F14D1";
-}
-
-.mdi-puzzle-minus-outline::before {
-  content: "\F14D7";
-}
-
 .mdi-puzzle-outline::before {
   content: "\F0A66";
-}
-
-.mdi-puzzle-plus::before {
-  content: "\F14D0";
-}
-
-.mdi-puzzle-plus-outline::before {
-  content: "\F14D6";
-}
-
-.mdi-puzzle-remove::before {
-  content: "\F14D2";
-}
-
-.mdi-puzzle-remove-outline::before {
-  content: "\F14D8";
-}
-
-.mdi-puzzle-star::before {
-  content: "\F14D5";
-}
-
-.mdi-puzzle-star-outline::before {
-  content: "\F14DB";
 }
 
 .mdi-qi::before {
@@ -16615,14 +15951,6 @@
   content: "\F043E";
 }
 
-.mdi-radiology-box::before {
-  content: "\F14C5";
-}
-
-.mdi-radiology-box-outline::before {
-  content: "\F14C6";
-}
-
 .mdi-radius::before {
   content: "\F0CC0";
 }
@@ -16633,10 +15961,6 @@
 
 .mdi-railroad-light::before {
   content: "\F0F1E";
-}
-
-.mdi-rake::before {
-  content: "\F1544";
 }
 
 .mdi-raspberry-pi::before {
@@ -16753,154 +16077,6 @@
 
 .mdi-registered-trademark::before {
   content: "\F0A67";
-}
-
-.mdi-reiterate::before {
-  content: "\F1588";
-}
-
-.mdi-relation-many-to-many::before {
-  content: "\F1496";
-}
-
-.mdi-relation-many-to-one::before {
-  content: "\F1497";
-}
-
-.mdi-relation-many-to-one-or-many::before {
-  content: "\F1498";
-}
-
-.mdi-relation-many-to-only-one::before {
-  content: "\F1499";
-}
-
-.mdi-relation-many-to-zero-or-many::before {
-  content: "\F149A";
-}
-
-.mdi-relation-many-to-zero-or-one::before {
-  content: "\F149B";
-}
-
-.mdi-relation-one-or-many-to-many::before {
-  content: "\F149C";
-}
-
-.mdi-relation-one-or-many-to-one::before {
-  content: "\F149D";
-}
-
-.mdi-relation-one-or-many-to-one-or-many::before {
-  content: "\F149E";
-}
-
-.mdi-relation-one-or-many-to-only-one::before {
-  content: "\F149F";
-}
-
-.mdi-relation-one-or-many-to-zero-or-many::before {
-  content: "\F14A0";
-}
-
-.mdi-relation-one-or-many-to-zero-or-one::before {
-  content: "\F14A1";
-}
-
-.mdi-relation-one-to-many::before {
-  content: "\F14A2";
-}
-
-.mdi-relation-one-to-one::before {
-  content: "\F14A3";
-}
-
-.mdi-relation-one-to-one-or-many::before {
-  content: "\F14A4";
-}
-
-.mdi-relation-one-to-only-one::before {
-  content: "\F14A5";
-}
-
-.mdi-relation-one-to-zero-or-many::before {
-  content: "\F14A6";
-}
-
-.mdi-relation-one-to-zero-or-one::before {
-  content: "\F14A7";
-}
-
-.mdi-relation-only-one-to-many::before {
-  content: "\F14A8";
-}
-
-.mdi-relation-only-one-to-one::before {
-  content: "\F14A9";
-}
-
-.mdi-relation-only-one-to-one-or-many::before {
-  content: "\F14AA";
-}
-
-.mdi-relation-only-one-to-only-one::before {
-  content: "\F14AB";
-}
-
-.mdi-relation-only-one-to-zero-or-many::before {
-  content: "\F14AC";
-}
-
-.mdi-relation-only-one-to-zero-or-one::before {
-  content: "\F14AD";
-}
-
-.mdi-relation-zero-or-many-to-many::before {
-  content: "\F14AE";
-}
-
-.mdi-relation-zero-or-many-to-one::before {
-  content: "\F14AF";
-}
-
-.mdi-relation-zero-or-many-to-one-or-many::before {
-  content: "\F14B0";
-}
-
-.mdi-relation-zero-or-many-to-only-one::before {
-  content: "\F14B1";
-}
-
-.mdi-relation-zero-or-many-to-zero-or-many::before {
-  content: "\F14B2";
-}
-
-.mdi-relation-zero-or-many-to-zero-or-one::before {
-  content: "\F14B3";
-}
-
-.mdi-relation-zero-or-one-to-many::before {
-  content: "\F14B4";
-}
-
-.mdi-relation-zero-or-one-to-one::before {
-  content: "\F14B5";
-}
-
-.mdi-relation-zero-or-one-to-one-or-many::before {
-  content: "\F14B6";
-}
-
-.mdi-relation-zero-or-one-to-only-one::before {
-  content: "\F14B7";
-}
-
-.mdi-relation-zero-or-one-to-zero-or-many::before {
-  content: "\F14B8";
-}
-
-.mdi-relation-zero-or-one-to-zero-or-one::before {
-  content: "\F14B9";
 }
 
 .mdi-relative-scale::before {
@@ -17059,20 +16235,12 @@
   content: "\F0A10";
 }
 
-.mdi-rhombus-medium-outline::before {
-  content: "\F14DC";
-}
-
 .mdi-rhombus-outline::before {
   content: "\F070C";
 }
 
 .mdi-rhombus-split::before {
   content: "\F0A11";
-}
-
-.mdi-rhombus-split-outline::before {
-  content: "\F14DD";
 }
 
 .mdi-ribbon::before {
@@ -17129,14 +16297,6 @@
 
 .mdi-rocket::before {
   content: "\F0463";
-}
-
-.mdi-rocket-launch::before {
-  content: "\F14DE";
-}
-
-.mdi-rocket-launch-outline::before {
-  content: "\F14DF";
 }
 
 .mdi-rocket-outline::before {
@@ -17257,10 +16417,6 @@
 
 .mdi-router-wireless::before {
   content: "\F0469";
-}
-
-.mdi-router-wireless-off::before {
-  content: "\F15A3";
 }
 
 .mdi-router-wireless-settings::before {
@@ -17439,6 +16595,10 @@
   content: "\F0A6B";
 }
 
+.mdi-scooter::before {
+  content: "\F11E9";
+}
+
 .mdi-scoreboard::before {
   content: "\F127E";
 }
@@ -17581,10 +16741,6 @@
 
 .mdi-seed-outline::before {
   content: "\F0E63";
-}
-
-.mdi-seesaw::before {
-  content: "\F15A4";
 }
 
 .mdi-segment::before {
@@ -17783,20 +16939,12 @@
   content: "\F077D";
 }
 
-.mdi-set-merge::before {
-  content: "\F14E0";
-}
-
 .mdi-set-none::before {
   content: "\F077E";
 }
 
 .mdi-set-right::before {
   content: "\F077F";
-}
-
-.mdi-set-split::before {
-  content: "\F14E1";
 }
 
 .mdi-set-square::before {
@@ -17851,10 +16999,6 @@
   content: "\F0660";
 }
 
-.mdi-shape-square-rounded-plus::before {
-  content: "\F14FA";
-}
-
 .mdi-share::before {
   content: "\F0496";
 }
@@ -17887,10 +17031,6 @@
   content: "\F0497";
 }
 
-.mdi-share-variant-outline::before {
-  content: "\F1514";
-}
-
 .mdi-sheep::before {
   content: "\F0CC6";
 }
@@ -17905,14 +17045,6 @@
 
 .mdi-shield-account-outline::before {
   content: "\F0A12";
-}
-
-.mdi-shield-account-variant::before {
-  content: "\F15A7";
-}
-
-.mdi-shield-account-variant-outline::before {
-  content: "\F15A8";
 }
 
 .mdi-shield-airplane::before {
@@ -18103,10 +17235,6 @@
   content: "\F0F84";
 }
 
-.mdi-shore::before {
-  content: "\F14F9";
-}
-
 .mdi-shovel::before {
   content: "\F0710";
 }
@@ -18169,10 +17297,6 @@
 
 .mdi-sign-direction-remove::before {
   content: "\F0FDD";
-}
-
-.mdi-sign-pole::before {
-  content: "\F14F8";
 }
 
 .mdi-sign-real-estate::before {
@@ -18303,10 +17427,6 @@
   content: "\F0ADF";
 }
 
-.mdi-sine-wave::before {
-  content: "\F095B";
-}
-
 .mdi-sitemap::before {
   content: "\F04AA";
 }
@@ -18345,10 +17465,6 @@
 
 .mdi-skate::before {
   content: "\F0D35";
-}
-
-.mdi-skateboard::before {
-  content: "\F14C2";
 }
 
 .mdi-skew-less::before {
@@ -18435,14 +17551,6 @@
   content: "\F0BC8";
 }
 
-.mdi-skull-scan::before {
-  content: "\F14C7";
-}
-
-.mdi-skull-scan-outline::before {
-  content: "\F14C8";
-}
-
 .mdi-skype::before {
   content: "\F04AF";
 }
@@ -18469,10 +17577,6 @@
 
 .mdi-sleep-off::before {
   content: "\F04B3";
-}
-
-.mdi-slide::before {
-  content: "\F15A5";
 }
 
 .mdi-slope-downhill::before {
@@ -18531,10 +17635,6 @@
   content: "\F1428";
 }
 
-.mdi-snake::before {
-  content: "\F150E";
-}
-
 .mdi-snapchat::before {
   content: "\F04B6";
 }
@@ -18555,10 +17655,6 @@
   content: "\F12CB";
 }
 
-.mdi-snowflake-off::before {
-  content: "\F14E3";
-}
-
 .mdi-snowflake-variant::before {
   content: "\F0F2A";
 }
@@ -18575,28 +17671,8 @@
   content: "\F0834";
 }
 
-.mdi-social-distance-2-meters::before {
-  content: "\F1579";
-}
-
-.mdi-social-distance-6-feet::before {
-  content: "\F157A";
-}
-
 .mdi-sofa::before {
   content: "\F04B9";
-}
-
-.mdi-sofa-outline::before {
-  content: "\F156D";
-}
-
-.mdi-sofa-single::before {
-  content: "\F156E";
-}
-
-.mdi-sofa-single-outline::before {
-  content: "\F156F";
 }
 
 .mdi-solar-panel::before {
@@ -18667,30 +17743,6 @@
   content: "\F1388";
 }
 
-.mdi-sort-calendar-ascending::before {
-  content: "\F1547";
-}
-
-.mdi-sort-calendar-descending::before {
-  content: "\F1548";
-}
-
-.mdi-sort-clock-ascending::before {
-  content: "\F1549";
-}
-
-.mdi-sort-clock-ascending-outline::before {
-  content: "\F154A";
-}
-
-.mdi-sort-clock-descending::before {
-  content: "\F154B";
-}
-
-.mdi-sort-clock-descending-outline::before {
-  content: "\F154C";
-}
-
 .mdi-sort-descending::before {
   content: "\F04BD";
 }
@@ -18741,30 +17793,6 @@
 
 .mdi-source-branch::before {
   content: "\F062C";
-}
-
-.mdi-source-branch-check::before {
-  content: "\F14CF";
-}
-
-.mdi-source-branch-minus::before {
-  content: "\F14CB";
-}
-
-.mdi-source-branch-plus::before {
-  content: "\F14CA";
-}
-
-.mdi-source-branch-refresh::before {
-  content: "\F14CD";
-}
-
-.mdi-source-branch-remove::before {
-  content: "\F14CC";
-}
-
-.mdi-source-branch-sync::before {
-  content: "\F14CE";
 }
 
 .mdi-source-commit::before {
@@ -18843,10 +17871,6 @@
   content: "\F0E65";
 }
 
-.mdi-sparkles::before {
-  content: "\F1545";
-}
-
 .mdi-speaker::before {
   content: "\F04C3";
 }
@@ -18895,10 +17919,6 @@
   content: "\F0BCA";
 }
 
-.mdi-spirit-level::before {
-  content: "\F14F1";
-}
-
 .mdi-spoon-sugar::before {
   content: "\F1429";
 }
@@ -18943,10 +17963,6 @@
   content: "\F0764";
 }
 
-.mdi-square-circle::before {
-  content: "\F1500";
-}
-
 .mdi-square-edit-outline::before {
   content: "\F090C";
 }
@@ -18977,14 +17993,6 @@
 
 .mdi-square-root-box::before {
   content: "\F09A3";
-}
-
-.mdi-square-rounded::before {
-  content: "\F14FB";
-}
-
-.mdi-square-rounded-outline::before {
-  content: "\F14FC";
 }
 
 .mdi-square-small::before {
@@ -19067,14 +18075,6 @@
   content: "\F0A74";
 }
 
-.mdi-star-check::before {
-  content: "\F1566";
-}
-
-.mdi-star-check-outline::before {
-  content: "\F156A";
-}
-
 .mdi-star-circle::before {
   content: "\F04CF";
 }
@@ -19103,40 +18103,12 @@
   content: "\F04D0";
 }
 
-.mdi-star-minus::before {
-  content: "\F1564";
-}
-
-.mdi-star-minus-outline::before {
-  content: "\F1568";
-}
-
 .mdi-star-off::before {
   content: "\F04D1";
 }
 
-.mdi-star-off-outline::before {
-  content: "\F155B";
-}
-
 .mdi-star-outline::before {
   content: "\F04D2";
-}
-
-.mdi-star-plus::before {
-  content: "\F1563";
-}
-
-.mdi-star-plus-outline::before {
-  content: "\F1567";
-}
-
-.mdi-star-remove::before {
-  content: "\F1565";
-}
-
-.mdi-star-remove-outline::before {
-  content: "\F1569";
 }
 
 .mdi-star-three-points::before {
@@ -19311,10 +18283,6 @@
   content: "\F060D";
 }
 
-.mdi-submarine::before {
-  content: "\F156C";
-}
-
 .mdi-subtitles::before {
   content: "\F0A16";
 }
@@ -19437,10 +18405,6 @@
 
 .mdi-syllabary-katakana-halfwidth::before {
   content: "\F1336";
-}
-
-.mdi-symbol::before {
-  content: "\F1501";
 }
 
 .mdi-symfony::before {
@@ -19923,10 +18887,6 @@
   content: "\F09A8";
 }
 
-.mdi-text-account::before {
-  content: "\F1570";
-}
-
 .mdi-text-box::before {
   content: "\F021A";
 }
@@ -20059,10 +19019,6 @@
   content: "\F0E04";
 }
 
-.mdi-thermometer-off::before {
-  content: "\F1531";
-}
-
 .mdi-thermometer-plus::before {
   content: "\F0E05";
 }
@@ -20155,14 +19111,6 @@
   content: "\F0F98";
 }
 
-.mdi-timeline-check::before {
-  content: "\F1532";
-}
-
-.mdi-timeline-check-outline::before {
-  content: "\F1533";
-}
-
 .mdi-timeline-clock::before {
   content: "\F11FB";
 }
@@ -20179,14 +19127,6 @@
   content: "\F0F9A";
 }
 
-.mdi-timeline-minus::before {
-  content: "\F1534";
-}
-
-.mdi-timeline-minus-outline::before {
-  content: "\F1535";
-}
-
 .mdi-timeline-outline::before {
   content: "\F0BD2";
 }
@@ -20197,14 +19137,6 @@
 
 .mdi-timeline-plus-outline::before {
   content: "\F0F97";
-}
-
-.mdi-timeline-remove::before {
-  content: "\F1536";
-}
-
-.mdi-timeline-remove-outline::before {
-  content: "\F1537";
 }
 
 .mdi-timeline-text::before {
@@ -20307,14 +19239,6 @@
   content: "\F000C";
 }
 
-.mdi-tooltip-check::before {
-  content: "\F155C";
-}
-
-.mdi-tooltip-check-outline::before {
-  content: "\F155D";
-}
-
 .mdi-tooltip-edit::before {
   content: "\F0524";
 }
@@ -20331,14 +19255,6 @@
   content: "\F0BD5";
 }
 
-.mdi-tooltip-minus::before {
-  content: "\F155E";
-}
-
-.mdi-tooltip-minus-outline::before {
-  content: "\F155F";
-}
-
 .mdi-tooltip-outline::before {
   content: "\F0526";
 }
@@ -20349,14 +19265,6 @@
 
 .mdi-tooltip-plus-outline::before {
   content: "\F0527";
-}
-
-.mdi-tooltip-remove::before {
-  content: "\F1560";
-}
-
-.mdi-tooltip-remove-outline::before {
-  content: "\F1561";
 }
 
 .mdi-tooltip-text::before {
@@ -20475,10 +19383,6 @@
   content: "\F0892";
 }
 
-.mdi-tractor-variant::before {
-  content: "\F14C4";
-}
-
 .mdi-trademark::before {
   content: "\F0A78";
 }
@@ -20543,20 +19447,12 @@
   content: "\F0D3C";
 }
 
-.mdi-transit-connection-horizontal::before {
-  content: "\F1546";
-}
-
 .mdi-transit-connection-variant::before {
   content: "\F0D3D";
 }
 
 .mdi-transit-detour::before {
   content: "\F0F8B";
-}
-
-.mdi-transit-skip::before {
-  content: "\F1515";
 }
 
 .mdi-transit-transfer::before {
@@ -20755,16 +19651,8 @@
   content: "\F062E";
 }
 
-.mdi-tune-variant::before {
-  content: "\F1542";
-}
-
 .mdi-tune-vertical::before {
   content: "\F066A";
-}
-
-.mdi-tune-vertical-variant::before {
-  content: "\F1543";
 }
 
 .mdi-turnstile::before {
@@ -20967,10 +19855,6 @@
   content: "\F07FC";
 }
 
-.mdi-vanish-quarter::before {
-  content: "\F1554";
-}
-
 .mdi-vanity-light::before {
   content: "\F11E1";
 }
@@ -21143,10 +20027,6 @@
   content: "\F106A";
 }
 
-.mdi-video-high-definition::before {
-  content: "\F152E";
-}
-
 .mdi-video-image::before {
   content: "\F091A";
 }
@@ -21235,32 +20115,16 @@
   content: "\F056B";
 }
 
-.mdi-view-array-outline::before {
-  content: "\F1485";
-}
-
 .mdi-view-carousel::before {
   content: "\F056C";
-}
-
-.mdi-view-carousel-outline::before {
-  content: "\F1486";
 }
 
 .mdi-view-column::before {
   content: "\F056D";
 }
 
-.mdi-view-column-outline::before {
-  content: "\F1487";
-}
-
 .mdi-view-comfy::before {
   content: "\F0E6A";
-}
-
-.mdi-view-comfy-outline::before {
-  content: "\F1488";
 }
 
 .mdi-view-compact::before {
@@ -21283,16 +20147,8 @@
   content: "\F0843";
 }
 
-.mdi-view-dashboard-variant-outline::before {
-  content: "\F1489";
-}
-
 .mdi-view-day::before {
   content: "\F056F";
-}
-
-.mdi-view-day-outline::before {
-  content: "\F148A";
 }
 
 .mdi-view-grid::before {
@@ -21319,40 +20175,20 @@
   content: "\F0572";
 }
 
-.mdi-view-list-outline::before {
-  content: "\F148B";
-}
-
 .mdi-view-module::before {
   content: "\F0573";
-}
-
-.mdi-view-module-outline::before {
-  content: "\F148C";
 }
 
 .mdi-view-parallel::before {
   content: "\F0728";
 }
 
-.mdi-view-parallel-outline::before {
-  content: "\F148D";
-}
-
 .mdi-view-quilt::before {
   content: "\F0574";
 }
 
-.mdi-view-quilt-outline::before {
-  content: "\F148E";
-}
-
 .mdi-view-sequential::before {
   content: "\F0729";
-}
-
-.mdi-view-sequential-outline::before {
-  content: "\F148F";
 }
 
 .mdi-view-split-horizontal::before {
@@ -21367,16 +20203,8 @@
   content: "\F0575";
 }
 
-.mdi-view-stream-outline::before {
-  content: "\F1490";
-}
-
 .mdi-view-week::before {
   content: "\F0576";
-}
-
-.mdi-view-week-outline::before {
-  content: "\F1491";
 }
 
 .mdi-vimeo::before {
@@ -21603,14 +20431,6 @@
   content: "\F058C";
 }
 
-.mdi-water-alert::before {
-  content: "\F1502";
-}
-
-.mdi-water-alert-outline::before {
-  content: "\F1503";
-}
-
 .mdi-water-boiler::before {
   content: "\F0F92";
 }
@@ -21623,28 +20443,8 @@
   content: "\F11B4";
 }
 
-.mdi-water-check::before {
-  content: "\F1504";
-}
-
-.mdi-water-check-outline::before {
-  content: "\F1505";
-}
-
-.mdi-water-minus::before {
-  content: "\F1506";
-}
-
-.mdi-water-minus-outline::before {
-  content: "\F1507";
-}
-
 .mdi-water-off::before {
   content: "\F058D";
-}
-
-.mdi-water-off-outline::before {
-  content: "\F1508";
 }
 
 .mdi-water-outline::before {
@@ -21653,18 +20453,6 @@
 
 .mdi-water-percent::before {
   content: "\F058E";
-}
-
-.mdi-water-percent-alert::before {
-  content: "\F1509";
-}
-
-.mdi-water-plus::before {
-  content: "\F150A";
-}
-
-.mdi-water-plus-outline::before {
-  content: "\F150B";
 }
 
 .mdi-water-polo::before {
@@ -21679,28 +20467,12 @@
   content: "\F0F93";
 }
 
-.mdi-water-remove::before {
-  content: "\F150C";
-}
-
-.mdi-water-remove-outline::before {
-  content: "\F150D";
-}
-
 .mdi-water-well::before {
   content: "\F106B";
 }
 
 .mdi-water-well-outline::before {
   content: "\F106C";
-}
-
-.mdi-watering-can::before {
-  content: "\F1481";
-}
-
-.mdi-watering-can-outline::before {
-  content: "\F1482";
 }
 
 .mdi-watermark::before {
@@ -21815,10 +20587,6 @@
   content: "\F0F37";
 }
 
-.mdi-weather-sunny-off::before {
-  content: "\F14E4";
-}
-
 .mdi-weather-sunset::before {
   content: "\F059A";
 }
@@ -21897,10 +20665,6 @@
 
 .mdi-whatsapp::before {
   content: "\F05A3";
-}
-
-.mdi-wheel-barrow::before {
-  content: "\F14F2";
 }
 
 .mdi-wheelchair-accessibility::before {
@@ -22161,10 +20925,6 @@
 
 .mdi-youtube-tv::before {
   content: "\F0448";
-}
-
-.mdi-yurt::before {
-  content: "\F1516";
 }
 
 .mdi-z-wave::before {

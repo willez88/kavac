@@ -15,7 +15,7 @@
  * Grupo de rutas para el módulo de Comercialización
  */
 Route::group(
-    ['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'sale', 'namespace' => 'Modules\Sale\Http\Controllers'],
+    ['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'sale'],
     function () {
         /**
          * -----------------------------------------------------------------------
