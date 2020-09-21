@@ -240,10 +240,19 @@ class DigitalSignatureController extends Controller
      * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
      * @return
      */
-    public function signFile()
+    public function signFile(Request $request)
     {
 
         if(Auth::user() && User::find(auth()->user()->id)->signprofiles) {
+
+            //Documento pdf
+            $filename = Str::random(10);
+            $filenamepdf = $filename . '.pdf';
+            $path = $request->file('pdf')->storeAs('',$filenamepdf, 'temporary');
+            $filenamepdfsign = $filename . '-sign.pdf';
+            $storePdfSign = getPathSign($filenamepdfsign);
+            $storePdf = getPathSign($filenamepdf);
+
 
             //Crear archivo pkcs#12
             $cert = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['cert']);
@@ -251,29 +260,34 @@ class DigitalSignatureController extends Controller
             $passphrase = Str::random(10);
 
             //Datos para la firma
-            $filename = Str::random(10) . '.p12';
-            $storeCertificated = getPathSign($filename);
+            $filenamep12 = Str::random(10) . '.p12';
+            $storeCertificated = getPathSign($filenamep12);
             $createpkcs12 = openssl_pkcs12_export_to_file($cert,$storeCertificated,$pkey,$passphrase);
             $pathPortableSigner = getPathSign('PortableSigner');
-
-            //Documento pdf
-            $namepdf = 'pruebaPDF.pdf';
-            $namepdfsign = 'pruebaPDF-sign.pdf';
-            $storePdfSign = getPathSign($namepdfsign);
-            $storePdf = getPathSign($namepdf);
 
             //ejecución del comando para firmar
             $comand = 'java -jar ' . $pathPortableSigner . ' -n -t ' . $storePdf . ' -o ' . $storePdfSign . ' -s ' . $storeCertificated . ' -p ' . $passphrase;
             $run = exec($comand, $output);
 
-            //elimina el certficado .p12
-            Storage::disk('temporary')->delete($filename);
+            //enlace para descargar archivo 
+            $pathDownload = asset('storage/temporary/'.$filenamepdfsign);
+            $headers = array(
+                 'Content-Type: application/pdf',
+               );
 
+            //print_r($pathDownload);
+
+            //elimina el certficado .p12
+            Storage::disk('temporary')->delete($filenamep12);
+
+            //return Storage::download($pathDownload, $filenamepdfsign, $headers);
             print_r($output);
+            //return redirect()->route('digitalsignature', ['path' => $pathDownload, 'msg' => 'Se firmo correctamente']);
         }
 
         else { return redirect()->route('login'); }
     }
+
 
 
     /**
@@ -319,6 +333,16 @@ class DigitalSignatureController extends Controller
                 print_r(Crypt::decryptString($profile->signprofiles['cert']));
             }
         }
+    }
+
+     function getFile($filename){
+        
+        $file=Storage::disk('temporary')->get($filename);
+        return (new Response($file, 200))
+              ->header('Content-Type', 'application/pdf');
+        /*$file=Storage::disk('temporary')->get($filename);
+        return redirect()::away((new Response($file, 200))
+              ->header('Content-Type', 'application/pdf')); */
     }
 }
 

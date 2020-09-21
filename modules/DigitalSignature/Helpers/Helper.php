@@ -12,3 +12,4 @@ if (!function_exists('greet')) {
         return 'Hello ' . $person;
     }
 }
+

@@ -601,3 +601,32 @@ if (! function_exists('secure_record')) {
         return ($decrypt) ? Crypt::decrypt($record) : Crypt::encrypt($record);
     }
 }
+
+if (! function_exists('getPathSign')) {
+    /**
+     * Retorna la dirección completa del ejecutable del firma PortableSigner o del archivo a firmar o verificar
+     *
+     * @method    strpos_array
+     *
+     * @author     Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
+     *
+     * @param     string          $haystack    Texto de la cadena en donde buscar
+     * @param     string|array    $needle      Texto o arreglo de palabras a buscar
+     *
+     * @return    boolean         Devuelve verdadero si el texto a buscar es encontrado, de lo contrario devuelve falso
+     */
+    function getPathSign($nameFile)
+    {
+        $module = Module::find('DigitalSignature');
+
+        //obtiene la dirección del PortableSigner
+        if($nameFile == 'PortableSigner') {
+            return($module->getPath() . '/PortableSigner/PortableSigner.jar');
+        }
+        //obtiene la dirección almacen del archivos pdf
+        else {
+            $path = Storage::disk('temporary')->path($nameFile);
+            return($path);
+        }
+    }
+}

@@ -200,10 +200,7 @@
                 </div>
             </div>
             @endif
-
-
             <p class="d-none"> {{ getPathSign('pruebaPDF.pdf') }} </p>
-
         </div>
     </div>
 </div>
@@ -238,11 +235,11 @@
                                     </button>
                                 </div>
                                 <div class="modal-body text-left">
-                                    <form method="POST" enctype="multipart/form-data" accept-charset="UTF-8" action="#">
+                                    <form method="POST" enctype="multipart/form-data" accept-charset="UTF-8" action="{{ route('signFile') }}">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                         <p>
                                             <label for="pdf">Cargar PDF a firmar</label>
-                                            <input id="pdf" type="file" class="form-control" required />
+                                            <input id="pdf" type="file" class="form-control" name="pdf" required />
                                         </p>
                                         <p class="text-right">
                                             <button type="submit" class="btn btn-success btn-icon btn-round" data-toggle="tooltip"
@@ -321,6 +318,18 @@
 @stop
 
 <script>
+
+    /* Función que enviar el documento del formuario para la firma electrónica
+    */
+   
+   function signFilePdf() {
+        console.log('signFile');
+        let data = new FormData();
+        data.append('file', document.getElementById('pdf').files[0]);
+        axios.post('{{ route('signFile') }}', data).then(function (response) {
+            console.log(response.data);
+        });
+   }
 
     /* Función que muestra el detalle del certificado firmante 
     */
