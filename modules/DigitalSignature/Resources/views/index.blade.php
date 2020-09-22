@@ -200,7 +200,6 @@
                 </div>
             </div>
             @endif
-            <p class="d-none"> {{ getPathSign('pruebaPDF.pdf') }} </p>
         </div>
     </div>
 </div>

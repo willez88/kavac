@@ -1,15 +1,33 @@
 <?php
 
-if (!function_exists('greet')) {
+namespace Modules\DigitalSignature\Helpers;
+
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Schema;
+use Carbon\Carbon;
+use Module;
+use Storage;
+
+class Helper
+{
+
     /**
-     * Greeting a person
-     *
-     * @param  string $person Name
-     * @return string
+     * Retorna la dirección completa del ejecutable del firma PortableSigner o del archivo a firmar o verificar
      */
-    function greet($person)
+    
+    function getPathSign($nameFile)
     {
-        return 'Hello ' . $person;
+        $module = Module::find('DigitalSignature');
+
+        //obtiene la dirección del PortableSigner
+        if($nameFile == 'PortableSigner') {
+            return($module->getPath() . '/PortableSigner/PortableSigner.jar');
+        }
+        //obtiene la dirección almacen del archivos pdf
+        else {
+            $path = Storage::disk('temporary')->path($nameFile);
+            return($path);
+        }
     }
 }
-

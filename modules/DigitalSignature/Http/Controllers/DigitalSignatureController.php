@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
 use Modules\DigitalSignature\Models\Signprofile;
 use Modules\DigitalSignature\Models\User;
-
+use Modules\DigitalSignature\Helpers\Helper;
 
 /**
  * @class DigitalSignatureController
@@ -250,8 +250,9 @@ class DigitalSignatureController extends Controller
             $filenamepdf = $filename . '.pdf';
             $path = $request->file('pdf')->storeAs('',$filenamepdf, 'temporary');
             $filenamepdfsign = $filename . '-sign.pdf';
-            $storePdfSign = getPathSign($filenamepdfsign);
-            $storePdf = getPathSign($filenamepdf);
+            $getpath = new Helper();
+            $storePdfSign = $getpath->getPathSign($filenamepdfsign);
+            $storePdf = $getpath->getPathSign($filenamepdf);
 
 
             //Crear archivo pkcs#12
@@ -261,9 +262,9 @@ class DigitalSignatureController extends Controller
 
             //Datos para la firma
             $filenamep12 = Str::random(10) . '.p12';
-            $storeCertificated = getPathSign($filenamep12);
+            $storeCertificated = $getpath->getPathSign($filenamep12);
             $createpkcs12 = openssl_pkcs12_export_to_file($cert,$storeCertificated,$pkey,$passphrase);
-            $pathPortableSigner = getPathSign('PortableSigner');
+            $pathPortableSigner = $getpath->getPathSign('PortableSigner');
 
             //ejecución del comando para firmar
             $comand = 'java -jar ' . $pathPortableSigner . ' -n -t ' . $storePdf . ' -o ' . $storePdfSign . ' -s ' . $storeCertificated . ' -p ' . $passphrase;
@@ -281,14 +282,16 @@ class DigitalSignatureController extends Controller
             Storage::disk('temporary')->delete($filenamep12);
 
             //return Storage::download($pathDownload, $filenamepdfsign, $headers);
-            print_r($output);
+            //print_r($output);
+            
+            return view( 'digitalsignature::signfile', ['msg' => "El documento fue firmado exitosamente", 
+                                        'namefile' => $filenamepdfsign,
+                                        'signfile' => 'true']);
             //return redirect()->route('digitalsignature', ['path' => $pathDownload, 'msg' => 'Se firmo correctamente']);
         }
 
         else { return redirect()->route('login'); }
     }
-
-
 
     /**
      * Verifica la firma electrónica de un documento
@@ -303,7 +306,8 @@ class DigitalSignatureController extends Controller
         $namepdfsign = $filename . '.pdf';
         $path = $request->file('pdf')->storeAs('',$namepdfsign, 'temporary');
         
-        $storePdfSign = getPathSign($namepdfsign);
+        $getpath = new Helper();        
+        $storePdfSign = $getpath->getPathSign($namepdfsign);
 
         //ejecución del comando para firmar
         $comand = 'pdfsig ' . $storePdfSign;
@@ -311,8 +315,16 @@ class DigitalSignatureController extends Controller
         $run = exec($comand, $output);
         $cont = 0;
         $size = count($output);
-        print_r($output);
 
+        foreach ($output as $data) {
+            $array_data = array('data' => $output, );
+            $json_test = json_encode($array_data);
+            if(strpos($data,'Signature #')) {
+                $cont ++;
+            }
+        }
+
+        return view( 'digitalsignature::verifysignfile', ['verifyFile' => "true", 'json_test' => $json_test, 'nunSign' => $cont]);
     }
 
     /**
@@ -325,6 +337,7 @@ class DigitalSignatureController extends Controller
 
         $users = User::all();
         $userlist = [];
+
         foreach ($users as $user) {
             $profile = User::find($user->id);
             if ($profile->signprofiles) {
@@ -338,14 +351,18 @@ class DigitalSignatureController extends Controller
         }
     }
 
-     function getFile($filename){
-        
-        $file=Storage::disk('temporary')->get($filename);
-        return (new Response($file, 200))
-              ->header('Content-Type', 'application/pdf');
-        /*$file=Storage::disk('temporary')->get($filename);
-        return redirect()::away((new Response($file, 200))
-              ->header('Content-Type', 'application/pdf')); */
+    /**
+     * Funcion que descargar documentos firmado
+     *
+     * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
+     * @return 
+     */
+     function getFile($filename) {
+        return response()->download(storage_path("temporary/{$filename}"));
+    }
+
+    function goSignFile() {
+        return view('fileprofile');
     }
 }
 
