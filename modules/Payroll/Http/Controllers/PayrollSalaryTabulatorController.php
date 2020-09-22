@@ -148,7 +148,7 @@ class PayrollSalaryTabulatorController extends Controller
                 'active'                             => !empty($request->input('active'))
                                                         ? $request->input('active')
                                                         : false,
-                'description'                        => $request->input('description'),
+                'description'                        => $request->input('description') ?? '',
                 'institution_id'                     => $request->input('institution_id'),
                 'currency_id'                        => $request->input('currency_id'),
                 'payroll_salary_tabulator_type'      => $request->input('payroll_salary_tabulator_type'),
@@ -204,7 +204,7 @@ class PayrollSalaryTabulatorController extends Controller
                 'active'                             => !empty($request->input('active'))
                                                         ? $request->input('active')
                                                         : $salaryTabulator->active,
-                'description'                        => $request->input('description'),
+                'description'                        => $request->input('description') ?? '',
                 'institution_id'                     => $request->input('institution_id'),
                 'currency_id'                        => $request->input('currency_id'),
                 'payroll_salary_tabulator_type'      => $request->input('payroll_salary_tabulator_type'),
@@ -213,7 +213,7 @@ class PayrollSalaryTabulatorController extends Controller
             ]);
 
             /** Se eliminan los registros en desuso de tipos de personal de la tabla intermedia */
-            foreach ($salaryTabulator->payrollStaffTypes() as $payrollStaffType) {
+            foreach ($salaryTabulator->payrollStaffTypes as $payrollStaffType) {
                 $staffType_id = PayrollStaffType::find($payrollStaffType['id']);
                 $salaryTabulator->payrollStaffTypes()->detach($staffType_id);
             }

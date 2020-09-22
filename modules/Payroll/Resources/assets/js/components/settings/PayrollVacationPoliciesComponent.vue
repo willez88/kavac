@@ -142,20 +142,6 @@
                                             </div>
                                         </div>
                                         <!-- ./fecha de aplicación -->
-                                        <!-- períodos vacacionales -->
-                                        <div class="col-md-6">
-                                            <div class="form-group is-required">
-                                                <label> Períodos vacacionales acumulados por año:</label>
-                                                <input type="text" data-toggle="tooltip"
-                                                       title="Indique la cantidad de períodos vacacionales acumulados permitidos por año"
-                                                       class="form-control input-sm"
-                                                       v-input-mask data-inputmask="
-                                                            'alias': 'numeric',
-                                                            'allowMinus': 'false'"
-                                                       v-model="record.vacation_period_per_year">
-                                            </div>
-                                        </div>
-                                        <!-- ./períodos vacacionales -->
                                         <!-- adelanto de vacaciones -->
                                         <div class="col-md-3">
                                             <div class="form-group">
@@ -188,8 +174,23 @@
                                             </div>
                                         </div>
                                         <!-- ./posterga de vacaciones -->
+                                        <!-- períodos vacacionales -->
+                                        <div class="col-md-6">
+                                            <div class="form-group is-required">
+                                                <label> Períodos vacacionales acumulados permitidos por año:</label>
+                                                <input type="text" data-toggle="tooltip"
+                                                       title="Indique la cantidad de períodos vacacionales acumulados permitidos por año"
+                                                       class="form-control input-sm"
+                                                       v-input-mask data-inputmask="
+                                                            'alias': 'numeric',
+                                                            'allowMinus': 'false',
+                                                            'digits': 0"
+                                                       v-model="record.vacation_period_per_year">
+                                            </div>
+                                        </div>
+                                        <!-- ./períodos vacacionales -->
                                     </div>
-                                    <div class="row"
+                                    <div class="row" style="align-items: baseline;"
                                          v-else-if="record.vacation_type_id == 'vacation_period'">
                                         <!-- días a otorgar para el disfrute de vacaciones -->
                                         <div class="col-md-3">
@@ -200,7 +201,8 @@
                                                        class="form-control input-sm"
                                                        v-input-mask data-inputmask="
                                                             'alias': 'numeric',
-                                                            'allowMinus': 'false'"
+                                                            'allowMinus': 'false',
+                                                            'digits': 0"
                                                        v-model="record.holidays">
                                             </div>
                                         </div>
@@ -208,13 +210,14 @@
                                         <!-- períodos vacacionales -->
                                         <div class="col-md-3">
                                             <div class="form-group is-required">
-                                                <label> Períodos vacacionales por año:</label>
+                                                <label> Períodos vacacionales permitidos por año:</label>
                                                 <input type="text" data-toggle="tooltip"
                                                        title="Indique la cantidad de períodos vacacionales permitidos por año"
                                                        class="form-control input-sm"
                                                        v-input-mask data-inputmask="
                                                             'alias': 'numeric',
-                                                            'allowMinus': 'false'"
+                                                            'allowMinus': 'false',
+                                                            'digits': 0"
                                                        v-model="record.vacation_period_per_year">
                                             </div>
                                         </div>
@@ -222,13 +225,14 @@
                                         <!-- días adicionales a otorgar por años de servicio para el disfrute de vacaciones -->
                                         <div class="col-md-3">
                                             <div class="form-group is-required">
-                                                <label>Días a otorgar para el disfrute de vacaciones:</label>
+                                                <label>Días de disfrute adicionales a otorgar por año de servicio:</label>
                                                 <input type="text" data-toggle="tooltip"
                                                        title="Indique la cantidad de días adicionales a otorgar por año de servicio para el disfrute de vacaciones"
                                                        class="form-control input-sm"
                                                        v-input-mask data-inputmask="
                                                             'alias': 'numeric',
-                                                            'allowMinus': 'false'">
+                                                            'allowMinus': 'false',
+                                                            'digits': 0">
                                             </div>
                                         </div>
                                         <!-- ./días adicionales a otorgar por años de servicio para el disfrute de vacaciones -->
@@ -241,7 +245,8 @@
                                                        class="form-control input-sm"
                                                        v-input-mask data-inputmask="
                                                             'alias': 'numeric',
-                                                            'allowMinus': 'false'">
+                                                            'allowMinus': 'false',
+                                                            'digits': 0">
                                             </div>
                                         </div>
                                         <!-- ./días de disfrute de vacaciones mínimos por año -->
@@ -254,20 +259,22 @@
                                                        class="form-control input-sm"
                                                        v-input-mask data-inputmask="
                                                             'alias': 'numeric',
-                                                            'allowMinus': 'false'">
+                                                            'allowMinus': 'false',
+                                                            'digits': 0">
                                             </div>
                                         </div>
                                         <!-- ./días de disfrute de vacaciones máximos por año de servicio -->
                                         <!-- períodos vacacionales -->
                                         <div class="col-md-3">
                                             <div class="form-group is-required">
-                                                <label> Períodos vacacionales acumulados por año:</label>
+                                                <label> Períodos vacacionales acumulados permitidos por año:</label>
                                                 <input type="text" data-toggle="tooltip"
                                                        title="Indique la cantidad de períodos vacacionales acumulados permitidos por año"
                                                        class="form-control input-sm"
                                                        v-input-mask data-inputmask="
                                                             'alias': 'numeric',
-                                                            'allowMinus': 'false'">
+                                                            'allowMinus': 'false',
+                                                            'digits': 0">
                                             </div>
                                         </div>
                                         <!-- ./períodos vacacionales -->
@@ -311,7 +318,7 @@
                                         <!-- salario a emplear -->
                                         <div class="col-md-6">
                                             <div class=" form-group is-required">
-                                                <label>Salario a emplear:</label>
+                                                <label>Salario a emplear para el cálculo del bono vacacional:</label>
                                                 <select2 :options="salary_types"
                                                          v-model="record.salary_type_id"></select2>
                                             </div>
@@ -365,7 +372,7 @@
                                         </div>
                                         <!-- ./día general -->
                                         <!-- días a otorgar para el pago de vacaciones -->
-                                        <div class="col-md-6" v-if="record.payment_calculation == 'general_days'">
+                                        <div class="col-md-3" v-if="record.payment_calculation == 'general_days'">
                                             <div class="form-group is-required">
                                                 <label>Días a otorgar para el disfrute de vacaciones:</label>
                                                 <input type="text" data-toggle="tooltip"
@@ -373,7 +380,8 @@
                                                        class="form-control input-sm"
                                                        v-input-mask data-inputmask="
                                                             'alias': 'numeric',
-                                                            'allowMinus': 'false'">
+                                                            'allowMinus': 'false',
+                                                            'digits': 0">
                                             </div>
                                         </div>
                                         <!-- ./días a otorgar para el pago de vacaciones -->
@@ -458,9 +466,9 @@
                 salary_types:   [
                     {"id": "",                     "text": "Seleccione..."},
                     {"id": "base_salary",          "text": "Salario Base"},
+                    {"id": "comprehensive_salary", "text": "Salario Integral"},
                     {"id": "normal_salary",        "text": "Salario Normal"},
-                    {"id": "dialy_salary",         "text": "Salario Diario"},
-                    {"id": "comprehensive_salary", "text": "Salario Integral"}
+                    {"id": "dialy_salary",         "text": "Salario Diario"}
                 ],
                 panel:   'vacationPolicyForm',
             }
