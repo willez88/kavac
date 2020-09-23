@@ -236,15 +236,20 @@ class UserController extends Controller
         }
 
         $roleConsult = '';
+        $rolesAndPerms = [];
+        /** Crea un arreglo de permisos asociados a los diferentes roles seleccionados */
         foreach ($request->roles_attach_permissions as $role_perm) {
             list($role_id, $perm_id) = explode("_", $role_perm);
-            if ($roleConsult !== $role_id) {
-                $role = Role::find($role_id);
-                $roleConsult = $role_id;
+            if (!array_key_exists($role_id, $rolesAndPerms)) {
+                $rolesAndPerms[$role_id] = [];
             }
-            $perm = Permission::find($perm_id);
-            if (isset($role)) {
-                $role->attachPermission($perm);
+            array_push($rolesAndPerms[$role_id], $perm_id);
+        }
+        /** Asigna los distintos permisos a los roles */
+        foreach ($rolesAndPerms as $roleId => $roleValues) {
+            $role = Role::find($roleId);
+            if ($role) {
+                $role->syncPermissions($roleValues);
             }
         }
 

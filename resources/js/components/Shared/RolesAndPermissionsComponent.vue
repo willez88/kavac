@@ -77,7 +77,7 @@
                 </div>
             </div>
         </div>
-        <div class="card-footer text-right">
+        <div class="card-footer btn-display text-right">
             <button type="button" @click="reset" class="btn btn-default btn-icon btn-round"
                     data-toggle="tooltip" title="Borrar datos del formulario">
                 <i class="fa fa-eraser"></i>
@@ -111,6 +111,14 @@
             }
         },
         props: ['rolesPermissionsUrl', 'saveUrl'],
+        watch: {
+            record: {
+                deep: true,
+                handler: function(newValue, oldValue) {
+                    //
+                }
+            },
+        },
         methods: {
             /**
              * Inicializa los valores del componente
@@ -265,6 +273,19 @@
             vm.setModuleGroups();
             vm.record.roles_attach_permissions = [];
             vm.allPermissionByRol = [];
+
+            /**
+             * Muestra los botones cuando se baja el scroll de la pantalla a una altura predeterminada y
+             * los oculta cuando dicha altura es menor a la indicada
+             */
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 50) {
+                    $('.btn-display').fadeIn();
+                }
+                else {
+                    $('.btn-display').fadeOut();
+                }
+            });
         }
     };
 </script>
