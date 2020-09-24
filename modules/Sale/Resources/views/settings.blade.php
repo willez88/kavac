@@ -48,6 +48,8 @@
 						<sale-quote></sale-quote>
 						{{-- Configuración de Formas de pago--}}
 						<sale-setting-deposit></sale-setting-deposit>
+						{{-- Configuración de Gestión de Pedidos--}}
+						<sale-order-management></sale-order-management>
 					</div>
 				</div>
 			</div>
