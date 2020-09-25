@@ -8,6 +8,7 @@
 /storage/debugbar
 /storage/pictures
 /storage/documents
+/storage/temporary
 /vendor
 /.idea
 /.vscode
