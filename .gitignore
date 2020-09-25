@@ -5,6 +5,7 @@
 /storage/*.key
 /storage/debugbar
 /storage/pictures
+/storage/documents
 /storage/temporary
 /vendor
 .env
