@@ -25,7 +25,7 @@ Route::group(
          * Muestra información del módulo de Comercialización
          */
         Route::get('settings', 'SaleSettingController@index')->name('sale.settings.index');
-        //Route::post('settings', 'SaleSettingController@store')->name('sale.settings.store');
+        Route::post('settings', 'SaleSettingController@store')->name('sale.settings.store');
 
         /**
          * -----------------------------------------------------------------------
