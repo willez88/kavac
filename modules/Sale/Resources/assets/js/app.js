@@ -135,6 +135,16 @@ Vue.component('sale-setting-deposit', () => import(
 );
 
 /**
+ * Componente para listar, crear, actualizar y borrar datos de Gestión de Pedidos-
+ *
+ * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+ */
+Vue.component('sale-order-manage-mentmethod', () => import(
+    /* webpackChunkName: "sale-warehouse-method" */
+    './components/settings/SaleOrderManagementMethodComponent.vue')
+);
+
+/**
  * Opciones de configuración global del módulo de Commercialización
  */
 Vue.mixin({
@@ -212,6 +222,19 @@ Vue.mixin({
 			vm.sale_setting_deposit = [];
 			axios.get('/sale/get-setting-deposit').then(response => {
 				vm.sale_setting_deposit = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene los datos de Gestión de Pedidos de comercialización
+		 *
+		 * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+		 */
+		getSaleOrderManagementMethod() {
+			const vm = this;
+			vm.sale_warehouse_method = [];
+			axios.get('/sale/get-saleordermanagementmethod').then(response => {
+				vm.sale_order_management_method = response.data;
 			});
 		},
 	},
