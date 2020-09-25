@@ -29,10 +29,9 @@ class UsersTableSeeder extends Seeder
         DB::transaction(function () {
             /** @var object Crea el usuario por defecto de la aplicación */
             $user_admin = User::updateOrCreate(
-                ['username' => 'admin'],
+                ['username' => 'admin', 'email' => 'admin@admin.com'],
                 [
                     'name' => 'Admin',
-                    'email' => 'admin@admin.com',
                     'password' => bcrypt('123456'),
                     'level' => 1,
                     'created_at' => Carbon::now(),
@@ -61,10 +60,9 @@ class UsersTableSeeder extends Seeder
                 }
                 /** Crea un usuario de prueba para entornos de desarrollo, sin roles ni permisos */
                 User::updateOrCreate(
-                    ['username' => 'user'],
+                    ['username' => 'user', 'email' => 'user@kavac-testing.com'],
                     [
                         'name' => 'Usuario de prueba',
-                        'email' => 'user@kavac-testing.com',
                         'password' => bcrypt('123456'),
                         'level' => 2,
                         'created_at' => Carbon::now(),
