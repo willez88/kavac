@@ -47,8 +47,8 @@ class SaleSettingController extends Controller
     {
         /** Reglas de validación para la configuración de códigos */
         $this->validate($request, [
-            'sale_warehouse_inventory_products_code' => [new CodeSettingRule],
-            'sale_warehouse_movements_code' => [new CodeSettingRule]
+            'products_code' => [new CodeSettingRule],
+            'movements_code' => [new CodeSettingRule]
         ]);
 
         /** @var array $codes Arreglo con información de los campos de códigos configurados */
