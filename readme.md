@@ -186,8 +186,13 @@ En el archivo .env, localizado en la raíz del sistema, se deben establecer los 
 > APP_DEBUG
 > APP_LOG_LEVEL
 > APP_URL
+> APP_DEMO
+> APP_TESTING
 >
 > AUDIT_LIMIT
+>
+> LOG_CHANNEL
+> LOG_SLACK_WEBHOOK_URL
 >
 > DB_CONNECTION
 > DB_HOST
@@ -199,11 +204,14 @@ En el archivo .env, localizado en la raíz del sistema, se deben establecer los 
 > BROADCAST_DRIVER
 > CACHE_DRIVER
 > SESSION_DRIVER
-> QUEUE_DRIVER
+> SESSION_LIFETIME
+> QUEUE_CONNECTION
 >
 > REDIS_HOST
 > REDIS_PASSWORD
 > REDIS_PORT
+> REDIS_CLIENT
+> REDIS_DB
 >
 > MAIL_DRIVER
 > MAIL_HOST
@@ -212,10 +220,29 @@ En el archivo .env, localizado en la raíz del sistema, se deben establecer los 
 > MAIL_PASSWORD
 > MAIL_ENCRYPTION
 >
+> AWS_ACCESS_KEY_ID
+> AWS_SECRET_ACCESS_KEY
+> AWS_DEFAULT_REGION
+> AWS_BUCKET
+>
 > PUSHER_APP_ID
 > PUSHER_APP_KEY
 > PUSHER_APP_SECRET
 > PUSHER_APP_CLUSTER
+> PUSHER_APP_TLS
+>
+> WEBSOCKETS_HOST
+> WEBSOCKETS_PORT
+> WEBSOCKETS_SSL_LOCAL_CERT
+> WEBSOCKETS_SSL_LOCAL_PK
+> WEBSOCKETS_SSL_PASSPHRASE
+>
+> MIX_APP_URL
+> MIX_PUSHER_APP_KEY
+> MIX_PUSHER_APP_CLUSTER
+> MIX_WEBSOCKETS_HOST
+> MIX_WEBSOCKETS_PORT
+> MIX_PUSHER_APP_TLS
 
 De igual manera se debe instalar los paquetes necesarios para la gestión reactiva de datos, para lo cual se debe ejecutar el siguiente comando (teniendo en cuenta que se debe contar con nodejs y npm previamente instalados):
 
