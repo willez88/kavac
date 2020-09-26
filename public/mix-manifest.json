@@ -2,7 +2,7 @@
     "/js/generic-classes.js": "/js/generic-classes.js?id=b4502a0abe71cb4934bb",
     "/js/common.js": "/js/common.js?id=b8932c72dd603f8bbef7",
     "/css/app.css": "/css/app.css?id=8b03c3f91672e9a8476b",
-    "/js/app.js": "/js/app.js?id=e439037f580c960a23d1",
+    "/js/app.js": "/js/app.js?id=0638a3a94ce2c2043d53",
     "/css/font-awesome.css": "/css/font-awesome.css?id=df60153d219a9b2ffdba",
     "/css/ionicons.css": "/css/ionicons.css?id=5790c8e99418e57479a5",
     "/css/now-ui-kit.css": "/css/now-ui-kit.css?id=524b102727d2d4f5d8df",
@@ -42,5 +42,7 @@
     "/js/components/core/e928a7cb7443bf508696.js": "/js/components/core/e928a7cb7443bf508696.js?id=469cfdcb770f2526cf60",
     "/js/components/core/386395093fe30f359441.js": "/js/components/core/386395093fe30f359441.js?id=94ac949885d4085e3dec",
     "/js/components/core/4db4b4d645110f93af76.js": "/js/components/core/4db4b4d645110f93af76.js?id=230c910ec5128201648b",
-    "/js/components/core/d670432d7d66287d5738.js": "/js/components/core/d670432d7d66287d5738.js?id=19802ac8cd5199df255f"
+    "/js/components/core/d670432d7d66287d5738.js": "/js/components/core/d670432d7d66287d5738.js?id=19802ac8cd5199df255f",
+    "/js/components/core/fc2fa48609146dc3dbbd.js": "/js/components/core/fc2fa48609146dc3dbbd.js?id=306d6d41f96c4b11a3e5",
+    "/js/components/core/ed1dc99b7892661da500.js": "/js/components/core/ed1dc99b7892661da500.js?id=55ab14d2aff59bf14c8a"
 }

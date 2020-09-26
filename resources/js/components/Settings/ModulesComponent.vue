@@ -139,7 +139,7 @@
         props: ['modules'],
         methods: {
             moduleLogo(module) {
-                return `${window.app_url}/${module.logo}`;
+                return `${process.env.MIX_APP_URL}/${module.logo}`;
             },
             /**
              * Obtiene información acerca del módulo seleccionado
@@ -152,7 +152,7 @@
              */
             viewDetails(module) {
                 let vm = this;
-                axios.post(`${window.app_url}/modules/details`, {
+                axios.post(`${process.env.MIX_APP_URL}/modules/details`, {
                     module: module
                 }).then(response => {
                     vm.details = response.data.details;
