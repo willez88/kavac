@@ -17,6 +17,16 @@
 @stop
 
 @section('content')
+@if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <p>Corrige los siguientes errores:</p>
+        <ul>
+            @foreach ($errors->all() as $message)
+                <li>{{ $message }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="col-12">
     <div class="card">
         <div class="card-header">
@@ -43,11 +53,10 @@
                         <div>
                             <label>Cargar Certificado firmante</label>
                             <p>
-                                <input type="file" class="form-control" name="pkcs12">
+                                <input id="pkcs12" type="file" class="form-control" name="pkcs12" accept=".p12">
                             </p>
                             <p>
-                            <input id="phasepass" class="form-control" type="password" name="password" required
-                                   tabindex="3" placeholder="pkcs12 password" />
+                            <input id="phasepass" class="form-control" type="password" name="password" tabindex="3" placeholder="pkcs12 password" required />
                             </p>
                         </div>
                         <div>

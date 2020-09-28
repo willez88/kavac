@@ -18,6 +18,17 @@
 
 @section('content')
 
+ @if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <p>Corrige los siguientes errores:</p>
+        <ul>
+            @foreach ($errors->all() as $message)
+                <li>{{ $message }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="col-12">
     <div class="card">
         <div class="card-header">
@@ -77,7 +88,7 @@
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                     <p>
                                         <label for="pkcs12">Actualizar Certificado firmante</label>
-                                        <input id="pkcs12" type="file" class="form-control" name="pkcs12"  required />
+                                        <input id="pkcs12" type="file" class="form-control" name="pkcs12" accept=".p12" required />
                                     </p>
                                     <p>
                                         <label for="phasepass">Contraseña del certificado</label>
@@ -331,7 +342,7 @@
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                         <p>
                                             <label for="pkcs12">Cargar Certificado firmante</label>
-                                            <input id="pkcs12" type="file" class="form-control" name="pkcs12"  required />
+                                            <input id="pkcs12" type="file" class="form-control" name="pkcs12" accept=".p12" required />
                                         </p>
                                         <p>
                                             <label for="phasepass">Contraseña del certificado</label>

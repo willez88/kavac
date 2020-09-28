@@ -15,6 +15,8 @@ use Modules\DigitalSignature\Models\Signprofile;
 use Modules\DigitalSignature\Models\User;
 use Modules\DigitalSignature\Helpers\Helper;
 
+use Illuminate\Foundation\Validation\ValidatesRequests;
+
 /**
  * @class DigitalSignatureController
  * @brief Controlador para la gestión de firma electrónica
@@ -29,6 +31,8 @@ use Modules\DigitalSignature\Helpers\Helper;
 
 class DigitalSignatureController extends Controller
 {
+     use ValidatesRequests;
+
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -73,13 +77,24 @@ class DigitalSignatureController extends Controller
      */
     public function store(Request $request)
     {
+        
+        $mime = $request->file('pkcs12')->getMimeType();
+        print_r($mime);       
+        $mimeextencion = $request->file('pkcs12')->getClientOriginalExtension();
+        $otromime = $request->file('pkcs12')->getClientmimeType();
+        print_r($mime);
+/*
+        $this->validate($request, [
+            'pkcs12' => ['required','mimes:p12,pfx']
+        ]);
 
+        print_r("validate"); 
         $filename = Str::random(10) . '.p12';
         $path = $request->file('pkcs12')->storeAs('',$filename, 'temporary');
         $certStore = file_get_contents(storage_path('temporary') . '/' . $filename);
         $passphrase = $request->get('password');
         if (!$certStore) {
-            echo "Error: No se puede leer el fichero del certificado\n";
+            print_r("Error: No se puede leer el fichero del certificado\n") ;
             exit;
         }
 
@@ -93,9 +108,9 @@ class DigitalSignatureController extends Controller
         $profile->pkey = $pkey;
         $profile->user_id = Auth::user()->id;
         $profile->save();
-        Storage::disk('temporary')->delete($filename);
+        Storage::disk('temporary')->delete($filename); 
 
-        return redirect()->route('digitalsignature');
+        return redirect()->route('digitalsignature'); */
     }
 
     /**
@@ -123,6 +138,23 @@ class DigitalSignatureController extends Controller
      */
     public function update(Request $request)
     {
+
+        $mime = $request->file('pkcs12')->getMimeType();
+        print_r($mime);       
+        $mimeextencion = $request->file('pkcs12')->getClientOriginalExtension();
+        print_r('******');
+        print_r($mimeextencion);
+        $otromime = $request->file('pkcs12')->getClientmimeType();
+        print_r('******');
+        print_r($otromime);
+        
+        $this->validate($request, [
+            'pkcs12' => ['required','mimetypes:application/x-pkcs12']
+        ]);
+        /*
+        print_r("update");
+        
+        
         if(User::find(auth()->user()->id)->signprofiles) {
             $userprofile = User::find(auth()->user()->id)->signprofiles;
             $userprofile->delete();
@@ -149,7 +181,7 @@ class DigitalSignatureController extends Controller
         $profile->save();
         Storage::disk('temporary')->delete($filename);
 
-        return redirect()->route('digitalsignature');
+        return redirect()->route('digitalsignature'); */
     }
 
     /**
@@ -242,7 +274,15 @@ class DigitalSignatureController extends Controller
      */
     public function signFile(Request $request)
     {
-
+        /*$mime = $request->file('pdf')->getMimeType();
+        //print_r($mime);       
+        $mimeextencion = $request->file('pdf')->getClientOriginalExtension();
+        $otromime = $request->file('pdf')->getClientmimeType();
+        print_r($otromime); */
+        $this->validate($request, [
+            'pdf' => ['required','mimes:pdf']
+        ]);
+        
         if(Auth::user() && User::find(auth()->user()->id)->signprofiles) {
 
             //Documento pdf
@@ -284,13 +324,13 @@ class DigitalSignatureController extends Controller
             //return Storage::download($pathDownload, $filenamepdfsign, $headers);
             //print_r($output);
             
-            return view( 'digitalsignature::signfile', ['msg' => "El documento fue firmado exitosamente", 
+            return view( 'digitalsignature::viewSignfile', ['msg' => "El documento fue firmado exitosamente", 
                                         'namefile' => $filenamepdfsign,
                                         'signfile' => 'true']);
             //return redirect()->route('digitalsignature', ['path' => $pathDownload, 'msg' => 'Se firmo correctamente']);
         }
 
-        else { return redirect()->route('login'); }
+        else { return redirect()->route('login'); } 
     }
 
     /**
@@ -301,6 +341,9 @@ class DigitalSignatureController extends Controller
      */
     public function verifysign(Request $request) {
 
+        $this->validate($request, [
+            'pdf' => ['required','mimes:pdf']
+        ]);
         //Documento pdf
         $filename = Str::random(10);
         $namepdfsign = $filename . '.pdf';
@@ -324,7 +367,7 @@ class DigitalSignatureController extends Controller
             }
         }
 
-        return view( 'digitalsignature::verifysignfile', ['verifyFile' => "true", 'json_test' => $json_test, 'nunSign' => $cont]);
+        return view( 'digitalsignature::viewVerifySignfile', ['verifyFile' => "true", 'json_test' => $json_test, 'nunSign' => $cont]);
     }
 
     /**

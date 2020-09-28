@@ -16,13 +16,11 @@ Route::group(
     'prefix' => 'digitalsignature'], 
     function () {
 
+        /* Ruta Visualizar ventana principal del módulo de firma electrónica */
         Route::get('/', 'DigitalSignatureController@index')->name('digitalsignature');
 
 
-        Route::get('fileprofile', function () {
-            return view('digitalsignature::fileprofile');
-        })->name('fileprofile');
-
+        /* Ruta para cargar el certificado firmante del usuario */
         Route::post('signprofilestore', 'DigitalSignatureController@store')->name('signprofilestore');
 
         /**
@@ -30,33 +28,54 @@ Route::group(
         * Rutas del crud que gestiona los certificados firmantes del usuario 
         * --------------------------------------------------------------------
         */
-       
-       /* Visualizar detalles del certificado firmante del usuario */
+       /* Ruta Visualizar detalles del certificado firmante del usuario */
         Route::get('certificateDetails', 'DigitalSignatureController@getCertificate')->name('certificateDetails');
-        /* Actualizar el certificado firmante del usuario */
+
+        /* Ruta Actualizar el certificado firmante del usuario */
         Route::post('updateCertificate', 'DigitalSignatureController@update')->name('updateCertificate');
-        /* Ruta para  documento PDF firmados */
+
+        /* Ruta Eliminar el certificado firmante del usuario */
         Route::get('deleteCertificate', 'DigitalSignatureController@destroy')->name('deleteCertificate');
 
+        /* Ruta para cargar certificado firmante del usuario */ 
+        Route::get('fileprofile', function () {
+            return view('digitalsignature::fileprofile');
+        })->name('fileprofile');
+
+
+        /**
+        * ----------------------------------------------------------------------
+        * Rutas para realizar firma electrónica del usuario 
+        * --------------------------------------------------------------------
+        */
         /* Ruta para realizar la firma de documento PDF firmados */
         Route::post('signFile', 'DigitalSignatureController@signFile')->name('signFile');
 
-        /* Ruta para realizar la verificación de la firma de documento PDF firmados */
-        Route::post('verifysign', 'DigitalSignatureController@verifysign')->name('verifysign');
-
-        /* Ruta para realizar la verificación de la firma de documento PDF firmados */
-        Route::get('listCertificate', 'DigitalSignatureController@listCertificate')->name('listCertificate');
-
-
         /* Ruta para visualizar el interfaz para firmar documento PDF */
-        Route::get('signfile', function () {
-            return view('digitalsignature::signfile', ['signfile' => 'false']);
-        })->name('signfile');
+        Route::get('viewSignfile', function () {
+            return view('digitalsignature::viewSignfile', ['signfile' => 'false']);
+        })->name('viewSignfile');
+
+
+        /**
+        * ----------------------------------------------------------------------
+        * Rutas para realizar la verificación de firma electrónica del usuario 
+        * --------------------------------------------------------------------
+        */
+
+        /* Ruta para realizar la verificación de la firma de documento PDF firmados */
+        Route::post('verifysignfile', 'DigitalSignatureController@verifysign')->name('verifysignfile');
 
         /* Ruta para visualizar el interfaz para verificar firma de documento PDF */
-        Route::get('verifysignfile', function () {
-            return view('digitalsignature::verifysignfile', ['verifyFile' => 'false']);
-        })->name('verifysignfile');
+        Route::get('viewVerifySignfile', function () {
+            return view('digitalsignature::viewVerifySignfile', ['verifyFile' => 'false']);
+        })->name('viewVerifySignfile');
+        
+
+
+
+        /* Ruta para mostrar la lista de usuario con certificados electrónicos  */
+        Route::get('listCertificate', 'DigitalSignatureController@listCertificate')->name('listCertificate');
         
         /* Ruta para descargar documento PDF firmados */
         Route::get('getFile/{filename}', 'DigitalSignatureController@getFile')->name('getFile');

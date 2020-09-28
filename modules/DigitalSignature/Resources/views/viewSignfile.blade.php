@@ -9,14 +9,25 @@
 @stop
 
 @section('maproute-actual')
-    {{ __('Verificar fírma electrónica') }}
+    {{ __('Fírma electrónica') }}
 @stop
 
 @section('maproute-title')
-    {{ __('Verificar fírma electrónica') }}
+    {{ __('Firma electrónica') }}
 @stop
 
 @section('content')
+
+@if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <p>Corrige los siguientes errores:</p>
+        <ul>
+            @foreach ($errors->all() as $message)
+                <li>{{ $message }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
 <div class="col-12">
     <div class="card">
@@ -32,16 +43,16 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-xs-2 text-center">
-                    <h6><i class="icofont icofont-file-pdf"></i> Verificar firma de documento PDF </h6>
-                    <form method="POST" enctype="multipart/form-data" accept-charset="UTF-8" action="{{ route('verifysign') }}">
+                    <h6><i class="icofont icofont-file-pdf"></i> Firmar documentos PDF </h6>
+                    <form method="POST" enctype="multipart/form-data" accept-charset="UTF-8" action="{{ route('signFile') }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <p>
-                            <label for="pdf">Cargar PDF a verificar firma</label>
-                            <input id="pdf" type="file" class="form-control" name="pdf" required />
+                            <label for="pdf">Cargar PDF a firmar</label>
+                            <input id="pdf" type="file" class="form-control" name="pdf" required accept=".pdf"/>
                         </p>
                         <p class="text-right">
                             <button type="submit" class="btn btn-success btn-icon btn-round" data-toggle="tooltip"
-                                    title="Verificar firmar documento PDF">
+                                    title="Firmar documento">
                                 <i class="icofont icofont-fountain-pen"></i>
                             </button>
                         </p>
@@ -49,20 +60,18 @@
                 </div>
             </div>
             <div class="card-body">
-                @if($verifyFile == 'true')
-                    <div class="row">
-                        <p><span class="font-weight-bold"> {{ __('Detalle de la firma') }}</span>
-                        </p>
-                    </div>
-                    <div class="row">
-                        <p><span class="font-weight-bold"> {{ __('Número de la firma: ') }}</span> {{ $nunSign }}
-                        </p>
-                        <br>
-                        <p> {{ $json_test }}
-                        </p>  
-                    </div>
-                @endif
-            </div>
+		        @if($signfile == 'true')
+		        	<di class="row">
+		        		<p><span class="font-weight-bold"> {{ $msg }}</span></p>
+		        	</di>
+		        	<div class="row">
+		        		<p><span class="font-weight-bold"> {{ __('Descargar') }}</span> {{ $namefile }}  </p> 
+		        		<a class="btn btn-info btn-xs btn-icon btn-action" href="{{ route('getFile', ['filename' => $namefile]) }}" title="Descargar documento firmado">
+                    <i class="fa fa-eye"></i>
+                </a>
+		        	</div>
+		        @endif
+		    </div>
         </div>
     </div>
 </div>
