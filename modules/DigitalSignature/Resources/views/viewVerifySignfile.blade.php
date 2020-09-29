@@ -45,10 +45,10 @@
                 <div class="col-xs-2 text-center">
                     <h6><i class="icofont icofont-file-pdf"></i> Verificar firma de documento PDF </h6>
                     <form method="POST" enctype="multipart/form-data" accept-charset="UTF-8" action="{{ route('verifysignfile') }}">
-                        <input type="hidden" name="_token" accept=".pdf" value="{{ csrf_token() }}" />
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <p>
                             <label for="pdf">Cargar PDF a verificar firma</label>
-                            <input id="pdf" type="file" class="form-control" name="pdf" required />
+                            <input id="pdf" type="file" class="form-control" name="pdf" required accept=".pdf"/>
                         </p>
                         <p class="text-right">
                             <button type="submit" class="btn btn-success btn-icon btn-round" data-toggle="tooltip"

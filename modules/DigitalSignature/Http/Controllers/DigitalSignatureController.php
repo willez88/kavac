@@ -34,8 +34,10 @@ class DigitalSignatureController extends Controller
      use ValidatesRequests;
 
     /**
-     * Display a listing of the resource.
-     * @return Renderable
+     * Muestra la ventana principal del módulo Digital signature
+     *
+     * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
+     * @return datos del certificado del usuario si tiene asociado
      */
     public function index()
     {
@@ -71,24 +73,13 @@ class DigitalSignatureController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Renderable
+     * Almacena el certificado del firmante
+     *
+     * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
+     * @return 
      */
     public function store(Request $request)
     {
-        /*
-        $mime = $request->file('pkcs12')->getMimeType();
-        print_r($mime);       
-        $mimeextencion = $request->file('pkcs12')->getClientOriginalExtension();
-        $otromime = $request->file('pkcs12')->getClientmimeType();
-        print_r($mime);
-/*
-        $this->validate($request, [
-            'pkcs12' => ['required','mimes:p12,pfx']
-        ]);
-        print_r("validate"); 
-        */
         $filename = Str::random(10) . '.p12';
         $path = $request->file('pkcs12')->storeAs('',$filename, 'temporary');
         $certStore = file_get_contents(storage_path('temporary') . '/' . $filename);
@@ -132,29 +123,13 @@ class DigitalSignatureController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Renderable
+     * Actualiza el certificado del firmante
+     *
+     * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
+     * @return
      */
     public function update(Request $request)
     {
-        /*
-        $mime = $request->file('pkcs12')->getMimeType();
-        print_r($mime);       
-        $mimeextencion = $request->file('pkcs12')->getClientOriginalExtension();
-        print_r('******');
-        print_r($mimeextencion);
-        $otromime = $request->file('pkcs12')->getClientmimeType();
-        print_r('******');
-        print_r($otromime);
-        
-        $this->validate($request, [
-            'pkcs12' => ['required','mimetypes:application/x-pkcs12']
-        ]);
-        
-        print_r("update");
-        
-        */
         if(User::find(auth()->user()->id)->signprofiles) {
             $userprofile = User::find(auth()->user()->id)->signprofiles;
             $userprofile->delete();
@@ -185,8 +160,10 @@ class DigitalSignatureController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @return Renderable
+     * Elimina el certificado del firmante
+     *
+     * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
+     * @return
      */
     public function destroy()
     {
@@ -222,7 +199,7 @@ class DigitalSignatureController extends Controller
      * Obtiene la información detallada del certificado del firmante
      *
      * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
-     * @return
+     * @return array con la informacion del certificado firmante
      */
     public function getCertificate() {
 
@@ -270,7 +247,7 @@ class DigitalSignatureController extends Controller
      * Realiza la firma electrónica de un documento
      *
      * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
-     * @return
+     * @return Nombre del documento pdf firmado 
      */
     public function signFile(Request $request)
     {
@@ -313,6 +290,9 @@ class DigitalSignatureController extends Controller
 
             //elimina el certficado .p12
             Storage::disk('temporary')->delete($filenamep12);
+
+            //elimina el documento pdf
+            Storage::disk('temporary')->delete($filenamepdf);
             
             return view( 'digitalsignature::viewSignfile', ['msg' => "El documento fue firmado exitosamente", 
                                         'namefile' => $filenamepdfsign,
@@ -326,7 +306,7 @@ class DigitalSignatureController extends Controller
      * Verifica la firma electrónica de un documento
      *
      * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
-     * @return
+     * @return json con el detalle de la verificación de la firma
      */
     public function verifysign(Request $request) {
 
@@ -343,21 +323,31 @@ class DigitalSignatureController extends Controller
 
         //ejecución del comando para firmar
         $comand = 'pdfsig ' . $storePdfSign;
-
         $run = exec($comand, $output);
-        $cont = 0;
-        $size = count($output);
-        $respVerify = new Helper();
-        $json_test = json_encode($respVerify->getRespVerify($output));
+
+        //elimina el documento pdf a verificar la firma electrónica
+        Storage::disk('temporary')->delete($namepdfsign);
+
         
-        return view( 'digitalsignature::viewVerifySignfile', ['verifyFile' => "true", 'json_test' => $json_test, 'nunSign' => $cont]);
-    }
+        if(count($output) == 1 ) {
+            $infoVerify = array();
+            array_push($infoVerify, "El documento seleccionado no contiene firma electrónica");
+            $json_test = json_encode($infoVerify);
+            return view( 'digitalsignature::viewVerifySignfile', ['verifyFile' => "true", 'json_test' => $json_test]);    
+        }
+        else {
+            $respVerify = new Helper();
+            $json_test = json_encode($respVerify->getRespVerify($output));
+        
+            return view( 'digitalsignature::viewVerifySignfile', ['verifyFile' => "true", 'json_test' => $json_test]);    
+        }
+     }
 
     /**
      * Lista los usuarios que asociado certificado firmante
      *
      * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
-     * @return
+     * @return lista de los certificado  
      */
     public function listCertificate() {
 
@@ -381,14 +371,10 @@ class DigitalSignatureController extends Controller
      * Funcion que descargar documentos firmado
      *
      * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
-     * @return 
+     * @return enlace para descargar la documento PDF firmado
      */
      function getFile($filename) {
         return response()->download(storage_path("temporary/{$filename}"));
-    }
-
-    function goSignFile() {
-        return view('fileprofile');
     }
 }
 

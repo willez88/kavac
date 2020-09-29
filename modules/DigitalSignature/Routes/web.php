@@ -77,6 +77,6 @@ Route::group(
         /* Ruta para mostrar la lista de usuario con certificados electrónicos  */
         Route::get('listCertificate', 'DigitalSignatureController@listCertificate')->name('listCertificate');
         
-        /* Ruta para descargar documento PDF firmados */
+        /* Ruta para descargar documento PDF firmado */
         Route::get('getFile/{filename}', 'DigitalSignatureController@getFile')->name('getFile');
 });
