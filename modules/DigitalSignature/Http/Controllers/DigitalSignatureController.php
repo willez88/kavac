@@ -77,7 +77,7 @@ class DigitalSignatureController extends Controller
      */
     public function store(Request $request)
     {
-        
+        /*
         $mime = $request->file('pkcs12')->getMimeType();
         print_r($mime);       
         $mimeextencion = $request->file('pkcs12')->getClientOriginalExtension();
@@ -87,8 +87,8 @@ class DigitalSignatureController extends Controller
         $this->validate($request, [
             'pkcs12' => ['required','mimes:p12,pfx']
         ]);
-
         print_r("validate"); 
+        */
         $filename = Str::random(10) . '.p12';
         $path = $request->file('pkcs12')->storeAs('',$filename, 'temporary');
         $certStore = file_get_contents(storage_path('temporary') . '/' . $filename);
@@ -110,7 +110,7 @@ class DigitalSignatureController extends Controller
         $profile->save();
         Storage::disk('temporary')->delete($filename); 
 
-        return redirect()->route('digitalsignature'); */
+        return redirect()->route('digitalsignature');
     }
 
     /**
@@ -138,7 +138,7 @@ class DigitalSignatureController extends Controller
      */
     public function update(Request $request)
     {
-
+        /*
         $mime = $request->file('pkcs12')->getMimeType();
         print_r($mime);       
         $mimeextencion = $request->file('pkcs12')->getClientOriginalExtension();
@@ -151,10 +151,10 @@ class DigitalSignatureController extends Controller
         $this->validate($request, [
             'pkcs12' => ['required','mimetypes:application/x-pkcs12']
         ]);
-        /*
+        
         print_r("update");
         
-        
+        */
         if(User::find(auth()->user()->id)->signprofiles) {
             $userprofile = User::find(auth()->user()->id)->signprofiles;
             $userprofile->delete();
@@ -181,7 +181,7 @@ class DigitalSignatureController extends Controller
         $profile->save();
         Storage::disk('temporary')->delete($filename);
 
-        return redirect()->route('digitalsignature'); */
+        return redirect()->route('digitalsignature');
     }
 
     /**
@@ -274,11 +274,6 @@ class DigitalSignatureController extends Controller
      */
     public function signFile(Request $request)
     {
-        /*$mime = $request->file('pdf')->getMimeType();
-        //print_r($mime);       
-        $mimeextencion = $request->file('pdf')->getClientOriginalExtension();
-        $otromime = $request->file('pdf')->getClientmimeType();
-        print_r($otromime); */
         $this->validate($request, [
             'pdf' => ['required','mimes:pdf']
         ]);
@@ -316,18 +311,12 @@ class DigitalSignatureController extends Controller
                  'Content-Type: application/pdf',
                );
 
-            //print_r($pathDownload);
-
             //elimina el certficado .p12
             Storage::disk('temporary')->delete($filenamep12);
-
-            //return Storage::download($pathDownload, $filenamepdfsign, $headers);
-            //print_r($output);
             
             return view( 'digitalsignature::viewSignfile', ['msg' => "El documento fue firmado exitosamente", 
                                         'namefile' => $filenamepdfsign,
                                         'signfile' => 'true']);
-            //return redirect()->route('digitalsignature', ['path' => $pathDownload, 'msg' => 'Se firmo correctamente']);
         }
 
         else { return redirect()->route('login'); } 
@@ -358,15 +347,9 @@ class DigitalSignatureController extends Controller
         $run = exec($comand, $output);
         $cont = 0;
         $size = count($output);
-
-        foreach ($output as $data) {
-            $array_data = array('data' => $output, );
-            $json_test = json_encode($array_data);
-            if(strpos($data,'Signature #')) {
-                $cont ++;
-            }
-        }
-
+        $respVerify = new Helper();
+        $json_test = json_encode($respVerify->getRespVerify($output));
+        
         return view( 'digitalsignature::viewVerifySignfile', ['verifyFile' => "true", 'json_test' => $json_test, 'nunSign' => $cont]);
     }
 

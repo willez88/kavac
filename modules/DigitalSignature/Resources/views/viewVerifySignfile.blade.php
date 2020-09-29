@@ -66,11 +66,9 @@
                         </p>
                     </div>
                     <div class="row">
-                        <p><span class="font-weight-bold"> {{ __('Número de la firma: ') }}</span> {{ $nunSign }}
-                        </p>
-                        <br>
-                        <p> {{ $json_test }}
-                        </p>  
+                        @foreach (json_decode($json_test, true) as $key => $value)
+                            {{ $value }} <br>
+                        @endforeach 
                     </div>
                 @endif
             </div>
