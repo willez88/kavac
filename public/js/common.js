@@ -37,6 +37,7 @@ $(document).ready(function() {
  * @param  {boolean} show_msg     Indica si se muestra o no un mensaje sobre la acción realizada
  */
 var uploadSingleImage = function(form, input_file, input_hidden, img_tag, img_tag_mini, show_msg) {
+    $('.preloader').show();
     var show_msg = (typeof(show_msg) !== "undefined") ? show_msg : false;
     var img_tag_mini = (typeof(img_tag_mini) !== "undefined") ? img_tag_mini : '';
     var url = $(`#${form}`).attr('action');
@@ -62,19 +63,21 @@ var uploadSingleImage = function(form, input_file, input_hidden, img_tag, img_ta
             }
             axios.get(`/get-image/${up.image_id}`).then(response => {
                 var image = response.data.image;
-                $(`.${img_tag}`).attr('src', `/${image.url}`);
+                $(`.${img_tag}`).attr('src', `${window.app_url}/${image.url}`);
                 if (img_tag_mini) {
-                    $(`.${img_tag_mini}`).attr('src', `/${image.url}`);
+                    $(`.${img_tag_mini}`).attr('src', `${window.app_url}/${image.url}`);
                 }
 
                 $(`#${input_hidden}`).val(image.id);
-
+                $('.preloader').fadeOut(2000);
             }).catch(error => {
                 logs('custom.js', 96, error, 'uploadImage');
+                $('.preloader').fadeOut(2000);
             });
         }
     }).catch(error => {
         logs('custom.js', 100, error, 'uploadImage');
+        $('.preloader').fadeOut(2000);
     });
 }
 
@@ -91,6 +94,7 @@ var deleteImage = function(element_delete, id, no_image, force_delete) {
     if (id) {
         bootbox.confirm("Esta seguro de querer eliminar la imagen?", function(result) {
             if (result) {
+                $('.preloader').show();
                 // Determinar si el valor es un arreglo de ids. Ej. 1,2,3,4,5,etc
                 axios.delete(`/upload-image/${id}`, force_delete).then(response => {
                     if (!response.data.result) {
@@ -107,8 +111,10 @@ var deleteImage = function(element_delete, id, no_image, force_delete) {
                         element_delete.closest('.form-group')
                                       .find('img').attr('src', `/images/no-image${no_image}.png`);
                     }
+                    $('.preloader').fadeOut(2000);
                 }).catch(error => {
                     logs('common.js', 88, error, 'deleteImage');
+                    $('.preloader').fadeOut(2000);
                 });
             }
         });

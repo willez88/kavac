@@ -84,7 +84,7 @@
                 formData.append("image", imagefile.files[0]);
 
                 if (!id) {
-                    axios.post(`${window.app_url}/upload-image`, formData, {
+                    axios.post(`${process.env.MIX_APP_URL}/upload-image`, formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
@@ -101,7 +101,7 @@
                             return false;
                         }
                         vm.id = response.data.image_id;
-                        vm.url = `${window.app_url}/${response.data.image_url}`;
+                        vm.url = `${process.env.MIX_APP_URL}/${response.data.image_url}`;
                         vm.$emit('changeImage', vm.id);
                         $('#imgDelete').tooltip({delay: {hide:100}});
                     }).catch(error => {
@@ -109,7 +109,7 @@
                     });
                 }
                 else {
-                    axios.put(`${window.app_url}/upload-image/${id}`).then(response => {
+                    axios.put(`${process.env.MIX_APP_URL}/upload-image/${id}`).then(response => {
                         // Lógica para actualizar una imagen
                     }).catch(error => {
                         vm.logs('ImageManagementComponent', 127, error, 'uploadImage');
@@ -133,7 +133,7 @@
                     bootbox.confirm("Esta seguro de querer eliminar la imagen?", function(result) {
                         if (result) {
                             // Determinar si el valor es un arreglo de ids. Ej. 1,2,3,4,5,etc
-                            axios.delete(`${window.app_url}/upload-image/${vm.id}`, force_delete).then(response => {
+                            axios.delete(`${process.env.MIX_APP_URL}/upload-image/${vm.id}`, force_delete).then(response => {
                                 if (!response.data.result) {
                                     $.gritter.add({
                                         title: 'Error!',
@@ -146,7 +146,7 @@
                                 }
                                 else {
                                     vm.id = '';
-                                    vm.url = `${window.app_url}/images/no-image2.png`;
+                                    vm.url = `${process.env.MIX_APP_URL}/images/no-image2.png`;
 
                                 }
                             }).catch(error => {
@@ -159,7 +159,7 @@
         },
         mounted() {
             let vm = this;
-            vm.url = (vm.imgDefault) ? vm.imgDefault : `${window.app_url}/images/no-image2.png`;
+            vm.url = (vm.imgDefault) ? vm.imgDefault : `${process.env.MIX_APP_URL}/images/no-image2.png`;
         }
     };
 </script>

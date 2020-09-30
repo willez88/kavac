@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 /*!
   Ionicons, v2.0.0
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
@@ -11,17 +10,15 @@
   used under CC BY http://creativecommons.org/licenses/by/4.0/
   Modified icons to fit ionicon’s grid from original.
 */
-
 @font-face {
   font-family: "Ionicons";
-  src: url(/fonts/ionicons.eot?2c2ae068be3b089e0a5b59abb1831550);
-  src: url(/fonts/ionicons.eot?2c2ae068be3b089e0a5b59abb1831550) format("embedded-opentype"), url(/fonts/ionicons.ttf?24712f6c47821394fba7942fbb52c3b2) format("truetype"), url(/fonts/ionicons.woff?05acfdb568b3df49ad31355b19495d4a) format("woff"), url(/fonts/ionicons.svg?621bd386841f74e0053cb8e67f8a0604) format("svg");
+  src: url("../fonts/ionicons.eot?v=2.0.0");
+  src: url("../fonts/ionicons.eot?v=2.0.0#iefix") format("embedded-opentype"), url("../fonts/ionicons.ttf?v=2.0.0") format("truetype"), url("../fonts/ionicons.woff?v=2.0.0") format("woff"), url("../fonts/ionicons.svg?v=2.0.0#Ionicons") format("svg");
   font-weight: normal;
   font-style: normal;
 }
 
-.ion,
-.ionicons,
+.ion, .ionicons,
 .ion-alert:before,
 .ion-alert-circled:before,
 .ion-android-add:before,
@@ -3699,4 +3696,3 @@
 .ion-xbox:before {
   content: "\F30C";
 }
-
