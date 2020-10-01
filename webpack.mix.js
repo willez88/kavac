@@ -117,7 +117,12 @@ mix.webpackConfig({
     resolve: {
         alias: {
             moment$: 'moment/moment.js'
-        }
+        },
+        modules: [
+            path.resolve(__dirname),
+            path.resolve('./node_modules/'),
+            path.resolve('./resources/')
+        ]
     },
     output:{
         chunkFilename: `js/components/${(mix.inProduction()) ? 'core/[chunkhash]' : '[name]'}.js`,
