@@ -135,12 +135,12 @@ Vue.component('sale-setting-deposit', () => import(
 );
 
 /**
- * Componente para listar, crear, actualizar y borrar datos de Gestión de Pedidos-
+ * Componente para listar, crear, actualizar y borrar datos de Gestión de Pedidos
  *
  * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
  */
-Vue.component('sale-order-manage-mentmethod', () => import(
-    /* webpackChunkName: "sale-warehouse-method" */
+Vue.component('sale-order-management-method', () => import(
+    /* webpackChunkName: "sale-ordermanagement-method" */
     './components/settings/SaleOrderManagementMethodComponent.vue')
 );
 

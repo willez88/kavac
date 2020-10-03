@@ -19,7 +19,6 @@ class CreateSaleOrderManagementTable extends Migration
             $table->string('cedule', 100)->comment('Cédula');
             $table->string('address', 100)->comment('Dirección');
             $table->string('contact_number', 100)->comment('Número Teléfonico');
-            $table->timestamps('date')->comment('Fecha');
             //$table->string('warehouse', 100)->comment('Almacén');
             //$table->foreignId('sale_warehouses_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
             $table->timestamps();

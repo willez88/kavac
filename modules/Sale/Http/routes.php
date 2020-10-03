@@ -170,4 +170,21 @@ Route::group(
         Route::get('get-salewarehousemethod/{institution?}', 'SaleWarehouseController@getSaleWarehouseMethod');
         Route::get('get-sale-setting-product/{get-salewarehousemethod}', 'SaleSettingProductController@getSaleSettingProduct');
         Route::get('get-measurement-units', 'SaleWarehouseReceptionController@getMeasurementUnits');
+
+        /**
+         * -----------------------------------------------------------------------
+         * Rutas para la configuración de Gestión de Pedidos.
+         * -----------------------------------------------------------------------
+         *
+         * Gestiona los datos de configuración de Gestión de Pedidos.
+         */
+        Route::resource(
+            'saleordermanagement-method',
+            'SaleOrderManagementController',
+            ['as' => 'sale', 'except' => ['create','edit','show']]
+        );
+        Route::get(
+            'get-saleordermanagementmethod',
+            'SaleOrderManagementController@getSaleOrderManagementMethod'
+        )->name('sale.get-sale-saleordermanagementmethod');
 });

@@ -250,5 +250,6 @@
     "/modules/technicalsupport/components/technicalsupport-repair-info.js": "/modules/technicalsupport/components/technicalsupport-repair-info.js",
     "/modules/technicalsupport/components/technicalsupport-repair-list.js": "/modules/technicalsupport/components/technicalsupport-repair-list.js",
     "/modules/technicalsupport/components/technicalsupport-request-info.js": "/modules/technicalsupport/components/technicalsupport-request-info.js",
-    "/modules/technicalsupport/components/technicalsupport-request-list.js": "/modules/technicalsupport/components/technicalsupport-request-list.js"
+    "/modules/technicalsupport/components/technicalsupport-request-list.js": "/modules/technicalsupport/components/technicalsupport-request-list.js",
+    "/modules/sale/components/sale-ordermanagement-method.js": "/modules/sale/components/sale-ordermanagement-method.js"
 }
