@@ -63,6 +63,13 @@
 		},
 		props: ['initial_data'],
 		methods: {
+            /**
+             * Agrega un campo para introducir un número telefónico
+             *
+             * @method    addPhone
+             *
+             * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             */
 			addPhone: function() {
 				this.phones.push({
 					type: '',

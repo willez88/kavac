@@ -4,11 +4,10 @@ window.Chart = require('chart.js');
 
 /** Import del editor clásico de CKEditor */
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-/** Requerimiento para traducción de CKEditor al español */
-//require('@ckeditor/ckeditor5-build-classic/build/translations/es.js');
+/** Import para traducción de CKEditor al español */
 import '@ckeditor/ckeditor5-build-classic/build/translations/es';
 
-/** Requerimiento del paquete inputmask para uso de mascara en campos de texto con vue */
+/** Import del paquete inputmask para uso de mascara en campos de texto con vue */
 import Inputmask from "inputmask";
 
 /** Configuración de la directiva input-mask para uso de mascara en campos de texto de los componentes vuejs */
@@ -929,6 +928,13 @@ Vue.mixin({
                 }
             }
         },
+        /**
+         * Método que permite borrar los filtros de la consulta en las tablas
+         *
+         * @method    clearFilters
+         *
+         * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         */
         clearFilters() {
             //this.$refs['table'].setFilter('');
         }

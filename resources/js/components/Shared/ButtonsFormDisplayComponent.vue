@@ -1,15 +1,15 @@
 <template>
 	<div :class="{'btn-display': (display==='true')}">
-		<button type="button" @click="$parent.reset" class="btn btn-default btn-icon btn-round" data-toggle="tooltip" 
+		<button type="button" @click="$parent.reset" class="btn btn-default btn-icon btn-round" data-toggle="tooltip"
 				title="Borrar datos del formulario">
 			<i class="fa fa-eraser"></i>
 		</button>
-		<button type="button" @click="$parent.redirect_back($parent.route_list)" class="btn btn-warning btn-icon btn-round" data-toggle="tooltip" 
-				title="Cancelar y regresar">
+		<button type="button" @click="$parent.redirect_back($parent.route_list)" title="Cancelar y regresar"
+                class="btn btn-warning btn-icon btn-round" data-toggle="tooltip">
 			<i class="fa fa-ban"></i>
 		</button>
-		<button type="button" @click="$parent.createRecord" class="btn btn-success btn-icon btn-round" data-toggle="tooltip" 
-				title="Guardar registro">
+		<button type="button" @click="$parent.createRecord" class="btn btn-success btn-icon btn-round"
+                data-toggle="tooltip" title="Guardar registro">
 			<i class="fa fa-save"></i>
 		</button>
 	</div>
@@ -25,8 +25,8 @@
             }
         },
 		mounted() {
-			/** 
-			 * Muestra los botones cuando se baja el scroll de la pantalla a una altura predeterminada y 
+			/**
+			 * Muestra los botones cuando se baja el scroll de la pantalla a una altura predeterminada y
 			 * los oculta cuando dicha altura es menor a la indicada
 			 */
 			$(window).scroll(function () {
