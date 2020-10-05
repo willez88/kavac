@@ -260,7 +260,7 @@ class UserController extends Controller
      * Muestra el formulario para la asignación de roles y permisos a usuarios
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  User   $user Modelo de Usuario
+     * @param  \App\Models\User   $user Modelo de Usuario
      * @return \Illuminate\View\View
      */
     public function assignAccess(User $user)
@@ -330,7 +330,7 @@ class UserController extends Controller
      * Muestra información del usuario
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  User                              $user Objero que abstrae información del usuario
+     * @param  \App\Models\User                              $user Objero que abstrae información del usuario
      * @return \Illuminate\Http\JsonResponse     Devuelve los datos asociados al usuario
      */
     public function info(User $user)

@@ -32,7 +32,7 @@ class CommonController extends Controller
     public function getSelectData(Request $request, $parent_model, $parent_id, $model, $module_name = null, $fk = null)
     {
         $model_name = ($model == 'User')
-                      ? "App\\{$model}"
+                      ? "App\\Models\\{$model}"
                       : ((!is_null($module_name))?"Modules\\{$module_name}":'App') . "\\Models\\{$model}";
 
         $fk = (is_null($fk))

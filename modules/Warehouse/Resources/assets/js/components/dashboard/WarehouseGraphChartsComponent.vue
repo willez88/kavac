@@ -3,7 +3,6 @@
 </template>
 
 <script>
-    import Chart from 'chart.js';
     var warehouse_datachart;
 
     export default {
