@@ -110,7 +110,7 @@
                                 || ((payroll_salary_tabulator.payroll_vertical_salary_scale_id > 0)
                                 && (payroll_salary_tabulator.payroll_vertical_salary_scale.payroll_scales) &&
                                 (payroll_salary_tabulator.payroll_vertical_salary_scale.payroll_scales.length > 0))))">
-                            
+
                             <table class="table table-hover table-striped table-responsive"
                                    v-if="((payroll_salary_tabulator.payroll_horizontal_salary_scale_id > 0)
                                       && (payroll_salary_tabulator.payroll_vertical_salary_scale_id == null))">
@@ -223,7 +223,7 @@
             </div>
             <div class="card-footer text-right">
                 <button type="button" @click="reset()"
-                        class="btn btn-default btn-icon btn-round" data-toggle="tooltip" 
+                        class="btn btn-default btn-icon btn-round" data-toggle="tooltip"
                         title="Borrar datos del formulario">
                     <i class="fa fa-eraser"></i>
                 </button>
@@ -243,7 +243,6 @@
 </template>
 
 <script>
-    import moment from 'moment';
     export default {
         data() {
             return {
@@ -275,7 +274,7 @@
         },
         mounted() {
             const vm = this;
-            vm.record.created_at = moment(String(new Date())).format('YYYY-MM-DD');
+            vm.record.created_at = vm.format_date(new Date(), 'YYYY-MM-DD');
         },
         methods: {
             /**
@@ -292,7 +291,7 @@
                     increase_of_type:            '',
                     payroll_salary_tabulator_id: ''
                 };
-                vm.record.created_at = moment(String(new Date())).format('YYYY-MM-DD');
+                vm.record.created_at = vm.format_date(new Date(), 'YYYY-MM-DD');
             },
             /**
              * Reescribe el método showRecord para cambiar su comportamiento por defecto

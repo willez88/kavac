@@ -1,5 +1,6 @@
 //import moment from 'moment';
 window.moment = require('moment');
+window.Chart = require('chart.js');
 
 /** Import del editor clásico de CKEditor */
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -198,12 +199,13 @@ Vue.mixin({
          *
          * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
          *
-         * @param  {string} value Fecha ser formateada
+         * @param  {string} value  Fecha ser formateada
+         * @param  {string} format Formato de la fecha
          *
          * @return {string}       Fecha con el formato establecido
          */
-        format_date: function(value) {
-            return moment(String(value)).format('DD/MM/YYYY');
+        format_date: function(value, format = 'DD/MM/YYYY') {
+            return moment(String(value)).format(format);
         },
         /**
          * Método que permite dar formato con marca de tiempo a una fecha
@@ -240,6 +242,40 @@ Vue.mixin({
                 minutes: d._data.minutes,
                 seconds: d._data.seconds
             };
+        },
+        /**
+         * Agrega dias, meses o años a una fecha proporcionada
+         *
+         * @method    add_period
+         *
+         * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         *
+         * @param     {string}         current    Fecha actual
+         * @param     {integer}        number     Número de elementos a agregar
+         * @param     {string}         type       Tipo de elemento a agregar. Ej. days, months o years
+         * @param     {string}         format     Formato de fecha
+         *
+         * @return    {string}      Fecha del período agregado
+         */
+        add_period: function(current, number, type, format = 'DD/MM/YYYY') {
+            return moment(current).add(number, type).format(format);
+        },
+        /**
+         * Establece el día de inicio de una fecha dada
+         *
+         * @method    start_day
+         *
+         * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         *
+         * @param     {string}          date       Fecha de la cual identificar el día
+         * @param     {string}          format     Formato de fecha
+         * @param     {string}          startOf    Desde donde se va a establecer el día
+         * @param     {string|integer}  day        Día de inicio
+         *
+         * @return    {string}     Fecha del día a establecer
+         */
+        start_day: function(date, format, startOf, day) {
+            return moment(date, format).startOf(startOf).day(day);
         },
         /**
          * Método que permite convertir elementos de medida y peso
