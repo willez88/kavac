@@ -70,7 +70,7 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
      */
     public function failedLoginAttempts()
     {
-        return $this->hasMany(Models\FailedLoginAttempt::class);
+        return $this->hasMany(FailedLoginAttempt::class);
     }
 
     /**
@@ -80,7 +80,7 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
      */
     public function profile()
     {
-        return $this->hasOne(Models\Profile::class);
+        return $this->hasOne(Profile::class);
     }
 
     /**
@@ -90,7 +90,7 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
      */
     public function notificationSettings()
     {
-        return $this->belongsToMany(Models\NotificationSetting::class)->withPivot('type');
+        return $this->belongsToMany(NotificationSetting::class)->withPivot('type');
     }
 
     /**
