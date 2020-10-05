@@ -173,7 +173,7 @@
 
             <div class="card-footer text-right">
                 <button type="button" @click="reset"
-                        class="btn btn-default btn-icon btn-round" data-toggle="tooltip" 
+                        class="btn btn-default btn-icon btn-round" data-toggle="tooltip"
                         title="Borrar datos del formulario">
                     <i class="fa fa-eraser"></i>
                 </button>
@@ -193,7 +193,6 @@
 </template>
 
 <script>
-    import moment from 'moment';
     export default {
         data() {
             return {
@@ -232,7 +231,7 @@
             if (vm.payroll_id) {
 
             } else {
-                vm.record.created_at = moment(String(new Date())).format('YYYY-MM-DD');
+                vm.record.created_at = vm.format_date(new Date(), 'YYYY-MM-DD');
             }
         },
         watch: {
@@ -286,7 +285,7 @@
                 vm.record.payroll_concepts          = [];
                 vm.payroll_payment_periods          = [];
                 vm.record.payroll_payment_period_id = '';
-                
+
                 if (vm.record.payroll_payment_type_id > 0) {
                     axios.get('/payroll/get-payment-periods/' + vm.record.payroll_payment_type_id).then(response => {
                         vm.payroll_payment_periods = response.data.records;
@@ -337,10 +336,8 @@
             getGeneralInformation(date) {
                 const vm =this;
                 let mondays = [];
-                let monday = moment(date, "DD/MM/YYYY")
-                    .startOf('month')
-                    .day("Monday");
-                let month_init = moment(date, "DD/MM/YYYY").startOf('month').day(1);
+                let monday = vm.start_day(date, "DD/MM/YYYY", 'month', 'Monday');
+                let month_init = vm.start_day(date, "DD/MM/YYYY", 'month', 1);
                 console.log(month_init);
                 if (monday.date() > 7) monday.add(7,'d');
                 let month = monday.month();
