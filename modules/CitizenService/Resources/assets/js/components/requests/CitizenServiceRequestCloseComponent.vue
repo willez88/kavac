@@ -116,7 +116,9 @@
 
 		},
 		props: {
-			request_id: Number,
+			request_id: {
+                type: Number
+            },
 		},
 		methods: {
 			/**

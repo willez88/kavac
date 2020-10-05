@@ -90,9 +90,9 @@
 						</div>
 					</div>
 				</div>
-               
+
             </div>
-	
+
 		<div class="card-footer text-right">
 			<div class="row">
 				<div class="col-md-3 offset-md-9" id="helpParamButtons">
@@ -137,12 +137,12 @@
 
 				errors: [],
 				records: [],
-				
+
 			}
 		},
 		methods: {
 			loadForm(id){
-				
+
 				const vm = this;
 
 	            axios.get('/citizenservice/registers/vue-info/'+id).then(response => {
@@ -177,9 +177,11 @@
 			}
 		},
 		props: {
-			requestid: Number,
+			requestid: {
+                type: Number
+            },
 		},
-		
+
 		created() {
 
 		},

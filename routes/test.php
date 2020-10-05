@@ -147,14 +147,14 @@ Route::get('test', function () {
 
 
 Route::get('mail', function () {
-    $user = App\User::find(1);
+    $user = \App\Models\User::find(1);
 
     return (new App\Notifications\UserRegistered($user, '123456'))
                 ->toMail($user);
 });
 
 Route::get('test-notify', function () {
-    $user = User::find(1);
+    $user = \App\Models\User::find(1);
     $user->notify(new SystemNotification('prueba', 'prueba de notificación'));
     echo "Notificación enviada";
 });

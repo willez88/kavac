@@ -1,4 +1,5 @@
-import moment from 'moment';
+//import moment from 'moment';
+window.moment = require('moment');
 
 /** Import del editor clásico de CKEditor */
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';

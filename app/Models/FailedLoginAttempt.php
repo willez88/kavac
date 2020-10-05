@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
-use App\User;
 
 class FailedLoginAttempt extends Model implements Auditable
 {

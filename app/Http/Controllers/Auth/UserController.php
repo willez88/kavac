@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\User;
 use App\Models\Profile;
 use App\Models\NotificationSetting;
 use App\Roles\Models\Role;
@@ -119,7 +119,7 @@ class UserController extends Controller
      * Muestra información acerca del usuario
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\View\View
      */
     public function show(User $user)
@@ -135,7 +135,7 @@ class UserController extends Controller
      * Muestra el formulario para actualizar información de un usuario
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\View\View
      */
     public function edit(User $user)
@@ -154,7 +154,7 @@ class UserController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, User $user)
@@ -196,7 +196,7 @@ class UserController extends Controller
      * Elimina el usuario
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(User $user)
