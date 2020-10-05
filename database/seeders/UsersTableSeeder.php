@@ -2,9 +2,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\User;
 use App\Roles\Models\Role;
-
-use App\User;
 use Carbon\Carbon;
 
 /**
