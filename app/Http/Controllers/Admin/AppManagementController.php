@@ -180,7 +180,7 @@ class AppManagementController extends Controller
                 }
 
                 $badgeClass = str_replace('text', 'badge', $registerClass);
-                $model_user = $audit->user_type;
+                $model_user = ($audit->user_type === "App\User") ? 'App\Models\User' : $audit->user_type;
                 $user = $model_user::find($audit->user_id);
 
                 $name = ($user) ? $user->name : '';
