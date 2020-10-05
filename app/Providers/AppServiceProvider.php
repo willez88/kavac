@@ -5,6 +5,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Pagination\Paginator;
 use App\Models\NotificationSetting;
 use App\Observers\ModelObserver;
 use Nwidart\Modules\Module;
@@ -29,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+        Paginator::useBootstrap();
 
         /*foreach (\Module::collections(1) as $module) {
             foreach (NotificationSetting::where('module', $module->getLowerName())->get() as $notifySetting) {
