@@ -773,6 +773,7 @@
     @parent
     <script>
         function uploadProfileImage() {
+            $('.preloader').show();
             var url = $("#formImgProfile").attr('action');
             var formData = new FormData();
             var imageFile = document.querySelector('#profile_image');
@@ -794,23 +795,27 @@
                     });
                     axios.get('/get-image/' + up.image_id).then(response => {
                         var image = response.data.image;
-                        $(".img-profile").attr('src', "/" + image.url);
-                        $(".img-profile-mini").attr('src', "/" + image.url);
+                        $(".img-profile").attr('src', `${window.app_url}/${image.url}`);
+                        $(".img-profile-mini").attr('src', `${window.app_url}/${image.url}`);
                         axios.post('{{ route('profiles.store') }}', {
                             first_name: $("#first_name").val(),
                             user_id: {{ auth()->user()->id }},
                             image_id:  image.id
                         }).then(response => {
-
+                            $('.preloader').fadeOut(2000);
                         }).catch(error => {
                             logs('profile', 781, error);
+                            $('.preloader').fadeOut(2000);
                         });
                     }).catch(error => {
                         logs('profile', 784, error);
+                        $('.preloader').fadeOut(2000);
                     });
                 }
+                $('.preloader').fadeOut(2000);
             }).catch(error => {
                 logs('profile', 788, error);
+                $('.preloader').fadeOut(2000);
             });
         }
     </script>

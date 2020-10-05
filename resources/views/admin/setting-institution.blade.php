@@ -574,12 +574,12 @@
 					$(".institution-banner").attr('src', "{{ asset('/images/no-image3.png') }}");
 					$("#banner_id").val('');
 					if (institution.logo) {
-						$(".institution-logo").attr('src', `/${institution.logo.url}`);
+						$(".institution-logo").attr('src', `${window.app_url}/${institution.logo.url}`);
 						$(".institution-logo").closest('.form-group').find('.row-delete-img').show();
 						$("#logo_id").val(institution.logo.id);
 					}
 					if (institution.banner) {
-						$(".institution-banner").attr('src', `/${institution.banner.url}`);
+						$(".institution-banner").attr('src', `${window.app_url}/${institution.banner.url}`);
 						$(".institution-banner").closest('.form-group').find('.row-delete-img').show();
 						$("#banner_id").val(institution.banner.id);
 					}

@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
 use OwenIt\Auditing\Models\Audit;
 use App\Http\Controllers\Controller;
 use App\Traits\ModelsTrait;
-use App\User;
+use App\Models\User;
 
 /**
  * @class AppManagementController

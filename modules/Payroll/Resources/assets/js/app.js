@@ -276,7 +276,7 @@ Vue.component('payroll-salary-tabulators', () => import(
     './components/settings/PayrollConceptTypesComponent.vue')
 );
 
- /**
+/**
  * Componente para la gestión de conceptos de nómina
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
@@ -311,10 +311,10 @@ Vue.component('payroll-vacation-policies', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-registers-form', () => import(
+//Vue.component('payroll-registers-form', () => import(
     /* webpackChunkName: "payroll-registers-form" */
-    './components/registers/PayrollFormComponent.vue')
-);
+    //'./components/registers/PayrollFormComponent.vue')
+//);
 
 /**
  * Componente para mostrar listado de registros de nómina
@@ -331,20 +331,24 @@ Vue.component('payroll-registers-list', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-salary-adjustments-form', () => import(
+//Vue.component('payroll-salary-adjustments-form', () => import(
     /* webpackChunkName: "payroll-salary-adjustments-form" */
-    './components/salary_adjustments/PayrollSalaryAdjustmentsFormComponent.vue')
-);
+    //'./components/salary_adjustments/PayrollSalaryAdjustmentsFormComponent.vue')
+//);
 
 /**
  * Componente para registrar las solicitudes vacacionales
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-vacation-request-form', () => import(
+//Vue.component('payroll-vacation-request-form', () => import(
     /* webpackChunkName: "payroll-vacation-request-form" */
-    './components/requests/vacations/PayrollVacationRequestFormComponent.vue')
-);
+    //'./components/requests/vacations/PayrollVacationRequestFormComponent.vue')
+//);
+
+
+
+
 
 /**
  * Componente para la gestión de calculos de salario
