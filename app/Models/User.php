@@ -3,11 +3,12 @@
 /**
  * Registros de la aplicación
  */
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Roles\Traits\HasRoleAndPermission;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -26,10 +27,7 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  */
 class User extends Authenticatable implements Auditable, MustVerifyEmail
 {
-    use Notifiable;
-    use SoftDeletes;
-    use HasRoleAndPermission;
-    use AuditableTrait;
+    use HasFactory, Notifiable, SoftDeletes, HasRoleAndPermission, AuditableTrait;
 
     /**
      * The attributes that are mass assignable.
