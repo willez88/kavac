@@ -1,5 +1,6 @@
 //import moment from 'moment';
 window.moment = require('moment');
+window.Chart = require('chart.js');
 
 /** Import del editor clásico de CKEditor */
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
