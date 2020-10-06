@@ -30,7 +30,7 @@
 							<label for="marital_status_name">Nombre:</label>
 							<input type="text" id="name" placeholder="Estado Civil"
 								   class="form-control input-sm" v-model="record.name" data-toggle="tooltip"
-								   title="Indique el nombre del estado civil (requerido)">
+								   title="Indique el nombre del estado civil (requerido)" v-is-text>
 							<input type="hidden" name="id" id="id" v-model="record.id">
 	                    </div>
 	                </div>

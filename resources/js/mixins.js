@@ -61,12 +61,16 @@ Vue.directive('is-text', {
         el.addEventListener('keydown', (e) => {
             let key = e.keyCode;
             let tab = (key === 9), backspace = (key === 8), alt = (key === 18), spacebar = (key === 32),
-                alphabet = (key >= 65 && key <= 90) || (key >= 96 && key <= 105), supr = (key === 46),
+                alphabet = (key >= 65 && key <= 90), supr = (key === 46),
                 ctrl = (key === 17), ctrlA = (key === 65), ini = (key === 36), end = (key === 35),
                 dot = (key === 190), caps = (key === 20), shift = (key === 16), comma = (key === 188),
-                special = (key === 59);
+                special = (key === 59 || key === 56 || key === 57),
+                hyphen = (key === 109 || key === 173);
 
-            if (alphabet || tab || ini || end || backspace || alt || supr || dot || caps || shift || spacebar || special) {
+            if (
+                alphabet || tab || ini || end || backspace || alt || supr || dot || caps || shift || spacebar ||
+                special || comma || hyphen
+            ) {
                 return;
             }
             else {

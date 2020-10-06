@@ -52,7 +52,7 @@
 									<label>Código:</label>
 									<input type="text" placeholder="Código de Parroquia" data-toggle="tooltip"
 										   title="Indique el código de la Parroquia (requerido)"
-										   class="form-control input-sm" v-model="record.code">
+										   class="form-control input-sm" v-model="record.code" v-is-digits>
 			                    </div>
 							</div>
 							<div class="col-md-6">
@@ -60,7 +60,7 @@
 									<label>Nombre:</label>
 									<input type="text" placeholder="Nombre de Parroquia" data-toggle="tooltip"
 										   title="Indique el nombre de la Parroquia (requerido)"
-										   class="form-control input-sm" v-model="record.name">
+										   class="form-control input-sm" v-model="record.name" v-is-text>
 			                    </div>
 							</div>
 						</div>
