@@ -30,7 +30,7 @@
                                     <label>Nombre:</label>
                                     <input type="text" placeholder="Nombre" data-toggle="tooltip"
                                            title="Indique el nombre de la deducción (requerido)"
-                                           class="form-control input-sm" v-model="record.name">
+                                           class="form-control input-sm" v-model="record.name" v-is-text>
                                     <input type="hidden" v-model="record.id">
                                 </div>
                                 <div class="form-group" v-if="accountingAccount">

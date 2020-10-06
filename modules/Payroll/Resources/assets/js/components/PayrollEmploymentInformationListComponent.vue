@@ -97,7 +97,7 @@
                                 <div class="form-group">
                                     <label>Descripción de las Funciones</label>
                                     <ckeditor :editor="ckeditor.editor" id="function_description" data-toggle="tooltip"
-                                              disabled="true" :config="ckeditor.editorConfig" class="form-control"
+                                              :disabled="true" :config="ckeditor.editorConfig" class="form-control"
                                               name="function_description" tag-name="textarea" rows="3"></ckeditor>
                                 </div>
                             </div>

@@ -30,7 +30,7 @@
 									<label>Acrónimo:</label>
 									<input type="text" placeholder="Acrónimo" data-toggle="tooltip"
 										   title="Indique el acrónimo del tipo de institución"
-										   class="form-control input-sm" v-model="record.acronym">
+										   class="form-control input-sm" v-model="record.acronym" v-is-text>
 									<input type="hidden" v-model="record.id">
 			                    </div>
 							</div>
@@ -38,7 +38,8 @@
 								<div class="form-group is-required">
 									<label>Nombre:</label>
 									<input type="text" placeholder="Tipo" class="form-control input-sm" data-toggle="tooltip"
-										   v-model="record.name" title="Indique el nombre del tipo de institución (requerido)">
+										   v-model="record.name" title="Indique el nombre del tipo de institución (requerido)"
+                                           v-is-text>
 			                    </div>
 							</div>
 						</div>

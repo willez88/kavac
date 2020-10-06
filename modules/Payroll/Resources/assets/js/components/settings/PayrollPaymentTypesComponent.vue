@@ -2,7 +2,7 @@
     <section id="payrollPaymentTypesFormComponent">
         <a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
            title="Registros de tipos de pago" data-toggle="tooltip"
-           @click="addRecord('add_payroll_payment_type', 'payment-types', $event)">
+           @click="addRecord('add_payroll_payment_type', 'payroll/payment-types', $event)">
            <i class="icofont icofont icofont-law-document ico-3x"></i>
            <span>Tipos de<br>Pago</span>
         </a>

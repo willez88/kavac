@@ -74,6 +74,16 @@
 			},
 		},
 		methods: {
+            /**
+             * Evento que permite ejecutar las instrucciones necesarias al momento de seleccionar opciones del select
+             *
+             * @method    onSelect
+             *
+             * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             *
+             * @param     {string}    option    Texto de la opción
+             * @param     {integer}   id        Identificador de la opción
+             */
 			onSelect (option, id) {
 		    	//console.log(this.value, id)
 		    }

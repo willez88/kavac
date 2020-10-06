@@ -2,7 +2,7 @@
 	<section id="payrollSalaryTabulatorsFormComponent">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="#" title="Registros Tabuladores de Nómina" data-toggle="tooltip"
-		   @click="addRecord('add_payroll_salary_tabulator', 'salary-tabulators', $event)">
+		   @click="addRecord('add_payroll_salary_tabulator', 'payroll/salary-tabulators', $event)">
 			<i class="icofont icofont-table ico-3x"></i>
 			<span>Tabuladores de Nónima</span>
 		</a>
@@ -706,7 +706,7 @@
                                 && (vm.record.payroll_horizontal_salary_scale_id == vm.record.payroll_horizontal_salary_scale['id'])) {
                                 $.each(vm.record.payroll_salary_tabulator_scales, function (index, field) {
                                     var element = document.getElementById(
-                                                    "salary_scale_" + field['payroll_vertical_scale_id'] + '_' + 
+                                                    "salary_scale_" + field['payroll_vertical_scale_id'] + '_' +
                                                     field['payroll_horizontal_scale_id']
                                                 );
                                     if (element) {

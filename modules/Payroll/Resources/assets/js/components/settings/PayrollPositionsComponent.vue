@@ -2,7 +2,7 @@
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de cargos" data-toggle="tooltip"
-		   @click="addRecord('add_payroll_position', 'positions', $event)">
+		   @click="addRecord('add_payroll_position', 'payroll/positions', $event)">
            <i class="icofont icofont-briefcase-alt-1 ico-3x"></i>
 		   <span>Cargos</span>
 		</a>

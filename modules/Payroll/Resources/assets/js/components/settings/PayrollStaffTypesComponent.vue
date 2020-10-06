@@ -2,7 +2,7 @@
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de tipos de personal" data-toggle="tooltip"
-		   @click="addRecord('add_payroll_staff_type', 'staff-types', $event)">
+		   @click="addRecord('add_payroll_staff_type', 'payroll/staff-types', $event)">
            <i class="icofont icofont-people ico-3x"></i>
 			<span>Tipos de Personal</span>
 		</a>
