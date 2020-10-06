@@ -71,10 +71,10 @@ class PayrollEmploymentInformationController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $rules = [
             'payroll_staff_id' => ['required', 'unique:payroll_employment_informations,payroll_staff_id'],
-            'start_date_apn' => ['required', 'date', 'before_or_equal:start_date', 'before_or_equal:end_date'],
-            'start_date' => ['required', 'date', 'before_or_equal:end_date'],
+            'start_date_apn' => ['required', 'date', 'before_or_equal:start_date'],
+            'start_date' => ['required', 'date'],
             'end_date' => ['nullable', 'date'],
             'institution_email' => ['email', 'nullable', 'unique:payroll_employment_informations,institution_email'],
             'function_description' => ['nullable'],
@@ -84,7 +84,13 @@ class PayrollEmploymentInformationController extends Controller
             'institution_id' => ['required'],
             'department_id' => ['required'],
             'payroll_contract_type_id' => ['required'],
-        ]);
+        ];
+        if ($request->end_date) {
+            array_push($rules['start_date_apn'], 'before_or_equal:end_date');
+            array_push($rules['start_date'], 'before_or_equal:end_date');
+            array_push($rules['end_date'], 'after_or_equal:start_date');
+        }
+        $this->validate($request, $rules);
         $payrollEmploymentInformation = new PayrollEmploymentInformation;
         $payrollEmploymentInformation->payroll_staff_id  = $request->payroll_staff_id;
         $payrollEmploymentInformation->start_date_apn = $request->start_date_apn;
