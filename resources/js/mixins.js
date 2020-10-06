@@ -192,21 +192,7 @@ Vue.mixin({
         record: {
             deep: true,
             handler: function(newValue, oldValue) {
-                if ($('.select2').length) {
-                    setTimeout(function(args) {
-                        $('.select2').select2({});
-                        $('.select2').attr({
-                            'title': 'Seleccione un registro de la lista',
-                            'data-toggle': 'tooltip'
-                        });
-                        $('.select2').tooltip({ delay: { hide: 100 } });
-                        $('.select2').on('shown.bs.tooltip', function() {
-                            setTimeout(function() {
-                                $('.select2').tooltip('hide');
-                            }, 1500);
-                        });
-                    }, 50);
-                }
+
             }
         },
     },
@@ -417,6 +403,7 @@ Vue.mixin({
             this.errors = [];
             this.reset();
             const vm = this;
+            url = (!url.includes('http://') || !url.includes('http://')) ? `${window.app_url}/${url}` : url;
 
             axios.get(url).then(response => {
                 if (typeof(response.data.records) !== "undefined") {
@@ -878,12 +865,34 @@ Vue.mixin({
          * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
          */
         addPhone: function() {
-            this.record.phones.push({
+            const vm = this;
+            vm.record.phones.push({
                 type: '',
                 area_code: '',
                 number: '',
                 extension: ''
             });
+            setTimeout(function(args) {
+                $('.phone-row').each(function(index) {
+                    if (index === (vm.record.phones.length - 1)) {
+                        let select2 = $(this).find('.select2');
+                        select2.select2({});
+                        select2.attr({
+                            'title': 'Seleccione un registro de la lista',
+                            'data-toggle': 'tooltip'
+                        });
+                        select2.tooltip({ delay: { hide: 100 } });
+                        select2.on('shown.bs.tooltip', function() {
+                            setTimeout(function() {
+                                select2.tooltip('hide');
+                            }, 1500);
+                        });
+                        select2.on('change', (e) => {
+                            vm.record.phones[index].type = e.target.value;
+                        });
+                    }
+                });
+            }, 50);
         },
         /**
          * Elimina la fila del elemento indicado

@@ -2,7 +2,7 @@
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de nivel del idioma" data-toggle="tooltip"
-		   @click="addRecord('add_payroll_language_level', 'language-levels', $event)">
+		   @click="addRecord('add_payroll_language_level', 'payroll/language-levels', $event)">
            <i class="icofont icofont-earth ico-3x"></i>
 		   <span>Niveles de Idioma</span>
 		</a>

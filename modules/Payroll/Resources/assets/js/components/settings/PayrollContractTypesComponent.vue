@@ -2,7 +2,7 @@
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de tipos de contrato" data-toggle="tooltip"
-		   @click="addRecord('add_payroll_contract_type', 'contract-types', $event)">
+		   @click="addRecord('add_payroll_contract_type', 'payroll/contract-types', $event)">
 		   <i class="icofont icofont-holding-hands ico-3x"></i>
 			<span>Tipos de Contrato</span>
 		</a>

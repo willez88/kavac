@@ -2,7 +2,7 @@
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de grados de instrucción" data-toggle="tooltip"
-		   @click="addRecord('add_payroll_instruction_degree', 'instruction-degrees', $event)">
+		   @click="addRecord('add_payroll_instruction_degree', 'payroll/instruction-degrees', $event)">
            <i class="icofont icofont-graduate-alt ico-3x"></i>
 		   <span>Grados de Instrucción</span>
 		</a>

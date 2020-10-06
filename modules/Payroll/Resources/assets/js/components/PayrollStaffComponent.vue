@@ -206,11 +206,11 @@
 					<h6 class="card-title">
 						Números Telefónicos <i class="fa fa-plus-circle cursor-pointer" @click="addPhone"></i>
 					</h6>
-                    <div class="row" v-for="(phone, index) in record.phones">
+                    <div class="row phone-row" v-for="(phone, index) in record.phones">
                         <div class="col-3">
                             <div class="form-group is-required">
                                 <select data-toggle="tooltip" v-model="phone.type" class="select2"
-                                        title="Seleccione el tipo de número telefónico">
+                                        title="Seleccione el tipo de número telefónico" :data-phone-index="index">
                                     <option value="">Seleccione...</option>
                                     <option value="M">Móvil</option>
                                     <option value="T">Teléfono</option>
@@ -222,21 +222,21 @@
                             <div class="form-group is-required">
                                 <input type="text" placeholder="Cod. Area" data-toggle="tooltip"
                                        title="Indique el código de área" v-model="phone.area_code"
-                                       class="form-control input-sm">
+                                       class="form-control input-sm" v-is-digits>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group is-required">
                                 <input type="text" placeholder="Número" data-toggle="tooltip"
                                        title="Indique el número telefónico"
-                                       v-model="phone.number" class="form-control input-sm">
+                                       v-model="phone.number" class="form-control input-sm" v-is-digits>
                             </div>
                         </div>
                         <div class="col-2">
-                            <div class="form-group is-required">
+                            <div class="form-group">
                                 <input type="text" placeholder="Extensión" data-toggle="tooltip"
                                        title="Indique la extención telefónica (opcional)"
-                                       v-model="phone.extension" class="form-control input-sm">
+                                       v-model="phone.extension" class="form-control input-sm" v-is-digits>
                             </div>
                         </div>
                         <div class="col-1">

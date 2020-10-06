@@ -2,7 +2,7 @@
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de géneros" data-toggle="tooltip"
-		   @click="addRecord('add_payroll_gender', 'genders', $event)">
+		   @click="addRecord('add_payroll_gender', 'payroll/genders', $event)">
            <i class="icofont icofont-group-students ico-3x"></i>
 		   <span>Géneros</span>
 		</a>

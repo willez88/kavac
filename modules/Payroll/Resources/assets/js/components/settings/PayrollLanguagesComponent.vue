@@ -2,7 +2,7 @@
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de idiomas" data-toggle="tooltip"
-		   @click="addRecord('add_payroll_language', 'languages', $event)">
+		   @click="addRecord('add_payroll_language', 'payroll/languages', $event)">
            <i class="icofont icofont-flag ico-3x"></i>
 		   <span>Idiomas</span>
 		</a>

@@ -2,7 +2,7 @@
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de tipos de inactividad" data-toggle="tooltip"
-		   @click="addRecord('add_payroll_inactivity_type', 'inactivity-types', $event)">
+		   @click="addRecord('add_payroll_inactivity_type', 'payroll/inactivity-types', $event)">
 		   <i class="icofont icofont-list ico-3x"></i>
 			<span>Tipos de Inactividad</span>
 		</a>
