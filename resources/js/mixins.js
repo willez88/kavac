@@ -188,7 +188,27 @@ Vue.mixin({
             else {
                 $('.preloader').show();
             }
-        }
+        },
+        record: {
+            deep: true,
+            handler: function(newValue, oldValue) {
+                if ($('.select2').length) {
+                    setTimeout(function(args) {
+                        $('.select2').select2({});
+                        $('.select2').attr({
+                            'title': 'Seleccione un registro de la lista',
+                            'data-toggle': 'tooltip'
+                        });
+                        $('.select2').tooltip({ delay: { hide: 100 } });
+                        $('.select2').on('shown.bs.tooltip', function() {
+                            setTimeout(function() {
+                                $('.select2').tooltip('hide');
+                            }, 1500);
+                        });
+                    }, 50);
+                }
+            }
+        },
     },
     methods: {
         /**
