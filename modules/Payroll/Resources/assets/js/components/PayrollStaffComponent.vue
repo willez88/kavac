@@ -28,13 +28,13 @@
 							<div class="form-group is-required">
 								<label>Nombres</label>
 								<input type="text" class="form-control input-sm" v-model="record.first_name"/>
-                                <input type="hidden" v-model="record.id">
+                                <input type="hidden" v-model="record.id" v-is-text>
 							</div>
 						</div>
                         <div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Apellidos</label>
-								<input type="text" class="form-control input-sm" v-model="record.last_name"/>
+								<input type="text" class="form-control input-sm" v-model="record.last_name" v-is-text/>
 							</div>
 						</div>
                         <div class="col-md-4">
@@ -50,13 +50,13 @@
 						<div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Cédula de Identidad</label>
-								<input type="text" class="form-control input-sm" v-model="record.id_number"/>
+								<input type="text" class="form-control input-sm" v-model="record.id_number" v-is-digits/>
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Pasaporte</label>
-								<input type="text" class="form-control input-sm" v-model="record.passport"/>
+								<input type="text" class="form-control input-sm" v-model="record.passport" v-is-digits/>
 							</div>
 						</div>
 						<div class="col-md-4">
@@ -86,14 +86,16 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Nombres y Apellidos de la Persona de Contacto</label>
-								<input type="text" class="form-control input-sm" v-model="record.emergency_contact"/>
+								<input type="text" class="form-control input-sm" v-model="record.emergency_contact"
+                                       v-is-text/>
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Teléfono de la Persona de Contacto</label>
-								<input type="text" class="form-control input-sm" placeholder="00-000-0000000"
-                                       v-model="record.emergency_phone"/>
+								<input type="text" class="form-control input-sm" placeholder="+00-000-0000000"
+                                       v-model="record.emergency_phone" v-input-mask
+                                       data-inputmask="'mask': '+99-999-9999999'"/>
 							</div>
 						</div>
 					</div>
