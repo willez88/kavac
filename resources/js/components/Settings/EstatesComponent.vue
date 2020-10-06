@@ -37,7 +37,7 @@
 									<label>Código:</label>
 									<input type="text" placeholder="Código de Estado" data-toggle="tooltip"
 										   title="Indique el código del Estado (requerido)"
-										   class="form-control input-sm" v-model="record.code">
+										   class="form-control input-sm" v-model="record.code" v-is-digits>
 			                    </div>
 							</div>
 							<div class="col-md-4">
@@ -45,7 +45,7 @@
 									<label>Nombre:</label>
 									<input type="text" placeholder="Nombre de Estado" data-toggle="tooltip"
 										   title="Infique el nombre del Estado (requerido)"
-										   class="form-control input-sm" v-model="record.name">
+										   class="form-control input-sm" v-model="record.name" v-is-text>
 			                    </div>
 							</div>
 						</div>

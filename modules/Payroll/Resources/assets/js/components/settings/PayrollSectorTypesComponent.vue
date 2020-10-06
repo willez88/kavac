@@ -2,7 +2,7 @@
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de tipos de sectoral que pertenece una organización" data-toggle="tooltip"
-		   @click="addRecord('add_payroll_sector_type', 'sector-types', $event)">
+		   @click="addRecord('add_payroll_sector_type', 'payroll/sector-types', $event)">
 		   <i class="icofont icofont-location-arrow ico-3x"></i>
 			<span>Tipos de<br>Sector</span>
 		</a>

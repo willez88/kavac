@@ -4,11 +4,10 @@ window.Chart = require('chart.js');
 
 /** Import del editor clásico de CKEditor */
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-/** Requerimiento para traducción de CKEditor al español */
-//require('@ckeditor/ckeditor5-build-classic/build/translations/es.js');
+/** Import para traducción de CKEditor al español */
 import '@ckeditor/ckeditor5-build-classic/build/translations/es';
 
-/** Requerimiento del paquete inputmask para uso de mascara en campos de texto con vue */
+/** Import del paquete inputmask para uso de mascara en campos de texto con vue */
 import Inputmask from "inputmask";
 
 /** Configuración de la directiva input-mask para uso de mascara en campos de texto de los componentes vuejs */
@@ -16,6 +15,69 @@ Vue.directive('input-mask', {
     bind: function(el) {
         new Inputmask().mask(el);
     },
+});
+
+/** Directiva que limita la escritura a solo digitos */
+Vue.directive('is-digits', {
+    bind: (el) => {
+        el.addEventListener('keydown', (e) => {
+            let key = e.keyCode;
+            let tab = (key === 9), spacebar = (key === 32), backspace = (key === 8), alt = (key === 18),
+                numeric = (key >= 48 && key <=57) || (key >= 96 && key <= 105), supr = (key === 46),
+                ctrl = (key === 17), ctrlA = (key === 65), ini = (key === 36), end = (key === 35);
+            if (numeric || spacebar || tab || ini || end || backspace || alt || supr) {
+                return;
+            }
+            else {
+                e.preventDefault();
+            }
+        });
+    }
+});
+
+/** Directiva que limita la escritura a solo números y el signo "." */
+Vue.directive('is-numeric', {
+    bind: (el) => {
+        el.addEventListener('keydown', (e) => {
+            let key = e.keyCode;
+            let tab = (key === 9), backspace = (key === 8), alt = (key === 18),
+                numeric = (key >= 48 && key <=57) || (key >= 96 && key <= 105), supr = (key === 46),
+                ctrl = (key === 17), ctrlA = (key === 65), ini = (key === 36), end = (key === 35),
+                dot = (key === 190 && !el.value.includes("."));
+
+            if (numeric || tab || ini || end || backspace || alt || supr || dot) {
+                return;
+            }
+            else {
+                e.preventDefault();
+            }
+        });
+    }
+});
+
+/** Directiva que limita la escritura a solo carácteres alfabéticos, los signos "." y "," */
+Vue.directive('is-text', {
+    bind: (el) => {
+        el.addEventListener('keydown', (e) => {
+            let key = e.keyCode;
+            let tab = (key === 9), backspace = (key === 8), alt = (key === 18), spacebar = (key === 32),
+                alphabet = (key >= 65 && key <= 90), supr = (key === 46),
+                ctrl = (key === 17), ctrlA = (key === 65), ini = (key === 36), end = (key === 35),
+                dot = (key === 190), caps = (key === 20), shift = (key === 16), comma = (key === 188),
+                special = (key === 59 || key === 56 || key === 57),
+                hyphen = (key === 109 || key === 173);
+
+            if (
+                alphabet || tab || ini || end || backspace || alt || supr || dot || caps || shift || spacebar ||
+                special || comma || hyphen
+            ) {
+                return;
+            }
+            else {
+                e.preventDefault();
+            }
+        });
+    }
 });
 
 /**
@@ -126,7 +188,13 @@ Vue.mixin({
             else {
                 $('.preloader').show();
             }
-        }
+        },
+        record: {
+            deep: true,
+            handler: function(newValue, oldValue) {
+
+            }
+        },
     },
     methods: {
         /**
@@ -335,6 +403,7 @@ Vue.mixin({
             this.errors = [];
             this.reset();
             const vm = this;
+            url = (!url.includes('http://') || !url.includes('http://')) ? `${window.app_url}/${url}` : url;
 
             axios.get(url).then(response => {
                 if (typeof(response.data.records) !== "undefined") {
@@ -796,12 +865,34 @@ Vue.mixin({
          * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
          */
         addPhone: function() {
-            this.record.phones.push({
+            const vm = this;
+            vm.record.phones.push({
                 type: '',
                 area_code: '',
                 number: '',
                 extension: ''
             });
+            setTimeout(function(args) {
+                $('.phone-row').each(function(index) {
+                    if (index === (vm.record.phones.length - 1)) {
+                        let select2 = $(this).find('.select2');
+                        select2.select2({});
+                        select2.attr({
+                            'title': 'Seleccione un registro de la lista',
+                            'data-toggle': 'tooltip'
+                        });
+                        select2.tooltip({ delay: { hide: 100 } });
+                        select2.on('shown.bs.tooltip', function() {
+                            setTimeout(function() {
+                                select2.tooltip('hide');
+                            }, 1500);
+                        });
+                        select2.on('change', (e) => {
+                            vm.record.phones[index].type = e.target.value;
+                        });
+                    }
+                });
+            }, 50);
         },
         /**
          * Elimina la fila del elemento indicado
@@ -929,6 +1020,13 @@ Vue.mixin({
                 }
             }
         },
+        /**
+         * Método que permite borrar los filtros de la consulta en las tablas
+         *
+         * @method    clearFilters
+         *
+         * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         */
         clearFilters() {
             //this.$refs['table'].setFilter('');
         }

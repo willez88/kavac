@@ -35,6 +35,13 @@
             }
         },
         methods: {
+            /**
+             * Obtiene el listado de notificaciones
+             *
+             * @method    getNotifications
+             *
+             * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             */
             getNotifications() {
                 let vm = this;
                 axios.get('/notifications/all').then(response => {

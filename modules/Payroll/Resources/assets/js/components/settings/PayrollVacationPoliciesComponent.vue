@@ -2,7 +2,7 @@
     <section id="payrollVacationPoliciesFormComponent">
         <a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
            title="Registros de políticas vacacionales" data-toggle="tooltip"
-           @click="addRecord('add_payroll_vacation_policy', 'vacation-policies', $event)">
+           @click="addRecord('add_payroll_vacation_policy', 'payroll/vacation-policies', $event)">
            <i class="icofont icofont-ui-flight ico-3x"></i>
            <span>Políticas<br>Vacacionales</span>
         </a>

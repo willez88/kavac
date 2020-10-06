@@ -49,6 +49,15 @@
         },
         props: ['unreads', 'userId', 'listNotificationsUrl'],
         methods: {
+            /**
+             * Marca una notificación como leida
+             *
+             * @method    markAsReaded
+             *
+             * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             *
+             * @param     {integer}        id    Identificador de la notificación a ser marcada como leida
+             */
             markAsReaded: function(id) {
                 console.log(id)
             },

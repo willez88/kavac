@@ -85,6 +85,7 @@ class UserController extends Controller
         ]);
 
         $profile = Profile::find($request->staff);
+
         $password = generate_hash();
         $user = User::create([
             'name' => trim($profile->first_name . ' ' .$profile->last_name ?? ''),

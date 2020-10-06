@@ -30,7 +30,7 @@
 									<label>Prefijo:</label>
 									<input type="text" placeholder="Prefijo" data-toggle="tooltip"
 										   title="Indique el prefijo del Pais (requerido)"
-										   class="form-control input-sm" v-model="record.prefix">
+										   class="form-control input-sm" v-model="record.prefix" v-is-text>
 									<input type="hidden" v-model="record.id">
 			                    </div>
 							</div>
@@ -39,7 +39,7 @@
 									<label>Nombre:</label>
 									<input type="text" placeholder="Nombre de Pais" data-toggle="tooltip"
 										   title="Indique el nombre del Pais (requerido)"
-										   class="form-control input-sm" v-model="record.name">
+										   class="form-control input-sm" v-model="record.name" v-is-text>
 			                    </div>
 							</div>
 						</div>

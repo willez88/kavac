@@ -89,7 +89,7 @@ class PayrollStaffController extends Controller
             'payroll_blood_type_id' => ['required'],
             'social_security' => ['nullable'],
             'emergency_contact' => ['nullable'],
-            'emergency_phone' => ['nullable', 'regex:/^\d{2}-\d{3}-\d{7}$/u'],
+            'emergency_phone' => ['nullable', 'regex:/^\+\d{2}-\d{3}-\d{7}$/u'],
             'parish_id' => ['required'],
             'address' => ['required', 'max:200']
         ]);

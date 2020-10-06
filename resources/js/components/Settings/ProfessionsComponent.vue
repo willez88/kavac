@@ -30,7 +30,7 @@
 									<label>Acrónimo:</label>
 									<input type="text" placeholder="Acrónimo" data-toggle="tooltip"
 										   title="Indique el acrónimo de la profesión"
-										   class="form-control input-sm" v-model="record.acronym">
+										   class="form-control input-sm" v-model="record.acronym" v-is-text>
 									<input type="hidden" v-model="record.id">
 			                    </div>
 							</div>
@@ -39,7 +39,7 @@
 									<label>Nombre:</label>
 									<input type="text" placeholder="Profesión" data-toggle="tooltip"
 										   title="Indique el nombre de la profesión (requerido)"
-										   class="form-control input-sm" v-model="record.name">
+										   class="form-control input-sm" v-model="record.name" v-is-text>
 			                    </div>
 							</div>
 						</div>

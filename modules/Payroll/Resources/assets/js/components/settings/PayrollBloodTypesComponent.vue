@@ -2,7 +2,7 @@
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de tipos de sangre" data-toggle="tooltip"
-		   @click="addRecord('add_payroll_blood_type', 'blood-types', $event)">
+		   @click="addRecord('add_payroll_blood_type', 'payroll/blood-types', $event)">
            <i class="icofont icofont-dna ico-3x"></i>
 		   <span>Tipos de<br>Sangre</span>
 		</a>
