@@ -44,7 +44,7 @@
 									<label>Nombre:</label>
 									<input type="text" placeholder="Nombre de la Ciudad" data-toggle="tooltip"
 										   title="Indique el nombre de la ciudad (requerido)"
-										   class="form-control input-sm" v-model="record.name">
+										   class="form-control input-sm" v-model="record.name" v-is-text>
 			                    </div>
 							</div>
 						</div>

@@ -17,6 +17,65 @@ Vue.directive('input-mask', {
     },
 });
 
+/** Directiva que limita la escritura a solo digitos */
+Vue.directive('is-digits', {
+    bind: (el) => {
+        el.addEventListener('keydown', (e) => {
+            let key = e.keyCode;
+            let tab = (key === 9), spacebar = (key === 32), backspace = (key === 8), alt = (key === 18),
+                numeric = (key >= 48 && key <=57) || (key >= 96 && key <= 105), supr = (key === 46),
+                ctrl = (key === 17), ctrlA = (key === 65), ini = (key === 36), end = (key === 35);
+            if (numeric || spacebar || tab || ini || end || backspace || alt || supr) {
+                return;
+            }
+            else {
+                e.preventDefault();
+            }
+        });
+    }
+});
+
+/** Directiva que limita la escritura a solo números y el signo "." */
+Vue.directive('is-numeric', {
+    bind: (el) => {
+        el.addEventListener('keydown', (e) => {
+            let key = e.keyCode;
+            let tab = (key === 9), backspace = (key === 8), alt = (key === 18),
+                numeric = (key >= 48 && key <=57) || (key >= 96 && key <= 105), supr = (key === 46),
+                ctrl = (key === 17), ctrlA = (key === 65), ini = (key === 36), end = (key === 35),
+                dot = (key === 190 && !el.value.includes("."));
+
+            if (numeric || tab || ini || end || backspace || alt || supr || dot) {
+                return;
+            }
+            else {
+                e.preventDefault();
+            }
+        });
+    }
+});
+
+/** Directiva que limita la escritura a solo carácteres alfabéticos, los signos "." y "," */
+Vue.directive('is-text', {
+    bind: (el) => {
+        el.addEventListener('keydown', (e) => {
+            let key = e.keyCode;
+            let tab = (key === 9), backspace = (key === 8), alt = (key === 18), spacebar = (key === 32),
+                alphabet = (key >= 65 && key <= 90) || (key >= 96 && key <= 105), supr = (key === 46),
+                ctrl = (key === 17), ctrlA = (key === 65), ini = (key === 36), end = (key === 35),
+                dot = (key === 190), caps = (key === 20), shift = (key === 16), comma = (key === 188),
+                special = (key === 59);
+
+            if (alphabet || tab || ini || end || backspace || alt || supr || dot || caps || shift || spacebar || special) {
+                return;
+            }
+            else {
+                e.preventDefault();
+            }
+        });
+    }
+});
+
 /**
  * Opciones de configuración global para utilizar en todos los componentes vuejs de la aplicación
  *
