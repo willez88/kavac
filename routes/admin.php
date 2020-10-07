@@ -26,7 +26,9 @@ Route::group(['middleware' => ['auth', 'verified', 'role:admin']], function () {
             Route::post('details', 'ModuleController@getDetails')->name('module.details');
         });
         /** Ruta para la gestión de información sobre la(s) institución(es) */
-        Route::resource('institutions', 'InstitutionController');
+        Route::resource('institutions', 'InstitutionController', [
+            'except' => ['create', 'show', 'edit', 'update', 'destroy']
+        ]);
 
         /** Rutas para gestionar respaldos de la aplicación */
         Route::get('backup', 'BackupController@index')->name('backup.index');

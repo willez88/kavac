@@ -4,6 +4,7 @@ namespace App\Listeners;
 use Illuminate\Auth\Events\Failed;
 use App\Models\FailedLoginAttempt;
 use App\Notifications\UserBlocked;
+use App\Models\User;
 
 //use Illuminate\Contracts\Queue\ShouldQueue;
 //use Illuminate\Queue\InteractsWithQueue;
@@ -33,7 +34,7 @@ class RecordFailedLoginAttempt
             $event->user->blocked_at = date('Y-m-d H:i:s');
             $event->user->save();
 
-            $event->user->notify(new UserBlocked($event->user));
+            $event->user->notify(new UserBlocked(User::find($event->user->id)));
         }
 
         /** Registra el evento de intento fallido */

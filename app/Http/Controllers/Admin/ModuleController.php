@@ -12,7 +12,7 @@ class ModuleController extends Controller
     /**
      * Muestra un listado de todos los módulos disponibles
      *
-     * @method     index
+     * @method     index()
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
@@ -57,7 +57,7 @@ class ModuleController extends Controller
     /**
      * Habilita el módulo seleccionado por el usuario
      *
-     * @method     enable
+     * @method     enable(Request $request)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
@@ -76,7 +76,7 @@ class ModuleController extends Controller
     /**
      * Deshabilita el módulo seleccionado por el usuario
      *
-     * @method     enable
+     * @method     disable(Request $request)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
@@ -95,7 +95,7 @@ class ModuleController extends Controller
     /**
      * Obtiene los detalles de un módulo seleccionado
      *
-     * @method     getDetails
+     * @method     getDetails(Request $request)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *

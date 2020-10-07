@@ -393,8 +393,9 @@ if (! function_exists('get_institution')) {
      *
      * @param  int|null $id [identificador unico de la institución]
      *
-     * @return Institution     Devuelve un objeto con información de la institución, si no se indica un ID devuelve
-     *                         el primer registro, de lo contrario devuelve los datos de la institución solicitada
+     * @return \App\Models\Institution     Devuelve un objeto con información de la institución,
+     *                                     si no se indica un ID devuelve el primer registro,
+     *                                     de lo contrario devuelve los datos de la institución solicitada
      */
     function get_institution($id = null)
     {
@@ -408,8 +409,6 @@ if (! function_exists('get_institution')) {
 if (! function_exists('generate_hash')) {
     /**
      * Genera una cadena aleatoria
-     *
-     * @method     generate_hash
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
@@ -449,13 +448,11 @@ if (! function_exists('execution_year')) {
     /**
      * Obtiene el año de ejecución del ejercicio económico
      *
-     * @method     execution_year
-     *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
-     * @param      string|hash   $year   Cadena con el año del ejercicio económico
+     * @param      string   $year   Cadena con el año del ejercicio económico
      *
-     * @return     string        Devuelve el año del ejercicio económico
+     * @return     string           Devuelve el año del ejercicio económico
      */
     function execution_year($year)
     {
@@ -466,8 +463,6 @@ if (! function_exists('execution_year')) {
 if (! function_exists('set_current_timestamp')) {
     /**
      * Establece la fecha actual con marca de tiempo
-     *
-     * @method     set_current_timestamp
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
@@ -483,8 +478,6 @@ if (! function_exists('set_current_timestamp')) {
 if (! function_exists('list_table_foreign_keys')) {
     /**
      * Obtiene un listado de claves foráneas de una tabla
-     *
-     * @method    list_table_foreign_keys
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
@@ -506,11 +499,9 @@ if (! function_exists('get_database_info')) {
     /**
      * Obtiene información de la base de datos
      *
-     * @method    get_database_info
-     *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
-     * @return    array               Devuelve un arreglo con información de la base de datos
+     * @return    object               Devuelve un arreglo con información de la base de datos
      */
     function get_database_info()
     {
@@ -560,8 +551,6 @@ if (! function_exists('strpos_array')) {
     /**
      * Verifica si los datos en un arraglo se encuentran en una cadena de texto
      *
-     * @method    strpos_array
-     *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
      * @param     string          $haystack    Texto de la cadena en donde buscar
@@ -587,11 +576,9 @@ if (! function_exists('secure_record')) {
     /**
      * Cifra y descifra registros
      *
-     * @method    secure_record
-     *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
-     * @param     string           $record     Cadena de texto a ser cifrada / descifrada
+     * @param     string|integer   $record     Cadena de texto a ser cifrada / descifrada
      * @param     boolean          $decrypt    Indica si el registro va a ser descifrado
      *
      * @return    string|integer   Devuelve el registro cifrado / descifrado
@@ -606,12 +593,10 @@ if (! function_exists('age')) {
     /**
      * Calcula la edad de una persona en años
      *
-     * @method    age
-     *
      * @author    William Páez <wpaez@cenditel.gob.ve>
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
-     * @param     date    $birthdate    Fecha de nacimiento
+     * @param     string    $birthdate    Fecha de nacimiento
      *
      * @return    integer   Devuelve la edad representada en años
      */

@@ -44,16 +44,6 @@ class TaxUnitController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -82,28 +72,6 @@ class TaxUnitController extends Controller
         ]);
 
         return response()->json(['record' => $taxUnit, 'message' => 'Success'], 200);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\TaxUnit  $taxUnit
-     * @return \Illuminate\Http\Response
-     */
-    public function show(TaxUnit $taxUnit)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\TaxUnit  $taxUnit
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(TaxUnit $taxUnit)
-    {
-        //
     }
 
     /**
