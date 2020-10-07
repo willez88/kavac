@@ -2,13 +2,12 @@
 
 namespace Modules\DigitalSignature\Models;
 
-use Modules\DigitalSignature\Models\Signprofile;
-use App\User as BaseUser;
+use App\Models\User as BaseUser;
 
 class User extends BaseUser
 {
-   public function signprofiles() 
-   {
+    public function signprofiles()
+    {
         return $this->hasOne(Signprofile::class);
-   }
+    }
 }
