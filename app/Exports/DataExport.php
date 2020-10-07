@@ -17,4 +17,9 @@ class DataExport implements FromCollection, WithHeadingRow
     {
         $this->model = $model;
     }
+
+    public function collection()
+    {
+        //
+    }
 }

@@ -601,3 +601,30 @@ if (! function_exists('secure_record')) {
         return ($decrypt) ? Crypt::decrypt($record) : Crypt::encrypt($record);
     }
 }
+
+if (! function_exists('age')) {
+    /**
+     * Calcula la edad de una persona en años
+     *
+     * @method    age
+     *
+     * @author    William Páez <wpaez@cenditel.gob.ve>
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     date    $birthdate    Fecha de nacimiento
+     *
+     * @return    integer   Devuelve la edad representada en años
+     */
+    function age($birthdate)
+    {
+        $date = new DateTime($birthdate);
+
+        $now = new DateTime();
+
+        $difference = $now->diff($date);
+
+        $age = $difference->y;
+
+        return  $age;
+    }
+}

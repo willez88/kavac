@@ -129,7 +129,7 @@ class Institution extends Model implements Auditable
     /**
      * Filtra datos de la institución de acuerdo al usuario autenticado
      *
-     * @method     newQuery
+     * @method     newQuery(boolean $excludeDeleted)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *

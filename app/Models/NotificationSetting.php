@@ -32,7 +32,7 @@ class NotificationSetting extends Model
     /**
      * NotificationSetting belongs to Many Users.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function users()
     {
