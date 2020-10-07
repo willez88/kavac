@@ -69,7 +69,7 @@ El servidor Nginx se ejecutará en el puerto 80, para verificar si se ejecutó c
 
 	netstat -plntu
 
-Si todo lo mmuestra correctamente, nginx estará instalado y en ejecución.
+Si todo lo muestra correctamente, nginx estará instalado y en ejecución.
 
 ### Instalar PHP-FPM
 
@@ -86,6 +86,14 @@ donde (version-php-instalada) es la versión de php instalada en el servidor, Ej
 En el contenido del archivo se debe buscar y descomentar la variable cgi.fix_pathinfo=1 y cambiar el valor a 0
 
 	cgi.fix_pathinfo=0
+
+A su vez, se deben realizar algunos ajustes adicionales para optimizar las peticiones para la carga d archivos por lo que es necesario establecer los siguientes valores a las variables descritas:
+
+    upload_max_filesize = 10M
+
+    max_file_uploads = 50
+
+    post_max_size = 40M
 
 Guarda las modificaciones realizadas e inicializa el servicio FPM con los comandos
 
