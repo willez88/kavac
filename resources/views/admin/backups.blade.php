@@ -71,7 +71,7 @@
                                             'class' => 'btn btn-info btn-xs btn-icon btn-round',
                                             'data-toggle' => 'tooltip', 'type' => 'button',
                                             'title' => __('Restaurar respaldo'),
-                                            'onclick' => '#'
+                                            'onclick' => 'restore_backup("'.$backup['file_name'].'")'
                                         ]) !!}
                                         {!! Form::button('<i class="fa fa-trash-o"></i>', [
                                             'class' => 'btn btn-danger btn-xs btn-icon btn-round',
@@ -93,12 +93,95 @@
 @section('extra-js')
     @parent
     <script>
+        /**
+         * Elimina el archivo de respaldo seleccionado
+         *
+         * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         *
+         * @param     {string}         filename    Nombre del archivo a ser eliminado
+         */
         function delete_backup(filename) {
             bootbox.confirm('{{ __('Esta seguro de eliminar este respaldo?') }}', function(result) {
                 if (result) {
                     location.href="/backup/delete/" + filename;
                 }
-                //event.preventDefault();
+            });
+        }
+
+        /**
+         * Ejecuta la acción corrspondiente para la restauración de registros
+         *
+         * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         *
+         * @param      {string}          filename    Nombre del archivo con el respaldo a restaurar
+         */
+        function restore_backup(filename) {
+            bootbox.confirm({
+                title: '{{ __('Restaurar datos') }}',
+                message: `<p class='text-justify'>
+                              {{ __('¿Está seguro de restaurar este respaldo? ') }}
+                              {{ __('Se eliminará cualquier dato existente y se restaurará la información con este respaldo. ') }}
+                              {{ __('Deberá autenticarse nuevamente luego de la restauración de la base de datos.') }}
+                          </p>
+                          <p class='text-justify'>
+                              <b class='text-red'>¡ATENCIÓN!</b>
+                              Este proceso puede ocasionar perdida parcial o total de los datos, proceda si esta
+                              totalmente seguro.
+                          </p>`,
+                buttons: {
+                    confirm: {
+                        label: '<i class="fa fa-upload"></i> Restaurar',
+                        className: 'btn btn-lg btn-primary'
+                    },
+                    cancel: {
+                        label: '<i class="fa fa-ban"></i> Cancelar',
+                        className: 'btn btn-lg'
+                    }
+                },
+                callback: (result) => {
+                    if (result) {
+                        /** Muestra el mensaje de espera */
+                        $('.preloader').show();
+                        axios.post(
+                            '/backup/restore', {filename: filename}
+                        ).then(response => {
+                            if (response.data.result) {
+                                showMessageRestore(true);
+                                return true;
+                            }
+                            /** Oculta el mensaje de espera */
+                            $('.preloader').fadeOut(2000);
+                            let msg = 'No fue posible realizar la restauración del respaldo, revise los logs del sistema';
+                            showMessageRestore(false, msg);
+                        }).catch(error => {
+                            /** Oculta el mensaje de espera */
+                            $('.preloader').fadeOut(2000);
+                            let errorObj = error.response;
+                            if (errorObj.status === 500 && errorObj.data.message.includes("Undefined table")) {
+                                showMessageRestore(false, errorObj.data.message);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        /**
+         * [showMessageRestore description]
+         *
+         * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         *
+         * @param     {boolean}             success    Determiuna si la restauración fue exitosa
+         * @param     {String}              message    Mensaje a ser mostrado
+         */
+        function showMessageRestore(success, message = '') {
+            $.gritter.add({
+                title: (success) ? '{{ __('Éxito') }}' : '{{ __('Alerta!') }}',
+                text: (success) ? "{{ __('Se ha restaurado la base de datos satisfactoriamente') }}" : message,
+                class_name: (success) ? 'growl-success' : 'growl-danger',
+                image: (success) ? "{{ asset('images/screen-ok.png') }}" : "{{ asset('images/screen-error.png') }}",
+                sticky: false,
+                time: 2500
             });
         }
     </script>

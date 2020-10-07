@@ -12,7 +12,19 @@ use App\Models\ExchangeRate;
 use App\Models\Profession;
 use App\Models\Tax;
 use App\Models\NotificationSetting;
+use DB;
 
+/**
+ * @class CoreNotificationSettingsTableSeeder
+ * @brief Información por defecto para la configuración de notificaciones
+ *
+ * Gestiona la información por defecto a registrar inicialmente para la configuración de notificaciones
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
+ */
 class CoreNotificationSettingsTableSeeder extends Seeder
 {
     /**

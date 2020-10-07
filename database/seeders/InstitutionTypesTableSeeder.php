@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Roles\Models\Role;
 use App\Roles\Models\Permission;
 use App\Models\InstitutionType;
+use DB;
 
 /**
  * @class InstitutionTypesTableSeeder

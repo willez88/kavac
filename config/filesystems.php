@@ -69,6 +69,11 @@ return [
             'visibility' => 'public',
         ],
 
+        'snapshots' => [
+            'driver' => 'local',
+            'root' => database_path('snapshots'),
+        ],
+
         /** Ruta para almacenar archivos temporales de la aplicación */
         'temporary' => [
             'driver' => 'local',
