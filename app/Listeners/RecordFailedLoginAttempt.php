@@ -29,13 +29,13 @@ class RecordFailedLoginAttempt
      */
     public function handle(Failed $event)
     {
-        if (!$event->user->hasRole('admin')) {
-            /** @var string Establece la fecha y hora en la que fue bloqueado el usuario */
-            $event->user->blocked_at = date('Y-m-d H:i:s');
-            $event->user->save();
+        //if (!$event->user->hasRole('admin')) {
+        /** @var string Establece la fecha y hora en la que fue bloqueado el usuario */
+        $event->user->blocked_at = date('Y-m-d H:i:s');
+        $event->user->save();
 
-            $event->user->notify(new UserBlocked(User::find($event->user->id)));
-        }
+        $event->user->notify(new UserBlocked(User::find($event->user->id)));
+        //}
 
         /** Registra el evento de intento fallido */
         FailedLoginAttempt::record(
