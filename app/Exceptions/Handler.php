@@ -71,6 +71,11 @@ class Handler extends ExceptionHandler
             }
 
             $request->session()->flash('message', ['type' => 'deny', 'msg' => $msg]);
+
+            if (url()->current() === url()->previous()) {
+                return redirect()->route('index');
+            }
+
             return redirect()->back();
         }
 
@@ -83,6 +88,11 @@ class Handler extends ExceptionHandler
             }
 
             $request->session()->flash('message', ['type' => 'deny', 'msg' => $msg]);
+
+            if (url()->current() === url()->previous()) {
+                return redirect()->route('index');
+            }
+
             return redirect()->back();
         }
 
@@ -95,6 +105,11 @@ class Handler extends ExceptionHandler
             }
 
             $request->session()->flash('message', ['type' => 'deny', 'msg' => $msg]);
+
+            if (url()->current() === url()->previous()) {
+                return redirect()->route('index');
+            }
+
             return redirect()->back();
         }
 
