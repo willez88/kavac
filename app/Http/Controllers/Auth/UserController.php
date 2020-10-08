@@ -222,7 +222,7 @@ class UserController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse Retorna la vista que ejecuta la acción junto con el mensaje al usuario
+     * @return \Illuminate\Http\JsonResponse Retorna la vista que ejecuta la acción junto con el mensaje al usuario
      */
     public function setRolesAndPermissions(Request $request)
     {
@@ -411,7 +411,7 @@ class UserController extends Controller
      *
      * @param      Request            $request   Objeto con datos de la petición
      *
-     * @return     \Illuminate\Http\Response     redirecciona a la página de configuración del usuario
+     * @return     \Illuminate\Http\RedirectResponse     redirecciona a la página de configuración del usuario
      */
     public function setUserSettings(Request $request)
     {

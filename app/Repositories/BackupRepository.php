@@ -63,7 +63,7 @@ class BackupRepository
     /**
      * Ejecuta la acción necesaria para restaurar los datos a partir de un respaldo
      *
-     * @method     restore
+     * @method     restore(string $filename, \Illuminate\Http\Request $request)
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
