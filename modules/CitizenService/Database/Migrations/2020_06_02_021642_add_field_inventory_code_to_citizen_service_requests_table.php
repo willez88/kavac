@@ -13,13 +13,11 @@ class AddFieldInventoryCodeToCitizenServiceRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::table('citizen_service_requests', function (Blueprint $table){
-           
+        Schema::table('citizen_service_requests', function (Blueprint $table) {
             if (!Schema::hasColumn('citizen_service_requests', 'inventory_code')) {
                 $table->string('inventory_code', 100)->nullable()->comment('Codigo de inventario');
             }
         });
-
     }
 
     /**
