@@ -42,20 +42,20 @@ class SaleClientsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-        'rif' => ['required', 'max:17', new RifRule],
-        'type_person_juridica' => ['required'],
-        'name' => ['required'],
-        'country_id' => ['required'],
-        'estate_id' => ['required'],
-        'city_id' => ['required'],
-        'municipality_id' => ['required'],
-        'parish_id' => ['required'],
-        'address' => ['required', 'max:200'],
-        'address_tax' => ['required', 'max:200'],
-        'name_client' => ['required'],
-        'email_client' => ['required'],
-        'phone_client' => ['nullable', 'regex:/^\d{2}-\d{3}-\d{7}$/u'],
-      ]);
+            'rif' => ['required', 'max:17', new RifRule],
+            'type_person_juridica' => ['required'],
+            'name' => ['required'],
+            'country_id' => ['required'],
+            'estate_id' => ['required'],
+            'city_id' => ['required'],
+            'municipality_id' => ['required'],
+            'parish_id' => ['required'],
+            'address' => ['required', 'max:200'],
+            'address_tax' => ['required', 'max:200'],
+            'name_client' => ['required'],
+            'email_client' => ['required'],
+            'phone_client' => ['nullable', 'regex:/^\d{2}-\d{3}-\d{7}$/u'],
+        ]);
 
         $client = new SaleClients;
         $client->rif = $request->rif;
@@ -76,11 +76,11 @@ class SaleClientsController extends Controller
         if ($request->phones && !empty($request->phones)) {
             foreach ($request->phones as $phone) {
                 $client->phones()->save(new Phone([
-            'type' => $phone['type'],
-            'area_code' => $phone['area_code'],
-            'number' => $phone['number'],
-            'extension' => $phone['extension']
-          ]));
+                    'type' => $phone['type'],
+                    'area_code' => $phone['area_code'],
+                    'number' => $phone['number'],
+                    'extension' => $phone['extension']
+                ]));
             }
         }
 
@@ -117,29 +117,29 @@ class SaleClientsController extends Controller
         $client = SaleClients::find($id);
 
         $this->validate($request, [
-        'rif' => ['required', 'max:17', new RifRule],
-        'type_person_juridica' => ['required'],
-        'name' => ['required'],
-        'country_id' => ['required'],
-        'estate_id' => ['required'],
-        'city_id' => ['required'],
-        'municipality_id' => ['required'],
-        'parish_id' => ['required'],
-        'address' => ['required', 'max:200'],
-        'address_tax' => ['required', 'max:200'],
-        'name_client' => ['required'],
-        'email_client' => ['required'],
-        'phone_client' => ['nullable', 'regex:/^\d{2}-\d{3}-\d{7}$/u'],
-      ]);
+            'rif' => ['required', 'max:17', new RifRule],
+            'type_person_juridica' => ['required'],
+            'name' => ['required'],
+            'country_id' => ['required'],
+            'estate_id' => ['required'],
+            'city_id' => ['required'],
+            'municipality_id' => ['required'],
+            'parish_id' => ['required'],
+            'address' => ['required', 'max:200'],
+            'address_tax' => ['required', 'max:200'],
+            'name_client' => ['required'],
+            'email_client' => ['required'],
+            'phone_client' => ['nullable', 'regex:/^\d{2}-\d{3}-\d{7}$/u'],
+        ]);
 
         $i = 0;
         foreach ($request->phones as $phone) {
             $this->validate($request, [
-          'phones.'.$i.'.type' => ['required'],
-          'phones.'.$i.'.area_code' => ['required', 'digits:3'],
-          'phones.'.$i.'.number' => ['required', 'digits:7'],
-          'phones.'.$i.'.extension' => ['nullable', 'digits_between:3,6'],
-        ]);
+                'phones.'.$i.'.type' => ['required'],
+                'phones.'.$i.'.area_code' => ['required', 'digits:3'],
+                'phones.'.$i.'.number' => ['required', 'digits:7'],
+                'phones.'.$i.'.extension' => ['nullable', 'digits_between:3,6'],
+            ]);
             $i++;
         }
 
@@ -166,13 +166,13 @@ class SaleClientsController extends Controller
             foreach ($request->phones as $phone) {
                 $client->phones()->updateOrCreate(
                     [
-            'type' => $phone['type'], 'area_code' => $phone['area_code'],
-            'number' => $phone['number'], 'extension' => $phone['extension']
-          ],
+                        'type' => $phone['type'], 'area_code' => $phone['area_code'],
+                        'number' => $phone['number'], 'extension' => $phone['extension']
+                    ],
                     [
-            'type' => $phone['type'], 'area_code' => $phone['area_code'],
-            'number' => $phone['number'], 'extension' => $phone['extension']
-          ]
+                        'type' => $phone['type'], 'area_code' => $phone['area_code'],
+                        'number' => $phone['number'], 'extension' => $phone['extension']
+                    ]
                 );
             }
         }
