@@ -39,7 +39,6 @@ class UpdateFieldsToPayrollPaymentTypesTable extends Migration
                     $table->longText('associated_records')->nullable()
                           ->comment('Campos del expediente del trabajador a usar en la relación de pago');
                 }
-
             });
         };
     }

@@ -35,7 +35,6 @@ class UpdateFieldsPayrollScalesTable extends Migration
             if (!Schema::hasColumn('payroll_scales', 'value')) {
                 $table->text('value')->nullable()->comment('Valor establecido para la escala');
             }
-
         });
     }
 
@@ -57,7 +56,6 @@ class UpdateFieldsPayrollScalesTable extends Migration
             if (Schema::hasColumn('payroll_scales', 'value')) {
                 $table->dropColumn('value');
             }
-
         });
     }
 }

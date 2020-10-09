@@ -18,5 +18,5 @@ if (! function_exists('multiexplode')) {
         $ready  = str_replace($delimiters, $delimiters[0], $string);
         $launch = explode($delimiters[0], $ready);
         return $launch;
-    };
+    }
 }
