@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\ValidationException;
-use App\User;
+use App\Models\User;
 
 use Captcha;
 
@@ -91,7 +91,7 @@ class LoginController extends Controller
         $this->validateLogin($request);
 
         $user = User::where('username', $request->username)->firstOrFail();
-        if ($user && !is_null($user->blocked_at)) {
+        if ($user !== null && !is_null($user->blocked_at)) {
             return $this->sendLockedAccountResponse($request);
         }
 

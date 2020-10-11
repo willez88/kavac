@@ -20,31 +20,11 @@ class ParameterController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Valida y registra un nuevo parámetro general del sistema
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request $request    Solicitud con los datos a guardar
-     * @return \Illuminate\Http\Response            Mensaje del dato guardado
+     * @return \Illuminate\Http\RedirectResponse    Redirecciona a la url anterior
      */
     public function store(Request $request)
     {
@@ -63,50 +43,5 @@ class ParameterController extends Controller
         );
         $request->session()->flash('message', ['type' => 'store']);
         return redirect()->back();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Parameter  $parameter
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Parameter $parameter)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Parameter  $parameter
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Parameter $parameter)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Parameter  $parameter
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Parameter $parameter)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Parameter  $parameter
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Parameter $parameter)
-    {
-        //
     }
 }

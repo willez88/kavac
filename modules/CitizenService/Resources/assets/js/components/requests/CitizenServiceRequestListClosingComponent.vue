@@ -1,5 +1,4 @@
-
-<template>																																		
+<template>
 	<section>
 		<v-client-table :columns="columns" :data="records" :options="table_options">
 			<div slot="code" slot-scope="props" class="text-center">
@@ -9,7 +8,7 @@
 			</div>
 			<div slot="id" slot-scope="props" class="text-center">
 				<div class="d-inline-flex">
-					
+
 					<citizenservice-request-close
 						:route_list="'citizenservice/requests/vue-close/' + props.row.id"
 						:request_id="props.row.id">
@@ -19,7 +18,7 @@
 			</div>
 			<div slot="requested_by" slot-scope="props" class="text-center">
                 <span>
-                    {{ 
+                    {{
                         props.row.first_name + ' ' + props.row.last_name
                     }}
                 </span>
@@ -56,7 +55,7 @@
 				const vm = this;
 				var fields = this.records[index-1];
 				var id = this.records[index-1].id;
-				
+
 				axios.put('/'+this.route_update+'/request-approved/'+id, fields).then(response => {
 					if (typeof(response.data.redirect) !== "undefined") {
 						location.href = response.data.redirect;
@@ -78,7 +77,7 @@
 					}
 				});
 			},
-			
+
 
 		}
 	};

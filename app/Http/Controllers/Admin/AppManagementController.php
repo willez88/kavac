@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
 use OwenIt\Auditing\Models\Audit;
 use App\Http\Controllers\Controller;
 use App\Traits\ModelsTrait;
-use App\User;
+use App\Models\User;
 
 /**
  * @class AppManagementController
@@ -27,7 +26,7 @@ class AppManagementController extends Controller
     /**
      * Método constructor de la clase
      *
-     * @method    __construct
+     * @method    __construct()
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
@@ -40,13 +39,13 @@ class AppManagementController extends Controller
     /**
      * Obtiene un listado de los últimos 20 registros eliminados
      *
-     * @method    getDeletedRecords
+     * @method    getDeletedRecords(Request $request)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
      * @param     Request              $request    Objeto con información de la petición
      *
-     * @return    JsonResponse       Objeto Json con datos de respuesta a la petición
+     * @return    \Illuminate\Http\JsonResponse       Objeto Json con datos de respuesta a la petición
      */
     public function getDeletedRecords(Request $request)
     {
@@ -98,13 +97,13 @@ class AppManagementController extends Controller
     /**
      * Restaura un archivo eliminado
      *
-     * @method    restoreRecord
+     * @method    restoreRecord(Request $request)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
      * @param     Request          $request    Objeto con datos de la petición
      *
-     * @return    JsonResponse       Objeto Json con datos de respuesta a la petición
+     * @return    \Illuminate\Http\JsonResponse       Objeto Json con datos de respuesta a la petición
      */
     public function restoreRecord(Request $request)
     {
@@ -123,13 +122,13 @@ class AppManagementController extends Controller
     /**
      * Obtiene un listado de registros a auditar
      *
-     * @method    getAuditRecords
+     * @method    getAuditRecords(Request $request)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
      * @param     Request            $request    Objeto con información de la petición
      *
-     * @return    JsonResponse       Objeto Json con datos de respuesta a la petición
+     * @return    \Illuminate\Http\JsonResponse       Objeto Json con datos de respuesta a la petición
      */
     public function getAuditRecords(Request $request)
     {
@@ -149,7 +148,7 @@ class AppManagementController extends Controller
                         ->orWhere('username', 'like', "%{$request->user}%")
                         ->orWhere('username', 'like', "%{$request->user}")->get('id');
 
-            if (!$user->isEmpty()) {
+            if (!$users->isEmpty()) {
                 $auditables = $auditables->whereIn('user_id', $users);
             }
         }
@@ -181,7 +180,7 @@ class AppManagementController extends Controller
                 }
 
                 $badgeClass = str_replace('text', 'badge', $registerClass);
-                $model_user = $audit->user_type;
+                $model_user = ($audit->user_type === "App\User") ? 'App\Models\User' : $audit->user_type;
                 $user = $model_user::find($audit->user_id);
 
                 $name = ($user) ? $user->name : '';
@@ -203,13 +202,13 @@ class AppManagementController extends Controller
     /**
      * Obtiene detalles de un registro seleccionado
      *
-     * @method    getAuditDetails
+     * @method    getAuditDetails(Request $request)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
      * @param     Request            $request    Objeto con datos de la petición
      *
-     * @return    JsonResponse       Objeto Json con detalles del registro
+     * @return    \Illuminate\Http\JsonResponse       Objeto Json con detalles del registro
      */
     public function getAuditDetails(Request $request)
     {

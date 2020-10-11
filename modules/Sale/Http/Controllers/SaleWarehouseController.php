@@ -45,7 +45,10 @@ class SaleWarehouseController extends Controller
             'main' => ['required'],
             'active' => ['required'],
         ]);
-        $SaleWarehouse = SaleWarehouse::create(['name' => $request->name,'address' => $request->address,'institution_id' => $request->institution_id,'parish_id' => $request->parish_id,'main' => $request->main,'active' => $request->active]);
+        $SaleWarehouse = SaleWarehouse::create([
+            'name' => $request->name, 'address' => $request->address, 'institution_id' => $request->institution_id,
+            'parish_id' => $request->parish_id,'main' => $request->main,'active' => $request->active
+        ]);
         return response()->json(['record' => $SaleWarehouse, 'message' => 'Success'], 200);
     }
 

@@ -13,11 +13,11 @@ class CreatePurchasePivotModelsToRequirementItemsTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('purchase_pivot_models_to_requirement_items')){
+        if (!Schema::hasTable('purchase_pivot_models_to_requirement_items')) {
             Schema::create('purchase_pivot_models_to_requirement_items', function (Blueprint $table) {
                 $table->bigIncrements('id');
 
-                $table->morphs('relatable');
+                $table->morphs('relatable', 'purchase_pivot_models_to_requirement_items_index');
 
                 /*$table->foreignId('purchase_requirement_item_id')->constrained()
                       ->onDelete('restrict')->onUpdate('cascade');*/

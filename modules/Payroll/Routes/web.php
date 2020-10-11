@@ -352,7 +352,10 @@ Route::group([
     Route::resource('salary-tabulators', 'PayrollSalaryTabulatorController', ['except' => ['show','create','edit']]);
 
     /** Ruta que obtiene la información de un registro de nómina */
-    Route::get('salary-tabulators/show/{tabulator}', 'PayrollSalaryTabulatorController@show')->name('payroll.salary-tabulators.show');
+    Route::get(
+        'salary-tabulators/show/{tabulator}',
+        'PayrollSalaryTabulatorController@show'
+    )->name('payroll.salary-tabulators.show');
 
     /** Ruta que permite exportar la información de los tabuladores salariales registrados */
     Route::get('salary-tabulators/export/{tabulator}', 'PayrollSalaryTabulatorController@export');

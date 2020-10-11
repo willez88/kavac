@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
+
 /**
  * @class SaleSettingProduct
  * @brief Datos de productos
@@ -40,7 +41,7 @@ class SaleSettingProduct extends Model implements Auditable
      * Lista de registros relacionados
      * @var array $with
     */
-    protected $with = ['SaleSettingProductType'];
+    protected $with = ['saleSettingProductType'];
 
     /**
      * Método que obtiene el tipo de producto
@@ -48,7 +49,7 @@ class SaleSettingProduct extends Model implements Auditable
      * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function SaleSettingProductType()
+    public function saleSettingProductType()
     {
         return $this->belongsTo(SaleSettingProductType::class);
     }

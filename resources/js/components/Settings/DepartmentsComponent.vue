@@ -47,7 +47,7 @@
 									<label>Siglas:</label>
 									<input type="text" class="form-control input-sm" data-toggle="tooltip"
 										   title="Siglas o acrónimo para el departamento (si posee)"
-										   placeholder="SIGLAS" v-model="record.acronym">
+										   placeholder="SIGLAS" v-model="record.acronym" v-is-text>
 			                    </div>
 							</div>
 							<div class="col-md-10">
@@ -55,7 +55,7 @@
 									<label>Nombre:</label>
 									<input type="text" class="form-control input-sm" data-toggle="tooltip"
 										   placeholder="Nombre de la unidad, departamento o dependencia"
-										   v-model="record.name">
+										   v-model="record.name" v-is-text>
 			                    </div>
 							</div>
 							<div class="col-md-2">

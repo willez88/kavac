@@ -2,7 +2,7 @@
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de clasificación del personal" data-toggle="tooltip"
-		   @click="addRecord('add_payroll_staff_classification', 'staff-classifications', $event)">
+		   @click="addRecord('add_payroll_staff_classification', 'payroll/staff-classifications', $event)">
            <i class="icofont icofont-company ico-3x"></i>
 		   <span>Clasificación del Personal</span>
 		</a>

@@ -45,17 +45,6 @@ class EstateController extends Controller
     }
 
     /**
-     * Muestra el formulario para crear un nuevo registro de Estado
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Valida y registra un nuevo Estado
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
@@ -78,30 +67,6 @@ class EstateController extends Controller
         ]);
 
         return response()->json(['record' => $estate, 'message' => 'Success'], 200);
-    }
-
-    /**
-     * Muestra información acerca del Estado
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\Estate  $estate
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Estate $estate)
-    {
-        //
-    }
-
-    /**
-     * Muestra el formulario para actualizar información de un Estado
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\Estate  $estate
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Estate $estate)
-    {
-        //
     }
 
     /**

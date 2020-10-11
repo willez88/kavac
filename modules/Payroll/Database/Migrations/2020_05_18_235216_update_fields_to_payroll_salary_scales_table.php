@@ -40,7 +40,6 @@ class UpdateFieldsToPayrollSalaryScalesTable extends Migration
             if (!Schema::hasColumn('payroll_salary_scales', 'group_by')) {
                 $table->string('group_by')->nullable()->comment('Escalas o niveles del escalafón');
             }
-
         });
     }
 

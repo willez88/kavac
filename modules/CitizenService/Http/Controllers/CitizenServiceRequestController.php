@@ -55,7 +55,9 @@ class CitizenServiceRequestController extends Controller
         ]);
 
         error_log($request->inventory_code);
-        if ($request->citizen_service_request_type_id == 1) {
+
+        $requestType = $request->citizen_service_request_type_id;
+        if ($requestType == 1) {
             $this->validate($request, [
                 'inventory_code'  => ['required'],
                 'type_team'       => ['required'],
@@ -70,7 +72,7 @@ class CitizenServiceRequestController extends Controller
 
             ]);
         }
-        if ($request->citizen_service_request_type_id ==2 || $request->citizen_service_request_type_id ==3 || $request->citizen_service_request_type_id ==4) {
+        if ($requestType ==2 || $requestType ==3 || $requestType ==4) {
             $this->validate($request, [
                 'citizen_service_department_id'    => ['required'],
 
@@ -322,7 +324,9 @@ class CitizenServiceRequestController extends Controller
 
     public function vueInfo($id)
     {
-        $citizenServiceRequest = CitizenServiceRequest::where('id', $id)->with(['phones','citizenServiceDepartment'])->first();
+        $citizenServiceRequest = CitizenServiceRequest::where('id', $id)->with([
+            'phones','citizenServiceDepartment'
+        ])->first();
         return response()->json(['record' => $citizenServiceRequest], 200);
     }
 

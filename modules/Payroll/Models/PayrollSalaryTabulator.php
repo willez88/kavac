@@ -51,7 +51,6 @@ class PayrollSalaryTabulator extends Model implements Auditable
     public function payrollStaffTypes()
     {
         return $this->belongsToMany(PayrollStaffType::class);
-        
     }
 
     /**

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\User;
 use App\Models\Profile;
 use App\Models\NotificationSetting;
 use App\Roles\Models\Role;
@@ -85,6 +85,7 @@ class UserController extends Controller
         ]);
 
         $profile = Profile::find($request->staff);
+
         $password = generate_hash();
         $user = User::create([
             'name' => trim($profile->first_name . ' ' .$profile->last_name ?? ''),
@@ -119,7 +120,7 @@ class UserController extends Controller
      * Muestra información acerca del usuario
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\View\View
      */
     public function show(User $user)
@@ -135,7 +136,7 @@ class UserController extends Controller
      * Muestra el formulario para actualizar información de un usuario
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\View\View
      */
     public function edit(User $user)
@@ -154,7 +155,7 @@ class UserController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, User $user)
@@ -196,7 +197,7 @@ class UserController extends Controller
      * Elimina el usuario
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\User  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(User $user)
@@ -221,7 +222,7 @@ class UserController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse Retorna la vista que ejecuta la acción junto con el mensaje al usuario
+     * @return \Illuminate\Http\JsonResponse Retorna la vista que ejecuta la acción junto con el mensaje al usuario
      */
     public function setRolesAndPermissions(Request $request)
     {
@@ -236,15 +237,20 @@ class UserController extends Controller
         }
 
         $roleConsult = '';
+        $rolesAndPerms = [];
+        /** Crea un arreglo de permisos asociados a los diferentes roles seleccionados */
         foreach ($request->roles_attach_permissions as $role_perm) {
             list($role_id, $perm_id) = explode("_", $role_perm);
-            if ($roleConsult !== $role_id) {
-                $role = Role::find($role_id);
-                $roleConsult = $role_id;
+            if (!array_key_exists($role_id, $rolesAndPerms)) {
+                $rolesAndPerms[$role_id] = [];
             }
-            $perm = Permission::find($perm_id);
-            if (isset($role)) {
-                $role->attachPermission($perm);
+            array_push($rolesAndPerms[$role_id], $perm_id);
+        }
+        /** Asigna los distintos permisos a los roles */
+        foreach ($rolesAndPerms as $roleId => $roleValues) {
+            $role = Role::find($roleId);
+            if ($role) {
+                $role->syncPermissions($roleValues);
             }
         }
 
@@ -255,7 +261,7 @@ class UserController extends Controller
      * Muestra el formulario para la asignación de roles y permisos a usuarios
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  User   $user Modelo de Usuario
+     * @param  \App\Models\User   $user Modelo de Usuario
      * @return \Illuminate\View\View
      */
     public function assignAccess(User $user)
@@ -325,23 +331,23 @@ class UserController extends Controller
      * Muestra información del usuario
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  User                              $user Objero que abstrae información del usuario
+     * @param  \App\Models\User                              $user Objero que abstrae información del usuario
      * @return \Illuminate\Http\JsonResponse     Devuelve los datos asociados al usuario
      */
     public function info(User $user)
     {
         $with = [];
-        if (!is_null($user->profile)) {
+        if ($user->profile !== null) {
             $with[] = 'profile';
         }
-        if (!is_null($user->roles)) {
+        if ($user->roles !== null) {
             $with[] = 'roles';
         }
-        if (!is_null($user->permissions)) {
+        if ($user->permissions !== null) {
             $with[] = 'permissions';
         }
 
-        if (count($with) > 0) {
+        if (!empty($with)) {
             $user->with($with);
         }
 
@@ -353,7 +359,7 @@ class UserController extends Controller
     /**
      * Muestra un listado de roles y permisos de usuario
      *
-     * @method     indexRolesPermissions
+     * @method     indexRolesPermissions()
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
@@ -367,7 +373,7 @@ class UserController extends Controller
     /**
      * Gestiona la configuración de la cuenta de un usuario
      *
-     * @method     userSettings
+     * @method     userSettings()
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
@@ -399,13 +405,13 @@ class UserController extends Controller
     /**
      * Establece la configuración personalizada de un usuario
      *
-     * @method     setUserSettings
+     * @method     setUserSettings(Request $request)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
      * @param      Request            $request   Objeto con datos de la petición
      *
-     * @return     \Illuminate\Http\Response     redirecciona a la página de configuración del usuario
+     * @return     \Illuminate\Http\RedirectResponse     redirecciona a la página de configuración del usuario
      */
     public function setUserSettings(Request $request)
     {
@@ -422,7 +428,7 @@ class UserController extends Controller
     /**
      * Gestiona la configuración de notificaciones establecida por el usuario
      *
-     * @method     setMyNotifications
+     * @method     setMyNotifications(Request $request)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
@@ -457,7 +463,7 @@ class UserController extends Controller
     /**
      * Obtiene información acerca de la pantalla de bloqueo del sistema
      *
-     * @method     getLockScreenData
+     * @method     getLockScreenData()
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
@@ -472,11 +478,13 @@ class UserController extends Controller
     /**
      * Actualiza información de la pantalla de bloqueo del sistema
      *
-     * @method     setLockScreenData
+     * @method     setLockScreenData(Request $request)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
-     * @param      \Illuminate\Http\JsonResponse     Devuelve el resultado de la operación
+     * @param      Request          $request    Datos de la petición
+     *
+     * @return      \Illuminate\Http\JsonResponse     Devuelve el resultado de la operación
      */
     public function setLockScreenData(Request $request)
     {
@@ -489,11 +497,11 @@ class UserController extends Controller
     /**
      * Realiza las gestiones necesarias para desbloquear la pantalla del sistema
      *
-     * @method     unlockScreen
+     * @method     unlockScreen(Request $request)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
-     * @param      Request          $request    [description]
+     * @param      Request          $request    Datos de la petición
      *
      * @return     \Illuminate\Http\JsonResponse     Devuelve el resultado de la operación
      */

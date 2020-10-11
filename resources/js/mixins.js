@@ -1,12 +1,13 @@
-import moment from 'moment';
+//import moment from 'moment';
+window.moment = require('moment');
+window.Chart = require('chart.js');
 
 /** Import del editor clásico de CKEditor */
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-/** Requerimiento para traducción de CKEditor al español */
-//require('@ckeditor/ckeditor5-build-classic/build/translations/es.js');
+/** Import para traducción de CKEditor al español */
 import '@ckeditor/ckeditor5-build-classic/build/translations/es';
 
-/** Requerimiento del paquete inputmask para uso de mascara en campos de texto con vue */
+/** Import del paquete inputmask para uso de mascara en campos de texto con vue */
 import Inputmask from "inputmask";
 
 /** Configuración de la directiva input-mask para uso de mascara en campos de texto de los componentes vuejs */
@@ -14,6 +15,69 @@ Vue.directive('input-mask', {
     bind: function(el) {
         new Inputmask().mask(el);
     },
+});
+
+/** Directiva que limita la escritura a solo digitos */
+Vue.directive('is-digits', {
+    bind: (el) => {
+        el.addEventListener('keydown', (e) => {
+            let key = e.keyCode;
+            let tab = (key === 9), spacebar = (key === 32), backspace = (key === 8), alt = (key === 18),
+                numeric = (key >= 48 && key <=57) || (key >= 96 && key <= 105), supr = (key === 46),
+                ctrl = (key === 17), ctrlA = (key === 65), ini = (key === 36), end = (key === 35);
+            if (numeric || spacebar || tab || ini || end || backspace || alt || supr) {
+                return;
+            }
+            else {
+                e.preventDefault();
+            }
+        });
+    }
+});
+
+/** Directiva que limita la escritura a solo números y el signo "." */
+Vue.directive('is-numeric', {
+    bind: (el) => {
+        el.addEventListener('keydown', (e) => {
+            let key = e.keyCode;
+            let tab = (key === 9), backspace = (key === 8), alt = (key === 18),
+                numeric = (key >= 48 && key <=57) || (key >= 96 && key <= 105), supr = (key === 46),
+                ctrl = (key === 17), ctrlA = (key === 65), ini = (key === 36), end = (key === 35),
+                dot = (key === 190 && !el.value.includes("."));
+
+            if (numeric || tab || ini || end || backspace || alt || supr || dot) {
+                return;
+            }
+            else {
+                e.preventDefault();
+            }
+        });
+    }
+});
+
+/** Directiva que limita la escritura a solo carácteres alfabéticos, los signos "." y "," */
+Vue.directive('is-text', {
+    bind: (el) => {
+        el.addEventListener('keydown', (e) => {
+            let key = e.keyCode;
+            let tab = (key === 9), backspace = (key === 8), alt = (key === 18), spacebar = (key === 32),
+                alphabet = (key >= 65 && key <= 90), supr = (key === 46),
+                ctrl = (key === 17), ctrlA = (key === 65), ini = (key === 36), end = (key === 35),
+                dot = (key === 190), caps = (key === 20), shift = (key === 16), comma = (key === 188),
+                special = (key === 59 || key === 56 || key === 57),
+                hyphen = (key === 109 || key === 173);
+
+            if (
+                alphabet || tab || ini || end || backspace || alt || supr || dot || caps || shift || spacebar ||
+                special || comma || hyphen
+            ) {
+                return;
+            }
+            else {
+                e.preventDefault();
+            }
+        });
+    }
 });
 
 /**
@@ -124,7 +188,13 @@ Vue.mixin({
             else {
                 $('.preloader').show();
             }
-        }
+        },
+        record: {
+            deep: true,
+            handler: function(newValue, oldValue) {
+
+            }
+        },
     },
     methods: {
         /**
@@ -197,12 +267,13 @@ Vue.mixin({
          *
          * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
          *
-         * @param  {string} value Fecha ser formateada
+         * @param  {string} value  Fecha ser formateada
+         * @param  {string} format Formato de la fecha
          *
          * @return {string}       Fecha con el formato establecido
          */
-        format_date: function(value) {
-            return moment(String(value)).format('DD/MM/YYYY');
+        format_date: function(value, format = 'DD/MM/YYYY') {
+            return moment(String(value)).format(format);
         },
         /**
          * Método que permite dar formato con marca de tiempo a una fecha
@@ -239,6 +310,40 @@ Vue.mixin({
                 minutes: d._data.minutes,
                 seconds: d._data.seconds
             };
+        },
+        /**
+         * Agrega dias, meses o años a una fecha proporcionada
+         *
+         * @method    add_period
+         *
+         * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         *
+         * @param     {string}         current    Fecha actual
+         * @param     {integer}        number     Número de elementos a agregar
+         * @param     {string}         type       Tipo de elemento a agregar. Ej. days, months o years
+         * @param     {string}         format     Formato de fecha
+         *
+         * @return    {string}      Fecha del período agregado
+         */
+        add_period: function(current, number, type, format = 'DD/MM/YYYY') {
+            return moment(current).add(number, type).format(format);
+        },
+        /**
+         * Establece el día de inicio de una fecha dada
+         *
+         * @method    start_day
+         *
+         * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         *
+         * @param     {string}          date       Fecha de la cual identificar el día
+         * @param     {string}          format     Formato de fecha
+         * @param     {string}          startOf    Desde donde se va a establecer el día
+         * @param     {string|integer}  day        Día de inicio
+         *
+         * @return    {string}     Fecha del día a establecer
+         */
+        start_day: function(date, format, startOf, day) {
+            return moment(date, format).startOf(startOf).day(day);
         },
         /**
          * Método que permite convertir elementos de medida y peso
@@ -298,6 +403,7 @@ Vue.mixin({
             this.errors = [];
             this.reset();
             const vm = this;
+            url = (!url.includes('http://') || !url.includes('http://')) ? `${window.app_url}/${url}` : url;
 
             axios.get(url).then(response => {
                 if (typeof(response.data.records) !== "undefined") {
@@ -759,12 +865,34 @@ Vue.mixin({
          * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
          */
         addPhone: function() {
-            this.record.phones.push({
+            const vm = this;
+            vm.record.phones.push({
                 type: '',
                 area_code: '',
                 number: '',
                 extension: ''
             });
+            setTimeout(function(args) {
+                $('.phone-row').each(function(index) {
+                    if (index === (vm.record.phones.length - 1)) {
+                        let select2 = $(this).find('.select2');
+                        select2.select2({});
+                        select2.attr({
+                            'title': 'Seleccione un registro de la lista',
+                            'data-toggle': 'tooltip'
+                        });
+                        select2.tooltip({ delay: { hide: 100 } });
+                        select2.on('shown.bs.tooltip', function() {
+                            setTimeout(function() {
+                                select2.tooltip('hide');
+                            }, 1500);
+                        });
+                        select2.on('change', (e) => {
+                            vm.record.phones[index].type = e.target.value;
+                        });
+                    }
+                });
+            }, 50);
         },
         /**
          * Elimina la fila del elemento indicado
@@ -892,6 +1020,13 @@ Vue.mixin({
                 }
             }
         },
+        /**
+         * Método que permite borrar los filtros de la consulta en las tablas
+         *
+         * @method    clearFilters
+         *
+         * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         */
         clearFilters() {
             //this.$refs['table'].setFilter('');
         }

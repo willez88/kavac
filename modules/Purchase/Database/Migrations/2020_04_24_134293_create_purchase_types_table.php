@@ -13,7 +13,7 @@ class CreatePurchaseTypesTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('purchase_types')){
+        if (!Schema::hasTable('purchase_types')) {
             Schema::create('purchase_types', function (Blueprint $table) {
                 $table->bigIncrements('id');
 
@@ -25,7 +25,7 @@ class CreatePurchaseTypesTable extends Migration
                 $table->foreign('purchase_processes_id')->references('id')
                           ->on('purchase_processes')->onDelete('restrict')
                           ->onUpdate('cascade');
-                
+
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });

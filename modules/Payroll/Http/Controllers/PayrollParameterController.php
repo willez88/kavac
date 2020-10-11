@@ -441,7 +441,10 @@ class PayrollParameterController extends Controller
                         $errors = array_merge($errors, ["code" => ["El campo código contiene un valor duplicado."]]);
                     }
                     if ($request->acronym == $param->acronym) {
-                        $errors = array_merge($errors, ["acronym" => ["El campo acrónimo contiene un valor duplicado."]]);
+                        $errors = array_merge(
+                            $errors,
+                            ["acronym" => ["El campo acrónimo contiene un valor duplicado."]]
+                        );
                     }
                     array_push($listGlobalParameters, [
                         'id'             => $param->id,
@@ -479,13 +482,13 @@ class PayrollParameterController extends Controller
          */
         $parameter = Parameter::updateOrCreate(
             [
-            'p_key'       => 'global_parameter_' . $payrollParameter['id'],
-            'required_by' => 'payroll',
-            'active'      => true
-        ],
+                'p_key'       => 'global_parameter_' . $payrollParameter['id'],
+                'required_by' => 'payroll',
+                'active'      => true
+            ],
             [
-            'p_value'     => json_encode($payrollParameter)
-        ]
+                'p_value'     => json_encode($payrollParameter)
+            ]
         );
         return response()->json(['record' => $parameter, 'message' => 'Success'], 200);
     }
@@ -519,13 +522,12 @@ class PayrollParameterController extends Controller
             $parameter->forceDelete();
             return response()->json(['message' => 'destroy'], 200);
         } else {
-            $parameter = Parameter::where(
-                [
+            $parameter = Parameter::where([
                 'p_key'       => 'global_parameter_group_by_tabs_' . $id,
                 'required_by' => 'payroll',
                 'active'      => true,
-            ]
-            )->first();
+            ])->first();
+
             if (!is_null($parameter)) {
                 $parameter->forceDelete();
                 return response()->json(['message' => 'destroy'], 200);

@@ -11,6 +11,9 @@ parameters:
 
     ignoreErrors:
         - '#Unsafe usage of new static#'
+        - '#Access to an undefined property Illuminate\\Contracts\\Auth\\Authenticatable::\$[a-zA-Z0-9\\_]+\.#'
+        - '#Access to an undefined property OwenIt\\Auditing\\Models\\Audit::\$[a-zA-Z0-9\\_]+\.#'
+        - '#Access to an undefined property App\\Models\\[a-zA-Z0-9\\_]+::\$[a-zA-Z0-9\\_]+\.#'
 
     excludes_analyse:
         - ./*/*/FileToBeExcluded.php

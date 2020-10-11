@@ -2,7 +2,7 @@
     <section id="payrollConceptTypesFormComponent">
         <a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
            title="Registros de tipos de concepto" data-toggle="tooltip"
-           @click="addRecord('add_payroll_concept_type', 'concept-types', $event)">
+           @click="addRecord('add_payroll_concept_type', 'payroll/concept-types', $event)">
            <i class="icofont icofont-mathematical-alt-1 ico-3x"></i>
            <span>Tipos de<br>Concepto</span>
         </a>

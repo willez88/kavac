@@ -3,7 +3,6 @@
 namespace Modules\Payroll\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
 
 class PayrollServiceProvider extends ServiceProvider
 {
@@ -99,7 +98,7 @@ class PayrollServiceProvider extends ServiceProvider
     public function registerFactories()
     {
         if (! app()->environment('production') && $this->app->runningInConsole()) {
-            app(Factory::class)->load(module_path($this->moduleName, 'Database/factories'));
+            $this->loadFactoriesFrom(module_path($this->moduleName, 'Database/factories'));
         }
     }
 

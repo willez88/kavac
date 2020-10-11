@@ -18,12 +18,19 @@
             }
         },
         methods: {
+            /**
+             * Gestiona el evento que permite guardar un registro
+             *
+             * @method    saveEvent
+             *
+             * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             */
             saveEvent: function() {
                 this.$parent.createRecord(this.saveRoute);
             }
         },
         mounted() {
-            
+            //Agregar aquí el código que sea necesario para personalizar el comportamiento de este componente
         }
     };
 </script>

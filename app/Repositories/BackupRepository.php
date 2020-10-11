@@ -8,6 +8,7 @@ use Log;
 use Storage;
 use Session;
 use Exception;
+use ZipArchive;
 
 /**
  * @class BackupRepository
@@ -34,6 +35,8 @@ class BackupRepository
      * Gestiona la creación de respaldos de la base de datos
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return  boolean Devuelve verdadero al crear el respaldo
      */
     public function create()
     {
@@ -53,6 +56,52 @@ class BackupRepository
         } catch (Exception $e) {
             Session::flash('message', ['type' => 'other', 'text' => $e->getMessage()]);
         }
+
+        return true;
+    }
+
+    /**
+     * Ejecuta la acción necesaria para restaurar los datos a partir de un respaldo
+     *
+     * @method     restore(string $filename, \Illuminate\Http\Request $request)
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param      string           $filename    Nombre del archivo con el respaldo a ser restaurado
+     * @param      object           $request     Objeto con información de la petición
+     *
+     * @return     boolean          Devuelve verdadero si se realizó la restauración de la base de datos,
+     *                              de lo contrario devuelve falso
+     */
+    public function restore($filename, $request)
+    {
+        $path = Storage::disk(config('backup.backup.destination.disks')[0])->getAdapter()->getPathPrefix();
+
+        $zip = new ZipArchive;
+        $res = $zip->open($path . config('app.name') . "/" . $filename);
+        if ($res === true) {
+            try {
+                $request->session()->regenerate();
+                $snapName = str_replace(".zip", "", $filename);
+                $zip->renameName('db-dumps/postgresql-kavac.sql', $snapName . '.sql');
+                $zip->extractTo($path);
+                $zip->close();
+                $exitCode = Artisan::call('snapshot:load ' . $snapName);
+                $output = Artisan::output();
+                /** log the results */
+                Log::info(
+                    "Backpack\BackupManager -- " .
+                    'se ha generado una nueva restauración de la base de datos desde la interfaz administrativa' .
+                    ". \r\n" .
+                    $output
+                );
+                return (strpos($output, 'loaded') > 0);
+            } catch (Exception $e) {
+                return false;
+            }
+        }
+
+        return false;
     }
 
     /**

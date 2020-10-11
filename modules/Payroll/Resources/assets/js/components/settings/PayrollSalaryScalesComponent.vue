@@ -2,7 +2,7 @@
     <section id="payrollSalaryScalesFormComponent">
         <a class="btn-simplex btn-simplex-md btn-simplex-primary"
            href="#" title="Registros de los escalafones salariales" data-toggle="tooltip"
-           @click="addRecord('add_payroll_salary_scale', 'salary-scales', $event)">
+           @click="addRecord('add_payroll_salary_scale', 'payroll/salary-scales', $event)">
            <i class="icofont icofont-growth ico-3x"></i>
             <span>Escalafones Salariales</span>
         </a>
@@ -115,7 +115,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-7 pad-top-10 with-border with-radius table-responsive"
-                                     style="place-self: baseline;" 
+                                     style="place-self: baseline;"
                                      v-if="record.group_by">
                                     <h6 class="text-center">Escalas o Niveles del Escalafón</h6>
                                     <div class="row" v-if="record.payroll_scales.length == 0">

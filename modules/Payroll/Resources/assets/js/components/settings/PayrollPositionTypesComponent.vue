@@ -2,7 +2,7 @@
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de tipos de cargo" data-toggle="tooltip"
-		   @click="addRecord('add_payroll_position_type', 'position-types', $event)">
+		   @click="addRecord('add_payroll_position_type', 'payroll/position-types', $event)">
            <i class="icofont icofont-contact-add ico-3x"></i>
 			<span>Tipos de Cargo</span>
 		</a>

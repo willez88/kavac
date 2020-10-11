@@ -13,7 +13,7 @@ class CreatePurchaseBaseBudgetsTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('purchase_base_budgets')){
+        if (!Schema::hasTable('purchase_base_budgets')) {
             Schema::create('purchase_base_budgets', function (Blueprint $table) {
                 $table->bigIncrements('id');
 
@@ -25,9 +25,9 @@ class CreatePurchaseBaseBudgetsTable extends Migration
 
                 $table->enum('status', ['WAIT', 'QUOTED', 'WAIT_QUOTATION', 'BOUGHT'])->default('WAIT')
                           ->comment(
-                              'Determina el estatus del presupuesto base 
-                              (WAIT) - espera por ser completado. 
-                              (WAIT_QUOTATION) - espera ser cotizado. 
+                              'Determina el estatus del presupuesto base
+                              (WAIT) - espera por ser completado.
+                              (WAIT_QUOTATION) - espera ser cotizado.
                               (QUOTED) - Cotizado,
                               (BOUGHT) - comprado',
                           );

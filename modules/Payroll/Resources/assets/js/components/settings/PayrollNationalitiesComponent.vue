@@ -2,7 +2,7 @@
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de nacionalidades" data-toggle="tooltip"
-		   @click="addRecord('add_payroll_nationality', 'nationalities', $event)">
+		   @click="addRecord('add_payroll_nationality', 'payroll/nationalities', $event)">
            <i class="icofont icofont-id-card ico-3x"></i>
 		   <span>Nacionalidades</span>
 		</a>

@@ -13,7 +13,7 @@ class CreatePurchasePivotsTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('pivots')){
+        if (!Schema::hasTable('pivots')) {
             Schema::create('pivots', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->morphs('recordable');

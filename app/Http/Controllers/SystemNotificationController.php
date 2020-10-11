@@ -13,7 +13,9 @@ class SystemNotificationController extends Controller
     /**
      * Método constructor del controlador de notificaciones del sistema
      *
-     * @method     __construct
+     * @method     __construct(object $toUser)
+     *
+     * @param  object  $toUser Objeto con información del usuario al cual enviar una notificación
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
@@ -25,13 +27,13 @@ class SystemNotificationController extends Controller
     /**
      * Método que envía notificaciones del sistema a usuarios
      *
-     * @method     send
+     * @method     send(Request $request)
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
      * @param      Request          $request    Objeto con información de la petición
      *
-     * @return     json             Json con información sobre el resultado del envío de la notificación
+     * @return     \Illuminate\Http\JsonResponse   Json con información sobre el resultado del envío de la notificación
      */
     public function send(Request $request)
     {

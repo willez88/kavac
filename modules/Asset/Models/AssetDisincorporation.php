@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
+use App\Models\User;
 
 /**
  * @class AssetDisincorporation
@@ -37,7 +38,9 @@ class AssetDisincorporation extends Model implements Auditable
      *
      * @var array $fillable
      */
-    protected $fillable = ['code', 'asset_disincorporation_motive_id', 'date', 'observation', 'user_id', 'institution_id'];
+    protected $fillable = [
+        'code', 'asset_disincorporation_motive_id', 'date', 'observation', 'user_id', 'institution_id'
+    ];
 
     /**
     * Método que obtiene los bienes desincorporados
@@ -71,6 +74,6 @@ class AssetDisincorporation extends Model implements Auditable
      */
     public function user()
     {
-        return $this->belongsTo(\App\User::class);
+        return $this->belongsTo(User::class);
     }
 }

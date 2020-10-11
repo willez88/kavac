@@ -13,7 +13,7 @@ class CreatePurchasePlansTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('purchase_plans')){
+        if (!Schema::hasTable('purchase_plans')) {
             Schema::create('purchase_plans', function (Blueprint $table) {
                 $table->bigIncrements('id');
 

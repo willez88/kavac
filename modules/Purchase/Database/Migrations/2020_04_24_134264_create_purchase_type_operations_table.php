@@ -13,10 +13,10 @@ class CreatePurchaseTypeOperationsTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('purchase_type_operations')){
+        if (!Schema::hasTable('purchase_type_operations')) {
             Schema::create('purchase_type_operations', function (Blueprint $table) {
                 $table->bigIncrements('id');
-                
+
                 $table->string('name')->comment('Nombre del tipo de compra');
                 $table->text('description')->nullable()->comment('Descripción del tipo de compra');
 

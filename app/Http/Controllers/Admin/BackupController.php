@@ -3,8 +3,8 @@
 /** Controladores de uso exclusivo para usuarios administradores */
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
 use App\Repositories\BackupRepository;
 
 //Eliminar
@@ -113,5 +113,28 @@ class BackupController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    /**
+     * Método que ejecuta la acción para la restauración de la base de datos a partir de un respaldo
+     *
+     * @method     restore
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param      BackupRepository    $backup     Repositorio de instrucciones para la ejecución de procesos de
+     *                                             respaldo y restauración de la base de datos
+     * @param      Request             $request    Objeto con información de la petición realizada
+     *
+     * @return     \Illuminate\Http\JsonResponse   JSON con información del resultado en la restauración de la
+     *                                             base de datos
+     */
+    public function restore(Request $request, BackupRepository $backup)
+    {
+        $filename = $request->filename;
+
+        $restaured = $backup->restore($filename, $request);
+
+        return response()->json(['result' => $restaured], 200);
     }
 }

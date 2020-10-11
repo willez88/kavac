@@ -34,7 +34,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach(App\User::all() as $user)
+						@foreach(App\Models\User::all() as $user)
 							@php
 	                            $user_session = App\Models\Session::getSessionData($user->id);
 	                        @endphp

@@ -61,7 +61,9 @@ class SalePaymentMethodController extends Controller
             'name' => ['required', 'max:100'],
             'description' => ['required', 'max:200']
         ]);
-        $salePaymentMethod = SalePaymentMethod::create(['name' => $request->name,'description' => $request->description]);
+        $salePaymentMethod = SalePaymentMethod::create([
+            'name' => $request->name,'description' => $request->description
+        ]);
         return response()->json(['record' => $salePaymentMethod, 'message' => 'Success'], 200);
     }
 

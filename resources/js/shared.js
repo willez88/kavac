@@ -8,15 +8,15 @@
 
 /** Requerimiento del paquete vue-table-2 para la representación de consultas en tablas con vue */
 import {ServerTable, ClientTable, Event} from 'vue-tables-2';
-
+/** Establece el uso del plugin ClientTable */
 Vue.use(ClientTable);
 
 /** Requerimiento del paquete pretty-checkbox-vue para checkbox y radio inputs personalizados */
 import PrettyCheckbox from 'pretty-checkbox-vue';
-
+/** Establece el uso del plugin PrettyCheckbox */
 Vue.use(PrettyCheckbox);
 
 /** Requerimiento del paquete CKEditor para ser implementado en Vuejs */
 import CKEditor from '@ckeditor/ckeditor5-vue';
-
+/** Establece el uso del plugin CKEditor */
 Vue.use(CKEditor);

@@ -13,7 +13,7 @@ class CreatePurchaseOrdersTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('purchase_orders')){
+        if (!Schema::hasTable('purchase_orders')) {
             Schema::create('purchase_orders', function (Blueprint $table) {
                 $table->bigIncrements('id');
 
