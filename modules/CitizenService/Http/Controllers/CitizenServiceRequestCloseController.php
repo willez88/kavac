@@ -50,24 +50,19 @@ class CitizenServiceRequestCloseController extends Controller
         if (in_array($extensionFile, $documentFormat)) {
             if ($citizenServiceRequest->file_counter <= 2) {
                 if ($upDoc->uploadDoc($request->file('file'), 'documents', CitizenServiceRequest::class, $request->request_id, null, false, false, true)) {
-                    error_log(CitizenServiceRequest::class);
-                    error_log($request->request_id);
-
                     $file_id = $upDoc->getDocStored()->id;
-                    //$document = Document::find($file_id);
-                    //$document->documentable_type = 'Modules\CitizenService\Models\CitizenServiceRequestClose';
-                    //$document->documentable_id = 'Modules\CitizenService\Models\CitizenServiceRequestClose';
+                   //$document = Document::find($file_id);
+                   //$document->documentable_type = 'Modules\CitizenService\Models\CitizenServiceRequestClose';
+                   //$document->documentable_id = 'Modules\CitizenService\Models\CitizenServiceRequestClose';
                     $file_url = $upDoc->getDocStored()->url;
                     $file_name = $upDoc->getDocName();
-                    error_log('Hola');
-                    error_log($file_url.' '.$file_id);
-                    error_log($file_name);
+                  
                     $citizenServiceRequest->file_counter = $citizenServiceRequest->file_counter + 1;
                     $citizenServiceRequest->save();
-                    error_log('file_counter: '.$citizenServiceRequest->file_counter);
+                   
                     return response()->json(['result' => true, 'file_id' => $file_id,
-                   'file_url' => $file_url,
-                   'file_name' => $file_name], 200);
+                    'file_url' => $file_url,
+                    'file_name' => $file_name], 200);
                 } elseif (in_array($extensionFile, $imageFormat)) {
                     if ($upImage->uploadImage($request->file('file'), 'pictures')) {
                         $file_id = $upImage->getImageStored()->id;
@@ -75,8 +70,8 @@ class CitizenServiceRequestCloseController extends Controller
                         $file_name = $upImage->getImageName();
 
                         return response()->json(['result' => true, 'file_id' => $file_id,
-                     'file_url' => $file_url,
-                     'file_name' => $file_name], 200);
+                        'file_url' => $file_url,
+                        'file_name' => $file_name], 200);
                     }
                 } elseif (in_array($extensionFile, $videoFormat)) {
                     dd('Is video');
