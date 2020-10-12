@@ -63,14 +63,12 @@ class CitizenServiceRequestCloseController extends Controller
                     error_log($request->request_id);
 
                     $file_id = $upDoc->getDocStored()->id;
-                    //$document = Document::find($file_id);
-                    //$document->documentable_type = 'Modules\CitizenService\Models\CitizenServiceRequestClose';
-                    //$document->documentable_id = 'Modules\CitizenService\Models\CitizenServiceRequestClose';
+                   //$document = Document::find($file_id);
+                   //$document->documentable_type = 'Modules\CitizenService\Models\CitizenServiceRequestClose';
+                   //$document->documentable_id = 'Modules\CitizenService\Models\CitizenServiceRequestClose';
                     $file_url = $upDoc->getDocStored()->url;
                     $file_name = $upDoc->getDocName();
-                    error_log('Hola');
-                    error_log($file_url.' '.$file_id);
-                    error_log($file_name);
+
                     $citizenServiceRequest->file_counter = $citizenServiceRequest->file_counter + 1;
                     $citizenServiceRequest->save();
                     error_log('file_counter: '.$citizenServiceRequest->file_counter);
