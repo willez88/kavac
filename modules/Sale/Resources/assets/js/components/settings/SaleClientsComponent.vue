@@ -2,7 +2,7 @@
   <div class="text-center">
     <a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
       title="Clientes" data-toggle="tooltip"
-      @click="addRecord('add_sale_clients', 'register-clients', $event);">
+      @click="addRecord('add_sale_clients', 'sale/register-clients', $event);">
       <i class="icofont icofont-business-man ico-3x"></i>
       <span>Clientes</span>
     </a>

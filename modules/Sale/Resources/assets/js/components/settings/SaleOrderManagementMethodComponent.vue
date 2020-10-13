@@ -2,7 +2,7 @@
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de Gestión de Pedidos" data-toggle="tooltip"
-		   @click="addRecord('add_sale_ordermanagement_method', 'ordermanagement-method', $event)">
+		   @click="addRecord('add_sale_ordermanagement_method', 'sale/ordermanagement-method', $event)">
            <i class="icofont icofont-cur-dollar ico-3x"></i>
 		   <span>Pedidos</span>
 		</a>

@@ -2,7 +2,7 @@
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de Descuentos" data-toggle="tooltip"
-		   @click="addRecord('add_sale_discount_method', 'discount-method', $event)">
+		   @click="addRecord('add_sale_discount_method', 'sale/discount-method', $event)">
            <i class="icofont icofont-sale-discount ico-3x"></i>
 		   <span>Descuentos</span>
 		</a>
@@ -18,7 +18,7 @@
 							Descuentos
 						</h6>
 					</div>
-					
+
 					<div class="modal-body">
 						<div class="alert alert-danger" v-if="errors.length > 0">
 							<ul>

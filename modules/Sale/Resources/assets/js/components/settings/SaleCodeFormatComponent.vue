@@ -2,7 +2,7 @@
   <div class="text-center">
     <a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
       title="Formato de códigos" data-toggle="tooltip"
-      @click="addRecord('add_sale_formatcode', 'register-formatcode', $event);">
+      @click="addRecord('add_sale_formatcode', 'sale/register-formatcode', $event);">
       <i class="icofont icofont-bar-code ico-3x"></i>
       <span>Formato de códigos</span>
     </a>

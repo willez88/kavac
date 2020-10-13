@@ -2,7 +2,7 @@
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de Almacenes de Comercialización" data-toggle="tooltip"
-		   @click="addRecord('add_sale_warehouse_method', 'warehouse-method', $event)">
+		   @click="addRecord('add_sale_warehouse_method', 'sale/warehouse-method', $event)">
            <i class="icofont icofont-building-alt ico-3x"></i>
 		   <span>Almacenes</span>
 		</a>

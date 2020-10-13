@@ -4,6 +4,7 @@
 /public/storage
 #/public/js/components/core
 #/public/modules/*/components/prod
+/database/snapshots
 /storage/*.key
 /storage/debugbar
 /storage/pictures

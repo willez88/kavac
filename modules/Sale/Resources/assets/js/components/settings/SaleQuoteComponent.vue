@@ -2,7 +2,7 @@
   <div class="text-center">
     <a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
       title="Solicitar cotización" data-toggle="tooltip"
-      @click="addRecord('add_sale_quote_method', 'discount-method', $event);">
+      @click="addRecord('add_sale_quote_method', 'sale/discount-method', $event);">
       <i class="icofont icofont-cart ico-3x"></i>
       <span>Cotización</span>
     </a>
