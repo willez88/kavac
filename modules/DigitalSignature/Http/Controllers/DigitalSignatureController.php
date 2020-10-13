@@ -36,11 +36,21 @@ class DigitalSignatureController extends Controller
     /**
      * Muestra la ventana principal del módulo Digital signature
      *
+     * @method    index
+     *  
      * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
-     * @return datos del certificado del usuario si tiene asociado
+     * 
+     * @return  \Illuminate\Http\JsonResponse           Objeto con los registros a mostrar
      */
     public function index()
     {
+        /**
+         * @var userprofile: datos del usuario con certificado firmante
+         * @var certuser: certificado firmante del usuario
+         * @var cert: certficado firmante del usuario en una matriz para acceder a sus campos
+         * @var fecha: fecha de expiración del certificado firmante del usuario
+         */
+        
         if (User::find(auth()->user()->id)->signprofiles) {
             $userprofile = User::find(auth()->user()->id)->signprofiles;
             $certuser = Crypt::decryptString($userprofile['cert']);
@@ -80,6 +90,17 @@ class DigitalSignatureController extends Controller
      */
     public function store(Request $request)
     {
+        /**
+         * @var filename: nombre del archivo .p12
+         * @var path: dirección de almacenaminto del archivo -p12
+         * @var certStore: archivo .p12
+         * @var passphrase: frase de paso del archivo .p12
+         * @var pkcs12: objeto del certificado firmante
+         * @var cert: Certificado del firmante
+         * @var pkey: clave privada 
+         * @var profile: objetivo tipo Signprofile
+         */
+        
         $filename = Str::random(10) . '.p12';
         $path = $request->file('pkcs12')->storeAs('',$filename, 'temporary');
         $certStore = file_get_contents(storage_path('temporary') . '/' . $filename);
@@ -130,6 +151,17 @@ class DigitalSignatureController extends Controller
      */
     public function update(Request $request)
     {
+        /**
+         * @var filename: nombre del archivo .p12
+         * @var path: dirección de almacenaminto del archivo -p12
+         * @var certStore: archivo .p12
+         * @var passphrase: frase de paso del archivo .p12
+         * @var pkcs12: objeto del certificado firmante
+         * @var cert: Certificado del firmante
+         * @var pkey: clave privada 
+         * @var profile: objetivo tipo Signprofile
+         */
+        
         if(User::find(auth()->user()->id)->signprofiles) {
             $userprofile = User::find(auth()->user()->id)->signprofiles;
             $userprofile->delete();
@@ -167,6 +199,9 @@ class DigitalSignatureController extends Controller
      */
     public function destroy()
     {
+        /**
+         * @var userprofile: usuario con certificado firmante
+         */
         if(User::find(auth()->user()->id)->signprofiles) {
             $userprofile = User::find(auth()->user()->id)->signprofiles;
             $userprofile->delete();
@@ -202,6 +237,13 @@ class DigitalSignatureController extends Controller
      * @return array con la informacion del certificado firmante
      */
     public function getCertificate() {
+
+        /**
+         * @var userprofile: usuario con certificado firmante
+         * @var certuser: certificado del usuario 
+         * @var cert: certficado firmante del usuario en una matriz para acceder a sus campos
+         * @var fecha: fecha de expiración del certificado firmante del usuario
+         */
 
         if(User::find(auth()->user()->id)->signprofiles) {
 
@@ -251,6 +293,25 @@ class DigitalSignatureController extends Controller
      */
     public function signFile(Request $request)
     {
+        /**
+         * @var filename: usuario con certificado firmante
+         * @var filenamepdf: certificado del usuario 
+         * @var path: certficado firmante del usuario en una matriz para acceder a sus campos
+         * @var filenamepdfsign: fecha de expiración del certificado firmante del usuario
+         * @var getpath: objeto de tipo Helper
+         * @var storePdfSign: ruta del archivo pdf firmado obtenido de una función del Helper
+         * @var storePdf: ruta del archivo pdf a firmar obtenido de una función del Helper
+         * @var cert: certificado del firmante
+         * @var pkey: clave privada para firmar
+         * @var passphrase: frase de paso del archivo .p12
+         * @var filenamep12: nombre del archivo .p12
+         * @var storeCertificated: ruta del certificado firmante
+         * @var createpkcs12: archivo .p12
+         * @var pathPortableSigner: ruta del ejecutable PortableSigner para realizar la firma
+         * @var comand: comando para realizar el proceso de firma
+         * @var run: respuesta del proceso de firma electrónica
+         */
+        
         $this->validate($request, [
             'pdf' => ['required','mimes:pdf']
         ]);
@@ -309,6 +370,16 @@ class DigitalSignatureController extends Controller
      * @return json con el detalle de la verificación de la firma
      */
     public function verifysign(Request $request) {
+
+        /**
+         * @var filename: nombre del archivo
+         * @var namepdfsign: nombre del archivo a verificar firma 
+         * @var path: ruta del archivo a verificar firma
+         * @var getpath: objeto de tipo Helper 
+         * @var storePdfSign: ruta del archivo a verificar obtenido de uan función del Helper
+         * @var comand: comando para realizar el proceso de firma
+         * @var run: respuesta del proceso de firma electrónica
+         */
 
         $this->validate($request, [
             'pdf' => ['required','mimes:pdf']
