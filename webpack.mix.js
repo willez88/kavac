@@ -126,7 +126,7 @@ mix.webpackConfig({
     },
     output:{
         chunkFilename: `js/components/${(mix.inProduction()) ? 'core/[chunkhash]' : '[name]'}.js`,
-        publicPath: `${process.env.APP_URL}/`,
+        publicPath: `${(process.env.APP_TESTING)?process.env.APP_URL_TESTING:process.env.APP_URL}/`,
     },
     /*optimization: {
         splitChunks: {
