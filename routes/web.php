@@ -126,7 +126,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
      *
      * Rutas de recursos para la gestión de estatus de documentos.
      */
-    Route::resource('document-status', 'DocumentStatusController', ['except' => ['show']]);
+    Route::resource('document-status', 'DocumentStatusController', ['except' => ['create', 'show', 'edit']]);
 
     /**
      * -----------------------------------------------------------------------
@@ -153,54 +153,54 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     )->name('required.documents.destroy');
 
     /** Rutas para la gestión de estados civiles */
-    Route::resource('marital-status', 'MaritalStatusController', ['except' => ['show']]);
+    Route::resource('marital-status', 'MaritalStatusController', ['except' => ['create', 'show', 'edit']]);
     Route::get(
         '/get-marital-status/{id?}',
         'MaritalStatusController@getMaritalStatus'
     )->name('get-marital-status');
 
     /** Rutas para la gestión de profesiones */
-    Route::resource('professions', 'ProfessionController', ['except' => ['show']]);
+    Route::resource('professions', 'ProfessionController', ['except' => ['create', 'show', 'edit']]);
     Route::get(
         '/get-professions/{id?}',
         'ProfessionController@getProfessions'
     )->name('get-professions');
 
     /** Rutas para la gestión de tipos de instituciones */
-    Route::resource('institution-types', 'InstitutionTypeController', ['except' => ['show']]);
+    Route::resource('institution-types', 'InstitutionTypeController', ['except' => ['create', 'show', 'edit']]);
 
     /** Rutas para la gestión de sectores de instituciones */
-    Route::resource('institution-sectors', 'InstitutionSectorController', ['except' => ['show']]);
+    Route::resource('institution-sectors', 'InstitutionSectorController', ['except' => ['create', 'show', 'edit']]);
 
     /** Rutas para la gestión de Países */
     Route::resource('countries', 'CountryController', ['except' => ['create', 'show', 'edit']]);
 
     /** Rutas para la gestión de Estados de Países */
-    Route::resource('estates', 'EstateController', ['except' => ['show']]);
+    Route::resource('estates', 'EstateController', ['except' => ['create', 'show', 'edit']]);
 
     /** Rutas para la gestión de Municipios de Estados */
-    Route::resource('municipalities', 'MunicipalityController', ['except' => ['show']]);
+    Route::resource('municipalities', 'MunicipalityController', ['except' => ['create', 'show', 'edit']]);
 
     /** Rutas para la gestión de Ciudades de Estados */
     Route::resource('cities', 'CityController', ['except' => ['create', 'show', 'edit']]);
 
     /** Rutas para la gestión de Parroquias de Municipios */
-    Route::resource('parishes', 'ParishController', ['except' => ['show']]);
+    Route::resource('parishes', 'ParishController', ['except' => ['create', 'show', 'edit']]);
 
     /** Rutas para la gestión de Impuestos */
-    Route::resource('taxes', 'TaxController');
+    Route::resource('taxes', 'TaxController', ['except' => ['create', 'show', 'edit']]);
 
     /** Rutas para la gestión de Unidades Tributarias */
-    Route::resource('tax-units', 'TaxUnitController');
+    Route::resource('tax-units', 'TaxUnitController', ['except' => ['create', 'show', 'edit']]);
 
     /** Rutas para la gestión de deducciones */
-    Route::resource('deductions', 'DeductionController');
+    Route::resource('deductions', 'DeductionController', ['except' => ['create', 'show', 'edit']]);
 
     /** Rutas para la gestión de unidades, departamentos o dependencias */
-    Route::resource('departments', 'DepartmentController');
+    Route::resource('departments', 'DepartmentController', ['except' => ['create', 'show', 'edit']]);
 
     /** Rutas para la gestión de monedas y tipos de cambio */
-    Route::resource('currencies', 'CurrencyController');
+    Route::resource('currencies', 'CurrencyController', ['except' => ['create', 'show', 'edit']]);
     Route::get(
         'currencies/info/{currency_id}',
         'CurrencyController@getCurrencyInfo'
@@ -241,16 +241,18 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('get-image/{image}', 'ImageController@getImage')->name('get-image');
 
     /** Rutas para la gestión de perfiles */
-    Route::resource('profiles', 'ProfileController');
+    Route::resource('profiles', 'ProfileController', [
+        'except' => ['index', 'create', 'show', 'edit', 'update', 'destroy']
+    ]);
 
     /** Rutas para la gestión de años fiscales */
     Route::resource('fiscal-years', 'FiscalYearController', ['except' => ['show']]);
 
     /** Rutas para la gestión de unidades de medida */
-    Route::resource('measurement-units', 'MeasurementUnitController', ['except' => ['show']]);
+    Route::resource('measurement-units', 'MeasurementUnitController', ['except' => ['create', 'show', 'edit']]);
 
     /** Rutas para la gestión de tipos de cambio */
-    Route::resource('exchange-rates', 'ExchangeRateController', ['except' => ['show']]);
+    Route::resource('exchange-rates', 'ExchangeRateController', ['except' => ['create', 'show', 'edit']]);
 
     /** Rutas para gestionar notificaciones del sistema */
     //Route::post('system/notify/send', 'SystemNotificationController@send');

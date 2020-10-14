@@ -45,17 +45,6 @@ class InstitutionSectorController extends Controller
     }
 
     /**
-     * Muestra el formulario para crear un nuevo registro de sector de institución
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Valida y registra un nuevo sector de institución
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
@@ -74,30 +63,6 @@ class InstitutionSectorController extends Controller
         ]);
 
         return response()->json(['record' => $institutionSector, 'message' => 'Success'], 200);
-    }
-
-    /**
-     * Muestra información acerca del sector de institución
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\InstitutionSector  $institutionSector
-     * @return \Illuminate\Http\Response
-     */
-    public function show(InstitutionSector $institutionSector)
-    {
-        //
-    }
-
-    /**
-     * Muestra el formulario para actualizar información de un sector de institución
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\InstitutionSector  $institutionSector
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(InstitutionSector $institutionSector)
-    {
-        //
     }
 
     /**

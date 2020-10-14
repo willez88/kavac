@@ -19,7 +19,7 @@ class FailedLoginAttempt extends Model implements Auditable
     /**
      * Registra los datos del intento fallido de autenticación en el sistema
      *
-     * @method     record
+     * @method     record(string $username, string $ip, object $user)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *

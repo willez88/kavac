@@ -39,7 +39,7 @@ class TaxUnit extends Model implements Auditable
     /**
      * Método mutador que permite obtener información del campo start_date en formato de fecha sin marca de tiempo
      *
-     * @method     getStartDateAttribute
+     * @method     getStartDateAttribute()
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
@@ -54,7 +54,7 @@ class TaxUnit extends Model implements Auditable
     /**
      * Método mutador que permite obtener información del campo end_date en formato de fecha sin marca de tiempo
      *
-     * @method     getEndDateAttribute
+     * @method     getEndDateAttribute()
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *

@@ -8,6 +8,7 @@ use App\Roles\Models\Role;
 use App\Roles\Models\Permission;
 use App\Models\Estate;
 use App\Models\Municipality;
+use DB;
 
 /**
  * @class MunicipalitiesTableSeeder

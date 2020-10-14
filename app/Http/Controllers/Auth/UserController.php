@@ -222,7 +222,7 @@ class UserController extends Controller
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse Retorna la vista que ejecuta la acción junto con el mensaje al usuario
+     * @return \Illuminate\Http\JsonResponse Retorna la vista que ejecuta la acción junto con el mensaje al usuario
      */
     public function setRolesAndPermissions(Request $request)
     {
@@ -337,17 +337,17 @@ class UserController extends Controller
     public function info(User $user)
     {
         $with = [];
-        if (!is_null($user->profile)) {
+        if ($user->profile !== null) {
             $with[] = 'profile';
         }
-        if (!is_null($user->roles)) {
+        if ($user->roles !== null) {
             $with[] = 'roles';
         }
-        if (!is_null($user->permissions)) {
+        if ($user->permissions !== null) {
             $with[] = 'permissions';
         }
 
-        if (count($with) > 0) {
+        if (!empty($with)) {
             $user->with($with);
         }
 
@@ -359,7 +359,7 @@ class UserController extends Controller
     /**
      * Muestra un listado de roles y permisos de usuario
      *
-     * @method     indexRolesPermissions
+     * @method     indexRolesPermissions()
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
@@ -373,7 +373,7 @@ class UserController extends Controller
     /**
      * Gestiona la configuración de la cuenta de un usuario
      *
-     * @method     userSettings
+     * @method     userSettings()
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
@@ -405,13 +405,13 @@ class UserController extends Controller
     /**
      * Establece la configuración personalizada de un usuario
      *
-     * @method     setUserSettings
+     * @method     setUserSettings(Request $request)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
      * @param      Request            $request   Objeto con datos de la petición
      *
-     * @return     \Illuminate\Http\Response     redirecciona a la página de configuración del usuario
+     * @return     \Illuminate\Http\RedirectResponse     redirecciona a la página de configuración del usuario
      */
     public function setUserSettings(Request $request)
     {
@@ -428,7 +428,7 @@ class UserController extends Controller
     /**
      * Gestiona la configuración de notificaciones establecida por el usuario
      *
-     * @method     setMyNotifications
+     * @method     setMyNotifications(Request $request)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
@@ -463,7 +463,7 @@ class UserController extends Controller
     /**
      * Obtiene información acerca de la pantalla de bloqueo del sistema
      *
-     * @method     getLockScreenData
+     * @method     getLockScreenData()
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
@@ -478,11 +478,13 @@ class UserController extends Controller
     /**
      * Actualiza información de la pantalla de bloqueo del sistema
      *
-     * @method     setLockScreenData
+     * @method     setLockScreenData(Request $request)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
-     * @param      \Illuminate\Http\JsonResponse     Devuelve el resultado de la operación
+     * @param      Request          $request    Datos de la petición
+     *
+     * @return      \Illuminate\Http\JsonResponse     Devuelve el resultado de la operación
      */
     public function setLockScreenData(Request $request)
     {
@@ -495,11 +497,11 @@ class UserController extends Controller
     /**
      * Realiza las gestiones necesarias para desbloquear la pantalla del sistema
      *
-     * @method     unlockScreen
+     * @method     unlockScreen(Request $request)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
-     * @param      Request          $request    [description]
+     * @param      Request          $request    Datos de la petición
      *
      * @return     \Illuminate\Http\JsonResponse     Devuelve el resultado de la operación
      */

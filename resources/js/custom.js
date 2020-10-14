@@ -384,11 +384,6 @@ $(document).ready(function() {
                 group: 'Analistas'
             },
             {
-                name: 'Luis Ramírez',
-                email: 'lramirez@cenditel.gob.ve',
-                group: 'Analistas'
-            },
-            {
                 name: 'Hyildayra Colmenares',
                 email: 'hcolmenares@cenditel.gob.ve',
                 group: 'Analistas'
@@ -402,6 +397,11 @@ $(document).ready(function() {
                 name: 'Daniel Contreras',
                 email: 'dcontreras@cenditel.gob.ve',
                 group: 'Analistas'
+            },
+            {
+                name: 'Luis Ramírez',
+                email: 'lramirez@cenditel.gob.ve',
+                group: 'Manuales'
             },
             {
                 name: 'Marilyn Caballero',
@@ -443,6 +443,11 @@ $(document).ready(function() {
                 email: 'adosorio@cenditel.gob.ve',
                 group: 'Colaborador'
             },
+            {
+                name: 'Santiago Roca',
+                email: 'sroca@cenditel.gob.ve',
+                group: 'Colaborador'
+            }
         ]);
         bootbox.alert({
             className: 'modal-credits',
@@ -473,6 +478,7 @@ $(document).ready(function() {
             { name: 'Argenis Osorio' },
             { name: 'Laura Colina' },
             { name: 'Angelo Osorio' },
+            { name: 'Santiago Roca' }
         ]);
         bootbox.alert({
             className: 'modal-credits',

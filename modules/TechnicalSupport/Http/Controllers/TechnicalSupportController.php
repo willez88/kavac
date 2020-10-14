@@ -5,6 +5,7 @@ namespace Modules\TechnicalSupport\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
+use App\Models\User;
 
 class TechnicalSupportController extends Controller
 {
@@ -72,6 +73,11 @@ class TechnicalSupportController extends Controller
 
     public function getTechnicalSupportStaff()
     {
-        return template_choices('App\User', 'name', ['relationship' => 'roles','where' => ['slug' => 'technicalsupport']], true);
+        return template_choices(
+            User::class,
+            'name',
+            ['relationship' => 'roles','where' => ['slug' => 'technicalsupport']],
+            true
+        );
     }
 }

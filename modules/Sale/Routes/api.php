@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +13,7 @@ use Illuminate\Http\Request;
 */
 
 Route::group([
-    'middleware' => 'auth:api', 'prefix' => 'sale', 'namespace' => '$MODULE_NAMESPACE$\Http\Controllers'
+    'middleware' => 'auth:api', 'prefix' => 'sale'
 ], function () {
-    Route::get('/', '$STUDLY_NAME$Controller@index');
+    //
 });

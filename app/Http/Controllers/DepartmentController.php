@@ -46,16 +46,6 @@ class DepartmentController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -73,7 +63,7 @@ class DepartmentController extends Controller
         if (!is_null($request->parent_id) || !empty($request->parent_id)) {
             $dto = Department::where('parent_id', $request->parent_id)->first();
             if ($dto) {
-                $hierarchy = $dto->hierarchy + 1;
+                $hierarchy = (integer)$dto->hierarchy + 1;
             }
         }
 
@@ -89,28 +79,6 @@ class DepartmentController extends Controller
         ]);
 
         return response()->json(['record' => $department, 'message' => 'Success'], 200);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Department  $department
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Department $department)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Department  $department
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Department $department)
-    {
-        //
     }
 
     /**
@@ -132,13 +100,13 @@ class DepartmentController extends Controller
         if (!is_null($request->parent_id) || !empty($request->parent_id)) {
             $dto = Department::where('parent_id', $request->parent_id)->first();
             if ($dto) {
-                $hierarchy = $dto->hierarchy + 1;
+                $hierarchy = (integer)$dto->hierarchy + 1;
             }
         }
 
         $department->name = $request->name;
         $department->acronym = ($request->acronym)?$request->acronym:null;
-        $department->hierarchy = $hierarchy;
+        $department->hierarchy = (string)$hierarchy;
         $department->issue_requests = $request->issue_requests ?? false;
         $department->active = $request->active ?? false;
         $department->administrative = $request->administrative ?? false;

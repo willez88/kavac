@@ -141,6 +141,13 @@ class AccountingAccount extends Model implements Auditable
      */
     public function getCodeAttribute()
     {
-        return "{$this->group}.{$this->subgroup}.{$this->item}.{$this->generic}.{$this->specific}.{$this->subspecific}.{$this->institutional}";
+        $group = $this->group;
+        $subgroup = $this->subgroup;
+        $item = $this->item;
+        $generic = $this->generic;
+        $specific = $this->specific;
+        $subspecific = $this->subspecific;
+        $institutional = $this->institutional;
+        return "{$group}.{$subgroup}.{$item}.{$generic}.{$specific}.{$subspecific}.{$institutional}";
     }
 }

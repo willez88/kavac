@@ -13,7 +13,7 @@
 */
 
 Route::group([
-    'middleware' => 'auth:api', 'prefix' => 'accounting', 'namespace' => '$MODULE_NAMESPACE$\Http\Controllers'
+    'middleware' => 'auth:api', 'prefix' => 'accounting'
 ], function () {
-    Route::get('/', '$STUDLY_NAME$Controller@index');
+    //
 });

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
+
 /**
  * @class SaleSettingProductType
  * @brief Datos de tipos de producto
@@ -35,5 +36,4 @@ class SaleSettingProductType extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = ['name'];
-
 }

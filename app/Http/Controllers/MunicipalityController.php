@@ -45,17 +45,6 @@ class MunicipalityController extends Controller
     }
 
     /**
-     * Muestra el formulario para crear un nuevo registro de Municipio
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>v
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Valida y registra un nuevo Municipio
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
@@ -78,30 +67,6 @@ class MunicipalityController extends Controller
         ]);
 
         return response()->json(['record' => $municipality, 'message' => 'Success'], 200);
-    }
-
-    /**
-     * Muestra información acerca del Municipio
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\Municipality  $municipality
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Municipality $municipality)
-    {
-        //
-    }
-
-    /**
-     * Muestra el formulario para actualizar información de un Municipio
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\Municipality  $municipality
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Municipality $municipality)
-    {
-        //
     }
 
     /**

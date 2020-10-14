@@ -18,7 +18,6 @@ class AddFieldFileCounterCitizenServiceRequestsTable extends Migration
                 $table->integer('file_counter')->default(0)
                 ->comment('Contador de arcivo');
             }
-
         });
     }
 
@@ -33,7 +32,6 @@ class AddFieldFileCounterCitizenServiceRequestsTable extends Migration
             if (Schema::hasColumn('citizen_service_requests', 'file_counter')) {
                 $table->dropColumn('file_counter');
             }
-
         });
     }
 }

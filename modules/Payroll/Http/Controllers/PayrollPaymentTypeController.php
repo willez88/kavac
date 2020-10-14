@@ -90,7 +90,13 @@ class PayrollPaymentTypeController extends Controller
          * Objeto asociado al modelo PayrollPaymentType
          * @var Object $payrollPaymentTypes
          */
-        $payrollPaymentTypes = PayrollPaymentType::with('accountingAccount', 'budgetAccount', 'payrollConcepts', 'payrollPaymentPeriods')->get();
+        $payrollPaymentTypes = PayrollPaymentType::with(
+            'accountingAccount',
+            'budgetAccount',
+            'payrollConcepts',
+            'payrollPaymentPeriods'
+        )->get();
+
         foreach ($payrollPaymentTypes as $payrollPaymentType) {
             $listConcepts = [];
             foreach ($payrollPaymentType->payrollConcepts as $payrollConcept) {
@@ -196,7 +202,10 @@ class PayrollPaymentTypeController extends Controller
          */
         $payrollPaymentType = PayrollPaymentType::find($id);
         $validateRules = $this->validateRules;
-        $validateRules = array_replace($validateRules, ['code' => ['required', 'unique:payroll_payment_types,code,' . $payrollPaymentType->id]]);
+        $validateRules = array_replace(
+            $validateRules,
+            ['code' => ['required', 'unique:payroll_payment_types,code,' . $payrollPaymentType->id]]
+        );
         $this->validate($request, $validateRules, $this->messages);
 
         $payrollPaymentType->code                  = $request->code;
