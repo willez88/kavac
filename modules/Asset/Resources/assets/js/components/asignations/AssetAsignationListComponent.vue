@@ -18,7 +18,7 @@
 		<div slot="id" slot-scope="props" class="text-center">
 			<div class="d-inline-flex">
 				<asset-asignation-info
-					:route_list="'asignations/vue-info/' + props.row.id">
+					:route_list="'asset/asignations/vue-info/' + props.row.id">
 				</asset-asignation-info>
 
 				<button @click="editForm(props.row.id)"

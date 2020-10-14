@@ -4,15 +4,15 @@
 			<div class="card-header">
 				<h6 class="card-title text-uppercase">Historial de Inventario de Bienes Institucionales</h6>
 				<div class="card-btns">
-					<a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)" 
+					<a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)"
 					   title="Ir atrás" data-toggle="tooltip">
 						<i class="fa fa-reply"></i>
 					</a>
-					<a href="#" class="btn btn-sm btn-primary btn-custom" @click="createRecord('asset/inventory-history')" 
+					<a href="#" class="btn btn-sm btn-primary btn-custom" @click="createRecord('asset/inventory-history')"
 					   title="Guardar estado actual de inventario" data-toggle="tooltip">
 						<i class="fa fa-plus-circle"></i>
 					</a>
-					<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" 
+					<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
 					   data-toggle="tooltip">
 						<i class="now-ui-icons arrows-1_minimal-up"></i>
 					</a>
@@ -22,17 +22,17 @@
 				<v-client-table :columns="columns" :data="records" :options="table_options">
 					<div slot="id" slot-scope="props" class="text-center">
 						<div class="d-inline-flex">
-							
-							<button @click="showReport(props.row.code, 'create_report')" 
-									class="btn btn-primary btn-xs btn-icon btn-action" 
-									title="Generar reporte de bienes" data-toggle="tooltip" 
+
+							<button @click="showReport(props.row.code, 'create_report')"
+									class="btn btn-primary btn-xs btn-icon btn-action"
+									title="Generar reporte de bienes" data-toggle="tooltip"
 									type="button">
 								<i class="fa fa-file-pdf-o"></i>
 							</button>
 
-				    		<button @click="deleteRecord(props.index, 'inventory-history/delete')" 
-									class="btn btn-danger btn-xs btn-icon btn-action" 
-									title="Eliminar registro" data-toggle="tooltip" 
+				    		<button @click="deleteRecord(props.index, 'asset/inventory-history/delete')"
+									class="btn btn-danger btn-xs btn-icon btn-action"
+									title="Eliminar registro" data-toggle="tooltip"
 									type="button">
 								<i class="fa fa-trash-o"></i>
 							</button>
@@ -50,11 +50,11 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-file-pdf ico-2x"></i> 
+							<i class="icofont icofont-file-pdf ico-2x"></i>
 							Generar Reporte de Bienes?
 						</h6>
 					</div>
-					
+
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-md-12">
@@ -64,7 +64,10 @@
 								<div class="form-group">
 									<label>General</label>
 									<div class="col-12">
-										<input type="radio" name="type_report" value="general" checked="" id="sel_general_report" class="form-control bootstrap-switch bootstrap-switch-mini sel_type_report" data-on-label="SI" data-off-label="NO">
+										<input type="radio" name="type_report" value="general" checked=""
+                                               id="sel_general_report"
+                                               class="form-control bootstrap-switch bootstrap-switch-mini sel_type_report"
+                                               data-on-label="SI" data-off-label="NO">
 									</div>
 								</div>
 							</div>
