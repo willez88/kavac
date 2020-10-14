@@ -13,7 +13,7 @@ class CreatePurchaseRequirementsTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('purchase_requirements')){
+        if (!Schema::hasTable('purchase_requirements')) {
             Schema::create('purchase_requirements', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->string('code', 20)->unique()->comment('Código único para el requerimiento de compra');
@@ -82,8 +82,8 @@ class CreatePurchaseRequirementsTable extends Migration
 
                 $table->enum('requirement_status', ['WAIT', 'PROCESSED', 'BOUGHT'])->default('WAIT')
                           ->comment(
-                              'Determina el estatus del requerimiento 
-                              (WAIT) - en espera. 
+                              'Determina el estatus del requerimiento
+                              (WAIT) - en espera.
                               (PROCESSED) - Procesado,
                               (BOUGHT) - comprado',
                           );
@@ -92,7 +92,6 @@ class CreatePurchaseRequirementsTable extends Migration
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });
         }
-
     }
 
     /**

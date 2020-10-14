@@ -5,6 +5,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Roles\Models\Role;
 use Carbon\Carbon;
+use DB;
 
 /**
  * @class UsersTableSeeder

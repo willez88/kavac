@@ -41,14 +41,14 @@ class SaleCodeFormatController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-          'formatcode' => ['required', 'max:17'],
-          'type_formatcode' => ['required', 'max:50']
-       ]);
+            'formatcode' => ['required', 'max:17'],
+            'type_formatcode' => ['required', 'max:50']
+        ]);
 
         $formatCode = SaleCodeFormat::create([
-         'formatcode' => $request->formatcode,
-         'type_formatcode' => $request->type_formatcode
-       ]);
+            'formatcode' => $request->formatcode,
+            'type_formatcode' => $request->type_formatcode
+        ]);
 
         return response()->json(['record' => $formatCode, 'message' => 'Success'], 200);
     }
@@ -82,9 +82,9 @@ class SaleCodeFormatController extends Controller
         $formatCode = SaleCodeFormat::find($id);
 
         $this->validate($request, [
-        'formatcode' => ['required', 'max:17'],
-        'type_formatcode' => ['required', 'max:50']
-      ]);
+            'formatcode' => ['required', 'max:17'],
+            'type_formatcode' => ['required', 'max:50']
+        ]);
 
         $formatCode->formatcode = $request->formatcode;
         $formatCode->type_formatcode = $request->type_formatcode;
@@ -101,10 +101,10 @@ class SaleCodeFormatController extends Controller
     {
         foreach (SaleCodeFormat::all() as $code) {
             $this->data[] = [
-           'id' => $code->id,
-           'formatcode' => $code->formatcode,
-           'type_formatcode' => $code->type_formatcode
-         ];
+                'id' => $code->id,
+                'formatcode' => $code->formatcode,
+                'type_formatcode' => $code->type_formatcode
+            ];
         }
 
         return response()->json($this->data);

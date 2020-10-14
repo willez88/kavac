@@ -45,17 +45,6 @@ class InstitutionTypeController extends Controller
     }
 
     /**
-     * Muestra el formulario para crear un nuevo registro de tipo de institución
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Valida y registra un nuevo tipo de institución
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
@@ -76,30 +65,6 @@ class InstitutionTypeController extends Controller
         ]);
 
         return response()->json(['record' => $institutionType, 'message' => 'Success'], 200);
-    }
-
-    /**
-     * Muestra información acerca del tipo de institución
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\InstitutionType  $institutionType
-     * @return \Illuminate\Http\Response
-     */
-    public function show(InstitutionType $institutionType)
-    {
-        //
-    }
-
-    /**
-     * Muestra el formulario para actualizar información de un tipo de institución
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\InstitutionType  $institutionType
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(InstitutionType $institutionType)
-    {
-        //
     }
 
     /**

@@ -39,7 +39,7 @@ class AgeToWork implements Rule
      */
     public function passes($attribute, $value)
     {
-        return age(date($value)) >= $this->age;
+        return age($value) >= $this->age;
     }
 
     /**

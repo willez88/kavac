@@ -199,7 +199,12 @@ class PurchaseRequirementController extends Controller
         $department_list         = template_choices('App\Models\Department', 'name', [], true);
         $measurement_units       = template_choices('App\Models\MeasurementUnit', 'name', [], true);
         $purchase_supplier_types = template_choices('Modules\Purchase\Models\PurchaseSupplierType', 'name', [], true);
-        $warehouses              = template_choices('Modules\Warehouse\Models\Warehouse', ['name', 'measurement_unit_id'], [], true);
+        $warehouses              = template_choices(
+            'Modules\Warehouse\Models\Warehouse',
+            ['name', 'measurement_unit_id'],
+            [],
+            true
+        );
 
 
         $supplier_objects = $this->supplier_objects;

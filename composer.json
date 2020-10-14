@@ -6,16 +6,16 @@
     "type": "project",
     "require": {
         "php": "^7.3",
+        "arcanedev/log-viewer": "^8.0",
+        "beyondcode/laravel-websockets": "^1.8",
+        "doctrine/dbal": "^2.11",
+        "elibyy/tcpdf-laravel": "^8.0",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
-        "arcanedev/log-viewer": "^8.0",
-        "beyondcode/laravel-websockets": "^1.8",
-        "doctrine/dbal": "^2.11",
-        "elibyy/tcpdf-laravel": "^8.0",
         "laravelcollective/html": "^6.2",
         "maatwebsite/excel": "^3.1",
         "mariuzzo/laravel-js-localization": "^1.7",
@@ -23,7 +23,8 @@
         "nwidart/laravel-modules": "^8.0",
         "owen-it/laravel-auditing": "^11.0",
         "pusher/pusher-php-server": "^4.1",
-        "spatie/laravel-backup": "^6.11"
+        "spatie/laravel-backup": "^6.11",
+        "spatie/laravel-db-snapshots": "^1.7"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",

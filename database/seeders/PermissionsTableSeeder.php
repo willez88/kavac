@@ -19,6 +19,7 @@ use App\Models\Department;
 use App\Models\Document;
 use App\Models\Profession;
 use OwenIt\Auditing\Models\Audit;
+use DB;
 
 /**
  * @class PermissionsTableSeeder

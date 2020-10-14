@@ -42,25 +42,14 @@ class InstitutionController extends Controller
      * Muesta todos los registros de las Instituciones
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse|void
      */
     public function index(Request $request)
     {
         if (!$request->ajax()) {
-            return abort('403');
+            return abort(403);
         }
         return response()->json(['records' => Institution::all()], 200);
-    }
-
-    /**
-     * Muestra el formulario para crear un nuevo registro de Institución
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -147,55 +136,6 @@ class InstitutionController extends Controller
 
         session()->flash('message', ['type' => 'store']);
         return redirect()->route('settings.index');
-    }
-
-    /**
-     * Muestra información acerca de la Institución
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\Institution  $institution
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Institution $institution)
-    {
-        //
-    }
-
-    /**
-     * Muestra el formulario para actualizar información de una Institución
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\Institution  $institution
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Institution $institution)
-    {
-        //
-    }
-
-    /**
-     * Actualiza la información de la Institución
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Institution  $institution
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Institution $institution)
-    {
-        //
-    }
-
-    /**
-     * Elimina la Institución seleccionada
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\Institution  $institution
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Institution $institution)
-    {
-        //
     }
 
     /**

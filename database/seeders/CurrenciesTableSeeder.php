@@ -8,6 +8,7 @@ use App\Roles\Models\Role;
 use App\Roles\Models\Permission;
 use App\Models\Currency;
 use App\Models\Country;
+use DB;
 
 /**
  * @class CurrenciesTableSeeder

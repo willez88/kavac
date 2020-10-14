@@ -35,7 +35,7 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'username', 'lock_screen', 'time_lock',
+        'name', 'email', 'password', 'username', 'lock_screen', 'time_lock', 'blocked_at'
     ];
 
     /**
@@ -61,7 +61,7 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
      *
      * @var array
      */
-    protected $dates = ['deleted_at', 'last_login'];
+    protected $dates = ['deleted_at', 'last_login', 'blocked_at'];
 
     /**
      * User has many FailedLoginAttempts.
@@ -86,7 +86,7 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
     /**
      * User belongs to Many NotificationSetting.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function notificationSettings()
     {

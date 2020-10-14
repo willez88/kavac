@@ -61,7 +61,7 @@ class ExchangeRate extends Model implements Auditable
     /**
      * Método mutador que permite obtener información del campo start_at en formato de fecha sin marca de tiempo
      *
-     * @method     getStartAtAttribute
+     * @method     getStartAtAttribute()
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
@@ -76,7 +76,7 @@ class ExchangeRate extends Model implements Auditable
     /**
      * Método mutador que permite obtener información del campo end_at en formato de fecha sin marca de tiempo
      *
-     * @method     getEndAtAttribute
+     * @method     getEndAtAttribute()
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *

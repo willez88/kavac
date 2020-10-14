@@ -12,8 +12,8 @@
 |
 */
 
-/*Route::group([
-    'middleware' => 'auth:api', 'prefix' => 'asset', 'namespace' => '$MODULE_NAMESPACE$\Http\Controllers'
+Route::group([
+    'middleware' => 'auth:api', 'prefix' => 'asset'
 ], function () {
-    Route::get('/', '$STUDLY_NAME$Controller@index');
-});*/
+    //
+});

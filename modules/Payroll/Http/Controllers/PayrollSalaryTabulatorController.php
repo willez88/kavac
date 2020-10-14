@@ -291,8 +291,10 @@ class PayrollSalaryTabulatorController extends Controller
                         'payroll_horizontal_scale_id' => null,
                     ])->first();
 
-                    $salaryTabulatorScale->payroll_horizontal_scale_id = $payrollScale['payroll_horizontal_scale_id'] ?? null;
-                    $salaryTabulatorScale->payroll_vertical_scale_id   = $payrollScale['payroll_vertical_scale_id'] ?? null;
+                    $salaryTabulatorScale->payroll_horizontal_scale_id = $payrollScale['payroll_horizontal_scale_id']
+                                                                         ?? null;
+                    $salaryTabulatorScale->payroll_vertical_scale_id   = $payrollScale['payroll_vertical_scale_id']
+                                                                         ?? null;
                     $salaryTabulatorScale->value                       = $payrollScale['value'];
                     $salaryTabulatorScale->updated_at                  = $updated_at;
                     $salaryTabulatorScale->save();
@@ -329,7 +331,7 @@ class PayrollSalaryTabulatorController extends Controller
      *
      * @param     \Modules\Payroll\Models\PayrollSalaryTabulator    $salaryTabulator    Datos del tabulador salarial
      *
-     * @return    \Illuminate\Http\JsonResponse                                         Objeto con los registros a mostrar
+     * @return    \Illuminate\Http\JsonResponse                     Objeto con los registros a mostrar
      */
     public function destroy(PayrollSalaryTabulator $salaryTabulator)
     {

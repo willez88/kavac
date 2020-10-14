@@ -18,7 +18,9 @@ class CreateAccountingEntriesTable extends Migration
 
             $table->date('from_date')->nullable()->comment('Fecha del asiento contable');
             $table->text('concept')->nullable()->comment('Descripción del concepto del asiento contable');
-            $table->text('observations')->nullable()->comment('Descripción de alguna observación para el asiento contable');
+            $table->text('observations')->nullable()->comment(
+                'Descripción de alguna observación para el asiento contable'
+            );
             $table->text('reference')->comment(
                 'Referencia para identificar el asiento contable de forma directa (ej:SOP-11-2222)'
             );

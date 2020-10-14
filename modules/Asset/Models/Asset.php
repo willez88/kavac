@@ -248,7 +248,8 @@ class Asset extends Model implements Auditable
      * Método que obtiene la institución a la que pertenece el bien
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo Institution
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     *                                                           Institution
      */
     public function institution()
     {

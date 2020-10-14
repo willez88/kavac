@@ -12,8 +12,8 @@
 |
 */
 
-/*Route::group([
-    'middleware' => 'auth:api', 'prefix' => 'citizenservice', 'namespace' => '$MODULE_NAMESPACE$\Http\Controllers'
+Route::group([
+    'middleware' => 'auth:api', 'prefix' => 'citizenservice'
 ], function () {
-    Route::get('/', '$STUDLY_NAME$Controller@index');
-});*/
+    //
+});

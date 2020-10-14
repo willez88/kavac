@@ -38,31 +38,28 @@ class CitizenServiceRegisterController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'date_register'              => ['required'],
-            'first_name'                 => ['required', 'max:100'],
-            'project_name'               => ['required', 'max:100'],
-            'activities'                 => ['required', 'max:100'],
-            'start_date'                 => ['required'],
-            'end_date'                   => ['required'],
-            'email'                      => ['required', 'email'],
-            'percent'                    => ['required', 'max:10'],
-
+            'date_register' => ['required'],
+            'first_name'    => ['required', 'max:100'],
+            'project_name'  => ['required', 'max:100'],
+            'activities'    => ['required', 'max:100'],
+            'start_date'    => ['required'],
+            'end_date'      => ['required'],
+            'email'         => ['required', 'email'],
+            'percent'       => ['required', 'max:10']
         ]);
 
         //Guardar los registros del formulario en  CitizenServiceRegister
         $citizenserviceRegister = CitizenServiceRegister::create([
-            'date_register'              => $request->date_register,
-            'first_name'                 => $request->first_name,
-            'project_name'               => $request->project_name,
-            'activities'                 => $request->activities,
-            'start_date'                 => $request->start_date,
-            'end_date'                   => $request->end_date,
-            'email'                      => $request->email,
-            'percent'                    => $request->percent,
-
+            'date_register' => $request->date_register,
+            'first_name'    => $request->first_name,
+            'project_name'  => $request->project_name,
+            'activities'    => $request->activities,
+            'start_date'    => $request->start_date,
+            'end_date'      => $request->end_date,
+            'email'         => $request->email,
+            'percent'       => $request->percent
         ]);
     }
-
 
     /**
      * Show the specified resource.
@@ -80,10 +77,7 @@ class CitizenServiceRegisterController extends Controller
     public function edit($id)
     {
         $request = CitizenServiceRegister::find($id);
-        return view(
-            'citizenservice::registers.create',
-            compact('request')
-        );
+        return view('citizenservice::registers.create', compact('request'));
     }
 
     /**
