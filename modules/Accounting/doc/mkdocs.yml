@@ -1,37 +1,28 @@
+# Project information
 site_name: Documentación de Usuario.
+
+# Page tree
 nav:
-      - Módulo de Contabilidad: index.md
-      - Convertidor de Cuentas: account_converter.md
-      - Asientos Contables: accounting_entry.md
-      - Reportes: reports.md
+      - Inicio: index.md
+      - Módulo de Contabilidad:
+        - Convertidor de Cuentas: account_converter.md
+        - Asientos Contables: accounting_entry.md
+        - Reportes: reports.md
       - Configuración: 
         - Formatos de Códigos: setting/code_format.md
         - Configuración del Módulo: setting/setting.md 
         - Lista de Cuentas: setting/accounts_list.md  
       - Panel de Control: 
         - Panel de Control: control_panel/control_panel.md 
-      - Preguntas Frecuentes: 
-        - Preguntas Frecuentes: frequent_questions/frequent_questions.md  
-      
+      - Preguntas Frecuentes: frequent_questions.md  
 
-    
-# Project information
-site_description: A Material Design theme for MkDocs
-# site_author: 
-# site_url: 
-
-# # Repository
-# repo_name: 
-# repo_url: 
-
-
-# Copyright
-# copyright: ''
+# Repository
+repo_name: Repositorio-Kavac
+repo_url: https://tibisay.cenditel.gob.ve/sistema-de-gestion/
 
 # Configuration
 theme:
-  name: null
-  custom_dir: ../material
+  name: material
 
   # 404 page
   static_templates:
@@ -43,17 +34,22 @@ theme:
 
   # Default values, taken from mkdocs_theme.yml
   language: en
-  feature:
-    tabs: true
+  features:
+    - navigation.tabs
+    #- navigation.instant
   palette:
-    primary: blue
-    accent:  blue
+    scheme: default
+    # primary: light-blue
+    accent: light-blue
   font:
     text: Roboto
     code: Roboto Mono
-  favicon: assets/images/favicon.png
-  logo: assets/images/logo.png  
-
+  favicon: images/favicon.png
+  logo: images/logo.png
+  icon: 
+    repo: fontawesome/brands/git-square 
+  
+          
 # Plugins
 plugins:
   - search
@@ -63,19 +59,17 @@ plugins:
 # Customization
 # extra:
 #   social:
-#     - type: globe
-#       link: 
-#     - type: github-alt
-#       link: 
-#     - type: twitter
-#       link: 
-#     - type: linkedin
+#     - icon: 
 #       link: 
 
+# Extensions
 markdown_extensions:
   - admonition
   - pymdownx.details
 
+# css additional
+extra_css:
+  - stylesheets/extra.css
 
 
 

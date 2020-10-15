@@ -56,7 +56,7 @@ Página inicial o área de trabajo (Figura 5), se encuentra estructurada por una
 
 **Panel superior**
 
-Panel superior o barra de navegación (Figura 6), se distribuye de la siguiente manera, en la parte izquierda se muestra el logo KAVAC y un botón de despliegue para ocultar y mostrar el panel lateral, a la derecha se muestran una serie de herramientas funcionales como lo son: notificaciones, buzón de mensajes, <!-- selector de idioma --> configuración de base de datos y configuración de cuenta usuario.
+Panel superior o barra de navegación (Figura 6), se distribuye de la siguiente manera, en la parte izquierda se muestra el logo KAVAC y un botón de despliegue para ocultar y mostrar el panel lateral, a la derecha se muestran una serie de herramientas funcionales como lo son: buzón de mensajes, <!-- selector de idioma --> configuración de base de datos, pantalla completa y configuración de cuenta usuario.
 
 ![Screenshot](img/figure_6.png)<div style="text-align: center;font-weight: bold">Figura 6: Panel Superior</div>
 
