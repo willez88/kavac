@@ -35,4 +35,16 @@ class SaleWarehouse extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = ['name','main','active','address','institution_id','parish_id'];
+
+    /**
+     * Método que obtiene las instituciones que gestionan el almacén
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo
+     * SaleWarehouseInstitutionWarehouse
+     */
+    public function saleWarehouseInstitutionWarehouses()
+    {
+        return $this->hasMany(SaleWarehouseInstitutionWarehouse::class);
+    }
 }

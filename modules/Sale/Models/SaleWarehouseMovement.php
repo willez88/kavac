@@ -40,16 +40,17 @@ class SaleWarehouseMovement extends Model implements Auditable
         'sale_warehouse_institution_warehouse_end_id', 'user_id', 'description'
     ];
 
+
     /**
      * Método que obtiene el registro de institución gestiona almacén de donde parten los artículos
      *
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo
-     * WarehouseInstitutionWarehouse
+     * SaleWarehouseInstitutionWarehouse
      */
     public function saleWarehouseInstitutionWarehouseInitial()
     {
-        return $this->belongsTo(SaleWarehouseInstitutionWarehouse::class)->with('warehouse', 'institution');
+        return $this->belongsTo(SaleWarehouseInstitutionWarehouse::class)->with('sale_warehouse' ,'institution');
     }
 
     /**
@@ -57,11 +58,11 @@ class SaleWarehouseMovement extends Model implements Auditable
      *
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo
-     * WarehouseInstitutionWarehouse
+     * SaleWarehouseInstitutionWarehouse
      */
     public function saleWarehouseInstitutionWarehouseEnd()
     {
-        return $this->belongsTo(SaleWarehouseInstitutionWarehouse::class)->with('warehouse', 'institution');
+        return $this->belongsTo(SaleWarehouseInstitutionWarehouse::class)->with('sale_warehouse' ,'institution');
     }
 
     /**
@@ -80,7 +81,7 @@ class SaleWarehouseMovement extends Model implements Auditable
      *
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo
-     * WarehouseInventoryProduct
+     * SaleWarehouseInventoryProduct
      */
     public function saleWarehouseInventoryProductMovements()
     {

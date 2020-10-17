@@ -35,7 +35,7 @@ class SaleWarehouseInstitutionWarehouse extends Model implements Auditable
      *
      * @var array $fillable
      */
-    protected $fillable = ['institution_id', 'sale_warehouses_id', 'manage', 'main'];
+    protected $fillable = ['institution_id', 'sale_warehouse_id', 'manage', 'main'];
 
     /**
      * Método que obtiene la institution que gestionan el almacén
@@ -52,9 +52,9 @@ class SaleWarehouseInstitutionWarehouse extends Model implements Auditable
      * Método que obtiene el almacén gestionado por la institucion
      *
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo Warehouse
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo SaleWarehouse
      */
-    public function saleWarehouse()
+    public function sale_warehouse()
     {
         return $this->belongsTo(SaleWarehouse::class);
     }

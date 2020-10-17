@@ -36,8 +36,7 @@ class SaleWarehouseInventoryProduct extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'code', 'exist', 'reserved', 'unit_value', 'currency_id', 'measurement_unit_id', 'sale_setting_products_id',
-        'sale_warehouse_institution_warehouse_id'
+        'code', 'exist', 'reserved', 'unit_value', 'currency_id', 'measurement_unit_id', 'sale_setting_product_id', 'sale_warehouse_institution_warehouse_id'
     ];
 
     /**
@@ -80,7 +79,7 @@ class SaleWarehouseInventoryProduct extends Model implements Auditable
      *
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
-     * WarehouseInstitutionWarehouse
+     * SaleWarehouseInstitutionWarehouse
      */
     public function saleWarehouseInstitutionWarehouse()
     {

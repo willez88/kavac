@@ -27,8 +27,7 @@ class SaleWarehouseInventoryProductMovement extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'quantity', 'new_value', 'sale_warehouse_movement_id', 'sale_warehouse_initial_inventory_product_id',
-        'sale_warehouse_inventory_product_id'
+        'quantity', 'new_value', 'sale_warehouse_movement_id', 'sale_warehouse_initial_inventory_product_id', 'sale_warehouse_inventory_product_id'
     ];
 
     /**
@@ -44,15 +43,27 @@ class SaleWarehouseInventoryProductMovement extends Model implements Auditable
     }
 
     /**
+     * Método que obtiene el registro en el inventario del producto movilizado
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * WarehouseInventoryProduct
+     */
+    public function saleWarehouseProductValue()
+    {
+        return $this->belongsTo(SaleWarehouseProductValue::class);
+    }
+
+    /**
      * Método que obtiene el registro en el inventario del producto que se va movilizar
      *
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
      * WarehouseInventoryProduct
      */
-    public function SañeWarehouseInitialInventoryProduct()
+    public function SaleWarehouseInitialInventoryProduct()
     {
-        return $this->belongsTo(WarehouseInventoryProduct::class);
+        return $this->belongsTo(SaleWarehouseInventoryProduct::class);
     }
 
     /**
@@ -65,5 +76,16 @@ class SaleWarehouseInventoryProductMovement extends Model implements Auditable
     public function SaleWarehouseMovement()
     {
         return $this->belongsTo(SaleWarehouseMovement::class);
+    }
+
+    /**
+     * Método que obtiene la moneda en que se expresa el valor del producto
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo Currency
+     */
+    public function currency()
+    {
+        return $this->belongsTo(\App\Models\Currency::class);
     }
 }
