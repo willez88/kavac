@@ -13,6 +13,11 @@ mix.js(__dirname + '/Resources/assets/js/app.js', `modules/${moduleName}/js`)
    .sass( __dirname + '/Resources/assets/sass/app.scss', `modules/${moduleName}/css`);
 
 mix.webpackConfig({
+    resolve: {
+        alias: {
+            moment$: 'moment/moment.js'
+        }
+    },
     output:{
         chunkFilename: `modules/${moduleName}/components/${(mix.inProduction()) ? 'prod/[chunkhash]' : '[name]'}.js`,
     }

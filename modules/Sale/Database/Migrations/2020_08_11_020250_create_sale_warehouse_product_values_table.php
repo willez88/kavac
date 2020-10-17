@@ -30,9 +30,13 @@ class CreateSaleWarehouseProductValuesTable extends Migration
                 $table->bigIncrements('id')->comment('Identificador único del registro');
 
                 $table->string('value', 100)->comment('Valor o descripción del atributo');
-                
-                $table->foreignId('sale_warehouse_inventory_product_id')->constrained()
-                      ->onDelete('restrict')->onUpdate('cascade');
+
+                //$table->foreignId('sale_warehouse_inventory_product_id')->constrained()
+                //      ->onDelete('restrict')->onUpdate('cascade');
+                $table->unsignedBigInteger('sale_warehouse_inventory_product_id');
+
+                $table->foreign('sale_warehouse_inventory_product_id', 'sale_warehouse_product_values_inventory_fk')
+                      ->references('id')->on('sale_setting_products');
 
                 $table->timestamps();
             });

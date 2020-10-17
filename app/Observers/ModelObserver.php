@@ -10,7 +10,7 @@ class ModelObserver
     /**
      * Gestiona el evento "created" de un modelo
      *
-     * @method     created
+     * @method     created(object $model)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
@@ -24,7 +24,7 @@ class ModelObserver
     /**
      * Gestiona el evento "updated" de un modelo
      *
-     * @method     updated
+     * @method     updated(object $model)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
@@ -38,7 +38,7 @@ class ModelObserver
     /**
      * Gestiona el evento "deleted" de un modelo
      *
-     * @method     deleted
+     * @method     deleted(object $model)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
@@ -52,7 +52,7 @@ class ModelObserver
     /**
      * Gestiona el evento "forceDeleted" de un modelo
      *
-     * @method     forceDeleted
+     * @method     forceDeleted(object $model)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
@@ -66,7 +66,7 @@ class ModelObserver
     /**
      * Establece las notificaciones a enviar de acuerdo a la configuración del sistema
      *
-     * @method     setNotifications
+     * @method     setNotifications(object $model, string $type)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *

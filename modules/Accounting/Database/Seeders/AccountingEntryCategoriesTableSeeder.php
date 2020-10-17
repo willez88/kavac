@@ -14,7 +14,9 @@ use Modules\Accounting\Models\AccountingEntryCategory;
  * Gestiona la información por defecto a registrar inicialmente de las categorias de origen de asientos contables
  *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>LICENCIA DE SOFTWARE CENDITEL</a>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                LICENCIA DE SOFTWARE CENDITEL
+ *            </a>
  */
 class AccountingEntryCategoriesTableSeeder extends Seeder
 {

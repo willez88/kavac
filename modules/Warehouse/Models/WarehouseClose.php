@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
+use App\Models\User;
 
 /**
  * @class WarehouseClose
@@ -47,7 +48,7 @@ class WarehouseClose extends Model implements Auditable
     */
     public function initialUser()
     {
-        return $this->belongsTo(\App\User::class, 'initial_user_id');
+        return $this->belongsTo(User::class, 'initial_user_id');
     }
 
     /**
@@ -58,7 +59,7 @@ class WarehouseClose extends Model implements Auditable
      */
     public function endUser()
     {
-        return $this->belongsTo(\App\User::class, 'end_user_id');
+        return $this->belongsTo(User::class, 'end_user_id');
     }
 
     /**

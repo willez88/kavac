@@ -39,12 +39,24 @@ mix.copy('resources/js/generic-classes.js', 'public/js/generic-classes.js');
 mix.copy('resources/js/common.js', 'public/js/common.js');
 
 /** Procesa los estilos de la aplicación en el archivo app.css */
-mix.sass('resources/sass/app.scss', 'public/css');
-mix.sass('resources/sass/font-awesome/font-awesome.scss', 'public/css');
-mix.sass('resources/sass/ionicons/ionicons.scss', 'public/css');
-mix.sass('resources/sass/now-ui-kit/now-ui-kit.scss', 'public/css');
-mix.sass('node_modules/@mdi/font/scss/materialdesignicons.scss', 'public/css');
-mix.sass('resources/sass/custom/custom.scss', 'public/css');
+mix.sass('resources/sass/app.scss', 'public/css').options({
+    processCssUrls: false
+});
+mix.sass('resources/sass/font-awesome/font-awesome.scss', 'public/css').options({
+    processCssUrls: false
+});
+mix.sass('resources/sass/ionicons/ionicons.scss', 'public/css').options({
+    processCssUrls: false
+});
+mix.sass('resources/sass/now-ui-kit/now-ui-kit.scss', 'public/css').options({
+    processCssUrls: false
+});
+mix.sass('node_modules/@mdi/font/scss/materialdesignicons.scss', 'public/css').options({
+    processCssUrls: false
+});
+mix.sass('resources/sass/custom/custom.scss', 'public/css').options({
+    processCssUrls: false
+});
 mix.combine([
     'public/css/app.css', 'public/css/font-awesome.css', 'public/css/ionicons.css',
     'public/css/now-ui-kit.css', 'public/css/materialdesignicons.css', 'public/css/custom.css'
@@ -105,10 +117,16 @@ mix.webpackConfig({
     resolve: {
         alias: {
             moment$: 'moment/moment.js'
-        }
+        },
+        modules: [
+            path.resolve(__dirname),
+            path.resolve('./node_modules/'),
+            path.resolve('./resources/')
+        ]
     },
     output:{
         chunkFilename: `js/components/${(mix.inProduction()) ? 'core/[chunkhash]' : '[name]'}.js`,
+        publicPath: `${process.env.APP_URL}/`,
     },
     /*optimization: {
         splitChunks: {

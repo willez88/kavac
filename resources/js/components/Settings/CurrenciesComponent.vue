@@ -37,7 +37,7 @@
 									<label>Símbolo:</label>
 									<input type="text" placeholder="Símbolo" data-toggle="tooltip"
 										   title="Indique el símbolo de la moneda (requerido)"
-										   class="form-control input-sm" v-model="record.symbol">
+										   class="form-control input-sm" v-model="record.symbol" v-is-text>
 			                    </div>
 							</div>
 							<div class="col-md-4">
@@ -45,7 +45,7 @@
 									<label>Nombre:</label>
 									<input type="text" placeholder="Nombre de la moneda" data-toggle="tooltip"
 										   title="Infique el nombre de la moneda (requerido)"
-										   class="form-control input-sm" v-model="record.name">
+										   class="form-control input-sm" v-model="record.name" v-is-text>
 			                    </div>
 							</div>
 							<div class="col-md-2">

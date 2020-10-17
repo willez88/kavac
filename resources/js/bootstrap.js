@@ -8,32 +8,20 @@ window._ = require('lodash');
  */
 
 try {
+    /** @type {object} Requerido para el uso de JQuery */
     window.$ = window.jQuery = require('jquery');
-    /** Required for Bootstrap 4 */
+    /** @type {object} Requerido para el uso de popper.js en Bootstrap 4 */
     window.Popper = require('popper.js').default;
     require('bootstrap');
-    /** Requerido para tour giados en funcionalidades del sistema */
+    /** @type {object} Requerido para tour giados en funcionalidades del sistema */
     window.introJs = require('intro.js');
-    /** Requerido para agregar mascara a campos de texto */
-    window.Inputmask = require('inputmask');
-    /** Requerido para los componentes switch */
-    //require('bootstrap-switch');
     /** JQuery.Complexify required for validate strong password */
     require('jquery.complexify/jquery.complexify.banlist');
     require('jquery.complexify');
     /** Required for select list element */
     require('select2');
-    //import(/* webpackChunkName: "select2" */ 'select2');
-    /** Requerido para el uso del componente vue-tables-2 */
-    //require('vue-tables-2');
-    //import(/* webpackChunkName: "vue-tables-2" */ 'vue-tables-2');
     /** Requerido para componentes personalizados checkbox y radio en vue */
     require('pretty-checkbox-vue');
-    /** Requerido para la gestión de fechas y horas */
-    //require('moment');
-    //import(/* webpackChunkName: "moment" */ 'moment');
-    //import(/* webpackChunkName: "moment-locales" */'moment/min/locales');
-
 } catch (e) {}
 
 /**
@@ -42,9 +30,12 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
+/** @type {object} Requerido para el uso de axios */
 window.axios = require('axios');
-
+/** Establece la configuración de la cabecera de las peticiones en axios */
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+/** @type {string} Establece la URL base de las peticiones en axios */
+window.axios.defaults.baseURL = window.app_url;
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
@@ -52,11 +43,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  * a simple convenience so we don't have to attach every token manually.
  */
 
+/** @type {string} Token CSRF de cada sección en la aplicación */
 let token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
+    /** Establece el token csrf para las peticiones en axios */
     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
+    /** @type {string} Error en consola al no existir un token csrf */
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
@@ -65,12 +59,14 @@ if (token) {
  * for events that are broadcast by Laravel. Echo and event broadcasting
  * allows your team to easily build robust real-time web applications.
  */
-
+/** Import requerido para el uso de Laravel Echo */
 import Echo from 'laravel-echo';
-
+/** @type {object} Requerimiento para el uso de pusher en notificaciones */
 window.Pusher = require('pusher-js');
 
+/** @type {object} Configuración para el uso de Laravel Echo */
 window.Echo = new Echo({
+    authEndpoint: `${process.env.MIX_APP_URL}/broadcasting/auth`,
     broadcaster: 'pusher',
     key: process.env.MIX_PUSHER_APP_KEY,
     wsHost: process.env.MIX_WEBSOCKETS_HOST,

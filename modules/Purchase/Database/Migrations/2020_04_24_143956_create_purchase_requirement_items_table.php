@@ -13,7 +13,7 @@ class CreatePurchaseRequirementItemsTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('purchase_requirement_items')){
+        if (!Schema::hasTable('purchase_requirement_items')) {
             Schema::create('purchase_requirement_items', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->string('name')->comment('Nombre del producto a solicitar para su compra');

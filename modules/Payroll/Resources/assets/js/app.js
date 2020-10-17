@@ -271,12 +271,12 @@ Vue.component('payroll-salary-tabulators', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
- Vue.component('payroll-concept-types', () => import(
+Vue.component('payroll-concept-types', () => import(
     /* webpackChunkName: "payroll-concept-types" */
     './components/settings/PayrollConceptTypesComponent.vue')
 );
 
- /**
+/**
  * Componente para la gestión de conceptos de nómina
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
@@ -345,6 +345,10 @@ Vue.component('payroll-vacation-request-form', () => import(
     /* webpackChunkName: "payroll-vacation-request-form" */
     './components/requests/vacations/PayrollVacationRequestFormComponent.vue')
 );
+
+
+
+
 
 /**
  * Componente para la gestión de calculos de salario

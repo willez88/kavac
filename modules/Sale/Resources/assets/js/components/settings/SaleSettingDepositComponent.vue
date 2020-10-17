@@ -2,7 +2,7 @@
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de Formas de Pago" data-toggle="tooltip"
-		   @click="addRecord('add_sale_setting_deposit', 'setting-deposit', $event)">
+		   @click="addRecord('add_sale_setting_deposit', 'sale/setting-deposit', $event)">
            <i class="icofont icofont-briefcase-alt-1 ico-3x"></i>
 		   <span>Pagos</span>
 		</a>
@@ -18,7 +18,7 @@
 							Forma de pago
 						</h6>
 					</div>
-					
+
 					<div class="modal-body">
 						<div class="alert alert-danger" v-if="errors.length > 0">
 							<ul>

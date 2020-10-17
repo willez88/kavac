@@ -1,43 +1,41 @@
 <template>
 	<section>
-	<v-client-table :columns="columns" :data="records" :options="table_options">
-		<div slot="code" slot-scope="props" class="text-center">
-			<span>
-				{{ props.row.code }}
-			</span>
-		</div>
-		<div slot="id" slot-scope="props" class="text-center">
-			<div class="d-inline-flex">
-				
-				<citizenservice-request-info
-					:route_list="'requests/vue-info/' + props.row.id">
-				</citizenservice-request-info>
+    	<v-client-table :columns="columns" :data="records" :options="table_options">
+    		<div slot="code" slot-scope="props" class="text-center">
+    			<span>
+    				{{ props.row.code }}
+    			</span>
+    		</div>
+    		<div slot="id" slot-scope="props" class="text-center">
+    			<div class="d-inline-flex">
 
-	    		<button @click="editForm(props.row.id)" 
-	    				class="btn btn-warning btn-xs btn-icon btn-action" 
-	    				title="Modificar registro" data-toggle="tooltip" type="button"
-	    				:disabled="props.row.state != 'Pendiente'">
-	    			<i class="fa fa-edit"></i>
-	    		</button>
-	    		<button @click="deleteRecord(props.index, '')" 
-						class="btn btn-danger btn-xs btn-icon btn-action" 
-						title="Eliminar registro" data-toggle="tooltip" type="button"
-						:disabled="props.row.state != 'Pendiente'">
-					<i class="fa fa-trash-o"></i>
-				</button>
-			</div>
-		</div>
-		<div slot="requested_by" slot-scope="props" class="text-center">
-                <span>
-                    {{ 
-                        props.row.first_name + ' ' + props.row.last_name
-                    }}
+    				<citizenservice-request-info
+    					:route_list="'requests/vue-info/' + props.row.id">
+    				</citizenservice-request-info>
 
-                </span>
-        </div>
-	</v-client-table>
+    	    		<button @click="editForm(props.row.id)"
+    	    				class="btn btn-warning btn-xs btn-icon btn-action"
+    	    				title="Modificar registro" data-toggle="tooltip" type="button"
+    	    				:disabled="props.row.state != 'Pendiente'">
+    	    			<i class="fa fa-edit"></i>
+    	    		</button>
+    	    		<button @click="deleteRecord(props.index, '')"
+    						class="btn btn-danger btn-xs btn-icon btn-action"
+    						title="Eliminar registro" data-toggle="tooltip" type="button"
+    						:disabled="props.row.state != 'Pendiente'">
+    					<i class="fa fa-trash-o"></i>
+    				</button>
+    			</div>
+    		</div>
+    		<div slot="requested_by" slot-scope="props" class="text-center">
+                    <span>
+                        {{
+                            props.row.first_name + ' ' + props.row.last_name
+                        }}
 
-
+                    </span>
+            </div>
+    	</v-client-table>
 	</section>
 </template>
 
@@ -70,7 +68,7 @@
 			 * @author Ing. Yennifer Ramirez <yramirez@cenditel.gob.ve>
 			 */
 			reset() {
-				
+
 			},
 		}
 	};

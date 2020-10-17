@@ -88,9 +88,15 @@ Route::group([
 
     Route::post('registers', 'CitizenServiceRegisterController@store');
 
-    Route::get('registers/edit/{register}', 'CitizenServiceRegisterController@edit')->name('citizenservice.register.edit');
+    Route::get(
+        'registers/edit/{register}',
+        'CitizenServiceRegisterController@edit'
+    )->name('citizenservice.register.edit');
 
-    Route::delete('/registers/delete/{register}', 'CitizenServiceRegisterController@destroy')->name('citizenservice.register.delete');
+    Route::delete(
+        '/registers/delete/{register}',
+        'CitizenServiceRegisterController@destroy'
+    )->name('citizenservice.register.delete');
 
     Route::get('registers/vue-list', 'CitizenServiceRegisterController@vueList');
 

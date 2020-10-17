@@ -75,7 +75,11 @@ class SaleSettingProductController extends Controller
                 'iva' => ['required', 'max:100'],
             ]);
 
-            $saleSettingProduct = SaleSettingProduct::create(['sale_setting_product_type_id' => $request->sale_setting_product_type_id,'name' => $request->name,'code' => $request->code,'description' => $request->description,'price' => $request->price,'iva' => $request->iva,]);
+            $saleSettingProduct = SaleSettingProduct::create([
+                'sale_setting_product_type_id' => $request->sale_setting_product_type_id, 'name' => $request->name,
+                'code' => $request->code, 'description' => $request->description, 'price' => $request->price,
+                'iva' => $request->iva
+            ]);
             return response()->json(['record' => $saleSettingProduct, 'message' => 'Success'], 200);
         }
 
@@ -89,7 +93,11 @@ class SaleSettingProductController extends Controller
                 'iva' => ['nullable'],
             ]);
 
-            $saleSettingProduct = SaleSettingProduct::create(['sale_setting_product_type_id' => $request->sale_setting_product_type_id,'name' => $request->name,'code' => $request->code,'description' => $request->description,'price' => $request->price,'iva' => $request->iva,]);
+            $saleSettingProduct = SaleSettingProduct::create([
+                'sale_setting_product_type_id' => $request->sale_setting_product_type_id, 'name' => $request->name,
+                'code' => $request->code, 'description' => $request->description, 'price' => $request->price,
+                'iva' => $request->iva
+            ]);
             return response()->json(['record' => $saleSettingProduct, 'message' => 'Success'], 200);
         }
     }
@@ -193,6 +201,6 @@ class SaleSettingProductController extends Controller
      */
     public function getSaleSettingProduct()
     {
-        return response()->json(template_choices('Modules\Sale\Models\SaleSettingProduct', 'name', '', true));
+        return response()->json(template_choices(SaleSettingProduct::class, 'name', '', true));
     }
 }

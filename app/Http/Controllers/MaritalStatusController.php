@@ -45,17 +45,6 @@ class MaritalStatusController extends Controller
     }
 
     /**
-     * Muestra el formulario para crear un nuevo registro de estados civiles
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Valida y registra un nuevo estado civil
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
@@ -71,30 +60,6 @@ class MaritalStatusController extends Controller
         $maritalStatus = MaritalStatus::create(['name' => $request->name]);
 
         return response()->json(['record' => $maritalStatus, 'message' => 'Success'], 200);
-    }
-
-    /**
-     * Muestra información acerca del estado civil
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\MaritalStatus  $maritalStatus
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function show(MaritalStatus $maritalStatus)
-    {
-        //
-    }
-
-    /**
-     * Muestra el formulario para actualizar información de un estado civil
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\MaritalStatus  $maritalStatus
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(MaritalStatus $maritalStatus)
-    {
-        //
     }
 
     /**

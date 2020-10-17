@@ -2,7 +2,7 @@
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de grados de licencia de conducir" data-toggle="tooltip"
-		   @click="addRecord('add_payroll_license_degree', 'license-degrees', $event)">
+		   @click="addRecord('add_payroll_license_degree', 'payroll/license-degrees', $event)">
            <i class="icofont icofont-license ico-3x"></i>
 		   <span>Licencias de Conducir</span>
 		</a>

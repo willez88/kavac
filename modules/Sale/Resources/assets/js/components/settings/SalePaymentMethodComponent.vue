@@ -2,7 +2,7 @@
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de Formas de cobro" data-toggle="tooltip"
-		   @click="addRecord('add_sale_payment_method', 'payment-method', $event)">
+		   @click="addRecord('add_sale_payment_method', 'sale/payment-method', $event)">
            <i class="icofont icofont-bill-alt ico-3x"></i>
 		   <span>Formas de cobro</span>
 		</a>

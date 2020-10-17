@@ -46,7 +46,7 @@ class ReportRepository implements ReportInterface
     /**
      * Método constructor de la clase
      *
-     * @method     __construct
+     * @method     __construct()
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
@@ -58,7 +58,7 @@ class ReportRepository implements ReportInterface
     /**
      * Método que permite establecer la configuración general de los reportes
      *
-     * @method     setConfig
+     * @method     setConfig(array $params)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
@@ -104,7 +104,7 @@ class ReportRepository implements ReportInterface
     /**
      * Método que establece los datos a mostrar en el encabezado del reporte
      *
-     * @method     setHeader
+     * @method     setHeader(string $title, string $subTitle, boolean $hasQR, boolean $hasBarCode)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
@@ -273,7 +273,7 @@ class ReportRepository implements ReportInterface
     /**
      * Método que permite agregar el contenido del reporte a generar
      *
-     * @method     setBody
+     * @method     setBody(string $body, boolean $isHTML, array $htmlParams)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
@@ -343,7 +343,7 @@ class ReportRepository implements ReportInterface
             /** Configuración de la fuenta a utilizar */
             $pdf->SetFont($fontFamily, 'I', 8);
             if ($pages) {
-                /** @var $pageNumber Número de página del reporte */
+                /** @var string Número de página del reporte */
                 $pageNumber = __('Pág. ').$pdf->getAliasNumPage().'/'.$pdf->getAliasNbPages();
                 /** Texto a mostrar para el número de página */
                 $pdf->MultiCell(20, 4, $pageNumber, 0, 'R', false, 1, 185, -8, true, 1, false, true, 1, 'T', true);

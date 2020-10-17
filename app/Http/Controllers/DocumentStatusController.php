@@ -45,17 +45,6 @@ class DocumentStatusController extends Controller
     }
 
     /**
-     * Muestra el formulario para crear un nuevo registro de estatus de documentos
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Valida y registra un nuevo estatus de documento
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
@@ -85,30 +74,6 @@ class DocumentStatusController extends Controller
         ]);
 
         return response()->json(['record' => $documentStatus, 'message' => 'Success'], 200);
-    }
-
-    /**
-     * Muestra información acerca del estatus de documento
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\DocumentStatus  $documentStatus
-     * @return \Illuminate\Http\Response
-     */
-    public function show(DocumentStatus $documentStatus)
-    {
-        //
-    }
-
-    /**
-     * Muestra el formulario para actualizar información de un estatus de documento
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\DocumentStatus  $documentStatus
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(DocumentStatus $documentStatus)
-    {
-        //
     }
 
     /**

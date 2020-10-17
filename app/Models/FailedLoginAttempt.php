@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
-use App\User;
 
 class FailedLoginAttempt extends Model implements Auditable
 {
@@ -20,7 +19,7 @@ class FailedLoginAttempt extends Model implements Auditable
     /**
      * Registra los datos del intento fallido de autenticación en el sistema
      *
-     * @method     record
+     * @method     record(string $username, string $ip, object $user)
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *

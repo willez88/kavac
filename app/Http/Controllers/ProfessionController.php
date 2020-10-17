@@ -45,17 +45,6 @@ class ProfessionController extends Controller
     }
 
     /**
-     * Muestra el formulario para crear un nuevo registro de profesiones
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Valida y registra una nueva profesión
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
@@ -75,30 +64,6 @@ class ProfessionController extends Controller
         ]);
 
         return response()->json(['record' => $profession, 'message' => 'Success'], 200);
-    }
-
-    /**
-     * Muestra información acerca de la profesión
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\Profession  $profession
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Profession $profession)
-    {
-        //
-    }
-
-    /**
-     * Muestra el formulario para actualizar información de una profesión
-     *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\Profession  $profession
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Profession $profession)
-    {
-        //
     }
 
     /**

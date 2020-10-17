@@ -2,7 +2,7 @@
     <section id="payrollParametersFormComponent">
         <a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
            title="Registros de parámetros" data-toggle="tooltip"
-           @click="addRecord('add_payroll_parameter', 'parameters', $event)">
+           @click="addRecord('add_payroll_parameter', 'payroll/parameters', $event)">
            <i class="icofont icofont-globe ico-3x"></i>
            <span>Parámetros<br>Globales</span>
         </a>

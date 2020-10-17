@@ -131,13 +131,13 @@
                         </div>
                     </div>
                     <!-- ./año del período vacacional -->
-                    
+
                 </div>
             </div>
 
             <div class="card-footer text-right">
                 <button type="button" @click="reset()"
-                        class="btn btn-default btn-icon btn-round" data-toggle="tooltip" 
+                        class="btn btn-default btn-icon btn-round" data-toggle="tooltip"
                         title="Borrar datos del formulario">
                     <i class="fa fa-eraser"></i>
                 </button>
@@ -157,7 +157,6 @@
 </template>
 
 <script>
-    import moment from 'moment';
     export default {
         data() {
             return {
@@ -189,7 +188,7 @@
             const vm = this;
             vm.getPayrollStaffs();
             if (!vm.payroll_id) {
-                vm.record.created_at = moment(String(new Date())).format('YYYY-MM-DD');
+                vm.record.created_at = vm.format_date(new Date(), 'YYYY-MM-DD');
             }
         },
         methods: {
@@ -204,7 +203,7 @@
                     id: '',
                     payroll_staff_id: '',
                 };
-                vm.record.created_at = moment(String(new Date())).format('YYYY-MM-DD');
+                vm.record.created_at = vm.format_date(new Date(), 'YYYY-MM-DD');
             },
             getPayrollStaffInfo() {
                 const vm = this;

@@ -7,12 +7,16 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Session\TokenMismatchException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use PhpOffice\PhpSpreadsheet\Reader\Exception as PhpOfficeException;
+use App\Roles\Exceptions\PermissionDeniedException;
+use App\Roles\Exceptions\LevelDeniedException;
+use App\Roles\Exceptions\RoleDeniedException;
 use Throwable;
 
 class Handler extends ExceptionHandler
 {
     /**
-     * A list of the exception types that are not reported.
+     * Listado de tipos de exepciones que no son reportadas.
      *
      * @var array
      */
@@ -21,7 +25,7 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * A list of the inputs that are never flashed for validation exceptions.
+     * Listado de campos que no son capturados para la validación de exepciones
      *
      * @var array
      */
@@ -31,7 +35,7 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * Report or log an exception.
+     * Reporta o registra una exepción
      *
      * @param  \Throwable  $exception
      * @return void
@@ -42,7 +46,7 @@ class Handler extends ExceptionHandler
     }
 
     /**
-     * Render an exception into an HTTP response.
+     * Genera una exepción dentro de una respuesta HTTP.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Throwable  $exception
@@ -51,54 +55,47 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if ($exception instanceof TokenMismatchException) {
-            /** Exception catch by inactivity */
+            /** Captura una exepción por inactividad */
             session()->flash('message', ['type' => 'deny', 'msg' => 'Sessión expirada por inactividad.']);
             return redirect()->route('index');
         }
 
         if ($exception instanceof MethodNotAllowedHttpException && $request->path() === "logout") {
-            /** Exception catch when method is not permited */
+            /** Captura una exepción cuando el método usado no esta permitido */
             session()->flash('message', ['type' => 'deny', 'msg' => 'Usted ha salido del sistema']);
             return redirect()->route('index');
         }
 
-        if ($exception instanceof \App\Roles\Exceptions\PermissionDeniedException) {
-            /** Exception catch when deny access by permissions */
-            $msg = 'No dispone de permisos para acceder a esta funcionalidad';
+        if (
+            $exception instanceof PermissionDeniedException ||
+            $exception instanceof LevelDeniedException ||
+            $exception instanceof RoleDeniedException
+        ) {
+            if ($exception instanceof PermissionDeniedException) {
+                /** @var string Mensaje de restricción de acceso para cuando no dispone de los permisos requeridos */
+                $msg = 'No dispone de permisos para acceder a esta funcionalidad';
+            } elseif ($exception instanceof LevelDeniedException) {
+                /** @var string Mensaje de restricción de acceso para cuando no dispone del nivel de acceso requerido */
+                $msg = 'Su nivel de acceso no le permite acceder a esta funcionalidad';
+            } elseif ($exception instanceof RoleDeniedException) {
+                /** @var string Mensaje de restricción de acceso para cuando no dispone del rol requerido */
+                $msg = 'El rol asignado no le permite acceder a esta funcionalidad';
+            }
 
             if ($request->ajax()) {
                 return response()->json(['result' => false, 'message' => $msg], 403);
             }
 
             $request->session()->flash('message', ['type' => 'deny', 'msg' => $msg]);
-            return redirect()->back();
-        }
 
-        if ($exception instanceof \App\Roles\Exceptions\LevelDeniedException) {
-            /** Exception catch when deny access by levels */
-            $msg = 'Su nivel de acceso no le permite acceder a esta funcionalidad';
-
-            if ($request->ajax()) {
-                return response()->json(['result' => false, 'message' => $msg], 403);
+            if (url()->current() === url()->previous()) {
+                return redirect()->route('index');
             }
 
-            $request->session()->flash('message', ['type' => 'deny', 'msg' => $msg]);
             return redirect()->back();
         }
 
-        if ($exception instanceof \App\Roles\Exceptions\RoleDeniedException) {
-            /** Exception catch when deny access by roles */
-            $msg = 'El rol asignado no le permite acceder a esta funcionalidad';
-
-            if ($request->ajax()) {
-                return response()->json(['result' => false, 'message' => $msg], 403);
-            }
-
-            $request->session()->flash('message', ['type' => 'deny', 'msg' => $msg]);
-            return redirect()->back();
-        }
-
-        if ($exception instanceof \PhpOffice\PhpSpreadsheet\Reader\Exception) {
+        if ($exception instanceof PhpOfficeException) {
             /** Excepción capturada cuando un archivo a importar es inválido */
             $msg = 'El archivo a importar es inválido. Revise que los datos de la cabecera sean ' .
                    'correctos y que contenga información.';

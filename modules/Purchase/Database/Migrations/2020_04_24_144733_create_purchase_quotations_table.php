@@ -13,7 +13,7 @@ class CreatePurchaseQuotationsTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('purchase_quotations')){
+        if (!Schema::hasTable('purchase_quotations')) {
             Schema::create('purchase_quotations', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->string('code', 20)->unique()->comment('Código único para la cotización');

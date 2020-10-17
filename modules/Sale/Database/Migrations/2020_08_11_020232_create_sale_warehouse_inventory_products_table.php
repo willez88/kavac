@@ -37,7 +37,12 @@ class CreateSaleWarehouseInventoryProductsTable extends Migration
 
                 $table->foreignId('currency_id')->nullable()->constrained()->onUpdate('cascade');
 
-                $table->foreignId('sale_setting_products_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
+                //$table->foreignId('sale_setting_products_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
+
+                $table->unsignedBigInteger('sale_setting_products_id');
+
+                $table->foreign('sale_setting_products_id', 'sale_warehouse_inventory_products_setting_fk')
+                      ->references('id')->on('sale_setting_products');
 
                 $table->foreignId('measurement_unit_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
 

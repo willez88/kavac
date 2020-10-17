@@ -19,7 +19,6 @@ class SaleWarehouseController extends Controller
      */
     public function index()
     {
-
         return response()->json(['records' => SaleWarehouse::all()], 200);
         
         if (!is_null($institution)) {
@@ -79,10 +78,11 @@ class SaleWarehouseController extends Controller
         ]);
         //Define almacén principal
         if ($request->input('main') == true) {
-            $main = SaleWarehouse::where('main', '=', true)->update(array('main' => false));
+            $main = SaleWarehouse::where('main', '=', true)->update(['main' => false]);
         }
         //Guarda datos de almacen.
         $SaleWarehouse = SaleWarehouse::create([
+
             'name' => $request->name,
             'address' => $request->address,
             'parish_id' => $request->parish_id,
@@ -99,6 +99,13 @@ class SaleWarehouseController extends Controller
             'sale_warehouse_id'   => $SaleWarehouse->id,
             'main'           => !empty($request->main)?$request->input('main'):false,
         ]);
+
+            'name' => $request->name, 'address' => $request->address, 'institution_id' => $request->institution_id,
+            'parish_id' => $request->parish_id,
+            'main' => !empty($request->input('main')) ? $request->input('main') : false,
+            'active' => !empty($request->input('active')) ? $request->input('active') : false
+        ]);
+
 
         return response()->json(['record' => $SaleWarehouse, 'message' => 'Success'], 200);
     }
@@ -143,12 +150,12 @@ class SaleWarehouseController extends Controller
         return response()->json(['record' => $SaleWarehouse, 'message' => 'Success'], 200);
     }
 
-   /**
-   * Obtiene los alamacenes registrados
-   *
-   * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
-   * @return \Illuminate\Http\JsonResponse    Json con los datos de los alamacenes registrados
-   */
+    /**
+    * Obtiene los alamacenes registrados
+    *
+    * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+    * @return \Illuminate\Http\JsonResponse    Json con los datos de los alamacenes registrados
+    */
     public function getSaleWarehouseMethod()
     {
         return response()->json(template_choices('Modules\Sale\Models\SaleWarehouse', 'name', '', true));
