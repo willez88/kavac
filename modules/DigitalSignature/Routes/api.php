@@ -15,5 +15,6 @@
 Route::group([
     'middleware' => 'auth:api', 'prefix' => 'digitalsignature'
 ], function () {
-    //
+    Route::post('signFile', 'DigitalSignatureController@signFile')->name('signFile');
+    Route::post('verifysignfile', 'DigitalSignatureController@verifysign')->name('verifysignfile');
 });

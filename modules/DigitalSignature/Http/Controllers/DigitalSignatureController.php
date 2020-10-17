@@ -294,19 +294,19 @@ class DigitalSignatureController extends Controller
     public function signFile(Request $request)
     {
         /**
-         * @var filename: usuario con certificado firmante
-         * @var filenamepdf: certificado del usuario 
+         * @var filename: nombre aleatoria para asignar al documentos pdf
+         * @var filenamepdf: nombre del documento pdf a firmar 
          * @var path: certficado firmante del usuario en una matriz para acceder a sus campos
-         * @var filenamepdfsign: fecha de expiración del certificado firmante del usuario
+         * @var filenamepdfsign: nombre del documento pdf firmado
          * @var getpath: objeto de tipo Helper
-         * @var storePdfSign: ruta del archivo pdf firmado obtenido de una función del Helper
-         * @var storePdf: ruta del archivo pdf a firmar obtenido de una función del Helper
+         * @var storePdfSign: ruta del documento pdf firmado obtenido de una función del Helper
+         * @var storePdf: ruta del documento pdf a firmar obtenido de una función del Helper
          * @var cert: certificado del firmante
          * @var pkey: clave privada para firmar
          * @var passphrase: frase de paso del archivo .p12
          * @var filenamep12: nombre del archivo .p12
          * @var storeCertificated: ruta del certificado firmante
-         * @var createpkcs12: archivo .p12
+         * @var createpkcs12: archivo .p12 creado para la firma
          * @var pathPortableSigner: ruta del ejecutable PortableSigner para realizar la firma
          * @var comand: comando para realizar el proceso de firma
          * @var run: respuesta del proceso de firma electrónica
@@ -316,52 +316,54 @@ class DigitalSignatureController extends Controller
             'pdf' => ['required','mimes:pdf']
         ]);
         
-        if(Auth::user() && User::find(auth()->user()->id)->signprofiles) {
+        if(Auth::user()) { 
+            if(User::find(auth()->user()->id)->signprofiles) {
 
-            //Documento pdf
-            $filename = Str::random(10);
-            $filenamepdf = $filename . '.pdf';
-            $path = $request->file('pdf')->storeAs('',$filenamepdf, 'temporary');
-            $filenamepdfsign = $filename . '-sign.pdf';
-            $getpath = new Helper();
-            $storePdfSign = $getpath->getPathSign($filenamepdfsign);
-            $storePdf = $getpath->getPathSign($filenamepdf);
+                //Documento pdf
+                $filename = Str::random(10);
+                $filenamepdf = $filename . '.pdf';
+                $path = $request->file('pdf')->storeAs('',$filenamepdf, 'temporary');
+                $filenamepdfsign = $filename . '-sign.pdf';
+                $getpath = new Helper();
+                $storePdfSign = $getpath->getPathSign($filenamepdfsign);
+                $storePdf = $getpath->getPathSign($filenamepdf);
 
 
-            //Crear archivo pkcs#12
-            $cert = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['cert']);
-            $pkey = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['pkey']);
-            $passphrase = Str::random(10);
+                //Crear archivo pkcs#12
+                $cert = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['cert']);
+                $pkey = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['pkey']);
+                $passphrase = Str::random(10);
 
-            //Datos para la firma
-            $filenamep12 = Str::random(10) . '.p12';
-            $storeCertificated = $getpath->getPathSign($filenamep12);
-            $createpkcs12 = openssl_pkcs12_export_to_file($cert,$storeCertificated,$pkey,$passphrase);
-            $pathPortableSigner = $getpath->getPathSign('PortableSigner');
+                //Datos para la firma
+                $filenamep12 = Str::random(10) . '.p12';
+                $storeCertificated = $getpath->getPathSign($filenamep12);
+                $createpkcs12 = openssl_pkcs12_export_to_file($cert,$storeCertificated,$pkey,$passphrase);
+                $pathPortableSigner = $getpath->getPathSign('PortableSigner');
 
-            //ejecución del comando para firmar
-            $comand = 'java -jar ' . $pathPortableSigner . ' -n -t ' . $storePdf . ' -o ' . $storePdfSign . ' -s ' . $storeCertificated . ' -p ' . $passphrase;
-            $run = exec($comand, $output);
+                //ejecución del comando para firmar
+                $comand = 'java -jar ' . $pathPortableSigner . ' -n -t ' . $storePdf . ' -o ' . $storePdfSign . ' -s ' . $storeCertificated . ' -p ' . $passphrase;
+                $run = exec($comand, $output);
 
-            //enlace para descargar archivo 
-            $pathDownload = asset('storage/temporary/'.$filenamepdfsign);
-            $headers = array(
-                 'Content-Type: application/pdf',
-               );
+                //enlace para descargar el documento PDF 
+                $pathDownload = asset('storage/temporary/'.$filenamepdfsign);
+                $headers = array(
+                     'Content-Type: application/pdf',
+                   );
 
-            //elimina el certficado .p12
-            Storage::disk('temporary')->delete($filenamep12);
+                //elimina el certficado .p12
+                Storage::disk('temporary')->delete($filenamep12);
 
-            //elimina el documento pdf
-            Storage::disk('temporary')->delete($filenamepdf);
-            
-            return view( 'digitalsignature::viewSignfile', ['msg' => "El documento fue firmado exitosamente", 
-                                        'namefile' => $filenamepdfsign,
-                                        'signfile' => 'true']);
-        }
-
-        else { return redirect()->route('login'); } 
-    }
+                //elimina el documento pdf
+                Storage::disk('temporary')->delete($filenamepdf);
+                
+                return view( 'digitalsignature::viewSignfile', ['msg' => "El documento fue firmado exitosamente", 
+                                            'namefile' => $filenamepdfsign,
+                                            'signfile' => 'true']);
+            }
+            else { return redirect()->route('fileprofile'); } 
+    } 
+    else { return redirect()->route('login'); }
+}
 
     /**
      * Verifica la firma electrónica de un documento
@@ -372,11 +374,11 @@ class DigitalSignatureController extends Controller
     public function verifysign(Request $request) {
 
         /**
-         * @var filename: nombre del archivo
-         * @var namepdfsign: nombre del archivo a verificar firma 
-         * @var path: ruta del archivo a verificar firma
+         * @var filename: nombre aleatoria para asignar al documentos pdf
+         * @var namepdfsign: nombre del documento pdf a verificar firma 
+         * @var path: ruta del documento a verificar firma
          * @var getpath: objeto de tipo Helper 
-         * @var storePdfSign: ruta del archivo a verificar obtenido de uan función del Helper
+         * @var storePdfSign: ruta del documento a verificar obtenido de una función del Helper
          * @var comand: comando para realizar el proceso de firma
          * @var run: respuesta del proceso de firma electrónica
          */
