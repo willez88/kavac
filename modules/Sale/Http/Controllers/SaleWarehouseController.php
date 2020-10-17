@@ -100,13 +100,6 @@ class SaleWarehouseController extends Controller
             'main'           => !empty($request->main)?$request->input('main'):false,
         ]);
 
-            'name' => $request->name, 'address' => $request->address, 'institution_id' => $request->institution_id,
-            'parish_id' => $request->parish_id,
-            'main' => !empty($request->input('main')) ? $request->input('main') : false,
-            'active' => !empty($request->input('active')) ? $request->input('active') : false
-        ]);
-
-
         return response()->json(['record' => $SaleWarehouse, 'message' => 'Success'], 200);
     }
 
