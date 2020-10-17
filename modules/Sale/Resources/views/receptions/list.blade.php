@@ -1,4 +1,4 @@
-@extends('warehouse::layouts.master')
+@extends('sale::layouts.master')
 
 @section('maproute-icon')
 	<i class="ion-ios-list-outline"></i>
@@ -29,16 +29,16 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<warehouse-reception-list
+					<sale-warehouse-reception-list
 						route_list="{{ url('sale/receptions/vue-list') }}"
 						route_edit="{{ url('sale/receptions/edit/{id}') }}"
 						route_delete="{{ url('sale/receptions/delete') }}">
-					</warehouse-reception-list>
+					</sale-warehouse-reception-list>
 				</div>
 			</div>
 		</div>
 	</div>
-	@role(['admin','warehouse'])
+	@role(['admin','sale'])
 	<div class="row">
 		<div class="col-12">
 			<div class="card">
@@ -50,10 +50,10 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<warehouse-reception-pending-list
+					<sale-warehouse-reception-pending-list
 						route_list="{{ url('sale/receptions/vue-list') }}"
 						route_update='sale/receptions'>
-					</warehouse-reception-pending-list>
+					</sale-warehouse-reception-pending-list>
 				</div>
 			</div>
 		</div>

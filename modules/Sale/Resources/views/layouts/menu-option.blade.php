@@ -13,7 +13,10 @@
         </li>
         <li class="{!! set_active_menu('sale.reception.index') !!}">
             <a href="/sale/receptions" data-toggle="tooltip" data-placement="right"
-               title="Reportes">Reportes</a>
+               title="Recepciones de almacén">Recepciones de almacén</a>
+        </li>
+        <li>
+            <a href="#">Reportes</a>
         </li>
     </ul>
 </li>

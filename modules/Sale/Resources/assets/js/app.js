@@ -81,7 +81,7 @@ Vue.component('sale-discount', () => import(
  * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
  */
 Vue.component('sale-warehouse-reception-create', () => import(
-    /* webpackChunkName: "warehouse-reception-create" */
+    /* webpackChunkName: "sale-warehouse-reception-create" */
     './components/receptions/SaleWarehouseReceptionCreateComponent.vue')
 );
 
@@ -91,7 +91,7 @@ Vue.component('sale-warehouse-reception-create', () => import(
  * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
  */
 Vue.component('sale-warehouse-reception-list', () => import(
-    /* webpackChunkName: "warehouse-reception-list" */
+    /* webpackChunkName: "sale-warehouse-reception-list" */
     './components/receptions/SaleWarehouseReceptionListComponent.vue')
 );
 
@@ -101,7 +101,7 @@ Vue.component('sale-warehouse-reception-list', () => import(
  * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
  */
 Vue.component('sale-warehouse-reception-pending-list', () => import(
-    /* webpackChunkName: "warehouse-reception-pending-list" */
+    /* webpackChunkName: "sale-warehouse-reception-pending-list" */
     './components/receptions/SaleWarehouseReceptionPendingListComponent.vue')
 );
 
@@ -111,7 +111,7 @@ Vue.component('sale-warehouse-reception-pending-list', () => import(
  * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
  */
 Vue.component('sale-warehouse-reception-info', () => import(
-    /* webpackChunkName: "warehouse-reception-info" */
+    /* webpackChunkName: "sale-warehouse-reception-info" */
     './components/receptions/SaleWarehouseReceptionInfoComponent.vue')
 );
 

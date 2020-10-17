@@ -250,5 +250,9 @@
     "/modules/technicalsupport/components/technicalsupport-repair-info.js": "/modules/technicalsupport/components/technicalsupport-repair-info.js",
     "/modules/technicalsupport/components/technicalsupport-repair-list.js": "/modules/technicalsupport/components/technicalsupport-repair-list.js",
     "/modules/technicalsupport/components/technicalsupport-request-info.js": "/modules/technicalsupport/components/technicalsupport-request-info.js",
-    "/modules/technicalsupport/components/technicalsupport-request-list.js": "/modules/technicalsupport/components/technicalsupport-request-list.js"
+    "/modules/technicalsupport/components/technicalsupport-request-list.js": "/modules/technicalsupport/components/technicalsupport-request-list.js",
+    "/modules/sale/components/sale-warehouse-reception-info.js": "/modules/sale/components/sale-warehouse-reception-info.js",
+    "/modules/sale/components/sale-warehouse-reception-list.js": "/modules/sale/components/sale-warehouse-reception-list.js",
+    "/modules/sale/components/sale-warehouse-reception-pending-list.js": "/modules/sale/components/sale-warehouse-reception-pending-list.js",
+    "/modules/sale/components/sale-warehouse-reception-create.js": "/modules/sale/components/sale-warehouse-reception-create.js"
 }

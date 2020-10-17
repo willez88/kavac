@@ -27,7 +27,7 @@
     			<div class="col-md-4" id="saleHelpInstitution">
     				<div class="form-group is-required">
     					<label>Nombre de la Institución:</label>
-    					<select2 :options="institutions" @input="getSaleWarehouses"
+                        <select2 :options="institutions" @input="getSaleWarehouse"
     					v-model="record.institution_id"></select2>
     					<input type="hidden" v-model="record.id">
                     </div>
@@ -36,8 +36,8 @@
     			<div class="col-md-4" id="saleHelpWarehouse">
     				<div class="form-group is-required">
     					<label>Nombre del Almacén:</label>
-    					<select2 :options="sale_warehouses" @input="getSaleSettingProduct"
-    					v-model="record.sale_warehouses_id"></select2>
+                        <select2 :options="sale_warehouse" @input="getSaleSettingProduct"
+                        v-model="record.sale_warehouse_id"></select2>
                     </div>
     			</div>
     		</div>
@@ -50,7 +50,7 @@
     			<div class="col-md-3" id="saleHelpProductName">
     				<div class="form-group is-required">
     					<label>Nombre del Producto:</label>
-    					<select2 :options="sale_setting_products" v-model="sale_warehouse_inventory_product.sale_setting_products_id"></select2>
+                        <select2 :options="sale_setting_products" v-model="sale_warehouse_inventory_product.sale_setting_product_id"></select2>
                     </div>
     			</div>
     			<div class="col-md-3" id="saleHelpProductQuantity">
@@ -106,7 +106,7 @@
     			:columns="columns" :data="records" :options="table_options">
     			<div slot="name" slot-scope="props" class="text-center">
     				<span>
-    					{{ (props.row.sale_setting_products)?props.row.sale_setting_products.name:'N/A' }}
+                    {{ (props.row.sale_setting_product)?props.row.sale_setting_product.name:'N/A' }}
     				</span>
     			</div>
     			<div slot="id" slot-scope="props" class="text-center">
@@ -162,7 +162,7 @@
     			record: {
     				id: '',
     				institution_id: '',
-    				sale_warehouses_id: '',
+                    sale_warehouse_id: '',
     				sale_warehouse_inventory_products: [],
 
     			},
@@ -172,7 +172,7 @@
     				unit_value:'',
     				currency_id: '',
                     measurement_unit_id: '',
-    				sale_setting_products_id: '',
+                    sale_setting_product_id: '',
     			},
     			
     			columns: ['name', 'quantity', 'id'],
@@ -184,7 +184,7 @@
     			},
     			
     			institutions: [],
-    			sale_warehouses: [],
+                sale_warehouse: [],
     			sale_setting_products: [],
     			currencies: [],	
                 measurement_units: [],
@@ -208,19 +208,19 @@
                     measurement_unit_id:'',
                     measurement_unit_name:'',
 
-    				sale_setting_products_id: '',
-    				sale_setting_products_name: '',
+                    sale_setting_product_id: '',
+                    sale_setting_product_name: '',
     			},
     			this.editIndex = null;
     		},
 
-    		getSaleWarehouses() {
+            getSaleWarehouse() {
     			const vm = this;
-    			vm.sale_warehouses = [];
+                vm.sale_warehouse = [];
 
     			if (vm.record.institution_id != '') {
     				axios.get('/sale/get-salewarehousemethod/' + vm.record.institution_id).then(response => {
-    					vm.sale_warehouses = response.data;
+                        vm.sale_warehouse = response.data;
     				});
     			}
     		},
@@ -229,7 +229,7 @@
     			const vm = this;
     			vm.sale_setting_products = [];
 
-    			if (vm.record.sale_warehouses_id != '') {
+                if (vm.record.sale_warehouse_id != '') {
     				axios.get('/sale/get-setting-product/').then(response => {
     					vm.sale_setting_products = response.data;
     				});
@@ -251,16 +251,16 @@
     			var att = [];
     			var currency_name = '';
                 var measurement_unit_name = '';
-    			var sale_setting_products_name = '';
+                var sale_setting_product_name = '';
     			event.preventDefault();
 
-    			if (vm.sale_warehouse_inventory_product.sale_setting_products_id != '') {
+                if (vm.sale_warehouse_inventory_product.sale_setting_product_id != '') {
     				$.each(vm.sale_setting_products, function(index, campo) {
-    		            if (campo.id == vm.sale_warehouse_inventory_product.sale_setting_products_id)
-    		                sale_setting_products_name = campo.text;
+                        if (campo.id == vm.sale_warehouse_inventory_product.sale_setting_product_id)
+                            sale_setting_product_name = campo.text;
     		        });
     			}
-    		    if (vm.sale_warehouse_inventory_product.currency_id != '') {
+                if (vm.sale_warehouse_inventory_product.currency_id != '') {
     		        $.each(vm.currencies, function(index, campo) {
     		            if (campo.id == vm.sale_warehouse_inventory_product.currency_id)
     		                currency_name = campo.text;
@@ -272,8 +272,8 @@
                             measurement_unit_name = campo.text;
                     });
                 }
-    		    vm.sale_warehouse_inventory_product.sale_setting_products = {
-    		    	name: sale_setting_products_name,
+                vm.sale_warehouse_inventory_product.sale_setting_product = {
+                    name: sale_setting_product_name,
     		    }
     		    vm.sale_warehouse_inventory_product.currency = {
     		    	name: currency_name,
@@ -317,12 +317,12 @@
                 axios.get('/sale/receptions/info/' + id).then(response => {
                     vm.record = response.data.records;
                     vm.record.institution_id = vm.record.sale_warehouse_institution_warehouse_end.institution_id;
-                    vm.record.sale_warehouses_id = vm.record.sale_warehouse_institution_warehouse_end.sale_warehouses_id;
+                    vm.record.sale_warehouse_id = vm.record.sale_warehouse_institution_warehouse_end.sale_warehouse_id;
 
                     $.each(vm.record.sale_warehouse_inventory_products_movements, function(index, campo) {
                     	var atts = [];
                     	$.each(campo.sale_warehouse_inventory_product.sale_warehouse_product_values, function(index, field) {
-                    		var name = field.sale_setting_products.name;
+                            var name = field.sale_setting_product.name;
                     		var value = field.value;
                     		atts.push({name:name, value:value});
                     	});
@@ -339,9 +339,10 @@
                             measurement_unit: {
                                 name: campo.sale_warehouse_inventory_product.measurement_unit.name,
                             }, 
-    						sale_setting_products_id: campo.sale_warehouse_inventory_product.sale_setting_products_id,
-    						sale_setting_products: {
-    							name: campo.sale_warehouse_inventory_product.sale_setting_products.name,
+                            sale_setting_product_id: campo.sale_warehouse_inventory_product.sale_setting_product_id,
+                            sale_setting_product: {
+                                name:
+                                campo.sale_warehouse_inventory_product.sale_setting_product.name,
     						},
     					};
     					vm.records.push(sale_warehouse_inventory_product);
@@ -359,7 +360,7 @@
     		this.table_options.filterable = ['name', 'quantity'];
 
     		this.getInstitutions();
-    		this.getSaleWarehouses();
+            this.getSaleWarehouse();
     		this.getCurrencies();
             this.getMeasurementUnits();
 
