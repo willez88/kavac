@@ -117,31 +117,14 @@
                                             <div class="form-group is-required">
                                                 <label>Tipo de vacaciones:</label>
                                                 <select2 :options="vacation_types"
-                                                         v-model="record.vacation_type_id"></select2>
+                                                         @input="switchTypeVacation()"
+                                                         v-model="record.vacation_type"></select2>
                                             </div>
                                         </div>
-                                        <!-- ./relación de pago -->
+                                        <!-- ./tipo de vacaciones -->
                                     </div>
                                     <div class="row"
-                                         v-if="record.vacation_type_id == 'collective_vacations'">
-                                        <!-- fecha de inicio -->
-                                        <div class="col-md-3">
-                                            <div class="form-group is-required">
-                                                <label>Fecha de inicio:</label>
-                                                <input type="date" id="start_date_vacation" placeholder="Fecha de inicio"
-                                                       data-toggle="tooltip" title="Indique la fecha del inicio del período vacacional"
-                                                       class="form-control input-sm" v-model="record.start_date_vacation">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group is-required">
-                                                <label>Fecha de Finalización:</label>
-                                                <input type="date" id="end_date_vacation" placeholder="Fecha de Finalización"
-                                                       data-toggle="tooltip" title="Indique la fecha de Finalización del período vacacional"
-                                                       class="form-control input-sm" v-model="record.start_date_vacation">
-                                            </div>
-                                        </div>
-                                        <!-- ./fecha de aplicación -->
+                                         v-if="record.vacation_type == 'collective_vacations'">
                                         <!-- adelanto de vacaciones -->
                                         <div class="col-md-3">
                                             <div class="form-group">
@@ -185,28 +168,65 @@
                                                             'alias': 'numeric',
                                                             'allowMinus': 'false',
                                                             'digits': 0"
-                                                       v-model="record.vacation_period_per_year">
+                                                       v-model="record.vacation_periods_accumulated_per_year">
                                             </div>
                                         </div>
                                         <!-- ./períodos vacacionales -->
                                     </div>
+                                    <h6 class="card-title"
+                                        v-if="record.vacation_type == 'collective_vacations'">
+                                        Período Vacacional <i class="fa fa-plus-circle cursor-pointer"
+                                                              title="Nuevo período vacacional" data-toggle="tooltip"
+                                                              @click="addVacationPeriod()"></i>
+                                    </h6>
+                                    <div class="row" v-for="(vacation_period, index) in record.vacation_periods">
+                                        <!-- fecha de inicio del período de vacaciones colectivas -->
+                                        <div class="col-md-5">
+                                            <div class="form-group is-required">
+                                                <label>Fecha de inicio:</label>
+                                                <input type="date" id="start_date_vacation" placeholder="Fecha de inicio"
+                                                       data-toggle="tooltip" title="Indique la fecha del inicio del período vacacional"
+                                                       class="form-control input-sm" v-model="vacation_period.start_date">
+                                            </div>
+                                        </div>
+                                        <!-- ./fecha de inicio del período de vacaciones colectivas -->
+                                        <!-- fecha de finalización del período de vacaciones colectivas -->
+                                        <div class="col-md-5">
+                                            <div class="form-group is-required">
+                                                <label>Fecha de Finalización:</label>
+                                                <input type="date" id="end_date_vacation" placeholder="Fecha de Finalización"
+                                                       data-toggle="tooltip" title="Indique la fecha de Finalización del período vacacional"
+                                                       class="form-control input-sm" v-model="vacation_period.end_date">
+                                            </div>
+                                        </div>
+                                        <!-- ./fecha de finalización del período de vacaciones colectivas -->
+                                        <div class="col-1" style="align-self: flex-end;">
+                                            <div class="form-group">
+                                                <button class="btn btn-sm btn-danger btn-action" type="button"
+                                                        @click="removeRow(index, record.vacation_periods)"
+                                                        title="Eliminar registro" data-toggle="tooltip">
+                                                    <i class="fa fa-minus-circle"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="row" style="align-items: baseline;"
-                                         v-else-if="record.vacation_type_id == 'vacation_period'">
-                                        <!-- días a otorgar para el disfrute de vacaciones -->
+                                         v-if="record.vacation_type == 'vacation_period'">
+                                        <!-- días a otorgar para el pago de vacaciones -->
                                         <div class="col-md-3">
                                             <div class="form-group is-required">
-                                                <label>Días a otorgar para el disfrute de vacaciones:</label>
+                                                <label>Días a otorgar para el pago de vacaciones:</label>
                                                 <input type="text" data-toggle="tooltip"
-                                                       title="Indique la cantidad de días a otorgar para el disfrute de vacaciones"
+                                                       title="Indique la cantidad de días a otorgar para el pago de vacaciones"
                                                        class="form-control input-sm"
                                                        v-input-mask data-inputmask="
                                                             'alias': 'numeric',
                                                             'allowMinus': 'false',
                                                             'digits': 0"
-                                                       v-model="record.holidays">
+                                                       v-model="record.vacation_days">
                                             </div>
                                         </div>
-                                        <!-- ./días a otorgar para el disfrute de vacaciones -->
+                                        <!-- ./días a otorgar para el pago de vacaciones -->
                                         <!-- períodos vacacionales -->
                                         <div class="col-md-3">
                                             <div class="form-group is-required">
@@ -232,7 +252,8 @@
                                                        v-input-mask data-inputmask="
                                                             'alias': 'numeric',
                                                             'allowMinus': 'false',
-                                                            'digits': 0">
+                                                            'digits': 0"
+                                                       v-model="record.additional_days_per_year">
                                             </div>
                                         </div>
                                         <!-- ./días adicionales a otorgar por años de servicio para el disfrute de vacaciones -->
@@ -246,7 +267,8 @@
                                                        v-input-mask data-inputmask="
                                                             'alias': 'numeric',
                                                             'allowMinus': 'false',
-                                                            'digits': 0">
+                                                            'digits': 0"
+                                                       v-model="record.minimum_additional_days_per_year">
                                             </div>
                                         </div>
                                         <!-- ./días de disfrute de vacaciones mínimos por año -->
@@ -260,7 +282,8 @@
                                                        v-input-mask data-inputmask="
                                                             'alias': 'numeric',
                                                             'allowMinus': 'false',
-                                                            'digits': 0">
+                                                            'digits': 0"
+                                                       v-model="record.maximum_additional_days_per_year">
                                             </div>
                                         </div>
                                         <!-- ./días de disfrute de vacaciones máximos por año de servicio -->
@@ -274,7 +297,8 @@
                                                        v-input-mask data-inputmask="
                                                             'alias': 'numeric',
                                                             'allowMinus': 'false',
-                                                            'digits': 0">
+                                                            'digits': 0"
+                                                       v-model="record.vacation_periods_accumulated_per_year">
                                             </div>
                                         </div>
                                         <!-- ./períodos vacacionales -->
@@ -320,7 +344,7 @@
                                             <div class=" form-group is-required">
                                                 <label>Salario a emplear para el cálculo del bono vacacional:</label>
                                                 <select2 :options="salary_types"
-                                                         v-model="record.salary_type_id"></select2>
+                                                         v-model="record.salary_type"></select2>
                                             </div>
                                         </div>
                                         <!-- ./salario a emplear -->
@@ -332,7 +356,8 @@
                                                     <p-check class="pretty p-switch p-fill p-bigger"
                                                              color="success" off-color="text-gray" toggle
                                                              data-toggle="tooltip"
-                                                             title="Indique si el pago del bono vacacional se realiza de acuerdo a la antiguedad del trabajador">
+                                                             title="Indique si el pago del bono vacacional se realiza de acuerdo a la antiguedad del trabajador"
+                                                             v-model="record.staff_antiquity">
                                                         <label slot="off-label"></label>
                                                     </p-check>
                                                 </div>
@@ -372,16 +397,18 @@
                                         </div>
                                         <!-- ./día general -->
                                         <!-- días a otorgar para el pago de vacaciones -->
-                                        <div class="col-md-3" v-if="record.payment_calculation == 'general_days'">
+                                        <div class="col-md-3" v-if="record.payment_calculation == 'general_days' && 
+                                                                    record.vacation_type == 'collective_vacations'">
                                             <div class="form-group is-required">
-                                                <label>Días a otorgar para el disfrute de vacaciones:</label>
+                                                <label>Días a otorgar para el pago de vacaciones:</label>
                                                 <input type="text" data-toggle="tooltip"
                                                        title="Indique la cantidad de días a otorgar para el pago de las vacaciones"
                                                        class="form-control input-sm"
                                                        v-input-mask data-inputmask="
                                                             'alias': 'numeric',
                                                             'allowMinus': 'false',
-                                                            'digits': 0">
+                                                            'digits': 0"
+                                                       v-model="record.vacation_days">
                                             </div>
                                         </div>
                                         <!-- ./días a otorgar para el pago de vacaciones -->
@@ -416,8 +443,16 @@
                     </div>
                     <div class="modal-body modal-table">
                         <v-client-table :columns="columns" :data="records" :options="table_options">
-                            <div slot="description" slot-scope="props">
-                                <span v-html="props.row.description"></span>
+                            <div slot="application_date" slot-scope="props">
+                                <span> {{ props.row.start_date + ' - ' + props.row.end_date }} </span>
+                            </div>
+                            <div slot="vacation_type" slot-scope="props">
+                                <span v-if="props.row.vacation_type == 'collective_vacations'">
+                                    Vacaciones colectivas
+                                </span>
+                                <span v-else-if="props.row.vacation_type == 'vacation_period'">
+                                    Período vacacional
+                                </span>
                             </div>
                             <div slot="id" slot-scope="props" class="text-center">
                                 <button @click="initUpdate(props.row.id, $event)"
@@ -425,7 +460,7 @@
                                         title="Modificar registro" data-toggle="tooltip" type="button">
                                     <i class="fa fa-edit"></i>
                                 </button>
-                                <button @click="deleteRecord(props.row.id, 'vacation-policies')"
+                                <button @click="deleteRecord(props.row.id, 'payroll/vacation-policies')"
                                         class="btn btn-danger btn-xs btn-icon btn-action"
                                         title="Eliminar registro" data-toggle="tooltip"
                                         type="button">
@@ -445,41 +480,53 @@
         data() {
             return {
                 record: {
-                    id:               '',
-                    name:             '',
-                    start_date:       '',
-                    end_date:         '',
-                    vacation_type_id: '',
-                    vacation_period_per_year: '',
-                    vacation_advance:  false,
-                    vacation_postpone: false,
-                    payment_calculation: ''
+                    id:                                    '',
+                    name:                                  '',
+                    start_date:                            '',
+                    end_date:                              '',
+                    vacation_type:                         '',
+                    vacation_periods_accumulated_per_year: '',
+                    vacation_days:                         '',
+                    vacation_period_per_year:              '',
+                    additional_days_per_year:              '',
+                    minimum_additional_days_per_year:      '',
+                    maximum_additional_days_per_year:      '',
+                    payment_calculation:                   '',
+                    salary_type:                           '',
+                    vacation_periods:                      [],
+                    vacation_advance:                      false,
+                    vacation_postpone:                     false,
+                    staff_antiquity:                       false
                 },
-                errors:         [],
-                records:        [],
-                columns:        ['id'],
-                vacation_types: [
+
+                errors:             [],
+                records:            [],
+                columns:            ['name', 'application_date', 'vacation_type', 'id'],
+                vacation_types:     [
                     {"id": "",                     "text": "Seleccione..."},
                     {"id": "collective_vacations", "text": "Vacaciones colectivas"},
                     {"id": "vacation_period",      "text": "Período vacacional"}
                 ],
-                salary_types:   [
+                salary_types:       [
                     {"id": "",                     "text": "Seleccione..."},
                     {"id": "base_salary",          "text": "Salario Base"},
                     {"id": "comprehensive_salary", "text": "Salario Integral"},
                     {"id": "normal_salary",        "text": "Salario Normal"},
                     {"id": "dialy_salary",         "text": "Salario Diario"}
                 ],
-                panel:   'vacationPolicyForm',
+                panel:              'vacationPolicyForm',
             }
         },
         created() {
             const vm = this;
             vm.table_options.headings = {
-                'id':          'Acción'
+                'name':             'Nombre',
+                'application_date': 'Fecha de aplicación',
+                'vacation_type':    'Tipo de vacaciones',
+                'id':               'Acción'
             };
-            vm.table_options.sortable       = ['name', 'description', 'sign'];
-            vm.table_options.filterable     = ['name', 'description', 'sign'];
+            vm.table_options.sortable       = ['name', 'application_date', 'vacation_type'];
+            vm.table_options.filterable     = ['name', 'application_date', 'vacation_type'];
             vm.table_options.columnsClasses = {
                 'id':          'col-xs-2'
             };
@@ -494,17 +541,26 @@
                 const vm  = this;
                 vm.errors = [];
                 vm.record = {
-                    id:               '',
-                    name:             '',
-                    start_date:       '',
-                    end_date:         '',
-                    vacation_type_id: '',
-                    vacation_period_per_year: '',
-                    vacation_advance:  false,
-                    vacation_postpone: false,
-                    payment_calculation: ''
+                    id:                                    '',
+                    name:                                  '',
+                    start_date:                            '',
+                    end_date:                              '',
+                    vacation_type:                         '',
+                    vacation_periods_accumulated_per_year: '',
+                    vacation_days:                         '',
+                    vacation_period_per_year:              '',
+                    additional_days_per_year:              '',
+                    minimum_additional_days_per_year:      '',
+                    maximum_additional_days_per_year:      '',
+                    payment_calculation:                   '',
+                    salary_type:                           '',
+                    vacation_periods:                      [],
+                    vacation_advance:                      false,
+                    vacation_postpone:                     false,
+                    staff_antiquity:                       false
                 };
                 vm.panel  = 'vacationPolicyForm';
+                document.getElementById("vacationPolicyForm").click();
             },
             /**
              * Método que habilita o deshabilita el botón siguiente
@@ -513,7 +569,34 @@
              */
             isDisableNext() {
                 const vm = this;
-                return false;
+                if (vm.record.vacation_type == 'collective_vacations') {
+                    if ((vm.record.name != '') &&
+                        (vm.record.start_date != '') &&
+                        (vm.record.end_date != '') &&
+                        (vm.record.vacation_periods != []) &&
+                        (vm.record.vacation_periods_accumulated_per_year != '')) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+
+                } else if (vm.record.vacation_type == 'vacation_period') {
+                    if ((vm.record.name != '') &&
+                        (vm.record.start_date != '') &&
+                        (vm.record.end_date != '') &&
+                        (vm.record.vacation_days != '') &&
+                        (vm.record.vacation_period_per_year != '') &&
+                        (vm.record.additional_days_per_year != '') &&
+                        (vm.record.minimum_additional_days_per_year != '') &&
+                        (vm.record.maximum_additional_days_per_year != '') &&
+                        (vm.record.vacation_periods_accumulated_per_year != '')) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                } else {
+                    return true;
+                }
             },
             /**
              * Método que cambia el panel de visualización
@@ -538,6 +621,139 @@
                     }
                 }
             },
+            /**
+             * Método que permite inicializar los campos del formulario según sea el tipo de vacaciones
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+             */
+            switchTypeVacation() {
+                const vm    = this;
+                if (vm.record.vacation_type == 'collective_vacations') {
+                    vm.record.vacation_days                         = '';
+                    vm.record.vacation_period_per_year              = '';
+                    vm.record.additional_days_per_year              = '';
+                    vm.record.minimum_additional_days_per_year      = '';
+                    vm.record.maximum_additional_days_per_year      = '';
+                } else if (vm.record.vacation_type == 'vacation_period') {
+                    vm.record.vacation_periods                      = [];
+                    vm.record.vacation_periods_accumulated_per_year = '';
+                }
+            },
+            /**
+             * Reescribe el método initRecords para cambiar su comportamiento por defecto
+             * Inicializa los registros base del formulario
+             *
+             * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             *
+             * @param     {string}    url         Ruta que obtiene los datos a ser mostrado en listados
+             * @param     {string}    modal_id    Identificador del modal a mostrar con la información solicitada
+             */
+            initRecords(url, modal_id) {
+                this.errors = [];
+                this.reset();
+                const vm = this;
+
+                url = (!url.includes('http://') || !url.includes('http://')) ? `${window.app_url}/${url}` : url;
+
+                axios.get(url).then(response => {
+                    if (typeof(response.data.records) !== "undefined") {
+                        let records = [];
+                        $.each(response.data.records, function(index, field) {
+                            records.push({
+                                id:                                    field['id'],
+                                name:                                  field['name'],
+                                start_date:                            field['start_date'],
+                                end_date:                              field['end_date'],
+                                vacation_type:                         field['vacation_type'],
+                                vacation_periods:                      JSON.parse(field['vacation_periods']),
+                                vacation_periods_accumulated_per_year: field['vacation_periods_accumulated_per_year'],
+                                vacation_days:                         field['vacation_days'],
+                                vacation_period_per_year:              field['vacation_period_per_year'],
+                                additional_days_per_year:              field['additional_days_per_year'],
+                                minimum_additional_days_per_year:      field['minimum_additional_days_per_year'],
+                                maximum_additional_days_per_year:      field['maximum_additional_days_per_year'],
+                                payment_calculation:                   field['payment_calculation'],
+                                salary_type:                           field['salary_type'],
+                                vacation_advance:                      field['vacation_advance'],
+                                vacation_postpone:                     field['vacation_postpone'],
+                                staff_antiquity:                       field['staff_antiquity']
+                            });
+                        });
+                        vm.records = records;
+                    }
+                    if ($("#" + modal_id).length) {
+                        $("#" + modal_id).modal('show');
+                    }
+                }).catch(error => {
+                    if (typeof(error.response) !== "undefined") {
+                        if (error.response.status == 403) {
+                            vm.showMessage(
+                                'custom', 'Acceso Denegado', 'danger', 'screen-error', error.response.data.message
+                            );
+                        }
+                        else {
+                            vm.logs('resources/js/all.js', 343, error, 'initRecords');
+                        }
+                    }
+                });
+            },
+            /**
+             * Reescribe el método initRecords para cambiar su comportamiento por defecto
+             * Método que obtiene los registros a mostrar
+             *
+             * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             *
+             * @param     {string}    url    Ruta que obtiene todos los registros solicitados
+             */
+            readRecords(url) {
+                const vm = this;
+                vm.loading = true;
+                url = (!url.includes('http://') || !url.includes('http://'))
+                      ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
+
+                axios.get(url).then(response => {
+                    if (typeof(response.data.records) !== "undefined") {
+                        let records = [];
+                        $.each(response.data.records, function(index, field) {
+                            records.push({
+                                id:                                    field['id'],
+                                name:                                  field['name'],
+                                start_date:                            field['start_date'],
+                                end_date:                              field['end_date'],
+                                vacation_type:                         field['vacation_type'],
+                                vacation_periods:                      JSON.parse(field['vacation_periods']),
+                                vacation_periods_accumulated_per_year: field['vacation_periods_accumulated_per_year'],
+                                vacation_days:                         field['vacation_days'],
+                                vacation_period_per_year:              field['vacation_period_per_year'],
+                                additional_days_per_year:              field['additional_days_per_year'],
+                                minimum_additional_days_per_year:      field['minimum_additional_days_per_year'],
+                                maximum_additional_days_per_year:      field['maximum_additional_days_per_year'],
+                                payment_calculation:                   field['payment_calculation'],
+                                salary_type:                           field['salary_type'],
+                                vacation_advance:                      field['vacation_advance'],
+                                vacation_postpone:                     field['vacation_postpone'],
+                                staff_antiquity:                       field['staff_antiquity']
+                            });
+                        });
+                        vm.records = records;
+                    }
+                    vm.loading = false;
+                }).catch(error => {
+                    vm.logs('mixins.js', 285, error, 'readRecords');
+                });
+            },
+            /**
+             * Método que agrega un nuevo período vacacional
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+             */
+            addVacationPeriod() {
+                const vm = this;
+                vm.record.vacation_periods.push({
+                    start_date: '',
+                    end_date: ''
+                });
+            }
         }
     };
 </script>

@@ -35,7 +35,7 @@
 					<div class="col-md-4">
 						<div class="form-group is-required">
 							<label for="date_register">Fecha del registro</label>
-        					<input type="date" id="date_register" class="form-control input-sm" data-toggle="tooltip"
+        					<input type="text" readonly id="date_register" class="form-control input-sm" data-toggle="tooltip"
                                    title="Indique la fecha del registro" v-model="record.date_register">
         				</div>
 					</div>
@@ -85,7 +85,7 @@
 					<div class="col-md-4">
 						<div class="form-group is-required">
 							<label for="percent">Porcentaje de cumplimiento</label>
-        					<input type="text" id="percent" class="form-control input-sm" data-toggle="tooltip"
+        					<input type="number" min="1" max="100" id="percent" class="form-control input-sm" data-toggle="tooltip"
                                    title="Indique el porcentaje de cumplimiento" v-model="record.percent">
 						</div>
 					</div>
@@ -172,9 +172,13 @@
 			},
 		},
 		mounted() {
+			const vm = this;
 			if(this.requestid){
 				this.loadForm(this.requestid);
 			}
+			else {
+                vm.record.date_register = moment(String(new Date())).format('YYYY-MM-DD');
+            }
 		},
 		props: {
 			requestid: {

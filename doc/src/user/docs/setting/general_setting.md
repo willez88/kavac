@@ -53,7 +53,7 @@ Para realizar el registro de una Institución se debe:
 
 - Acceder como usuario administrador o con un rol de usuario con permisos sobre la **Configuración General** del sistema
 - Ubicarse en la sección **Instituciones Registradas**
-- Haciendo uso del botón de [acciones de registro ](/information/#botones), accedemos al formulario de registro de institución 
+- Haciendo uso del botón de [acción de registro ](/information/#botones), accedemos al formulario de registro de institución 
 - Completamos el formulario y guardamos los cambios.
 - Finalmente el registro se mostrará en el historial en la sección **Instituciones Registradas** 	
 

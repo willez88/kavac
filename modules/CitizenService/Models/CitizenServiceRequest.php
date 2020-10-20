@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
+use Illuminate\Support\Arr;
 
 /**
  * @class CitizenService
@@ -14,7 +15,7 @@ use App\Traits\ModelsTrait;
  *
  * Gestiona el modelo de ingresar solicitud
  *
- * @author Ing. Yennifer Ramirez <yramirez@cenditel.gob.ve>
+ * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
  * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
@@ -25,6 +26,7 @@ class CitizenServiceRequest extends Model implements Auditable
     use AuditableTrait;
     use ModelsTrait;
 
+    protected $with = ['municipality', 'city'];
     /**
      * Lista de atributos para la gestión de fechas
      * @var array $dates
@@ -79,25 +81,55 @@ class CitizenServiceRequest extends Model implements Auditable
         return $this->belongsTo(CitizenServiceDepartment::class);
     }
 
+    /**
+     * Método que obtiene la solicitud asociado a un municipio
+     *
+     * @author
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function municipality()
+    {
+        return $this->belongsTo(Municipality::class);
+    }
+
+    /**
+     * Método que obtiene la solicitud asociado a una ciudad
+     *
+     * @author
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+    // En construcción con respecto a los arreglos
     public function scopeSearchPeriod(
         $query,
         $start_date,
         $end_date,
-        $citizen_service_request_type_id,
-        $citizen_service_id
+        $citizen_service_request_types,
+        $citizen_service_states
     ) {
+        error_log('entro');
+
+        $arreglos = Arr::flatten($citizen_service_request_types);
+        if ($arreglos && !empty($arreglos)) {
+            foreach ($arreglos as $arreglo) {
+               error_log($arreglo);
+            }
+        }
         return $query->whereBetween("date", [$start_date,$end_date])
-                     ->where("citizen_service_request_type_id", $citizen_service_request_type_id)
-                     ->where("state", $citizen_service_id);
+                     ->whereIn("citizen_service_request_type_id", $arreglo)
+                     ->where("state", $citizen_service_states);
     }
     public function scopeSearchDate(
         $query,
         $date,
-        $citizen_service_request_type_id,
-        $citizen_service_id
+        $citizen_service_request_types,
+        $citizen_service_states
     ) {
         return $query->where("date", $date)
-                     ->where("citizen_service_request_type_id", $citizen_service_request_type_id)
-                     ->where("state", $citizen_service_id);
+                     ->where("citizen_service_request_type_id", $citizen_service_request_types)
+                     ->where("state", $citizen_service_states);
     }
 }

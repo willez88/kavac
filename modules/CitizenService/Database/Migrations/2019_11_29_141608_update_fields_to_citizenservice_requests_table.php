@@ -40,7 +40,7 @@ class UpdateFieldsToCitizenserviceRequestsTable extends Migration
             if (Schema::hasColumn('citizen_service_requests', 'id_number')) {
                 $table->string('id_number', 12)->unique()->comment('Cédula de identidad del Solicitante')->change();
             }
-            if (Schema::hasColumn('citizen_service_requests', 'id_number')) {
+            if (Schema::hasColumn('citizen_service_requests', 'email')) {
                 $table->string('email')->unique()->nullable()->comment('Correo electrónico del Solicitante')->change();
             }
             if (Schema::hasColumn('citizen_service_requests', 'document_id')) {

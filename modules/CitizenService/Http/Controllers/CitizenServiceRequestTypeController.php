@@ -42,11 +42,13 @@ class CitizenServiceRequestTypeController extends Controller
     {
         $this->validate($request, [
             'name'        => ['required', 'max:100'],
-            'description' => ['required', 'max:200']
+            'description' => ['required', 'max:200'],
+            'requirement' => ['required', 'max:300']
         ]);
         $citizenserviceRequestType = CitizenServiceRequestType::create([
             'name'        => $request->name,
-            'description' => $request->description
+            'description' => $request->description,
+            'requirement' => $request->requirement
         ]);
         return response()->json(['record' => $citizenserviceRequestType, 'message' => 'Success'], 200);
     }
@@ -81,11 +83,13 @@ class CitizenServiceRequestTypeController extends Controller
     {
         $citizenserviceRequestType = CitizenServiceRequestType::find($id);
         $this->validate($request, [
-            'name' => ['required', 'max:100'],
-            'description' => ['required','max:200']
+            'name'        => ['required', 'max:100'],
+            'description' => ['required', 'max:200'],
+            'requirement' => ['required', 'max:300']
         ]);
         $citizenserviceRequestType->name        = $request->name;
         $citizenserviceRequestType->description = $request->description;
+        $citizenserviceRequestType->requirement = $request->requirement;
         $citizenserviceRequestType->save();
         return response()->json(['message' => 'Success'], 200);
     }
