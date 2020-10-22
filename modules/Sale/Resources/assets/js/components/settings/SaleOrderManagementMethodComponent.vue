@@ -2,7 +2,7 @@
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de Gestión de Pedidos" data-toggle="tooltip"
-		   @click="addRecord('add_sale_ordermanagement_method', 'sale/ordermanagement-method', $event)">
+		   @click="addRecord('add_sale_ordermanagement_method', 'sale/saleordermanagement-method', $event)">
            <i class="icofont icofont-cur-dollar ico-3x"></i>
 		   <span>Pedidos</span>
 		</a>
@@ -47,7 +47,7 @@
 	                </div>
 					<div class="modal-footer">
 	                	<div class="form-group">
-	                		<modal-form-buttons :saveRoute="'sale/ordermanagement-method'"></modal-form-buttons>
+	                		<modal-form-buttons :saveRoute="'sale/saleordermanagement-method'"></modal-form-buttons>
 	                	</div>
 	                </div>
 	                <div class="modal-body modal-table">
@@ -58,7 +58,7 @@
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.row.id, 'ordermanagement-method')"
+		                		<button @click="deleteRecord(props.row.id, 'saleordermanagement-method')"
 										class="btn btn-danger btn-xs btn-icon btn-action"
 										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
