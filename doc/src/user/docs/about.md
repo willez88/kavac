@@ -42,4 +42,5 @@ Esta estructura de desarrollo permite a la aplicación extender otras potenciali
  - Enfoque preciso en cuanto a cada funcionalidad del sistema
  - Aseguramiento de la información mediante métodos implementados por el framework e implementación de estándares de código fuente
 
+
 </div>

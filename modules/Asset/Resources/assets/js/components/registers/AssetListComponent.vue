@@ -39,7 +39,7 @@
 			<div slot="id" slot-scope="props" class="text-center">
 				<div class="d-inline-flex">
 					<asset-info
-		            		:route_list="'registers/info/'+ props.row.id">
+		            		:route_list="'asset/registers/info/'+ props.row.id">
 		        	</asset-info>
 
 					<button @click="assignAsset(props.row.id)"

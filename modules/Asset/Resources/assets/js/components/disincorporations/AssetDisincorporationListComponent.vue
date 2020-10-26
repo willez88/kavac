@@ -17,18 +17,18 @@
 		</div>
 		<div slot="id" slot-scope="props" class="text-center">
 			<div class="d-inline-flex">
-				<asset-disincorporation-info 
-					:route_list="'disincorporations/vue-info/' + props.row.id">
+				<asset-disincorporation-info
+					:route_list="'asset/disincorporations/vue-info/' + props.row.id">
 				</asset-disincorporation-info>
 
-				<button @click="editForm(props.row.id)" 
-	    				class="btn btn-warning btn-xs btn-icon btn-action" 
+				<button @click="editForm(props.row.id)"
+	    				class="btn btn-warning btn-xs btn-icon btn-action"
 	    				title="Modificar registro" data-toggle="tooltip" type="button">
 	    			<i class="fa fa-edit"></i>
 	    		</button>
-	    		<button @click="deleteRecord(props.index, '')" 
-						class="btn btn-danger btn-xs btn-icon btn-action" 
-						title="Eliminar registro" data-toggle="tooltip" 
+	    		<button @click="deleteRecord(props.index, '')"
+						class="btn btn-danger btn-xs btn-icon btn-action"
+						title="Eliminar registro" data-toggle="tooltip"
 						type="button">
 					<i class="fa fa-trash-o"></i>
 				</button>
@@ -66,7 +66,7 @@
 			 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
 			 */
 			reset() {
-				
+
 			},
 		},
 	};

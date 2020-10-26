@@ -28,7 +28,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _nod
 /*!************************************************************************************************************!*\
   !*** ./Resources/assets/js/components/accounts/AccountingFormComponent.vue?vue&type=template&id=824e499c& ***!
   \************************************************************************************************************/
-/*! no static exports found */
+/*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
