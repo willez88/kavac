@@ -47,7 +47,7 @@
                                 v-if="!props.row.approved">
                             <i class="fa fa-check"></i>
                         </button>
-                        <accounting-entry-show :id="props.row.id" :route_show="'/accounting/entries/'+props.row.id" />
+                        <accounting-entry-show :id="props.row.id" :route_show="'accounting/entries/'+props.row.id" />
                         <button @click="editForm(props.row.id)"
                                 class="btn btn-warning btn-xs btn-icon btn-action"
                                 title="Modificar registro" data-toggle="tooltip"

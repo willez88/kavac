@@ -403,7 +403,7 @@ Vue.mixin({
             this.errors = [];
             this.reset();
             const vm = this;
-            url = (!url.includes('http://') || !url.includes('http://')) ? `${window.app_url}/${url}` : url;
+            url = (!url.includes('http://') || !url.includes('https://')) ? `${window.app_url}/${url}` : url;
 
             axios.get(url).then(response => {
                 if (typeof(response.data.records) !== "undefined") {
