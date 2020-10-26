@@ -1,0 +1,29 @@
+{
+    "name": "kavac/digitalsignature",
+    "description": "",
+    "keywords": ["kavac", "digitalsignature"],
+    "authors": [
+        {
+            "name": "Ing. Roldan Vargas",
+            "email": "rvargas@cenditel.gob.ve"
+        }
+    ],
+    "require": {},
+    "require-dev": {},
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\DigitalSignature\\": ""
+        },
+        "files": [
+            "Helpers/Helper.php"
+        ]
+    }
+}

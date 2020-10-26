@@ -240,4 +240,9 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'accounti
     );
 
     Route::get('get-categories/', 'AccountingSettingCategoryController@getCategories');
+
+     /* Ruta para visualizar el interfaz para firmar documento PDF */
+        Route::get('viewSignfile', function () {
+            return view('accounting::viewSignfile', ['signfile' => 'false']);
+        })->name('viewSignfile');
 });
