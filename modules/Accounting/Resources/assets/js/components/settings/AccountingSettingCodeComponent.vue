@@ -3,7 +3,7 @@
         <h6>Asientos contables</h6>
         <form @submit.prevent="">
             <div class="card-body">
-                <accounting-show-errors refs="settingCode" />
+                <accounting-show-errors ref="settingCode" />
                 <div class="row">
                     <div class="col-3" id="helpCodeReference">
                         <label for="entries_reference" class="control-label">Código de referencia</label>

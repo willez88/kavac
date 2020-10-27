@@ -56,7 +56,7 @@
 					</div>
 				</div>
 				<div class="card-body">
-					{{-- <accounting-entries-listing></accounting-entries-listing> --}}
+					<accounting-entry-listing></accounting-entry-listing>
 				</div>
 			</div>
 		</div>
