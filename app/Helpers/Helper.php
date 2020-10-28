@@ -689,22 +689,32 @@ if (! function_exists('check_max_upload_size')) {
         $humanFileSize = convert_filesize($fileSize);
         preg_match_all('/\d+/', ini_get('upload_max_filesize'), $uploadMaxFilesize);
         preg_match_all('/[^0-9]/', ini_get('upload_max_filesize'), $factor);
+        preg_match_all('/\d+/', ini_get('post_max_size'), $postMaxSize);
+        preg_match_all('/[^0-9]/', ini_get('post_max_size'), $factorPost);
         /** @var float Tamaño máximo permitido para subir */
         $maxSize = (float)$uploadMaxFilesize[0][0];
+        /** @var float Tamaño máximo permitido por el método POST */
+        $maxSizePost = (float)$postMaxSize[0][0];
 
-        if ($maxSize === 0) {
+        if ($maxSize === 0 && $maxSizePost === 0) {
             /** No existe límite máximo para subir archivos */
             return true;
         }
         /** @var string Unidad que establece el tamaño máximo */
         $unit = $factor[0][0] . 'B';
+        /** @var string Unidad que establece el tamaño máximo a través del método POST */
+        $unitPost = $factorPost[0][0] . 'B';
 
         /** @var string Tamaño máximo permitido para subir archivos */
         $size = (string)$maxSize . $unit;
+        /** @var string Tamaño máximo permitido a través del método POST */
+        $sizePost = (string)$maxSizePost . $unitPost;
 
         /** @var float Conversión a bytes del tamaño máximo permitido para subir archivos */
         $bytes = convert_to_bytes($size);
+        /** @var float Conversión a bytes del tamaño máximo a través del método POST */
+        $bytesPost = convert_to_bytes($sizePost);
 
-        return $fileSize < $bytes;
+        return $fileSize < $bytes && $fileSize < $bitesPost;
     }
 }
