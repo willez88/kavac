@@ -15,6 +15,13 @@
 Route::group([
     'middleware' => 'auth:api', 'prefix' => 'digitalsignature'
 ], function () {
-    Route::post('signFile', 'DigitalSignatureController@signFile')->name('signFile');
-    Route::post('verifysignfile', 'DigitalSignatureController@verifysign')->name('verifysignfile');
+	
+	/* Ruta para realizar la firma de documento PDF firmados */
+    Route::post('signFile', 'DigitalSignatureController@signFile')->name('apiSignFile');
+
+    /* Ruta para realizar la verificación de la firma de documento PDF firmados */
+    Route::post('verifysignfile', 'DigitalSignatureController@verifysign')->name('apiVerifysignfile');
+
+    /* Ruta para descargar documento PDF firmado */
+        Route::get('getFile/{filename}', 'DigitalSignatureController@getFile')->name('apiGetFile');
 });

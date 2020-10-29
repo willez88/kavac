@@ -355,11 +355,29 @@ class DigitalSignatureController extends Controller
 
                 //elimina el documento pdf
                 Storage::disk('temporary')->delete($filenamepdf);
-                
+
+                $previousUrl = app('url')->previous(); //obtiene el nombre de la ruta
+
+                $routeAction = $request->route()->getName();
+
+                return redirect()->route($routeAction, [
+                                'msg' => "El documento fue firmado exitosamente", 
+                                'namefile' => $filenamepdfsign,
+                                'signfile' => 'true']);
+                /*
+                return redirect()->to($previousUrl.'?'. http_build_query([
+                                'msg' => "El documento fue firmado exitosamente", 
+                                'namefile' => $filenamepdfsign,
+                                'signfile' => 'true']); */
+                /*
+                return back()->withInput(['msg' => "El documento fue firmado exitosamente", 
+                                            'namefile' => $filenamepdfsign,
+                                            'signfile' => 'true']); 
+                /*                            
                 return view( 'digitalsignature::viewSignfile', ['msg' => "El documento fue firmado exitosamente", 
                                             'namefile' => $filenamepdfsign,
                                             'signfile' => 'true']);
-            }
+            */} 
             else { return redirect()->route('fileprofile'); } 
     } 
     else { return redirect()->route('login'); }
@@ -371,7 +389,7 @@ class DigitalSignatureController extends Controller
      * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
      * @return json con el detalle de la verificación de la firma
      */
-    public function verifysign(Request $request) {
+    public function verifySign(Request $request) {
 
         /**
          * @var filename: nombre aleatoria para asignar al documentos pdf

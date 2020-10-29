@@ -64,7 +64,7 @@ Route::group(
         */
 
         /* Ruta para realizar la verificación de la firma de documento PDF firmados */
-        Route::post('verifysignfile', 'DigitalSignatureController@verifysign')->name('verifysignfile');
+        Route::post('verifysignfile', 'DigitalSignatureController@verifySign')->name('verifysignfile');
 
         /* Ruta para visualizar el interfaz para verificar firma de documento PDF */
         Route::get('viewVerifySignfile', function () {
