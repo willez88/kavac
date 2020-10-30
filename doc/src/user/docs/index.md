@@ -5,7 +5,7 @@
 ![Screenshot](img/logokavac.png#imagen)
 
 
-El Manual de Documentación del sistema KAVAC a nivel de usuario tiene como objetivo facilitar la tarea de conocimiento, uso y aprendizaje del sistema desarrollado. Presenta información acerca de todas las operaciones básicas que el sistema ofrece, así como capturas de pantallas útiles para el seguimiento de la explicación de los procesos. Para iniciar en el sistema KAVAC, es necesario configurar el entorno de desarrollo, por lo que se amerita conocer a fondo las tareas y funciones de cada rol de usuario. La instalación del sistema KAVAC que se presenta a continuación nos abre paso  a la configuración y uso de cada aplicación, asimismo, nos mostrará los procesos de  alojamiento del servidor de desarrollo. El sistema KAVAC está desarrollado en el lenguaje de programación PHP  usando el framework o entorno de desarrollo Laravel, lo que convierte a este sistema en una aplicación bastante versátil a nivel de desarrollo debido a la amplia comunidad colaborativa "Open Source" de usuarios relacionados con esta tecnología.
+El Manual de Documentación del sistema KAVAC a nivel de usuario tiene como objetivo facilitar la tarea de conocimiento, uso y aprendizaje del sistema desarrollado. Presenta información acerca de todas las operaciones básicas que el sistema ofrece, así como capturas de pantallas útiles para el seguimiento de la explicación de los procesos. Para iniciar en el sistema KAVAC, es necesario configurar el entorno de desarrollo, por lo que se amerita conocer a fondo las tareas y funciones de cada rol de usuario. La instalación del sistema KAVAC que se presenta a continuación nos abre paso  a la configuración y uso de cada aplicación, asimismo, nos mostrará los procesos de alojamiento del servidor de desarrollo. El sistema KAVAC está desarrollado en el lenguaje de programación PHP  usando el framework o entorno de desarrollo Laravel, lo que convierte a este sistema en una aplicación bastante versátil a nivel de desarrollo debido a la amplia comunidad colaborativa "Open Source" de usuarios relacionados con esta tecnología.
 
 
 ## KAVAC sistema de gestión de recursos
@@ -17,10 +17,10 @@ KAVAC es un sistema de planificación y gestión de recursos organizacionales, q
 ##Aplicaciones
 
 
-KAVAC está diseñado de forma modular, cuenta con independencia entre los módulos, permitiendo la flexibilidad para ajustarse rápidamente a las características de cada organización. El sistema se encuentra estructurado de tal forma que los módulos convivan entre sí,  por ejemplo, cuando se registra un bien  mueble o inmueble al mismo tiempo se generará un asiento contable de forma automática. Por lo que no es necesaria la instalación de todos los módulos para que algunos de ellos puedan coexistir.   Cada uno de los módulos del KAVAC cuenta con un panel de control, que dependerá del rol de cada usuario para su uso. 
+KAVAC está diseñado de forma modular, cuenta con independencia entre los módulos, permitiendo la flexibilidad para ajustarse rápidamente a las características de cada organización. El sistema se encuentra estructurado de tal forma que los módulos convivan entre sí,  por ejemplo, cuando se registra un bien  mueble o inmueble al mismo tiempo se generará un asiento contable de forma automática. Por lo que no es necesario la instalación de todos los módulos para que algunos de ellos puedan coexistir.   Cada uno de los módulos del KAVAC cuenta con un panel de control, que dependerá del rol de cada usuario para su uso. 
 
 
-![Screenshot](img/figure_1.png#imagen)<div style="text-align: center;font-weight: bold">Figura 1: Aplicaciones Kavac</div>
+![Screenshot](img/figure_1.png#imagen)<div style="text-align: center;font-weight: bold">Figura 1: Aplicaciones KAVAC</div>
 
 ##Funcionalidades 
 
@@ -37,13 +37,13 @@ KAVAC está diseñado de forma modular, cuenta con independencia entre los módu
 
 ##Licencia
 
-Nombre del producto: KAVAC Sistema de Gestión de Recursos
+Nombre del producto: KAVAC ‘Sistema de Gestión de Recursos’
 
-   Nombre del licenciante y año: Fundación CENDITEL (Año)
+   Nombre del licenciante y año: Licencia Combinada de Software y Contenidos de la Fundación CENDITEL. Versión 1.2 (Año: 2015).
 
    Créditos: 
    
-   **Lider de proyecto / Diseño / Desarrollo / Autor**
+   **Líder de proyecto / Diseño / Desarrollo / Autor**
 
 - Roldan Vargas (rvargas@cenditel.gob.ve | roldandvg@gmail.com)
 
@@ -56,7 +56,7 @@ Nombre del producto: KAVAC Sistema de Gestión de Recursos
 - Francisco Berbesí (fberbesi@cenditel.gob.ve)
 - Luis Ramírez (lgramirez@cenditel.gob.ve)
 - Hildayra Colmenares (hcolmenares@cenditel.gob.ve)
-- Kleibymar Montilla (kmontilla@cenditel.gob.ve)
+- Kleivymar Montilla (kmontilla@cenditel.gob.ve)
 - Daniel Contreras (dcontreras@cenditel.gob.ve)
 
    **Manuales**
@@ -84,18 +84,18 @@ Nombre del producto: KAVAC Sistema de Gestión de Recursos
 - Angelo Osorio (adosorio@cenditel.gob.ve)
 
 
-Licencia Combinada de Software y Contenidos de la Fundación CENDITEL   
+Licencia Combinada de Software y Contenidos de la Fundación CENDITEL (2015)  
 
 
-La Fundación Centro Nacional de Desarrollo e Investigación en Tecnologías Libres (CENDITEL), ente adscrito al Ministerio del Poder Popular para  Ciencia y Tecnología (MINCYT), concede permiso, para usar, copiar, modificar y distribuir libremente y sin fines comerciales el Software KAVAC Sistema de Gestión de Recursos (sin garantía alguna) asimismo permite, copiar, adaptar, publicar y comunicar los contenidos, preservando en ambos casos los derechos morales de los autores y manteniendo los mismos principios para las obras derivadas, de conformidad con los términos y condiciones de las licencias de software y contenidos de la Fundación CENDITEL.
+La Fundación Centro Nacional de Desarrollo e Investigación en Tecnologías Libres (CENDITEL), ente adscrito al Ministerio del Poder Popular para  Ciencia y Tecnología (Mincyt), concede permiso, para usar, copiar, modificar y distribuir libremente y sin fines comerciales el Software KAVAC ‘Sistema de Gestión de Recursos’ (sin garantía alguna) asimismo permite, copiar, adaptar, publicar y comunicar los contenidos, preservando en ambos casos los derechos morales de los autores y manteniendo los mismos principios para las obras derivadas, de conformidad con los términos y condiciones de las licencias de software y contenidos de la Fundación CENDITEL.
 
 
 Cada vez que copie y distribuya este producto debe acompañarlo de una copia de las licencias. Para más información sobre los términos y condiciones de las licencias visite las siguientes direcciones electrónicas:  
 
 
-[Licencia de Software]( http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+[Licencia de Software](https://conocimientolibre.cenditel.gob.ve/legislacion)
 
-[Licencia de Contenidos]( http://conocimientolibre.cenditel.gob.ve/licencias/)
+[Licencia de Contenidos](https://conocimientolibre.cenditel.gob.ve/legislacion)
 
 ![Screenshot](img/licencia.png)
 

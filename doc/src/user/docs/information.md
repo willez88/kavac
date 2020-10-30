@@ -25,7 +25,7 @@ En el desarrollo de la aplicación administrativa para la gestión de recursos K
    
    - Gestión de caché: Almacenar información en la caché del servidor para no repetir consultas cada vez que esta sea solicitada a menos que la misma haya sido modificada, lo cual permitirá tiempos de respuesta casi imperceptibles.
    
-   - Configuraciones sugeridas en un entorno en producción de aplicaciones web
+   - Configuraciones sugeridas en un entorno en producción de aplicaciones web.
  
    - Lenguaje de Desarrollo: Optimización de las variables de configuración dispuestas por el lenguaje para mejorar su rendimiento y aumentar las capacidades del mismo (aplica para cualquier lenguaje de desarrollo).
    

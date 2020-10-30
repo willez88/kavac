@@ -10,7 +10,7 @@
 
 Desde esta sección se realiza la gestión de almacenes, es posible registrar un nuevo almacén, editar o eliminar algún registro.
 
-Para realizar un nuevo registro 
+**Para realizar un nuevo registro** 
 
 - Dirigirse a la Configuración del módulo de Almacén
 - Ingresar a Almacenes en la sección Configuración General de Almacén
@@ -121,7 +121,7 @@ Esta sección permite Editar o Eliminar cualquier registro, haciendo uso de los 
 
 Desde esta sección se realiza la gestión para cierre de almacén, es posible programar un cierre de almacén, editar o eliminar algún registro.
 
-Para programar un cierre de almacén  
+**Para programar un cierre de almacén**  
 
 - Dirigirse a la Configuración del módulo de Almacén
 - Ingresar a Cierres de Almacén en la sección Configuración General de Almacén
