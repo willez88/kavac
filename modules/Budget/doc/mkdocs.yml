@@ -1,0 +1,89 @@
+# Project information
+site_name: Documentación de Usuario.
+
+# Page tree
+nav:
+      - Inicio: index.md
+      - Módulo de Presupuesto:
+        - Clasificador Presupuestario: accounts.md
+        - Formulación: subspecific_formulations.md
+        - Modificaciones: modifications.md
+        - Ejecución: execution.md
+        - Reportes: reports.md
+      - Configuración: 
+        - Formatos de Códigos: setting/code_format.md 
+        - Proyectos: setting/projects.md 
+        - Acciones Centralizadas: setting/centralized_actions.md
+        - Acciones Específicas: setting/specific_actions.md
+      - Panel de Control: 
+        - Panel de Control: control_panel/control_panel.md 
+      - Preguntas Frecuentes: frequent_questions.md  
+
+# Repository
+repo_name: Repositorio-Kavac
+repo_url: https://tibisay.cenditel.gob.ve/sistema-de-gestion/
+
+# Configuration
+theme:
+  name: material
+
+  # 404 page
+  static_templates:
+    - 404.html
+
+  # Don't include MkDocs' JavaScript
+  include_search_page: false
+  search_index_only: true
+
+  # Default values, taken from mkdocs_theme.yml
+  language: en
+  features:
+    - navigation.tabs
+    #- navigation.instant
+  palette:
+    scheme: default
+    # primary: light-blue
+    accent: light-blue
+  font:
+    text: Roboto
+    code: Roboto Mono
+  favicon: images/favicon.png
+  logo: images/logo.png
+  icon: 
+    repo: fontawesome/brands/git-square 
+  
+          
+# Plugins
+plugins:
+  - search
+  - minify:
+      minify_html: true
+
+# Customization
+# extra:
+#   social:
+#     - icon: 
+#       link: 
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+
+# css additional
+extra_css:
+  - stylesheets/extra.css
+
+
+
+
+
+
+
+
+
+
+
+
+            
+

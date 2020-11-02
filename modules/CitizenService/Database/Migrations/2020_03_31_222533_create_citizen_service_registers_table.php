@@ -23,7 +23,7 @@ class CreateCitizenServiceRegistersTable extends Migration
             $table->date('end_date')->comment('Fecha de culminación');
             $table->string('email')->unique()->nullable()->comment('Correo electrónico del responsable');
             $table->string('percent', 10)->comment('Porcentaje de cumplimiento');
-            
+
             $table->timestamps();
             $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
         });

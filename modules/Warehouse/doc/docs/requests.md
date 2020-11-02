@@ -31,7 +31,7 @@ A través de esta funcionalidad se formula una nueva solicitud para productos o 
 - Haciendo uso del botón Crear ![Screenshot](img/create.png#imagen)
 ubicado en la esquina superior derecha de esta sección, se procede a realizar una nueva solicitud
 - Se completa el formulario de registro de la sección Solicitud de Almacén 
-- Se presiona el botón Guardar, y se verifica en la lista de registros de la sección Solicitudes por Departamento.
+- Se presiona el botón Guardar ubicado al final de esta sección, y se verifica en la lista de registros en Solicitudes por Departamento.
 
 ![Screenshot](/img/solicitud.png)<div style="text-align: center;font-weight: bold">Figura: Solicitud de Almacén-Departamento</div>
 

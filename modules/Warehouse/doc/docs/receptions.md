@@ -29,7 +29,7 @@ A través de esta funcionalidad se formula una nueva solicitud para ingresos de 
 ubicado en la esquina superior derecha de esta sección, se procede a realizar una nueva solicitud
 - Se completa el formulario de registro de la sección Nuevo Ingreso al Almacén
 - Se agregan los productos a ingresar a la solicitud 
-- Se presiona el botón Guardar, y se verifica en la lista de registros de la sección Ingresos de Almacén.
+- Se presiona el botón Guardar ubicado al final de esta sección, y se verifica en la lista de registros en Ingresos de Almacén.
 
 ![Screenshot](/img/figure_nuevoingreso.png)<div style="text-align: center;font-weight: bold">Figura: Nuevo Ingreso al Almacén</div>
 

@@ -2,12 +2,15 @@
 
 namespace Modules\Accounting\Http\Controllers;
 
-use App\Imports\DataImport;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+
 use Maatwebsite\Excel\Facades\Excel;
-use Maatwebsite\Excel\HeadingRowImport;
+use Modules\Accounting\Imports\AccountingAccountImport;
+
+// use App\Imports\DataImport;
+// use Maatwebsite\Excel\HeadingRowImport;
 use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingEntryAccount;
 
@@ -402,7 +405,7 @@ class AccountingAccountController extends Controller
         /**
          * se realiza la busqueda de manera ordenada en base al codigo
          */
-        foreach (AccountingAccount::orderBy('group', 'ASC')
+        foreach (AccountingAccount::with('parent')->orderBy('group', 'ASC')
                                     ->orderBy('subgroup', 'ASC')
                                     ->orderBy('item', 'ASC')
                                     ->orderBy('generic', 'ASC')
@@ -416,6 +419,7 @@ class AccountingAccountController extends Controller
                 'denomination' => $record->denomination,
                 'active'       => $record->active,
                 'text'         =>"{$record->getCodeAttribute()} - {$record->denomination}",
+                'parent'       => $record->parent,
             ]);
         }
         return $records;
@@ -424,136 +428,14 @@ class AccountingAccountController extends Controller
     /**
      * [import Lee las filas de un archivo de hoja de calculo]
      * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-     * @return [Json] [Json con los registros y mensajes de informacion de la operacion]
+     *
+     * @return     object           Objeto que permite descargar el archivo con la información a ser exportada
      */
-    public function import()
+    public function import(Request $request)
     {
-        $this->validate(request(), [
-            'file' => ['required', 'mimes:xls,xlsx,ods,csv']
-        ]);
+        Excel::import(new AccountingAccountImport, request()->file('file'));
 
-        /**
-         * [$headings cabeceras]
-         * @var [Maatwebsite\Excel\HeadingRowImport]
-         */
-        $headings = (new HeadingRowImport)->toArray(request()->file('file'));
-
-        /**
-         * [$records registros de hoja de calculo]
-         * @var [Maatwebsite\Excel\Facades\Excel]
-         */
-        $records = Excel::toArray(new DataImport, request()->file('file'))[0];
-
-        /**
-         * [$msg mensaje en caso de error]
-         * @var string
-         */
-        $msg = '';
-
-        if (count($headings) < 1 || $headings[0] < 1) {
-            $msg = 'El archivo no contiene las cabeceras de los datos a importar.';
-        } elseif (count($headings) === 1 && $headings[0] >= 1) {
-            $validHeads = [
-                'codigo', 'denominacion','activa'
-            ];
-            foreach ($validHeads as $vh) {
-                if (!in_array($vh, $headings[0][0])) {
-                    $msg = "El archivo no contiene una de las cabeceras requeridas.";
-                    break;
-                }
-            }
-        } elseif (count($records) < 1) {
-            $msg = "El archivo no contiene registros a ser importados.";
-        }
-
-        if (!empty($msg)) {
-            return response()->json(['result' => false, 'message' => $msg], 200);
-        }
-
-        /**
-         * [$records registros de hoja de calculo]
-         * @var [Maatwebsite\Excel\Facades\Excel]
-         */
-        $file = Excel::toArray(new DataImport, request()->file('file'))[0];
-
-        /**
-         * [$records registros]
-         * @var array
-         */
-        $records = [];
-
-        /**
-         * [$currentRow indicador de la fila en la que comenzara a leer la informacion de los registros de la
-         * hoja de calculo]
-         * @var integer
-         */
-        $currentRow = 2;
-
-        /**
-         * [$rowErrors errores encontrados en la informacion de las filas]
-         * @var array
-         */
-        $rowErrors = [];
-        foreach ($file as $record) {
-
-            /**
-            * [$CodeExplode almacena el código]
-            * @var array
-            */
-            $CodeExplode = explode('.', $record['codigo']);
-
-            /**
-             * se Agrega un 0 al inicio de ser necesario
-            */
-            $n_cuenta_orden            = ((int)$CodeExplode[3] > 9) ?
-                                                    $CodeExplode[3]:'0'.(int)$CodeExplode[3];
-            $n_subcuenta_primer_orden  = ((int)$CodeExplode[4] > 9) ?
-                                                    $CodeExplode[4]:'0'.(int)$CodeExplode[4];
-            $n_subcuenta_segundo_orden = ((int)$CodeExplode[5] > 9) ?
-                                                    $CodeExplode[5]:'0'.(int)$CodeExplode[5];
-
-            /**
-             * [$recordCode informacion de las cuentas separada]
-             * @var [array]
-             */
-            $recordCode = [
-                'grupo'                     => $CodeExplode[0],
-                'subgrupo'                  => $CodeExplode[1],
-                'rubro'                     => $CodeExplode[2],
-                'n_cuenta_orden'            => $n_cuenta_orden,
-                'n_subcuenta_primer_orden'  => $n_subcuenta_primer_orden,
-                'n_subcuenta_segundo_orden' => $n_subcuenta_segundo_orden,
-                'activa'                    => $record['activa'],
-            ];
-
-
-            /**
-             * Se validan los errores en los formatos de las columnas en el archivo
-            */
-            foreach ($this->validatedErrors($recordCode, $currentRow) as $error) {
-                array_push($rowErrors, $error);
-            }
-
-            $currentRow +=1;
-
-            array_push($records, [
-                'code'         => $record['codigo'],
-                'denomination' => $record['denominacion'],
-                'active'       => ($record['activa'] == 'si') ? true : false,
-                'group'        => $recordCode['grupo'],
-                'subgroup'     => $recordCode['subgrupo'],
-                'item'         => $recordCode['rubro'],
-                'generic'      => $recordCode['n_cuenta_orden'],
-                'specific'     => $recordCode['n_subcuenta_primer_orden'],
-                'subspecific'  => $recordCode['n_subcuenta_segundo_orden'],
-                ]);
-        }
-
-        if (count($rowErrors) > 0) {
-            return response()->json(['result' => false, 'errors' => $rowErrors], 200);
-        }
-
-        return response()->json([ 'result' => true, 'records' => $records, 'errors' => $rowErrors ], 200);
+        return response()->json(['result' => true, 'records' => $this->getAccounts()], 200);
     }
 
     /**

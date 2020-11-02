@@ -68,21 +68,20 @@ class AccountingDailyBookController extends Controller
         $entries = [];
         $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
 
-        if ($user_profile['institution']['id']) {
+        if (auth()->user()->isAdmin()) {
+            $entries = AccountingEntry::with(
+                'accountingAccounts.account.accountConverters.budgetAccount'
+            )->where('approved', true)
+            ->whereBetween("from_date", [$initDate, $endDate])
+            ->orderBy('from_date', 'ASC');
+
+        }elseif ($user_profile['institution']['id']) {
             $entries = AccountingEntry::with(
                 'accountingAccounts.account.accountConverters.budgetAccount'
             )->where('approved', true)
             ->where('institution_id', $user_profile['institution']['id'])
             ->whereBetween("from_date", [$initDate, $endDate])
             ->orderBy('from_date', 'ASC');
-        } else {
-            if (auth()->user()->isAdmin()) {
-                $entries = AccountingEntry::with(
-                    'accountingAccounts.account.accountConverters.budgetAccount'
-                )->where('approved', true)
-                ->whereBetween("from_date", [$initDate, $endDate])
-                ->orderBy('from_date', 'ASC');
-            }
         }
 
         $convertions = [];
@@ -166,8 +165,11 @@ class AccountingDailyBookController extends Controller
         $report   = AccountingReportHistory::with('currency')->find($report_id);
         // Validar acceso para el registro
         $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
-        if ($report && $report->queryAccess($user_profile['institution']['id'])) {
-            return view('errors.403');
+
+        if (!auth()->user()->isAdmin()) {
+            if ($report && $report->queryAccess($user_profile['institution']['id'])) {
+                return view('errors.403');
+            }
         }
         $initDate = explode('/', $report->url)[1];
         $endDate  = explode('/', $report->url)[2];
@@ -184,23 +186,21 @@ class AccountingDailyBookController extends Controller
 
 
 
-        if ($user_profile['institution']['id']) {
+        if (auth()->user()->isAdmin()) {
+            $r = AccountingEntry::with(
+                'accountingAccounts.account.accountConverters.budgetAccount'
+            )->where('approved', true)
+            ->whereBetween("from_date", [$initDate, $endDate])
+            ->orderBy('from_date', 'ASC');
+        }
+        elseif ($user_profile['institution']['id']) {
             $r = AccountingEntry::with(
                 'accountingAccounts.account.accountConverters.budgetAccount'
             )->where('approved', true)
             ->where('institution_id', $user_profile['institution']['id'])
             ->whereBetween("from_date", [$initDate, $endDate])
             ->orderBy('from_date', 'ASC');
-        } else {
-            if (auth()->user()->isAdmin()) {
-                $r = AccountingEntry::with(
-                    'accountingAccounts.account.accountConverters.budgetAccount'
-                )->where('approved', true)
-                ->whereBetween("from_date", [$initDate, $endDate])
-                ->orderBy('from_date', 'ASC');
-            }
         }
-
 
         $r->chunk(250, function ($entries) use ($convertions, $currency) {
             $records = [];

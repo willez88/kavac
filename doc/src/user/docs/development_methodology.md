@@ -39,7 +39,7 @@ Desde la Fase de Pruebas se elaboran y aplican pruebas funcionales y no funciona
 
 Finalmente se encuentra la Fase de Liberación encargada de llevar a cabo actividades asociadas a la liberación de versiones del software, así como la elaboración de manuales, empaquetado del software y publicación de versiones beta como versiones estables. 
 
-Para conocer más sobre la Metodología para el Desarrollo Colaborativo de Software Libre, visita:  
+Para conocer más sobre la Metodología para el Desarrollo Colaborativo de Software Libre, por favor visite:  
 [https://www.cenditel.gob.ve/node/1557](https://www.cenditel.gob.ve/node/1557)
 
 </div>

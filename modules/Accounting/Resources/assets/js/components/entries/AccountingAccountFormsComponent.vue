@@ -5,10 +5,10 @@
     <table class="table table-formulation">
         <thead>
             <tr>
-                <th class="text-uppercase" width="55%">CÓDIGO DE CUENTA - DENOMINACIÓN</th>
+                <th class="text-uppercase" width="50%">CÓDIGO DE CUENTA - DENOMINACIÓN</th>
                 <th class="text-uppercase" width="20%">DEBE</th>
                 <th class="text-uppercase" width="20%">HABER</th>
-                <th class="text-uppercase" width="5%">ACCIÓN</th>
+                <th class="text-uppercase" width="10%">ACCIÓN</th>
             </tr>
         </thead>
         <tbody>
@@ -31,6 +31,11 @@
                 </td>
                 <td>
                     <div class="text-center">
+                        <button @click="clearValues(recordsAccounting.indexOf(record))"
+                            class="btn btn-default btn-xs btn-icon btn-action"
+                            title="Vaciar valores" data-toggle="tooltip">
+                            <i class="fa fa-eraser"></i>
+                        </button>
                         <button @click="deleteAccount(recordsAccounting.indexOf(record), record.entryAccountId)"
                             class="btn btn-danger btn-xs btn-icon btn-action"
                             title="Eliminar registro" data-toggle="tooltip">
@@ -448,6 +453,17 @@
                 this.recordsAccounting.splice(index,1);
                 this.CalculateTot();
             },
+
+            /**
+            * vacia los valores del debe y del haber de la fila de la cuenta y vuelve a calcular el total del asiento
+            *
+            * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+            */
+            clearValues:function(index){
+                this.recordsAccounting[index].assets = 0.00;
+                this.recordsAccounting[index].debit  = 0.00;
+                this.CalculateTot();
+            }
         },
     };
 </script>

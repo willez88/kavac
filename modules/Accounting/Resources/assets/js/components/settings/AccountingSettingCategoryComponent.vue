@@ -2,7 +2,7 @@
 	<div class="col-xs-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="#" title="Registros de categorias de origen de asientos contables"
-		   data-toggle="tooltip" @click="addRecord('CRUD_categories', '/accounting/settings/categories', $event)">
+		   data-toggle="tooltip" @click="addRecord('CRUD_categories', 'accounting/settings/categories', $event)">
 			<i class="fa fa-tags ico-3x"></i>
 			<span>Categorias de origen</span>
 		</a>

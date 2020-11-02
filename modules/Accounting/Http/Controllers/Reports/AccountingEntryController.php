@@ -60,8 +60,10 @@ class AccountingEntryController extends Controller
             )->find($id);
         }
 
-        if ($entry && $entry->queryAccess($user_profile['institution']['id'])) {
-            return view('errors.403');
+        if (!auth()->user()->isAdmin()) {
+            if ($entry && $entry->queryAccess($user_profile['institution']['id'])) {
+                return view('errors.403');
+            }
         }
 
         /**

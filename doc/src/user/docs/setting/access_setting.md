@@ -12,12 +12,12 @@ En esta sección el usuario administrador puede observar los distintos permisos 
 
 ![Screenshot](../img/figure_15.png)<div style="text-align: center;font-weight: bold">Figura 15: Roles y Permisos</div>
 
-Para La designación de roles y permisos: 
+Para la designación de roles y permisos: 
 
-- Acceder como usuario administrador o con un rol de usuario con permisos sobre la **Configuración General del Sistema**
-- Seleccionar **Acceso** y ubicarse en la sección **Roles y Permisos** (Figura 15)
-- Habilitar y deshabilitar permisos según roles de usuarios y módulos 
-- Para guardar o cancelar cualquiera de los cambios hacemos uso de los botones de [acciones de formulario](/information/#botones), ubicados al final de la sección 
+- Acceder como usuario administrador o con un rol de usuario con permisos sobre la **Configuración General del Sistema**.
+- Seleccionar **Acceso** y ubicarse en la sección **Roles y Permisos** (Figura 15).
+- Habilitar y deshabilitar permisos según roles de usuarios y módulos. 
+- Para guardar o cancelar cualquiera de los cambios hacemos uso de los botones de [acciones de formulario](/information/#botones), ubicados al final de la sección. 
 
 ##Crear un nuevo usuario
 
@@ -29,11 +29,11 @@ A través de la sección **Usuarios** (Figura 16) de la **Configuración de Acce
 
 Para la creación de una nueva cuenta usuario se debe:
 
-- Acceder como usuario administrador o con un rol de usuario con permisos sobre la **Configuración General del sistema**
-- Seleccionar **Acceso** y ubicarse en la sección **Usuarios**
-- Haciendo uso de los botones [acciones de registro](/information/#botones) ubicados en la esquina superior derecha de esta sección, accedemos al formulario **Gestión de usuario** [(Figura 17)](../img/figure_17.png)
-- Completamos el formulario con información relacionada al usuario
-- Guardamos o cancelamos cualquiera de los cambios haciendo uso de los botones de [acciones de formulario](/information/#botones), ubicados al final de la ventana 
+- Acceder como usuario administrador o con un rol de usuario con permisos sobre la **Configuración General del sistema**.
+- Seleccionar **Acceso** y ubicarse en la sección **Usuarios**.
+- Haciendo uso de los botón **Crear** ubicado en la esquina superior derecha de esta sección, accedemos al formulario **Gestión de usuario** (Figura 17).
+- Completamos el formulario con información relacionada al usuario.
+- Guardamos o cancelamos cualquiera de los cambios haciendo uso de los botones de [acciones de formulario](/information/#botones), ubicados al final de la sección. 
 - Verificar que la cuenta de usuario se muestre en el historial de registros una vez guardado.  
 
 
@@ -50,11 +50,11 @@ Para la designación de permisos se presentan clasificadas cada una de las accio
 
 ###Gestionar cuentas de usuarios ya creadas
 
-- Acceder como usuario administrador o con un rol de usuario con permisos sobre la **Configuración General del sistema**
-- Seleccionar **Acceso** y ubicarse en la sección **Usuarios** (Figura 16)
-- Presionar el botón **Editar** ubicado en la columna titulada **Acción** de la tabla de registros
-- Modificar los datos de interes en la sección **Gestión de usuario** (Figura 17)
-- Presionar el botón **Guardar** para registrar los cambios 
+- Acceder como usuario administrador o con un rol de usuario con permisos sobre la **Configuración General del sistema**.
+- Seleccionar **Acceso** y ubicarse en la sección **Usuarios** (Figura 16).
+- Presionar el botón **Editar** ubicado en la columna titulada **Acción** de la tabla de registros.
+- Modificar los datos de interes en la sección **Gestión de usuario** (Figura 17).
+- Presionar el botón **Guardar** para registrar los cambios. 
 - Verificar que la cuenta de usuario se muestre en el historial de registros una vez guardado.  
 
 

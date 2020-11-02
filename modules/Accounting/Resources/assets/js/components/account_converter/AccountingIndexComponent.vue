@@ -8,14 +8,14 @@
                     <label for="sel_budget_acc" class="control-label">Por código presupuestario</label>
                     <div class="col-12 bootstrap-switch-mini">
                         <input type="radio" name="sel_account_type" id="sel_budget_acc" data-on-label="SI"
-                               data-off-label="NO" class="form-control bootstrap-switch sel_pry_acc">
+                               data-off-label="NO" @click="loadAccounts('budget')" class="form-control bootstrap-switch sel_pry_acc">
                     </div>
                 </div>
                 <div class="col-2" id="helpSearchSelectAccounting">
                     <label for="sel_account_type" class="control-label">Por código patrimonial</label>
                     <div class="col-12 bootstrap-switch-mini">
                         <input type="radio" name="sel_account_type" id="sel_accounting_acc" checked="true"
-                               data-on-label="SI" data-off-label="NO" class="form-control bootstrap-switch sel_pry_acc">
+                               data-on-label="SI" @click="loadAccounts('accounting')" data-off-label="NO" class="form-control bootstrap-switch sel_pry_acc">
                     </div>
                 </div>
                 <div class="col-8 row" id="helpSearchRangeAccount">
@@ -33,7 +33,7 @@
                         <label for="" class="control-label">Seleccionar todas</label>
                         <div class="col-12 bootstrap-switch-mini">
                             <input type="checkbox" name="sel_account_type" id="sel_all_acc" data-on-label="SI"
-                                   data-off-label="NO"
+                                   data-off-label="NO" @click="checkAll()"
                                    class="form-control bootstrap-switch sel_pry_acc sel_all_acc_class">
                         </div>
                     </div>
@@ -73,38 +73,48 @@
             this.getAllRecords_selects_vuejs('getAllRecordsAccounting_vuejs', 'accounting', false);
         },
         mounted(){
-            /**
-             * Evento para determinar los datos a requerir segun la busqueda seleccionada
-             */
             const vm = this;
-            $('.sel_pry_acc').on('switchChange.bootstrapSwitch', function(e) {
-                if (e.target.id === "sel_budget_acc") {
-                    vm.getAllRecords_selects_vuejs('getAllRecordsBudget_vuejs', 'budget', true);
-                    vm.accountSelect.all = false;
-                }
-                else if (e.target.id === "sel_accounting_acc") {
-                    vm.getAllRecords_selects_vuejs('getAllRecordsAccounting_vuejs', 'accounting', false);
-                    vm.accountSelect.all = false;
-
-                }else if(e.target.id === "sel_all_acc"){
-                    vm.accountSelect.all = true;
-                    if (vm.accountSelect.type == 'budget') {
-                        vm.getAllRecords_selects_vuejs('getAllRecordsBudget_vuejs', 'budget', true);
-                    }else{
-                        vm.getAllRecords_selects_vuejs('getAllRecordsAccounting_vuejs', 'accounting', false);
-                    }
-
-                    if (!$('#sel_all_acc').prop('checked')) {
-                        vm.accountSelect.init_id = '';
-                        vm.accountSelect.end_id  = '';
-                        vm.accountSelect.all     = false;
-                    }
-                }
-                vm.errors = [];
-            });
+            vm.errors = [];
         },
         methods:{
+            /**
+            * Cambia la lista de cuantas a mostrar en los selectores
+            *
+            * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+            */
+            loadAccounts(type){
+                const vm = this;
+                vm.accountSelect.type = type;
+                if (vm.accountSelect.type == "budget") {
+                    vm.getAllRecords_selects_vuejs('getAllRecordsBudget_vuejs', vm.accountSelect.type, true);
+                    vm.accountSelect.all = false;
+                }
+                else if (vm.accountSelect.type == "accounting") {
+                    vm.getAllRecords_selects_vuejs('getAllRecordsAccounting_vuejs', vm.accountSelect.type, false);
+                    vm.accountSelect.all = false;
 
+                }
+            },
+            /**
+            * Selecciona todo el rango de registros de cuantas
+            *
+            * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+            */
+            checkAll(){
+                const vm = this;
+                vm.accountSelect.all = true;
+                if (vm.accountSelect.type == 'budget') {
+                    vm.getAllRecords_selects_vuejs('getAllRecordsBudget_vuejs', vm.accountSelect.type, true);
+                }else if(vm.accountSelect.type == 'accounting'){
+                    vm.getAllRecords_selects_vuejs('getAllRecordsAccounting_vuejs', vm.accountSelect.type, false);
+                }
+
+                if (!$('#sel_all_acc').prop('checked')) {
+                    vm.accountSelect.init_id = '';
+                    vm.accountSelect.end_id  = '';
+                    vm.accountSelect.all     = false;
+                }
+            },
             /**
             * Asigna los valores a las variables de los selects
             *
@@ -139,9 +149,11 @@
             *
             * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
             */
-            getAllRecords_selects_vuejs:function(name_func, type_select, type_search){
-
+            getAllRecords_selects_vuejs:function(name_route, type_select, type_search){
                 const vm = this;
+
+                vm.loading = true;
+
                 /** Array que almacenara los registros de las cuentas para los selects */
                 var records = null;
 
@@ -158,11 +170,13 @@
                 }
 
                 if (query) {
-                    axios.post('/accounting/converter/'+name_func).then(response=>{
+                    axios.post('/accounting/converter/'+name_route).then(response=>{
                         vm.setValues(response.data.records, type_select, type_search);
+                        vm.loading = false;
                     });
                 }else{
                     vm.setValues(records, type_select, type_search);
+                    vm.loading = false;
                 }
             },
 
