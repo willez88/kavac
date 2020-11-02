@@ -80,7 +80,7 @@ Route::group([
      * Rutas para generar registro de actividades
      */
 
-    Route::resource('registers', 'CitizenServiceRegisterController', ['only' => ['update']]);
+    //Route::resource('registers', 'CitizenServiceRegisterController', ['only' => ['update']]);
 
     Route::get('/registers/create', 'CitizenServiceRegisterController@create')->name('citizenservice.register.create');
 

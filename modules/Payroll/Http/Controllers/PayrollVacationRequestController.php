@@ -7,6 +7,9 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
+use Modules\Payroll\Models\PayrollVacationRequest;
+use App\Models\Institution;
+
 /**
  * @class      PayrollVacationRequestController
  * @brief      Controlador de solicitudes vacacionales
@@ -90,6 +93,22 @@ class PayrollVacationRequestController extends Controller
     }
 
     /**
+     * Show the specified resource.
+     * @return Renderable
+     */
+    public function show()
+    {
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     * @return Renderable
+     */
+    public function edit()
+    {
+    }
+
+    /**
      * Update the specified resource in storage.
      * @param  Request $request
      * @return Renderable
@@ -104,5 +123,29 @@ class PayrollVacationRequestController extends Controller
      */
     public function destroy()
     {
+    }
+
+    /**
+     * Muestra un listado de las solicitudes vacacionales registradas
+     *
+     * @method    vueList
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     */
+    public function vueList()
+    {
+        $profileUser = Auth()->user()->profile;
+        if ($profileUser) {
+            $institution = Institution::find($profileUser->institution_id);
+        } else {
+            $institution = Institution::where('active', true)->where('default', true)->first();
+        }
+
+        return response()->json(
+            ['records' => PayrollVacationRequest::where('institution_id', $institution->id)->get()],
+            200
+        );
     }
 }

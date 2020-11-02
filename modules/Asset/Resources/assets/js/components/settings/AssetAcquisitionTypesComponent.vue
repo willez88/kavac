@@ -2,7 +2,7 @@
     <div class="col-xs-2 text-center">
         <a class="btn-simplex btn-simplex-md btn-simplex-primary"
            href="#" title="Registros de Tipos de Adquisición de un Bien" data-toggle="tooltip"
-           @click="addRecord('add_acquisition_type', 'acquisition-types', $event)">
+           @click="addRecord('add_acquisition_type', 'asset/acquisition-types', $event)">
             <i class="icofont icofont-read-book ico-3x"></i>
             <span>Tipos de Adquisición</span>
         </a>
@@ -62,7 +62,7 @@
                                         title="Modificar registro" data-toggle="tooltip" type="button">
                                     <i class="fa fa-edit"></i>
                                 </button>
-                                <button @click="deleteRecord(props.row.id, 'acquisition-types')"
+                                <button @click="deleteRecord(props.row.id, 'asset/acquisition-types')"
                                         class="btn btn-danger btn-xs btn-icon btn-action"
                                         title="Eliminar registro" data-toggle="tooltip"
                                         type="button">

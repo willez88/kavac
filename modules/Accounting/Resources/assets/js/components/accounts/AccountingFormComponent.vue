@@ -76,29 +76,31 @@
                     active:false,
                 },
                 urlPrevious:'/accounting/accounts',
-                operation:'create', // puede tomar valores ['create' o 'update']
             }
         },
         created(){
 
             EventBus.$on('register:account',(data)=>{
-                this.sendData(data);
+                this.createRecord(data);
             });
             EventBus.$on('load:data-account-form',(data)=>{
                 if (data == null) {
                     this.reset(false);
                 }
                 else{
-                    this.record={
+                    this.record = {
                         id:data.id,
                         code:data.code,
                         denomination:data.denomination,
                         active:data.active,
                     };
+                    if (data.parent) {
+                        this.record_select = data.parent.id;
+                    }
+
                 }
 
                 $('input[name=active]').bootstrapSwitch('state', this.record.active);
-                this.operation = 'update';
             });
         },
         mounted(){
@@ -130,8 +132,6 @@
                     denomination:'',
                     active:false,
                 };
-
-                this.operation = 'create';
             },
             /**
             * Valida que los campos del código sean validos
@@ -160,7 +160,7 @@
             *
             * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
             */
-            sendData:function(url){
+            createRecord:function(url){
 
                 const vm = this;
                 if (!vm.FormatCode()) { return; }
@@ -198,7 +198,29 @@
 
                 vm.loading              = true;
 
-                if (vm.operation == 'create') {
+                if (auxRecord.id) {
+                    axios.put(url+auxRecord.id, auxRecord).then(response=>{
+
+                        /** Se emite un evento para actualizar el listado de cuentas en el select */
+                        vm.accRecords = [];
+                        vm.accRecords = response.data.records;
+
+                        /** Se emite un evento para actualizar el listado de cuentas de la tablas del componente accounting-accounts-list */
+                        EventBus.$emit('reload:list-accounts',response.data.records);
+                        vm.showMessage('update');
+                        vm.loading = false;
+                    }).catch(error=>{
+                        var errors = [];
+                        if (typeof(error.response) != 'undefined') {
+                            for (var index in error.response.data.errors) {
+                                if (error.response.data.errors[index]) {
+                                    errors.push(error.response.data.errors[index][0]);
+                                }
+                            }
+                            vm.$parent.$refs.accountingAccountForm.showAlertMessages(errors);
+                        }
+                    });
+                } else {
                     axios.post(url, auxRecord).then(response=>{
 
                         /** Se emite un evento para actualizar el listado de cuentas en el select */
@@ -222,28 +244,6 @@
                             vm.$parent.$refs.accountingAccountForm.showAlertMessages(errors);
                         }
                     });
-                } else {
-                    axios.put(url+auxRecord.id, vm.record).then(response=>{
-
-                        /** Se emite un evento para actualizar el listado de cuentas en el select */
-                        vm.accRecords = [];
-                        vm.accRecords = response.data.records;
-
-                        /** Se emite un evento para actualizar el listado de cuentas de la tablas del componente accounting-accounts-list */
-                        EventBus.$emit('reload:list-accounts',response.data.records);
-                        vm.showMessage('update');
-                        vm.loading = false;
-                    }).catch(error=>{
-                        var errors = [];
-                        if (typeof(error.response) != 'undefined') {
-                            for (var index in error.response.data.errors) {
-                                if (error.response.data.errors[index]) {
-                                    errors.push(error.response.data.errors[index][0]);
-                                }
-                            }
-                            vm.$parent.$refs.accountingAccountForm.showAlertMessages(errors);
-                        }
-                    });
                 }
 
                 vm.reset();
@@ -255,8 +255,13 @@
             *
             * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
             */
-            record_select:function(res) {
-                if (res != '') {
+            record_select:function(res, ant) {
+                if (res != '' && res != ant) {
+                    // esta validacion es para el caso de cargar datos en el formulario
+                    // evitando que realize la consulta axios
+                    if (typeof res == 'number') {
+                        return;
+                    }
                     axios.get('/accounting/get-children-account/' + res).then(response => {
                             var account = response.data.account;
                             /**

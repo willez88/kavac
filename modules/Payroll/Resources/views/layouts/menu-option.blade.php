@@ -53,10 +53,20 @@
             </ul>
         </li>
         <li>
-            <a href="javascript:void(0)">Reportes</a>
-            <ul class="submenu">
-                <li><a href="#">Reporte 1</a></li>
-                <li><a href="#">Reporte 2</a></li>
+            <a href="javascript:void(0)" data-toggle="tooltip" data-placement="right"
+                title="Gestiona la generación de reportes de resumen de disfrute de vacaciones, estatus de vacaciones, cálculo del bono vacacional e histórico de pago de bono vacacional.">Reportes</a>
+            <ul class="submenu" style="{!! display_submenu('reports') !!}">
+                <li title="Reporte del resumen de disfrute de vacaciones"
+                    data-toggle="tooltip" data-placement="right"
+                    class="{!! set_active_menu('payroll.reports.vacation-enjoyment-summaries') !!}">
+                    <a href="{{ route('payroll.reports.vacation-enjoyment-summaries') }}">
+                        Disfrute de vacaciones
+                    </a>
+                </li>
+                </li>
+                <li><a href="#">Estatus de vacaciones</a></li>
+                <li><a href="#">Cálculo de bono vacacional</a></li>
+                <li><a href="#">Pago de bono vacacional</a></li>
             </ul>
         </li>
     </ul>

@@ -42,10 +42,10 @@ class CitizenServiceRegisterController extends Controller
             'first_name'    => ['required', 'max:100'],
             'project_name'  => ['required', 'max:100'],
             'activities'    => ['required', 'max:100'],
-            'start_date'    => ['required'],
-            'end_date'      => ['required'],
+            'start_date'    => ['required','date'],
+            'end_date'      => ['required','after_or_equal:start_date'],
             'email'         => ['required', 'email'],
-            'percent'       => ['required', 'max:10']
+            'percent'       => ['required', 'integer', 'min:1', 'max:100']
         ]);
 
         //Guardar los registros del formulario en  CitizenServiceRegister
@@ -59,6 +59,8 @@ class CitizenServiceRegisterController extends Controller
             'email'         => $request->email,
             'percent'       => $request->percent
         ]);
+        $request->session()->flash('message', ['type' => 'store']);
+        return response()->json(['result' => true, 'redirect' => route('citizenservice.register.index')], 200);
     }
 
     /**
@@ -93,11 +95,10 @@ class CitizenServiceRegisterController extends Controller
             'first_name'                 => ['required', 'max:100'],
             'project_name'               => ['required', 'max:100'],
             'activities'                 => ['required', 'max:100'],
-            'start_date'                 => ['required'],
-            'end_date'                   => ['required'],
+            'start_date'                 => ['required','date'],
+            'end_date'                   => ['required','after_or_equal:start_date'],
             'email'                      => ['required', 'email'],
-            'percent'                    => ['required', 'max:10'],
-
+            'percent'                    => ['required', 'integer', 'min:1', 'max:100']
         ]);
 
         $citizenServiceRegister->date_register         = $request->date_register;

@@ -11,18 +11,18 @@ El Manual de Documentación del sistema KAVAC a nivel de usuario tiene como obje
 
 En este módulo se lleva a cabo la gestión de insumos y materiales que la organización maneja y requiere para su funcionamiento, maneja además “n” número de almacenes asociados a la i-ésima sede de la organización. 
 
-A través de la sección Recepciones de Almacén se gestiona el ingreso de artículos.  Esta sección permite formular solicitudes de ingreso de artículos a los diferentes almacenes registrados en el sistema. 
+A través de la sección **Recepciones de Almacén** se gestiona el ingreso de artículos.  Esta sección permite formular solicitudes de ingreso de artículos a los diferentes almacenes registrados en el sistema. 
 
-En la sección Solicitudes de Almacén se gestionan las solicitudes por requerimiento de artículos o materiales que un usuario o departamento necesitan.   
+En la sección **Solicitudes de Almacén** se gestionan las solicitudes por requerimiento de artículos o materiales que un usuario o departamento necesitan.   
 
-Desde la sección Movimientos de Almacén se lleva a cabo la gestión para el traspaso de artículos entre almacenes. 
+Desde la sección **Movimientos de Almacén** se lleva a cabo la gestión para el traspaso de artículos entre almacenes. 
 
-La sección de Reportes permite generar informes en tiempo real para inventario de productos, solicitudes de productos y stock mínimo y máximo. 
+La sección de **Reportes** permite generar informes en tiempo real para inventario de productos, solicitudes de productos y stock mínimo y máximo. 
 
 ##Sobre los usuarios
 
 
-Los usuarios que interactuan en este módulo, serán todos aquellos usuarios con roles y permisos sobre el módulo de almacén, previamente gestionados por el usuario con el rol de administrador. Para conocer mas sobre la gestión de roles y permisos visite el [Manual de Documentación del Sistema KAVAC](http://192.168.12.180/manual/base/).
+Los usuarios que interactuan en este módulo, serán todos aquellos usuarios con roles y permisos sobre el módulo de almacén, previamente gestionados por el usuario con el rol de administrador. Para conocer mas sobre la gestión de roles y permisos visite el **Manual de Documentación del Sistema KAVAC**.
 
 
 ##Funcionalidades
@@ -37,7 +37,7 @@ Los usuarios que interactuan en este módulo, serán todos aquellos usuarios con
 
    - Salida de materiales e insumos. 
 
-   - Además de contar con un panel de configuración para crear/eliminar almacenes, agregar la codificación de los productos, atado a la normativa de la organización usuaria. 
+   - Panel de configuración para crear/eliminar almacenes, agregar la codificación de los productos, atado a la normativa de la organización usuaria. 
 
    - Reportes de almacén: Entre los cuales se encuentra el inventario de productos, solicitudes de productos y stock mínimo y máximo. 
 

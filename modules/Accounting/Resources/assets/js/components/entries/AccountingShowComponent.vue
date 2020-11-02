@@ -2,7 +2,7 @@
     <div>
         <button @click="addRecord('show_entry_'+id, route_show, $event)"
                 class="btn btn-info btn-xs btn-icon btn-action" 
-                title="Visualizar requerimiento" 
+                title="Visualizar registro" 
                 data-toggle="tooltip" >
             <i class="fa fa-eye"></i>
         </button>

@@ -21,7 +21,8 @@ En esta sección se listan todos los registros de solicitudes realizadas y permi
 
 ![Screenshot](/img/datos_solicitante.jpg)<div style="text-align: center;font-weight: bold">Figura: Datos de la Persona Solicitante</div>  
 
-**Nota**: Para ingresar los datos de contacto o números telefónicos presione en botón ![Screenshot](/img/mas.jpg) del formulario.
+!!! note "Nota"
+	Para ingresar los datos de contacto o números telefónicos presione el botón ![Screenshot](/img/mas.jpg) del formulario.
 
 ##Solicitudes Pendientes
 
@@ -41,9 +42,8 @@ Cuando el usuario presiona el botón **Cerrar**, se muestra una ventana emergent
 
 ![Screenshot](/img/cerrar_solicitud.jpg)<div style="text-align: center;font-weight: bold">Figura: Cierre de Solicitud</div>  
 
-**Nota**
-
-Los archivos permitidos para adjuntar son de tipo: 
+!!! note "Nota"
+	Los formatos permitidos para la carga de archivos son ...
 
 </div>
 

@@ -44,7 +44,7 @@ class PayrollConcept extends Model implements Auditable
     ];
 
     /**
-     * Método que obtiene la información del tipo de concepto asociado al concepto
+     * Método que obtiene la información de la institución asociada al concepto
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      *

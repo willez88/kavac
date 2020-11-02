@@ -259,9 +259,11 @@ class AccountingStateOfResultsController extends Controller
     {
         $report  = AccountingReportHistory::with('currency')->find($report);
         // Validar acceso para el registro
-        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
-        if ($report && $report->queryAccess($user_profile['institution']['id'])) {
-            return view('errors.403');
+        if (!auth()->user()->isAdmin()) {
+            $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+            if ($report && $report->queryAccess($user_profile['institution']['id'])) {
+                return view('errors.403');
+            }
         }
         $endDate = explode('/', $report->url)[1];
         $level   = explode('/', $report->url)[2];

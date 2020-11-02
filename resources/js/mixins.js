@@ -649,8 +649,8 @@ Vue.mixin({
                   ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
 
             bootbox.confirm({
-                title: "Eliminar registro?",
-                message: "Esta seguro de eliminar este registro?",
+                title: "¿Eliminar registro?",
+                message: "¿Esta seguro de eliminar este registro?",
                 buttons: {
                     cancel: {
                         label: '<i class="fa fa-times"></i> Cancelar'

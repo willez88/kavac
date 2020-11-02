@@ -1,15 +1,20 @@
+# Project information
 site_name: Documentación de Usuario.
+
+# Page tree
 nav:
       - Inicio: index.md
-      - Acerca de: about.md
-      - Gestión de Proyecto: development_methodology.md
-      - Información General: information.md
-      - Instalación: installation.md   
+      - Sistema KAVAC:
+        - Acerca de: about.md
+        - Gestión de Proyecto: development_methodology.md
+        - Información General: information.md
+        - Instalación: installation.md   
       - Configuración: 
         - Configuración: setting/setting.md 
         - Configuración General: setting/general_setting.md
         - Configuración de Acceso: setting/access_setting.md
         - Configuración de Módulos: setting/modules_setting.md
+        - Configuración de Cuenta de Usuario: setting/user_account_setting.md
       - Panel de Control: 
         - Panel de Control: control_panel/control_panel.md 
         - Herramientas para Desarrolladores: control_panel/developers.md 
@@ -17,28 +22,15 @@ nav:
         - Módulo de Contabilidad: control_panel/accounting_module.md
         - Módulo de Bienes: control_panel/asset_module.md 
         - Módulo de Almacén: control_panel/warehouse_module.md
-      - Preguntas Frecuentes: 
-        - Preguntas Frecuentes: frequent_questions/frequent_questions.md  
+      - Preguntas Frecuentes: frequent_questions.md  
         
-
-    
-# Project information
-site_description: A Material Design theme for MkDocs
-# site_author: 
-# site_url:
-
-# # Repository
-# repo_name: 
-# repo_url: 
-
-
-# Copyright
-# copyright: ''
+# Repository
+repo_name: Repositorio-Kavac
+repo_url: https://tibisay.cenditel.gob.ve/sistema-de-gestion/
 
 # Configuration
 theme:
-  name: null
-  custom_dir: ../material
+  name: material
 
   # 404 page
   static_templates:
@@ -50,17 +42,22 @@ theme:
 
   # Default values, taken from mkdocs_theme.yml
   language: en
-  feature:
-    tabs: true
+  features:
+    - navigation.tabs
+    #- navigation.instant
   palette:
-    primary: blue
-    accent:  blue
+    scheme: default
+    # primary: light-blue
+    accent: light-blue
   font:
     text: Roboto
     code: Roboto Mono
-  favicon: assets/images/favicon.ico
-  logo: assets/images/logo.png  
-
+  favicon: images/favicon.png
+  logo: images/logo.png
+  icon: 
+    repo: fontawesome/brands/git-square 
+  
+          
 # Plugins
 plugins:
   - search
@@ -70,17 +67,17 @@ plugins:
 # Customization
 # extra:
 #   social:
-#     - type: globe
-#       link: 
-#     - type: github-alt
-#       link: 
-#     - type: twitter
-#       link: 
-#     - type: linkedin
+#     - icon: 
 #       link: 
 
+# Extensions
+markdown_extensions:
+  - admonition
+  - pymdownx.details
 
-
+# css additional
+extra_css:
+  - stylesheets/extra.css
 
 
 

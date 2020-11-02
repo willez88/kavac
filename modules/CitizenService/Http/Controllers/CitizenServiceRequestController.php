@@ -10,6 +10,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\CitizenService\Models\CitizenServiceRequest;
 use App\Models\CodeSetting;
 use App\Models\Phone;
+use App\Rules\Rif as RifRule;
 
 class CitizenServiceRequestController extends Controller
 {
@@ -83,7 +84,7 @@ class CitizenServiceRequestController extends Controller
         if ($request->type_institution) {
             $this->validate($request, [
                 'institution_name'              => ['required', 'max:200'],
-                'rif'                           => ['required', 'max:100'],
+                'rif' => ['required', 'unique:citizen_service_requests,rif', 'size:10', new RifRule],
                 'institution_address'           => ['required', 'max:200'],
                 'web'                           => ['max:200'],
             ]);
@@ -158,7 +159,7 @@ class CitizenServiceRequestController extends Controller
 
         if ($request->phones && !empty($request->phones)) {
             foreach ($request->phones as $phone) {
-                $citizenserviceRequest->phones()->save(new Phone([
+                $citizenServiceRequest->phones()->save(new Phone([
                     'type' => $phone['type'],
                     'area_code' => $phone['area_code'],
                     'number' => $phone['number'],
@@ -234,7 +235,7 @@ class CitizenServiceRequestController extends Controller
         if ($request->type_institution) {
             $this->validate($request, [
                 'institution_name'              => ['required', 'max:200'],
-                'rif'                           => ['required', 'max:100'],
+                'rif' => ['required', 'unique:citizen_service_requests,rif,'.$citizenServiceRequest->id, 'size:10', new RifRule],
                 'institution_address'           => ['required', 'max:200'],
                 'web'                           => ['max:200'],
             ]);
@@ -319,7 +320,7 @@ class CitizenServiceRequestController extends Controller
      */
     public function vueList()
     {
-        return response()->json(['records' => CitizenServiceRequest::all()], 200);
+        return response()->json(['records' => CitizenServiceRequest::with(['city', 'municipality'])->get()], 200);
     }
 
     public function vueInfo($id)

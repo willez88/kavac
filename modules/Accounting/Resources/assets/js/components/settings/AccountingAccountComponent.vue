@@ -2,7 +2,7 @@
 	<div class="col-xs-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="#" title="Catálogo de Cuentas patrimoniales"
-		   data-toggle="tooltip" @click="addRecord('CRUD_accounts', '/accounting/accounts', $event)">
+		   data-toggle="tooltip" @click="addRecord('CRUD_accounts', 'accounting/accounts', $event)">
 			<i class="fa fa-list ico-3x"></i>
 			<span>Catálogo de cuentas</span>
 		</a>
@@ -56,7 +56,7 @@
 
 					<!-- Tabla de cuentas patrimoniales -->
 
-	                <div class="modal-body modal-table" v-show="!formImport && records_list.length > 0">
+	                <div class="modal-body modal-table" v-show="records_list.length > 0">
 	                	<hr>
 						<accounting-accounts-list :records="records_list" />
 	                </div>
@@ -78,13 +78,10 @@ export default{
 		}
 	},
 	created(){
-		EventBus.$on('register:imported-accounts',(data)=>{
-				this.accounts = data;
-			});
 		EventBus.$on('reload:list-accounts',(data)=>{
-				this.reset();
-				this.records = data;
-			});
+			this.reset();
+			this.records = data;
+		});
 	},
 	methods:{
 
