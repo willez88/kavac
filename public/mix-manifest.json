@@ -255,5 +255,6 @@
     "/modules/finance/components/finance-banking-agencies.js": "/modules/finance/components/finance-banking-agencies.js",
     "/modules/finance/components/finance-banks.js": "/modules/finance/components/finance-banks.js",
     "/modules/finance/components/finance-checkbooks.js": "/modules/finance/components/finance-checkbooks.js",
-    "/modules/finance/components/finance-voucher-design.js": "/modules/finance/components/finance-voucher-design.js"
+    "/modules/finance/components/finance-voucher-design.js": "/modules/finance/components/finance-voucher-design.js",
+    "/modules/sale/components/sale-report-products.js": "/modules/sale/components/sale-report-products.js"
 }

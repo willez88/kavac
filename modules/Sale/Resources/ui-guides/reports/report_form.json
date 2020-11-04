@@ -1,0 +1,12 @@
+[
+    {
+        "element" : "#cardSaleReportForm",
+        "intro" : "Formulario para la generación de reportes de almacén",
+        "position" : "top"
+    },
+    {
+        "element" : "#helpParamButtons",
+        "intro" : "Botón para ejecutar la acción de generar reporte según los datos del formulario",
+        "position" : "left"
+    }
+]

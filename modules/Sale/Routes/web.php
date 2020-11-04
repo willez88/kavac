@@ -198,5 +198,18 @@ Route::group(
             'get-saleordermanagementmethod',
             'SaleOrderManagementController@getSaleOrderManagementMethod'
         )->name('sale.get-sale-saleordermanagementmethod');
+
+        /**
+         * ------------------------------------------------------------
+         * Rutas para gestionar la generación de reportes en el Modulo de Almacén
+         * ------------------------------------------------------------
+         */
+
+        Route::get('reports/inventory-products', 'SaleReportController@inventoryProducts')
+            ->name('sale.report.inventory-products');
+        Route::post('reports/inventory-products/vue-list', 'SaleReportController@vueList');
+        //Route::post('reports/inventory-products/create', 'SaleReportController@create');
+
+        //Route::get('report/show/{code}', 'SaleReportController@show');
     }
 );

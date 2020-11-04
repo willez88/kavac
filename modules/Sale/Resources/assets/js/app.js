@@ -145,6 +145,16 @@ Vue.component('sale-order-management-method', () => import(
 );
 
 /**
+ * Componente para gestionar la creación de los reportes de almacén
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-report-products', () => import(
+    /* webpackChunkName: "sale-report-products" */
+    './components/reports/SaleReportProductsComponent.vue')
+);
+
+/**
  * Opciones de configuración global del módulo de Commercialización
  */
 Vue.mixin({
