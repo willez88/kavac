@@ -21,12 +21,19 @@ use App\Models\Image;
  */
 class UploadImageRepository
 {
+    /** @var string Nombre del archivo de imagen a guardar */
     private $image_name;
+    /** @var string Extensión del archivo que define el tipo de imagen */
     private $image_extension;
+    /** @var string Ruta en donde se guarda el archivo */
     private $image_stored;
+    /** @var array Listado de archivos permitidos de acuerdo a su extensión */
     private $allowed_upload = [];
+    /** @var array Define las dimensiones mínimas, por defecto, de la imagen */
     private $min_sizes = ['width' => '480', 'height' => '480'];
+    /** @var array Define las dimensiones máximas, por defecto, de la imagen */
     private $max_sizes = ['width' => '1280', 'height' => '900'];
+    /** @var string Establece el mensaje de error que se haya generado en alguno de los procesos */
     private $error_msg = '';
 
     public function __construct()
@@ -73,6 +80,7 @@ class UploadImageRepository
                         ]
                     );
                 } else {
+                    /** @var object Objeto con información del archivo guardado */
                     $upload = Storage::disk($store)->put($this->image_name, File::get($file));
                     if ($upload) {
                         $this->image_stored = Image::create([
@@ -91,10 +99,14 @@ class UploadImageRepository
                 $this->error_msg = __('La extensión del archivo es inválida. Verifique e intente nuevamente');
             }
         } else {
-            $this->error_msg = __(
-                'Error al procesar el archivo. Verifique que este correcto y ' .
-                'sea del tamaño permitido e intente nuevamente'
-            );
+            if (!check_max_upload_size($file)) {
+                $this->error_msg = _('El archivo supera el tamaño máximo permitido');
+            } else {
+                $this->error_msg = __(
+                    'Error al procesar el archivo. Verifique que este correcto y ' .
+                    'sea del tamaño permitido e intente nuevamente'
+                );
+            }
         }
         session()->flash('message', [
             'type' => 'other', 'class' => 'warning', 'title' => __('Alerta!'), 'msg' => $this->error_msg
@@ -164,17 +176,23 @@ class UploadImageRepository
      * Verifica que el tamaño de la imagen corresponda con el mínimo y máximo permitido
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  object   $image Objeto que contiene la imagen a procesar
-     * @return boolean  Devuelve verdadero si el tamaño de la imagen corresponde con el permitido,
+     * @param  object   $file  Objeto que contiene el archivo a procesar
+     * @param  boolean  $image Define si la comprobación corresponde a las dimensiones de una imagen, de lo contrario
+     *                         verifica el tamaño de un archivo
+     * @return boolean  Devuelve verdadero si el tamaño del archivo corresponde con el permitido,
      *                  de lo contrario retorna falso
      */
-    public function verifySize($image)
+    public function verifySize($file, $image = true)
     {
-        $size = getimagesize($image);
-        $min_width = $this->min_sizes['width'];
-        $min_height = $this->min_sizes['height'];
-        $max_width = $this->max_sizes['width'];
-        $max_height = $this->max_sizes['height'];
-        return ($size[0]>=$min_width && $size[1]>=$min_height && $size[0]<=$max_width && $size[1]<=$max_height);
+        if ($image) {
+            $size = getimagesize($file);
+            $min_width = $this->min_sizes['width'];
+            $min_height = $this->min_sizes['height'];
+            $max_width = $this->max_sizes['width'];
+            $max_height = $this->max_sizes['height'];
+            return ($size[0]>=$min_width && $size[1]>=$min_height && $size[0]<=$max_width && $size[1]<=$max_height);
+        }
+
+        return false;
     }
 }

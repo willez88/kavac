@@ -11,25 +11,25 @@ En la sección de parámetros generales, el usuario con permisos sobre la **Conf
 
 Estas funcionalidades permiten:
 
-- Soporte Técnico: Mediante esta funcionalidad el sistema permite la comunicación con soporte técnico
+- Soporte Técnico: Mediante esta funcionalidad el sistema permite la comunicación con soporte técnico.
 
-- Chat: Mediante esta funcionalidad el sistema activa la comunicación por chat interno
+- Chat: Mediante esta funcionalidad el sistema activa la comunicación por chat interno.
 
-- Notificaciones: Mediante esta funcionalidad el sistema activa las notificaciones del sistema 
+- Notificaciones: Mediante esta funcionalidad el sistema activa las notificaciones del sistema. 
 
-- Multi-Gestión: Mediante esta funcionalidad el sistema activa la gestión administrativa para el uso con múltiples instituciones
+- Multi-Gestión: Mediante esta funcionalidad el sistema activa la gestión administrativa para el uso con múltiples instituciones.
 
-- Mantenimiento: Mediante esta funcionalidad la aplicación se encontrará inactiva, se usa cuando es necesario realizar grandes cambios en el sistema
+- Mantenimiento: Mediante esta funcionalidad la aplicación se encontrará inactiva, se usa cuando es necesario realizar grandes cambios en el sistema.
 
-- Firma electrónica: Mediante esta funcionalidad el sistema activa la firma electrónica para todos los procesos del sistema
+- Firma electrónica: Mediante esta funcionalidad el sistema activa la firma electrónica para todos los procesos del sistema.
 
 ![Screenshot](../img/figure_10.png)<div style="text-align: center;font-weight: bold">Figura 10: Parámetros Generales</div>
 
 Para ingresar  a esta sección es necesario:
 
-- Acceder como usuario administrador o con un rol de usuario con permisos sobre la **Configuración** del sistema
+- Acceder como usuario administrador o con un rol de usuario con permisos sobre la **Configuración** del sistema.
 - Dirigirse desde el panel lateral a la **Configuración General** y ubicarse en la sección de **Parámetros generales**. 
-- Haciendo uso de los botones de selección podemos activar o desactivar cualquiera de la funciones del sistema
+- Haciendo uso de los botones de selección podemos activar o desactivar cualquiera de la funciones del sistema.
 - Para ejecutar o cancelar cualquiera de los cambios hacemos uso de los [botones de acciones de formulario](/information/#botones), ubicados en la parte inferior de la sección. 
 
 ##Registros comunes
@@ -51,11 +51,12 @@ Presione el botón ![Screenshot](../img/figure_btn_create.png) para registrar un
 
 Para realizar el registro de una Institución se debe:
 
-- Acceder como usuario administrador o con un rol de usuario con permisos sobre la **Configuración General** del sistema
-- Ubicarse en la sección **Instituciones Registradas**
-- Haciendo uso del botón de [acciones de registro ](/information/#botones), accedemos al formulario de registro de institución 
-- Completamos el formulario y guardamos los cambios.
-- Finalmente el registro se mostrará en el historial en la sección **Instituciones Registradas** 	
+- Acceder como usuario administrador o con un rol de usuario con permisos sobre la **Configuración General** del sistema.
+- Ubicarse en la sección **Instituciones Registradas**.
+- Haciendo uso del botón ![Screenshot](../img/figure_btn_create.png), ubicado en la esquina superior derecha de esta sección, accedemos al formulario de registro de institución. 
+- Completar el formulario de **Registro de Institución**. 
+- Presionar el botón **Guardar** ubicado al final de esta sección.
+- Finalmente el registro se mostrará en el historial en la sección **Instituciones Registradas**. 	
 
 
 ##Configurar institución 
@@ -69,10 +70,10 @@ En la **Configuración General del Sistema** se presenta una sección para el **
 
 Para configurar la institución se debe seguir los siguientes pasos: 
 
-- Acceder como usuario administrador o con un rol de usuario con permisos sobre la **Configuración General** del sistema
-- Ubicarse en la sección **Configurar Institución**
-- Completar los datos básicos y complementarios de la institución
-- Para ejecutar o cancelar cualquiera de los cambios hacemos uso de los botones de [acciones de formulario](/information/#botones), ubicados en la parte inferior de la sección
+- Acceder como usuario administrador o con un rol de usuario con permisos sobre la **Configuración General** del sistema.
+- Ubicarse en la sección **Configurar Institución**.
+- Completar los datos básicos y complementarios de la institución.
+- Presionar el botón **Guardar** ubicado al final de esta sección.
 
 **Configurar Logos y banners institucionales** 
 

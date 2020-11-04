@@ -191,11 +191,17 @@ Route::group([
         'PayrollPaymentTypeController@getPayrollPaymentPeriods'
     )->name('payroll.get-payroll-payment-periods');
 
+    /** Ruta que obtiene la información de un registro de política vacacional según el trabajador */
+    Route::get(
+        'get-vacation-policy',
+        'PayrollVacationPolicyController@getVacationPolicy'
+    );
+
     /** Rutas para gestionar las políticas vacacionales registradas */
     Route::resource(
         'vacation-policies',
         'PayrollVacationPolicyController',
-        ['as' => 'payroll', 'except' => ['show','create','edit']]
+        ['as' => 'payroll', 'except' => ['create','edit']]
     );
 
     /** Rutas para gestionar los niveles de idioma */
@@ -381,7 +387,25 @@ Route::group([
     Route::resource(
         'vacation-requests',
         'PayrollVacationRequestController',
-        ['as' => 'payroll'],
-        ['except' => ['edit','show']]
+        ['as' => 'payroll']
     );
+
+    /** Ruta que obtiene un listado de las solicitudes de vacaciones */
+    Route::get(
+        'vacation-requests/vue-list',
+        'PayrollVacationRequestController@vueList'
+    )->name('payroll.vacation-requests.vue-list');
+
+    /**
+     * ------------------------------------------------------------
+     * Grupo de rutas para gestionar la generación de reportes en el módulo de talento humano
+     * ------------------------------------------------------------
+     */
+    Route::group([
+        'middleware' => ['web', 'auth', 'verified'],
+        'prefix' => 'reports'
+    ], function () {
+        Route::get('vacation-enjoyment-summaries', 'PayrollReportController@vacationEnjoymentSummaries')
+        ->name('payroll.reports.vacation-enjoyment-summaries');
+    });
 });

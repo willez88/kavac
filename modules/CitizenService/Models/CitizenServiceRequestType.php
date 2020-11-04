@@ -25,6 +25,6 @@ class CitizenServiceRequestType extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'name', 'description'
+        'name', 'description', 'requirement'
     ];
 }

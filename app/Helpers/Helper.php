@@ -613,3 +613,108 @@ if (! function_exists('age')) {
         return  $age;
     }
 }
+
+if (! function_exists('convert_filesize')) {
+    /**
+     * Convierte un tamaño expresado en bytes a Bytes, KiloBytes, MegaBytes, etc...
+     *
+     * @method    convert_filesize
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     float              $bytes       Tamaño expresado en bytes
+     * @param     boolean            $showSize    Define si se muestra o no la unidad que expresa el tamaño
+     * @param     integer            $decimals    Define la cantidad de decimales a retornar
+     *
+     * @return    float|string       Devuelve el tamaño expresado en Bytes, KiloBytes, MegaBytes, etc...
+     */
+    function convert_filesize($bytes, $showSize = true, $decimals = 2)
+    {
+        $size = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+        $factor = floor((strlen($bytes) - 1) / 3);
+        $humanSize = sprintf("%.{$decimals}f", $bytes / pow(1024, $factor));
+        if (!$showSize) {
+            return (float)$humanSize;
+        }
+
+        return $humanSize . $size[$factor];
+    }
+}
+
+if (! function_exists('convert_to_bytes')) {
+    /**
+     * Convierte un tamaño de archivo expresado en Bytes, KiloBytes, MegaBytes, etc.., a bytes
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     string              $from    Tamaño a ser convertido en bytes
+     *
+     * @return    integer|null        Devuelve el número expresado en bytes, de lo contrario retorna null
+     */
+    function convert_to_bytes(string $from): ?int
+    {
+        $units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
+        $number = substr($from, 0, -2);
+        $suffix = strtoupper(substr($from, -2));
+
+        //B or no suffix
+        if (is_numeric(substr($suffix, 0, 1))) {
+            return preg_replace('/[^\d]/', '', $from);
+        }
+
+        $exponent = array_flip($units)[$suffix] ?? null;
+        if ($exponent === null) {
+            return null;
+        }
+
+        return $number * (1024 ** $exponent);
+    }
+}
+
+if (! function_exists('check_max_upload_size')) {
+    /**
+     * Verifica si el archivo a subir esta dentro de los parámetros establecidos en la configuración de PHP
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     string    $file    Ruta del archivo a ser evaluado
+     *
+     * @return    boolean   Devuelve verdadero si el tamaño del archivo a subir está dentro del parámetro de configuración
+     */
+    function check_max_upload_size($file)
+    {
+        /** @var float Tamaño en bytes del archivo a verificar */
+        $fileSize = filesize($file);
+        /** @var string Tamaño del archivo con el factor en Bytes, kilo Bytes, Mega Bytes, etc... */
+        $humanFileSize = convert_filesize($fileSize);
+        preg_match_all('/\d+/', ini_get('upload_max_filesize'), $uploadMaxFilesize);
+        preg_match_all('/[^0-9]/', ini_get('upload_max_filesize'), $factor);
+        preg_match_all('/\d+/', ini_get('post_max_size'), $postMaxSize);
+        preg_match_all('/[^0-9]/', ini_get('post_max_size'), $factorPost);
+        /** @var float Tamaño máximo permitido para subir */
+        $maxSize = (float)$uploadMaxFilesize[0][0];
+        /** @var float Tamaño máximo permitido por el método POST */
+        $maxSizePost = (float)$postMaxSize[0][0];
+
+        if ($maxSize === 0 && $maxSizePost === 0) {
+            /** No existe límite máximo para subir archivos */
+            return true;
+        }
+        /** @var string Unidad que establece el tamaño máximo */
+        $unit = $factor[0][0] . 'B';
+        /** @var string Unidad que establece el tamaño máximo a través del método POST */
+        $unitPost = $factorPost[0][0] . 'B';
+
+        /** @var string Tamaño máximo permitido para subir archivos */
+        $size = (string)$maxSize . $unit;
+        /** @var string Tamaño máximo permitido a través del método POST */
+        $sizePost = (string)$maxSizePost . $unitPost;
+
+        /** @var float Conversión a bytes del tamaño máximo permitido para subir archivos */
+        $bytes = convert_to_bytes($size);
+        /** @var float Conversión a bytes del tamaño máximo a través del método POST */
+        $bytesPost = convert_to_bytes($sizePost);
+
+        return $fileSize < $bytes && $fileSize < $bitesPost;
+    }
+}

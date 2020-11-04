@@ -29,6 +29,12 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    <payroll-vacation-request-list
+                        route_list="{{ url('payroll/vacation-requests/vue-list') }}"
+                        route_show="{{ url('payroll/vacation-requests/show/{id}') }}"
+                        route_edit="{{ url('payroll/vacation-requests/edit/{id}') }}"
+                        route_delete="{{ url('payroll/vacation-requests') }}">
+                    </payroll-vacation-request-list>
                 </div>
             </div>
         </div>

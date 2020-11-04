@@ -23,14 +23,19 @@
 				<div class="col-md-6">
 					<div class="form-group is-required">
 						<label for="citizenserviceRequestTypes">Tipo de Solicitud</label>
-						<select2 :options="citizen_service_request_types"
-                                 v-model="record.citizen_service_request_type_id"></select2>
+					    <v-multiselect :options="citizen_service_request_types" track_by="text"
+								v-model="record.citizen_service_request_types"
+							    :hide_selected="false">
+					    </v-multiselect>
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group is-required">
 						<label>Estado de la Solicitud:</label>
-						<select2 :options="citizen_service_states" v-model="record.citizen_service_id"></select2>
+						<v-multiselect :options="citizen_service_states" track_by="text"
+								v-model="record.citizen_service_states"
+							    :hide_selected="false">
+					    </v-multiselect>
 	                </div>
 				</div>
 			</div>
@@ -137,8 +142,8 @@
 			return {
 				record: {
 					id: '',
-					citizen_service_request_types_id: '',
-					citizen_service_id: '',
+					citizen_service_request_types: [],
+					citizen_service_states: [],
 					type_search: '',
 					date: '',
 					start_date: '',
@@ -188,8 +193,8 @@
 			reset() {
 				this.record = {
 					id: '',
-					citizen_service_request_types_id: '',
-					citizen_service_id: '',
+					citizen_service_request_types: [],
+					citizen_service_states: [],
 					type_search: '',
 					date: '',
 					start_date: '',
@@ -239,22 +244,21 @@
 				const vm = this;
 				var url =  '/citizenservice/reports/search';
 				var fields = {};
-
 				if(vm.record.type_search == 'period'){
 					url += '/period';
 						fields = {
 							start_date: vm.record.start_date,
 							end_date: vm.record.end_date,
-							citizen_service_request_type_id: vm.record.citizen_service_request_type_id,
-							citizen_service_id: vm.record.citizen_service_id
+							citizen_service_request_types: vm.record.citizen_service_request_types,
+							citizen_service_states: vm.record.citizen_service_states
 						};
 					}
 				else if(vm.record.type_search == 'date'){
 					url += '/date';
 						fields = {
 							date: vm.record.date,
-							citizen_service_request_type_id: vm.record.citizen_service_request_type_id,
-							citizen_service_id: vm.record.citizen_service_id
+							citizen_service_request_types: vm.record.citizen_service_request_types,
+							citizen_service_states: vm.record.citizen_service_states
 						};
 					}
 

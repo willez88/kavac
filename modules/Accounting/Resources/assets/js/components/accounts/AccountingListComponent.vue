@@ -10,7 +10,7 @@
         </div>
         <div slot="id" slot-scope="props" class="text-center">
 
-            <button @click="loadData(props.row)"
+            <button @click="initRecord(props.row)"
                     class="btn btn-warning btn-xs btn-icon btn-action" 
                     title="Modificar registro" data-toggle="tooltip">
                 <i class="fa fa-edit"></i>
@@ -55,7 +55,7 @@
             };
         },
         methods:{
-            loadData:function(data) {
+            initRecord:function(data) {
                 EventBus.$emit('load:data-account-form', data);
             }
         },

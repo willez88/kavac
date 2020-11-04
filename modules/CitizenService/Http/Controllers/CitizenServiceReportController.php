@@ -85,11 +85,18 @@ class CitizenServiceReportController extends Controller
 
     public function searchPeriod(Request $request)
     {
+
+    //    if ($request->citizen_service_request_types && !empty($request->citizen_service_request_types)) {
+    //        foreach ($request->citizen_service_request_types as $citizen_service_request_type) {
+    //            error_log($citizen_service_request_type['id']);
+    //        }
+    //    }
+
         $citizenservice = CitizenServiceRequest::SearchPeriod(
             $request->start_date,
             $request->end_date,
-            $request->citizen_service_request_type_id,
-            $request->citizen_service_id
+            $request->citizen_service_request_types,
+            $request->citizen_service_states
         )->get();
 
         return response()->json(['records' => $citizenservice], 200);
@@ -99,8 +106,8 @@ class CitizenServiceReportController extends Controller
     {
         $citizenservice = CitizenServiceRequest::SearchDate(
             $request->date,
-            $request->citizen_service_request_type_id,
-            $request->citizen_service_id
+            $request->citizen_service_request_types,
+            $request->citizen_service_states
         )->get();
 
         return response()->json(['records' => $citizenservice], 200);

@@ -155,7 +155,7 @@
 				</div>
 				<div class="col-md-4">
 					<div class="form-group is-required">
-						<label for="citizenserviceRequestTypes">Tipo de Solicitud</label>
+						<label for="citizenserviceRequestTypes">Tipo de Solicitud - {{ record.citizen_service_request_type_id }}</label>
 						<select2 :options="citizen_service_request_types"
 								 v-model="record.citizen_service_request_type_id"></select2>
                     </div>
@@ -248,6 +248,7 @@
 						<select2 :options="citizen_service_departments" v-model="record.citizen_service_department_id"></select2>
 					</div>
 				</div>
+			</div>
     			<div class="col-md-4">
     				<div class="form-group">
     					<label>Institución</label>
@@ -264,7 +265,7 @@
     					</div>
     				</div>
     			</div>
-			</div>
+
 			<div v-show="this.record.type_institution">
 				<div class="col-md-12">
 					<b>Datos de la institución</b>
@@ -428,7 +429,6 @@
 			}
             else {
                 vm.record.date = moment(String(new Date())).format('YYYY-MM-DD');
-                console.log(vm.record.date);
             }
 		},
 		props: {

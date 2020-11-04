@@ -337,6 +337,16 @@ Vue.component('payroll-salary-adjustments-form', () => import(
 );
 
 /**
+ * Componente para mostrar el listado de las solicitudes vacacionales
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('payroll-vacation-request-list', () => import(
+    /* webpackChunkName: "payroll-vacation-request-list" */
+    './components/requests/vacations/PayrollVacationRequestListComponent.vue')
+);
+
+/**
  * Componente para registrar las solicitudes vacacionales
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
@@ -346,6 +356,15 @@ Vue.component('payroll-vacation-request-form', () => import(
     './components/requests/vacations/PayrollVacationRequestFormComponent.vue')
 );
 
+/**
+ * Componentes para gestionar la creación de los reportes de talento humano
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('payroll-report-vacation-enjoyment-summaries', () => import(
+    /* webpackChunkName: "payroll-report-vacation-enjoyment-summaries" */
+    './components/reports/PayrollReportVacationEnjoymentSummariesComponent.vue')
+);
 
 
 
