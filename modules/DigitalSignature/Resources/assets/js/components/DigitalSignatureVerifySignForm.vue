@@ -32,29 +32,11 @@
     export default {
         data() {
             return {
-                record:{ 
-                }
+                'file': ''
             }
-        }
+        },
         
         methods: {
-            onFileSelected (event) {
-               const file = event.target.files[0];
-               const formData = new FormData();
-               formData.append("my-file", file);
-               Vue.http.post(`server-url`, formData, {
-                  headers: {
-                    'Content-Type': 'multipart/form-data'
-                  }
-               })
-                .then(res => {
-                    //todo ok
-                },
-                error => {
-                    //todo mal :P
-                })
-            }
-
             /**
              * @method    createRecord
              *
@@ -82,7 +64,7 @@
                 }).catch(err => {
                     vm.errors = {};
                 });
-            },
-        }
-    }
+            }
+        },
+    };
 </script>

@@ -70,7 +70,7 @@ class DigitalSignatureController extends Controller
                                                    'certdetail' => 'false'
                                                   ]
             );
-        }
+        } 
     }
 
     /**
@@ -359,25 +359,11 @@ class DigitalSignatureController extends Controller
                 $previousUrl = app('url')->previous(); //obtiene el nombre de la ruta
 
                 $routeAction = $request->route()->getName();
-
-                return redirect()->route($routeAction, [
-                                'msg' => "El documento fue firmado exitosamente", 
-                                'namefile' => $filenamepdfsign,
-                                'signfile' => 'true']);
-                /*
-                return redirect()->to($previousUrl.'?'. http_build_query([
-                                'msg' => "El documento fue firmado exitosamente", 
-                                'namefile' => $filenamepdfsign,
-                                'signfile' => 'true']); */
-                /*
-                return back()->withInput(['msg' => "El documento fue firmado exitosamente", 
-                                            'namefile' => $filenamepdfsign,
-                                            'signfile' => 'true']); 
-                /*                            
+                
                 return view( 'digitalsignature::viewSignfile', ['msg' => "El documento fue firmado exitosamente", 
                                             'namefile' => $filenamepdfsign,
                                             'signfile' => 'true']);
-            */} 
+            } 
             else { return redirect()->route('fileprofile'); } 
     } 
     else { return redirect()->route('login'); }

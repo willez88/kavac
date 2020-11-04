@@ -4,7 +4,7 @@
             <div class='row'>
                 <div class='col-md-6'>
                     <h6>
-                        <i class="icofont icofont-file-pdf"></i> Firmar documentos PDF 
+                        <i class="icofont icofont-file-pdf"></i> Firmar documentos PDF
                     </h6>
                     <div class="form-group">
                         <label class="btn btn-primary">
@@ -32,29 +32,12 @@
     export default {
         data() {
             return {
-                record:{ 
-                }
+                'file': ''
             }
-        }
-        
-        methods: {
-            onFileSelected (event) {
-               const file = event.target.files[0];
-               const formData = new FormData();
-               formData.append("my-file", file);
-               Vue.http.post(`server-url`, formData, {
-                  headers: {
-                    'Content-Type': 'multipart/form-data'
-                  }
-               })
-                .then(res => {
-                    //todo ok
-                },
-                error => {
-                    //todo mal :P
-                })
-            }
+        },
 
+        methods: {
+            
             /**
              * @method    createRecord
              *
@@ -83,6 +66,6 @@
                     vm.errors = {};
                 });
             },
-        }
-    }
+        },
+    };
 </script>
