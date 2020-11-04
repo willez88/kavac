@@ -16,7 +16,17 @@
                title="Recepciones de almacén">Recepciones de almacén</a>
         </li>
         <li>
-            <a href="#">Reportes</a>
+            <a href="javascript:void(0)"
+               data-toggle="tooltip" data-placement="right"
+               title="Gestiona la generación de reportes del módulo de comercialización">
+                    Reportes
+            </a>
+            <ul class="submenu" style="{!! display_submenu('report') !!}">
+                <li title="Reporte de inventario de productos de almacén"
+                    data-toggle="tooltip" data-placement="right">
+                    <a href="/sale/reports/inventory-products">Inventario de productos</a>
+                </li>
+            </ul>
         </li>
     </ul>
 </li>
