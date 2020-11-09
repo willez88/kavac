@@ -4,7 +4,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Parameter;
-use App\Models\Setting;
 use App\Models\Institution;
 use App\Models\Country;
 use App\Models\Estate;
@@ -38,35 +37,31 @@ class SettingController extends Controller
      */
     public function index()
     {
-        //$model_parameters = Setting::where('active', true)->first();
-        $paramSupport = Parameter::where([
-            'active' => true, 'required_by' => 'core',
-            'p_key' => 'support', 'p_value' => 'true'
-        ])->first();
-        $paramChat = Parameter::where([
-            'active' => true, 'required_by' => 'core',
-            'p_key' => 'chat', 'p_value' => 'true'
-        ])->first();
-        $paramNotify = Parameter::where([
-            'active' => true, 'required_by' => 'core',
-            'p_key' => 'notify', 'p_value' => 'true'
-        ])->first();
-        $paramReportBanner = Parameter::where([
-            'active' => true, 'required_by' => 'core',
-            'p_key' => 'report_banner', 'p_value' => 'true'
-        ])->first();
-        $paramMultiInstitution = Parameter::where([
-            'active' => true, 'required_by' => 'core',
-            'p_key' => 'multi_institution', 'p_value' => 'true'
-        ])->first();
-        $paramDigitalSign = Parameter::where([
-            'active' => true, 'required_by' => 'core',
-            'p_key' => 'digital_sign', 'p_value' => 'true'
-        ])->first();
-        $paramOnline = Parameter::where([
-            'active' => true, 'required_by' => 'core',
-            'p_key' => 'online', 'p_value' => 'true'
-        ])->first();
+        $parameters = Parameter::where([
+            'active' => true, 'required_by' => 'core', 'p_value' => 'true'
+        ])->get();
+
+        $paramSupport = $parameters->filter(function ($param) {
+            return $param->p_key === 'support';
+        })->first();
+        $paramChat = $parameters->filter(function ($param) {
+            return $param->p_key === 'chat';
+        })->first();
+        $paramNotify = $parameters->filter(function ($param) {
+            return $param->p_key === 'notify';
+        })->first();
+        $paramReportBanner = $parameters->filter(function ($param) {
+            return $param->p_key === 'report_banner';
+        })->first();
+        $paramMultiInstitution = $parameters->filter(function ($param) {
+            return $param->p_key === 'multi_institution';
+        })->first();
+        $paramDigitalSign = $parameters->filter(function ($param) {
+            return $param->p_key === 'digital_sign';
+        })->first();
+        $paramOnline = $parameters->filter(function ($param) {
+            return $param->p_key === 'online';
+        })->first();
 
         $header_parameters = [
             'route' => 'settings.store', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
