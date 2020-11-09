@@ -42,14 +42,6 @@
 					<deductions id="helpDeductions"
 								:accounting-account={{ json_encode(Module::has('Accounting') ? true : false) }}></deductions>
 					<measurement-units id="helpMeasurementUnits"></measurement-units>
-					<!--<div class="col-md-2 text-center">
-						<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-						   href="#" title="Registros de Deducciones o Retenciones"
-						   data-toggle="tooltip">
-							<i class="icofont icofont-scroll-long-down ico-3x"></i>
-							<span>Deducciones</span>
-						</a>
-					</div>-->
 					@if (!App\Models\Institution::all()->isEmpty())
 						<departments id="helpDepartments"></departments>
 					@endif
