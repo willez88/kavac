@@ -90,7 +90,7 @@ Vue.mixin({
     data() {
         return {
             /** @type {Boolean} Establece si se esta o no cargando una petición del sistema */
-            //loading: true,
+            loading: true,
             /** @type {Object} Objeto que contiene los atributos y métodos para obtener traducciones del sistema  */
             //i18n: Lang,
             /** @type {Object} Objeto que contiene datos a gestionar para el bloque de pantalla por inactividad */
@@ -718,7 +718,7 @@ Vue.mixin({
                 title: msg_title,
                 text: msg_text,
                 class_name: msg_class,
-                image: "/images/" + msg_icon + ".png",
+                image: `${window.app_url}/images/${msg_icon}.png`,
                 sticky: false,
                 time: 3500
             });
