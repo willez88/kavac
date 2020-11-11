@@ -73,11 +73,11 @@ class AccountingAuxiliaryBookController extends Controller
 
         $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
 
-        if ($user_profile['institution']) {
+        $is_admin = auth()->user()->isAdmin();
+
+        if (!$is_admin && $user_profile['institution']) {
             $institution_id = $user_profile['institution']['id'];
         }
-
-        $is_admin = auth()->user()->isAdmin();
 
         $convertions = [];
 
@@ -328,11 +328,12 @@ class AccountingAuxiliaryBookController extends Controller
 
         $institution_id = null;
 
-        if ($user_profile['institution']) {
+        $is_admin = auth()->user()->isAdmin();
+
+        if (!$is_admin && $user_profile['institution']) {
             $institution_id = $user_profile['institution']['id'];
         }
 
-        $is_admin = auth()->user()->isAdmin();
 
         $convertions = [];
         if (!$account_id) {

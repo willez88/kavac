@@ -38,7 +38,6 @@ class AccountingReportsController extends Controller
      */
     public function accountingBooks()
     {
-
         /**
          * [$records lista de cuentas patrimoniales]
          * @var array

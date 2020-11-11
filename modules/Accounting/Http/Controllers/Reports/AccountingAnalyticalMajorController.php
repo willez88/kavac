@@ -184,12 +184,12 @@ class AccountingAnalyticalMajorController extends Controller
 
         $institution_id = null;
 
-        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+        $is_admin = auth()->user()->isAdmin();
 
-        if ($user_profile['institution']) {
+        if (!$is_admin && $user_profile['institution']) {
+            $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
             $institution_id = $user_profile['institution']['id'];
         }
-        $is_admin = auth()->user()->isAdmin();
 
         /**
          * [$query registros de las cuentas patrimoniales seleccionadas]
@@ -354,10 +354,13 @@ class AccountingAnalyticalMajorController extends Controller
             $endAcc  = $aux;
         }
 
-        if ($user_profile['institution']) {
+        $institution_id = null;
+
+        $is_admin = auth()->user()->isAdmin();
+
+        if (!$is_admin && $user_profile['institution']) {
             $institution_id = $user_profile['institution']['id'];
         }
-        $is_admin = auth()->user()->isAdmin();
 
         /**
          * [$query registros de las cuentas patrimoniales seleccionadas]

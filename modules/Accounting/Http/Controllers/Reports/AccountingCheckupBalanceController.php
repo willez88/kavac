@@ -228,11 +228,12 @@ class AccountingCheckupBalanceController extends Controller
 
         $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
 
-        if ($user_profile['institution']) {
+        $is_admin = auth()->user()->isAdmin();
+
+        if (!$is_admin && $user_profile['institution']) {
             $institution_id = $user_profile['institution']['id'];
         }
 
-        $is_admin = auth()->user()->isAdmin();
         if ($all) {
             $query = AccountingAccount::with([
                 'entryAccount.entries' => function ($query) use ($initDate, $endDate, $institution_id, $is_admin) {
@@ -365,11 +366,11 @@ class AccountingCheckupBalanceController extends Controller
 
         $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
 
-        if ($user_profile['institution']) {
+        $is_admin = auth()->user()->isAdmin();
+
+        if (!$is_admin && $user_profile['institution']) {
             $institution_id = $user_profile['institution']['id'];
         }
-
-        $is_admin = auth()->user()->isAdmin();
 
         /**
         * Ciclo en el que se calcula y almancena los saldos iniciales de cada cuenta
@@ -433,11 +434,12 @@ class AccountingCheckupBalanceController extends Controller
 
         $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
 
-        if ($user_profile['institution']) {
+        $is_admin = auth()->user()->isAdmin();
+
+        if (!$is_admin && $user_profile['institution']) {
             $institution_id = $user_profile['institution']['id'];
         }
 
-        $is_admin = auth()->user()->isAdmin();
         if ($all) {
             $query = AccountingAccount::with([
                 'entryAccount.entries' => function ($query) use ($initDate, $endDate, $institution_id, $is_admin) {
