@@ -91,7 +91,11 @@ class UploadDocRepository
                 $this->error_msg = __('La extensión del archivo es inválida. Verifique e intente nuevamente');
             }
         } else {
-            $this->error_msg = __('Error al procesar el archivo. Verifique que este correcto e intente nuevamente');
+            if (!check_max_upload_size($file)) {
+                $this->error_msg = _('El archivo supera el tamaño máximo permitido');
+            } else {
+                $this->error_msg = __('Error al procesar el archivo. Verifique que este correcto e intente nuevamente');
+            }
         }
         session()->flash('message', [
             'type' => 'other', 'class' => 'warning', 'title' => __('Alerta!'),

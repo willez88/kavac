@@ -28,7 +28,7 @@ Estas funcionalidades permiten:
 Para ingresar  a esta sección es necesario:
 
 - Acceder como usuario administrador o con un rol de usuario con permisos sobre la **Configuración** del sistema.
-- Dirigirse desde el panel lateral a la **Configuración General** y ubicarse en la sección de **Parámetros generales**. 
+- Dirigirse desde el panel lateral a la **Configuración General** y ubicarse en la sección de **Parámetros Generales**. 
 - Haciendo uso de los botones de selección podemos activar o desactivar cualquiera de la funciones del sistema.
 - Para ejecutar o cancelar cualquiera de los cambios hacemos uso de los [botones de acciones de formulario](/information/#botones), ubicados en la parte inferior de la sección. 
 
@@ -55,7 +55,7 @@ Para realizar el registro de una Institución se debe:
 - Ubicarse en la sección **Instituciones Registradas**.
 - Haciendo uso del botón ![Screenshot](../img/figure_btn_create.png), ubicado en la esquina superior derecha de esta sección, accedemos al formulario de registro de institución. 
 - Completar el formulario de **Registro de Institución**. 
-- Presionar el botón **Guardar** ubicado al final de esta sección.
+- Presionar el botón **Guardar** ![Screenshot](../img/save.png) ubicado al final de esta sección.
 - Finalmente el registro se mostrará en el historial en la sección **Instituciones Registradas**. 	
 
 
@@ -73,9 +73,9 @@ Para configurar la institución se debe seguir los siguientes pasos:
 - Acceder como usuario administrador o con un rol de usuario con permisos sobre la **Configuración General** del sistema.
 - Ubicarse en la sección **Configurar Institución**.
 - Completar los datos básicos y complementarios de la institución.
-- Presionar el botón **Guardar** ubicado al final de esta sección.
+- Presionar el botón **Guardar** ![Screenshot](../img/save.png) ubicado al final de esta sección.
 
-**Configurar Logos y banners institucionales** 
+**Configurar logos y banners institucionales** 
 
 
 En la sección **Configurar Institución** de la **Configuración General del Sistema** podemos añadir el logotipo y el banner institucional.  Para adjuntar la imagen simplemente ingresamos en alguno de los recuadros, y el sistema nos conducirá a un directorio local para cargar la imagen. 

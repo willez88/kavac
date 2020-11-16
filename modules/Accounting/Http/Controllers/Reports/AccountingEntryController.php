@@ -46,9 +46,12 @@ class AccountingEntryController extends Controller
     {
 
         // Validar acceso para el registro
+        // 
+        $is_admin = auth()->user()->isAdmin();
+
         $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
 
-        if ($user_profile && $user_profile['institution']) {
+        if (!$is_admin && $user_profile && $user_profile['institution']) {
             $entry = AccountingEntry::with(
                 'accountingAccounts.account.accountConverters.budgetAccount',
                 'currency'
@@ -85,10 +88,10 @@ class AccountingEntryController extends Controller
          */
         $institution = null;
 
-        if ($user_profile && $user_profile['institution']) {
+        if (!$is_admin && $user_profile && $user_profile['institution']) {
             $institution = Institution::find($user_profile['institution']['id']);
         } else {
-            $institution = Institution::first();
+            $institution = '';
         }
 
         $pdf->setConfig(['institution' => $institution, 'urlVerify' => url(' entries/pdf/'.$id)]);
