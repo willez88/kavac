@@ -6,7 +6,7 @@
 
 ##Formatos de códigos
 
-La sección de Formatos de Códigos permite establecer un código de referencia para los registros posteriores (formulación, modificaciones presupuestarias y ejecución), para completar esta configuración debemos dirigirnos al Módulo de Presupuesto, luego a Configuración y ubicarnos en la sección Formatos de Códigos.
+La sección de **Formatos de Códigos** permite establecer un código de referencia para los registros posteriores (formulación, modificaciones presupuestarias y ejecución), para completar esta configuración debemos dirigirnos al **Módulo de Presupuesto**, luego a **Configuración** y ubicarnos en la sección **Formatos de Códigos**.
 
 Para establecer el código de referencia es necesario seguir los parámetros que se muestran a continuación:
 
@@ -20,8 +20,8 @@ Por Ejemplo:
 
 Se podría establecer un formato para registros como REG-00000000-YYYY. REG hace referencia al prefijo registro, 00000000 será el número del registro y YYYY corresponde al año.
 
-Una vez se establezca el formato de códigos deseado se puede ejecutar cualquier cambio haciendo uso de los Botones de Acciones de Formulario, ya sea Guardar, Cancelar o Borrar datos del formulario. 
+Una vez se establezca el formato de códigos deseado se puede ejecutar cualquier cambio haciendo uso de los botones de acciones de formulario, ya sea **Borrar**, **Cancelar** o **Guardar**. 
 
-
+![Screenshot](../img/form_actions.png#imagen)
 	
 </div>

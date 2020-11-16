@@ -110,11 +110,11 @@ class AccountingBalanceSheetController extends Controller
 
         $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
 
-        if ($user_profile['institution']) {
+        $is_admin = auth()->user()->isAdmin();
+
+        if (!$is_admin && $user_profile['institution']) {
             $institution_id = $user_profile['institution']['id'];
         }
-
-        $is_admin = auth()->user()->isAdmin();
 
         /**
          * consulta de cada cuenta y asiento que pertenezca a ACTIVO, PASIVO, PATRIMONIO y CUENTA DE ORDEN
@@ -266,11 +266,11 @@ class AccountingBalanceSheetController extends Controller
 
         $institution_id = null;
 
-        if ($user_profile['institution']) {
+        $is_admin = auth()->user()->isAdmin();
+
+        if (!$is_admin && $user_profile['institution']) {
             $institution_id = $user_profile['institution']['id'];
         }
-
-        $is_admin = auth()->user()->isAdmin();
 
         /**
          * [$level_1 establece la consulta de ralación que se desean realizar]
@@ -433,7 +433,7 @@ class AccountingBalanceSheetController extends Controller
             return [];
         }
 
-        if (count($records) > 0) {
+        if (count($records)) {
             foreach ($records as $account) {
                 array_push($parent, [
                     'code' => $account->getCodeAttribute(),
@@ -477,11 +477,9 @@ class AccountingBalanceSheetController extends Controller
          * @var float
          */
         $balanceChildren = 0.00;
-        // if ($account->id == 1) {
-        //     dd($account->children);
-        // }
+
         foreach ($account->entryAccount as $entryAccount) {
-            if ($entryAccount->entries['approved']) {
+            if ($entryAccount->entries && $entryAccount->entries['approved']) {
                 if (!array_key_exists($entryAccount['entries']['currency']['id'], $this->getConvertions())) {
                     $this->setConvertions($this->calculateExchangeRates(
                         $this->getConvertions(),
