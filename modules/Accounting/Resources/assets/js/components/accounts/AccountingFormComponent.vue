@@ -143,11 +143,11 @@
                 var res = true;
                 var errors = [];
 
-                if (this.record.code.split('_').length > 1) {
-                    errors.push('El campo código debe ser llenado completamente');
+                if (!this.record.code || this.record.code.split('_').length > 1) {
+                    errors.push('El campo código es obligatorio y debe ser llenado completamente');
                     res = false;
                 }
-                if (this.record.denomination == '') {
+                if (!this.record.denomination) {
                     errors.push('El campo denominación es obligatorio.');
                     res = false;
                 }

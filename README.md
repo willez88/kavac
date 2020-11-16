@@ -19,7 +19,7 @@ Como antecedentes de esta aplicación se considera como precursor a:
 
 A continuación se listan los paquetes previos requeridos para la instalación y correcto funcionamiento de la aplicación
 
-	* php >= 7.2.x
+	* php >= 7.4.x
 	* php-gd
 	* php-mbstring
 	* php-tokenizer
@@ -43,11 +43,11 @@ A continuación se listan los paquetes previos requeridos para la instalación y
 
 **(version-php-instalada)**: Es la versión del o los paquetes de PHP instalados, colocando la misma sin los (), por ejemplo:
 
-	7.2
+	7.3
 
 o
 
-	7.3
+	7.4
 
 
 ## Configuración del Servidor de Aplicaciones

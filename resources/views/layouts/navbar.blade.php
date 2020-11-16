@@ -38,9 +38,21 @@
 
 		<ul class="navbar-nav">
 			@if (Auth::user()->hasVerifiedEmail())
-				@if (App\Models\Parameter::where([
-					'active' => true, 'required_by' => 'core', 'p_key' => 'notify', 'p_value' => 'true'
-				])->first())
+                @php
+                    $parameters = App\Models\Parameter::where([
+                        'active' => true, 'required_by' => 'core', 'p_value' => 'true'
+                    ])->get();
+                    $notify = $parameters->filter(function($param) {
+                        return $param->p_key === 'notify';
+                    })->first();
+                    $chat = $parameters->filter(function($param) {
+                        return $param->p_key === 'chat';
+                    })->first();
+                    $support = $parameters->filter(function($param) {
+                        return $param->p_key === 'support';
+                    })->first();
+                @endphp
+				@if ($notify)
                     <notifications :unreads="{{ auth()->user()->unreadNotifications->take(5) }}"
                                    :user-id="{!! auth()->user()->id !!}"
                                    list-notifications-url="{!! route('notifications.list') !!}"></notifications>
@@ -113,10 +125,7 @@
 						<i class="now-ui-icons ui-2_settings-90"></i>
 					</a>
 				</li> --}}
-				@if (App\Models\Parameter::where([
-		            'active' => true, 'required_by' => 'core',
-		            'p_key' => 'chat', 'p_value' => 'true'
-		        ])->first())
+				@if ($chat)
 					<li class="nav-item">
 						<a class="nav-link btn btn-sm btn-info" href="javascript:void(0)" title="{{ __('chat') }}"
                            data-toggle="tooltip">
@@ -124,10 +133,7 @@
 						</a>
 					</li>
 				@endif
-				@if (App\Models\Parameter::where([
-		            'active' => true, 'required_by' => 'core',
-		            'p_key' => 'support', 'p_value' => 'true'
-		        ])->first())
+				@if ($support)
 					<li class="nav-item">
 						<a class="nav-link btn btn-sm btn-info" href="javascript:void(0)"
                            title="{{ __('Contacte con soporte técnico') }}" data-toggle="tooltip">

@@ -29,9 +29,9 @@ A través de la sección **Usuarios** (Figura 16) de la **Configuración de Acce
 
 Para la creación de una nueva cuenta usuario se debe:
 
-- Acceder como usuario administrador o con un rol de usuario con permisos sobre la **Configuración General del sistema**.
+- Acceder como usuario administrador o con un rol de usuario con permisos sobre la **Configuración General del Sistema**.
 - Seleccionar **Acceso** y ubicarse en la sección **Usuarios**.
-- Haciendo uso de los botón **Crear** ubicado en la esquina superior derecha de esta sección, accedemos al formulario **Gestión de usuario** (Figura 17).
+- Haciendo uso de los botón **Crear** ![Screenshot](../img/create.png) ubicado en la esquina superior derecha de esta sección, accedemos al formulario **Gestión de Usuario** (Figura 17).
 - Completamos el formulario con información relacionada al usuario.
 - Guardamos o cancelamos cualquiera de los cambios haciendo uso de los botones de [acciones de formulario](/information/#botones), ubicados al final de la sección. 
 - Verificar que la cuenta de usuario se muestre en el historial de registros una vez guardado.  
@@ -46,15 +46,15 @@ Una vez iniciado el registro de usuario, se muestra el formulario de la sección
 
 Los roles y permisos son designados a través de los botones de selección habilitando cada una de las acciones pertinentes según corresponda al rol de usuario.   
 
-Para la designación de permisos se presentan clasificadas cada una de las acciones pertenecientes a cada módulo.   Una vez se culmine el registro y la designación podemos guardar los cambios al desplazarnos al final del formulario y pulsar la opción **Guardar**. 
+Para la designación de permisos se presentan clasificadas cada una de las acciones pertenecientes a cada módulo.   Una vez se culmine el registro y la designación podemos guardar los cambios al desplazarnos al final del formulario y pulsar la opción **Guardar** ![Screenshot](../img/save.png). 
 
 ###Gestionar cuentas de usuarios ya creadas
 
-- Acceder como usuario administrador o con un rol de usuario con permisos sobre la **Configuración General del sistema**.
+- Acceder como usuario administrador o con un rol de usuario con permisos sobre la **Configuración General del Sistema**.
 - Seleccionar **Acceso** y ubicarse en la sección **Usuarios** (Figura 16).
-- Presionar el botón **Editar** ubicado en la columna titulada **Acción** de la tabla de registros.
-- Modificar los datos de interes en la sección **Gestión de usuario** (Figura 17).
-- Presionar el botón **Guardar** para registrar los cambios. 
+- Presionar el botón **Editar** ![Screenshot](../img/edit.png) ubicado en la columna titulada **Acción** de la tabla de registros.
+- Modificar los datos de interes en la sección **Gestión de Usuario** (Figura 17).
+- Presionar el botón **Guardar** ![Screenshot](../img/save.png) para registrar los cambios. 
 - Verificar que la cuenta de usuario se muestre en el historial de registros una vez guardado.  
 
 

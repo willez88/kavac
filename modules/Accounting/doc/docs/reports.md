@@ -14,9 +14,6 @@ Mediante esta funcionalidad se visualizará  toda la información económica, fi
 
 El sistema de gestión de recursos KAVAC, cuenta con la generación de reportes para 3 libros contables: libro diario, mayor analítico, y libro auxiliar. La funcionalidad para cada libro cuenta con elementos que permiten filtrar los registros almacenados en el sistema, tales como (fecha inicial, fecha final, selección de cuentas patrimoniales, y formas de expresión de monedas). Adicionalmente cuenta con la opción de **Ayuda**, la cual presenta una guía de ayuda para el usuario. 
 
-!!! note "Nota"
-	Los tipos de moneda son registrados inicialmente en la Configuración General del Sistema KAVAC, específicamente en la opción "Monedas" de la sección de "Registros Comúnes".
-
 ###Generar reporte de libro diario
 
 - Dirigirse al **Módulo de Contabilidad**, luego a **Reportes**, ingresar a **Libros contables** y ubicarse en la sección **Libro diario**.
@@ -38,9 +35,6 @@ El sistema de gestión de recursos KAVAC, cuenta con la generación de reportes 
 Mediante esta funcionalidad se visualizará  toda la información económica, financiera y los cambios que experimenta la misma a una fecha o periodo determinado. Presenta el ejercicio económico de un año de la empresa.
 
 El sistema de gestión de recursos KAVAC, cuenta con la generación de reportes para 3 estados financieros: balance general, estado de resultados y balance de comprobación. La funcionalidad para cada estado financiero cuenta con elementos que permiten filtrar los registros almacenados en el sistema, tales como (periodos de fechas, nivel de consulta y formas de expresión de monedas). Adicionalmente cuenta con la opción de **Ayuda**, la cual presenta una guía de ayuda para el usuario.
-
-!!! note "Nota"
-	Los tipos de moneda son registrados inicialmente en la Configuración General del Sistema KAVAC, específicamente en la opción "Monedas" de la sección de "Registros Comúnes".
 
 ###Generar reporte de estado de resultados
 

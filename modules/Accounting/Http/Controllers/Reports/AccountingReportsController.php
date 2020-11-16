@@ -38,7 +38,6 @@ class AccountingReportsController extends Controller
      */
     public function accountingBooks()
     {
-
         /**
          * [$records lista de cuentas patrimoniales]
          * @var array
@@ -131,7 +130,9 @@ class AccountingReportsController extends Controller
          * @var AccountingEntry
          */
         $entries = AccountingEntry::where('approved', true)->orderBy('from_date', 'ASC')->first();
-
+        if ($entries === null) {
+            return date('Y');
+        }
         /**
          * [$yearOld determinara el año mas antiguo para el filtrado]
          * @var string

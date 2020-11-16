@@ -109,11 +109,11 @@ class AccountingStateOfResultsController extends Controller
 
         $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
 
-        if ($user_profile['institution']) {
+        $is_admin = auth()->user()->isAdmin();
+
+        if (!$is_admin && $user_profile['institution']) {
             $institution_id = $user_profile['institution']['id'];
         }
-
-        $is_admin = auth()->user()->isAdmin();
 
         /**
          * consulta de cada cuenta y asiento que pertenezca a ACTIVO, PASIVO, PATRIMONIO y CUENTA DE ORDEN
@@ -273,11 +273,11 @@ class AccountingStateOfResultsController extends Controller
 
         $institution_id = null;
 
-        if ($user_profile['institution']) {
+        $is_admin = auth()->user()->isAdmin();
+
+        if (!$is_admin && $user_profile['institution']) {
             $institution_id = $user_profile['institution']['id'];
         }
-
-        $is_admin = auth()->user()->isAdmin();
 
         /**
          * [$level_1 establece la consulta de ralación que se desean realizar]

@@ -20,6 +20,7 @@ mix.webpackConfig({
     },
     output:{
         chunkFilename: `modules/${moduleName}/components/${(mix.inProduction()) ? 'prod/[chunkhash]' : '[name]'}.js`,
+        publicPath: `${(process.env.APP_TESTING==='true')?process.env.APP_TESTING_URL:process.env.APP_URL}/`,
     }
 });
 

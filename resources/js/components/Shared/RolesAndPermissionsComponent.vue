@@ -55,12 +55,12 @@
                                     </span>
                                 </td>
                             </tr>
-                            <tr v-for="filteredPermission in filterGroupPermissions(moduleGroup)"
+                            <tr v-for="(filteredPermission, index) in filterGroupPermissions(moduleGroup)"
                                 v-if="searchResult(filteredPermission, moduleGroup)">
                                 <td class="text-uppercase">
                                     {{ filteredPermission.short_description || filteredPermission.name }}
                                 </td>
-                                <td v-for="cellRole in roles" class="text-center">
+                                <td v-for="(cellRole, idx) in roles" class="text-center">
                                     <p-check class="p-icon p-plain" :class="'role_' + cellRole.id" color="text-success"
                                              off-color="text-gray" data-toggle="tooltip" :title="'Rol: ' + cellRole.name"
                                              :value="cellRole.id + '_' + filteredPermission.id"
@@ -130,9 +130,9 @@
             record: {
                 deep: true,
                 handler: function(newValue, oldValue) {
-                    //
+                    const vm = this;
                 }
-            },
+            }
         },
         methods: {
             /**
@@ -258,10 +258,10 @@
              *
              * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
              */
-            getRolesAndPermissions: function() {
+            getRolesAndPermissions: async function() {
                 let vm = this;
                 vm.loading = true;
-                axios.get(vm.rolesPermissionsUrl).then(response => {
+                await axios.get(vm.rolesPermissionsUrl).then(response => {
                     if (response.data.result) {
                         vm.roles = response.data.roles;
                         vm.permissions = response.data.permissions;
@@ -272,11 +272,10 @@
                         });
                         vm.setModuleGroups();
                     }
-                    vm.loading = false;
                 }).catch(error => {
                     vm.logs('RolesAndPermissionsComponent', 264, error, 'getRolesAndPermissions');
-                    vm.loading = false;
                 });
+                vm.loading = false;
             }
         },
         created() {
