@@ -27,11 +27,11 @@ En esta sección es posible activar la funcionalidad para **Bloqueo de Pantalla*
 
 Para activar la funcionalidad de **Bloqueo de Pantalla**:
 
-- Dirigirse a **Mi configuración y datos** ubicado en el panel superior del sistema
-- Ingresar a **Configurar Cuenta** y ubicarse en la sección **General**
-- Activar a través del botón de selección la opción **Bloqueo de pantalla**
-- Establecer tiempo de duración en minutos 
-- Presionar el botón **Guardar** ubicado al final de esta sección para registrar los cambios
+- Dirigirse a **Mi configuración y datos** ubicado en el panel superior del sistema.
+- Ingresar a **Configurar Cuenta** y ubicarse en la sección **General**.
+- Activar a través del botón de selección la opción **Bloqueo de Pantalla**.
+- Establecer tiempo de duración en minutos. 
+- Presionar el botón **Guardar** ![Screenshot](../img/save.png) ubicado al final de esta sección para registrar los cambios.
 
 
 ###Notificaciones
@@ -43,10 +43,10 @@ Una vez se active cualquiera de la opciones, se recibiran notificaciones cuando 
 
 Para activar la funcionalidad de notificaciones:
 
-- Dirigirse a **Mi configuración y datos** ubicado en el panel superior del sistema
-- Ingresar a **Configurar Cuenta** y ubicarse en la sección **Notificaciones**
-- Activar a través de los botones de selección las opciones para las que se desea recibir notificaciones  
-- Presionar el botón **Guardar** ubicado al final de esta sección para registrar los cambios
+- Dirigirse a **Mi configuración y datos** ubicado en el panel superior del sistema.
+- Ingresar a **Configurar Cuenta** y ubicarse en la sección **Notificaciones**.
+- Activar a través de los botones de selección las opciones para las que se desea recibir notificaciones.  
+- Presionar el botón **Guardar** ![Screenshot](../img/save.png) ubicado al final de esta sección para registrar los cambios.
 
 ##Mi perfil
 
@@ -58,22 +58,22 @@ Desde esta sección es posible Cambiar Contraseña, Editar Imagen de Perfil y Bl
 
 Para cambiar contraseña:
 
-- Dirigirse a **Mi configuración y datos** ubicado en el panel superior del sistema
-- Ingresar a **Mi Perfil** y ubicarse en la sección **Perfil**
-- Completar los campos **Nueva Contraseña** y **Confirmar Contraseña**  
-- Presionar el botón **Guardar** ubicado al final de esta sección para registrar los cambios  
+- Dirigirse a **Mi configuración y datos** ubicado en el panel superior del sistema.
+- Ingresar a **Mi Perfil** y ubicarse en la sección **Perfil**.
+- Completar los campos **Nueva Contraseña** y **Confirmar Contraseña**.  
+- Presionar el botón **Guardar** ubicado al final de esta sección para registrar los cambios.  
 
 Para cambiar imagen de perfil:
 
-- Dirigirse a **Mi configuración y datos** ubicado en el panel superior del sistema
-- Ingresar a **Mi Perfil** y ubicarse en la sección **Perfil**
-- Dar clic sobre la imagen de perfil, y selecionar la nueva imagen  
-- Presionar el botón **Guardar** ubicado al final de esta sección para registrar los cambios  
+- Dirigirse a **Mi configuración y datos** ubicado en el panel superior del sistema.
+- Ingresar a **Mi Perfil** y ubicarse en la sección **Perfil**.
+- Dar clic sobre la imagen de perfil, y selecionar la nueva imagen.  
+- Presionar el botón **Guardar** ubicado al final de esta sección para registrar los cambios.  
 
 
 ###Mensajes
 
-En esta sección se aloja el buzón de mensajes  
+En esta sección se aloja el buzón de mensajes.  
 
 ![Screenshot](../img/figure_24.png)<div style="text-align: center;font-weight: bold">Figura 24: Mensajes</div> 
 
@@ -92,7 +92,7 @@ A través de esta opción es posible hacer uso de la funcionalidad **Bloqueo de 
 
 !!! note "Nota"
 	
-	Esta funcionalidad debe estar activada y configurada previamente, de lo contrario se debe activar desde la sección **Configurar cuenta** para su correcto funcionamiento 
+	Esta funcionalidad debe estar activada y configurada previamente, de lo contrario se debe activar desde la sección **Configurar cuenta** para su correcto funcionamiento. 
 
 ##Ayuda
 

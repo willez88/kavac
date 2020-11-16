@@ -13,9 +13,9 @@ El módulo de presupuesto tiene por objeto principal producir la formulación de
 
 Los proyectos, las acciones centralizadas y las acciones específicas corresponden a los registros iniciales, registros que serán usados en las demás secciones del módulo según la configuración que se realice.
 
-Las secciones **Clasificador presupuestario**, **Proyectos**, **Acciones** y **Modificaciones Presupuestarias** corresponden a las principales funciones para la formulación del presupuesto, desde estas secciones es posible crear los proyectos y asignar los recursos a cada uno, así como realizar modificaciones presupuestarias para cada cuenta del clasificador presupuestario. 
+Las secciones **Clasificador Presupuestario**, **Proyectos**, **Acciones** y **Modificaciones Presupuestarias** corresponden a las principales funciones para la formulación del presupuesto, desde estas secciones es posible crear los proyectos y asignar los recursos a cada uno, así como realizar modificaciones presupuestarias para cada cuenta del clasificador presupuestario. 
 
-A través de la generación de reportes es posible tener un seguimiento de las diferentes operaciones sobre el módulo de presupuesto.
+Asimismo, a través de la generación de reportes es posible tener un seguimiento de las diferentes operaciones sobre el módulo de presupuesto.
 
 ##Sobre los usuarios
 
@@ -24,12 +24,12 @@ Los usuarios que interactuan en este módulo, serán todos aquellos usuarios con
 
 ##Funcionalidades
 
--  Acceso fácil y rápido al clasificador presupuestario
--  Facilidad en la formulación del presupuesto de la empresa
--  Gestión de proyectos, acciones específicas y acciones centralizadas
--  Manejo y gestión de modificaciones presupuestarias
--  Manejo de compromisos de presupuesto
--  Generación de reportes de presupuesto
+-  Acceso fácil y rápido al clasificador presupuestario.
+-  Facilidad en la formulación del presupuesto de la empresa.
+-  Gestión de proyectos, acciones específicas y acciones centralizadas.
+-  Manejo y gestión de modificaciones presupuestarias.
+-  Manejo de compromisos de presupuesto.
+-  Generación de reportes de presupuesto.
 
 ##Licencia
 
