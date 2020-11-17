@@ -43,6 +43,13 @@ class City extends Model implements Auditable
     protected $fillable = ['name', 'estate_id'];
 
     /**
+     * Oculta los campos de fechas de creación, actualización y eliminación
+     *
+     * @var    array $hidden
+     */
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
+    /**
      * Método que obtiene el Estado de una Ciudad
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>

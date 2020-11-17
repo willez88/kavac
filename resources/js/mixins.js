@@ -636,15 +636,13 @@ Vue.mixin({
          *
          * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
          *
-         * @param  {integer} index Elemento seleccionado para su eliminación
+         * @param  {integer} id    ID del Elemento seleccionado para su eliminación
          * @param  {string}  url   Ruta que ejecuta la acción para eliminar un registro
          */
-        deleteRecord(index, url) {
-            var url = (url)?url:this.route_delete;
-            var records = this.records;
-            var confirmated = false;
-            var index = index - 1;
+        deleteRecord(id, url) {
             const vm = this;
+            /** @type {string} URL que atiende la petición de eliminación del registro */
+            var url = (url)?url:vm.route_delete;
             url = (!url.includes('http://') || !url.includes('http://'))
                   ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
 
@@ -661,14 +659,21 @@ Vue.mixin({
                 },
                 callback: function (result) {
                     if (result) {
-                        confirmated = true;
-                        axios.delete(`${url}${url.endsWith('/')?'':'/'}${records[index].id}`).then(response => {
+                        /** @type {object} Objeto con los datos del registro a eliminar */
+                        let recordDelete = JSON.parse(JSON.stringify(vm.records.filter((rec) => {
+                            return rec.id === id;
+                        })[0]));
+
+                        axios.delete(`${url}${url.endsWith('/')?'':'/'}${recordDelete.id}`).then(response => {
                             if (typeof(response.data.error) !== "undefined") {
                                 /** Muestra un mensaje de error si sucede algún evento en la eliminación */
                                 vm.showMessage('custom', 'Alerta!', 'warning', 'screen-error', response.data.message);
                                 return false;
                             }
-                            records.splice(index, 1);
+                            /** @type {array} Arreglo de registros filtrado sin el elemento eliminado */
+                            vm.records = JSON.parse(JSON.stringify(vm.records.filter((rec) => {
+                                return rec.id !== id;
+                            })));
                             vm.showMessage('destroy');
                         }).catch(error => {
                             vm.logs('mixins.js', 498, error, 'deleteRecord');
@@ -676,11 +681,6 @@ Vue.mixin({
                     }
                 }
             });
-
-            if (confirmated) {
-                this.records = records;
-                this.showMessage('destroy');
-            }
         },
         /**
          * Método que muestra un mensaje al usuario sobre el resultado de una acción

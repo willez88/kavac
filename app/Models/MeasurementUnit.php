@@ -24,4 +24,11 @@ class MeasurementUnit extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = ['name', 'description', 'acronym'];
+
+    /**
+     * Oculta los campos de fechas de creación, actualización y eliminación
+     *
+     * @var    array $hidden
+     */
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 }

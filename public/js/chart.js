@@ -77,7 +77,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "http://127.0.0.1:8000/";
+/******/ 	__webpack_require__.p = "http://localhost/kavac/";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
@@ -126,7 +126,7 @@ eval("module.exports = function(module) {\n\tif (!module.webpackPolyfill) {\n\t\
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/**\n*--------------------------------------------------------------------------\n* Chart Scripts\n*--------------------------------------------------------------------------\n*\n* Scripts a compilar por la aplicación para la representación de gráficos\n*/\n\n/** Requerimiento para el uso de gráficos */\n__webpack_require__(/*! chart.js */ \"./node_modules/chart.js/dist/Chart.js\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvY2hhcnQuanM/OTczYSJdLCJuYW1lcyI6WyJyZXF1aXJlIl0sIm1hcHBpbmdzIjoiQUFBQTs7Ozs7Ozs7QUFPQTtBQUNBQSxtQkFBTyxDQUFDLHVEQUFELENBQVAiLCJmaWxlIjoiLi9yZXNvdXJjZXMvanMvY2hhcnQuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLVxuKiBDaGFydCBTY3JpcHRzXG4qLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cbipcbiogU2NyaXB0cyBhIGNvbXBpbGFyIHBvciBsYSBhcGxpY2FjacOzbiBwYXJhIGxhIHJlcHJlc2VudGFjacOzbiBkZSBncsOhZmljb3NcbiovXG4vKiogUmVxdWVyaW1pZW50byBwYXJhIGVsIHVzbyBkZSBncsOhZmljb3MgKi9cbnJlcXVpcmUoJ2NoYXJ0LmpzJyk7XG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/js/chart.js\n");
+eval("/**\n*--------------------------------------------------------------------------\n* Chart Scripts\n*--------------------------------------------------------------------------\n*\n* Scripts a compilar por la aplicación para la representación de gráficos\n*/\n\n/** Requerimiento para el uso de gráficos */\n__webpack_require__(/*! chart.js */ \"./node_modules/chart.js/dist/Chart.js\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvY2hhcnQuanM/OTczYSJdLCJuYW1lcyI6WyJyZXF1aXJlIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTs7QUFDQTtBQUNBQSxtQkFBTyxDQUFDLHVEQUFELENBQVAiLCJmaWxlIjoiLi9yZXNvdXJjZXMvanMvY2hhcnQuanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLVxuKiBDaGFydCBTY3JpcHRzXG4qLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cbipcbiogU2NyaXB0cyBhIGNvbXBpbGFyIHBvciBsYSBhcGxpY2FjacOzbiBwYXJhIGxhIHJlcHJlc2VudGFjacOzbiBkZSBncsOhZmljb3NcbiovXG4vKiogUmVxdWVyaW1pZW50byBwYXJhIGVsIHVzbyBkZSBncsOhZmljb3MgKi9cbnJlcXVpcmUoJ2NoYXJ0LmpzJyk7XG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/js/chart.js\n");
 
 /***/ }),
 
@@ -137,7 +137,7 @@ eval("/**\n*--------------------------------------------------------------------
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/jrosas/Documents/clone/kavac_cenditel/resources/js/chart.js */"./resources/js/chart.js");
+module.exports = __webpack_require__(/*! /home/rvargas/RESPALDOS/PROYECTOS/CENDITEL/kavac/resources/js/chart.js */"./resources/js/chart.js");
 
 
 /***/ })
