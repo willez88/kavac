@@ -91,7 +91,7 @@ class CitizenServiceDepartmentController extends Controller
         return response()->json(['record' => $citizenServiceDepartment, 'message' => 'Success'], 200);
     }
 
-    public function getCitizenServiceDepartments()
+    public function getDepartments()
     {
         return template_choices('Modules\CitizenService\Models\CitizenServiceDepartment', 'name', [], true, null);
     }

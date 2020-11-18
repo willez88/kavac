@@ -55,7 +55,7 @@ class CitizenServiceRequestController extends Controller
 
         ]);
 
-        error_log($request->inventory_code);
+
 
         $requestType = $request->citizen_service_request_type_id;
         if ($requestType == 1) {
@@ -231,11 +231,12 @@ class CitizenServiceRequestController extends Controller
         }
 
 
-        error_log($request->type_institution);
+
         if ($request->type_institution) {
             $this->validate($request, [
                 'institution_name'              => ['required', 'max:200'],
-                'rif' => ['required', 'unique:citizen_service_requests,rif,'.$citizenServiceRequest->id, 'size:10', new RifRule],
+                'rif' => ['required', 'unique:citizen_service_requests,rif,'.$citizenServiceRequest->id,
+                          'size:10', new RifRule],
                 'institution_address'           => ['required', 'max:200'],
                 'web'                           => ['max:200'],
             ]);
@@ -341,18 +342,7 @@ class CitizenServiceRequestController extends Controller
         $citizenServiceRequest = CitizenServiceRequest::where('state', 'Iniciado')->get();
         return response()->json(['records' => $citizenServiceRequest], 200);
     }
-
-    public function vueClose($id)
-    {
-        $citizenServiceRequest = CitizenServiceRequest::find($id);
-        return response()->json(['record' => $citizenServiceRequest], 200);
-    }
-
-    public function vueCloseImageUpdate()
-    {
-        dd("entro");
-    }
-
+    
     public function approved(Request $request, $id)
     {
         $citizenServiceRequest = CitizenServiceRequest::find($id);

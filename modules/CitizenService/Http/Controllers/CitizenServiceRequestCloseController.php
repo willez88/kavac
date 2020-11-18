@@ -3,6 +3,8 @@
 namespace Modules\CitizenService\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Image;
+use App\Models\Document;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -42,62 +44,62 @@ class CitizenServiceRequestCloseController extends Controller
         $this->validate($request, [
             'file' => ['required', 'max:5000', 'mimes:jpeg,jpg,png,pdf,docx,doc,odt,mp4,avi'],
         ]);
-        /** Cambiar a uso dinámico de las extensiones  */
+
         $documentFormat = ['doc', 'docx', 'pdf', 'odt'];
-        $imageFormat = ['jpeg', 'jpg', 'png'];
-        $videoFormat = ['mp4', 'avi'];
-        $extensionFile = $request->file('file')->getClientOriginalExtension();
+        $imageFormat    = ['jpeg', 'jpg', 'png'];
+        $videoFormat    = ['mp4', 'avi'];
+        $extensionFile  = $request->file('file')->getClientOriginalExtension();
         if (in_array($extensionFile, $documentFormat)) {
-            if ($citizenServiceRequest->file_counter <= 2) {
-                if ($upDoc->uploadDoc(
-                    $request->file('file'),
-                    'documents',
-                    CitizenServiceRequest::class,
-                    $request->request_id,
-                    null,
-                    false,
-                    false,
-                    true
-                )) {
-                    error_log(CitizenServiceRequest::class);
-                    error_log($request->request_id);
+            //if ($citizenServiceRequest->file_counter <= 2) {
+            if ($upDoc->uploadDoc($request->file('file'),
+                'documents',
+                CitizenServiceRequest::class,
+                $request->request_id,
+                null,
+                false,
+                false,
+                true
+            )) {
+                     $file_id = $upDoc->getDocStored()->id;
+                     $file_url = $upDoc->getDocStored()->url;
+                     $file_name = $upDoc->getDocName();
 
-                    $file_id = $upDoc->getDocStored()->id;
-                   //$document = Document::find($file_id);
-                   //$document->documentable_type = 'Modules\CitizenService\Models\CitizenServiceRequestClose';
-                   //$document->documentable_id = 'Modules\CitizenService\Models\CitizenServiceRequestClose';
-                    $file_url = $upDoc->getDocStored()->url;
-                    $file_name = $upDoc->getDocName();
+                //$citizenServiceRequest->file_counter = $citizenServiceRequest->file_counter + 1;
+                     $citizenServiceRequest->save();
 
-                    $citizenServiceRequest->file_counter = $citizenServiceRequest->file_counter + 1;
-                    $citizenServiceRequest->save();
-                    error_log('file_counter: '.$citizenServiceRequest->file_counter);
-                    return response()->json([
-                        'result' => true, 'file_id' => $file_id,
+                return response()->json([
+                    'result' => true,
+                    'file_id' => $file_id,
+                    'file_url' => $file_url,
+                    'file_name' => $file_name
+                ], 200);
+            }
+        } elseif (in_array($extensionFile, $imageFormat)) {
+            if ($upImage->uploadImage($request->file('file'),
+                'pictures',
+                CitizenServiceRequest::class,
+                $request->request_id,
+                null,
+                false,
+                false,
+                true
+            )) {
+                     $file_id = $upImage->getImageStored()->id;
+                     $file_url = $upImage->getImageStored()->url;
+                     $file_name = $upImage->getImageName();
+
+                return response()->json([
+                        'result' => true,
+                        'file_id' => $file_id,
                         'file_url' => $file_url,
                         'file_name' => $file_name
-                    ], 200);
-                } elseif (in_array($extensionFile, $imageFormat)) {
-                    if ($upImage->uploadImage($request->file('file'), 'pictures')) {
-                        $file_id = $upImage->getImageStored()->id;
-                        $file_url = $upImage->getImageStored()->url;
-                        $file_name = $upImage->getImageName();
-
-                        return response()->json([
-                            'result' => true, 'file_id' => $file_id,
-                            'file_url' => $file_url,
-                            'file_name' => $file_name
-                        ], 200);
-                    }
-                } elseif (in_array($extensionFile, $videoFormat)) {
-                    dd('Is video');
-                }
+                ], 200);
             }
-        }
+        } //elseif (in_array($extensionFile, $videoFormat)) {
+                //dd('Is video');
+            //}
+        //}
     }
-
-
-
 
     /**
      * Show the specified resource.
@@ -122,9 +124,16 @@ class CitizenServiceRequestCloseController extends Controller
      * @param  Request $request
      * @return Renderable
      */
-    public function update(Request $request, Image $image)
+    public function update(Request $request, $id)
     {
-        //
+        $citizenServiceRequest = CitizenServiceRequest::find($id);
+        $citizenServiceRequest->state = 'Culminado';
+
+
+        $citizenServiceRequest->save();
+        
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true, 'redirect' => route('citizenservice.request.index')], 200);
     }
 
     /**
@@ -133,30 +142,49 @@ class CitizenServiceRequestCloseController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $image = Image::find($id);
-
-        if (is_null($image)) {
+            $image = Image::find($id);
+            $doc = Document::find($id);
+        if ((is_null($image)) && (!is_null($doc))) {
             return response()->json([
-                'result' => false, 'message' => __('La imagen no existe o ya fue eliminada')
+                'result' => false, 'message' => __('El archivo no existe o ya fue eliminado')
+            ], 200);
+        } elseif ((is_null($doc)) && (!is_null($image))) {
+            return response()->json([
+               'result' => false, 'message' => __('El archivo no existe o ya fue eliminado')
             ], 200);
         }
-
         $file = $image->file;
-
-        DB::transaction(function () use ($image, $file, $request) {
-            if ($request->force_delete) {
-                $image->forceDelete();
-                if (Storage::disk((isset($request->store)) ? $request->store : 'pictures')->exists($file)) {
-                    Storage::disk((isset($request->store)) ? $request->store : 'pictures')->delete($file);
+        if (!is_null($file)) {
+            DB::transaction(function () use ($image, $file, $request) {
+                if ($request->force_delete) {
+                    $image->forceDelete();
+                    if (Storage::disk((isset($request->store)) ? $request->store : 'pictures')->exists($file)) {
+                        Storage::disk((isset($request->store)) ? $request->store : 'pictures')->delete($file);
+                    }
+                } else {
+                    $image->delete();
                 }
-            } else {
-                $image->delete();
-            }
-        });
-        return response()->json(['result' => true, 'message' => 'Success'], 200);
+            });
+            return response()->json(['result' => true, 'message' => 'Success'], 200);
+        }
+        $file = $doc->file;
+        if (!is_null($file)) {
+            DB::transaction(function () use ($doc, $file, $request) {
+                if ($request->force_delete) {
+                    $doc->forceDelete();
+                    if (Storage::disk((isset($request->store)) ? $request->store : 'documents')->exists($file)) {
+                        Storage::disk((isset($request->store)) ? $request->store : 'documents')->delete($file);
+                    }
+                } else {
+                    $doc->delete();
+                }
+            });
+
+            return response()->json(['result' => true, 'message' => 'Success'], 200);
+        }
     }
 
-    public function vueClose($id)
+    public function getCitizenServiceRequestDocuments($id)
     {
         $citizenServiceRequest = CitizenServiceRequest::where('id', $id)
             ->with('documents')->first();
