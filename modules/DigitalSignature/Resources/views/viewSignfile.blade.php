@@ -44,7 +44,7 @@
             <div class="row">
                 <div class="col-xs-2 text-center">
                     <h6><i class="icofont icofont-file-pdf"></i> Firmar documentos PDF </h6>
-                    <form method="POST" enctype="multipart/form-data" accept-charset="UTF-8" action="{{ route('signFile') }}">
+                    <form method="POST" enctype="multipart/form-data" accept-charset="UTF-8" action="{{ route('apiSignFile') }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <p>
                             <label for="pdf">Cargar PDF a firmar</label>
@@ -75,5 +75,17 @@
         </div>
     </div>
 </div>
-
 @stop
+
+<script>
+function signFilePdf() {
+    console.log('signFile');
+    let data = new FormData();
+    data.append('file', document.getElementById('pdf').files[0]);
+    axios.post('{{ route('signFile') }}', data).then(function (response) {
+        console.log(response.data);
+    }).catch(e => {
+    console.log(e);
+    });                     
+}
+</script>

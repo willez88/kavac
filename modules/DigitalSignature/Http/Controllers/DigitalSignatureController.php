@@ -364,10 +364,10 @@ class DigitalSignatureController extends Controller
                                             'namefile' => $filenamepdfsign,
                                             'signfile' => 'true']);
             } 
-            else { return redirect()->route('fileprofile'); } 
-    } 
-    else { return redirect()->route('login'); }
-}
+            return redirect()->route('fileprofile');
+        } 
+        return redirect()->route('login');
+    }
 
     /**
      * Verifica la firma electrónica de un documento
@@ -452,6 +452,145 @@ class DigitalSignatureController extends Controller
      */
      function getFile($filename) {
         return response()->download(storage_path("temporary/{$filename}"));
+    }
+
+    /**
+     * Funcion para el API
+    */
+   
+   /**
+     * Realiza la firma electrónica de un documento para los componentes
+     *
+     * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
+     * @return json 
+     */
+   public function signFileApi(Request $request)
+    {
+        /**
+         * @var filename: nombre aleatoria para asignar al documentos pdf
+         * @var filenamepdf: nombre del documento pdf a firmar 
+         * @var path: certficado firmante del usuario en una matriz para acceder a sus campos
+         * @var filenamepdfsign: nombre del documento pdf firmado
+         * @var getpath: objeto de tipo Helper
+         * @var storePdfSign: ruta del documento pdf firmado obtenido de una función del Helper
+         * @var storePdf: ruta del documento pdf a firmar obtenido de una función del Helper
+         * @var cert: certificado del firmante
+         * @var pkey: clave privada para firmar
+         * @var passphrase: frase de paso del archivo .p12
+         * @var filenamep12: nombre del archivo .p12
+         * @var storeCertificated: ruta del certificado firmante
+         * @var createpkcs12: archivo .p12 creado para la firma
+         * @var pathPortableSigner: ruta del ejecutable PortableSigner para realizar la firma
+         * @var comand: comando para realizar el proceso de firma
+         * @var run: respuesta del proceso de firma electrónica
+         */
+        
+
+        if(Auth::user()) { //usuario autenticado
+            
+            //Si tiene un certificado firmante almacenado 
+            if(User::find(auth()->user()->id)->signprofiles) {
+
+                //Documento pdf
+                $filename = Str::random(10);
+                $filenamepdf = $filename . '.pdf';
+                $path = $request->file('pdf')->storeAs('',$filenamepdf, 'temporary');
+                $filenamepdfsign = $filename . '-sign.pdf';
+                $getpath = new Helper();
+                $storePdfSign = $getpath->getPathSign($filenamepdfsign);
+                $storePdf = $getpath->getPathSign($filenamepdf);
+
+
+                //Crear archivo pkcs#12
+                $cert = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['cert']);
+                $pkey = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['pkey']);
+                $passphrase = Str::random(10);
+
+                //Datos para la firma
+                $filenamep12 = Str::random(10) . '.p12';
+                $storeCertificated = $getpath->getPathSign($filenamep12);
+                $createpkcs12 = openssl_pkcs12_export_to_file($cert,$storeCertificated,$pkey,$passphrase);
+                $pathPortableSigner = $getpath->getPathSign('PortableSigner');
+
+                //ejecución del comando para firmar
+                $comand = 'java -jar ' . $pathPortableSigner . ' -n -t ' . $storePdf . ' -o ' . $storePdfSign . ' -s ' . $storeCertificated . ' -p ' . $passphrase;
+                $run = exec($comand, $output);
+
+                //enlace para descargar el documento PDF 
+                $pathDownload = asset('storage/temporary/'.$filenamepdfsign);
+                $headers = array(
+                     'Content-Type: application/pdf',
+                   );
+
+                //elimina el certficado .p12
+                Storage::disk('temporary')->delete($filenamep12);
+
+                //elimina el documento pdf
+                Storage::disk('temporary')->delete($filenamepdf);
+
+                $previousUrl = app('url')->previous(); //obtiene el nombre de la ruta
+
+                $routeAction = $request->route()->getName();
+                
+                return response()->json(['msg' => "El documento fue firmado exitosamente", 
+                                        'namefile' => $filenamepdfsign,
+                                        'signfile' => 'true']);
+            } 
+            return redirect()->route('fileprofile');
+        } 
+    return redirect()->route('login');
+    }
+
+    /**
+     * Verifica la firma electrónica de un documento pdf para los componentes
+     *
+     * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
+     * @return json con el detalle de la verificación de la firma
+     */
+    public function verifySignApi(Request $request) {
+
+        /**
+         * @var filename: nombre aleatoria para asignar al documentos pdf
+         * @var namepdfsign: nombre del documento pdf a verificar firma 
+         * @var path: ruta del documento a verificar firma
+         * @var getpath: objeto de tipo Helper 
+         * @var storePdfSign: ruta del documento a verificar obtenido de una función del Helper
+         * @var comand: comando para realizar el proceso de firma
+         * @var run: respuesta del proceso de firma electrónica
+         */
+
+        $this->validate($request, [
+            'pdf' => ['required','mimes:pdf']
+        ]);
+        //Documento pdf
+        $filename = Str::random(10);
+        $namepdfsign = $filename . '.pdf';
+        $path = $request->file('pdf')->storeAs('',$namepdfsign, 'temporary');
+        
+        $getpath = new Helper();        
+        $storePdfSign = $getpath->getPathSign($namepdfsign);
+
+        //ejecución del comando para firmar
+        $comand = 'pdfsig ' . $storePdfSign;
+        $run = exec($comand, $output);
+
+        //elimina el documento pdf a verificar la firma electrónica
+        Storage::disk('temporary')->delete($namepdfsign);
+
+        
+        if(count($output) == 1 ) {
+            $infoVerify = array();
+            array_push($infoVerify, "El documento seleccionado no contiene firma electrónica");
+            $json_test = json_encode($infoVerify);
+
+            return response()->json(['verifyFile' => "false", 'json_test' => $json_test]);
+        }
+        else {
+            $respVerify = new Helper();
+            $json_test = json_encode($respVerify->getRespVerify($output));
+        
+           return response()->json(['verifyFile' => "true", 'json_test' => $json_test]);    
+        }
     }
 }
 

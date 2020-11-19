@@ -71,9 +71,6 @@ Route::group(
             return view('digitalsignature::viewVerifySignfile', ['verifyFile' => 'false']);
         })->name('viewVerifySignfile');
         
-
-
-
         /* Ruta para mostrar la lista de usuario con certificados electrónicos  */
         Route::get('listCertificate', 'DigitalSignatureController@listCertificate')->name('listCertificate');
         

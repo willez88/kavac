@@ -17,11 +17,11 @@ Route::group([
 ], function () {
 	
 	/* Ruta para realizar la firma de documento PDF firmados */
-    Route::post('signFile', 'DigitalSignatureController@signFile')->name('apiSignFile');
+    Route::post('apiSignFile', 'DigitalSignatureController@signFileApi')->name('apiSignFile');
 
     /* Ruta para realizar la verificación de la firma de documento PDF firmados */
-    Route::post('verifysignfile', 'DigitalSignatureController@verifysign')->name('apiVerifysignfile');
+    Route::post('apiVerifysignfile', 'DigitalSignatureController@verifySignApi')->name('apiVerifysignfile');
 
     /* Ruta para descargar documento PDF firmado */
-        Route::get('getFile/{filename}', 'DigitalSignatureController@getFile')->name('apiGetFile');
+        Route::get('apiGetFile/{filename}', 'DigitalSignatureController@getFile')->name('apiGetFile');
 });
