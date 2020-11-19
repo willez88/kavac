@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use Modules\Payroll\Models\PayrollVacationPolicy;
-use App\Models\Institution;
+use Modules\Payroll\Models\Institution;
 
 /**
  * @class      PayrollVacationPolicyController

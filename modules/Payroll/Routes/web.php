@@ -387,7 +387,7 @@ Route::group([
     Route::resource(
         'vacation-requests',
         'PayrollVacationRequestController',
-        ['as' => 'payroll']
+        ['as' => 'payroll', 'except' => ['edit', 'show']]
     );
 
     /** Ruta que obtiene un listado de las solicitudes de vacaciones */
@@ -395,6 +395,24 @@ Route::group([
         'vacation-requests/vue-list',
         'PayrollVacationRequestController@vueList'
     )->name('payroll.vacation-requests.vue-list');
+
+    /** Ruta que permite editar la información de un registro de solicitud de vacaciones */
+    Route::get(
+        'vacation-requests/edit/{vacation_request}',
+        'PayrollVacationRequestController@edit'
+    )->name('payroll.vacation-requests.edit');
+
+    /** Ruta que obtiene la información de un registro de solicitud de vacaciones */
+    Route::get(
+        'vacation-requests/show/{vacation_request}',
+        'PayrollVacationRequestController@show'
+    )->name('payroll.vacation-requests.show');
+
+    /** Ruta que obtiene un listado de las solicitudes de vacaciones de un trabajador */
+    Route::get(
+        'get-vacation-requests/{staff_id}',
+        'PayrollVacationRequestController@getVacationRequests'
+    );
 
     /**
      * ------------------------------------------------------------
