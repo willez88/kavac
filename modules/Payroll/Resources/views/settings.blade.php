@@ -54,6 +54,17 @@
 									]) !!}
 								</div>
 							</div>
+							<div class="col-md-4" id="vacationRequestsCode">
+								<div class="form-group">
+									{!! Form::label('vacation_requests_code', 'Código de las solicitudes de vacaciones', []) !!}
+									{!! Form::text('vacation_requests_code', ($vRCode) ? $vRCode->format_code : old('vacation_requests_code'), [
+										'class' => 'form-control input-sm', 'data-toggle' => 'tooltip',
+										'title' => 'Formato para el código de las solicitudes de vacaciones',
+										'placeholder' => 'Ej. XXX-00000000-YYYY',
+										'readonly' => ($vRCode) ? true : false
+									]) !!}
+								</div>
+							</div>
 						</div>
 						<hr>
 						<div class="row">

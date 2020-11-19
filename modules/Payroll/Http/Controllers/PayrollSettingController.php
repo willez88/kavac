@@ -25,10 +25,11 @@ class PayrollSettingController extends Controller
         $sCode  = $codeSettings->where('table', 'payroll_staffs')->first();
         $ssCode = $codeSettings->where('table', 'payroll_salary_scales')->first();
         $stCode = $codeSettings->where('table', 'payroll_salary_tabulators')->first();
+        $vRCode = $codeSettings->where('table', 'payroll_vacation_requests')->first();
         $parameter = Parameter::where([
             'active' => true, 'required_by' => 'payroll', 'p_key' => 'work_age'
         ])->first();
-        return view('payroll::settings', compact('codeSettings', 'sCode', 'ssCode', 'stCode', 'parameter'));
+        return view('payroll::settings', compact('codeSettings', 'sCode', 'ssCode', 'stCode', 'vRCode', 'parameter'));
     }
 
     /**
@@ -51,7 +52,8 @@ class PayrollSettingController extends Controller
         $this->validate($request, [
             'staffs_code'            => [new CodeSettingRule],
             'salary_scales_code'     => [new CodeSettingRule],
-            'salary_tabulators_code' => [new CodeSettingRule]
+            'salary_tabulators_code' => [new CodeSettingRule],
+            'vacation_requests_code' => [new CodeSettingRule]
         ]);
 
         /** @var array Arreglo con información de los campos de códigos configurados */
@@ -76,13 +78,18 @@ class PayrollSettingController extends Controller
                 } elseif ($key === "salary_scales_code") {
                     /** @var string Define el campo model para asociarlo a los escalafones salariales */
                     $model = \Modules\Payroll\Models\PayrollSalaryScale::class;
-                    /** @var string Define el campo table para asociarlo al personal */
+                    /** @var string Define el campo table para asociarlo a los escalafones salariales */
                     $table = "salary_scales";
                 } elseif ($key === "salary_tabulators_code") {
                     /** @var string Define el campo model para asociarlo a los tabuladores salariales */
                     $model = \Modules\Payroll\Models\PayrollSalaryTabulator::class;
-                    /** @var string Define el campo table para asociarlo al personal */
+                    /** @var string Define el campo table para asociarlo a los tabuladores salariales */
                     $table = "salary_tabulators";
+                } elseif ($key === "vacation_requests_code") {
+                    /** @var string Define el campo model para asociarlo a las solicitudes de vacaciones */
+                    $model = \Modules\Payroll\Models\PayrollVacationRequest::class;
+                    /** @var string Define el campo table para asociarlo a las solicitudes de vacaciones */
+                    $table = "vacation_requests";
                 }
 
                 CodeSetting::updateOrCreate([

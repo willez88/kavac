@@ -36,6 +36,37 @@ class PayrollVacationRequest extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'code', 'status', 'days_requested', 'vacation_period_year', 'start_date', 'end_date', 'payroll_staff_id'
+        'code', 'status', 'days_requested', 'vacation_period_year', 'start_date',
+        'end_date', 'payroll_staff_id', 'institution_id'
     ];
+
+    /**
+     * Lista de atributos de relacion consultados automaticamente
+     * @var    array    $with
+     */
+    protected $with = ['institution', 'payrollStaff'];
+
+    /**
+     * Método que obtiene la información de la institución asociada a la solicitud de vacaciones
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function institution()
+    {
+        return $this->belongsTo(Institution::class);
+    }
+
+    /**
+     * Método que obtiene la información del trabajador asociado a la solicitud de vacaciones
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function payrollStaff()
+    {
+        return $this->belongsTo(PayrollStaff::class);
+    }
 }

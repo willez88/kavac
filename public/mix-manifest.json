@@ -247,5 +247,7 @@
     "/modules/warehouse/components/warehouse-request-staff-list.js": "/modules/warehouse/components/warehouse-request-staff-list.js",
     "/modules/warehouse/components/warehouse-rules.js": "/modules/warehouse/components/warehouse-rules.js",
     "/modules/warehouse/components/warehouses.js": "/modules/warehouse/components/warehouses.js",
-    "/js/components/vendors~vue-tables-2.js": "/js/components/vendors~vue-tables-2.js"
+    "/js/components/vendors~vue-tables-2.js": "/js/components/vendors~vue-tables-2.js",
+    "/modules/payroll/components/payroll-report-vacation-status.js": "/modules/payroll/components/payroll-report-vacation-status.js",
+    "/modules/payroll/components/payroll-vacation-request-show.js": "/modules/payroll/components/payroll-vacation-request-show.js"
 }

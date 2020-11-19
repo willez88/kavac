@@ -8,7 +8,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use Modules\Payroll\Models\PayrollVacationRequest;
-use App\Models\Institution;
+use Modules\Payroll\Models\Institution;
+use App\Models\CodeSetting;
 
 /**
  * @class      PayrollVacationRequestController
@@ -52,15 +53,27 @@ class PayrollVacationRequestController extends Controller
 
         /** Define las reglas de validación para el formulario */
         $this->validateRules = [
+            'payroll_staff_id'     => ['required'],
+            'vacation_period_year' => ['required'],
+            'days_requested'       => ['required'],
+            'start_date'           => ['required'],
+            'end_date'             => ['required']
         ];
 
         /** Define los mensajes de validación para las reglas del formulario */
         $this->messages = [
+            'payroll_staff_id.required'     => 'El campo trabajador es obligatorio.',
+            'vacation_period_year.required' => 'El campo año del período vacacional es obligatorio.',
+            'days_requested.required'       => 'El campo días solicitados es obligatorio.',
+            'start_date.required'           => 'El campo fecha de inicio de las vacaciones es obligatorio.',
+            'end_date.required'             => 'El campo fecha de culminación de las vacaciones es obligatorio.'
         ];
     }
 
     /**
      * Muestra un listado de las solicitudes vacacionales registradas
+     *
+     * @method    index
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      *
@@ -74,6 +87,8 @@ class PayrollVacationRequestController extends Controller
     /**
      * Muestra el formulario para registrar una nueva solicitud vacacional
      *
+     * @method    create
+     *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      *
      * @return    Renderable
@@ -84,45 +99,166 @@ class PayrollVacationRequestController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Renderable
+     * Valida y registra una nueva solicitud de vacaciones
+     *
+     * @method    store
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     *
+     * @return    \Illuminate\Http\JsonResponse                Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
+        $this->validate($request, $this->validateRules, $this->messages);
+
+        $codeSetting = CodeSetting::where('table', 'payroll_vacation_requests')->first();
+        if (is_null($codeSetting)) {
+            $request->session()->flash('message', [
+                'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
+                'text' => 'Debe configurar previamente el formato para el código a generar'
+                ]);
+            return response()->json(['result' => false, 'redirect' => route('payroll.settings.index')], 200);
+        }
+
+        $code  = generate_registration_code(
+            $codeSetting->format_prefix,
+            strlen($codeSetting->format_digits),
+            (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'),
+            $codeSetting->model,
+            $codeSetting->field
+        );
+
+        $user = Auth()->user();
+        $profileUser = $user->profile;
+        if ($profileUser) {
+            $institution = Institution::find($profileUser->institution_id);
+        } else {
+            $institution = Institution::where('active', true)->where('default', true)->first();
+        }
+
+        /**
+         * Objeto asociado al modelo PayrollVacationRequest
+         *
+         * @var Object $payrollVacationRequest
+         */
+        $payrollVacationRequest = PayrollVacationRequest::create([
+            'code'                 => $code,
+            'status'               => $user->hasRole('admin') ? 'approved':'pending',
+            'days_requested'       => $request->input('days_requested'),
+            'vacation_period_year' => $request->input('vacation_period_year'),
+            'start_date'           => $request->input('start_date'),
+            'end_date'             => $request->input('end_date'),
+            'payroll_staff_id'     => $request->input('payroll_staff_id'),
+            'institution_id'       => $institution->id
+        ]);
+
+        $request->session()->flash('message', ['type' => 'store']);
+        return response()->json(['result' => true, 'redirect' => route('payroll.vacation-requests.index')], 200);
     }
 
     /**
-     * Show the specified resource.
-     * @return Renderable
+     * Muestra los datos de la información de la solicitud de vacaciones seleccionada
+     *
+     * @method    show
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @param     Integer        $id    Identificador único de la solicitud de vacaciones
+     *
+     * @return    Renderable
      */
-    public function show()
+    public function show($id)
     {
+        $payrollVacationRequest = PayrollVacationRequest::find($id);
+        return response()->json(['record' => $payrollVacationRequest], 200);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * @return Renderable
+     * Muestra el formulario para actualizar la información de una solicitud vacacional
+     *
+     * @method    edit
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @param     Integer        $id    Identificador único del registro de solicitud de vacaciones
+     *
+     * @return    Renderable
      */
-    public function edit()
+    public function edit($id)
     {
+        /**
+         * Objeto asociado al modelo PayrollVacationRequest
+         * @var    Object    $payrollVacationRequest
+         */
+        $payrollVacationRequest = PayrollVacationRequest::find($id);
+        return view('payroll::requests.vacations.create-edit', compact('payrollVacationRequest'));
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Renderable
+     * Actualiza la información de la solicitud de vacaciones
+     *
+     * @method    update
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @param     Integer                     $id         Identificador único asociado a la solicitud de vacaciones
+     *
+     * @param     \Illuminate\Http\Request    $request    Datos de la petición
+     *
+     * @return    Renderable
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        /**
+         * Objeto asociado al modelo PayrollVacationRequest
+         * @var    Object    $payrollVacationRequest
+         */
+        $payrollVacationRequest = PayrollVacationRequest::find($id);
+        $this->validate($request, $this->validateRules, $this->messages);
+
+        $profileUser = Auth()->user()->profile;
+        if ($profileUser) {
+            $institution = Institution::find($profileUser->institution_id);
+        } else {
+            $institution = Institution::where('active', true)->where('default', true)->first();
+        }
+        $payrollVacationRequest->update([
+            'status'               => $user->hasRole('admin') ? 'approved': $payrollVacationRequest->status,
+            'days_requested'       => $request->input('days_requested'),
+            'vacation_period_year' => $request->input('vacation_period_year'),
+            'start_date'           => $request->input('start_date'),
+            'end_date'             => $request->input('end_date'),
+            'payroll_staff_id'     => $request->input('payroll_staff_id'),
+            'institution_id'       => $institution->id
+        ]);
+
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true, 'redirect' => route('payroll.vacation-requests.index')], 200);
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @return Renderable
+     * Elimina una solicitud de vacaciones
+     *
+     * @method    destroy
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @param     Integer        $id    Identificador único de la política vacacional a eliminar
+     *
+     * @return    Renderable
      */
-    public function destroy()
+    public function destroy($id)
     {
+        /**
+         * Objeto asociado al modelo PayrollVacationRequest
+         * @var    Object    $payrollVacationRequest
+         */
+        $payrollVacationRequest = PayrollVacationRequest::find($id);
+        $payrollVacationRequest->delete();
+
+        return response()->json(['record' => $payrollVacationRequest, 'message' => 'Success'], 200);
     }
 
     /**
@@ -136,16 +272,34 @@ class PayrollVacationRequestController extends Controller
      */
     public function vueList()
     {
-        $profileUser = Auth()->user()->profile;
+        $user = Auth()->user();
+        $profileUser = $user->profile;
         if ($profileUser) {
             $institution = Institution::find($profileUser->institution_id);
         } else {
             $institution = Institution::where('active', true)->where('default', true)->first();
         }
+        if ($user->hasRole('admin')) {
+            $records = PayrollVacationRequest::where('institution_id', $institution->id)->get();
+        } else {
+            $records = [];
+        }
+        return response()->json(['records' => $records], 200);
+    }
 
-        return response()->json(
-            ['records' => PayrollVacationRequest::where('institution_id', $institution->id)->get()],
-            200
-        );
+    /**
+     * Muestra el listado de solicitudes de vacaciones según el trabajador seleccionado
+     *
+     * @method    getVacationRequests
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     */
+    public function getVacationRequests($staff_id)
+    {
+        $payrollVacationRequest = PayrollVacationRequest::where('payroll_staff_id', $staff_id)
+                                                        ->whereIn('status', ['pending', 'approved'])->get();
+        return response()->json(['records' => $payrollVacationRequest], 200);
     }
 }
