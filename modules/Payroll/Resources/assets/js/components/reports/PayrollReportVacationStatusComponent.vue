@@ -1,5 +1,5 @@
 <template>
-    <section id="PayrollReportVacationEnjoymentSummariesForm">
+    <section id="PayrollReportVacationStatusForm">
         <div class="card-body">
             <div class="alert alert-danger" v-if="errors.length > 0">
                 <ul>
@@ -74,7 +74,7 @@
                     <span> {{ props.row.start_date + ' - ' + props.row.end_date }} </span>
                 </div>
                 <div slot="id" slot-scope="props" class="text-center">
-                    <button @click="createReport(props.row.id, 'vacation-enjoyment-summaries', $event)" 
+                    <button @click="createReport(props.row.id, 'vacation-status', $event)" 
                             class="btn btn-primary btn-xs btn-icon btn-action" 
                             title="Generar reporte" data-toggle="tooltip" 
                             type="button">

@@ -423,7 +423,17 @@ Route::group([
         'middleware' => ['web', 'auth', 'verified'],
         'prefix' => 'reports'
     ], function () {
+        Route::get('show/{filename}', 'PayrollReportController@show')
+        ->name('payroll.reports.show');
+        
         Route::get('vacation-enjoyment-summaries', 'PayrollReportController@vacationEnjoymentSummaries')
         ->name('payroll.reports.vacation-enjoyment-summaries');
+        Route::post('vacation-enjoyment-summaries/create', 'PayrollReportController@create')
+        ->name('payroll.reports.vacation-enjoyment-summaries.create');
+
+        Route::get('vacation-status', 'PayrollReportController@vacationStatus')
+        ->name('payroll.reports.vacation-status');
+        Route::post('vacation-status/create', 'PayrollReportController@create')
+        ->name('payroll.reports.vacation-status.create');
     });
 });

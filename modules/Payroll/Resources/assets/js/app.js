@@ -376,6 +376,13 @@ Vue.component('payroll-report-vacation-enjoyment-summaries', () => import(
     './components/reports/PayrollReportVacationEnjoymentSummariesComponent.vue')
 );
 
+Vue.component('payroll-report-vacation-status', () => import(
+    /* webpackChunkName: "payroll-report-vacation-status" */
+    './components/reports/PayrollReportVacationStatusComponent.vue')
+);
+
+
+
 
 /**
  * Componente para la gestión de calculos de salario

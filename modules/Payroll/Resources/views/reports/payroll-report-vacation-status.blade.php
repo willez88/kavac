@@ -21,16 +21,16 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h6 class="card-title">Resumen de disfrute de vacaciones</h6>
+                    <h6 class="card-title">Estatus de vacaciones</h6>
                     <div class="card-btns">
                         @include('buttons.previous', ['route' => url()->previous()])
                         @include('buttons.minimize')
                     </div>
                 </div>
                 <div class="card-body">
-                    <payroll-report-vacation-enjoyment-summaries
+                    <payroll-report-vacation-status
                         route_list="{{ url('payroll/vacation-requests/vue-list') }}">
-                    </payroll-report-vacation-enjoyment-summaries>
+                    </payroll-report-vacation-status>
                 </div>
             </div>
         </div>
