@@ -45,6 +45,8 @@ class Parish extends Model implements Auditable
      */
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
+    protected $with = ['municipality'];
+
     /**
      * Método que obtiene el Municipio de una Parroquia
      *

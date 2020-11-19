@@ -45,6 +45,8 @@ class Municipality extends Model implements Auditable
      */
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
+    protected $with = ['estate'];
+
     /**
      * Método que obtiene el Estado de un Municipio
      *

@@ -49,6 +49,8 @@ class Estate extends Model implements Auditable
      */
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
+    protected $with = ['country'];
+
     /**
      * Método que obtiene el Pais de un Estado
      *
