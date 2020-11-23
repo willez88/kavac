@@ -182,7 +182,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "http://localhost/kavac/";
+/******/ 	__webpack_require__.p = "http://localhost:8000/";
 /******/
 /******/ 	// on error function for async loading
 /******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
@@ -208,7 +208,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/**\n * Componente para realizar la firma electrónica a documentos PDF\n *\n * @author  Pedro Buitrago <pbuitrago@cenditel.gob.ve | pedrobui@gmail.com>\n */\nVue.component('digitalSignature-signFile-form', function () {\n  return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./components/DigitalSignatureSignFileForm.vue */ \"./Resources/assets/js/components/DigitalSignatureSignFileForm.vue\"));\n});\n/**\n * Componente para realizar la verificación de la firma electrónica a documentos PDF\n *\n * @author  Pedro Buitrago <pbuitrago@cenditel.gob.ve | pedrobui@gmail.com>\n */\n\nVue.component('digitalSignature-verifySign-form', function () {\n  return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./components/DigitalSignatureVerifySignForm.vue */ \"./Resources/assets/js/components/DigitalSignatureVerifySignForm.vue\"));\n});//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9SZXNvdXJjZXMvYXNzZXRzL2pzL2FwcC5qcz82ZmY1Il0sIm5hbWVzIjpbIlZ1ZSIsImNvbXBvbmVudCJdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7O0FBS0FBLEdBQUcsQ0FBQ0MsU0FBSixDQUFjLGdDQUFkLEVBQWdEO0FBQUEsU0FBTSx1TUFBTjtBQUFBLENBQWhEO0FBSUE7Ozs7OztBQUtBRCxHQUFHLENBQUNDLFNBQUosQ0FBYyxrQ0FBZCxFQUFrRDtBQUFBLFNBQU0sMk1BQU47QUFBQSxDQUFsRCIsImZpbGUiOiIuL1Jlc291cmNlcy9hc3NldHMvanMvYXBwLmpzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBDb21wb25lbnRlIHBhcmEgcmVhbGl6YXIgbGEgZmlybWEgZWxlY3Ryw7NuaWNhIGEgZG9jdW1lbnRvcyBQREZcbiAqXG4gKiBAYXV0aG9yICBQZWRybyBCdWl0cmFnbyA8cGJ1aXRyYWdvQGNlbmRpdGVsLmdvYi52ZSB8IHBlZHJvYnVpQGdtYWlsLmNvbT5cbiAqL1xuVnVlLmNvbXBvbmVudCgnZGlnaXRhbFNpZ25hdHVyZS1zaWduRmlsZS1mb3JtJywgKCkgPT4gaW1wb3J0KFxuICAgICcuL2NvbXBvbmVudHMvRGlnaXRhbFNpZ25hdHVyZVNpZ25GaWxlRm9ybS52dWUnKVxuKTtcblxuLyoqXG4gKiBDb21wb25lbnRlIHBhcmEgcmVhbGl6YXIgbGEgdmVyaWZpY2FjacOzbiBkZSBsYSBmaXJtYSBlbGVjdHLDs25pY2EgYSBkb2N1bWVudG9zIFBERlxuICpcbiAqIEBhdXRob3IgIFBlZHJvIEJ1aXRyYWdvIDxwYnVpdHJhZ29AY2VuZGl0ZWwuZ29iLnZlIHwgcGVkcm9idWlAZ21haWwuY29tPlxuICovXG5WdWUuY29tcG9uZW50KCdkaWdpdGFsU2lnbmF0dXJlLXZlcmlmeVNpZ24tZm9ybScsICgpID0+IGltcG9ydChcbiAgICAnLi9jb21wb25lbnRzL0RpZ2l0YWxTaWduYXR1cmVWZXJpZnlTaWduRm9ybS52dWUnKVxuKTtcbiJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./Resources/assets/js/app.js\n");
+eval("/**\n * Componente para realizar la firma electrónica a documentos PDF\n *\n * @author  Pedro Buitrago <pbuitrago@cenditel.gob.ve | pedrobui@gmail.com>\n */\nVue.component('digitalsignature-signfile-component', function () {\n  return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./components/DigitalSignatureSignFileComponent.vue */ \"./Resources/assets/js/components/DigitalSignatureSignFileComponent.vue\"));\n});\n/**\n * Componente para realizar la verificación de la firma electrónica a documentos PDF\n *\n * @author  Pedro Buitrago <pbuitrago@cenditel.gob.ve | pedrobui@gmail.com>\n */\n\nVue.component('digitalsignature-verifysign-component', function () {\n  return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./components/DigitalSignatureVerifySignComponent.vue */ \"./Resources/assets/js/components/DigitalSignatureVerifySignComponent.vue\"));\n});//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9SZXNvdXJjZXMvYXNzZXRzL2pzL2FwcC5qcz82ZmY1Il0sIm5hbWVzIjpbIlZ1ZSIsImNvbXBvbmVudCJdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7O0FBS0FBLEdBQUcsQ0FBQ0MsU0FBSixDQUFjLHFDQUFkLEVBQXFEO0FBQUEsU0FBTSxpTkFBTjtBQUFBLENBQXJEO0FBSUE7Ozs7OztBQUtBRCxHQUFHLENBQUNDLFNBQUosQ0FBYyx1Q0FBZCxFQUF1RDtBQUFBLFNBQU0scU5BQU47QUFBQSxDQUF2RCIsImZpbGUiOiIuL1Jlc291cmNlcy9hc3NldHMvanMvYXBwLmpzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBDb21wb25lbnRlIHBhcmEgcmVhbGl6YXIgbGEgZmlybWEgZWxlY3Ryw7NuaWNhIGEgZG9jdW1lbnRvcyBQREZcbiAqXG4gKiBAYXV0aG9yICBQZWRybyBCdWl0cmFnbyA8cGJ1aXRyYWdvQGNlbmRpdGVsLmdvYi52ZSB8IHBlZHJvYnVpQGdtYWlsLmNvbT5cbiAqL1xuVnVlLmNvbXBvbmVudCgnZGlnaXRhbHNpZ25hdHVyZS1zaWduZmlsZS1jb21wb25lbnQnLCAoKSA9PiBpbXBvcnQoXG4gICAgJy4vY29tcG9uZW50cy9EaWdpdGFsU2lnbmF0dXJlU2lnbkZpbGVDb21wb25lbnQudnVlJ1xuKSk7XG5cbi8qKlxuICogQ29tcG9uZW50ZSBwYXJhIHJlYWxpemFyIGxhIHZlcmlmaWNhY2nDs24gZGUgbGEgZmlybWEgZWxlY3Ryw7NuaWNhIGEgZG9jdW1lbnRvcyBQREZcbiAqXG4gKiBAYXV0aG9yICBQZWRybyBCdWl0cmFnbyA8cGJ1aXRyYWdvQGNlbmRpdGVsLmdvYi52ZSB8IHBlZHJvYnVpQGdtYWlsLmNvbT5cbiAqL1xuVnVlLmNvbXBvbmVudCgnZGlnaXRhbHNpZ25hdHVyZS12ZXJpZnlzaWduLWNvbXBvbmVudCcsICgpID0+IGltcG9ydChcbiAgICAnLi9jb21wb25lbnRzL0RpZ2l0YWxTaWduYXR1cmVWZXJpZnlTaWduQ29tcG9uZW50LnZ1ZSdcbikpO1xuIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./Resources/assets/js/app.js\n");
 
 /***/ }),
 
@@ -219,7 +219,7 @@ eval("/**\n * Componente para realizar la firma electrónica a documentos PDF\n 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9SZXNvdXJjZXMvYXNzZXRzL3Nhc3MvYXBwLnNjc3M/NWZmOSJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSIsImZpbGUiOiIuL1Jlc291cmNlcy9hc3NldHMvc2Fzcy9hcHAuc2Nzcy5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vIHJlbW92ZWQgYnkgZXh0cmFjdC10ZXh0LXdlYnBhY2stcGx1Z2luIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./Resources/assets/sass/app.scss\n");
+eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9SZXNvdXJjZXMvYXNzZXRzL3Nhc3MvYXBwLnNjc3M/NGMwOCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSIsImZpbGUiOiIuL1Jlc291cmNlcy9hc3NldHMvc2Fzcy9hcHAuc2Nzcy5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vIHJlbW92ZWQgYnkgZXh0cmFjdC10ZXh0LXdlYnBhY2stcGx1Z2luIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./Resources/assets/sass/app.scss\n");
 
 /***/ }),
 
@@ -230,8 +230,8 @@ eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourc
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/rvargas/RESPALDOS/PROYECTOS/CENDITEL/kavac/modules/DigitalSignature/Resources/assets/js/app.js */"./Resources/assets/js/app.js");
-module.exports = __webpack_require__(/*! /home/rvargas/RESPALDOS/PROYECTOS/CENDITEL/kavac/modules/DigitalSignature/Resources/assets/sass/app.scss */"./Resources/assets/sass/app.scss");
+__webpack_require__(/*! /home/engelpain/kavac/modules/DigitalSignature/Resources/assets/js/app.js */"./Resources/assets/js/app.js");
+module.exports = __webpack_require__(/*! /home/engelpain/kavac/modules/DigitalSignature/Resources/assets/sass/app.scss */"./Resources/assets/sass/app.scss");
 
 
 /***/ })
