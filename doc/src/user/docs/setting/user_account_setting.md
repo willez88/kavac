@@ -4,7 +4,7 @@
 
 ![Screenshot](../img/logokavac.png#imagen)
 
-Desde esta sección es posible llevar a cabo la gestión de cuenta de usuario (cambiar contraseña, añadir foto de perfil, configurar bloqueo de pantalla, configurar notificaciones entre otras funcionalidades que se describen a continuación).  Para ingresar a esta sección es necesario dirigirse al panel superior del sistema e ingresar en el apartado **Mi configuración y datos**. 
+Desde esta sección es posible llevar a cabo la gestión de cuenta de usuario como por ejemplo: cambiar contraseña, añadir foto de perfil, configurar bloqueo de pantalla, configurar notificaciones, entre otras funcionalidades que más adelante se describen.	Para ingresar a esta sección es necesario dirigirse al panel superior del sistema e ingresar en el apartado **Mi configuración y datos**. 
 
 ![Screenshot](../img/figure_20.png)<div style="text-align: center;font-weight: bold">Figura 20: Configuración de Cuenta de Usuario</div>
 
@@ -37,7 +37,7 @@ Para activar la funcionalidad de **Bloqueo de Pantalla**:
 ###Notificaciones
 
 En esta sección es posible activar o desactivar notificaciones generadas por el sistema. 
-Una vez se active cualquiera de la opciones, se recibiran notificaciones cuando se cree, se edite o se elimine cualquier registro perteneciente a la opción seleccionada.   Las opciones disponibles son: Institución, Moneda, Deducción, Departamento, Documento, Intercambio de Moneda, Profesión e Impuesto. 
+Una vez se active cualquiera de la opciones, se recibirán notificaciones cuando se cree, se edite o se elimine cualquier registro perteneciente a la opción seleccionada.   Las opciones disponibles son: Institución, Moneda, Deducción, Departamento, Documento, Intercambio de Moneda, Profesión e Impuesto. 
 
 ![Screenshot](../img/figure_22.png)<div style="text-align: center;font-weight: bold">Figura 22: Configuración de Notificaciones</div>
 
@@ -52,7 +52,7 @@ Para activar la funcionalidad de notificaciones:
 
 ###Perfil
 
-Desde esta sección es posible Cambiar Contraseña, Editar Imagen de Perfil y Bloquear Pantalla. 
+Desde esta sección es posible **cambiar contraseña**, **editar imagen de perfil** y **bloquear pantalla**. 
 
 ![Screenshot](../img/figure_23.png)<div style="text-align: center;font-weight: bold">Figura 23: Perfil de Usuario</div> 
 
@@ -79,7 +79,7 @@ En esta sección se aloja el buzón de mensajes.
 
 ###Directorio
 
-En esta sección se listan todos los usuarios registrados en el sistema con sus datos básicos como Nombre, Dirección, Número de teléfono y Correo institucional. 
+En esta sección se listan todos los usuarios registrados en el sistema con sus datos básicos como **nombre**, **dirección**, **número de teléfono** y **correo institucional**.
 
 ![Screenshot](../img/figure_25.png)<div style="text-align: center;font-weight: bold">Figura 25: Directorio</div>
 

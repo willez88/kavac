@@ -1,7 +1,7 @@
 # Instalación del Sistema 
 *************************
 <div style="text-align: justify;" >
-##Pre-requisitos
+##Prerrequisitos
 
    A continuación se listan los paquetes previos requeridos para la instalación y correcto funcionamiento de la aplicación:
 
@@ -42,7 +42,7 @@
 
      apt install nginx
 
-   Una vez completada la instalación, inicie el servicio nginx y agréguelo para que se inicie automáticamente con el sistema operativo mediante el comando systemctl:
+   Una vez completada la instalación, inicie el servicio Nginx y agréguelo para que se inicie automáticamente con el sistema operativo mediante el comando systemctl:
 
      systemctl start nginx
 
@@ -52,7 +52,7 @@
 
      netstat -plntu
 
-   Si todo lo muestra correctamente, nginx estará instalado y en ejecución.
+   Si todo lo muestra correctamente, Nginx estará instalado y en ejecución.
 
 ##Instalar PHP-FPM
 
@@ -81,13 +81,13 @@
 
      netstat -pl | grep php(version-php-instalada)-fpm
 
-   Con lo anterior, el servidor virtual para la aplicación fue creado, solo queda reiniciar el servidor nginx para que las modificaciones tengan efecto, para esto se debe ejecutar:
+   Con lo anterior, el servidor virtual para la aplicación fue creado, sólo queda reiniciar el servidor Nginx para que las modificaciones tengan efecto, para esto se debe ejecutar:
 
      systemctl restart nginx
 
 ##Configurar el servidor virtual de Nginx
 
-   Para que la aplicación se ejecute en el servidor de aplicaciones Nginx, se debe realizar una configuración adicional creando para ello un archivo que contendrá dicha configuración, para esto se ejecutará el siguiente comando:
+   Para que la aplicación se ejecute en el servidor de aplicaciones Nginx, se debe realizar una configuración adicional, creando un archivo que contendrá dicha configuración, para esto se ejecutará el siguiente comando:
 
      nano /etc/nginx/sites-available/kavac
 
@@ -125,7 +125,7 @@
                 }
             }
 
-   Guardar las modificaciones y cierra el archivo.
+   Guarda las modificaciones y cierra el archivo.
    
    Ahora para activar el servidor virtual se debe crear un enlace simbólico al archivo de configuración de la siguiente forma:
 
@@ -231,7 +231,7 @@
 
 ##Procesamiento de colas
 
-El sistema cuenta con procedimientos que permiten establecer colas de trabajo para peticiones y registros con grandes cantidades de información, por tal motivo es necesario realizar una configuración previa antes de iniciar la aplicación.
+El sistema cuenta con procedimientos que permite establecer colas de trabajo para peticiones y registros con grandes cantidades de información, por tal motivo es necesario realizar una configuración previa antes de iniciar la aplicación.
 
 Dentro del archivo config/queue.php se encuentra las distintas variables a configurar para el uso de colas, por lo que se deben configurar el driver a usar para la gestión de las colas y posteriormente configurar los datos necesarios del servidor seleccionado.
 
@@ -328,7 +328,7 @@ Para verificar que la configuración es correcta y el servicio se está ejecutan
 
      php artisan db:seed
 
-   El anterior comando ejecutara las acciones necesarias para ingresar al sistema los datos inicialmente requeridos por la aplicación base como son: usuario, roles, permisos, localidades, estados civiles, profesiones, sectores de instituciones y tipos de instituciones.
+   El anterior comando ejecutará las acciones necesarias para ingresar al sistema los datos inicialmente requeridos por la aplicación base como son: usuario, roles, permisos, localidades, estados civiles, profesiones, sectores de instituciones y tipos de instituciones.
 
    La aplicación cuenta con una cantidad de módulos independientes que permiten expandir sus funcionalidades, cada uno de estos módulos cuentan con sus registros iniciales por lo que es necesario ejecutar un comando adicional que permita registrar información de cada módulo instalado y habilitado en el sistema, para ello se ejecuta el siguiente comando:
 
