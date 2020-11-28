@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
-use App\Models\MeasurementUnit;
 
 use Modules\Purchase\Models\PurchasePivotModelsToRequirementItem;
 
@@ -35,10 +34,10 @@ class PurchaseRequirementItem extends Model implements Auditable
 
     protected $appends = ['unit_price'];
 
-    protected $with = ['measurementUnit'];
+    protected $with = ['warehouseProduct'];
 
     protected $fillable = [
-        'name', 'description', 'technical_specifications', 'quantity', 'measurement_unit_id',
+        'name', 'description', 'technical_specifications', 'quantity',
         'warehouse_product_id', 'purchase_requirement_id'
     ];
 
@@ -52,14 +51,14 @@ class PurchaseRequirementItem extends Model implements Auditable
         return $this->belongsTo(PurchaseRequirement::class);
     }
     /**
-     * PurchaseRequirementItem belongs to MeasurementUnit.
+     * PurchaseRequirementItem belongs to WarehouseProduct.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function measurementUnit()
+    public function warehouseProduct()
     {
-        // belongsTo(RelatedModel, foreignKey = measurementUnit_id, keyOnRelatedModel = id)
-        return $this->belongsTo(MeasurementUnit::class);
+        // belongsTo(RelatedModel, foreignKey = warehouse_product_id, keyOnRelatedModel = id)
+        return $this->belongsTo('Modules\Warehouse\Models\WarehouseProduct', 'warehouse_product_id');
     }
 
     /**

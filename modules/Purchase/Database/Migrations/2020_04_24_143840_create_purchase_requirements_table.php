@@ -80,7 +80,7 @@ class CreatePurchaseRequirementsTable extends Migration
                           ->on('purchase_base_budgets')->onDelete('restrict')
                           ->onUpdate('cascade');
 
-                $table->enum('requirement_status', ['WAIT', 'PROCESSED', 'BOUGHT'])->default('WAIT')
+                $table->enum('requirement_status', ['WAIT', 'PROCESSED','QUOTED' 'BOUGHT'])->default('WAIT')
                           ->comment(
                               'Determina el estatus del requerimiento
                               (WAIT) - en espera.

@@ -30,11 +30,11 @@ class PurchaseRequirement extends Model implements Auditable
      */
     protected $dates = ['deleted_at'];
 
-    protected $with = ['purchaseSupplierType','fiscalYear'];
+    protected $with = ['purchaseSupplierObject','fiscalYear'];
 
     protected $fillable = [
         'code', 'description', 'fiscal_year_id', 'contracting_department_id', 'user_department_id',
-        'purchase_supplier_type_id', 'requirement_status', 'purchase_base_budget_id'
+        'purchase_supplier_object_id', 'requirement_status', 'purchase_base_budget_id', 'institution_id'
     ];
     
     /**
@@ -48,13 +48,23 @@ class PurchaseRequirement extends Model implements Auditable
     }
 
     /**
-     * PurchaseRequirement belongs to PurchaseSupplierType.
+     * PurchaseRequirement belongs to PurchaseSupplierObject.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function purchaseSupplierType()
+    public function purchaseSupplierObject()
     {
-        return $this->belongsTo(PurchaseSupplierType::class);
+        return $this->belongsTo(PurchaseSupplierObject::class);
+    }
+
+    /**
+     * PurchaseRequirement belongs to ContratingDepartment.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function institution()
+    {
+        return $this->belongsTo('App\Models\Institution', 'institution_id')??null;
     }
     
     /**

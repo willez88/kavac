@@ -1,6 +1,21 @@
 <template>
     <section>
         <v-client-table :columns="columns" :data="records" :options="table_options">
+            <div slot="purchase_supplier_object" slot-scope="props" class="text-center">
+                <div class="d-inline-flex">
+
+                    <strong v-if="props.row.purchase_supplier_object.type == 'B'">
+                        Bienes
+                    </strong>
+                    <strong v-else-if="props.row.purchase_supplier_object.type == 'O'">
+                        Obras
+                    </strong>
+                    <strong v-else-if="props.row.purchase_supplier_object.type == 'S'">
+                        Servicios
+                    </strong>
+                     - {{ props.row.purchase_supplier_object.name }}
+                </div>
+            </div>
             <div slot="requirement_status" slot-scope="props" class="text-center">
                 <div class="d-inline-flex">
                     <span class="badge badge-danger"  v-show="props.row.requirement_status == 'WAIT'">     <strong>EN ESPERA</strong></span>
@@ -11,6 +26,13 @@
             <div slot="id" slot-scope="props" class="text-center">
                 <div class="d-inline-flex">
                     <purchase-requirements-show :id="props.row.id" :route_show="'/purchase/requirements/'+props.row.id" />
+                    <a class="btn btn-primary btn-xs btn-icon"
+                            :href="'/purchase/requirements/pdf/'+props.row.id"
+                            title="Imprimir Registro"
+                            data-toggle="tooltip"
+                            target="_blank">
+                            <i class="fa fa-print" style="text-align: center;"></i>
+                    </a>
                     <button v-if="props.row.requirement_status == 'WAIT'"
                             @click="editForm(props.row.id)"
                             class="btn btn-warning btn-xs btn-icon btn-action"
@@ -50,7 +72,7 @@
                             'fiscal_year.year',
                             'contrating_department.name',
                             'user_department.name',
-                            'purchase_supplier_type.name',
+                            'purchase_supplier_object',
                             'requirement_status',
                             'id'
                         ],
@@ -63,7 +85,7 @@
                 'fiscal_year.year':'Año fiscal',
                 'contrating_department.name': 'Departamento contatante',
                 'user_department.name': 'Departamento Usuario',
-                'purchase_supplier_type.name': 'Tipo de Proveedor',
+                'purchase_supplier_object': 'Tipo',
                 'requirement_status': 'Estado del requerimiento',
                 'id': 'ACCIÓN'
             };
@@ -73,7 +95,7 @@
                 'fiscal_year.year': 'col-xs-1',
                 'contrating_department.name'    : 'col-xs-2',
                 'user_department.name': 'col-xs-2',
-                'purchase_supplier_type.name': 'col-xs-2',
+                'purchase_supplier_object': 'col-xs-2',
                 'requirement_status': 'col-xs-1',
                 'id'      : 'col-xs-1'
             };
