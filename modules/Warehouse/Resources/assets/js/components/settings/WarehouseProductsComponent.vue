@@ -2,7 +2,7 @@
 	<div class="col-xs-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="#" title="Registros de Productos Almacenables" data-toggle="tooltip"
-		   @click="addRecord('add_product', 'products', $event)">
+		   @click="addRecord('add_product', 'warehouse/products', $event)">
 			<i class="icofont icofont-cubes ico-3x"></i>
 			<span>Productos</span>
 		</a>

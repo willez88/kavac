@@ -57,7 +57,7 @@ class PurchaseBaseBudgetController extends Controller
         $requirements = PurchaseRequirement::with(
             'contratingDepartment',
             'userDepartment',
-            'purchaseRequirementItems.measurementUnit'
+            'purchaseRequirementItems.warehouseProduct.measurementUnit'
         )->where('requirement_status', 'WAIT')->orderBy('code', 'ASC')->get();
         return view('purchase::requirements.base_budget', [
                     'requirements' => $requirements,
@@ -103,6 +103,7 @@ class PurchaseBaseBudgetController extends Controller
             'purchaseRequirement.contratingDepartment',
             'purchaseRequirement.userDepartment',
             'relatable.purchaseRequirementItem.purchaseRequirement',
+            'relatable.purchaseRequirementItem.warehouseProduct.measurementUnit',
         )->find($id)], 200);
     }
 
@@ -115,7 +116,7 @@ class PurchaseBaseBudgetController extends Controller
         $baseBudget = PurchaseBaseBudget::with(
             'purchaseRequirement.contratingDepartment',
             'purchaseRequirement.userDepartment',
-            'purchaseRequirement.purchaseRequirementItems',
+            'purchaseRequirement.purchaseRequirementItems.warehouseProduct.measurementUnit',
             'relatable'
         )->find($id);
 
@@ -172,15 +173,14 @@ class PurchaseBaseBudgetController extends Controller
     public function destroy($id)
     {
         $record = PurchaseBaseBudget::find($id);
-        // dd(PurchaseRequirement::where('purchase_base_budget_id', $id)->orderBy('id', 'ASC')->get());
         if ($record) {
             foreach (PurchaseRequirement::where('purchase_base_budget_id', $id)->orderBy('id', 'ASC')->get() as $r) {
-                $r->purchase_base_budget_id = null;
-                $r->requirement_status = 'WAIT';
-                $r->save();
+                // $r->purchase_base_budget_id = null;
+                // $r->requirement_status = 'WAIT';
+                $r->delete();
             }
-            foreach (PurchasePivotModelsToRequirementItem::where('relatable_id', $id)->orderBy('id', 'ASC')
-                                                                                                    ->get() as $r) {
+            foreach (PurchasePivotModelsToRequirementItem::where('relatable_id', $id)
+                    ->orderBy('id', 'ASC')->get() as $r) {
                 $r->delete();
             }
             $record->delete();

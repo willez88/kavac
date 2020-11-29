@@ -29,19 +29,6 @@ class CreatePurchaseRequirementItemsTable extends Migration
                 *
                 * Define la estructura de relación al producto
                 */
-                $table->bigInteger('measurement_unit_id')->unsigned()
-                          ->comment('Identificador de la unidad de medida');
-                $table->foreign('measurement_unit_id')->references('id')
-                          ->on('measurement_units')->onDelete('restrict')
-                          ->onUpdate('cascade');
-
-                /*
-                * -----------------------------------------------------------------------
-                * Clave foránea a la relación del producto
-                * -----------------------------------------------------------------------
-                *
-                * Define la estructura de relación al producto
-                */
                 $table->bigInteger('warehouse_product_id')->unsigned()->nullable()
                           ->comment(
                               'Identificador del producto a solicitar para su compra si ya existe un producto
