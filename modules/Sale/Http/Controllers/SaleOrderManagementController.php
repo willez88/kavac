@@ -57,11 +57,13 @@ class SaleOrderManagementController extends Controller
         $this->validate($request, [
             'name' => ['required', 'max:100'],
             'cedule' => ['required', 'max:20'],
-            'address' => ['required', 'max:200'],
-            'contact_number' => ['required', 'max:50']
+            'type' => ['required', 'max:200'],
+            'code' => ['required', 'max:200'],
+            'category' => ['required', 'max:200'],
+            'quantity' => ['required', 'max:50']
         ]);
         $SaleOrderManagement = SaleOrderManagement::create([
-            'name' => $request->name, 'cedule' => $request->name, 'address' => $request->name, 'contact_number' => $request->description
+            'name' => $request->name, 'cedule' => $request->cedule, 'type' => $request->type, 'code' => $request->type, 'category' => $request->category, 'quantity' => $request->quantity
         ]);
         return response()->json(['record' => $SaleOrderManagement, 'message' => 'Success'], 200);
 
@@ -99,13 +101,17 @@ class SaleOrderManagementController extends Controller
         $this->validate($request, [
             'name' => ['required', 'max:100'],
             'cedule' => ['required', 'max:20'],
-            'address' => ['required', 'max:200'],
-            'contact_number' => ['required', 'max:50']
+            'type' => ['required', 'max:200'],
+            'code' => ['required', 'max:200'],
+            'category' => ['required', 'max:200'],
+            'quantity' => ['required', 'max:50']
         ]);
         $SaleOrderManagement->name  = $request->name;
         $SaleOrderManagement->cedule = $request->cedule;
-        $SaleOrderManagement->address = $request->address;
-        $SaleOrderManagement->contact_number = $request->contact_number;
+        $SaleOrderManagement->type = $request->type;
+        $SaleOrderManagement->code = $request->code;
+        $SaleOrderManagement->category = $request->category;
+        $SaleOrderManagement->quantity = $request->quantity;
         $SaleOrderManagement->save();
         return response()->json(['message' => 'Success'], 200);
     }
