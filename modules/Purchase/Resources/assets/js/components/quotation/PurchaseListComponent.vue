@@ -17,15 +17,15 @@
             <div slot="id" slot-scope="props" class="text-center">
                 <div class="d-inline-flex">
                     
-                    <!-- <purchase-plan-show :id="props.row.id" :route_show="'/purchase/purchase_order/'+props.row.id" /> -->
+                    <!-- <purchase-plan-show :id="props.row.id" :route_show="'/purchase/quotation/'+props.row.id" /> -->
 
-                    <button @click="editForm(props.row.id)"
+                    <!-- <button @click="editForm(props.row.id)"
                             class="btn btn-warning btn-xs btn-icon btn-action"
                             title="Modificar registro"
                             data-toggle="tooltip">
                         <i class="fa fa-edit"></i>
-                    </button>
-                    <button @click="deleteRecord(props.index,'/purchase/purchase_order')"
+                    </button> -->
+                    <button @click="deleteRecord(props.row.id, '/purchase/quotation')"
                             class="btn btn-danger btn-xs btn-icon btn-action" 
                             title="Eliminar registro" 
                             data-toggle="tooltip" >
@@ -41,7 +41,7 @@
 <script>
     export default{
         props:{
-            records:{
+            record_lists:{
                 type:Array,
                 default: function() {
                     return [];
@@ -50,6 +50,7 @@
         },
         data(){
             return {
+                records:[],
                 columns: [
                             'purchase_supplier.name',
                             'purchase_supplier.purchase_supplier_object',
@@ -73,7 +74,7 @@
             };
         },
         mounted(){
-            // 
-        }
+            this.records = this.record_lists;
+        },
     };
 </script>

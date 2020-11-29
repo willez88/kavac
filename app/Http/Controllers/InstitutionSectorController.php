@@ -57,8 +57,15 @@ class InstitutionSectorController extends Controller
             'name' => ['required', 'max:100'],
         ]);
 
+        if ($sector = InstitutionSector::onlyTrashed()->whereName($request->name)->first()) {
+            $sector->restore();
+        } else {
+            $this->validate($request, [
+                'name' => ['unique:institution_sectors,name']
+            ]);
+        }
 
-        $institutionSector = InstitutionSector::create([
+        $institutionSector = InstitutionSector::updateOrCreate([
             'name' => $request->name
         ]);
 

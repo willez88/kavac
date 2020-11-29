@@ -32,7 +32,7 @@
                         <purchase-requirements-form :supplier_objects="{{ $supplier_objects }}" 
                                                     :date="{{ $date }}"
                                                     :institutions="{{ $institutions }}"
-                                                    :purchase_supplier_types="{{ $purchase_supplier_types }}"
+                                                    :purchase_supplier_objects="{{ $purchase_supplier_objects }}"
                                                     :fiscal_years="{{ $fiscal_years }}"
                                                     :measurement_units="{{ $measurement_units }}"
                                                     :requirement_edit="{{ $requirement_edit }}"
@@ -42,7 +42,7 @@
                         <purchase-requirements-form :supplier_objects="{{ $supplier_objects }}" 
                                                     :date="{{ $date }}"
                                                     :institutions="{{ $institutions }}"
-                                                    :purchase_supplier_types="{{ $purchase_supplier_types }}"
+                                                    :purchase_supplier_objects="{{ $purchase_supplier_objects }}"
                                                     :fiscal_years="{{ $fiscal_years }}"
                                                     :measurement_units="{{ $measurement_units }}"
                                                      />

@@ -43,6 +43,15 @@ class Estate extends Model implements Auditable
     protected $fillable = ['name', 'code', 'country_id'];
 
     /**
+     * Oculta los campos de fechas de creación, actualización y eliminación
+     *
+     * @var    array $hidden
+     */
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
+    protected $with = ['country'];
+
+    /**
      * Método que obtiene el Pais de un Estado
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>

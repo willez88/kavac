@@ -122,6 +122,9 @@ Route::group([
      * Gestiona los datos de los requerimientos de compras
      */
     Route::post('requirements', 'PurchaseRequirementController@store');
+
+    Route::get('requirements/pdf/{id}', 'Reports\PurchaseRequirementController@pdf');
+    
     Route::resource('requirements', 'PurchaseRequirementController', [
         'as'     => 'purchase',
     ]);
@@ -142,8 +145,9 @@ Route::group([
     Route::resource('purchase_plans', 'PurchasePlanController', [
         'as'     => 'purchase',
     ]);
-    Route::post('purchase_plan_upload_file', 'PurchasePlanController@uploadFile');
+    Route::post('purchase_plans/start_diagnosis', 'PurchasePlanController@uploadFile');
 
+    Route::get('purchase_plans/download/{code}', 'PurchasePlanController@getDownload');
     /*
      * -----------------------------------------------------------------------
      * Rutas para la gestión de ordenes de compras

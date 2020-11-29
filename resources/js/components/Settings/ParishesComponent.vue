@@ -105,6 +105,8 @@
 					name: '',
 					code: ''
 				},
+                selectedEstateId: '',
+                selectedMunicipalityId: '',
 				errors: [],
 				records: [],
 				countries: [],
@@ -113,6 +115,25 @@
 				columns: ['municipality.name', 'name', 'code', 'id'],
 			}
 		},
+        watch: {
+            record: {
+                deep: true,
+                handler: function(newValue, oldValue) {
+                    const vm = this;
+                    if (
+                        newValue.country_id && vm.selectedEstateId && !vm.record.estate_id &&
+                        vm.selectedMunicipalityId && !vm.record.municipality_id
+                    ) {
+                        setTimeout(function() {
+                            vm.record.estate_id = vm.selectedEstateId;
+                            setTimeout(function() {
+                                vm.record.municipality_id = vm.selectedMunicipalityId;
+                            }, 2000);
+                        }, 2000);
+                    }
+                }
+            },
+        },
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
@@ -120,7 +141,8 @@
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset() {
-				this.record = {
+                const vm = this;
+				vm.record = {
 					id: '',
 					country_id: '',
 					estate_id: '',
@@ -128,7 +150,30 @@
 					name: '',
 					code: ''
 				};
+                vm.selectedEstateId = '';
+                vm.selectedMunicipalityId = '';
 			},
+            /**
+             * Método que carga el formulario con los datos a modificar
+             *
+             * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             *
+             * @param  {integer} index Identificador del registro a ser modificado
+             * @param {object} event   Objeto que gestiona los eventos
+             */
+            initUpdate(id, event) {
+                let vm = this;
+                vm.errors = [];
+                let recordEdit = JSON.parse(JSON.stringify(vm.records.filter((rec) => {
+                    return rec.id === id;
+                })[0])) || vm.reset();
+
+                vm.record = recordEdit;
+                vm.record.country_id = recordEdit.municipality.estate.country.id;
+                vm.selectedEstateId = recordEdit.municipality.estate.id;
+                vm.selectedMunicipalityId = recordEdit.municipality.id;
+                event.preventDefault();
+            }
 		},
 		created() {
 			this.table_options.headings = {

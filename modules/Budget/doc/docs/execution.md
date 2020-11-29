@@ -6,7 +6,7 @@
 
 Los Compromisos corresponden a los cambios que tiene el presupuesto de la institución u organización durante el año fiscal en curso. 
 
-##Listado de Compromisos  
+##Listado de compromisos  
 
 Esta sección permite al analista de presupuesto con permisos del módulo, la creación de compromisos en la ejecución presupuestaria, que es el acto de administración en el cual se hace una reserva parcial o total de la asignación presupuestaria. Desde esta sección es posible crear un nuevo compromiso o gestionar alguno editando o eliminando un compromiso registrado.
 

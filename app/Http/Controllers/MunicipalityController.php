@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Municipality;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 /**
  * @class MunicipalityController
@@ -59,11 +60,23 @@ class MunicipalityController extends Controller
             'estate_id' => ['required']
         ]);
 
+        if ($m = Municipality::onlyTrashed()->where([
+            'name' => $request->name, 'estate_id' => $request->estate_id
+        ])->first()) {
+            $m->restore();
+        } else {
+            $this->validate($request, [
+                'name' => Rule::unique('municipalities')->where(function ($query) use ($request) {
+                    return $query->where('estate_id', $request->estate_id)->where('name', $request->name);
+                })
+            ]);
+        }
 
-        $municipality = Municipality::create([
+        $municipality = Municipality::updateOrCreate([
             'name' => $request->name,
-            'code' => $request->code,
             'estate_id' => $request->estate_id
+        ], [
+            'code' => $request->code
         ]);
 
         return response()->json(['record' => $municipality, 'message' => 'Success'], 200);

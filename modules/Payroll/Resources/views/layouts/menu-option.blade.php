@@ -63,8 +63,13 @@
                         Disfrute de vacaciones
                     </a>
                 </li>
+                <li title="Reporte del estatus de vacaciones"
+                    data-toggle="tooltip" data-placement="right"
+                    class="{!! set_active_menu('payroll.reports.vacation-status') !!}">
+                    <a href="{{ route('payroll.reports.vacation-status') }}">
+                        Estatus de vacaciones
+                    </a>
                 </li>
-                <li><a href="#">Estatus de vacaciones</a></li>
                 <li><a href="#">Cálculo de bono vacacional</a></li>
                 <li><a href="#">Pago de bono vacacional</a></li>
             </ul>
