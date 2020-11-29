@@ -24,7 +24,8 @@ class PurchasePivotModelsToRequirementItem extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = [ 'purchase_requirement_item_id',
+    protected $fillable = [ 
+                            'purchase_requirement_item_id',
                             'unit_price',
                             'relatable_type',
                             'relatable_id',

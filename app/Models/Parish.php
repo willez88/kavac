@@ -39,6 +39,15 @@ class Parish extends Model implements Auditable
     protected $fillable = ['name', 'code', 'municipality_id'];
 
     /**
+     * Oculta los campos de fechas de creación, actualización y eliminación
+     *
+     * @var    array $hidden
+     */
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
+    protected $with = ['municipality'];
+
+    /**
      * Método que obtiene el Municipio de una Parroquia
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>

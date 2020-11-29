@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Estate;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 /**
  * @class EstateController
@@ -59,11 +60,23 @@ class EstateController extends Controller
             'country_id' => ['required']
         ]);
 
+        if ($e = Estate::onlyTrashed()->where([
+            'name' => $request->name, 'country_id' => $request->country_id
+        ])->first()) {
+            $e->restore();
+        } else {
+            $this->validate($request, [
+                'name' => Rule::unique('estates')->where(function ($query) use ($request) {
+                    return $query->where('country_id', $request->country_id)->where('name', $request->name);
+                })
+            ]);
+        }
 
-        $estate = Estate::create([
+        $estate = Estate::updateOrCreate([
             'name' => $request->name,
-            'code' => $request->code,
             'country_id' => $request->country_id
+        ], [
+            'code' => $request->code
         ]);
 
         return response()->json(['record' => $estate, 'message' => 'Success'], 200);

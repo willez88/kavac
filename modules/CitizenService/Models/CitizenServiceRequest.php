@@ -102,7 +102,7 @@ class CitizenServiceRequest extends Model implements Auditable
     {
         return $this->belongsTo(City::class);
     }
-    // En construcción con respecto a los arreglos
+
     public function scopeSearchPeriod(
         $query,
         $start_date,
@@ -110,17 +110,17 @@ class CitizenServiceRequest extends Model implements Auditable
         $citizen_service_request_types,
         $citizen_service_states
     ) {
-        error_log('entro');
-
-        $arreglos = Arr::flatten($citizen_service_request_types);
-        if ($arreglos && !empty($arreglos)) {
-            foreach ($arreglos as $arreglo) {
-               error_log($arreglo);
-            }
+        $listRequestTypes = [];
+        foreach ($citizen_service_request_types as $field) {
+            array_push($listRequestTypes, $field['id']);
+        }
+        $listStates = [];
+        foreach ($citizen_service_states as $field) {
+            array_push($listStates, $field['id']);
         }
         return $query->whereBetween("date", [$start_date,$end_date])
-                     ->whereIn("citizen_service_request_type_id", $arreglo)
-                     ->where("state", $citizen_service_states);
+                     ->whereIn("citizen_service_request_type_id", $listRequestTypes)
+                     ->whereIn("state", $listStates);
     }
     public function scopeSearchDate(
         $query,
@@ -128,8 +128,16 @@ class CitizenServiceRequest extends Model implements Auditable
         $citizen_service_request_types,
         $citizen_service_states
     ) {
+        $listRequestTypes = [];
+        foreach ($citizen_service_request_types as $field) {
+            array_push($listRequestTypes, $field['id']);
+        }
+        $listStates = [];
+        foreach ($citizen_service_states as $field) {
+            array_push($listStates, $field['id']);
+        }
         return $query->where("date", $date)
-                     ->where("citizen_service_request_type_id", $citizen_service_request_types)
-                     ->where("state", $citizen_service_states);
+                     ->whereIn("citizen_service_request_type_id", $listRequestTypes)
+                     ->whereIn("state", $listStates);
     }
 }

@@ -42,6 +42,22 @@ class Currency extends Model implements Auditable
      */
     protected $fillable = ['symbol', 'name', 'country_id', 'default', 'decimal_places'];
 
+    /**
+     * Oculta los campos de fechas de creación, actualización y eliminación
+     *
+     * @var    array $hidden
+     */
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
+    /**
+     * Obtiene una descripción para la moneda
+     *
+     * @method    getDescriptionAttribute
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return    string                     Descripción de la moneda
+     */
     public function getDescriptionAttribute()
     {
         return "{$this->symbol} - {$this->name}";

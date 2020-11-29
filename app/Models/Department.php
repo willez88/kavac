@@ -51,6 +51,13 @@ class Department extends Model implements Auditable
     ];
 
     /**
+     * Oculta los campos de fechas de creación, actualización y eliminación
+     *
+     * @var    array $hidden
+     */
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
+    /**
      * Department belongs to Parent.
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>

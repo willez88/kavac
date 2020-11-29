@@ -33,7 +33,7 @@ Para **Ver información detallada**, **Editar** o **Eliminar** un registro se de
 
 ![Screenshot](img/manage.png#imagen)
 
-##Listado de Reducciones
+##Listado de reducciones
 
 Esta sección permite al analista de presupuesto con permisos del módulo, la creación de las reducciones que no es más que la disminución de las partidas presupuestales de inversión para una acción centralizada o acción específica. Desde esta sección es posible crear una nueva reducción o gestionar alguno editando o eliminando una reducción registrada.
 
@@ -61,7 +61,7 @@ Para **Ver información detallada**, **Editar** o **Eliminar** un registro se de
 
 ![Screenshot](img/manage.png#imagen)
 
-##Listado de Traspasos
+##Listado de traspasos
 
 Esta sección permite al analista de presupuesto con permisos del módulo, la creación de los traspasos presupuestarios, que consiste en reasignar fondos de una partida, de una acción centralizada, una acción o  un mismo proyecto  a otro que no afecta al total de los gastos indicados en el presupuesto inicial. Desde esta sección es posible crear un nuevo traspaso o gestionar alguno editando o eliminando un traspaso registrado.
 

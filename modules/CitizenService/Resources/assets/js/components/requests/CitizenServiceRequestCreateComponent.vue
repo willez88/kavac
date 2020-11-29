@@ -155,13 +155,14 @@
 				</div>
 				<div class="col-md-4">
 					<div class="form-group is-required">
-						<label for="citizenserviceRequestTypes">Tipo de Solicitud - {{ record.citizen_service_request_type_id }}</label>
+						<label for="citizenserviceRequestTypes">Tipo de Solicitud</label>
 						<select2 :options="citizen_service_request_types"
-								 v-model="record.citizen_service_request_type_id"></select2>
+								  @input="getCitizenServiceRequestType()"
+								  v-model="record.citizen_service_request_type_id"></select2>
                     </div>
 				</div>
 			</div>
-			<div v-if="record.citizen_service_request_type_id == '1'">
+			<div v-if="citizenServiceRequestType == 'Soporte técnico'">
 				<div class="col-md-12">
 					<b>Datos del equipo</b>
 				</div>
@@ -239,9 +240,9 @@
 				</div>
 			</div>
 
-			<div class="row" v-if="((record.citizen_service_request_type_id == '2')
-					|| (record.citizen_service_request_type_id == '3')
-					|| (record.citizen_service_request_type_id == '4'))">
+			<div class="row" v-if="((citizenServiceRequestType == 'Migración a software libre')
+					|| (citizenServiceRequestType == 'Talleres de formación - asesorias')
+					|| (citizenServiceRequestType == 'Desarrollo de software libre'))">
 				<div class="col-md-4">
 					<div class="form-group is-required">
 						<label for="citizenserviceDepartment">Dirección de departamento</label>
@@ -367,6 +368,8 @@
 				municipalities: [],
 				citizen_service_request_types: [],
 				citizen_service_departments: [],
+				citizenServiceRequestType: '',
+				citizen_service_documents:[]
 			}
 		},
 		methods: {
@@ -419,7 +422,18 @@
         			exithour: '',
         			informationteam: ''
 				};
+				this.citizenServiceRequestType = '';
 			},
+			getCitizenServiceRequestType() {
+                const vm = this;
+                $.each(vm.citizen_service_request_types, function(index, field) {
+                    if (field['id'] == '') {
+                        vm.citizenServiceRequestType = '';
+                    } else if (field['id'] == vm.record.citizen_service_request_type_id) {
+                        vm.citizenServiceRequestType = field['text'];
+                    }
+                });
+            }
 		},
 		mounted() {
 			const vm = this;

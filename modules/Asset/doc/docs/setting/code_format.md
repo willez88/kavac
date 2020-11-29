@@ -22,6 +22,8 @@ Ejemplos de códigos:
 |--- |--- |--- |--- |--- |
 |ASG-00000000-YYYY |DES-00000000-YYYY |SOL-00000000-YYYY |INV-00000000-YYYY |REP-00000000-YYYY |
 
-Una vez se establezca el formato de códigos deseado se puede ejecutar cualquier cambio haciendo uso de los Botones de **Acciones de Formulario**, ya sea **Guardar**, **Cancelar** o **Borrar** datos del formulario. 
+Una vez se establezca el formato de códigos deseado se puede ejecutar cualquier cambio haciendo uso de los botones de acciones de formulario, ya sea **Borrar**, **Cancelar** o **Guardar** datos del formulario. 
+
+![Screenshot](../img/form_actions.png#imagen)
 
 </div>

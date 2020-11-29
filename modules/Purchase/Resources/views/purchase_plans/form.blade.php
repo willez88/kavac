@@ -29,10 +29,12 @@
                 </div>
                 <div class="card-body">
                     @if(!isset($record_edit))
-                        <purchase-plan-form :purchase_process="{{ $purchase_process }}" 
+                        <purchase-plan-form :purchase_process="{{ $purchase_process }}"
+                                            :users="{{ $users }}" 
                                             :purchase_types="{{ $purchase_types }}" />
                     @else
-                        <purchase-plan-form :purchase_process="{{ $purchase_process }}" 
+                        <purchase-plan-form :purchase_process="{{ $purchase_process }}"
+                                            :users="{{ $users }}" 
                                             :purchase_types="{{ $purchase_types }}"
                                             :record_edit="{{ $record_edit }}" />
                     @endif

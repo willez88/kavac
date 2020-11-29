@@ -2,7 +2,7 @@
 	<div class="col-xs-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de departamentos" data-toggle="tooltip"
-		   @click="addRecord('add_citizenservice-department', 'departments', $event)">
+		   @click="addRecord('add_citizenservice-department', 'citizenservice/departments', $event)">
            <i class="icofont icofont-briefcase-alt-1 ico-3x"></i>
 		   <span>Departamentos</span>
 		</a>

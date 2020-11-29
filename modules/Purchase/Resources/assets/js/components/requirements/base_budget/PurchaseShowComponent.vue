@@ -21,16 +21,23 @@
                     </div>
                     <!-- Fromulario -->
                     <div class="modal-body">
-                        <h6>INFORMACIÓN DE LOS REQUERIMIENTOS</h6>
+                        <h6>INFORMACIÓN me LOS REQUERIMIENTOS</h6>
                         <hr>
                         <v-client-table :columns="column_requirements" :data="purchase_requirement" :options="table_option_requirements">
-                            <!-- <div slot="requirement_status" slot-scope="props" class="text-center">
-                                <div class="d-inline-flex">
-                                    <span class="badge badge-danger"  v-show="props.row.requirement_status == 'WAIT'">     <strong>EN ESPERA</strong></span>
-                                    <span class="badge badge-info"    v-show="props.row.requirement_status == 'PROCESSED'"><strong>PROCESADO</strong></span>
-                                    <span class="badge badge-success" v-show="props.row.requirement_status == 'BOUGHT'">   <strong>COMPRADO </strong></span>
+                            <div slot="purchase_supplier_object.name" slot-scope="props" class="text-center">
+                                <div v-if="props.row.purchase_supplier_object && props.row.purchase_supplier_object.name">
+                                    <strong v-if="props.row.purchase_supplier_object.type == 'B'">
+                                        Bienes
+                                    </strong>
+                                    <strong v-else-if="props.row.purchase_supplier_object.type == 'O'">
+                                        Obras
+                                    </strong>
+                                    <strong v-else-if="props.row.purchase_supplier_object.type == 'S'">
+                                        Servicios
+                                    </strong>
+                                     - {{ props.row.purchase_supplier_object.name }}
                                 </div>
-                            </div> -->
+                            </div>
                         </v-client-table>
                     </div>
                     <hr>
@@ -55,8 +62,11 @@
                                         <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-3">
                                             {{ varr.name }}
                                         </td>
-                                        <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
-                                            {{ varr.measurement_unit.acronym }}
+                                        <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2" v-if="varr.warehouse_product &&varr.warehouse_product.measurement_unit">
+                                            {{ varr.warehouse_product.measurement_unit.name }}
+                                        </td>
+                                        <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2" v-else>
+                                            
                                         </td>
                                         <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-1">
                                             {{ varr.quantity }}
@@ -118,7 +128,7 @@ export default{
                                 'fiscal_year.year',
                                 'contrating_department.name',
                                 'user_department.name',
-                                'purchase_supplier_type.name',
+                                'purchase_supplier_object.name',
                                 // 'requirement_status'
                             ],
             // columns: ['name','measurement_unit.name','technical_specifications', 'unit_price', 'quantity'],
@@ -157,7 +167,7 @@ export default{
             'fiscal_year.year':'Año fiscal',
             'contrating_department.name': 'Departamento contatante',
             'user_department.name': 'Departamento Usuario',
-            'purchase_supplier_type.name': 'Tipo de Proveedor',
+            'purchase_supplier_object.name': 'Tipo',
             // 'requirement_status': 'Estado del requerimiento'
         };
         this.table_option_requirements.columnsClasses = {
@@ -166,7 +176,7 @@ export default{
             'fiscal_year.year': 'col-xs-1 text-center',
             'contrating_department.name'    : 'col-xs-2',
             'user_department.name': 'col-xs-2',
-            'purchase_supplier_type.name': 'col-xs-2',
+            'purchase_supplier_object.name': 'col-xs-2',
             // 'requirement_status': 'col-xs-1',
         };
 
@@ -273,9 +283,9 @@ export default{
                 return this.records.purchase_requirements.user_department.name;
             }
         },
-        purchase_supplier_type: function(){
-            if (this.records.purchase_requirements.purchase_supplier_type) {
-                return this.records.purchase_requirements.purchase_supplier_type.name;
+        purchase_supplier_object: function(){
+            if (this.records.purchase_requirements.purchase_supplier_object) {
+                return this.records.purchase_requirements.purchase_supplier_object.name;
             }
         },
         fiscal_year: function(){
