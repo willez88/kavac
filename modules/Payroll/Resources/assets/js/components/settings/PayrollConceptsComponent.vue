@@ -257,7 +257,8 @@
                                                 <input type="number" min="0" step=".01"
                                                        placeholder="Minimo" data-toggle="tooltip"
                                                        title="Indique el minimo requerido para asignar el concepto"
-                                                       class="form-control input-sm" v-model="record.assign_options[field['id']]['minimum']">
+                                                       class="form-control input-sm"
+                                                       v-model="record.assign_options[field['id']]['minimum']">
                                             </div>
                                         </dir>
                                         <div class="col-6">
@@ -266,7 +267,8 @@
                                                 <input type="number" min="0" step=".01"
                                                        placeholder="Máximo" data-toggle="tooltip"
                                                        title="Indique el máximo requerido para asignar el concepto"
-                                                       class="form-control input-sm" v-model="record.assign_options[field['id']]['maximum']">
+                                                       class="form-control input-sm"
+                                                       v-model="record.assign_options[field['id']]['maximum']">
                                             </div>
                                         </div>
                                     </div>
@@ -280,9 +282,12 @@
                                 <!-- fórmula -->
                                 <div class="form-group is-required">
                                     <label>Fórmula</label>
-                                    <textarea type="text" class="form-control input-sm" data-toggle="tooltip"
+                                    <textarea type="text"
+                                              class="form-control input-sm BlockDeletion" data-toggle="tooltip"
                                               title="Fórmula a aplicar para el concepto. Utilice la siguiente calculadora para establecer los parámetros de la fórmula"
-                                              rows="3" v-model="record.formula" readonly>
+                                              rows="3" v-model="record.formula"
+                                              autocomplete="off"
+                                              onkeypress="return (event.charCode >= 24 && event.charCode <= 27)">
                                     </textarea>
                                 </div>
                                 <!-- ./fórmula -->
@@ -347,10 +352,49 @@
                                          v-if="variable">
                                         <!-- opciones -->
                                         <div class="form-group">
+                                            <label for="register">Registro</label>
                                             <select2 :options="variable_options"
+                                                     @input="getOptionType"
                                                      v-model="variable_option"></select2>
                                         </div>
                                         <!-- ./opciones -->
+                                    </div>
+                                    <div class="col-md-6"
+                                         v-if="(variable_option &&
+                                         ((variable == 'worker_record') || (variable == 'vacation')))">
+                                        <div class="form-group">
+                                            <label for="register">Operador</label>
+                                            <select2 :options="operators"
+                                                     v-model="operator"></select2>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6"
+                                         v-if="(variable_option &&
+                                         ((variable == 'worker_record') || (variable == 'vacation')))">
+                                        <div class="form-group">
+                                            <label for="value">Valor</label>
+                                            <select2 v-if="type == 'list'"
+                                                     :options="subOptions"
+                                                     v-model="value"></select2>
+                                            <div class="col-12"
+                                                 v-else-if="type == 'boolean'">
+                                                <p-check class="pretty p-switch p-fill p-bigger"
+                                                         color="success" off-color="text-gray" toggle
+                                                         data-toggle="tooltip"
+                                                         title="Indique el valor de comparación (requerido)"
+                                                         v-model="value">
+                                                    <label slot="off-label"></label>
+                                                </p-check>
+                                            </div>
+                                            <input v-else
+                                                   type="text"
+                                                   data-toggle="tooltip"
+                                                   title="Indique el valor de comparación (requerido)"
+                                                   class="form-control input-sm" v-model="value"
+                                                   v-input-mask data-inputmask="
+                                                       'alias': 'numeric',
+                                                       'allowMinus': 'false'">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -414,6 +458,9 @@
                                         <div class="col-sm-12 col-btn-block text-center">
                                             <div class="btn btn-info btn-sm" data-toggle="tooltip"
                                                  title="Variable a usar cuando se realice el cálculo"
+                                                 :disabled="(((operator == '') ||
+                                                 ((value == '') && (type != 'boolean'))) &&
+                                                 ((variable == 'worker_record') || (variable == 'vacation')))"
                                                  @click="getAcronymVariable()">
                                                 {{ updateNameVariable }}
                                             </div>
@@ -481,6 +528,19 @@
                 variable:                  '',
                 variable_option:           '',
                 assign_options:            {},
+                type:                      '',
+                value:                     '',
+                operator:                  '',
+                operators:                 [
+                    {"id": "",   "text": "Seleccione..."},
+                    {"id": "==", "text": "Igualdad (==)"},
+                    {"id": "!=", "text": "Desigualdad (!=)"},
+                    {"id": ">",  "text": "Mayor estricto (>)"},
+                    {"id": "<",  "text": "Menor estricto (>)"},
+                    {"id": ">=", "text": "Mayor o igual (>=)"},
+                    {"id": "<=", "text": "Menor o igual (<=)"}
+                ],
+                subOptions:                [],
 
                 errors:                    [],
                 records:                   [],
@@ -539,9 +599,27 @@
                 vm.getOptions('payroll/get-associated-records');
                 vm.getPayrollConceptAssignTo();
                 vm.getPayrollSalaryTabulators();
-            });
-            $('.btn-formula').on('click', function() {
-                vm.record.formula += $(this).data('value');
+
+                $('.BlockDeletion').on('keydown', function (e) {
+                    try {
+                        if ((e.keyCode == 8) || (e.keyCode == 46))
+                            return false;
+                        else
+                            return true;
+                    } catch (Exception) {
+                        return false;
+                    }
+                });
+                $('.btn-formula').on('click', function() {
+                    let keys = vm.record.formula.indexOf('}');
+                    if (keys > 0) {
+                        let firstFormula = vm.record.formula.substr(0, keys);
+                        let lastFormula = vm.record.formula.substr(keys, vm.record.formula.length);
+                        vm.record.formula = firstFormula + $(this).data('value') + lastFormula;
+                    } else {
+                        vm.record.formula += $(this).data('value');
+                    }
+                });
             });
         },
         watch: {
@@ -565,11 +643,14 @@
              */
             variable: function(variable) {
                 const vm = this;
+                vm.operator = vm.value = '';
                 if (vm.variable == 'parameter') {
                     vm.getOptions('payroll/get-parameters');
 
                 } else if (vm.variable == 'worker_record') {
                     vm.getOptions('payroll/get-associated-records');
+                } else if (vm.variable == 'vacation') {
+                    vm.getOptions('payroll/get-vacation-associated-records');
                 } else if (vm.variable == 'concept') {
                     vm.variable_options = [
                         {id: '', text: 'Seleccione...'}
@@ -582,6 +663,21 @@
                     });
                 } else {
                     vm.variable_options = [];
+                }
+            },
+            /**
+             * Método que supervisa los cambios en el campo type y actualiza el listado de opciones
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve> | <henryp2804@gmail.com>
+             */
+            type: function(type) {
+                const vm = this;
+                if (vm.type == 'list') {
+                    axios.get('/payroll/get-parameter-options/' + vm.variable_option).then(response => {
+                        vm.subOptions = response.data;
+                    });
+                } else if (vm.type == 'boolean') {
+                    vm.value = false;
                 }
             }
         },
@@ -776,29 +872,63 @@
             getAcronymVariable() {
                 const vm = this;
                 var response = '';
+                if (((vm.variable != 'worker_record') && (vm.variable != 'vacation')) ||
+                    ((vm.operator != '') && (vm.value != '')) ||
+                    ((vm.operator != '') && (vm.type == 'boolean'))) {
+                    if (vm.variable_option != '') {
+                        $.each(vm.variable_options, function(index, field) {
+                            if (field['id'] == vm.variable_option) {
+                                if (typeof field['acronym'] !== 'undefined') {
+                                    response = field['acronym'];
+                                } else if (typeof field['id'] !== 'undefined') {
+                                    response = 'if(' + field['id'] + ' ' + vm.operator + ' ' + vm.value + '){}';
+                                }
+                            } else if (typeof field['children'] !== 'undefined') {
+                                $.each(field['children'], function(index, field) {
+                                    if (field['id'] == vm.variable_option) {
+                                        if (typeof field['acronym'] !== 'undefined') {
+                                            response = field['acronym'];
+                                        } else if (typeof field['id'] !== 'undefined') {
+                                            response = 'if(' + field['id'] + ' ' + vm.operator + ' ' + vm.value + '){}';
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    if (response != '') {
+                        if (vm.record.formula != '') {
+                            let keys = vm.record.formula.indexOf('}');
+                            let firstFormula = vm.record.formula.substr(0, keys);
+                            let lastFormula = vm.record.formula.substr(keys, vm.record.formula.length);
+                            vm.record.formula = firstFormula + response + lastFormula;
+                        } else {
+                            vm.record.formula += response;
+                        }
+                    }
+                }
+            },
+            getOptionType() {
+                const vm = this;
+                vm.type = '';
                 if (vm.variable_option != '') {
                     $.each(vm.variable_options, function(index, field) {
                         if (field['id'] == vm.variable_option) {
-                            if (typeof field['acronym'] !== 'undefined') {
-                                response = field['acronym'];
-                            } else if (typeof field['id'] !== 'undefined') {
-                                response = field['id'];
+                            if (typeof field['type'] !== 'undefined') {
+                                vm.type = field['type'];
+                                return;
                             }
                         } else if (typeof field['children'] !== 'undefined') {
                             $.each(field['children'], function(index, field) {
                                 if (field['id'] == vm.variable_option) {
-                                    if (typeof field['acronym'] !== 'undefined') {
-                                        response = field['acronym'];
-                                    } else if (typeof field['id'] !== 'undefined') {
-                                        response = field['id'];
+                                    if (typeof field['type'] !== 'undefined') {
+                                        vm.type = field['type'];
+                                        return;
                                     }
                                 }
                             });
                         }
                     });
-                }
-                if (response != '') {
-                    vm.record.formula += response;
                 }
             }
         }

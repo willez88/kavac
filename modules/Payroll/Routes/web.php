@@ -375,6 +375,9 @@ Route::group([
     /** Ruta que obtiene un arreglo con los registros asociados al expediente del trabajador registrados */
     Route::get('get-associated-records', 'PayrollParameterController@getAssociatedRecords');
 
+    /** Ruta que obtiene un arreglo con los registros asociados a las vacaciones registrados */
+    Route::get('get-vacation-associated-records', 'PayrollParameterController@getVacationAssociatedRecords');
+
     /** Rutas para gestionar los ajustes en las tablas salariales */
     Route::resource(
         'salary-adjustments',
@@ -395,6 +398,18 @@ Route::group([
         'vacation-requests/vue-list',
         'PayrollVacationRequestController@vueList'
     )->name('payroll.vacation-requests.vue-list');
+
+    /** Ruta que obtiene un listado de las solicitudes de vacaciones pendientes */
+    Route::get(
+        'vacation-requests/vue-pending-list',
+        'PayrollVacationRequestController@vuePendingList'
+    )->name('payroll.vacation-requests.vue-pending-list');
+
+    /** Ruta que permite actualizar una solicitud de vacaciones*/
+    Route::patch(
+        'vacation-requests/review/{request}',
+        'PayrollVacationRequestController@review')
+    ->name('payroll.request.review');
 
     /** Ruta que permite editar la información de un registro de solicitud de vacaciones */
     Route::get(
@@ -435,5 +450,13 @@ Route::group([
         ->name('payroll.reports.vacation-status');
         Route::post('vacation-status/create', 'PayrollReportController@create')
         ->name('payroll.reports.vacation-status.create');
+
+        Route::get('vacation-bonus-calculations', 'PayrollReportController@vacationBonusCalculations')
+        ->name('payroll.reports.vacation-bonus-calculations');
+        Route::post('vacation-bonus-calculations/create', 'PayrollReportController@create')
+        ->name('payroll.reports.vacation-bonus-calculations.create');
+
+        Route::post('vue-list', 'PayrollReportController@vueList')
+        ->name('payroll.reports.vue-list');
     });
 });
