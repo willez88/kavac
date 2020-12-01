@@ -56,6 +56,12 @@ class PayrollParameterController extends Controller
     protected $associatedRecords;
 
     /**
+     * Arreglo con los registros asociados a la configuración de vacaciones
+     * @var Array $associatedVacation
+     */
+    protected $associatedVacation;
+
+    /**
      * Define la configuración de la clase
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
@@ -169,9 +175,9 @@ class PayrollParameterController extends Controller
                     [
                         'id'        => 'NUMBER_LANG',
                         'name'      => 'Número de idiomas',
-                        'type'      => '',
+                        'type'      => 'number',
                         'model'     => '',
-                        'required'  => ['payrollLanguages','payroll_language_id']
+                        'required'  => ['payrollLanguages']
                     ]
                 ]
             ],
@@ -192,7 +198,7 @@ class PayrollParameterController extends Controller
                     [
                         'id'       => 'NUMBER_CHILDREN',
                         'name'     => 'Número de hijos',
-                        'type'     => '',
+                        'type'     => 'number',
                         'model'    => '',
                         'required' => ['payrollChildrens']
                     ]
@@ -207,14 +213,14 @@ class PayrollParameterController extends Controller
                     [
                         'id'       => 'START_APN',
                         'name'     => 'Años en la administración pública',
-                        'type'     => '',
+                        'type'     => 'number',
                         'model'    => '',
                         'required' => ['start_date_apn']
                     ],
                     [
                         'id'       => 'START_DATE',
                         'name'     => 'Años en la institución',
-                        'type'     => '',
+                        'type'     => 'number',
                         'model'    => '',
                         'required' => ['start_date']
                     ],
@@ -254,6 +260,28 @@ class PayrollParameterController extends Controller
                         'required' => ['payroll_contract_type_id']
                     ]
                 ]
+            ]
+        ];
+
+        /** Define los campos de la configuración de vacaciones a emplear en el formulario */
+        $this->associatedVacation = [
+            [
+                'id'       => 'VACATION_DAYS',
+                'name'     => 'Días a otorgar para el disfrute de vacaciones',
+                'model'    => 'Modules\Payroll\Models\PayrollVacationPolicy',
+                'required' => ['vacation_days'],
+            ],
+            [
+                'id'       => 'ADDITIONAL_DAYS_PER_YEAR',
+                'name'     => 'Días de disfrute adicionales por año de servicio',
+                'model'    => 'Modules\Payroll\Models\PayrollVacationPolicy',
+                'required' => ['additional_days_per_year'],
+            ],
+            [
+                'id'       => 'DAYS_REQUESTED',
+                'name'     => 'Días a otogar para el pago de vacaciones',
+                'model'    => 'Modules\Payroll\Models\PayrollVacationRequests',
+                'required' => ['days_requested'],
             ]
         ];
     }
@@ -699,11 +727,12 @@ class PayrollParameterController extends Controller
     public function getPayrollParameterOptions($code)
     {
         foreach ($this->associatedRecords as $record) {
-            /** Revisar: Cuando el padre sea el match */
             if (!empty($record['children'])) {
                 foreach ($record['children'] as $children) {
                     if ($children['id'] == $code) {
-                        return template_choices($children['model'], ['name'], '', true);
+                        if ($children['type'] == 'list') {
+                            return template_choices($children['model'], ['name'], '', true);
+                        }
                     }
                 }
             }
@@ -735,7 +764,8 @@ class PayrollParameterController extends Controller
                 foreach ($record['children'] as $children) {
                     array_push($childrens, [
                         'id'   => $children['id'],
-                        'text' => $children['name']
+                        'text' => $children['name'],
+                        'type' => $children['type']
                     ]);
                 }
                 array_push($list, [
@@ -744,6 +774,28 @@ class PayrollParameterController extends Controller
                     'children' => $childrens
                 ]);
             }
+        }
+        return $list;
+    }
+
+    /**
+     * Obtiene los registros asociados a los campos de la configuración de vacaciones
+     *
+     * @method    getVacationAssociatedRecords
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @return    Array    Listado de los registros a mostrar
+     */
+    public function getVacationAssociatedRecords()
+    {
+        $list = [['id' => '', 'text' => 'Seleccione...']];
+
+        foreach ($this->associatedVacation as $record) {
+            array_push($list, [
+                'id'   => $record['id'],
+                'text' => $record['name']
+            ]);
         }
         return $list;
     }

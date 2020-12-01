@@ -120,28 +120,29 @@
                                 <div class="form-group">
                                     <label for="percentage">¿Porcentaje?</label>
                                     <div class="col-12">
-                                        <div class="pretty p-switch p-fill p-bigger p-toggle">
-                                            <input type="checkbox" data-toggle="tooltip"
-                                                   title="Indique si el valor indicado está expresado en porcentaje (requerido)"
-                                                   v-model="record.percentage">
-                                                <div class="state p-off">
-                                                    <label></label>
-                                                </div>
-                                                <div class="state p-on p-success">
-                                                    <label></label>
-                                                </div>
-                                        </div>
+                                        <p-check class="pretty p-switch p-fill p-bigger"
+                                                 color="success" off-color="text-gray" toggle
+                                                 data-toggle="tooltip"
+                                                 title="Indique si el valor indicado está expresado en porcentaje (requerido)"
+                                                 v-model="record.percentage">
+                                            <label slot="off-label"></label>
+                                        </p-check>
                                     </div>
                                 </div>
                                 <!-- ./porcentaje -->
                             </div>
                             <div class="col-md-6"
-                                 v-if="record.parameter_type == 'processed_variable'">
+                                 v-show="record.parameter_type == 'processed_variable'">
                                 <!-- fórmula -->
                                 <div class="form-group is-required">
                                     <label for="formula">Fórmula:</label>
-                                    <input type="text" class="form-control input-sm" data-toggle="tooltip"
-                                           title="Fórmula a aplicar para la variable. Utilice la siguiente calculadora para establecer los parámetros de la fórmula" v-model="record.formula" readonly>
+                                    <textarea type="text"
+                                              class="form-control input-sm BlockDeletion" data-toggle="tooltip"
+                                              title="Fórmula a aplicar para la variable. Utilice la siguiente calculadora para establecer los parámetros de la fórmula"
+                                              rows="3" v-model="record.formula"
+                                              autocomplete="off"
+                                              onkeypress="return (event.charCode >= 24 && event.charCode <= 27)">
+                                    </textarea>
                                 </div>
                                 <!-- ./fórmula -->
                                 <div class="row">
@@ -149,17 +150,13 @@
                                         <div class="form-group">
                                             <label for="worker_record">¿Expediente del Trabajador?</label>
                                             <div class="col-12">
-                                                <div class="pretty p-switch p-fill p-bigger p-toggle">
-                                                    <input type="radio" data-toggle="tooltip"
-                                                           title="Indique si desea utilizar una variable del expediente del Trabajador"
-                                                           v-model="variable" value="worker_record">
-                                                        <div class="state p-off">
-                                                            <label></label>
-                                                        </div>
-                                                        <div class="state p-on p-success">
-                                                            <label></label>
-                                                        </div>
-                                                </div>
+                                                <p-radio class="pretty p-switch p-fill p-bigger"
+                                                         color="success" off-color="text-gray" toggle
+                                                         data-toggle="tooltip"
+                                                         title="Indique si desea utilizar una variable del expediente del Trabajador"
+                                                         v-model="variable" value="worker_record">
+                                                    <label slot="off-label"></label>
+                                                </p-radio>
                                             </div>
                                         </div>
                                     </div>
@@ -167,18 +164,13 @@
                                         <div class="form-group">
                                             <label for="parameter">¿Parámetro?</label>
                                             <div class="col-12">
-                                                <div class="pretty p-switch p-fill p-bigger p-toggle">
-                                                    <input type="radio"
-                                                           data-toggle="tooltip"
-                                                           title="Indique si desea utilizar un parámetro previamente registrado"
-                                                           v-model="variable" value="parameter">
-                                                        <div class="state p-off">
-                                                            <label></label>
-                                                        </div>
-                                                        <div class="state p-on p-success">
-                                                            <label></label>
-                                                        </div>
-                                                </div>
+                                                <p-radio class="pretty p-switch p-fill p-bigger"
+                                                         color="success" off-color="text-gray" toggle
+                                                         data-toggle="tooltip"
+                                                         title="Indique si desea utilizar un parámetro previamente registrado"
+                                                         v-model="variable" value="parameter">
+                                                    <label slot="off-label"></label>
+                                                </p-radio>
                                             </div>
                                         </div>
                                     </div>
@@ -186,10 +178,47 @@
                                          v-if="variable">
                                         <!-- opciones -->
                                         <div class="form-group">
+                                            <label for="register">Registro</label>
                                             <select2 :options="options"
+                                                     @input="getOptionType"
                                                      v-model="variable_option"></select2>
                                         </div>
                                         <!-- ./opciones -->
+                                    </div>
+                                    <div class="col-md-6"
+                                         v-if="(variable_option && variable == 'worker_record')">
+                                        <div class="form-group">
+                                            <label for="register">Operador</label>
+                                            <select2 :options="operators"
+                                                     v-model="operator"></select2>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6"
+                                         v-if="(variable_option && variable == 'worker_record')">
+                                        <div class="form-group">
+                                            <label for="value">Valor</label>
+                                            <select2 v-if="type == 'list'"
+                                                     :options="subOptions"
+                                                     v-model="value"></select2>
+                                            <div class="col-12"
+                                                 v-else-if="type == 'boolean'">
+                                                <p-check class="pretty p-switch p-fill p-bigger"
+                                                         color="success" off-color="text-gray" toggle
+                                                         data-toggle="tooltip"
+                                                         title="Indique el valor de comparación (requerido)"
+                                                         v-model="value">
+                                                    <label slot="off-label"></label>
+                                                </p-check>
+                                            </div>
+                                            <input v-else
+                                                   type="text"
+                                                   data-toggle="tooltip"
+                                                   title="Indique el valor de comparación (requerido)"
+                                                   class="form-control input-sm" v-model="value"
+                                                   v-input-mask data-inputmask="
+                                                       'alias': 'numeric',
+                                                       'allowMinus': 'false'">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -254,6 +283,9 @@
                                         <div class="col-sm-12 col-btn-block text-center">
                                             <div class="btn btn-info btn-sm" data-toggle="tooltip"
                                                  title="Variable a usar cuando se realice el cálculo"
+                                                 :disabled="(((operator == '') ||
+                                                 ((value == '') && (type != 'boolean'))) &&
+                                                 (variable == 'worker_record'))"
                                                  @click="getAcronymVariable()">
                                                 {{ updateNameVariable }}
                                             </div>
@@ -303,12 +335,28 @@
                     acronym:        '',
                     description:    '',
                     parameter_type: '',
-                    percentage:     '',
+                    percentage:     false,
                     value:          '',
                     formula:        ''
                 },
                 variable:        '',
                 variable_option: '',
+
+                type:                      '',
+                value:                     '',
+                operator:                  '',
+                operators:                 [
+                    {"id": "",   "text": "Seleccione..."},
+                    {"id": "==", "text": "Igualdad (==)"},
+                    {"id": "!=", "text": "Desigualdad (!=)"},
+                    {"id": ">",  "text": "Mayor estricto (>)"},
+                    {"id": "<",  "text": "Menor estricto (>)"},
+                    {"id": ">=", "text": "Mayor o igual (>=)"},
+                    {"id": "<=", "text": "Menor o igual (<=)"}
+                ],
+                subOptions:                [],
+
+
                 errors:          [],
                 records:         [],
                 columns:         ['name', 'code', 'acronym', 'description', 'id'],
@@ -341,9 +389,27 @@
                 vm.reset();
                 vm.getPayrollParameterTypes();
                 vm.getOptions('payroll/get-associated-records');
-            });
-            $('.btn-formula').on('click', function() {
-                vm.record.formula += $(this).data('value');
+
+                $('.BlockDeletion').on('keydown', function (e) {
+                    try {
+                        if ((e.keyCode == 8) || (e.keyCode == 46))
+                            return false;
+                        else
+                            return true;
+                    } catch (Exception) {
+                        return false;
+                    }
+                });
+                $('.btn-formula').on('click', function() {
+                    let keys = vm.record.formula.indexOf('}');
+                    if (keys > 0) {
+                        let firstFormula = vm.record.formula.substr(0, keys);
+                        let lastFormula = vm.record.formula.substr(keys, vm.record.formula.length);
+                        vm.record.formula = firstFormula + $(this).data('value') + lastFormula;
+                    } else {
+                        vm.record.formula += $(this).data('value');
+                    }
+                });
             });
         },
         watch: {
@@ -354,11 +420,28 @@
              */
             variable: function(variable) {
                 const vm = this;
+                vm.operator = vm.value = '';
                 if (vm.variable == 'parameter') {
                     vm.getOptions('payroll/get-parameters');
 
                 } else if (vm.variable == 'worker_record') {
                     vm.getOptions('payroll/get-associated-records');
+                }
+            },
+
+            /**
+             * Método que supervisa los cambios en el campo type y actualiza el listado de opciones
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve> | <henryp2804@gmail.com>
+             */
+            type: function(type) {
+                const vm = this;
+                if (vm.type == 'list') {
+                    axios.get('/payroll/get-parameter-options/' + vm.variable_option).then(response => {
+                        vm.subOptions = response.data;
+                    });
+                } else if (vm.type == 'boolean') {
+                    vm.value = false;
                 }
             }
         },
@@ -404,7 +487,7 @@
                     acronym:        '',
                     description:    '',
                     parameter_type: '',
-                    percentage:     '',
+                    percentage:     false,
                     value:          '',
                     formula:        ''
                 };
@@ -427,7 +510,7 @@
                 } else if (vm.record.parameter_type == 'resettable_variable') {
                     vm.variable          = '';
                     vm.record.formula    = '';
-                    vm.record.percentage = '';
+                    vm.record.percentage = false;
                 }
             },
             /**
@@ -462,30 +545,64 @@
              */
             getAcronymVariable() {
                 const vm = this;
-                var response = '';
-                if (vm.variable_option != '') {
-                    vm.options.forEach(function(value, index) {
-                        if (value.id == vm.variable_option) {
-                            if (typeof value.acronym !== 'undefined') {
-                                response = value.acronym;
-                            } else if (typeof value.id !== 'undefined') {
-                                response = value.id;
+                let response = '';
+                if ((vm.variable != 'worker_record') ||
+                    ((vm.operator != '') && (vm.value != '')) ||
+                    ((vm.operator != '') && (vm.type == 'boolean'))) {
+                    if (vm.variable_option != '') {
+                        $.each(vm.options, function(index, field) {
+                            if (field['id'] == vm.variable_option) {
+                                if (typeof field['acronym'] !== 'undefined') {
+                                    response = field['acronym'];
+                                } else if (typeof field['id'] !== 'undefined') {
+                                    response = 'if(' + field['id'] + ' ' + vm.operator + ' ' + vm.value + '){}';
+                                }
+                            } else if (typeof field['children'] !== 'undefined') {
+                                $.each(field['children'], function(index, field) {
+                                    if (field['id'] == vm.variable_option) {
+                                        if (typeof field['acronym'] !== 'undefined') {
+                                            response = field['acronym'];
+                                        } else if (typeof field['id'] !== 'undefined') {
+                                            response = 'if(' + field['id'] + ' ' + vm.operator + ' ' + vm.value + '){}';
+                                        }
+                                    }
+                                });
                             }
-                        } else if (typeof value.children !== 'undefined') {
-                            value.children.forEach(function(value, index) {
-                                if (value.id == vm.variable_option) {
-                                    if (typeof value.acronym !== 'undefined') {
-                                        response = value.acronym;
-                                    } else if (typeof value.id !== 'undefined') {
-                                        response = value.id;
+                        });
+                    }
+                    if (response != '') {
+                        if (vm.record.formula != '') {
+                            let keys = vm.record.formula.indexOf('}');
+                            let firstFormula = vm.record.formula.substr(0, keys);
+                            let lastFormula = vm.record.formula.substr(keys, vm.record.formula.length);
+                            vm.record.formula = firstFormula + response + lastFormula;
+                        } else {
+                            vm.record.formula += response;
+                        }
+                    }
+                }
+            },
+            getOptionType() {
+                const vm = this;
+                vm.type = '';
+                if (vm.variable_option != '') {
+                    $.each(vm.options, function(index, field) {
+                        if (field['id'] == vm.variable_option) {
+                            if (typeof field['type'] !== 'undefined') {
+                                vm.type = field['type'];
+                                return;
+                            }
+                        } else if (typeof field['children'] !== 'undefined') {
+                            $.each(field['children'], function(index, field) {
+                                if (field['id'] == vm.variable_option) {
+                                    if (typeof field['type'] !== 'undefined') {
+                                        vm.type = field['type'];
+                                        return;
                                     }
                                 }
                             });
                         }
                     });
-                }
-                if (response != '') {
-                    vm.record.formula += response;
                 }
             }
         }
