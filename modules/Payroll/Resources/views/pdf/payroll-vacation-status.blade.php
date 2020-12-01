@@ -32,4 +32,17 @@
         <td width="50%"> {{ $field->start_date . ' - ' . $field->end_date }} </td>
         <td width="50%"> {{ $field->days_requested }} </td>
     </tr>
+    <tr><th></th></tr>
+    <tr style="background-color: #BDBDBD;">
+        <th width="50%">Estatus</th>
+    </tr>
+    <tr>
+        <td width="50%">
+            {{
+                ($field->status == 'approved')
+                    ? 'Aprobado'
+                    : 'Pendiente'
+            }}
+        </td>
+    </tr>
 </table>
