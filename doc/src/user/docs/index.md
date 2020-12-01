@@ -17,7 +17,7 @@ KAVAC es un sistema de planificación y gestión de recursos organizacionales, q
 ##Aplicaciones
 
 
-KAVAC está diseñado de forma modular, cuenta con independencia entre los módulos, permitiendo la flexibilidad para ajustarse rápidamente a las características de cada organización. El sistema se encuentra estructurado de tal forma que los módulos convivan entre sí,  por ejemplo, cuando se registra un bien  mueble o inmueble al mismo tiempo se generará un asiento contable de forma automática. Por lo que no es necesario la instalación de todos los módulos para que algunos de ellos puedan coexistir.   Cada uno de los módulos del KAVAC cuenta con un panel de control, que dependerá del rol de cada usuario para su uso. 
+KAVAC está diseñado de forma modular, cuenta con independencia entre los módulos, permitiendo la flexibilidad para ajustarse rápidamente a las características de cada organización. El sistema se encuentra estructurado de tal forma que los módulos convivan entre sí, sin embargo; no es necesario la instalación de todos los módulos para que algunos de ellos puedan coexistir.  Es posible comenzar utilizando solamente los módulos que se requieran, e ir integrando más módulos y funcionalidades posteriormente. Cada uno de los módulos del KAVAC cuenta con un panel de control y una configuración, que permite ajustarlos a las necesidades de la institución usuaria. 
 
 
 ![Screenshot](img/figure_1.png#imagen)<div style="text-align: center;font-weight: bold">Figura 1: Aplicaciones KAVAC</div>

@@ -21,6 +21,13 @@ class CreateSaleOrderManagementTable extends Migration
             $table->string('code', 100)->comment('Código');
             $table->string('category', 100)->comment('Categoria');
             $table->string('quantity', 100)->comment('Cantidad');
+            $table->enum('status', ['REVIEW', 'APPROVED','REJECTED'])->default('REVIEW')
+                          ->comment(
+                              'Determina el estatus del requerimiento
+                              (REVIEW) - en Revisión.
+                              (APPROVED) - Aprobado,
+                              (REJECTED) - Rechazado',
+                          );
             //$table->string('address', 100)->comment('Dirección');
             //$table->string('contact_number', 100)->comment('Número Teléfonico');
 

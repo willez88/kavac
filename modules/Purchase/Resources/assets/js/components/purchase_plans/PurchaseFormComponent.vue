@@ -19,8 +19,8 @@
                 </div>
                 <div class="col-3">
                     <div class="form-group is-required">
-                        <label class="control-label" for="empelados_responsable">Responsable</label><br>
-                        <select2 :options="empelados_responsable" id="empelados_responsable" v-model="record.empelados_responsable_id"></select2>
+                        <label class="control-label" for="responsable">Responsable</label><br>
+                        <select2 :options="users" id="responsable" v-model="record.user_id"></select2>
                     </div>
                 </div>
                 <div class="col-3">
@@ -60,7 +60,7 @@
                     return [];
                 }
             },
-            empelados_responsable:{
+            users:{
                 type:Array,
                 default: function(){
                     return [];
@@ -80,7 +80,7 @@
                     init_date:'',
                     purchase_type_id:'',
                     purchase_processes_id:'',
-                    empelados_responsable_id:'',
+                    user_id:'',
                 },
                 disabledInputProcess:false,
             }
@@ -97,7 +97,7 @@
                     init_date:'',
                     purchase_type_id:'',
                     purchase_processes_id:'',
-                    empelados_responsable_id:'',
+                    user_id:'',
                 };
                 this.$refs.PurchaseFormComponent.reset();
             },

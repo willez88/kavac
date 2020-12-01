@@ -204,8 +204,12 @@
 
 			createReport() {
 				const vm = this;
+				vm.loading = true;
 				var fields = {};
-				var url = 'citizenservice/reports';
+				for (var index in this.record) {
+					fields[index] = this.record[index];
+				}
+				//var url = 'citizenservice/reports';
 
 				if (vm.record.type_search == '') {
 					bootbox.alert("Seleccionar el tipo de reporte a generar");
@@ -215,10 +219,8 @@
 					return false;
 				}
 
-				for (var index in this.record) {
-					fields[index] = this.record[index];
-				}
-				axios.post('/' + url, fields).then(response => {
+
+				axios.post('/citizenservice/reports/request/create' + url, fields).then(response => {
 					if (response.data.result == false)
 						location.href = response.data.redirect;
 					else if (typeof(response.data.redirect) !== "undefined") {
@@ -227,6 +229,7 @@
 					else {
 						vm.reset();
 					}
+					vm.loading = false;
 				}).catch(error => {
 					vm.errors = [];
 
@@ -237,6 +240,7 @@
 							}
 						}
 					}
+					vm.loading = false;
 				});
 
 			},

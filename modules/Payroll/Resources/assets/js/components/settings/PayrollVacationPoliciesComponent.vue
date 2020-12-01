@@ -636,7 +636,7 @@
                     vm.record.maximum_additional_days_per_year      = '';
                 } else if (vm.record.vacation_type == 'vacation_period') {
                     vm.record.vacation_periods                      = [];
-                    vm.record.vacation_periods_accumulated_per_year = '';
+                    //vm.record.vacation_periods_accumulated_per_year = '';
                 }
             },
             /**

@@ -138,6 +138,26 @@ Vue.component('purchase-plan-form', () => import(
 );
 
 /**
+ * Componente para la visualizacion requerimientos
+ *
+ * @author Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
+ */
+Vue.component('purchase-plan-show', () => import(
+    /* webpackChunkName: "purchase-plan-show" */
+    './components/purchase_plans/PurchaseShowComponent.vue')
+);
+
+/**
+ * Componente para la visualizacion requerimientos
+ *
+ * @author Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
+ */
+Vue.component('purchase-plan-start-diagnosis', () => import(
+    /* webpackChunkName: "purchase-plan-show" */
+    './components/purchase_plans/PurchaseStartDiagnosisComponent.vue')
+);
+
+/**
  * Componente para la gestión de ordend e compra
  *
  * @author Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
@@ -158,18 +178,9 @@ Vue.component('purchase-quotation-list', () => import(
 );
 
 
-/**
- * Componente para la visualizacion requerimientos
- *
- * @author Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
- */
-Vue.component('purchase-plan-show', () => import(
-    /* webpackChunkName: "purchase-plan-show" */
-    './components/purchase_plans/PurchaseShowComponent.vue')
-);
 
 /**
- * Componente para la gestión de plan de compras
+ * Componente para la gestión de tipos de compras
  *
  * @author Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
  */
@@ -179,7 +190,7 @@ Vue.component('purchase-type', () => import(
 );
 
 /**
- * Componente para la gestión de plan de compras
+ * Componente para la gestión de tipos de contratacion
  *
  * @author Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
  */
@@ -189,7 +200,7 @@ Vue.component('purchase-type-hiring', () => import(
 );
 
 /**
- * Componente para la gestión de plan de compras
+ * Componente para la gestión de tipos de operacion
  *
  * @author Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
  */

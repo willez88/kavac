@@ -150,6 +150,7 @@
                 'code': 'Código',
                 'category': 'Categoria',
                 'quantity': 'Cantidad',
+                'status': 'Estatus',
 				'id': 'Acción'
 			};
 			this.table_options.sortable = ['name'];
@@ -157,10 +158,11 @@
 			this.table_options.columnsClasses = {
 				'name': 'col-md-2',
                 'cedule': 'col-md-2',
-                'type': 'col-md-2',
+                'type': 'col-md-1',
                 'code': 'col-md-2',
                 'category': 'col-md-2',
                 'quantity': 'col-md-1',
+                'status': 'col-md-1',
 				'id': 'col-md-1'
 			};
 		},

@@ -5,10 +5,10 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * @class      UpdateFieldsToPayrollSalaryTabulatorsTable
- * @brief      Actualiza los campos de la tabla de tabuladores salariales
+ * @class      AddFieldsToPayrollConceptsTable
+ * @brief      Agrega nuevos campos a la tabla de conceptos
  *
- * Gestiona la creación o eliminación de los campos de la tabla de tabuladores salariales
+ * Gestiona la creación o eliminación de nuevos campos a la tabla de conceptos
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
  * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>

@@ -2,7 +2,7 @@
     <section>
         <div class="form-horizontal">
 
-            <purchase-show-errors refs="PurchaseBaseBudgetComponent" />
+            <purchase-show-errors ref="PurchaseBaseBudgetComponent" />
 
             <div class="card-body">
                 <div class="row">
@@ -66,7 +66,9 @@
                                 {{ varr.quantity }}
                             </td>
                             <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
-                                {{ varr.measurement_unit.acronym }}
+                                <p v-if="varr.warehouse_product && varr.warehouse_product.measurement_unit">
+                                    {{ varr.warehouse_product.measurement_unit.name }}
+                                </p>
                             </td>
                             <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
                                 <input type="number" :disabled="!currency_id" :step="cualculateLimitDecimal()" 
@@ -89,7 +91,7 @@
                         <tr class="row">
                             <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-8"></td>
                             <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
-                                <h6 align="right">{{ (record_tax)?record_tax.percentage:'' }} % IVA {{ currency_symbol }}</h6>
+                                <h6 align="right">{{ (record_tax && record_tax.percentage)?record_tax.percentage:'' }} % IVA {{ currency_symbol }}</h6>
                             </td>
                             <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-2">
                                 <h6 align="right">{{ (tax).toFixed((currency)?currency.decimal_places:'') }}</h6>
@@ -152,7 +154,7 @@
                             'fiscal_year.year',
                             'contrating_department.name',
                             'user_department.name',
-                            'purchase_supplier_type.name',
+                            'purchase_supplier_object.name',
                             'requirement_status',
                             // 'id'
                         ],
@@ -353,7 +355,7 @@
                 'fiscal_year.year':'Año fiscal',
                 'contrating_department.name': 'Departamento contatante',
                 'user_department.name': 'Departamento Usuario',
-                'purchase_supplier_type.name': 'Tipo de Proveedor',
+                'purchase_supplier_object.name': 'Tipo',
                 'requirement_status': 'Estado',
                 // 'id': 'Selección'
             };
@@ -363,7 +365,7 @@
                 'fiscal_year.year': 'col-xs-1 text-center',
                 'contrating_department.name'    : 'col-xs-2',
                 'user_department.name': 'col-xs-2',
-                'purchase_supplier_type.name': 'col-xs-2',
+                'purchase_supplier_object.name': 'col-xs-2',
                 'requirement_status': 'col-xs-1',
                 // 'id'      : 'col-xs-1'
             };

@@ -57,7 +57,15 @@ class MaritalStatusController extends Controller
             'name' => ['required', 'max:100']
         ]);
 
-        $maritalStatus = MaritalStatus::create(['name' => $request->name]);
+        if ($mStatus = MaritalStatus::onlyTrashed()->whereName($request->name)->first()) {
+            $mStatus->restore();
+        } else {
+            $this->validate($request, [
+                'name' => 'unique:marital_status,name'
+            ]);
+        }
+
+        $maritalStatus = MaritalStatus::updateOrCreate(['name' => $request->name]);
 
         return response()->json(['record' => $maritalStatus, 'message' => 'Success'], 200);
     }

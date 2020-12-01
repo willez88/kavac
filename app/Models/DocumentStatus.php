@@ -48,6 +48,13 @@ class DocumentStatus extends Model implements Auditable
     protected $fillable = ['name', 'description', 'color', 'action'];
 
     /**
+     * Oculta los campos de fechas de creación, actualización y eliminación
+     *
+     * @var    array $hidden
+     */
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
+    /**
      * Obtiene el estatus del documento según los filtros indicados
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>

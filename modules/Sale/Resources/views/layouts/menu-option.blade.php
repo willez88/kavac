@@ -26,6 +26,10 @@
                     data-toggle="tooltip" data-placement="right">
                     <a href="/sale/reports/inventory-products">Inventario de productos</a>
                 </li>
+                <li title="Reporte de pedidos"
+                    data-toggle="tooltip" data-placement="right">
+                    <a href="/sale/reports/orders">Pedidos</a>
+                </li>
             </ul>
         </li>
     </ul>

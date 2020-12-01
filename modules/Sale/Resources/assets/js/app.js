@@ -155,6 +155,17 @@ Vue.component('sale-report-products', () => import(
 );
 
 /**
+ * Componente para gestionar la creación de los reportes de Pedidos
+ *
+ * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+ */
+Vue.component('sale-report-orders', () => import(
+    /* webpackChunkName: "sale-report-products" */
+    './components/reports/SaleReportOrdersComponent.vue')
+);
+
+
+/**
  * Opciones de configuración global del módulo de Commercialización
  */
 Vue.mixin({

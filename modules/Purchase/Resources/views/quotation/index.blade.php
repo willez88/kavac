@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <purchase-quotation-list :records="{{ $records }}" route_edit="/purchase/quotation/{id}/edit" />
+                    <purchase-quotation-list :record_lists="{{ $records }}" route_edit="/purchase/quotation/{id}/edit" />
                 </div>
             </div>
         </div>

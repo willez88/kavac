@@ -54,12 +54,21 @@ class ProfessionController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required', 'max:100', 'unique:professions,name'],
+            'name' => ['required', 'max:100'],
             'acronym' => ['max:10']
         ]);
 
-        $profession = Profession::create([
-            'name' => $request->name,
+        if ($prof = Profession::onlyTrashed()->whereName($request->name)->first()) {
+            $prof->restore();
+        } else {
+            $this->validate($request, [
+                'name' => ['unique:professions,name']
+            ]);
+        }
+
+        $profession = Profession::updateOrCreate([
+            'name' => $request->name
+        ], [
             'acronym' => ($request->acronym)?$request->acronym:null
         ]);
 

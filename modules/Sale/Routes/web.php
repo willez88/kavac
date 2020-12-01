@@ -211,5 +211,14 @@ Route::group(
         //Route::post('reports/inventory-products/create', 'SaleReportController@create');
 
         //Route::get('report/show/{code}', 'SaleReportController@show');
+
+        /**
+         * ------------------------------------------------------------
+         * Rutas para gestionar la generación de reportes en el Modulo de Pedidos
+         * ------------------------------------------------------------
+         */
+        Route::get('reports/orders', 'SaleOrderReportController@listOrders')
+            ->name('sale.report.orders');
+        //Route::post('reports/orders/vue-list', 'SaleOrderReportController@vueList');
     }
 );

@@ -39,6 +39,13 @@ class InstitutionType extends Model implements Auditable
     protected $fillable = ['name', 'acronym'];
 
     /**
+     * Oculta los campos de fechas de creación, actualización y eliminación
+     *
+     * @var    array $hidden
+     */
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
+    /**
      * Método que obtiene las instituciones asociadas a un tipo
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>

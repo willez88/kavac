@@ -55,16 +55,17 @@ Route::group([
         'CitizenServiceDepartmentController',
         ['as' => 'citizenservice', 'except' => ['create','edit','show']]
     );
-    Route::get('/get-departments', 'CitizenServiceDepartmentController@getCitizenServiceDepartments');
+    Route::get('/get-departments', 'CitizenServiceDepartmentController@getDepartments');
 
-
+    /* Rutas para subir archivos*/
     Route::resource(
         'request-close',
         'CitizenServiceRequestCloseController',
         ['as' => 'citizenservice', 'except' => ['create','edit','show']]
     );
-    Route::get('requests/vue-close/{id}', 'CitizenServiceRequestCloseController@vueClose');
+
     Route::post('requests/validate-document', 'CitizenServiceRequestCloseController@store');
+    Route::get('/get-documents/{id}', 'CitizenServiceRequestCloseController@getCitizenServiceRequestDocuments');
 
     /**
      * Rutas para generar reporte
@@ -75,6 +76,10 @@ Route::group([
 
     Route::post('reports/search/period', 'CitizenServiceReportController@searchPeriod');
     Route::post('reports/search/date', 'CitizenServiceReportController@searchDate');
+    Route::get('reports/request', 'CitizenServiceReportController@request')
+        ->name('citizenservice.report.request');
+    Route::post('reports/request/create', 'CitizenServiceReportController@create');
+    Route::get('report/show/{code}', 'CitizenServiceReportController@show');
 
     /**
      * Rutas para generar registro de actividades
