@@ -39,6 +39,13 @@ class ExchangeRate extends Model implements Auditable
     protected $fillable = ['start_at', 'end_at', 'amount', 'active', 'from_currency_id', 'to_currency_id'];
 
     /**
+     * Oculta los campos de fechas de creación, actualización y eliminación
+     *
+     * @var    array $hidden
+     */
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
+    /**
      * ExchangeRate belongs to Currency.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

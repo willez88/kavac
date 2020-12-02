@@ -196,4 +196,16 @@ class PayrollStaff extends Model implements Auditable
     {
         return $this->morphMany(PayrollConceptAssignOption::class, 'assignable');
     }
+
+    /**
+     * Método que obtiene la información de las solicitudes de vacaciones asociadas al trabajador
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+
+     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payrollVacationRequests()
+    {
+        return $this->hasMany(PayrollVacationRequest::class);
+    }
 }

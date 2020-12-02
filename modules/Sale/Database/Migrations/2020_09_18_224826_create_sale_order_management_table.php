@@ -17,8 +17,20 @@ class CreateSaleOrderManagementTable extends Migration
             $table->bigIncrements('id');
             $table->string('name', 100)->comment('Nombre o descripción de pedido');
             $table->string('cedule', 100)->comment('Cédula');
-            $table->string('address', 100)->comment('Dirección');
-            $table->string('contact_number', 100)->comment('Número Teléfonico');
+            $table->string('type', 100)->comment('Tipo');
+            $table->string('code', 100)->comment('Código');
+            $table->string('category', 100)->comment('Categoria');
+            $table->string('quantity', 100)->comment('Cantidad');
+            $table->enum('status', ['REVIEW', 'APPROVED','REJECTED'])->default('REVIEW')
+                          ->comment(
+                              'Determina el estatus del requerimiento
+                              (REVIEW) - en Revisión.
+                              (APPROVED) - Aprobado,
+                              (REJECTED) - Rechazado',
+                          );
+            //$table->string('address', 100)->comment('Dirección');
+            //$table->string('contact_number', 100)->comment('Número Teléfonico');
+
             //$table->string('warehouse', 100)->comment('Almacén');
             //$table->foreignId('sale_warehouses_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
             $table->timestamps();

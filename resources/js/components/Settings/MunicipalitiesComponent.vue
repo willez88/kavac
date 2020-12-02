@@ -96,6 +96,7 @@
 					name: '',
 					code: ''
 				},
+                selectedEstateId: '',
 				errors: [],
 				records: [],
 				countries: [],
@@ -103,6 +104,19 @@
 				columns: ['estate.name', 'name', 'code', 'id'],
 			}
 		},
+        watch: {
+            record: {
+                deep: true,
+                handler: function(newValue, oldValue) {
+                    const vm = this;
+                    if (newValue.country_id && vm.selectedEstateId && !vm.record.estate_id) {
+                        setTimeout(function() {
+                            vm.record.estate_id = vm.selectedEstateId;
+                        }, 2000);
+                    }
+                }
+            },
+        },
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
@@ -110,14 +124,36 @@
 			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 			 */
 			reset() {
-				this.record = {
+                const vm = this;
+				vm.record = {
 					id: '',
 					country_id: '',
 					estate_id: '',
 					name: '',
 					code: ''
 				};
+                vm.selectedEstateId = '';
 			},
+            /**
+             * Método que carga el formulario con los datos a modificar
+             *
+             * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             *
+             * @param  {integer} index Identificador del registro a ser modificado
+             * @param {object} event   Objeto que gestiona los eventos
+             */
+            initUpdate(id, event) {
+                let vm = this;
+                vm.errors = [];
+                let recordEdit = JSON.parse(JSON.stringify(vm.records.filter((rec) => {
+                    return rec.id === id;
+                })[0])) || vm.reset();
+
+                vm.record = recordEdit;
+                vm.record.country_id = recordEdit.estate.country_id;
+                vm.selectedEstateId = recordEdit.estate_id;
+                event.preventDefault();
+            }
 		},
 		created() {
 			this.table_options.headings = {

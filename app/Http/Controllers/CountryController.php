@@ -58,9 +58,17 @@ class CountryController extends Controller
             'prefix' => ['required', 'max:3']
         ]);
 
+        if ($c = Country::onlyTrashed()->whereName($request->name)->first()) {
+            $c->restore();
+        } else {
+            $this->validate($request, [
+                'name' => ['unique:countries,name']
+            ]);
+        }
 
-        $country = Country::create([
-            'name' => $request->name,
+        $country = Country::updateOrCreate([
+            'name' => $request->name
+        ], [
             'prefix' => $request->prefix
         ]);
 

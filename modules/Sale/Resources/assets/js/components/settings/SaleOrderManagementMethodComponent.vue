@@ -37,12 +37,44 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group is-required">
-        							<label for="description">Descripción:</label>
-        							<input type="text" id="description" placeholder="Descripción"
-        								   class="form-control input-sm" v-model="record.description" data-toggle="tooltip"
+        							<label for="cedule">Cédula:</label>
+        							<input type="text" id="cedule" placeholder="Cédula"
+        								   class="form-control input-sm" v-model="record.cedule" data-toggle="tooltip"
         								   title="Indique la descripción (requerido)">
         	                    </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group is-required">
+        							<label for="type">Tipo:</label>
+        							<input type="text" id="type" placeholder="Dirección"
+        								   class="form-control input-sm" v-model="record.type" data-toggle="tooltip"
+        								   title="Indique la descripción (requerido)">
+        	                    </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group is-required">
+        							<label for="code">Codigo:</label>
+        							<input type="text" id="code" placeholder="Numero de Contácto"
+        								   class="form-control input-sm" v-model="record.code" data-toggle="tooltip"
+        								   title="Indique la descripción (requerido)">
+        	                    </div>
+                            </div>
+ 							<div class="col-md-6">
+                                <div class="form-group is-required">
+        							<label for="category">Categoria:</label>
+        							<input type="text" id="category" placeholder="Categoria"
+        								   class="form-control input-sm" v-model="record.category" data-toggle="tooltip"
+        								   title="Indique la descripción (requerido)">
+        	                    </div>
+                            </div>                   
+ 							<div class="col-md-6">
+                                <div class="form-group is-required">
+        							<label for="quantity">Cantidad:</label>
+        							<input type="text" id="quantity" placeholder="Cantidad"
+        								   class="form-control input-sm" v-model="record.quantity" data-toggle="tooltip"
+        								   title="Indique la descripción (requerido)">
+        	                    </div>
+                            </div>                                                                               
                         </div>
 	                </div>
 					<div class="modal-footer">
@@ -81,11 +113,15 @@
 				record: {
 					id: '',
 					name: '',
-                    description: ''
+					cedule: '',
+					type: '',
+                    code: '',
+                    category: '',
+                    quantity: ''
 				},
 				errors: [],
 				records: [],
-				columns: ['name', 'description', 'id'],
+				columns: ['name', 'cedule', 'type', 'code', 'category', 'quantity', 'id'],
 			}
 		},
 		methods: {
@@ -98,22 +134,36 @@
 				this.record = {
 					id: '',
 					name: '',
-                    description: ''
+					cedule: '',
+					type: '',
+					code: '',
+					category: '',
+                    quantity: ''
 				};
 			},
 		},
 		created() {
 			this.table_options.headings = {
 				'name': 'Nombre',
-                'description': 'Descripción',
+                'cedule': 'Cédula',
+                'type': 'Dirección',
+                'code': 'Código',
+                'category': 'Categoria',
+                'quantity': 'Cantidad',
+                'status': 'Estatus',
 				'id': 'Acción'
 			};
 			this.table_options.sortable = ['name'];
 			this.table_options.filterable = ['name'];
 			this.table_options.columnsClasses = {
-				'name': 'col-md-5',
-                'description': 'col-md-5',
-				'id': 'col-md-2'
+				'name': 'col-md-2',
+                'cedule': 'col-md-2',
+                'type': 'col-md-1',
+                'code': 'col-md-2',
+                'category': 'col-md-2',
+                'quantity': 'col-md-1',
+                'status': 'col-md-1',
+				'id': 'col-md-1'
 			};
 		},
 	};

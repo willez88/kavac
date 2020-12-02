@@ -51,19 +51,19 @@
 					<div id="helpAnaliticalMajorAllAccount">
 						<label for="" class="control-label mt-4">Seleccionar todas</label>
 						<div class="col-12 bootstrap-switch-mini">
-    						<input type="checkbox" name="sel_account_type" id="sel_all_acc" data-on-label="SI"
-                                   data-off-label="NO"
-                                   class="form-control bootstrap-switch sel_pry_acc sel_all_acc_class">
-                        </div>
+							<input type="checkbox" name="sel_account_type" id="sel_all_acc" data-on-label="SI"
+								   data-off-label="NO" @click="checkAll()"
+								   class="form-control bootstrap-switch sel_pry_acc sel_all_acc_class">
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="card-footer text-right">
 			<button class="btn btn-primary btn-sm" title="Generar Reporte" data-toggle="tooltip"
-                    v-on:click="OpenPdf(getUrlReport(), '_blank')" id="helpAnaliticalMajorGenerateReport">
-                <span>Generar reporte</span>
-                <i class="fa fa-print"></i>
+					v-on:click="OpenPdf(getUrlReport(), '_blank')" id="helpAnaliticalMajorGenerateReport">
+				<span>Generar reporte</span>
+				<i class="fa fa-print"></i>
 			</button>
 		</div>
 	</div>
@@ -71,17 +71,17 @@
 <script>
 	export default{
 		props:{
-            year_old:{
-                type:String,
-                default: ''
-            },
-            currencies:{
+			year_old:{
+				type:String,
+				default: ''
+			},
+			currencies:{
 				type:Array,
 				default:function(){
 					return [];
 				}
 			}
-        },
+		},
 		data(){
 			return {
 				url:'/accounting/report/analyticalMajor',
@@ -99,26 +99,28 @@
 		mounted(){
 			const vm = this;
 			vm.getAccountingAccounts();
-			/**
-			 * Evento para determinar los datos a requerir segun la busqueda seleccionada
-			 */
-			$('.sel_pry_acc').on('switchChange.bootstrapSwitch', function(e) {
-				if(e.target.id === "sel_all_acc"){
-					if ($('#sel_all_acc').prop('checked')) {
-						if (vm.OptionsAcc.length > 1) {
-							vm.disabledSelect = true;
-							vm.InitAcc = vm.OptionsAcc[1].id;
-							vm.EndAcc = vm.OptionsAcc[vm.OptionsAcc.length-1].id;
-						}
-					}else{
-						vm.disabledSelect = false;
-						vm.InitAcc = 0;
-						vm.EndAcc = 0;
-					}
-				}
-			});
 		},
 		methods:{
+
+			/**
+			* Selecciona todo el rango de registros de cuantas
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			*/
+			checkAll(){
+				const vm = this;
+				if ($('#sel_all_acc').prop('checked')) {
+					if (vm.OptionsAcc.length > 1) {
+						vm.disabledSelect = true;
+						vm.InitAcc = vm.OptionsAcc[1].id;
+						vm.EndAcc = vm.OptionsAcc[vm.OptionsAcc.length-1].id;
+					}
+				}else{
+					vm.disabledSelect = false;
+					vm.InitAcc = 0;
+					vm.EndAcc = 0;
+				}
+			},
 
 			/**
 			* Obtiene las cuentas encontradas en el rango de fecha dado

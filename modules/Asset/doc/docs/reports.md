@@ -15,11 +15,11 @@ El usuario puede ver todos los registros al presionar el botón **Buscar** y gen
 
 ###Filtrar los registros 
 
-- En el reporte general los registros pueden ser filtrados por estatus de uso 
-- En el reporte por clasificación los registros pueden ser filtrados por estatus de uso, tipo de bien, categoria general, subcategoria, categoria especifica.
+- En el reporte general los registros pueden ser filtrados por estatus de uso. 
+- En el reporte por clasificación los registros pueden ser filtrados por estatus de uso, tipo de bien, categoría general, subcategoría, categoría específica.
 - En el reporte por dependencia los registros pueden ser filtrados por por estatus de uso, intitución y departamento o depencia. 
 
-![Screenshot](/img/filtrar_registros.jpg)<div style="text-align: center;font-weight: bold">Figura: Generar Reporte de Bienes Institucionales</div>
+Una vez filtrados los registros de bienes es posible generar un reporte, haciendo uso del botón **Generar Reporte** ![Screenshot](/img/report.png) ubicado al final de la lista de registros.
 
 </div>
 

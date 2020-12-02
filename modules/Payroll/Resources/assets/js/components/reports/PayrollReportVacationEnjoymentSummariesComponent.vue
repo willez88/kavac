@@ -11,20 +11,20 @@
                 <div class="col-md-12">
                     <strong>Filtros</strong>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label>Desde:</label>
                         <input type="month" name="fecha" id="fecha" class="form-control input-sm">
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label>Hasta:</label>
                         <input type="month" name="fecha" id="fecha" class="form-control input-sm">
                     </div>
                 </div>
                 <!-- trabajador -->
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group is-required">
                         <label>Trabajador:</label>
                         <select2 :options="payroll_staffs"
@@ -45,8 +45,36 @@
             </div>
             <hr>
             <v-client-table :columns="columns" :data="records" :options="table_options">
+                <div slot="payroll_staff" slot-scope="props">
+                    <span>
+                        {{
+                            props.row.payroll_staff
+                                ? props.row.payroll_staff.first_name + ' ' + props.row.payroll_staff.last_name
+                                : 'No definido'
+                        }}
+                    </span>
+                </div>
+                <div slot="payroll_staff_start_date" slot-scope="props">
+                    <span>
+                        {{
+                            props.row.payroll_staff
+                            ? props.row.payroll_staff.payroll_employment_information
+                                ? props.row.payroll_staff.payroll_employment_information.start_date
+                                : 'No definido'
+                            : 'No definido'
+                        }}
+                    </span>
+                </div>
+                <div slot="year_antiquity" slot-scope="props">
+                    <span>
+                        {{ getYearAntiquity(props.row.payroll_staff.payroll_employment_information.start_date) }}
+                    </span>
+                </div>
+                <div slot="vacation_period" slot-scope="props">
+                    <span> {{ props.row.start_date + ' - ' + props.row.end_date }} </span>
+                </div>
                 <div slot="id" slot-scope="props" class="text-center">
-                    <button @click="showReport(props.row.id, 'vacation-enjoyment-summaries', $event)" 
+                    <button @click="createReport(props.row.id, 'vacation-enjoyment-summaries', $event)" 
                             class="btn btn-primary btn-xs btn-icon btn-action" 
                             title="Generar reporte" data-toggle="tooltip" 
                             type="button">
@@ -70,7 +98,7 @@
                 errors:         [],
                 records:        [],
                 payroll_staffs: [],
-                columns:        ['payroll_staff', 'start_date', 'year', 'vacation_periods', 'id']
+                columns:        ['payroll_staff', 'payroll_staff_start_date', 'year_antiquity', 'vacation_period', 'id']
             }
         },
         methods: {
@@ -84,15 +112,13 @@
             createReport(id, current, event) {
                 const vm = this;
                 vm.loading = true;
-                var fields = {};
-                for (var index in this.record) {
-                    fields[index] = this.record[index];
-                }
-                fields["current"] = current;
-                axios.post("/payroll/reports/vacation-enjoyment-summaries/create", fields).then(response => {
-                    if (response.data.result == false)
-                        location.href = response.data.redirect;
-                    else if (typeof(response.data.redirect) !== "undefined") {
+                let fields = {
+                    id:      id,
+                    current: current
+                };
+                event.preventDefault();
+                axios.post(`/payroll/reports/${current}/create`, fields).then(response => {
+                    if (typeof(response.data.redirect) !== "undefined") {
                         window.open(response.data.redirect, '_blank');
                     }
                     else {
@@ -106,21 +132,33 @@
                     vm.loading = false;
                 });
             },
+            getYearAntiquity(start_date) {
+                const vm = this;
+                let payroll_staff_year = start_date.split('-')[0];
+                let year_now = new Date().getFullYear();
+                return year_now - parseInt(payroll_staff_year);
+            },
         },
         created() {
-            this.table_options.headings = {
-                'payroll_staff':    'Trabajador',
-                'start_date':       'Fecha de ingreso',
-                'year':             'Años en la institución',
-                'vacation_periods': 'Períodos vacacionales',
-                'id':               'Acción'
+            const vm = this;
+            vm.table_options.headings = {
+                'payroll_staff':            'Trabajador',
+                'payroll_staff_start_date': 'Fecha de ingreso',
+                'year_antiquity':           'Años en la institución',
+                'vacation_period':          'Período vacacional',
+                'id':                       'Acción'
             };
-            this.table_options.sortable = ['payroll_staff', 'start_date', 'year', 'vacation_periods'];
-            this.table_options.filterable = ['payroll_staff', 'start_date', 'year', 'vacation_periods'];
+            vm.table_options.sortable   = [
+                'payroll_staff', 'payroll_staff_start_date', 'year_antiquity', 'vacation_period'
+            ];
+            vm.table_options.filterable = [
+                'payroll_staff', 'payroll_staff_start_date', 'year_antiquity', 'vacation_period']
+            ;
         },
         mounted() {
             const vm = this;
             vm.getPayrollStaffs();
+            vm.initRecords(vm.route_list, '');
         }
     };
 </script>

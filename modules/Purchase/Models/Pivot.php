@@ -24,5 +24,28 @@ class Pivot extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = [];
+    protected $fillable = ['recordable_type', 'recordable_id' 'relatable_type', 'relatable_id'];
+
+    /**
+     * Pivot morphs to models in relatable_type.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function relatable()
+    {
+        // morphTo($name = relatable, $type = relatable_type, $id = relatable_id)
+        // requires relatable_type and relatable_id fields on $this->table
+        return $this->morphTo();
+    }
+    /**
+     * Pivot morphs to models in recordable_type.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function recordable()
+    {
+        // morphTo($name = recordable, $type = recordable_type, $id = recordable_id)
+        // requires recordable_type and recordable_id fields on $this->table
+        return $this->morphTo();
+    }
 }

@@ -387,7 +387,7 @@ Route::group([
     Route::resource(
         'vacation-requests',
         'PayrollVacationRequestController',
-        ['as' => 'payroll']
+        ['as' => 'payroll', 'except' => ['edit', 'show']]
     );
 
     /** Ruta que obtiene un listado de las solicitudes de vacaciones */
@@ -395,6 +395,24 @@ Route::group([
         'vacation-requests/vue-list',
         'PayrollVacationRequestController@vueList'
     )->name('payroll.vacation-requests.vue-list');
+
+    /** Ruta que permite editar la información de un registro de solicitud de vacaciones */
+    Route::get(
+        'vacation-requests/edit/{vacation_request}',
+        'PayrollVacationRequestController@edit'
+    )->name('payroll.vacation-requests.edit');
+
+    /** Ruta que obtiene la información de un registro de solicitud de vacaciones */
+    Route::get(
+        'vacation-requests/show/{vacation_request}',
+        'PayrollVacationRequestController@show'
+    )->name('payroll.vacation-requests.show');
+
+    /** Ruta que obtiene un listado de las solicitudes de vacaciones de un trabajador */
+    Route::get(
+        'get-vacation-requests/{staff_id}',
+        'PayrollVacationRequestController@getVacationRequests'
+    );
 
     /**
      * ------------------------------------------------------------
@@ -405,7 +423,17 @@ Route::group([
         'middleware' => ['web', 'auth', 'verified'],
         'prefix' => 'reports'
     ], function () {
+        Route::get('show/{filename}', 'PayrollReportController@show')
+        ->name('payroll.reports.show');
+        
         Route::get('vacation-enjoyment-summaries', 'PayrollReportController@vacationEnjoymentSummaries')
         ->name('payroll.reports.vacation-enjoyment-summaries');
+        Route::post('vacation-enjoyment-summaries/create', 'PayrollReportController@create')
+        ->name('payroll.reports.vacation-enjoyment-summaries.create');
+
+        Route::get('vacation-status', 'PayrollReportController@vacationStatus')
+        ->name('payroll.reports.vacation-status');
+        Route::post('vacation-status/create', 'PayrollReportController@create')
+        ->name('payroll.reports.vacation-status.create');
     });
 });

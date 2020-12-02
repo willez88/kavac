@@ -58,9 +58,17 @@ class InstitutionTypeController extends Controller
             'acronym' => ['max:4']
         ]);
 
+        if ($type = InstitutionType::onlyTrashed()->whereName($request->name)->first()) {
+            $type->restore();
+        } else {
+            $this->validate($request, [
+                'name' => 'unique:institution_types,name'
+            ]);
+        }
 
-        $institutionType = InstitutionType::create([
-            'name' => $request->name,
+        $institutionType = InstitutionType::updateOrCreate([
+            'name' => $request->name
+        ], [
             'acronym' => ($request->acronym)?$request->acronym:null
         ]);
 

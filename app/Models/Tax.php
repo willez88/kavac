@@ -37,6 +37,13 @@ class Tax extends Model implements Auditable
     ];
 
     /**
+     * Oculta los campos de fechas de creación, actualización y eliminación
+     *
+     * @var    array $hidden
+     */
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
+    /**
      * Método que obtiene los históricos de los impuestos
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>

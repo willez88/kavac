@@ -44,6 +44,13 @@ class Deduction extends Model implements Auditable
     protected $fillable = ['name', 'description', 'formula', 'active', 'accounting_account_id'];
 
     /**
+     * Oculta los campos de fechas de creación, actualización y eliminación
+     *
+     * @var    array $hidden
+     */
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
+    /**
      * MaritalStatus has many PayrollStaff.
      *
      * @return array|\Illuminate\Database\Eloquent\Relations\HasMany

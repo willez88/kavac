@@ -19,7 +19,6 @@
 					<label class="control-label">Expresar en</label>
 					<select2 :options="currencies" v-model="currency"></select2>
 				</div>
-				<div class="col-2"></div>
 			</div>
 		</div>
 		<div class="card-footer text-right" >

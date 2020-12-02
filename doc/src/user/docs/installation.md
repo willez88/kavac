@@ -1,36 +1,36 @@
 # Instalación del Sistema 
 *************************
 <div style="text-align: justify;" >
-##Pre-requisitos
+##Prerrequisitos
 
    A continuación se listan los paquetes previos requeridos para la instalación y correcto funcionamiento de la aplicación:
 
     
-    PHP >= 7.2.x.
-    PHP-gd.
-    PHP-mbstring.
-    PHP-tokenizer.
-    PHP-zip.
-    PHP-pgsql.
-    PHP-cli.
-    PHP-curl.
-    Composer.
-    Zip.
-    Unzip.
-    Nodejs.
-    Postgresql.
+    php >= 7.4.x.
+    php-gd.
+    php-mbstring.
+    php-tokenizer.
+    php-zip.
+    php-pgsql.
+    php-cli.
+    php-curl.
+    composer.
+    zip.
+    unzip.
+    nodejs.
+    postgresql.
     Servidor de aplicaciones nginx, apache, etc.
     
 
 ##Glosario
 
-   (ruta-absoluta-de-instalacion): Es la ruta en donde se va a instalar la aplicación, colocando la misma sin los (), por ejemplo:
+   **(ruta-absoluta-de-instalacion)**: Es la ruta en donde se va a instalar la aplicación, colocando la misma sin los (), por ejemplo:
      
      /srv/kavac/
        
-   (version-php-instalada): Es la versión del o los paquetes de PHP instalados, colocando la misma sin los (), por ejemplo:
+   **(version-php-instalada)**: Es la versión del o los paquetes de PHP instalados, colocando la misma sin los (), por ejemplo:
    
-     7.2 o en su defecto 7.3 
+    7.4 
 
 ##Configuración del Servidor de Aplicaciones
 
@@ -42,7 +42,7 @@
 
      apt install nginx
 
-   Una vez completada la instalación, inicie el servicio nginx y agréguelo para que se inicie automáticamente con el sistema operativo mediante el comando systemctl:
+   Una vez completada la instalación, inicie el servicio Nginx y agréguelo para que se inicie automáticamente con el sistema operativo mediante el comando systemctl:
 
      systemctl start nginx
 
@@ -52,7 +52,7 @@
 
      netstat -plntu
 
-   Si todo lo muestra correctamente, nginx estará instalado y en ejecución.
+   Si todo lo muestra correctamente, Nginx estará instalado y en ejecución.
 
 ##Instalar PHP-FPM
 
@@ -62,10 +62,11 @@
 
    El próximo paso es configurar el archivo php.ini de FPM, para lo cual se debe acceder a la ruta en donde fue instalado, por lo general esta ruta se encuentra en /etc/php/(version-php-instalada)/, para esto se debe editar ejecutando:
 
-     nano/etc/php/(version-php-instalada)/php.ini , donde (version-php-instalada) es la versión de php 
-      instalada en el servidor.
+     nano/etc/php/(version-php-instalada)/php.ini ,
+  
+   Donde **(version-php-instalada)** es la versión de php instalada en el servidor.
 
-   En el contenido del archivo se debe buscar y descomentar la variable cgi.fix_pathinfo=1 y cambiar el valor a 0.
+   En el contenido del archivo se debe buscar y descomentar la variable **cgi.fix_pathinfo=1** y cambiar el valor a 0.
 
      cgi.fix_pathinfo=0
 
@@ -80,13 +81,13 @@
 
      netstat -pl | grep php(version-php-instalada)-fpm
 
-   Con lo anterior, el servidor virtual para la aplicación fue creado, solo queda reiniciar el servidor nginx para que las modificaciones tengan efecto, para esto se debe ejecutar:
+   Con lo anterior, el servidor virtual para la aplicación fue creado, sólo queda reiniciar el servidor Nginx para que las modificaciones tengan efecto, para esto se debe ejecutar:
 
      systemctl restart nginx
 
 ##Configurar el servidor virtual de Nginx
 
-   Para que la aplicación se ejecute en el servidor de aplicaciones Nginx, se debe realizar una configuración adicional creando para ello un archivo que contendrá dicha configuración, para esto se ejecutará el siguiente comando:
+   Para que la aplicación se ejecute en el servidor de aplicaciones Nginx, se debe realizar una configuración adicional, creando un archivo que contendrá dicha configuración, para esto se ejecutará el siguiente comando:
 
      nano /etc/nginx/sites-available/kavac
 
@@ -122,9 +123,9 @@
                         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi _script_name;
                         include fastcgi_params;
                 }
-            
-                Guardar las modificaciones y cierra el archivo.
             }
+
+   Guarda las modificaciones y cierra el archivo.
    
    Ahora para activar el servidor virtual se debe crear un enlace simbólico al archivo de configuración de la siguiente forma:
 
@@ -228,13 +229,106 @@
 
    Lo anterior creará la estructura de tablas de la base de datos necesaria para comenzar a gestionar la información. 
 
+##Procesamiento de colas
+
+El sistema cuenta con procedimientos que permite establecer colas de trabajo para peticiones y registros con grandes cantidades de información, por tal motivo es necesario realizar una configuración previa antes de iniciar la aplicación.
+
+Dentro del archivo config/queue.php se encuentra las distintas variables a configurar para el uso de colas, por lo que se deben configurar el driver a usar para la gestión de las colas y posteriormente configurar los datos necesarios del servidor seleccionado.
+
+Lo primero es configurar dentro del archivo de entorno (.env) la variable **QUEUE_CONNECTION** para el uso del driver a implementar en la gestión de colas, por defecto está configurado para hacer uso del driver mediante base de datos de la siguiente manera:
+
+    QUEUE_CONNECTION=database
+
+Si se desea configurar otro driver para la gestión de colas se puede obtener información en la documentación oficial del framework [Laravel](https://docs.laravel.com).
+
+Una vez configurado el servidor de colas es necesario realizar los procedimientos necesarios para que los
+**workers** que procesan las colas de trabajo estén activos en todo momento, para esto es recomendable configurar a supervisorctl  de la siguiente forma:
+
+* Crear un archivo llamado **kavac-worker.conf** en la ruta **/etc/supervisor/conf.d/** con el siguiente contenido:
+
+        [program:laravel-worker]
+        process_name=%(program_name)s_%(process_num)02d
+        command=/usr/bin/php <ruta-de-la-aplicacion-kavac>/artisan queue:work sqs --sleep=3 --tries=3
+        autostart=true
+        autorestart=true
+        user=<usuario-del-sistema>
+        numprocs=1
+        redirect_stderr=true
+        stdout_logfile=<ruta-de-la-aplicacion-kavac>/storage/logs/worker.log
+        stopwaitsecs=3600
+
+!!! note ""
+
+    * `/user/bin/php` es la ruta en donde se encuentra el comando php.
+    * `<ruta-de-la-aplicacion-kavac>` es la ruta en donde se encuentra instalada la aplicación.
+    * `<usuario-del-sistema>` es el usuario del sistema operativo en donde se encuentra la aplicación, el cual tendrá los permisos necesarios para ejecutar los distintos procesos.
+
+* Actualizar y ejecutar supervisorctl de la siguiente forma:
+  
+        sudo supervisorctl reread
+
+        sudo supervisorctl update
+        
+        sudo supervisorctl start kavac-worker:*
+
+##Websockets
+
+La aplicación viene con un sistema de notificaciones en tiempo real con websockets por lo que es necesario iniciar y mantener el servidor que atiende y despacha estas peticiones, además de establecer algunos valores en el archivo **.env** de la siguiente forma:
+
+    PUSHER_APP_ID=<API_ID>
+    PUSHER_APP_KEY=<API_KEY>
+    PUSHER_APP_SECRET=<API_SECRET>
+    PUSHER_APP_CLUSTER=mt1
+    PUSHER_APP_TLS=false
+
+    WEBSOCKETS_HOST=<WEBSOCKET_IP>
+    WEBSOCKETS_PORT=<WEBSOCKET_PORT>
+    WEBSOCKETS_SSL_LOCAL_CERT=null
+    WEBSOCKETS_SSL_LOCAL_PK=null
+    WEBSOCKETS_SSL_PASSPHRASE=null
+
+    MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
+    MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
+    MIX_WEBSOCKETS_HOST="${WEBSOCKETS_HOST}"
+    MIX_WEBSOCKETS_PORT="${WEBSOCKETS_PORT}"
+    MIX_PUSHER_APP_TLS="${PUSHER_APP_TLS}"
+
+Luego de realizada la configuración en el archivo de entorno **.env** se requiere tener instalado en el servidor de aplicaciones una aplicación que monitoree y ejecute este servicio para lo cual se utiliza la aplicación **supervisor**.
+
+Una vez instalado **supervisor**, se requiere agregar y configurar un nuevo proceso que permita mantener la ejecución de los websockets de la aplicación, para lo cual se debe crear un nuevo archivo con el nombre **websockets.conf** dentro del directorio /etc/supervisor/conf.d (en Debian/Ubuntu) ó /etc/supervisord.d (en RedHat/CentOS).
+
+El archivo creado deberá contener la siguiente información:
+
+    [program:websockets]
+    command=/usr/bin/php <ruta-de-la-aplicacion-kavac>/artisan websockets:serve
+    numprocs=1
+    autostart=true
+    autorestart=true
+    user=<usuario-del-sistema>
+
+!!! note ""
+
+    * `/user/bin/php` es la ruta en donde se encuentra el comando php.
+    * `<ruta-de-la-aplicacion-kavac>` es la ruta en donde se encuentra instalada la aplicación.
+    * `<usuario-del-sistema>` es el usuario del sistema operativo en donde se encuentra la aplicación, el cual tendrá los permisos necesarios para ejecutar los distintos procesos.
+
+Con la configuración anteriormente descrita, se debe reiniciar el **supervisor** para que tome en cuenta la nueva configuración, para lo cual se ejecutan los siguientes comandos:
+
+    supervisorctl update
+
+    supervisorctl start websockets
+
+Para verificar que la configuración es correcta y el servicio se está ejecutando, se puede indicar el siguiente comando:
+
+    supervisorctl status
+
 ##Registros iniciales
     
    KAVAC, cuenta con información inicial requerida para la gestión de la aplicación, para lo cual se debe ejecutar el comando:
 
      php artisan db:seed
 
-   El anterior comando ejecutara las acciones necesarias para ingresar al sistema los datos inicialmente requeridos por la aplicación base como son: usuario, roles, permisos, localidades, estados civiles, profesiones, sectores de instituciones y tipos de instituciones.
+   El anterior comando ejecutará las acciones necesarias para ingresar al sistema los datos inicialmente requeridos por la aplicación base como son: usuario, roles, permisos, localidades, estados civiles, profesiones, sectores de instituciones y tipos de instituciones.
 
    La aplicación cuenta con una cantidad de módulos independientes que permiten expandir sus funcionalidades, cada uno de estos módulos cuentan con sus registros iniciales por lo que es necesario ejecutar un comando adicional que permita registrar información de cada módulo instalado y habilitado en el sistema, para ello se ejecuta el siguiente comando:
 
@@ -282,6 +376,26 @@
    Genera nuevo seeder para el módulo especificado (nombre del modelo en plural):
 
      php artisan module:make-seed ModuleNameModelName ModuleName
+
+##Laravel ER Diagram Generator
+
+Este paquete permite generar diagramas de entidad relación inspeccionando las relaciones definidas en sus archivos de modelo. Por defecto busca los modelos en la carpeta app. Para agregar los modelos que se encuentran en cada módulo hay que hacer lo siguiente:
+
+    // Editar en el archivo
+    vendor/beyondcode/laravel-er-diagram-generator/config/config.php
+
+    // Esta sección en la linea 9
+    'directories' => [
+        base_path('app'),
+    // Carpeta agregada para el módulo Payroll
+        base_path('modules/Payroll/Models'),
+    ],
+
+En ese ejemplo genera el diagrama del sistema base y del módulo Talento Humano.
+
+Comando para generar el diagrama:
+
+    php artisan generate:erd kavac.svg --format=svg     
 
 </div>
 

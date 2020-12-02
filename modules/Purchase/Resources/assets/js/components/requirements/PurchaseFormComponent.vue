@@ -2,7 +2,7 @@
     <div class="form-horizontal">
         <div class="card-body">
             
-            <purchase-show-errors refs="PurchaseFormComponent" />
+            <purchase-show-errors ref="PurchaseFormComponent" />
 
             <div class="row">
                 <div class="col-md-12">
@@ -40,13 +40,13 @@
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="form-group">
-                        <label for="purchase_supplier_types">Tipo</label>
-                        <select2 :options="purchase_supplier_types" id="purchase_supplier_types" v-model='record.purchase_supplier_type_id'></select2>
+                    <div class="form-group is-required">
+                        <label for="purchase_supplier_objects">Tipo</label>
+                        <select2 :options="purchase_supplier_objects" id="purchase_supplier_objects" v-model='record.purchase_supplier_object_id'></select2>
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="form-group">
+                    <div class="form-group is-required">
                         <label for="description">Descripción</label>
                         <input type="text" id="description" v-model="record.description" class="form-control">
                     </div>
@@ -67,10 +67,14 @@
 
             <hr>
             <v-client-table :columns="columns" :data="record_products" :options="table_options" class="row">
-                <!-- <div slot="measurement_unit_id" slot-scope="props" class="text-center">
-                    <select2 :options="measurement_units" v-model="props.row.measurement_unit_id"
-                            @input="changeMeasurementUnit(props.index, props.row.measurement_unit_id)"></select2>
-                </div> -->
+                <div slot="measurement_unit" slot-scope="props" class="text-center">
+                    <p v-if="props.row.warehouse_product && props.row.warehouse_product.measurement_unit && props.row.warehouse_product.measurement_unit.name">
+                        {{ props.row.warehouse_product.measurement_unit.name }}
+                    </p>
+                    <p v-else>
+                        {{ props.row.measurement_unit }}
+                    </p>
+                </div>
                 <div slot="technical_specifications" slot-scope="props" class="text-center">
                     <span>
                         <input type="text" :id="props.index" 
@@ -124,7 +128,7 @@
                     return [{ id:'', text:'Seleccione...'}];
                 }
             },
-            purchase_supplier_types:{
+            purchase_supplier_objects:{
                 type:Array,
                 default: function(){
                     return [{ id:'', text:'Seleccione...'}];
@@ -156,7 +160,7 @@
                     contracting_department_id : '',
                     user_department_id        : '',
                     warehouse_id              : '',
-                    purchase_supplier_type_id : '',
+                    purchase_supplier_object_id : '',
                     description               : '',
                     fiscal_year_id            : '',
                     products                  : [],
@@ -199,7 +203,7 @@
 
                 this.record.contracting_department_id = this.requirement_edit.contracting_department_id;
                 this.record.user_department_id = this.requirement_edit.user_department_id;
-                this.record.purchase_supplier_type_id = this.requirement_edit.purchase_supplier_type_id;
+                this.record.purchase_supplier_object_id = this.requirement_edit.purchase_supplier_object_id;
                 this.record.fiscal_year_id = this.requirement_edit.fiscal_year_id;
                 this.record_products = this.requirement_edit.purchase_requirement_items;
             }
@@ -211,7 +215,7 @@
                     contracting_department_id : '',
                     user_department_id        : '',
                     warehouse_id              : '',
-                    purchase_supplier_type_id : '',
+                    purchase_supplier_object_id : '',
                     description               : '',
                     products                  : [],
                 };
@@ -309,9 +313,9 @@
             changeTecnicalSpecifications({ type, target }){
                 this.record_products[target.id-1].technical_specifications = target.value;
             },
-            changeMeasurementUnit(index, id){
-                this.record_products[index-1].measurement_unit_id = id;
-            },
+            // changeMeasurementUnit(index, id){
+            //     this.record_products[index-1].measurement_unit_id = id;
+            // },
             // fetchDataRecord(){
             //     // if (this.record.warehouse_id != '' && this.record.warehouse_id != this.compare_contracting_department_id) {
             //     //     this.compare_contracting_department_id = this.record.warehouse_id;

@@ -233,6 +233,7 @@ Route::group(
         //Route::get('report/show/{code}', 'SaleReportController@show');
 
         /**
+
          * ---------------------------------------------------------------------------------
          * Rutas para gestionar la generación de reportes en el Modulo de Comercialización
          * ---------------------------------------------------------------------------------
@@ -241,5 +242,15 @@ Route::group(
         Route::get('bills/create', 'SaleBillController@create')->name('sale.bills.create');
         Route::get('bills', 'SaleBillController@index')->name('sale.bills.index');
         Route::get('bills/vue-list', 'SaleBillController@vueList');
+
+        /*
+         * ------------------------------------------------------------
+         * Rutas para gestionar la generación de reportes en el Modulo de Pedidos
+         * ------------------------------------------------------------
+         */
+        Route::get('reports/orders', 'SaleOrderReportController@listOrders')
+            ->name('sale.report.orders');
+        //Route::post('reports/orders/vue-list', 'SaleOrderReportController@vueList');
+
     }
 );

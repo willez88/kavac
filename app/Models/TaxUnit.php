@@ -37,6 +37,13 @@ class TaxUnit extends Model implements Auditable
     protected $fillable = ['value', 'start_date', 'end_date', 'active'];
 
     /**
+     * Oculta los campos de fechas de creación, actualización y eliminación
+     *
+     * @var    array $hidden
+     */
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
+    /**
      * Método mutador que permite obtener información del campo start_date en formato de fecha sin marca de tiempo
      *
      * @method     getStartDateAttribute()

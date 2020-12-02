@@ -6,34 +6,33 @@
 
 ## Desincorporación de bienes institucionales 
 
-La gestión para retiro de bienes institucionales se lleva a cabo a través de la sección **Desincorporación de Bienes**, desde esta sección se lista todos los registros de desincorporación realizados y permite crear una nuevo registro, además a través de los botones ubicados en la columna titulada **Acción** de la tabla de registros, es posible ver información detallada, eliminar y modificar los registros.  
+La gestión para el retiro de bienes institucionales se lleva a cabo a través de la sección **Desincorporación de Bienes**, esta sección lista los registros de desincorporación realizados, permite crear un nuevo registro y a través de los botones ubicados en la columna titulada **Acción** de la tabla de registros, es posible visualizar la información de forma detallada, eliminar y modificar un registros.  
 
 
 ![Screenshot](/img/bienes_desincorporados.jpg)<div style="text-align: center;font-weight: bold">Figura: Bienes Institucionales Desincorporados</div>
 
 ###Crear una nueva desincorporación
 
-- Dirigirse al **Módulo de Bienes**, luego a **Desincorporación** y ubicarse en la sección **Desincorporación de bienes institucionales**
-- Haciendo uso del botón **Crear** ubicado en la esquina superior derecha de esta sección, se procede a realizar una nueva desincorporación
-- Se completa el formulario de registro en el que es posible adjuntar varios archivos que justifiquen la desincorporación.  Los archivos permitidos son: odt, pdf, png, jpg, jpeg, doc y docx. 
-- Se selecciona los bienes a desincorporar 
-- Se presiona el botón **Guardar**, y se verifica en la lista de registros la desincorporación    
+- Dirigirse al **Módulo de Bienes**, luego a **Desincorporación** y ubicarse en la sección **Desincorporación de Bienes Institucionales**.
+- Haciendo uso del botón **Crear** ![Screenshot](/img/create.png) ubicado en la esquina superior derecha de esta sección, se procede a realizar una nueva desincorporación.
+- Se completa el formulario de la sección **Desincorporación de Bienes Institucionales**, en el que es posible adjuntar varios archivos que justifiquen la desincorporación.  Los archivos permitidos son: odt, pdf, png, jpg, jpeg, doc y docx. 
+- Se selecciona los bienes a desincorporar. 
+- Se presiona el botón **Guardar** ![Screenshot](/img/save.png) y se verifica en la lista de registros la desincorporación.    
 
 ![Screenshot](/img/desincorporar_bien.jpg)<div style="text-align: center;font-weight: bold">Figura: Desincorporar Bienes Institucionales</div>
 
 !!! note "Nota"
-	En la parte inferior de esta sección (Desincorporar Bienes Institucionales) se muestran los resultados filtrados una vez que el usuario completa la información de los bienes a ser asignados y presiona el botón **Buscar**, si el usuario no introduce ningun dato del bien y presiona el botón **Buscar** entonces el sistema muestra todos los bienes que pueden ser desincorporados.    
+	En la parte inferior de esta sección (**Desincorporar Bienes Institucionales**) se presenta los resultados filtrados una vez que el usuario completa la información de los bienes a ser  desincorporados y presiona el botón **Buscar**, si el usuario no introduce ningún parámetro asociado al bien y presiona el botón **Buscar**, el sistema presenta el listado de los bienes que pueden ser desincorporados.    
 
-	Para asignar varios bienes, se hace uso del botón **Checkbox** ubicado en la primera columna de la tabla de registros, finalmente se presiona el botón **Guardar** para registrar la asignación.
+	Para desincorporar más de un bien, se hace uso del botón **Checkbox** ubicado en la primera columna de la tabla de registros, finalmente se presiona el botón **Guardar** para registrar la desincorporación.
 
-###Editar una desincorporación 
+	![Screenshot](/img/search.png) **Buscar** 
 
-Hacer uso de los botones ubicados en la columna titulada **Acción** en la sección [Desincorporación de Bienes Institucionales](#desincorporacion-de-bienes-institucionales_1).
+###Gestión de registros
 
-###Eliminar una desincorporación 
+Para **Ver información detallada**, **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de registros en la sección de **Desincorporación de Bienes Institucionales**.
 
-Hacer uso de los botones ubicados en la columna titulada **Acción** en la sección [Desincorporación de Bienes Institucionales](#desincorporacion-de-bienes-institucionales_1).
-
+![Screenshot](/img/manage.png#imagen)
 
 </div>
 

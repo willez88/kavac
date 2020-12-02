@@ -122,35 +122,65 @@ class AccountingDailyBookController extends Controller
          */
         $url = 'dailyBook/'.$initDate.'/'.$endDate;
 
-        /**
-         * [$report almacena el registro del reporte del dia si existe]
-         * @var [type]
-         */
-        $report = AccountingReportHistory::whereBetween('updated_at', [
-                                                                        $initDate.' 00:00:00',
-                                                                        $endDate.' 23:59:59'
-                                                                    ])
-                                        ->where('report', 'Libro Diario')
-                                        ->where('institution_id', $user_profile['institution']['id'])->first();
+
+        if (auth()->user()->isAdmin()) {
+            /**
+             * [$report almacena el registro del reporte del dia si existe]
+             * @var [type]
+             */
+            $report = AccountingReportHistory::whereBetween('updated_at', [
+                                                                            $initDate.' 00:00:00',
+                                                                            $endDate.' 23:59:59'
+                                                                        ])
+                                            ->where('report', 'Libro Diario')->first();
+        }else{
+            /**
+             * [$report almacena el registro del reporte del dia si existe]
+             * @var [type]
+             */
+            $report = AccountingReportHistory::whereBetween('updated_at', [
+                                                                            $initDate.' 00:00:00',
+                                                                            $endDate.' 23:59:59'
+                                                                        ])
+                                            ->where('report', 'Libro Diario')
+                                            ->where('institution_id', $user_profile['institution']['id'])->first();
+        }
 
         /*
         * se crea o actualiza el registro del reporte
         */
-        if (!$report) {
-            $report = AccountingReportHistory::create(
-                [
-                    'report'         => 'Libro Diario',
-                    'url'            => $url,
-                    'currency_id'    => $currency->id,
-                    'institution_id' => $user_profile['institution']['id'],
-                ]
-            );
-        } else {
-            $report->url            = $url;
-            $report->currency_id    = $currency->id;
-            $report->institution_id = $user_profile['institution']['id'];
-            $report->save();
-        }
+       
+        if (auth()->user()->isAdmin()){
+            if (!$report) {
+                $report = AccountingReportHistory::create(
+                    [
+                        'report'         => 'Libro Diario',
+                        'url'            => $url,
+                        'currency_id'    => $currency->id,
+                    ]
+                );
+            } else {
+                $report->url            = $url;
+                $report->currency_id    = $currency->id;
+                $report->save();
+            }
+       }else{
+            if (!$report) {
+                $report = AccountingReportHistory::create(
+                    [
+                        'report'         => 'Libro Diario',
+                        'url'            => $url,
+                        'currency_id'    => $currency->id,
+                        'institution_id' => $user_profile['institution']['id'],
+                    ]
+                );
+            } else {
+                $report->url            = $url;
+                $report->currency_id    = $currency->id;
+                $report->institution_id = $user_profile['institution']['id'];
+                $report->save();
+            }
+       }
 
         return response()->json(['result'=>true, 'id'=>$report->id], 200);
     }

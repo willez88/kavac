@@ -165,13 +165,23 @@ Vue.component('sale-bill-create', () => import(
 );
 
 /**
- * Componente para mostrar un listado de los ingresos de productos al almacén
+ * Componente para mostrar un listado de las facturas
  *
  * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
  */
 Vue.component('sale-bill-list', () => import(
     /* webpackChunkName: "sale-bill-list" */
     './components/bills/SaleBillListComponent.vue')
+);
+
+/*
+ * Componente para gestionar la creación de los reportes de Pedidos
+ *
+ * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+ */
+Vue.component('sale-report-orders', () => import(
+    /* webpackChunkName: "sale-report-products" */
+    './components/reports/SaleReportOrdersComponent.vue')
 );
 
 /**
