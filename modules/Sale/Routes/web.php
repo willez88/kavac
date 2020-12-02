@@ -40,6 +40,26 @@ Route::group(
             ['as' => 'sale', 'except' => ['create','edit','show']]
         );
 
+        Route::get(
+            'get-sale-clients-name',
+            'SaleClientsController@getSaleClientsName'
+        )->name('sale.get-sale-clients-name');
+
+        Route::get(
+            'get-sale-clients-rif',
+            'SaleClientsController@getSaleClientsRif'
+        )->name('sale.get-sale-clients-rif');
+
+        Route::get(
+            'get-sale-clients-address',
+            'SaleClientsController@getSaleClientsAddress'
+        )->name('sale.get-sale-clients-address');
+
+        Route::get(
+            'get-sale-clients-fiscal-address',
+            'SaleClientsController@getSaleClientsFiscalAddress'
+        )->name('sale.get-sale-clients-fiscal-address');
+
         Route::resource(
             'register-formatcode',
             'SaleCodeFormatController',
@@ -211,5 +231,15 @@ Route::group(
         //Route::post('reports/inventory-products/create', 'SaleReportController@create');
 
         //Route::get('report/show/{code}', 'SaleReportController@show');
+
+        /**
+         * ---------------------------------------------------------------------------------
+         * Rutas para gestionar la generación de reportes en el Modulo de Comercialización
+         * ---------------------------------------------------------------------------------
+         */
+
+        Route::get('bills/create', 'SaleBillController@create')->name('sale.bills.create');
+        Route::get('bills', 'SaleBillController@index')->name('sale.bills.index');
+        Route::get('bills/vue-list', 'SaleBillController@vueList');
     }
 );

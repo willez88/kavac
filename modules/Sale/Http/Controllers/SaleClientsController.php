@@ -191,4 +191,49 @@ class SaleClientsController extends Controller
         $client->delete();
         return response()->json(['record' => $client, 'message' => 'Success'], 200);
     }
+
+    /**
+     * Obtiene el rif de los clientes registrados
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de los productos
+     */
+    public function getSaleClientsName()
+    {
+        return response()->json(template_choices(SaleClients::class, 'name', '', true));
+    }
+
+
+    /**
+     * Obtiene el rif de los clientes registrados
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de los productos
+     */
+    public function getSaleClientsRif()
+    {
+        return response()->json(template_choices(SaleClients::class, 'rif', '', true));
+    }
+
+    /**
+     * Obtiene el rif de los clientes registrados
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de los productos
+     */
+    public function getSaleClientsAddress()
+    {
+        return response()->json(template_choices(SaleClients::class, 'address', '', true));
+    }
+
+    /**
+     * Obtiene el rif de los clientes registrados
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de los productos
+     */
+    public function getSaleClientsFiscalAddress()
+    {
+        return response()->json(template_choices(SaleClients::class, 'address_tax', '', true));
+    }
 }

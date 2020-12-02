@@ -155,6 +155,26 @@ Vue.component('sale-report-products', () => import(
 );
 
 /**
+ * Componentes para gestionar la creación de facturas
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-bill-create', () => import(
+    /* webpackChunkName: "sale-bill-create" */
+    './components/bills/SaleBillCreateComponent.vue')
+);
+
+/**
+ * Componente para mostrar un listado de los ingresos de productos al almacén
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-bill-list', () => import(
+    /* webpackChunkName: "sale-bill-list" */
+    './components/bills/SaleBillListComponent.vue')
+);
+
+/**
  * Opciones de configuración global del módulo de Commercialización
  */
 Vue.mixin({

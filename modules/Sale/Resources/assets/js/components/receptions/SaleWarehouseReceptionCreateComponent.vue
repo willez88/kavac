@@ -367,10 +367,6 @@
     		if (this.receptionid) {
     			this.loadReception(this.receptionid);
     		}
-
-    		
-
-
     	},
     };
     </script>
