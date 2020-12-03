@@ -70,7 +70,7 @@
 												<strong>Tipo de Solicitud</strong>
 												<div class="row" style="margin: 1px 0">
 													<span class="col-md-12" id="citizen_service_request_type_id">
-													</span>
+												   </span>
 												</div>
 								            </div>
 										</div>
@@ -195,18 +195,28 @@
 
 				const vm = this;
             	var fields = {};
-
+                var tipo="";
             	document.getElementById("info_general").click();
 
             	axios.get(url).then(response => {
+
 					if (typeof(response.data.record) !== "undefined") {
+
 						fields = response.data.record;
+						if(fields.citizen_service_request_type_id == 1) {
+  							tipo = "Soporte técnico";
+  						} else if (fields.citizen_service_request_type_id == 2) {
+  							tipo = "Migración a software libre";
+  						} else if (fields.citizen_service_request_type_id == 3) {
+  							 tipo = "Desarrollo de software libre";
+  						} else {
+  							tipo = "Talleres de formación - asesorias";
+  						};
 
 						$(".modal-body #id").val( fields.id );
-
 		            	document.getElementById('date').innerText = (fields.date)?fields.date:'N/A';
 		            	document.getElementById('motive_request').innerText = (fields.motive_request)?fields.motive_request:'N/A';
-		            	document.getElementById('citizen_service_request_type_id').innerText = (fields.citizen_service_request_type_id)?fields.citizen_service_request_type_id:'N/A';
+		            	document.getElementById('citizen_service_request_type_id').innerText = tipo;						
 		            	document.getElementById('applicant_name').innerText = (fields.first_name)?((fields.last_name)?(fields.first_name+fields.last_name):(fields.first_name)):'N/A';
 		            	let phoneText = `
 		            		<div class = "col-md-6">
@@ -224,7 +234,7 @@
 		            	document.getElementById('institution_address').innerText = (fields.institution_address)?fields.institution_address:'N/A';
 		            	document.getElementById('web').innerText = (fields.web)?fields.web:'N/A';
 					}
-					console.log('filterable');
+
 					if ($("#" + modal_id).length) {
 						$("#" + modal_id).modal('show');
 					}
