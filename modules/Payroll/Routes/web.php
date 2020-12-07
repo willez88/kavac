@@ -22,11 +22,17 @@ Route::group([
     /** Ruta que permite editar la información de un registro de nómina */
     Route::get('registers/edit/{register}', 'PayrollController@edit')->name('payroll.registers.edit');
 
-    /** Ruta que obtiene la información de un registro de nómina */
+    /** Ruta que permite visualizar la información de un registro de nómina */
     Route::get('registers/show/{register}', 'PayrollController@show')->name('payroll.registers.show');
+
+    /** Ruta que obtiene la información de un registro de nómina */
+    Route::get('registers/vue-info/{register}', 'PayrollController@vueInfo')->name('payroll.registers.vue-info');
 
     /** Ruta que obtiene un listado de los registros de nómina */
     Route::get('registers/vue-list', 'PayrollController@vueList')->name('payroll.registers.vue-list');
+
+    /** Ruta que actualiza el estado de un registro de nómina para evitar su edición */
+    Route::patch('registers/close/{register}', 'PayrollController@close')->name('payroll.registers.close');
 
     /** Ruta para visualizar la sección de configuración del módulo */
     Route::get('settings', 'PayrollSettingController@index')->name('payroll.settings.index');

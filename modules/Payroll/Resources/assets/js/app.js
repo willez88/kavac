@@ -321,6 +321,16 @@ Vue.component('payroll-registers-form', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
+Vue.component('payroll-registers-show', () => import(
+    /* webpackChunkName: "payroll-registers-show" */
+    './components/registers/PayrollShowComponent.vue')
+);
+
+/**
+ * Componente para mostrar listado de registros de nómina
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
 Vue.component('payroll-registers-list', () => import(
     /* webpackChunkName: "payroll-registers-list" */
     './components/registers/PayrollListComponent.vue')

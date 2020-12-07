@@ -461,7 +461,7 @@
                                                  :disabled="(((operator == '') ||
                                                  ((value == '') && (type != 'boolean'))) &&
                                                  ((variable == 'worker_record') || (variable == 'vacation')))"
-                                                 @click="getAcronymVariable()">
+                                                 @click="getCodeVariable()">
                                                 {{ updateNameVariable }}
                                             </div>
                                         </div>
@@ -869,7 +869,7 @@
              * @author    Henry Paredes <hparedes@cenditel.gob.ve> | <henryp2804@gmail.com>
              * @return    {string}
              */
-            getAcronymVariable() {
+            getCodeVariable() {
                 const vm = this;
                 var response = '';
                 if (((vm.variable != 'worker_record') && (vm.variable != 'vacation')) ||
@@ -878,16 +878,16 @@
                     if (vm.variable_option != '') {
                         $.each(vm.variable_options, function(index, field) {
                             if (field['id'] == vm.variable_option) {
-                                if (typeof field['acronym'] !== 'undefined') {
-                                    response = field['acronym'];
+                                if (typeof field['code'] !== 'undefined') {
+                                    response = field['code'];
                                 } else if (typeof field['id'] !== 'undefined') {
                                     response = 'if(' + field['id'] + ' ' + vm.operator + ' ' + vm.value + '){}';
                                 }
                             } else if (typeof field['children'] !== 'undefined') {
                                 $.each(field['children'], function(index, field) {
                                     if (field['id'] == vm.variable_option) {
-                                        if (typeof field['acronym'] !== 'undefined') {
-                                            response = field['acronym'];
+                                        if (typeof field['code'] !== 'undefined') {
+                                            response = field['code'];
                                         } else if (typeof field['id'] !== 'undefined') {
                                             response = 'if(' + field['id'] + ' ' + vm.operator + ' ' + vm.value + '){}';
                                         }
@@ -899,9 +899,13 @@
                     if (response != '') {
                         if (vm.record.formula != '') {
                             let keys = vm.record.formula.indexOf('}');
-                            let firstFormula = vm.record.formula.substr(0, keys);
-                            let lastFormula = vm.record.formula.substr(keys, vm.record.formula.length);
-                            vm.record.formula = firstFormula + response + lastFormula;
+                            if (keys > 0) {
+                                let firstFormula = vm.record.formula.substr(0, keys);
+                                let lastFormula = vm.record.formula.substr(keys, vm.record.formula.length);
+                                vm.record.formula = firstFormula + response + lastFormula;
+                            } else {
+                                vm.record.formula += response;
+                            }
                         } else {
                             vm.record.formula += response;
                         }
