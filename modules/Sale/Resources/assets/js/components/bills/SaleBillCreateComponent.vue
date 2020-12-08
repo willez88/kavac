@@ -35,7 +35,7 @@
                         <div class="form-group is-required" v-show="record.sale_client_id != 0">
                             <label>Nombre o razón social:</label>
                             <select2 :options="sale_clients_name" :disabled="true"
-                                     v-model="record.sale_client_id" :aria-disabled="disabled"></select2>
+                                     v-model="record.sale_client_id"></select2>
                         </div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                         <div class="form-group is-required" v-show="record.sale_client_id != 0">
                             <label>Dirección:</label>
                             <select2 :options="sale_clients_address" :disabled="true"
-                                     v-model="record.sale_client_id"></select2>
+                                    v-model="record.sale_client_id"></select2>
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                         <div class="form-group is-required">
                             <label>Dirección Fiscal:</label>
                             <select2 :options="sale_clients_fiscal_address" :disabled="true"
-                                     v-model="record.sale_client_id"></select2>
+                                    v-model="record.sale_client_id"></select2>
                         </div>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                     <div class="form-group is-required">
                         <label>Forma de cobro:</label>
                         <select2 :options="sale_payment_method"
-                                v-model="record.sale_payment_method"></select2>
+                                v-model="record.sale_payment_method_id"></select2>
                     </div>
                 </div>
                 <div class="col-md-3" id="SaleHelpDiscountSwitch">
@@ -126,9 +126,6 @@
                             {{ (props.row.sale_setting_product)?
                                 props.row.sale_setting_product.name + '.':''
                             }} <br>
-                            {{ (props.row.sale_setting_product)?
-                                    props.row.sale_setting_product.description:''
-                            }} <br>
                         </span>
                         <span>
                             <b>Valor:</b> {{props.row.unit_value}} {{(props.row.currency)?props.row.currency.acronym:''}}
@@ -145,7 +142,7 @@
                     </div>
                     <div slot="requested" slot-scope="props" >
                         <div>
-                            <input type="number" class="form-control table-form input-sm" data-toggle="tooltip" min=0 :max="props.row.exist" :id="'request_product_'+props.row.id" onfocus="this.select()" @input="selectElement(props.row.id)">
+                            <input type="number" class="form-control table-form input-sm" data-toggle="tooltip" min=0 :max="props.row.exist" :id="'sale_bill_product_'+props.row.id" onfocus="this.select()" @input="selectElement(props.row.id)">
                         </div>
                     </div>
                 </v-client-table>
@@ -167,7 +164,7 @@
                             <i class="fa fa-ban"></i>
                     </button>
 
-                    <button type="button"  @click="createReception('sale/receptions')"
+                    <button type="button"  @click="createBill('sale/bills')"
                             class="btn btn-success btn-icon btn-round btn-modal-save"
                             title="Guardar registro">
                         <i class="fa fa-save"></i>
@@ -184,11 +181,13 @@
             return {
                 record: {
                     id: '',
-                    institution_id: '',
                     sale_warehouse_id: '',
                     sale_client_id: '',
-                    sale_setting_product_id: '',
-                    sale_warehouse_products: [],
+                    sale_payment_method_id: '',
+                    currency_id: '',
+                    sale_discount_id: '',
+                    institution_id: '',
+                    sale_setting_products: [],
                 },
                 
                 records: [],
@@ -218,9 +217,7 @@
                 sale_clients_address: [],
                 sale_clients_fiscal_address: [],
                 sale_discount: [],
-                institutions: [],
                 sale_warehouse: [],
-                sale_setting_products: [],
                 currencies: [],
                 sale_payment_method: [],
 
@@ -237,6 +234,28 @@
             billid: Number, 
         },
         methods: {
+            createBill(url){
+				const vm = this;
+				vm.record.sale_setting_products = [];
+				var complete = true;
+                if(!vm.selected.length > 0){
+                	bootbox.alert("Debe agregar almenos un elemento a la solicitud");
+					return false;
+				};
+                $.each(vm.selected,function(index,campo){
+                    var value = document.getElementById("sale_bill_product_"+campo).value;
+                    if (value == "") {
+						bootbox.alert("Debe ingresar la cantidad solicitada para cada producto seleccionado");
+						complete = false;
+						return;
+					}
+                    vm.record.sale_setting_products.push(
+                        {id:campo, requested:value});
+
+                });
+                if (complete == true)
+                	vm.createRecord(url)
+			},
             toggleActive({ row }) {
 				const vm = this;
 				var checkbox = document.getElementById('checkbox_' + row.id);
@@ -261,9 +280,7 @@
             reset() {
                 this.record = {
                     id: '',
-                    sale_setting_product_id: '',
-                    sale_setting_product_name: '',
-                    sale_warehouse_products: [],
+                    sale_setting_products: [],
                 },
                 this.editIndex = null;
             },
@@ -281,7 +298,7 @@
 				});
 			},
 			selectElement(id) {
-				var input = document.getElementById('request_product_' + id);
+				var input = document.getElementById('sale_bill_product_' + id);
 	            var checkbox = document.getElementById('checkbox_' + id);
 	            if ((input.value == '')||(input.value == 0)){
 	                if(checkbox.checked){
@@ -299,17 +316,6 @@
                 axios.get('/sale/get-salewarehousemethod/' + vm.record.institution_id).then(response => {
                     vm.sale_warehouse = response.data;
                 });
-            },
-
-            getSaleSettingProduct() {
-                const vm = this;
-                vm.sale_setting_products = [];
-
-                if (vm.record.sale_warehouse_id != '') {
-                    axios.get('/sale/get-setting-product/').then(response => {
-                        vm.sale_setting_products = response.data;
-                    });
-                }
             },
 
             getSaleClientsRif() {

@@ -235,10 +235,11 @@ Route::group(
         /**
 
          * ---------------------------------------------------------------------------------
-         * Rutas para gestionar la generación de reportes en el Modulo de Comercialización
+         * Rutas para gestionar la generación de facturas en el Modulo de Comercialización
          * ---------------------------------------------------------------------------------
          */
 
+        Route::resource('bills', 'SaleBillController', ['only' => 'store']);
         Route::get('bills/create', 'SaleBillController@create')->name('sale.bills.create');
         Route::get('bills', 'SaleBillController@index')->name('sale.bills.index');
         Route::get('bills/vue-list', 'SaleBillController@vueList');

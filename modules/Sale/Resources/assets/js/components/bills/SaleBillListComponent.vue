@@ -1,13 +1,21 @@
 <template>
     <v-client-table :columns="columns" :data="records" :options="table_options">
-        <div slot="code" slot-scope="props" class="text-center">
+        <div slot="description" slot-scope="props">
             <span>
-                {{ props.row.code }}
+                Cliente: {{ (props.row.sale_client_id)?props.row.sale_client_id:'N/A' }}
+                Almacén: {{ (props.row.sale_warehouse_id)?props.row.sale_warehouse_id:'N/A' }}
+                Forma de pago: {{ (props.row.sale_payment_method_id)?props.row.sale_payment_method_id:'N/A' }}
             </span>
         </div>
-        <div slot="sale_warehouse" slot-scope="props">
+        <div slot="inventory" slot-scope="props">
             <span>
-                {{ (props.row.sale_warehouse_institution_warehouse_end)?props.row.sale_warehouse_institution_warehouse_end.sale_warehouse.name:'N/A' }}
+                Descuento: {{ (props.row.sale_discount_id)?props.row.sale_discount_id:'N/A' }}
+                Método de pago: {{ (props.row.currency_id)?props.row.currency_id:'N/A' }}
+            </span>
+        </div>
+        <div slot="requested" slot-scope="props">
+            <span>                
+                {{ (props.row.sale_setting_products)?props.row.sale_setting_products:'N/A' }}
             </span>
         </div>
         <div slot="state" slot-scope="props">
@@ -43,20 +51,26 @@
         data() {
             return {
                 records: [],
-                columns: ['code', 'description', 'inventory', 'requested', 'state', 'id']
+                columns: ['description', 'inventory', 'requested', 'state', 'id']
             }
         },
         created() {
             this.table_options.headings = {
-                'code': 'Código',
                 'description': 'Descripción',
                 'inventory': 'Inventario',
                 'requested': 'Solicitados',
                 'state': 'Estado de la factura',
                 'id': 'Acción'
             };
-            this.table_options.sortable = ['code', 'description', 'inventory', 'requested', 'state'];
-            this.table_options.filterable = ['code', 'description', 'inventory', 'requested', 'state'];
+            this.table_options.sortable = ['description', 'inventory', 'requested', 'state'];
+            this.table_options.filterable = ['description', 'inventory', 'requested', 'state'];
+            this.table_options.columnsClasses = {
+				'description': 'col-md-3',
+                'inventory': 'col-md-3',
+                'requested': 'col-md-2',
+                'state': 'col-md-2',
+				'id': 'col-md-2'
+			};
         },
         mounted () {
             this.initRecords(this.route_list, '');
