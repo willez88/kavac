@@ -74,7 +74,8 @@
                         <!-- período de pago -->
                         <div class="form-group is-required">
                             <label>Período de pago:</label>
-                            <select2 :options="payroll_payment_periods" disabled
+                            <select2 id="paymentPeriod_select"
+                                     :options="payroll_payment_periods" disabled
                                      v-model="record.payroll_payment_period_id"></select2>
                         </div>
                         <!-- ./período de pago -->
@@ -115,7 +116,9 @@
                                                type="text" data-toggle="tooltip"
                                                :title="'Indique el parámetro '+ payroll_parameter['code'] + ' (requerido)'"
                                                class="form-control input-sm"
-                                               v-input-mask data-inputmask-regex="^[0-9]+\.[0-9]{2}$"
+                                               v-input-mask data-inputmask="
+                                                    'alias': 'numeric',
+                                                    'allowMinus': 'false'"
                                                v-else>
                                     </div>
                                 </div>
@@ -154,14 +157,6 @@
                                         <strong>Día de semana de inicio de mes:</strong>
                                         <div class="row" style="margin: 1px 0">
                                             <span class="col-md-12" id="start_month_day"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <strong>Código de día de semana de inicio de mes:</strong>
-                                        <div class="row" style="margin: 1px 0">
-                                            <span class="col-md-12" id="start_month_date"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -209,15 +204,16 @@
                 payroll_payment_periods: [],
                 payroll_concepts:        [],
                 payroll_parameters:      [],
+                days: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
                 errors:                  [],
                 records:                 []
             }
         },
         props: {
             payroll_id: {
-                type: Number,
+                type:     Number,
                 required: false,
-                default: ''
+                default:  ''
             }
         },
         created() {
@@ -229,7 +225,7 @@
         mounted() {
             const vm = this;
             if (vm.payroll_id) {
-
+                vm.showRecord(vm.payroll_id);
             } else {
                 vm.record.created_at = vm.format_date(new Date(), 'YYYY-MM-DD');
             }
@@ -248,6 +244,7 @@
                         $.each(vm.payroll_payment_periods, function(index, field) {
                             if ((field['payment_status'] == 'pending') && (vm.record.payroll_payment_period_id == '')) {
                                 vm.record.payroll_payment_period_id = field['id'];
+                                $("#paymentPeriod_select").val(field['id']).select2();
                                 /** Calcular las fechas de información general con moment */
                                 vm.getGeneralInformation(field['text']);
                             }
@@ -290,6 +287,15 @@
                     axios.get('/payroll/get-payment-periods/' + vm.record.payroll_payment_type_id).then(response => {
                         vm.payroll_payment_periods = response.data.records;
                         vm.record.payroll_concepts = response.data.concepts;
+                        if (vm.payroll_id) {
+                            $.each(vm.payroll_payment_periods, function(index, field) {
+                                if (vm.record.payroll_payment_period.id == field['id']) {
+                                    vm.record.payroll_payment_period_id = field['id'];
+                                    $("#paymentPeriod_select").val(field['id']).select2();
+                                    vm.getGeneralInformation(field['text']);
+                                }
+                            });
+                        }
                     });
                 }
             },
@@ -334,20 +340,47 @@
                 }
             },
             getGeneralInformation(date) {
-                const vm =this;
+                const vm = this;
                 let mondays = [];
                 let monday = vm.start_day(date, "DD/MM/YYYY", 'month', 'Monday');
-                let month_init = vm.start_day(date, "DD/MM/YYYY", 'month', 1);
-                console.log(month_init);
-                if (monday.date() > 7) monday.add(7,'d');
+                let i = 0;
+                let month_init = vm.start_day(date, "DD/MM/YYYY", 'month', i);
+                while(month_init.date() != 1) {
+                    i++;
+                    month_init = vm.start_day(date, "DD/MM/YYYY", 'month', i);
+                }
+                if (monday.date() > 7) {
+                    monday.add(7,'d');
+                }
                 let month = monday.month();
-                while(month === monday.month()){
+                while(month === monday.month()) {
                     mondays.push(monday.toString());
                     monday.add(7,'d');
                 }
                 document.getElementById('number_of_days_monday').innerText = mondays.length;
                 document.getElementById('first_monday').innerText = mondays[0];
-            }
+                document.getElementById('start_month').innerText = month_init.toString();
+                document.getElementById('start_month_day').innerText = vm.days[i]
+            },
+
+            /**
+             * Reescribe el método showRecord para cambiar su comportamiento por defecto
+             * Método que muestra datos de un registro seleccionado
+             *
+             * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             *
+             * @param    {integer}    id    Identificador del registro a mostrar
+             */
+            showRecord(id) {
+                const vm = this;
+                axios.get('/payroll/registers/vue-info/' + id).then(response => {
+                    vm.record = response.data.record;
+                    vm.record.created_at = vm.format_date(response.data.record.created_at, 'YYYY-MM-DD');
+                    if (response.data.record.payroll_payment_period) {
+                        vm.record.payroll_payment_type_id = response.data.record.payroll_payment_period.payroll_payment_type_id;
+                    }
+                });
+            },
         }
     };
 </script>

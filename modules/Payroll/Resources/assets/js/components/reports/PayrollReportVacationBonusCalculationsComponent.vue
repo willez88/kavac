@@ -1,5 +1,5 @@
 <template>
-    <section id="PayrollReportVacationStatusForm">
+    <section id="PayrollReportVacationBonusCalculationsForm">
         <div class="card-body">
             <div class="alert alert-danger" v-if="errors.length > 0">
                 <ul>
@@ -45,7 +45,7 @@
                     <button type="button"
                             class='btn btn-sm btn-info float-right'
                             title="Buscar registro" data-toggle="tooltip"
-                            @click="searchRecords('vacation-status')">
+                            @click="searchRecords('vacation-bonus-calculations')">
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
@@ -81,7 +81,7 @@
                     <span> {{ props.row.start_date + ' - ' + props.row.end_date }} </span>
                 </div>
                 <div slot="id" slot-scope="props" class="text-center">
-                    <button @click="createReport(props.row.id, 'vacation-status', $event)" 
+                    <button @click="createReport(props.row.id, 'vacation-bonus-calculations', $event)" 
                             class="btn btn-primary btn-xs btn-icon btn-action" 
                             title="Generar reporte" data-toggle="tooltip" 
                             type="button">

@@ -9,17 +9,17 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
- * @class      Payroll
- * @brief      Datos de registros de nómina
+ * @class      PayrollStaffPayroll
+ * @brief      Datos de la información entre los registros de nómina y del personal
  *
- * Gestiona el modelo de registros de nómina
+ * Gestiona el modelo de datos de los registros de nómina y del personal
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
  * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
  *                 LICENCIA DE SOFTWARE CENDITEL
  *             </a>
  */
-class Payroll extends Model implements Auditable
+class PayrollStaffPayroll extends Model implements Auditable
 {
     use SoftDeletes;
     use AuditableTrait;
@@ -35,35 +35,35 @@ class Payroll extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['name', 'payroll_parameters', 'payroll_payment_period_id'];
+    protected $fillable = ['assignments', 'deductions', 'payroll_id', 'payroll_staff_id'];
 
     /**
-     * Lista de atributos de relacion consultados automáticamente
-     * @var array $with
+     * Lista de atributos de relacion consultados automaticamente
+     * @var    array    $with
      */
-    protected $with = ['payrollPaymentPeriod'];
+    protected $with = ['payroll', 'payrollStaff'];
 
     /**
-     * Método que obtiene la información del período de pago asociado a la nómina
+     * Método que obtiene el registro de nómina asociado al registro
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      *
      * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function payrollPaymentPeriod()
+    public function payroll()
     {
-        return $this->belongsTo(PayrollPaymentPeriod::class);
+        return $this->belongsTo(Payroll::class);
     }
 
     /**
-     * Método que obtiene la información de los trabajadores asociados a la nómina
+     * Método que obtiene el personal asociado al registro
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      *
-     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function payrollStaffPayrolls()
+    public function payrollStaff()
     {
-        return $this->hasMany(PayrollStaffPayroll::class);
+        return $this->belongsTo(PayrollStaff::class);
     }
 }

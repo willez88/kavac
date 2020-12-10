@@ -63,7 +63,7 @@
             const vm = this;
             vm.table_options.headings = {
                 'code':          'Código',
-                'date':    'Fecha de la solicitud',
+                'date':          'Fecha de la solicitud',
                 'payroll_staff': 'Trabajador',
                 'status':        'Estatus de la solicitud',
                 'id':            'Acción'
@@ -79,7 +79,7 @@
         methods: {
             reset() {
                 //
-            }
+            },
         }
     };
 </script>

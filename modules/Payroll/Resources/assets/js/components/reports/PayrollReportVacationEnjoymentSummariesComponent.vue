@@ -14,18 +14,24 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Desde:</label>
-                        <input type="month" name="fecha" id="fecha" class="form-control input-sm">
+                        <input id="start_date" type="month"
+                               name="start_date"
+                               class="form-control input-sm"
+                               v-model="record.start_date">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Hasta:</label>
-                        <input type="month" name="fecha" id="fecha" class="form-control input-sm">
+                        <input id="end_date" type="month"
+                               name="end_date"
+                               class="form-control input-sm"
+                               v-model="record.end_date">
                     </div>
                 </div>
                 <!-- trabajador -->
                 <div class="col-md-4">
-                    <div class="form-group is-required">
+                    <div class="form-group">
                         <label>Trabajador:</label>
                         <select2 :options="payroll_staffs"
                                  v-model="record.payroll_staff_id">
@@ -38,7 +44,8 @@
                 <div class="col-md-12">
                     <button type="button"
                             class='btn btn-sm btn-info float-right'
-                            title="Buscar registro" data-toggle="tooltip">
+                            title="Buscar registro" data-toggle="tooltip"
+                            @click="searchRecords('vacation-enjoyment-summaries')">
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
@@ -92,6 +99,9 @@
             return {
                 record: {
                     id:               '',
+                    current:          '',
+                    start_date:       '',
+                    end_date:         '',
                     payroll_staff_id: ''
                 },
 
@@ -106,7 +116,10 @@
                 const vm = this;
                 vm.record = {
                     id:               '',
-                    payroll_staff_id: '',
+                    current:          '',
+                    start_date:       '',
+                    end_date:         '',
+                    payroll_staff_id: ''
                 }
             },
             createReport(id, current, event) {
@@ -138,6 +151,40 @@
                 let year_now = new Date().getFullYear();
                 return year_now - parseInt(payroll_staff_year);
             },
+            /**
+             * Método que permite realizar las busquedas y filtrado de los registros de la tabla
+             *
+             * @method    searchRecords
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve> | <henryp2804@gmail.com>
+             */
+            searchRecords(current) {
+                const vm = this;
+                vm.record.current = current;
+                vm.loading = true;
+                let fields = {};
+
+                for (var index in vm.record) {
+                    fields[index] = vm.record[index];
+                }
+                axios.post('/payroll/reports/vue-list', fields).then(response => {
+                    if (typeof(response.data.records) !== "undefined") {
+                        vm.records = response.data.records;
+                    }
+                    vm.loading = false;
+                }).catch(error => {
+                    vm.errors = [];
+
+                    if (typeof(error.response) !="undefined") {
+                        for (var index in error.response.data.errors) {
+                            if (error.response.data.errors[index]) {
+                                vm.errors.push(error.response.data.errors[index][0]);
+                            }
+                        }
+                    }
+                    vm.loading = false;
+                });
+            }
         },
         created() {
             const vm = this;

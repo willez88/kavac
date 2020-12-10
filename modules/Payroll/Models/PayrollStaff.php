@@ -208,4 +208,16 @@ class PayrollStaff extends Model implements Auditable
     {
         return $this->hasMany(PayrollVacationRequest::class);
     }
+
+    /**
+     * Método que obtiene la información de los registros de nómina asociados al trabajador
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payrollStaffPayrolls()
+    {
+        return $this->hasMany(PayrollStaffPayroll::class);
+    }
 }

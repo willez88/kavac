@@ -22,11 +22,17 @@ Route::group([
     /** Ruta que permite editar la información de un registro de nómina */
     Route::get('registers/edit/{register}', 'PayrollController@edit')->name('payroll.registers.edit');
 
-    /** Ruta que obtiene la información de un registro de nómina */
+    /** Ruta que permite visualizar la información de un registro de nómina */
     Route::get('registers/show/{register}', 'PayrollController@show')->name('payroll.registers.show');
+
+    /** Ruta que obtiene la información de un registro de nómina */
+    Route::get('registers/vue-info/{register}', 'PayrollController@vueInfo')->name('payroll.registers.vue-info');
 
     /** Ruta que obtiene un listado de los registros de nómina */
     Route::get('registers/vue-list', 'PayrollController@vueList')->name('payroll.registers.vue-list');
+
+    /** Ruta que actualiza el estado de un registro de nómina para evitar su edición */
+    Route::patch('registers/close/{register}', 'PayrollController@close')->name('payroll.registers.close');
 
     /** Ruta para visualizar la sección de configuración del módulo */
     Route::get('settings', 'PayrollSettingController@index')->name('payroll.settings.index');
@@ -375,6 +381,9 @@ Route::group([
     /** Ruta que obtiene un arreglo con los registros asociados al expediente del trabajador registrados */
     Route::get('get-associated-records', 'PayrollParameterController@getAssociatedRecords');
 
+    /** Ruta que obtiene un arreglo con los registros asociados a las vacaciones registrados */
+    Route::get('get-vacation-associated-records', 'PayrollParameterController@getVacationAssociatedRecords');
+
     /** Rutas para gestionar los ajustes en las tablas salariales */
     Route::resource(
         'salary-adjustments',
@@ -395,6 +404,18 @@ Route::group([
         'vacation-requests/vue-list',
         'PayrollVacationRequestController@vueList'
     )->name('payroll.vacation-requests.vue-list');
+
+    /** Ruta que obtiene un listado de las solicitudes de vacaciones pendientes */
+    Route::get(
+        'vacation-requests/vue-pending-list',
+        'PayrollVacationRequestController@vuePendingList'
+    )->name('payroll.vacation-requests.vue-pending-list');
+
+    /** Ruta que permite actualizar una solicitud de vacaciones*/
+    Route::patch(
+        'vacation-requests/review/{request}',
+        'PayrollVacationRequestController@review')
+    ->name('payroll.request.review');
 
     /** Ruta que permite editar la información de un registro de solicitud de vacaciones */
     Route::get(
@@ -435,5 +456,13 @@ Route::group([
         ->name('payroll.reports.vacation-status');
         Route::post('vacation-status/create', 'PayrollReportController@create')
         ->name('payroll.reports.vacation-status.create');
+
+        Route::get('vacation-bonus-calculations', 'PayrollReportController@vacationBonusCalculations')
+        ->name('payroll.reports.vacation-bonus-calculations');
+        Route::post('vacation-bonus-calculations/create', 'PayrollReportController@create')
+        ->name('payroll.reports.vacation-bonus-calculations.create');
+
+        Route::post('vue-list', 'PayrollReportController@vueList')
+        ->name('payroll.reports.vue-list');
     });
 });
