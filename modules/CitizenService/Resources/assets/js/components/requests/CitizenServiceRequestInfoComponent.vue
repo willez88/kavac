@@ -6,7 +6,7 @@
 			<i class="fa fa-eye"></i>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="view_request">
-			<div class="modal-dialog modal-lg">
+			<div class="modal-dialog modal-lg" style="max-width: 60rem">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -24,23 +24,31 @@
 								<li v-for="error in errors">{{ error }}</li>
 							</ul>
 						</div>
-						<ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
-	                        <li class="nav-item">
-	                            <a class="nav-link active" data-toggle="tab" href="#general" id="info_general" role="tab">
-	                                <i class="ion-android-person"></i> Información General
-	                            </a>
-	                        </li>
-	                        <li class="nav-item">
-	                            <a class="nav-link" data-toggle="tab" href="#contact" role="tab">
-	                                <i class="ion-android-person"></i> Información de Contacto
-	                            </a>
-	                        </li>
-	                        <li class="nav-item">
-	                            <a class="nav-link" data-toggle="tab" href="#institution" role="tab">
-	                                <i class="ion-arrow-person"></i> Información de la Institución
-	                            </a>
-	                        </li>
-	                    </ul>
+						<div class="row">
+							<ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
+		                        <li class="nav-item">
+		                            <a class="nav-link active" data-toggle="tab" href="#general" id="info_general" role="tab">
+		                                <i class="ion-android-person"></i> Información General
+									</a>
+		                        </li>
+		                        <li class="nav-item">
+		                            <a class="nav-link" data-toggle="tab" href="#contact" role="tab">
+		                                <i class="ion-android-person"></i> Información de Contacto
+		                            </a>
+		                        </li>
+		                        <li class="nav-item">
+		                            <a class="nav-link" data-toggle="tab" href="#institution" role="tab">
+		                                <i class="ion-arrow-person"></i> Información de la Institución
+		                            </a>
+		                        </li>
+								<li class="nav-item">
+								  <a class="nav-link" data-toggle="tab" href="#info" role="tab">
+									  <i class="ion-arrow-person"></i> Información de Archivos
+								  </a>
+							  </li>
+		                    </ul>
+						</div>
+
 	                    <div class="tab-content">
 	                    	<div class="tab-pane active" id="general" role="tabpanel">
 		                    	<div class="row">
@@ -151,6 +159,23 @@
 										</div>
 		                    		</div>
 		                    	</div>
+								<div class="tab-pane" id="info"  role="tabpanel">
+									<div class="col-md-12">
+										<div class="row">
+												<strong>Nombre del archivo</strong>
+										</div>
+										<div class="row">
+											<div class="form-group">
+
+												<div class="row" style="margin: 1px 0">
+													<span class="col-md-12" id="archive">
+													</span>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
 	                        </div>
 	                    </div>
 					 <div class="modal-footer">
@@ -196,13 +221,44 @@
 				const vm = this;
             	var fields = {};
                 var tipo="";
+				var documents="";
             	document.getElementById("info_general").click();
 
+
             	axios.get(url).then(response => {
+
+					axios.get('get-documents/' + response.data.record.id).then(response => {
+
+
+                      documents=response.data;
+					let fileText = ``;
+					documents.records.forEach(function(files) {
+						fileText += `<div class ="row">`;
+						fileText +=`<a href='get-documents/show/${files.file}'>${files.file}</a>`
+
+
+						fileText += '</div>';
+					});
+
+
+                        document.getElementById('archive').innerHTML = fileText;
+					}).catch(error => {
+						if (typeof(error.response) !== "undefined") {
+							if (error.response.status == 403) {
+								vm.showMessage(
+									'custom', 'Acceso Denegado', 'danger', 'screen-error', error.response.data.message
+								);
+							}
+							else {
+								vm.logs('resources/js/all.js', 343, error, 'initRecords');
+							}
+						}
+					});
 
 					if (typeof(response.data.record) !== "undefined") {
 
 						fields = response.data.record;
+
 						if(fields.citizen_service_request_type_id == 1) {
   							tipo = "Soporte técnico";
   						} else if (fields.citizen_service_request_type_id == 2) {
@@ -216,7 +272,7 @@
 						$(".modal-body #id").val( fields.id );
 		            	document.getElementById('date').innerText = (fields.date)?fields.date:'N/A';
 		            	document.getElementById('motive_request').innerText = (fields.motive_request)?fields.motive_request:'N/A';
-		            	document.getElementById('citizen_service_request_type_id').innerText = tipo;						
+		            	document.getElementById('citizen_service_request_type_id').innerText = tipo;
 		            	document.getElementById('applicant_name').innerText = (fields.first_name)?((fields.last_name)?(fields.first_name+fields.last_name):(fields.first_name)):'N/A';
 		            	let phoneText = `
 		            		<div class = "col-md-6">
