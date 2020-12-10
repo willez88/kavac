@@ -109,4 +109,55 @@ class PayrollReportController extends Controller
     {
         return view('payroll::reports.payroll-report-vacation-status');
     }
+
+    public function vacationBonusCalculations()
+    {
+        return view('payroll::reports.payroll-report-vacation-bonus-calculations');
+    }
+
+    /**
+     * Muestra un listado para la generación de reportes según sea el caso
+     *
+     * @method    vueList
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     */
+    public function vueList(Request $request)
+    {
+        $startDate = $endDate = '';
+        if ($request->start_date) {
+            $start_date = explode('-', $request->start_date);
+            $startDate = date('Y-m-d', mktime(0,0,0, $start_date[1], 1, $start_date[0]));
+        }
+        if ($request->end_date) {
+            $end_date = explode('-', $request->end_date);
+            $end_day = date("d", mktime(0,0,0, $end_date[1]+1, 0, $end_date[0]));
+            $endDate = date('Y-m-d', mktime(0,0,0, $end_date[1], $end_day, $end_date[0]));
+        }
+
+        $user = Auth()->user();
+        $profileUser = $user->profile;
+        if ($profileUser) {
+            $institution = Institution::find($profileUser->institution_id);
+        } else {
+            $institution = Institution::where('active', true)->where('default', true)->first();
+        }
+        if (($request->current == "vacation-enjoyment-summaries") || ($request->current == "vacation-status")) {
+            if ($user->hasRole('admin')) {
+                $records = PayrollVacationRequest::searchPayrollVacationRequest(
+                    $startDate,
+                    $endDate,
+                    $request->payroll_staff_id ?? ''
+                )->where('institution_id', $institution->id)->get();
+            } else {
+                $records = [];
+            }
+        } else {
+            //
+        }
+
+        return response()->json(['records' => $records], 200);
+    }
 }

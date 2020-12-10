@@ -106,7 +106,8 @@
 			<div class="row">
 				<div class="col-12">
 					<button type="button" class='btn btn-sm btn-info btn-custom float-right' data-toggle="tooltip"
-							@click="filterRecords()" v-show="this.record.type_search != ''" title="Buscar registros">
+							@click="filterRecords()" v-show="this.record.type_search != ''"
+							title="Buscar registros">
 						<i class="fa fa-search"></i>
 					</button>
 				</div>
@@ -203,24 +204,25 @@
 			},
 
 			createReport() {
+
 				const vm = this;
 				vm.loading = true;
 				var fields = {};
-				for (var index in this.record) {
-					fields[index] = this.record[index];
-				}
-				//var url = 'citizenservice/reports';
-
-				if (vm.record.type_search == '') {
-					bootbox.alert("Seleccionar el tipo de reporte a generar");
-					return false;
-				}
-				if (vm.record.type_search == 'date') {
-					return false;
+				for (var index in this.records) {
+					fields[index] = this.records[index];
 				}
 
+			
+			//	if (vm.record.type_search == '') {
+			//		bootbox.alert("Seleccionar el tipo de reporte a generar");
+			//		return false;
+			//	}
+			//	if (vm.record.type_search == 'date') {
+			//		return false;
+			//	}
 
-				axios.post('/citizenservice/reports/request/create' + url, fields).then(response => {
+
+				axios.post('/citizenservice/reports/request/create' , fields).then(response => {
 					if (response.data.result == false)
 						location.href = response.data.redirect;
 					else if (typeof(response.data.redirect) !== "undefined") {
@@ -245,8 +247,10 @@
 
 			},
 			filterRecords() {
+
 				const vm = this;
 				var url =  '/citizenservice/reports/search';
+
 				var fields = {};
 				if(vm.record.type_search == 'period'){
 					url += '/period';
@@ -259,6 +263,8 @@
 					}
 				else if(vm.record.type_search == 'date'){
 					url += '/date';
+
+
 						fields = {
 							date: vm.record.date,
 							citizen_service_request_types: vm.record.citizen_service_request_types,
@@ -269,6 +275,7 @@
 				if(vm.record.type_search != ''){
 					axios.post(url, fields).then(response => {
 						vm.records = response.data.records;
+
 					});
 				}
 			}

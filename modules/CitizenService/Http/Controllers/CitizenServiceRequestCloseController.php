@@ -12,6 +12,7 @@ use App\Repositories\UploadImageRepository;
 use App\Repositories\UploadDocRepository;
 use Modules\CitizenService\Models\CitizenServiceRequest;
 
+
 class CitizenServiceRequestCloseController extends Controller
 {
     use ValidatesRequests;
@@ -51,7 +52,8 @@ class CitizenServiceRequestCloseController extends Controller
         $extensionFile  = $request->file('file')->getClientOriginalExtension();
         if (in_array($extensionFile, $documentFormat)) {
             //if ($citizenServiceRequest->file_counter <= 2) {
-            if ($upDoc->uploadDoc($request->file('file'),
+            if ($upDoc->uploadDoc(
+                $request->file('file'),
                 'documents',
                 CitizenServiceRequest::class,
                 $request->request_id,
@@ -75,15 +77,13 @@ class CitizenServiceRequestCloseController extends Controller
                 ], 200);
             }
         } elseif (in_array($extensionFile, $imageFormat)) {
-            if ($upImage->uploadImage($request->file('file'),
+            if ($upImage->uploadImage(
+                $request->file('file'),
                 'pictures',
                 CitizenServiceRequest::class,
                 $request->request_id,
-                null,
-                false,
-                false,
-                true
             )) {
+
                      $file_id = $upImage->getImageStored()->id;
                      $file_url = $upImage->getImageStored()->url;
                      $file_name = $upImage->getImageName();
@@ -105,9 +105,11 @@ class CitizenServiceRequestCloseController extends Controller
      * Show the specified resource.
      * @return Renderable
      */
-    public function show(Image $image)
+    public function show($filename)
     {
-        //
+        $file = storage_path() . '/documents/' . $filename;
+
+        return response()->download($file, $filename, [], 'inline');
     }
 
     /**
@@ -131,7 +133,7 @@ class CitizenServiceRequestCloseController extends Controller
 
 
         $citizenServiceRequest->save();
-        
+
         $request->session()->flash('message', ['type' => 'update']);
         return response()->json(['result' => true, 'redirect' => route('citizenservice.request.index')], 200);
     }

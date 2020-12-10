@@ -14,20 +14,33 @@
                         data-placement="bottom" type="button">
                     <i class="fa fa-print"></i>
                 </button>
-                <button @click="editForm(props.row.id)"
+                <button :disabled="props.row.payroll_payment_period.payment_status != 'pending'"
+                        @click="editForm(props.row.id)"
                         class="btn btn-warning btn-xs btn-icon btn-action"
                         data-toggle="tooltip" title="Modificar registro"
                         data-placement="bottom" type="button">
                     <i class="fa fa-edit"></i>
                 </button>
-                <button
+                <button :disabled="props.row.payroll_payment_period.payment_status != 'pending'"
+                        @click="closeRecord(props.row.id)"
                         class="btn btn-default btn-xs btn-icon btn-action"
                         data-toggle="tooltip" title="Cerrar registro"
                         data-placement="bottom" type="button">
                     <i class="fa fa-unlock-alt"></i>
                 </button>
             </div>
-            <div slot="payroll_payment_period" slot-scope="props" class="text-center"></div>
+            <div slot="created_at" slot-scope="props">
+                {{ format_timestamp(props.row.created_at) }}
+                
+            </div>
+            <div slot="payroll_payment_period" slot-scope="props" class="text-center">
+                {{
+                    props.row.payroll_payment_period
+                        ? format_date(props.row.payroll_payment_period.start_date) + ' - ' + format_date(props.row.payroll_payment_period.end_date)
+                        : 'No definido'
+                }}
+                
+            </div>
         </v-client-table>
     </section>
 </template>
@@ -59,6 +72,22 @@
         methods: {
             reset() {
                 //
+            },
+            closeRecord(id) {
+                const vm = this;
+                axios.patch("/payroll/registers/close/" + id, null).then(response => {
+                    if (typeof(response.data.redirect) !== "undefined")
+                        location.href = response.data.redirect;
+                }).catch(error => {
+                    vm.errors = [];
+                    if (typeof(error.response) !="undefined") {
+                        for (var index in error.response.data.errors) {
+                            if (error.response.data.errors[index]) {
+                                vm.errors.push(error.response.data.errors[index][0]);
+                            }
+                        }
+                    }
+                });
             }
         }
     };

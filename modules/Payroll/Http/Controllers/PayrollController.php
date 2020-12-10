@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use Modules\Payroll\Models\Payroll;
+use Modules\Payroll\Jobs\PayrollCreatePaymentRelationship;
 
 /**
  * @class      PayrollController
@@ -108,24 +109,13 @@ class PayrollController extends Controller
          * Revisar regla de validación
          */
         $this->validate($request, $this->validateRules, $this->messages);
-        return response()->json(['redirect' => route('payroll.registers.index')], 200);
-        /**
-         * Objeto asociado al modelo Payroll
-         * @var Object $payroll
-         */
-        $payroll = Payroll::create([
-            'name'                      => $request->name,
-            'payroll_payment_period_id' => $request->payroll_payment_period_id,
-            'payroll_parameters'        => json_encode($request->payroll_parameters),
-            'created_at'                => $request->created_at
-        ]);
-
+        PayrollCreatePaymentRelationship::dispatch($request->all());
         $request->session()->flash('message', ['type' => 'store']);
-        return response()->json(['redirect' => route('payroll.registers.index')], 200);
+        return response()->json(['result' => true, 'redirect' => route('payroll.registers.index')], 200);
     }
 
     /**
-     * Obtiene la información de una nómina de sueldos registrada
+     * Muestra el formulario con la información de una nómina de sueldos registrada
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      *
@@ -140,7 +130,7 @@ class PayrollController extends Controller
          * @var Object $payroll
          */
         $payroll = Payroll::find($id);
-        return response()->json(['record' => $payroll], 200);
+        return view('payroll::registers.show', compact('payroll'));
     }
 
     /**
@@ -174,19 +164,9 @@ class PayrollController extends Controller
      */
     public function update(Request $request, $id)
     {
-        /**
-         * Objeto asociado al modelo Payroll
-         * @var Object $payroll
-         */
-        $payroll = Payroll::find($id);
         $this->validate($request, $this->validateRules, $this->messages);
 
-        $payroll->update([
-            'name'                      => $request->name,
-            'payroll_payment_period_id' => $request->payroll_payment_period_id,
-            'payroll_parameters'        => json_encode($request->payroll_parameters),
-            'created_at'                => $request->created_at
-        ]);
+        PayrollCreatePaymentRelationship::dispatch($request->all());
 
         $request->session()->flash('message', ['type' => 'update']);
         return response()->json(['redirect' => route('payroll.registers.index')], 200);
@@ -213,6 +193,25 @@ class PayrollController extends Controller
     }
 
     /**
+     * Obtiene la información de una nómina de sueldos registrada
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @param     Integer                          $id    Identificador único del registro de nómina
+     *
+     * @return    \Illuminate\Http\JsonResponse           Objeto con los registros a mostrar
+     */
+    public function vueInfo($id)
+    {
+        /**
+         * Objeto asociado al modelo Payroll
+         * @var Object $payroll
+         */
+        $payroll = Payroll::with('payrollStaffPayrolls')->find($id);
+        return response()->json(['record' => $payroll], 200);
+    }
+
+    /**
      * Obtiene un listado de los registros de nómina
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
@@ -222,5 +221,26 @@ class PayrollController extends Controller
     public function vueList()
     {
         return response()->json(['records' => Payroll::with(['payrollPaymentPeriod'])->get()], 200);
+    }
+
+    /**
+     * Actualiza el estado de una nómina de sueldos
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @param     \Illuminate\Http\Request         $request    Datos de la petición
+     * @param     Integer                          $id         Identificador único del registro de nómina
+     *
+     * @return    \Illuminate\Http\JsonResponse                Objeto con los registros a mostrar
+     */
+    public function close(Request $request, $id)
+    {
+        $payroll = Payroll::find($id);
+        $payrollPaymentPeriod = $payroll->payrollPaymentPeriod;
+        $payrollPaymentPeriod->payment_status = 'generated';
+        $payrollPaymentPeriod->save();
+
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['redirect' => route('payroll.registers.index')], 200);
     }
 }

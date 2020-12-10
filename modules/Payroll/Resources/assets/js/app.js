@@ -321,6 +321,16 @@ Vue.component('payroll-registers-form', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
+Vue.component('payroll-registers-show', () => import(
+    /* webpackChunkName: "payroll-registers-show" */
+    './components/registers/PayrollShowComponent.vue')
+);
+
+/**
+ * Componente para mostrar listado de registros de nómina
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
 Vue.component('payroll-registers-list', () => import(
     /* webpackChunkName: "payroll-registers-list" */
     './components/registers/PayrollListComponent.vue')
@@ -367,6 +377,26 @@ Vue.component('payroll-vacation-request-form', () => import(
 );
 
 /**
+ * Componente para mostrar el listado de las solicitudes vacacionales pendientes
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('payroll-vacation-request-pending-list', () => import(
+    /* webpackChunkName: "payroll-vacation-request-pending-list" */
+    './components/requests/vacations/PayrollVacationRequestPendingListComponent.vue')
+);
+
+/**
+ * Componente para aprobar/rechazar las solicitudes vacacionales pendientes
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('payroll-review-vacation-request-pending-form', () => import(
+    /* webpackChunkName: "payroll-review-vacation-request-pending-form" */
+    './components/requests/vacations/PayrollReviewVacationRequestPendingFormComponent.vue')
+);
+
+/**
  * Componentes para gestionar la creación de los reportes de talento humano
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
@@ -379,6 +409,11 @@ Vue.component('payroll-report-vacation-enjoyment-summaries', () => import(
 Vue.component('payroll-report-vacation-status', () => import(
     /* webpackChunkName: "payroll-report-vacation-status" */
     './components/reports/PayrollReportVacationStatusComponent.vue')
+);
+
+Vue.component('payroll-report-vacation-bonus-calculations', () => import(
+    /* webpackChunkName: "payroll-report-vacation-bonus-calculations" */
+    './components/reports/PayrollReportVacationBonusCalculationsComponent.vue')
 );
 
 
