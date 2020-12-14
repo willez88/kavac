@@ -378,12 +378,24 @@
                 vm.data['tot_confirmation'] = vm.data.totAssets;
                 vm.data['accountingAccounts'] = vm.recordsAccounting;
                 vm.loading = true;
-                axios.post('/accounting/entries',vm.data).then(response=>{
+
+
+                var arr = [
+                    {
+                        module : 'Budget',
+                        model  : 'App\Modules\Budget\Models\BudgetAccount',
+                        id     : 1,
+                        debit  : true,
+                        asset  : false,
+                        mount  : 11.0
+                    },
+                ];
+                axios.post('/accounting/entries', arr).then(response=>{
                     vm.loading = false;
                     vm.showMessage('store');
-                    setTimeout(function() {
-                        location.href = vm.urlPrevious;
-                    }, 2000);
+                    // setTimeout(function() {
+                    //     location.href = vm.urlPrevious;
+                    // }, 2000);
 
                 }).catch(error=>{
                     var errors = [];

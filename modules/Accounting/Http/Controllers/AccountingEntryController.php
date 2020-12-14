@@ -14,6 +14,7 @@ use Modules\Accounting\Models\AccountingEntry;
 use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Profile;
 use Modules\Accounting\Jobs\AccountingManageEntries;
+use Module;
 use Auth;
 
 /**
@@ -180,33 +181,33 @@ class AccountingEntryController extends Controller
      * @param  Request $request Objeto con datos de la petición realizada
      * @return Renderable
      */
-    public function store(Request $request)
-    {
-        $this->validate($request, [
-            'date'           => 'required|date',
-            'concept'        => 'required|string',
-            'observations'   => 'nullable',
-            'category'       => 'required|integer',
-            'institution_id' => 'required|integer',
-            'currency_id'    => 'required|integer',
-            'tot'            => 'required|confirmed',
-        ], [
-            'date.required'           => 'El campo fecha es obligatorio.',
-            'date.date'               => 'El campo fecha no tiene el formato adecuado.',
-            'concept.required'        => 'El campo concepto o descripción es obligatorio.',
-            'category.required'       => 'El campo categoria es obligatorio.',
-            'category.integer'        => 'El campo categoria no esta en el formato de entero.',
-            'institution_id.required' => 'El campo institución es obligatorio.',
-            'institution_id.integer'  => 'El campo institución no esta en el formato de entero.',
-            'currency_id.required'    => 'El campo moneda es obligatorio.',
-            'currency_id.integer'     => 'El campo moneda no esta en el formato de entero.',
-            'tot.confirmed'           => 'El asiento no esta balanceado, Por favor verifique.',
-        ]);
+    // public function store(Request $request)
+    // {
+    //     $this->validate($request, [
+    //         'date'           => 'required|date',
+    //         'concept'        => 'required|string',
+    //         'observations'   => 'nullable',
+    //         'category'       => 'required|integer',
+    //         'institution_id' => 'required|integer',
+    //         'currency_id'    => 'required|integer',
+    //         'tot'            => 'required|confirmed',
+    //     ], [
+    //         'date.required'           => 'El campo fecha es obligatorio.',
+    //         'date.date'               => 'El campo fecha no tiene el formato adecuado.',
+    //         'concept.required'        => 'El campo concepto o descripción es obligatorio.',
+    //         'category.required'       => 'El campo categoria es obligatorio.',
+    //         'category.integer'        => 'El campo categoria no esta en el formato de entero.',
+    //         'institution_id.required' => 'El campo institución es obligatorio.',
+    //         'institution_id.integer'  => 'El campo institución no esta en el formato de entero.',
+    //         'currency_id.required'    => 'El campo moneda es obligatorio.',
+    //         'currency_id.integer'     => 'El campo moneda no esta en el formato de entero.',
+    //         'tot.confirmed'           => 'El asiento no esta balanceado, Por favor verifique.',
+    //     ]);
 
-        AccountingManageEntries::dispatch($request->all());
+    //     AccountingManageEntries::dispatch($request->all());
 
-        return response()->json(['message'=>'Success', 'reference' => ''], 200);
-    }
+    //     return response()->json(['message'=>'Success', 'reference' => ''], 200);
+    // }
 
     /**
      * Show the specified resource.
@@ -687,5 +688,15 @@ class AccountingEntryController extends Controller
             $institutions[0]['text'] = $text;
         }
         return $institutions;
+    }
+
+    // public function generatedEntries(Array $ObjectList)
+    public function store(Request $ObjectList)
+    {
+        foreach ($ObjectList as $object) {
+            if (Module::has($object['module'])) {
+                
+            }
+        }
     }
 }

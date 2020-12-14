@@ -36,7 +36,7 @@
 							title="Listado de asientos por aprobar"
 							data-toggle="tooltip"
 							id="helpSearchEntriesUnapproved">
-							NO APROBADOS <i class="fa fa-list"></i>
+							<i class="fa fa fa-clock-o"></i>
 						</a>
 						@include('buttons.minimize')
 					</div>
