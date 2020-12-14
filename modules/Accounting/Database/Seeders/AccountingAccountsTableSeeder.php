@@ -3518,7 +3518,7 @@ class AccountingAccountsTableSeeder extends Seeder
                         * tenia la cuenta por el nuevo registro actualizado se actualiza la información en la base
                         * de datos
                         */
-                        $convertes = AccountingAccountConverter::where('accounting_account_id', $account_to->id)->get();
+                        $converters = AccountingAccountConverter::where('accounting_account_id', $account_to->id)->get();
                         foreach ($converters as $acc) {
                             $acc->accounting_account_id = $acc_new->id;
                             $acc->save();
