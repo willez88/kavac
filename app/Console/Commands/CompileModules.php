@@ -38,14 +38,18 @@ class CompileModules extends Command
      */
     public function handle()
     {
-        $this->info("Compilando assets de módulos");
+        $this->info("== Iniciando compilación de módulos ==");
 
+        $m = '';
         foreach (Module::collections(1) as $module) {
-            echo $module->getName() ."\n";
+            $this->info("Compilando módulo: " . $module->getName());
             $result = shell_exec("cd modules/$module && npm run dev");
+
             echo $result;
+            $m .= "$module,";
         }
-        //dd();
+
+        $this->info("Se han compilado los módulos [$m]");
         return 0;
     }
 }
