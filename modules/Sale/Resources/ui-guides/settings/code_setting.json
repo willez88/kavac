@@ -10,5 +10,9 @@
     {
         "element" : "#helpCodeSaleMovement",
         "intro" : "La configuración de este código permite identificar los registros de los movimientos mediante un formato único."
+    },
+    {
+        "element" : "#helpCodeSaleBill",
+        "intro" : "La configuración de este código permite identificar los registros de las facturas mediante un formato único."
     }
 ]

@@ -40,6 +40,17 @@
 								]) !!}
 							</div>
 						</div>
+						<div class="col-md-3" id="helpCodeSaleBill">
+							<div class="form-group">
+								{!! Form::label('sale_bills_code', 'Código para las facturas', []) !!}
+								{!! Form::text('bills_code', ($billCode) ? $billCode->format_code : old('bills_code'), [
+									'class' => 'form-control input-sm', 'data-toggle' => 'tooltip',
+									'title' => 'Formato para el código de las facturas',
+									'placeholder' => 'Ej. XXX-00000000-YYYY',
+									'readonly' => ($billCode) ? true : false
+								]) !!}
+							</div>
+						</div>
 					</div>
 					@include('layouts.help-text', ['codeSetting' => true])
 				</div>

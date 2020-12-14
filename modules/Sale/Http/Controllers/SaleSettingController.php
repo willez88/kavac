@@ -22,9 +22,10 @@ class SaleSettingController extends Controller
         $codeSettings = CodeSetting::where('module', 'sale')->get();
         $pdCode = $codeSettings->where('table', 'sale_warehouse_inventory_products')->first();
         $mvCode = $codeSettings->where('table', 'sale_warehouse_movements')->first();
+        $billCode = $codeSettings->where('table', 'sale_bills')->first();
 
         return view(
-            'sale::settings', compact('codeSettings', 'pdCode', 'mvCode')
+            'sale::settings', compact('codeSettings', 'pdCode', 'mvCode', 'billCode')
         );
         //return view('sale::index');
     }
@@ -48,7 +49,8 @@ class SaleSettingController extends Controller
         /** Reglas de validación para la configuración de códigos */
         $this->validate($request, [
             'products_code' => [new CodeSettingRule],
-            'movements_code' => [new CodeSettingRule]
+            'movements_code' => [new CodeSettingRule],
+            'bills_code' => [new CodeSettingRule]
         ]);
 
         /** @var array $codes Arreglo con información de los campos de códigos configurados */
@@ -75,6 +77,11 @@ class SaleSettingController extends Controller
                     $table = "warehouse_movements";
                     /** @var string $model Define el modelo para asociado a los movimientos de almacén */
                     $model = \Modules\Sale\Models\SaleWarehouseMovement::class;
+                } elseif ($table === "bills") {
+                    /** @var string $table Define la tabla asociado a las facturas */
+                    $table = "bills";
+                    /** @var string $model Define el modelo de las facturas */
+                    $model = \Modules\Sale\Models\SaleBill::class;
                 }
 
                 CodeSetting::updateOrCreate([
