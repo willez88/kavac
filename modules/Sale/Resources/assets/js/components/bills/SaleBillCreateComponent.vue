@@ -27,34 +27,31 @@
                     <div class="form-group is-required">
                         <label>Cédula o RIF:</label>
                         <select2 :options="sale_clients_rif"
-                                 v-model="record.sale_client_id"></select2>
+                                 v-model="record.sale_client_id" @input="getSaleClient"></select2>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div id="saleHelpClientsName">
-                        <div class="form-group is-required" v-show="record.sale_client_id != 0">
-                            <label>Nombre o razón social:</label>
-                            <select2 :options="sale_clients_name" :disabled="true"
-                                     v-model="record.sale_client_id"></select2>
-                        </div>
+                    <div id="saleHelpClientsName" v-show="record.sale_client_id != 0" class="form-group is-required">
+                        <label for="name_client">Nombre o razón social:</label>
+                        <input type="text" class="form-control input-sm" :disabled="true" 
+                            data-toggle="tooltip" title="Nombre o razón social" 
+                            id="name_client"></input>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div id="saleHelpClientsAddress">
-                        <div class="form-group is-required" v-show="record.sale_client_id != 0">
-                            <label>Dirección:</label>
-                            <select2 :options="sale_clients_address" :disabled="true"
-                                    v-model="record.sale_client_id"></select2>
-                        </div>
+                    <div id="saleHelpClientsAddress" v-show="record.sale_client_id != 0" class="form-group is-required">
+                        <label for="address">Dirección:</label>
+                        <input type="text" class="form-control input-sm" :disabled="true" 
+                            data-toggle="tooltip" title="Dirección" 
+                            id="address"></input>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div id="saleHelpClientsFiscalAddress" v-show="record.sale_client_id != 0">
-                        <div class="form-group is-required">
-                            <label>Dirección Fiscal:</label>
-                            <select2 :options="sale_clients_fiscal_address" :disabled="true"
-                                    v-model="record.sale_client_id"></select2>
-                        </div>
+                    <div id="saleHelpClientsFiscalAddress" v-show="record.sale_client_id != 0" class="form-group is-required">
+                        <label for="address_tax">Dirección fiscal:</label>
+                        <input type="text" class="form-control input-sm" :disabled="true"
+                            data-toggle="tooltip" title="Dirección fiscal" 
+                            id="address_tax"></input>
                     </div>
                 </div>
             </div>
@@ -119,7 +116,7 @@
                             <input type="checkbox" class="cursor-pointer" :value="props.row.id" :id="'checkbox_'+props.row.id" v-model="selected">
                         </label>
                     </div>
-                    <div slot="description" slot-scope="props">
+                    <div slot="name" slot-scope="props">
                         <span>
                             <b> {{ (props.row.sale_setting_product)?
                                 'Nombre: ':'' }} </b>
@@ -127,22 +124,28 @@
                                 props.row.sale_setting_product.name + '.':''
                             }} <br>
                         </span>
+                    </div>
+                    <div slot="description" slot-scope="props">
+                        <span>
+                            <b>Descripción</b>
+                            {{ (props.row.sale_setting_product)?
+                                props.row.sale_setting_product.description:''
+                            }}
+                        </span>
+                    </div>
+                    <div slot="unit_value" slot-scope="props">
                         <span>
                             <b>Valor:</b> {{props.row.unit_value}} {{(props.row.currency)?props.row.currency.acronym:''}}
                         </span>
                     </div>
-                    <div slot="inventory" slot-scope="props">
-                        <span>
-                            <b>Almacén:</b> {{
-                                props.row.sale_warehouse_institution_warehouse.sale_warehouse.name
-                                }} <br>
-                            <b>Existencia:</b> {{ props.row.exist }}<br>
-                            <b>Reservados:</b> {{ (props.row.reserved === null)? '0':props.row.reserved }}
-                        </span>
-                    </div>
                     <div slot="requested" slot-scope="props" >
                         <div>
-                            <input type="number" class="form-control table-form input-sm" data-toggle="tooltip" min=0 :max="props.row.exist" :id="'sale_bill_product_'+props.row.id" onfocus="this.select()" @input="selectElement(props.row.id)">
+                            <input type="number" class="form-control table-form input-sm" data-toggle="tooltip" min=0 :max="props.row.exist" :id="'sale_bill_product_'+props.row.id" onfocus="this.select()" @input="selectElement(props.row.id); price('sale_bill_product_'+props.row.id, props.row.unit_value, 'value_span_'+props.row.id)">
+                        </div>
+                    </div>
+                    <div slot="price" slot-scope="props" >
+                        <div>
+                            <b>Precio total</b> <span :id="'value_span_'+props.row.id"></span>
                         </div>
                     </div>
                 </v-client-table>
@@ -191,11 +194,17 @@
                 },
                 
                 records: [],
-                columns: ['check', 'code', 'description', 'inventory', 'requested'],
+                columns: ['check', 'code', 'name', 'description', 'unit_value' ,'requested', 'price'],
                 errors: [],
                 selected: [],
 				selectAll: false,
                 discount: false,
+
+                sale_client: {
+                    name_client: '',
+                    address: '',
+                    address_tax: '',
+                },
 
                 table_options: {
 					rowClassCallback(row) {
@@ -204,12 +213,14 @@
 					},
 					headings: {
 						'code': 'Código',
+						'name': 'Nombre',
 						'description': 'Descripción',
-						'inventory': 'Inventario',
+                        'unit_value': 'Valor',
 						'requested': 'Solicitados',
+                        'price': 'Precio total'
 					},
-					sortable: ['code', 'description', 'inventory', 'requested'],
-					filterable: ['code', 'description', 'inventory', 'requested']
+					sortable: ['code', 'name', 'description', 'unit_value', 'requested', 'price'],
+					filterable: ['code', 'name', 'description', 'unit_value', 'requested', 'price']
 				},
                 
                 sale_clients_rif: [],
@@ -251,7 +262,6 @@
 					}
                     vm.record.sale_setting_products.push(
                         {id:campo, requested:value});
-
                 });
                 if (complete == true)
                 	vm.createRecord(url)
@@ -276,7 +286,6 @@
 						vm.selected.push(row.id);
 				}
             },
-
             reset() {
                 this.record = {
                     id: '',
@@ -327,13 +336,19 @@
                 });
             },
 
-            getSaleClientsName() {
+            getSaleClient() {
                 const vm = this;
-                vm.sale_clients_name = [];
+                if (vm.record.sale_client_id > 0) {
+                    axios.get('/sale/get-sale-client/' + vm.record.sale_client_id).then(response => {
+                        vm.sale_client.name_client = response.data.sale_client.name_client;
+                        vm.sale_client.address = response.data.sale_client.address;
+                        vm.sale_client.address_tax = response.data.sale_client.address_tax;
 
-                axios.get('/sale/get-sale-clients-name/').then(response => {
-                    vm.sale_clients_name = response.data;
-                });
+                        $('#name_client').val(vm.sale_client.name_client);
+                        $('#address').val(vm.sale_client.address);
+                        $('#address_tax').val(vm.sale_client.address_tax);
+                    });
+                }
             },
 
             getSaleClientsAddress() {
@@ -392,24 +407,25 @@
                     vm.loading = false;
                 });
             },
+            price(id, unit_value, value_span){
+                var input = document.getElementById(id);
+                var span = document.getElementById(value_span);
+                if (input && span) {
+                    span.innerText = input.value * unit_value;
+                } else {
+                    span.innerText = '';
+                }
+            },
         },
         created() {
-            
-
             this.getSaleClientsRif();
-            this.getSaleClientsName();
-            this.getSaleClientsAddress();
             this.getSalePaymentMethod();
-            this.getSaleClientsFiscalAddress();
+            this.getSaleClient();
             this.getSaleWarehouse();
             this.getSaleDiscount();
             this.loadInventoryProduct('inventory-products');
             this.getCurrencies();
             this.switchHandler('type_search');
-
-            if (this.receptionid) {
-                this.loadReception(this.receptionid);
-            }
         },
         mounted() {
             let vm = this;

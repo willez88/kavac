@@ -24,7 +24,7 @@ class SaleBill extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['state', 'sale_client_id', 'sale_warehouse_id', 'sale_payment_method_id', 'currency_id', 'sale_discount_id'];
+    protected $fillable = ['code', 'state', 'sale_client_id', 'sale_warehouse_id', 'sale_payment_method_id', 'currency_id', 'sale_discount_id'];
 
      /**
      * Método que obtiene la lista de clientes del módulo de comercialización
@@ -33,7 +33,7 @@ class SaleBill extends Model implements Auditable
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
      * SaleClients
      */
-    public function SaleClients()
+    public function saleClient()
     {
         return $this->belongsTo(SaleClients::class);
     }
@@ -45,7 +45,7 @@ class SaleBill extends Model implements Auditable
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
      * SaleWarehouse
      */
-    public function SaleWarehouse()
+    public function saleWarehouse()
     {
         return $this->belongsTo(SaleWarehouse::class);
     }
@@ -57,7 +57,7 @@ class SaleBill extends Model implements Auditable
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
      * SalePaymentMethod
      */
-    public function SalePaymentMethod()
+    public function salePaymentMethod()
     {
         return $this->belongsTo(SalePaymentMethod::class);
     }
@@ -69,7 +69,7 @@ class SaleBill extends Model implements Auditable
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
      * SaleDiscount
      */
-    public function SaleDiscount()
+    public function saleDiscount()
     {
         return $this->belongsTo(SaleDiscount::class);
     }
@@ -81,7 +81,7 @@ class SaleBill extends Model implements Auditable
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
      * SaleBillInventoryProduct
      */
-    public function SaleBillInventoryProduct()
+    public function saleBillInventoryProduct()
     {
         return $this->hasMany(SaleBillInventoryProduct::class);
     }

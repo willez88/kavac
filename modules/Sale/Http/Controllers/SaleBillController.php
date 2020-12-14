@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\DB;
+use App\Models\CodeSetting;
 
 use Modules\Sale\Models\SaleBill;
 use Modules\Sale\Models\SaleBillInventoryProduct;
@@ -83,11 +84,29 @@ class SaleBillController extends Controller
             'sale_warehouse_id' => ['required'],
             'sale_payment_method_id' => ['required'],
             'currency_id' => ['required'],
-            'sale_discount_id' => ['required']
+            'sale_discount_id' => ['nullable']
         ]);
 
-        DB::transaction(function () use ($request) {
+        $codeSetting = CodeSetting::where('table', 'sale_bills')->first();
+        if (is_null($codeSetting)) {
+            $request->session()->flash('message', [
+                'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
+                'text' => 'Debe configurar previamente el formato para el código a generar'
+                ]);
+            return response()->json(['result' => false, 'redirect' => route('sale.settings.index')], 200);
+        }
+
+        $code  = generate_registration_code(
+            $codeSetting->format_prefix,
+            strlen($codeSetting->format_digits),
+            (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'),
+            $codeSetting->model,
+            $codeSetting->field
+        );
+
+        DB::transaction(function () use ($request, $code) {
             $data_request = SaleBill::create([
+                'code' => $code,
                 'state' => 'Pendiente',
                 'sale_client_id' => $request->input('sale_client_id'),
                 'sale_warehouse_id' => $request->input('sale_warehouse_id'),
@@ -141,7 +160,8 @@ class SaleBillController extends Controller
      */
     public function edit($id)
     {
-        return view('sale::edit');
+        $sale_bills = SaleBill::find($id);
+        return view('sale::bills.create', compact("sale_bills"));
     }
 
     /**
@@ -152,7 +172,68 @@ class SaleBillController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $sale_bills = SaleBill::find($id);
+        $this->validate($request, [
+            'sale_client_id.*' => ['required'],
+            'sale_warehouse_id' => ['required'],
+            'sale_payment_method_id' => ['required'],
+            'currency_id' => ['required'],
+            'sale_discount_id' => ['nullable']
+        ]);
+
+        $sale_bills->sale_client_id = $request->input('sale_client_id');
+        $sale_bills->sale_warehouse_id = $request->input('sale_warehouse_id');
+        $sale_bills->sale_payment_method_id = $request->input('sale_payment_method_id');
+        $sale_bills->currency_id = $request->input('currency_id');
+        $sale_bills->sale_discount_id = $request->input('sale_discount_id');
+        $sale_bills->save();
+
+        $update = now();
+
+        /** Se agregan los nuevos elementos a la solicitud */
+        foreach ($request->sale_setting_products as $product) {
+            $inventory_product = SaleWarehouseInventoryProduct::find($product['id']);
+            if (!is_null($inventory_product)) {
+                $exist_real = $inventory_product->exist - $inventory_product->reserved;
+                if ($exist_real >= $product['requested']) {
+                    $old_request = SaleBillInventoryProduct::where(
+                        'sale_bill_id',
+                        $sale_bills->id
+                    )
+                    ->where('sale_warehouse_inventory_product_id', $inventory_product->id)->first();
+                    if (!is_null($old_request)) {
+                        $old_request->quantity = $product['requested'];
+                        $old_request->updated_at = $update;
+                        $old_request->save();
+                    } else {
+                        SaleBillInventoryProduct::updateOrCreate([
+                            'sale_warehouse_inventory_product_id' => $inventory_product->id,
+                            'sale_bill_id' => $sale_bills->id,
+                            'quantity' => $product['requested'],
+                            'updated_at' => $update,
+                        ]);
+                    }
+                } else {
+                    /** Si la exitencia del producto es menor que lo que se solicita
+                     *  se revierten los cambios
+                     */
+                    DB::rollback();
+                }
+            }
+        };
+
+        /** Se eliminan los demas elementos de la solicitud */
+        $sale_bill_products = SaleBillInventoryProduct::where(
+            'sale_bill_id',
+            $sale_bills->id
+        )->where('updated_at', '!=', $update)->get();
+
+        foreach ($sale_bill_products as $sale_bill_product) {
+            $sale_bill_product->delete();
+        };
+
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true, 'redirect' => route('sale.bills.index')], 200);
     }
 
     /**
@@ -162,7 +243,9 @@ class SaleBillController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $sale_bills = SaleBill::find($id);
+        $sale_bills->delete();
+        return response()->json(['message' => 'destroy'], 200);
     }
 
     /**
@@ -173,8 +256,10 @@ class SaleBillController extends Controller
      */
     public function vueList()
     {
-        $sale_bills = SaleBill::with('SaleClients')
-            ->whereNotNull('sale_warehouse_id')
+        $sale_bills = SaleBill::with(['saleClient', 'SaleBillInventoryProduct' => 
+            function ($query) {
+                $query->with('SaleWarehouseInventoryProduct');
+            }])
             ->get();
         return response()->json(['records' => $sale_bills], 200);
     }

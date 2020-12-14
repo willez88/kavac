@@ -41,24 +41,14 @@ Route::group(
         );
 
         Route::get(
-            'get-sale-clients-name',
-            'SaleClientsController@getSaleClientsName'
-        )->name('sale.get-sale-clients-name');
-
-        Route::get(
             'get-sale-clients-rif',
             'SaleClientsController@getSaleClientsRif'
         )->name('sale.get-sale-clients-rif');
 
         Route::get(
-            'get-sale-clients-address',
-            'SaleClientsController@getSaleClientsAddress'
-        )->name('sale.get-sale-clients-address');
-
-        Route::get(
-            'get-sale-clients-fiscal-address',
-            'SaleClientsController@getSaleClientsFiscalAddress'
-        )->name('sale.get-sale-clients-fiscal-address');
+            'get-sale-client/{id}',
+            'SaleClientsController@getSaleClient'
+        )->name('sale.get-sale-client');
 
         Route::resource(
             'register-formatcode',
@@ -243,6 +233,9 @@ Route::group(
         Route::get('bills/create', 'SaleBillController@create')->name('sale.bills.create');
         Route::get('bills', 'SaleBillController@index')->name('sale.bills.index');
         Route::get('bills/vue-list', 'SaleBillController@vueList');
+        Route::patch('bills/{bill}', 'SaleBillController@update');
+        Route::get('bills/edit/{bill}', 'SaleBillController@edit')->name('sale.bills.edit');
+        Route::delete('bills/delete/{bill}', 'SaleBillController@destroy')->name('sale.bills.destroy');
 
         /*
          * ------------------------------------------------------------
