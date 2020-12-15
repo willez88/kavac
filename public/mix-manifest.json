@@ -249,5 +249,6 @@
     "/modules/warehouse/components/warehouses.js": "/modules/warehouse/components/warehouses.js",
     "/js/components/vendors~vue-tables-2.js": "/js/components/vendors~vue-tables-2.js",
     "/modules/payroll/components/payroll-report-vacation-status.js": "/modules/payroll/components/payroll-report-vacation-status.js",
-    "/modules/payroll/components/payroll-vacation-request-show.js": "/modules/payroll/components/payroll-vacation-request-show.js"
+    "/modules/payroll/components/payroll-vacation-request-show.js": "/modules/payroll/components/payroll-vacation-request-show.js",
+    "/modules/accounting/components/accounting-entry-generator.js": "/modules/accounting/components/accounting-entry-generator.js"
 }

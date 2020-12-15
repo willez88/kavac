@@ -97,6 +97,11 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'accounti
     Route::post('entries/approve/{id}', 'AccountingEntryController@approve')
             ->name('accounting.entries.approve');
 
+    /*
+     * Convierte registros relacionados a cuentas patrimoniales en asientos contables
+     */
+    Route::post('entries/converterToEntry', 'AccountingEntryController@converterToEntry')
+            ->name('accounting.entries.converterToEntry');
     /**
      * rutas para la gestión de asientos contables
      */

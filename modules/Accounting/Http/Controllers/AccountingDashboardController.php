@@ -72,12 +72,12 @@ class AccountingDashboardController extends Controller
         $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
 
         if ($user_profile && $user_profile['institution']['id']) {
-            $records = AccountingEntry::with('accountingAccounts.account.accountConverters.budgetAccount')
+            $records = AccountingEntry::with('accountingAccounts.account')
                         ->where('institution_id', $user_profile['institution']['id'])
                         ->orderBy('from_date', 'ASC')->get();
         } else {
             if (auth()->user()->isAdmin()) {
-                $records = AccountingEntry::with('accountingAccounts.account.accountConverters.budgetAccount')
+                $records = AccountingEntry::with('accountingAccounts.account')
                         ->orderBy('from_date', 'ASC')->get();
             }
         }
@@ -101,9 +101,13 @@ class AccountingDashboardController extends Controller
 
         $reports = [];
 
-        $institution      = get_institution();
-
         $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+
+        if ($user_profile && $user_profile['institution']) {
+            $institution  = get_institution($user_profile['institution']['id']);
+        }else{
+            $institution  = get_institution();
+        }
 
         if ($user_profile && $user_profile['institution']['id']) {
             $reports = AccountingReportHistory::with('institution')
@@ -125,7 +129,7 @@ class AccountingDashboardController extends Controller
             $interval = $datetime1->diff($datetime2);
             array_push($report_histories, [
                                  'id'         => $report['id'],
-                                 'institution_name' => $report['institution']['name'],
+                                 'institution_name' => $institution['name'],
                                  'created_at' => $report['updated_at']->format('d/m/Y'),
                                  'name'       => $report['report'],
                                  'url'        => $report['url'],

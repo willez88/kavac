@@ -1,6 +1,23 @@
 <template>
 <div>
-	<accounting-show-errors ref="AccountingAccountsInForm" />
+	<accounting-show-errors ref="AccountingEntryGenerator" />
+
+	<div class="card-body">
+		<div class="row">
+			<div class="col-12 col-md-6 form-group" id="helpEntriesCategory">
+				<div class="form-group is-required">
+					<label class="control-label">Categoría del asiento</label>
+					<select2 :options="categories" v-model="data.category"></select2>
+				</div>
+			</div>
+			<div class="col-12 col-md-6 form-group" id="helpEntriesDescription">
+				<div class="form-group is-required">
+					<label class="control-label">Concepto ó Descripción</label>
+					<input type="text" class="form-control input-sm" v-model="data.concept">
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<table class="table table-formulation">
 		<thead>
@@ -52,7 +69,7 @@
 			</tr>
 			<tr>
 				<td id="helpEntriesAccountSelect">
-					<select2 :disabled="!enableInput" :options="accounting_accounts" id="select2" @input="addAccountingAccount()"></select2>
+					<select2 :options="accounting_accounts" id="select2" @input="addAccountingAccount()"></select2>
 				</td>
 				<td id="helpEntriesTotDebit">
 					<div class="form-group text-center">Total Debe:
@@ -95,22 +112,21 @@
 <script>
 	export default{
 		props:{
-			accounting_accounts:{
+			recordToConverter:{
 				type:Array,
-				default: []
+				default: null
 			},
-			entries:{
-				type:Object,
+			date:{
+				type:String,
 				default: null
 			},
 		},
 		data(){
 			return{
 				recordsAccounting: [],
-				recordsBudget:[],
+				accounting_accounts:[],
 				rowsToDelete:[],
 				columns: ['code', 'debit', 'assets', 'id'],
-				urlPrevious:'/accounting/entries',
 				data:{
 					date:'',
 					reference:'',
@@ -119,8 +135,12 @@
 					category:'',
 					totDebit:0,
 					totAssets:0,
-					institution_id:null,
-					currency_id:null,
+					institution:{ 
+						id:'',
+						rif:'',
+						acronym:'',
+						name:0,
+					},
 					currency:{ 
 						id:'',
 						symbol:'',
@@ -128,10 +148,7 @@
 						decimal_places:0,
 					},
 				},
-				enableInput:false,
-				accountingOptions:[],
-				optionIdBudget:'',
-				type:'debit',
+				categories:[],
 			}
 		},
 		created(){
@@ -143,55 +160,36 @@
 			};
 
 			$('#select2').val('');
-
-			EventBus.$on('enableInput:entries-account',(data)=>{
-				this.enableInput         = data.value;
-				this.data.date           = data.date;
-				this.data.reference      = data.reference;
-				this.data.concept        = data.concept;
-				this.data.observations   = data.observations;
-				this.data.category       = data.category;
-				this.data.institution_id = data.institution_id;
-				this.data.currency_id    = data.currency_id;
-			});
-
-			EventBus.$on('change:currency',(data)=>{
-				if (data != '') {
-					axios.get('/currencies/info/'+data).then(response => {
-						this.data.currency = response.data.currency;
-					});
-				}else{
-					this.data.currency = { 
-						id:'',
-						symbol:'',
-						name:'',
-						decimal_places:0,
-					};
-				}
-			});
-
 		},
 		mounted(){
-			if (this.entries) {
-				for (var i = 0; i < this.entries.accounting_accounts.length; i++) {
-					this.recordsAccounting.push({
-						id:this.entries.accounting_accounts[i].accounting_account_id,
-						entryAccountId:this.entries.accounting_accounts[i].id,
-						debit:this.entries.accounting_accounts[i].debit,
-						assets:this.entries.accounting_accounts[i].assets,
-					});
-				}
-				this.data.totDebit = parseFloat(this.entries.tot_debit);
-				this.data.totAssets = parseFloat(this.entries.tot_assets);
+			if (this.recordToConverter) {
+				axios.post('/accounting/entries/converterToEntry', { 
+						objectsList: this.recordToConverter
+					}
+				).then(response => {
+					this.accounting_accounts = response.data.accountingAccounts;
+					this.recordsAccounting = response.data.recordsAccounting;
+					this.categories = response.data.categories;
+
+					// En caso de no haber seleccionado un tipo de moneda le asignara el 
+					// que tenga por defecto en el sistema
+					if (!this.data.currency.id && response.data.currency) {
+						this.data.currency 		  = response.data.currency;
+					}
+					this.CalculateTot();
+				})
+			}
+			if (this.date) {
+				this.data.date = this.date;
 			}
 		},
-		beforeDestroy(){
-			EventBus.$off('enableInput:entries-account');
-		},
+		// beforeDestroy(){
+		// 	EventBus.$off('enableInput:entries-account');
+		// },
 		methods:{
 
 			reset(){
-				EventBus.$emit('reset:accounting-entry-edit-create');
+				// EventBus.$emit('reset:accounting-entry-edit-create');
 			},
 
 			addDecimals(value){
@@ -232,10 +230,10 @@
 					errors.push('El campo categoria es obligatorio.');
 					res = true;
 				}
-				if (!this.data.institution_id) {
-					errors.push('El campo institución es obligatorio.');
-					res = true;
-				}
+				// if (!this.data.institution.id) {
+				// 	errors.push('El campo institución es obligatorio.');
+				// 	res = true;
+				// }
 				if (!this.data.currency.id) {
 					errors.push('El tipo de moneda es obligatorio.');
 					res = true;
@@ -252,7 +250,7 @@
 					errors.push('Los valores en la columna del DEBE y el HABER deben ser positivos.');
 					res = true;
 				}
-				this.$refs.AccountingAccountsInForm.showAlertMessages(errors);
+				this.$refs.AccountingEntryGenerator.showAlertMessages(errors);
 				return res;
 			},
 
@@ -304,10 +302,7 @@
 						this.recordsAccounting[i].assets = parseFloat(assets).toFixed(this.data.currency.decimal_places)
 
 						if (this.recordsAccounting[i].debit < 0 || this.recordsAccounting[i].assets < 0) {
-							this.enableInput = false;
-							this.$refs.AccountingAccountsInForm.showAlertMessages('Los valores en la columna del DEBE y el HABER deben ser positivos.');
-						}else{
-							this.enableInput = true;
+							this.$refs.AccountingEntryGenerator.showAlertMessages('Los valores en la columna del DEBE y el HABER deben ser positivos.');
 						}
 
 						this.data.totDebit += (this.recordsAccounting[i].debit!='')?parseFloat(this.recordsAccounting[i].debit):0;
@@ -339,43 +334,27 @@
 			},
 
 		   /**
-			* [createRecord se valida si el asiento sera actualizado o creado]
+			* Guarda la información del asiento contable
+			* 
 			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 			* @return {[type]} [description]
 			*/
 			createRecord:function(){
-				if (this.entries == null) {
-					this.storeEntry();
-				}
-				else{
-					this.updateRecord();
-				}
-			},
-
-		   /**
-			* [storeEntry Guarda la información del asiento contable]
-			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-			*/
-			storeEntry(){
 				const vm = this;
 				if (vm.validateErrors()) {
 					return ;
 				}
 
-				vm.data['currency_id'] 	  	    = vm.data.currency.id;
-				vm.data['tot'] 					= vm.data.totDebit;
-				vm.data['tot_confirmation'] 	= vm.data.totAssets;
-				vm.data['accountingAccounts']	= vm.recordsAccounting;
-				
+				vm.data['institution_id'] 	  = vm.data.institution.id;
+				vm.data['currency_id'] 	  	  = vm.data.currency.id;
+				vm.data['tot'] 				  = vm.data.totDebit;
+				vm.data['tot_confirmation']   = vm.data.totAssets;
+				vm.data['accountingAccounts'] = vm.recordsAccounting;
 				vm.loading = true;
 
 				axios.post('/accounting/entries', vm.data).then(response => {
 					vm.loading = false;
 					vm.showMessage('store');
-					setTimeout(function() {
-						location.href = vm.urlPrevious;
-					}, 2000);
-
 				}).catch(error=>{
 					var errors = [];
 					if (typeof(error.response) != "undefined") {
@@ -388,50 +367,32 @@
 					/**
 					* se cargan los errores
 					*/
-					vm.$refs.AccountingAccountsInForm.showAlertMessages(errors);
+					vm.$refs.AccountingEntryGenerator.showAlertMessages(errors);
 					vm.loading = false;
 				});
 			},
 
 			/**
-			* Actualiza la información del asiento contable
+			* cambia el tipo de moneda en el que se expresa el asiento contable
 			*
 			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 			*/
-			updateRecord:function() {
-				const vm = this;
-				if (vm.validateErrors()) {
-					return ;
+			changeCurrency(currency_id){
+				if (currency_id) {
+					axios.get('/currencies/info/'+currency_id).then(response => {
+						this.data.currency 	= response.data.currency;
+						this.data.currency_id 	= response.data.currency.id;
+					});
+				}else{
+					this.data.currency = { 
+						id:'',
+						symbol:'',
+						name:'',
+						decimal_places:0,
+					};
+					this.data.currency_id 	= '';
 				}
-				vm.data['tot'] 					= vm.data.totDebit;
-				vm.data['tot_confirmation'] 	= vm.data.totAssets;
-				vm.data['accountingAccounts'] 	= vm.recordsAccounting;
-				vm.data['rowsToDelete'] 		= vm.rowsToDelete;
-
-				vm.loading = true;
-
-				axios.put('/accounting/entries/'+vm.entries.id, vm.data)
-				.then(response=>{
-					vm.loading = false;
-					vm.showMessage('update');
-					setTimeout(function() {
-						location.href = vm.route_list;
-					}, 2000);
-				}).catch(error=>{
-					var errors = [];
-					if (typeof(error.response) != "undefined") {
-						for (var index in error.response.data.errors) {
-							if (error.response.data.errors[index]) {
-								errors.push(error.response.data.errors[index][0]);
-							}
-						}
-					}
-					/**
-					* se cargan los errores
-					*/
-					vm.$refs.AccountingAccountsInForm.showAlertMessages(errors);
-					vm.loading = false;
-				});
+				this.CalculateTot();
 			},
 
 			/**

@@ -21,11 +21,18 @@ class AccountingManageEntries implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
-     * Objeto que contiene la información asociada a la solicitud
+     * Arreglo que contiene la información asociada a la solicitud
      *
-     * @var Object $asset
+     * @var Array $data
      */
     protected $data;
+
+    /**
+     * int que contiene la información asociada a la solicitud
+     *
+     * @var int $institution
+     */
+    protected $institution_id;
 
     /**
      * Variable que contiene el tiempo de espera para la ejecución del trabajo,
@@ -40,9 +47,10 @@ class AccountingManageEntries implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(array $data)
+    public function __construct(array $data, int $institution_id)
     {
         $this->data = $data;
+        $this->institution_id = $institution_id;
     }
 
     /**
@@ -53,7 +61,6 @@ class AccountingManageEntries implements ShouldQueue
     public function handle()
     {
         $created_at = now();
-        // for ($i=0; $i < 500; $i++) {
         $newEntries = AccountingEntry::where('reference', $this->data['reference'])->first();
 
         /**
@@ -62,9 +69,10 @@ class AccountingManageEntries implements ShouldQueue
         if ($newEntries) {
             $newEntries->concept                        = $this->data['concept'];
             $newEntries->observations                   = $this->data['observations'];
-            $newEntries->accounting_entry_categories_id = ($this->data['category']!='')?
-                $this->data['category']: null;
-            $newEntries->institution_id                 = $this->data['institution_id'];
+            $newEntries->accounting_entry_categories_id = ($this->data['category']!='') ?
+                $this->data['category'] : 
+                null;
+            $newEntries->institution_id                 = $this->institution_id;
             $newEntries->currency_id                    = $this->data['currency_id'];
             $newEntries->tot_debit                      = $this->data['totDebit'];
             $newEntries->tot_assets                     = $this->data['totAssets'];
@@ -80,7 +88,7 @@ class AccountingManageEntries implements ShouldQueue
                     'concept'                        => $this->data['concept'],
                     'observations'                   => $this->data['observations'],
                     'accounting_entry_categories_id' => ($this->data['category']!='')? $this->data['category']: null,
-                    'institution_id'                 => $this->data['institution_id'],
+                    'institution_id'                 => $this->institution_id,
                     'currency_id'                    => $this->data['currency_id'],
                     'tot_debit'                      => $this->data['totDebit'],
                     'tot_assets'                     => $this->data['totAssets'],
@@ -113,7 +121,6 @@ class AccountingManageEntries implements ShouldQueue
                     ]);
             }
         }
-        // }
     }
 
     /**

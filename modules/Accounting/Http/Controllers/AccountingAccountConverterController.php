@@ -65,7 +65,7 @@ class AccountingAccountConverterController extends Controller
 	 */
 	public function getAllRecordsAccountingVuejs()
 	{
-		return response()->json(['records'=>$this->getRecordsAccounting(true)]);
+		return response()->json(['records'=>$this->getRecordsAccounting()]);
 	}
 
 	/**
@@ -75,7 +75,7 @@ class AccountingAccountConverterController extends Controller
 	 */
 	public function getAllRecordsBudgetVuejs()
 	{
-		return response()->json(['records'=>$this->getRecordsBudget(true)]);
+		return response()->json(['records'=>$this->getRecordsBudget()]);
 	}
 
 	/**
@@ -99,13 +99,13 @@ class AccountingAccountConverterController extends Controller
 		 * [$accountingList contiene las cuentas patrimoniales]
 		 * @var [Json]
 		 */
-		$accountingList = json_encode($this->getRecordsAccounting(false));
+		$accountingList = json_encode($this->getRecordsAccounting());
 
 		/**
 		 * [$accountingList contiene las cuentas presupuestarias]
 		 * @var [Json]
 		 */
-		$budgetList = json_encode($this->getRecordsBudget(false));
+		$budgetList = json_encode($this->getRecordsBudget());
 
 		return view('accounting::account_converters.create', compact('has_budget', 'accountingList', 'budgetList'));
 	}
@@ -139,9 +139,15 @@ class AccountingAccountConverterController extends Controller
 		 */
 		if (Module::has($request->module) && Module::isEnabled($request->module)) {
 
-			foreach (Accountable::where(
-				'accounting_account_id', 
-				$request->accounting_account_id)->orderBy('id', 'ASC')->get() as $accountable) {
+			foreach (Accountable::where('accounting_account_id', $request->accounting_account_id)
+								->where('active', true)->orderBy('id', 'ASC')->get() as $accountable) {
+				$accountable->active = false;
+				$accountable->save();
+			}
+
+			foreach (Accountable::where('accountable_id', $request->accountable_id)
+									->where('accountable_type', $request->model)
+									->where('active', true)->orderBy('id', 'ASC')->get() as $accountable) {
 				$accountable->active = false;
 				$accountable->save();
 			}
@@ -365,6 +371,7 @@ class AccountingAccountConverterController extends Controller
 		 * ciclo para almacenar en array cuentas patrimoniales disponibles para conversiones
 		*/
 		foreach (AccountingAccount::with('accountable')
+				->where('active', true)
 				->orderBy('group', 'ASC')
 				->orderBy('subgroup', 'ASC')
 				->orderBy('item', 'ASC')
@@ -413,6 +420,7 @@ class AccountingAccountConverterController extends Controller
 			 * ciclo para almacenar en array cuentas presupuestarias disponibles para conversiones
 			*/
 			foreach (BudgetAccount::with('accountingAccounts')
+				->where('active', true)
 				->orderBy('group', 'ASC')
 				->orderBy('item', 'ASC')
 				->orderBy('generic', 'ASC')

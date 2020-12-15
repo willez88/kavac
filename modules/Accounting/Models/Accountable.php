@@ -8,6 +8,17 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
+/**
+ * @class Accountable
+ * @brief Clase que gestiona la relacion N-M entre cuentas patrimoniales y otros registros
+ *
+ * Gestiona la relacion N-M entre cuentas patrimoniales y otros registros
+ *
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *                LICENCIA DE SOFTWARE CENDITEL
+ *            </a>
+ */
 class Accountable extends Model implements Auditable
 {
 	use SoftDeletes;
