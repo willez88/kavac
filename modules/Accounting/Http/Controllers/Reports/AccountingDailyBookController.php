@@ -70,14 +70,14 @@ class AccountingDailyBookController extends Controller
 
         if (auth()->user()->isAdmin()) {
             $entries = AccountingEntry::with(
-                'accountingAccounts.account.accountConverters.budgetAccount'
+                'accountingAccounts.account.accountableBudget'
             )->where('approved', true)
             ->whereBetween("from_date", [$initDate, $endDate])
             ->orderBy('from_date', 'ASC');
 
         }elseif ($user_profile['institution']['id']) {
             $entries = AccountingEntry::with(
-                'accountingAccounts.account.accountConverters.budgetAccount'
+                'accountingAccounts.account.accountableBudget'
             )->where('approved', true)
             ->where('institution_id', $user_profile['institution']['id'])
             ->whereBetween("from_date", [$initDate, $endDate])
@@ -218,14 +218,14 @@ class AccountingDailyBookController extends Controller
 
         if (auth()->user()->isAdmin()) {
             $r = AccountingEntry::with(
-                'accountingAccounts.account.accountConverters.budgetAccount'
+                'accountingAccounts.account.accountableBudget'
             )->where('approved', true)
             ->whereBetween("from_date", [$initDate, $endDate])
             ->orderBy('from_date', 'ASC');
         }
         elseif ($user_profile['institution']['id']) {
             $r = AccountingEntry::with(
-                'accountingAccounts.account.accountConverters.budgetAccount'
+                'accountingAccounts.account.accountableBudget'
             )->where('approved', true)
             ->where('institution_id', $user_profile['institution']['id'])
             ->whereBetween("from_date", [$initDate, $endDate])

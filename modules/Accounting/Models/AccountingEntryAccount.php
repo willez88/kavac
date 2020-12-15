@@ -29,12 +29,25 @@ class AccountingEntryAccount extends Model implements Auditable
         'assets'
     ];
 
+    /**
+     * AccountingEntryAccount belongs to AccountingEntry.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function entries()
     {
+        // belongsTo(RelatedModel, foreignKey = accountingEntry_id, keyOnRelatedModel = id)
         return $this->belongsTo(AccountingEntry::class, 'accounting_entry_id');
     }
+
+    /**
+     * AccountingEntryAccount belongs to AccountingAccount.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function account()
     {
+        // belongsTo(RelatedModel, foreignKey = accountingAccount_id, keyOnRelatedModel = id)
         return $this->belongsTo(AccountingAccount::class, 'accounting_account_id');
     }
 }

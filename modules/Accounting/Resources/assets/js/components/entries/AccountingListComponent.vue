@@ -54,7 +54,7 @@
                                 v-if="!props.row.approved">
                             <i class="fa fa-edit"></i>
                         </button>
-                        <button @click="deleteRecord(props.index,'/accounting/entries')"
+                        <button @click="deleteRecord(props.row.id,'/accounting/entries')"
                                 class="btn btn-danger btn-xs btn-icon btn-action"
                                 title="Eliminar Registro" data-toggle="tooltip"
                                 v-if="!props.row.approved">

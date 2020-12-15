@@ -45,7 +45,7 @@ class AccountingEntry extends Model implements Auditable
     public function accountingAccounts()
     {
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = accountingEntry_id, localKey = id)
-        return $this->hasMany(AccountingEntryAccount::class);
+        return $this->hasMany(AccountingEntryAccount::class, 'accounting_entry_id');
     }
 
     /**

@@ -81,7 +81,7 @@ class AccountingDashboardController extends Controller
                         ->orderBy('from_date', 'ASC')->get();
             }
         }
-
+        dd($records);
         return response()->json(['lastRecords' => $records, 'currency' => $currency], 200);
     }
 
