@@ -2,7 +2,7 @@
 
 namespace Modules\CitizenService\Http\Controllers;
 
-use Modules\CitizenService\Pdf\CitizenServiceReport as ReportRepository;
+use Modules\CitizenService\Pdf\CitizenServiceReport  as Report;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\CodeSetting;
@@ -11,8 +11,10 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\CitizenService\Models\CitizenServiceRequest;
 use Modules\CitizenService\Models\CitizenServiceReport;
+use Elibyy\TCPDF\TCPDF as PDF;
 use App\Models\Institution;
 use Carbon\Carbon;
+use Log;
 
 class CitizenServiceReportController extends Controller
 {
@@ -23,6 +25,7 @@ class CitizenServiceReportController extends Controller
      */
     public function index()
     {
+
         return view('citizenservice::reports.create');
     }
     public function request()
@@ -36,41 +39,36 @@ class CitizenServiceReportController extends Controller
      */
     public function create(Request $request)
     {
+
+
+
         /** Para el PDF**/
-        $institution = Institution::where('default', true)
-            ->where('active', true)->first();
-        $pdf = new ReportRepository();
+        $user = Auth()->user();
+        $profileUser = $user->profile;
+        if ($profileUser) {
+            $institution = Institution::find($profileUser->institution_id);
+        } else {
+            $institution = Institution::where('active', true)->where('default', true)->first();
+        }
+        $pdf = new Report();
+
+        $object = (object) [
+             'first_name' =>  $request[0]['first_name'],
+             'id_number' => $request[0]['id_number'],
+             'date' => $request[0]['date'],
+             'email' => $request[0]['email'],
+             'phone' => $request[0]['phone'],
+             'institution_name' => $request[0]['institution_name'],
+             'rif' => $request[0]['rif'],
+             'institution_address' => $request[0]['institution_address'],
+             'web' => $request[0]['web'],
+
+
+                     ];
         $filename = 'citizenservice-report-' . Carbon::now() . '.pdf';
 
-        $codeSetting = CodeSetting::where('table', 'citizen_service_reports')->first();
-        if (is_null($codeSetting)) {
-            $request->session()->flash('message', [
-            'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
-            'text' => 'Debe configurar previamente el formato para el código a generar'
-            ]);
-            return response()->json(['result' => false, 'redirect' => route('citizenservice.setting.index')], 200);
-        }
 
-        $code = generate_registration_code(
-            $codeSetting->format_prefix,
-            strlen($codeSetting->format_digits),
-            (strlen($codeSetting->format_year) == 2) ? date('y') : date('Y'),
-            $codeSetting->model,
-            $codeSetting->field
-        );
-
-        $report = CitizenServiceReport::create([
-            'type_search' => $request->input('type_search'),
-
-            'date' => $request->input('date'),
-            'start_date' => $request->input('start_date'),
-            'end_date' => $request->input('end_date'),
-        ]);
-
-        /*
-         *  Definicion de las caracteristicas generales de la página
-         */
-        $body = 'citizenservice::pdf.citizenservice-report-request';
+        $body = 'citizenservice::pdf.citizenservice_general';
 
         $pdf->setConfig(
             [
@@ -88,11 +86,13 @@ class CitizenServiceReportController extends Controller
             true,
             [
                 'pdf'    => $pdf,
-                'fields' => $fields
+                'field' => $object
             ]
         );
+
         $url = '/citizenservice/report/show/' . $filename;
-        return response()->json(['result' => true, $redirect => $url], 200);
+
+        return response()->json(['result' => true,'redirect' =>  $url], 200);
     }
 
     /**
@@ -100,7 +100,7 @@ class CitizenServiceReportController extends Controller
      * @param  Request $request
      */
 
-    public function store(Request $request)
+    /**public function store(Request $request)
     {
         $this->validate($request, [
             'type_search' => ['required']
@@ -113,18 +113,18 @@ class CitizenServiceReportController extends Controller
             'start_date' => $request->input('start_date'),
             'end_date' => $request->input('end_date'),
         ]);
-    }
+    } **/
 
 
     /**
      * Show the specified resource.
      * @return Renderable
      */
-    public function show($code)
+    public function show($filename)
     {
-        $report = CitizenServiceReport::where('code', $code)->first();
-        $pdf = new ReportRepository();
-        $pdf->show($report->filename);
+        $file = storage_path() . '/reports/' . $filename ?? 'citizenservice-report-' . Carbon::now() . '.pdf';
+    
+        return response()->download($file, $filename, [], 'inline');
     }
 
     /**

@@ -37,7 +37,7 @@ class PayrollVacationRequest extends Model implements Auditable
      */
     protected $fillable = [
         'code', 'status', 'days_requested', 'vacation_period_year', 'start_date',
-        'end_date', 'payroll_staff_id', 'institution_id'
+        'end_date', 'status_parameters', 'payroll_staff_id', 'institution_id'
     ];
 
     /**
@@ -68,5 +68,46 @@ class PayrollVacationRequest extends Model implements Auditable
     public function payrollStaff()
     {
         return $this->belongsTo(PayrollStaff::class);
+    }
+
+    /**
+     * Método que obtiene las solicitudes de vacaciones registradas según la fecha y/o trabajador
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @param     string    $startDate         Fecha de inicio
+     * @param     string    $endDate           Fecha de culminación
+     * @param     string    $payrollStaffId    Identificador único del trabajador
+     *
+     * @return    object                       Objeto con los registros a mostrar
+     */
+    public function scopeSearchPayrollVacationRequest($query, $startDate, $endDate, $payrollStaffId)
+    {
+        if ($startDate != "") {
+            if ($endDate != "") {
+                if ($payrollStaffId != "") {
+                    return $query->whereDate('start_date', '>=', $startDate)
+                                 ->whereDate('end_date', '=<', $endDate)
+                                 ->where('payroll_staff_id', $payrollStaffId);
+                }
+                return $query->whereDate('start_date', '>=', $startDate)
+                                 ->whereDate('end_date', '=<', $endDate);
+            }
+            if ($payrollStaffId != "") {
+                return $query->whereDate('start_date', '>=', $startDate)
+                             ->where('payroll_staff_id', $payrollStaffId);
+            }
+            return $query->whereDate('start_date', '>=', $startDate);
+        }
+        if ($endDate != "") {
+            if ($payrollStaffId != "") {
+                return $query->whereDate('end_date', '=<', $endDate)
+                             ->where('payroll_staff_id', $payrollStaffId);
+            }
+            return $query->whereDate('end_date', '=<', $endDate);
+        }
+        if ($payrollStaffId != "") {
+            return $query->where('payroll_staff_id', $payrollStaffId);
+        }
     }
 }

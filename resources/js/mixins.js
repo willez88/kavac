@@ -1053,11 +1053,11 @@ Vue.mixin({
 			}
 		}*/
 	},
-	created() {
-		this.clearForm();
+	async created() {
+		await this.clearForm();
 		this.loading = false;
 	},
-	mounted() {
+	async mounted() {
 		let vm = this;
 		if ($('.modal-lockscreen').length > 0) {
 			//vm.lockScreen();

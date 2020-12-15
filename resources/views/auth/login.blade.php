@@ -35,7 +35,8 @@
                     {!! Form::password('password', [
                         'class' => 'form-control', 'placeholder' => __('Contraseña'), 'required' => 'required',
                         'title' => __('Indique la contraseña de acceso.'),
-                        'data-toggle' => 'tooltip', 'data-placement' => 'right'
+                        'data-toggle' => 'tooltip', 'data-placement' => 'right',
+                        'autocomplete' => 'off'
                     ]) !!}
                 </div>
                 @if ($errors->has('password'))

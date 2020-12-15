@@ -1,7 +1,7 @@
 <template>
 	<div class="col-xs-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-		   href="" title="Registros de tipos de instituciones"
+		   href="javascript:void(0)" title="Registros de tipos de instituciones"
 		   data-toggle="tooltip" @click="addRecord('add_institution_type', 'institution-types', $event)">
 			<i class="icofont icofont-building-alt ico-3x"></i>
 			<span>Tipo<br>Instituciones</span>
@@ -100,7 +100,7 @@
 				};
 			},
 		},
-		created() {
+		async created() {
 			this.table_options.headings = {
 				'acronym': 'Acrónimo',
 				'name': 'Nombre',

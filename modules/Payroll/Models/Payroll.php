@@ -38,6 +38,12 @@ class Payroll extends Model implements Auditable
     protected $fillable = ['name', 'payroll_parameters', 'payroll_payment_period_id'];
 
     /**
+     * Lista de atributos de relacion consultados automáticamente
+     * @var array $with
+     */
+    protected $with = ['payrollPaymentPeriod'];
+
+    /**
      * Método que obtiene la información del período de pago asociado a la nómina
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
@@ -47,5 +53,17 @@ class Payroll extends Model implements Auditable
     public function payrollPaymentPeriod()
     {
         return $this->belongsTo(PayrollPaymentPeriod::class);
+    }
+
+    /**
+     * Método que obtiene la información de los trabajadores asociados a la nómina
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payrollStaffPayrolls()
+    {
+        return $this->hasMany(PayrollStaffPayroll::class);
     }
 }

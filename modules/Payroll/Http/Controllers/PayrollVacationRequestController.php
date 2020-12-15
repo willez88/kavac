@@ -145,7 +145,7 @@ class PayrollVacationRequestController extends Controller
          */
         $payrollVacationRequest = PayrollVacationRequest::create([
             'code'                 => $code,
-            'status'               => $user->hasRole('admin') ? 'approved':'pending',
+            'status'               => 'pending',
             'days_requested'       => $request->input('days_requested'),
             'vacation_period_year' => $request->input('vacation_period_year'),
             'start_date'           => $request->input('start_date'),
@@ -225,7 +225,7 @@ class PayrollVacationRequestController extends Controller
             $institution = Institution::where('active', true)->where('default', true)->first();
         }
         $payrollVacationRequest->update([
-            'status'               => $user->hasRole('admin') ? 'approved': $payrollVacationRequest->status,
+            'status'               => $payrollVacationRequest->status,
             'days_requested'       => $request->input('days_requested'),
             'vacation_period_year' => $request->input('vacation_period_year'),
             'start_date'           => $request->input('start_date'),
@@ -288,18 +288,85 @@ class PayrollVacationRequestController extends Controller
     }
 
     /**
+     * Muestra un listado de las solicitudes vacacionales pendientes registradas
+     *
+     * @method    vuePendingList
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     */
+    public function vuePendingList()
+    {
+        $user = Auth()->user();
+        $profileUser = $user->profile;
+        if ($profileUser) {
+            $institution = Institution::find($profileUser->institution_id);
+        } else {
+            $institution = Institution::where('active', true)->where('default', true)->first();
+        }
+        if ($user->hasRole('admin')) {
+            $records = PayrollVacationRequest::where('institution_id', $institution->id)
+                                             ->where('status', 'pending')
+                                             ->get();
+        } else {
+            $records = [];
+        }
+        return response()->json(['records' => $records], 200);
+    }
+
+    /**
      * Muestra el listado de solicitudes de vacaciones según el trabajador seleccionado
      *
      * @method    getVacationRequests
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      *
-     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     * @param     Integer                          $id    Identificador único del trabajador registrado
+     *
+     * @return    \Illuminate\Http\JsonResponse           Objeto con los registros a mostrar
      */
     public function getVacationRequests($staff_id)
     {
         $payrollVacationRequest = PayrollVacationRequest::where('payroll_staff_id', $staff_id)
                                                         ->whereIn('status', ['pending', 'approved'])->get();
         return response()->json(['records' => $payrollVacationRequest], 200);
+    }
+
+    /**
+     * Actualiza la información de la solicitud de vacaciones
+     *
+     * @method    review
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @param     Integer                     $id         Identificador único asociado a la solicitud de vacaciones
+     *
+     * @param     \Illuminate\Http\Request    $request    Datos de la petición
+     *
+     * @return    Renderable
+     */
+    public function review(Request $request, $id)
+    {
+        /**
+         * Objeto asociado al modelo PayrollVacationRequest
+         * @var    Object    $payrollVacationRequest
+         */
+        $payrollVacationRequest = PayrollVacationRequest::find($id);
+        $this->validate($request, $this->validateRules, $this->messages);
+
+        $profileUser = Auth()->user()->profile;
+        if ($profileUser) {
+            $institution = Institution::find($profileUser->institution_id);
+        } else {
+            $institution = Institution::where('active', true)->where('default', true)->first();
+        }
+        $payrollVacationRequest->update([
+            'status'               => $request->input('status'),
+            'status_parameters'    => json_encode($request->input('status_parameters')),
+        ]);
+
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true, 'redirect' => route('payroll.vacation-requests.index')], 200);
     }
 }

@@ -126,7 +126,7 @@
 									{!! Form::label('name', __('Nombre'), []) !!}
 									{!! Form::text('name',
 										(isset($model_institution))?$model_institution->name:old('name'), [
-											'class' => 'form-control input-sm', 'id' => 'name',
+											'class' => 'form-control input-sm',
 											'data-toggle' => 'tooltip',
 											'title' => __('Introduzca el nombre de la institución (requerido)')
 										]

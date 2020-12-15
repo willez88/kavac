@@ -1,7 +1,7 @@
 <template>
 	<div class="col-xs-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-		   href="" title="Registros para sectores de instituciones"
+		   href="javascript:void(0)" title="Registros para sectores de instituciones"
 		   data-toggle="tooltip" @click="addRecord('add_institution_sector', 'institution-sectors', $event)">
 			<i class="icofont icofont-focus ico-3x"></i>
 			<span>Sector<br>Instituciones</span>
@@ -90,7 +90,7 @@
 				};
 			},
 		},
-		created() {
+		async created() {
 			this.table_options.headings = {
 				'name': 'Nombre',
 				'id': 'Acción'

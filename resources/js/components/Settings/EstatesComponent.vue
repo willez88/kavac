@@ -1,7 +1,7 @@
 <template>
 	<div class="col-xs-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-		   href="#" title="Registros de Estado de un Pais"
+		   href="javascript:void(0)" title="Registros de Estado de un Pais"
 		   data-toggle="tooltip" @click="addRecord('add_estate', '/estates', $event)">
 			<i class="icofont icofont-map-search ico-3x"></i>
 			<span>Estados</span>
@@ -109,7 +109,7 @@
 				};
 			},
 		},
-		created() {
+		async created() {
 			this.table_options.headings = {
 				'country.name': 'Pais',
 				'name': 'Estado',
@@ -125,7 +125,7 @@
 				'id': 'col-md-2'
 			};
 		},
-		mounted() {
+		async mounted() {
 			let vm = this;
 			$("#add_estate").on('show.bs.modal', function() {
 				vm.getCountries();

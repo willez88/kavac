@@ -8,14 +8,20 @@
             <a href="{{ route('finance.setting.index') }}">Configuración</a>
         </li>
         <li>
-            <a href="#">Emisión de Cheques</a>
+            <a href="#">Movimientos bancarios</a>
         </li>
         <li>
+            <a href="#">Cuentas por Pagar</a>
+        </li>
+        <li>
+            <a href="#">Emisión de Cheques</a>
+        </li>
+        <!--<li>
             <a href="#">Reportes</a>
             <ul class="submenu">
-                <li><a href="#">Reporte 1</a></li>
-                <li><a href="#">Reporte 2</a></li>
+                <li><a href="#">Voucher</a></li>
+                <li><a href="#"></a></li>
             </ul>
-        </li>
+        </li>-->
     </ul>
 </li>

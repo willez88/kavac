@@ -66,7 +66,7 @@ Route::group([
 
     Route::post('requests/validate-document', 'CitizenServiceRequestCloseController@store');
     Route::get('/get-documents/{id}', 'CitizenServiceRequestCloseController@getCitizenServiceRequestDocuments');
-
+    Route::get('/get-documents/show/{code}', 'CitizenServiceRequestCloseController@show');
     /**
      * Rutas para generar reporte
      */

@@ -1,6 +1,6 @@
 <template>
 	<div class="col-xs-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href="javascript:void(0)"
 		   title="Registros de estados de los documentos" data-toggle="tooltip"
 		   @click="addRecord('add_doc_status', 'document-status', $event)">
 		   	<i class="icofont icofont-ui-copy ico-3x"></i>
@@ -64,8 +64,7 @@
     					                    		<input type="radio" class="form-control bootstrap-switch"
     					                    			   name="action" data-toggle="tooltip" data-on-label="SI"
                                                            data-off-label="NO" title="Indique si aprueba procesos"
-    													   v-model.lazy="record.action" value="AP" data-record="action"
-                                                           id="action_ap">
+    													   v-model.lazy="record.action" value="AP" data-record="action">
 				                    			    Aprueba procesos
                                                 </div>
 				                    		</label>
@@ -76,8 +75,7 @@
     					                    		<input type="radio" class="form-control bootstrap-switch"
     					                    			   name="action" data-toggle="tooltip" data-on-label="SI"
                                                            data-off-label="NO" title="Indique si rechaza procesos"
-    													   v-model="record.action" value="RE" data-record="action"
-                                                           id="action_re">
+    													   v-model="record.action" value="RE" data-record="action">
     				                    			Rechaza procesos
                                                 </div>
 				                    		</label>
@@ -88,8 +86,7 @@
     					                    		<input type="radio" class="form-control bootstrap-switch"
     					                    			   name="action" data-toggle="tooltip" data-on-label="SI"
                                                            data-off-label="NO" title="Indique si elimina procesos"
-    													   v-model="record.action" value="EL" data-record="action"
-                                                           id="action_el">
+    													   v-model="record.action" value="EL" data-record="action">
     				                    			Elimina procesos
                                                 </div>
 				                    		</label>
@@ -100,8 +97,7 @@
     					                    		<input type="radio" class="form-control bootstrap-switch"
     					                    			   name="action" data-toggle="tooltip" data-on-label="SI"
                                                            data-off-label="NO" title="Indique si inicia procesos"
-    													   v-model="record.action" value="PR" data-record="action"
-                                                           id="action_pr">
+    													   v-model="record.action" value="PR" data-record="action">
     				                    			Inicia procesos
                                                 </div>
 				                    		</label>
@@ -112,8 +108,7 @@
     					                    		<input type="radio" class="form-control bootstrap-switch"
     					                    			   name="action" data-toggle="tooltip" data-on-label="SI"
                                                            data-off-label="NO" title="Indique si anula procesos"
-    													   v-model="record.action" value="AN" data-record="action"
-                                                           id="action_an">
+    													   v-model="record.action" value="AN" data-record="action">
     				                    			Anula procesos
                                                 </div>
 				                    		</label>
@@ -197,7 +192,7 @@
 				};
 			}
 		},
-		created() {
+		async created() {
 			this.table_options.headings = {
 				color: 'Color',
 				name: 'Nombre',
@@ -215,8 +210,9 @@
 				'id': 'col-md-2'
 			};
 		},
-		mounted() {
-			this.switchHandler('action');
+		async mounted() {
+            await this.$nextTick();
+			await this.switchHandler('action');
 		}
 	};
 </script>

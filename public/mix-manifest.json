@@ -250,5 +250,13 @@
     "/js/components/vendors~vue-tables-2.js": "/js/components/vendors~vue-tables-2.js",
     "/modules/payroll/components/payroll-report-vacation-status.js": "/modules/payroll/components/payroll-report-vacation-status.js",
     "/modules/payroll/components/payroll-vacation-request-show.js": "/modules/payroll/components/payroll-vacation-request-show.js",
-    "/modules/accounting/components/accounting-entry-generator.js": "/modules/accounting/components/accounting-entry-generator.js"
+    "/modules/payroll/components/payroll-report-vacation-bonus-calculations.js": "/modules/payroll/components/payroll-report-vacation-bonus-calculations.js",
+    "/modules/payroll/components/payroll-review-vacation-request-pending-form.js": "/modules/payroll/components/payroll-review-vacation-request-pending-form.js",
+    "/modules/payroll/components/payroll-vacation-request-pending-list.js": "/modules/payroll/components/payroll-vacation-request-pending-list.js",
+    "/modules/payroll/components/payroll-registers-show.js": "/modules/payroll/components/payroll-registers-show.js",
+    "/js/components/vendors~document-status~vue-tables-2.js": "/js/components/vendors~document-status~vue-tables-2.js",
+    "/js/components/vendors~cities~document-status~vue-tables-2.js": "/js/components/vendors~cities~document-status~vue-tables-2.js",
+    "/js/components/vendors~cities~currencies~deductions~departments~document-status~estates~exchange-rates~municipaliti~0e466806.js": "/js/components/vendors~cities~currencies~deductions~departments~document-status~estates~exchange-rates~municipaliti~0e466806.js",
+    "/js/components/vendors~cities~countries~currencies~deductions~departments~document-status~estates~exchange-rates~in~ce61a0f1.js": "/js/components/vendors~cities~countries~currencies~deductions~departments~document-status~estates~exchange-rates~in~ce61a0f1.js",
+    "/modules/accounting/components/accounting-entry-generator.js": "/modules/accounting/components/accounting-entry-generator.js",
 }

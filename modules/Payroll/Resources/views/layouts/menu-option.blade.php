@@ -70,7 +70,13 @@
                         Estatus de vacaciones
                     </a>
                 </li>
-                <li><a href="#">Cálculo de bono vacacional</a></li>
+                <li title="Reporte del cálculo de bono vacacional"
+                    data-toggle="tooltip" data-placement="right"
+                    class="{!! set_active_menu('payroll.reports.vacation-status') !!}">
+                    <a href="{{ route('payroll.reports.vacation-bonus-calculations') }}">
+                        Cálculo de bono vacacional
+                    </a>
+                </li>
                 <li><a href="#">Pago de bono vacacional</a></li>
             </ul>
         </li>

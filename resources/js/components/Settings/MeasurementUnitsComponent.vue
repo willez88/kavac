@@ -1,6 +1,6 @@
 <template>
 	<div class="col-xs-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href="javascript:void"
 		   title="Registros de estados de los documentos" data-toggle="tooltip"
 		   @click="addRecord('add_measurement_unit', 'measurement-units', $event)">
 		   	<i class="icofont icofont-ruler-pencil-alt-1 ico-3x"></i>
@@ -113,7 +113,7 @@
 				};
 			}
 		},
-		created() {
+		async created() {
 			this.table_options.headings = {
 				acronym: 'Acrónimo',
 				name: 'Nombre',
