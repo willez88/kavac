@@ -1,7 +1,7 @@
 <template>
     <div class="col-xs-2 text-center">
         <a class="btn-simplex btn-simplex-md btn-simplex-primary"
-           href="#" title="Registros de Deducciones" data-toggle="tooltip"
+           href="javascript:void(0)" title="Registros de Deducciones" data-toggle="tooltip"
            @click="addRecord('add_deduction', 'deductions', $event)">
             <i class="icofont icofont-mathematical-alt-2 ico-3x"></i>
             <span>Deducciones</span>
@@ -126,7 +126,7 @@
                                         <label for="">
                                             <div class="bootstrap-switch-mini">
                                                 <input type="checkbox" class="form-control bootstrap-switch"
-                                                       name="active" id="active" data-toggle="tooltip"
+                                                       name="active" data-toggle="tooltip"
                                                        data-on-label="SI" data-off-label="NO"
                                                        title="Indique si la deducción se encuentra activa"
                                                        v-model.lazy="record.active" value="true"
@@ -252,7 +252,7 @@
                 });
             }
         },
-        created() {
+        async created() {
             this.table_options.headings = {
                 'name': 'Nombre',
                 'description': 'Descripción',
@@ -272,9 +272,9 @@
                 'id': 'col-md-2'
             };
         },
-        mounted() {
+        async mounted() {
             let vm = this;
-            vm.switchHandler('active');
+            await vm.switchHandler('active');
             $("#add_deduction").on('show.bs.modal', function() {
                 vm.reset();
                 vm.getAccountingAccounts();

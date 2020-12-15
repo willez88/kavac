@@ -30,19 +30,29 @@
 					<countries id="helpCountries"></countries>
 					{{-- Configuración de Estados --}}
 					<estates id="helpEstates"></estates>
+                    {{-- Configuración de Municipios --}}
 					<municipalities id="helpMunicipalities"></municipalities>
+                    {{-- Configuración de Parroquias --}}
 					<parishes id="helpParishes"></parishes>
+                    {{-- Configuración de Ciudades --}}
 					<cities id="helpCities"></cities>
+                    {{-- Configuración de monedas --}}
 					<currencies id="helpCurrencies"></currencies>
 					@if (App\Models\Currency::all()->count() > 1)
+                        {{-- Configuración de tipos de cambio --}}
 						<exchange-rates id="helpExchangeRates"></exchange-rates>
 					@endif
+                    {{-- Configuración de impuestos --}}
 					<taxes id="helpTaxes"></taxes>
+                    {{-- Configuración de unidades tributarias --}}
 					<tax-units id="helpTaxUnits"></tax-units>
+                    {{-- Configuración de deducciones / retenciones --}}
 					<deductions id="helpDeductions"
 								:accounting-account={{ json_encode(Module::has('Accounting') ? true : false) }}></deductions>
+                    {{-- Configuración de unidades de medida --}}
 					<measurement-units id="helpMeasurementUnits"></measurement-units>
 					@if (!App\Models\Institution::all()->isEmpty())
+                        {{-- Configuración de departamentos --}}
 						<departments id="helpDepartments"></departments>
 					@endif
 				</div>

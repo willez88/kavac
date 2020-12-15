@@ -1,7 +1,7 @@
 <template>
 	<div class="col-xs-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-		   href="" title="Registros de Impuestos" data-toggle="tooltip"
+		   href="javascript:void(0)" title="Registros de Impuestos" data-toggle="tooltip"
 		   @click="addRecord('add_tax', 'taxes', $event)">
 			<i class="icofont icofont-deal ico-3x"></i>
 			<span>Impuestos</span>
@@ -165,7 +165,7 @@
 				};
 			},
 		},
-		created() {
+		async created() {
 			this.table_options.headings = {
 				'name': 'Nombre',
 				'description': 'Descripción',
@@ -189,9 +189,9 @@
 				'id': 'col-md-2'
 			};
 		},
-		mounted() {
-			this.switchHandler('affect_tax');
-			this.switchHandler('active');
+		async mounted() {
+			await this.switchHandler('affect_tax');
+			await this.switchHandler('active');
 		}
 	};
 </script>

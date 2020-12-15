@@ -1,6 +1,6 @@
 <template>
 	<div class="col-xs-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href="javascript:void(0)"
 		   title="Registros de estados civiles" data-toggle="tooltip"
 		   @click="addRecord('add_marital_status', 'marital-status', $event)">
 			<i class="fa fa-female ico-3x inline-block"></i>
@@ -28,10 +28,10 @@
 						</div>
 						<div class="form-group is-required">
 							<label for="marital_status_name">Nombre:</label>
-							<input type="text" id="name" placeholder="Estado Civil"
+							<input type="text" placeholder="Estado Civil"
 								   class="form-control input-sm" v-model="record.name" data-toggle="tooltip"
 								   title="Indique el nombre del estado civil (requerido)" v-is-text>
-							<input type="hidden" name="id" id="id" v-model="record.id">
+							<input type="hidden" v-model="record.id">
 	                    </div>
 	                </div>
 	                <div class="modal-footer">
@@ -88,7 +88,7 @@
 				};
 			},
 		},
-		created() {
+		async created() {
 			this.table_options.headings = {
 				'name': 'Nombre',
 				'id': 'Acción'

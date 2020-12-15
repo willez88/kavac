@@ -1,7 +1,7 @@
 <template>
 	<div class="col-xs-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-		   href="" title="Registros de unidades, departamentos o dependencias"
+		   href="javascript:void(0)" title="Registros de unidades, departamentos o dependencias"
 		   data-toggle="tooltip" @click="addRecord('add_department', 'departments', $event)">
 			<i class="icofont icofont-architecture-alt ico-3x"></i>
 			<span>Unidades / Dependencias</span>
@@ -179,7 +179,7 @@
 				};
 			},
 		},
-		created() {
+		async created() {
 			this.table_options.headings = {
 				'institution.acronym': 'Institución',
 				'parent.name': 'Depende de',
@@ -199,15 +199,15 @@
 				'id': 'col-md-2'
 			};
 		},
-		mounted() {
+		async mounted() {
 			let vm = this;
 			$("#add_department").on('show.bs.modal', function() {
 				vm.getInstitutions();
 				vm.getDepartments();
 			});
-			vm.switchHandler('issue_requests');
-			vm.switchHandler('active');
-			vm.switchHandler('administrative');
+			await vm.switchHandler('issue_requests');
+			await vm.switchHandler('active');
+			await vm.switchHandler('administrative');
 		}
 	};
 </script>

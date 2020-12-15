@@ -127,6 +127,20 @@
         @endauth
         {{-- Mensaje de espera al cargar procesos del sistema --}}
         @include('layouts.messages')
+        <script>
+            /** @type {Object} Gestiona los eventos del touchstart */
+            $.event.special.touchstart = {
+                setup: function( _, ns, handle ) {
+                    this.addEventListener("touchstart", handle, {passive: !ns.includes("noPreventDefault")});
+                }
+            };
+            /** @type {Object} Gestiona los eventos del touchmove */
+            $.event.special.touchmove = {
+                setup: function( _, ns, handle ) {
+                    this.addEventListener('touchmove', handle, { passive: !ns.includes('noPreventDefault')});
+                }
+            };
+        </script>
         @auth
             <script>
                 $(document).ready(function() {

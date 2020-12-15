@@ -1,7 +1,7 @@
 <template>
 	<div class="col-xs-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-		   href="" title="Registros de Ciudades de un Estado"
+		   href="javascript:void(0)" title="Registros de Ciudades de un Estado"
 		   data-toggle="tooltip" @click="addRecord('add_city', 'cities', $event)">
 			<i class="icofont icofont-5-star-hotel ico-3x"></i>
 			<span>Ciudades</span>
@@ -109,7 +109,7 @@
 				};
 			},
 		},
-		created() {
+		async created() {
 			this.table_options.headings = {
 				'estate.name': 'Estado',
 				'name': 'Ciudad',
@@ -123,7 +123,7 @@
 				'id': 'col-md-2'
 			};
 		},
-		mounted() {
+		async mounted() {
 			let vm = this;
 			$("#add_city").on('show.bs.modal', function() {
 				vm.getCountries();

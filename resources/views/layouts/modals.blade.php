@@ -23,7 +23,7 @@
                                 <div class="input-group">
                                     {!! Form::password('password', array(
                                         'class' => 'form-control', 'placeholder' => 'contraseña de acceso',
-                                        'id' => 'password'
+                                        'id' => 'password', 'autocomplete' => 'off'
                                     )) !!}
                                     {!! Form::hidden('username', Auth::check() ? auth()->user()->username : '', [
                                         'id' => 'username'
