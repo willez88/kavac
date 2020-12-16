@@ -183,13 +183,10 @@
 				this.data.date = this.date;
 			}
 		},
-		// beforeDestroy(){
-		// 	EventBus.$off('enableInput:entries-account');
-		// },
 		methods:{
 
 			reset(){
-				// EventBus.$emit('reset:accounting-entry-edit-create');
+				//
 			},
 
 			addDecimals(value){
@@ -230,10 +227,6 @@
 					errors.push('El campo categoria es obligatorio.');
 					res = true;
 				}
-				// if (!this.data.institution.id) {
-				// 	errors.push('El campo institución es obligatorio.');
-				// 	res = true;
-				// }
 				if (!this.data.currency.id) {
 					errors.push('El tipo de moneda es obligatorio.');
 					res = true;
@@ -339,7 +332,8 @@
 			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 			* @return {[type]} [description]
 			*/
-			createRecord:function(){
+			createRecord(){
+				console.log("")
 				const vm = this;
 				if (vm.validateErrors()) {
 					return ;
@@ -350,12 +344,19 @@
 				vm.data['tot'] 				  = vm.data.totDebit;
 				vm.data['tot_confirmation']   = vm.data.totAssets;
 				vm.data['accountingAccounts'] = vm.recordsAccounting;
+
+				// Datos requeridos para generar la relacion morfologica  para el asiento contable
+				vm.data['module'] 			  = 'Budget';
+				vm.data['model']   			  = 'Modules\\Accounting\\Models\\BudgetAccount';
+				vm.data['relatable_id'] 	  = '1';
+
 				vm.loading = true;
 
 				axios.post('/accounting/entries', vm.data).then(response => {
 					vm.loading = false;
 					vm.showMessage('store');
 				}).catch(error=>{
+					console.log("err");
 					var errors = [];
 					if (typeof(error.response) != "undefined") {
 						for (var index in error.response.data.errors) {

@@ -70,7 +70,6 @@ class AccountingDashboardController extends Controller
         $records = [];
 
         $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
-
         if ($user_profile && $user_profile['institution']['id']) {
             $records = AccountingEntry::with('accountingAccounts.account')
                         ->where('institution_id', $user_profile['institution']['id'])
@@ -81,7 +80,6 @@ class AccountingDashboardController extends Controller
                         ->orderBy('from_date', 'ASC')->get();
             }
         }
-        dd($records);
         return response()->json(['lastRecords' => $records, 'currency' => $currency], 200);
     }
 

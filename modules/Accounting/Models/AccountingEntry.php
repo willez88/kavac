@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
+use Module;
+
 class AccountingEntry extends Model implements Auditable
 {
     use SoftDeletes;
@@ -89,6 +91,19 @@ class AccountingEntry extends Model implements Auditable
     {
         // belongsTo(RelatedModel, foreignKey = institution_id, keyOnRelatedModel = id)
         return $this->belongsTo(Institution::class);
+    }
+
+    /**
+     * Método que relaciona a la tabla pivot de asientos contables
+     *
+     * @author    Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\MorphToMany    Lista de objetos relacionados con
+     *                                                                   el modelo 
+     */
+    public function accounting_entryable($model)
+    {
+        return $this->morphedByMany($model, 'accounting_entryable');
     }
 
     /**

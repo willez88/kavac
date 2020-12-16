@@ -60,6 +60,7 @@ class AccountingManageEntries implements ShouldQueue
      */
     public function handle()
     {
+        // dd($this->data);
         $created_at = now();
         $newEntries = AccountingEntry::where('reference', $this->data['reference'])->first();
 
@@ -120,6 +121,21 @@ class AccountingManageEntries implements ShouldQueue
                         'assets' => $account['assets'],
                     ]);
             }
+        }
+
+        // 
+        // Crea relacion morfologica N-M hacia un asiento contable
+        // Si no se pasan estos datos no se 
+        // 
+        if (array_key_exists('module', $this->data) && array_key_exists('model', $this->data) &&
+            array_key_exists('relatable_id', $this->data) && 
+            $this->data['module'] && $this->data['model'] && $this->data['relatable_id']) {
+
+            if ((Module::has($this->data['module']))) {
+                $record = $this->data['model']::find($this->data['relatable_id']);
+                $newEntries->accounting_entryable($this->data['model'])->save($record);
+            }
+
         }
     }
 

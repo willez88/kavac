@@ -153,7 +153,7 @@ class AccountingAccount extends Model implements Auditable
 	}
 
 	/**
-	 * Método que obtiene los modelos morfológicos asociados a cuenta patrimonial
+	 * Método que relaciona a la tabla pivot de cuenta patrimonial
 	 *
 	 * @author    Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
 	 *
