@@ -90,7 +90,7 @@
 				};
 			},
 		},
-		async created() {
+		created() {
 			this.table_options.headings = {
 				'name': 'Nombre',
 				'id': 'Acción'

@@ -100,7 +100,7 @@
 				};
 			},
 		},
-		async created() {
+		created() {
 			this.table_options.headings = {
 				'prefix': 'Prefijo',
 				'name': 'Nombre',

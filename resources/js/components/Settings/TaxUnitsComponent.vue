@@ -138,7 +138,7 @@
 				};
 			},
 		},
-		async created() {
+		created() {
 			this.table_options.headings = {
 				'start_date': 'Fecha de Inicio',
 				'end_date': 'Fecha Final',
@@ -156,8 +156,8 @@
 				'id': 'col-md-2'
 			};
 		},
-		async mounted() {
-			await this.switchHandler('active');
+		mounted() {
+			this.switchHandler('active');
 		}
 	};
 </script>

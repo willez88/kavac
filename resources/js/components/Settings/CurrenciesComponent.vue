@@ -140,7 +140,7 @@
 				};
 			},
 		},
-		async created() {
+		created() {
 			this.table_options.headings = {
 				'country.name': 'Pais',
 				'symbol': 'Símbolo',
@@ -158,7 +158,7 @@
 				'id': 'col-md-2'
 			};
 		},
-		async mounted() {
+		mounted() {
 			let vm = this;
 			vm.switchHandler('default');
 			$("#add_currency").on('show.bs.modal', function() {

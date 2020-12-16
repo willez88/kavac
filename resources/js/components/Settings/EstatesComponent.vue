@@ -109,7 +109,7 @@
 				};
 			},
 		},
-		async created() {
+		created() {
 			this.table_options.headings = {
 				'country.name': 'Pais',
 				'name': 'Estado',
@@ -125,7 +125,7 @@
 				'id': 'col-md-2'
 			};
 		},
-		async mounted() {
+		mounted() {
 			let vm = this;
 			$("#add_estate").on('show.bs.modal', function() {
 				vm.getCountries();
