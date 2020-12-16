@@ -55,12 +55,12 @@ class AccountingEntryController extends Controller
 
         if (!$is_admin && $user_profile && $user_profile['institution']) {
             $entry = AccountingEntry::with(
-                'accountingAccounts.account.accountableBudget',
+                'accountingAccounts.account',
                 'currency'
             )->where('institution_id', $user_profile['institution']['id'])->find($id);
         } else {
             $entry = AccountingEntry::with(
-                'accountingAccounts.account.accountableBudget',
+                'accountingAccounts.account',
                 'currency'
             )->find($id);
         }

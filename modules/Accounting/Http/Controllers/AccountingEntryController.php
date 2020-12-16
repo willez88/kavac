@@ -235,7 +235,7 @@ class AccountingEntryController extends Controller
 	{
 		return response()->json(['records' => AccountingEntry::with(
 			'accountingEntryCategory',
-			'accountingAccounts.account.accountableBudget',
+			'accountingAccounts.account',
 			'institution',
 		)->find($id)], 200);
 	}
@@ -253,7 +253,7 @@ class AccountingEntryController extends Controller
 		 * [$entry asiento contable a editar]
 		 * @var AccountingEntry
 		 */
-		$entry = AccountingEntry::with('accountingAccounts.account.accountableBudget')->find($id);
+		$entry = AccountingEntry::with('accountingAccounts.account')->find($id);
 
 		// Validar acceso para el registro
 		$user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
@@ -645,11 +645,11 @@ class AccountingEntryController extends Controller
 		$user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
 
 		if (auth()->user()->isAdmin()) {
-			$entries = AccountingEntry::with('accountingAccounts.account.accountableBudget')
+			$entries = AccountingEntry::with('accountingAccounts.account')
 					->where('approved', false)->orderBy('from_date', 'ASC')->get();
 		}
 		else if ($user_profile['institution']['id']) {
-			$entries = AccountingEntry::with('accountingAccounts.account.accountableBudget')
+			$entries = AccountingEntry::with('accountingAccounts.account')
 						->where('approved', false)->where('institution_id', $user_profile['institution']['id'])
 						->orderBy('from_date', 'ASC')->get();
 		}
