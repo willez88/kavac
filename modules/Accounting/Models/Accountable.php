@@ -61,6 +61,6 @@ class Accountable extends Model implements Auditable
 	public function budgetAccount()
 	{
 		// belongsTo(RelatedModel, foreignKey = budgetAccount_id, keyOnRelatedModel = id)
-		return $this->belongsTo(BudgetAccount::class, 'accountable_id');
+		return $this->belongsTo($this->accountable_type, 'accountable_id');
 	}
 }

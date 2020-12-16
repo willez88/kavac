@@ -4,6 +4,7 @@ namespace Modules\Accounting\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Modules\Budget\Models\BudgetAccount as BaseBudgetAccount;
+use Module;
 
 /**
  * @class BudgatAccount
@@ -18,17 +19,31 @@ use Modules\Budget\Models\BudgetAccount as BaseBudgetAccount;
  */
 class BudgetAccount extends BaseBudgetAccount
 {
+    // /**
+    //  * BudgetAccount morphs to many (many-to-many) accountingAccount.
+    //  *
+    //  * @author    Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
+    //  * 
+    //  * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+    //  */
+    // public function accountingAccounts()
+    // {
+    //     // morphToMany(RelatedModel, morphName, pivotTable = ables, thisKeyOnPivot = able_id, otherKeyOnPivot = accountingAccount_id)
+    //     return $this->morphToMany(Accountable::class, 'accountable');
+    // }
+
     /**
-     * BudgetAccount morphs to many (many-to-many) accountingAccount.
+     * BudgetAccount has many Accountable.
      *
-     * @author    Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function accountingAccounts()
+    public function budgetAccount()
     {
-        // morphToMany(RelatedModel, morphName, pivotTable = ables, thisKeyOnPivot = able_id, otherKeyOnPivot = accountingAccount_id)
-        return $this->morphToMany(AccountingAccount::class, 'accountable');
+        if (Module::has('Budget') && Module::isEnabled('Budget')) {
+            // hasMany(RelatedModel, foreignKeyOnRelatedModel = budgetAccount_id, localKey = id)
+            return $this->hasMany(BudgetAccount::class, 'id');
+        }
+        return null;
     }
 }
 
