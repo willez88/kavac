@@ -12,7 +12,7 @@
 		</div>
 	</div>
 </div> --}}
-<section class="preloader">
+<section class="preloader" style="z-index: 99999">
 	<div class="preloader-content">
 		<p class="text-center">{{ __('Su petición se está cargando. Por favor espere') }}</p>
 		{{--<img src="{{ asset('images/loader.gif', Request::secure()) }}" alt="Cargando Datos" class="img-fluid">--}}

@@ -115,25 +115,6 @@
 				columns: ['municipality.name', 'name', 'code', 'id'],
 			}
 		},
-        watch: {
-            record: {
-                deep: true,
-                handler: function(newValue, oldValue) {
-                    const vm = this;
-                    /*if (
-                        newValue.country_id && vm.selectedEstateId && !vm.record.estate_id &&
-                        vm.selectedMunicipalityId && !vm.record.municipality_id
-                    ) {
-                        setTimeout(function() {
-                            vm.record.estate_id = vm.selectedEstateId;
-                            setTimeout(function() {
-                                vm.record.municipality_id = vm.selectedMunicipalityId;
-                            }, 2000);
-                        }, 2000);
-                    }*/
-                }
-            },
-        },
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
@@ -175,7 +156,7 @@
                 event.preventDefault();
             }
 		},
-		async created() {
+		created() {
 			this.table_options.headings = {
 				'municipality.name': 'Estado',
 				'name': 'Parroquia',
@@ -193,8 +174,9 @@
 		},
 		async mounted() {
 			let vm = this;
-			//await vm.getCountries();
-			$("#add_parish").on('show.bs.modal', function() {
+            await vm.$nextTick();
+            $("#add_parish").on('show.bs.modal', function() {
+                vm.getCountries();
 			});
 		}
 	};

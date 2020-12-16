@@ -179,7 +179,7 @@
 				};
 			},
 		},
-		async created() {
+		created() {
 			this.table_options.headings = {
 				'institution.acronym': 'Institución',
 				'parent.name': 'Depende de',
@@ -199,15 +199,15 @@
 				'id': 'col-md-2'
 			};
 		},
-		async mounted() {
+		mounted() {
 			let vm = this;
 			$("#add_department").on('show.bs.modal', function() {
 				vm.getInstitutions();
 				vm.getDepartments();
 			});
-			await vm.switchHandler('issue_requests');
-			await vm.switchHandler('active');
-			await vm.switchHandler('administrative');
+			vm.switchHandler('issue_requests');
+			vm.switchHandler('active');
+			vm.switchHandler('administrative');
 		}
 	};
 </script>

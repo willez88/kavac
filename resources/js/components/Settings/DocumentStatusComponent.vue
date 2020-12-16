@@ -192,7 +192,7 @@
 				};
 			}
 		},
-		async created() {
+		created() {
 			this.table_options.headings = {
 				color: 'Color',
 				name: 'Nombre',
@@ -210,9 +210,8 @@
 				'id': 'col-md-2'
 			};
 		},
-		async mounted() {
-            await this.$nextTick();
-			await this.switchHandler('action');
+		mounted() {
+            this.switchHandler('action');
 		}
 	};
 </script>

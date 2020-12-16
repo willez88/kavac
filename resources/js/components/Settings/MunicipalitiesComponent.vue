@@ -109,11 +109,7 @@
                 deep: true,
                 handler: function(newValue, oldValue) {
                     const vm = this;
-                    if (newValue.country_id && vm.selectedEstateId && !vm.record.estate_id) {
-                        setTimeout(function() {
-                            vm.record.estate_id = vm.selectedEstateId;
-                        }, 2000);
-                    }
+                    vm.record.estate_id = vm.selectedEstateId;
                 }
             },
         },
@@ -155,7 +151,7 @@
                 event.preventDefault();
             }
 		},
-		async created() {
+		created() {
 			this.table_options.headings = {
 				'estate.name': 'Estado',
 				'name': 'Municipio',
@@ -171,7 +167,7 @@
 				'id': 'col-md-2'
 			};
 		},
-		async mounted() {
+		mounted() {
 			let vm = this;
 			$("#add_municipality").on('show.bs.modal', function() {
 				vm.getCountries();

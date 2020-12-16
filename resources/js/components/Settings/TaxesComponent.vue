@@ -165,7 +165,7 @@
 				};
 			},
 		},
-		async created() {
+		created() {
 			this.table_options.headings = {
 				'name': 'Nombre',
 				'description': 'Descripción',
@@ -189,9 +189,9 @@
 				'id': 'col-md-2'
 			};
 		},
-		async mounted() {
-			await this.switchHandler('affect_tax');
-			await this.switchHandler('active');
+		mounted() {
+			this.switchHandler('affect_tax');
+			this.switchHandler('active');
 		}
 	};
 </script>

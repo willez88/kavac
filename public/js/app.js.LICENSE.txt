@@ -17,7 +17,7 @@
  */
 
 /*!
-  * Bootstrap v4.5.2 (https://getbootstrap.com/)
+  * Bootstrap v4.5.3 (https://getbootstrap.com/)
   * Copyright 2011-2020 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
@@ -73,6 +73,8 @@
  * (c) 2017-2018 Hamed Ehtesham
  * Released under the MIT License.
  */
+
+/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 
 /*! nouislider - 9.1.0 - 2016-12-10 16:00:32 */
 

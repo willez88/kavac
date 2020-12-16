@@ -164,7 +164,7 @@
                 };
             },
         },
-        async created() {
+        created() {
             this.table_options.headings = {
                 'start_at': 'Fecha inicio',
                 'end_at': 'Fecha fin',
@@ -186,9 +186,9 @@
                 'id': 'col-md-2'
             };
         },
-        async mounted() {
+        mounted() {
             let vm = this;
-            await vm.switchHandler('active');
+            vm.switchHandler('active');
             $("#add_exchange_rate").on('show.bs.modal', function() {
                 vm.getCurrencies();
             });

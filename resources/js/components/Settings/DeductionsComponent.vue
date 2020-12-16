@@ -252,7 +252,7 @@
                 });
             }
         },
-        async created() {
+        created() {
             this.table_options.headings = {
                 'name': 'Nombre',
                 'description': 'Descripción',
@@ -272,9 +272,9 @@
                 'id': 'col-md-2'
             };
         },
-        async mounted() {
+        mounted() {
             let vm = this;
-            await vm.switchHandler('active');
+            vm.switchHandler('active');
             $("#add_deduction").on('show.bs.modal', function() {
                 vm.reset();
                 vm.getAccountingAccounts();

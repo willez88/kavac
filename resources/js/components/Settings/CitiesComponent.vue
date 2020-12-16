@@ -109,7 +109,7 @@
 				};
 			},
 		},
-		async created() {
+		created() {
 			this.table_options.headings = {
 				'estate.name': 'Estado',
 				'name': 'Ciudad',
@@ -123,7 +123,7 @@
 				'id': 'col-md-2'
 			};
 		},
-		async mounted() {
+		mounted() {
 			let vm = this;
 			$("#add_city").on('show.bs.modal', function() {
 				vm.getCountries();
