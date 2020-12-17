@@ -15,7 +15,11 @@
 
                         <div class="lockscreen-item">
                             <div class="lockscreen-image">
-                                <img src="{{ asset($img_profile ?? 'images/default-avatar.png') }}"
+                                @php
+                                    $avatar = file_exists(base_path($img_profile)) 
+                                              ? $img_profile : 'images/default-avatar.png';
+                                @endphp
+                                <img src="{{ asset($avatar, Request::secure()) }}"
                                      alt="perfil">
                             </div>
 
