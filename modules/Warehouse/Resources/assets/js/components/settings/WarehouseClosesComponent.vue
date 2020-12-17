@@ -187,7 +187,7 @@
 		     */
 			addRecordClose(event)
 			{
-				this.addRecord('add_close', 'closes', event);
+				this.addRecord('add_close', 'warehouse/closes', event);
 				this.getWarehouses();
 			},
 		},

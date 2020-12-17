@@ -3,7 +3,7 @@
 		<a class="btn btn-success btn-xs btn-icon btn-action"
 		   href="#" title="Registros de Eventos" data-toggle="tooltip"
 		   :disabled="((state == 'Aprobado')||(state == 'Pendiente por entrega'))?false:true"
-		   @click="((state == 'Aprobado')||(state == 'Pendiente por entrega'))?addRecord('add_event', 'requests/request-event', $event):viewMessage()">
+		   @click="((state == 'Aprobado')||(state == 'Pendiente por entrega'))?addRecord('add_event', 'asset/requests/request-event', $event):viewMessage()">
 		   <i class="fa fa-list-alt"></i>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_event">
