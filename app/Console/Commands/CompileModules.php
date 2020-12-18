@@ -14,7 +14,8 @@ class CompileModules extends Command
      */
     protected $signature = 'module:compile
                             {module? : The module name to compile}
-                            {--p|prod : Option to compile in production mode}';
+                            {--p|prod : Option to compile in production mode}
+                            {--i|install : With previous install node packages}';
 
     /**
      * The console command description.
@@ -46,6 +47,8 @@ class CompileModules extends Command
         $m = '';
         /** @var string Modo de compilación. dev = desarrollo, prod = producción */
         $compileMode = ($this->option('prod'))?'prod':'dev';
+
+        $withInstall = ($this->option('install'))?'&& npm install':'';
         /** @var boolean Determina si se encuentra un error en la compilación */
         $hasError = false;
         /** @var string Mensaje del error */
@@ -58,7 +61,7 @@ class CompileModules extends Command
                 continue;
             }
             $this->info("Compilando módulo: " . $module->getName());
-            $result = shell_exec("cd modules/$module && npm run $compileMode");
+            $result = shell_exec("cd modules/$module $withInstall && npm run $compileMode");
             if (strpos($result, 'successfully') === false) {
                 $hasError = true;
                 $errorMsg = $result;
