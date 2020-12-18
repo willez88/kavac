@@ -49,6 +49,8 @@ o
 
 	7.4
 
+**#**: Símbolo del sistema que indica la ejecución de comandos a través del usuario root o miembros del grupo sudo
+
 
 ## Configuración del Servidor de Aplicaciones
 
@@ -58,16 +60,16 @@ En esta documentación se explica como configurar un servidor de aplicaciones Ng
 
 Lo primero que se debe realizar es la instalación del servidor de aplicaciones con el comando
 
-	apt install nginx
+	# apt install nginx
 
 Una vez completada la instalación, inicie el servicio nginx y agréguelo para que se inicie automáticamente con sistema operativo mediante el comando systemctl.
 
-	systemctl start nginx
-	systemctl enable nginx
+	# systemctl start nginx
+	# systemctl enable nginx
 
 El servidor Nginx se ejecutará en el puerto 80, para verificar si se ejecutó correctamente debe ejecutar el comando
 
-	netstat -plntu
+	# netstat -plntu
 
 Si todo lo muestra correctamente, nginx estará instalado y en ejecución.
 
@@ -75,11 +77,11 @@ Si todo lo muestra correctamente, nginx estará instalado y en ejecución.
 
 Para instalar la extensión FPM (FastCGI Process Manager) de la versión de PHP instalada en el sistema operativo se debe ejecutar el comando
 
-	apt install php-fpm
+	# apt install php-fpm
 
 El próximo paso es configurar el archivo php.ini de FPM, para lo cual se deve acceder a la ruta en donde fue instalado, por lo general esta ruta se encuentra en /etc/php/(version-php-instalada)/fpm/, para esto se debe editar ejecutando
 
-	nano /etc/php/(version-php-instalada)/fpm/php.ini
+	# nano /etc/php/(version-php-instalada)/fpm/php.ini
 
 donde (version-php-instalada) es la versión de php instalada en el servidor, Ej. 7.3
 
@@ -99,8 +101,8 @@ A su vez, se deben realizar algunos ajustes adicionales para optimizar las petic
 
 Guarda las modificaciones realizadas e inicializa el servicio FPM con los comandos
 
-	systemctl start php(version-php-instalada)-fpm
-	systemctl enable php(version-php-instalada)-fpm
+	# systemctl start php(version-php-instalada)-fpm
+	# systemctl enable php(version-php-instalada)-fpm
 
 El primer comando inicializa el servicio y el segundo lo habilita para que se ejecute automáticamente al arrancar el servidor.
 
@@ -110,13 +112,13 @@ Por defecto en sistemas operativos como Ubuntu el servicio PHP-FPM se ejecuta ba
 
 Con lo anterior, el servidor virtual para la aplicación fue creado, solo queda reiniciar el servidor nginx para que las modificaciones tengan efecto
 
-	systemctl restart nginx
+	# systemctl restart nginx
 
 ### Configurar el servidor virtual de Nginx
 
 Para que la aplicación se ejecute en el servidor de aplicaciones Nginx, se debe realizar una configuración adicional creando para ello un archivo que contendrá dicha configuración, para esto se ejecutara el siguiente comando
 
-	nano /etc/nginx/sites-available/kavac
+	# nano /etc/nginx/sites-available/kavac
 
 y se agregara el siguiente contenido:
 
@@ -162,11 +164,11 @@ guarda las modificaciones y cierra el archivo
 
 Ahora para activar el servidor virtual se debe crear un enlace símbolico al archivo de configuración de la siguiente forma
 
-	ln -s /etc/nginx/sites-available/kavac /etc/nginx/sites-enabled/
+	# ln -s /etc/nginx/sites-available/kavac /etc/nginx/sites-enabled/
 
 Para que estos cambios tengan efecto se debe reiniciar el servidor de aplicaciones
 
-	systemctl restart nginx
+	# systemctl restart nginx
 
 
 ## Instalación
@@ -255,6 +257,7 @@ En el archivo .env, localizado en la raíz del sistema, se deben establecer los 
 > WEBSOCKETS_SSL_PASSPHRASE
 >
 > MIX_APP_URL
+> MIX_APP_ROOT
 > MIX_PUSHER_APP_KEY
 > MIX_PUSHER_APP_CLUSTER
 > MIX_WEBSOCKETS_HOST
@@ -269,8 +272,8 @@ El comando anterior instala todas las dependencias de node requeridas por el sis
 
 El último paso en el proceso de instalación es modificar los usuarios y permisos para el acceso del servidor a la aplicación KAVAC, para lo cual le indicamos la permisología y usuario correspondiente
 
-	chown -R www-data:root (ruta-absoluta-de-instalacion)
-	chmod 755 (ruta-absoluta-de-instalacion)/storage
+	# chown -R www-data:root (ruta-absoluta-de-instalacion)
+	# chmod 755 (ruta-absoluta-de-instalacion)/storage
 
 ## Base de Datos
 
@@ -348,6 +351,8 @@ La aplicación viene con un sistema de notificaciones en tiempo real con websock
     WEBSOCKETS_SSL_LOCAL_PK=null
     WEBSOCKETS_SSL_PASSPHRASE=null
 
+    MIX_APP_URL="${APP_URL}"
+    MIX_APP_ROOT="${APP_ROOT}"
     MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
     MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
     MIX_WEBSOCKETS_HOST="${WEBSOCKETS_HOST}"
