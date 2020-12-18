@@ -12,8 +12,8 @@ class CompileModules extends Command
      *
      * @var string
      */
-    protected $signature = 'module:compile 
-                            {module? : The module name to compile} 
+    protected $signature = 'module:compile
+                            {module? : The module name to compile}
                             {--p|prod : Option to compile in production mode}';
 
     /**
@@ -58,7 +58,7 @@ class CompileModules extends Command
                 continue;
             }
             $this->info("Compilando módulo: " . $module->getName());
-            $result = shell_exec("cd modules/$module && npm install && npm run $compileMode");
+            $result = shell_exec("cd modules/$module && npm run $compileMode");
             if (strpos($result, 'successfully') === false) {
                 $hasError = true;
                 $errorMsg = $result;
