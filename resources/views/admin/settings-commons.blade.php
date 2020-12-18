@@ -33,7 +33,7 @@
                     {{-- Configuración de Municipios --}}
 					<municipalities id="helpMunicipalities"></municipalities>
                     {{-- Configuración de Parroquias --}}
-					<parishes id="helpParishes"></parishes>
+					{{-- <parishes id="helpParishes"></parishes> --}}
                     {{-- Configuración de Ciudades --}}
 					<cities id="helpCities"></cities>
                     {{-- Configuración de monedas --}}
