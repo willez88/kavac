@@ -245,6 +245,33 @@
             billid: Number, 
         },
         methods: {
+            loadBill(id) {
+                const vm = this;
+                var fields = {};
+
+                axios.get('/sale/bills/info/' + id).then(response => {
+                    if(typeof(response.data.records != "undefined")){
+                        fields = response.data.records;
+                        vm.record = {
+                            id: fields.id,
+                            sale_warehouse_id: fields.sale_warehouse_id,
+                            sale_client_id: fields.sale_client_id,
+                            sale_payment_method_id: fields.sale_payment_method_id,
+                            currency_id: fields.currency_id,
+                            sale_discount_id: fields.sale_discount_id,
+                            institution_id: '1',
+                            created_at: vm.format_date(fields.created_at),
+                        };
+                        $.each(fields.sale_bill_product, function(index,campo){
+                            var element = document.getElementById("sale_bill_product_"+campo.sale_warehouse_inventary_product_id);
+                            if(element){
+                                element.value = campo.quantity;
+                                vm.selected.push(campo.sale_warehouse_inventary_product_id);
+                            }
+                        });
+                    }
+                });
+            },
             createBill(url){
 				const vm = this;
 				vm.record.sale_setting_products = [];
@@ -289,9 +316,14 @@
             reset() {
                 this.record = {
                     id: '',
+                    sale_warehouse_id: '',
+                    sale_client_id: '',
+                    sale_payment_method_id: '',
+                    currency_id: '',
+                    sale_discount_id: '',
+                    institution_id: '',
                     sale_setting_products: [],
-                },
-                this.editIndex = null;
+                };
             },
             select() {
 				const vm = this;

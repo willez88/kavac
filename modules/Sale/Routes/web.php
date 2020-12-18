@@ -234,6 +234,7 @@ Route::group(
         Route::get('bills', 'SaleBillController@index')->name('sale.bills.index');
         Route::get('bills/vue-list', 'SaleBillController@vueList');
         Route::patch('bills/{bill}', 'SaleBillController@update');
+        Route::get('bills/info/{bill}', 'SaleBillController@vueInfo');
         Route::get('bills/edit/{bill}', 'SaleBillController@edit')->name('sale.bills.edit');
         Route::delete('bills/delete/{bill}', 'SaleBillController@destroy')->name('sale.bills.destroy');
 

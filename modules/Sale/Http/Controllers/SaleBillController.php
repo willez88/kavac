@@ -139,7 +139,21 @@ class SaleBillController extends Controller
                 }
             }
         });
-        
+        $sale_bills = SaleBill::where('code', $code)->first();
+        if (is_null($sale_bills)) {
+            $request->session()->flash(
+                'message',
+                [
+                    'type' => 'other',
+                    'title' => 'Alerta',
+                    'icon' => 'screen-error',
+                    'class' => 'growl-danger',
+                    'text' => 'No se pudo completar la operación.'
+                ]
+            );
+        } else {
+            $request->session()->flash('message', ['type' => 'store']);
+        }
         return response()->json(['result' => true, 'redirect' => route('sale.bills.index')], 200);
     }
 
@@ -246,6 +260,26 @@ class SaleBillController extends Controller
         $sale_bills = SaleBill::find($id);
         $sale_bills->delete();
         return response()->json(['message' => 'destroy'], 200);
+    }
+
+    /**
+     * Vizualiza información de una solicitud de almacén
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  Integer $id Identificador único de la solicitud de almacén
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
+     */
+    public function vueInfo($id)
+    {
+        return response()->json(['records' => SaleBill::where('id', $id)->with(
+            [
+                'saleClient',
+                'saleWarehouse',
+                'SaleBillInventoryProduct' => function ($query) {
+                        $query->with('SaleWarehouseInventoryProduct');
+                    }
+            ]
+        )->first()], 200);
     }
 
     /**

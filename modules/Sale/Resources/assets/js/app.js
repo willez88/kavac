@@ -174,6 +174,16 @@ Vue.component('sale-bill-list', () => import(
     './components/bills/SaleBillListComponent.vue')
 );
 
+/**
+ * Componente para mostrar la información de las solicitudes de almacén
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('sale-bill-info', () => import(
+    /* webpackChunkName: "sale-bill-info" */
+    './components/bills/SaleBillInfoComponent.vue')
+);
+
 /*
  * Componente para gestionar la creación de los reportes de Pedidos
  *
