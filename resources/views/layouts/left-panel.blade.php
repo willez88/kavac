@@ -6,7 +6,8 @@
         @endphp
         <a class="float-left profile-thumb" href="{{ url('users') . "/" . Auth::user()->id }}">
             @php
-                $avatar = file_exists(base_path($img_profile)) ? $img_profile : 'images/default-avatar.png';
+                $avatar = ($img_profile !== null && file_exists(base_path($img_profile)))
+                          ? $img_profile : 'images/default-avatar.png';
             @endphp
             <img class="img-circle img-profile-mini" src="{{ asset($avatar, Request::secure()) }}"
                  alt="{{ auth()->user()->name }}">
