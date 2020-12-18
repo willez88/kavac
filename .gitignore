@@ -2,8 +2,8 @@
 /node_modules
 /public/hot
 /public/storage
-#/public/js/components/core
-#/public/modules/*/components/prod
+/public/js/components
+/public/modules
 /storage/*.key
 /storage/debugbar
 /storage/pictures
