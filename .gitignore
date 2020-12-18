@@ -2,6 +2,12 @@
 /node_modules
 /public/hot
 /public/storage
+/public/css/app.css
+/public/js/app.js
+/public/js/chart.js
+/public/js/shared-components.js
+/public/js/generic-classes.js
+/public/js/common.js
 /public/js/components
 /public/modules
 /storage/*.key
