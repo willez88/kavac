@@ -77,11 +77,13 @@ Para instalar la extensión FPM (FastCGI Process Manager) de la versión de PHP 
 
 	apt install php-fpm
 
-El próximo paso es configurar el archivo php.ini de FPM, para lo cual se deve acceder a la ruta en donde fue instalado, por lo general esta ruta se encuentra en /etc/php/(version-php-instalada)/, para esto se debe editar ejecutando
+El próximo paso es configurar el archivo php.ini de FPM, para lo cual se deve acceder a la ruta en donde fue instalado, por lo general esta ruta se encuentra en /etc/php/(version-php-instalada)/fpm/, para esto se debe editar ejecutando
 
-	nano /etc/php/(version-php-instalada)/php.ini
+	nano /etc/php/(version-php-instalada)/fpm/php.ini
 
 donde (version-php-instalada) es la versión de php instalada en el servidor, Ej. 7.3
+
+la subcarpeta **/fpm/** puede variar de acuerdo a la distribución linux utilizada por lo que puede estar presente o no.
 
 En el contenido del archivo se debe buscar y descomentar la variable cgi.fix_pathinfo=1 y cambiar el valor a 0
 
@@ -119,6 +121,13 @@ Para que la aplicación se ejecute en el servidor de aplicaciones Nginx, se debe
 y se agregara el siguiente contenido:
 
 	server {
+        proxy_busy_buffers_size   256k;
+        proxy_buffers   4 256k;
+        proxy_buffer_size   128k;
+        fastcgi_buffers 16 16k;
+        fastcgi_buffer_size 32k;
+        fastcgi_busy_buffers_size 32k;
+
 		listen 80;
 		# Descomentar si las peticiones solo aceptan el protocolo ipv6
 		# listen [::]:80 ipv6only=on;
