@@ -14,7 +14,7 @@
 		<div slot="id" slot-scope="props" class="text-center">
 			<div class="d-inline-flex">
 				<warehouse-request-info 
-					:route_list = "'requests/info/' + props.row.id">
+					:route_list = "'warehouse/requests/info/' + props.row.id">
 				</warehouse-request-info>
 				<button @click="editForm(props.row.id)" 
 	    				class="btn btn-warning btn-xs btn-icon btn-action" 

@@ -2,7 +2,7 @@
 	<div class="col-xs-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="#" title="Registros de Tipos de Bienes" data-toggle="tooltip"
-		   @click="addRecord('add_type', 'types', $event)">
+		   @click="addRecord('add_type', 'asset/types', $event)">
 			<i class="icofont icofont-read-book ico-3x"></i>
 			<span>Tipos<br>de Bienes</span>
 		</a>

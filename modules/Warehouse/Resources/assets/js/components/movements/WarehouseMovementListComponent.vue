@@ -23,7 +23,7 @@
 		<div slot="id" slot-scope="props" class="text-center">
 			<div class="d-inline-flex">
 				<warehouse-movement-info 
-					:route_list="'movements/info/'+ props.row.id">
+					:route_list="'warehouse/movements/info/'+ props.row.id">
 				</warehouse-movement-info>
 
 				<button @click="editForm(props.row.id)" 

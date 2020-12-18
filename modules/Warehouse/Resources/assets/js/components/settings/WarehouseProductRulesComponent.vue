@@ -2,7 +2,7 @@
 	<div class="col-xs-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="#" title="Reglas de Abastecimiento del Almacén" data-toggle="tooltip"
-		   @click="addRecord('add_rule', 'rules', $event)">
+		   @click="addRecord('add_rule', 'warehouse/rules', $event)">
 			<i class="icofont icofont-law-document ico-3x"></i>
 			<span>Reglas de Abastecimiento</span>
 		</a>

@@ -3,7 +3,7 @@
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="" title="Registros de Clasificador de Bienes"
 		   data-toggle="tooltip"
-		   @click="addRecord('add_clasification', 'clasifications',$event)">
+		   @click="addRecord('add_clasification', 'asset/clasifications',$event)">
 			<i class="icofont icofont-read-book ico-3x"></i>
 			<span>Clasificador<br>Bienes</span>
 		</a>

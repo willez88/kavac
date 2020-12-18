@@ -415,7 +415,7 @@
                                 response = field['text'];
                                 if (field['type'] == 'list') {
                                     vm.options = [];
-                                    axios.get('get-parameter-options/' + field['id']).then(response => {
+                                    axios.get('/payroll/get-parameter-options/' + field['id']).then(response => {
                                         vm.options = response.data;
                                     });
                                 }
@@ -514,7 +514,7 @@
                                 vm.type = field['type'];
                                 if (field['type'] == 'list') {
                                     vm.options = [];
-                                    axios.get('get-parameter-options/' + field['id']).then(response => {
+                                    axios.get('/payroll/get-parameter-options/' + field['id']).then(response => {
                                         vm.options = response.data;
                                     });
                                 }
@@ -532,7 +532,7 @@
             getPayrollSalaryTabulatorsGroups() {
                 const vm = this;
                 vm.payroll_salary_tabulators_groups = [];
-                axios.get('get-salary-tabulators-groups').then(response => {
+                axios.get('/payroll/get-salary-tabulators-groups').then(response => {
                     vm.payroll_salary_tabulators_groups = response.data;
                 });
             },

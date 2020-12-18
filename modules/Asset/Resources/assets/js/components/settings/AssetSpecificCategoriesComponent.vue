@@ -2,7 +2,7 @@
 	<div class="col-xs-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="#" title="Registros de Categorias Específicas de Bienes" data-toggle="tooltip"
-		   @click="addRecord('add_specific_category', 'specific', $event)">
+		   @click="addRecord('add_specific_category', 'asset/specific', $event)">
 			<i class="icofont icofont-read-book ico-3x"></i>
 			<span>Categorias<br>Específicas</span>
 		</a>
