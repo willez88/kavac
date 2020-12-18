@@ -207,6 +207,7 @@ En el archivo .env, localizado en la raíz del sistema, se deben establecer los 
 > APP_URL
 > APP_DEMO
 > APP_TESTING
+> APP_TESTING_URL
 >
 > AUDIT_LIMIT
 >
@@ -274,6 +275,89 @@ El último paso en el proceso de instalación es modificar los usuarios y permis
 
 	# chown -R www-data:root (ruta-absoluta-de-instalacion)
 	# chmod 755 (ruta-absoluta-de-instalacion)/storage
+
+## Configuración de variables
+
+Dentro del archivo **.env** se encuentran algunas variables que deben ser configuradas previamente para el correcto funcionamiento de la aplicación las cuales se describen a continuación:
+
+> APP_NAME
+
+Esta variable almacena el nombre de la aplicación cuyo valor por defecto es KAVAC.
+
+> APP_ENV
+
+Establece el entorno bajo el cual se ejecuta la aplicación. Para un entorno en producción se debe establecer el valor a **production**
+
+> APP_KEY
+
+El valor de esta variable se establece al ejecutar el comando
+
+    php artisan key:generate
+
+> APP_DEBUG
+
+Establece si la aplicación se ejecuta en modo de desarrollo si el valor es establecido en **true**, mostrando detalles de los eventos que se generan en la aplicación así como la barra de de desarrollo **debugbar**. Para entornos en producción esta variable debe establecerse en **false**
+
+> APP_LOG_LEVEL
+
+Indica el nivel de detalle para el cual se genera la bitácora de eventos y su valor por defecto es **debug** el cual establece el nivel de detalle mas amplio.
+
+> APP_URL
+
+El valor establecido en esta variable es de importancia en otros procesos del sistema y en ella se indica el **dominio** o **IP** de la aplicación incluyendo el protocolo **http** o **https**.
+
+> APP_DEMO
+
+El valor de esta variable determina si la aplicación se esta ejecutando en modo de demostración cuando es establecida como **true**, su valor por defecto es **false**
+
+> APP_TESTING
+
+Indica si la aplicación se encuentra en mnodo de prueba para lo cual se debe establecer el valor en **true**. Su valor por defecto es **false**
+
+> APP_TESTING_URL
+
+Establece el **dominio** o **IP** de la aplicación para pruebas incluyendo el protocolo **http** o **https**, esta variable es opcional
+
+> AUDIT_LIMIT
+
+Indica el límite de registros a almacenar por cada modelo de la aplicación para la auditoria
+
+## Notificaciones por correo
+
+Para el correcto funcionamiento de las notificaciones del sistema mediante la gestión de correo electrónico, se deben establecer los valores necesarios del servidor de correo a utilizar por la aplicación. Estas variables son:
+
+> MAIL_DRIVER
+> MAIL_HOST
+> MAIL_PORT
+> MAIL_USERNAME
+> MAIL_PASSWORD
+> MAIL_ENCRYPTION
+
+Donde,
+
+> MAIL_DRIVER
+
+Es el driver de conexión al servidor de correo saliente que gestionará las notificaciones
+
+> MAIL_HOST
+
+Es el dominio del host de correo saliente
+
+> MAIL_PORT
+
+Es el puerto del servidor de correo saliente
+
+> MAIL_USERNAME
+
+Es el nombre del usuario con atributos para enviar correo electrónico
+
+> MAIL_PASSWORD
+
+Es la contraseña del usuario que gestiona el correo saliente
+
+> MAIL_ENCRYPTION
+
+Define el protocolo de cifrado usado por el gestor de correo electrónico. Los valores a establecer pueden ser: **ssl**, **tls** o **null**
 
 ## Base de Datos
 
