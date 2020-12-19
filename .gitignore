@@ -10,6 +10,7 @@
 /public/js/common.js
 /public/js/components
 /public/modules
+/database/snapshots
 /storage/*.key
 /storage/debugbar
 /storage/pictures

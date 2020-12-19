@@ -66,6 +66,135 @@ Vue.component('sale-setting-product-type', () => import(
 );
 
 /**
+ * Componente para listar, crear, actualizar y borrar datos de Descuento
+ *
+ * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+ */
+Vue.component('sale-discount', () => import(
+    /* webpackChunkName: "sale-discount" */
+    './components/settings/SaleDiscountComponent.vue')
+);
+
+/**
+ * Componentes para gestionar los ingresos de productos al almacén
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-warehouse-reception-create', () => import(
+    /* webpackChunkName: "sale-warehouse-reception-create" */
+    './components/receptions/SaleWarehouseReceptionCreateComponent.vue')
+);
+
+/**
+ * Componente para mostrar un listado de los ingresos de productos al almacén
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-warehouse-reception-list', () => import(
+    /* webpackChunkName: "sale-warehouse-reception-list" */
+    './components/receptions/SaleWarehouseReceptionListComponent.vue')
+);
+
+/**
+ * Componente para mostrar un listado de los ingresos de productos al almacén pendientes por ejecutar
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-warehouse-reception-pending-list', () => import(
+    /* webpackChunkName: "sale-warehouse-reception-pending-list" */
+    './components/receptions/SaleWarehouseReceptionPendingListComponent.vue')
+);
+
+/**
+ * Componente para mostrar la información de los ingresos de almacén
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-warehouse-reception-info', () => import(
+    /* webpackChunkName: "sale-warehouse-reception-info" */
+    './components/receptions/SaleWarehouseReceptionInfoComponent.vue')
+);
+
+/*
+ * Componente para listar, crear, actualizar y borrar cotizaciones
+ *
+ * @author Jose Puentes <jpuentes@cenditel.gob.ve>
+ */
+Vue.component('sale-quote', () => import(
+    './components/settings/SaleQuoteComponent.vue')
+);
+
+/**
+ * Componente para listar, crear, actualizar y borrar datos de las formas de pago
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-setting-deposit', () => import(
+    /* webpackChunkName: "sale-setting-deposit" */
+    './components/settings/SaleSettingDepositComponent.vue')
+);
+
+/**
+ * Componente para listar, crear, actualizar y borrar datos de Gestión de Pedidos
+ *
+ * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+ */
+Vue.component('sale-order-management-method', () => import(
+    /* webpackChunkName: "sale-ordermanagement-method" */
+    './components/settings/SaleOrderManagementMethodComponent.vue')
+);
+
+/**
+ * Componente para gestionar la creación de los reportes de almacén
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-report-products', () => import(
+    /* webpackChunkName: "sale-report-products" */
+    './components/reports/SaleReportProductsComponent.vue')
+);
+
+/**
+ * Componentes para gestionar la creación de facturas
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-bill-create', () => import(
+    /* webpackChunkName: "sale-bill-create" */
+    './components/bills/SaleBillCreateComponent.vue')
+);
+
+/**
+ * Componente para mostrar un listado de las facturas
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-bill-list', () => import(
+    /* webpackChunkName: "sale-bill-list" */
+    './components/bills/SaleBillListComponent.vue')
+);
+
+/**
+ * Componente para mostrar la información de las solicitudes de almacén
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('sale-bill-info', () => import(
+    /* webpackChunkName: "sale-bill-info" */
+    './components/bills/SaleBillInfoComponent.vue')
+);
+
+/*
+ * Componente para gestionar la creación de los reportes de Pedidos
+ *
+ * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+ */
+Vue.component('sale-report-orders', () => import(
+    /* webpackChunkName: "sale-report-products" */
+    './components/reports/SaleReportOrdersComponent.vue')
+);
+
+/**
  * Opciones de configuración global del módulo de Commercialización
  */
 Vue.mixin({
@@ -117,6 +246,45 @@ Vue.mixin({
 			vm.sale_warehouse_method = [];
 			axios.get('/sale/get-salewarehousemethod').then(response => {
 				vm.sale_warehouse_method = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene los datos de las formas de Descuento
+		 *
+		 * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+		 */
+		getSaleDiscount() {
+			const vm = this;
+			vm.sale_descount_method = [];
+			axios.get('/sale/get-saledescount').then(response => {
+				vm.sale_descount_method = response.data;
+			});
+		},
+		
+		/**
+		 * Obtiene los datos de las formas de pago
+		 *
+		 * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+		 */
+		getSaleSettingDeposit() {
+			const vm = this;
+			vm.sale_setting_deposit = [];
+			axios.get('/sale/get-setting-deposit').then(response => {
+				vm.sale_setting_deposit = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene los datos de Gestión de Pedidos de comercialización
+		 *
+		 * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+		 */
+		getSaleOrderManagementMethod() {
+			const vm = this;
+			vm.sale_warehouse_method = [];
+			axios.get('/sale/get-saleordermanagementmethod').then(response => {
+				vm.sale_order_management_method = response.data;
 			});
 		},
 	},

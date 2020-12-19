@@ -2,7 +2,7 @@
   <div class="text-center">
     <a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
       title="Formato de códigos" data-toggle="tooltip"
-      @click="addRecord('add_sale_formatcode', 'register-formatcode', $event);">
+      @click="addRecord('add_sale_formatcode', 'sale/register-formatcode', $event);">
       <i class="icofont icofont-bar-code ico-3x"></i>
       <span>Formato de códigos</span>
     </a>
@@ -122,9 +122,9 @@
       this.table_options.sortable = ['formatcode'];
       this.table_options.filterable = ['formatcode'];
       this.table_options.columnsClasses = {
-        'formatcode': 'col-md-4',
-        'type_formatcode': 'col-md-4',
-        'id': 'col-md-4'
+        'formatcode': 'col-xs-4',
+        'type_formatcode': 'col-xs-4',
+        'id': 'col-xs-4'
       };
     }
   };

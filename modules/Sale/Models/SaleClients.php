@@ -38,4 +38,16 @@ class SaleClients extends Model implements Auditable
     {
         return $this->morphMany(\App\Models\Phone::class, 'phoneable');
     }
+
+    /**
+     * Método que obtiene la lista de facturas del módulo de comercialización
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * SaleClients
+     */
+    public function saleBills()
+    {
+        return $this->hasMany(SaleBill::class);
+    }
 }

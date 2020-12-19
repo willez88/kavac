@@ -2,7 +2,7 @@
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de Almacenes de Comercialización" data-toggle="tooltip"
-		   @click="addRecord('add_sale_warehouse_method', 'warehouse-method', $event)">
+		   @click="addRecord('add_sale_warehouse_method', 'sale/warehouse-method', $event)">
            <i class="icofont icofont-building-alt ico-3x"></i>
 		   <span>Almacenes</span>
 		</a>
@@ -66,8 +66,8 @@
     											name="active" data-toggle="tolltip" title="Indique si es el almacén principal"
     											data-on-label="Si" data-off-label="No" value="true"
     											v-model="record.active">
-    										</div>
-                                        </div>
+    									</div>
+                                    </div>
 								</div>
 							</div>
 						</div>
@@ -119,13 +119,17 @@
 	                </div>
 	                <div class="modal-body modal-table">
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
+	                		<div slot="active" slot-scope="props">
+	                			<span v-if="props.row.active == true">Activo</span>
+	                			<span v-else>Inactivo</span>
+	                		</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.row.id, $event)"
 		                				class="btn btn-warning btn-xs btn-icon btn-action"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.row.id, 'warehouse-method')"
+                                <button @click="deleteRecord(props.index, 'warehouse-method')"
 										class="btn btn-danger btn-xs btn-icon btn-action"
 										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
@@ -158,7 +162,7 @@
 				multi_institution: null,
 				errors: [],
 				records: [],
-				columns: ['name', 'main', 'active', 'address', 'id'],
+				columns: ['name', 'address', 'active',  'id'],
 				institutions: [],
 				countries: [],
 				estates: [],
@@ -200,17 +204,21 @@
 				'municipality_id':'Municipio',
 				'parish_id': 'Parroquia',
 			};
-			this.table_options.sortable = ['name'];
-			this.table_options.filterable = ['name'];
+			this.table_options.sortable = ['name','address', 'active'];
+			this.table_options.filterable = ['name','address', 'active'];
 			this.table_options.columnsClasses = {
-				'name': 'col-md-4',
-				'main': 'col-md-2',
-				'active': 'col-md-2',
-                'address': 'col-md-2',
-				'id': 'col-md-2'
+                'name': 'col-xs-3',
+                'address': 'col-xs-3',
+                'active': 'col-xs-3',
+                'id': 'col-xs-3'
 			};
 			this.getCountries();
 			this.getInstitutions();
 		},
+		//Estilo de botones principal y activar
+		mounted() {
+			//this.switchHandler('active');
+			//this.switchHandler('main');
+		}
 	};
 </script>
