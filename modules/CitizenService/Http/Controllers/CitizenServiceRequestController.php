@@ -68,7 +68,6 @@ class CitizenServiceRequestController extends Controller
                 'color'           => ['required'],
                 'transfer'        => ['required'],
                 'entryhour'       => ['required'],
-                'exithour'        => ['required'],
                 'informationteam' => ['required'],
 
             ]);
@@ -342,7 +341,7 @@ class CitizenServiceRequestController extends Controller
         $citizenServiceRequest = CitizenServiceRequest::where('state', 'Iniciado')->get();
         return response()->json(['records' => $citizenServiceRequest], 200);
     }
-    
+
     public function approved(Request $request, $id)
     {
         $citizenServiceRequest = CitizenServiceRequest::find($id);
