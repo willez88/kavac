@@ -11,7 +11,6 @@ use Modules\Payroll\Models\PayrollPermissionPolicy;
 
 class PayrollPermissionPolicyController extends Controller
 {
-    
     use ValidatesRequests;
     /**
      * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
@@ -20,7 +19,7 @@ class PayrollPermissionPolicyController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => PayrollPermissionPolicie::all()], 200);
+        return response()->json(['records' => PayrollPermissionPolicy::all()], 200);
     }
 
     /**
