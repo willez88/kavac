@@ -435,6 +435,18 @@ Route::group([
         'PayrollVacationRequestController@getVacationRequests'
     );
 
+    /* Ruta para política de permisos*/
+    Route::resource(
+        'permission-policies',
+        'PayrollPermissionPolicyController',
+        ['as' => 'payroll', 'except' => ['create','edit','show']]
+    );
+    Route::get('/get-permission-policies', 'PayrollPermissionPolicyController@getPermissionPolicies');
+
+
+
+
+
     /**
      * ------------------------------------------------------------
      * Grupo de rutas para gestionar la generación de reportes en el módulo de talento humano
@@ -446,7 +458,7 @@ Route::group([
     ], function () {
         Route::get('show/{filename}', 'PayrollReportController@show')
         ->name('payroll.reports.show');
-        
+
         Route::get('vacation-enjoyment-summaries', 'PayrollReportController@vacationEnjoymentSummaries')
         ->name('payroll.reports.vacation-enjoyment-summaries');
         Route::post('vacation-enjoyment-summaries/create', 'PayrollReportController@create')

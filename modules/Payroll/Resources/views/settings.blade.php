@@ -264,6 +264,10 @@
 
 						{{-- Políticas Vacacionales --}}
 						<payroll-vacation-policies></payroll-vacation-policies>
+
+						{{-- Políticas de Permisos --}}
+						<payroll-permission-policies></payroll-permission-policies>
+
 					</div>
 				</div>
 			</div>
