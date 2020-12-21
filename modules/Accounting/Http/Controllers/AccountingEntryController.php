@@ -757,7 +757,10 @@ class AccountingEntryController extends Controller
 								->where('accountable_id', $data['id'])
 								->where('active', true)
 								->first();
-					array_push($accounting_accounts, [
+                    if ($record === null) {
+                        continue;
+                    }
+                    array_push($accounting_accounts, [
 						'id'				=> $record->accountingAccount['id'],
 						'forAssets'			=> $data['assets'],
 						'forDebit'			=> $data['debit'],

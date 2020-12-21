@@ -35,7 +35,7 @@ class SaleSettingProduct extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['sale_setting_product_type_id', 'name', 'code', 'description', 'price', 'iva'];
+    protected $fillable = ['name', 'sale_setting_product_type_id', 'code', 'description', 'price', 'iva'];
 
     /**
      * Lista de registros relacionados

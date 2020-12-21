@@ -1,0 +1,52 @@
+[
+    {
+        "element" : "#cardSaleWarehouseReceptionForm",
+        "intro" : "Formulario de ingresos de productos al almacén",
+        "position" : "top"
+    },
+    {
+        "element" : "#saleHelpInstitution",
+        "intro" : "Parámetro que establece la institución asociada al ingreso de los productos",
+        "position" : "right"
+    },
+    {
+        "element" : "#saleHelpWarehouse",
+        "intro" : "Parámetro que establece el almacén asociado al ingreso de los productos",
+        "position" : "right"
+    },
+    {
+        "element" : "#saleHelpSectionProducts",
+        "intro" : "En esta sección se establecen los parámetros de los productos que se desean ingresar al almacén",
+        "position" : "right"
+    },
+    {
+        "element" : "#saleHelpProductName",
+        "intro" : "Parámetro que establece el nombre del producto",
+        "position" : "right"
+    },
+    {
+        "element" : "#saleHelpProductQuantity",
+        "intro" : "Parámetro que establece la cantidad del producto",
+        "position" : "right"
+    },
+    {
+        "element" : "#saleHelpProductValue",
+        "intro" : "Parámetro que establece el precio por unidad del producto",
+        "position" : "right"
+    },
+    {
+        "element" : "#saleHelpProductCurrency",
+        "intro" : "Parámetro que establece la moneda en la que se expresa el valor del producto",
+        "position" : "right"
+    },
+    {
+        "element" : "#saleHelpTable",
+        "intro" : "Listado de los productos asociados a la solicitud de ingreso al almacén",
+        "position" : "top"
+    },
+    {
+        "element" : "#saleHelpParamButtons",
+        "intro" : "Botones para ejecutar las acciones de limpiar, cancelar o guardar los datos del formulario",
+        "position" : "left"
+    }
+]

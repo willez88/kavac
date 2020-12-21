@@ -2,7 +2,7 @@
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de Tipos de Producto" data-toggle="tooltip"
-		   @click="addRecord('add_sale_setting_product_type', 'setting-product-type', $event)">
+		   @click="addRecord('add_sale_setting_product_type', 'sale/setting-product-type', $event)">
            <i class="icofont icofont-chart-pie ico-3x"></i>
 		   <span>Tipos de producto</span>
 		</a>

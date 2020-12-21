@@ -201,6 +201,6 @@ class SaleSettingProductController extends Controller
      */
     public function getSaleSettingProduct()
     {
-        return response()->json(template_choices(SaleSettingProduct::class, '', 'name', '', '', '', '', true));
+        return response()->json(template_choices(SaleSettingProduct::class, 'name', '', true));
     }
 }

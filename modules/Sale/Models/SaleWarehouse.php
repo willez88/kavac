@@ -9,10 +9,10 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
- * @class PaymentMethod
- * @brief Datos de formas de cobro
+ * @class SaleWarehouse
+ * @brief Datos Almacenes
  *
- * Gestiona el modelo de formas de cobro
+ * Gestiona el modelo de almacenes
  *
  * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
  * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
@@ -35,5 +35,17 @@ class SaleWarehouse extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = [];
+    protected $fillable = ['name','main','active','address','institution_id','parish_id'];
+
+    /**
+     * Método que obtiene las instituciones que gestionan el almacén
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo
+     * SaleWarehouseInstitutionWarehouse
+     */
+    public function saleWarehouseInstitutionWarehouses()
+    {
+        return $this->hasMany(SaleWarehouseInstitutionWarehouse::class);
+    }
 }

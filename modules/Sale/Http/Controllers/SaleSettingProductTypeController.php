@@ -23,7 +23,7 @@ class SaleSettingProductTypeController extends Controller
     {
         /** Establece permisos de acceso para cada método del controlador *//*
         $this->middleware('permission:sale.setting.product.list', ['only' => 'index']);
-        $this->middleware('permission:sale.setting.produtc.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:sale.setting.product.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:sale.setting.product.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:sale.setting.product.delete', ['only' => 'destroy']);*/
     }

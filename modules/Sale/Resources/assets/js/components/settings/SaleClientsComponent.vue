@@ -2,7 +2,7 @@
   <div class="text-center">
     <a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
       title="Clientes" data-toggle="tooltip"
-      @click="addRecord('add_sale_clients', 'register-clients', $event);">
+      @click="addRecord('add_sale_clients', 'sale/register-clients', $event);">
       <i class="icofont icofont-business-man ico-3x"></i>
       <span>Clientes</span>
     </a>
@@ -261,10 +261,10 @@
       this.table_options.sortable = ['rif'];
       this.table_options.filterable = ['rif'];
       this.table_options.columnsClasses = {
-        'type_person_juridica': 'col-md-3',
-        'rif': 'col-md-3',
-        'name_client': 'col-md-4',
-        'id': 'col-md-2'
+        'type_person_juridica': 'col-xs-3',
+        'rif': 'col-xs-3',
+        'name_client': 'col-xs-4',
+        'id': 'col-xs-2'
       };
     }
   };

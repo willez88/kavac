@@ -22,7 +22,7 @@ class CreateAccountingEntryablesTable extends Migration
                     'llave foranea a registro en la tabla accounting_entries'
                 );
 
-                $table->morphs('accounting_entryable');
+                $table->morphs('accounting_entryable', 'accounting_entryable_index');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

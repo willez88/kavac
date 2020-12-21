@@ -8,11 +8,30 @@
             <a href="/sale/settings" data-toggle="tooltip" data-placement="right" 
                title="Configuración de Comercialización">Configuración</a>
         </li>
-        <li>
-            <a href="#">Facturas</a>
+        <li class="{!! set_active_menu('sale.bill.index') !!}">
+            <a href="/sale/bills" data-toggle="tooltip" data-placement="right" 
+               title="Facturas">Facturas</a>
+        </li>
+        <li class="{!! set_active_menu('sale.reception.index') !!}">
+            <a href="/sale/receptions" data-toggle="tooltip" data-placement="right"
+               title="Recepciones de almacén">Recepciones de almacén</a>
         </li>
         <li>
-            <a href="#">Reportes</a>
+            <a href="javascript:void(0)"
+               data-toggle="tooltip" data-placement="right"
+               title="Gestiona la generación de reportes del módulo de comercialización">
+                    Reportes
+            </a>
+            <ul class="submenu" style="{!! display_submenu('report') !!}">
+                <li title="Reporte de inventario de productos de almacén"
+                    data-toggle="tooltip" data-placement="right">
+                    <a href="/sale/reports/inventory-products">Inventario de productos</a>
+                </li>
+                <li title="Reporte de pedidos"
+                    data-toggle="tooltip" data-placement="right">
+                    <a href="/sale/reports/orders">Pedidos</a>
+                </li>
+            </ul>
         </li>
     </ul>
 </li>

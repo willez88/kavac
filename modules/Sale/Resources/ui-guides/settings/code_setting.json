@@ -1,0 +1,18 @@
+[
+    {
+        "element" : "#helpCodeSaleSettingForm",
+        "intro" : "Esta sección permite establecer el formato a utilizar por los códigos en cada uno de los registros descritos, para comenzar en su implementación tenga especial cuidado en seguir las instrucciones en cuanto al formato que acepta esta configuración"
+    },
+    {
+        "element" : "#helpCodeSaleInventoryProduct",
+        "intro" : "La configuración de este código permite identificar los productos en inventario mediante un formato único."
+    },
+    {
+        "element" : "#helpCodeSaleMovement",
+        "intro" : "La configuración de este código permite identificar los registros de los movimientos mediante un formato único."
+    },
+    {
+        "element" : "#helpCodeSaleBill",
+        "intro" : "La configuración de este código permite identificar los registros de las facturas mediante un formato único."
+    }
+]

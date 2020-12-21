@@ -53,7 +53,6 @@
 									{!! Form::select('department_id', $departments, null, [
 										'class' => 'select2', 'data-toggle' => 'tooltip',
 										'title' => __('Seleccione un departamento o dependencia'),
-										'onchange' => 'updateSelect($(this), $("#payroll_position_id"), "PayrollPosition", "Payroll")'
 									]) !!}
 								</div>
 							</div>

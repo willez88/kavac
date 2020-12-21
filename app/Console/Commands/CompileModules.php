@@ -12,7 +12,10 @@ class CompileModules extends Command
      *
      * @var string
      */
-    protected $signature = 'module:compile';
+    protected $signature = 'module:compile
+                            {module? : The module name to compile}
+                            {--p|prod : Option to compile in production mode}
+                            {--i|install : With previous install node packages}';
 
     /**
      * The console command description.
@@ -40,16 +43,43 @@ class CompileModules extends Command
     {
         $this->info("== Iniciando compilación de módulos ==");
 
+        /** @var string Guarda el listado d elos módulos compilados */
         $m = '';
-        foreach (Module::collections(1) as $module) {
-            $this->info("Compilando módulo: " . $module->getName());
-            $result = shell_exec("cd modules/$module && npm run dev");
+        /** @var string Modo de compilación. dev = desarrollo, prod = producción */
+        $compileMode = ($this->option('prod'))?'prod':'dev';
 
-            echo $result;
+        $withInstall = ($this->option('install'))?'&& npm install':'';
+        /** @var boolean Determina si se encuentra un error en la compilación */
+        $hasError = false;
+        /** @var string Mensaje del error */
+        $errorMsg = '';
+        /** @var string Nombre del módulo que generó error al compilar */
+        $errorModule = '';
+
+        foreach (Module::collections(1) as $module) {
+            if ($this->argument('module') && strtolower($this->argument('module')) !== strtolower($module)) {
+                continue;
+            }
+            $this->info("Compilando módulo: " . $module->getName());
+            $result = shell_exec("cd modules/$module $withInstall && npm run $compileMode");
+            if (strpos($result, 'successfully') === false) {
+                $hasError = true;
+                $errorMsg = $result;
+                $errorModule = $module;
+                break;
+            }
             $m .= "$module,";
+            echo $result;
         }
 
-        $this->info("Se han compilado los módulos [$m]");
+        if (!empty($m)) {
+            $this->info("Se han compilado los módulos [".trim($m, ',')."]");
+        }
+        if ($hasError) {
+            $this->info("Ocurrió un error en la compilación del módulo $errorModule");
+            $this->info("Detalles del error:");
+            $this->info($errorMsg);
+        }
         return 0;
     }
 }

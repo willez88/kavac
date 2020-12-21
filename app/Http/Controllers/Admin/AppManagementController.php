@@ -7,6 +7,7 @@ use OwenIt\Auditing\Models\Audit;
 use App\Http\Controllers\Controller;
 use App\Traits\ModelsTrait;
 use App\Models\User;
+use Exception;
 
 /**
  * @class AppManagementController
@@ -53,41 +54,44 @@ class AppManagementController extends Controller
 
         foreach ($this->getModels() as $model_name) {
             $model = app($model_name);
-
-            if ($this->isModelSoftDelete($model)) {
-                if ($request->start_delete_at) {
-                    $model = $model->whereDate('deleted_at', '>=', $request->start_delete_at);
-                }
-                if ($request->end_delete_at) {
-                    $model = $model->whereDate('deleted_at', '<=', $request->end_delete_at);
-                }
-                if ($request->module_delete_at && strpos($model_name, $request->module_delete_at) === false) {
-                    continue;
-                }
-                $filtered = $model->onlyTrashed()->orderBy('deleted_at', 'desc');
-
-                $deleted = $filtered->get();
-                if (!$deleted->isEmpty()) {
-                    /** Si ya dispone de un listado de 20 registros, se detiene y se retorna la consulta */
-                    if (count($trashed) >= 20) {
-                        break;
+            try {
+                if ($this->isModelSoftDelete($model)) {
+                    if ($request->start_delete_at) {
+                        $model = $model->whereDate('deleted_at', '>=', $request->start_delete_at);
                     }
-                    foreach ($deleted as $del) {
-                        $regs = '<div class="row">';
-                        foreach ($del->getAttributes() as $attr => $value) {
-                            if (!in_array($attr, ['created_at', 'updated_at', 'deleted_at'])) {
-                                $regs .= "<div class='col-6 break-words'><b>$attr:</b> $value</div>";
-                            }
+                    if ($request->end_delete_at) {
+                        $model = $model->whereDate('deleted_at', '<=', $request->end_delete_at);
+                    }
+                    if ($request->module_delete_at && strpos($model_name, $request->module_delete_at) === false) {
+                        continue;
+                    }
+                    $filtered = $model->onlyTrashed()->orderBy('deleted_at', 'desc');
+
+                    $deleted = $filtered->get();
+                    if (!$deleted->isEmpty()) {
+                        /** Si ya dispone de un listado de 20 registros, se detiene y se retorna la consulta */
+                        if (count($trashed) >= 20) {
+                            break;
                         }
-                        $regs .= '</div>';
-                        array_push($trashed, [
-                            'id' => secure_record($del->id),
-                            'deleted_at' => $del->deleted_at->format("d-m-Y"),
-                            'module' => $model_name,
-                            'registers' => $regs
-                        ]);
+                        foreach ($deleted as $del) {
+                            $regs = '<div class="row">';
+                            foreach ($del->getAttributes() as $attr => $value) {
+                                if (!in_array($attr, ['created_at', 'updated_at', 'deleted_at'])) {
+                                    $regs .= "<div class='col-6 break-words'><b>$attr:</b> $value</div>";
+                                }
+                            }
+                            $regs .= '</div>';
+                            array_push($trashed, [
+                                'id' => secure_record($del->id),
+                                'deleted_at' => $del->deleted_at->format("d-m-Y"),
+                                'module' => $model_name,
+                                'registers' => $regs
+                            ]);
+                        }
                     }
                 }
+            } catch (Exception $e) {
+                continue;
             }
         }
 

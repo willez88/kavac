@@ -5,7 +5,7 @@
     "authors": [
         {
             "name": "Ing. Roldan Vargas",
-            "email": "rvargas@cenditel.gob.ve | roldandvg@gmail.com"
+            "email": "rvargas@cenditel.gob.ve"
         }
     ],
     "require": {},
@@ -21,6 +21,9 @@
     "autoload": {
         "psr-4": {
             "Modules\\DigitalSignature\\": ""
-        }
+        },
+        "files": [
+            "Helpers/Helper.php"
+        ]
     }
 }
