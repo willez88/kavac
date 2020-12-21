@@ -77,7 +77,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "http://localhost:8000/";
+/******/ 	__webpack_require__.p = "http://192.168.12.144:8000/";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
@@ -104,7 +104,7 @@ eval("//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9SZXNvdXJjZXMvYXNzZXRzL3Nhc3MvYXBwLnNjc3M/NWZmOSJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSIsImZpbGUiOiIuL1Jlc291cmNlcy9hc3NldHMvc2Fzcy9hcHAuc2Nzcy5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vIHJlbW92ZWQgYnkgZXh0cmFjdC10ZXh0LXdlYnBhY2stcGx1Z2luIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./Resources/assets/sass/app.scss\n");
+eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9SZXNvdXJjZXMvYXNzZXRzL3Nhc3MvYXBwLnNjc3M/OTk3NyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSIsImZpbGUiOiIuL1Jlc291cmNlcy9hc3NldHMvc2Fzcy9hcHAuc2Nzcy5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vIHJlbW92ZWQgYnkgZXh0cmFjdC10ZXh0LXdlYnBhY2stcGx1Z2luIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./Resources/assets/sass/app.scss\n");
 
 /***/ }),
 
@@ -115,8 +115,8 @@ eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourc
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/rvargas/RESPALDOS/PROYECTOS/CENDITEL/kavac/modules/DigitalSignature/Resources/assets/js/app.js */"./Resources/assets/js/app.js");
-module.exports = __webpack_require__(/*! /home/rvargas/RESPALDOS/PROYECTOS/CENDITEL/kavac/modules/DigitalSignature/Resources/assets/sass/app.scss */"./Resources/assets/sass/app.scss");
+__webpack_require__(/*! /home/dcontreras/Programacion/proyectos_php/proyectos_laravel/kavac/modules/DigitalSignature/Resources/assets/js/app.js */"./Resources/assets/js/app.js");
+module.exports = __webpack_require__(/*! /home/dcontreras/Programacion/proyectos_php/proyectos_laravel/kavac/modules/DigitalSignature/Resources/assets/sass/app.scss */"./Resources/assets/sass/app.scss");
 
 
 /***/ })
