@@ -259,7 +259,6 @@
                             sale_payment_method_id: fields.sale_payment_method_id,
                             currency_id: fields.currency_id,
                             sale_discount_id: fields.sale_discount_id,
-                            institution_id: '1',
                             created_at: vm.format_date(fields.created_at),
                         };
                         $.each(fields.sale_bill_product, function(index,campo){
@@ -290,8 +289,15 @@
                     vm.record.sale_setting_products.push(
                         {id:campo, requested:value});
                 });
-                if (complete == true)
-                	vm.createRecord(url)
+                if (complete == true) {
+
+                    if (vm.record.id) {
+                        vm.updateRecord(url)    
+                    }else{
+                	   vm.createRecord(url)
+                    }
+                }
+                
 			},
             toggleActive({ row }) {
 				const vm = this;
@@ -458,6 +464,9 @@
             this.loadInventoryProduct('inventory-products');
             this.getCurrencies();
             this.switchHandler('type_search');
+            if(this.record.id){
+                this.loadBill(this.record.id);
+            }
         },
         mounted() {
             let vm = this;

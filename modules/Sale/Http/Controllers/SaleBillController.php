@@ -265,7 +265,7 @@ class SaleBillController extends Controller
     /**
      * Vizualiza información de una solicitud de almacén
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
      * @param  Integer $id Identificador único de la solicitud de almacén
      * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
@@ -275,8 +275,10 @@ class SaleBillController extends Controller
             [
                 'saleClient',
                 'saleWarehouse',
-                'SaleBillInventoryProduct' => function ($query) {
-                        $query->with('SaleWarehouseInventoryProduct');
+                'saleBillInventoryProduct' => function ($query) {
+                        $query->with(['saleWarehouseInventoryProduct' => function ($query){
+                            $query->with('saleSettingProduct');
+                        }]);
                     }
             ]
         )->first()], 200);
