@@ -104,9 +104,6 @@
 			</tr>
 		</tbody>
 	</table>
-	<div class="card-footer text-right">
-		<buttonsDisplay route_list="/accounting/entries" display="false"/>
-	</div>
 </div>
 </template>
 <script>
@@ -332,8 +329,7 @@
 			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 			* @return {[type]} [description]
 			*/
-			createRecord(){
-				console.log("")
+			createRecord(Module, model, relatable_id){
 				const vm = this;
 				if (vm.validateErrors()) {
 					return ;
@@ -346,9 +342,9 @@
 				vm.data['accountingAccounts'] = vm.recordsAccounting;
 
 				// Datos requeridos para generar la relacion morfologica  para el asiento contable
-				vm.data['module'] 			  = 'Budget';
-				vm.data['model']   			  = 'Modules\\Accounting\\Models\\BudgetAccount';
-				vm.data['relatable_id'] 	  = '1';
+				vm.data['module'] 			  = Module;
+				vm.data['model']   			  = model;
+				vm.data['relatable_id'] 	  = relatable_id;
 
 				vm.loading = true;
 

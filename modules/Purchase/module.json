@@ -5,6 +5,12 @@
     "name_es": "Compras",
     "description": "Gestión de compras",
     "long_description": "",
+    "authors": [
+        {
+            "name": "Ing. Juan Rosas",
+            "email": ["juan.rosasr01@gmail.com"]
+        }
+    ],
     "keywords": [],
     "active": 1,
     "order": 0,
