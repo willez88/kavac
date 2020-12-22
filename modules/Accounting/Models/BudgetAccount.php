@@ -19,31 +19,30 @@ use Module;
  */
 class BudgetAccount extends BaseBudgetAccount
 {
-    // /**
-    //  * BudgetAccount morphs to many (many-to-many) accountingAccount.
-    //  *
-    //  * @author    Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
-    //  * 
-    //  * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
-    //  */
-    // public function accountingAccounts()
-    // {
-    //     // morphToMany(RelatedModel, morphName, pivotTable = ables, thisKeyOnPivot = able_id, otherKeyOnPivot = accountingAccount_id)
-    //     return $this->morphToMany(Accountable::class, 'accountable');
-    // }
+    /**
+     * BudgetAccount morphs many Accountable.
+     *
+     * @author    Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function accountable()
+    {
+        // morphMany(MorphedModel, morphableName, type = able_type, relatedKeyName = able_id, localKey = id)
+        return $this->morphMany(Accountable::class, 'accountable');
+    }
 
     /**
-     * BudgetAccount has many Accountable.
+     * BudgetAccount morphs many AccountingEntryable.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @author    Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
-    public function budgetAccount()
+    public function accounting_entryable()
     {
-        if (Module::has('Budget') && Module::isEnabled('Budget')) {
-            // hasMany(RelatedModel, foreignKeyOnRelatedModel = budgetAccount_id, localKey = id)
-            return $this->hasMany(BudgetAccount::class, 'id');
-        }
-        return null;
+        // morphMany(MorphedModel, morphableName, type = able_type, relatedKeyName = able_id, localKey = id)
+        return $this->morphMany(AccountingEntryable::class, 'accounting_entryable');
     }
 }
 

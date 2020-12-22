@@ -45,9 +45,9 @@
                 <div class="col-xs-2 text-center">
                     <h6><i class="icofont icofont-file-pdf"></i> Firmar documentos PDF...!!!! </h6>
                 </div>
-                <digitalSignature-signFile-form
+                <digitalsignature-signfile-component
                     route_list="{{ url('digitalsignature/apiSignFile')}}" >
-                </digitalSignature-signFile-form>
+                </digitalsignature-signfile-component>
             </div>
         </div>
     </div>

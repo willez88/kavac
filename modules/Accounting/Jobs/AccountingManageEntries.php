@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
 use Modules\Accounting\Models\AccountingEntry;
+use Modules\Accounting\Models\AccountingEntryable;
 use Modules\Accounting\Models\AccountingEntryAccount;
 use Modules\Accounting\Models\AccountingEntryCategory;
 use Modules\Accounting\Models\Institution;
@@ -125,15 +126,18 @@ class AccountingManageEntries implements ShouldQueue
 
         // 
         // Crea relacion morfologica N-M hacia un asiento contable
-        // Si no se pasan estos datos no se 
+        // Si no se pasan estos datos no se registra
         // 
         if (array_key_exists('module', $this->data) && array_key_exists('model', $this->data) &&
             array_key_exists('relatable_id', $this->data) && 
             $this->data['module'] && $this->data['model'] && $this->data['relatable_id']) {
 
             if ((Module::has($this->data['module']))) {
-                $record = $this->data['model']::find($this->data['relatable_id']);
-                $newEntries->accounting_entryable($this->data['model'])->save($record);
+                AccountingEntryable::create([
+                    'accounting_entry_id'       => $newEntries->id,
+                    'accounting_entryable_type' => $this->data['model'],
+                    'accounting_entryable_id'   => $this->data['relatable_id'],
+                ]);
             }
 
         }

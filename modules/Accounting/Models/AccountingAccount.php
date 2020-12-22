@@ -153,30 +153,16 @@ class AccountingAccount extends Model implements Auditable
 	}
 
 	/**
-	 * Método que relaciona a la tabla pivot de cuenta patrimonial
+	 * Método que obtiene los modelos morfológicos asociados a cuenta patrimonial
 	 *
-	 * @author    Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
+	 * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 	 *
-	 * @return    \Illuminate\Database\Eloquent\Relations\MorphToMany    Lista de objetos relacionados con
-	 *                                                                   el modelo 
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
-	public function accountable($module, $model)
+	public function pivotAccountable()
 	{
-		return (Module::has($module)) ? 
-			$this->morphedByMany($model, 'accountable') : 
-			null;
+		// hasMany(RelatedModel, foreignKeyOnRelatedModel = accountingAccount_id, localKey = id)
+		return $this->hasMany(Accountable::class, 'accounting_account_id');
 	}
 
-	/**
-	 * Método que obtiene los modelos morfológicos de cuentas presupuestales asociados a cuenta patrimonial
-	 *
-	 * @author    Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
-	 *
-	 * @return    \Illuminate\Database\Eloquent\Relations\MorphToMany    Lista de objetos relacionados con
-	 *                                                                   el modelo BudgetAccount del modulo Budget
-	 */
-	public function accountableBudget()
-	{
-		return $this->morphedByMany(BudgetAccount::class, 'accountable');
-	}
 }

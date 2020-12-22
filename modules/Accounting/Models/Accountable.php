@@ -39,28 +39,29 @@ class Accountable extends Model implements Auditable
 		'accounting_account_id', 
 		'accountable_type', 
 		'accountable_id', 
-		'active'
+		'active',
 	];
 
 	/**
-	 * Accountable belongs to AccountingAccount.
+	 * Accountable morphs to models in accountable_type.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+	 */
+	public function accountable()
+	{
+		// morphTo($name = accountable, $type = accountable_type, $id = accountable_id)
+		// requires accountable_type and accountable_id fields on $this->table
+		return $this->morphTo();
+	}
+
+	/**
+	 * Accountable belongs to AcccountingAccount.
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
 	public function accountingAccount()
 	{
-		// belongsTo(RelatedModel, foreignKey = accountingAccount_id, keyOnRelatedModel = id)
+		// belongsTo(RelatedModel, foreignKey = acccountingAccount_id, keyOnRelatedModel = id)
 		return $this->belongsTo(AccountingAccount::class, 'accounting_account_id');
-	}
-
-	/**
-	 * Accountable belongs to BudgetAccount.
-	 *
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-	 */
-	public function budgetAccount()
-	{
-		// belongsTo(RelatedModel, foreignKey = budgetAccount_id, keyOnRelatedModel = id)
-		return $this->belongsTo($this->accountable_type, 'accountable_id');
 	}
 }
