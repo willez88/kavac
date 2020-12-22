@@ -275,6 +275,8 @@ class SaleBillController extends Controller
             [
                 'saleClient',
                 'saleWarehouse',
+                'salePaymentMethod',
+                'saleDiscount',
                 'saleBillInventoryProduct' => function ($query) {
                         $query->with(['saleWarehouseInventoryProduct' => function ($query){
                             $query->with('saleSettingProduct');

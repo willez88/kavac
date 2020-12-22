@@ -67,9 +67,27 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <strong>Monto total</strong>
+                                            <strong>Almacén</strong>
                                             <div class="row" style="margin: 1px 0">
-                                                <span class="col-md-12" id="price">
+                                                <span class="col-md-12" id="sale_warehouse">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <strong>Forma de pago</strong>
+                                            <div class="row" style="margin: 1px 0">
+                                                <span class="col-md-12" id="sale_payment_method">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <strong>Descuento</strong>
+                                            <div class="row" style="margin: 1px 0">
+                                                <span class="col-md-12" id="sale_discount">
                                                 </span>
                                             </div>
                                         </div>
@@ -95,21 +113,19 @@
                                             </span>
                                         </div>
                                         <div slot="requested" slot-scope="props">
-                                            <span>
+                                            <span >
                                                 <b>Solicitados</b>
-                                                {{ (props.row.sale_bill_inventory_product)?
-                                                    props.row.sale_bill_inventory_product.quantity:''
-                                                }}
+                                                {{ props.row.quantity }}
                                             </span>
                                         </div>
                                         <div slot="unit_value" slot-scope="props">
                                             <span>
-                                                <b>Valor:</b> {{props.row.unit_value}} {{(props.row.currency)?props.row.currency.acronym:''}}
+                                                <b>Valor:</b> {{props.row.sale_warehouse_inventory_product.unit_value}}
                                             </span>
                                         </div>
                                         <div slot="price" slot-scope="props">
                                             <span>
-                                                <b>Precio total:</b> Precio total
+                                                Precio total: {{ price(props.row.quantity, props.row.sale_warehouse_inventory_product.unit_value) }}
                                             </span>
                                         </div>
                                     </v-client-table>
@@ -174,8 +190,15 @@
             ];
 
         },
-        methods: {
-
+        methods: {            
+            price(quantity, prod){
+                const vm = this;
+                var total = 0;
+                if (quantity && prod) {
+                    total += quantity*parseInt(prod['unit_value']);
+                }
+                return total;
+            },
             /**
              * Método que borra todos los datos del formulario
              * 
@@ -205,9 +228,11 @@
 
                         $(".modal-body #id").val( fields.id );
                         document.getElementById('date_init').innerText = (fields.created_at)?fields.created_at:'';
+                        document.getElementById('sale_warehouse').innerText = (fields.sale_warehouse)?fields.sale_warehouse.name:'';
                         document.getElementById('sale_client_rif').innerText = (fields.sale_client)?fields.sale_client.rif:'';
                         document.getElementById('sale_client_name').innerText = (fields.sale_client)?fields.sale_client.name_client:'';
-                        document.getElementById('price').innerText = (fields.price)?fields.price:'';
+                        document.getElementById('sale_payment_method').innerText = (fields.sale_payment_method)?fields.sale_payment_method.name:'';
+                        document.getElementById('sale_discount').innerText = (fields.sale_discount)?fields.sale_discount.name:'N/A';
                         document.getElementById('state').innerText = (fields.state)?fields.state:'';
                         this.records = fields.sale_bill_inventory_products;
                     }

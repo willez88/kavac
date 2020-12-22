@@ -242,7 +242,7 @@
             }
         },
         props: {
-            billid: Number, 
+            billid: Number,
         },
         methods: {
             loadBill(id) {
@@ -261,11 +261,15 @@
                             sale_discount_id: fields.sale_discount_id,
                             created_at: vm.format_date(fields.created_at),
                         };
-                        $.each(fields.sale_bill_product, function(index,campo){
-                            var element = document.getElementById("sale_bill_product_"+campo.sale_warehouse_inventary_product_id);
-                            if(element){
-                                element.value = campo.quantity;
-                                vm.selected.push(campo.sale_warehouse_inventary_product_id);
+                        $.each(fields.sale_bill_inventory_product, function(index,campo){
+                            var element = document.getElementById("checkbox_"+campo.sale_warehouse_inventory_product_id);
+                            var input = document.getElementById("sale_bill_product_"+campo.sale_warehouse_inventory_product_id);
+
+                            if(element && input){
+                                vm.selected.push(campo.sale_warehouse_inventory_product_id);
+                                element.click();
+                                input.value = campo.quantity;
+                                vm.price('sale_bill_product_'+campo.sale_warehouse_inventory_product_id, campo.sale_warehouse_inventory_product.unit_value, 'value_span_'+campo.sale_warehouse_inventory_product_id);
                             }
                         });
                     }
@@ -464,9 +468,6 @@
             this.loadInventoryProduct('inventory-products');
             this.getCurrencies();
             this.switchHandler('type_search');
-            if(this.record.id){
-                this.loadBill(this.record.id);
-            }
         },
         mounted() {
             let vm = this;
@@ -474,6 +475,9 @@
             $('input[name=discount].bootstrap-switch').on('switchChange.bootstrapSwitch', function() {
                 vm.discount = $(this).is(':checked');
             });
+            if(vm.billid){
+                vm.loadBill(vm.billid);
+            }
         }
     };
     </script>
