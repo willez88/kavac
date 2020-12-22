@@ -94,16 +94,16 @@ class AccountingEntry extends Model implements Auditable
     }
 
     /**
-     * Método que relaciona a la tabla pivot de asientos contables
+     * Método que obtiene los modelos morfológicos asociados a asientos contables
      *
      * @author    Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
      *
-     * @return    \Illuminate\Database\Eloquent\Relations\MorphToMany    Lista de objetos relacionados con
-     *                                                                   el modelo 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function accounting_entryable($model)
+    public function pivotEntryable()
     {
-        return $this->morphedByMany($model, 'accounting_entryable');
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = accountingEntry_id, localKey = id)
+        return $this->hasMany(AccountingEntryable::class, 'accounting_entry_id');
     }
 
     /**

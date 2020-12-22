@@ -134,6 +134,7 @@ class AccountingAccountConverterController extends Controller
 		]);
 
 		$account = AccountingAccount::find($request->accounting_account_id);
+		// dd($account);
 		/**
 		 * Crea el registro de conversiones
 		 */
@@ -152,8 +153,12 @@ class AccountingAccountConverterController extends Controller
 				$accountable->save();
 			}
 
-			$record = $request->model::find($request->accountable_id);
-			$account->accountable($request->module, $request->model)->save($record);
+			Accountable::create([
+				'accounting_account_id' => $request->accounting_account_id,
+				'accountable_type'		=> $request->model,
+				'accountable_id'		=> $request->accountable_id,
+				'active'				=> true,
+			]);
 			
 			return response()->json(['message'=>'Success'], 200);
 		}
