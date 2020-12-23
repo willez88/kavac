@@ -251,10 +251,10 @@ class SaleBillController extends Controller
     }
 
     /**
-     * Confirma la entrega de una solicitud de almacén
+     * Confirma la aprovación de una factura
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  Integer $id Identificador único de la solicitud de almacén
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @param  Integer $id Identificador único de la factura
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
      * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
@@ -265,15 +265,25 @@ class SaleBillController extends Controller
         $sale_bills->state = 'Aprobado';
         $sale_bills->save();
 
+        $bill_inventory_products = $sale_bills->SaleBillInventoryProduct;
+
+        foreach ($bill_inventory_products as $bill_inventory_product) {
+            $sale_warehouse_inventory_product = $bill_inventory_product->SaleWarehouseInventoryProduct;
+            $exist = $sale_warehouse_inventory_product->exist;
+            $exist -= $bill_inventory_product->quantity;
+            $sale_warehouse_inventory_product->exist = $exist;
+            $sale_warehouse_inventory_product->save();
+        }
+
         $request->session()->flash('message', ['type' => 'update']);
         return response()->json(['result' => true, 'redirect' => route('sale.bills.index')], 200);
     }
 
     /**
-     * Rechaza la solicitud de almacén
+     * Rechaza la aprovación de una factura
      *
-     * @author Henry Paredes <hparedes@cenditel.gob.ve>
-     * @param  Integer $id Identificador único de la solicitud de almacén
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @param  Integer $id Identificador único de la factura
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
      * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
