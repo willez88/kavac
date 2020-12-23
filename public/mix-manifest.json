@@ -263,5 +263,6 @@
     "/modules/warehouse/components/warehouse-request-staff-list.js": "/modules/warehouse/components/warehouse-request-staff-list.js",
     "/modules/warehouse/components/warehouse-rules.js": "/modules/warehouse/components/warehouse-rules.js",
     "/modules/warehouse/components/warehouses.js": "/modules/warehouse/components/warehouses.js",
-    "/modules/sale/components/sale-bill-info.js": "/modules/sale/components/sale-bill-info.js"
+    "/modules/sale/components/sale-bill-info.js": "/modules/sale/components/sale-bill-info.js",
+    "/modules/sale/components/sale-bill-pending-list.js": "/modules/sale/components/sale-bill-pending-list.js"
 }

@@ -237,6 +237,8 @@ Route::group(
         Route::get('bills/info/{bill}', 'SaleBillController@vueInfo');
         Route::get('bills/edit/{bill}', 'SaleBillController@edit')->name('sale.bills.edit');
         Route::delete('bills/delete/{bill}', 'SaleBillController@destroy')->name('sale.bills.destroy');
+        Route::put('bills/bill-approved/{bill}', 'SaleBillController@approvedBill');
+        Route::put('bills/bill-rejected/{bill}', 'SaleBillController@rejectedBill');
 
         /*
          * ------------------------------------------------------------

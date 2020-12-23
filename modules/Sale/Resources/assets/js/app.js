@@ -177,11 +177,21 @@ Vue.component('sale-bill-list', () => import(
 /**
  * Componente para mostrar la información de las solicitudes de almacén
  *
- * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
  */
 Vue.component('sale-bill-info', () => import(
     /* webpackChunkName: "sale-bill-info" */
     './components/bills/SaleBillInfoComponent.vue')
+);
+
+/**
+ * Componente para mostrar un listado de las facturas pendientes
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-bill-pending-list', () => import(
+    /* webpackChunkName: "sale-bill-pending-list" */
+    './components/bills/SaleBillPendingListComponent.vue')
 );
 
 /*

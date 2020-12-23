@@ -195,7 +195,7 @@
                 const vm = this;
                 var total = 0;
                 if (quantity && prod) {
-                    total += quantity*parseInt(prod['unit_value']);
+                    total += quantity*parseInt(prod);
                 }
                 return total;
             },

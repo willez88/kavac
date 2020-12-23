@@ -251,6 +251,43 @@ class SaleBillController extends Controller
     }
 
     /**
+     * Confirma la entrega de una solicitud de almacén
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  Integer $id Identificador único de la solicitud de almacén
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
+     */
+
+    public function approvedBill(Request $request, $id)
+    {
+        $sale_bills = SaleBill::find($id);
+        $sale_bills->state = 'Aprobado';
+        $sale_bills->save();
+
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true, 'redirect' => route('sale.bills.index')], 200);
+    }
+
+    /**
+     * Rechaza la solicitud de almacén
+     *
+     * @author Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param  Integer $id Identificador único de la solicitud de almacén
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
+     */
+    public function rejectedBill(Request $request, $id)
+    {
+        $sale_bills = SaleBill::find($id);
+        $sale_bills->state = 'Rechazado';
+        $sale_bills->save();
+
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true, 'redirect' => route('sale.bills.index')], 200);
+    }
+
+    /**
      * Remove the specified resource from storage.
      * @param int $id
      * @return Renderable
