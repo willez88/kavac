@@ -1,4 +1,4 @@
-<div class="left-panel">
+<div class="left-panel h-100">
 	<div class="media profile-left">
         @php
             $prf = auth()->user()->profile;

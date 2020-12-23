@@ -63,7 +63,7 @@
         {{-- Sección para estilos extras dispuestos por las plantillas según requerimientos particulares --}}
         @yield('extra-css')
     </head>
-    <body class="@guest login-page sidebar-collapse @endguest">
+    <body>
         @auth
             {{-- Ventana modal para mostrar mensaje de espera mientras cargan los datos --}}
             @include('layouts.loading-message')
@@ -71,16 +71,13 @@
 
         @section('custom-page')
             @guest
-                <div class="page-header" filter-color="orange">
-                    <div class="page-header-image"></div>
-                    <div class="container">
-                        <div class="col-md-4 content-center">
-                            <div class="card card-login card-plain" id="app">
-                                @yield('content')
-                            </div>
+                <div class="login-container">
+                    <div class="d-flex flex-column justify-content-center login-form">
+                        <div id="app" class="card card-login card-plain align-self-center col-10 col-sm-8 col-md-4 col-lg-3">
+                            @yield('content')
                         </div>
                     </div>
-                    <footer class="footer">
+                    <footer class="align-self-end">
                         @include('layouts.footer')
                     </footer>
                 </div>

@@ -707,6 +707,33 @@ table {
 .login-page .page-header .page-header-image {
   background-image: url("../images/auth-bg.jpg"); }
 
+.login-container {
+  background-image: url("../images/auth-bg.jpg");
+  background-image: url("../images/auth-bg.jpg"), linear-gradient(0deg, #2c2c2c, #7c0d03);
+  background-blend-mode: multiply;
+  background-size: cover;
+  background-origin: padding-box;
+  background-repeat: no-repeat;
+  min-height: 100vh; }
+
+.login-img img {
+  display: block;
+  width: 100px;
+  height: auto;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 10px; }
+
+.login-form {
+  min-height: 94vh; }
+  .login-form .form-control {
+    color: #fff; }
+
+.login-captcha-grid {
+  display: grid;
+  grid-template-columns: 70% auto;
+  grid-gap: 10px; }
+
 .bootstrap-switch.bootstrap-switch-off .bootstrap-switch-label {
   background-color: rgba(255, 255, 255, 0.4); }
 
