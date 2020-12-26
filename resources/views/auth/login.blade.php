@@ -72,7 +72,7 @@
         <div class="footer text-center">
             <label>
                 <span style="margin-right:10px">{{ __('Recuerdame') }}</span>
-                <input type="checkbox" name="checkbox" class="form-control bootstrap-switch"
+                <input type="checkbox" name="remember" class="form-control bootstrap-switch"
                        data-on-label="SI" data-off-label="NO" data-toggle="tooltip" data-placement="right"
                        title="{{ __('Seleccione si desea que el sistema recuerde sus datos') }}" />
             </label>
