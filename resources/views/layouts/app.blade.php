@@ -72,6 +72,7 @@
         @section('custom-page')
             @guest
                 <div class="login-container">
+                    <div class="login-overlay"></div>
                     <div class="d-flex flex-column justify-content-center login-form">
                         <div id="app" class="card card-login card-plain align-self-center col-10 col-sm-8 col-md-4 col-lg-3">
                             @yield('content')

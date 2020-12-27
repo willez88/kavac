@@ -9,9 +9,9 @@
         <h2 class="h6 text-light text-center pb-3">{{ __('Acceso') }}</h2>
         <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
             <div class="input-group form-group-no-border input-sm">
-                <span class="input-group-addon text-light">
+                <p class="input-group-addon text-light">
                     <i class="now-ui-icons users_circle-08"></i>
-                </span>
+                </p>
                 {!! Form::text('username', old('username'), [
                     'class' => 'form-control', 'placeholder' => __('Usuario'), 'required' => 'required',
                     'title' => __('Indique el nombre del usuario.'),
@@ -19,16 +19,16 @@
                 ]) !!}
             </div>
             @if ($errors->has('username'))
-                <span class="help-block">
+                <p class="help-block text-light">
                     <strong>{{ $errors->first('username') }}</strong>
-                </span>
+                </p>
             @endif
         </div>
         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
             <div class="input-group form-group-no-border input-sm">
-                <span class="input-group-addon text-light">
+                <p class="input-group-addon text-light">
                     <i class="now-ui-icons ui-1_lock-circle-open"></i>
-                </span>
+                </p>
                 {!! Form::password('password', [
                     'class' => 'form-control', 'placeholder' => __('Contraseña'), 'required' => 'required',
                     'title' => __('Indique la contraseña de acceso.'),
@@ -37,9 +37,9 @@
                 ]) !!}
             </div>
             @if ($errors->has('password'))
-                <span class="help-block">
+                <p class="help-block text-light">
                     <strong>{{ $errors->first('password') }}</strong>
-                </span>
+                </p>
             @endif
         </div>
         <div class="form-group">
@@ -54,9 +54,9 @@
         </div>
         <div class="form-group{{ $errors->has('captcha') ? ' has-error' : '' }}">
             <div class="input-group form-group-no-border input-sm">
-                <span class="input-group-addon text-light">
+                <p class="input-group-addon text-light">
                     <i class="now-ui-icons design_image"></i>
-                </span>
+                </p>
                 {!! Form::text('captcha', old('captcha'), [
                     'class' => 'form-control', 'placeholder' => __('Captcha'), 'required' => 'required',
                     'id' => 'captcha', 'onfocus' => '$(this).val("")', 'data-toggle' => 'tooltip',
@@ -64,9 +64,9 @@
                 ]) !!}
             </div>
             @if ($errors->has('captcha'))
-                <span class="help-block">
+                <p class="help-block text-light">
                     <strong>{{ $errors->first('captcha') }}</strong>
-                </span>
+                </p>
             @endif
         </div>
         <div class="footer text-center">
