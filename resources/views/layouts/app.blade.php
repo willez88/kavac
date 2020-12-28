@@ -74,7 +74,7 @@
                 <div class="login-container">
                     <div class="login-overlay"></div>
                     <div class="d-flex flex-column justify-content-center login-form">
-                        <div id="app" class="card card-login card-plain align-self-center col-10 col-sm-8 col-md-4 col-lg-3">
+                        <div id="app" class="align-self-center col-12">
                             @yield('content')
                         </div>
                     </div>

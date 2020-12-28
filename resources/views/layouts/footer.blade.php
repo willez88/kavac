@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container font-small">
     <div class="row">
-        <nav class="col-12 col-md-6">
+        <nav class="col-12 col-md-6 col-lg-4 mr-lg-auto" role="navigation">
             <ul class="nav justify-content-center">
                 <li class="nav-item text-uppercase">
                     <a class="nav-link resalt-link" href="https://www.cenditel.gob.ve" target="_blank" data-toggle="tooltip"
@@ -28,7 +28,7 @@
                 </li>
             </ul>
         </nav>
-        <div class="col-12 col-md-6 text-center @guest text-light @endguest pt-2">
+        <div class="col-12 col-md-6 col-lg-5 text-center @guest text-light @endguest pt-2">
             &copy; <span class="currentYear"></span>, {{ __('Diseñado por') }}
             <a href="mailto:rvargas@cenditel.gob.ve" data-toggle="tooltip"
                title="{{ __('Envíanos tus sugerencias o comentarios') }}">

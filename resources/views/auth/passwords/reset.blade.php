@@ -3,7 +3,7 @@
 @section('content')
     {!! Form::open(['route' => 'password.request', 'method' => 'POST', 'class' => 'form']) !!}
         {{ csrf_field() }}
-        <p class="login-img text-center pt-3">
+        <p class="login-img">
             @include('layouts.logo-images', ['logo_mini' => true])
         </p>
         <h2 class="h6 text-light text-center pb-3">{{ __('Reiniciar Contraseña') }}</h2>
@@ -14,7 +14,7 @@
         @endif
         <div class="form-group">
             <div class="input-group form-group-no-border input-sm">
-                <span class="input-group-addon text-light">
+                <span class="input-group-addon">
                     <i class="now-ui-icons ui-1_email-85"></i>
                 </span>
                 {!! Form::email('email', old('email'), [
@@ -23,14 +23,14 @@
                 ]) !!}
             </div>
             @if ($errors->has('email'))
-                <span class="help-block">
+                <p class="text-center text-light mb-0">
                     <strong>{{ $errors->first('email') }}</strong>
-                </span>
+                </p>
             @endif
         </div>
         <div class="form-group">
             <div class="input-group form-group-no-border input-sm">
-                <span class="input-group-addon text-light">
+                <span class="input-group-addon">
                     <i class="now-ui-icons ui-1_lock-circle-open text-light"></i>
                 </span>
                 {!! Form::password('password', old('password'), [
@@ -39,14 +39,14 @@
                 ]) !!}
             </div>
             @if ($errors->has('password'))
-                <span class="help-block">
+                <p class="text-center text-light mb-0">
                     <strong>{{ $errors->first('password') }}</strong>
-                </span>
+                </p>
             @endif
         </div>
         <div class="form-group">
             <div class="input-group form-group-no-border input-sm">
-                <span class="input-group-addon text-light">
+                <span class="input-group-addon">
                     <i class="now-ui-icons ui-1_lock-circle-open text-light"></i>
                 </span>
                 {!! Form::password('password_confirmation', old('password_confirmation'), [
@@ -55,9 +55,9 @@
                 ]) !!}
             </div>
             @if ($errors->has('password_confirmation'))
-                <span class="help-block">
+                <p class="text-center text-light mb-0">
                     <strong>{{ $errors->first('password_confirmation') }}</strong>
-                </span>
+                </p>
             @endif
         </div>
         <div class="footer text-center">

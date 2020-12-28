@@ -3,7 +3,7 @@
 @section('content')
     {!! Form::open(['route' => 'password.email', 'method' => 'POST', 'class' => 'form']) !!}
         {{ csrf_field() }}
-        <p class="login-img text-center pt-3">
+        <p class="login-img">
             @include('layouts.logo-images', ['logo_mini' => true])
         </p>
         <h2 class="h6 text-light text-center pb-3">{{ __('Reiniciar Contraseña') }}</h2>
@@ -14,7 +14,7 @@
         @endif
         <div class="form-group">
             <div class="input-group form-group-no-border input-sm">
-                <span class="input-group-addon text-light">
+                <span class="input-group-addon">
                     <i class="now-ui-icons ui-1_email-85"></i>
                 </span>
                 {!! Form::email('email', old('email'), [
@@ -24,9 +24,9 @@
                 ]) !!}
             </div>
             @if ($errors->has('email'))
-                <span class="help-block">
-                    <strong class="text-light">{{ $errors->first('email') }}</strong>
-                </span>
+                <p class="text-center text-light mb-0">
+                    <strong>{{ $errors->first('email') }}</strong>
+                </p>
             @endif
         </div>
         <div class="footer text-center">
