@@ -1,9 +1,9 @@
-# KAVAC | Sistema de Gestión Administrativa
+# KAVAC | Sistema de Gestión Organizacional
 
 ### Pendientes Modulo de Bienes
 
 ## Registro de Bienes
-	Gestiona todos los bienes institucionales adquiridos por la institucion 
+	Gestiona todos los bienes institucionales adquiridos por la institucion
 
 # En la migración de bienes: (assset)
 
@@ -16,6 +16,6 @@
 		- Falta validar proveedor
 
 ## Reportes de Bienes:
-		
+
 		- Falta funcion de formato de valor para reportes de bienes
 		- Cada operación realizada debe devolver un reporte con los datos de la operación (falta formato de reportes)
