@@ -13,7 +13,7 @@
                     <i class="now-ui-icons users_circle-08"></i>
                 </p>
                 {!! Form::text('username', old('username'), [
-                    'class' => 'form-control', 'placeholder' => __('Usuario'), 'required' => 'required',
+                    'class' => 'form-control', 'placeholder' => __('Usuario'),
                     'title' => __('Indique el nombre del usuario.'),
                     'data-toggle' => 'tooltip', 'data-placement' => 'right'
                 ]) !!}
@@ -30,7 +30,7 @@
                     <i class="now-ui-icons ui-1_lock-circle-open"></i>
                 </p>
                 {!! Form::password('password', [
-                    'class' => 'form-control', 'placeholder' => __('Contraseña'), 'required' => 'required',
+                    'class' => 'form-control', 'placeholder' => __('Contraseña'),
                     'title' => __('Indique la contraseña de acceso.'),
                     'data-toggle' => 'tooltip', 'data-placement' => 'right',
                     'autocomplete' => 'off'
@@ -58,7 +58,7 @@
                     <i class="now-ui-icons design_image"></i>
                 </p>
                 {!! Form::text('captcha', old('captcha'), [
-                    'class' => 'form-control', 'placeholder' => __('Captcha'), 'required' => 'required',
+                    'class' => 'form-control', 'placeholder' => __('Captcha'),
                     'id' => 'captcha', 'onfocus' => '$(this).val("")', 'data-toggle' => 'tooltip',
                     'title' => __('Introduzca los carácteres de la imagen'), 'data-placement' => 'right'
                 ]) !!}
