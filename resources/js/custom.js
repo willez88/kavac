@@ -356,7 +356,7 @@ $(document).ready(function() {
             {
                 name: 'Roldan Vargas',
                 email: 'rvargas@cenditel.gob.ve | roldandvg@gmail.com',
-                group: 'Lider de proyecto / Diseño / Desarrollo / Autor'
+                group: 'Lider de proyecto / Diseño / Desarrollo / Autor / Director de Desarrollo (2021)'
             },
             {
                 name: 'Julie Vera',
@@ -394,11 +394,6 @@ $(document).ready(function() {
                 group: 'Analistas'
             },
             {
-                name: 'Daniel Contreras',
-                email: 'dcontreras@cenditel.gob.ve',
-                group: 'Analistas'
-            },
-            {
                 name: 'Luis Ramírez',
                 email: 'lramirez@cenditel.gob.ve',
                 group: 'Manuales'
@@ -429,6 +424,31 @@ $(document).ready(function() {
                 group: 'Desarrolladores'
             },
             {
+                name: 'Pedro Buitrago',
+                email: 'pbuitrago@cenditel.gob.ve',
+                group: 'Desarrolladores'
+            },
+            {
+                name: 'Angelo Osorio',
+                email: 'adosorio@cenditel.gob.ve',
+                group: 'Desarrolladores'
+            },
+            {
+                name: 'José Puentes',
+                email: 'jpuentes@cenditel.gob.ve',
+                group: 'Desarrolladores'
+            },
+            {
+                name: 'Daniel Contreras',
+                email: 'dcontreras@cenditel.gob.ve',
+                group: 'Desarrolladores'
+            },
+            {
+                name: 'Miguel Narváez',
+                email: 'mnarvaez@cenditel.gob.ve',
+                group: 'Desarrolladores'
+            },
+            {
                 name: 'Argenis Osorio',
                 email: 'aosorio@cenditel.gob.ve',
                 group: 'Director de Desarrollo (2018-2019)'
@@ -439,11 +459,6 @@ $(document).ready(function() {
                 group: 'Director de Desarrollo (2020)'
             },
             {
-                name: 'Angelo Osorio',
-                email: 'adosorio@cenditel.gob.ve',
-                group: 'Colaborador'
-            },
-            {
                 name: 'Santiago Roca',
                 email: 'sroca@cenditel.gob.ve',
                 group: 'Colaborador'
@@ -452,8 +467,18 @@ $(document).ready(function() {
         bootbox.alert({
             className: 'modal-credits',
             closeButton: false,
-            message: appInfo.showAbout()
+            message: appInfo.showAbout(),
+            buttons: {
+                ok: {
+                    label: "OK",
+                    className: 'btn-primary'
+                }
+            },
         });
+
+        $('.bootbox.modal [data-bb-handler="ok"]').attr('title', 'Haga clic para cerrar esta ventana');
+        $('.bootbox.modal [data-bb-handler="ok"]').attr('data-toggle', 'tooltip');
+        $('.bootbox.modal [data-bb-handler="ok"]').tooltip();
     });
 
     /** Evento que permite mostrar datos sobre el licenciamiento de la aplicación */
@@ -478,13 +503,20 @@ $(document).ready(function() {
             { name: 'Argenis Osorio' },
             { name: 'Laura Colina' },
             { name: 'Angelo Osorio' },
-            { name: 'Santiago Roca' }
+            { name: 'Santiago Roca' },
+            { name: 'Pedro Buitrago' },
+            { name: 'José Puentes' },
+            { name: 'Miguel Narváez' },
         ]);
         bootbox.alert({
             className: 'modal-credits',
             closeButton: false,
             message: appInfo.showLicense()
         });
+
+        $('.bootbox.modal [data-bb-handler="ok"]').attr('title', 'Haga clic para cerrar esta ventana');
+        $('.bootbox.modal [data-bb-handler="ok"]').attr('data-toggle', 'tooltip');
+        $('.bootbox.modal [data-bb-handler="ok"]').tooltip();
     });
 
     /** Oculta el tooltip de los elementos bootstrap switch después de unos segundos */
