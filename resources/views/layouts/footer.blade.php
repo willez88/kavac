@@ -15,8 +15,8 @@
                     </a>
                 </li>
                 <li class="nav-item text-uppercase">
-                    <a class="nav-link resalt-link" href="#" target="_blank" data-toggle="tooltip"
-                       title="{{ __('Acceso al blog del proyecto') }}">
+                    <a class="nav-link resalt-link" href="https://tibisay.cenditel.gob.ve/sistema-de-gestion"
+                       target="_blank" data-toggle="tooltip" title="{{ __('Acceso al blog del proyecto') }}">
                         {{ __('Blog') }}
                     </a>
                 </li>
