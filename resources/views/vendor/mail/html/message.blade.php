@@ -21,7 +21,7 @@
     {{-- Footer --}}
     @slot('footer')
         @component('mail::footer')
-            © {{ date('Y') }} {{ config('app.name') }}. @lang('All rights reserved.')
+            © 2018 - {{ date('Y') }} {{ config('app.name') }}. CENDITEL Nodo Mérida.
         @endcomponent
     @endslot
 @endcomponent

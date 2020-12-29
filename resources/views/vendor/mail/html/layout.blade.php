@@ -21,6 +21,34 @@
                 width: 100% !important;
             }
         }
+        .img-header {
+            max-height: 60px;
+        }
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .footer p, .footer a {
+            color: #ffffff !important;
+        }
+
+        li.checkmark {
+  list-style: none;
+  position: relative;
+  padding: 0 0 0 20px;
+}
+        li.checkmark::before {
+          content: "" !important;
+          position: absolute !important;
+          left: 2px !important;
+          top: 5px !important;
+          width: 3px !important;
+          height: 6px !important;
+          border: solid rgb(18, 161, 11) !important;
+          border-width: 0 2px 2px 0 !important;
+          transform: rotate(45deg) !important;
+        }
     </style>
 
     <table class="wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
