@@ -176,5 +176,137 @@ EL sistema KAVAC cuenta con un registro por defecto para la estructura del Plan 
 |2.1.1.02.05.00	 |Aportes patronales por pagar al Fondo de Ahorro Obligatorio para la Vivienda (FAOV)   |Activa    |
 |2.1.1.02.06.00	 |Aportes a los servicios de salud, accidentes personales y Gastos Funerarios   |Activa    |
 |2.1.1.02.07.00	 |Aportes patronales por pagar a cajas de ahorro   |Activa    |
-
-
+|2.1.1.02.08.00  |Aportes patronales por pagar a los organismos de seguridad social | Activa    |
+|2.1.1.02.09.00  |Aportes patronales por pagar al Instituto Nacional de Capacitación y Educación Socialista (INCES)   |	Activa    |
+|2.1.1.02.99.00  |Otros aportes legales por pagar   | Activa    |
+|2.1.1.03.00.00  |RETENCIONES LABORALES POR PAGAR   | Activa    |
+|2.1.1.03.01.00  |Retenciones laborales por pagar al Instituto Venezolano de los Seguros Sociales (IVSS)   | Activa    |
+|2.1.1.03.02.00  |Retenciones laborales por pagar al Instituto de Previsión y Asistencia Social del Ministerio de Educación (IPASME)   | Activa    |
+|2.1.1.03.03.00  |Retenciones laborales por pagar al Fondo de Jubilaciones   | Activa    |
+|2.1.1.03.04.00	 |Retenciones laborales por pagar al Fondo de Seguro de Paro Forzoso   |Activa    |
+|2.1.1.03.05.00	 |Retenciones laborales por pagar al Fondo de Ahorro Obligatorio para la Vivienda (FAOV)   | Activa    |
+|2.1.1.03.06.00  |Retenciones laborales por pagar por servicios de salud, accidentes personales y Gastos Funerarios   |	Activa    |
+|2.1.1.03.07.00  |Retenciones laborales por pagar a cajas de ahorro   | Activa    | 
+|2.1.1.03.08.00  |Retenciones laborales por pagar al Instituto Nacional de Capacitación y Educación Socialista (INCES)   | Activa    |
+|2.1.1.03.09.00	 |Retenciones laborales por pagar por pensión alimenticia   | Activa    |
+|2.1.1.03.99.00  |Otras retenciones laborales por pagar   | Activa    |
+|2.1.1.04.00.00  |CUENTAS POR PAGAR A CORTO PLAZO   | Activa    |
+|2.1.1.04.01.00  |Cuentas por pagar a proveedores a corto plazo   | Activa    |
+|2.1.1.04.02.00	 |Cuentas por pagar a contratistas a corto plazo   | Activa    |
+|2.1.1.04.03.00	 |Obligaciones de ejercicios anteriores   | Activa    |
+|2.1.1.04.99.00	 |Otras cuentas por pagar a corto plazo   | Activa    |
+|2.1.1.05.00.00	 |EFECTOS POR PAGAR A CORTO PLAZO   | Activa    |    
+|2.1.1.05.01.00	 |Efectos por pagar a proveedores a corto plazo   | Activa    |
+|2.1.1.05.02.00  |Efectos por pagar a contratistas a corto plazo  | Activa    |
+|2.1.1.05.99.00  |Otros efectos por pagar a corto plazo   | Activa    |
+|2.1.1.06.00.00  |INTERESES POR PAGAR A CORTO PLAZO   | Activa    |
+|2.1.1.06.01.00	 |Intereses internos por pagar a corto plazo   | Activa    |
+|2.1.1.06.02.00  |Intereses externos por pagar a corto plazo   | Activa    |
+|2.1.2.00.00.00	 |DEUDA PÚBLICA A CORTO PLAZO   | Activa    |
+|2.1.2.01.00.00  |DEUDA PUBLICA INTERNA POR TÍTULOS Y VALORES A CORTO PLAZO   | Activa    |
+|2.1.2.01.01.00  |Bonos y otros valores de la deuda pública interna a corto plazo   | Activa    |
+|2.1.2.01.02.00  |Letras del Tesoro a corto plazo   | Activa    |
+|2.1.2.02.00.00	 |DEUDA PUBLICA INTERNA POR PRÉSTAMOS POR PAGAR A CORTO PLAZO   | Activa    |
+|2.1.2.02.01.00  |Deuda interna por préstamos recibidos del sector privado por pagar a corto plazo   | Activa    |
+|2.1.2.02.02.00  |Deuda interna por préstamos recibidos de la República por pagar a corto plazo   | Activa    |
+|2.1.2.02.03.00  |Deuda interna por préstamos recibidos de entes descentralizados sin fines empresariales por pagar a corto plazo    | Activa   |
+|2.1.2.02.04.00  |Deuda interna por préstamos recibidos de instituciones de protección social por pagar a corto plazo    | Activa   |
+|2.1.2.02.05.00  |Deuda interna por préstamos recibidos de entes descentralizados con fines empresariales petroleros por pagar a corto plazo   | Activa    |
+|2.1.2.02.06.00  |Deuda interna por préstamos recibidos de entes descentralizados con fines empresariales no petroleros por pagar a corto plazo   | Activa    | 
+|2.1.2.02.07.00	 |Deuda interna por préstamos recibidos de entes descentralizados financieros bancarios por pagar a corto plazo   | Activa    |
+|2.1.2.02.08.00	 |Deuda interna por préstamos recibidos de entes descentralizados financieros no bancarios por pagar a corto plazo   | Activa    |
+|2.1.2.02.09.00  |Deuda interna por préstamos recibidos del Poder Estadal por pagar a corto plazo   | Activa    |
+|2.1.2.02.10.00	 |Deuda interna por préstamos recibidos del Poder Municipal por pagar a corto plazo   | Activa    |
+|2.1.2.03.00.00	 |DEUDA PUBLICA EXTERNA POR TÍTULOS Y VALORES A CORTO PLAZO   | Activa    |
+|2.1.2.03.01.00  |Títulos y valores de la deuda pública externa a corto plazo   | Activa    |
+|2.1.2.04.00.00  |DEUDA PUBLICA EXTERNA POR PRÉSTAMOS POR PAGAR A CORTO PLAZO   | Activa    |
+|2.1.2.04.01.00  |Deuda externa por préstamos recibidos de gobiernos extranjeros por pagar a corto plazo   | Activa    |
+|2.1.2.04.02.00	 |Deuda externa por préstamos recibidos de organismos internacionales por pagar a corto plazo   | Activa    |
+|2.1.2.04.03.00  |Deuda externa por préstamos recibidos de instituciones financieras externas por pagar a corto plazo   | Activa    |
+|2.1.2.04.04.00	 |Deuda externa por préstamos recibidos de proveedores de bienes y servicios externos por pagar a corto plazo   | Activa    |
+|2.1.2.05.00.00	 |OBLIGACIONES DE EJERCICIOS ANTERIORES DERIVADAS DE DEUDA PÚBLICA   | Activa    |
+|2.1.2.09.00.00  |DEUDA PÚBLICA A CORTO PLAZO POR DISTRIBUIR   | Activa    |
+|2.1.2.09.01.00	 |Deuda pública interna a corto plazo por distribuir   | Activa    |
+|2.1.2.09.02.00  |Deuda pública externa a corto plazo por distribuir   | Activa    |
+|2.1.3.00.00.00	 |PASIVOS DIFERIDOS   | Activa    |
+|2.1.3.01.00.00	 |PASIVOS DIFERIDOS A CORTO PLAZO   | Activa    |
+|2.1.4.00.00.00	 |FONDOS DE TERCEROS   | Activa    |
+|2.1.4.01.00.00	 |DEPÓSITOS RECIBIDOS EN GARANTÍA   | Activa    |
+|2.1.4.99.00.00	 |OTROS FONDOS DE TERCEROS   | Activa    |
+|2.1.4.99.01.00  |Retenciones de impuestos   | Activa    |
+|2.1.4.99.01.01  |Retenciones por pagar por concepto de impuesto sobre la renta   | Activa   |
+|2.1.4.99.01.02  |Retenciones por pagar por concepto de impuesto al valor agregado            | Activa    |
+|2.1.4.99.01.03	 |Retenciones por pagar por concepto de impuesto al uno por mil (1x1000)	
+| Activa    |
+|2.1.4.99.01.99  |Otras retenciones de impuesto por pagar   | Activa    |
+|2.1.4.99.02.00	 |Retenciones contractuales   | Activa    |
+|2.1.4.99.02.01	 |Retenciones efectuadas a proveedores pendientes de devolución   | Activa   |
+|2.1.4.99.02.02  |Retenciones efectuadas a contratistas pendientes de devolución  | Activa   |
+|2.1.4.99.03.00	 |Retenciones al personal jubilado   | Activa    |
+|2.1.4.99.03.01	 |Retenciones efectuadas al personal jubilado por pagar por servicios de salud, accidentes personales y gastos funerarios   | Activa    |
+|2.1.4.99.03.02	 |Retenciones efectuadas al personal jubilado por pagar a cajas de ahorro	
+| Activa    |
+|2.1.4.99.03.99  |Otras retenciones efectuadas al personal jubilado por pagar a sus legítimos beneficiarios   | Activa    |
+|2.1.9.00.00.00  |OTROS PASIVOS CORRIENTES   | Activa    |
+|2.1.9.99.00.00  |OTROS PASIVOS CORRIENTES	 | Activa    |
+|2.2.0.00.00.00	 |PASIVO NO CORRIENTE   | Activa    |
+|2.2.1.00.00.00	 |CUENTAS Y EFECTOS POR PAGAR A MEDIANO Y LARGO PLAZO   | Activa    |
+|2.2.1.01.00.00	 |CUENTAS POR PAGAR A MEDIANO Y LARGO PLAZO   | Activa    |
+|2.2.1.01.01.00	 |Cuentas por pagar a proveedores a mediano y largo plazo   | Activa    |
+|2.2.1.01.02.00	 |Cuentas por pagar a contratistas a mediano y largo plazo   | Activa    |
+|2.2.1.02.00.00  |EFECTOS POR PAGAR A MEDIANO Y LARGO PLAZO   | Activa    |
+|2.2.1.02.01.00  |Efectos por pagar a proveedores a mediano y largo plazo   | Activa    |
+|2.2.1.02.02.00  |Efectos por pagar a contratistas a mediano y largo plazo   | Activa    |
+|2.2.2.00.00.00  |DEUDA PÚBLICA A LARGO PLAZO   | Activa    |
+|2.2.2.01.00.00  |DEUDA PUBLICA INTERNA POR TÍTULOS Y VALORES A LARGO PLAZO   | Activa    |
+|2.2.2.01.01.00	 |Bonos y otros valores de la deuda pública interna a largo plazo   | Activa |
+|2.2.2.02.00.00	 |DEUDA PUBLICA INTERNA POR PRÉSTAMOS POR PAGAR A LARGO PLAZO   | Activa    |
+|2.2.2.02.01.00	 |Deuda interna por préstamos recibidos del sector privado por pagar a largo plazo   | Activa    |
+|2.2.2.02.02.00	 |Deuda interna por préstamos recibidos de la República por pagar a largo plazo   | Activa    |
+|2.2.2.02.03.00	 |Deuda interna por préstamos recibidos de entes descentralizados sin fines empresariales por pagar a largo plazo   | Activa    |
+|2.2.2.02.04.00	 |Deuda interna por préstamos recibidos de instituciones de protección social por pagar a largo plazo   | Activa    |
+|2.2.2.02.05.00  |Deuda interna por préstamos recibidos de entes descentralizados con fines empresariales petroleros por pagar a largo plazo   | Activa    |
+|2.2.2.02.06.00	 |Deuda interna por préstamos recibidos de entes descentralizados con fines empresariales no petroleros por pagar a largo plazo   | Activa    |
+|2.2.2.02.07.00  |Deuda interna por préstamos recibidos de entes descentralizados financieros bancarios por pagar a largo plazo   | Activa    |
+|2.2.2.02.08.00  |Deuda interna por préstamos recibidos de entes descentralizados financieros no bancarios por pagar a largo plazo   | Activa    |
+|2.2.2.02.09.00  |Deuda interna por préstamos recibidos del Poder Estadal por pagar a largo plazo   | Activa    |
+|2.2.2.02.10.00	 |Deuda interna por préstamos recibidos del Poder Municipal por pagar a largo plazo   | Activa    |
+|2.2.2.03.00.00	 |DEUDA PUBLICA EXTERNA POR TÍTULOS Y VALORES A LARGO PLAZO   | Activa    |
+|2.2.2.03.01.00	 |Títulos y valores de la deuda pública externa a largo plazo   | Activa    |
+|2.2.2.04.00.00	 |DEUDA PUBLICA EXTERNA POR PRÉSTAMOS POR PAGAR A LARGO PLAZO   | Activa    |
+|2.2.2.04.01.00  |Deuda externa por préstamos recibidos de gobiernos extranjeros por pagar a largo plazo   | Activa    |
+|2.2.2.04.02.00	 |Deuda externa por préstamos recibidos de organismos internacionales por pagar a largo plazo   | Activa    |
+|2.2.2.04.03.00  |Deuda externa por préstamos recibidos de instituciones financieras externas por pagar a largo plazo   | Activa    |
+|2.2.2.04.04.00  |Deuda externa por préstamos recibidos de proveedores de bienes y servicios externos por pagar a largo plazo   | Activa    |
+|2.2.2.09.00.00  |DEUDA PÚBLICA A LARGO PLAZO POR DISTRIBUIR   | Activa    |
+|2.2.2.09.01.00	 |Deuda pública interna a largo plazo por distribuir   | Activa    |
+|2.2.2.09.02.00	 |Deuda pública externa a largo plazo por distribuir   | Activa    |
+|2.2.3.00.00.00	 |PASIVOS DIFERIDOS   | Activa    |
+|2.2.3.01.00.00	 |PASIVOS DIFERIDOS A MEDIANO Y LARGO PLAZO   | Activa    |
+|2.2.3.01.01.00  |Certificados de reintegro tributario a mediano y largo plazo   | Activa    |
+|2.2.3.01.02.00	 |Bonos de exportación   | Activa    |
+|2.2.3.01.03.00	 |Bonos en dación de pagos   | Activa    |
+|2.2.4.00.00.00	 |PROVISIONES Y RESERVAS TÉCNICAS   | Activa    |
+|2.2.4.01.00.00	 |PROVISIONES   | Activa    |
+|2.2.4.01.01.00	 |Provisión para cuentas incobrables   | Activa    |
+|2.2.4.01.02.00	 |Provisión para despidos   | Activa    |
+|2.2.4.01.03.00	 |Provisión para pérdidas en el inventario   | Activa    |
+|2.2.4.01.04.00	 |Provisión para beneficios sociales   | Activa    |
+|2.2.4.01.99.00	 |Otras provisiones   | Activa    |
+|2.2.4.02.00.00  |RESERVAS TÉCNICAS   | Activa    |
+|2.2.5.00.00.00	 |DEPRECIACIÓN Y AMORTIZACIÓN ACUMULADAS   | Activa    |
+|2.2.5.01.00.00	 |DEPRECIACIÓN ACUMULADA DE BIENES DE USO  | Activa    |
+|2.2.5.01.01.00	 |Depreciación acumulada de edificios e instalaciones   | Activa    |
+|2.2.5.01.02.00  |Depreciación acumulada de maquinaria y demás equipos de construcción, campo, industria y taller   | Activa    |
+|2.2.5.01.03.00  |Depreciación acumulada de equipos de transporte, tracción y elevación	
+| Activa    |
+|2.2.5.01.04.00  |Depreciación acumulada de equipos de comunicaciones y señalamiento	
+| Activa    |
+|2.2.5.01.05.00  |Depreciación acumulada de equipos médico-quirúrgicos, dentales y veterinarios   | Activa    |
+|2.2.5.01.06.00	 |Depreciación acumulada de equipos cientí ficos, religiosos, de enseñanza y recreación   | Activa    |
+|2.2.5.01.07.00	 |Depreciación acumulada de equipos y armamento de orden público, seguridad y defensa   | Activa    |
+|2.2.5.01.08.00  |Depreciación acumulada de máquinas, muebles y demás equipos de oficina y de alojamiento   | Activa    |
+|2.2.5.01.09.00  |Depreciación acumulada de semovientes   | Activa    |
+|2.2.5.01.99.00	 |Depreciación acumulada de otros bienes de uso   | Activa    |
+|2.2.5.02.00.00	 |AMORTIZACIÓN ACUMULADA DE ACTIVOS INTANGIBLES   | Activa    |
+|2.2.5.02.01.00	 |Amortización acumulada de marcas de fábrica y patentes de invención         |Activa    |

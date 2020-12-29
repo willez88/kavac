@@ -15,7 +15,7 @@ Buscar conversiones:
 presupuestario o código patrimonial. 
 - A continuación se elige un registro inicial y uno final en los campos **Desde** y **Hasta**, para filtrar la búsqueda dentro de este intervalo de registros. 
 - De otra forma es posible observar todos los registros según su categoría ya sea por código presupuestario o código patrimonial haciendo uso del botón de selección **Seleccionar Todas**.
-- Se presiona el botón **Buscar** y el sistema filtra los registros y los muestra en la sección **Lista de Conversiones** (Figura 3).
+- Se presiona el botón **Buscar** ![Screenshot](img/search.png#imagen) y el sistema filtra los registros y los muestra en la sección **Lista de Conversiones** (Figura 3).
 
 ![Screenshot](img/figure_1.png#imagen)<div style="text-align: center;font-weight: bold">Figura 1: Buscador de Conversiones</div>
   
@@ -29,7 +29,7 @@ Crear conversiones:
 - Dirigirse al **Módulo de Contabilidad**, luego a **Conversión de Cuentas** y ubicarse en la sección **Buscador de Conversiones**.
 - Haciendo uso del botón **Crear** ![Screenshot](img/create.png#imagen) ubicado en la esquina superior derecha de esta sección, se procede a registrar una nueva conversión.
 - En la sección **Crear Conversión** (Figura 2) se muestran las cuentas presupuestarias y  patrimoniales registradas en el sistema. 
-- Seleccionar la cuenta presupuestaria y patrimonial, a realizar conversión. 
+- Seleccionar la cuenta presupuestaria y patrimonial a convertir. 
 - Presionar el botón **Guardar** ![Screenshot](img/save.png#imagen) ubicado al final de esta sección y verificar que se muestre en la **Lista de Conversiones**.  
 
 ![Screenshot](img/figure_2.png#imagen)<div style="text-align: center;font-weight: bold">Figura 2: Crear Conversión</div>
@@ -44,7 +44,7 @@ En esta sección se listan todos los registros de conversiones de cuentas con in
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de registros en la sección de **Lista de Conversiones** (Figura 3).
 
-![Screenshot](img/manage.png#imagen)
+![Screenshot](img/manage_1.png#imagen)
 
 </div>
 
