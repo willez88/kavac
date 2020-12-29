@@ -17,6 +17,8 @@ Como antecedentes de esta aplicación se considera como precursor a:
 
 ## Pre-requisitos
 
+Se requiere de un Sistema Operativo de 64 bits y la instalación de algunos paquetes.
+
 A continuación se listan los paquetes previos requeridos para la instalación y correcto funcionamiento de la aplicación
 
 	* php >= 7.4.x
