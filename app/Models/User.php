@@ -10,6 +10,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Notifications\ResetPasswordNotification;
+use App\Notifications\VerifyEmailNotification;
 use App\Roles\Traits\HasRoleAndPermission;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
@@ -91,6 +93,28 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
     public function notificationSettings()
     {
         return $this->belongsToMany(NotificationSetting::class)->withPivot('type')->withTimestamps();
+    }
+
+    /**
+     * Envía la notificación por correo para el reestablecimiento de la contraseña
+     *
+     * @method    sendPasswordResetNotification
+     *
+     * @param     string    $token    Token de la URL para el acceso al formulario de reestablecimiento de contraseña
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
+    }
+
+    /**
+     * Envía la notificación de verificación de usuario para poder acceder a la aplicación
+     *
+     * @method    sendEmailVerificationNotification
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmailNotification);
     }
 
     /**
