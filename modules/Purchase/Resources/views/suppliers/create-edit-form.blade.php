@@ -221,7 +221,7 @@
 											{!! Form::label('direction', 'Dirección Fiscal') !!}
                                             <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
                                                       title="Indique la dirección del proveedor"
-                                                      :config="ckeditor.editorConfig"
+                                                      :config="ckeditor.editorConfig" name="direction"
                                                       class="form-control" tag-name="textarea" rows="3"
                                                       placeholder="dirección del proveedor"></ckeditor>
 										</div>

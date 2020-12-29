@@ -13,6 +13,6 @@
 @if (!isset($hide_save) || !$hide_save)
 	{!! Form::button('<i class="fa fa-save"></i>', [
 		'class' => 'btn btn-success btn-icon btn-round', 'data-toggle' => 'tooltip',
-		'id' => 'save','title' => __('Guardar registro'), 'type' => 'submit'
+		'title' => __('Guardar registro'), 'type' => 'submit'
 	]) !!}
 @endif

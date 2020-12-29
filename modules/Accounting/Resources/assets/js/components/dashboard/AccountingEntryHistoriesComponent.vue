@@ -48,6 +48,37 @@
                 </a>
             </div>
         </v-client-table>
+
+        <br><hr>
+        <h6>Ejemplo de componente para generar asientos contables de manera externa</h6>
+        <div>
+            <accounting-entry-generator :recordToConverter="[
+                    {
+                        module : 'Budget',
+                        model  : 'Modules\\Accounting\\Models\\BudgetAccount',
+                        id     : 1,
+                        debit  : true,
+                        assets : false,
+                        mount  : 11.0
+                    },
+                    {
+                        module : 'Budget',
+                        model  : 'Modules\\Accounting\\Models\\BudgetAccount',
+                        id     : 1,
+                        debit  : true,
+                        assets : false,
+                        mount  : 2.0
+                    },
+                    {
+                        module : 'Budget',
+                        model  : 'Modules\\Accounting\\Models\\BudgetAccount',
+                        id     : 1,
+                        debit  : false,
+                        assets : true,
+                        mount  : 13.0
+                    },
+                ]" :date="'2020-12-15'" />
+        </div>
     </div>
 </template>
 
@@ -57,6 +88,7 @@
             return {
                 reload:false,
                 records: [],
+                record:{},
                 url:'/accounting/entries/',
                 columns: ['from_date', 'reference', 'concept', 'total', 'approved', 'id']
             }

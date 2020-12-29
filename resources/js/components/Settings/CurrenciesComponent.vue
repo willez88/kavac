@@ -1,7 +1,7 @@
 <template>
 	<div class="col-xs-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-		   href="#" title="Registros de Monedas" data-toggle="tooltip"
+		   href="javascript:void(0)" title="Registros de Monedas" data-toggle="tooltip"
 		   @click="addRecord('add_currency', 'currencies', $event)">
 			<i class="icofont icofont-cur-dollar ico-3x"></i>
 			<span>Monedas</span>

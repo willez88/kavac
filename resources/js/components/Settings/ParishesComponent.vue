@@ -1,7 +1,7 @@
 <template>
 	<div class="col-xs-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-		   href="" title="Registros de Parroquias de un Municipio"
+		   href="javascript:void(0)" title="Registros de Parroquias de un Municipio"
 		   data-toggle="tooltip" @click="addRecord('add_parish', 'parishes', $event)">
 			<i class="icofont icofont-map-pins ico-3x"></i>
 			<span>Parroquias</span>
@@ -115,25 +115,6 @@
 				columns: ['municipality.name', 'name', 'code', 'id'],
 			}
 		},
-        watch: {
-            record: {
-                deep: true,
-                handler: function(newValue, oldValue) {
-                    const vm = this;
-                    if (
-                        newValue.country_id && vm.selectedEstateId && !vm.record.estate_id &&
-                        vm.selectedMunicipalityId && !vm.record.municipality_id
-                    ) {
-                        setTimeout(function() {
-                            vm.record.estate_id = vm.selectedEstateId;
-                            setTimeout(function() {
-                                vm.record.municipality_id = vm.selectedMunicipalityId;
-                            }, 2000);
-                        }, 2000);
-                    }
-                }
-            },
-        },
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
@@ -191,10 +172,11 @@
 				'id': 'col-md-2'
 			};
 		},
-		mounted() {
+		async mounted() {
 			let vm = this;
-			$("#add_parish").on('show.bs.modal', function() {
-				vm.getCountries();
+            await vm.$nextTick();
+            $("#add_parish").on('show.bs.modal', function() {
+                vm.getCountries();
 			});
 		}
 	};

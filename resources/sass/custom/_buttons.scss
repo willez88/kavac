@@ -103,3 +103,10 @@
 .btn-collapse {
     padding:4px;font-size:0.7em;color:#0073b7;
 }
+
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+	// Sobreescribe el color del background del color del btn-primary
+	background-color: $color-primary-dark;
+}

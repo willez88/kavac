@@ -152,6 +152,16 @@ Vue.component('accounting-entry-form-account', () => import(
 );
 
 /**
+ * Componente para generar asientos contable partiendo de otros registros relacionados a cuentas patrimoniales
+ *
+ * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ */
+Vue.component('accounting-entry-generator', () => import(
+    /* webpackChunkName: "accounting-entry-generator" */
+    './components/entries/AccountingEntryGeneratorComponent.vue')
+);
+
+/**
  * Componente index para el reporte de balance de comprobación
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>

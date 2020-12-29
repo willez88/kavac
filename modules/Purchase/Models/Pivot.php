@@ -24,7 +24,7 @@ class Pivot extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['recordable_type', 'recordable_id' 'relatable_type', 'relatable_id'];
+    protected $fillable = ['recordable_type', 'recordable_id', 'relatable_type', 'relatable_id'];
 
     /**
      * Pivot morphs to models in relatable_type.

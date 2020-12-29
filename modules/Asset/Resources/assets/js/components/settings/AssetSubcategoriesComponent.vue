@@ -2,7 +2,7 @@
 	<div class="col-xs-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="#" title="Registros de Subcategorías de Bienes" data-toggle="tooltip"
-		   @click="addRecord('add_subcategory', 'subcategories', $event)">
+		   @click="addRecord('add_subcategory', 'asset/subcategories', $event)">
 			<i class="icofont icofont-read-book ico-3x"></i>
 			<span>Subcategorías</span>
 		</a>

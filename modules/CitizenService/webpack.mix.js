@@ -15,7 +15,7 @@ mix.js(__dirname + '/Resources/assets/js/app.js', `modules/${moduleName}/js`)
 mix.webpackConfig({
     output:{
         chunkFilename: `modules/${moduleName}/components/${(mix.inProduction()) ? 'prod/[chunkhash]' : '[name]'}.js`,
-        publicPath: `${(process.env.APP_TESTING==='true')?process.env.APP_TESTING_URL:process.env.APP_URL}/`,
+        publicPath: `${process.env.APP_URL}${(process.env.APP_URL.slice(process.env.APP_URL.length - 1)!=='/')?'/':''}`,
     }
 });
 

@@ -2,7 +2,7 @@
     <div class="col-xs-2 text-center">
         <a class="btn-simplex btn-simplex-md btn-simplex-primary"
            href="#" title="Registros de Estatus de Uso de los Bienes" data-toggle="tooltip"
-           @click="addRecord('add_status', 'status', $event)">
+           @click="addRecord('add_status', 'asset/status', $event)">
             <i class="icofont icofont-read-book ico-3x"></i>
             <span>Estatus de Uso</span>
         </a>

@@ -402,7 +402,7 @@ if (! function_exists('get_institution')) {
         if ($id) {
             return App\Models\Institution::find($id);
         }
-        return App\Models\Institution::first();
+        return App\Models\Institution::where('default', true)->first();
     }
 }
 

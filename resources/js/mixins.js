@@ -396,9 +396,9 @@ Vue.mixin({
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 *
-		 * @param {string} url      Ruta que obtiene los datos a ser mostrado en listados
-		 * @param {string} modal_id Identificador del modal a mostrar con la información solicitada
-		 */
+		 * @param {string}  url       Ruta que obtiene los datos a ser mostrado en listados
+		 * @param {string}  modal_id  Identificador del modal a mostrar con la información solicitada
+         */
 		initRecords(url, modal_id) {
 			this.errors = [];
 			this.reset();
@@ -458,9 +458,11 @@ Vue.mixin({
 		 * @param {string} url      Ruta para acceder a los datos solicitados
 		 * @param {object} event    Objeto que gestiona los eventos
 		 */
-		addRecord(modal_id, url, event) {
+		async addRecord(modal_id, url, event) {
 			event.preventDefault();
-			this.initRecords(url, modal_id);
+            this.loading = true;
+            await this.initRecords(url, modal_id);
+            this.loading = false;
 		},
 		/**
 		 * Método que permite crear o actualizar un registro
@@ -1053,11 +1055,11 @@ Vue.mixin({
 			}
 		}*/
 	},
-	created() {
-		this.clearForm();
+	async created() {
+		await this.clearForm();
 		this.loading = false;
 	},
-	mounted() {
+	async mounted() {
 		let vm = this;
 		if ($('.modal-lockscreen').length > 0) {
 			//vm.lockScreen();

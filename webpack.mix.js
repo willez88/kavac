@@ -9,6 +9,16 @@ mix.mergeManifest();
 
 /*
  |--------------------------------------------------------------------------
+ | Webpack Shell Plugin
+ |--------------------------------------------------------------------------
+ |
+ | Permite la ejecución de comandos en consola
+ |
+ */
+const WebpackShellPlugin = require('webpack-shell-plugin');
+
+/*
+ |--------------------------------------------------------------------------
  | Mix Asset Management
  |--------------------------------------------------------------------------
  |
@@ -62,7 +72,6 @@ mix.combine([
     'public/css/now-ui-kit.css', 'public/css/materialdesignicons.css', 'public/css/custom.css'
 ], 'public/css/app.css');
 
-
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Modules Management
@@ -93,16 +102,6 @@ mix.combine([
     });
 }*/
 
-/*
- |--------------------------------------------------------------------------
- | Webpack Shell Plugin
- |--------------------------------------------------------------------------
- |
- | Permite la ejecución de comandos en consola
- |
- */
-const WebpackShellPlugin = require('webpack-shell-plugin');
-
 mix.webpackConfig({
     plugins: [
         new WebpackShellPlugin({
@@ -126,14 +125,8 @@ mix.webpackConfig({
     },
     output:{
         chunkFilename: `js/components/${(mix.inProduction()) ? 'core/[chunkhash]' : '[name]'}.js`,
-        publicPath: `${(process.env.APP_TESTING==='true')?process.env.APP_TESTING_URL:process.env.APP_URL}/`,
+        publicPath: `${process.env.APP_URL}${(process.env.APP_URL.slice(process.env.APP_URL.length - 1)!=='/')?'/':''}`,
     },
-    /*optimization: {
-        splitChunks: {
-          chunks: 'initial',
-          name: ''
-        }
-      },*/
 });
 
 

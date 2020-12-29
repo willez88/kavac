@@ -348,6 +348,25 @@ Route::get('public/documents/{document}', function ($document) {
 });
 
 
+
 Route::post('report', 'ReportController@create');
 Route::post('report/sign', 'ReportController@sign');
 Route::get('documents/verify/{document}', 'ReportController@verify');
+
+/** Ruta pública para acceder al manual del sistema */
+Route::get('system-doc', function () {
+    $path = base_path() . '/doc/system/html/index.html';
+    if (!File::exists($path)) {
+        abort(404);
+    }
+    return File::get($path);
+});
+
+/** Ruta pública para acceder al manual del usuario */
+Route::get('user-doc', function () {
+    $path = base_path() . '/doc/user/html/index.html';
+    if (!File::exists($path)) {
+        abort(404);
+    }
+    return File::get($path);
+});

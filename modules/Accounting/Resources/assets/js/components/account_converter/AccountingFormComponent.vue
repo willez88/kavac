@@ -58,7 +58,7 @@
              * si existe account_to_edit, el formulario esta en modo editar
              */
             if (this.account_to_edit) {
-                this.budgetSelect     = this.account_to_edit.budget_account_id;
+                this.budgetSelect     = this.account_to_edit.accountable_id;
                 this.accountingSelect = this.account_to_edit.accounting_account_id;
             }
 
@@ -100,32 +100,41 @@
                 vm.loading = true;
                 if (vm.account_to_edit == null) {
                     axios.post('/accounting/converter', {
-                                                        'budget_id':vm.budgetSelect,
-                                                        'accounting_id':vm.accountingSelect,
+                                                        'module'                : 'Budget',
+                                                        'model'                 : 'Modules\\Accounting\\Models\\BudgetAccount',
+                                                        'accountable_id'        : vm.budgetSelect,
+                                                        'accounting_account_id' : vm.accountingSelect,
                                                         })
                     .then(response=>{
 
-                        vm.$refs.accountingConverterForm.reset();
-                        vm.showMessage('store');
+                        if (response.data.message !== 'Success') {
+                            vm.showMessage('custom','Error', 'danger', 'fa-ban', response.data.message);
+                        }else{
+                            vm.$refs.accountingConverterForm.reset();
+                            vm.showMessage('store');
 
-                        vm.budgetSelect      = '';
-                        vm.accountingSelect  = '';
-                        vm.accountingOptions = [];
-                        vm.budgetOptions     = [];
-                        vm.accountingOptions = response.data.records_accounting;
-                        vm.budgetOptions     = response.data.records_busget;
+                            vm.budgetSelect      = '';
+                            vm.accountingSelect  = '';
+                            vm.accountingOptions = [];
+                            vm.budgetOptions     = [];
+                        }
                         vm.loading           = false;
-
                     });
                 } else{
                     axios.put('/accounting/converter/'+vm.account_to_edit.id, {
-                                                        'budget_account_id':vm.budgetSelect,
-                                                        'accounting_account_id':vm.accountingSelect,
+                                                        'module'                : 'Budget',
+                                                        'model'                 : 'Modules\\Accounting\\Models\\BudgetAccount',
+                                                        'accountable_id'        : vm.budgetSelect,
+                                                        'accounting_account_id' : vm.accountingSelect,
                                                         })
                     .then(response=>{
-                        vm.showMessage('update');
+                        if (response.data.message !== 'Success') {
+                            vm.showMessage('custom','Error', 'danger', 'fa-ban', response.data.message);
+                        }else{
+                            vm.showMessage('update');
+                            location.href = vm.urlPrevious;
+                        }
                         vm.loading    = false;
-                        location.href = vm.urlPrevious;
                     });
                 }
             },

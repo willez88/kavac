@@ -97,6 +97,11 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'accounti
     Route::post('entries/approve/{id}', 'AccountingEntryController@approve')
             ->name('accounting.entries.approve');
 
+    /*
+     * Convierte registros relacionados a cuentas patrimoniales en asientos contables
+     */
+    Route::post('entries/converterToEntry', 'AccountingEntryController@converterToEntry')
+            ->name('accounting.entries.converterToEntry');
     /**
      * rutas para la gestión de asientos contables
      */
@@ -240,4 +245,9 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'accounti
     );
 
     Route::get('get-categories/', 'AccountingSettingCategoryController@getCategories');
+
+     /* Ruta para visualizar el interfaz para firmar documento PDF */
+        Route::get('viewSignfile', function () {
+            return view('accounting::viewSignfile', ['signfile' => 'false']);
+        })->name('viewSignfile');
 });

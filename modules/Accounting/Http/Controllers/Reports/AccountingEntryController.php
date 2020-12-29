@@ -5,6 +5,8 @@ namespace Modules\Accounting\Http\Controllers\Reports;
 use Illuminate\Routing\Controller;
 
 use Modules\Accounting\Models\AccountingEntry;
+use Modules\Accounting\Models\AccountingEntryAccount;
+
 use Modules\Accounting\Models\Setting;
 use Modules\Accounting\Models\Profile;
 use Modules\Accounting\Models\Institution;
@@ -53,16 +55,15 @@ class AccountingEntryController extends Controller
 
         if (!$is_admin && $user_profile && $user_profile['institution']) {
             $entry = AccountingEntry::with(
-                'accountingAccounts.account.accountConverters.budgetAccount',
+                'accountingAccounts.account',
                 'currency'
             )->where('institution_id', $user_profile['institution']['id'])->find($id);
         } else {
             $entry = AccountingEntry::with(
-                'accountingAccounts.account.accountConverters.budgetAccount',
+                'accountingAccounts.account',
                 'currency'
             )->find($id);
         }
-
         if (!auth()->user()->isAdmin()) {
             if ($entry && $entry->queryAccess($user_profile['institution']['id'])) {
                 return view('errors.403');
@@ -91,7 +92,7 @@ class AccountingEntryController extends Controller
         if (!$is_admin && $user_profile && $user_profile['institution']) {
             $institution = Institution::find($user_profile['institution']['id']);
         } else {
-            $institution = '';
+            $institution = get_institution();
         }
 
         $pdf->setConfig(['institution' => $institution, 'urlVerify' => url(' entries/pdf/'.$id)]);

@@ -69,24 +69,25 @@ class CreatePurchaseRequirementsTable extends Migration
                 * a ser registrado
                 */
                 $table->bigInteger('purchase_supplier_type_id')->unsigned()
-                          ->comment('Identificador del tipo de requerimiento (tipo de proveedor)');
+                        ->comment('Identificador del tipo de requerimiento (tipo de proveedor)');
                 $table->foreign('purchase_supplier_type_id')->references('id')
-                          ->on('purchase_supplier_types')->onDelete('restrict')
-                          ->onUpdate('cascade');
+                        ->on('purchase_supplier_types')->onDelete('restrict')
+                        ->onUpdate('cascade');
 
                 $table->bigInteger('purchase_base_budget_id')->unsigned()
-                          ->comment('Identificador del presupuesto base');
+                        ->comment('Identificador del presupuesto base');
                 $table->foreign('purchase_base_budget_id')->references('id')
-                          ->on('purchase_base_budgets')->onDelete('restrict')
-                          ->onUpdate('cascade');
+                        ->on('purchase_base_budgets')->onDelete('restrict')
+                        ->onUpdate('cascade');
 
-                $table->enum('requirement_status', ['WAIT', 'PROCESSED','QUOTED', 'BOUGHT'])->default('WAIT')
-                          ->comment(
-                              'Determina el estatus del requerimiento
-                              (WAIT) - en espera.
-                              (PROCESSED) - Procesado,
-                              (BOUGHT) - comprado',
-                          );
+                $table->enum('requirement_status', ['WAIT', 'PROCESSED','QUOTED', 'BOUGHT'])
+                    ->default('WAIT')
+                    ->comment(
+                        "Determina el estatus del requerimiento
+                        (WAIT) - en espera.
+                        (PROCESSED) - Procesado,
+                        (BOUGHT) - comprado"
+                    );
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

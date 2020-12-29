@@ -40,7 +40,7 @@
     "/js/components/taxes.js": "/js/components/taxes.js",
     "/js/components/users.js": "/js/components/users.js",
     "/js/components/vendors~multi-selects.js": "/js/components/vendors~multi-selects.js",
-    "/js/components/vendors~vue-tables-2.js": "/js/components/vendors~vue-tables-2.js",
+    "/js/components/vendors~parishes~vue-tables-2.js": "/js/components/vendors~parishes~vue-tables-2.js",
     "/js/components/vue-tables-2.js": "/js/components/vue-tables-2.js",
     "/js/generic-classes.js": "/js/generic-classes.js",
     "/js/common.js": "/js/common.js",
@@ -53,6 +53,7 @@
     "/modules/accounting/components/accounting-entry.js": "/modules/accounting/components/accounting-entry.js",
     "/modules/accounting/components/accounting-entry-form.js": "/modules/accounting/components/accounting-entry-form.js",
     "/modules/accounting/components/accounting-entry-form-account.js": "/modules/accounting/components/accounting-entry-form-account.js",
+    "/modules/accounting/components/accounting-entry-generator.js": "/modules/accounting/components/accounting-entry-generator.js",
     "/modules/accounting/components/accounting-entry-listing.js": "/modules/accounting/components/accounting-entry-listing.js",
     "/modules/accounting/components/accounting-entry-show.js": "/modules/accounting/components/accounting-entry-show.js",
     "/modules/accounting/components/accounting-form.js": "/modules/accounting/components/accounting-form.js",
@@ -153,6 +154,7 @@
     "/modules/payroll/components/payroll-nationalities.js": "/modules/payroll/components/payroll-nationalities.js",
     "/modules/payroll/components/payroll-parameters.js": "/modules/payroll/components/payroll-parameters.js",
     "/modules/payroll/components/payroll-payment-types.js": "/modules/payroll/components/payroll-payment-types.js",
+    "/modules/payroll/components/payroll-permission-policies.js": "/modules/payroll/components/payroll-permission-policies.js",
     "/modules/payroll/components/payroll-position-types.js": "/modules/payroll/components/payroll-position-types.js",
     "/modules/payroll/components/payroll-positions.js": "/modules/payroll/components/payroll-positions.js",
     "/modules/payroll/components/payroll-professional.js": "/modules/payroll/components/payroll-professional.js",
@@ -209,7 +211,9 @@
     "/modules/sale/components/register-clients.js": "/modules/sale/components/register-clients.js",
     "/modules/sale/components/register-formatcode.js": "/modules/sale/components/register-formatcode.js",
     "/modules/sale/components/sale-bill-create.js": "/modules/sale/components/sale-bill-create.js",
+    "/modules/sale/components/sale-bill-info.js": "/modules/sale/components/sale-bill-info.js",
     "/modules/sale/components/sale-bill-list.js": "/modules/sale/components/sale-bill-list.js",
+    "/modules/sale/components/sale-bill-pending-list.js": "/modules/sale/components/sale-bill-pending-list.js",
     "/modules/sale/components/sale-discount.js": "/modules/sale/components/sale-discount.js",
     "/modules/sale/components/sale-ordermanagement-method.js": "/modules/sale/components/sale-ordermanagement-method.js",
     "/modules/sale/components/sale-payment-method.js": "/modules/sale/components/sale-payment-method.js",
@@ -262,7 +266,5 @@
     "/modules/warehouse/components/warehouse-request-staff-create.js": "/modules/warehouse/components/warehouse-request-staff-create.js",
     "/modules/warehouse/components/warehouse-request-staff-list.js": "/modules/warehouse/components/warehouse-request-staff-list.js",
     "/modules/warehouse/components/warehouse-rules.js": "/modules/warehouse/components/warehouse-rules.js",
-    "/modules/warehouse/components/warehouses.js": "/modules/warehouse/components/warehouses.js",
-    "/modules/sale/components/sale-bill-info.js": "/modules/sale/components/sale-bill-info.js",
-    "/modules/sale/components/sale-bill-pending-list.js": "/modules/sale/components/sale-bill-pending-list.js"
+    "/modules/warehouse/components/warehouses.js": "/modules/warehouse/components/warehouses.js"
 }

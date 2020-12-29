@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
 use Captcha;
@@ -137,9 +138,19 @@ class LoginController extends Controller
     protected function validateLogin(Request $request)
     {
         $this->validate($request, [
-            $this->username() => ['required'],
-            'password' => ['required', 'string'],
+            $this->username() => ['required', 'exists:users'],
+            'password' => [
+                'required', 'string', function ($attribute, $value, $fail) use ($request) {
+                    $user = User::where('username', $request->username)->first();
+                    /** Valida que la contraseña coincida, en caso contrario notifica al usuario */
+                    if ($user!== null && !Hash::check($value, $user->password)) {
+                        $fail('La contraseña es incorrecta');
+                    }
+                }
+            ],
             'captcha' => ['required', 'captcha']
+        ], [
+            $this->username().'.exists' => 'El usuario no existe'
         ]);
     }
 
