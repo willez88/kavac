@@ -192,10 +192,10 @@ class AccountingAccountController extends Controller
          * [$AccountingAccount datos de la cuenta presupuestaria a eliminar]
          * @var [Modules\Accounting\Models\AccountingAccount]
          */
-        $AccountingAccount = AccountingAccount::with('accountConverters')->find($id);
+        $AccountingAccount = AccountingAccount::with('accountableBudget')->find($id);
 
         if ($AccountingAccount) {
-            if (!is_null($AccountingAccount->accountConverters)
+            if (!is_null($AccountingAccount->accountableBudget)
                 || !is_null(AccountingEntryAccount::where('accounting_account_id', $id)->first())) {
                 return response()->json(
                     [

@@ -416,7 +416,14 @@ Vue.component('payroll-report-vacation-bonus-calculations', () => import(
     './components/reports/PayrollReportVacationBonusCalculationsComponent.vue')
 );
 
-
+/**
+ * Componente para gestionar políticas de permisos *
+ * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
+ */
+Vue.component('payroll-permission-policies', () => import(
+   /* webpackChunkName: "payroll-permission-policies" */
+    './components/settings/PayrollPermissionPoliciesComponent.vue')
+);
 
 
 /**
@@ -674,5 +681,17 @@ Vue.mixin({
 				this.payroll_blood_types = response.data;
 			});
 		},
+
+        /**
+         * Obtiene los datos de políticas de permiso
+         *
+         * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
+         */
+         getPayrollPermissionPolicies() {
+            this.payroll_permission_policies = [];
+            axios.get('/payroll/get-permission-policies').then(response => {
+                this.payroll_permission_policies = response.data;
+            });
+        },
 	},
 });

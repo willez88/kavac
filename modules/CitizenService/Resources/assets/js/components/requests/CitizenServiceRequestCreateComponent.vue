@@ -368,8 +368,7 @@
 				municipalities: [],
 				citizen_service_request_types: [],
 				citizen_service_departments: [],
-				citizenServiceRequestType: '',
-				citizen_service_documents:[]
+				citizen_service_documents: []
 			}
 		},
 		methods: {

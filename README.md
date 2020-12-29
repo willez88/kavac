@@ -17,6 +17,8 @@ Como antecedentes de esta aplicación se considera como precursor a:
 
 ## Pre-requisitos
 
+Se requiere de un Sistema Operativo de 64 bits y la instalación de algunos paquetes.
+
 A continuación se listan los paquetes previos requeridos para la instalación y correcto funcionamiento de la aplicación
 
 	* php >= 7.4.x
@@ -49,6 +51,8 @@ o
 
 	7.4
 
+**#**: Símbolo del sistema que indica la ejecución de comandos a través del usuario root o miembros del grupo sudo
+
 
 ## Configuración del Servidor de Aplicaciones
 
@@ -58,16 +62,16 @@ En esta documentación se explica como configurar un servidor de aplicaciones Ng
 
 Lo primero que se debe realizar es la instalación del servidor de aplicaciones con el comando
 
-	apt install nginx
+	# apt install nginx
 
 Una vez completada la instalación, inicie el servicio nginx y agréguelo para que se inicie automáticamente con sistema operativo mediante el comando systemctl.
 
-	systemctl start nginx
-	systemctl enable nginx
+	# systemctl start nginx
+	# systemctl enable nginx
 
 El servidor Nginx se ejecutará en el puerto 80, para verificar si se ejecutó correctamente debe ejecutar el comando
 
-	netstat -plntu
+	# netstat -plntu
 
 Si todo lo muestra correctamente, nginx estará instalado y en ejecución.
 
@@ -75,13 +79,15 @@ Si todo lo muestra correctamente, nginx estará instalado y en ejecución.
 
 Para instalar la extensión FPM (FastCGI Process Manager) de la versión de PHP instalada en el sistema operativo se debe ejecutar el comando
 
-	apt install php-fpm
+	# apt install php-fpm
 
-El próximo paso es configurar el archivo php.ini de FPM, para lo cual se deve acceder a la ruta en donde fue instalado, por lo general esta ruta se encuentra en /etc/php/(version-php-instalada)/, para esto se debe editar ejecutando
+El próximo paso es configurar el archivo php.ini de FPM, para lo cual se deve acceder a la ruta en donde fue instalado, por lo general esta ruta se encuentra en /etc/php/(version-php-instalada)/fpm/, para esto se debe editar ejecutando
 
-	nano /etc/php/(version-php-instalada)/php.ini
+	# nano /etc/php/(version-php-instalada)/fpm/php.ini
 
 donde (version-php-instalada) es la versión de php instalada en el servidor, Ej. 7.3
+
+la subcarpeta **/fpm/** puede variar de acuerdo a la distribución linux utilizada por lo que puede estar presente o no.
 
 En el contenido del archivo se debe buscar y descomentar la variable cgi.fix_pathinfo=1 y cambiar el valor a 0
 
@@ -97,8 +103,8 @@ A su vez, se deben realizar algunos ajustes adicionales para optimizar las petic
 
 Guarda las modificaciones realizadas e inicializa el servicio FPM con los comandos
 
-	systemctl start php(version-php-instalada)-fpm
-	systemctl enable php(version-php-instalada)-fpm
+	# systemctl start php(version-php-instalada)-fpm
+	# systemctl enable php(version-php-instalada)-fpm
 
 El primer comando inicializa el servicio y el segundo lo habilita para que se ejecute automáticamente al arrancar el servidor.
 
@@ -108,17 +114,24 @@ Por defecto en sistemas operativos como Ubuntu el servicio PHP-FPM se ejecuta ba
 
 Con lo anterior, el servidor virtual para la aplicación fue creado, solo queda reiniciar el servidor nginx para que las modificaciones tengan efecto
 
-	systemctl restart nginx
+	# systemctl restart nginx
 
 ### Configurar el servidor virtual de Nginx
 
 Para que la aplicación se ejecute en el servidor de aplicaciones Nginx, se debe realizar una configuración adicional creando para ello un archivo que contendrá dicha configuración, para esto se ejecutara el siguiente comando
 
-	nano /etc/nginx/sites-available/kavac
+	# nano /etc/nginx/sites-available/kavac
 
 y se agregara el siguiente contenido:
 
 	server {
+        proxy_busy_buffers_size   256k;
+        proxy_buffers   4 256k;
+        proxy_buffer_size   128k;
+        fastcgi_buffers 16 16k;
+        fastcgi_buffer_size 32k;
+        fastcgi_busy_buffers_size 32k;
+
 		listen 80;
 		# Descomentar si las peticiones solo aceptan el protocolo ipv6
 		# listen [::]:80 ipv6only=on;
@@ -153,11 +166,11 @@ guarda las modificaciones y cierra el archivo
 
 Ahora para activar el servidor virtual se debe crear un enlace símbolico al archivo de configuración de la siguiente forma
 
-	ln -s /etc/nginx/sites-available/kavac /etc/nginx/sites-enabled/
+	# ln -s /etc/nginx/sites-available/kavac /etc/nginx/sites-enabled/
 
 Para que estos cambios tengan efecto se debe reiniciar el servidor de aplicaciones
 
-	systemctl restart nginx
+	# systemctl restart nginx
 
 
 ## Instalación
@@ -196,6 +209,7 @@ En el archivo .env, localizado en la raíz del sistema, se deben establecer los 
 > APP_URL
 > APP_DEMO
 > APP_TESTING
+> APP_TESTING_URL
 >
 > AUDIT_LIMIT
 >
@@ -246,6 +260,7 @@ En el archivo .env, localizado en la raíz del sistema, se deben establecer los 
 > WEBSOCKETS_SSL_PASSPHRASE
 >
 > MIX_APP_URL
+> MIX_APP_ROOT
 > MIX_PUSHER_APP_KEY
 > MIX_PUSHER_APP_CLUSTER
 > MIX_WEBSOCKETS_HOST
@@ -260,8 +275,91 @@ El comando anterior instala todas las dependencias de node requeridas por el sis
 
 El último paso en el proceso de instalación es modificar los usuarios y permisos para el acceso del servidor a la aplicación KAVAC, para lo cual le indicamos la permisología y usuario correspondiente
 
-	chown -R www-data:root (ruta-absoluta-de-instalacion)
-	chmod 755 (ruta-absoluta-de-instalacion)/storage
+	# chown -R www-data:root (ruta-absoluta-de-instalacion)
+	# chmod 755 (ruta-absoluta-de-instalacion)/storage
+
+## Configuración de variables
+
+Dentro del archivo **.env** se encuentran algunas variables que deben ser configuradas previamente para el correcto funcionamiento de la aplicación las cuales se describen a continuación:
+
+> APP_NAME
+
+Esta variable almacena el nombre de la aplicación cuyo valor por defecto es KAVAC.
+
+> APP_ENV
+
+Establece el entorno bajo el cual se ejecuta la aplicación. Para un entorno en producción se debe establecer el valor a **production**
+
+> APP_KEY
+
+El valor de esta variable se establece al ejecutar el comando
+
+    php artisan key:generate
+
+> APP_DEBUG
+
+Establece si la aplicación se ejecuta en modo de desarrollo si el valor es establecido en **true**, mostrando detalles de los eventos que se generan en la aplicación así como la barra de de desarrollo **debugbar**. Para entornos en producción esta variable debe establecerse en **false**
+
+> APP_LOG_LEVEL
+
+Indica el nivel de detalle para el cual se genera la bitácora de eventos y su valor por defecto es **debug** el cual establece el nivel de detalle mas amplio.
+
+> APP_URL
+
+El valor establecido en esta variable es de importancia en otros procesos del sistema y en ella se indica el **dominio** o **IP** de la aplicación incluyendo el protocolo **http** o **https**.
+
+> APP_DEMO
+
+El valor de esta variable determina si la aplicación se esta ejecutando en modo de demostración cuando es establecida como **true**, su valor por defecto es **false**
+
+> APP_TESTING
+
+Indica si la aplicación se encuentra en mnodo de prueba para lo cual se debe establecer el valor en **true**. Su valor por defecto es **false**
+
+> APP_TESTING_URL
+
+Establece el **dominio** o **IP** de la aplicación para pruebas incluyendo el protocolo **http** o **https**, esta variable es opcional
+
+> AUDIT_LIMIT
+
+Indica el límite de registros a almacenar por cada modelo de la aplicación para la auditoria
+
+## Notificaciones por correo
+
+Para el correcto funcionamiento de las notificaciones del sistema mediante la gestión de correo electrónico, se deben establecer los valores necesarios del servidor de correo a utilizar por la aplicación. Estas variables son:
+
+> MAIL_DRIVER
+> MAIL_HOST
+> MAIL_PORT
+> MAIL_USERNAME
+> MAIL_PASSWORD
+> MAIL_ENCRYPTION
+
+Donde,
+
+> MAIL_DRIVER
+
+Es el driver de conexión al servidor de correo saliente que gestionará las notificaciones
+
+> MAIL_HOST
+
+Es el dominio del host de correo saliente
+
+> MAIL_PORT
+
+Es el puerto del servidor de correo saliente
+
+> MAIL_USERNAME
+
+Es el nombre del usuario con atributos para enviar correo electrónico
+
+> MAIL_PASSWORD
+
+Es la contraseña del usuario que gestiona el correo saliente
+
+> MAIL_ENCRYPTION
+
+Define el protocolo de cifrado usado por el gestor de correo electrónico. Los valores a establecer pueden ser: **ssl**, **tls** o **null**
 
 ## Base de Datos
 
@@ -339,6 +437,8 @@ La aplicación viene con un sistema de notificaciones en tiempo real con websock
     WEBSOCKETS_SSL_LOCAL_PK=null
     WEBSOCKETS_SSL_PASSPHRASE=null
 
+    MIX_APP_URL="${APP_URL}"
+    MIX_APP_ROOT="${APP_ROOT}"
     MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
     MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
     MIX_WEBSOCKETS_HOST="${WEBSOCKETS_HOST}"

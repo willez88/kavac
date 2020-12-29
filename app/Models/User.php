@@ -90,7 +90,7 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
      */
     public function notificationSettings()
     {
-        return $this->belongsToMany(NotificationSetting::class)->withPivot('type');
+        return $this->belongsToMany(NotificationSetting::class)->withPivot('type')->withTimestamps();
     }
 
     /**

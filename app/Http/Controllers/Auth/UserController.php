@@ -383,6 +383,11 @@ class UserController extends Controller
     {
         $user = auth()->user();
         $userPermissions = $user->getPermissions()->where('slug', '<>', '')->pluck('slug')->toArray();
+        $arr = array_filter($userPermissions, function ($value, $index) {
+            return strpos($value, 'notify') !== false;
+        }, ARRAY_FILTER_USE_BOTH);
+        $userPermissions = $arr;
+
         $notifySettings = NotificationSetting::whereIn(
             'perm_required',
             $userPermissions

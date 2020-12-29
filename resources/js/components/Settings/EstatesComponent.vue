@@ -1,7 +1,7 @@
 <template>
 	<div class="col-xs-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-		   href="#" title="Registros de Estado de un Pais"
+		   href="javascript:void(0)" title="Registros de Estado de un Pais"
 		   data-toggle="tooltip" @click="addRecord('add_estate', '/estates', $event)">
 			<i class="icofont icofont-map-search ico-3x"></i>
 			<span>Estados</span>

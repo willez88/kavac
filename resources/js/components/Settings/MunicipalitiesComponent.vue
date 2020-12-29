@@ -1,7 +1,7 @@
 <template>
 	<div class="col-xs-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-		   href="" title="Registros de Municipios de un Estado"
+		   href="javascript:void(0)" title="Registros de Municipios de un Estado"
 		   data-toggle="tooltip" @click="addRecord('add_municipality', 'municipalities', $event)">
 			<i class="icofont icofont-ui-map ico-3x"></i>
 			<span>Municipios</span>
@@ -109,11 +109,7 @@
                 deep: true,
                 handler: function(newValue, oldValue) {
                     const vm = this;
-                    if (newValue.country_id && vm.selectedEstateId && !vm.record.estate_id) {
-                        setTimeout(function() {
-                            vm.record.estate_id = vm.selectedEstateId;
-                        }, 2000);
-                    }
+                    vm.record.estate_id = vm.selectedEstateId;
                 }
             },
         },

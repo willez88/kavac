@@ -36,6 +36,6 @@ class NotificationSetting extends Model
      */
     public function users()
     {
-        return $this->belongsToMany(User::class)->withPivot('type');
+        return $this->belongsToMany(User::class)->withPivot('type')->withTimestamps();
     }
 }

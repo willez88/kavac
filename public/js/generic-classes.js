@@ -134,8 +134,10 @@ class AppInfo {
 		return `
 			<h6>SISTEMA DE GESTION ADMINISTRATIVA | KAVAC</h6>
 			<p class="text-justify">
-				Sistema administrativo que permite la automatización de los procesos inherentes a la administración pública.
-				Registra y controla el presupuesto de la institución.
+				KAVAC es un sistema de planificación y gestión organizacional, que automatiza los procesos
+                administrativos asociados al manejo de recursos financieros, económicos, bienes, equipos,
+                insumos e incorpora elementos de seguridad electrónica, garantizando la autenticidad e integridad de
+                cada documento y archivo generado por el sistema.
 			</p>
 			${credits}
 			<h6 class="card-title">Repositorio</h6>
@@ -149,10 +151,10 @@ class AppInfo {
 			<h6 class="card-title">Documentación</h6>
 			<ul>
 				<li class="no-list-symbol">
-					<a href="#" target="_blank">Manual Técnico / Desarrolladores</a>
+					<a href="${window.app_url}/system-doc" target="_blank">Manual Técnico / Desarrolladores</a>
 				</li>
 				<li class="no-list-symbol">
-					<a href="#" target="_blank">Manual de Usuarios</a>
+					<a href="${window.app_url}/user-doc" target="_blank">Manual de Usuarios</a>
 				</li>
 			</ul>
 		`;

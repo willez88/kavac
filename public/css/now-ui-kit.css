@@ -3515,13 +3515,13 @@ Created using IcoMoon - icomoon.io
       .footer ul li a {
         color: inherit;
         padding: 0.5rem;
-        font-size: 0.8571em;
+        font-size: 11.1423px;
         text-transform: uppercase;
         text-decoration: none; }
         .footer ul li a:hover {
           text-decoration: none; }
   .footer .copyright {
-    font-size: 0.8571em;
+    font-size: 11.1423px;
     float: right; }
   .footer:after {
     display: table;

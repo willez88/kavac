@@ -16,14 +16,14 @@
 								data-toggle="tooltip"
 								@click="OpenImportForm(true)"
 								v-show="!formImport">
-								Importar Hoja de Cálculo <i class="fa fa-file-excel-o"></i>
+								<i class="fa fa-file-excel-o"></i>
 						</button>
 						<button class="btn btn-sm btn-primary btn-custom" style="margin-right: 1.8rem; margin-top: -.1rem;"
 								title="formulario de creación manual"
 								data-toggle="tooltip"
 								@click="OpenImportForm(false)"
 								v-show="formImport">
-								Creación Estandar
+								<i class="fa fa-reply"></i>
 						</button>
 
 						<button type="reset" class="close" data-dismiss="modal" aria-label="Close">

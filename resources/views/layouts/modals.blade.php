@@ -15,7 +15,11 @@
 
                         <div class="lockscreen-item">
                             <div class="lockscreen-image">
-                                <img src="{{ asset($img_profile ?? 'images/default-avatar.png') }}"
+                                @php
+                                    $avatar = file_exists(base_path($img_profile)) 
+                                              ? $img_profile : 'images/default-avatar.png';
+                                @endphp
+                                <img src="{{ asset($avatar, Request::secure()) }}"
                                      alt="perfil">
                             </div>
 
@@ -23,7 +27,7 @@
                                 <div class="input-group">
                                     {!! Form::password('password', array(
                                         'class' => 'form-control', 'placeholder' => 'contraseña de acceso',
-                                        'id' => 'password'
+                                        'id' => 'password', 'autocomplete' => 'off'
                                     )) !!}
                                     {!! Form::hidden('username', Auth::check() ? auth()->user()->username : '', [
                                         'id' => 'username'

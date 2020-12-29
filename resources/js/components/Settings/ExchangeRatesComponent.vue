@@ -1,7 +1,7 @@
 <template>
     <div class="col-xs-2 text-center">
         <a class="btn-simplex btn-simplex-md btn-simplex-primary"
-           href="" title="Registros de Tipos de Cambio"
+           href="javascript:void(0)" title="Registros de Tipos de Cambio"
            data-toggle="tooltip" @click="addRecord('add_exchange_rate', 'exchange-rates', $event)">
             <i class="icofont icofont-random ico-3x"></i>
             <span>Tipos de Cambio</span>

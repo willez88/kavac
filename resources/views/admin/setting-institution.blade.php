@@ -25,7 +25,8 @@
                             ]) !!}
                                 @php
                                 	$img_logo = (
-                                		isset($model_institution) && !is_null($model_institution->logo)
+                                		isset($model_institution) && !is_null($model_institution->logo) && 
+                                        file_exists(base_path($model_institution->logo))
                                 	) ? $model_institution->logo->url : null;
                                 @endphp
                                 <img src="{{ asset($img_logo ?? 'images/no-image2.png') }}"
@@ -57,7 +58,8 @@
                             ]) !!}
                                 @php
                                 	$img_banner = (
-                                		isset($model_institution) && !is_null($model_institution->banner)
+                                		isset($model_institution) && !is_null($model_institution->banner) && 
+                                        file_exists(base_path($model_institution->banner))
                                 	) ? $model_institution->banner->url : null;
                                 @endphp
                                 <img src="{{ asset($img_banner ?? 'images/no-image3.png') }}"
@@ -126,7 +128,7 @@
 									{!! Form::label('name', __('Nombre'), []) !!}
 									{!! Form::text('name',
 										(isset($model_institution))?$model_institution->name:old('name'), [
-											'class' => 'form-control input-sm', 'id' => 'name',
+											'class' => 'form-control input-sm',
 											'data-toggle' => 'tooltip',
 											'title' => __('Introduzca el nombre de la institución (requerido)')
 										]

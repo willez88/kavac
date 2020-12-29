@@ -1,7 +1,7 @@
 <template>
 	<div class="col-xs-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-		   href="" title="Registros de unidades, departamentos o dependencias"
+		   href="javascript:void(0)" title="Registros de unidades, departamentos o dependencias"
 		   data-toggle="tooltip" @click="addRecord('add_department', 'departments', $event)">
 			<i class="icofont icofont-architecture-alt ico-3x"></i>
 			<span>Unidades / Dependencias</span>

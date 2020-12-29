@@ -27,7 +27,7 @@
 			@endphp
 			@if ($institution)
 				<div class="navbar-brand">
-					@if ($institution->logo()->exists())
+					@if ($institution->logo()->exists() && file_exists(base_path($institution->logo->url)))
 						<img src="{{ asset($institution->logo->url, Request::secure()) }}" alt="{{ __('logo') }}"
 							 class="img-fluid">
 					@endif

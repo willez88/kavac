@@ -1,7 +1,7 @@
 <template>
 	<div class="col-xs-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-		   href="" title="Registros de profesiones" data-toggle="tooltip"
+		   href="javascript:void(0)" title="Registros de profesiones" data-toggle="tooltip"
 		   @click="addRecord('add_profession', 'professions', $event)">
 			<i class="icofont icofont-graduate-alt ico-3x"></i>
 			<span>Profesiones</span>

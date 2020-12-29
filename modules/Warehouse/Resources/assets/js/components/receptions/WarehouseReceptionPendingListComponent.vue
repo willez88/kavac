@@ -26,7 +26,7 @@
                 <div class="d-inline-flex">
 
                     <warehouse-reception-info 
-                        :route_list="'receptions/info/'+ props.row.id">
+                        :route_list="'warehouse/receptions/info/'+ props.row.id">
                     </warehouse-reception-info>
                     
                     <button @click="approvedRequest(props.index)" 

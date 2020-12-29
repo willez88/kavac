@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingSeatAccount;
 use Modules\Accounting\Models\AccountingAccountConverter;
+use Exception;
 
 /**
  * @class AccountingAccountsTableSeeder
@@ -3513,15 +3514,19 @@ class AccountingAccountsTableSeeder extends Seeder
                             $acc->save();
                         }*/
 
-                        /**
-                        * Se actualizan los valores de las llaves foraneas en el modelo AccountingAccountConverter que
-                        * tenia la cuenta por el nuevo registro actualizado se actualiza la información en la base
-                        * de datos
-                        */
-                        $convertes = AccountingAccountConverter::where('accounting_account_id', $account_to->id)->get();
-                        foreach ($converters as $acc) {
-                            $acc->accounting_account_id = $acc_new->id;
-                            $acc->save();
+                        try {
+                            /**
+                            * Se actualizan los valores de las llaves foraneas en el modelo AccountingAccountConverter que
+                            * tenia la cuenta por el nuevo registro actualizado se actualiza la información en la base
+                            * de datos
+                            */
+                            $converters = AccountingAccountConverter::where('accounting_account_id', $account_to->id)->get();
+                            foreach ($converters as $acc) {
+                                $acc->accounting_account_id = $acc_new->id;
+                                $acc->save();
+                            }
+                        } catch (Exception $e) {
+                            continue;
                         }
                     }
 
