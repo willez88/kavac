@@ -210,6 +210,13 @@ Route::group([
         ['as' => 'payroll', 'except' => ['create','edit']]
     );
 
+    /** Rutas para gestionar las políticas de prestaciones registradas */
+    Route::resource(
+        'benefits-policies',
+        'PayrollBenefitsPolicyController',
+        ['as' => 'payroll', 'except' => ['create','edit']]
+    );
+
     /** Rutas para gestionar los niveles de idioma */
     Route::resource(
         'language-levels',
@@ -414,8 +421,8 @@ Route::group([
     /** Ruta que permite actualizar una solicitud de vacaciones*/
     Route::patch(
         'vacation-requests/review/{request}',
-        'PayrollVacationRequestController@review')
-    ->name('payroll.request.review');
+        'PayrollVacationRequestController@review'
+    )->name('payroll.request.review');
 
     /** Ruta que permite editar la información de un registro de solicitud de vacaciones */
     Route::get(

@@ -307,6 +307,16 @@ Vue.component('payroll-vacation-policies', () => import(
 );
 
 /**
+ * Componente para la gestión de políticas de prestaciones sociales
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('payroll-benefits-policies', () => import(
+    /* webpackChunkName: "payroll-benefits-policies" */
+    './components/settings/PayrollBenefitsPoliciesComponent.vue')
+);
+
+/**
  * Componente para registrar o actualizar la nómina de sueldos
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>

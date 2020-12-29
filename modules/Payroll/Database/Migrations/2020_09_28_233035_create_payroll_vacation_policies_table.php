@@ -37,11 +37,11 @@ class CreatePayrollVacationPoliciesTable extends Migration
                       ->comment('Establece el tipo de vacaciones ' .
                                 '(collective_vacations: Colectivas, vacation_period: Por período)');
                 $table->enum(
-                          'salary_type',
-                          ['base_salary', 'comprehensive_salary', 'normal_salary', 'dialy_salary']
-                      )->comment('Establece el salario a emplear para el cálculo del bono vacacional ' .
-                                '(base_salary: Salario base, comprehensive_salary: Salario integral,' .
-                                ' normal_salary: Salario normal, dialy_salary: Salario diario)');
+                    'salary_type',
+                    ['base_salary', 'comprehensive_salary', 'normal_salary', 'dialy_salary']
+                )->comment('Establece el salario a emplear para el cálculo del bono vacacional ' .
+                           '(base_salary: Salario base, comprehensive_salary: Salario integral,' .
+                           ' normal_salary: Salario normal, dialy_salary: Salario diario)');
                 $table->enum('payment_calculation', ['enjoyment_days', 'general_days'])
                       ->comment('Establece el pago de acuerdo a: ' .
                                 '(enjoyment_days: Días de disfrute, general_days: Días generales)');

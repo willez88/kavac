@@ -266,5 +266,6 @@
     "/modules/warehouse/components/warehouse-request-staff-create.js": "/modules/warehouse/components/warehouse-request-staff-create.js",
     "/modules/warehouse/components/warehouse-request-staff-list.js": "/modules/warehouse/components/warehouse-request-staff-list.js",
     "/modules/warehouse/components/warehouse-rules.js": "/modules/warehouse/components/warehouse-rules.js",
-    "/modules/warehouse/components/warehouses.js": "/modules/warehouse/components/warehouses.js"
+    "/modules/warehouse/components/warehouses.js": "/modules/warehouse/components/warehouses.js",
+    "/modules/payroll/components/payroll-benefits-policies.js": "/modules/payroll/components/payroll-benefits-policies.js"
 }
