@@ -61,10 +61,20 @@
             @endif
         </div>
         <div class="footer text-center">
-            <button class="btn btn-primary btn-round btn-block" data-toggle="tooltip"
-                    title="{{ __('Presione el botón para modificar la contraseña') }}">
-                {{ __('Modificar') }}
-            </button>
+            <div class="row">
+                <div class="col-6">
+                    <button class="btn btn-primary btn-round btn-block" data-toggle="tooltip" type="button"
+                            title="{{ __('Presione el botón para regresar') }}" onclick="location.href='/'">
+                        {{ __('Cancelar') }}
+                    </button>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-primary btn-round btn-block" data-toggle="tooltip"
+                            title="{{ __('Presione el botón para modificar la contraseña') }}">
+                        {{ __('Modificar') }}
+                    </button>
+                </div>
+            </div>
         </div>
     {!! Form::close() !!}
 @endsection
