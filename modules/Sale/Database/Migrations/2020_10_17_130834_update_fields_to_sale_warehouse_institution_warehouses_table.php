@@ -15,11 +15,12 @@ class UpdateFieldsToSaleWarehouseInstitutionWarehousesTable extends Migration
     {
         Schema::table('sale_warehouse_institution_warehouses', function (Blueprint $table) {
             if (Schema::hasColumn('sale_warehouse_institution_warehouses', 'sale_warehouses_id')) {
-                    $table->dropColumn(['sale_warehouses_id']);
-                    $table->foreignId('sale_warehouse_id')->constrained()
-                  ->onDelete('restrict')->onUpdate('cascade');
-                };
-
+                $table->dropForeign(['sale_warehouses_id']);
+                $table->dropColumn('sale_warehouses_id');
+            };
+            if (!Schema::hasColumn('sale_warehouse_institution_warehouses', 'sale_warehouse_id')) {
+                $table->foreignId('sale_warehouse_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
+            }
         });
     }
 
@@ -30,9 +31,10 @@ class UpdateFieldsToSaleWarehouseInstitutionWarehousesTable extends Migration
      */
     public function down()
     {
-        if (Schema::hasColumn('sale_warehouse_institution_warehouses', 'sale_warehouse_id')) {
-            $table->foreignId('sale_warehouse_id')->constrained()
-                  ->onDelete('restrict')->onUpdate('cascade');
-        };
+        Schema::table('sale_warehouse_institution_warehouses', function (Blueprint $table) {
+            if (!Schema::hasColumn('sale_warehouse_institution_warehouses', 'sale_warehouse_id')) {
+                $table->foreignId('sale_warehouse_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
+            }
+        });
     }
 }
