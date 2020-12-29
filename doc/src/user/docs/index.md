@@ -50,26 +50,26 @@ Nombre del producto: KAVAC ‘Sistema de Gestión de Recursos’
    **Analistas**
 
 - Julie Vera (jvera@cenditel.gob.ve)
-- María González (mgonzalez@cenditel.gob.ve)
+- María Laura González (mgonzalez@cenditel.gob.ve)
 - María Rujano (mrujano@cenditel.gob.ve)
 - Mariangel Molero (mmolero@cenditel.gob.ve)
 - Francisco Berbesí (fberbesi@cenditel.gob.ve)
 - Luis Ramírez (lgramirez@cenditel.gob.ve)
 - Hildayra Colmenares (hcolmenares@cenditel.gob.ve)
 - Kleivymar Montilla (kmontilla@cenditel.gob.ve)
-- Daniel Contreras (dcontreras@cenditel.gob.ve)
 
    **Manuales**
 
 - Luis Ramírez (lgramirez@cenditel.gob.ve)
 - Marilyn Caballero (mcaballero@cenditel.gob.ve)
 
- **Desarrolladores**
+   **Desarrolladores**
 
 - William Paéz (wpaez@cenditel.gob.ve)
 - Henry Paredes (henryp2804@gmail.com)
 - Juan Rosas (jrosas@cenditel.gob.ve)
 - Yennifer Ramírez (yramirez@cenditel.gob.ve)
+- Daniel Contreras (dcontreras@cenditel.gob.ve)
 
    **Director de Desarrollo (2018-2019)**
 
