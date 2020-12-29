@@ -18173,13 +18173,13 @@ Created using IcoMoon - icomoon.io
       .footer ul li a {
         color: inherit;
         padding: 0.5rem;
-        font-size: 0.8571em;
+        font-size: 11.1423px;
         text-transform: uppercase;
         text-decoration: none; }
         .footer ul li a:hover {
           text-decoration: none; }
   .footer .copyright {
-    font-size: 0.8571em;
+    font-size: 11.1423px;
     float: right; }
   .footer:after {
     display: table;
@@ -37473,6 +37473,9 @@ small {
 .ico-4x {
   font-size: 4rem; }
 
+.font-small {
+  font-size: 11.1423px !important; }
+
 .bg-primary {
   background-color: #f96332 !important; }
 
@@ -37538,6 +37541,64 @@ table {
 
 .login-page .page-header .page-header-image {
   background-image: url("../images/auth-bg.jpg"); }
+
+.login-container {
+  background-image: url("../images/auth-bg.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-origin: padding-box;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  position: relative; }
+  .login-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(0deg, rgba(44, 44, 44, 0.2), rgba(224, 23, 3, 0.6));
+    width: 100%;
+    height: 100%; }
+
+.login-overlay::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%; }
+
+.login-img {
+  padding-bottom: 0.5rem;
+  text-align: center; }
+  .login-img img {
+    display: block;
+    width: 120px;
+    height: auto;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 15px; }
+
+.login-form {
+  min-height: 94vh; }
+  .login-form #app {
+    max-width: 290px; }
+  .login-form .form-group.form-group-no-border .input-group-addon, .login-form .form-group.form-group-no-border .form-control, .login-form .input-group.form-group-no-border .input-group-addon, .login-form .input-group.form-group-no-border .form-control {
+    color: #fff;
+    background-color: rgba(222, 222, 222, 0.1); }
+  .login-form .form-group.form-group-no-border.input-group-focus .input-group-addon, .login-form .form-group.form-group-no-border.input-group-focus .form-control, .login-form .input-group.form-group-no-border.input-group-focus .input-group-addon, .login-form .input-group.form-group-no-border.input-group-focus .form-control {
+    background-color: rgba(222, 222, 222, 0.2); }
+  .login-form .bootstrap-switch {
+    margin-bottom: 0; }
+
+.login-captcha-grid {
+  display: grid;
+  grid-template-columns: 75% auto;
+  grid-gap: 0 10px;
+  height: 54px;
+  align-items: center; }
+  .login-captcha-grid img {
+    border-radius: 3px; }
 
 .bootstrap-switch.bootstrap-switch-off .bootstrap-switch-label {
   background-color: rgba(255, 255, 255, 0.4); }
@@ -38205,6 +38266,11 @@ a.level-notice:hover, a.level-info:hover, a.level-debug:hover {
   padding: 4px;
   font-size: 0.7em;
   color: #0073b7; }
+
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  background-color: #f94a14; }
 
 /** Efectos para mostrar u ocultar las opciones del menú del panel izquierdo */
 .content-wrapper {
