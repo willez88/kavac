@@ -479,6 +479,7 @@ $(document).ready(function() {
         $('.bootbox.modal [data-bb-handler="ok"]').attr('title', 'Haga clic para cerrar esta ventana');
         $('.bootbox.modal [data-bb-handler="ok"]').attr('data-toggle', 'tooltip');
         $('.bootbox.modal [data-bb-handler="ok"]').tooltip();
+        $('.bootbox.modal a').tooltip();
     });
 
     /** Evento que permite mostrar datos sobre el licenciamiento de la aplicación */
@@ -517,6 +518,7 @@ $(document).ready(function() {
         $('.bootbox.modal [data-bb-handler="ok"]').attr('title', 'Haga clic para cerrar esta ventana');
         $('.bootbox.modal [data-bb-handler="ok"]').attr('data-toggle', 'tooltip');
         $('.bootbox.modal [data-bb-handler="ok"]').tooltip();
+        $('.bootbox.modal a').tooltip();
     });
 
     /** Oculta el tooltip de los elementos bootstrap switch después de unos segundos */
