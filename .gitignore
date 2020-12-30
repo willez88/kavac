@@ -11,6 +11,7 @@
 /public/js/components
 /public/modules
 /database/snapshots
+/storage/framework/maintenance.php
 /storage/*.key
 /storage/debugbar
 /storage/pictures
