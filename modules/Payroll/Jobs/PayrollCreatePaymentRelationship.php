@@ -236,6 +236,10 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
                                         $record = ($parameter['model'] != PayrollStaff::class)
                                             ? $parameter['model']::where('payroll_staff_id', $payrollStaff->id)->first()
                                             : $payrollStaff;
+                                        foreach ($payrollSalaryTabulator->payrollHorizontalSalaryScale->payrollScales as $scale) {
+
+                                        }
+                                        
                                         if ($children['type'] == 'number') {
                                             /** Se calcula el número de registros existentes según sea el caso
                                              * y se sustituye por su valor real en la fórmula del concepto */

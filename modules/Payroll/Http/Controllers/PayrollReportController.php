@@ -10,6 +10,7 @@ use Modules\Payroll\Repositories\ReportRepository;
 use Carbon\Carbon;
 
 use Modules\Payroll\Models\PayrollVacationRequest;
+use Modules\Payroll\Models\Payroll;
 use Modules\Payroll\Models\Institution;
 use App\Models\CodeSetting;
 
@@ -54,14 +55,15 @@ class PayrollReportController extends Controller
         }
 
         $pdf = new ReportRepository();
-        $payrollVacationRequest = PayrollVacationRequest::find($request->input('id'));
         $filename = 'payroll-report-' . Carbon::now() . '.pdf';
 
         $body = ($request->current == 'vacation-enjoyment-summaries')
                     ? 'payroll::pdf.payroll-vacation-enjoyment-summaries'
                     : ($request->current == 'vacation-status')
                         ? 'payroll::pdf.payroll-vacation-status'
-                        : '';
+                        : ($request->current == 'registers')
+                            ? 'payroll::pdf.payroll-registers'
+                            : '';
         $pdf->setConfig(
             [
                 'institution' => $institution,
@@ -72,9 +74,15 @@ class PayrollReportController extends Controller
         );
 
         if ($request->current == 'vacation-enjoyment-summaries') {
+            $records = PayrollVacationRequest::find($request->input('id'));
             $pdf->setHeader("Reporte de disfrute de vacaciones");
         } elseif ($request->current == 'vacation-status') {
+            $records = PayrollVacationRequest::find($request->input('id'));
             $pdf->setHeader("Reporte de estatus de vacaciones");
+        } elseif ($request->current == 'registers') {
+            $payrollRegister = Payroll::find($request->input('id'));
+            $records = $payrollRegister->payrollStaffPayrolls;
+            $pdf->setHeader("Reporte de registros de nómina");
         }
         $pdf->setFooter();
         $pdf->setBody(
@@ -82,7 +90,7 @@ class PayrollReportController extends Controller
             true,
             [
                 'pdf'    => $pdf,
-                'field'  => $payrollVacationRequest
+                'field'  => $records
             ]
         );
         $url = '/payroll/reports/show/' . $filename;
