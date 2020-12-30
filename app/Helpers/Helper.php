@@ -501,6 +501,25 @@ if (! function_exists('list_table_foreign_keys')) {
     }
 }
 
+if (! function_exists('has_foreign_key')) {
+    /**
+     * Verifica si una tabla de la base de datos contiene una clave foránea específica
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     string     $table         Nombre de la tabla en base de datos
+     * @param     string     $foreignKey    Nombre de la clave foránea a verificar
+     *
+     * @return    boolean    Devuelve verdadero si la clave foránea existe en la tabla, de lo contrario retorna falso
+     */
+    function has_foreign_key($table, $foreignKey)
+    {
+        /** @var object Objeto con información detallada de las propiedades de la tabla */
+        $detailTable = Schema::getConnection()->getDoctrineSchemaManager()->listTableDetails($table);
+        return $detailTable->hasForeignKey($foreignKey);
+    }
+}
+
 if (! function_exists('get_database_info')) {
     /**
      * Obtiene información de la base de datos
