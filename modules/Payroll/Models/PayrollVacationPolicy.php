@@ -36,10 +36,11 @@ class PayrollVacationPolicy extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'name', 'start_date', 'end_date', 'vacation_periods', 'vacation_type', 'institution_id',
+        'name', 'start_date', 'end_date', 'vacation_periods', 'vacation_type', 'active',
         'vacation_periods_accumulated_per_year', 'vacation_days', 'vacation_period_per_year',
         'additional_days_per_year', 'minimum_additional_days_per_year', 'maximum_additional_days_per_year',
-        'payment_calculation', 'salary_type', 'vacation_advance', 'vacation_postpone', 'staff_antiquity'
+        'payment_calculation', 'salary_type', 'vacation_advance', 'vacation_postpone', 'staff_antiquity',
+        'institution_id', 'payroll_payment_type_id'
     ];
 
     /**
@@ -58,5 +59,17 @@ class PayrollVacationPolicy extends Model implements Auditable
     public function institution()
     {
         return $this->belongsTo(Institution::class);
+    }
+
+    /**
+     * Método que obtiene la información del tipo de pago asociado a la política vacacional
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function payrollPaymentType()
+    {
+        return $this->belongsTo(PayrollPaymentType::class);
     }
 }

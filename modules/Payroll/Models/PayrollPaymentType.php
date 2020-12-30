@@ -109,4 +109,16 @@ class PayrollPaymentType extends Model implements Auditable
     {
         return $this->hasMany(PayrollBenefitsPolicy::class);
     }
+
+    /**
+     * Método que obtiene la información de las políticas vacacionales asociadas al tipo de pago de nómina
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payrollVacationPolicies()
+    {
+        return $this->hasMany(PayrollVacationPolicy::class);
+    }
 }

@@ -419,7 +419,7 @@
             vm.table_options.headings = {
                 'name':             'Nombre',
                 'application_date': 'Fecha de aplicación',
-                'active':           'Activo',
+                'active':           'Activa',
                 'id':               'Acción'
             };
             vm.table_options.sortable       = ['name', 'application_date'];
