@@ -312,4 +312,27 @@ class PayrollBenefitsPolicyController extends Controller
         $payrollBenefitsPolicy->delete();
         return response()->json(['record' => $payrollBenefitsPolicy, 'message' => 'Success'], 200);
     }
+
+    /**
+     * Muestra los datos de la información de la política de prestaciones según la institución asociada 
+     * al trabajador autenticado
+     *
+     * @method    getBenefitsPolicy
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
+     */
+    public function getBenefitsPolicy()
+    {
+        $profileUser = Auth()->user()->profile;
+        if ($profileUser) {
+            $institution = Institution::find($profileUser->institution_id);
+        } else {
+            $institution = Institution::where('active', true)->where('default', true)->first();
+        }
+        
+        $payrollBenefitsPolicy = PayrollBenefitsPolicy::where('institution_id', $institution->id)->first();
+        return response()->json(['record' => $payrollBenefitsPolicy], 200);
+    }
 }

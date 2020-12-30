@@ -49,4 +49,26 @@ class Institution extends BaseInstitution
     {
         return $this->hasMany(PayrollVacationRequest::class);
     }
+
+    /**
+     * Método que obtiene la información de la política de prestaciones asociada a la institución
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payrollBenefitsPolicies()
+    {
+        return $this->hasMany(PayrollBenefitsPolicy::class);
+    }
+
+    /**
+     * Método que obtiene la información de las solicitudes de adelanto de prestaciones asociados a la institución
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payrollBenefitsRequests()
+    {
+        return $this->hasMany(PayrollBenefitsRequest::class);
+    }
 }

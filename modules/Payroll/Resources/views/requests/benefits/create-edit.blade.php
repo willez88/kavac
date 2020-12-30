@@ -13,16 +13,16 @@
 @stop
 
 @section('maproute-title')
-    Vacaciones
+    Adelanto de prestaciones
 @stop
 
 @section('content')
     <div class="row">
         <div class="col-12">
-            <payroll-vacation-request-form
-                :id="{!! (isset($payrollVacationRequest)) ? $payrollVacationRequest->id : 'null' !!}"
-                route_list="{{ url('payroll/vacation-requests') }}">
-            </payroll-vacation-request-form>
+            <payroll-benefits-request-form
+                :id="{!! (isset($payrollBenefitsRequest)) ? $payrollBenefitsRequest->id : 'null' !!}"
+                route_list="{{ url('payroll/benefits-requests') }}">
+            </payroll-benefits-request-form>
         </div>
     </div>
 @stop

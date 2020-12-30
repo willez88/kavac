@@ -210,6 +210,12 @@ Route::group([
         ['as' => 'payroll', 'except' => ['create','edit']]
     );
 
+    /** Ruta que obtiene la información de un registro de política de prestaciones según el trabajador */
+    Route::get(
+        'get-benefits-policy',
+        'PayrollBenefitsPolicyController@getBenefitsPolicy'
+    );
+
     /** Rutas para gestionar las políticas de prestaciones registradas */
     Route::resource(
         'benefits-policies',
@@ -442,7 +448,50 @@ Route::group([
         'PayrollVacationRequestController@getVacationRequests'
     );
 
-    /* Ruta para política de permisos*/
+    /** Rutas para gestionar las solicitudes de prestaciones */
+    Route::resource(
+        'benefits-requests',
+        'PayrollBenefitsRequestController',
+        ['as' => 'payroll', 'except' => ['edit', 'show']]
+    );
+
+    /** Ruta que obtiene un listado de las solicitudes de prestaciones */
+    Route::get(
+        'benefits-requests/vue-list',
+        'PayrollBenefitsRequestController@vueList'
+    )->name('payroll.benefits-requests.vue-list');
+
+    /** Ruta que obtiene un listado de las solicitudes de prestaciones pendientes */
+    Route::get(
+        'benefits-requests/vue-pending-list',
+        'PayrollBenefitsRequestController@vuePendingList'
+    )->name('payroll.benefits-requests.vue-pending-list');
+
+    /** Ruta que permite actualizar una solicitud de prestaciones */
+    Route::patch(
+        'benefits-requests/review/{request}',
+        'PayrollBenefitsRequestController@review'
+    )->name('payroll.benefits-request.review');
+
+    /** Ruta que permite editar la información de un registro de solicitud de prestaciones */
+    Route::get(
+        'benefits-requests/edit/{benefits_request}',
+        'PayrollBenefitsRequestController@edit'
+    )->name('payroll.benefits-requests.edit');
+
+    /** Ruta que obtiene la información de un registro de solicitud de prestaciones */
+    Route::get(
+        'benefits-requests/show/{benefits_request}',
+        'PayrollBenefitsRequestController@show'
+    )->name('payroll.benefits-requests.show');
+
+    /** Ruta que obtiene un listado de las solicitudes de prestaciones de un trabajador */
+    Route::get(
+        'get-benefits-requests/{staff_id}',
+        'PayrollBenefitsRequestController@getBenefitsRequests'
+    );
+
+    /** Rutas para gestionar las políticas de permisos */
     Route::resource(
         'permission-policies',
         'PayrollPermissionPolicyController',

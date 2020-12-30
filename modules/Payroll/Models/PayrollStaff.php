@@ -210,6 +210,18 @@ class PayrollStaff extends Model implements Auditable
     }
 
     /**
+     * Método que obtiene la información de las solicitudes de adelanto de prestaciones asociadas al trabajador
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+
+     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payrollBenefitsRequests()
+    {
+        return $this->hasMany(PayrollBenefitsRequest::class);
+    }
+
+    /**
      * Método que obtiene la información de los registros de nómina asociados al trabajador
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>

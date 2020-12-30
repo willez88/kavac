@@ -2,27 +2,27 @@
 
 namespace Modules\Payroll\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
-use Modules\Payroll\Models\PayrollVacationRequest;
+use Modules\Payroll\Models\PayrollBenefitsRequest;
 use Modules\Payroll\Models\Institution;
 use App\Models\CodeSetting;
 
 /**
- * @class      PayrollVacationRequestController
- * @brief      Controlador de solicitudes vacacionales
+ * @class      PayrollBenefitsRequestController
+ * @brief      Controlador de solicitudes de prestaciones sociales
  *
- * Clase que gestiona las solicitudes vacacionales
+ * Clase que gestiona las solicitudes de prestaciones sociales
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
  * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
  *                 LICENCIA DE SOFTWARE CENDITEL
  *             </a>
  */
-class PayrollVacationRequestController extends Controller
+class PayrollBenefitsRequestController extends Controller
 {
     use ValidatesRequests;
 
@@ -46,32 +46,28 @@ class PayrollVacationRequestController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        //$this->middleware('permission:payroll.vacation-requests.list',   ['only' => ['index', 'vueList']]);
-        //$this->middleware('permission:payroll.vacation-requests.create', ['only' => ['create', 'store']]);
-        //$this->middleware('permission:payroll.vacation-requests.edit',   ['only' => ['edit', 'update']]);
-        //$this->middleware('permission:payroll.vacation-requests.delete', ['only' => 'destroy']);
+        //$this->middleware('permission:payroll.benefits-requests.list',   ['only' => ['index', 'vueList']]);
+        //$this->middleware('permission:payroll.benefits-requests.create', ['only' => ['create', 'store']]);
+        //$this->middleware('permission:payroll.benefits-requests.edit',   ['only' => ['edit', 'update']]);
+        //$this->middleware('permission:payroll.benefits-requests.delete', ['only' => 'destroy']);
 
         /** Define las reglas de validación para el formulario */
         $this->validateRules = [
-            'payroll_staff_id'     => ['required'],
-            'vacation_period_year' => ['required'],
-            'days_requested'       => ['required'],
-            'start_date'           => ['required'],
-            'end_date'             => ['required']
+            'payroll_staff_id' => ['required'],
+            'amount_requested' => ['required'],
+            'motive'           => ['required'],
         ];
 
         /** Define los mensajes de validación para las reglas del formulario */
         $this->messages = [
-            'payroll_staff_id.required'     => 'El campo trabajador es obligatorio.',
-            'vacation_period_year.required' => 'El campo año del período vacacional es obligatorio.',
-            'days_requested.required'       => 'El campo días solicitados es obligatorio.',
-            'start_date.required'           => 'El campo fecha de inicio de las vacaciones es obligatorio.',
-            'end_date.required'             => 'El campo fecha de culminación de las vacaciones es obligatorio.'
+            'payroll_staff_id.required' => 'El campo trabajador es obligatorio.',
+            'amount_requested.required' => 'El campo monto solicitado es obligatorio.',
+            'motive.required'           => 'El campo motivo de adelanto de prestaciones es obligatorio.'
         ];
     }
 
     /**
-     * Muestra un listado de las solicitudes vacacionales registradas
+     * Muestra un listado de las solicitudes de adelanto de prestaciones registradas
      *
      * @method    index
      *
@@ -81,11 +77,11 @@ class PayrollVacationRequestController extends Controller
      */
     public function index()
     {
-        return view('payroll::requests.vacations.index');
+        return view('payroll::requests.benefits.index');
     }
 
     /**
-     * Muestra el formulario para registrar una nueva solicitud vacacional
+     * Muestra el formulario para registrar una nueva solicitud de adelanto de prestaciones
      *
      * @method    create
      *
@@ -95,11 +91,11 @@ class PayrollVacationRequestController extends Controller
      */
     public function create()
     {
-        return view('payroll::requests.vacations.create-edit');
+        return view('payroll::requests.benefits.create-edit');
     }
 
     /**
-     * Valida y registra una nueva solicitud de vacaciones
+     * Valida y registra una nueva solicitud de adelanto de prestaciones
      *
      * @method    store
      *
@@ -113,7 +109,7 @@ class PayrollVacationRequestController extends Controller
     {
         $this->validate($request, $this->validateRules, $this->messages);
 
-        $codeSetting = CodeSetting::where('table', 'payroll_vacation_requests')->first();
+        $codeSetting = CodeSetting::where('table', 'payroll_benefits_requests')->first();
         if (is_null($codeSetting)) {
             $request->session()->flash('message', [
                 'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
@@ -139,71 +135,69 @@ class PayrollVacationRequestController extends Controller
         }
 
         /**
-         * Objeto asociado al modelo PayrollVacationRequest
+         * Objeto asociado al modelo PayrollBenefitsRequest
          *
-         * @var Object $payrollVacationRequest
+         * @var Object $payrollBenefitsRequest
          */
-        $payrollVacationRequest = PayrollVacationRequest::create([
-            'code'                 => $code,
-            'status'               => 'pending',
-            'days_requested'       => $request->input('days_requested'),
-            'vacation_period_year' => $request->input('vacation_period_year'),
-            'start_date'           => $request->input('start_date'),
-            'end_date'             => $request->input('end_date'),
-            'payroll_staff_id'     => $request->input('payroll_staff_id'),
-            'institution_id'       => $institution->id
+        $payrollBenefitsRequest = PayrollBenefitsRequest::create([
+            'code'             => $code,
+            'status'           => 'pending',
+            'amount_requested' => $request->input('amount_requested'),
+            'motive'           => $request->input('motive'),
+            'payroll_staff_id' => $request->input('payroll_staff_id'),
+            'institution_id'   => $request->input('institution_id') ?? $institution->id
         ]);
 
         $request->session()->flash('message', ['type' => 'store']);
-        return response()->json(['result' => true, 'redirect' => route('payroll.vacation-requests.index')], 200);
+        return response()->json(['result' => true, 'redirect' => route('payroll.benefits-requests.index')], 200);
     }
 
     /**
-     * Muestra los datos de la información de la solicitud de vacaciones seleccionada
+     * Muestra los datos de la información de la solicitud de adelanto de prestaciones seleccionada
      *
      * @method    show
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      *
-     * @param     Integer        $id    Identificador único de la solicitud de vacaciones
+     * @param     Integer        $id    Identificador único de la solicitud de adelanto de prestaciones
      *
      * @return    Renderable
      */
     public function show($id)
     {
-        $payrollVacationRequest = PayrollVacationRequest::find($id);
-        return response()->json(['record' => $payrollVacationRequest], 200);
+        $payrollBenefitsRequest = PayrollBenefitsRequest::find($id);
+        return response()->json(['record' => $payrollBenefitsRequest], 200);
     }
 
     /**
-     * Muestra el formulario para actualizar la información de una solicitud vacacional
+     * Muestra el formulario para actualizar la información de una solicitud de adelanto de prestaciones
      *
      * @method    edit
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      *
-     * @param     Integer        $id    Identificador único del registro de solicitud de vacaciones
+     * @param     Integer        $id    Identificador único del registro de solicitud de adelanto de prestaciones
      *
      * @return    Renderable
      */
     public function edit($id)
     {
         /**
-         * Objeto asociado al modelo PayrollVacationRequest
-         * @var    Object    $payrollVacationRequest
+         * Objeto asociado al modelo PayrollBenefitsRequest
+         * @var    Object    $payrollBenefitsRequest
          */
-        $payrollVacationRequest = PayrollVacationRequest::find($id);
-        return view('payroll::requests.vacations.create-edit', compact('payrollVacationRequest'));
+        $payrollBenefitsRequest = PayrollBenefitsRequest::find($id);
+        return view('payroll::requests.benefits.create-edit', compact('payrollBenefitsRequest'));
     }
 
     /**
-     * Actualiza la información de la solicitud de vacaciones
+     * Actualiza la información de la solicitud de adelanto de prestaciones
      *
      * @method    update
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      *
-     * @param     Integer                     $id         Identificador único asociado a la solicitud de vacaciones
+     * @param     Integer                     $id         Identificador único asociado a la solicitud
      *
      * @param     \Illuminate\Http\Request    $request    Datos de la petición
      *
@@ -212,10 +206,10 @@ class PayrollVacationRequestController extends Controller
     public function update(Request $request, $id)
     {
         /**
-         * Objeto asociado al modelo PayrollVacationRequest
-         * @var    Object    $payrollVacationRequest
+         * Objeto asociado al modelo PayrollBenefitsRequest
+         * @var    Object    $payrollBenefitsRequest
          */
-        $payrollVacationRequest = PayrollVacationRequest::find($id);
+        $payrollBenefitsRequest = PayrollBenefitsRequest::find($id);
         $this->validate($request, $this->validateRules, $this->messages);
 
         $profileUser = Auth()->user()->profile;
@@ -224,45 +218,43 @@ class PayrollVacationRequestController extends Controller
         } else {
             $institution = Institution::where('active', true)->where('default', true)->first();
         }
-        $payrollVacationRequest->update([
-            'status'               => $payrollVacationRequest->status,
-            'days_requested'       => $request->input('days_requested'),
-            'vacation_period_year' => $request->input('vacation_period_year'),
-            'start_date'           => $request->input('start_date'),
-            'end_date'             => $request->input('end_date'),
-            'payroll_staff_id'     => $request->input('payroll_staff_id'),
-            'institution_id'       => $institution->id
+        $payrollBenefitsRequest->update([
+            'status'           => $payrollBenefitsRequest->status,
+            'amount_requested' => $request->input('amount_requested'),
+            'motive'           => $request->input('motive'),
+            'payroll_staff_id' => $request->input('payroll_staff_id'),
+            'institution_id'   => $request->input('institution_id')
         ]);
 
         $request->session()->flash('message', ['type' => 'update']);
-        return response()->json(['result' => true, 'redirect' => route('payroll.vacation-requests.index')], 200);
+        return response()->json(['result' => true, 'redirect' => route('payroll.benefits-requests.index')], 200);
     }
 
     /**
-     * Elimina una solicitud de vacaciones
+     * Elimina una solicitud de adelanto de prestaciones
      *
      * @method    destroy
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      *
-     * @param     Integer        $id    Identificador único de la solicitud de vacaciones a eliminar
+     * @param     Integer        $id    Identificador único de la solicitud de adelanto de prestaciones a eliminar
      *
      * @return    Renderable
      */
     public function destroy($id)
     {
         /**
-         * Objeto asociado al modelo PayrollVacationRequest
-         * @var    Object    $payrollVacationRequest
+         * Objeto asociado al modelo PayrollBenefitsRequest
+         * @var    Object    $payrollBenefitsRequest
          */
-        $payrollVacationRequest = PayrollVacationRequest::find($id);
-        $payrollVacationRequest->delete();
+        $payrollBenefitsRequest = PayrollBenefitsRequest::find($id);
+        $payrollBenefitsRequest->delete();
 
-        return response()->json(['record' => $payrollVacationRequest, 'message' => 'Success'], 200);
+        return response()->json(['record' => $payrollBenefitsRequest, 'message' => 'Success'], 200);
     }
 
     /**
-     * Muestra un listado de las solicitudes vacacionales registradas
+     * Muestra un listado de las solicitudes de adelanto de prestaciones registradas
      *
      * @method    vueList
      *
@@ -280,7 +272,7 @@ class PayrollVacationRequestController extends Controller
             $institution = Institution::where('active', true)->where('default', true)->first();
         }
         if ($user->hasRole('admin')) {
-            $records = PayrollVacationRequest::where('institution_id', $institution->id)->get();
+            $records = PayrollBenefitsRequest::where('institution_id', $institution->id)->get();
         } else {
             $records = [];
         }
@@ -288,7 +280,7 @@ class PayrollVacationRequestController extends Controller
     }
 
     /**
-     * Muestra un listado de las solicitudes vacacionales pendientes registradas
+     * Muestra un listado de las solicitudes de adelanto de prestaciones pendientes registradas
      *
      * @method    vuePendingList
      *
@@ -306,7 +298,7 @@ class PayrollVacationRequestController extends Controller
             $institution = Institution::where('active', true)->where('default', true)->first();
         }
         if ($user->hasRole('admin')) {
-            $records = PayrollVacationRequest::where('institution_id', $institution->id)
+            $records = PayrollBenefitsRequest::where('institution_id', $institution->id)
                                              ->where('status', 'pending')
                                              ->get();
         } else {
@@ -316,9 +308,9 @@ class PayrollVacationRequestController extends Controller
     }
 
     /**
-     * Muestra el listado de solicitudes de vacaciones según el trabajador seleccionado
+     * Muestra el listado de solicitudes de adelanto de prestaciones según el trabajador seleccionado
      *
-     * @method    getVacationRequests
+     * @method    getBenefitsRequests
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      *
@@ -326,21 +318,21 @@ class PayrollVacationRequestController extends Controller
      *
      * @return    \Illuminate\Http\JsonResponse           Objeto con los registros a mostrar
      */
-    public function getVacationRequests($staff_id)
+    public function getBenefitsRequests($staff_id)
     {
-        $payrollVacationRequest = PayrollVacationRequest::where('payroll_staff_id', $staff_id)
-                                                        ->whereIn('status', ['pending', 'approved'])->get();
-        return response()->json(['records' => $payrollVacationRequest], 200);
+        $payrollBenefitsRequests = PayrollBenefitsRequest::where('payroll_staff_id', $staff_id)
+                                                         ->whereIn('status', ['pending', 'approved'])->get();
+        return response()->json(['records' => $payrollBenefitsRequests], 200);
     }
 
     /**
-     * Actualiza la información de la solicitud de vacaciones
+     * Actualiza la información de la solicitud de adelanto de prestaciones seleccionada
      *
      * @method    review
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      *
-     * @param     Integer                     $id         Identificador único asociado a la solicitud de vacaciones
+     * @param     Integer                     $id         Identificador único asociado a la solicitud
      *
      * @param     \Illuminate\Http\Request    $request    Datos de la petición
      *
@@ -349,24 +341,18 @@ class PayrollVacationRequestController extends Controller
     public function review(Request $request, $id)
     {
         /**
-         * Objeto asociado al modelo PayrollVacationRequest
-         * @var    Object    $payrollVacationRequest
+         * Objeto asociado al modelo PayrollBenefitsRequest
+         * @var    Object    $payrollBenefitsRequest
          */
-        $payrollVacationRequest = PayrollVacationRequest::find($id);
+        $payrollBenefitsRequest = PayrollBenefitsRequest::find($id);
         $this->validate($request, $this->validateRules, $this->messages);
 
-        $profileUser = Auth()->user()->profile;
-        if ($profileUser) {
-            $institution = Institution::find($profileUser->institution_id);
-        } else {
-            $institution = Institution::where('active', true)->where('default', true)->first();
-        }
-        $payrollVacationRequest->update([
+        $payrollBenefitsRequest->update([
             'status'               => $request->input('status'),
             'status_parameters'    => json_encode($request->input('status_parameters')),
         ]);
 
         $request->session()->flash('message', ['type' => 'update']);
-        return response()->json(['result' => true, 'redirect' => route('payroll.vacation-requests.index')], 200);
+        return response()->json(['result' => true, 'redirect' => route('payroll.benefits-requests.index')], 200);
     }
 }

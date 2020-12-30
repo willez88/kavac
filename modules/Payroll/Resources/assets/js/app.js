@@ -407,6 +407,56 @@ Vue.component('payroll-review-vacation-request-pending-form', () => import(
 );
 
 /**
+ * Componente para mostrar el listado de las solicitudes de adelanto de prestaciones
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('payroll-benefits-request-list', () => import(
+    /* webpackChunkName: "payroll-benefits-request-list" */
+    './components/requests/benefits/PayrollBenefitsRequestListComponent.vue')
+);
+
+/**
+ * Componente para mostrar la información de una solicitud de adelanto de prestaciones
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('payroll-benefits-request-show', () => import(
+    /* webpackChunkName: "payroll-benefits-request-show" */
+    './components/requests/benefits/PayrollBenefitsRequestShowComponent.vue')
+);
+
+/**
+ * Componente para registrar las solicitudes de adelanto de prestaciones
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('payroll-benefits-request-form', () => import(
+    /* webpackChunkName: "payroll-benefits-request-form" */
+    './components/requests/benefits/PayrollBenefitsRequestFormComponent.vue')
+);
+
+/**
+ * Componente para mostrar el listado de las solicitudes de adelanto de prestaciones pendientes
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('payroll-benefits-request-pending-list', () => import(
+    /* webpackChunkName: "payroll-benefits-request-pending-list" */
+    './components/requests/benefits/PayrollBenefitsRequestPendingListComponent.vue')
+);
+
+/**
+ * Componente para aprobar/rechazar las solicitudes de adelanto de prestaciones pendientes
+ *
+ * @author Henry Paredes <hparedes@cenditel.gob.ve>
+ */
+Vue.component('payroll-review-benefits-request-pending-form', () => import(
+    /* webpackChunkName: "payroll-review-benefits-request-pending-form" */
+    './components/requests/benefits/PayrollReviewBenefitsRequestPendingFormComponent.vue')
+);
+
+/**
  * Componentes para gestionar la creación de los reportes de talento humano
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>

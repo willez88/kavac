@@ -65,6 +65,17 @@
 									]) !!}
 								</div>
 							</div>
+							<div class="col-md-4" id="benefitsRequestsCode">
+								<div class="form-group">
+									{!! Form::label('benefits_requests_code', 'Código de las solicitudes de adelanto de prestaciones', []) !!}
+									{!! Form::text('benefits_requests_code', ($bRCode) ? $bRCode->format_code : old('benefits_requests_code'), [
+										'class' => 'form-control input-sm', 'data-toggle' => 'tooltip',
+										'title' => 'Formato para el código de las solicitudes de adelanto de prestaciones',
+										'placeholder' => 'Ej. XXX-00000000-YYYY',
+										'readonly' => ($bRCode) ? true : false
+									]) !!}
+								</div>
+							</div>
 						</div>
 						<hr>
 						<div class="row">
