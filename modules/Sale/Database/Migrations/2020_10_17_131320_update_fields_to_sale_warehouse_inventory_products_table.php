@@ -15,7 +15,9 @@ class UpdateFieldsToSaleWarehouseInventoryProductsTable extends Migration
     {
         Schema::table('sale_warehouse_inventory_products', function (Blueprint $table) {
             if (Schema::hasColumn('sale_warehouse_inventory_products', 'sale_setting_products_id')) {
-                $table->dropForeign('sale_warehouse_inventory_products_setting_fk');
+                if (has_foreign_key('sale_warehouse_inventory_products', 'sale_warehouse_inventory_products_setting_fk')) {
+                    $table->dropForeign('sale_warehouse_inventory_products_setting_fk');
+                }
                 $table->dropColumn(['sale_setting_products_id']);
             }
             if (!Schema::hasColumn('sale_warehouse_inventory_products', 'sale_setting_product_id')) {
