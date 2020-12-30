@@ -30,10 +30,26 @@
                                     <label for="name">Nombre:</label>
                                     <input type="text" id="name" placeholder="Nombre"
                                            class="form-control input-sm" v-model="record.name" data-toggle="tooltip"
-                                           title="Indique el nombre del permiso">
+                                           title="Indique el nombre del permiso"
+                                           v-input-mask data-inputmask-regex="[a-zA-Z ]*">
                                     <input type="hidden" name="id" id="id" v-model="record.id">
                                 </div>
                             </div>
+                            <!-- activa -->
+                            <div class="col-md-6">
+                               <div class="form-group">
+                                  <label>¿Activo?</label>
+                                    <div class="col-12">
+                                        <p-check class="pretty p-switch p-fill p-bigger"
+                                         color="success" off-color="text-gray" toggle
+                                         data-toggle="tooltip"
+                                         v-model="record.active">
+                                         <label slot="off-label"></label>
+                                        </p-check>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ./activa -->
                             <div class="col-md-6">
                                 <div class="form-group is-required">
                                     <label for="institutions">Institución</label>
@@ -44,30 +60,46 @@
                             <div class="col-md-6">
                                 <div class="form-group is-required">
                                     <label for="anticipation_day">Días de anticipación:</label>
-                                    <input type="number" id="anticipation_day"
+                                    <input type="text" data-toggle="tooltip" id="anticipation_day"
                                            placeholder="Días de anticipación para solicitar el permiso"
-                                           class="form-control input-sm" v-model="record.anticipation_day"
-                                           data-toggle="tooltip"
-                                           title="Indique el día de anticipación para solicitar el permiso">
+                                           title="Indique el día de anticipación para solicitar el permiso"
+                                           class="form-control input-sm"
+                                           v-input-mask data-inputmask="
+                                                'alias': 'numeric',
+                                                'allowMinus': 'false',
+                                                'digits': 0"
+                                           v-model="record.anticipation_day">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12"> <h6> Dias de validación del permiso </h6> </div>
+                            <div class="col-md-12"> <h6> Dias solicitados para el permiso </h6> </div>
                             <div class="col-md-6">
                                 <div class="form-group is-required">
                                     <label for="day_min">Rango mínimo:</label>
-                                    <input type="number" id="day_min" placeholder="Rango mínimo para solicitar permiso"
-                                           class="form-control input-sm" v-model="record.day_min" data-toggle="tooltip"
-                                           title="Indique el número mínimo para solicitar permiso">
+                                    <input type="text" data-toggle="tooltip" id="day_min"
+                                           placeholder="Número mínimo de días del permiso"
+                                           title="Indique el número mínimo de días permitidos para el permiso"
+                                           class="form-control input-sm"
+                                           v-input-mask data-inputmask="
+                                                'alias': 'numeric',
+                                                'allowMinus': 'false',
+                                                'digits': 0"
+                                           v-model="record.day_min">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group is-required">
                                     <label for="day_max">Rango máximo:</label>
-                                    <input type="number" id="day_max" placeholder="Rango máximo para solicitar permiso"
-                                           class="form-control input-sm" v-model="record.day_max" data-toggle="tooltip"
-                                           title="Indique el número máximo para solicitar permiso">
+                                    <input type="text" data-toggle="tooltip" id="day_max"
+                                           placeholder="Número máximo de días del permiso"
+                                           title="Indique el número máximo de días permitidos para el permiso"
+                                           class="form-control input-sm"
+                                           v-input-mask data-inputmask="
+                                                'alias': 'numeric',
+                                                'allowMinus': 'false',
+                                                'digits': 0"
+                                           v-model="record.day_max">
                                 </div>
                             </div>
                         </div>
@@ -79,6 +111,13 @@
                     </div>
                     <div class="modal-body modal-table">
                         <v-client-table :columns="columns" :data="records" :options="table_options">
+                            <div slot="day_range" slot-scope="props" class="text-center">
+                                <span>{{props.row.day_min + ' - ' + props.row.day_max}}</span>
+                            </div>
+                            <div slot="active" slot-scope="props" class="text-center">
+                                <span v-if="props.row.active">Si</span>
+                                <span v-else>No</span>
+                            </div>
                             <div slot="id" slot-scope="props" class="text-center">
                                 <button @click="initUpdate(props.row.id, $event)"
                                         class="btn btn-warning btn-xs btn-icon btn-action"
@@ -110,12 +149,13 @@
                     anticipation_day: '',
                     day_min:          '',
                     day_max:          '',
+                    active:           false,
                     institution_id:   ''
                 },
                 errors:       [],
                 records:      [],
                 institutions: [],
-                columns:      ['name', 'anticipation_day', 'day_min', 'day_max', 'id'],
+                columns:      ['name', 'anticipation_day', 'day_range', 'active', 'id'],
             }
         },
         methods: {
@@ -131,6 +171,7 @@
                     anticipation_day: '',
                     day_min:          '',
                     day_max:          '',
+                    active:           false,
                     institution_id:   ''
                 };
             },
@@ -180,17 +221,17 @@
             this.table_options.headings = {
                 'name': 'Nombre',
                 'anticipation_day': 'Dias de anticipación',
-                'day_min': 'Número mínimo de permiso',
-                'day_max': 'Número máximo de permiso',
+                'day_range': 'Rango de días solicitados',
+                'active': 'Activo',
                 'id': 'Acción'
             };
             this.table_options.sortable = ['name'];
             this.table_options.filterable = ['name'];
             this.table_options.columnsClasses = {
-                'name': 'col-md-3',
+                'name': 'col-md-2',
                 'anticipation_day': 'col-md-3',
-                'day_min': 'col-md-3',
-                'day_max': 'col-md-3',
+                'day_range': 'col-md-3',
+                'active': 'col-md-2',
                 'id': 'col-md-2'
             };
         },

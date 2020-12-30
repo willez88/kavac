@@ -305,7 +305,8 @@ class PayrollVacationPolicyController extends Controller
     }
 
     /**
-     * Muestra los datos de la información de la política vacacional según el trabajador autenticado
+     * Muestra los datos de la información de la política vacacional según la institución asociada 
+     * al trabajador autenticado
      *
      * @method    getVacationPolicy
      *
