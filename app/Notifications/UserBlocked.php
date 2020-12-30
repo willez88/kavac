@@ -44,7 +44,7 @@ class UserBlocked extends Notification
     {
         return (new MailMessage)
                     ->from(config('mail.from.address'), config('mail.from.name'))
-                    ->subject(__('Usuario bloqueado'))
+                    ->subject(config('app.name') . ' - ' . __('Usuario bloqueado'))
                     ->greeting(__('Advertencia, :username', ['username' => $this->user->name]))
                     ->line(
                         __('Usted a intentado ingresar al sistema demasiadas veces con datos incorrectos. ' .

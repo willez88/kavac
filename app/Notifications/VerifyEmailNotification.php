@@ -20,9 +20,9 @@ class VerifyEmailNotification extends VerifyEmail
     protected function buildMailMessage($url)
     {
         return (new MailMessage)
-            ->subject('KAVAC - Verificar usuario')
-            ->line('Haga clic en el botón de abajo para verificar su usuario.')
-            ->action('Verificar usuario', $url)
-            ->line('Omita este mensaje si no le fue asignada una cuenta en el sistema.');
+            ->subject(config('app.name') . ' - ' . __('Verificar usuario'))
+            ->line(__('Haga clic en el botón de abajo para verificar su usuario.'))
+            ->action(__('Verificar usuario'), $url)
+            ->line(__('Omita este mensaje si no le fue asignada una cuenta en el sistema.'));
     }
 }

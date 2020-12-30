@@ -20,14 +20,14 @@ class ResetPasswordNotification extends ResetPassword
     protected function buildMailMessage($url)
     {
         return (new MailMessage)
-            ->subject('KAVAC - Solicitud para reinicio de contraseña')
+            ->subject(config('app.name') . ' - ' . __('Solicitud para reinicio de contraseña'))
             ->line(
-                'Estás recibiendo este correo electrónico porque recibimos una solicitud de restablecimiento de
-                contraseña para tu cuenta.'
-            )->action('Reestablecer contraseña', $url)
+                __('Estás recibiendo este correo electrónico porque recibimos una solicitud de restablecimiento de
+                contraseña para tu cuenta.')
+            )->action(__('Reestablecer contraseña'), $url)
             ->line(
-                'Este enlace, para el reestablecimiento de su contraseña, caducará en ' .
-                config('auth.passwords.'.config('auth.defaults.passwords').'.expire') . ' minutos.'
-            )->line('Si no solicitó un restablecimiento de contraseña, no es necesario realizar ninguna otra acción.');
+                __('Este enlace, para el reestablecimiento de su contraseña, caducará en ') .
+                config('auth.passwords.'.config('auth.defaults.passwords').'.expire') . __(' minutos.')
+            )->line(__('Si no solicitó un restablecimiento de contraseña, no es necesario realizar ninguna otra acción.'));
     }
 }
