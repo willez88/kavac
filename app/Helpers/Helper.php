@@ -414,10 +414,12 @@ if (! function_exists('generate_hash')) {
      *
      * @param      integer          $length          Longitud de la cadena a generar
      * @param      boolean          $specialChars    Condición que determina si se incluyen o no carácteres especiales
+     * @param      boolean          $separators      Condición que determina si se incluyen carácteres "-" y "_" como
+     *                                               separadores de la cadena generada
      *
      * @return     string           Devuelve una cadena aleatoria
      */
-    function generate_hash($length = 8, $specialChars = false)
+    function generate_hash($length = 8, $specialChars = false, $separators = false)
     {
         $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
 
@@ -425,6 +427,10 @@ if (! function_exists('generate_hash')) {
 
         if ($specialChars) {
             $chars = '%$[](-_)@/#{}';
+            $alphabet .= $chars;
+        }
+        if ($separators) {
+            $chars = '-_';
             $alphabet .= $chars;
         }
         $pass = [];
