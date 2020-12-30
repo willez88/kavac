@@ -58,7 +58,7 @@
                                    list-notifications-url="{!! route('notifications.list') !!}"></notifications>
 				@endif
 
-				<li class="nav-item dropdown dropdown-notify">
+				{{-- <li class="nav-item dropdown dropdown-notify">
 					<a href="#" class="nav-link dropdown-toggle btn btn-sm btn-info btn-notify" data-toggle="dropdown"
 					   aria-expanded="false" title="{{ __('Mensajes') }}" id="list_messages">
 					   	<i class="now-ui-icons ui-1_email-85"></i>
@@ -101,7 +101,7 @@
 							{{ __('Ver todos los mensajes') }}
 						</a>
 					</div>
-				</li>
+				</li> --}}
                 {{--
 				<li class="nav-item dropdown">
 					<a href="#" class="nav-link dropdown-toggle btn btn-sm btn-info" id="list_options_language"

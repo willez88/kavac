@@ -139,6 +139,7 @@
     "/modules/finance/components/finance-voucher-design.js": "/modules/finance/components/finance-voucher-design.js",
     "/modules/payroll/js/app.js": "/modules/payroll/js/app.js",
     "/modules/payroll/css/app.css": "/modules/payroll/css/app.css",
+    "/modules/payroll/components/payroll-benefits-policies.js": "/modules/payroll/components/payroll-benefits-policies.js",
     "/modules/payroll/components/payroll-blood-types.js": "/modules/payroll/components/payroll-blood-types.js",
     "/modules/payroll/components/payroll-concept-types.js": "/modules/payroll/components/payroll-concept-types.js",
     "/modules/payroll/components/payroll-concepts.js": "/modules/payroll/components/payroll-concepts.js",
@@ -210,6 +211,7 @@
     "/modules/sale/css/app.css": "/modules/sale/css/app.css",
     "/modules/sale/components/register-clients.js": "/modules/sale/components/register-clients.js",
     "/modules/sale/components/register-formatcode.js": "/modules/sale/components/register-formatcode.js",
+    "/modules/sale/components/sale-bill-approved-list.js": "/modules/sale/components/sale-bill-approved-list.js",
     "/modules/sale/components/sale-bill-create.js": "/modules/sale/components/sale-bill-create.js",
     "/modules/sale/components/sale-bill-info.js": "/modules/sale/components/sale-bill-info.js",
     "/modules/sale/components/sale-bill-list.js": "/modules/sale/components/sale-bill-list.js",
@@ -266,6 +268,5 @@
     "/modules/warehouse/components/warehouse-request-staff-create.js": "/modules/warehouse/components/warehouse-request-staff-create.js",
     "/modules/warehouse/components/warehouse-request-staff-list.js": "/modules/warehouse/components/warehouse-request-staff-list.js",
     "/modules/warehouse/components/warehouse-rules.js": "/modules/warehouse/components/warehouse-rules.js",
-    "/modules/warehouse/components/warehouses.js": "/modules/warehouse/components/warehouses.js",
-    "/modules/sale/components/sale-bill-approved-list.js": "/modules/sale/components/sale-bill-approved-list.js"
+    "/modules/warehouse/components/warehouses.js": "/modules/warehouse/components/warehouses.js"
 }

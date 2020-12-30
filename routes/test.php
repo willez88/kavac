@@ -10,7 +10,7 @@
 |
 */
 
-Route::get('test', function () {
+Route::get('test-reports', function () {
     /** @var string Familia de fuente a utilizar en el reporte */
     $fontFamily = 'helvetica';
     /** @var string Ruta en donde se encuentra ubicada la imagen del logotipo institucional */
@@ -170,4 +170,12 @@ Route::get('clear-database', function () {
     )->delete();
 
     return redirect()->route('index');
+});
+
+/** Prueba las plantillas de correo */
+Route::get('test-mail/{class?}', function ($class = null) {
+    $user = \App\Models\User::where('username', 'admin')->first();
+    $mail = new \App\Mail\UserRegister($user, '123456');
+
+    return $mail->render();
 });

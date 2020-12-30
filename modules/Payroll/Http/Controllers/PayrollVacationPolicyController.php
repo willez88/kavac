@@ -66,7 +66,7 @@ class PayrollVacationPolicyController extends Controller
             'start_date.required'                            => 'El campo desde (fecha de aplicación) es obligatorio.',
             'end_date.required'                              => 'El campo hasta (fecha de aplicación) es obligatorio.',
             'vacation_periods.required'                      => 'El campo período(s) vacacional es obligatorio.',
-            'vacation_type.required'                         => 'El campo tipo de vacaciones es obligatorio.',            
+            'vacation_type.required'                         => 'El campo tipo de vacaciones es obligatorio.',
             'vacation_periods_accumulated_per_year.required' => 'El campo períodos vacacionales acumulados por año ' .
                                                                 'es obligatorio.',
             'vacation_days.required'                         => 'El campo días a otorgar para el disfrute de ' .
@@ -154,7 +154,7 @@ class PayrollVacationPolicyController extends Controller
                     ['vacation_days' => ['required']]
                 );
             }
-        } else if ($request->input('vacation_type') == 'vacation_period') {
+        } elseif ($request->input('vacation_type') == 'vacation_period') {
             $validateRules  = array_merge(
                 $validateRules,
                 [
@@ -237,7 +237,7 @@ class PayrollVacationPolicyController extends Controller
                     ['vacation_days' => ['required']]
                 );
             }
-        } else if ($request->input('vacation_type') == 'vacation_period') {
+        } elseif ($request->input('vacation_type') == 'vacation_period') {
             $validateRules  = array_merge(
                 $validateRules,
                 [
@@ -305,7 +305,8 @@ class PayrollVacationPolicyController extends Controller
     }
 
     /**
-     * Muestra los datos de la información de la política vacacional según el trabajador autenticado
+     * Muestra los datos de la información de la política vacacional según la institución asociada 
+     * al trabajador autenticado
      *
      * @method    getVacationPolicy
      *

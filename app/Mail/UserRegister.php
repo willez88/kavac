@@ -37,6 +37,6 @@ class UserRegister extends Mailable
      */
     public function build()
     {
-        return $this->subject(config('app.name') . " - Registro")->view('emails.user-register');
+        return $this->subject(config('app.name') . " - Registro")->markdown('emails.user-register');
     }
 }

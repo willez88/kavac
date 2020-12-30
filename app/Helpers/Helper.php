@@ -414,10 +414,12 @@ if (! function_exists('generate_hash')) {
      *
      * @param      integer          $length          Longitud de la cadena a generar
      * @param      boolean          $specialChars    Condición que determina si se incluyen o no carácteres especiales
+     * @param      boolean          $separators      Condición que determina si se incluyen carácteres "-" y "_" como
+     *                                               separadores de la cadena generada
      *
      * @return     string           Devuelve una cadena aleatoria
      */
-    function generate_hash($length = 8, $specialChars = false)
+    function generate_hash($length = 8, $specialChars = false, $separators = false)
     {
         $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
 
@@ -425,6 +427,10 @@ if (! function_exists('generate_hash')) {
 
         if ($specialChars) {
             $chars = '%$[](-_)@/#{}';
+            $alphabet .= $chars;
+        }
+        if ($separators) {
+            $chars = '-_';
             $alphabet .= $chars;
         }
         $pass = [];
@@ -492,6 +498,25 @@ if (! function_exists('list_table_foreign_keys')) {
         return array_map(function ($key) {
             return $key->getName();
         }, $conn->listTableForeignKeys($table));
+    }
+}
+
+if (! function_exists('has_foreign_key')) {
+    /**
+     * Verifica si una tabla de la base de datos contiene una clave foránea específica
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     string     $table         Nombre de la tabla en base de datos
+     * @param     string     $foreignKey    Nombre de la clave foránea a verificar
+     *
+     * @return    boolean    Devuelve verdadero si la clave foránea existe en la tabla, de lo contrario retorna falso
+     */
+    function has_foreign_key($table, $foreignKey)
+    {
+        /** @var object Objeto con información detallada de las propiedades de la tabla */
+        $detailTable = Schema::getConnection()->getDoctrineSchemaManager()->listTableDetails($table);
+        return $detailTable->hasForeignKey($foreignKey);
     }
 }
 

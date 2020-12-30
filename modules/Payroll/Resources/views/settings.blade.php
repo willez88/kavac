@@ -244,26 +244,29 @@
 				</div>
 				<div class="card-body">
 					<div class="row">
-						{{-- Parámetros de Nómona --}}
+						{{-- Parámetros de nómina --}}
 						<payroll-parameters></payroll-parameters>
 
-						{{-- Escalafones Salariales --}}
+						{{-- Escalafones salariales --}}
 						<payroll-salary-scales></payroll-salary-scales>
 
-						{{-- Tabuladores de Nómina --}}
+						{{-- Tabuladores de nómina --}}
 						<payroll-salary-tabulators></payroll-salary-tabulators>
 
-						{{-- Tipos de Conceptos --}}
+						{{-- Tipos de conceptos --}}
 						<payroll-concept-types></payroll-concept-types>
 
 						{{-- Conceptos --}}
 						<payroll-concepts></payroll-concepts>
 
-						{{-- Tipos de Pago --}}
+						{{-- Tipos de pago --}}
 						<payroll-payment-types></payroll-payment-types>
 
-						{{-- Políticas Vacacionales --}}
+						{{-- Políticas vacacionales --}}
 						<payroll-vacation-policies></payroll-vacation-policies>
+
+						{{-- Políticas de prestaciones sociales --}}
+						<payroll-benefits-policies></payroll-benefits-policies>
 
 						{{-- Políticas de Permisos --}}
 						<payroll-permission-policies></payroll-permission-policies>

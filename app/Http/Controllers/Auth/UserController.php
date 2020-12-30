@@ -77,23 +77,32 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'staff' => ['required'],
+            'first_name' => ['required_without:staff'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'username' => ['required', 'string', 'max:25'],
+            'username' => ['required', 'string', 'max:25', 'unique:users'],
             'role' => ['required_without:permission', 'array'],
             'permission' => ['required_without:role', 'array']
+        ], [
+            'first_name.required_without' => 'El campo nombre es requerido cuando no se ha seleccionado un empleado'
         ]);
 
-        $profile = Profile::find($request->staff);
+        if ($request->staff) {
+            $profile = Profile::find($request->staff);
+        }
 
         $password = generate_hash();
         $user = User::create([
-            'name' => trim($profile->first_name . ' ' .$profile->last_name ?? ''),
+            'name' => (!isset($profile))?$request->first_name:trim($profile->first_name . ' ' .$profile->last_name ?? ''),
             'email' => $request->email,
             'username' => $request->username,
             'password' => bcrypt($password),
             'level' => 2
         ]);
+
+        if (!$request->staff) {
+            $profile = new Profile;
+            $profile->first_name = $request->first_name;
+        }
 
         $profile->user_id = $user->id;
         $profile->save();
@@ -207,7 +216,8 @@ class UserController extends Controller
         }
 
         $user->delete();
-        return response()->json(['record' => $user, 'message' => 'Success'], 200);
+        session()->flash('message', ['type' => 'destroy']);
+        return response()->json(['result' => true, 'record' => $user, 'message' => 'Success'], 200);
     }
 
     public function getRolesAndPermissions()

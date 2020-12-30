@@ -33,9 +33,9 @@
                 <span class="input-group-addon">
                     <i class="now-ui-icons ui-1_lock-circle-open text-light"></i>
                 </span>
-                {!! Form::password('password', old('password'), [
-                    'class' => 'form-control', 'required' => 'required', 'id' => 'password', 'data-toggle' => 'tooltip',
-                    'title' => __('Indique su nueva contraseña')
+                {!! Form::password('password', [
+                    'class' => 'form-control', 'placeholder' => __('Nueva contraseña'), 'required' => 'required',
+                    'id' => 'password', 'data-toggle' => 'tooltip', 'title' => __('Indique su nueva contraseña')
                 ]) !!}
             </div>
             @if ($errors->has('password'))
@@ -49,9 +49,9 @@
                 <span class="input-group-addon">
                     <i class="now-ui-icons ui-1_lock-circle-open text-light"></i>
                 </span>
-                {!! Form::password('password_confirmation', old('password_confirmation'), [
-                    'class' => 'form-control', 'required' => 'required', 'id' => 'password-confirm',
-                    'data-toggle' => 'tooltip', 'title' => __('Confirme su nueva contraseña')
+                {!! Form::password('password_confirmation', [
+                    'class' => 'form-control', 'placeholder' => __('Confirme la contraseña'), 'required' => 'required',
+                    'id' => 'password-confirm', 'data-toggle' => 'tooltip', 'title' => __('Confirme su nueva contraseña')
                 ]) !!}
             </div>
             @if ($errors->has('password_confirmation'))
@@ -61,10 +61,20 @@
             @endif
         </div>
         <div class="footer text-center">
-            <button class="btn btn-primary btn-round btn-block" data-toggle="tooltip"
-                    title="{{ __('Presione el botón para modificar la contraseña') }}">
-                {{ __('Modificar') }}
-            </button>
+            <div class="row">
+                <div class="col-6">
+                    <button class="btn btn-primary btn-round btn-block" data-toggle="tooltip" type="button"
+                            title="{{ __('Presione el botón para regresar') }}" onclick="location.href='/'">
+                        {{ __('Cancelar') }}
+                    </button>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-primary btn-round btn-block" data-toggle="tooltip"
+                            title="{{ __('Presione el botón para modificar la contraseña') }}">
+                        {{ __('Modificar') }}
+                    </button>
+                </div>
+            </div>
         </div>
     {!! Form::close() !!}
 @endsection

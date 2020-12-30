@@ -51,7 +51,7 @@ class UserRegistered extends Notification //implements ShouldQueue
     {
         return (new MailMessage)
                     ->from(config('mail.from.address'), config('mail.from.name'))
-                    ->subject(__('Registro de usuario') . ' - ' . config('app.name'))
+                    ->subject(config('app.name') . ' - ' . __('Registro de usuario'))
                     ->greeting(__('Bienvenido, :username', ['username' => $this->user->name]))
                     ->line(
                         __('Se ha registrado un usuario en la plataforma con las siguientes credenciales de acceso:')
