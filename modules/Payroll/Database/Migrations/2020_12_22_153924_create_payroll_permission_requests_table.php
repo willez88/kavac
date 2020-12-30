@@ -19,7 +19,7 @@ class CreatePayrollPermissionRequestsTable extends Migration
             $table->date('start_date')->nullable()->comment('Fecha de inicio del permiso');
             $table->date('end_date')->nullable()->comment('Fecha final del permiso');
             $table->string('motive_permission', 100)->comment('Motivo de la solicitud de permiso');
-            $table->integer('day_permission', 100)->comment('Dias de permiso');
+            $table->unsignedInteger('day_permission')->comment('Dias de permiso');
             $table->string('status')
                   ->comment('Estatus de la solicitud de permiso');
             $table->foreignId('payroll_staff_id')->constrained()
