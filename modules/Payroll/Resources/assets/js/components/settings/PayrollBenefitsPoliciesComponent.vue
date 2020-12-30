@@ -4,7 +4,7 @@
            title="Registros de políticas de prestaciones" data-toggle="tooltip"
            @click="addRecord('add_payroll_benefits_policy', 'payroll/benefits-policies', $event)">
            <i class="icofont icofont-unity-hand ico-3x"></i>
-           <span>Políticas de <br>Prestaciones</span>
+           <span>Políticas de<br>Prestaciones</span>
         </a>
         <div class="modal fade text-left" tabindex="-1" role="dialog" id="add_payroll_benefits_policy">
             <div class="modal-dialog vue-crud" role="document">
@@ -114,7 +114,7 @@
                                         <!-- ./fecha de aplicación -->
                                         <!-- activa -->
                                         <div class="col-md-2">
-                                            <div class=" form-group">
+                                            <div class="form-group">
                                                 <label>¿Activo?</label>
                                                 <div class="col-12">
                                                     <p-check class="pretty p-switch p-fill p-bigger"
@@ -130,7 +130,7 @@
                                         <!-- ./activa -->
                                         <!-- institución -->
                                         <div class="col-md-4">
-                                            <div class=" form-group is-required">
+                                            <div class="form-group is-required">
                                                 <label>Institución:</label>
                                                 <select2 :options="institutions" v-model="record.institution_id"></select2>
                                             </div>
@@ -194,7 +194,7 @@
                                                             'alias': 'numeric',
                                                             'allowMinus': 'false',
                                                             'digits': 0"
-                                                       v-model="record.minimun_number_years">
+                                                       v-model="record.minimum_number_years">
                                             </div>
                                         </div>
                                         <!-- ./a partir del año -->
@@ -252,7 +252,7 @@
                                                              color="success" off-color="text-gray" toggle
                                                              data-toggle="tooltip"
                                                              title="Indique si se habilita la solicitud de anticipo de prestaciones"
-                                                             v-model="record.benfits_advance_payment">
+                                                             v-model="record.benefits_advance_payment">
                                                         <label slot="off-label"></label>
                                                     </p-check>
                                                 </div>
@@ -260,7 +260,7 @@
                                         </div>
                                         <!-- ./anticipo de prestaciones -->
                                         <!-- porcentaje de anticipo permitido -->
-                                        <div class="col-md-3" v-if="record.benfits_advance_payment">
+                                        <div class="col-md-3" v-if="record.benefits_advance_payment">
                                             <div class="form-group is-required">
                                                 <label>Porcentaje de anticipo permitido:</label>
                                                 <input type="text" data-toggle="tooltip"
@@ -275,7 +275,7 @@
                                         </div>
                                         <!-- ./porcentaje de anticipo permitido -->
                                         <!-- anticipos permitidos por año -->
-                                        <div class="col-md-3" v-if="record.benfits_advance_payment">
+                                        <div class="col-md-3" v-if="record.benefits_advance_payment">
                                             <div class="form-group is-required">
                                                 <label>Anticipos permitidos por año:</label>
                                                 <input type="text" data-toggle="tooltip"
@@ -296,13 +296,22 @@
                                     <div class="row">
                                         <!-- salario a emplear -->
                                         <div class="col-md-6">
-                                            <div class=" form-group is-required">
+                                            <div class="form-group is-required">
                                                 <label>Salario a emplear para el cálculo del bono vacacional:</label>
                                                 <select2 :options="salary_types"
                                                          v-model="record.salary_type"></select2>
                                             </div>
                                         </div>
                                         <!-- ./salario a emplear -->
+                                        <!-- tipo de pago de nómina -->
+                                        <div class="col-md-6">
+                                            <div class="form-group is-required">
+                                                <label>Tipo de pago de nómina:</label>
+                                                <select2 :options="payroll_payment_types"
+                                                         v-model="record.payroll_payment_type_id"></select2>
+                                            </div>
+                                        </div>
+                                        <!-- ./tipo de pago de nómina -->
                                     </div>
                                 </div>
                             </div>
@@ -334,8 +343,15 @@
                     </div>
                     <div class="modal-body modal-table">
                         <v-client-table :columns="columns" :data="records" :options="table_options">
-                            <div slot="application_date" slot-scope="props">
-                                <span> {{ props.row.start_date + ' - ' + props.row.end_date }} </span>
+                            <div slot="application_date" slot-scope="props" class="text-center">
+                                <span v-if="props.row.end_date">
+                                    {{ props.row.start_date + ' - ' + props.row.end_date }}
+                                </span>
+                                <span v-else> {{ props.row.start_date + ' - No definido' }} </span>
+                            </div>
+                            <div slot="active" slot-scope="props" class="text-center">
+                                <span v-if="props.row.active"> SI </span>
+                                <span v-else> NO </span>
                             </div>
                             <div slot="id" slot-scope="props" class="text-center">
                                 <button @click="initUpdate(props.row.id, $event)"
@@ -378,22 +394,24 @@
                     number_advances_per_year:         '',
                     salary_type:                      '',
                     institution_id:                   '',
+                    payroll_payment_type_id:          '',
                     active:                           false,
-                    benfits_advance_payment:          false
+                    benefits_advance_payment:          false
                 },
 
-                errors:       [],
-                records:      [],
-                columns:      ['name', 'application_date', 'id'],
-                institutions: [],
-                salary_types: [
+                errors:                [],
+                records:               [],
+                columns:               ['name', 'application_date', 'active', 'id'],
+                institutions:          [],
+                payroll_payment_types: [],
+                salary_types:          [
                     {"id": "",                     "text": "Seleccione..."},
                     {"id": "base_salary",          "text": "Salario Base"},
                     {"id": "comprehensive_salary", "text": "Salario Integral"},
                     {"id": "normal_salary",        "text": "Salario Normal"},
                     {"id": "dialy_salary",         "text": "Salario Diario"}
                 ],
-                panel:        'benefitsPolicyForm',
+                panel:                 'benefitsPolicyForm',
             }
         },
         created() {
@@ -401,6 +419,7 @@
             vm.table_options.headings = {
                 'name':             'Nombre',
                 'application_date': 'Fecha de aplicación',
+                'active':           'Activo',
                 'id':               'Acción'
             };
             vm.table_options.sortable       = ['name', 'application_date'];
@@ -414,6 +433,7 @@
             $("#add_payroll_benefits_policy").on('show.bs.modal', function() {
                 vm.reset();
                 vm.getInstitutions();
+                vm.getPayrollPaymentTypes();
             });
         },
         methods: {
@@ -441,8 +461,9 @@
                     number_advances_per_year:         '',
                     salary_type:                      '',
                     institution_id:                   '',
+                    payroll_payment_type_id:          '',
                     active:                           false,
-                    benfits_advance_payment:          false
+                    benefits_advance_payment:          false
                 };
                 vm.panel  = 'benefitsPolicyForm';
                 document.getElementById("benefitsPolicyForm").click();
@@ -454,7 +475,7 @@
              */
             isDisableNext() {
                 const vm = this;
-                if (vm.record.active == true) {
+                if (vm.record.benefits_advance_payment == true) {
                   if ((vm.record.name != '') &&
                       (vm.record.start_date != '') &&
                       (vm.record.institution_id != '') &&
