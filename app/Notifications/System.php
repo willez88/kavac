@@ -50,9 +50,10 @@ class System extends Notification //implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->from(config('mail.from.address'), config('mail.from.name'))
+                    ->subject($this->title)
+                    ->line($this->title)
+                    ->line($this->description);
     }
 
     /**

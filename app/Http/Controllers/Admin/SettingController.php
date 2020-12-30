@@ -3,6 +3,7 @@
 /** Controladores de uso exclusivo para usuarios administradores */
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Http\Request;
 use App\Models\Parameter;
 use App\Models\Institution;
 use App\Models\Country;
@@ -12,9 +13,10 @@ use App\Models\Parish;
 use App\Models\City;
 use App\Models\InstitutionSector;
 use App\Models\InstitutionType;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\ParameterRepository;
+use App\Roles\Models\Role;
+use App\Notifications\System as AppNotification;
 
 /**
  * @class SettingController
@@ -143,21 +145,36 @@ class SettingController extends Controller
             );
 
             if ($parameter === "online") {
-                /*if (is_null($request->$parameter)) {
+                if (is_null($request->$parameter)) {
                     \Artisan::call('up');
                     $msgType = [
                         'type' => 'other',
-                        'text' => 'El sistema esta actualmente en en línea, ' .
+                        'text' => 'El sistema esta actualmente en línea, ' .
                         'todos los usuarios pueden acceder a la aplicación'
                     ];
+                    $title = config('app.name') . ' - ' . __('En línea');
+                    $description = __('Se ha reestablecido el acceso a la aplicación. Puede acceder en cualquier momento');
+                    $users = User::all();
+                    foreach ($users as $user) {
+                        $user->notify(new AppNotification($title, '', $description, true));
+                    }
                 } else {
-                    \Artisan::call('down', ['--allow' => $request->ip()]);
+                    $secretHash = generate_hash(36, false, true);
+                    \Artisan::call('down', ['--secret' => $secretHash]);
                     $msgType = [
                         'type' => 'other',
                         'text' => 'El sistema esta actualmente en mantenimiento, ' .
-                        'solo puede acceder a la aplicación desde este equipo'
+                        'solo puede acceder a la aplicación desde el enlace proporcionado'
                     ];
-                }*/
+                    $roleAdmin = Role::where('slug', 'admin')->first();
+                    if ($roleAdmin && !$roleAdmin->users->isEmpty()) {
+                        $title = config('app.name') . ' - ' . __('Configuración en modo mantenimiento');
+                        $description = __('Se ha configurado la aplicación en modo mantenimiento. Para poder acceder bajo esta modalidad es necesario que acceda a la siguiente URL: ') . config('app.url') . '/' . $secretHash;
+                        foreach ($roleAdmin->users as $user) {
+                            $user->notify(new AppNotification($title, '', $description, true));
+                        }
+                    }
+                }
             }
         }
 
