@@ -348,4 +348,20 @@ class SaleBillController extends Controller
             ->get();
         return response()->json(['records' => $sale_bills], 200);
     }
+
+    /**
+     * Obtiene un listado de las facturas aprobadas
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     */
+    public function vueApprovedList($state)
+    {
+        $sale_bills = SaleBill::with(['saleClient', 'SaleBillInventoryProduct' =>
+            function ($query) {
+                $query->with('SaleWarehouseInventoryProduct');
+            }])
+            ->where('state', $state)->get();
+        return response()->json(['records' => $sale_bills], 200);
+    }
 }
