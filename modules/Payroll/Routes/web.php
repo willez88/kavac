@@ -450,7 +450,41 @@ Route::group([
     );
     Route::get('/get-permission-policies', 'PayrollPermissionPolicyController@getPermissionPolicies');
 
+    /***** Rutas para solicitar permisos*****/
 
+    /** Rutas para gestionar las solicitudes de permiso */
+    Route::resource(
+        'permission-requests',
+        'PayrollPermissionRequestController',
+        ['as' => 'payroll', 'except' => ['edit', 'show']]
+    );
+
+    /** Ruta que obtiene un listado de las solicitudes de permiso */
+    Route::get(
+        'permission-requests/vue-list',
+        'PayrollPermissionRequestController@vueList'
+    )->name('payroll.permission-requests.vue-list');
+
+    /** Ruta que permite editar la información de un registro de solicitud de permiso */
+    Route::get(
+        'permission-requests/edit/{permission_request}',
+        'PayrollPermissionRequestController@edit'
+    )->name('payroll.permission-requests.edit');
+
+    /** Ruta que obtiene la información de un registro de solicitud de permiso */
+    Route::get(
+        'permission-requests/show/{permission_request}',
+        'PayrollPermissionRequestController@show'
+    )->name('payroll.permission-requests.show');
+
+    Route::delete('/permission-requests/delete/{permission_request}', 'PayrollPermissionRequestController@destroy')
+        ->name('payroll.permission-requests.delete');
+
+    /** Ruta que obtiene un listado de las solicitudes de permisos pendientes */
+    Route::get(
+        'permission-requests/vue-pending-list',
+        'PayrollPermissionRequestController@vuePendingList'
+    )->name('payroll.permission-requests.vue-pending-list');
 
 
 

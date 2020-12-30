@@ -51,7 +51,7 @@
                     <a href="{{ route('payroll.vacation-requests.index') }}">Solicitud de vacaciones</a>
                 </li>
             </ul>
-        </li>
+
         <li>
             <a href="javascript:void(0)" data-toggle="tooltip" data-placement="right"
                 title="Gestiona la generación de reportes de resumen de disfrute de vacaciones, estatus de vacaciones, cálculo del bono vacacional e histórico de pago de bono vacacional.">Reportes</a>

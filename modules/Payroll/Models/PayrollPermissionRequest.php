@@ -8,7 +8,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
-class PayrollPermissionPolicy extends Model implements Auditable
+class PayrollPermissionRequest extends Model implements Auditable
 {
     use SoftDeletes;
     use AuditableTrait;
@@ -25,6 +25,7 @@ class PayrollPermissionPolicy extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'name', 'anticipation_day', 'day_min', 'day_max', 'active', 'institution_id'
+        'status', 'date', 'payroll_staff_id', 'payroll_permission_policy_id', 'start_date',
+        'end_date', 'day_permission', 'motive_permission',
     ];
 }
