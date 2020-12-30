@@ -239,6 +239,7 @@ Route::group(
         Route::delete('bills/delete/{bill}', 'SaleBillController@destroy')->name('sale.bills.destroy');
         Route::put('bills/bill-approved/{bill}', 'SaleBillController@approvedBill');
         Route::put('bills/bill-rejected/{bill}', 'SaleBillController@rejectedBill');
+        Route::get('bills/vue-approved-list/{state}', 'SaleBillController@vueApprovedList');
 
         /*
          * ------------------------------------------------------------

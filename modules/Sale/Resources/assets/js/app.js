@@ -194,6 +194,16 @@ Vue.component('sale-bill-pending-list', () => import(
     './components/bills/SaleBillPendingListComponent.vue')
 );
 
+/**
+ * Componente para mostrar un listado de las facturas aprobadas
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-bill-approved-list', () => import(
+    /* webpackChunkName: "sale-bill-approved-list" */
+    './components/bills/SaleBillApprovedListComponent.vue')
+);
+
 /*
  * Componente para gestionar la creación de los reportes de Pedidos
  *
