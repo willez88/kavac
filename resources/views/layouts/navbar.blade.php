@@ -5,8 +5,7 @@
 	</div> --}}
 	<div class="container-left">
 		<a class="logo text-decoration-none" href="{{ route('index') }}">
-            <img src="{{ asset('images/logo-white.png') }}" alt="{{ __('Logo') }}" />
-            <img src="{{ asset('images/app-name-white.png') }}" alt="{{ __('Logo') }}" />
+            @include('layouts.logo-images', ['logo_nav' => true, 'logo_name' => true])
         </a>
         <div class="float-right">
             <div class="menu-collapse" data-toggle="tooltip" data-placement="right" title="{{ __('Minimizar panel de menú') }}">
