@@ -10,7 +10,7 @@
                           ? $img_profile : 'images/default-avatar.png';
             @endphp
             <img class="img-circle img-profile-mini" src="{{ asset($avatar, Request::secure()) }}"
-                 alt="{{ auth()->user()->name }}">
+                 alt="{{ auth()->user()->name }}" title="{{ __('Imagen de perfil') }}" data-toggle="tooltip">
         </a>
         <div class="media-body">
             <h4 class="media-heading">{{ Auth::user()->name }}</h4>

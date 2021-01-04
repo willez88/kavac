@@ -126,7 +126,7 @@
 				</li> --}}
 				@if ($chat)
 					<li class="nav-item">
-						<a class="nav-link btn btn-sm btn-info" href="javascript:void(0)" title="{{ __('chat') }}"
+						<a class="nav-link btn btn-sm btn-info" href="javascript:void(0)" title="{{ __('Chat') }}"
                            data-toggle="tooltip">
 							<i class="now-ui-icons ui-2_chat-round"></i>
 						</a>
@@ -192,7 +192,7 @@
 					@endif
 					<a class="dropdown-item" href="{{ route('logout') }}" title="{{ __('Salir de la aplicación') }}"
 					   data-toggle="tooltip" data-placement="left"
-					   onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+					   onclick="event.preventDefault();logout();">
 						<i class="ion-log-out"></i> {{ __('Salir') }}
 					</a>
 					<form id="logout-form" action="{{ route('logout') }}" method="POST"

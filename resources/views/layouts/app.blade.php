@@ -235,6 +235,19 @@
                 }
 
                 /**
+                 * Muestra una ventana de confirmación para salir del sistema
+                 *
+                 * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+                 */
+                function logout() {
+                    bootbox.confirm('{{ __('¿Está seguro de que desea salir de la aplicación?') }}', function(result) {
+                        if (result) {
+                            document.getElementById('logout-form').submit();
+                        }
+                    });
+                }
+
+                /**
                  * Actualiza información de un select a partir de otro
                  *
                  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
