@@ -1,6 +1,5 @@
 # Asientos Contables
 ********************
-<div style="text-align: justify;">
 
 ![Screenshot](img/logokavac.png#imagen)
 
@@ -68,7 +67,7 @@ Para **Aprobar asiento contable**, **Ver información detallada**, **Editar** o 
 
 ![Screenshot](img/manage_3.png#imagen)
 
-</div>
+
 
 
 

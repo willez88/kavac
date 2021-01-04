@@ -1,6 +1,5 @@
 #Panel de Control Módulo de Contabilidad
 ****************************************
-<div style="text-align: justify;" >
 
 ![Screenshot](../img/logokavac.png#imagen)
 
@@ -14,11 +13,13 @@ A través de esta sección es posible realizar un seguimiento de los asientos co
 
 ![Screenshot](../img/figure_21.png)<div style="text-align: center;font-weight: bold">Figura 21: Asientos Contables</div>
 
-A través de la columna titulada **Acción** es posible generar un archivo con información sobre el registro para **Asientos Contables Aprobados** presionando el botón **Imprimir Registro** ![Screenshot](../img/print.png).  
+A través de la columna titulada **Acción** es posible generar un archivo con información sobre el registro para **Asientos Contables Aprobados** presionando el botón **Imprimir Registro**.
+
+![Screenshot](../img/print.png) **Imprimir Registro**.   
 
 De la misma forma es posible **Aprobar**, **Editar** o **Eliminar** un registro para **Asientos Contables No Aprobados** haciendo uso de los botones de **Acciones de Registro**. 
 
-![Screenshot](img/manage_4.png#imagen)
+![Screenshot](../img/manage_4.png#imagen)
 
 ##Reportes de contabilidad
 
@@ -28,10 +29,11 @@ El **Panel de Control** permite visualizar los diferentes reportes generados a p
 
 ![Screenshot](../img/figure_22.png)<div style="text-align: center;font-weight: bold">Figura 22: Reportes de Contabilidad</div> 
 
-A través del botón **Imprimir Registro** ![Screenshot](../img/print.png) ubicado en la columna titulada **Acción** es posible generar un archivo con información sobre cada registro. 
+A través del botón **Imprimir Registro** ubicado en la columna titulada **Acción** es posible generar un archivo con información sobre cada registro. 
+
+![Screenshot](../img/print.png) **Imprimir Registro**. 
 
 
-</div>
 
 
 

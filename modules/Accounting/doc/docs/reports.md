@@ -1,6 +1,5 @@
 # Reportes del Módulo de Contabilidad
 *************************************
-<div style="text-align: justify;">
 
 ![Screenshot](img/logokavac.png#imagen)
 
@@ -66,7 +65,7 @@ Para generar un reporte de estado de resultados es necesario:
 
 !!! note "Nota"
 
-	Al seleccionar los parámetros de búsqueda, el sistema permite elegir diferentes niveles de consulta a tráves del campo **Nivel de consulta**.  El sistema permite elegir seis niveles de consultas que definen las cuentas a mostrar.  Cada nivel incorpora las cuentas hijo. De esta forma el nivel uno muestra las cuentas patrimoniales como cuentas principales y el nivel seis muestra por su parte todas las cuentas involucradas. 
+	Al seleccionar los parámetros de búsqueda, el sistema permite elegir diferentes niveles de consulta a tráves del campo **Nivel de consulta**.  El sistema permite elegir seis niveles de consultas que definen las cuentas a mostrar.  Cada nivel incorpora las cuentas hijo, de esta forma el nivel uno muestra las cuentas patrimoniales como cuentas principales y el nivel seis muestra por su parte todas las cuentas involucradas. 
 
 	Cabe destacar que según sea el nivel de consulta seleccionado, algunas cuentas no se incluyen en el reporte sin embargo, son cuentas involucradas en los procesos contables.  
 	    
@@ -85,11 +84,11 @@ Para generar un reporte de balance general es necesario:
 
 !!! note "Nota"
 
-	Al seleccionar los parámetros de búsqueda, el sistema permite elegir diferentes niveles de consulta a tráves del campo **Nivel de consulta**.  El sistema permite elegir seis niveles de consultas que definen las cuentas a mostrar.  Cada nivel incorpora las cuentas hijo. De esta forma el nivel uno muestra las cuentas patrimoniales como cuentas principales y el nivel seis muestra por su parte todas las cuentas involucradas. 
+	Al seleccionar los parámetros de búsqueda, el sistema permite elegir diferentes niveles de consulta a tráves del campo **Nivel de consulta**.  El sistema permite elegir seis niveles de consultas que definen las cuentas a mostrar.  Cada nivel incorpora las cuentas hijo, de esta forma el nivel uno muestra las cuentas patrimoniales como cuentas principales y el nivel seis muestra por su parte todas las cuentas involucradas. 
 
 	Cabe destacar que según sea el nivel de consulta seleccionado, algunas cuentas no se incluyen en el reporte sin embargo, son cuentas involucradas en los procesos contables. 
 
-</div>
+
 
 
 
