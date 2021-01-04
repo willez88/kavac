@@ -1,8 +1,8 @@
-<div style="text-align: justify;" >
 
-EL sistema KAVAC cuenta con un registro por defecto para la estructura del Plan de Cuentas Patrimoniales, que está fundamentado en la Ley Orgánica de la Administración Financiera del Sector Público, sobre el Sistema de Contabilidad Pública.
 
-</div>
+EL sistema KAVAC cuenta con un registro por defecto para la estructura del Plan de Cuentas Patrimoniales, que está fundamentado en la Ley Orgánica de la Administración Financiera del Sector Público. 
+
+
 
 |Código          |Denominación               |Estado    |
 |---             |---                        |---       |
@@ -236,16 +236,14 @@ EL sistema KAVAC cuenta con un registro por defecto para la estructura del Plan 
 |2.1.4.99.01.00  |Retenciones de impuestos   | Activa    |
 |2.1.4.99.01.01  |Retenciones por pagar por concepto de impuesto sobre la renta   | Activa   |
 |2.1.4.99.01.02  |Retenciones por pagar por concepto de impuesto al valor agregado            | Activa    |
-|2.1.4.99.01.03	 |Retenciones por pagar por concepto de impuesto al uno por mil (1x1000)	
-| Activa    |
+|2.1.4.99.01.03	 |Retenciones por pagar por concepto de impuesto al uno por mil (1x1000)   | Activa    |
 |2.1.4.99.01.99  |Otras retenciones de impuesto por pagar   | Activa    |
 |2.1.4.99.02.00	 |Retenciones contractuales   | Activa    |
 |2.1.4.99.02.01	 |Retenciones efectuadas a proveedores pendientes de devolución   | Activa   |
 |2.1.4.99.02.02  |Retenciones efectuadas a contratistas pendientes de devolución  | Activa   |
 |2.1.4.99.03.00	 |Retenciones al personal jubilado   | Activa    |
 |2.1.4.99.03.01	 |Retenciones efectuadas al personal jubilado por pagar por servicios de salud, accidentes personales y gastos funerarios   | Activa    |
-|2.1.4.99.03.02	 |Retenciones efectuadas al personal jubilado por pagar a cajas de ahorro	
-| Activa    |
+|2.1.4.99.03.02	 |Retenciones efectuadas al personal jubilado por pagar a cajas de ahorro   | Activa    |
 |2.1.4.99.03.99  |Otras retenciones efectuadas al personal jubilado por pagar a sus legítimos beneficiarios   | Activa    |
 |2.1.9.00.00.00  |OTROS PASIVOS CORRIENTES   | Activa    |
 |2.1.9.99.00.00  |OTROS PASIVOS CORRIENTES	 | Activa    |
@@ -298,12 +296,10 @@ EL sistema KAVAC cuenta con un registro por defecto para la estructura del Plan 
 |2.2.5.01.00.00	 |DEPRECIACIÓN ACUMULADA DE BIENES DE USO  | Activa    |
 |2.2.5.01.01.00	 |Depreciación acumulada de edificios e instalaciones   | Activa    |
 |2.2.5.01.02.00  |Depreciación acumulada de maquinaria y demás equipos de construcción, campo, industria y taller   | Activa    |
-|2.2.5.01.03.00  |Depreciación acumulada de equipos de transporte, tracción y elevación	
-| Activa    |
-|2.2.5.01.04.00  |Depreciación acumulada de equipos de comunicaciones y señalamiento	
-| Activa    |
+|2.2.5.01.03.00  |Depreciación acumulada de equipos de transporte, tracción y elevación   | Activa    |
+|2.2.5.01.04.00  |Depreciación acumulada de equipos de comunicaciones y señalamiento   | Activa    |
 |2.2.5.01.05.00  |Depreciación acumulada de equipos médico-quirúrgicos, dentales y veterinarios   | Activa    |
-|2.2.5.01.06.00	 |Depreciación acumulada de equipos cientí ficos, religiosos, de enseñanza y recreación   | Activa    |
+|2.2.5.01.06.00	 |Depreciación acumulada de equipos científicos, religiosos, de enseñanza y recreación   | Activa    |
 |2.2.5.01.07.00	 |Depreciación acumulada de equipos y armamento de orden público, seguridad y defensa   | Activa    |
 |2.2.5.01.08.00  |Depreciación acumulada de máquinas, muebles y demás equipos de oficina y de alojamiento   | Activa    |
 |2.2.5.01.09.00  |Depreciación acumulada de semovientes   | Activa    |

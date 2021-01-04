@@ -1,6 +1,5 @@
 #Configuración Módulo de Contabilidad
 *************************************
-<div style="text-align: justify;" >
 
 ![Screenshot](../img/logokavac.png#imagen)
 
@@ -85,6 +84,5 @@ A tráves de esta funcionalidad es posible realizar un registro de carga masiva 
 
 ![Screenshot](../img/figure_20.png)<div style="text-align: center;font-weight: bold">Figura 20: Importar Cuentas Patrimoniales</div>
 
-Si desea continuar haciendo el registro de forma convencional presione el botón **Creación Estandar** ubicado en la esquina superior derecha de esta sección (Figura ).
+Si desea continuar haciendo el registro de forma convencional presione el botón **Creación Estandar** ubicado en la esquina superior derecha de esta sección (Figura 20).
 
-</div>

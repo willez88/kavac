@@ -1,6 +1,5 @@
 # Convertidor de Cuentas
 ************************
-<div style="text-align: justify;">
 
 ![Screenshot](img/logokavac.png#imagen)
 
@@ -46,7 +45,7 @@ Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubic
 
 ![Screenshot](img/manage_1.png#imagen)
 
-</div>
+
 
 
 
