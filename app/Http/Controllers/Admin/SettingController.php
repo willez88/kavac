@@ -13,6 +13,7 @@ use App\Models\Parish;
 use App\Models\City;
 use App\Models\InstitutionSector;
 use App\Models\InstitutionType;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Repositories\ParameterRepository;
 use App\Roles\Models\Role;
