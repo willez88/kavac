@@ -12,14 +12,14 @@
 					<div class="col-md-4 panel-legend">
 						<i class="fa fa-user text-success" data-toggle="tooltip"
                            title="{{ __('Los usuarios con este estatus se encuentran conectados a la aplicación') }}"></i>
-						<span>{{ __('conectados') }}</span>
+						<span>{{ __('Conectados') }}</span>
 					</div>
 				</div>
 				<div class="row mg-bottom-20">
 					<div class="col-md-4 panel-legend">
 						<i class="fa fa-user text-danger" data-toggle="tooltip"
                            title="{{ __('Los usuarios con este estatus no están conectados a la aplicación') }}"></i>
-						<span>{{ __('desconectados') }}</span>
+						<span>{{ __('Desconectados') }}</span>
 					</div>
 				</div>
 				<table class="table table-hover table-striped dt-responsive nowrap datatable">

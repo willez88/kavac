@@ -27,55 +27,55 @@
 				</div>
 				<h6>{{ __('Interfaz') }}</h6>
                 <div class="row">
-					<div class="col-3">
+					<div class="col-12 col-md-3">
 						<a href="{{ route('dev.show.element', ['el' => 'icons']) }}"
 						   class="btn btn-primary btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="{{ __('Listado de íconos disponibles en la aplicación') }}">
 							<i class="icofont icofont-idea"></i> {{ __('Iconos') }}
 						</a>
 					</div>
-					<div class="col-3">
+					<div class="col-12 col-md-3">
 						<a href="{{ route('dev.show.element', ['el' => 'components']) }}"
 						   class="btn btn-primary btn-simple btn-lg btn-block" data-toggle="tooltip"
                            title="{{ __('Listado de componentes y elementos disponibles en la aplicación') }}">
 							<i class="icofont icofont-idea"></i> {{ __('Componentes') }}
 						</a>
 					</div>
-					<div class="col-3">
+					<div class="col-12 col-md-3">
 						<a href="{{ route('dev.show.element', ['el' => 'buttons']) }}"
 						   class="btn btn-primary btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="{{ __('Listado de estilos de botones') }}">
 							<i class="icofont icofont-idea"></i> {{ __('Botones') }}
 						</a>
 					</div>
-					<div class="col-3">
+					<div class="col-12 col-md-3">
 						<a href="{{ route('dev.show.element', ['el' => 'forms']) }}"
 						   class="btn btn-primary btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="{{ __('Listado de componentes de formulario') }}">
 							<i class="icofont icofont-idea"></i> {{ __('Formularios') }}
 						</a>
 					</div>
-					<div class="col-3">
+					{{-- <div class="col-12 col-md-3">
 						<a href="javascript:void(0)"
 						   class="btn btn-primary btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="{{ __('Listado de gráficos disponibles') }}">
 							<i class="icofont icofont-idea"></i> {{ __('Gráficos') }}
 						</a>
-					</div>
-					<!--<div class="col-3">
+					</div> --}}
+					<!--<div class="col-12 col-md-3">
 						<a href="javascript:void(0)"
 						   class="btn btn-primary btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="Listado de estilos de sliders">
 							<i class="icofont icofont-idea"></i> Sliders
 						</a>
 					</div>-->
-					<div class="col-3">
+					{{-- <div class="col-12 col-md-3">
 						<a href="javascript:void(0)"
 						   class="btn btn-primary btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="{{ __('Listado de estilos de tablas') }}">
 							<i class="icofont icofont-idea"></i> {{ __('Tablas') }}
 						</a>
-					</div>
+					</div> --}}
 				</div>
 				{{-- <div class="row">
 					<div class="col-12">
@@ -128,7 +128,7 @@
 				<hr>
 				<h6>{{ __('Eventos') }}</h6>
 				<div class="row">
-					<div class="col-3">
+					<div class="col-12 col-md-3">
 						<a href="{{ route('log-viewer::details') }}"
 						   class="btn btn-danger btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="{{ __('Registros de eventos del sistema') }}">
