@@ -364,7 +364,7 @@ Route::get('system-doc', function () {
 
 /** Ruta pública para acceder al manual del usuario */
 Route::get('user-doc', function () {
-    $path = base_path() . '/doc/user/html/index.html';
+    $path = base_path() . '/doc/user/index.html';
     if (!File::exists($path)) {
         abort(404);
     }
