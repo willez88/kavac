@@ -361,12 +361,3 @@ Route::get('system-doc', function () {
     }
     return File::get($path);
 });
-
-/** Ruta pública para acceder al manual del usuario */
-Route::get('user-doc', function () {
-    $path = base_path() . '/doc/user/index.html';
-    if (!File::exists($path)) {
-        abort(404);
-    }
-    return File::get($path);
-});
