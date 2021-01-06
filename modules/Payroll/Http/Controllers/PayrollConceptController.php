@@ -5,7 +5,6 @@ namespace Modules\Payroll\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-
 use Modules\Payroll\Models\PayrollConcept;
 use Modules\Payroll\Models\PayrollConceptAssignOption;
 
@@ -16,9 +15,8 @@ use Modules\Payroll\Models\PayrollConceptAssignOption;
  * Clase que gestiona los conceptos
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class PayrollConceptController extends Controller
 {

@@ -6,7 +6,6 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-
 use Modules\Payroll\Models\PayrollBenefitsRequest;
 use Modules\Payroll\Models\Institution;
 use App\Models\CodeSetting;
@@ -18,9 +17,8 @@ use App\Models\CodeSetting;
  * Clase que gestiona las solicitudes de prestaciones sociales
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class PayrollBenefitsRequestController extends Controller
 {

@@ -6,10 +6,8 @@ namespace Modules\Asset\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
-
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Jobs\AssetGenerateReport;
-
 use Modules\Asset\Models\AssetReport;
 use App\Models\CodeSetting;
 
@@ -20,9 +18,8 @@ use App\Models\CodeSetting;
  * Clase que gestiona los reportes generados en el módulo de bienes
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class AssetReportController extends Controller
 {

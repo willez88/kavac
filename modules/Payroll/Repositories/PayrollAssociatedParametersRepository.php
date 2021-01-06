@@ -9,9 +9,8 @@ namespace Modules\Payroll\Repositories;
  * Clase que gestiona los parámetros asociados a la generación de nómina
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class PayrollAssociatedParametersRepository
 {
@@ -218,7 +217,7 @@ class PayrollAssociatedParametersRepository
     }
 
     /**
-     * Listado de parámetros 
+     * Listado de parámetros
      *
      * @method    loadData
      *

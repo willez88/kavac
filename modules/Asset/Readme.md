@@ -1,4 +1,4 @@
-# KAVAC | Sistema de Gestión Organizacional
+# KAVAC | Módulo de Bienes
 
 ### Pendientes Modulo de Bienes
 

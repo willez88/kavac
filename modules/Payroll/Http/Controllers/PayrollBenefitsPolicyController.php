@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-
 use Modules\Payroll\Models\PayrollBenefitsPolicy;
 use Modules\Payroll\Models\Institution;
 
@@ -18,9 +17,8 @@ use Modules\Payroll\Models\Institution;
  * Clase que gestiona las políticas de prestaciones sociales
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class PayrollBenefitsPolicyController extends Controller
 {
@@ -151,7 +149,7 @@ class PayrollBenefitsPolicyController extends Controller
             );
         }
         $this->validate($request, $validateRules, $this->messages);
-        
+
         $profileUser = Auth()->user()->profile;
         if ($profileUser) {
             $institution = Institution::find($profileUser->institution_id);
@@ -251,7 +249,7 @@ class PayrollBenefitsPolicyController extends Controller
             );
         }
         $this->validate($request, $validateRules, $this->messages);
-        
+
         $profileUser = Auth()->user()->profile;
         if ($profileUser) {
             $institution = Institution::find($profileUser->institution_id);
@@ -262,7 +260,7 @@ class PayrollBenefitsPolicyController extends Controller
          *  Si es el administrador asigne la intitución seleccionada en el formulario,
          *  en caso contrario, asignar institución asociada al usuario
          */
-        
+
         $payrollBenefitsPolicy->update([
             'name'                             => $request->input('name'),
             'active'                           => !empty($request->active)
@@ -314,7 +312,7 @@ class PayrollBenefitsPolicyController extends Controller
     }
 
     /**
-     * Muestra los datos de la información de la política de prestaciones según la institución asociada 
+     * Muestra los datos de la información de la política de prestaciones según la institución asociada
      * al trabajador autenticado
      *
      * @method    getBenefitsPolicy
@@ -331,7 +329,7 @@ class PayrollBenefitsPolicyController extends Controller
         } else {
             $institution = Institution::where('active', true)->where('default', true)->first();
         }
-        
+
         $payrollBenefitsPolicy = PayrollBenefitsPolicy::where('institution_id', $institution->id)->first();
         return response()->json(['record' => $payrollBenefitsPolicy], 200);
     }

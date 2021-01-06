@@ -5,13 +5,11 @@ namespace Modules\Asset\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
-
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Jobs\AssetCreateAssets;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Asset\Exports\AssetExport;
 use Modules\Asset\Imports\AssetImport;
-
 use Modules\Asset\Rules\AcquisitionYear;
 use Modules\Asset\Rules\RequiredItem;
 use Modules\Asset\Models\AssetRequest;
@@ -29,9 +27,8 @@ use App\Models\Profile;
  * Clase que gestiona los bienes institucionales
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class AssetController extends Controller
 {

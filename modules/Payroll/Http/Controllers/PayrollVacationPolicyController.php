@@ -7,7 +7,6 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-
 use Modules\Payroll\Models\PayrollVacationPolicy;
 use Modules\Payroll\Models\Institution;
 
@@ -18,9 +17,8 @@ use Modules\Payroll\Models\Institution;
  * Clase que gestiona las políticas vacacionales
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class PayrollVacationPolicyController extends Controller
 {
@@ -265,7 +263,7 @@ class PayrollVacationPolicyController extends Controller
         } else {
             $institution = Institution::where('active', true)->where('default', true)->first();
         }
-        
+
         $payrollVacationPolicy->update([
             'name'                                  => $request->input('name'),
             'active'                                => !empty($request->active)
@@ -318,7 +316,7 @@ class PayrollVacationPolicyController extends Controller
     }
 
     /**
-     * Muestra los datos de la información de la política vacacional según la institución asociada 
+     * Muestra los datos de la información de la política vacacional según la institución asociada
      * al trabajador autenticado
      *
      * @method    getVacationPolicy
@@ -335,7 +333,7 @@ class PayrollVacationPolicyController extends Controller
         } else {
             $institution = Institution::where('active', true)->where('default', true)->first();
         }
-        
+
         $payrollVacationPolicy = PayrollVacationPolicy::where('institution_id', $institution->id)->first();
         return response()->json(['record' => $payrollVacationPolicy], 200);
     }

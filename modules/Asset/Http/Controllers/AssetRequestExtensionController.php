@@ -6,10 +6,8 @@ namespace Modules\Asset\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
-
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Auth;
-
 use Modules\Asset\Models\AssetRequestExtension;
 use Modules\Asset\Models\AssetRequest;
 use Modules\Asset\Rules\DateExtension;
@@ -21,9 +19,8 @@ use Modules\Asset\Rules\DateExtension;
  * Clase que gestiona las prorrogas de entrega solicitadas
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class AssetRequestExtensionController extends Controller
 {

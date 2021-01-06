@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-
 use Modules\Payroll\Models\Payroll;
 use Modules\Payroll\Jobs\PayrollCreatePaymentRelationship;
 
@@ -17,9 +16,8 @@ use Modules\Payroll\Jobs\PayrollCreatePaymentRelationship;
  * Clase que gestiona los registros de nómina
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class PayrollController extends Controller
 {

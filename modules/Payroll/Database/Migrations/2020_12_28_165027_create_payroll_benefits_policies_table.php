@@ -11,9 +11,8 @@ use Illuminate\Database\Migrations\Migration;
  * Gestiona la creación o eliminación de la tabla de políticas de prestaciones sociales
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class CreatePayrollBenefitsPoliciesTable extends Migration
 {
@@ -66,7 +65,7 @@ class CreatePayrollBenefitsPoliciesTable extends Migration
                       ->onDelete('restrict')->onUpdate('cascade');
                 $table->boolean('active')->default(false)
                       ->comment('Indica si la política de prestaciones está activa');
-                
+
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });

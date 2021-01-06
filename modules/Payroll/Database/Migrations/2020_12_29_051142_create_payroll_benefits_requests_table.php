@@ -11,9 +11,8 @@ use Illuminate\Database\Migrations\Migration;
  * Gestiona la creación o eliminación de la tabla de solicitud de adelanto de prestaciones
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class CreatePayrollBenefitsRequestsTable extends Migration
 {
@@ -38,8 +37,9 @@ class CreatePayrollBenefitsRequestsTable extends Migration
                       ->comment('Motivo de la solicitud de adelanto de prestaciones');
 
                 $table->text('status_parameters')->nullable()->comment(
-                        'Parámetros del estatus: Si estatus aprobado, status_parameters = {approval_date} ' .
-                        'Si estatus rechazado, status_parameters = {motive}');
+                    'Parámetros del estatus: Si estatus aprobado, status_parameters = {approval_date} ' .
+                        'Si estatus rechazado, status_parameters = {motive}'
+                );
 
                 $table->foreignId('payroll_staff_id')
                       ->comment('Identificador único asociado al trabajador')
