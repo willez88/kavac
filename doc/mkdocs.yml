@@ -1,6 +1,7 @@
 # Project information
 site_name: Documentación de Usuario.
-site_dir: user
+site_dir: ../public/docs/user
+use_directory_urls: true
 
 # Page tree
 nav:
