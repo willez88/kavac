@@ -152,7 +152,7 @@ class AppInfo {
 			<h6 class="card-title">Documentación</h6>
 			<ul>
 				<li class="no-list-symbol">
-					<a href="${window.app_url}/system-doc" target="_blank" data-toggle="tooltip"
+					<a href="${window.app_url}/docs/development" target="_blank" data-toggle="tooltip"
                        title="Documentación técnica para desarrolladores">
                         Manual Técnico / Desarrolladores
                     </a>
