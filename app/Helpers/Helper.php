@@ -743,3 +743,27 @@ if (! function_exists('check_max_upload_size')) {
         return $fileSize < $bytes && $fileSize < $bitesPost;
     }
 }
+
+if (! function_exists('restore_record')) {
+    /**
+     * Restaura registros eliminados del sistema
+     *
+     * @method    restore_record
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     string    $model     Nombre del modelo que contiene el registro a restaurar
+     * @param     array     $filter    Arreglo con el filtro a aplicar para obtener el(los) registro(s) a restaurar
+     *
+     * @return    boolean   Devuelver verdadero si existe el registro y fue restaurado, de lo contrario devuelve falso
+     */
+    function restore_record($model, $filter)
+    {
+        if ($record = $model::onlyTrashed()->where($filter)->first()) {
+            $record->restore();
+            return true;
+        }
+
+        return false;
+    }
+}
