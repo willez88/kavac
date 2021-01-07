@@ -1,5 +1,5 @@
 <?php
-
+/** [descripción del namespace] */
 namespace $NAMESPACE$;
 
 use Illuminate\Bus\Queueable;
@@ -7,12 +7,24 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
+/**
+ * @class $CLASS$
+ * @brief [descripción detallada]
+ *
+ * [descripción corta]
+ *
+ * @author [autor de la clase] [correo del autor]
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class $CLASS$ extends Notification
 {
     use Queueable;
 
     /**
-     * Create a new notification instance.
+     * Crea una nueva instancia de la notificación.
+     *
+     * @method __construct
      *
      * @return void
      */
@@ -22,10 +34,13 @@ class $CLASS$ extends Notification
     }
 
     /**
-     * Get the notification's delivery channels.
+     * Obtiene los canales de entrega de las notificaciones
      *
-     * @param mixed $notifiable
-     * @return array
+     * @method    via
+     *
+     * @param     mixed    $notifiable    Objeto con información del usuario a notificar
+     *
+     * @return    array    Arreglo con los canales de entrega de las notificaciones
      */
     public function via($notifiable)
     {
@@ -33,10 +48,13 @@ class $CLASS$ extends Notification
     }
 
     /**
-     * Get the mail representation of the notification.
+     * Obtiene la representación por correo de la notificación
      *
-     * @param mixed $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @method    toMail
+     *
+     * @param     mixed    $notifiable    Objeto con información del usuario a notificar
+     *
+     * @return    \Illuminate\Notifications\Messages\MailMessage   Objeto con los datos del correo a envíar
      */
     public function toMail($notifiable)
     {
@@ -47,10 +65,13 @@ class $CLASS$ extends Notification
     }
 
     /**
-     * Get the array representation of the notification.
+     * Obtiene la representación del arreglo de la notificación
      *
-     * @param mixed $notifiable
-     * @return array
+     * @method    toArray
+     *
+     * @param     mixed    $notifiable    Objeto con información del usuario a notificar
+     *
+     * @return    array    [descripción de los datos a devolver]
      */
     public function toArray($notifiable)
     {

@@ -1,15 +1,27 @@
 <?php
-
+/** [descripción del namespace] */
 namespace $NAMESPACE$;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @class $CLASS$
+ * @brief [descripción detallada]
+ *
+ * [descripción corta]
+ *
+ * @author [autor de la clase] [correo del autor]
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class $CLASS$ extends FormRequest
 {
     /**
-     * Get the validation rules that apply to the request.
+     * Obtiene las reglas de validación a ser aplicadas a la petición.
      *
-     * @return array
+     * @method rules
+     *
+     * @return array    [descripción de los datos devueltos]
      */
     public function rules()
     {
@@ -19,9 +31,11 @@ class $CLASS$ extends FormRequest
     }
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determina si el usuario está autorizado para hacer la petición.
      *
-     * @return bool
+     * @method authorize
+     *
+     * @return bool     Devuelve verdadero si esta autorizado para hacer la petición, de lo contrario devuelve falso
      */
     public function authorize()
     {

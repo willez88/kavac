@@ -33,7 +33,7 @@ class CurrencyController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Muesta todos los registros de las monedas.
      *
      * @return \Illuminate\Http\JsonResponse
      */

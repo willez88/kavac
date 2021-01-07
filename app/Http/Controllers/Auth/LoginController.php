@@ -67,7 +67,7 @@ class LoginController extends Controller
     protected $decayMinutes = 300;
 
     /**
-     * Create a new controller instance.
+     * Crea una nueva instancia del controlador.
      *
      * @return void
      */
@@ -79,7 +79,7 @@ class LoginController extends Controller
     }
 
     /**
-     * Handle a login request to the application.
+     * Gestiona una petición de acceso a la aplicación.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Http\JsonResponse
@@ -114,7 +114,7 @@ class LoginController extends Controller
     }
 
     /**
-     * Get the failed login response instance.
+     * Obtiene la instancia de peticiones de acceso fallidas.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Symfony\Component\HttpFoundation\Response
@@ -129,7 +129,7 @@ class LoginController extends Controller
     }
 
     /**
-     * Validate the user login request.
+     * Valida la petición de acceso del usuario.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return void
@@ -154,7 +154,7 @@ class LoginController extends Controller
     }
 
     /**
-     * Get the login username to be used by the controller.
+     * Obtiene el campo usado como nombre de usuario para el acceso a la aplicación, usado por el controlador.
      *
      * @return string
      */
@@ -164,7 +164,7 @@ class LoginController extends Controller
     }
 
     /**
-     * The user has been authenticated.
+     * El usuario ha sido autenticado en la aplicación.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  mixed  $user
@@ -177,7 +177,13 @@ class LoginController extends Controller
     }
 
     /**
-     * Refresh the captcha image
+     * Actualiza la imagen del captcha
+     *
+     * @method    refreshCaptcha
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return    object            Objeto con los datos de la nueva imagen generada
      */
     public function refreshCaptcha()
     {

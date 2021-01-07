@@ -21,6 +21,11 @@ class DataExport implements FromCollection, WithHeadingRow
 {
     use Exportable;
 
+    /**
+     * Nombre del modelo al cual se va a realizar la exportación de datos
+     *
+     * @var    string   $model  Nombre del modelo
+     */
     protected $model;
 
     /**
@@ -35,10 +40,5 @@ class DataExport implements FromCollection, WithHeadingRow
     public function __contruct($model = null)
     {
         $this->model = $model;
-    }
-
-    public function collection()
-    {
-        //
     }
 }

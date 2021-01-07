@@ -7,7 +7,7 @@ use Illuminate\Database\Migrations\Migration;
 class $CLASS$ extends Migration
 {
     /**
-     * Run the migrations.
+     * Ejecuta las migraciones.
      *
      * @return void
      */
@@ -17,7 +17,7 @@ class $CLASS$ extends Migration
     }
 
     /**
-     * Reverse the migrations.
+     * Revierte las migraciones.
      *
      * @return void
      */

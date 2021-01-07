@@ -219,6 +219,15 @@ class UserController extends Controller
         return response()->json(['result' => true, 'record' => $user, 'message' => 'Success'], 200);
     }
 
+    /**
+     * Obtiene los roles y permisos disponibles
+     *
+     * @method    getRolesAndPermissions
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return    JsonResponse                    JSON con información de los roles y permisos
+     */
     public function getRolesAndPermissions()
     {
         $roles = Role::with('permissions')->where('slug', '<>', 'user')->get();

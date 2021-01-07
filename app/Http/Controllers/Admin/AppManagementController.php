@@ -1,5 +1,5 @@
 <?php
-
+/** Gestiona algunos procesos de acceso administrativo de la aplicación */
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;

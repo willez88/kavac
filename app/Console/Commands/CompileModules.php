@@ -1,14 +1,24 @@
 <?php
-
+/** Gestiona los comandos personalizados de la aplicación */
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Module;
 
+/**
+ * @class CompileModules
+ * @brief Gestiona las instrucciones necesarias para ejecutar los comandos para la compilación de archivos
+ *
+ * Gestiona las instrucciones para la compilación de archivos css y js
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class CompileModules extends Command
 {
     /**
-     * The name and signature of the console command.
+     * El combre y firma del comando, así como las opciones y argumentos que recibe
      *
      * @var string
      */
@@ -19,14 +29,14 @@ class CompileModules extends Command
                             {--s|system : With core compile}';
 
     /**
-     * The console command description.
+     * Descripción del comando.
      *
      * @var string
      */
     protected $description = 'compile assets modules';
 
     /**
-     * Create a new command instance.
+     * Crea una nueva instancia al comando.
      *
      * @return void
      */
@@ -36,7 +46,7 @@ class CompileModules extends Command
     }
 
     /**
-     * Execute the console command.
+     * Ejecuta el comando de la consola.
      *
      * @return int
      */
@@ -63,8 +73,11 @@ class CompileModules extends Command
         /** @var string Nombre del módulo que generó error al compilar */
         $errorModule = '';
 
+        /** @var object Objeto con información de los módulos habilitados en la aplicación */
         $modules = Module::collections(1);
+        /** @var integer Total de módulos habilitados */
         $count = (!$this->argument('module'))?count($modules):1;
+        /** @var integer contador que registra el número de modulo que se compila */
         $index = 1;
 
         if ($withCore) {

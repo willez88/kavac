@@ -9,7 +9,7 @@ use Arcanedev\LogViewer\Http\Controllers\LogViewerController as ArcanedevLogView
 class LogViewerController extends ArcanedevLogViewerController
 {
     /**
-     * Show the dashboard.
+     * Muestra el panel de control de logs del sistema.
      *
      * @return \Illuminate\View\View
      */

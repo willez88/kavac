@@ -1,13 +1,25 @@
 <?php
-
+/** [descripción del namespace] */
 namespace $NAMESPACE$;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * @class $CLASS$
+ * @brief [descripción detallada]
+ *
+ * [descripción corta]
+ *
+ * @author [autor de la clase] [correo del autor]
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class $CLASS$ extends ServiceProvider
 {
     /**
-     * Register the service provider.
+     * Registra el proveedor de servicios.
+     *
+     * @method register
      *
      * @return void
      */
@@ -17,9 +29,11 @@ class $CLASS$ extends ServiceProvider
     }
 
     /**
-     * Get the services provided by the provider.
+     * Obtiene los servicios proporcionados por el proveedor.
      *
-     * @return array
+     * @method provides
+     *
+     * @return array    [descripción de los datos devueltos]
      */
     public function provides()
     {

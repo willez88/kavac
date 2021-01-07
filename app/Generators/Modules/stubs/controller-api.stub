@@ -1,16 +1,31 @@
 <?php
-
+/** [descripción del namespace] */
 namespace $CLASS_NAMESPACE$;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+/**
+ * @class $CLASS$
+ * @brief [descripción detallada]
+ *
+ * [descripción corta]
+ *
+ * @author [autor de la clase] [correo del autor]
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class $CLASS$ extends Controller
 {
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * [descripción del método]
+     *
+     * @method    index
+     *
+     * @author    [nombre del autor] [correo del autor]
+     *
+     * @return    Response    [description de los datos devueltos]
      */
     public function index()
     {
@@ -18,9 +33,15 @@ class $CLASS$ extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Response
+     * [descripción del método]
+     *
+     * @method    store
+     *
+     * @author    [nombre del autor] [correo del autor]
+     *
+     * @param     object    Request    $request    Objeto con información de la petición
+     *
+     * @return    Response    [description de los datos devueltos]
      */
     public function store(Request $request)
     {
@@ -28,9 +49,15 @@ class $CLASS$ extends Controller
     }
 
     /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Response
+     * [descripción del método]
+     *
+     * @method    show
+     *
+     * @author    [nombre del autor] [correo del autor]
+     *
+     * @param     integer    $id    Identificador del registro
+     *
+     * @return    Response    [description de los datos devueltos]
      */
     public function show($id)
     {
@@ -38,10 +65,16 @@ class $CLASS$ extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Response
+     * [descripción del método]
+     *
+     * @method    update
+     *
+     * @author    [nombre del autor] [correo del autor]
+     *
+     * @param     object    Request    $request         Objeto con datos de la petición
+     * @param     integer   $id        Identificador del registro
+     *
+     * @return    Response    [description de los datos devueltos]
      */
     public function update(Request $request, $id)
     {
@@ -52,6 +85,17 @@ class $CLASS$ extends Controller
      * Remove the specified resource from storage.
      * @param int $id
      * @return Response
+     */
+    /**
+     * [descripción del módulo]
+     *
+     * @method    destroy
+     *
+     * @author    [nombre del autor] [correo del autor]
+     *
+     * @param     integer    $id    Identificador del registro
+     *
+     * @return    Response    [descripción de los datos devueltos]
      */
     public function destroy($id)
     {

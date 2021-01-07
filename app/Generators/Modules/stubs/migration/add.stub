@@ -7,26 +7,26 @@ use Illuminate\Database\Migrations\Migration;
 class $CLASS$ extends Migration
 {
     /**
-     * Run the migrations.
+     * Ejecuta las migraciones.
      *
      * @return void
      */
     public function up()
     {
         Schema::table('$TABLE$', function (Blueprint $table) {
-$FIELDS_UP$
+            $FIELDS_UP$
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Revierte las migraciones.
      *
      * @return void
      */
     public function down()
     {
         Schema::table('$TABLE$', function (Blueprint $table) {
-$FIELDS_DOWN$
+            $FIELDS_DOWN$
         });
     }
 }

@@ -1,5 +1,5 @@
 <?php
-
+/** [descripción del namespace] */
 namespace $NAMESPACE$;
 
 use Illuminate\Bus\Queueable;
@@ -7,12 +7,24 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
+/**
+ * @class $CLASS$
+ * @brief [descripción detallada]
+ *
+ * [descripción corta]
+ *
+ * @author [autor de la clase] [correo del autor]
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class $CLASS$ extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
-     * Create a new message instance.
+     * Crea una nueva instancia del mensaje.
+     *
+     * @method __construct
      *
      * @return void
      */
@@ -22,9 +34,11 @@ class $CLASS$ extends Mailable
     }
 
     /**
-     * Build the message.
+     * Construye el mensaje.
      *
-     * @return $this
+     * @method buils
+     *
+     * @return View     Retorna la vista del correo
      */
     public function build()
     {

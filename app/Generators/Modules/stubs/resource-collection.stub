@@ -1,16 +1,29 @@
 <?php
-
+/** [descripción del namespace] */
 namespace $NAMESPACE$;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
+/**
+ * @class $CLASS$
+ * @brief [descripción detallada]
+ *
+ * [descripción corta]
+ *
+ * @author [autor de la clase] [correo del autor]
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class $CLASS$ extends ResourceCollection
 {
     /**
-     * Transform the resource collection into an array.
+     * Transforma el recurso de colección en un arreglo.
      *
-     * @param  \Illuminate\Http\Request
-     * @return array
+     * @method toArray
+     *
+     * @param  \Illuminate\Http\Request     Objeto con datos de la petición
+     *
+     * @return array    Devuelve un arreglo con los datos de la colección
      */
     public function toArray($request)
     {

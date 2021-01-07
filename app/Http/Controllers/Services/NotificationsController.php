@@ -16,10 +16,20 @@ use App\Http\Controllers\Controller;
  */
 class NotificationsController extends Controller
 {
+    /**
+     * Muestra las notificaciones del sistema
+     *
+     * @method    show
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return    View    Vista con las notificaciones
+     */
     public function show()
     {
         return view('auth.notifications');
     }
+
     /**
      * Obtiene las notificaciones no leídas
      *
