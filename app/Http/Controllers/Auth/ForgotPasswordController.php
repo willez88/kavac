@@ -11,10 +11,6 @@ use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
  * @brief Gestiona el olvido de contraseña
  *
  * Controlador para gestionar la recuperación de contraseñas de usuario
- *
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license
- *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class ForgotPasswordController extends Controller
 {
@@ -33,6 +29,8 @@ class ForgotPasswordController extends Controller
 
     /**
      * Crea una nueva instancia del controlador.
+     *
+     * @method  __construct
      *
      * @return void
      */

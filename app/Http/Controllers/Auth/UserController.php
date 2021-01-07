@@ -21,6 +21,7 @@ use App\Notifications\UserRegistered;
  * Controlador para gestionar usuarios
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
@@ -29,9 +30,12 @@ class UserController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Muesta todos los registros de los usuarios
+     * Listado de todos los registros de los usuarios
+     *
+     * @method  index
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return \Illuminate\View\View
      */
     public function index()
@@ -42,7 +46,10 @@ class UserController extends Controller
     /**
      * Muestra el formulario para crear un nuevo registro de usuario
      *
+     * @method  create
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return \Illuminate\View\View
      */
     public function create()
@@ -67,11 +74,15 @@ class UserController extends Controller
     }
 
     /**
-     * Valida y registra un nuevo usuario
+     * Registra un nuevo usuario
+     *
+     * @method  store
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     *
+     * @param  Request  $request
+     *
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -86,10 +97,13 @@ class UserController extends Controller
         ]);
 
         if ($request->staff) {
+            /** @var Profile Objeto con información del perfil del usuario */
             $profile = Profile::find($request->staff);
         }
 
+        /** @var string Hash con una contraseña generada aleatoriamente */
         $password = generate_hash();
+        /** @var User Objeto con información del usuario registrado */
         $user = User::create([
             'name' => (!isset($profile))?$request->first_name:trim($profile->first_name . ' ' .$profile->last_name ?? ''),
             'email' => $request->email,
@@ -99,6 +113,7 @@ class UserController extends Controller
         ]);
 
         if (!$request->staff) {
+            /** @var Profile Instancia al modelo de perfil de usuario */
             $profile = new Profile;
             $profile->first_name = $request->first_name;
         }
@@ -107,9 +122,11 @@ class UserController extends Controller
         $profile->save();
 
         if (isset($request->role)) {
+            // Asigna los roles al usuario
             $user->syncRoles($request->role);
         }
         if (isset($request->permission)) {
+            // Asigna los permisos al usuario
             $user->syncPermissions($request->permission);
         }
 
@@ -127,13 +144,19 @@ class UserController extends Controller
     /**
      * Muestra información acerca del usuario
      *
+     * @method  show
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\User  $user
+     *
+     * @param  User  $user
+     *
      * @return \Illuminate\View\View
      */
     public function show(User $user)
     {
+        /** @var User Objeto con información del usuario */
         $model = $user;
+        /** @var array Atributos del formulario para la gestión de usuarios */
         $header = [
             'route' => ['users.update', $user->id], 'method' => 'PUT', 'role' => 'form', 'class' => 'form',
         ];
@@ -143,17 +166,23 @@ class UserController extends Controller
     /**
      * Muestra el formulario para actualizar información de un usuario
      *
+     * @method  edit
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\User  $user
+     *
+     * @param  User  $user
+     *
      * @return \Illuminate\View\View
      */
     public function edit(User $user)
     {
+        /** @var array Arreglo con atributos del formulario para la actualización de datos */
         $header = [
             'route' => ['users.update', $user->id],
             'method' => 'PUT',
             'role' => 'form'
         ];
+        /** @var User Objeto con información del usuario */
         $model = $user;
         return view('auth.register', compact('header', 'model'));
     }
@@ -161,10 +190,14 @@ class UserController extends Controller
     /**
      * Actualiza la información del usuario
      *
+     * @method  update
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\RedirectResponse
+     *
+     * @param  Request  $request
+     * @param  User  $user
+     *
+     * @return RedirectResponse
      */
     public function update(Request $request, User $user)
     {
@@ -202,11 +235,15 @@ class UserController extends Controller
     }
 
     /**
-     * Elimina el usuario
+     * Elimina un usuario
+     *
+     * @method  destroy
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @param  User  $user
+     *
+     * @return JsonResponse
      */
     public function destroy(User $user)
     {
@@ -230,7 +267,9 @@ class UserController extends Controller
      */
     public function getRolesAndPermissions()
     {
+        /** @var Role Objeto con información de roles registrados */
         $roles = Role::with('permissions')->where('slug', '<>', 'user')->get();
+        /** @var Permission Objeto con información de los permisos registrados */
         $permissions = Permission::with('roles')->orderBy('model_prefix')->get();
         return response()->json(['result' => true, 'roles' => $roles, 'permissions' => $permissions], 200);
     }
@@ -238,9 +277,13 @@ class UserController extends Controller
     /**
      * Configuración de permisos asociados a roles de usuarios
      *
+     * @method  setRolesAndPermissions
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse Retorna la vista que ejecuta la acción junto con el mensaje al usuario
+     *
+     * @param Request  $request
+     *
+     * @return JsonResponse Retorna la vista que ejecuta la acción junto con el mensaje al usuario
      */
     public function setRolesAndPermissions(Request $request)
     {
@@ -254,9 +297,10 @@ class UserController extends Controller
             $r->detachAllPermissions();
         }
 
-        $roleConsult = '';
+        /** @var array Arreglo con listado de roles y permisos asociados */
         $rolesAndPerms = [];
-        /** Crea un arreglo de permisos asociados a los diferentes roles seleccionados */
+
+        // Crea un arreglo de permisos asociados a los diferentes roles seleccionados
         foreach ($request->roles_attach_permissions as $role_perm) {
             list($role_id, $perm_id) = explode("_", $role_perm);
             if (!array_key_exists($role_id, $rolesAndPerms)) {
@@ -264,7 +308,8 @@ class UserController extends Controller
             }
             array_push($rolesAndPerms[$role_id], $perm_id);
         }
-        /** Asigna los distintos permisos a los roles */
+
+        // Asigna los distintos permisos a los roles
         foreach ($rolesAndPerms as $roleId => $roleValues) {
             $role = Role::find($roleId);
             if ($role) {
@@ -278,8 +323,12 @@ class UserController extends Controller
     /**
      * Muestra el formulario para la asignación de roles y permisos a usuarios
      *
+     * @method  assignAccess
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\User   $user Modelo de Usuario
+     *
+     * @param  User   $user Modelo de Usuario
+     *
      * @return \Illuminate\View\View
      */
     public function assignAccess(User $user)
@@ -290,22 +339,28 @@ class UserController extends Controller
     /**
      * Assigna permisos de acceso a los usuarios del sistema
      *
+     * @method  setAccess
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @param Request $request Objeto con los datos de la petición
      */
     public function setAccess(Request $request)
     {
+        /** @var array Arreglo con reglas de validación */
         $rules = [
             'user' => ['required'],
             'role' => ['required_without:permission', 'array'],
             'permission' => ['required_without:role', 'array', 'min:1']
         ];
+        /** @var array Arreglo con mensajes de validación */
         $messages = [
             'user.required' => __('Se requiere de un usuario para asignar roles y permisos'),
             'role.max' => __('Solo puede asignar un rol al usuario'),
             'permission.min' => __('Se requiere al menos un permiso asignado al usuario')
         ];
 
+        /** @var User Objeto con información de un usuario */
         $user = User::find($request->user);
 
         if (isset($request->role)) {
@@ -313,11 +368,13 @@ class UserController extends Controller
                 if (Role::find($role)->permissions->isEmpty()) {
                     $rules['permission'] = str_replace('required_without:role', 'required', $rules['permission']);
                     if (count($request->role) > 1) {
+                        /** @var string Mensaje a mostrar en la validación de roles */
                         $msg = __(
                             'Uno de los roles seleccionados no tiene permisos asignados, ' .
                             'debe indicar los permisos de acceso'
                         );
                     } else {
+                        /** @var string Mensaje a mostrar en la validación de roles */
                         $msg = __(
                             'El rol seleccionado no tiene permisos asignados, debe indicar los permisos de acceso'
                         );
@@ -348,12 +405,17 @@ class UserController extends Controller
     /**
      * Muestra información del usuario
      *
+     * @method  info
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\User                              $user Objero que abstrae información del usuario
-     * @return \Illuminate\Http\JsonResponse     Devuelve los datos asociados al usuario
+     *
+     * @param  User                              $user Objero que abstrae información del usuario
+     *
+     * @return JsonResponse     Devuelve los datos asociados al usuario
      */
     public function info(User $user)
     {
+        /** @var array Arreglo con las relaciones a incorporar en la información del usuario */
         $with = [];
         if ($user->profile !== null) {
             $with[] = 'profile';
@@ -399,21 +461,28 @@ class UserController extends Controller
      */
     public function userSettings()
     {
+        /** @var User Objeto con información del usuario autenticado en la aplicación */
         $user = auth()->user();
+        /** @var object Objeto con información de los permisos asociados a un usuario */
         $userPermissions = $user->getPermissions()->where('slug', '<>', '')->pluck('slug')->toArray();
+        /** @var array Arreglo con información de los permisos asociados a notificaciones de usuarios */
         $arr = array_filter($userPermissions, function ($value, $index) {
             return strpos($value, 'notify') !== false;
         }, ARRAY_FILTER_USE_BOTH);
+        /** @var array Arreglo de permisos para notificaciones */
         $userPermissions = $arr;
 
+        /** @var NotificationSetting Objeto con información de la configuración de notificaciones */
         $notifySettings = NotificationSetting::whereIn(
             'perm_required',
             $userPermissions
         )->orWhereNull('perm_required')->get();
 
+        /** @var array Arreglo con los atributos del formulario para el registro de configuraciones del usuario */
         $header_general_settings = [
             'route' => 'set.my.settings', 'method' => 'POST', 'role' => 'form', 'class' => 'form'
         ];
+        /** @var array Arreglo con los atributos del formulario para la configuraciones de notificaciones del usuario */
         $header_notify_settings = [
             'route' => 'set.my.notifications', 'method' => 'POST', 'role' => 'form', 'class' => 'form',
         ];
@@ -434,10 +503,11 @@ class UserController extends Controller
      *
      * @param      Request            $request   Objeto con datos de la petición
      *
-     * @return     \Illuminate\Http\RedirectResponse     redirecciona a la página de configuración del usuario
+     * @return     RedirectResponse     redirecciona a la página de configuración del usuario
      */
     public function setUserSettings(Request $request)
     {
+        /** @var User Objeto con información de un usuario */
         $user = User::find(auth()->user()->id);
         $user->lock_screen = (!is_null($request->lock_screen));
         $user->time_lock = $request->time_lock ?? 10;
@@ -461,15 +531,18 @@ class UserController extends Controller
      */
     public function setMyNotifications(Request $request)
     {
+        /** @var object Objeto con informaciós de las configuraciones del usuario a establecer */
         $fields = $request->all();
 
         if (count($fields) > 1) {
             auth()->user()->notificationSettings()->detach();
+            /** @var array Arreglo con los identificadores de las configuraciones de notificaciones */
             $notifications = [];
             foreach ($fields as $keyField => $valueField) {
                 if ($keyField === '_token') {
                     continue;
                 }
+                /** @var NotificationSetting Objeto con información de la configuración de notificación */
                 $notifySetting = NotificationSetting::where('slug', $keyField)->first();
 
                 if ($notifySetting) {
@@ -490,7 +563,7 @@ class UserController extends Controller
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
-     * @return     \Illuminate\Http\JsonResponse     Devuelve los datos correspondientes a la pantalla de bloqueo
+     * @return     JsonResponse     Devuelve los datos correspondientes a la pantalla de bloqueo
      */
     public function getLockScreenData()
     {
@@ -507,10 +580,11 @@ class UserController extends Controller
      *
      * @param      Request          $request    Datos de la petición
      *
-     * @return      \Illuminate\Http\JsonResponse     Devuelve el resultado de la operación
+     * @return      JsonResponse     Devuelve el resultado de la operación
      */
     public function setLockScreenData(Request $request)
     {
+        /** @var User Objeto con información de un usuario */
         $user = User::find(auth()->user()->id);
         $user->lock_screen = $request->lock_screen;
         $user->save();
@@ -526,10 +600,11 @@ class UserController extends Controller
      *
      * @param      Request          $request    Datos de la petición
      *
-     * @return     \Illuminate\Http\JsonResponse     Devuelve el resultado de la operación
+     * @return     JsonResponse     Devuelve el resultado de la operación
      */
     public function unlockScreen(Request $request)
     {
+        /** @var User Objeto con información de un usuario */
         $user = User::where('username', $request->username)->first();
 
         /** Verifica si la contraseña es correcta, de lo contrario retorna falso */
@@ -539,11 +614,11 @@ class UserController extends Controller
 
         // Agregar funcionalidad para determinar si el usuario esta autenticado (aplica para cuando expira la sesion)
         if (!auth()->check()) {
+            /** @var object Objeto con información de las credenciales de acceso de un usuario */
             $userCredentials = $request->only('email', 'password');
             if (!Auth::attempt($userCredentials)) {
                 return response()->json(['result' => false], 200);
             }
-            //$this->login($request);
         }
 
         /** @var boolean actualiza el campo que determina si la pantalla de bloqueo esta o no activada */

@@ -14,6 +14,7 @@ use Illuminate\Notifications\Messages\MailMessage;
  * [descripción corta]
  *
  * @author [autor de la clase] [correo del autor]
+ *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */

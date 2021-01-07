@@ -18,6 +18,7 @@ use App\Models\City;
  * Controlador para gestionar servicios de localización (Países, Estados, Municipios, Parroquias, Ciudades, etc...)
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
@@ -28,6 +29,8 @@ class LocatesController extends Controller
 
     /**
      * Método constructor de la clase
+     *
+     * @method  __construct
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
@@ -42,9 +45,11 @@ class LocatesController extends Controller
     /**
      * Obtiene todos los Países registrados
      *
+     * @method  getCountries
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @property string $country Identificador del país
-     * @return \Illuminate\Http\JsonResponse JSON con los datos de los Países registrados
+     *
+     * @return JsonResponse JSON con los datos de los Países registrados
      */
     public function getCountries()
     {
@@ -61,9 +66,13 @@ class LocatesController extends Controller
     /**
      * Obtiene los Estados asociados al País indicado
      *
+     * @method  getEstates
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @param  integer $country_id Identificador del País
-     * @return \Illuminate\Http\JsonResponse    JSON con los datos de los Estados asociados al País indicado
+     *
+     * @return JsonResponse    JSON con los datos de los Estados asociados al País indicado
      */
     public function getEstates($country_id)
     {
@@ -80,9 +89,13 @@ class LocatesController extends Controller
     /**
      * Obtiene los Municipios de un Estado
      *
+     * @method  getMunicipalities
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @param  integer $estate_id Identificador del Estado
-     * @return \Illuminate\Http\JsonResponse    JSON con los datos de los Municipios asociados al Estado indicado
+     *
+     * @return JsonResponse    JSON con los datos de los Municipios asociados al Estado indicado
      */
     public function getMunicipalities($estate_id)
     {
@@ -99,9 +112,13 @@ class LocatesController extends Controller
     /**
      * Obtiene las Ciudades asociadas a un Estado
      *
+     * @method  getCities
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @param  integer $estate_id Identificador del Estado
-     * @return \Illuminate\Http\JsonResponse    JSON con los datos de las Ciudades asociadas al Estado indicado
+     *
+     * @return JsonResponse    JSON con los datos de las Ciudades asociadas al Estado indicado
      */
     public function getCities($estate_id)
     {
@@ -118,9 +135,13 @@ class LocatesController extends Controller
     /**
      * Obtiene las Parroquias de un Municipio
      *
+     * @method  getParishes
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @param  integer $municipality_id Identificador del Municipio
-     * @return \Illuminate\Http\JsonResponse      JSON con los datos de las Parroquias asociadas a un Municipio
+     *
+     * @return JsonResponse      JSON con los datos de las Parroquias asociadas a un Municipio
      */
     public function getParishes($municipality_id)
     {

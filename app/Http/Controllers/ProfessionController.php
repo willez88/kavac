@@ -21,6 +21,8 @@ class ProfessionController extends Controller
     /**
      * Define la configuración de la clase
      *
+     * @method  __construct
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function __construct()
@@ -33,10 +35,13 @@ class ProfessionController extends Controller
     }
 
     /**
-     * Muesta todos los registros de profesiones
+     * Listado de todos los registros de profesiones
+     *
+     * @method  index
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return JsonResponse     JSON con el listado de profesiones
      */
     public function index()
     {
@@ -44,11 +49,15 @@ class ProfessionController extends Controller
     }
 
     /**
-     * Valida y registra una nueva profesión
+     * Registra una nueva profesión
+     *
+     * @method  store
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @param  Request  $request    Objeto con información de la petición
+     *
+     * @return JsonResponse         JSON con información del resultado del registro
      */
     public function store(Request $request)
     {
@@ -57,14 +66,13 @@ class ProfessionController extends Controller
             'acronym' => ['max:10']
         ]);
 
-        if ($prof = Profession::onlyTrashed()->whereName($request->name)->first()) {
-            $prof->restore();
-        } else {
+        if (!restore_record(Profession::class, ['name' => $request->name])) {
             $this->validate($request, [
                 'name' => ['unique:professions,name']
             ]);
         }
 
+        /** @var Profession Objeto con información de la profesión registrada */
         $profession = Profession::updateOrCreate([
             'name' => $request->name
         ], [
@@ -75,12 +83,15 @@ class ProfessionController extends Controller
     }
 
     /**
-     * Actualiza la información de la profesión
+     * Actualiza la información de una profesión
+     *
+     * @method  update
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Profession  $profession
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @param  Request  $request        Objeto con información de la petición
+     * @param  Profession  $profession  Objeto con información de la profesión a actualizar
+     * @return JsonResponse             JSON con el resultado de la actualización
      */
     public function update(Request $request, Profession $profession)
     {
@@ -97,11 +108,14 @@ class ProfessionController extends Controller
     }
 
     /**
-     * Elimina la profesión
+     * Elimina una profesión
+     *
+     * @method  destroy
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\Profession  $profession
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @param  Profession  $profession  Objeto con información de la profesión a eliminar
+     * @return JsonResponse             JSON con el resultado de la eliminación
      */
     public function destroy(Profession $profession)
     {
@@ -112,9 +126,13 @@ class ProfessionController extends Controller
     /**
      * Obtiene las profesiones registradas
      *
+     * @method  getProfessions
+     *
      * @author  William Páez <wpaez@cenditel.gob.ve>
+     *
      * @param  integer $id                      Identificador de la profesión a buscar, este parámetro es opcional
-     * @return \Illuminate\Http\JsonResponse    JSON con los datos de las profesiones
+     *
+     * @return JsonResponse    JSON con los datos de las profesiones
      */
     public function getProfessions($id = null)
     {

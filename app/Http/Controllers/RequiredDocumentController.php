@@ -1,15 +1,26 @@
 <?php
-
 /** Controladores base de la aplicación */
 namespace App\Http\Controllers;
 
 use App\Models\RequiredDocument;
 use Illuminate\Http\Request;
 
+/**
+ * @class RequiredDocumentController
+ * @brief Gestiona información de documentos requeridos
+ *
+ * Controlador para gestionar documentos requeridos
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class RequiredDocumentController extends Controller
 {
     /**
      * Define la configuración de la clase
+     *
+     * @method  __construct
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
@@ -23,9 +34,16 @@ class RequiredDocumentController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Listado de todos los requerimientos de documentos registrados
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @method    index
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     string        $model     Nombre del modelo de referencia
+     * @param     string|null   $module    Nombre del módulo de referencia. Este parámetro es opcional
+     *
+     * @return    JsonResponse  JSON con el listado de requerimientos de documentos
      */
     public function index($model, $module = null)
     {
@@ -35,10 +53,17 @@ class RequiredDocumentController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Registra un nuevo requerimiento de documentos
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @method    store
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request       $request    Objeto con información de la petición
+     * @param     string        $model      Nombre del modelo de referencia
+     * @param     string|null   $module     Nombre del módulo de referencia. Este parámetro es opcional
+     *
+     * @return    JsonResponse  JSON con el resultado de requerimientos de documentos registrado
      */
     public function store(Request $request, $model, $module = null)
     {
@@ -46,7 +71,7 @@ class RequiredDocumentController extends Controller
             'name' => ['required'],
         ]);
 
-
+        /** @var RequiredDocument Objeto con información del requerimiento de documento registrado */
         $requiredDocument = RequiredDocument::create([
             'name' => $request->name,
             'description' => $request->description ?? null,
@@ -58,11 +83,19 @@ class RequiredDocumentController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza la información de un requerimiento de documento
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\RequiredDocument  $requiredDocument
-     * @return \Illuminate\Http\JsonResponse
+     * @method    update
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request             $request             Objeto con información de la petición
+     * @param     string              $model               Nombre del modelo de referencia
+     * @param     string|null         $module              Nombre del módulo de referencia
+     * @param     RequiredDocument    $requiredDocument    Objeto con información del requerimiento de documento a
+     *                                                     actualizar
+     *
+     * @return    JsonResponse        JSON con el resultado de requerimientos de documentos registrado
      */
     public function update(Request $request, $model, $module, RequiredDocument $requiredDocument)
     {
@@ -80,10 +113,18 @@ class RequiredDocumentController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina un requerimiento de documento
      *
-     * @param  \App\Models\RequiredDocument  $requiredDocument
-     * @return \Illuminate\Http\JsonResponse
+     * @method    destroy
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     string              $model               Nombre del modelo de referencia
+     * @param     string|null         $module              Nombre del módulo de referencia
+     * @param     RequiredDocument    $requiredDocument    Objeto con información del requerimiento de documento a
+     *                                                     actualizar
+     *
+     * @return    JsonResponse        JSON con el resultado de requerimientos de documentos registrado
      */
     public function destroy($model, $module, RequiredDocument $requiredDocument)
     {

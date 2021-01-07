@@ -13,6 +13,7 @@ use App\Repositories\BackupRepository;
  * Controlador para gestionar respaldos
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
@@ -21,13 +22,17 @@ class BackupController extends Controller
     /**
      * Muestra un listado de respaldos del sistema
      *
+     * @method  index
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Repositories\BackupRepository $backup Objeto con los métodos a implementar para la
-     *                                                    gestión de respaldos
-     * @return \Illuminate\View\View    Devuelve la vista con los datos a mostrar
+     *
+     * @param  BackupRepository $backup Objeto con los métodos a implementar para la gestión de respaldos
+     *
+     * @return View    Devuelve la vista con los datos a mostrar
      */
     public function index(BackupRepository $backup)
     {
+        /** @var array Arreglo con el listado de respaldos */
         $backups = $backup->getList(
             config('backup.backup.destination.disks'),
             config('backup.backup.name')
@@ -39,11 +44,13 @@ class BackupController extends Controller
     /**
      * Crea un nuevo respaldo
      *
+     * @method  create
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Repositories\BackupRepository $backup Objeto con los métodos a implementar para la gestión
-     *                                                   de respaldos
-     * @return \Illuminate\Http\RedirectResponse         Redirecciona a la página anterior después de realizar
-     *                                                   el respaldo
+     *
+     * @param  BackupRepository $backup Objeto con los métodos a implementar para la gestión de respaldos
+     *
+     * @return RedirectResponse         Redirecciona a la página anterior después de realizar el respaldo
      */
     public function create(BackupRepository $backup)
     {
@@ -55,13 +62,17 @@ class BackupController extends Controller
     /**
      * Descarga un respaldo solicitado
      *
+     * @method  download
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  string           $file_name Nombre del archivo a descargar
-     * @param  \App\Repositories\BackupRepository   $backup    Objeto con los métodos para la gestión de respaldos
-     * @return \Symfony\Component\HttpFoundation\StreamedResponse    Retorna el response para la descarga del archivo
+     *
+     * @param  string           $file_name      Nombre del archivo a descargar
+     * @param  BackupRepository $backup         Objeto con los métodos para la gestión de respaldos
+     * @return StreamedResponse                 Retorna el response para la descarga del archivo
      */
     public function download($file_name, BackupRepository $backup)
     {
+        /** @var array Arreglo con información del archivo a descargar */
         $down = $backup->getFile(
             config('backup.backup.destination.disks'),
             config('backup.backup.name'),
@@ -72,8 +83,11 @@ class BackupController extends Controller
             abort(404, __('El archivo de respaldo no existe.'));
         }
 
+        /** @var string Texto con el contenido del archivo */
         $stream = $down['stream'];
+        /** @var string Texto con el nombre del driver a usar para el sistema de archivos */
         $fs = $down['fs'];
+        /** @var string Ruta en donde se encuentra el archivo a descargar */
         $file = $down['file'];
 
         return \Response::stream(function () use ($stream) {
@@ -86,18 +100,22 @@ class BackupController extends Controller
     }
 
     /**
-     * Deletes a backup file.
-     */
-    /**
      * Elimina un archivo de respaldo
-     * @param  string         $file_name                    Nombre del archivo a eliminar
-     * @param  \App\Repositories\BackupRepository $backup   Objeto con los métodos para la gestión de respaldos
-     * @return \Illuminate\Http\RedirectResponse            Muestra una página de error 404 si el archivo no pudo ser
-     *                                                      eliminado, si el procedimiento fue exitoso retorna al
-     *                                                      listado de respaldos
+     *
+     * @method  delete
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param  string               $file_name      Nombre del archivo a eliminar
+     * @param  BackupRepository     $backup         Objeto con los métodos para la gestión de respaldos
+     *
+     * @return RedirectResponse                     Muestra una página de error 404 si el archivo no pudo ser
+     *                                              eliminado, si el procedimiento fue exitoso retorna al
+     *                                              listado de respaldos
      */
     public function delete($file_name, BackupRepository $backup)
     {
+        /** @var boolean Determina si el archivo fue eliminado o no */
         $removed = $backup->delFile(
             config('backup.backup.destination.disks'),
             config('backup.backup.name'),
@@ -127,8 +145,10 @@ class BackupController extends Controller
      */
     public function restore(Request $request, BackupRepository $backup)
     {
+        /** @var string Ruta del archivo a restaurar */
         $filename = $request->filename;
 
+        /** @var boolean Determina si el archivo fue restaurado o no */
         $restaured = $backup->restore($filename, $request);
 
         return response()->json(['result' => $restaured], 200);

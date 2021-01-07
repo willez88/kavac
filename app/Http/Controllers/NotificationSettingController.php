@@ -1,16 +1,28 @@
 <?php
-
+/** Controladores base de la aplicación */
 namespace App\Http\Controllers;
 
 use App\Models\NotificationSetting;
 use Illuminate\Http\Request;
 
+/**
+ * @class NotificationSettingController
+ * @brief Gestiona información para la configuración de notificaciones del sistema
+ *
+ * Controlador para gestionar configuración de notificaciones
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class NotificationSettingController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listado de las configuraciones de notificaciones registradas
      *
-     * @return \Illuminate\Http\Response
+     * @method    index
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function index()
     {
@@ -18,9 +30,11 @@ class NotificationSettingController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra un formulario para el registro de configuración de notificaciones
      *
-     * @return \Illuminate\Http\Response
+     * @method    create
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function create()
     {
@@ -28,10 +42,13 @@ class NotificationSettingController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Registra una nueva configuración de notificaciones
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @method    store
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request    $request    Objeto con información de la petición
      */
     public function store(Request $request)
     {
@@ -39,10 +56,14 @@ class NotificationSettingController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra información de una configuración de notificación
      *
-     * @param  \App\Models\NotificationSetting  $notificationSetting
-     * @return \Illuminate\Http\Response
+     * @method    show
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     NotificationSetting    $notificationSetting    Objeto con los datos de la configuración de
+     *                                                           notificación a mostrar
      */
     public function show(NotificationSetting $notificationSetting)
     {
@@ -50,10 +71,13 @@ class NotificationSettingController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra un formulario con información de una configuración de notificaciones a actualizar
      *
-     * @param  \App\Models\NotificationSetting  $notificationSetting
-     * @return \Illuminate\Http\Response
+     * @method    edit
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     NotificationSetting    $notificationSetting    Objeto con información de la configuración a actualizar
      */
     public function edit(NotificationSetting $notificationSetting)
     {
@@ -61,11 +85,14 @@ class NotificationSettingController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza información sobre una configuración de notificaciones
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\NotificationSetting  $notificationSetting
-     * @return \Illuminate\Http\Response
+     * @method    update
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request                $request                Objeto con información de la petición
+     * @param     NotificationSetting    $notificationSetting    Objeto con información de la configuración a actualizar
      */
     public function update(Request $request, NotificationSetting $notificationSetting)
     {
@@ -73,10 +100,13 @@ class NotificationSettingController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina una configuración de notificaciones
      *
-     * @param  \App\Models\NotificationSetting  $notificationSetting
-     * @return \Illuminate\Http\Response
+     * @method    destroy
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     NotificationSetting    $notificationSetting    Objeto con información de la configuración a eliminar
      */
     public function destroy(NotificationSetting $notificationSetting)
     {

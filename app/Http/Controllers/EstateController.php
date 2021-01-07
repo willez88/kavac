@@ -22,6 +22,8 @@ class EstateController extends Controller
     /**
      * Define la configuración de la clase
      *
+     * @method  __construct
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function __construct()
@@ -34,10 +36,13 @@ class EstateController extends Controller
     }
 
     /**
-     * Muesta todos los registros de los Estados
+     * Listado de todos los registros de los Estados
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\Http\JsonResponse
+     * @method    index
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return    JsonResponse      JSON con información de los Estados registrados
      */
     public function index()
     {
@@ -45,11 +50,15 @@ class EstateController extends Controller
     }
 
     /**
-     * Valida y registra un nuevo Estado
+     * Registra un nuevo Estado
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @method    store
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request    $request    Objeto con información de la petición
+     *
+     * @return    JsonResponse      JSON con información de respuesta a la petición
      */
     public function store(Request $request)
     {
@@ -59,11 +68,7 @@ class EstateController extends Controller
             'country_id' => ['required']
         ]);
 
-        if ($e = Estate::onlyTrashed()->where([
-            'name' => $request->name, 'country_id' => $request->country_id
-        ])->first()) {
-            $e->restore();
-        } else {
+        if (!restore_record(Estate::class, ['name' => $request->name, 'country_id' => $request->country_id])) {
             $this->validate($request, [
                 'name' => Rule::unique('estates')->where(function ($query) use ($request) {
                     return $query->where('country_id', $request->country_id)->where('name', $request->name);
@@ -71,6 +76,7 @@ class EstateController extends Controller
             ]);
         }
 
+        /** @var Estate Objeto con información del Estado */
         $estate = Estate::updateOrCreate([
             'name' => $request->name,
             'country_id' => $request->country_id
@@ -84,10 +90,14 @@ class EstateController extends Controller
     /**
      * Actualiza la información del Estado
      *
+     * @method  update
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Estate  $estate
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @param  Request  $request    Objeto con información de la petición
+     * @param  Estate   $estate     Objeto con información del Estado a actualizar
+     *
+     * @return JsonResponse     JSON con datos de respuesta a la petición
      */
     public function update(Request $request, Estate $estate)
     {
@@ -106,11 +116,15 @@ class EstateController extends Controller
     }
 
     /**
-     * Elimina el Estado
+     * Elimina un Estado
+     *
+     * @method  destroy
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\Estate  $estate
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @param  Estate  $estate  Objeto con información del Estado a eliminar
+     *
+     * @return JsonResponse     JSON con datos del Estado eliminado
      */
     public function destroy(Estate $estate)
     {

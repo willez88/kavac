@@ -16,6 +16,7 @@ use App\Rules\Rif as RifRule;
  * Controlador para gestionar Instituciones
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
@@ -26,6 +27,8 @@ class InstitutionController extends Controller
 
     /**
      * Método constructor de la clase
+     *
+     * @method  __construct
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
@@ -38,10 +41,13 @@ class InstitutionController extends Controller
     }
 
     /**
-     * Muesta todos los registros de las Instituciones
+     * Listado de todos los registros de organismos
+     *
+     * @method  index
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\Http\JsonResponse|void
+     *
+     * @return JsonResponse     JSON con el listado de organismos
      */
     public function index(Request $request)
     {
@@ -52,11 +58,15 @@ class InstitutionController extends Controller
     }
 
     /**
-     * Valida y registra una nueva Institución
+     * Registra un nuevo organismo
+     *
+     * @method  store
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     *
+     * @param  Request  $request    Objeto con información de la petición
+     *
+     * @return RedirectResponse     Redirecciona al usuario a la página de listado de organismos
      */
     public function store(Request $request)
     {
@@ -75,14 +85,20 @@ class InstitutionController extends Controller
             'city_id' => ['required']
         ]);
 
-        // AGREGAR VALIDACIÓN DE MULTIPLES INSTITUCIONES CUANDO SE DEFINEN COMO TRUE EN
-        // LA CONFIGURACION DE PARAMETROS
+        /**
+         * TODO: Validación para múltiples organizaciones para cuando se establece en verdadero en la configuración de
+         * la aplicación
+         */
 
+        /** @var integer|null Identificador del logo del organismo a registrar */
         $logo = (!empty($request->logo_id)) ? $request->logo_id : null;
+        /** @var integer|null Identificador del banner del organismo a registrar */
         $banner = (!empty($request->banner_id)) ? $request->banner_id : null;
 
+        /** @var Setting Objeto con información de la configuración de la aplicación */
         $setting = Setting::where('active', true)->first();
 
+        /** @var array Arreglo con los datos del organismo a registrar */
         $data = [
             'onapre_code' => $request->onapre_code,
             'rif' => $request->rif,
@@ -111,24 +127,22 @@ class InstitutionController extends Controller
         ];
 
         if (is_null($setting->multi_institution) || !$setting->multi_institution) {
-            /**
-             * Crea o actualiza información de una institución si la aplicación esta configurada para el
-             * uso de una sola institución
-             */
+            // Crea o actualiza información de una institución si la aplicación esta configurada para el uso de un solo
+            // organismo
+
             $data['default'] = true;
             Institution::updateOrCreate(['rif' => $request->rif], $data);
         } else {
             if (!empty($request->institution_id)) {
-                /**
-                 * Si existe el identificador de la institución, se actualizan sus datos
-                 */
+                // Si existe el identificador de la institución, se actualizan sus datos
+
+                /** @var Institution Objeto con información de la organización */
                 $inst = Institution::find($request->institution_id);
                 $inst->fill($data);
                 $inst->save();
             } else {
-                /**
-                 * Si no existe un identificador de institución, se crea una nueva
-                 */
+                // Si no existe un identificador de institución, se crea una nueva
+
                 Institution::create($data);
             }
         }
@@ -138,10 +152,13 @@ class InstitutionController extends Controller
     }
 
     /**
-     * Obtiene un listado de instituciones con id y nombre
+     * Obtiene un listado de organismos con id y nombre
+     *
+     * @method  getInstitutions
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return JsonResponse     JSON con información de los organismos registrados
      */
     public function getInstitutions()
     {
@@ -156,14 +173,19 @@ class InstitutionController extends Controller
     }
 
     /**
-     * Obtiene los datos de una institución
+     * Obtiene los datos de un organismo
+     *
+     * @method  getDetails
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  Institution $institution Objeto con información asociada a una institución
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @param  Institution $institution Objeto con información asociada a un organismo
+     *
+     * @return JsonResponse     JSON con información del organismo
      */
     public function getDetails(Institution $institution)
     {
+        /** @var Institution Objeto con información del organismo del cual se requieren detalles */
         $inst = Institution::where('id', $institution->id)->with(['municipality' => function ($q) {
             return $q->with(['estate' => function ($qq) {
                 return $qq->with('country');

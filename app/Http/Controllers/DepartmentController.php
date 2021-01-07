@@ -35,9 +35,13 @@ class DepartmentController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Listado con todos los departamentos registrados
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @method    index
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return    JsonResponse     JSON con información de respuesta a la petición
      */
     public function index()
     {
@@ -45,10 +49,15 @@ class DepartmentController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Registra un nuevo departamento
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @method    store
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request    $request    Objeto con información de la petición
+     *
+     * @return    JsonResponse     JSON con información de respuesta a la petición
      */
     public function store(Request $request)
     {
@@ -57,15 +66,18 @@ class DepartmentController extends Controller
             'institution_id' => ['required']
         ]);
 
+        /** @var integer Establece la jerarquía del departamento */
         $hierarchy = 0;
 
         if (!is_null($request->parent_id) || !empty($request->parent_id)) {
+            /** @var Department Departamento asociado */
             $dto = Department::where('parent_id', $request->parent_id)->first();
             if ($dto) {
                 $hierarchy = (integer)$dto->hierarchy + 1;
             }
         }
 
+        /** @var Department Objeto con información del departamento registrado */
         $department = Department::create([
             'name' => $request->name,
             'acronym' => ($request->acronym)?$request->acronym:null,
@@ -81,11 +93,16 @@ class DepartmentController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza los datos de un departamento
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Department  $department
-     * @return \Illuminate\Http\JsonResponse
+     * @method    update
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request       $request       Objeto con datos de la petición
+     * @param     Department    $department    Objeto con información del departamento a modificar
+     *
+     * @return    JsonResponse     JSON con información de respuesta a la petición
      */
     public function update(Request $request, Department $department)
     {
@@ -117,10 +134,15 @@ class DepartmentController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina un departamento
      *
-     * @param  \App\Models\Department  $department
-     * @return \Illuminate\Http\JsonResponse
+     * @method    destroy
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Department    $department    Objeto con información del departamento a eliminar
+     *
+     * @return    JsonResponse     JSON con información de respuesta a la petición
      */
     public function destroy(Department $department)
     {
@@ -131,10 +153,14 @@ class DepartmentController extends Controller
     /**
      * Obtiene un listado de departamentos
      *
+     * @method getDepartments
+     *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @param  Request  $request        Objeto con los datos de la petición
      * @param  integer  $institution_id Identificador de la institución
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return JsonResponse     JSON con información de respuesta a la petición
      */
     public function getDepartments(Request $request, $institution_id)
     {

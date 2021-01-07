@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Cache;
  * Clase que gestiona las utilidades dispuestas para los desarrolladores y administradores avanzados
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
@@ -21,7 +22,10 @@ class DevelopmentController extends Controller
     /**
      * Muestra un elemento
      *
+     * @method  getElement
+     *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return \Illuminate\Contracts\View\View Vista solicitada
      */
     public function getElement($el)
@@ -48,7 +52,7 @@ class DevelopmentController extends Controller
 
 
         if ($el === "icons") {
-            /** @var array Arreglo de classes del paquete de íconos ICOFONTS */
+            /** @var array Arreglo de clases del paquete de íconos ICOFONTS */
             $icofonts = Cache::rememberForever('icofonts', function () {
                 return [
                     __('General') => [
@@ -717,7 +721,7 @@ class DevelopmentController extends Controller
                 ];
             });
 
-            /** @var array Arreglo de classes del paquete de íconos FONTAWESOME */
+            /** @var array Arreglo de clases del paquete de íconos FONTAWESOME */
             $fontawesomes = Cache::rememberForever('fontawesomes', function () {
                 return [
                     'fa-glass', 'fa-music', 'fa-search', 'fa-envelope-o', 'fa-heart', 'fa-star',
@@ -870,7 +874,7 @@ class DevelopmentController extends Controller
                 ];
             });
 
-            /** @var array Arreglo de classes del paquete de íconos IONICONS */
+            /** @var array Arreglo de clases del paquete de íconos IONICONS */
             $ionicons = Cache::rememberForever('ionicons', function () {
                 return [
                     'ion-alert', 'ion-alert-circled', 'ion-android-add', 'ion-android-add-circle',
@@ -1088,6 +1092,7 @@ class DevelopmentController extends Controller
                 ];
             });
 
+            /** @var array Arreglo de clases del paquete de íconos NUCLEO */
             $nucleos = Cache::rememberForever('nucleos', function () {
                 return [
                     __('Flechas') => [
@@ -1169,6 +1174,7 @@ class DevelopmentController extends Controller
                 ];
             });
 
+            /** @var array Arreglo de clases del paquete de íconos MATERIAL DESIGN */
             $materialDesigns = Cache::rememberForever('materialDesigns', function () {
                 return [
                     __('General') => [

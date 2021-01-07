@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 
 /**
  * @class InstitutionTypeController
- * @brief Gestiona información de los tipos de Instituciones
+ * @brief Gestiona información de los tipos de Organizaciones
  *
- * Controlador para gestionar los tipos de Instituciones
+ * Controlador para gestionar los tipos de Organizaciones
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @license
@@ -20,6 +20,8 @@ class InstitutionTypeController extends Controller
 {
     /**
      * Define la configuración de la clase
+     *
+     * @method  __construct
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
@@ -33,10 +35,13 @@ class InstitutionTypeController extends Controller
     }
 
     /**
-     * Muesta todos los registros de los tipos de institución
+     * Listado de todos los registros de los tipos de organización
+     *
+     * @method  index
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return JsonResponse     JSON con el listado de tipos de organizaciones
      */
     public function index()
     {
@@ -44,11 +49,15 @@ class InstitutionTypeController extends Controller
     }
 
     /**
-     * Valida y registra un nuevo tipo de institución
+     * Registra un nuevo tipo de organización
+     *
+     * @method  store
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @param  Request  $request    Objeto con información de la petición
+     *
+     * @return JsonResponse     JSON con información de respuesta a la petición
      */
     public function store(Request $request)
     {
@@ -57,14 +66,13 @@ class InstitutionTypeController extends Controller
             'acronym' => ['max:4']
         ]);
 
-        if ($type = InstitutionType::onlyTrashed()->whereName($request->name)->first()) {
-            $type->restore();
-        } else {
+        if (!restore_record(InstitutionType::class, ['name' => $request->name])) {
             $this->validate($request, [
                 'name' => 'unique:institution_types,name'
             ]);
         }
 
+        /** @var InstitutionType Objeto con información del tipo de organización registrada */
         $institutionType = InstitutionType::updateOrCreate([
             'name' => $request->name
         ], [
@@ -75,12 +83,16 @@ class InstitutionTypeController extends Controller
     }
 
     /**
-     * Actualiza la información del tipo de institución
+     * Actualiza la información del tipo de organización
+     *
+     * @method  update
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\InstitutionType  $institutionType
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @param  Request          $request            Objeto con información de la petición
+     * @param  InstitutionType  $institutionType    Objeto con información del tipo de organización a actualizar
+     *
+     * @return JsonResponse     JSON con información de respuesta a la petición
      */
     public function update(Request $request, InstitutionType $institutionType)
     {
@@ -97,11 +109,15 @@ class InstitutionTypeController extends Controller
     }
 
     /**
-     * Elimina el tipo de institución
+     * Elimina el tipo de organización
+     *
+     * @method  destroy
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\InstitutionType  $institutionType
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @param  InstitutionType  $institutionType    Objeto con información del tipo de organización a eliminar
+     *
+     * @return JsonResponse     JSON con información sobre la eliminación del tipo de organización
      */
     public function destroy(InstitutionType $institutionType)
     {

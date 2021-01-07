@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
  * Controlador para gestionar Impuestos
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
@@ -21,6 +22,8 @@ class TaxController extends Controller
 {
     /**
      * Define la configuración de la clase
+     *
+     * @method  __construct
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
@@ -34,9 +37,13 @@ class TaxController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Listado de todos los impuestos registrados
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @method    index
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return    JsonResponse  JSON con el listado de impuestos
      */
     public function index()
     {
@@ -46,10 +53,15 @@ class TaxController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Registra un nuevo impuesto
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @method    store
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request    $request    Objeto con información de la petición
+     *
+     * @return    JsonResponse  JSON con el resultado del registro
      */
     public function store(Request $request)
     {
@@ -60,7 +72,7 @@ class TaxController extends Controller
             'percentage' => ['required']
         ]);
 
-
+        /** @var Tax Objeto con información del impuesto registrado */
         $tax = Tax::create([
             'name' => $request->name,
             'description' => $request->description,
@@ -78,11 +90,16 @@ class TaxController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza la información de un impuesto
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Tax  $tax
-     * @return \Illuminate\Http\JsonResponse
+     * @method    update
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request    $request    Objeto con información de la petición
+     * @param     Tax        $tax        Objeto con información del impuesto a actualizar
+     *
+     * @return    JsonResponse  JSON con el resultado de la actualización
      */
     public function update(Request $request, Tax $tax)
     {
@@ -105,10 +122,15 @@ class TaxController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina un impuesto
      *
-     * @param  \App\Models\Tax  $tax
-     * @return \Illuminate\Http\JsonResponse
+     * @method    destroy
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Tax        $tax    Objeto con información del impuesto a eliminar
+     *
+     * @return    JsonResponse  JSON con el resultado de la eliminación
      */
     public function destroy(Tax $tax)
     {

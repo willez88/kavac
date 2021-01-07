@@ -6,10 +6,22 @@ namespace App\Http\Controllers;
 use App\Models\ExchangeRate;
 use Illuminate\Http\Request;
 
+/**
+ * @class ExchangeRateController
+ * @brief Gestiona información de tipos de cambio de monedas
+ *
+ * Controlador para gestionar tipos de cambio de monedas
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class ExchangeRateController extends Controller
 {
     /**
      * Define la configuración de la clase
+     *
+     * @method  __construct
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
@@ -23,9 +35,13 @@ class ExchangeRateController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Listado de tipos de cambio de monedas
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @method    index
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return    JsonResponse      JSON con datos de los tipos de cambio de monedas registrados
      */
     public function index()
     {
@@ -33,10 +49,15 @@ class ExchangeRateController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Registra un nuevo tipo de cambio de moneda
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @method    store
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request    $request    Objeto con información de la petición
+     *
+     * @return    JsonResponse      JSON con datos de respuesta a la petición
      */
     public function store(Request $request)
     {
@@ -56,17 +77,23 @@ class ExchangeRateController extends Controller
             'amount.numeric' => __('El monto de conversión debe ser numérico'),
         ]);
 
+        /** @var ExchangeRate Objeto con información del tipo de cambio creado */
         $exchangeRate = ExchangeRate::create($request->all());
 
         return response()->json(['record' => $exchangeRate, 'message' => 'Success'], 200);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza los datos de un tipo de cambio de moneda
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ExchangeRate  $exchangeRate
-     * @return \Illuminate\Http\JsonResponse
+     * @method    update
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request         $request         Objeto con información de la petición
+     * @param     ExchangeRate    $exchangeRate    Objeto con información del tipo de cambio a actualizar
+     *
+     * @return    JsonResponse      JSON con datos de respuesta a la petición
      */
     public function update(Request $request, ExchangeRate $exchangeRate)
     {
@@ -91,10 +118,15 @@ class ExchangeRateController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina un tipo de cambio de moneda
      *
-     * @param  \App\Models\ExchangeRate  $exchangeRate
-     * @return \Illuminate\Http\JsonResponse
+     * @method    destroy
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     ExchangeRate    $exchangeRate    Objeto con información del tipo de cambio a eliminar
+     *
+     * @return    JsonResponse      JSON con datos del tipo de cambio eliminado
      */
     public function destroy(ExchangeRate $exchangeRate)
     {

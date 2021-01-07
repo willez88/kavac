@@ -6,10 +6,22 @@ namespace App\Http\Controllers;
 use App\Models\MeasurementUnit;
 use Illuminate\Http\Request;
 
+/**
+ * @class MeasurementUnitController
+ * @brief Gestiona información de las unidades de medida
+ *
+ * Controlador para gestionar unidades de medida
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class MeasurementUnitController extends Controller
 {
     /**
      * Define la configuración de la clase
+     *
+     * @method  __construct
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
@@ -23,9 +35,13 @@ class MeasurementUnitController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Listado de todas las unidades de medida registradas
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @method    index
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return    JsonResponse    JSON con las unidades de medida registradas
      */
     public function index()
     {
@@ -33,10 +49,15 @@ class MeasurementUnitController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Registra una nueva unidad de medida
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @method    store
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request    $request    Objeto con información de la petición
+     *
+     * @return    JsonResponse     JSON con información del registro de la unidad de medida
      */
     public function store(Request $request)
     {
@@ -46,7 +67,7 @@ class MeasurementUnitController extends Controller
             'acronym' => ['required', 'max:6', 'unique:measurement_units,acronym']
         ]);
 
-
+        /** @var MeasurementUnit Objeto con información de la unidad de medida registrada */
         $measurementUnit = MeasurementUnit::create([
             'name' => $request->name,
             'description' => $request->description,
@@ -57,11 +78,16 @@ class MeasurementUnitController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza la información de una unidad de medida
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\MeasurementUnit  $measurementUnit
-     * @return \Illuminate\Http\JsonResponse
+     * @method    update
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request            $request            Objeto con información de la petición
+     * @param     MeasurementUnit    $measurementUnit    Objeto con información de la unidad de medida a actualizar
+     *
+     * @return    JsonResponse       JSON con información sobre la actualización de la unidad de medida
      */
     public function update(Request $request, MeasurementUnit $measurementUnit)
     {
@@ -80,10 +106,15 @@ class MeasurementUnitController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina una unidad de medida
      *
-     * @param  \App\Models\MeasurementUnit  $measurementUnit
-     * @return \Illuminate\Http\JsonResponse
+     * @method    destroy
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     MeasurementUnit    $measurementUnit    Objeto con información de la unidad de medida a eliminar
+     *
+     * @return    JsonResponse       JSON con información sobre la eliminación de la unidad de medida
      */
     public function destroy(MeasurementUnit $measurementUnit)
     {

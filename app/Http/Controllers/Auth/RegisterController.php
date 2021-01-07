@@ -14,10 +14,6 @@ use Illuminate\Foundation\Auth\RegistersUsers;
  * @brief Gestiona información de registro de usuarios
  *
  * Controlador para gestionar el registro de usuarios
- *
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license
- *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class RegisterController extends Controller
 {
@@ -44,6 +40,8 @@ class RegisterController extends Controller
     /**
      * Crea una nueva instancia del controlador.
      *
+     * @method  __construct
+     *
      * @return void
      */
     public function __construct()
@@ -54,7 +52,10 @@ class RegisterController extends Controller
     /**
      * Obtiene un validador para una petición entrante de registro de usuario.
      *
+     * @method  validator
+     *
      * @param  array  $data
+     *
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -69,7 +70,10 @@ class RegisterController extends Controller
     /**
      * Crea una nueva instancia de usuario después de un registro válido.
      *
+     * @method  create
+     *
      * @param  array  $data
+     *
      * @return \App\Models\User
      */
     protected function create(array $data)

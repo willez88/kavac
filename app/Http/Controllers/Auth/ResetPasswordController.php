@@ -11,10 +11,6 @@ use Illuminate\Foundation\Auth\ResetsPasswords;
  * @brief Gestiona el reinicio de contraseñas
  *
  * Controlador para gestionar el reinicio de contraseñas de usuario
- *
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license
- *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class ResetPasswordController extends Controller
 {
@@ -40,6 +36,8 @@ class ResetPasswordController extends Controller
 
     /**
      * Crea una nueva instancia del controlador.
+     *
+     * @method  __construct
      *
      * @return void
      */

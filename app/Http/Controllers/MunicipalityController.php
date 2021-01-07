@@ -22,6 +22,8 @@ class MunicipalityController extends Controller
     /**
      * Define la configuración de la clase
      *
+     * @method  __construct
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function __construct()
@@ -34,10 +36,13 @@ class MunicipalityController extends Controller
     }
 
     /**
-     * Muesta todos los registros de los Municipios
+     * Listado de todos los registros de los Municipios
+     *
+     * @method  index
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return JsonResponse     JSON con información de los municipios registrados
      */
     public function index()
     {
@@ -45,11 +50,15 @@ class MunicipalityController extends Controller
     }
 
     /**
-     * Valida y registra un nuevo Municipio
+     * Registra un nuevo Municipio
+     *
+     * @method  store
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @param  Request  $request    Objeto con información de la petición
+     *
+     * @return JsonResponse         JSON con datos de respuesta a la petición
      */
     public function store(Request $request)
     {
@@ -59,11 +68,7 @@ class MunicipalityController extends Controller
             'estate_id' => ['required']
         ]);
 
-        if ($m = Municipality::onlyTrashed()->where([
-            'name' => $request->name, 'estate_id' => $request->estate_id
-        ])->first()) {
-            $m->restore();
-        } else {
+        if (!restore_record(Municipality::class, ['name' => $request->name, 'estate_id' => $request->estate_id])) {
             $this->validate($request, [
                 'name' => Rule::unique('municipalities')->where(function ($query) use ($request) {
                     return $query->where('estate_id', $request->estate_id)->where('name', $request->name);
@@ -71,6 +76,7 @@ class MunicipalityController extends Controller
             ]);
         }
 
+        /** @var Municipality Objeto con información del municipio registrado */
         $municipality = Municipality::updateOrCreate([
             'name' => $request->name,
             'estate_id' => $request->estate_id
@@ -84,10 +90,14 @@ class MunicipalityController extends Controller
     /**
      * Actualiza la información del Municipio
      *
+     * @method  update
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Municipality  $municipality
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @param  Request  $request                Objeto con información de la petición
+     * @param  Municipality  $municipality      Objeto con información del municipio a actualizar
+     *
+     * @return JsonResponse     JSON con información del resultado de la actualización del municipio
      */
     public function update(Request $request, Municipality $municipality)
     {
@@ -106,11 +116,15 @@ class MunicipalityController extends Controller
     }
 
     /**
-     * Elimina el Municipio
+     * Elimina un Municipio
+     *
+     * @method  destroy
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\Municipality  $municipality
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @param  Municipality  $municipality  Objeto con información del municipio a eliminar
+     *
+     * @return JsonResponse     JSON con el resultado de la eliminación
      */
     public function destroy(Municipality $municipality)
     {

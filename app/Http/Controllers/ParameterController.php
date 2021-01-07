@@ -6,10 +6,22 @@ namespace App\Http\Controllers;
 use App\Models\Parameter;
 use Illuminate\Http\Request;
 
+/**
+ * @class ParameterController
+ * @brief Gestiona información para la configuración de parámetros del sistema
+ *
+ * Controlador para gestionar configuración de parámetros
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class ParameterController extends Controller
 {
     /**
      * Define la configuración de la clase
+     *
+     * @method  __construct
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
@@ -20,11 +32,15 @@ class ParameterController extends Controller
     }
 
     /**
-     * Valida y registra un nuevo parámetro general del sistema
+     * Registra un nuevo parámetro general del sistema
      *
-     * @author  William Páez <wpaez@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request $request    Solicitud con los datos a guardar
-     * @return \Illuminate\Http\RedirectResponse    Redirecciona a la url anterior
+     * @method    store
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request    $request    Objeto con información de la petición
+     *
+     * @return    RedirectResponse     Redirecciona al usuario a la URL previa
      */
     public function store(Request $request)
     {

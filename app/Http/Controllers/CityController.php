@@ -53,11 +53,14 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => ['required', 'max:100'],
-            'estate_id' => ['required']
-        ]);
+        if (!restore_record(City::class, ['name' => $request->name, 'estate_id' => $request->estate_id])) {
+            $this->validate($request, [
+                'name' => ['required', 'max:100'],
+                'estate_id' => ['required']
+            ]);
+        }
 
+        /** @var City Objeto con información de la ciudad registrada */
         $city = City::create([
             'name' => $request->name,
             'estate_id' => $request->estate_id

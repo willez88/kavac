@@ -7,6 +7,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Module;
 
+/**
+ * @class ModuleController
+ * @brief Controlador para la gestión de los módulos de la aplicación
+ *
+ * Clase que gestiona los módulos de la aplicación
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class ModuleController extends Controller
 {
     /**
@@ -16,14 +27,17 @@ class ModuleController extends Controller
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
-     * @return     \Illuminate\Contracts\View\View           Devuelve la vista que muestra información de los módulos
+     * @return     View           Devuelve la vista que muestra información de los módulos
      */
     public function index()
     {
+        /** @var Module Objeto con información de todos los módulos de la aplicación */
         $modules = Module::all();
 
+        /** @var array Arreglo con información detallada de los módulos de la aplicación */
         $listModules = [];
         foreach ($modules as $module) {
+            /** @var array Arreglo con los requerimientos del módulo */
             $requirements = [];
             if (count($module->getRequires()) > 0) {
                 foreach ($module->getRequires() as $modName => $version) {
@@ -31,6 +45,7 @@ class ModuleController extends Controller
                 }
             }
 
+            /** @var array Arreglo con información de los autores del módulo */
             $authors = [];
             if (!is_null($module->get('authors')) && count($module->get('authors')) > 0) {
                 foreach ($module->get('authors') as $author) {
@@ -63,10 +78,11 @@ class ModuleController extends Controller
      *
      * @param      Request          $request    Objeto con información de la petición solicitada
      *
-     * @return     \Illuminate\Http\JsonResponse           Devuelve un JSON con el estatus de la instrucción a ejecutar
+     * @return     JsonResponse           Devuelve un JSON con el estatus de la instrucción a ejecutar
      */
     public function enable(Request $request)
     {
+        /** @var Module Objeto con información de un módulo */
         $module = Module::findOrFail($request->module);
         $module->enable();
 
@@ -82,10 +98,11 @@ class ModuleController extends Controller
      *
      * @param      Request          $request    Objeto con información de la petición solicitada
      *
-     * @return     \Illuminate\Http\JsonResponse           Devuelve un JSON con el estatus de la instrucción a ejecutar
+     * @return     JsonResponse           Devuelve un JSON con el estatus de la instrucción a ejecutar
      */
     public function disable(Request $request)
     {
+        /** @var Module Objeto con información de un módulo */
         $module = Module::findOrFail($request->module);
         $module->disable();
 
@@ -101,12 +118,14 @@ class ModuleController extends Controller
      *
      * @param      Request          $request    [description]
      *
-     * @return     \Illuminate\Http\JsonResponse           Devuelve un JSON con los detalles del módulo
+     * @return     JsonResponse           Devuelve un JSON con los detalles del módulo
      */
     public function getDetails(Request $request)
     {
+        /** @var Module Objeto con información de un módulo */
         $module = Module::findOrFail($request->module);
 
+        /** @var array Arreglo con detalles del módulo */
         $details = [
             'version' => $module->get("version") ?? "0",
             'name' => $module->get("name_es") ?? $module->getName(),

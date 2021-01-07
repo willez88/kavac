@@ -57,14 +57,13 @@ class CountryController extends Controller
             'prefix' => ['required', 'max:3']
         ]);
 
-        if ($c = Country::onlyTrashed()->whereName($request->name)->first()) {
-            $c->restore();
-        } else {
+        if (!restore_record(Country::class, ['name' => $request->name])) {
             $this->validate($request, [
                 'name' => ['unique:countries,name']
             ]);
         }
 
+        /** @var Country Objeto con información del pais registrado */
         $country = Country::updateOrCreate([
             'name' => $request->name
         ], [

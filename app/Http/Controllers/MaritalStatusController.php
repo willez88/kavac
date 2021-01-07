@@ -21,6 +21,8 @@ class MaritalStatusController extends Controller
     /**
      * Define la configuración de la clase
      *
+     * @method  __construct
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function __construct()
@@ -33,10 +35,13 @@ class MaritalStatusController extends Controller
     }
 
     /**
-     * Muestra todos los registros de estados civiles
+     * Listado de todos los registros de estados civiles
+     *
+     * @method  index
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return JsonResponse     JSON con información de los estados civiles registrados
      */
     public function index()
     {
@@ -44,11 +49,15 @@ class MaritalStatusController extends Controller
     }
 
     /**
-     * Valida y registra un nuevo estado civil
+     * Registra un nuevo estado civil
+     *
+     * @method  store
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @param  Request  $request    Objeto con información de la petición
+     *
+     * @return JsonResponse         JSON con los datos de respuesta a la petición
      */
     public function store(Request $request)
     {
@@ -56,26 +65,28 @@ class MaritalStatusController extends Controller
             'name' => ['required', 'max:100']
         ]);
 
-        if ($mStatus = MaritalStatus::onlyTrashed()->whereName($request->name)->first()) {
-            $mStatus->restore();
-        } else {
+        if (!restore_record(MaritalStatus::class, ['name' => $request->name])) {
             $this->validate($request, [
                 'name' => 'unique:marital_status,name'
             ]);
         }
 
+        /** @var MaritalStatus Objeto con información del estado civil registrado */
         $maritalStatus = MaritalStatus::updateOrCreate(['name' => $request->name]);
 
         return response()->json(['record' => $maritalStatus, 'message' => 'Success'], 200);
     }
 
     /**
-     * Actualiza la información del estado civil
+     * Actualiza la información de un estado civil
+     *
+     * @method  update
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\MaritalStatus  $maritalStatus
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @param  Request        $request          Objeto con información de la petición
+     * @param  MaritalStatus  $MaritalStatus    Objeto con información del estado civil a actualizar
+     * @return JsonResponse
      */
     public function update(Request $request, MaritalStatus $maritalStatus)
     {
@@ -90,11 +101,15 @@ class MaritalStatusController extends Controller
     }
 
     /**
-     * Elimina el estado civil
+     * Elimina un estado civil
+     *
+     * @method  destroy
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\MaritalStatus  $maritalStatus
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @param  MaritalStatus  $maritalStatus    Objeto con información del estado civil a eliminar
+     *
+     * @return JsonResponse     JSON con información del proceso de eliminación del estado civil
      */
     public function destroy(MaritalStatus $maritalStatus)
     {
@@ -105,12 +120,18 @@ class MaritalStatusController extends Controller
     /**
      * Obtiene los estados civiles registrados
      *
+     * @method  getMaritalStatus
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @param  integer $id                      Identificador del estado civil a buscar, este parámetro es opcional
-     * @return \Illuminate\Http\JsonResponse    JSON con los datos de los estados
+     *
+     * @return JsonResponse    JSON con los datos de los estados
      */
     public function getMaritalStatus($id = null)
     {
-        return response()->json(template_choices('App\Models\MaritalStatus', 'name', [], true));
+        /** @var array Arreglo con el filtro a través del ID del registro en caso de ser indicado */
+        $filterId = (!is_null($id)) ? ['id' => $id] : [];
+        return response()->json(template_choices('App\Models\MaritalStatus', 'name', $filterId, true));
     }
 }
