@@ -1,5 +1,4 @@
 <?php
-
 /** Modelos generales de base de datos */
 namespace App\Models;
 
@@ -16,6 +15,7 @@ use App\Traits\ModelsTrait;
  * Gestiona el modelo de datos para los tipos de cambio
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
@@ -27,12 +27,14 @@ class ExchangeRate extends Model implements Auditable
 
     /**
      * Lista de atributos para la gestión de fechas
+     *
      * @var array $dates
      */
     protected $dates = ['deleted_at', 'start_at', 'end_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
     protected $fillable = ['start_at', 'end_at', 'amount', 'active', 'from_currency_id', 'to_currency_id'];
@@ -47,6 +49,10 @@ class ExchangeRate extends Model implements Auditable
     /**
      * ExchangeRate belongs to Currency.
      *
+     * @method  fromCurrency
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function fromCurrency()
@@ -56,6 +62,10 @@ class ExchangeRate extends Model implements Auditable
 
     /**
      * ExchangeRate belongs to Currency.
+     *
+     * @method  toCurrency
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

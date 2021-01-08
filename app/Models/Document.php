@@ -8,6 +8,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
+/**
+ * @class Document
+ * @brief Datos de los documentos
+ *
+ * Gestiona el modelo de datos para los documentos
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class Document extends Model implements Auditable
 {
     use SoftDeletes;
@@ -15,12 +26,14 @@ class Document extends Model implements Auditable
 
     /**
      * Lista de atributos para la gestión de fechas
+     *
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
     protected $fillable = [
@@ -31,7 +44,10 @@ class Document extends Model implements Auditable
     /**
      * Document morphs to models in documentable_type
      *
+     * @method  documentable
+     *
      * @author  William Páez <wpaez@cenditel.gob.ve>
+     *
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function documentable()

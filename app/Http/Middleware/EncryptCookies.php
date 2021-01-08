@@ -5,10 +5,16 @@ namespace App\Http\Middleware;
 
 use Illuminate\Cookie\Middleware\EncryptCookies as Middleware;
 
+/**
+ * @class EncryptCookies
+ * @brief Gestiona los middleware para en cifrado de cookies
+ *
+ * Gestiona los middleware para en cifrado de cookies
+ */
 class EncryptCookies extends Middleware
 {
     /**
-     * The names of the cookies that should not be encrypted.
+     * Los nombres de las cookies que no deben cifrarse.
      *
      * @var array
      */

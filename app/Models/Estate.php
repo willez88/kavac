@@ -20,6 +20,7 @@ use App\Traits\ModelsTrait;
  * @property  integer $country_id
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
@@ -31,12 +32,14 @@ class Estate extends Model implements Auditable
 
     /**
      * Lista de atributos para la gestión de fechas
+     *
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
     protected $fillable = ['name', 'code', 'country_id'];
@@ -48,12 +51,20 @@ class Estate extends Model implements Auditable
      */
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
+    /**
+     * Arreglo con las relaciones a cargar por defecto
+     *
+     * @var    array
+     */
     protected $with = ['country'];
 
     /**
      * Método que obtiene el Pais de un Estado
      *
+     * @method  country
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return object Objeto con el registro relacionado al modelo Country
      */
     public function country()
@@ -64,7 +75,10 @@ class Estate extends Model implements Auditable
     /**
      * Método que obtiene los Municipios de un Estado
      *
+     * @method  municipalities
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return object Objeto con los registros relacionados al modelo Minicipality
      */
     public function municipalities()
@@ -75,7 +89,10 @@ class Estate extends Model implements Auditable
     /**
      * Método que obtiene las Ciudades de un Pais
      *
+     * @method  cities
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return object Objeto con los registros relacionados al modelo City
      */
     public function cities()

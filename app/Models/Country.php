@@ -19,6 +19,7 @@ use App\Traits\ModelsTrait;
  * @property  string $prefix
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
@@ -30,12 +31,14 @@ class Country extends Model implements Auditable
 
     /**
      * Lista de atributos para la gestión de fechas
+     *
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
     protected $fillable = ['name', 'prefix'];
@@ -50,7 +53,10 @@ class Country extends Model implements Auditable
     /**
      * Método que obtiene los Estados de un Pais
      *
+     * @method  estates
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return object Objeto con los registros relacionados al modelo Estate
      */
     public function estates()
@@ -61,7 +67,10 @@ class Country extends Model implements Auditable
     /**
      * Método que obtiene las monedas de un País
      *
+     * @method  currencies
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return object Objeto con los registros relacionados al modelo Currency
      */
     public function currencies()

@@ -16,6 +16,7 @@ use App\Traits\ModelsTrait;
  * Gestiona el modelo de datos para las Parroquias
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
@@ -27,12 +28,14 @@ class Parish extends Model implements Auditable
 
     /**
      * Lista de atributos para la gestión de fechas
+     *
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
     protected $fillable = ['name', 'code', 'municipality_id'];
@@ -44,12 +47,20 @@ class Parish extends Model implements Auditable
      */
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
+    /**
+     * Listado de relaciones a cargar por defecto
+     *
+     * @var    array
+     */
     protected $with = ['municipality'];
 
     /**
      * Método que obtiene el Municipio de una Parroquia
      *
+     * @method  municipality
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return object Objeto con los registros relacionados al modelo Municipality
      */
     public function municipality()

@@ -8,6 +8,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
+/**
+ * @class Profile
+ * @brief Datos de Perfiles de usuario
+ *
+ * Gestiona el modelo de datos para las Perfiles de usuario
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class Profile extends Model implements Auditable
 {
     use SoftDeletes;
@@ -15,12 +26,14 @@ class Profile extends Model implements Auditable
 
     /**
      * Lista de atributos para la gestión de fechas
+     *
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
     protected $fillable = [
@@ -30,7 +43,10 @@ class Profile extends Model implements Auditable
     /**
      * Profile belongs to User.
      *
+     * @method  user
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
@@ -41,7 +57,10 @@ class Profile extends Model implements Auditable
     /**
      * Método que obtiene la imagen de perfil
      *
+     * @method  image
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return object Objeto con el registro relacionado al modelo Image
      */
     public function image()
@@ -51,6 +70,8 @@ class Profile extends Model implements Auditable
 
     /**
      * Profile belongs to Institution.
+     *
+     * @method  institution
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

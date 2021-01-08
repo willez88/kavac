@@ -1,8 +1,5 @@
 <?php
-
-/**
- * Registros de la aplicación
- */
+/** Modelos generales de base de datos */
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
@@ -23,6 +20,7 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  * Gestiona el modelo de datos para las Usuarios
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
@@ -67,6 +65,8 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
     /**
      * User has many FailedLoginAttempts.
      *
+     * @method failedLoginAttempts
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function failedLoginAttempts()
@@ -77,6 +77,8 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
     /**
      * Método que obtiene el perfil de un usuario
      *
+     * @method  profile
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function profile()
@@ -86,6 +88,8 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
 
     /**
      * User belongs to Many NotificationSetting.
+     *
+     * @method  notificationSettings
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -117,7 +121,11 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
     }
 
     /**
-     * {@inheritdoc}
+     * Obtiene el identificador del usuario
+     *
+     * @method    getIdentifier
+     *
+     * @return    string|integer           Identificador del usuario
      */
     public function getIdentifier()
     {

@@ -16,6 +16,7 @@ use App\Traits\ModelsTrait;
  * Gestiona el modelo de datos para los tipos de Instituciones
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
@@ -27,12 +28,14 @@ class InstitutionType extends Model implements Auditable
 
     /**
      * Lista de atributos para la gestión de fechas
+     *
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
     protected $fillable = ['name', 'acronym'];
@@ -47,7 +50,10 @@ class InstitutionType extends Model implements Auditable
     /**
      * Método que obtiene las instituciones asociadas a un tipo
      *
+     * @method  institutions
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return object Objeto con los registros relacionados al modelo InstitutionType
      */
     public function institutions()

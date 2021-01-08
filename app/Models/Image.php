@@ -22,6 +22,7 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  * @property  integer $min_height
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
@@ -32,12 +33,14 @@ class Image extends Model implements Auditable
 
     /**
      * Lista de atributos para la gestión de fechas
+     *
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
     protected $fillable = ['file', 'url', 'max_width', 'max_height', 'min_width', 'min_height'];
@@ -45,7 +48,10 @@ class Image extends Model implements Auditable
     /**
      * Método que obtiene los logos de las instituciones
      *
+     * @method  institutionLogos
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return object Objeto con los registros relacionados al modelo Institution
      */
     public function institutionLogos()
@@ -56,7 +62,10 @@ class Image extends Model implements Auditable
     /**
      * Método que obtiene los banners de las instituciones
      *
+     * @method  institutionBanners
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return object Objeto con los registros relacionados al modelo Institution
      */
     public function institutionBanners()
@@ -67,7 +76,10 @@ class Image extends Model implements Auditable
     /**
      * Método que obtiene el perfil de una imagen
      *
+     * @method  profile
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return object Objeto con el registro relacionado al modelo Profile
      */
     public function profile()
@@ -78,7 +90,10 @@ class Image extends Model implements Auditable
     /**
      * Image morphs to models in imageable_type
      *
+     * @method  imageable
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function imageable()

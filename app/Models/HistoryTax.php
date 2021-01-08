@@ -15,6 +15,7 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  * Gestiona el modelo de datos para los históricos de impuestos
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
@@ -25,12 +26,14 @@ class HistoryTax extends Model implements Auditable
 
     /**
      * Lista de atributos para la gestión de fechas
+     *
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
     protected $fillable = [
@@ -40,7 +43,10 @@ class HistoryTax extends Model implements Auditable
     /**
      * Método que obtiene el Impuesto asociado
      *
+     * @method  tax
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return object Objeto con el registro relacionado al modelo Tax
      */
     public function tax()

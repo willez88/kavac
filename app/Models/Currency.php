@@ -21,6 +21,7 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  * @property  integer $decimal_places
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
@@ -31,12 +32,14 @@ class Currency extends Model implements Auditable
 
     /**
      * Lista de atributos para la gestión de fechas
+     *
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
     protected $fillable = ['symbol', 'name', 'country_id', 'default', 'decimal_places'];
@@ -65,7 +68,10 @@ class Currency extends Model implements Auditable
     /**
      * Currency belongs to Country.
      *
+     * @method  country
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function country()
@@ -76,6 +82,8 @@ class Currency extends Model implements Auditable
     /**
      * Currency has many ExchangeRate.
      *
+     * @method  fromExchangeRates
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function fromExchangeRates()
@@ -85,6 +93,8 @@ class Currency extends Model implements Auditable
 
     /**
      * Currency has many ExchangeRate.
+     *
+     * @method  toExchangeRates
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

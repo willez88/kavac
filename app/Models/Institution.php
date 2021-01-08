@@ -15,6 +15,7 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  * Gestiona el modelo de datos para las Instituciones
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
@@ -25,12 +26,14 @@ class Institution extends Model implements Auditable
 
     /**
      * Lista de atributos para la gestión de fechas
+     *
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
     protected $fillable = [
@@ -43,7 +46,10 @@ class Institution extends Model implements Auditable
     /**
      * Método que obtiene el logotipo de la Institución
      *
+     * @method  logo
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return object Objeto con el registro relacionado al modelo Image
      */
     public function logo()
@@ -54,7 +60,10 @@ class Institution extends Model implements Auditable
     /**
      * Método que obtiene el banner de la Institución
      *
+     * @method  banner
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return object Objeto con el registro relacionado al modelo Image
      */
     public function banner()
@@ -65,7 +74,10 @@ class Institution extends Model implements Auditable
     /**
      * Método que obtiene el sector de la Institución
      *
+     * @method  sector
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return object Objeto con el registro relacionado al modelo InstitutionSector
      */
     public function sector()
@@ -76,7 +88,10 @@ class Institution extends Model implements Auditable
     /**
      * Método que obtiene el tipo de la Institución
      *
+     * @method  type
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return object Objeto con el registro relacionado al modelo InstitutionType
      */
     public function type()
@@ -86,6 +101,8 @@ class Institution extends Model implements Auditable
 
     /**
      * Institution belongs to Municipality.
+     *
+     * @method municipality
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -97,6 +114,8 @@ class Institution extends Model implements Auditable
     /**
      * Institution belongs to City.
      *
+     * @method city
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function city()
@@ -107,7 +126,10 @@ class Institution extends Model implements Auditable
     /**
      * Método que obtiene los departamentos asociados a la intitución.
      *
+     * @method  departments
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return object Objeto con los registros relacionados al modelo Institution
      */
     public function departments()
@@ -117,6 +139,8 @@ class Institution extends Model implements Auditable
 
     /**
      * Institution has many Profiles.
+     *
+     * @method  profiles
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -138,6 +162,7 @@ class Institution extends Model implements Auditable
      */
     public function newQuery($excludeDeleted = true)
     {
+        /** @var User Objeto con información del usuario autenticado */
         $user = auth()->user();
         if (method_exists($user, 'profile') && !is_null($user->profile) && property_exists($user->profile, 'institution')) {
             return parent::newQuery($excludeDeleted)->where('id', $user->profile->institution->id);

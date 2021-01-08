@@ -1,5 +1,5 @@
 <?php
-
+/** Notificaciones de la aplicación */
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
@@ -7,6 +7,17 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Auth\Notifications\VerifyEmail;
 
+/**
+ * @class VerifyEmailNotification
+ * @brief Notificaciones para la verificación de usuarios
+ *
+ * Gestiona las Notificaciones para la verificación de usuarios
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class VerifyEmailNotification extends VerifyEmail
 {
     use Queueable;
@@ -14,7 +25,10 @@ class VerifyEmailNotification extends VerifyEmail
     /**
      * Get the verify email notification mail message for the given URL.
      *
+     * @method  buildMailMessage
+     *
      * @param  string  $url
+     *
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     protected function buildMailMessage($url)

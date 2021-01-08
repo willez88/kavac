@@ -1,10 +1,21 @@
 <?php
-
+/** Observadores de eventos en los modelos */
 namespace App\Observers;
 
 use App\Notifications\SystemNotification;
 use App\Models\NotificationSetting;
 
+/**
+ * @class ModelObserver
+ * @brief Observa los eventos de los modelos
+ *
+ * Gestiona los observadores de eventos en los modelos
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class ModelObserver
 {
     /**

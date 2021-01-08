@@ -1,5 +1,5 @@
 <?php
-
+/** Modelos generales de base de datos */
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -7,6 +7,17 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
+/**
+ * @class FailedLoginAttempt
+ * @brief Datos de los intentos de acceso fallidos
+ *
+ * Gestiona el modelo de datos para los intentos de acceso fallidos
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class FailedLoginAttempt extends Model implements Auditable
 {
     use AuditableTrait;
@@ -40,6 +51,8 @@ class FailedLoginAttempt extends Model implements Auditable
 
     /**
      * FailedLoginAttempt belongs to User.
+     *
+     * @method  user
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
