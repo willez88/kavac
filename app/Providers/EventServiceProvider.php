@@ -12,6 +12,12 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use App\Listeners\LoginEventHandler;
 use App\Listeners\RecordFailedLoginAttempt;
 
+/**
+ * @class EventServiceProvider
+ * @brief Proveedor de servicios de los eventos
+ *
+ * Gestiona los proveedores de servicios de los eventos
+ */
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -33,6 +39,8 @@ class EventServiceProvider extends ServiceProvider
 
     /**
      * Register any events for your application.
+     *
+     * @method  boot
      *
      * @return void
      */

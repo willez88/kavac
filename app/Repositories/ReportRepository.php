@@ -8,6 +8,17 @@ use App\Models\Parameter;
 use Carbon\Carbon;
 use Elibyy\TCPDF\TCPDF as PDF;
 
+/**
+ * @class ReportRepository
+ * @brief Gestiona los reportes de la aplicación
+ *
+ * Gestiona los reportes de la aplicación
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class ReportRepository implements ReportInterface
 {
     /** @var string Establece la orientación de la página, los posibles valores son P o L */
@@ -355,6 +366,18 @@ class ReportRepository implements ReportInterface
         });
     }
 
+    /**
+     * Descarga un reporte
+     *
+     * @method    show
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     string|null    $file    Nombre del archivo a descargar. Este dato es opcional, si no se indica se
+     *                                    genera un archivo con la fecha actual del servidor como nombre
+     *
+     * @return    Response
+     */
     public function show($file = null)
     {
         $filename = storage_path() . '/reports/' . $file ?? 'report' . Carbon::now() . '.pdf';

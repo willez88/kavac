@@ -1,5 +1,5 @@
 <?php
-
+/** Reglas de validación personalizadas */
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
@@ -11,6 +11,7 @@ use Illuminate\Contracts\Validation\Rule;
  * Gestiona las reglas de validación para la configuración de códigos de registro
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
@@ -18,6 +19,8 @@ class CodeSetting implements Rule
 {
     /**
      * Create a new rule instance.
+     *
+     * @method  __construct
      *
      * @return void
      */
@@ -29,8 +32,11 @@ class CodeSetting implements Rule
     /**
      * Determine if the validation rule passes.
      *
+     * @method  passes
+     *
      * @param  string  $attribute
      * @param  mixed  $value
+     *
      * @return bool
      */
     public function passes($attribute, $value)
@@ -50,6 +56,8 @@ class CodeSetting implements Rule
 
     /**
      * Get the validation error message.
+     *
+     * @method  message
      *
      * @return string
      */

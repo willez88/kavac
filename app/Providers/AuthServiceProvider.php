@@ -6,6 +6,12 @@ namespace App\Providers;
 //use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
+/**
+ * @class AuthServiceProvider
+ * @brief Proveedor de servicios de autenticación
+ *
+ * Gestiona los proveedores de servicios de autenticación
+ */
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -19,6 +25,8 @@ class AuthServiceProvider extends ServiceProvider
 
     /**
      * Register any authentication / authorization services.
+     *
+     * @method  boot
      *
      * @return void
      */

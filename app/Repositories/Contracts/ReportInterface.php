@@ -1,5 +1,4 @@
 <?php
-
 /** Interfaces a implementar en repositorios del sistema */
 namespace App\Repositories\Contracts;
 

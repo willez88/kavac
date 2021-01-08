@@ -38,7 +38,9 @@ class VerifyRole
      * @param Request $request
      * @param \Closure $next
      * @param string $role
+     *
      * @return mixed
+     *
      * @throws RoleDeniedException
      */
     public function handle($request, Closure $next, $role)
