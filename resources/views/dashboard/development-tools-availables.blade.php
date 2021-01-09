@@ -2,8 +2,15 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header">
-				<h6 class="card-title">{{ __('Herramientas para Desarrolladores') }}</h6>
+				<h6 class="card-title">
+                    {{ __('Herramientas para Desarrolladores') }}
+                    @include('buttons.help', [
+                        'helpId' => 'developmentTools',
+                        'helpSteps' => get_json_resource('ui-guides/development_tools.json')
+                    ])
+                </h6>
 				<div class="card-btns">
+                    @include('buttons.previous', ['route' => url()->previous()])
 					@include('buttons.minimize')
 				</div>
 			</div>
@@ -12,9 +19,6 @@
 					<div class="col-12">
                         <span class="text-muted">
 							{{ __('Acceso a herramientas para desarrolladores') }}
-							<a href="javascript:void(0)">
-								<i class="ion ion-ios-help-outline"></i>
-							</a>
 						</span>
 						<hr>
 					</div>

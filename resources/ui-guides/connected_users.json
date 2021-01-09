@@ -1,0 +1,42 @@
+[
+    {
+        "element": "#helpConnectedLeyend",
+        "intro": "Leyenda que muestra los diferentes estados de los usuarios"
+    },
+    {
+        "element": "#helpConnectedUser",
+        "intro": "Identifica a los usuarios que se encuentran actualmente conectados a la aplicación"
+    },
+    {
+        "element": "#helpDisconneted",
+        "intro": "Identifica a los usuarios que se encuentran desconectados"
+    },
+    {
+        "element": "#helpConnectedUserList",
+        "intro": "Listado de usuarios registrados con información relevante sobre el acceso a la aplicación"
+    },
+    {
+        "element": "#helpTHUser",
+        "intro": "Muestra el nombre del usuario con el cual accede a la aplicación"
+    },
+    {
+        "element": "#helpTHName",
+        "intro": "Muestra el nombre completo del usuario"
+    },
+    {
+        "element": "#helpTHIP",
+        "intro": "Muestra la dirección IP desde la cual accedió a la aplicación"
+    },
+    {
+        "element": "#helpTHStatus",
+        "intro": "Muestra el estado actual del usuario (conectado / desconectado)"
+    },
+    {
+        "element": "#helpTHLastAccess",
+        "intro": "Muestra la fecha y hora del último acceso a la aplicación"
+    },
+    {
+        "element": "#helpTHAction",
+        "intro": "Muestra los botones para las distintas acciones disponibles"
+    }
+]
