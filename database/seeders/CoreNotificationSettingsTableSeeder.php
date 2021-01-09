@@ -115,26 +115,26 @@ class CoreNotificationSettingsTableSeeder extends Seeder
             ],
             [
                 'model' => Institution::class,
-                'name' => 'Institución',
+                'name' => 'Organización',
                 'slug' => 'institution',
-                'description' => 'Gestión de instituciones',
-                'message' => 'Se ha generado un evento en Instituciones',
+                'description' => 'Gestión de organizaciones',
+                'message' => 'Se ha generado un evento en organizaciones',
                 'perm_required' => 'institution.notify'
             ],
             [
                 'model' => InstitutionSector::class,
-                'name' => 'Sector de Institución',
+                'name' => 'Sector de Organización',
                 'slug' => 'institutionSector',
-                'description' => 'Gestión de sectores de instituciones',
-                'message' => 'Se ha generado un evento en sectores de instituciones',
+                'description' => 'Gestión de sectores de organizaciones',
+                'message' => 'Se ha generado un evento en sectores de organizaciones',
                 'perm_required' => 'institution.sector.notify'
             ],
             [
                 'model' => InstitutionType::class,
-                'name' => 'Tipo de Institución',
+                'name' => 'Tipo de Organización',
                 'slug' => 'institutionType',
-                'description' => 'Gestión de tipos de instituciones',
-                'message' => 'Se ha generado un evento en tipos de instituciones',
+                'description' => 'Gestión de tipos de organizaciones',
+                'message' => 'Se ha generado un evento en tipos de organizaciones',
                 'perm_required' => 'institution.type.notify'
             ],
             [

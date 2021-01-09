@@ -3,9 +3,11 @@
 
 ## Sobre la aplicación
 
-Kavac es una aplicación para la gestión administrativa de entes públicos, permite registrar y controlar todos los procesos de la formulación y ejecución de presupuesto institucional, así como toda la información relevante de operatividad. Este proyecto surge como iniciativa en la mejora de los procesos administrativos apuntando al uso de nuevas tecnologías.
+Kavac es una aplicación para la gestión organizacional, permite registrar y controlar todos los procesos de la formulación y ejecución de presupuesto, así como toda la información relevante de operatividad. Este proyecto surge como iniciativa en la mejora de los procesos administrativos apuntando al uso de nuevas tecnologías.
+
 Se encuentra desarrollado bajo patrones de diseño MVC con un esquema agradable y comprensible usando el framework Laravel y una documentación extensa tanto para desarrolladores o personal técnico, así como también para usuarios del sistema.
-Provee de la mayoría de las herramientas requeridas para una correcta gestión de los recursos institucionales y de los procesos inherentes a estos.
+
+Provee de la mayoría de las herramientas requeridas para una correcta gestión de los recursos organizacionales y de los procesos inherentes a estos.
 
 ## Antecedentes
 
@@ -479,7 +481,7 @@ KAVAC, cuenta con información inicial requerida para la gestión de la aplicaci
 
 	php artisan db:seed
 
-El anterior comando ejecutara las acciones necesarias para ingresar al sistema los datos inicialmente requeridos por la aplicación base como son: usuario, roles, permisos, localidades, estados civiles, profesiones, sectores de instituciones y tipos de instituciones.
+El anterior comando ejecutara las acciones necesarias para ingresar al sistema los datos inicialmente requeridos por la aplicación base como son: usuario, roles, permisos, localidades, estados civiles, profesiones, sectores de organizaciones y tipos de organizaciones.
 
 La aplicación cuenta con una cantidad de módulos independientes que permiten expandir sus funcionalidades, cada uno de estos módulos cuentan con sus registros iniciales por lo que es necesario ejecutar un comando adicional que permita registrar información de cada módulo instalado y habilitado en el sistema, para ello se ejecuta el siguiente comando:
 
@@ -492,11 +494,11 @@ Una vez que hayan sido registrado los datos iniciales del sistema, se puede aute
 	usuario: admin
 	clave: 123456
 
-El primer paso, para el correcto funcionamiento del sistema, es registrar información básica de la institución que llevará a cabo la gestión de información dentro de la aplicación, para ello se debe ingresar al menú
+El primer paso, para el correcto funcionamiento del sistema, es registrar información básica de la organización que llevará a cabo la gestión de información dentro de la aplicación, para ello se debe ingresar al menú
 
 	Configuración > General
 
-Y allí, en el panel "CONFIGURAR INSTITUCIÓN" se deben indicar los datos de la Institución, una vez configurada la institución se mostrarán todas las opciones de los módulos disponibles en el sistema
+Y allí, en el panel **"CONFIGURAR ORGANIZACIÓN"** se deben indicar los datos de la organización. Una vez configurada, se mostrarán todas las opciones de los módulos disponibles en el sistema
 
 ## Probando la aplicación
 

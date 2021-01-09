@@ -27,9 +27,9 @@
 						<div class="row">
 							<div class="col-12 col-md-6">
 								<div class="form-group is-required">
-									<label>Institución:</label>
+									<label>Organización:</label>
 									<select2 :options="institutions" v-model="record.institution_id"
-											 title="Institución a la cual pertenece" @input="getDepartments()"
+											 title="Organización a la cual pertenece" @input="getDepartments()"
 											 data-toggle="tooltip"></select2>
 									<input type="hidden" v-model="record.id">
 			                    </div>
@@ -181,7 +181,7 @@
 		},
 		created() {
 			this.table_options.headings = {
-				'institution.acronym': 'Institución',
+				'institution.acronym': 'Organización',
 				'parent.name': 'Depende de',
 				'acronym': 'Siglas',
 				'name': 'Nombre',

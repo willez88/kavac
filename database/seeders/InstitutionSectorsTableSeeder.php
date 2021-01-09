@@ -11,9 +11,9 @@ use DB;
 
 /**
  * @class InstitutionSectorsTableSeeder
- * @brief Información por defecto para sectores de las Instituciones
+ * @brief Información por defecto para sectores de las Organizaciones
  *
- * Gestiona la información por defecto a registrar inicialmente para los sectores de las Instituciones
+ * Gestiona la información por defecto a registrar inicialmente para los sectores de las Organizaciones
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
@@ -34,33 +34,33 @@ class InstitutionSectorsTableSeeder extends Seeder
         $adminRole = Role::where('slug', 'admin')->first();
 
         /**
-         * Permisos disponibles para la gestión de sectores de instituciones
+         * Permisos disponibles para la gestión de sectores de organizaciones
          */
 
         $permissions = [
             [
-                'name' => 'Crear Sector de Institución', 'slug' => 'institution.sector.create',
-                'description' => 'Acceso al registro de sectores de instituciones',
+                'name' => 'Crear Sector de Organización', 'slug' => 'institution.sector.create',
+                'description' => 'Acceso al registro de sectores de organizaciones',
                 'model' => InstitutionSector::class, 'model_prefix' => '0general',
-                'slug_alt' => 'sector.institucion.crear', 'short_description' => 'agregar sector de institución'
+                'slug_alt' => 'sector.institucion.crear', 'short_description' => 'agregar sector de Organización'
             ],
             [
-                'name' => 'Editar Sector de Institución', 'slug' => 'institution.sector.edit',
-                'description' => 'Acceso para editar sectores de instituciones',
+                'name' => 'Editar Sector de Organización', 'slug' => 'institution.sector.edit',
+                'description' => 'Acceso para editar sectores de organizaciones',
                 'model' => InstitutionSector::class, 'model_prefix' => '0general',
-                'slug_alt' => 'sector.institucion.editar', 'short_description' => 'editar sector de institución'
+                'slug_alt' => 'sector.institucion.editar', 'short_description' => 'editar sector de Organización'
             ],
             [
-                'name' => 'Eliminar Sector de Institución', 'slug' => 'institution.sector.delete',
-                'description' => 'Acceso para eliminar sectores de instituciones',
+                'name' => 'Eliminar Sector de Organización', 'slug' => 'institution.sector.delete',
+                'description' => 'Acceso para eliminar sectores de organizaciones',
                 'model' => InstitutionSector::class, 'model_prefix' => '0general',
-                'slug_alt' => 'sector.institucion.eliminar', 'short_description' => 'eliminar sector de institución'
+                'slug_alt' => 'sector.institucion.eliminar', 'short_description' => 'eliminar sector de Organización'
             ],
             [
-                'name' => 'Ver Sector de Institución', 'slug' => 'institution.sector.list',
-                'description' => 'Acceso para ver sectores de instituciones',
+                'name' => 'Ver Sector de Organización', 'slug' => 'institution.sector.list',
+                'description' => 'Acceso para ver sectores de organizaciones',
                 'model' => InstitutionSector::class, 'model_prefix' => '0general',
-                'slug_alt' => 'sector.institucion.ver', 'short_description' => 'ver sectores de instituciones'
+                'slug_alt' => 'sector.institucion.ver', 'short_description' => 'ver sectores de organizaciones'
             ],
         ];
 

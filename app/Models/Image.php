@@ -46,7 +46,7 @@ class Image extends Model implements Auditable
     protected $fillable = ['file', 'url', 'max_width', 'max_height', 'min_width', 'min_height'];
 
     /**
-     * Método que obtiene los logos de las instituciones
+     * Método que obtiene los logos de las organizaciones
      *
      * @method  institutionLogos
      *
@@ -60,7 +60,7 @@ class Image extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene los banners de las instituciones
+     * Método que obtiene los banners de las organizaciones
      *
      * @method  institutionBanners
      *

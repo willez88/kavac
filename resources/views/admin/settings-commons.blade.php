@@ -22,9 +22,9 @@
 					<marital-status id="helpMaritalStatus"></marital-status>
 					{{-- Configuración de profesiones --}}
 					<professions id="helpProfessions"></professions>
-					{{-- Configuración de tipos de institución --}}
+					{{-- Configuración de tipos de organizaciones --}}
 					<institution-types id="helpInstitutionTypes"></institution-types>
-					{{-- Configuración de sectores de instituciones --}}
+					{{-- Configuración de sectores de organizaciones --}}
 					<institution-sectors id="helpInstitutionSectors"></institution-sectors>
 					{{-- Configuración de Países --}}
 					<countries id="helpCountries"></countries>

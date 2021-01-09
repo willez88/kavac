@@ -74,7 +74,7 @@
 						<div class="col-md-3" id="switchMultiInstitution">
 							<div class="form-group">
 								<label for="" class="control-label">
-                                    {{ __('Multi Gestión (varias instituciones)') }}
+                                    {{ __('Multi Gestión (varias organizaciones)') }}
                                 </label>
 								<div class="col-12 bootstrap-switch-mini">
 									{!! Form::checkbox('multi_institution', true,

@@ -387,15 +387,15 @@ if (! function_exists('check_connection')) {
 
 if (! function_exists('get_institution')) {
     /**
-     * Obtiene la informacion de una institución
+     * Obtiene la informacion de una organización
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      *
-     * @param  int|null $id [identificador unico de la institución]
+     * @param  int|null $id [identificador unico de la organización]
      *
-     * @return \App\Models\Institution     Devuelve un objeto con información de la institución,
+     * @return \App\Models\Institution     Devuelve un objeto con información de la organización,
      *                                     si no se indica un ID devuelve el primer registro,
-     *                                     de lo contrario devuelve los datos de la institución solicitada
+     *                                     de lo contrario devuelve los datos de la organización solicitada
      */
     function get_institution($id = null)
     {

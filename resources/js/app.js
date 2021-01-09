@@ -229,7 +229,7 @@ Vue.component('professions', () => import(
 ));
 
 /**
- * Componente para la gestión de tipos de instituciones
+ * Componente para la gestión de tipos de organizaciones
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
@@ -239,7 +239,7 @@ Vue.component('institution-types', () => import(
 ));
 
 /**
- * Componente para la configuración y gestión de sectores de instituciones
+ * Componente para la configuración y gestión de sectores de organizaciones
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */

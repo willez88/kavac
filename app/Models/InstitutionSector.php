@@ -11,9 +11,9 @@ use App\Traits\ModelsTrait;
 
 /**
  * @class IstitutionSector
- * @brief Datos de los sectores de las Instituciones
+ * @brief Datos de los sectores de las Organizaciones
  *
- * Gestiona el modelo de datos para los sectores de Instituciones
+ * Gestiona el modelo de datos para los sectores de Organizaciones
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  *
@@ -48,7 +48,7 @@ class InstitutionSector extends Model implements Auditable
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
     /**
-     * Método que obtiene las instituciones asociadas a un sector
+     * Método que obtiene las organizaciones asociadas a un sector
      *
      * @method  institutions
      *
