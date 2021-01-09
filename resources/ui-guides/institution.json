@@ -1,27 +1,27 @@
 [
     {
         "element" : "#helpInstitutionImgs",
-        "intro" : "Corresponde a las imágenes institucionales, logotipo y banner o cintillo",
+        "intro" : "Corresponde a las imágenes de la organización (logotipo y banner o cintillo)",
         "position": "top"
     },
     {
         "element" : "#helpInstitutionBasicData",
-        "intro" : "Corresponde a los datos básicos que identifican a la institución. Tome en cuenta que aquellos campos con (*) son obligatorios",
+        "intro" : "Corresponde a los datos básicos que identifican a la organización. Tome en cuenta que aquellos campos con (*) son obligatorios",
         "position": "top"
     },
     {
         "element" : "#helpInstitutionComplementaryData",
-        "intro" : "Corresponde a los datos con información complementaria de la institución, Esta información es opcional",
+        "intro" : "Corresponde a los datos con información complementaria de la organización, Esta información es opcional",
         "position": "top"
     },
     {
         "element" : "#helpInstitutionList",
-        "intro" : "Muestra un listado de instituciones registradas. Este elemento solo será mostrado siempre y cuando la aplicación se encuentre configurada para la gestión de múltiples instituciones",
+        "intro" : "Muestra un listado de organizaciones registradas. Este elemento solo será mostrado siempre y cuando la aplicación se encuentre configurada para la gestión de múltiples organizaciones",
         "position": "top"
     },
     {
         "element" : "#helpInstitutionButtons",
-        "intro" : "Botones para ejecutar las acciones de limpiar, cancelar o guardar los datos de la institución",
+        "intro" : "Botones para ejecutar las acciones de limpiar, cancelar o guardar los datos de la organización",
         "position" : "left"
     }
 ]

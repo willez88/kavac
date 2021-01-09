@@ -25,7 +25,7 @@ Route::group(['middleware' => ['auth', 'verified', 'role:admin']], function () {
             Route::post('disable', 'ModuleController@disable')->name('module.disable');
             Route::post('details', 'ModuleController@getDetails')->name('module.details');
         });
-        /** Ruta para la gestión de información sobre la(s) institución(es) */
+        /** Ruta para la gestión de información sobre la(s) organizaciones(es) */
         Route::resource('institutions', 'InstitutionController', [
             'except' => ['create', 'show', 'edit', 'update', 'destroy']
         ]);
@@ -37,7 +37,7 @@ Route::group(['middleware' => ['auth', 'verified', 'role:admin']], function () {
         Route::get('backup/delete/{file_name}', 'BackupController@delete')->name('backup.delete');
         Route::post('backup/restore', 'BackupController@restore')->name('backup.restore');
 
-        /** Obtiene las instituciones registradas */
+        /** Obtiene las organizaciones registradas */
         Route::get('get-institutions', 'InstitutionController@getInstitutions');
         Route::get(
             'get-institution/details/{institution}',

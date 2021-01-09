@@ -158,7 +158,7 @@ class DepartmentController extends Controller
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
      * @param  Request  $request        Objeto con los datos de la petición
-     * @param  integer  $institution_id Identificador de la institución
+     * @param  integer  $institution_id Identificador de la organización
      *
      * @return JsonResponse     JSON con información de respuesta a la petición
      */

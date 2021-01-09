@@ -11,9 +11,9 @@ use App\Traits\ModelsTrait;
 
 /**
  * @class IstitutionType
- * @brief Datos de los tipos de las Instituciones
+ * @brief Datos de los tipos de las Organizaciones
  *
- * Gestiona el modelo de datos para los tipos de Instituciones
+ * Gestiona el modelo de datos para los tipos de Organizaciones
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  *
@@ -48,7 +48,7 @@ class InstitutionType extends Model implements Auditable
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
     /**
-     * Método que obtiene las instituciones asociadas a un tipo
+     * Método que obtiene las organizaciones asociadas a un tipo
      *
      * @method  institutions
      *

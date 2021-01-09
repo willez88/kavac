@@ -10,9 +10,9 @@ use Carbon\Carbon;
 
 /**
  * @class InstitutionController
- * @brief Gestiona información de Instituciones
+ * @brief Gestiona información de Organizaciones
  *
- * Controlador para gestionar Instituciones
+ * Controlador para gestionar Organizaciones
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @license
@@ -21,15 +21,15 @@ use Carbon\Carbon;
 class InstitutionController extends Controller
 {
     /**
-     * Obtiene las instituciones registradas
+     * Obtiene las Organizaciones registradas
      *
      * @method  getInstitutions
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
-     * @param  integer $id                      Identificador de la institución a buscar, este parámetro es opcional
+     * @param  integer $id                      Identificador de la organización a buscar, este parámetro es opcional
      *
-     * @return JsonResponse    JSON con los datos de las instituciones
+     * @return JsonResponse    JSON con los datos de las Organizaciones
      */
     public function getInstitutions($id = null)
     {
@@ -41,7 +41,7 @@ class InstitutionController extends Controller
      *
      * @method  getExecutionYear
      *
-     * @param  integer $institution_id          Identificador de la institución, si no se especifica toma
+     * @param  integer $institution_id          Identificador de la organización, si no se especifica toma
      *                                          el valor por defecto
      * @param  string  $year                    Año de la ejecución, si no se especifica toma el año actual
      *                                          del sistema

@@ -13,11 +13,11 @@
     },
     {
         "element" : "#helpInstitutionTypes",
-        "intro" : "Gestiona información acerca de los distintos tipos de instituciones"
+        "intro" : "Gestiona información acerca de los distintos tipos de organizaciones"
     },
     {
         "element" : "#helpInstitutionSectors",
-        "intro" : "Gestiona información acerca de los sectores a los cuales pertenecen las instituciones"
+        "intro" : "Gestiona información acerca de los sectores a los cuales pertenecen las organizaciones"
     },
     {
         "element" : "#helpCountries",
@@ -65,6 +65,6 @@
     },
     {
         "element" : "#helpDepartments",
-        "intro" : "Gestiona información acerca de los departamentos de las instituciones"
+        "intro" : "Gestiona información acerca de los departamentos de las organizaciones"
     }
 ]

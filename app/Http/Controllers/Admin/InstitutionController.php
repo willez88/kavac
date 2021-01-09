@@ -11,9 +11,9 @@ use App\Rules\Rif as RifRule;
 
 /**
  * @class InstitutionController
- * @brief Gestiona información de Instituciones
+ * @brief Gestiona información de Organizaciones
  *
- * Controlador para gestionar Instituciones
+ * Controlador para gestionar Organizaciones
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  *
@@ -127,21 +127,21 @@ class InstitutionController extends Controller
         ];
 
         if (is_null($setting->multi_institution) || !$setting->multi_institution) {
-            // Crea o actualiza información de una institución si la aplicación esta configurada para el uso de un solo
+            // Crea o actualiza información de una organización si la aplicación esta configurada para el uso de un solo
             // organismo
 
             $data['default'] = true;
             Institution::updateOrCreate(['rif' => $request->rif], $data);
         } else {
             if (!empty($request->institution_id)) {
-                // Si existe el identificador de la institución, se actualizan sus datos
+                // Si existe el identificador de la organización, se actualizan sus datos
 
                 /** @var Institution Objeto con información de la organización */
                 $inst = Institution::find($request->institution_id);
                 $inst->fill($data);
                 $inst->save();
             } else {
-                // Si no existe un identificador de institución, se crea una nueva
+                // Si no existe un identificador de organización, se crea una nueva
 
                 Institution::create($data);
             }

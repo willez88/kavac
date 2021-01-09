@@ -158,22 +158,22 @@ class PermissionsTableSeeder extends Seeder
             ],
         ]);
 
-        /** @var array Permisos para la gestión de instituciones */
+        /** @var array Permisos para la gestión de organizaciones */
         $permissions = array_merge($permissions, [
             [
-                'name' => 'Configurar Instituciones', 'slug' => 'institution.setting',
-                'description' => 'Acceso para configurar datos de Instituciones',
+                'name' => 'Configurar organizaciones', 'slug' => 'institution.setting',
+                'description' => 'Acceso para configurar datos de organizaciones',
                 'model' => Institution::class, 'model_prefix' => '0general',
                 'slug_alt' => 'institucion.configurar',
-                'short_description' => 'configurar instituciones'
+                'short_description' => 'configurar organizaciones'
             ],
             [
-                'name' => 'Notificar configuración de instituciones',
+                'name' => 'Notificar configuración de organizaciones',
                 'slug' => 'institution.notify',
-                'description' => 'Notificar sobre configuración de datos de Instituciones',
+                'description' => 'Notificar sobre configuración de datos de organizaciones',
                 'model' => Institution::class, 'model_prefix' => '0general',
                 'slug_alt' => 'institucion.configurar.notificar',
-                'short_description' => 'notificar la configuración de instituciones'
+                'short_description' => 'notificar la configuración de organizaciones'
             ],
         ]);
 
@@ -788,75 +788,75 @@ class PermissionsTableSeeder extends Seeder
             ],
         ]);
 
-        /** @var array Permisos para la gestión de sectores de instituciones */
+        /** @var array Permisos para la gestión de sectores de organizaciones */
         $permissions = array_merge($permissions, [
             [
-                'name' => 'Crear sectores de instituciones', 'slug' => 'institution.sector.create',
-                'description' => 'Acceso al registro de sectores de instituciones',
+                'name' => 'Crear sectores de organizaciones', 'slug' => 'institution.sector.create',
+                'description' => 'Acceso al registro de sectores de organizaciones',
                 'model' => InstitutionSector::class, 'model_prefix' => '0general',
-                'slug_alt' => 'institution.sector.crear', 'short_description' => 'agregar sector de institución'
+                'slug_alt' => 'institution.sector.crear', 'short_description' => 'agregar sector de organización'
             ],
             [
-                'name' => 'Editar sectores de instituciones', 'slug' => 'institution.sector.edit',
-                'description' => 'Acceso para editar sectores de instituciones',
+                'name' => 'Editar sectores de organizaciones', 'slug' => 'institution.sector.edit',
+                'description' => 'Acceso para editar sectores de organizaciones',
                 'model' => InstitutionSector::class, 'model_prefix' => '0general',
-                'slug_alt' => 'institution.sector.editar', 'short_description' => 'editar sector de institución'
+                'slug_alt' => 'institution.sector.editar', 'short_description' => 'editar sector de organización'
             ],
             [
-                'name' => 'Eliminar sectores de instituciones', 'slug' => 'institution.sector.delete',
-                'description' => 'Acceso para eliminar sectores de instituciones',
+                'name' => 'Eliminar sectores de organizaciones', 'slug' => 'institution.sector.delete',
+                'description' => 'Acceso para eliminar sectores de organizaciones',
                 'model' => InstitutionSector::class, 'model_prefix' => '0general',
-                'slug_alt' => 'institution.sector.eliminar', 'short_description' => 'eliminar sector de institución'
+                'slug_alt' => 'institution.sector.eliminar', 'short_description' => 'eliminar sector de organización'
             ],
             [
-                'name' => 'Ver sectores de instituciones', 'slug' => 'institution.sector.list',
-                'description' => 'Acceso para ver sectores de instituciones',
+                'name' => 'Ver sectores de organizaciones', 'slug' => 'institution.sector.list',
+                'description' => 'Acceso para ver sectores de organizaciones',
                 'model' => InstitutionSector::class, 'model_prefix' => '0general',
-                'slug_alt' => 'institution.sector.ver', 'short_description' => 'ver sectores de instituciones'
+                'slug_alt' => 'institution.sector.ver', 'short_description' => 'ver sectores de organizaciones'
             ],
             [
-                'name' => 'Notificar gestión de sectores de instituciones',
+                'name' => 'Notificar gestión de sectores de organizaciones',
                 'slug' => 'institution.sector.notify',
-                'description' => 'Notificar sobre gestión de datos de sectores de instituciones',
+                'description' => 'Notificar sobre gestión de datos de sectores de organizaciones',
                 'model' => InstitutionSector::class, 'model_prefix' => '0general',
                 'slug_alt' => 'institution.sector.notificar',
-                'short_description' => 'notificar la gestión de sectores de instituciones'
+                'short_description' => 'notificar la gestión de sectores de organizaciones'
             ],
         ]);
 
-        /** @var array Permisos para la gestión de tipos de instituciones */
+        /** @var array Permisos para la gestión de tipos de organizaciones */
         $permissions = array_merge($permissions, [
             [
-                'name' => 'Crear tipos de instituciones', 'slug' => 'institution.type.create',
-                'description' => 'Acceso al registro de tipos de instituciones',
+                'name' => 'Crear tipos de organizaciones', 'slug' => 'institution.type.create',
+                'description' => 'Acceso al registro de tipos de organizaciones',
                 'model' => InstitutionType::class, 'model_prefix' => '0general',
-                'slug_alt' => 'institution.tipo.crear', 'short_description' => 'agregar tipo de institución'
+                'slug_alt' => 'institucion.tipo.crear', 'short_description' => 'agregar tipo de organización'
             ],
             [
-                'name' => 'Editar tipos de instituciones', 'slug' => 'institution.type.edit',
-                'description' => 'Acceso para editar tipos de instituciones',
+                'name' => 'Editar tipos de organizaciones', 'slug' => 'institution.type.edit',
+                'description' => 'Acceso para editar tipos de organizaciones',
                 'model' => InstitutionType::class, 'model_prefix' => '0general',
-                'slug_alt' => 'institution.tipo.editar', 'short_description' => 'editar tipo de institución'
+                'slug_alt' => 'institucion.tipo.editar', 'short_description' => 'editar tipo de organización'
             ],
             [
-                'name' => 'Eliminar tipos de instituciones', 'slug' => 'institution.type.delete',
-                'description' => 'Acceso para eliminar tipos de instituciones',
+                'name' => 'Eliminar tipos de organizaciones', 'slug' => 'institution.type.delete',
+                'description' => 'Acceso para eliminar tipos de organizaciones',
                 'model' => InstitutionType::class, 'model_prefix' => '0general',
-                'slug_alt' => 'institution.tipo.eliminar', 'short_description' => 'eliminar tipo de institución'
+                'slug_alt' => 'institucion.tipo.eliminar', 'short_description' => 'eliminar tipo de organización'
             ],
             [
-                'name' => 'Ver tipos de instituciones', 'slug' => 'institution.type.list',
-                'description' => 'Acceso para ver tipos de instituciones',
+                'name' => 'Ver tipos de organizaciones', 'slug' => 'institution.type.list',
+                'description' => 'Acceso para ver tipos de organizaciones',
                 'model' => InstitutionType::class, 'model_prefix' => '0general',
-                'slug_alt' => 'institution.tipo.ver', 'short_description' => 'ver tipos de instituciones'
+                'slug_alt' => 'institucion.tipo.ver', 'short_description' => 'ver tipos de organizaciones'
             ],
             [
-                'name' => 'Notificar gestión de tipos de instituciones',
+                'name' => 'Notificar gestión de tipos de organizaciones',
                 'slug' => 'institution.type.notify',
-                'description' => 'Notificar sobre gestión de datos de tipos de instituciones',
+                'description' => 'Notificar sobre gestión de datos de tipos de organizaciones',
                 'model' => InstitutionType::class, 'model_prefix' => '0general',
-                'slug_alt' => 'institution.tipo.notificar',
-                'short_description' => 'notificar la gestión de tipos de instituciones'
+                'slug_alt' => 'institucion.tipo.notificar',
+                'short_description' => 'notificar la gestión de tipos de organizaciones'
             ],
         ]);
 

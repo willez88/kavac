@@ -1,0 +1,42 @@
+[
+    {
+        "element": "#helpUIButtons",
+        "intro": "Muestra los distintos elementos disponibles para el desarrollo de funcionalidades en la interfaz de usuario"
+    },
+    {
+        "element": "#helpIconButton",
+        "intro": "Muestra un listado de todos los iconos disponibles para su uso dentro de la aplicación"
+    },
+    {
+        "element": "#helpComponentsButton",
+        "intro": "Muestra los componentes disponibles prediseñados para el uso en la interfaz de las funcionalidades"
+    },
+    {
+        "element": "#helpButtons",
+        "intro": "Muestra los botones a utilizar en las distintas secciones de la aplicación"
+    },
+    {
+        "element": "#helpFormsButton",
+        "intro": "Muestra los elementos disponibles para los formularios así como otros elementos de la interfaz"
+    },
+    {
+        "element": "#helpUIAdjustements",
+        "intro": "Configura el estatus de la aplicación bajo la cual se requiere realizar algunas acciones"
+    },
+    {
+        "element": "#helpMaintenanceMode",
+        "intro": "Establece la aplicación en modo mantenimiento. Mientras este modo este activado solo se podrá acceder a través de un token suministrado por correo a las personas que dispongan del nivel de acceso requerido"
+    },
+    {
+        "element": "#helpDemoMode",
+        "intro": "Establece la aplicación en modo de demostración. La información registrada será eliminada períodicamente"
+    },
+    {
+        "element": "#helpDebugMode",
+        "intro": "Establece la aplicación en modo de depuración. Se mostrará información relevante a desarrolladores del sistema"
+    },
+    {
+        "element": "#helpLogEvents",
+        "intro": "Permite acceder a las bitácoras de eventos generadas por el sistema para ver errores o posibles fallas generadas en los distintos procesos de la aplicación"
+    }
+]

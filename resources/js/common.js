@@ -151,7 +151,8 @@ var startGuidedTour = function(steps, disableInteraction = true, stepNumber = tr
     var steps = steps.filter(function(currentValue) {
         var value = currentValue.element.replace("#", "");
         var element = document.getElementById(value);
-        if (typeof(element.position) === "undefined") {
+
+        if (element !== null && typeof(element.position) === "undefined") {
             /**
              * Si no existe el atributo de posición se agrega por defecto para mostrar la información encima del
              * elemento

@@ -793,11 +793,11 @@ Vue.mixin({
 			}
 		},
 		/**
-		 * Obtiene un arreglo con las instituciones registradas
+		 * Obtiene un arreglo con las organizaciones registradas
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 *
-		 * @param  {integer} id Identificador de la institución a buscar, este parámetro es opcional
+		 * @param  {integer} id Identificador de la organización a buscar, este parámetro es opcional
 		 */
 		getInstitutions(id) {
 			const vm = this;
@@ -823,7 +823,7 @@ Vue.mixin({
 			});
 		},
 		/**
-		 * Obtiene los departamentos o unidades de la institución
+		 * Obtiene los departamentos o unidades de la organización
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 *

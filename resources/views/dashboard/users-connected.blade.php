@@ -2,35 +2,44 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header">
-				<h6 class="card-title">{{ __('Acceso a la Aplicación') }}</h6>
+				<h6 class="card-title">
+                    {{ __('Acceso a la Aplicación') }}
+                    @include('buttons.help', [
+                        'helpId' => 'connectedUsers',
+                        'helpSteps' => get_json_resource('ui-guides/connected_users.json')
+                    ])
+                </h6>
 				<div class="card-btns">
+                    @include('buttons.previous', ['route' => url()->previous()])
 					@include('buttons.minimize')
 				</div>
 			</div>
 			<div class="card-body">
-				<div class="row">
-					<div class="col-md-4 panel-legend">
-						<i class="fa fa-user text-success" data-toggle="tooltip"
-                           title="{{ __('Los usuarios con este estatus se encuentran conectados a la aplicación') }}"></i>
-						<span>{{ __('Conectados') }}</span>
-					</div>
-				</div>
-				<div class="row mg-bottom-20">
-					<div class="col-md-4 panel-legend">
-						<i class="fa fa-user text-danger" data-toggle="tooltip"
-                           title="{{ __('Los usuarios con este estatus no están conectados a la aplicación') }}"></i>
-						<span>{{ __('Desconectados') }}</span>
-					</div>
-				</div>
-				<table class="table table-hover table-striped dt-responsive nowrap datatable">
+                <div id="helpConnectedLeyend">
+    				<div class="row" id="helpConnectedUser">
+    					<div class="col-md-4 panel-legend">
+    						<i class="fa fa-user text-success" data-toggle="tooltip"
+                               title="{{ __('Los usuarios con este estatus se encuentran conectados a la aplicación') }}"></i>
+    						<span>{{ __('Conectados') }}</span>
+    					</div>
+    				</div>
+    				<div class="row mg-bottom-20" id="helpDisconneted">
+    					<div class="col-md-4 panel-legend">
+    						<i class="fa fa-user text-danger" data-toggle="tooltip"
+                               title="{{ __('Los usuarios con este estatus no están conectados a la aplicación') }}"></i>
+    						<span>{{ __('Desconectados') }}</span>
+    					</div>
+    				</div>
+                </div>
+				<table class="table table-hover table-striped dt-responsive nowrap datatable" id="helpConnectedUserList">
 					<thead>
 						<tr class="text-center">
-							<th>{{ __('Usuario') }}</th>
-							<th>{{ __('Nombre') }}</th>
-							<th>{{ __('IP') }}</th>
-							<th>{{ __('Estatus') }}</th>
-							<th>{{ __('Última Conexión') }}</th>
-							<th>{{ __('Acción') }}</th>
+							<th id="helpTHUser">{{ __('Usuario') }}</th>
+							<th id="helpTHName">{{ __('Nombre') }}</th>
+							<th id="helpTHIP">{{ __('IP') }}</th>
+							<th id="helpTHStatus">{{ __('Estatus') }}</th>
+							<th id="helpTHLastAccess">{{ __('Última Conexión') }}</th>
+							<th id="helpTHAction">{{ __('Acción') }}</th>
 						</tr>
 					</thead>
 					<tbody>

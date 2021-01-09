@@ -3,7 +3,7 @@
 		<div class="card" id="card_config_institution">
 			<div class="card-header">
 				<h6 class="card-title">
-					{{ __('Configurar Institución') }}
+					{{ __('Configurar Organización') }}
 					@include('buttons.help', [
 						'helpId' => 'institution',
 						'helpSteps' => get_json_resource('ui-guides/institution.json')
@@ -18,7 +18,7 @@
 				<div class="row" id="helpInstitutionImgs">
 					<div class="col-md-4">
 						<div class="form-group">
-							<label for="">{{ __('Logotipo Institucional') }}</label>
+							<label for="">{{ __('Logotipo') }}</label>
 							{!! Form::open([
                                 'id' => 'formImgLogo', 'method' => 'POST', 'route' => 'upload-image.store',
                                 'role' => 'form', 'class' => 'form', 'enctype' => 'multipart/form-data'
@@ -30,7 +30,7 @@
                                 	) ? $model_institution->logo->url : null;
                                 @endphp
                                 <img src="{{ asset($img_logo ?? 'images/no-image2.png') }}"
-                                     alt="{{ __('Logotipo institucional') }}"
+                                     alt="{{ __('Logotipo') }}"
                                      class="img-fluid institution-logo" style="cursor:pointer"
                                      title="{{ __('Click para cargar o modificar la imagen') }}" data-toggle="tooltip"
                                      onclick="$('input[name=logo_image]').click()">
@@ -51,7 +51,7 @@
 					</div>
 					<div class="col-md-8">
 						<div class="form-group">
-							<label for="">{{ __('Banner Institucional') }}</label>
+							<label for="">{{ __('Banner o Cintillo') }}</label>
 							{!! Form::open([
                                 'id' => 'formImgBanner', 'method' => 'POST', 'route' => 'upload-image.store',
                                 'role' => 'form', 'class' => 'form', 'enctype' => 'multipart/form-data'
@@ -63,7 +63,7 @@
                                 	) ? $model_institution->banner->url : null;
                                 @endphp
                                 <img src="{{ asset($img_banner ?? 'images/no-image3.png') }}"
-                                     alt="{{ __('Banner institucional') }}"
+                                     alt="{{ __('Banner / Cintillo') }}"
                                      class="img-fluid institution-banner" style="cursor:pointer"
                                      title="{{ __('Click para cargar o modificar la imagen') }}" data-toggle="tooltip"
                                      onclick="$('input[name=banner_image]').click()">
@@ -87,8 +87,6 @@
 			{!! Form::model($model_institution, $header_institution) !!}
 				<div class="card-body">
 					@include('layouts.form-errors')
-					{{-- <div id="kv-avatar-errors-logo_id" class="kv-avatar-errors center-block"></div>
-					<div id="kv-avatar-errors-banner_id" class="kv-avatar-errors center-block"></div> --}}
 					{!! Form::hidden('logo_id', null, ['readonly' => 'readonly', 'id' => 'logo_id']) !!}
 					{!! Form::hidden('banner_id', null, ['readonly' => 'readonly', 'id' => 'banner_id']) !!}
 					{!! Form::hidden('institution_id', (isset($model_institution))?$model_institution->id:'', [
@@ -106,7 +104,7 @@
 										(isset($model_institution))?$model_institution->onapre_code:old('onapre_code'), [
 											'class' => 'form-control input-sm', 'id' => 'onapre_code',
 											'data-toggle' => 'tooltip',
-											'title' => __('Indique el código ONAPRE asignado a la institución (requerido)')
+											'title' => __('Indique el código ONAPRE asignado a la organización (requerido)')
 										]
 									) !!}
 								</div>
@@ -130,7 +128,7 @@
 										(isset($model_institution))?$model_institution->name:old('name'), [
 											'class' => 'form-control input-sm',
 											'data-toggle' => 'tooltip',
-											'title' => __('Introduzca el nombre de la institución (requerido)')
+											'title' => __('Introduzca el nombre de la organización (requerido)')
 										]
 									) !!}
 								</div>
@@ -144,7 +142,7 @@
 										(isset($model_institution))?$model_institution->acronym:old('acronym'), [
 											'class' => 'form-control input-sm', 'id' => 'acronym',
 											'data-toggle' => 'tooltip',
-											'title' => __('Introduzca el nombre corto de la institución')
+											'title' => __('Introduzca el nombre corto de la organización')
 										]
 									) !!}
 								</div>
@@ -168,7 +166,6 @@
 										'class' => 'form-control select2 input-sm', 'id' => 'country_id',
 										'onchange' => 'updateSelect($(this), $("#estate_id"), "Estate")'
 									]) !!}
-									{{-- <i class="fa fa-plus-circle btn-add-record"></i> --}}
 								</div>
 							</div>
 						</div>
@@ -274,7 +271,7 @@
                                 <div class="form-group is-required">
                                     {!! Form::label('legal_address', __('Dirección Fiscal'), []) !!}
                                     <ckeditor :editor="ckeditor.editor" id="legal_address" data-toggle="tooltip"
-                                              title="{!! __('Indique la dirección fiscal de la institución  (requerido)') !!}"
+                                              title="{!! __('Indique la dirección fiscal de la organización (requerido)') !!}"
                                               :config="ckeditor.editorConfig" class="form-control" name="legal_address"
                                               tag-name="textarea" rows="4"
                                               value="{!!
@@ -297,7 +294,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    {!! Form::label('default', __('Institución por defecto'), []) !!}
+                                    {!! Form::label('default', __('Organización por defecto'), []) !!}
                                     <div class="col-12">
                                         <div class="col-12 bootstrap-switch-mini">
                                             {!! Form::checkbox('default', true, (isset($model_institution) && $model_institution->default)?null:true, [
@@ -335,7 +332,7 @@
                                     ) !!}
                                 </div>
 							</div>
-							<!--<div class="col-md-4">
+							{{-- <div class="col-md-4">
 								<div class="form-group">
 									{!! Form::label('social_networks', __('Redes Sociales'), []) !!}
 									{!! Form::select(
@@ -345,7 +342,7 @@
 										]
 									) !!}
 								</div>
-							</div>-->
+							</div> --}}
 						</div>
 					</div>
 					<hr>
@@ -356,7 +353,7 @@
 								<div class="form-group">
 									{!! Form::label('legal_base', __('Base Legal'), []) !!}
                                     <ckeditor :editor="ckeditor.editor" id="legal_base" data-toggle="tooltip"
-                                              title="{!! __('Indique la base legal constitutiva de la institución') !!}"
+                                              title="{!! __('Indique la base legal constitutiva de la organización') !!}"
                                               :config="ckeditor.editorConfig" class="form-control" name="legal_base"
                                               tag-name="textarea" rows="4"
                                               value="{!!
@@ -370,7 +367,7 @@
 								<div class="form-group">
 									{!! Form::label('legal_form', __('Forma Jurídica'), []) !!}
                                     <ckeditor :editor="ckeditor.editor" id="legal_form" data-toggle="tooltip"
-                                              title="{!! __('Indique la forma jurídica de la institución') !!}"
+                                              title="{!! __('Indique la forma jurídica de la organización') !!}"
                                               :config="ckeditor.editorConfig" class="form-control" name="legal_form"
                                               tag-name="textarea" rows="4"
                                               value="{!!
@@ -386,7 +383,7 @@
 								<div class="form-group">
 									{!! Form::label('main_activity', __('Actividad Principal'), []) !!}
                                     <ckeditor :editor="ckeditor.editor" id="main_activity" data-toggle="tooltip"
-                                              title="{!! __('Indique la actividad principal a la cual se dedica la institución') !!}"
+                                              title="{!! __('Indique la actividad principal a la cual se dedica la organización') !!}"
                                               :config="ckeditor.editorConfig" class="form-control" name="main_activity"
                                               tag-name="textarea" rows="4"
                                               value="{!!
@@ -400,7 +397,7 @@
 								<div class="form-group">
 									{!! Form::label('mission', __('Misión'), []) !!}
                                     <ckeditor :editor="ckeditor.editor" id="mission" data-toggle="tooltip"
-                                              title="{!! __('Indique la misión de la institución') !!}"
+                                              title="{!! __('Indique la misión de la organización') !!}"
                                               :config="ckeditor.editorConfig" class="form-control" name="mission"
                                               tag-name="textarea" rows="4"
                                               value="{!!
@@ -416,7 +413,7 @@
 								<div class="form-group">
 									{!! Form::label('vision', __('Visión'), []) !!}
                                     <ckeditor :editor="ckeditor.editor" id="vision" data-toggle="tooltip"
-                                              title="{!! __('Indique la visión de la institución') !!}"
+                                              title="{!! __('Indique la visión de la organización') !!}"
                                               :config="ckeditor.editorConfig" class="form-control" name="vision"
                                               tag-name="textarea" rows="4"
                                               value="{!!
@@ -430,7 +427,7 @@
 								<div class="form-group">
 									{!! Form::label('composition_assets', __('Composición de Patrimonio'), []) !!}
                                     <ckeditor :editor="ckeditor.editor" id="composition_assets" data-toggle="tooltip"
-                                              title="{!! __('Indique la composición patrimonial de la institución') !!}"
+                                              title="{!! __('Indique la composición patrimonial de la organización') !!}"
                                               :config="ckeditor.editorConfig" class="form-control"
                                               name="composition_assets" tag-name="textarea" rows="4"
                                               value="{!!
@@ -445,7 +442,7 @@
 
 					@if (!is_null($paramMultiInstitution))
 						<hr>
-						<h6 class="md-title card-title">{{ __('Instituciones Registradas') }}</h6>
+						<h6 class="md-title card-title">{{ __('Organizaciones Registradas') }}</h6>
 						<div class="row">
 							<div class="col-12 text-right">
 								@include('buttons.new', ['route' => 'javascript:void(0)', 'btnClass' => 'btn-new-institution'])
@@ -562,30 +559,41 @@
 		});
 
 		/**
-		 * Carga datos de la instiotución seleccionada
+		 * Carga datos de la organización seleccionada
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-		 * @param  {integer} id Identificador de la Institución a cargar
+         *
+		 * @param  {integer} id Identificador de la Organización a cargar
 		 */
 		var loadInstitution = function(id) {
 			axios.get(`get-institution/details/${id}`).then(response => {
 				if (response.data.result) {
 					var institution = response.data.institution;
+                    var activeSwitchRemoveClass = (institution.active) ? 'off' : 'on';
+                    var activeSwitchAddClass = (institution.active) ? 'on' : 'off';
+                    var defaultSwitchRemoveClass = (institution.default) ? 'off' : 'on';
+                    var defaultSwitchAddClass = (institution.default) ? 'on' : 'off';
+                    var retAgentSwitchRemoveClass = (institution.retention_agent) ? 'off' : 'on';
+                    var retAgentSwitchAddClass = (institution.retention_agent) ? 'on' : 'off';
+
 					$(".institution-logo").attr('src', "{{ asset('/images/no-image2.png', Request::secure()) }}");
 					$("#logo_id").val('');
 					$(".institution-banner").attr('src', "{{ asset('/images/no-image3.png') }}");
 					$("#banner_id").val('');
-					if (institution.logo) {
+
+                    if (institution.logo) {
 						$(".institution-logo").attr('src', `${window.app_url}/${institution.logo.url}`);
 						$(".institution-logo").closest('.form-group').find('.row-delete-img').show();
 						$("#logo_id").val(institution.logo.id);
 					}
-					if (institution.banner) {
+
+                    if (institution.banner) {
 						$(".institution-banner").attr('src', `${window.app_url}/${institution.banner.url}`);
 						$(".institution-banner").closest('.form-group').find('.row-delete-img').show();
 						$("#banner_id").val(institution.banner.id);
 					}
-					$("#institution_id").val(institution.id);
+
+                    $("#institution_id").val(institution.id);
 					$("#onapre_code").val(institution.onapre_code);
 					$("#rif").val(institution.rif);
 					$("input[name=name]").val(institution.name);
@@ -610,18 +618,12 @@
 					$("#social_networks").val(institution.social_networks);
 					$("#social_networks").trigger('change');
 					$('#active').attr('checked', institution.active);
-					var activeSwitchRemoveClass = (institution.active) ? 'off' : 'on';
-					var activeSwitchAddClass = (institution.active) ? 'on' : 'off';
-					$('#active.bootstrap-switch').removeClass(`bootstrap-switch-${activeSwitchRemoveClass}`);
+                    $('#active.bootstrap-switch').removeClass(`bootstrap-switch-${activeSwitchRemoveClass}`);
 					$('#active.bootstrap-switch').addClass(`bootstrap-switch-${activeSwitchAddClass}`);
 					$('#default').attr('checked', institution.default);
-					var defaultSwitchRemoveClass = (institution.default) ? 'off' : 'on';
-					var defaultSwitchAddClass = (institution.default) ? 'on' : 'off';
 					$('#default.bootstrap-switch').removeClass(`bootstrap-switch-${defaultSwitchRemoveClass}`);
 					$('#default.bootstrap-switch').addClass(`bootstrap-switch-${defaultSwitchAddClass}`);
 					$('#retention_agent').attr('checked', institution.retention_agent);
-					var retAgentSwitchRemoveClass = (institution.retention_agent) ? 'off' : 'on';
-					var retAgentSwitchAddClass = (institution.retention_agent) ? 'on' : 'off';
 					$('#retention_agent.bootstrap-switch').removeClass(`bootstrap-switch-${retAgentSwitchRemoveClass}`);
 					$('#retention_agent.bootstrap-switch').addClass(`bootstrap-switch-${retAgentSwitchAddClass}`);
 					$("#legal_base").val(institution.legal_base);

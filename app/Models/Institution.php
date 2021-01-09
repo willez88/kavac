@@ -10,9 +10,9 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
  * @class Istitution
- * @brief Datos de Instituciones
+ * @brief Datos de Organizaciones
  *
- * Gestiona el modelo de datos para las Instituciones
+ * Gestiona el modelo de datos para las Organizaciones
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  *
@@ -44,7 +44,7 @@ class Institution extends Model implements Auditable
     ];
 
     /**
-     * Método que obtiene el logotipo de la Institución
+     * Método que obtiene el logotipo de la Organización
      *
      * @method  logo
      *
@@ -58,7 +58,7 @@ class Institution extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene el banner de la Institución
+     * Método que obtiene el banner de la Organización
      *
      * @method  banner
      *
@@ -72,7 +72,7 @@ class Institution extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene el sector de la Institución
+     * Método que obtiene el sector de la Organización
      *
      * @method  sector
      *
@@ -86,7 +86,7 @@ class Institution extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene el tipo de la Institución
+     * Método que obtiene el tipo de la Organización
      *
      * @method  type
      *
@@ -150,7 +150,7 @@ class Institution extends Model implements Auditable
     }
 
     /**
-     * Filtra datos de la institución de acuerdo al usuario autenticado
+     * Filtra datos de la Organización de acuerdo al usuario autenticado
      *
      * @method     newQuery(boolean $excludeDeleted)
      *

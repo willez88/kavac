@@ -39,7 +39,7 @@ class ReportRepository implements ReportInterface
     private $urlVerify;
     /** @var string Fecha en la que se genera el reporte */
     private $reportDate;
-    /** @var object Identificador de la institución que genera el reporte */
+    /** @var object Identificador de la organización que genera el reporte */
     private $institution;
     /** @var string Nombre del archivo a generar con el reporte */
     private $filename;
@@ -145,7 +145,7 @@ class ReportRepository implements ReportInterface
             $parameter = Parameter::where(['p_key' => 'report_banner', 'p_value' => 'true'])->first();
 
             if (!is_null($params->institution->banner)) {
-                /** Imagen del banner institucional a implementar en el reporte */
+                /** Imagen del banner de la organización a implementar en el reporte */
                 $pdf->Image(
                     storage_path('pictures') . '/' . $params->institution->banner->file,
                     10,
@@ -167,7 +167,7 @@ class ReportRepository implements ReportInterface
                 );
             }
             if (!is_null($params->institution->logo)) {
-                /** Imagen del logotipo institucional a implementar en el reporte */
+                /** Imagen del logotipo de la organización a implementar en el reporte */
                 $pdf->Image(
                     storage_path('pictures') . '/' . $params->institution->logo->file,
                     10,
