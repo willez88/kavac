@@ -82,7 +82,7 @@
                 {{ __('Acceso') }}
             </button>
             <a class="btn btn-link" href="{{ route('password.request') }}" data-toggle="tooltip" data-placement="top"
-               title="{{ __('¿Olvidó su contraseña?, presione sobre el enlace para modificarla') }}">
+               title="{{ __('Presione el enlace para recuperar su contraseña') }}">
                 {{ __('¿Olvidaste la contraseña?') }}
             </a>
         </div>
