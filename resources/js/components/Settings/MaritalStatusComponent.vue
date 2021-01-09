@@ -1,5 +1,5 @@
 <template>
-	<div class="col-xs-2 text-center">
+	<div class="col-12 col-sm-6 col-md-4 col-lg-2 mt-2 mb-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href="javascript:void(0)"
 		   title="Registros de estados civiles" data-toggle="tooltip"
 		   @click="addRecord('add_marital_status', 'marital-status', $event)">

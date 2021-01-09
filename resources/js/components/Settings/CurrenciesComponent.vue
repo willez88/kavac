@@ -1,5 +1,5 @@
 <template>
-	<div class="col-xs-2 text-center">
+	<div class="col-12 col-sm-6 col-md-4 col-lg-2 mt-2 mb-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="javascript:void(0)" title="Registros de Monedas" data-toggle="tooltip"
 		   @click="addRecord('add_currency', 'currencies', $event)">
@@ -25,14 +25,14 @@
 							</ul>
 						</div>
 						<div class="row">
-							<div class="col-md-4">
+							<div class="col-12 col-md-4">
 								<div class="form-group">
 									<label>Pais:</label>
 									<select2 :options="countries" v-model="record.country_id"></select2>
 									<input type="hidden" v-model="record.id">
 			                    </div>
 							</div>
-							<div class="col-md-2">
+							<div class="col-12 col-md-2">
 								<div class="form-group is-required">
 									<label>Símbolo:</label>
 									<input type="text" placeholder="Símbolo" data-toggle="tooltip"
@@ -40,7 +40,7 @@
 										   class="form-control input-sm" v-model="record.symbol" v-is-text>
 			                    </div>
 							</div>
-							<div class="col-md-4">
+							<div class="col-12 col-md-4">
 								<div class="form-group is-required">
 									<label>Nombre:</label>
 									<input type="text" placeholder="Nombre de la moneda" data-toggle="tooltip"
@@ -48,7 +48,7 @@
 										   class="form-control input-sm" v-model="record.name" v-is-text>
 			                    </div>
 							</div>
-							<div class="col-md-2">
+							<div class="col-12 col-md-2">
 								<div class="form-group is-required">
 									<label>Decimales</label>
 									<input type="number" data-toggle="tooltip"
@@ -59,10 +59,10 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-2">
+							<div class="col-12 col-md-2">
 								<div class="form-group is-required">
 									<label>Por defecto:</label>
-									<div class="col-md-12">
+									<div class="col-12">
                                         <div class="col-12 bootstrap-switch-mini">
     										<input type="checkbox" class="form-control bootstrap-switch"
     											   data-toggle="tooltip" data-on-label="SI" data-off-label="NO"

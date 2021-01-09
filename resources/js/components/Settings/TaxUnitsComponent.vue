@@ -1,5 +1,5 @@
 <template>
-	<div class="col-xs-2 text-center">
+	<div class="col-12 col-sm-6 col-md-4 col-lg-2 mt-2 mb-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="javascript:void(0)" title="Registros de Unidades Tributarias" data-toggle="tooltip"
 		   @click="addRecord('add_tax_unit', 'tax-units', $event)">
@@ -25,7 +25,7 @@
 							</ul>
 						</div>
 						<div class="row">
-							<div class="col-md-3 col-sm-6 col-xs-12">
+							<div class="col-12 col-md-6 col-md-3">
 								<div class="form-group is-required">
 									<label>Fecha Inicio:</label>
 									<input type="date" placeholder="dd/mm/yyyy" data-toggle="tooltip"
@@ -33,7 +33,7 @@
 										   class="form-control input-sm" v-model="record.start_date">
 			                    </div>
 							</div>
-							<div class="col-md-3 col-sm-6 col-xs-12">
+							<div class="col-12 col-md-6 col-md-3">
 								<div class="form-group">
 									<label>Fecha fin:</label>
 									<input type="date" placeholder="dd/mm/yyyy" data-toggle="tooltip"
@@ -41,7 +41,7 @@
 										   class="form-control input-sm" v-model="record.end_date">
 			                    </div>
 							</div>
-                            <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="col-12 col-md-6 col-md-3">
                                 <div class="form-group is-required">
                                     <label>Valor:</label>
                                     <input type="number" placeholder="0.00" data-toggle="tooltip"
@@ -50,7 +50,7 @@
                                     <input type="hidden" v-model="record.id">
                                 </div>
                             </div>
-							<div class="col-md-3 col-sm-6 col-xs-12">
+							<div class="col-12 col-md-6 col-md-3">
 								<div class="form-group is-required">
 									<label class="col-12">Activo:</label>
                                     <div class="col-12 bootstrap-switch-mini">

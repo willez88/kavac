@@ -48,7 +48,7 @@ Vue.use(window.execution_year);
  */
 Vue.component('modal-form-buttons', () => import(
     /* webpackChunkName: "modal-form-buttons" */
-    './components/Shared/ButtonsFormModalComponent'
+    './components/Shared/ButtonsFormModalComponent.vue'
 ));
 
 /**

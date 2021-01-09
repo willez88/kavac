@@ -1,5 +1,5 @@
 <template>
-	<div class="col-xs-2 text-center">
+	<div class="col-12 col-sm-6 col-md-4 col-lg-2 mt-2 mb-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="javascript:void(0)" title="Registros de unidades, departamentos o dependencias"
 		   data-toggle="tooltip" @click="addRecord('add_department', 'departments', $event)">
@@ -25,7 +25,7 @@
 							</ul>
 						</div>
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-12 col-md-6">
 								<div class="form-group is-required">
 									<label>Institución:</label>
 									<select2 :options="institutions" v-model="record.institution_id"
@@ -34,7 +34,7 @@
 									<input type="hidden" v-model="record.id">
 			                    </div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-12 col-md-6">
 								<div class="form-group">
 									<label>Depende de:</label>
 									<select2 :options="departments" v-model="record.parent_id"
@@ -42,7 +42,7 @@
 											 data-toggle="tooltip"></select2>
 			                    </div>
 							</div>
-							<div class="col-md-2">
+							<div class="col-12 col-md-2">
 								<div class="form-group">
 									<label>Siglas:</label>
 									<input type="text" class="form-control input-sm" data-toggle="tooltip"
@@ -50,7 +50,7 @@
 										   placeholder="SIGLAS" v-model="record.acronym" v-is-text>
 			                    </div>
 							</div>
-							<div class="col-md-10">
+							<div class="col-12 col-md-10">
 								<div class="form-group is-required">
 									<label>Nombre:</label>
 									<input type="text" class="form-control input-sm" data-toggle="tooltip"
@@ -58,10 +58,10 @@
 										   v-model="record.name" v-is-text>
 			                    </div>
 							</div>
-							<div class="col-md-2">
+							<div class="col-12 col-md-2">
 								<div class="form-group is-required">
 									<label>Solicita almacén:</label>
-									<div class="col-md-12">
+									<div class="col-12">
                                         <div class="bootstrap-switch-mini">
     										<input type="checkbox" class="form-control bootstrap-switch"
     											   data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
@@ -71,10 +71,10 @@
 									</div>
 			                    </div>
 							</div>
-							<div class="col-md-2">
+							<div class="col-12 col-md-2">
 								<div class="form-group is-required">
 									<label>Activo:</label>
-									<div class="col-md-12">
+									<div class="col-12">
                                         <div class="bootstrap-switch-mini">
     										<input type="checkbox" class="form-control bootstrap-switch" name="active"
     											   data-toggle="tooltip" title="Indique si se encuentra activo"
@@ -84,10 +84,10 @@
 									</div>
 			                    </div>
 							</div>
-							<div class="col-md-2">
+							<div class="col-12 col-md-2">
 								<div class="form-group is-required">
 									<label>Administrativo:</label>
-									<div class="col-md-12">
+									<div class="col-12">
                                         <div class="bootstrap-switch-mini">
     										<input type="checkbox" class="form-control bootstrap-switch"
     											   data-toggle="tooltip" title="Indique si la unidad, departamento o dependencia es del área administrativa" name="administrative"
