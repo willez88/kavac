@@ -275,20 +275,24 @@ $(document).ready(function() {
         }
     });
 
-    /** Establece la fecha límite a seleccionar en campos de tipo date */
+    /** Campos del tipo Fecha */
     if ($('input[type=date]').length) {
-        let today = new Date();
-        let dd = today.getDate();
-        let mm = today.getMonth() + 1;
-        let yyyy = today.getFullYear();
-        if(dd<10) {
-            dd='0'+dd;
+        !$('input[type=date]').on('keydown', () => false);
+        /** Establece la fecha límite a seleccionar si no esta presente la clase no-restrict */
+        if (!$('input[type=date]').hasClass('no-restrict')) {
+            let today = new Date();
+            let dd = today.getDate();
+            let mm = today.getMonth() + 1;
+            let yyyy = today.getFullYear();
+            if(dd<10) {
+                dd='0'+dd;
+            }
+            if(mm<10) {
+                mm='0'+mm;
+            }
+            let now = `${yyyy}-${mm}-${dd}`;
+            $('input[type=date]').attr('max', now);
         }
-        if(mm<10) {
-            mm='0'+mm;
-        }
-        let now = `${yyyy}-${mm}-${dd}`;
-        $('input[type=date]').attr('max', now);
     }
 
     if ($('.datatable').length) {
