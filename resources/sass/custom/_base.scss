@@ -597,3 +597,10 @@ a.level-notice:hover, a.level-info:hover, a.level-debug:hover {
 .multiselect__tag {background-color: #F76231;}
 .multiselect__tag-icon::after {color: #fff;}
 .multiselect__tag-icon:focus,.multiselect__tag-icon:hover {background: #F44b18;}
+
+/*.introjs-bullets ul li a {
+}*/
+.introjs-bullets ul li a.active {
+    background: $colo-base-dark;
+    //background: $color-info-enabled;
+}

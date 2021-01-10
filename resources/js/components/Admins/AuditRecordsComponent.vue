@@ -50,13 +50,17 @@
                             </div>
                         </div>
                         <div class="form-group col-md-2" id="helpAuditFilterModule">
-                            <div class="input-group input-sm">
+                            <select v-model="module" class="form-control select2">
+                                <option value="">Módulo</option>
+                                <option :value="mod.originalName" v-for="mod in modules">{{ mod.name }}</option>
+                            </select>
+                            <!--<div class="input-group input-sm">
                                 <span class="input-group-addon">
                                     <i class="now-ui-icons design_app"></i>
                                 </span>
                                 <input type="text" class="form-control" data-toggle="tooltip" v-model="module"
                                        title="Consulta por módulo de la aplicación" placeholder="Módulo">
-                            </div>
+                            </div>-->
                         </div>
                         <div class="form-group col-md-2" id="helpAuditFilterButton">
                             <button type="button" class="btn btn-info btn-icon btn-xs px-3" data-toggle="tooltip"
@@ -132,7 +136,14 @@
                 user: '',
                 module: '',
                 records: [],
-                columns: ['status', 'date', 'ip', 'module', 'users', 'id'],
+                columns: ['status', 'date', 'ip', 'module', 'users', 'id']
+            }
+        },
+        props: {
+            modules: {
+                type: Array,
+                required: false,
+                default: null
             }
         },
         methods: {

@@ -45,7 +45,7 @@
     },
     {
         "element": "#helpAuditTable",
-        "intro": "Listado de usuario con información sobre las respectivas acciones ejecutadas"
+        "intro": "Listado de usuarios con información sobre las respectivas acciones ejecutadas"
     },
     {
         "element": "#VueTables_th--date",
