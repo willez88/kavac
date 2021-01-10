@@ -170,7 +170,12 @@ Vue.mixin({
 			type: String,
 			required: false,
 			default: ''
-		}
+		},
+        helpFile: {
+            type: String,
+            required: false,
+            default: null
+        }
 	},
 	watch: {
 		/**
@@ -967,6 +972,10 @@ Vue.mixin({
 				delay: {hide: delayHide}
 			});
 		},
+        initUIGuide: function(file) {
+            let helpFile = (typeof file === 'string' || typeof file instanceof String) ? file : JSON.stringify(file);
+            startGuidedTour(JSON.parse(helpFile));
+        },
 		/**
 		 * Realiza las acciones necesarias para bloquear la pantalla del sistema por inactividad del usuario
 		 *
@@ -1058,6 +1067,18 @@ Vue.mixin({
 	async created() {
 		await this.clearForm();
 		this.loading = false;
+        /** Ajustes de elementos de la tabla de VueTables */
+        $('.VueTables__search__input').attr({
+            'data-original-title': 'Filtrar resultados',
+            'data-toggle': 'tooltip'
+        });
+        $('.VueTables__search__input').tooltip();
+        $('.VueTables__limit-field').attr({
+            'data-original-title': 'Cantidad de registros a mostrar por página',
+            'data-toggle': 'tooltip'
+        });
+        $('.VueTables__limit-field').tooltip();
+        $("[id^=VueTables__limit]").select2();
 	},
 	async mounted() {
 		let vm = this;

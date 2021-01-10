@@ -7,7 +7,7 @@
 
 	@role('admin')
 		@include('dashboard.users-connected')
-        <audit-records></audit-records>
+        <audit-records id="helpAudit" help-file="{{ json_encode(get_json_resource('ui-guides/audit_list.json')) }}"></audit-records>
         <restore-records></restore-records>
 	@endrole
 	@yield('dashboard')
