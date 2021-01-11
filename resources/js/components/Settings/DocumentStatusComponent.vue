@@ -64,7 +64,8 @@
     					                    		<input type="radio" class="form-control bootstrap-switch"
     					                    			   name="action" data-toggle="tooltip" data-on-label="SI"
                                                            data-off-label="NO" title="Indique si aprueba procesos"
-    													   v-model.lazy="record.action" value="AP" data-record="action">
+    													   v-model.lazy="record.action" value="AP" data-record="action"
+                                                           v-has-tooltip>
 				                    			    Aprueba procesos
                                                 </div>
 				                    		</label>
@@ -125,9 +126,9 @@
 	                </div>
 	                <div class="modal-body modal-table">
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
-	                		<div slot="color" slot-scope="props" class="text-left">
-								<i class="ion-android-checkbox-blank" :style="'color:' + props.row.color"></i>
-								<span style="margin-left:5px">{{ props.row.color }}</span>
+	                		<div slot="color" slot-scope="props" class="text-center">
+								<i class="ion-android-checkbox-blank" :style="'color:' + props.row.color"
+                                   :title="'Código de color: '+props.row.color"></i>
 							</div>
 							<div slot="action" slot-scope="props" class="text-left">
 								<span v-if="props.row.action === 'AP'">Aprobación de procesos</span>
@@ -139,13 +140,12 @@
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.row.id, $event)"
 		                				class="btn btn-warning btn-xs btn-icon btn-action"
-		                				title="Modificar registro" data-toggle="tooltip" type="button">
+		                				title="Modificar registro" data-toggle="tooltip" type="button" v-has-tooltip>
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.row.id, 'document-status')"
-										class="btn btn-danger btn-xs btn-icon btn-action"
-										title="Eliminar registro" data-toggle="tooltip"
-										type="button">
+		                		<button @click="deleteRecord(props.row.id, 'document-status')" data-toggle="tooltip"
+										class="btn btn-danger btn-xs btn-icon btn-action" title="Eliminar registro"
+										type="button" v-has-tooltip>
 									<i class="fa fa-trash-o"></i>
 								</button>
 	                		</div>
@@ -176,6 +176,24 @@
 				columns: ['color', 'name', 'description', 'action', 'id'],
 			}
 		},
+        watch: {
+            record: {
+                deep: true,
+                handler: function(newValue, oldValue) {
+                    let vm = this;
+                    $("input[type=radio]").each(function() {
+                        if ($(this).val() !== vm.record.action) {
+                            $(this).attr("checked", false);
+                            $(this).closest('.bootstrap-switch-wrapper').removeClass('bootstrap-switch-on');
+                            $(this).closest('.bootstrap-switch-wrapper').addClass('bootstrap-switch-off');
+                        } else {
+                            $(this).closest('.bootstrap-switch-wrapper').removeClass('bootstrap-switch-off');
+                            $(this).closest('.bootstrap-switch-wrapper').addClass('bootstrap-switch-on');
+                        }
+                    });
+                }
+            },
+        },
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario

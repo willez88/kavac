@@ -191,6 +191,22 @@ $(document).ready(function() {
         });
     }
 
+    if ($('.btn-modal-clear').length) {
+        $('.btn-modal-clear').attr({
+            'title': 'Presione para reestablecer los campos del formulario',
+            'data-toggle': 'tooltip'
+        });
+        $('.btn-modal-clear').tooltip({
+            trigger: "hover",
+            delay: { hide: 100 }
+        });
+        $('.btn-modal-clear').on('shown.bs.tooltip', function() {
+            setTimeout(function() {
+                $('.btn-modal-clear').tooltip('hide');
+            }, 1500);
+        });
+    }
+
     if ($('.btn-modal-save').length) {
         $('.btn-modal-save').attr({
             'title': 'Presione para guardar el registro',

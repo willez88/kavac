@@ -108,20 +108,24 @@
              */
             restore(moduleClass, id) {
                 const vm = this;
-                vm.loading = true;
-                axios.post('/app/restore-record', {
-                    module: moduleClass,
-                    id: id
-                }).then(response => {
-                    if (response.data.result) {
-                        vm.readRecords();
-                        vm.showMessage(
-                            'custom', 'Éxito', 'success', 'screen-ok', 'Registro restaurado con éxito'
-                        );
+                bootbox.confirm('Está seguro de restaurar el registro seleccionado?', function (result) {
+                    if (result) {
+                        vm.loading = true;
+                        axios.post('/app/restore-record', {
+                            module: moduleClass,
+                            id: id
+                        }).then(response => {
+                            if (response.data.result) {
+                                vm.readRecords();
+                                vm.showMessage(
+                                    'custom', 'Éxito', 'success', 'screen-ok', 'Registro restaurado con éxito'
+                                );
+                            }
+                            vm.loading = false;
+                        }).catch(error => {
+                            console.error(error);
+                        });
                     }
-                    vm.loading = false;
-                }).catch(error => {
-                    console.error(error);
                 });
             },
             /**

@@ -1,7 +1,7 @@
 <template>
 	<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-2 mb-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-		   href="javascript:void(0)" title="Registros de Ciudades de un Estado"
+		   href="javascript:void(0)" title="Registro de ciudades"
 		   data-toggle="tooltip" @click="addRecord('add_city', 'cities', $event)">
 			<i class="icofont icofont-5-star-hotel ico-3x"></i>
 			<span>Ciudades</span>

@@ -80,6 +80,16 @@ Vue.directive('is-text', {
 	}
 });
 
+Vue.directive('has-tooltip', {
+    bind: (el, binding) => {
+        $(el).tooltip({
+            title: $(el).attr('title') || $(el).data('original-title'),
+            placement: binding.arg || 'top',
+            trigger: 'hover'
+        });
+    }
+});
+
 /**
  * Opciones de configuración global para utilizar en todos los componentes vuejs de la aplicación
  *
@@ -965,7 +975,7 @@ Vue.mixin({
 		switchTooltip: function(elName, text, delayHide) {
 			var delayHide = (typeof(delayHide) !== "undefined") ? delayHide : 200;
 			$(`input[name=${elName}]`).closest('.bootstrap-switch-wrapper').attr({
-				'title': text,
+				'title': (typeof(text)!=="undefined")?text:$(this).data('original-title'),
 				'data-toggle': 'tooltip'
 			}).tooltip({
 				trigger:"hover",
@@ -1097,5 +1107,20 @@ Vue.mixin({
 		$('.modal').on('shown.bs.modal', function() {
 			//vm.records = vm.data;
 		});
-	}
+	},
+    updated: function() {
+        const vm = this;
+        vm.$nextTick(function() {
+            $("input[type=radio]").each(function() {
+                let title = $(this).attr('title') || $(this).data('original-title');
+                $(this).closest('.bootstrap-switch-wrapper').attr({
+                    'title': title,
+                    'data-toggle': 'tooltip'
+                }).tooltip({
+                    trigger:"hover",
+                    delay: {hide: 200}
+                });
+            });
+        });
+    }
 });

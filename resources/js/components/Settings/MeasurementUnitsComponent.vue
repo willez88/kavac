@@ -1,7 +1,7 @@
 <template>
 	<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-2 mb-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href="javascript:void"
-		   title="Registros de estados de los documentos" data-toggle="tooltip"
+		   title="Registro de unidades de medida" data-toggle="tooltip"
 		   @click="addRecord('add_measurement_unit', 'measurement-units', $event)">
 		   	<i class="icofont icofont-ruler-pencil-alt-1 ico-3x"></i>
 			<span>Unidades de<br>Medida</span>

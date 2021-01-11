@@ -19,6 +19,10 @@
 	.modal-footer {
 		button {
 			margin: 0 5px;
+
+            &.btn-default {
+                background-color: #d2d5d8;
+            }
 		}
 	}
 }

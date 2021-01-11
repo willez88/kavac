@@ -63,14 +63,19 @@ class DocumentStatusController extends Controller
     {
         $this->validate($request, [
             'name' => ['required', 'max:20', 'unique:document_status,name'],
-            'description' => ['required'],
+            'description' => ['required', 'unique:document_status,description'],
             'color' => [
                 'required', 'min:4', 'max:30', 'unique:document_status,color',
                 'not_in:#FFFFFF,#000000'
             ],
             'action' => ['required', 'unique:document_status,action']
         ], [
-            'color.not_in' => __('Color inválido, seleccione un color distinto a blanco o negro')
+            'name.unique' => _('El nombre ya ha sido registrado'),
+            'description.unique' => _('La descripción ya ha sido registrada'),
+            'color.not_in' => __('Color inválido, seleccione un color distinto a blanco o negro'),
+            'color.unique' => __('El color ya ha sido registrado'),
+            'action.required' => __('Debe seleccionar la acción que ejecuta el estatus del documento'),
+            'action.unique' => __('La acción ya ha sido registrada')
         ]);
 
         /** @var DocumentStatus Objeto con los datos del estatus de documentos creado */
