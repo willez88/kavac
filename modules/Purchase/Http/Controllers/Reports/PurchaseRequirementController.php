@@ -57,14 +57,6 @@ class PurchaseRequirementController extends Controller
 	        'purchaseSupplierObject',
 	        'purchaseRequirementItems.warehouseProduct.measurementUnit'
 		)->find($id);
-		// if (!$is_admin && $user_profile && $user_profile['institution']) {
-		// 	// )->where('institution_id', $user_profile['institution']['id'])->find($id);
-		// } else {
-		// 	$requirement = AccountingEntry::with(
-		// 		'accountingAccounts.account.accountConverters.budgetAccount',
-		// 		'currency'
-		// 	)->find($id);
-		// }
 
 		if (!auth()->user()->isAdmin()) {
 			if ($requirement && $requirement->queryAccess($user_profile['institution']['id'])) {
