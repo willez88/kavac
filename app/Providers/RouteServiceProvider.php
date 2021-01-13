@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 
+/**
+ * @class AppServiceProvider
+ * @brief Proveedor de servicios de las rutas
+ *
+ * Gestiona los proveedores de servicios de las rutas
+ */
 class RouteServiceProvider extends ServiceProvider
 {
     /**
@@ -30,6 +36,8 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Define your route model bindings, pattern filters, etc.
+     *
+     * @method  boot
      *
      * @return void
      */
@@ -62,6 +70,8 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Configure the rate limiters for the application.
+     *
+     * @method  configureRateLimiting
      *
      * @return void
      */

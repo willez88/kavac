@@ -2,7 +2,6 @@
 
 namespace Modules\Payroll\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Roles\Models\Role as BaseRole;
 
 /**
@@ -12,9 +11,8 @@ use App\Roles\Models\Role as BaseRole;
  * Gestiona el modelo de roles
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class Role extends BaseRole
 {

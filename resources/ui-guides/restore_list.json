@@ -1,0 +1,34 @@
+[
+    {
+        "element": "#helpRestore",
+        "intro": "Muestra un listado con los últimos registros eliminados para su restauración en caso de ser necesario"
+    },
+    {
+        "element": "#helpRestoreFilterFromDate",
+        "intro": "Filtra los resultados a partir de una fecha específica"
+    },
+    {
+        "element": "#helpRestoreFilterToDate",
+        "intro": "Filtra los resultados hasta una fecha específica"
+    },
+    {
+        "element": "#helpRestoreFilterModule",
+        "intro": "Filtra los resultados de un módulo en específico"
+    },
+    {
+        "element": "#helpRestoreFilterButton",
+        "intro": "Ejecuta la acción para filtrar los datos de acuerdo a la información suministrada"
+    },
+    {
+        "element": "#helpRestoreTable",
+        "intro": "Listado de registros eliminados"
+    },
+    {
+        "element": "#VueTables_th--deleted_at",
+        "intro": "Fecha en la que el registro fue eliminado"
+    },
+    {
+        "element": "#VueTables_th--registers",
+        "intro": "Registros que fueron eliminados"
+    }
+]

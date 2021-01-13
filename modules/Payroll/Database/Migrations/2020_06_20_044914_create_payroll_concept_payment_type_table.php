@@ -11,9 +11,8 @@ use Illuminate\Database\Migrations\Migration;
  * Gestiona la creación o eliminación de la tabla intermedia entre conceptos y tipos de pago de nómina
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class CreatePayrollConceptPaymentTypeTable extends Migration
 {
@@ -33,7 +32,7 @@ class CreatePayrollConceptPaymentTypeTable extends Migration
                       ->constrained()->onDelete('restrict')->onUpdate('cascade');
                 $table->foreignId('payroll_payment_type_id')->comment('Identificador único asociado al tipo de pago')
                       ->constrained()->onDelete('restrict')->onUpdate('cascade');
-                
+
                 $table->timestamps();
             });
         };

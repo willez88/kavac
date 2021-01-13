@@ -176,6 +176,9 @@ small {font-size: 70%;}
 .ico-4x {
 	font-size:4rem;
 }
+.font-small {
+	font-size: 11.1423px !important;
+}
 .bg-primary {
     background-color: $color-primary !important;
 }
@@ -253,6 +256,93 @@ table {
 		}
 	}
 }
+
+
+// ----------------------------------------------------------
+// Clases del login.
+// - Usadas en las plantillas de blade: login, reset y email.
+// ----------------------------------------------------------
+.login-container {
+	// Container del login.
+	background-image: url('../images/auth-bg.jpg');
+	background-size: cover;
+	background-position: center center;
+	background-origin: padding-box;
+	background-repeat: no-repeat;
+	min-height: 100vh;
+	position: relative;
+	&::before {
+		// Primer overlay del login
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-image: linear-gradient(0deg, rgba(44, 44, 44, .2), rgba(224, 23, 3, .6));
+		width: 100%;
+		height: 100%;
+	}
+}
+.login-overlay::before {
+	// Segundo overlay del login
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, .5);
+	width: 100%;
+	height: 100%;
+}
+.login-img {
+	// Container de la imagen de logo del login.
+	padding-bottom: 0.5rem;
+	text-align: center;
+	img {
+		// Imagen de logo del login.
+		display: block;
+		width: 120px;
+		height: auto;
+		margin-right: auto;
+		margin-left: auto;
+		margin-bottom: 15px;
+	}
+}
+.login-form {
+	// Formulario del login.
+	min-height: 94vh;
+	#app {
+		max-width: 290px;
+	}
+	.form-group.form-group-no-border, .input-group.form-group-no-border {
+		.input-group-addon, .form-control {
+			// Inputs y addons del formulario del login.
+			color: #fff;
+			background-color: rgba(222, 222, 222, .1);
+		}
+		&.input-group-focus {
+			.input-group-addon, .form-control {
+				// Inputs y addons del formulario del login (focus).
+				background-color: rgba(222, 222, 222, .2);
+			}
+		}
+	}
+	.bootstrap-switch {
+		// Switch de recuérdame del formulario del login.
+		margin-bottom: 0;
+	}
+}
+.login-captcha-grid {
+	// Grid para el captcha del formulario del login
+	display: grid;
+	grid-template-columns: 75% auto;
+	grid-gap: 0 10px;
+	height: 54px;
+	align-items: center;
+	img {
+		// Captcha
+		border-radius: 3px;
+	}
+}
+
 
 .bootstrap-switch {
 	&.bootstrap-switch-off {
@@ -507,3 +597,10 @@ a.level-notice:hover, a.level-info:hover, a.level-debug:hover {
 .multiselect__tag {background-color: #F76231;}
 .multiselect__tag-icon::after {color: #fff;}
 .multiselect__tag-icon:focus,.multiselect__tag-icon:hover {background: #F44b18;}
+
+/*.introjs-bullets ul li a {
+}*/
+.introjs-bullets ul li a.active {
+    background: $colo-base-dark;
+    //background: $color-info-enabled;
+}

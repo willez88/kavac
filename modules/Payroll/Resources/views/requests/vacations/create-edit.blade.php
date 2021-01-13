@@ -20,8 +20,8 @@
     <div class="row">
         <div class="col-12">
             <payroll-vacation-request-form
-                :id="{!! (isset($payrollVacationRequest)) ? $payrollVacationRequest->id : "null" !!}"
-                route_list='{{ url('payroll/vacation-requests') }}'>
+                :id="{!! (isset($payrollVacationRequest)) ? $payrollVacationRequest->id : 'null' !!}"
+                route_list="{{ url('payroll/vacation-requests') }}">
             </payroll-vacation-request-form>
         </div>
     </div>

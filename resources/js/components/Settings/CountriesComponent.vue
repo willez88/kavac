@@ -1,7 +1,7 @@
 <template>
-	<div class="col-xs-2 text-center">
+	<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-2 mb-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-		   href="javascript:void(0)" title="Registros de Países" data-toggle="tooltip"
+		   href="javascript:void(0)" title="Registro de países" data-toggle="tooltip"
 		   @click="addRecord('add_country', 'countries', $event)">
 			<i class="icofont icofont-map ico-3x"></i>
 			<span>Países</span>
@@ -25,7 +25,7 @@
 							</ul>
 						</div>
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-12 col-md-6">
 								<div class="form-group">
 									<label>Prefijo:</label>
 									<input type="text" placeholder="Prefijo" data-toggle="tooltip"
@@ -34,7 +34,7 @@
 									<input type="hidden" v-model="record.id">
 			                    </div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-12 col-md-6">
 								<div class="form-group is-required">
 									<label>Nombre:</label>
 									<input type="text" placeholder="Nombre de Pais" data-toggle="tooltip"

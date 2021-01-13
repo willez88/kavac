@@ -12,9 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  * Gestiona la información por defecto a registrar inicialmente para los datos iniciales del módulo Accounting
  *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                LICENCIA DE SOFTWARE CENDITEL
- *            </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class AccountingDatabaseSeeder extends Seeder
 {

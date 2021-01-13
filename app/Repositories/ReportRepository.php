@@ -8,6 +8,17 @@ use App\Models\Parameter;
 use Carbon\Carbon;
 use Elibyy\TCPDF\TCPDF as PDF;
 
+/**
+ * @class ReportRepository
+ * @brief Gestiona los reportes de la aplicación
+ *
+ * Gestiona los reportes de la aplicación
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class ReportRepository implements ReportInterface
 {
     /** @var string Establece la orientación de la página, los posibles valores son P o L */
@@ -28,7 +39,7 @@ class ReportRepository implements ReportInterface
     private $urlVerify;
     /** @var string Fecha en la que se genera el reporte */
     private $reportDate;
-    /** @var object Identificador de la institución que genera el reporte */
+    /** @var object Identificador de la organización que genera el reporte */
     private $institution;
     /** @var string Nombre del archivo a generar con el reporte */
     private $filename;
@@ -134,7 +145,7 @@ class ReportRepository implements ReportInterface
             $parameter = Parameter::where(['p_key' => 'report_banner', 'p_value' => 'true'])->first();
 
             if (!is_null($params->institution->banner)) {
-                /** Imagen del banner institucional a implementar en el reporte */
+                /** Imagen del banner de la organización a implementar en el reporte */
                 $pdf->Image(
                     storage_path('pictures') . '/' . $params->institution->banner->file,
                     10,
@@ -156,7 +167,7 @@ class ReportRepository implements ReportInterface
                 );
             }
             if (!is_null($params->institution->logo)) {
-                /** Imagen del logotipo institucional a implementar en el reporte */
+                /** Imagen del logotipo de la organización a implementar en el reporte */
                 $pdf->Image(
                     storage_path('pictures') . '/' . $params->institution->logo->file,
                     10,
@@ -355,6 +366,18 @@ class ReportRepository implements ReportInterface
         });
     }
 
+    /**
+     * Descarga un reporte
+     *
+     * @method    show
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     string|null    $file    Nombre del archivo a descargar. Este dato es opcional, si no se indica se
+     *                                    genera un archivo con la fecha actual del servidor como nombre
+     *
+     * @return    Response
+     */
     public function show($file = null)
     {
         $filename = storage_path() . '/reports/' . $file ?? 'report' . Carbon::now() . '.pdf';

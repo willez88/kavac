@@ -27,6 +27,8 @@ class RenameFieldNameToAccountingReportHistoriesTable extends Migration
      */
     public function down()
     {
-        $table->renameColumn('report', 'name');
+        Schema::table('accounting_report_histories', function (Blueprint $table) {
+            $table->renameColumn('report', 'name');
+        });
     }
 }

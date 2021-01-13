@@ -60,6 +60,9 @@
                     </div>
                 </span>
             </div>
+            <div slot="total" slot-scope="props">
+                <span> {{ calculateTotal(props.row) }} </span>
+            </div>
         </v-client-table>
     </section>
 </template>
@@ -74,7 +77,7 @@
                     payroll_parameters:        []
                 },
                 records: [],
-                columns: ['payroll_staff', 'assignments', 'deductions'],
+                columns: ['payroll_staff', 'assignments', 'deductions', 'total'],
             }
         },
         props: {
@@ -89,7 +92,8 @@
             vm.table_options.headings = {
                 'payroll_staff': 'Trabajador',
                 'assignments':   'Asignaciones',
-                'deductions':    'Deducciones'
+                'deductions':    'Deducciones',
+                'total':         'Total'
             };
             vm.table_options.sortable   = ['payroll_staff', 'assignments', 'deductions'];
             vm.table_options.filterable = ['payroll_staff', 'assignments', 'deductions'];
@@ -130,6 +134,17 @@
                     };
                 });
             },
+            calculateTotal(fields) {
+                const vm = this;
+                let total = 0;
+                $.each(fields.assignments, function(index, field) {
+                    total += field.value;
+                });
+                $.each(fields.deductions, function(index, field) {
+                    total -= field.value;
+                });
+                return total;
+            }
         }
     };
 </script>

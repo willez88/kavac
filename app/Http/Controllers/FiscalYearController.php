@@ -6,12 +6,24 @@ namespace App\Http\Controllers;
 use App\Models\FiscalYear;
 use Illuminate\Http\Request;
 
+/**
+ * @class FiscalYearController
+ * @brief Gestiona información del año fiscal
+ *
+ * Controlador para gestionar información de los años fiscales
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class FiscalYearController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listado de años fiscales registrados
      *
-     * @return \Illuminate\Http\Response
+     * @method    index
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function index()
     {
@@ -19,9 +31,11 @@ class FiscalYearController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para el registro de un nuevo año fiscal
      *
-     * @return \Illuminate\Http\Response
+     * @method    create
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function create()
     {
@@ -29,10 +43,13 @@ class FiscalYearController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Registra un nuevo año fiscal
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @method    store
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request    $request    Objeto con información de la petición
      */
     public function store(Request $request)
     {
@@ -40,10 +57,13 @@ class FiscalYearController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra información de un año fiscal
      *
-     * @param  \App\Models\FiscalYear  $fiscalYear
-     * @return \Illuminate\Http\Response
+     * @method    show
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     FiscalYear    $fiscalYear    Objeto con información de la petición
      */
     public function show(FiscalYear $fiscalYear)
     {
@@ -51,10 +71,13 @@ class FiscalYearController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario con información del año fiscal a actualizar
      *
-     * @param  \App\Models\FiscalYear  $fiscalYear
-     * @return \Illuminate\Http\Response
+     * @method    edit
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     FiscalYear    $fiscalYear    Objeto con información del año fiscal a actualizar
      */
     public function edit(FiscalYear $fiscalYear)
     {
@@ -62,11 +85,14 @@ class FiscalYearController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza los datos de un año fiscal
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\FiscalYear  $fiscalYear
-     * @return \Illuminate\Http\Response
+     * @method    update
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request       $request       Objeto con información de la petición
+     * @param     FiscalYear    $fiscalYear    Objeto con información del año fiscal a actualizar
      */
     public function update(Request $request, FiscalYear $fiscalYear)
     {
@@ -74,10 +100,13 @@ class FiscalYearController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina un año fiscal
      *
-     * @param  \App\Models\FiscalYear  $fiscalYear
-     * @return \Illuminate\Http\Response
+     * @method    destroy
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     FiscalYear    $fiscalYear    Objeto con información del año fiscal a eliminar
      */
     public function destroy(FiscalYear $fiscalYear)
     {

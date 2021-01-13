@@ -5,11 +5,9 @@ namespace Modules\Asset\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
-
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Auth;
 use App\Models\CodeSetting;
-
 use Modules\Asset\Models\AssetAsignationAsset;
 use Modules\Asset\Models\AssetAsignation;
 use Modules\Asset\Models\Asset;
@@ -22,9 +20,8 @@ use App\Models\Profile;
  * Clase que gestiona las asignaciones de bienes institucionales
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class AssetAsignationController extends Controller
 {

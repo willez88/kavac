@@ -10,10 +10,18 @@ use App\Models\NotificationSetting;
 use App\Observers\ModelObserver;
 use Nwidart\Modules\Module;
 
+/**
+ * @class AppServiceProvider
+ * @brief Proveedor de servicios de la aplicación
+ *
+ * Gestiona los proveedores de servicios de la aplicación
+ */
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
+     *
+     * @method  register
      *
      * @return void
      */
@@ -24,6 +32,8 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap any application services.
+     *
+     * @method  boot
      *
      * @return void
      */

@@ -13,9 +13,8 @@ use Illuminate\Http\Request;
  * Controlador para gestionar Países
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class CountryController extends Controller
 {
@@ -58,14 +57,13 @@ class CountryController extends Controller
             'prefix' => ['required', 'max:3']
         ]);
 
-        if ($c = Country::onlyTrashed()->whereName($request->name)->first()) {
-            $c->restore();
-        } else {
+        if (!restore_record(Country::class, ['name' => $request->name])) {
             $this->validate($request, [
                 'name' => ['unique:countries,name']
             ]);
         }
 
+        /** @var Country Objeto con información del pais registrado */
         $country = Country::updateOrCreate([
             'name' => $request->name
         ], [

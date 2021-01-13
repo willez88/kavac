@@ -11,14 +11,14 @@ use App\Traits\ModelsTrait;
 
 /**
  * @class IstitutionSector
- * @brief Datos de los sectores de las Instituciones
+ * @brief Datos de los sectores de las Organizaciones
  *
- * Gestiona el modelo de datos para los sectores de Instituciones
+ * Gestiona el modelo de datos para los sectores de Organizaciones
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class InstitutionSector extends Model implements Auditable
 {
@@ -28,12 +28,14 @@ class InstitutionSector extends Model implements Auditable
 
     /**
      * Lista de atributos para la gestión de fechas
+     *
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
     protected $fillable = ['name'];
@@ -46,9 +48,12 @@ class InstitutionSector extends Model implements Auditable
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
     /**
-     * Método que obtiene las instituciones asociadas a un sector
+     * Método que obtiene las organizaciones asociadas a un sector
+     *
+     * @method  institutions
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return object Objeto con los registros relacionados al modelo InstitutionSector
      */
     public function institutions()

@@ -2,9 +2,7 @@
 
 namespace Modules\Accounting\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Modules\Budget\Models\BudgetAccount as BaseBudgetAccount;
-use Module;
 
 /**
  * @class BudgatAccount
@@ -13,9 +11,8 @@ use Module;
  * Gestiona el modelo de datos para las cuentas del Clasificador Presupuestales desde el modulo de contabilidad
  *
  * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                LICENCIA DE SOFTWARE CENDITEL
- *            </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class BudgetAccount extends BaseBudgetAccount
 {
@@ -45,5 +42,3 @@ class BudgetAccount extends BaseBudgetAccount
         return $this->morphMany(AccountingEntryable::class, 'accounting_entryable');
     }
 }
-
-

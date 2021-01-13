@@ -1,17 +1,30 @@
 <?php
-
+/** [descripción del namespace] */
 namespace $NAMESPACE$;
 
 use $EVENTNAME$;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
+/**
+ * @class $CLASS$
+ * @brief [descripción detallada]
+ *
+ * [descripción corta]
+ *
+ * @author [autor de la clase] [correo del autor]
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class $CLASS$ implements ShouldQueue
 {
     use InteractsWithQueue;
 
     /**
-     * Create the event listener.
+     * Crea un detector de eventos.
+     *
+     * @method __construct
      *
      * @return void
      */
@@ -21,10 +34,13 @@ class $CLASS$ implements ShouldQueue
     }
 
     /**
-     * Handle the event.
+     * Gestiona el evento
      *
-     * @param  $SHORTEVENTNAME$  $event
-     * @return void
+     * @method    handle
+     *
+     * @param     object    $event    Objeto con información del evento
+     *
+     * @return    void    [description de los datos devueltos]
      */
     public function handle($SHORTEVENTNAME$ $event)
     {

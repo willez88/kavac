@@ -6,12 +6,24 @@ namespace App\Http\Controllers;
 use App\Models\Document;
 use Illuminate\Http\Request;
 
+/**
+ * @class DocumentController
+ * @brief Gestiona información de Documentos
+ *
+ * Controlador para gestionar Documentos
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class DocumentController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listado de todos los documentos registrados
      *
-     * @return \Illuminate\Http\Response
+     * @method    index
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function index()
     {
@@ -19,9 +31,11 @@ class DocumentController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para la creación de documentos
      *
-     * @return \Illuminate\Http\Response
+     * @method    create
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function create()
     {
@@ -29,10 +43,13 @@ class DocumentController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Registra información de un nuevo documento
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @method    store
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request    $request    Objeto con información de la petición
      */
     public function store(Request $request)
     {
@@ -40,10 +57,13 @@ class DocumentController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra información de un documento
      *
-     * @param  \App\Models\Document  $document
-     * @return \Illuminate\Http\Response
+     * @method    show
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Document    $document    Objeto con información del documento a mostrar
      */
     public function show(Document $document)
     {
@@ -51,10 +71,13 @@ class DocumentController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulacio con información del documento a actualizar
      *
-     * @param  \App\Models\Document  $document
-     * @return \Illuminate\Http\Response
+     * @method    edit
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Document    $document    Objeto con información del documento a actualizar
      */
     public function edit(Document $document)
     {
@@ -62,11 +85,14 @@ class DocumentController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza la información de un documento
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Document  $document
-     * @return \Illuminate\Http\Response
+     * @method    update
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request     $request     Objeto con información de la petición
+     * @param     Document    $document    Objeto con información del documento a actualizar
      */
     public function update(Request $request, Document $document)
     {
@@ -74,10 +100,13 @@ class DocumentController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina un documento
      *
-     * @param  \App\Models\Document  $document
-     * @return \Illuminate\Http\Response
+     * @method    destroy
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Document    $document    Objeto con información del documento a eliminar
      */
     public function destroy(Document $document)
     {

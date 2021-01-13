@@ -13,14 +13,15 @@ use Illuminate\Http\Request;
  * Controlador para gestionar Unidades Tributarias (U.T.)
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class TaxUnitController extends Controller
 {
     /**
      * Define la configuración de la clase
+     *
+     * @method  __construct
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
@@ -34,9 +35,13 @@ class TaxUnitController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Listado de todas las unidades tributarias registradas
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @method    index
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return    JsonResponse  JSON con listado de las unidades tributarias registradas
      */
     public function index()
     {
@@ -44,13 +49,19 @@ class TaxUnitController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Registra una nueva unidad tributaria
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @method    store
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request    $request    Objeto con información de la petición
+     *
+     * @return    JsonResponse  JSON con el resultado del registro
      */
     public function store(Request $request)
     {
+        /** @var array Arreglo con las reglas de validación */
         $rules = [
             'value' => ['required', 'numeric'],
             'start_date' => ['required', 'date']
@@ -64,6 +75,7 @@ class TaxUnitController extends Controller
             'end_date.after' => 'La fecha final debe ser mayor a la fecha inicial'
         ]);
 
+        /** @var TaxUnit Objeto con información de la unidad tributaria registrada */
         $taxUnit = TaxUnit::create([
             'value' => $request->value,
             'start_date' => $request->start_date,
@@ -75,14 +87,20 @@ class TaxUnitController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza la información de una unidad tributaria
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TaxUnit  $taxUnit
-     * @return \Illuminate\Http\JsonResponse
+     * @method    update
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request    $request    Objeto con información de la petición
+     * @param     TaxUnit    $taxUnit    Objeto con información de la unidad tributaria a actualizar
+     *
+     * @return    JsonResponse  JSON con el resultado de la actualización
      */
     public function update(Request $request, TaxUnit $taxUnit)
     {
+        /** @var array Arreglo con las reglas de validación */
         $rules = [
             'value' => ['required', 'numeric'],
             'start_date' => ['required', 'date']
@@ -106,10 +124,15 @@ class TaxUnitController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina una unidad tributaria
      *
-     * @param  \App\Models\TaxUnit  $taxUnit
-     * @return \Illuminate\Http\JsonResponse
+     * @method    destroy
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     TaxUnit    $taxUnit    Objeto con información de la unidad tributaria a eliminar
+     *
+     * @return    JsonResponse  JSON con el resultado de la eliminación
      */
     public function destroy(TaxUnit $taxUnit)
     {

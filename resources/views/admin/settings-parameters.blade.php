@@ -25,7 +25,7 @@
 					<div class="row">
 						<div class="col-md-3" id="switchSupport">
 							<div class="form-group">
-								<label for="" class="control-label">{{ __('Soporte Técnico') }}</label>
+								<label for="" class="control-label">{{ __('Soporte técnico') }}</label>
 								<div class="col-12 bootstrap-switch-mini">
 									{!! Form::checkbox('support', true,
 										(!is_null($paramSupport) && $paramSupport->p_value === 'true'), [
@@ -61,7 +61,7 @@
 						</div>
 						<div class="col-md-3" id="switchBannerInReport">
 							<div class="form-group">
-								<label for="" class="control-label">{{ __('Banner en Reportes') }}</label>
+								<label for="" class="control-label">{{ __('Banner en reportes') }}</label>
 								<div class="col-12 bootstrap-switch-mini">
 									{!! Form::checkbox('report_banner', true,
 										(!is_null($paramReportBanner) && $paramReportBanner->p_value === 'true'), [
@@ -74,7 +74,7 @@
 						<div class="col-md-3" id="switchMultiInstitution">
 							<div class="form-group">
 								<label for="" class="control-label">
-                                    {{ __('Multi Gestión (varias instituciones)') }}
+                                    {{ __('Multi gestión') }}
                                 </label>
 								<div class="col-12 bootstrap-switch-mini">
 									{!! Form::checkbox('multi_institution', true,
@@ -90,7 +90,7 @@
 						</div>
 						<div class="col-md-3" id="switchSign">
 							<div class="form-group">
-								<label for="" class="control-label">{{ __('Firma Electrónica') }}</label>
+								<label for="" class="control-label">{{ __('Firma electrónica') }}</label>
 								<div class="col-12 bootstrap-switch-mini">
 									{!! Form::checkbox('digital_sign', true,
 										(!is_null($paramDigitalSign) && $paramDigitalSign->p_value === 'true'), [

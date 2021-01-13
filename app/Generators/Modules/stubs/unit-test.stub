@@ -1,17 +1,30 @@
 <?php
-
+/** [descripción del namespace] */
 namespace $NAMESPACE$;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+ * @class $CLASS$
+ * @brief [descripción detallada]
+ *
+ * [descripción corta]
+ *
+ * @author [autor de la clase] [correo del autor]
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class $CLASS$ extends TestCase
 {
     /**
-     * A basic unit test example.
+     * Una prueba unitaria básica de ejemplo
      *
-     * @return void
+     * @method testExample
+     *
+     * @return void     [descripción de los datos devueltos]
      */
     public function testExample()
     {

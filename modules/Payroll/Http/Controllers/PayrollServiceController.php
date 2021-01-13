@@ -11,9 +11,8 @@ use Illuminate\Routing\Controller;
  * Clase que gestiona los registros utilizados en los elemnetos del tipo select2
  *
  * @author Henry Paredes (henryp2804@gmail.com)
- * @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                LICENCIA DE SOFTWARE CENDITEL
- *            </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 
 class PayrollServiceController extends Controller

@@ -18,7 +18,7 @@ nav:
 
 # Repository
 repo_name: Repositorio-Kavac
-repo_url: https://tibisay.cenditel.gob.ve/sistema-de-gestion/
+repo_url: https://gestion.cenditel.gob.ve/trac/browser/kavac/
 
 # Configuration
 theme:
@@ -33,7 +33,7 @@ theme:
   search_index_only: true
 
   # Default values, taken from mkdocs_theme.yml
-  language: en
+  language: es
   features:
     - navigation.tabs
     #- navigation.instant

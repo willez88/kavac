@@ -7,7 +7,6 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-
 use Modules\Payroll\Models\PayrollVacationPolicy;
 use Modules\Payroll\Models\Institution;
 
@@ -18,9 +17,8 @@ use Modules\Payroll\Models\Institution;
  * Clase que gestiona las políticas vacacionales
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class PayrollVacationPolicyController extends Controller
 {
@@ -55,7 +53,6 @@ class PayrollVacationPolicyController extends Controller
         $this->validateRules = [
             'name'                                  => ['required'],
             'start_date'                            => ['required'],
-            'end_date'                              => ['required'],
             'vacation_type'                         => ['required'],
             'staff_antiquity'                       => ['required']
         ];
@@ -64,9 +61,9 @@ class PayrollVacationPolicyController extends Controller
         $this->messages = [
             'name.required'                                  => 'El campo nombre es obligatorio.',
             'start_date.required'                            => 'El campo desde (fecha de aplicación) es obligatorio.',
-            'end_date.required'                              => 'El campo hasta (fecha de aplicación) es obligatorio.',
+            'institution_id.required'                        => 'El campo institución es obligatorio.',
             'vacation_periods.required'                      => 'El campo período(s) vacacional es obligatorio.',
-            'vacation_type.required'                         => 'El campo tipo de vacaciones es obligatorio.',            
+            'vacation_type.required'                         => 'El campo tipo de vacaciones es obligatorio.',
             'vacation_periods_accumulated_per_year.required' => 'El campo períodos vacacionales acumulados por año ' .
                                                                 'es obligatorio.',
             'vacation_days.required'                         => 'El campo días a otorgar para el disfrute de ' .
@@ -80,7 +77,8 @@ class PayrollVacationPolicyController extends Controller
             'maximum_additional_days_per_year.required'      => 'El campo días de disfrute de vacaciones máximo ' .
                                                                 'por año de servicio es obligatorio.',
             'salary_type.required'                           => 'El campo salario a emplear para el cálculo del bono ' .
-                                                                'vacacional es obligatorio.'
+                                                                'vacacional es obligatorio.',
+            'payroll_payment_type_id.required'               => 'El campo tipo de pago de nómina es obligatorio.'
         ];
     }
 
@@ -145,7 +143,8 @@ class PayrollVacationPolicyController extends Controller
                 [
                     'vacation_periods_accumulated_per_year' => ['required'],
                     'vacation_periods'                      => ['required'],
-                    'salary_type'                           => ['required']
+                    'salary_type'                           => ['required'],
+                    'payroll_payment_type_id'               => ['required']
                 ]
             );
             if ($request->input('payment_calculation') == 'general_days') {
@@ -154,7 +153,7 @@ class PayrollVacationPolicyController extends Controller
                     ['vacation_days' => ['required']]
                 );
             }
-        } else if ($request->input('vacation_type') == 'vacation_period') {
+        } elseif ($request->input('vacation_type') == 'vacation_period') {
             $validateRules  = array_merge(
                 $validateRules,
                 [
@@ -162,7 +161,8 @@ class PayrollVacationPolicyController extends Controller
                     'vacation_period_per_year'              => ['required'],
                     'additional_days_per_year'              => ['required'],
                     'minimum_additional_days_per_year'      => ['required'],
-                    'maximum_additional_days_per_year'      => ['required']
+                    'maximum_additional_days_per_year'      => ['required'],
+                    'payroll_payment_type_id'               => ['required']
                 ]
             );
         }
@@ -182,11 +182,13 @@ class PayrollVacationPolicyController extends Controller
          */
         $payrollVacationPolicy = PayrollVacationPolicy::create([
             'name'                                  => $request->input('name'),
+            'active'                                => !empty($request->active)
+                                                        ? $request->active
+                                                        : false,
             'start_date'                            => $request->input('start_date'),
             'end_date'                              => $request->input('end_date'),
             'vacation_periods'                      => json_encode($request->input('vacation_periods')),
             'vacation_type'                         => $request->input('vacation_type'),
-            'institution_id'                        => $institution->id,
             'vacation_periods_accumulated_per_year' => $request->input('vacation_periods_accumulated_per_year'),
             'vacation_days'                         => $request->input('vacation_days'),
             'vacation_period_per_year'              => $request->input('vacation_period_per_year'),
@@ -197,7 +199,9 @@ class PayrollVacationPolicyController extends Controller
             'salary_type'                           => $request->input('salary_type'),
             'vacation_advance'                      => $request->input('vacation_advance'),
             'vacation_postpone'                     => $request->input('vacation_postpone'),
-            'staff_antiquity'                       => $request->input('staff_antiquity')
+            'staff_antiquity'                       => $request->input('staff_antiquity'),
+            'institution_id'                        => $request->input('institution_id'),
+            'payroll_payment_type_id'               => $request->input('payroll_payment_type_id')
         ]);
         return response()->json(['record' => $payrollVacationPolicy, 'message' => 'Success'], 200);
     }
@@ -228,7 +232,8 @@ class PayrollVacationPolicyController extends Controller
                 [
                     'vacation_periods_accumulated_per_year' => ['required'],
                     'vacation_periods'                      => ['required'],
-                    'salary_type'                           => ['required']
+                    'salary_type'                           => ['required'],
+                    'payroll_payment_type_id'               => ['required']
                 ]
             );
             if ($request->input('payment_calculation') == 'general_days') {
@@ -237,7 +242,7 @@ class PayrollVacationPolicyController extends Controller
                     ['vacation_days' => ['required']]
                 );
             }
-        } else if ($request->input('vacation_type') == 'vacation_period') {
+        } elseif ($request->input('vacation_type') == 'vacation_period') {
             $validateRules  = array_merge(
                 $validateRules,
                 [
@@ -245,7 +250,8 @@ class PayrollVacationPolicyController extends Controller
                     'vacation_period_per_year'              => ['required'],
                     'additional_days_per_year'              => ['required'],
                     'minimum_additional_days_per_year'      => ['required'],
-                    'maximum_additional_days_per_year'      => ['required']
+                    'maximum_additional_days_per_year'      => ['required'],
+                    'payroll_payment_type_id'               => ['required']
                 ]
             );
         }
@@ -257,9 +263,12 @@ class PayrollVacationPolicyController extends Controller
         } else {
             $institution = Institution::where('active', true)->where('default', true)->first();
         }
-        
+
         $payrollVacationPolicy->update([
             'name'                                  => $request->input('name'),
+            'active'                                => !empty($request->active)
+                                                        ? $request->active
+                                                        : false,
             'start_date'                            => $request->input('start_date'),
             'end_date'                              => $request->input('end_date'),
             'vacation_periods'                      => json_encode($request->input('vacation_periods')),
@@ -275,7 +284,9 @@ class PayrollVacationPolicyController extends Controller
             'salary_type'                           => $request->input('salary_type'),
             'vacation_advance'                      => $request->input('vacation_advance'),
             'vacation_postpone'                     => $request->input('vacation_postpone'),
-            'staff_antiquity'                       => $request->input('staff_antiquity')
+            'staff_antiquity'                       => $request->input('staff_antiquity'),
+            'institution_id'                        => $request->input('institution_id'),
+            'payroll_payment_type_id'               => $request->input('payroll_payment_type_id')
         ]);
 
         return response()->json(['message' => 'Success'], 200);
@@ -305,7 +316,8 @@ class PayrollVacationPolicyController extends Controller
     }
 
     /**
-     * Muestra los datos de la información de la política vacacional según el trabajador autenticado
+     * Muestra los datos de la información de la política vacacional según la institución asociada
+     * al trabajador autenticado
      *
      * @method    getVacationPolicy
      *
@@ -321,7 +333,7 @@ class PayrollVacationPolicyController extends Controller
         } else {
             $institution = Institution::where('active', true)->where('default', true)->first();
         }
-        
+
         $payrollVacationPolicy = PayrollVacationPolicy::where('institution_id', $institution->id)->first();
         return response()->json(['record' => $payrollVacationPolicy], 200);
     }

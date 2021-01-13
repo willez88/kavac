@@ -1,8 +1,5 @@
 <?php
-
-/**
- * Registros de la aplicación
- */
+/** Modelos generales de base de datos */
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
@@ -10,6 +7,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Notifications\ResetPasswordNotification;
+use App\Notifications\VerifyEmailNotification;
 use App\Roles\Traits\HasRoleAndPermission;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
@@ -21,9 +20,9 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  * Gestiona el modelo de datos para las Usuarios
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class User extends Authenticatable implements Auditable, MustVerifyEmail
 {
@@ -66,6 +65,8 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
     /**
      * User has many FailedLoginAttempts.
      *
+     * @method failedLoginAttempts
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function failedLoginAttempts()
@@ -75,6 +76,8 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
 
     /**
      * Método que obtiene el perfil de un usuario
+     *
+     * @method  profile
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -86,15 +89,43 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
     /**
      * User belongs to Many NotificationSetting.
      *
+     * @method  notificationSettings
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function notificationSettings()
     {
-        return $this->belongsToMany(NotificationSetting::class)->withPivot('type');
+        return $this->belongsToMany(NotificationSetting::class)->withPivot('type')->withTimestamps();
     }
 
     /**
-     * {@inheritdoc}
+     * Envía la notificación por correo para el reestablecimiento de la contraseña
+     *
+     * @method    sendPasswordResetNotification
+     *
+     * @param     string    $token    Token de la URL para el acceso al formulario de reestablecimiento de contraseña
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
+    }
+
+    /**
+     * Envía la notificación de verificación de usuario para poder acceder a la aplicación
+     *
+     * @method    sendEmailVerificationNotification
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmailNotification);
+    }
+
+    /**
+     * Obtiene el identificador del usuario
+     *
+     * @method    getIdentifier
+     *
+     * @return    string|integer           Identificador del usuario
      */
     public function getIdentifier()
     {

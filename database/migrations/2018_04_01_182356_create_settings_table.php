@@ -21,7 +21,7 @@ class CreateSettingsTable extends Migration
                 $table->boolean('notify')->default(false)->comment('Notificaciones del sistema');
                 $table->boolean('report_banner')->default(false)->comment('Banner en reportes');
                 $table->boolean('multi_institution')->default(false)
-                      ->comment('Gestión administrativa multi instituciones');
+                      ->comment('Gestión administrativa para múltiples organizaciones');
                 $table->boolean('digital_sign')->default(false)->comment('Firma electrónica');
                 $table->boolean('active')->default(true)->comment('Configuración actualmente activa');
                 $table->timestamps();

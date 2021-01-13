@@ -1,5 +1,5 @@
 <?php
-
+/** Reglas de validación personalizadas */
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
@@ -11,17 +11,25 @@ use Illuminate\Contracts\Validation\Rule;
  * Gestiona las reglas de validación para validar la edad de un trabajar
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class AgeToWork implements Rule
 {
-    /** Integer Define la edad laboral permitida */
+    /**
+     * Define la edad laboral permitida
+     *
+     * @var    integer $age
+     */
     protected $age;
 
     /**
      * Recibe por parámetro la edad laboral permitida
+     *
+     * @method  __construct
+     *
+     * @param integer   $age    Edad de la persona
      *
      * @return void
      */
@@ -33,8 +41,11 @@ class AgeToWork implements Rule
     /**
      * Determina si la regla de validación es correcta
      *
+     * @method  passes
+     *
      * @param  string  $attribute
      * @param  mixed  $value
+     *
      * @return bool
      */
     public function passes($attribute, $value)
@@ -44,6 +55,8 @@ class AgeToWork implements Rule
 
     /**
      * Obtiene el mensaje de error de validación
+     *
+     * @method  message
      *
      * @return string
      */

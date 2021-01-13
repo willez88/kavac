@@ -8,19 +8,20 @@ use Illuminate\Http\Request;
 
 /**
  * @class DocumentStatusController
- * @brief Gestiona información de los estados de documentos
+ * @brief Gestiona información de los estatus de documentos
  *
- * Controlador para gestionar los estados de documentos
+ * Controlador para gestionar los estatus de documentos
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class DocumentStatusController extends Controller
 {
     /**
      * Define la configuración de la clase
+     *
+     * @method  __construct
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
@@ -34,10 +35,13 @@ class DocumentStatusController extends Controller
     }
 
     /**
-     * Muesta todos los registros de estatus de documentos
+     * Listado con todos los estatus de los documentos
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\Http\JsonResponse
+     * @method    index
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return    JsonResponse      JSON con información de todos los estatus de los documentos
      */
     public function index()
     {
@@ -45,27 +49,36 @@ class DocumentStatusController extends Controller
     }
 
     /**
-     * Valida y registra un nuevo estatus de documento
+     * Registra un nuevo estatus de documento
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @method    store
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request    $request    Objeto con información de la petición
+     *
+     * @return    JsonResponse     JSON con datos de respuesta a la petición
      */
     public function store(Request $request)
     {
         $this->validate($request, [
             'name' => ['required', 'max:20', 'unique:document_status,name'],
-            'description' => ['required'],
+            'description' => ['required', 'unique:document_status,description'],
             'color' => [
                 'required', 'min:4', 'max:30', 'unique:document_status,color',
                 'not_in:#FFFFFF,#000000'
             ],
             'action' => ['required', 'unique:document_status,action']
         ], [
-            'color.not_in' => __('Color inválido, seleccione un color distinto a blanco o negro')
+            'name.unique' => _('El nombre ya ha sido registrado'),
+            'description.unique' => _('La descripción ya ha sido registrada'),
+            'color.not_in' => __('Color inválido, seleccione un color distinto a blanco o negro'),
+            'color.unique' => __('El color ya ha sido registrado'),
+            'action.required' => __('Debe seleccionar la acción que ejecuta el estatus del documento'),
+            'action.unique' => __('La acción ya ha sido registrada')
         ]);
 
-
+        /** @var DocumentStatus Objeto con los datos del estatus de documentos creado */
         $documentStatus = DocumentStatus::create([
             'name' => $request->name,
             'description' => $request->description,
@@ -79,10 +92,14 @@ class DocumentStatusController extends Controller
     /**
      * Actualiza la información del estatus de documento
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\DocumentStatus  $documentStatus
-     * @return \Illuminate\Http\JsonResponse
+     * @method    update
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request           $request           Objeto con información de la petición
+     * @param     DocumentStatus    $documentStatus    Objeto con información del estatus de documento a actualizar
+     *
+     * @return    JsonResponse            JSON con información de respuesta a la petición
      */
     public function update(Request $request, DocumentStatus $documentStatus)
     {
@@ -108,9 +125,13 @@ class DocumentStatusController extends Controller
     /**
      * Elimina el estatus de documento
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\DocumentStatus  $documentStatus
-     * @return \Illuminate\Http\JsonResponse
+     * @method    destroy
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     DocumentStatus    $documentStatus    Objeto con información del estatus de documento a eliminar
+     *
+     * @return    JsonResponse      JSON con datos de respuesta sobre el proceso de eliminación
      */
     public function destroy(DocumentStatus $documentStatus)
     {

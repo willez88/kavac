@@ -1,5 +1,4 @@
 <?php
-
 /** Modelos generales de base de datos */
 namespace App\Models;
 
@@ -16,9 +15,9 @@ use App\Traits\ModelsTrait;
  * Gestiona el modelo de datos para los Municipios
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class Municipality extends Model implements Auditable
 {
@@ -28,12 +27,14 @@ class Municipality extends Model implements Auditable
 
     /**
      * Lista de atributos para la gestión de fechas
+     *
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
     protected $fillable = ['name', 'code', 'estate_id'];
@@ -45,12 +46,20 @@ class Municipality extends Model implements Auditable
      */
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
+    /**
+     * Arreglo con las relaciones a cargar por defecto
+     *
+     * @var    array
+     */
     protected $with = ['estate'];
 
     /**
      * Método que obtiene el Estado de un Municipio
      *
+     * @method  estate
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return object Objeto con los registros relacionados al modelo Estate
      */
     public function estate()
@@ -61,7 +70,10 @@ class Municipality extends Model implements Auditable
     /**
      * Método que obtiene las Parroquias asociadas a un Municipio
      *
+     * @method parish
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return object Objeto con los registros relacionados al modelo Parish
      */
     public function parish()
@@ -71,6 +83,8 @@ class Municipality extends Model implements Auditable
 
     /**
      * Municipality has many Institutions.
+     *
+     * @method  institutions
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

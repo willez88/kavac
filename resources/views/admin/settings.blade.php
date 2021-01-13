@@ -28,7 +28,7 @@
 	<script>
 		$(document).ready(function() {
 			$('#active').closest('.bootstrap-switch-wrapper').attr({
-	            'title': '{{ __('Institución activa?') }}',
+	            'title': '{{ __('Organización activa?') }}',
 	            'data-toggle': 'tooltip'
 	        }).tooltip({delay: 4});
 	        $('#retention_agent').closest('.bootstrap-switch-wrapper').attr({
@@ -52,7 +52,7 @@
 	            'data-toggle': 'tooltip'
 	        }).tooltip({delay: 4});
 	        $('#multi_institution').closest('.bootstrap-switch-wrapper').attr({
-	            'title': '{{ __('Activar gestión administrativa para el uso con multiples instituciones') }}',
+	            'title': '{{ __('Activar gestión administrativa para el uso con multiples organizaciones') }}',
 	            'data-toggle': 'tooltip'
 	        }).tooltip({delay: 4});
 	        $('#digital_sign').closest('.bootstrap-switch-wrapper').attr({

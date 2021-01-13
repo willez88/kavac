@@ -1,25 +1,38 @@
 <?php
-
+/** [descripción del namespace] */
 namespace $NAMESPACE$;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
+/**
+ * @class $CLASS$
+ * @brief [descripción detallada]
+ *
+ * [descripción corta]
+ *
+ * @author [autor de la clase] [correo del autor]
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class $CLASS$ extends ServiceProvider
 {
     /**
-     * The module namespace to assume when generating URLs to actions.
+     * El namespace del módulo que se debe asumir al generar las URL.
      *
      * @var string
      */
     protected $moduleNamespace = '$MODULE_NAMESPACE$\$MODULE$\$CONTROLLER_NAMESPACE$';
 
     /**
-     * Called before routes are registered.
+     * Se invoca antes de que las rutas sean registradas.
      *
-     * Register any model bindings or pattern based filters.
+     * Registra cualquier enlace del modelo o filtros basados en patrones.
      *
-     * @return void
+     * @method boot
+     *
+     * @return void     [descripción de los datos devueltos]
      */
     public function boot()
     {
@@ -27,9 +40,11 @@ class $CLASS$ extends ServiceProvider
     }
 
     /**
-     * Define the routes for the application.
+     * Define las rutas del módulo.
      *
-     * @return void
+     * @method map
+     *
+     * @return void     [descripción de los datos devueltos]
      */
     public function map()
     {
@@ -39,11 +54,13 @@ class $CLASS$ extends ServiceProvider
     }
 
     /**
-     * Define the "web" routes for the application.
+     * Define las rutas "web" del módulo.
      *
-     * These routes all receive session state, CSRF protection, etc.
+     * Todas estas rutas reciben el estado de sesión, protección CSRF, etc.
      *
-     * @return void
+     * @method mapWebRoutes
+     *
+     * @return void     [descripción de los datos devueltos]
      */
     protected function mapWebRoutes()
     {
@@ -53,11 +70,13 @@ class $CLASS$ extends ServiceProvider
     }
 
     /**
-     * Define the "api" routes for the application.
+     * Define las rutas "api" del módulo.
      *
-     * These routes are typically stateless.
+     * Estas rutas son típicamente sin estado.
      *
-     * @return void
+     * @method mapWebRoutes
+     *
+     * @return void     [descripción de los datos devueltos]
      */
     protected function mapApiRoutes()
     {

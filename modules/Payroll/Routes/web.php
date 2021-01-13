@@ -210,6 +210,19 @@ Route::group([
         ['as' => 'payroll', 'except' => ['create','edit']]
     );
 
+    /** Ruta que obtiene la información de un registro de política de prestaciones según el trabajador */
+    Route::get(
+        'get-benefits-policy',
+        'PayrollBenefitsPolicyController@getBenefitsPolicy'
+    );
+
+    /** Rutas para gestionar las políticas de prestaciones registradas */
+    Route::resource(
+        'benefits-policies',
+        'PayrollBenefitsPolicyController',
+        ['as' => 'payroll', 'except' => ['create','edit']]
+    );
+
     /** Rutas para gestionar los niveles de idioma */
     Route::resource(
         'language-levels',
@@ -414,8 +427,8 @@ Route::group([
     /** Ruta que permite actualizar una solicitud de vacaciones*/
     Route::patch(
         'vacation-requests/review/{request}',
-        'PayrollVacationRequestController@review')
-    ->name('payroll.request.review');
+        'PayrollVacationRequestController@review'
+    )->name('payroll.request.review');
 
     /** Ruta que permite editar la información de un registro de solicitud de vacaciones */
     Route::get(
@@ -435,7 +448,50 @@ Route::group([
         'PayrollVacationRequestController@getVacationRequests'
     );
 
-    /* Ruta para política de permisos*/
+    /** Rutas para gestionar las solicitudes de prestaciones */
+    Route::resource(
+        'benefits-requests',
+        'PayrollBenefitsRequestController',
+        ['as' => 'payroll', 'except' => ['edit', 'show']]
+    );
+
+    /** Ruta que obtiene un listado de las solicitudes de prestaciones */
+    Route::get(
+        'benefits-requests/vue-list',
+        'PayrollBenefitsRequestController@vueList'
+    )->name('payroll.benefits-requests.vue-list');
+
+    /** Ruta que obtiene un listado de las solicitudes de prestaciones pendientes */
+    Route::get(
+        'benefits-requests/vue-pending-list',
+        'PayrollBenefitsRequestController@vuePendingList'
+    )->name('payroll.benefits-requests.vue-pending-list');
+
+    /** Ruta que permite actualizar una solicitud de prestaciones */
+    Route::patch(
+        'benefits-requests/review/{request}',
+        'PayrollBenefitsRequestController@review'
+    )->name('payroll.benefits-request.review');
+
+    /** Ruta que permite editar la información de un registro de solicitud de prestaciones */
+    Route::get(
+        'benefits-requests/edit/{benefits_request}',
+        'PayrollBenefitsRequestController@edit'
+    )->name('payroll.benefits-requests.edit');
+
+    /** Ruta que obtiene la información de un registro de solicitud de prestaciones */
+    Route::get(
+        'benefits-requests/show/{benefits_request}',
+        'PayrollBenefitsRequestController@show'
+    )->name('payroll.benefits-requests.show');
+
+    /** Ruta que obtiene un listado de las solicitudes de prestaciones de un trabajador */
+    Route::get(
+        'get-benefits-requests/{staff_id}',
+        'PayrollBenefitsRequestController@getBenefitsRequests'
+    );
+
+    /** Rutas para gestionar las políticas de permisos */
     Route::resource(
         'permission-policies',
         'PayrollPermissionPolicyController',
@@ -443,7 +499,41 @@ Route::group([
     );
     Route::get('/get-permission-policies', 'PayrollPermissionPolicyController@getPermissionPolicies');
 
+    /***** Rutas para solicitar permisos*****/
 
+    /** Rutas para gestionar las solicitudes de permiso */
+    Route::resource(
+        'permission-requests',
+        'PayrollPermissionRequestController',
+        ['as' => 'payroll', 'except' => ['edit', 'show']]
+    );
+
+    /** Ruta que obtiene un listado de las solicitudes de permiso */
+    Route::get(
+        'permission-requests/vue-list',
+        'PayrollPermissionRequestController@vueList'
+    )->name('payroll.permission-requests.vue-list');
+
+    /** Ruta que permite editar la información de un registro de solicitud de permiso */
+    Route::get(
+        'permission-requests/edit/{permission_request}',
+        'PayrollPermissionRequestController@edit'
+    )->name('payroll.permission-requests.edit');
+
+    /** Ruta que obtiene la información de un registro de solicitud de permiso */
+    Route::get(
+        'permission-requests/show/{permission_request}',
+        'PayrollPermissionRequestController@show'
+    )->name('payroll.permission-requests.show');
+
+    Route::delete('/permission-requests/delete/{permission_request}', 'PayrollPermissionRequestController@destroy')
+        ->name('payroll.permission-requests.delete');
+
+    /** Ruta que obtiene un listado de las solicitudes de permisos pendientes */
+    Route::get(
+        'permission-requests/vue-pending-list',
+        'PayrollPermissionRequestController@vuePendingList'
+    )->name('payroll.permission-requests.vue-pending-list');
 
 
 
@@ -458,6 +548,10 @@ Route::group([
     ], function () {
         Route::get('show/{filename}', 'PayrollReportController@show')
         ->name('payroll.reports.show');
+
+        /** Ruta que permite generar el reporte de los registros de nómina asociados a un pago */
+        Route::post('registers/create', 'PayrollReportController@create')
+        ->name('payroll.reports.registers.create');
 
         Route::get('vacation-enjoyment-summaries', 'PayrollReportController@vacationEnjoymentSummaries')
         ->name('payroll.reports.vacation-enjoyment-summaries');

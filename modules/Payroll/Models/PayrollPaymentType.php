@@ -16,9 +16,8 @@ use Module;
  * Gestiona el modelo de tipos de pago
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class PayrollPaymentType extends Model implements Auditable
 {
@@ -96,5 +95,29 @@ class PayrollPaymentType extends Model implements Auditable
     public function payrollPaymentPeriods()
     {
         return $this->hasMany(PayrollPaymentPeriod::class);
+    }
+
+    /**
+     * Método que obtiene la información de las políticas de prestaciones asociadas al tipo de pago de nómina
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payrollBenefitsPolicies()
+    {
+        return $this->hasMany(PayrollBenefitsPolicy::class);
+    }
+
+    /**
+     * Método que obtiene la información de las políticas vacacionales asociadas al tipo de pago de nómina
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payrollVacationPolicies()
+    {
+        return $this->hasMany(PayrollVacationPolicy::class);
     }
 }

@@ -1,7 +1,7 @@
 <template>
-	<div class="col-xs-2 text-center">
+	<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-2 mb-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-		   href="javascript:void(0)" title="Registros de Impuestos" data-toggle="tooltip"
+		   href="javascript:void(0)" title="Registro de impuestos y tasas" data-toggle="tooltip"
 		   @click="addRecord('add_tax', 'taxes', $event)">
 			<i class="icofont icofont-deal ico-3x"></i>
 			<span>Impuestos</span>
@@ -25,7 +25,7 @@
 							</ul>
 						</div>
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-12 col-md-6">
 								<div class="form-group is-required">
 									<label>Nombre:</label>
 									<input type="text" placeholder="Impuesto" data-toggle="tooltip"
@@ -34,7 +34,7 @@
 									<input type="hidden" v-model="record.id">
 			                    </div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-12 col-md-6">
 								<div class="form-group is-required">
 									<label>Descripción:</label>
 									<input type="text" placeholder="Descripción" data-toggle="tooltip"
@@ -42,7 +42,7 @@
 										   class="form-control input-sm" v-model="record.description">
 			                    </div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-12 col-md-6">
 								<div class="form-group is-required">
 									<label>Fecha entrada en vigencia:</label>
 									<input type="date" placeholder="dd/mm/yyyy" data-toggle="tooltip"
@@ -50,7 +50,7 @@
 										   class="form-control input-sm" v-model="record.operation_date">
 			                    </div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-12 col-md-6">
 								<div class="form-group is-required">
 									<label>Porcentaje:</label>
 									<input type="number" placeholder="0" step="0.01" data-toggle="tooltip"
@@ -58,7 +58,7 @@
 										   class="form-control input-sm" v-model="record.percentage">
 			                    </div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-12 col-md-6">
 								<div class="form-group is-required">
 									<label>Afecta cuenta de IVA:</label>
                                     <div class="col-12 bootstrap-switch-mini">
@@ -70,7 +70,7 @@
                                     </div>
 			                    </div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-12 col-md-6">
 								<div class="form-group is-required">
 									<label>Activo:</label>
                                     <div class="col-12 bootstrap-switch-mini">

@@ -5,12 +5,18 @@ namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
+/**
+ * @class Kernel
+ * @brief Gestiona las configuraciones generales de la aplicación
+ *
+ * Gestiona las configuraciones generales de la aplicación
+ */
 class Kernel extends HttpKernel
 {
     /**
-     * The application's global HTTP middleware stack.
+     * Arreglo de middlewares de HTTP global de la aplicación.
      *
-     * These middleware are run during every request to your application.
+     * Estos middleware se ejecutan durante cada solicitud de la aplicación.
      *
      * @var array
      */
@@ -24,7 +30,7 @@ class Kernel extends HttpKernel
     ];
 
     /**
-     * The application's route middleware groups.
+     * Los grupos de middlewares de rutas de la aplicación.
      *
      * @var array
      */
@@ -46,9 +52,9 @@ class Kernel extends HttpKernel
     ];
 
     /**
-     * The application's route middleware.
+     * Los middlewares de rutas de la aplicación.
      *
-     * These middleware may be assigned to groups or used individually.
+     * Estos middleware pueden asignarse a grupos o usarse individualmente.
      *
      * @var array
      */
@@ -73,9 +79,9 @@ class Kernel extends HttpKernel
     ];
 
     /**
-     * The priority-sorted list of middleware.
+     * La lista de middleware ordenada por prioridad.
      *
-     * This forces non-global middleware to always be in the given order.
+     * Esto obliga al middleware no global a estar siempre en el orden dado.
      *
      * @var array
      */

@@ -4,12 +4,13 @@
 			<div class="card-header">
 				<h6 class="card-title">
 					{{ __('Herramientas para Desarrolladores') }}&#160;
-					<a href="javascript:void(0)" title="{{ __('Acceso a la documentación del sistema') }}"
-					   data-toggle="tooltip">
-						<i class="ion ion-ios-help-outline cursor-pointer"></i>
-					</a>
+					@include('buttons.help', [
+                        'helpId' => 'developmentTools',
+                        'helpSteps' => get_json_resource('ui-guides/development_tools.json')
+                    ])
 				</h6>
 				<div class="card-btns">
+                    @include('buttons.previous', ['route' => url()->previous()])
 					@include('buttons.minimize')
 				</div>
 			</div>
@@ -26,56 +27,56 @@
 					</div>
 				</div>
 				<h6>{{ __('Interfaz') }}</h6>
-                <div class="row">
-					<div class="col-3">
+                <div class="row" id="helpUIButtons">
+					<div class="col-12 col-md-3" id="helpIconButton">
 						<a href="{{ route('dev.show.element', ['el' => 'icons']) }}"
 						   class="btn btn-primary btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="{{ __('Listado de íconos disponibles en la aplicación') }}">
 							<i class="icofont icofont-idea"></i> {{ __('Iconos') }}
 						</a>
 					</div>
-					<div class="col-3">
+					<div class="col-12 col-md-3" id="helpComponentsButton">
 						<a href="{{ route('dev.show.element', ['el' => 'components']) }}"
 						   class="btn btn-primary btn-simple btn-lg btn-block" data-toggle="tooltip"
                            title="{{ __('Listado de componentes y elementos disponibles en la aplicación') }}">
 							<i class="icofont icofont-idea"></i> {{ __('Componentes') }}
 						</a>
 					</div>
-					<div class="col-3">
+					<div class="col-12 col-md-3" id="helpButtons">
 						<a href="{{ route('dev.show.element', ['el' => 'buttons']) }}"
 						   class="btn btn-primary btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="{{ __('Listado de estilos de botones') }}">
 							<i class="icofont icofont-idea"></i> {{ __('Botones') }}
 						</a>
 					</div>
-					<div class="col-3">
+					<div class="col-12 col-md-3" id="helpFormsButton">
 						<a href="{{ route('dev.show.element', ['el' => 'forms']) }}"
 						   class="btn btn-primary btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="{{ __('Listado de componentes de formulario') }}">
 							<i class="icofont icofont-idea"></i> {{ __('Formularios') }}
 						</a>
 					</div>
-					<div class="col-3">
+					{{-- <div class="col-12 col-md-3">
 						<a href="javascript:void(0)"
 						   class="btn btn-primary btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="{{ __('Listado de gráficos disponibles') }}">
 							<i class="icofont icofont-idea"></i> {{ __('Gráficos') }}
 						</a>
-					</div>
-					<!--<div class="col-3">
+					</div> --}}
+					<!--<div class="col-12 col-md-3">
 						<a href="javascript:void(0)"
 						   class="btn btn-primary btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="Listado de estilos de sliders">
 							<i class="icofont icofont-idea"></i> Sliders
 						</a>
 					</div>-->
-					<div class="col-3">
+					{{-- <div class="col-12 col-md-3">
 						<a href="javascript:void(0)"
 						   class="btn btn-primary btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="{{ __('Listado de estilos de tablas') }}">
 							<i class="icofont icofont-idea"></i> {{ __('Tablas') }}
 						</a>
-					</div>
+					</div> --}}
 				</div>
 				{{-- <div class="row">
 					<div class="col-12">
@@ -84,8 +85,8 @@
 				</div> --}}
 				<hr>
 				<h6>{{ __('Ajustes') }}</h6>
-				<div class="row">
-					<div class="col-md-2">
+				<div class="row" id="helpUIAdjustements">
+					<div class="col-md-2" id="helpMaintenanceMode">
 						<div class="form-group">
 							<label for="" class="control-label">{{ __('Mantenimiento') }}</label>
 							<div class="col-12">
@@ -98,7 +99,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-2" id="helpDemoMode">
 						<div class="form-group">
 							<label for="" class="control-label">{{ __('Demostración') }}</label>
 							<div class="col-12">
@@ -111,7 +112,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-2" id="helpDebugMode">
 						<div class="form-group">
 							<label for="" class="control-label">{{ __('Debug') }}</label>
 							<div class="col-12">
@@ -127,8 +128,8 @@
 				</div>
 				<hr>
 				<h6>{{ __('Eventos') }}</h6>
-				<div class="row">
-					<div class="col-3">
+				<div class="row" id="helpLogEvents">
+					<div class="col-12 col-md-3">
 						<a href="{{ route('log-viewer::details') }}"
 						   class="btn btn-danger btn-simple btn-lg btn-block"
 						   data-toggle="tooltip" title="{{ __('Registros de eventos del sistema') }}">

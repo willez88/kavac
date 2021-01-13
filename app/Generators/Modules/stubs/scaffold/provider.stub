@@ -1,23 +1,40 @@
 <?php
-
+/** [descripción del namespace] */
 namespace $NAMESPACE$;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * @class $CLASS$
+ * @brief [descripción detallada]
+ *
+ * [descripción corta]
+ *
+ * @author [autor de la clase] [correo del autor]
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class $CLASS$ extends ServiceProvider
 {
     /**
-     * @var string $moduleName
+     * Indica el nombre del modulo
+     *
+     * @var string $moduleName Nombre del módulo
      */
     protected $moduleName = '$MODULE$';
 
     /**
-     * @var string $moduleNameLower
+     * Indica el nombre del módulo en minúsculas
+     *
+     * @var string $moduleNameLower Nombre del módulo en minúsculas
      */
     protected $moduleNameLower = '$LOWER_NAME$';
 
     /**
-     * Boot the application events.
+     * Inicia los eventos del módulo en la aplicación.
+     *
+     * @method boot
      *
      * @return void
      */
@@ -31,7 +48,9 @@ class $CLASS$ extends ServiceProvider
     }
 
     /**
-     * Register the service provider.
+     * Registra el proveedor de servicios del módulo.
+     *
+     * @method register
      *
      * @return void
      */
@@ -41,7 +60,9 @@ class $CLASS$ extends ServiceProvider
     }
 
     /**
-     * Register config.
+     * Registra la configuración del módulo.
+     *
+     * @method registerConfig
      *
      * @return void
      */
@@ -56,7 +77,9 @@ class $CLASS$ extends ServiceProvider
     }
 
     /**
-     * Register views.
+     * Registra las vistas del módulo.
+     *
+     * @method registerViews
      *
      * @return void
      */
@@ -74,7 +97,9 @@ class $CLASS$ extends ServiceProvider
     }
 
     /**
-     * Register translations.
+     * Registra las traducciones del módulo.
+     *
+     * @method registerTranslations
      *
      * @return void
      */
@@ -90,7 +115,9 @@ class $CLASS$ extends ServiceProvider
     }
 
     /**
-     * Register an additional directory of factories.
+     * Registra directorios adicionales para los factories del módulo.
+     *
+     * @method registerFactories
      *
      * @return void
      */
@@ -102,7 +129,9 @@ class $CLASS$ extends ServiceProvider
     }
 
     /**
-     * Get the services provided by the provider.
+     * Obtiene los servicios proporcionados por el proveedor.
+     *
+     * @method provides
      *
      * @return array
      */
@@ -111,6 +140,15 @@ class $CLASS$ extends ServiceProvider
         return [];
     }
 
+    /**
+     * Obtiene las rutas de los módulos
+     *
+     * @method    getPublishableViewPaths
+     *
+     * @author    [Nombre del autor] [correo del autor]
+     *
+     * @return    {[type]}                   [Descripción de los valores devueltos]
+     */
     private function getPublishableViewPaths(): array
     {
         $paths = [];

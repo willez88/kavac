@@ -3,7 +3,13 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h6 class="card-title">Auditoría de registros</h6>
+                    <h6 class="card-title">
+                        Auditoría de registros
+                        <a href="javascript:void(0)" title="haz click para ver la ayuda guiada de este elemento"
+                           data-toggle="tooltip" class="btn-help" @click="initUIGuide(helpFile)">
+                            <i class="ion ion-ios-help-outline cursor-pointer"></i>
+                        </a>
+                    </h6>
                     <div class="card-btns">
                         <a href="javascript:void(0)" class="card-minimize btn btn-card-action btn-round"
                            title="Minimizar" data-toggle="tooltip">
@@ -16,7 +22,7 @@
                         <div class="col-md-2">
                             <b>Filtros</b>
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-md-2" id="helpAuditFilterFromDate">
                             <div class="input-group input-sm">
                                 <span class="input-group-addon">
                                     <i class="now-ui-icons ui-1_calendar-60"></i>
@@ -25,7 +31,7 @@
                                        v-model="start_date" placeholder="Fecha">
                             </div>
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-md-2" id="helpAuditFilterToDate">
                             <div class="input-group input-sm">
                                 <span class="input-group-addon">
                                     <i class="now-ui-icons ui-1_calendar-60"></i>
@@ -34,25 +40,29 @@
                                        v-model="end_date" placeholder="Fecha">
                             </div>
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-md-2" id="helpAuditFilterUser">
                             <div class="input-group input-sm">
                                 <span class="input-group-addon">
                                     <i class="now-ui-icons users_circle-08"></i>
                                 </span>
                                 <input type="text" class="form-control" data-toggle="tooltip" v-model="user"
-                                       title="Consulta por usuario" placeholder="Módulo">
+                                       title="Consulta por usuario" placeholder="Usuario">
                             </div>
                         </div>
-                        <div class="form-group col-md-2">
-                            <div class="input-group input-sm">
+                        <div class="form-group col-md-2" id="helpAuditFilterModule">
+                            <select v-model="module" class="form-control select2">
+                                <option value="">Módulo</option>
+                                <option :value="mod.originalName" v-for="mod in modules">{{ mod.name }}</option>
+                            </select>
+                            <!--<div class="input-group input-sm">
                                 <span class="input-group-addon">
                                     <i class="now-ui-icons design_app"></i>
                                 </span>
                                 <input type="text" class="form-control" data-toggle="tooltip" v-model="module"
                                        title="Consulta por módulo de la aplicación" placeholder="Módulo">
-                            </div>
+                            </div>-->
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-md-2" id="helpAuditFilterButton">
                             <button type="button" class="btn btn-info btn-icon btn-xs px-3" data-toggle="tooltip"
                                     title="Buscar registros del sistema" @click="readRecords">
                                 <i class="fa fa-search"></i>
@@ -68,29 +78,29 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row mg-bottom-20">
-                        <div class="col-12 panel-legend">
+                    <div class="row mg-bottom-20" id="helpAuditLeyend">
+                        <div class="col-12 panel-legend" id="helpAuditLeyendNew">
                             <i class="ion-android-checkbox-blank text-success" title="Registros nuevos"
                                data-toggle="tooltip"></i>
-                            <span>nuevos</span>
+                            <span>Nuevos</span>
                         </div>
-                        <div class="col-12 panel-legend">
+                        <div class="col-12 panel-legend" id="helpAuditLeyendUpdate">
                             <i class="ion-android-checkbox-blank text-warning" title="Registros actualizados"
                                data-toggle="tooltip"></i>
-                            <span>actualizados</span>
+                            <span>Actualizados</span>
                         </div>
-                        <div class="col-12 panel-legend">
+                        <div class="col-12 panel-legend" id="helpAuditLeyendRestore">
                             <i class="ion-android-checkbox-blank text-info" title="Registros reestablecidos"
                                data-toggle="tooltip"></i>
-                            <span>restaurados después de eliminación</span>
+                            <span>Restaurados después de eliminación</span>
                         </div>
-                        <div class="col-12 panel-legend">
+                        <div class="col-12 panel-legend" id="helpAuditLeyendDelete">
                             <i class="ion-android-checkbox-blank text-danger" title="Registros eliminados"
                                data-toggle="tooltip"></i>
-                            <span>eliminados</span>
+                            <span>Eliminados</span>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" id="helpAuditTable">
                         <div class="col-12">
                             <v-client-table :columns="columns" :data="records" :options="table_options">
                                 <div slot="status" slot-scope="props" v-html="props.row.status" class="text-center"></div>
@@ -126,7 +136,14 @@
                 user: '',
                 module: '',
                 records: [],
-                columns: ['status', 'date', 'ip', 'module', 'users', 'id'],
+                columns: ['status', 'date', 'ip', 'module', 'users', 'id']
+            }
+        },
+        props: {
+            modules: {
+                type: Array,
+                required: false,
+                default: null
             }
         },
         methods: {

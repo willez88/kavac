@@ -34,7 +34,9 @@ class CreateSaleWarehouseInventoryRulesTable extends Migration
                 $table->integer('maximum')->unsigned()->nullable()
                       ->comment('Cantidad máxima permitida de un producto en el almacén');
 
-                $table->foreignId('sale_warehouse_inventory_product_id')->constrained()
+                $table->unsignedBigInteger('sale_warehouse_inventory_product_id');
+                $table->foreign('sale_warehouse_inventory_product_id', 'sale_warehouse_inventory_rules_products_id_fk')
+                      ->references('id')->on('sale_warehouse_inventory_products')
                       ->onDelete('restrict')->onUpdate('cascade');
 
                 $table->foreignId('user_id')->constrained()->onDelete('restrict')->onUpdate('cascade');

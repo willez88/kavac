@@ -15,9 +15,8 @@ use App\Traits\ModelsTrait;
  * Gestiona el modelo de datos de las escalas de los tabuladores salariales
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class PayrollSalaryTabulatorScale extends Model implements Auditable
 {
@@ -38,7 +37,7 @@ class PayrollSalaryTabulatorScale extends Model implements Auditable
     protected $fillable = [
         'payroll_salary_tabulator_id', 'payroll_horizontal_scale_id', 'payroll_vertical_scale_id', 'value'
     ];
-    
+
     /**
      * Método que obtiene el tabulador salarial asociado al registro
      *

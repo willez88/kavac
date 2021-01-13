@@ -387,15 +387,15 @@ if (! function_exists('check_connection')) {
 
 if (! function_exists('get_institution')) {
     /**
-     * Obtiene la informacion de una institución
+     * Obtiene la informacion de una organización
      *
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      *
-     * @param  int|null $id [identificador unico de la institución]
+     * @param  int|null $id [identificador unico de la organización]
      *
-     * @return \App\Models\Institution     Devuelve un objeto con información de la institución,
+     * @return \App\Models\Institution     Devuelve un objeto con información de la organización,
      *                                     si no se indica un ID devuelve el primer registro,
-     *                                     de lo contrario devuelve los datos de la institución solicitada
+     *                                     de lo contrario devuelve los datos de la organización solicitada
      */
     function get_institution($id = null)
     {
@@ -414,10 +414,12 @@ if (! function_exists('generate_hash')) {
      *
      * @param      integer          $length          Longitud de la cadena a generar
      * @param      boolean          $specialChars    Condición que determina si se incluyen o no carácteres especiales
+     * @param      boolean          $separators      Condición que determina si se incluyen carácteres "-" y "_" como
+     *                                               separadores de la cadena generada
      *
      * @return     string           Devuelve una cadena aleatoria
      */
-    function generate_hash($length = 8, $specialChars = false)
+    function generate_hash($length = 8, $specialChars = false, $separators = false)
     {
         $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
 
@@ -425,6 +427,10 @@ if (! function_exists('generate_hash')) {
 
         if ($specialChars) {
             $chars = '%$[](-_)@/#{}';
+            $alphabet .= $chars;
+        }
+        if ($separators) {
+            $chars = '-_';
             $alphabet .= $chars;
         }
         $pass = [];
@@ -492,6 +498,25 @@ if (! function_exists('list_table_foreign_keys')) {
         return array_map(function ($key) {
             return $key->getName();
         }, $conn->listTableForeignKeys($table));
+    }
+}
+
+if (! function_exists('has_foreign_key')) {
+    /**
+     * Verifica si una tabla de la base de datos contiene una clave foránea específica
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     string     $table         Nombre de la tabla en base de datos
+     * @param     string     $foreignKey    Nombre de la clave foránea a verificar
+     *
+     * @return    boolean    Devuelve verdadero si la clave foránea existe en la tabla, de lo contrario retorna falso
+     */
+    function has_foreign_key($table, $foreignKey)
+    {
+        /** @var object Objeto con información detallada de las propiedades de la tabla */
+        $detailTable = Schema::getConnection()->getDoctrineSchemaManager()->listTableDetails($table);
+        return $detailTable->hasForeignKey($foreignKey);
     }
 }
 
@@ -716,5 +741,82 @@ if (! function_exists('check_max_upload_size')) {
         $bytesPost = convert_to_bytes($sizePost);
 
         return $fileSize < $bytes && $fileSize < $bitesPost;
+    }
+}
+
+if (! function_exists('restore_record')) {
+    /**
+     * Restaura registros eliminados del sistema
+     *
+     * @method    restore_record
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     string    $model     Nombre del modelo que contiene el registro a restaurar
+     * @param     array     $filter    Arreglo con el filtro a aplicar para obtener el(los) registro(s) a restaurar
+     *
+     * @return    boolean   Devuelver verdadero si existe el registro y fue restaurado, de lo contrario devuelve falso
+     */
+    function restore_record($model, $filter)
+    {
+        if ($record = $model::onlyTrashed()->where($filter)->first()) {
+            $record->restore();
+            return true;
+        }
+
+        return false;
+    }
+}
+
+if (! function_exists('info_modules')) {
+    function info_modules($min = false, $mod = null)
+    {
+        /** @var Module Objeto con información de todos los módulos de la aplicación */
+        $modules = Module::all();
+
+        /** @var array Arreglo con información detallada de los módulos de la aplicación */
+        $listModules = [];
+        foreach ($modules as $module) {
+            if ($module->isDisabled() || ($mod !== null && $module->getLowerName() !== trim(strtolower($mod)))) {
+                continue;
+            }
+            /** @var array Arreglo con los requerimientos del módulo */
+            $requirements = [];
+            if (count($module->getRequires()) > 0) {
+                foreach ($module->getRequires() as $modName => $version) {
+                    array_push($requirements, ['module' => $modName, 'versión' => $version]);
+                }
+            }
+
+            /** @var array Arreglo con información de los autores del módulo */
+            $authors = [];
+            if (!is_null($module->get('authors')) && count($module->get('authors')) > 0) {
+                foreach ($module->get('authors') as $author) {
+                    array_push($authors, ['name' => $author['name'], 'emails' => $author['email']]);
+                }
+            }
+
+            $moduleDetails = [
+                'originalName' => $module->getName(),
+                'alias' => $module->get('alias'),
+                'name' => $module->get('name_es') ?? $module->getName(),
+            ];
+
+            if (!$min) {
+                array_push($moduleDetails, [
+                    'icon' => $module->icon["name"] ?? "fa fa-cubes",
+                    'logo' => ($module->get('logo'))
+                              ? "assets/" . $module->get('name') . "/images/" . $module->get('logo')
+                              : "images/default-avatar.png",
+                    'description' => $module->getDescription(),
+                    'requirements' => $requirements,
+                    'authors' => $authors
+                ]);
+            }
+
+            array_push($listModules, $moduleDetails);
+        }
+
+        return $listModules;
     }
 }

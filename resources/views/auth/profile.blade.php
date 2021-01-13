@@ -115,7 +115,7 @@
                                                     'readonly' => 'readonly',
                                                     'data-toggle' => 'tooltip',
                                                     'title' => __(
-                                                        'Cargo en la institución. Este dato ' .
+                                                        'Cargo en la organización. Este dato ' .
                                                         'solo puede ser modificado por ' .
                                                         'personal autorizado.'
                                                     )

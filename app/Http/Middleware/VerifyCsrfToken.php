@@ -5,17 +5,23 @@ namespace App\Http\Middleware;
 
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
 
+/**
+ * @class VerifyCsrfToken
+ * @brief Gestiona los middleware para los tokens CSRF
+ *
+ * Gestiona los middleware para los tokens CSRF
+ */
 class VerifyCsrfToken extends Middleware
 {
     /**
-     * Indicates whether the XSRF-TOKEN cookie should be set on the response.
+     * Indica si la cookie XSRF-TOKEN debe establecerse en la respuesta.
      *
      * @var bool
      */
     protected $addHttpCookie = true;
-    
+
     /**
-     * The URIs that should be excluded from CSRF verification.
+     * Las URL que deben excluirse de la verificación CSRF.
      *
      * @var array
      */

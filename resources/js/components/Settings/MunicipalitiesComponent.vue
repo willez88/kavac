@@ -1,7 +1,7 @@
 <template>
-	<div class="col-xs-2 text-center">
+	<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-2 mb-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-		   href="javascript:void(0)" title="Registros de Municipios de un Estado"
+		   href="javascript:void(0)" title="Registro de municipios"
 		   data-toggle="tooltip" @click="addRecord('add_municipality', 'municipalities', $event)">
 			<i class="icofont icofont-ui-map ico-3x"></i>
 			<span>Municipios</span>
@@ -25,7 +25,7 @@
 							</ul>
 						</div>
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-12 col-md-6">
 								<div class="form-group">
 									<label>Pais:</label>
 									<select2 :options="countries" @input="getEstates"
@@ -33,13 +33,13 @@
 									<input type="hidden" v-model="record.id">
 			                    </div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-12 col-md-6">
 								<div class="form-group">
 									<label>Estados:</label>
 									<select2 :options="estates" v-model="record.estate_id"></select2>
 			                    </div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-12 col-md-6">
 								<div class="form-group is-required">
 									<label>Código:</label>
 									<input type="text" placeholder="Código de Municipio" data-toggle="tooltip"
@@ -47,7 +47,7 @@
 										   class="form-control input-sm" v-model="record.code" v-is-digits>
 			                    </div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-12 col-md-6">
 								<div class="form-group is-required">
 									<label>Nombre:</label>
 									<input type="text" placeholder="Nombre de Municipio" data-toggle="tooltip"

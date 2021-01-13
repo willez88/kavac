@@ -1,63 +1,94 @@
 # Reportes del Módulo de Contabilidad
 *************************************
-<div style="text-align: justify;">
 
 ![Screenshot](img/logokavac.png#imagen)
 
-A través de esta funcionalidad es posible visualizar los reportes generados por el sistema, con el objetivo de realizar un seguimiento a la gestión financiera de la empresa en una fecha determinada, los cual brindará apoyo en la toma de decisiones. La funcionalidad cuenta con 2 tipos de reportes: **Libros contables**, y **Libros financieros**, cada uno con elementos que permiten filtrar los registros almacenados en el sistema. 
+A través de esta funcionalidad es posible visualizar los reportes generados por el sistema, con el objetivo de realizar un seguimiento a la gestión financiera de la empresa en una fecha determinada. La funcionalidad cuenta con dos tipos de reportes: **Libros contables**, y **Estados financieros**.
 
-Para el ingreso a esta funcionalidad el usuario se dirige a la opción **Contabilidad** y selecciona **Reportes**. La sección **Reportes** contiene las siguientes funcionalidades para generar un reporte:
+Para el ingreso a esta funcionalidad el usuario se dirige a la opción **Contabilidad** y selecciona **Reportes**. A continuación se muestran las siguientes secciones para la generación de reportes:
 
 ##Libros contables
 
-Mediante esta funcionalidad se visualizará  toda la información económica, financiera y contable de una empresa para poder entender su funcionamiento económico-financiero. Estos libros son actualizados periódicamente coincidiendo con el ejercicio contable en curso. 
-
-El sistema de gestión de recursos KAVAC, cuenta con la generación de reportes para 3 libros contables: libro diario, mayor analítico, y libro auxiliar. La funcionalidad para cada libro cuenta con elementos que permiten filtrar los registros almacenados en el sistema, tales como (fecha inicial, fecha final, selección de cuentas patrimoniales, y formas de expresión de monedas). Adicionalmente cuenta con la opción de **Ayuda**, la cual presenta una guía de ayuda para el usuario. 
+El sistema de gestión de recursos KAVAC, cuenta con la generación de reportes para tres libros contables: libro diario, mayor analítico, y libro auxiliar. A través de estos reportes es posible obtener una sucesión de asientos contables ordenados de forma cronológica, un resumen de cuentas anotando todos los movimientos que afecten al debe, haber y saldo de la cuenta correspondiente, de la misma forma un resumen de las operaciones económicas registradas por cada cuenta.
 
 ###Generar reporte de libro diario
 
-- Dirigirse al **Módulo de Contabilidad**, luego a **Reportes**, ingresar a **Libros contables** y ubicarse en la sección **Libro diario**.
-- Seleccionar los parámetros de búsqueda (Fecha inicial, fecha final y expresar en algún tipo de moneda en específico).
+- Dirigirse al **Módulo de Contabilidad**, luego a **Reportes**, ingresar a **Libros Contables** y ubicarse en la sección **Libro Diario**.
+- Seleccionar los parámetros de búsqueda.
 - Seleccionar la opción **Generar Reporte** y verificar el documento generado por el sistema.
 
-![Screenshot](/img/figure_7.png)<div style="text-align: center;font-weight: bold">Figura 7: Generar reporte de libro diario</div>
+![Screenshot](/img/figure_9.png)<div style="text-align: center;font-weight: bold">Figura 9: Generar Reporte de Libro Diario</div>
 
 ###Generar reporte de mayor analítico
 
-- Dirigirse al **Módulo de Contabilidad**, luego a **Reportes**, ingresar a **Libros Contables** y ubicarse en la sección **Mayor analítico**.
-- Seleccionar los parámetros de búsqueda (fecha inicial, fecha final, cuenta inicial, cuenta final y expresar en algún tipo de moneda en específico).	Adicionalmente el sistema presenta el campo de selección entre las opciones “**SI** o **NO**” para seleccionar todas las cuentas que han sido registradas en el sistema.
+- Dirigirse al **Módulo de Contabilidad**, luego a **Reportes**, ingresar a **Libros Contables** y ubicarse en la sección **Mayor Analítico**.
+- Seleccionar los parámetros de búsqueda.
 - Seleccionar la opción **Generar Reporte** y verificar el documento generado por el sistema.
 
-![Screenshot](/img/figure_8.png)<div style="text-align: center;font-weight: bold">Figura 8: Generar reporte de mayor analítico</div>
+![Screenshot](/img/figure_10.png)<div style="text-align: center;font-weight: bold">Figura 10: Generar Reporte de Mayor Analítico</div>
+
+###Generar reporte de libro auxiliar 
+
+- Dirigirse al **Módulo de Contabilidad**, luego a **Reportes**, ingresar a **Libros Contables** y ubicarse en la sección **Libro Auxiliar**.
+- Seleccionar los parámetros de búsqueda.
+- Seleccionar la opción **Generar Reporte** y verificar el documento generado por el sistema.
+
+![Screenshot](/img/figure_11.png)<div style="text-align: center;font-weight: bold">Figura 11: Generar Reporte de Libro Auxiliar</div>
 
 ##Estados financieros
 
-Mediante esta funcionalidad se visualizará  toda la información económica, financiera y los cambios que experimenta la misma a una fecha o periodo determinado. Presenta el ejercicio económico de un año de la empresa.
+Mediante esta funcionalidad se visualizará informes financieros o estados contables que muestran la estructura económica de la organización, donde se plasman las actividades económicas que se realizan en la empresa durante un determinado periodo.   El sistema de gestión de recursos KAVAC, cuenta con la generación de reportes para 3 estados financieros: balance general, estado de resultados y balance de comprobación. 
 
-El sistema de gestión de recursos KAVAC, cuenta con la generación de reportes para 3 estados financieros: balance general, estado de resultados y balance de comprobación. La funcionalidad para cada estado financiero cuenta con elementos que permiten filtrar los registros almacenados en el sistema, tales como (periodos de fechas, nivel de consulta y formas de expresión de monedas). Adicionalmente cuenta con la opción de **Ayuda**, la cual presenta una guía de ayuda para el usuario.
+###Generar reporte de balance de comprobación 
+
+El reporte de balance de comprobación es un instrumento financiero que se utiliza para visualizar la lista del total de los debitos y de los créditos de las cuentas, junto al saldo de cada una de ellas (ya sea deudor o acreedor). De esta forma, permite establecer un resumen básico de un estado financiero. 
+
+Para generar un reporte de balance de comprobación es necesario:
+ 
+- Dirigirse al **Módulo de Contabilidad**, luego a **Reportes**, ingresar a **Estados financieros** y ubicarse en la sección **Balance de Comprobación**.
+- Seleccionar los parámetros de búsqueda.
+- Seleccionar la opción **Generar Reporte** y verificar el documento generado por el sistema.
+
+![Screenshot](/img/figure_12.png)<div style="text-align: center;font-weight: bold">Figura 12: Generar Reporte de Balance de Comprobación. </div>
 
 ###Generar reporte de estado de resultados
 
-- Dirigirse al **Módulo de Contabilidad**, luego a **Reportes**, ingresar a **Estados financieros** y ubicarse en la sección **Estado de resultados**.
-- Seleccionar los parámetros de búsqueda (periodos de fecha: pueden seleccionarse por año, o por mes, nivel de consulta (Actualmente el sistema cuenta con 6 niveles)  y expresar en algún tipo de moneda en específico). Adicionalmente el sistema presenta el campo de selección entre las opciones “**SI** o **NO**” para mostrar valores en ceros. 
+A través de este reporte es posible obtener un estado de ganancias y pérdidas en base a un periodo determinado.  Este informe muestra de manera detallada los ingresos obtenidos, los gastos y como consecuencia, el beneficio o pérdida que ha generado la organización usuaria en dicho periodo de tiempo.    
+
+Para generar un reporte de estado de resultados es necesario:
+
+- Dirigirse al **Módulo de Contabilidad**, luego a **Reportes**, ingresar a **Estados financieros** y ubicarse en la sección **Estado de Resultados**.
+- Seleccionar los parámetros de búsqueda. 
 - Seleccionar la opción **Generar Reporte** y verificar el documento generado por el sistema.
 
-![Screenshot](/img/figure_9.png)<div style="text-align: center;font-weight: bold">Figura 9: Generar reporte de estado de resultados</div>
+![Screenshot](/img/figure_13.png)<div style="text-align: center;font-weight: bold">Figura 13: Generar Reporte de Estado de Resultados</div>
 
+!!! note "Nota"
 
-###Balance de comprobación 
+	Al seleccionar los parámetros de búsqueda, el sistema permite elegir diferentes niveles de consulta a tráves del campo **Nivel de consulta**.  El sistema permite elegir seis niveles de consultas que definen las cuentas a mostrar.  Cada nivel incorpora las cuentas hijo, de esta forma el nivel uno muestra las cuentas patrimoniales como cuentas principales y el nivel seis muestra por su parte todas las cuentas involucradas. 
 
-**Balance de comprobación** es un instrumento financiero que se utiliza para visualizar la lista del total de los debitos y de los créditos de las cuentas, junto al saldo de cada una de ellas (ya sea deudor o acreedor). De esta forma, permite establecer un resumen básico de un estado financiero.
+	Cabe destacar que según sea el nivel de consulta seleccionado, algunas cuentas no se incluyen en el reporte sin embargo, son cuentas involucradas en los procesos contables.  
+	    
 
-Generar reporte de balance de comprobación. 
- 
-- Dirigirse al **Módulo de Contabilidad**, luego a **Reportes**, ingresar a **Estados financieros** y ubicarse en la sección **Balance de Comprobación**.
-- Seleccionar los parámetros de búsqueda (periodo de fechas con las siguientes opciones **Desde** y **Hasta**, y expresar en algún tipo de moneda en específico).
+###Generar reporte de balance general
+
+Este informe financiero muestra detalladamente el valor de cada una de las propiedades (activos), obligaciones (pasivos), capital (patrimonio),	así como el valor de las cuentas de orden.
+
+Para generar un reporte de balance general es necesario:
+
+- Dirigirse al **Módulo de Contabilidad**, luego a **Reportes**, ingresar a **Estados financieros** y ubicarse en la sección **Balance General**.
+- Seleccionar los parámetros de búsqueda, 
 - Seleccionar la opción **Generar Reporte** y verificar el documento generado por el sistema.
 
-![Screenshot](/img/figure_10.png)<div style="text-align: center;font-weight: bold">Figura 10: Generar reporte de balance de comprobación. </div>
+![Screenshot](/img/figure_14.png)<div style="text-align: center;font-weight: bold">Figura 14: Generar Reporte de Balance General</div>
 
-</div>
+!!! note "Nota"
+
+	Al seleccionar los parámetros de búsqueda, el sistema permite elegir diferentes niveles de consulta a tráves del campo **Nivel de consulta**.  El sistema permite elegir seis niveles de consultas que definen las cuentas a mostrar.  Cada nivel incorpora las cuentas hijo, de esta forma el nivel uno muestra las cuentas patrimoniales como cuentas principales y el nivel seis muestra por su parte todas las cuentas involucradas. 
+
+	Cabe destacar que según sea el nivel de consulta seleccionado, algunas cuentas no se incluyen en el reporte sin embargo, son cuentas involucradas en los procesos contables. 
+
+
 
 
 

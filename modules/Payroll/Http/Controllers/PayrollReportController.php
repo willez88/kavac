@@ -8,10 +8,9 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Payroll\Repositories\ReportRepository;
 use Carbon\Carbon;
-
 use Modules\Payroll\Models\PayrollVacationRequest;
+use Modules\Payroll\Models\Payroll;
 use Modules\Payroll\Models\Institution;
-use App\Models\CodeSetting;
 
 /**
  * @class      PayrollReportController
@@ -20,9 +19,8 @@ use App\Models\CodeSetting;
  * Clase que gestiona los reportes del módulo de talento humano
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class PayrollReportController extends Controller
 {
@@ -54,14 +52,15 @@ class PayrollReportController extends Controller
         }
 
         $pdf = new ReportRepository();
-        $payrollVacationRequest = PayrollVacationRequest::find($request->input('id'));
         $filename = 'payroll-report-' . Carbon::now() . '.pdf';
 
         $body = ($request->current == 'vacation-enjoyment-summaries')
                     ? 'payroll::pdf.payroll-vacation-enjoyment-summaries'
                     : ($request->current == 'vacation-status')
                         ? 'payroll::pdf.payroll-vacation-status'
-                        : '';
+                        : ($request->current == 'registers')
+                            ? 'payroll::pdf.payroll-registers'
+                            : '';
         $pdf->setConfig(
             [
                 'institution' => $institution,
@@ -72,9 +71,15 @@ class PayrollReportController extends Controller
         );
 
         if ($request->current == 'vacation-enjoyment-summaries') {
+            $records = PayrollVacationRequest::find($request->input('id'));
             $pdf->setHeader("Reporte de disfrute de vacaciones");
         } elseif ($request->current == 'vacation-status') {
+            $records = PayrollVacationRequest::find($request->input('id'));
             $pdf->setHeader("Reporte de estatus de vacaciones");
+        } elseif ($request->current == 'registers') {
+            $payrollRegister = Payroll::find($request->input('id'));
+            $records = $payrollRegister->payrollStaffPayrolls;
+            $pdf->setHeader("Reporte de registros de nómina");
         }
         $pdf->setFooter();
         $pdf->setBody(
@@ -82,7 +87,7 @@ class PayrollReportController extends Controller
             true,
             [
                 'pdf'    => $pdf,
-                'field'  => $payrollVacationRequest
+                'field'  => $records
             ]
         );
         $url = '/payroll/reports/show/' . $filename;
@@ -129,12 +134,12 @@ class PayrollReportController extends Controller
         $startDate = $endDate = '';
         if ($request->start_date) {
             $start_date = explode('-', $request->start_date);
-            $startDate = date('Y-m-d', mktime(0,0,0, $start_date[1], 1, $start_date[0]));
+            $startDate = date('Y-m-d', mktime(0, 0, 0, $start_date[1], 1, $start_date[0]));
         }
         if ($request->end_date) {
             $end_date = explode('-', $request->end_date);
-            $end_day = date("d", mktime(0,0,0, $end_date[1]+1, 0, $end_date[0]));
-            $endDate = date('Y-m-d', mktime(0,0,0, $end_date[1], $end_day, $end_date[0]));
+            $end_day = date("d", mktime(0, 0, 0, $end_date[1]+1, 0, $end_date[0]));
+            $endDate = date('Y-m-d', mktime(0, 0, 0, $end_date[1], $end_day, $end_date[0]));
         }
 
         $user = Auth()->user();

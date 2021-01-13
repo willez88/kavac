@@ -6,7 +6,6 @@ namespace Modules\Asset\Http\Controllers;
 use Illuminate\Http\Response;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
-
 use Modules\Asset\Models\Asset;
 use Modules\Asset\Models\AssetAsignation;
 use Modules\Asset\Models\AssetDisincorporation;
@@ -19,9 +18,8 @@ use Modules\Asset\Models\AssetRequest;
  * Clase que gestiona las peticiones realizadas desde el panel de control del módulo de bienes
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class AssetDashboardController extends Controller
 {

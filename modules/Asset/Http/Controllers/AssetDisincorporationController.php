@@ -5,13 +5,11 @@ namespace Modules\Asset\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
-
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Repositories\UploadImageRepository;
 use App\Repositories\UploadDocRepository;
 use Illuminate\Support\Facades\Auth;
 use App\Models\CodeSetting;
-
 use Modules\Asset\Models\AssetDisincorporationAsset;
 use Modules\Asset\Models\AssetDisincorporation;
 use Modules\Asset\Models\Asset;
@@ -24,9 +22,8 @@ use App\Models\Profile;
  * Clase que gestiona las desincorporaciones de bienes institucionales
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class AssetDisincorporationController extends Controller
 {

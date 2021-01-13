@@ -17,14 +17,16 @@ use ZipArchive;
  * Gestiona las acciones que se deben realizar en el respaldo de información
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class BackupRepository
 {
     /**
      * Construct function
+     *
+     * @method  __construct
      */
     public function __construct()
     {
@@ -33,6 +35,8 @@ class BackupRepository
 
     /**
      * Gestiona la creación de respaldos de la base de datos
+     *
+     * @method  create
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
@@ -43,6 +47,7 @@ class BackupRepository
         try {
             /** start the backup process */
             Artisan::call('backup:run');
+            /** @var string Información del resultado de la ejecución del comando */
             $output = Artisan::output();
 
             /** log the results */
@@ -75,18 +80,23 @@ class BackupRepository
      */
     public function restore($filename, $request)
     {
+        /** @var string Ruta en la que se realiza el respaldo de la base de datos */
         $path = Storage::disk(config('backup.backup.destination.disks')[0])->getAdapter()->getPathPrefix();
-
+        /** @var ZipArchive Instancia a la clase */
         $zip = new ZipArchive;
+        /** @var object Objeto con información del archivo a descomprimir */
         $res = $zip->open($path . config('app.name') . "/" . $filename);
         if ($res === true) {
             try {
                 $request->session()->regenerate();
+                /** @var string Nombre del archivo a descomprimir */
                 $snapName = str_replace(".zip", "", $filename);
                 $zip->renameName('db-dumps/postgresql-kavac.sql', $snapName . '.sql');
                 $zip->extractTo($path);
                 $zip->close();
+                /** @var string Código de respuesta en la restauración de datos */
                 $exitCode = Artisan::call('snapshot:load ' . $snapName);
+                /** @var string Datos de respuesta en la ejecución del comando */
                 $output = Artisan::output();
                 /** log the results */
                 Log::info(
@@ -106,14 +116,23 @@ class BackupRepository
 
     /**
      * Muestra el listado de archivos de respaldo
+     *
+     * @method  getList
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @param  string $disk Nombre del disco del sistema de archivos
      * @param  string $dir  Nombre del directorio del sistema de archivos
+     *
      * @return array        Devuelve un arreglo con el listado de archivos de respaldo en orden descendente
      */
     public function getList($disk, $dir)
     {
+        /** @var object Objeto con información del disco a usar para obtener el listado de archivos disponibles */
         $storage_disk = Storage::disk($disk[0]);
+        /** @var object Objeto con información de los archivos disponibles */
         $files = $storage_disk->files($dir);
+        /** @var array Listado con información detallada de los archivos a restaurar */
         $backups = [];
         /** make an array of backup files, with their filesize and creation date */
         foreach ($files as $k => $f) {
@@ -132,18 +151,28 @@ class BackupRepository
     }
 
     /**
-     * Get the file
+     * Obtiene un archivo
+     *
+     * @method  getFile
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @param  string $disk      Disk name
      * @param  string $dir       Directory name
      * @param  string $file_name File name
+     *
      * @return array             File data
      */
     public function getFile($disk, $dir, $file_name)
     {
+        /** @var string Ruta del archivo */
         $file = $dir . '/' . $file_name;
+        /** @var object Objeto con información del disco a usar para obtener el archivo */
         $storage_disk = Storage::disk($disk[0]);
         if ($storage_disk->exists($file)) {
+            /** @var string Driver del disco a usar */
             $fs = Storage::disk($disk[0])->getDriver();
+            /** @var string Contenido del archivo */
             $stream = $fs->readStream($file);
             return [true, 'stream' => $stream, 'fs' => $fs, 'file' => $file];
         }
@@ -151,8 +180,22 @@ class BackupRepository
         return [false];
     }
 
+    /**
+     * Elimina un archivo
+     *
+     * @method  delFile
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param  string $disk      Disk name
+     * @param  string $dir       Directory name
+     * @param  string $file_name File name
+     *
+     * @return array             File data
+     */
     public function delFile($disk, $dir, $file_name)
     {
+        /** @var object Objeto con información del disco del sistema de archivos */
         $storage_disk = Storage::disk($disk[0]);
         if ($storage_disk->exists($dir . '/' . $file_name)) {
             $storage_disk->delete($dir . '/' . $file_name);
@@ -165,16 +208,26 @@ class BackupRepository
 
     /**
      * Show readeable human file size
+     *
+     * @method  humanFileSize
+     *
+     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @param  float   $size       File size to convert
      * @param  integer $precision  Precision for the file size
+     *
      * @return string              Return readeable human file size
      */
     public function humanFileSize($size, $precision = 2)
     {
+        /** @var array Listado de unidades de capacidad */
         $units = ['B','kB','MB','GB','TB','PB','EB','ZB','YB'];
+        /** @var integer base de cálculo para determinar el tamaño en formato legible */
         $step = 1024;
+        /** @var integer Contador */
         $i = 0;
         while (($size / $step) > 0.9) {
+            /** @var float Tamaño del archivo */
             $size = $size / $step;
             $i++;
         }

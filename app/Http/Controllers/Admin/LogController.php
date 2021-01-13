@@ -16,17 +16,20 @@ use App\Notifications\System as SystemNotification;
  * Clase que gestiona los eventos de log
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class LogController extends Controller
 {
     /**
      * Método que genera eventos logs a partir de errores ocasionados en el FrontEnd
      *
+     * @method  frontEnd
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return JsonResponse     JSON con el resultado del evento
      */
     public function frontEnd(Request $request)
     {
@@ -49,6 +52,7 @@ class LogController extends Controller
         /** @var string Nombre de la función que generó el log. Esta variable es opcional */
         $function = (!is_null($request->func)) ? " en la función [{$request->func}]" : '';
 
+        /** @var string Mensaje de error generado */
         $errorMessage = __('Error generado por la vista [:view]', ['view' => $view]) . "\n";
         $errorMessage.= __('Código: :code', ['code' => $code]) . "\n";
         $errorMessage.= __('Tipo: :type', ['type' => $errorType]) . "\n";
@@ -58,6 +62,7 @@ class LogController extends Controller
 
         Log::channel('front_end')->error($errorMessage);
 
+        /** @var Role Objeto con información del rol desarrollador */
         $devRole = Role::where('slug', 'dev')->first();
         if ($devRole) {
             foreach ($devRole->users()->where('active', true)->get() as $user) {

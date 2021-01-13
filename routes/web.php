@@ -348,6 +348,7 @@ Route::get('public/documents/{document}', function ($document) {
 });
 
 
+
 Route::post('report', 'ReportController@create');
 Route::post('report/sign', 'ReportController@sign');
 Route::get('documents/verify/{document}', 'ReportController@verify');

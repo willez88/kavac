@@ -80,6 +80,16 @@ Vue.directive('is-text', {
 	}
 });
 
+Vue.directive('has-tooltip', {
+    bind: (el, binding) => {
+        $(el).tooltip({
+            title: $(el).attr('title') || $(el).data('original-title'),
+            placement: binding.arg || 'top',
+            trigger: 'hover'
+        });
+    }
+});
+
 /**
  * Opciones de configuración global para utilizar en todos los componentes vuejs de la aplicación
  *
@@ -170,7 +180,12 @@ Vue.mixin({
 			type: String,
 			required: false,
 			default: ''
-		}
+		},
+        helpFile: {
+            type: String,
+            required: false,
+            default: null
+        }
 	},
 	watch: {
 		/**
@@ -793,11 +808,11 @@ Vue.mixin({
 			}
 		},
 		/**
-		 * Obtiene un arreglo con las instituciones registradas
+		 * Obtiene un arreglo con las organizaciones registradas
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 *
-		 * @param  {integer} id Identificador de la institución a buscar, este parámetro es opcional
+		 * @param  {integer} id Identificador de la organización a buscar, este parámetro es opcional
 		 */
 		getInstitutions(id) {
 			const vm = this;
@@ -823,7 +838,7 @@ Vue.mixin({
 			});
 		},
 		/**
-		 * Obtiene los departamentos o unidades de la institución
+		 * Obtiene los departamentos o unidades de la organización
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 *
@@ -960,13 +975,17 @@ Vue.mixin({
 		switchTooltip: function(elName, text, delayHide) {
 			var delayHide = (typeof(delayHide) !== "undefined") ? delayHide : 200;
 			$(`input[name=${elName}]`).closest('.bootstrap-switch-wrapper').attr({
-				'title': text,
+				'title': (typeof(text)!=="undefined")?text:$(this).data('original-title'),
 				'data-toggle': 'tooltip'
 			}).tooltip({
 				trigger:"hover",
 				delay: {hide: delayHide}
 			});
 		},
+        initUIGuide: function(file) {
+            let helpFile = (typeof file === 'string' || typeof file instanceof String) ? file : JSON.stringify(file);
+            startGuidedTour(JSON.parse(helpFile));
+        },
 		/**
 		 * Realiza las acciones necesarias para bloquear la pantalla del sistema por inactividad del usuario
 		 *
@@ -1058,6 +1077,18 @@ Vue.mixin({
 	async created() {
 		await this.clearForm();
 		this.loading = false;
+        /** Ajustes de elementos de la tabla de VueTables */
+        $('.VueTables__search__input').attr({
+            'data-original-title': 'Filtrar resultados',
+            'data-toggle': 'tooltip'
+        });
+        $('.VueTables__search__input').tooltip();
+        $('.VueTables__limit-field').attr({
+            'data-original-title': 'Cantidad de registros a mostrar por página',
+            'data-toggle': 'tooltip'
+        });
+        $('.VueTables__limit-field').tooltip();
+        $("[id^=VueTables__limit]").select2();
 	},
 	async mounted() {
 		let vm = this;
@@ -1076,5 +1107,20 @@ Vue.mixin({
 		$('.modal').on('shown.bs.modal', function() {
 			//vm.records = vm.data;
 		});
-	}
+	},
+    updated: function() {
+        const vm = this;
+        vm.$nextTick(function() {
+            $("input[type=radio]").each(function() {
+                let title = $(this).attr('title') || $(this).data('original-title');
+                $(this).closest('.bootstrap-switch-wrapper').attr({
+                    'title': title,
+                    'data-toggle': 'tooltip'
+                }).tooltip({
+                    trigger:"hover",
+                    delay: {hide: 200}
+                });
+            });
+        });
+    }
 });

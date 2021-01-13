@@ -191,6 +191,22 @@ $(document).ready(function() {
         });
     }
 
+    if ($('.btn-modal-clear').length) {
+        $('.btn-modal-clear').attr({
+            'title': 'Presione para reestablecer los campos del formulario',
+            'data-toggle': 'tooltip'
+        });
+        $('.btn-modal-clear').tooltip({
+            trigger: "hover",
+            delay: { hide: 100 }
+        });
+        $('.btn-modal-clear').on('shown.bs.tooltip', function() {
+            setTimeout(function() {
+                $('.btn-modal-clear').tooltip('hide');
+            }, 1500);
+        });
+    }
+
     if ($('.btn-modal-save').length) {
         $('.btn-modal-save').attr({
             'title': 'Presione para guardar el registro',
@@ -275,6 +291,26 @@ $(document).ready(function() {
         }
     });
 
+    /** Campos del tipo Fecha */
+    if ($('input[type=date]').length) {
+        !$('input[type=date]').on('keydown', () => false);
+        /** Establece la fecha límite a seleccionar si no esta presente la clase no-restrict */
+        if (!$('input[type=date]').hasClass('no-restrict')) {
+            let today = new Date();
+            let dd = today.getDate();
+            let mm = today.getMonth() + 1;
+            let yyyy = today.getFullYear();
+            if(dd<10) {
+                dd='0'+dd;
+            }
+            if(mm<10) {
+                mm='0'+mm;
+            }
+            let now = `${yyyy}-${mm}-${dd}`;
+            $('input[type=date]').attr('max', now);
+        }
+    }
+
     if ($('.datatable').length) {
         /** Configuración de atributos para tablas con datatable */
         $.extend($.fn.dataTableExt.oStdClasses, {
@@ -356,7 +392,7 @@ $(document).ready(function() {
             {
                 name: 'Roldan Vargas',
                 email: 'rvargas@cenditel.gob.ve | roldandvg@gmail.com',
-                group: 'Lider de proyecto / Diseño / Desarrollo / Autor'
+                group: 'Lider de proyecto / Diseño / Desarrollo / Autor / Director de Desarrollo (2021)'
             },
             {
                 name: 'Julie Vera',
@@ -394,11 +430,6 @@ $(document).ready(function() {
                 group: 'Analistas'
             },
             {
-                name: 'Daniel Contreras',
-                email: 'dcontreras@cenditel.gob.ve',
-                group: 'Analistas'
-            },
-            {
                 name: 'Luis Ramírez',
                 email: 'lramirez@cenditel.gob.ve',
                 group: 'Manuales'
@@ -429,6 +460,31 @@ $(document).ready(function() {
                 group: 'Desarrolladores'
             },
             {
+                name: 'Pedro Buitrago',
+                email: 'pbuitrago@cenditel.gob.ve',
+                group: 'Desarrolladores'
+            },
+            {
+                name: 'Angelo Osorio',
+                email: 'adosorio@cenditel.gob.ve',
+                group: 'Desarrolladores'
+            },
+            {
+                name: 'José Puentes',
+                email: 'jpuentes@cenditel.gob.ve',
+                group: 'Desarrolladores'
+            },
+            {
+                name: 'Daniel Contreras',
+                email: 'dcontreras@cenditel.gob.ve',
+                group: 'Desarrolladores'
+            },
+            {
+                name: 'Miguel Narváez',
+                email: 'mnarvaez@cenditel.gob.ve',
+                group: 'Desarrolladores'
+            },
+            {
                 name: 'Argenis Osorio',
                 email: 'aosorio@cenditel.gob.ve',
                 group: 'Director de Desarrollo (2018-2019)'
@@ -439,11 +495,6 @@ $(document).ready(function() {
                 group: 'Director de Desarrollo (2020)'
             },
             {
-                name: 'Angelo Osorio',
-                email: 'adosorio@cenditel.gob.ve',
-                group: 'Colaborador'
-            },
-            {
                 name: 'Santiago Roca',
                 email: 'sroca@cenditel.gob.ve',
                 group: 'Colaborador'
@@ -452,8 +503,19 @@ $(document).ready(function() {
         bootbox.alert({
             className: 'modal-credits',
             closeButton: false,
-            message: appInfo.showAbout()
+            message: appInfo.showAbout(),
+            buttons: {
+                ok: {
+                    label: "OK",
+                    className: 'btn-primary'
+                }
+            },
         });
+
+        $('.bootbox.modal [data-bb-handler="ok"]').attr('title', 'Haga clic para cerrar esta ventana');
+        $('.bootbox.modal [data-bb-handler="ok"]').attr('data-toggle', 'tooltip');
+        $('.bootbox.modal [data-bb-handler="ok"]').tooltip();
+        $('.bootbox.modal a').tooltip();
     });
 
     /** Evento que permite mostrar datos sobre el licenciamiento de la aplicación */
@@ -478,13 +540,21 @@ $(document).ready(function() {
             { name: 'Argenis Osorio' },
             { name: 'Laura Colina' },
             { name: 'Angelo Osorio' },
-            { name: 'Santiago Roca' }
+            { name: 'Santiago Roca' },
+            { name: 'Pedro Buitrago' },
+            { name: 'José Puentes' },
+            { name: 'Miguel Narváez' },
         ]);
         bootbox.alert({
             className: 'modal-credits',
             closeButton: false,
             message: appInfo.showLicense()
         });
+
+        $('.bootbox.modal [data-bb-handler="ok"]').attr('title', 'Haga clic para cerrar esta ventana');
+        $('.bootbox.modal [data-bb-handler="ok"]').attr('data-toggle', 'tooltip');
+        $('.bootbox.modal [data-bb-handler="ok"]').tooltip();
+        $('.bootbox.modal a').tooltip();
     });
 
     /** Oculta el tooltip de los elementos bootstrap switch después de unos segundos */

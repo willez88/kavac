@@ -16,9 +16,8 @@ use App\Traits\ModelsTrait;
  *
  * @author     William Páez <wpaez@cenditel.gob.ve>
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class PayrollStaff extends Model implements Auditable
 {
@@ -207,6 +206,18 @@ class PayrollStaff extends Model implements Auditable
     public function payrollVacationRequests()
     {
         return $this->hasMany(PayrollVacationRequest::class);
+    }
+
+    /**
+     * Método que obtiene la información de las solicitudes de adelanto de prestaciones asociadas al trabajador
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+
+     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payrollBenefitsRequests()
+    {
+        return $this->hasMany(PayrollBenefitsRequest::class);
     }
 
     /**

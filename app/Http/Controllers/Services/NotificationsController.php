@@ -11,24 +11,38 @@ use App\Http\Controllers\Controller;
  * Controlador para gestionar las notificaciones de los usuarios
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class NotificationsController extends Controller
 {
+    /**
+     * Muestra las notificaciones del sistema
+     *
+     * @method    show
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return    View    Vista con las notificaciones
+     */
     public function show()
     {
         return view('auth.notifications');
     }
+
     /**
      * Obtiene las notificaciones no leídas
      *
+     * @method  getUnreaded
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\Http\JsonResponse JSON con los datos de las notificaciones no leídas
+     *
+     * @return JsonResponse JSON con los datos de las notificaciones no leídas
      */
     public function getUnreaded()
     {
+        /** @var Notification Objeto con las notificaciones no leídas del usuario */
         $notifications = auth()->user()->notifications()->whereNull('read_at')->get();
         return response()->json(['result' => true, 'notifications' => $notifications], 200);
     }
@@ -36,11 +50,15 @@ class NotificationsController extends Controller
     /**
      * Obtiene las notificaciones leídas
      *
+     * @method  getReaded
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\Http\JsonResponse JSON con los datos de las notificaciones leídas
+     *
+     * @return JsonResponse JSON con los datos de las notificaciones leídas
      */
     public function getReaded()
     {
+        /** @var Notification Objeto con las notificaciones leídas del usuario */
         $notifications = auth()->user()->notifications()->whereNotNull('read_at')->get();
         return response()->json(['result' => true, 'notifications' => $notifications], 200);
     }
@@ -48,11 +66,15 @@ class NotificationsController extends Controller
     /**
      * Obtiene todas las notificaciones registradas
      *
+     * @method  getAll
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\Http\JsonResponse JSON con los datos de todas las notificaciones registradas
+     *
+     * @return JsonResponse JSON con los datos de todas las notificaciones registradas
      */
     public function getAll()
     {
+        /** @var Notification Objeto con todas las notificaciones del usuario */
         $notifications = auth()->user()->notifications()->get();
         return response()->json(['result' => true, 'notifications' => $notifications], 200);
     }

@@ -11,9 +11,8 @@ use Illuminate\Database\Migrations\Migration;
  * Gestiona la creación o eliminación de la tabla de políticas vacacionales
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class CreatePayrollVacationPoliciesTable extends Migration
 {
@@ -37,11 +36,11 @@ class CreatePayrollVacationPoliciesTable extends Migration
                       ->comment('Establece el tipo de vacaciones ' .
                                 '(collective_vacations: Colectivas, vacation_period: Por período)');
                 $table->enum(
-                          'salary_type',
-                          ['base_salary', 'comprehensive_salary', 'normal_salary', 'dialy_salary']
-                      )->comment('Establece el salario a emplear para el cálculo del bono vacacional ' .
-                                '(base_salary: Salario base, comprehensive_salary: Salario integral,' .
-                                ' normal_salary: Salario normal, dialy_salary: Salario diario)');
+                    'salary_type',
+                    ['base_salary', 'comprehensive_salary', 'normal_salary', 'dialy_salary']
+                )->comment('Establece el salario a emplear para el cálculo del bono vacacional ' .
+                           '(base_salary: Salario base, comprehensive_salary: Salario integral,' .
+                           ' normal_salary: Salario normal, dialy_salary: Salario diario)');
                 $table->enum('payment_calculation', ['enjoyment_days', 'general_days'])
                       ->comment('Establece el pago de acuerdo a: ' .
                                 '(enjoyment_days: Días de disfrute, general_days: Días generales)');

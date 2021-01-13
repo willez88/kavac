@@ -11,9 +11,9 @@ use DB;
 
 /**
  * @class InstitutionTypesTableSeeder
- * @brief Información por defecto para tipos de Instituciones
+ * @brief Información por defecto para tipos de Organizaciones
  *
- * Gestiona la información por defecto a registrar inicialmente para los tipos de Instituciones
+ * Gestiona la información por defecto a registrar inicialmente para los tipos de Organizaciones
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
@@ -34,33 +34,33 @@ class InstitutionTypesTableSeeder extends Seeder
         $adminRole = Role::where('slug', 'admin')->first();
 
         /**
-         * Permisos disponibles para la gestión de tipos de instituciones
+         * Permisos disponibles para la gestión de tipos de organizaciones
          */
 
         $permissions = [
             [
-                'name' => 'Crear Tipo de Institución', 'slug' => 'institution.type.create',
-                'description' => 'Acceso al registro de tipos de instituciones',
+                'name' => 'Crear Tipo de Organización', 'slug' => 'institution.type.create',
+                'description' => 'Acceso al registro de tipos de organizaciones',
                 'model' => InstitutionType::class, 'model_prefix' => '0general',
-                'slug_alt' => 'tipo.institucion.crear', 'short_description' => 'agregar tipo de institución'
+                'slug_alt' => 'tipo.institucion.crear', 'short_description' => 'agregar tipo de Organización'
             ],
             [
-                'name' => 'Editar Tipo de Institución', 'slug' => 'institution.type.edit',
-                'description' => 'Acceso para editar tipos de instituciones',
+                'name' => 'Editar Tipo de Organización', 'slug' => 'institution.type.edit',
+                'description' => 'Acceso para editar tipos de organizaciones',
                 'model' => InstitutionType::class, 'model_prefix' => '0general',
-                'slug_alt' => 'tipo.institucion.editar', 'short_description' => 'editar tipo de institución'
+                'slug_alt' => 'tipo.institucion.editar', 'short_description' => 'editar tipo de Organización'
             ],
             [
-                'name' => 'Eliminar Tipo de Institución', 'slug' => 'institution.type.delete',
-                'description' => 'Acceso para eliminar tipos de instituciones',
+                'name' => 'Eliminar Tipo de Organización', 'slug' => 'institution.type.delete',
+                'description' => 'Acceso para eliminar tipos de organizaciones',
                 'model' => InstitutionType::class, 'model_prefix' => '0general',
-                'slug_alt' => 'tipo.institucion.eliminar', 'short_description' => 'eliminar tipo de institución'
+                'slug_alt' => 'tipo.institucion.eliminar', 'short_description' => 'eliminar tipo de Organización'
             ],
             [
-                'name' => 'Ver Tipo de Institución', 'slug' => 'institution.type.list',
-                'description' => 'Acceso para ver tipos de instituciones',
+                'name' => 'Ver Tipo de Organización', 'slug' => 'institution.type.list',
+                'description' => 'Acceso para ver tipos de organizaciones',
                 'model' => InstitutionType::class, 'model_prefix' => '0general',
-                'slug_alt' => 'tipo.institucion.ver', 'short_description' => 'ver tipos de instituciones'
+                'slug_alt' => 'tipo.institucion.ver', 'short_description' => 'ver tipos de organizaciones'
             ],
         ];
 

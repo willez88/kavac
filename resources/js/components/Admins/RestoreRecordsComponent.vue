@@ -3,7 +3,13 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h6 class="card-title">Restaurar Registros eliminados</h6>
+                    <h6 class="card-title">
+                        Restaurar Registros eliminados
+                        <a href="javascript:void(0)" title="haz click para ver la ayuda guiada de este elemento"
+                           data-toggle="tooltip" class="btn-help" @click="initUIGuide(helpFile)">
+                            <i class="ion ion-ios-help-outline cursor-pointer"></i>
+                        </a>
+                    </h6>
                     <div class="card-btns">
                         <a href="javascript:void(0)" class="card-minimize btn btn-card-action btn-round"
                            title="Minimizar" data-toggle="tooltip">
@@ -16,7 +22,7 @@
                         <div class="col-md-2">
                             <b>Filtros</b>
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-md-2" id="helpRestoreFilterFromDate">
                             <div class="input-group input-sm">
                                 <span class="input-group-addon">
                                     <i class="now-ui-icons ui-1_calendar-60"></i>
@@ -25,7 +31,7 @@
                                        v-model="start_delete_at" placeholder="Fecha">
                             </div>
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-md-2" id="helpRestoreFilterToDate">
                             <div class="input-group input-sm">
                                 <span class="input-group-addon">
                                     <i class="now-ui-icons ui-1_calendar-60"></i>
@@ -34,16 +40,13 @@
                                        v-model="end_delete_at" placeholder="Fecha">
                             </div>
                         </div>
-                        <div class="form-group col-md-2">
-                            <div class="input-group input-sm">
-                                <span class="input-group-addon">
-                                    <i class="now-ui-icons design_app"></i>
-                                </span>
-                                <input type="text" class="form-control" data-toggle="tooltip" v-model="module_delete_at"
-                                       title="Módulo en donde el registro fue eliminado" placeholder="Módulo">
-                            </div>
+                        <div class="form-group col-md-2" id="helpRestoreFilterModule">
+                            <select v-model="module_delete_at" class="form-control select2">
+                                <option value="">Módulo</option>
+                                <option :value="mod.originalName" v-for="mod in modules">{{ mod.name }}</option>
+                            </select>
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-md-2" id="helpRestoreFilterButton">
                             <button type="button" class="btn btn-info btn-icon btn-xs px-3" data-toggle="tooltip"
                                     title="Buscar registros eliminados" @click="readRecords">
                                 <i class="fa fa-search"></i>
@@ -59,7 +62,7 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row">
+                    <div class="row" id="helpRestoreTable">
                         <div class="col-12">
                             <v-client-table :columns="columns" :data="records" :options="table_options">
                                 <div slot="registers" slot-scope="props" v-html="props.row.registers"></div>
@@ -90,6 +93,13 @@
                 columns: ['deleted_at', 'module', 'registers', 'id'],
             }
         },
+        props: {
+            modules: {
+                type: Array,
+                required: false,
+                default: null
+            }
+        },
         methods: {
             /**
              * Restaurar registro eliminado
@@ -98,20 +108,24 @@
              */
             restore(moduleClass, id) {
                 const vm = this;
-                vm.loading = true;
-                axios.post('/app/restore-record', {
-                    module: moduleClass,
-                    id: id
-                }).then(response => {
-                    if (response.data.result) {
-                        vm.readRecords();
-                        vm.showMessage(
-                            'custom', 'Éxito', 'success', 'screen-ok', 'Registro restaurado con éxito'
-                        );
+                bootbox.confirm('Está seguro de restaurar el registro seleccionado?', function (result) {
+                    if (result) {
+                        vm.loading = true;
+                        axios.post('/app/restore-record', {
+                            module: moduleClass,
+                            id: id
+                        }).then(response => {
+                            if (response.data.result) {
+                                vm.readRecords();
+                                vm.showMessage(
+                                    'custom', 'Éxito', 'success', 'screen-ok', 'Registro restaurado con éxito'
+                                );
+                            }
+                            vm.loading = false;
+                        }).catch(error => {
+                            console.error(error);
+                        });
                     }
-                    vm.loading = false;
-                }).catch(error => {
-                    console.error(error);
                 });
             },
             /**

@@ -12,18 +12,22 @@ use App\Traits\ModelsTrait;
  * Controlador para gestionar el Panel de Control
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class DashboardController extends Controller
 {
     use ModelsTrait;
 
     /**
-     * Display a listing of the resource.
+     * Muestra la vista del panel de control
      *
-     * @return \Illuminate\View\View
+     * @method    index
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return    View    Devuelve la vista principal del panel de control si el usuario esta autenticado,
+     *                    de lo contrario muestra la vista de acceso a la aplicación
      */
     public function index()
     {

@@ -20,9 +20,9 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  * @property  string $action
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class DocumentStatus extends Model implements Auditable
 {
@@ -31,18 +31,21 @@ class DocumentStatus extends Model implements Auditable
 
     /**
      * Nombre de la tabla a usar en la base de datos
+     *
      * @var string $table
      */
     protected $table = 'document_status';
 
     /**
      * Lista de atributos para la gestión de fechas
+     *
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
     protected $fillable = ['name', 'description', 'color', 'action'];
@@ -57,10 +60,14 @@ class DocumentStatus extends Model implements Auditable
     /**
      * Obtiene el estatus del documento según los filtros indicados
      *
+     * @method  scopeGetStatus
+     *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @param  object $query    Objeto que contiene la consulta del modelo
      * @param  string $status   Estatus por el cual filtrar la información
      * @param  string $operator Operador por el cual se va a filtrar los datos, el valor por defecto es '='
+     *
      * @return object           Consulta filtrada
      */
     public function scopeGetStatus($query, $status, $operator = null)

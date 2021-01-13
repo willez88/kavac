@@ -11,9 +11,8 @@ use Illuminate\Database\Migrations\Migration;
  * Gestiona la creación o eliminación del campo "documet_id" de la tabla de eventos asociados a bienes solicitados
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class DeleteFieldDocumentIdToAssetRequestEventsTable extends Migration
 {

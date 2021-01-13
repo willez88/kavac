@@ -7,7 +7,6 @@ use App\Models\Image;
 use App\Repositories\UploadImageRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
 use DB;
 
 /**
@@ -17,23 +16,31 @@ use DB;
  * Controlador para gestionar Imágenes
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class ImageController extends Controller
 {
     /**
-     * Store a newly created resource in storage.
+     * Registra una nueva imagen
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @method    store
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request                  $request    Objeto con información de la petición
+     * @param     UploadImageRepository    $up         Objeto con las propiedades necesarias para registrar y subir
+     *                                                 la imagen al servidor
+     *
+     * @return    JsonResponse      JSON con información del resultado en el registro de la imagen
      */
     public function store(Request $request, UploadImageRepository $up)
     {
         if ($request->file('image')) {
             if ($up->uploadImage($request->file('image'), 'pictures')) {
+                /** @var integer Identificador de la imagen registrada */
                 $image_id = $up->getImageStored()->id;
+                /** @var string URL de la imagen */
                 $image_url = $up->getImageStored()->url;
                 return response()->json(['result' => true, 'image_id' => $image_id, 'image_url' => $image_url], 200);
             }
@@ -42,13 +49,20 @@ class ImageController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina una imagen
      *
-     * @param  integer  $id Identificador de la imagen
-     * @return \Illuminate\Http\JsonResponse
+     * @method    destroy
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request    $request    Objeto con información de la petición
+     * @param     integer    $id         Identificador de la imagen a eliminar
+     *
+     * @return    JsonResponse     JSON con información del resultado en la eliminación de la imagen
      */
     public function destroy(Request $request, $id)
     {
+        /** @var Image Objeto con información de la imagen a eliminar */
         $image = Image::find($id);
 
         if (is_null($image)) {
@@ -57,6 +71,7 @@ class ImageController extends Controller
             ], 200);
         }
 
+        /** @var string Ruta del archivo a eliminar */
         $file = $image->file;
 
         DB::transaction(function () use ($image, $file, $request) {
@@ -75,10 +90,14 @@ class ImageController extends Controller
     /**
      * Obtiene detalles de una imagen
      *
+     * @method  getImage
+     *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @param  Request $request Datos de la petición
      * @param  Image   $image   Objeto con los datos de la imagen
-     * @return \Illuminate\Http\JsonResponse             JSON con los detalles de la imagen consultada
+     *
+     * @return JsonResponse             JSON con los detalles de la imagen consultada
      */
     public function getImage(Request $request, Image $image)
     {

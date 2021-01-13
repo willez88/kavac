@@ -5,8 +5,7 @@
 	</div> --}}
 	<div class="container-left">
 		<a class="logo text-decoration-none" href="{{ route('index') }}">
-            <img src="{{ asset('images/logo-white.png') }}" alt="{{ __('Logo') }}" />
-            <img src="{{ asset('images/app-name-white.png') }}" alt="{{ __('Logo') }}" />
+            @include('layouts.logo-images', ['logo_nav' => true, 'logo_name' => true])
         </a>
         <div class="float-right">
             <div class="menu-collapse" data-toggle="tooltip" data-placement="right" title="{{ __('Minimizar panel de menú') }}">
@@ -58,7 +57,7 @@
                                    list-notifications-url="{!! route('notifications.list') !!}"></notifications>
 				@endif
 
-				<li class="nav-item dropdown dropdown-notify">
+				{{-- <li class="nav-item dropdown dropdown-notify">
 					<a href="#" class="nav-link dropdown-toggle btn btn-sm btn-info btn-notify" data-toggle="dropdown"
 					   aria-expanded="false" title="{{ __('Mensajes') }}" id="list_messages">
 					   	<i class="now-ui-icons ui-1_email-85"></i>
@@ -101,7 +100,7 @@
 							{{ __('Ver todos los mensajes') }}
 						</a>
 					</div>
-				</li>
+				</li> --}}
                 {{--
 				<li class="nav-item dropdown">
 					<a href="#" class="nav-link dropdown-toggle btn btn-sm btn-info" id="list_options_language"
@@ -127,7 +126,7 @@
 				</li> --}}
 				@if ($chat)
 					<li class="nav-item">
-						<a class="nav-link btn btn-sm btn-info" href="javascript:void(0)" title="{{ __('chat') }}"
+						<a class="nav-link btn btn-sm btn-info" href="javascript:void(0)" title="{{ __('Chat') }}"
                            data-toggle="tooltip">
 							<i class="now-ui-icons ui-2_chat-round"></i>
 						</a>
@@ -185,7 +184,7 @@
                            title="{{ __('Bloquear pantalla de la aplicación') }}" data-toggle="tooltip"
                            data-placement="left">
 							<i class="ion-android-lock"></i>{{ __('Bloquear Pantalla') }}</a>
-						<a class="dropdown-item" href="javascript:void(0)"
+						<a class="dropdown-item" href="{{ url('docs/user') }}" target="_blank"
                            title="{{ __('Ayuda') }} / {{ __('Manual de usuario') }}" data-toggle="tooltip"
                            data-placement="left">
 							<i class="ion-help-circled"></i>{{ __('Ayuda') }}</a>
@@ -193,7 +192,7 @@
 					@endif
 					<a class="dropdown-item" href="{{ route('logout') }}" title="{{ __('Salir de la aplicación') }}"
 					   data-toggle="tooltip" data-placement="left"
-					   onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+					   onclick="event.preventDefault();logout();">
 						<i class="ion-log-out"></i> {{ __('Salir') }}
 					</a>
 					<form id="logout-form" action="{{ route('logout') }}" method="POST"

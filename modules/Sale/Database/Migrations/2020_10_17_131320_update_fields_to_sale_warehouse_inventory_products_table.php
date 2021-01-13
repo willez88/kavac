@@ -15,11 +15,17 @@ class UpdateFieldsToSaleWarehouseInventoryProductsTable extends Migration
     {
         Schema::table('sale_warehouse_inventory_products', function (Blueprint $table) {
             if (Schema::hasColumn('sale_warehouse_inventory_products', 'sale_setting_products_id')) {
-                    $table->dropColumn(['sale_setting_products_id']);
-                    $table->foreignId('sale_setting_product_id')->constrained()
-                  ->onDelete('restrict')->onUpdate('cascade');
-                };
-
+                if (has_foreign_key('sale_warehouse_inventory_products', 'sale_warehouse_inventory_products_setting_fk')) {
+                    $table->dropForeign('sale_warehouse_inventory_products_setting_fk');
+                }
+                $table->dropColumn(['sale_setting_products_id']);
+            }
+            if (!Schema::hasColumn('sale_warehouse_inventory_products', 'sale_setting_product_id')) {
+                $table->unsignedBigInteger('sale_setting_product_id');
+                $table->foreign('sale_setting_product_id', 'sale_warehouse_inventory_products_settings_id_fk')
+                      ->references('id')->on('sale_setting_products')
+                      ->onDelete('restrict')->onUpdate('cascade');
+            }
         });
     }
 
@@ -30,9 +36,11 @@ class UpdateFieldsToSaleWarehouseInventoryProductsTable extends Migration
      */
     public function down()
     {
-        if (Schema::hasColumn('sale_warehouse_inventory_products', 'sale_setting_product_id')) {
-            $table->foreignId('sale_setting_product_id')->constrained()
-                  ->onDelete('restrict')->onUpdate('cascade');
-        };
+        Schema::table('sale_warehouse_inventory_products', function (Blueprint $table) {
+            if (!Schema::hasColumn('sale_warehouse_inventory_products', 'sale_setting_product_id')) {
+                $table->foreignId('sale_setting_product_id')->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade');
+            }
+        });
     }
 }

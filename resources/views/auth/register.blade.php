@@ -30,16 +30,28 @@
             <div class="card-body">
                 @include('layouts.form-errors')
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-6">
                         <div class="form-group">
                             {!! Form::label('staff', __('Empleado'), []) !!}
                             {!! Form::select('staff', (isset($persons))?$persons:[], null, [
-                                    'class' => 'form-control select2'
+                                    'class' => 'form-control select2', 'onchange' => 'hasStaff()',
+                                    'id' => 'staff'
                                 ]
                             ) !!}
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-6 staff_name">
+                        <div class="form-group is-required">
+                            {!! Form::label('first_name', __('Nombre'), ['id' => 'first_name_label']) !!}
+                            {!! Form::text('first_name', (isset($model))?$model->profile->first_name:old('first_name'), [
+                                'class' => 'form-control input-sm', 'id' => 'first_name', 'data-toggle' => 'tooltip',
+                                'title' => __('Indique el Nombre completo de la persona')
+                            ]) !!}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
                         <div class="form-group is-required">
                             {!! Form::label('email', __('Correo electrónico'), []) !!}
                             {!! Form::text('email', (isset($model))?$model->email:old('email'), [
@@ -49,7 +61,7 @@
                             ]) !!}
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-6">
                         <div class="form-group is-required">
                             {!! Form::label('username', __('Usuario'), []) !!}
                             {!! Form::text('username', (isset($model))?$model->username:old('username'), [
@@ -68,77 +80,20 @@
             </div>
         {!! Form::close() !!}
     </div>
-{{--<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+@endsection
 
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
-                        {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Register
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>--}}
+@section('extra-js')
+    <script>
+        /**
+         * Muestra u oculta el campo de nombre si no se ha seleccionado un empleado
+         *
+         * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         */
+        var hasStaff = () => {
+            $(".staff_name").show();
+            if ($('#staff').val() !== "") {
+                $(".staff_name").hide();
+            }
+        }
+    </script>
 @endsection

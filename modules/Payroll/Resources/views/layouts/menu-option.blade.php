@@ -46,12 +46,15 @@
         <li>
             <a href="javascript:void(0)" data-toggle="tooltip" data-placement="right"
                 title="Gestiona las solicitudes de vacaciones, prestaciones y constancias.">Solicitudes</a>
-            <ul class="submenu" style="{!! display_submenu(['vacation-requests']) !!}">
+            <ul class="submenu" style="{!! display_submenu(['vacation-requests', 'benefits-requests']) !!}">
                 <li class="{!! set_active_menu(['payroll.vacation-requests.index']) !!}">
                     <a href="{{ route('payroll.vacation-requests.index') }}">Solicitud de vacaciones</a>
                 </li>
+                <li class="{!! set_active_menu(['payroll.benefits-requests.index']) !!}">
+                    <a href="{{ route('payroll.benefits-requests.index') }}">Solicitud de prestaciones</a>
+                </li>
             </ul>
-        </li>
+
         <li>
             <a href="javascript:void(0)" data-toggle="tooltip" data-placement="right"
                 title="Gestiona la generación de reportes de resumen de disfrute de vacaciones, estatus de vacaciones, cálculo del bono vacacional e histórico de pago de bono vacacional.">Reportes</a>

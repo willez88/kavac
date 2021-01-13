@@ -1,11 +1,6 @@
 <?php
-
 /** Gestión de eventos del sistema */
 namespace App\Listeners;
-
-//use Illuminate\Queue\InteractsWithQueue;
-//use Illuminate\Contracts\Queue\ShouldQueue;
-//use Illuminate\Auth\Events\Login;
 
 /**
  * @class LoginEventHandler
@@ -14,14 +9,16 @@ namespace App\Listeners;
  * Gestiona los eventos generados en la autenticación de usuarios
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class LoginEventHandler
 {
     /**
      * Constructor de la clase que crea los eventos a ser monitoreados
+     *
+     * @method  __construct
      *
      * @return void
      */
@@ -33,8 +30,12 @@ class LoginEventHandler
     /**
      * Registra los eventos en la autenticación de usuarios
      *
+     * @method  handle
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @param  object  $event
+     *
      * @return void
      */
     public function handle($event)

@@ -7,6 +7,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Module;
 
+/**
+ * @class ModuleController
+ * @brief Controlador para la gestión de los módulos de la aplicación
+ *
+ * Clase que gestiona los módulos de la aplicación
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class ModuleController extends Controller
 {
     /**
@@ -16,40 +27,11 @@ class ModuleController extends Controller
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
-     * @return     \Illuminate\Contracts\View\View           Devuelve la vista que muestra información de los módulos
+     * @return     View           Devuelve la vista que muestra información de los módulos
      */
     public function index()
     {
-        $modules = Module::all();
-
-        $listModules = [];
-        foreach ($modules as $module) {
-            $requirements = [];
-            if (count($module->getRequires()) > 0) {
-                foreach ($module->getRequires() as $modName => $version) {
-                    array_push($requirements, ['module' => $modName, 'versión' => $version]);
-                }
-            }
-
-            $authors = [];
-            if (!is_null($module->get('authors')) && count($module->get('authors')) > 0) {
-                foreach ($module->get('authors') as $author) {
-                    array_push($authors, ['name' => $author['name'], 'emails' => $author['email']]);
-                }
-            }
-
-            array_push($listModules, [
-                'alias' => $module->get('alias'),
-                'name' => $module->get('name_es') ?? $module->getName(),
-                'icon' => $module->icon["name"] ?? "fa fa-cubes",
-                'logo' => ($module->get('logo'))
-                          ? "assets/" . $module->get('name') . "/images/" . $module->get('logo')
-                          : "images/default-avatar.png",
-                'description' => $module->getDescription(),
-                'requirements' => $requirements,
-                'authors' => $authors
-            ]);
-        }
+        $listModules = info_modules();
 
         return view('admin.setting-modules', compact('modules', 'listModules'));
     }
@@ -63,10 +45,11 @@ class ModuleController extends Controller
      *
      * @param      Request          $request    Objeto con información de la petición solicitada
      *
-     * @return     \Illuminate\Http\JsonResponse           Devuelve un JSON con el estatus de la instrucción a ejecutar
+     * @return     JsonResponse           Devuelve un JSON con el estatus de la instrucción a ejecutar
      */
     public function enable(Request $request)
     {
+        /** @var Module Objeto con información de un módulo */
         $module = Module::findOrFail($request->module);
         $module->enable();
 
@@ -82,10 +65,11 @@ class ModuleController extends Controller
      *
      * @param      Request          $request    Objeto con información de la petición solicitada
      *
-     * @return     \Illuminate\Http\JsonResponse           Devuelve un JSON con el estatus de la instrucción a ejecutar
+     * @return     JsonResponse           Devuelve un JSON con el estatus de la instrucción a ejecutar
      */
     public function disable(Request $request)
     {
+        /** @var Module Objeto con información de un módulo */
         $module = Module::findOrFail($request->module);
         $module->disable();
 
@@ -101,12 +85,14 @@ class ModuleController extends Controller
      *
      * @param      Request          $request    [description]
      *
-     * @return     \Illuminate\Http\JsonResponse           Devuelve un JSON con los detalles del módulo
+     * @return     JsonResponse           Devuelve un JSON con los detalles del módulo
      */
     public function getDetails(Request $request)
     {
+        /** @var Module Objeto con información de un módulo */
         $module = Module::findOrFail($request->module);
 
+        /** @var array Arreglo con detalles del módulo */
         $details = [
             'version' => $module->get("version") ?? "0",
             'name' => $module->get("name_es") ?? $module->getName(),

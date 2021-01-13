@@ -65,6 +65,17 @@
 									]) !!}
 								</div>
 							</div>
+							<div class="col-md-4" id="benefitsRequestsCode">
+								<div class="form-group">
+									{!! Form::label('benefits_requests_code', 'Código de las solicitudes de adelanto de prestaciones', []) !!}
+									{!! Form::text('benefits_requests_code', ($bRCode) ? $bRCode->format_code : old('benefits_requests_code'), [
+										'class' => 'form-control input-sm', 'data-toggle' => 'tooltip',
+										'title' => 'Formato para el código de las solicitudes de adelanto de prestaciones',
+										'placeholder' => 'Ej. XXX-00000000-YYYY',
+										'readonly' => ($bRCode) ? true : false
+									]) !!}
+								</div>
+							</div>
 						</div>
 						<hr>
 						<div class="row">
@@ -244,26 +255,29 @@
 				</div>
 				<div class="card-body">
 					<div class="row">
-						{{-- Parámetros de Nómona --}}
+						{{-- Parámetros de nómina --}}
 						<payroll-parameters></payroll-parameters>
 
-						{{-- Escalafones Salariales --}}
+						{{-- Escalafones salariales --}}
 						<payroll-salary-scales></payroll-salary-scales>
 
-						{{-- Tabuladores de Nómina --}}
+						{{-- Tabuladores de nómina --}}
 						<payroll-salary-tabulators></payroll-salary-tabulators>
 
-						{{-- Tipos de Conceptos --}}
+						{{-- Tipos de conceptos --}}
 						<payroll-concept-types></payroll-concept-types>
 
 						{{-- Conceptos --}}
 						<payroll-concepts></payroll-concepts>
 
-						{{-- Tipos de Pago --}}
+						{{-- Tipos de pago --}}
 						<payroll-payment-types></payroll-payment-types>
 
-						{{-- Políticas Vacacionales --}}
+						{{-- Políticas vacacionales --}}
 						<payroll-vacation-policies></payroll-vacation-policies>
+
+						{{-- Políticas de prestaciones sociales --}}
+						<payroll-benefits-policies></payroll-benefits-policies>
 
 						{{-- Políticas de Permisos --}}
 						<payroll-permission-policies></payroll-permission-policies>

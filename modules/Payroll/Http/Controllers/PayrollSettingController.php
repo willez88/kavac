@@ -26,10 +26,14 @@ class PayrollSettingController extends Controller
         $ssCode = $codeSettings->where('table', 'payroll_salary_scales')->first();
         $stCode = $codeSettings->where('table', 'payroll_salary_tabulators')->first();
         $vRCode = $codeSettings->where('table', 'payroll_vacation_requests')->first();
+        $bRCode = $codeSettings->where('table', 'payroll_benefits_requests')->first();
         $parameter = Parameter::where([
             'active' => true, 'required_by' => 'payroll', 'p_key' => 'work_age'
         ])->first();
-        return view('payroll::settings', compact('codeSettings', 'sCode', 'ssCode', 'stCode', 'vRCode', 'parameter'));
+        return view(
+            'payroll::settings',
+            compact('codeSettings', 'sCode', 'ssCode', 'stCode', 'vRCode', 'bRCode', 'parameter')
+        );
     }
 
     /**
@@ -53,7 +57,8 @@ class PayrollSettingController extends Controller
             'staffs_code'            => [new CodeSettingRule],
             'salary_scales_code'     => [new CodeSettingRule],
             'salary_tabulators_code' => [new CodeSettingRule],
-            'vacation_requests_code' => [new CodeSettingRule]
+            'vacation_requests_code' => [new CodeSettingRule],
+            'benefits_requests_code' => [new CodeSettingRule]
         ]);
 
         /** @var array Arreglo con información de los campos de códigos configurados */
@@ -90,6 +95,11 @@ class PayrollSettingController extends Controller
                     $model = \Modules\Payroll\Models\PayrollVacationRequest::class;
                     /** @var string Define el campo table para asociarlo a las solicitudes de vacaciones */
                     $table = "vacation_requests";
+                } elseif ($key === "benefits_requests_code") {
+                    /** @var string Define el campo model para asociarlo a las solicitudes de prestaciones */
+                    $model = \Modules\Payroll\Models\PayrollBenefitsRequest::class;
+                    /** @var string Define el campo table para asociarlo a las solicitudes de prestaciones */
+                    $table = "benefits_requests";
                 }
 
                 CodeSetting::updateOrCreate([

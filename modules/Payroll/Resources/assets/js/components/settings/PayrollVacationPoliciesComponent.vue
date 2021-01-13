@@ -96,7 +96,7 @@
                                         <!-- ./nombre -->
                                         <!-- fecha de aplicación -->
                                         <div class="col-md-3">
-                                            <div class="form-group">
+                                            <div class="form-group is-required">
                                                 <label>Desde:</label>
                                                 <input type="date" id="start_date" placeholder="Desde"
                                                        data-toggle="tooltip" title="Indique la fecha de aplicación asociada a la política vacacional"
@@ -112,6 +112,30 @@
                                             </div>
                                         </div>
                                         <!-- ./fecha de aplicación -->
+                                        <!-- activa -->
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>¿Activo?</label>
+                                                <div class="col-12">
+                                                    <p-check class="pretty p-switch p-fill p-bigger"
+                                                             color="success" off-color="text-gray" toggle
+                                                             data-toggle="tooltip"
+                                                             title="¿La política vacacional se encuentra activa actualmente?"
+                                                             v-model="record.active">
+                                                        <label slot="off-label"></label>
+                                                    </p-check>
+                                                  </div>
+                                            </div>
+                                        </div>
+                                        <!-- ./activa -->
+                                        <!-- institución -->
+                                        <div class="col-md-4">
+                                            <div class="form-group is-required">
+                                                <label>Institución:</label>
+                                                <select2 :options="institutions" v-model="record.institution_id"></select2>
+                                            </div>
+                                        </div>
+                                        <!-- ./institución -->
                                         <!-- tipo de vacaciones -->
                                         <div class="col-md-6">
                                             <div class="form-group is-required">
@@ -341,13 +365,22 @@
                                     <div class="row">
                                         <!-- salario a emplear -->
                                         <div class="col-md-6">
-                                            <div class=" form-group is-required">
+                                            <div class="form-group is-required">
                                                 <label>Salario a emplear para el cálculo del bono vacacional:</label>
                                                 <select2 :options="salary_types"
                                                          v-model="record.salary_type"></select2>
                                             </div>
                                         </div>
                                         <!-- ./salario a emplear -->
+                                        <!-- tipo de pago de nómina -->
+                                        <div class="col-md-6">
+                                            <div class="form-group is-required">
+                                                <label>Tipo de pago de nómina:</label>
+                                                <select2 :options="payroll_payment_types"
+                                                         v-model="record.payroll_payment_type_id"></select2>
+                                            </div>
+                                        </div>
+                                        <!-- ./tipo de pago de nómina -->
                                         <!-- antiguedad del trabajador -->
                                         <div class="col-md-3">
                                             <div class="form-group">
@@ -443,8 +476,15 @@
                     </div>
                     <div class="modal-body modal-table">
                         <v-client-table :columns="columns" :data="records" :options="table_options">
-                            <div slot="application_date" slot-scope="props">
-                                <span> {{ props.row.start_date + ' - ' + props.row.end_date }} </span>
+                            <div slot="application_date" slot-scope="props" class="text-center">
+                                <span v-if="props.row.end_date">
+                                    {{ props.row.start_date + ' - ' + props.row.end_date }}
+                                </span>
+                                <span v-else> {{ props.row.start_date + ' - No definido' }} </span>
+                            </div>
+                            <div slot="active" slot-scope="props" class="text-center">
+                                <span v-if="props.row.active"> SI </span>
+                                <span v-else> NO </span>
                             </div>
                             <div slot="vacation_type" slot-scope="props">
                                 <span v-if="props.row.vacation_type == 'collective_vacations'">
@@ -493,28 +533,33 @@
                     maximum_additional_days_per_year:      '',
                     payment_calculation:                   '',
                     salary_type:                           '',
+                    institution_id:                        '',
+                    payroll_payment_type_id:               '',
                     vacation_periods:                      [],
+                    active:                                false,
                     vacation_advance:                      false,
                     vacation_postpone:                     false,
                     staff_antiquity:                       false
                 },
 
-                errors:             [],
-                records:            [],
-                columns:            ['name', 'application_date', 'vacation_type', 'id'],
-                vacation_types:     [
+                errors:                [],
+                records:               [],
+                columns:               ['name', 'application_date', 'vacation_type', 'active', 'id'],
+                institutions:          [],
+                payroll_payment_types: [],
+                vacation_types:        [
                     {"id": "",                     "text": "Seleccione..."},
                     {"id": "collective_vacations", "text": "Vacaciones colectivas"},
                     {"id": "vacation_period",      "text": "Período vacacional"}
                 ],
-                salary_types:       [
+                salary_types:          [
                     {"id": "",                     "text": "Seleccione..."},
                     {"id": "base_salary",          "text": "Salario Base"},
                     {"id": "comprehensive_salary", "text": "Salario Integral"},
                     {"id": "normal_salary",        "text": "Salario Normal"},
                     {"id": "dialy_salary",         "text": "Salario Diario"}
                 ],
-                panel:              'vacationPolicyForm',
+                panel:                 'vacationPolicyForm',
             }
         },
         created() {
@@ -523,6 +568,7 @@
                 'name':             'Nombre',
                 'application_date': 'Fecha de aplicación',
                 'vacation_type':    'Tipo de vacaciones',
+                'active':           'Activa',
                 'id':               'Acción'
             };
             vm.table_options.sortable       = ['name', 'application_date', 'vacation_type'];
@@ -530,6 +576,14 @@
             vm.table_options.columnsClasses = {
                 'id':          'col-xs-2'
             };
+        },
+        mounted() {
+            const vm = this;
+            $("#add_payroll_vacation_policy").on('show.bs.modal', function() {
+                vm.reset();
+                vm.getInstitutions();
+                vm.getPayrollPaymentTypes();
+            });
         },
         methods: {
             /**
@@ -554,7 +608,10 @@
                     maximum_additional_days_per_year:      '',
                     payment_calculation:                   '',
                     salary_type:                           '',
+                    institution_id:                        '',
+                    payroll_payment_type_id:               '',
                     vacation_periods:                      [],
+                    active:                                false,
                     vacation_advance:                      false,
                     vacation_postpone:                     false,
                     staff_antiquity:                       false
@@ -573,6 +630,7 @@
                     if ((vm.record.name != '') &&
                         (vm.record.start_date != '') &&
                         (vm.record.end_date != '') &&
+                        (vm.record.institution_id != '') &&
                         (vm.record.vacation_periods != []) &&
                         (vm.record.vacation_periods_accumulated_per_year != '')) {
                         return false;
@@ -584,6 +642,7 @@
                     if ((vm.record.name != '') &&
                         (vm.record.start_date != '') &&
                         (vm.record.end_date != '') &&
+                        (vm.record.institution_id != '') &&
                         (vm.record.vacation_days != '') &&
                         (vm.record.vacation_period_per_year != '') &&
                         (vm.record.additional_days_per_year != '') &&
@@ -664,6 +723,9 @@
                                 name:                                  field['name'],
                                 start_date:                            field['start_date'],
                                 end_date:                              field['end_date'],
+                                active:                                field['active'],
+                                institution_id:                        field['institution_id'],
+                                institution:                           field['institution'],
                                 vacation_type:                         field['vacation_type'],
                                 vacation_periods:                      JSON.parse(field['vacation_periods']),
                                 vacation_periods_accumulated_per_year: field['vacation_periods_accumulated_per_year'],
@@ -676,7 +738,9 @@
                                 salary_type:                           field['salary_type'],
                                 vacation_advance:                      field['vacation_advance'],
                                 vacation_postpone:                     field['vacation_postpone'],
-                                staff_antiquity:                       field['staff_antiquity']
+                                staff_antiquity:                       field['staff_antiquity'],
+                                payroll_payment_type_id:               field['payroll_payment_type_id'],
+                                payroll_payment_type:                  field['payroll_payment_type']
                             });
                         });
                         vm.records = records;
@@ -720,6 +784,9 @@
                                 name:                                  field['name'],
                                 start_date:                            field['start_date'],
                                 end_date:                              field['end_date'],
+                                active:                                field['active'],
+                                institution_id:                        field['institution_id'],
+                                institution:                           field['institution'],
                                 vacation_type:                         field['vacation_type'],
                                 vacation_periods:                      JSON.parse(field['vacation_periods']),
                                 vacation_periods_accumulated_per_year: field['vacation_periods_accumulated_per_year'],
@@ -732,7 +799,9 @@
                                 salary_type:                           field['salary_type'],
                                 vacation_advance:                      field['vacation_advance'],
                                 vacation_postpone:                     field['vacation_postpone'],
-                                staff_antiquity:                       field['staff_antiquity']
+                                staff_antiquity:                       field['staff_antiquity'],
+                                payroll_payment_type_id:               field['payroll_payment_type_id'],
+                                payroll_payment_type:                  field['payroll_payment_type']
                             });
                         });
                         vm.records = records;

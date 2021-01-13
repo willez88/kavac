@@ -14,14 +14,19 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
  * Permite la exportación de datos
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class DataExport implements FromCollection, WithHeadingRow
 {
     use Exportable;
 
+    /**
+     * Nombre del modelo al cual se va a realizar la exportación de datos
+     *
+     * @var    string   $model  Nombre del modelo
+     */
     protected $model;
 
     /**
@@ -36,10 +41,5 @@ class DataExport implements FromCollection, WithHeadingRow
     public function __contruct($model = null)
     {
         $this->model = $model;
-    }
-
-    public function collection()
-    {
-        //
     }
 }

@@ -11,9 +11,8 @@ use Illuminate\Database\Migrations\Migration;
  * Gestiona la creación o eliminación de la intermedia del personal y los registros de la nómina de sueldos
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class CreatePayrollStaffPayrollsTable extends Migration
 {
@@ -43,7 +42,7 @@ class CreatePayrollStaffPayrollsTable extends Migration
                 $table->foreignId('payroll_staff_id')
                       ->comment('Identificador único asociado al trabajador')
                       ->constrained()->onDelete('restrict')->onUpdate('cascade');
-                
+
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });

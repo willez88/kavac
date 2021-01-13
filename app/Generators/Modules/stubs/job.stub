@@ -1,16 +1,29 @@
 <?php
-
+/** [descripción del namespace] */
 namespace $NAMESPACE$;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
 
+/**
+ * @class $CLASS$
+ * @brief [descripción detallada]
+ *
+ * [descripción corta]
+ *
+ * @author [autor de la clase] [correo del autor]
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class $CLASS$ implements ShouldQueue
 {
     use Dispatchable, Queueable;
 
     /**
-     * Create a new job instance.
+     * Crea una nueva instancia de trabajo.
+     *
+     * @method __construct
      *
      * @return void
      */
@@ -20,7 +33,9 @@ class $CLASS$ implements ShouldQueue
     }
 
     /**
-     * Execute the job.
+     * Ejecuta el trabajo.
+     *
+     * @method handle
      *
      * @return void
      */

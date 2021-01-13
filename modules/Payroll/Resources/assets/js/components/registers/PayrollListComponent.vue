@@ -8,11 +8,11 @@
                         data-placement="bottom" type="button">
                     <i class="fa fa-info-circle"></i>
                 </button>
-                <button
+                <button @click="createReport(props.row.id, 'registers', $event)" 
                         class="btn btn-primary btn-xs btn-icon btn-action"
-                        data-toggle="tooltip" title="Imprimir registro"
+                        data-toggle="tooltip" title="Generar reporte del registro"
                         data-placement="bottom" type="button">
-                    <i class="fa fa-print"></i>
+                    <i class="fa fa-file-pdf-o"></i>
                 </button>
                 <button :disabled="props.row.payroll_payment_period.payment_status != 'pending'"
                         @click="editForm(props.row.id)"
@@ -88,7 +88,30 @@
                         }
                     }
                 });
-            }
+            },
+            createReport(id, current, event) {
+                const vm = this;
+                vm.loading = true;
+                let fields = {
+                    id:      id,
+                    current: current
+                };
+                event.preventDefault();
+                axios.post(`/payroll/reports/${current}/create`, fields).then(response => {
+                    if (typeof(response.data.redirect) !== "undefined") {
+                        window.open(response.data.redirect, '_blank');
+                    }
+                    else {
+                        vm.reset();
+                    }
+                    vm.loading = false;
+                }).catch(error => {
+                    if (typeof(error.response) != "undefined") {
+                        console.log("error");
+                    }
+                    vm.loading = false;
+                });
+            },
         }
     };
 </script>

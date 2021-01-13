@@ -18,9 +18,8 @@ use App\Models\CodeSetting;
  * Clase que gestiona las solicitudes vacacionales
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class PayrollVacationRequestController extends Controller
 {
@@ -245,7 +244,7 @@ class PayrollVacationRequestController extends Controller
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      *
-     * @param     Integer        $id    Identificador único de la política vacacional a eliminar
+     * @param     Integer        $id    Identificador único de la solicitud de vacaciones a eliminar
      *
      * @return    Renderable
      */

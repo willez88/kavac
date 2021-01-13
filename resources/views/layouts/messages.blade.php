@@ -60,7 +60,7 @@
             @if (App\Models\Institution::all()->isEmpty())
                 $.gritter.add({
                     title: '{{ __('Alerta!') }}',
-                    text: "{{ __('Para comenzar a utilizar la aplicación debe configurar una Institución') }}",
+                    text: "{{ __('Para comenzar a utilizar la aplicación debe configurar una Organización') }}",
                     class_name: 'growl-danger',
                     image: "{{ asset('images/screen-error.png') }}",
                     sticky: false,

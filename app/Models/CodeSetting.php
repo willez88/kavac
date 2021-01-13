@@ -26,9 +26,9 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  * @property  string  $type
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class CodeSetting extends Model implements Auditable
 {
@@ -37,12 +37,14 @@ class CodeSetting extends Model implements Auditable
 
     /**
      * Lista de atributos para la gestión de fechas
+     *
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
     protected $fillable = [
@@ -53,7 +55,10 @@ class CodeSetting extends Model implements Auditable
     /**
      * Método que permite obtener el formato configurado para el código
      *
+     * @method  getFormatCodeAttribute
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return string Retorna el formato del código configurado
      */
     public function getFormatCodeAttribute()
@@ -64,8 +69,12 @@ class CodeSetting extends Model implements Auditable
     /**
      * Método que permite dividir el formato del código
      *
+     * @method  divideCode
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @param  string $code Formato del código a configurar
+     *
      * @return array       Arreglo con las partes que conforman el código
      */
     public static function divideCode($code)
@@ -74,13 +83,17 @@ class CodeSetting extends Model implements Auditable
     }
 
     /**
-     * Método que permite obtener el prócimo valor a registrar del código
+     * Método que permite obtener el próximo valor a registrar del código
+     *
+     * @method  codeNextValue
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @param  string $table  Nombre de la tabla
      * @param  string $field  Nombre del campo
      * @param  string $model  Ruta del Modelo
      * @param  string $module Nombre del módulo
+     *
      * @return int|string         Nuevo código a insertar
      */
     public static function codeNextValue($table, $field, $model, $formulation_year, $module = null)
@@ -107,10 +120,14 @@ class CodeSetting extends Model implements Auditable
     /**
      * Método Scope para obtener configuraciones de un modelo
      *
+     * @method  scopeGetSetting
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @param  object $query Objeto con la collección de la consulta realizada
      * @param  string $model Nombre del modelo del cual obtener la configuración
      * @param  string $type  Tipo de configuración a obtener
+     *
      * @return object        Objeto con la consulta requerida
      */
     public function scopeGetSetting($query, $model, $type)

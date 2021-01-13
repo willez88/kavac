@@ -10,7 +10,9 @@
 /public/js/common.js
 /public/js/components
 /public/modules
+/public/mix-manifest.json
 /database/snapshots
+/storage/framework/maintenance.php
 /storage/*.key
 /storage/debugbar
 /storage/pictures

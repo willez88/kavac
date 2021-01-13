@@ -15,27 +15,30 @@ use App\Models\Document;
  * Gestiona las acciones que se deben realizar en la carga de documentos al servidor
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class UploadDocRepository
 {
+    /** @var string Nombre del documento */
     private $doc_name;
+    /** @var string extensión del documento */
     private $doc_extension;
+    /** @var Document Objeto con información del documento registrado */
     private $doc_stored;
+    /** @var array Listado de tipos de documentos permitidos para subir */
     private $allowed_upload = [];
+    /** @var string Mensaje de error */
     private $error_msg = '';
-
-    public function __construct()
-    {
-        //
-    }
 
     /**
      * Instrucciones para verificar y subir un documento a la ruta indicada en el servidor
      *
+     * @method  uploadDoc
+     *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @param  object  $file         Objeto con el archivo a subir
      * @param  string  $store        Ruta en la que se va a almacenar el archivo
      * @param  string  $model        Modelo con el que se relaciona
@@ -43,6 +46,7 @@ class UploadDocRepository
      * @param  boolean $sign         Indica si el archivo a subir será firmado digitalmente
      * @param  boolean $originalName Indica si el archivo a subir es con el nombre original del mismo
      * @param  boolean $checkAllowed Indica si se va a verificar el tipo de archivo permitido para subir
+     *
      * @return boolean               Retorna falso en caso de cualquier error, de lo contrario retorna verdadero
      */
     public function uploadDoc(
@@ -107,7 +111,10 @@ class UploadDocRepository
     /**
      * Obtiene el nombre del documento
      *
+     * @method  getDocName
+     *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return string Retorna el nombre del documento
      */
     public function getDocName()
@@ -118,7 +125,10 @@ class UploadDocRepository
     /**
      * Obtiene la extensión del documento
      *
+     * @method  getDocExtension
+     *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return string Retorna la extensión del documento
      */
     public function getDocExtension()
@@ -129,7 +139,10 @@ class UploadDocRepository
     /**
      * Obtiene el mensaje de error a mostrar al usuario
      *
+     * @method  getErrorMessage
+     *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return string Devuelve un mensaje con el error si existe, en caso contrario retorna una cadena vacia
      */
     public function getErrorMessage()
@@ -140,7 +153,10 @@ class UploadDocRepository
     /**
      * Obtiene el objeto del documento guardado
      *
+     * @method  getDocStored
+     *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return object Devuelve el objeto del documento guardado
      */
     public function getDocStored()
@@ -151,7 +167,10 @@ class UploadDocRepository
     /**
      * Verifica la existencia de un documento y lo elimina del disco
      *
+     * @method  deleteDoc
+     *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @param  string $doc   Contiene el nombre del documento a eliminar
      * @param  string $store Contiene la ruta en la que se encuentra almacenado el documento
      */

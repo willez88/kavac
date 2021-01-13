@@ -11,9 +11,8 @@ use Illuminate\Database\Migrations\Migration;
  * Gestiona la eliminación de la tabla asignaciones salariales
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class DeleteTablePayrollSalaryAssignmentsTable extends Migration
 {

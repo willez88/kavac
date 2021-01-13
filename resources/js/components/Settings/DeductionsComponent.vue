@@ -1,7 +1,7 @@
 <template>
-    <div class="col-xs-2 text-center">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-2 mb-2 text-center">
         <a class="btn-simplex btn-simplex-md btn-simplex-primary"
-           href="javascript:void(0)" title="Registros de Deducciones" data-toggle="tooltip"
+           href="javascript:void(0)" title="Registro de deducciones" data-toggle="tooltip"
            @click="addRecord('add_deduction', 'deductions', $event)">
             <i class="icofont icofont-mathematical-alt-2 ico-3x"></i>
             <span>Deducciones</span>
@@ -25,7 +25,7 @@
                             </ul>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label>Nombre:</label>
                                     <input type="text" placeholder="Nombre" data-toggle="tooltip"
@@ -39,7 +39,7 @@
                                              v-model="record.accounting_account_id"></select2>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label>Descripción:</label>
                                     <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
@@ -50,7 +50,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label>Fórmula</label>
                                     <input type="text" class="form-control input-sm" data-toggle="tooltip"
@@ -58,7 +58,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
-                                        <div class="offset-sm-3 col-sm-6 text-center">
+                                        <div class="col-12 offset-sm-3 col-md-6 text-center">
                                             <div class="btn btn-info btn-sm btn-formula" data-toggle="tooltip"
                                                  title="presione para agregar este dígito" data-value="1">1</div>
                                             <div class="btn btn-info btn-sm btn-formula" data-toggle="tooltip"
@@ -70,7 +70,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="offset-sm-3 col-sm-6 text-center">
+                                        <div class="col-12 offset-sm-3 col-md-6 text-center">
                                             <div class="btn btn-info btn-sm btn-formula" data-toggle="tooltip"
                                                  title="presione para agregar este dígito" data-value="4">4</div>
                                             <div class="btn btn-info btn-sm btn-formula" data-toggle="tooltip"
@@ -82,7 +82,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="offset-sm-3 col-sm-6 text-center">
+                                        <div class="col-12 offset-sm-3 col-md-6 text-center">
                                             <div class="btn btn-info btn-sm btn-formula" data-toggle="tooltip"
                                                  title="presione para agregar este dígito" data-value="7">7</div>
                                             <div class="btn btn-info btn-sm btn-formula" data-toggle="tooltip"
@@ -95,7 +95,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="offset-sm-3 col-sm-6 text-center">
+                                        <div class="col-12 offset-sm-3 col-md-6 text-center">
                                             <div class="btn btn-info btn-sm btn-formula-clear" data-toggle="tooltip"
                                                  title="Reinicia el campo de la fórmula"
                                                  @click="record.formula = ''">C</div>
@@ -110,7 +110,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="offset-sm-3 col-sm-6 col-btn-block text-center">
+                                        <div class="col-12 offset-sm-3 col-md-6 col-btn-block text-center">
                                             <div class="btn btn-info btn-sm btn-formula btn-block" data-toggle="tooltip"
                                                  title="Variable a usar para el monto deducible cuando se realice el cálculo" data-value="monto">
                                                 DEDUCIBLE
@@ -119,10 +119,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label>Activa</label>
-                                    <div class="col-md-12">
+                                    <div class="col-12">
                                         <label for="">
                                             <div class="bootstrap-switch-mini">
                                                 <input type="checkbox" class="form-control bootstrap-switch"

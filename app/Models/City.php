@@ -20,9 +20,9 @@ use App\Traits\ModelsTrait;
  * @property integer $estate_id
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class City extends Model implements Auditable
 {
@@ -32,12 +32,14 @@ class City extends Model implements Auditable
 
     /**
      * Lista de atributos para la gestión de fechas
+     *
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
     protected $fillable = ['name', 'estate_id'];
@@ -52,7 +54,10 @@ class City extends Model implements Auditable
     /**
      * Método que obtiene el Estado de una Ciudad
      *
+     * @method  estate
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return object Objeto con los registros relacionados al modelo Estate
      */
     public function estate()
@@ -62,6 +67,10 @@ class City extends Model implements Auditable
 
     /**
      * City has many Institutions.
+     *
+     * @method  institutions
+     *
+     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

@@ -134,14 +134,17 @@ class AppInfo {
 		return `
 			<h6>SISTEMA DE GESTION ADMINISTRATIVA | KAVAC</h6>
 			<p class="text-justify">
-				Sistema administrativo que permite la automatización de los procesos inherentes a la administración pública.
-				Registra y controla el presupuesto de la institución.
+				KAVAC es un sistema de planificación y gestión organizacional, que automatiza los procesos
+                administrativos asociados al manejo de recursos financieros, económicos, bienes, equipos,
+                insumos e incorpora elementos de seguridad electrónica, garantizando la autenticidad e integridad de
+                cada documento y archivo generado por el sistema.
 			</p>
 			${credits}
 			<h6 class="card-title">Repositorio</h6>
 			<ul>
 				<li class="no-list-symbol">
-					<a href="https://gestion.cenditel.gob.ve/trac/browser/kavac" target="_blank">
+					<a href="https://gestion.cenditel.gob.ve/trac/browser/kavac" target="_blank" data-toggle="tooltip"
+                       title="Enlace al repositorio del proyecto">
 						https://gestion.cenditel.gob.ve/trac/browser/kavac
 					</a>
 				</li>
@@ -149,10 +152,16 @@ class AppInfo {
 			<h6 class="card-title">Documentación</h6>
 			<ul>
 				<li class="no-list-symbol">
-					<a href="#" target="_blank">Manual Técnico / Desarrolladores</a>
+					<a href="${window.app_url}/docs/development" target="_blank" data-toggle="tooltip"
+                       title="Documentación técnica para desarrolladores">
+                        Manual Técnico / Desarrolladores
+                    </a>
 				</li>
 				<li class="no-list-symbol">
-					<a href="#" target="_blank">Manual de Usuarios</a>
+					<a href="${window.app_url}/docs/user" target="_blank" data-toggle="tooltip"
+                       title="Documentación de usuario">
+                        Manual de Usuarios
+                    </a>
 				</li>
 			</ul>
 		`;
@@ -209,7 +218,8 @@ class AppInfo {
 			</p>
 			<p class="text-right">
 				<a href="http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3" target="_blank"
-				   title="Licencia de Software">
+				   title="Terminos y condiciones acerca de la Licencia de Software bajo la cual se distribuye esta aplicación"
+                   data-toggle="tooltip">
 					<img src="/images/license-icon.png" class="img-fluid" style="max-width:100px;">
 				</a>
 			</p>

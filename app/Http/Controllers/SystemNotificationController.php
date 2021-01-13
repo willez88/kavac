@@ -1,10 +1,21 @@
 <?php
-
+/** Controladores base de la aplicación */
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Notifications\SystemNotification;
 
+/**
+ * @class RequiredDocumentController
+ * @brief Gestiona las notificaciones de la aplicación
+ *
+ * Controlador para gestionar las notificaciones de la aplicación
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class SystemNotificationController extends Controller
 {
     /** @var object|array Objeto o arreglo con información del o los usuarios a los cuales enviar una notificación */
@@ -33,7 +44,7 @@ class SystemNotificationController extends Controller
      *
      * @param      Request          $request    Objeto con información de la petición
      *
-     * @return     \Illuminate\Http\JsonResponse   Json con información sobre el resultado del envío de la notificación
+     * @return     JsonResponse   Json con información sobre el resultado del envío de la notificación
      */
     public function send(Request $request)
     {

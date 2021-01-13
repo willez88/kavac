@@ -13,16 +13,17 @@ use Illuminate\Http\Request;
  * Controlador para gestionar Monedas
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class CurrencyController extends Controller
 {
     /**
      * Define la configuración de la clase
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     * @method    __construct
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
     public function __construct()
     {
@@ -34,9 +35,13 @@ class CurrencyController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Muesta todos los registros de las monedas.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @method    index
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return    JsonResponse    JSON con los datos de respuesta a la petición
      */
     public function index()
     {
@@ -44,10 +49,15 @@ class CurrencyController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Registra una nueva moneda
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @method    store
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request    $request    Objeto con datos de la petición
+     *
+     * @return    JsonResponse     JSON con datos de respuesta a la petición
      */
     public function store(Request $request)
     {
@@ -66,6 +76,7 @@ class CurrencyController extends Controller
             }
         }
 
+        /** @var Currency Objeto con información de la moneda registrada */
         $currency = Currency::create([
             'name' => $request->name,
             'symbol' => $request->symbol,
@@ -78,11 +89,16 @@ class CurrencyController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza un registro de moneda
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Currency  $currency
-     * @return \Illuminate\Http\JsonResponse
+     * @method    update
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request     $request     Objeto con datos de la petición
+     * @param     Currency    $currency    Objeto con información de la moneda a modificar
+     *
+     * @return    JsonResponse      JSON con información de respuesta a la petición
      */
     public function update(Request $request, Currency $currency)
     {
@@ -112,10 +128,15 @@ class CurrencyController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina una moneda
      *
-     * @param  \App\Models\Currency  $currency
-     * @return \Illuminate\Http\JsonResponse
+     * @method    destroy
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Currency    $currency    Objeto con información de la moneda a eliminar
+     *
+     * @return    JsonResponse      JSON con información de respuesta a la petición
      */
     public function destroy(Currency $currency)
     {
@@ -126,9 +147,13 @@ class CurrencyController extends Controller
     /**
      * Obtiene las monedas registradas
      *
-     * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  integer $id Identificador de la moneda a buscar, este parámetro es opcional
-     * @return \Illuminate\Http\JsonResponse        JSON con los datos de las monedas
+     * @method    getCurrencies
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Integer           $id    Identificador de la moneda a buscar, este parámetro es opcional
+     *
+     * @return    JsonResponse             JSON con los datos de las monedas
      */
     public function getCurrencies($id = null)
     {
@@ -138,9 +163,13 @@ class CurrencyController extends Controller
     /**
      * Obtiene información de una moneda
      *
-     * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  integer $id Identificador de la moneda de la cual se va a obtener información
-     * @return \Illuminate\Http\JsonResponse
+     * @method    getCurrencyInfo
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     integer             $id    Identificador de la moneda de la cual se va a obtener información
+     *
+     * @return    JsonResponse               JSON con datos de respuesta a la petición
      */
     public function getCurrencyInfo($id)
     {

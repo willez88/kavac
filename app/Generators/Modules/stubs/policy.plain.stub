@@ -1,15 +1,28 @@
 <?php
-
+/** [descripción del namespace] */
 namespace $NAMESPACE$;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 
+/**
+ * @class $CLASS$
+ * @brief [descripción detallada]
+ *
+ * [descripción corta]
+ *
+ * @author [autor de la clase] [correo del autor]
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class $CLASS$
 {
     use HandlesAuthorization;
 
     /**
-     * Create a new policy instance.
+     * Crea una nueva instancia de política.
+     *
+     * @method __construct
      *
      * @return void
      */

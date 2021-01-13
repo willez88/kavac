@@ -13,14 +13,15 @@ use Illuminate\Http\Request;
  * Controlador para gestionar Parroquias
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class ParishController extends Controller
 {
     /**
      * Define la configuración de la clase
+     *
+     * @method  __construct
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
@@ -34,9 +35,13 @@ class ParishController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Listado de todas las parroquias registradas
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @method    index
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return    JsonResponse    JSON con el listado de parroquias
      */
     public function index()
     {
@@ -44,10 +49,15 @@ class ParishController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Registra una nueva parroquia
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @method    store
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request    $request    Objeto con información de la petición
+     *
+     * @return    JsonResponse     JSON con datos sobre el registro de la parroquia
      */
     public function store(Request $request)
     {
@@ -57,7 +67,7 @@ class ParishController extends Controller
             'municipality_id' => ['required']
         ]);
 
-
+        /** @var Parish Objeto con información de la parroquia registrada */
         $parish = Parish::create([
             'name' => $request->name,
             'code' => $request->code,
@@ -68,11 +78,16 @@ class ParishController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza los datos de una parroquia
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Parish  $parish
-     * @return \Illuminate\Http\JsonResponse
+     * @method    update
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request    $request    Objeto con información de la petición
+     * @param     Parish     $parish     Objeto con información de la parroquia a actualizar
+     *
+     * @return    JsonResponse          JSON con datos sobre la actualización de la parroquia
      */
     public function update(Request $request, Parish $parish)
     {
@@ -91,10 +106,15 @@ class ParishController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina una parroquia
      *
-     * @param  \App\Models\Parish  $parish
-     * @return \Illuminate\Http\JsonResponse
+     * @method    destroy
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Parish     $parish    Objeto con información de la parroquia a eliminar
+     *
+     * @return    JsonResponse          JSON con datos sobre la eliminación de la parroquia
      */
     public function destroy(Parish $parish)
     {

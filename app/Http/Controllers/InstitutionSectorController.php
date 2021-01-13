@@ -8,19 +8,20 @@ use Illuminate\Http\Request;
 
 /**
  * @class InstitutionSectorController
- * @brief Gestiona información de los sectores de Instituciones
+ * @brief Gestiona información de los sectores de Organizaciones
  *
- * Controlador para gestionar sectores de Instituciones
+ * Controlador para gestionar sectores de Organizaciones
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class InstitutionSectorController extends Controller
 {
     /**
      * Define la configuración de la clase
+     *
+     * @method __construct
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      */
@@ -34,10 +35,13 @@ class InstitutionSectorController extends Controller
     }
 
     /**
-     * Muesta todos los registros de los sectores de institución
+     * Muesta todos los registros de los sectores de organizaciones
+     *
+     * @method  index
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @return JsonResponse     JSON con el listado de sectores de organismos
      */
     public function index()
     {
@@ -45,11 +49,15 @@ class InstitutionSectorController extends Controller
     }
 
     /**
-     * Valida y registra un nuevo sector de institución
+     * Registra un nuevo sector de organización
+     *
+     * @method  store
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @param  Request  $request    Objeto con información de la petición
+     *
+     * @return JsonResponse         JSON con el resultado del registro para sectores de organismos
      */
     public function store(Request $request)
     {
@@ -57,14 +65,13 @@ class InstitutionSectorController extends Controller
             'name' => ['required', 'max:100'],
         ]);
 
-        if ($sector = InstitutionSector::onlyTrashed()->whereName($request->name)->first()) {
-            $sector->restore();
-        } else {
+        if (!restore_record(InstitutionSector::class, ['name' => $request->name])) {
             $this->validate($request, [
                 'name' => ['unique:institution_sectors,name']
             ]);
         }
 
+        /** @var InstitutionSector Objeto con información del sector de organizaciones */
         $institutionSector = InstitutionSector::updateOrCreate([
             'name' => $request->name
         ]);
@@ -73,12 +80,16 @@ class InstitutionSectorController extends Controller
     }
 
     /**
-     * Actualiza la información del sector de institución
+     * Actualiza la información del sector de organización
+     *
+     * @method  update
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\InstitutionSector  $institutionSector
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @param  Request  $request                        Objeto con información de la perición
+     * @param  InstitutionSector  $institutionSector    Objeto con información del sector de la organización a actualizar
+     *
+     * @return JsonResponse     JSON con el resultado de la actualización
      */
     public function update(Request $request, InstitutionSector $institutionSector)
     {
@@ -93,11 +104,15 @@ class InstitutionSectorController extends Controller
     }
 
     /**
-     * Elimina el sector de institución
+     * Elimina un sector de organización
+     *
+     * @method  destroy
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     * @param  \App\Models\InstitutionSector  $institutionSector
-     * @return \Illuminate\Http\JsonResponse
+     *
+     * @param  InstitutionSector  $institutionSector    Objeto con información del sector organizaciones a eliminar
+     *
+     * @return JsonResponse     JSON con información del resultado de la eliminación
      */
     public function destroy(InstitutionSector $institutionSector)
     {

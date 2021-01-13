@@ -1,15 +1,28 @@
 <?php
-
+/** [descripción del namespace] */
 namespace $NAMESPACE$;
 
 use Illuminate\Contracts\Validation\Rule;
 
+/**
+ * @class $CLASS$
+ * @brief [descripción detallada]
+ *
+ * [descripción corta]
+ *
+ * @author [autor de la clase] [correo del autor]
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class $CLASS$ implements Rule
 {
     /**
-     * Create a new rule instance.
+     * Crea una nueva instancia de la regla
      *
-     * @return void
+     * @method __construct
+     *
+     * @return void     [descripción de los datos devueltos]
      */
     public function __construct()
     {
@@ -17,11 +30,14 @@ class $CLASS$ implements Rule
     }
 
     /**
-     * Determine if the validation rule passes.
+     * Determina si pasa la regla de validación.
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
-     * @return bool
+     * @method passes
+     *
+     * @param  string  $attribute   Nombre del atributo
+     * @param  mixed   $value       Valor del atributo a evaluar
+     *
+     * @return bool    Devuelve verdadero si la regla se cumple de lo contrario devuelve falso
      */
     public function passes($attribute, $value)
     {
@@ -29,9 +45,11 @@ class $CLASS$ implements Rule
     }
 
     /**
-     * Get the validation error message.
+     * Obtiene el mensaje de validación.
      *
-     * @return string
+     * @method message
+     *
+     * @return string    Devuelve una cadena de texto con el mensaje de error si la validación no es exitosa
      */
     public function message()
     {

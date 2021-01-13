@@ -3,7 +3,6 @@
 /** Gestiona las excepciones generadas por el sistema */
 namespace App\Exceptions;
 
-//use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Session\TokenMismatchException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
@@ -13,6 +12,12 @@ use App\Roles\Exceptions\LevelDeniedException;
 use App\Roles\Exceptions\RoleDeniedException;
 use Throwable;
 
+/**
+ * @class Handler
+ * @brief Gestiona las excepciones y/o errores generados por la aplicación
+ *
+ * Gestiona las excepciones de la aplicación
+ */
 class Handler extends ExceptionHandler
 {
     /**

@@ -14,7 +14,7 @@
                         </button>
                         <h6>
                             <i class="icofont icofont-read-book ico-2x"></i> 
-                            Información de la Factura Registrada
+                             Información de la Factura Registrada
                         </h6>
                     </div>
                     
@@ -67,9 +67,27 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <strong>Monto total</strong>
+                                            <strong>Almacén</strong>
                                             <div class="row" style="margin: 1px 0">
-                                                <span class="col-md-12" id="price">
+                                                <span class="col-md-12" id="sale_warehouse">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <strong>Forma de pago</strong>
+                                            <div class="row" style="margin: 1px 0">
+                                                <span class="col-md-12" id="sale_payment_method">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <strong>Descuento</strong>
+                                            <div class="row" style="margin: 1px 0">
+                                                <span class="col-md-12" id="sale_discount">
                                                 </span>
                                             </div>
                                         </div>
@@ -83,46 +101,31 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <strong>Observaciones</strong>
-                                            <div class="row" style="margin: 1px 0">
-                                                <span class="col-md-12" id="observations">
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             
                             <div class="tab-pane" id="products" role="tabpanel">            
-                                <div class="modal-table">
+                                <div class="modal-table" v-if="records">
                                     <v-client-table :columns="columns" :data="records" :options="table_options">
                                         <div slot="code" slot-scope="props" class="text-center">
                                             <span>
                                                 {{ props.row.sale_warehouse_inventory_product.code }} 
                                             </span>
                                         </div>
-                                        <div slot="name" slot-scope="props">
-                                            <span>
-                                                <b> {{ (props.row.sale_setting_product)?
-                                                    'Nombre: ':'' }} </b>
-                                                {{ (props.row.sale_setting_product)?
-                                                    props.row.sale_setting_product.name + '.':''
-                                                }} <br>
-                                            </span>
-                                        </div>
-                                        <div slot="description" slot-scope="props">
-                                            <span>
-                                                <b>Descripción</b>
-                                                {{ (props.row.sale_setting_product)?
-                                                    props.row.sale_setting_product.description:''
-                                                }}
+                                        <div slot="requested" slot-scope="props">
+                                            <span >
+                                                <b>Solicitados</b>
+                                                {{ props.row.quantity }}
                                             </span>
                                         </div>
                                         <div slot="unit_value" slot-scope="props">
                                             <span>
-                                                <b>Valor:</b> {{props.row.unit_value}} {{(props.row.currency)?props.row.currency.acronym:''}}
+                                                <b>Valor:</b> {{props.row.sale_warehouse_inventory_product.unit_value}}
+                                            </span>
+                                        </div>
+                                        <div slot="price" slot-scope="props">
+                                            <span>
+                                                Precio total: {{ price(props.row.quantity, props.row.sale_warehouse_inventory_product.unit_value) }}
                                             </span>
                                         </div>
                                     </v-client-table>
@@ -150,51 +153,56 @@
             return {
                 records: [],
                 errors: [],
-                columns: ['code',
-                    'name',
-                    'description',
-                    'unit_value',
+                columns: [
+                    'code',
+                    'sale_warehouse_inventory_product.sale_setting_product.name',
+                    'sale_warehouse_inventory_product.sale_setting_product.description',
                     'requested',
+                    'unit_value',
                     'price'
                 ],
             }
         },
-        props: {
-            request: Object, 
-        },
         created() {
             this.table_options.headings = {
                 'code': 'Código',
-                'name': 'Nombre',
-                'description': 'Descripción',
-                'unit_value': ' ',
+                'sale_warehouse_inventory_product.sale_setting_product.name': 'Nombre',
+                'sale_warehouse_inventory_product.sale_setting_product.description': 'Descripción',
+                'unit_value': 'Valor por unidad',
                 'requested': 'Solicitados',
                 'price': 'Precio total'
             };
             this.table_options.sortable = [
                 'code',
-                'name',
-                'description',
+                'sale_warehouse_inventory_product.sale_setting_product.name',
+                'sale_warehouse_inventory_product.sale_setting_product.description',
                 'unit_value',
                 'requested',
                 'price'
             ];
             this.table_options.filterable = [
                 'code',
-                'name',
-                'description',
+                'sale_warehouse_inventory_product.sale_setting_product.name',
+                'sale_warehouse_inventory_product.sale_setting_product.description',
                 'unit_value',
                 'requested',
                 'price'
             ];
 
         },
-        methods: {
-
+        methods: {            
+            price(quantity, prod){
+                const vm = this;
+                var total = 0;
+                if (quantity && prod) {
+                    total += quantity*parseInt(prod);
+                }
+                return total;
+            },
             /**
              * Método que borra todos los datos del formulario
              * 
-             * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve | roldandvg@gmail.com>
+             * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
              */
             reset() {
             },
@@ -202,8 +210,8 @@
              * Reescribe el método initRecords para cambiar su comportamiento por defecto
              * Inicializa los registros base del formulario
              *
-             * @author Henry Paredes <hparedes@cenditel.gob.ve>
-             * @param {string} url      Ruta que obtiene los datos a ser mostrado en listados
+             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+             * @param {string} url Ruta que obtiene los datos a ser mostrado en listados
              * @param {string} modal_id Identificador del modal a mostrar con la información solicitada
              */
             initRecords(url, modal_id) {
@@ -220,10 +228,11 @@
 
                         $(".modal-body #id").val( fields.id );
                         document.getElementById('date_init').innerText = (fields.created_at)?fields.created_at:'';
+                        document.getElementById('sale_warehouse').innerText = (fields.sale_warehouse)?fields.sale_warehouse.name:'';
                         document.getElementById('sale_client_rif').innerText = (fields.sale_client)?fields.sale_client.rif:'';
                         document.getElementById('sale_client_name').innerText = (fields.sale_client)?fields.sale_client.name_client:'';
-                        document.getElementById('price').innerText = (fields.price)?fields.price:'';
-                        document.getElementById('observations').innerText = (fields.observations)?fields.observations:'No definido';
+                        document.getElementById('sale_payment_method').innerText = (fields.sale_payment_method)?fields.sale_payment_method.name:'';
+                        document.getElementById('sale_discount').innerText = (fields.sale_discount)?fields.sale_discount.name:'N/A';
                         document.getElementById('state').innerText = (fields.state)?fields.state:'';
                         this.records = fields.sale_bill_inventory_products;
                     }
@@ -254,7 +263,7 @@
                 const vm = this;
                 var index = $(".modal-body #id").val();
                 axios.get('/sale/bills/info/' + index).then(response => {
-                    this.records = response.data.records.sale_bill_inventory_products;
+                    this.records = response.data.records.sale_bill_inventory_product;
                 });
             }
         },

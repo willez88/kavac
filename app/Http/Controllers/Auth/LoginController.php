@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
 use Captcha;
@@ -17,11 +18,6 @@ use Captcha;
  * @brief Gestiona información de autenticación
  *
  * Controlador para gestionar la autenticación de usuarios
- *
- * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
  */
 class LoginController extends Controller
 {
@@ -67,7 +63,9 @@ class LoginController extends Controller
     protected $decayMinutes = 300;
 
     /**
-     * Create a new controller instance.
+     * Crea una nueva instancia del controlador.
+     *
+     * @method  __construct
      *
      * @return void
      */
@@ -79,17 +77,21 @@ class LoginController extends Controller
     }
 
     /**
-     * Handle a login request to the application.
+     * Gestiona una petición de acceso a la aplicación.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Http\JsonResponse
+     * @method  login
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @param  Request  $request
+     *
+     * @return RedirectResponse|Response|JsonResponse
+     *
+     * @throws ValidationException
      */
     public function login(Request $request)
     {
         $this->validateLogin($request);
 
+        /** @var User Objeto con información del usuario a autenticar */
         $user = User::where('username', $request->username)->firstOrFail();
         if ($user !== null && !is_null($user->blocked_at)) {
             return $this->sendLockedAccountResponse($request);
@@ -114,9 +116,12 @@ class LoginController extends Controller
     }
 
     /**
-     * Get the failed login response instance.
+     * Obtiene la instancia de peticiones de acceso fallidas.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @method sendFailedLoginResponse
+     *
+     * @param  Request  $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Illuminate\Validation\ValidationException
@@ -129,22 +134,37 @@ class LoginController extends Controller
     }
 
     /**
-     * Validate the user login request.
+     * Valida la petición de acceso del usuario.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @method  validateLogin
+     *
+     * @param  Request  $request
+     *
      * @return void
      */
     protected function validateLogin(Request $request)
     {
         $this->validate($request, [
-            $this->username() => ['required'],
-            'password' => ['required', 'string'],
+            $this->username() => ['required', 'exists:users'],
+            'password' => [
+                'required', 'string', function ($attribute, $value, $fail) use ($request) {
+                    $user = User::where('username', $request->username)->first();
+                    /** Valida que la contraseña coincida, en caso contrario notifica al usuario */
+                    if ($user!== null && !Hash::check($value, $user->password)) {
+                        $fail('La contraseña es incorrecta');
+                    }
+                }
+            ],
             'captcha' => ['required', 'captcha']
+        ], [
+            $this->username().'.exists' => 'El usuario no existe'
         ]);
     }
 
     /**
-     * Get the login username to be used by the controller.
+     * Obtiene el campo usado como nombre de usuario para el acceso a la aplicación, usado por el controlador.
+     *
+     * @method  username
      *
      * @return string
      */
@@ -154,10 +174,13 @@ class LoginController extends Controller
     }
 
     /**
-     * The user has been authenticated.
+     * El usuario ha sido autenticado en la aplicación.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @method  authenticated
+     *
+     * @param  Request  $request
      * @param  mixed  $user
+     *
      * @return mixed
      */
     protected function authenticated(Request $request, $user)
@@ -167,7 +190,13 @@ class LoginController extends Controller
     }
 
     /**
-     * Refresh the captcha image
+     * Actualiza la imagen del captcha
+     *
+     * @method    refreshCaptcha
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return    object            Objeto con los datos de la nueva imagen generada
      */
     public function refreshCaptcha()
     {
@@ -177,8 +206,11 @@ class LoginController extends Controller
     /**
      * Obtiene la instancia de la petición del usuario bloqueado.
      *
-     * @param \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @method  sendLockedAccountResponse
+     *
+     * @param Request  $request
+     *
+     * @return Response
      */
     protected function sendLockedAccountResponse(Request $request)
     {
@@ -189,6 +221,8 @@ class LoginController extends Controller
 
     /**
      * Obtiene el mensaje a mostrar para la cuenta bloqueada.
+     *
+     * @method  getLockedAccountMessage
      *
      * @return string
      */

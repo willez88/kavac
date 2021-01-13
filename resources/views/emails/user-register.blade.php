@@ -1,10 +1,11 @@
+@component('mail::message')
 <h1>{{ __('Bienvenido a :app', ['app' => $appName]) }}</h1>
 
 <p>{{ __('Se ha registrado un usuario en la plataforma con las siguientes credenciales de acceso') }}:</p>
 
 <ul>
-    <li>{{ __('Usuario') }}: {{ $user->username }}</li>
-    <li>{{ __('Contraseña') }}: {{ $password }}</li>
+    <li class="checkmark">{{ __('Usuario') }}: {{ $user->username }}</li>
+    <li class="checkmark">{{ __('Contraseña') }}: {{ $password }}</li>
 </ul>
 
 <p>{{ __('Para acceder visite la URL :url e indique sus credenciales de acceso.', ['url' => $appUrl]) }}</p>
@@ -13,7 +14,7 @@
 
 <ul>
     @foreach ($user->getRoles() as $role)
-        <li>{{ $role->name }}</li>
+        <li class="checkmark">{{ $role->name }}</li>
     @endforeach
 </ul>
 
@@ -21,7 +22,9 @@
 
 <ul>
     @foreach ($user->getPermissions() as $permission)
-        <li>{{ $permission->name}}</li>
+        @if (!empty($permission->name))
+            <li class="checkmark">{{ $permission->name}}</li>
+        @endif
     @endforeach
 </ul>
 
@@ -30,3 +33,4 @@
 </p>
 
 <p>{{ __('Este correo es enviado de manera automática por la aplicación :app', ['app' => $appName]) }}.</p>
+@endcomponent

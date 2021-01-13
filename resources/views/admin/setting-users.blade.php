@@ -33,7 +33,7 @@
                         <thead>
                             <tr class="text-center">
                                 <th class="col-md-3">{{ __('Usuario') }}</th>
-                                <th class="col-md-7">{{ __('Institución') }}</th>
+                                <th class="col-md-7">{{ __('Organización') }}</th>
                                 <th class="col-md-2">{{ __('Acciones') }}</th>
                             </tr>
                         </thead>

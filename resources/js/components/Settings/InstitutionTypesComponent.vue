@@ -1,10 +1,10 @@
 <template>
-	<div class="col-xs-2 text-center">
+	<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-2 mb-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-		   href="javascript:void(0)" title="Registros de tipos de instituciones"
+		   href="javascript:void(0)" title="Registros de tipos de organizaciones"
 		   data-toggle="tooltip" @click="addRecord('add_institution_type', 'institution-types', $event)">
 			<i class="icofont icofont-building-alt ico-3x"></i>
-			<span>Tipo<br>Instituciones</span>
+			<span>Tipo de<br>Organizaciones</span>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_institution_type">
 			<div class="modal-dialog vue-crud" role="document">
@@ -15,7 +15,7 @@
 						</button>
 						<h6>
 							<i class="icofont icofont-building-alt inline-block"></i>
-							Tipo de Institución
+							Tipo de Organización
 						</h6>
 					</div>
 					<div class="modal-body">
@@ -25,20 +25,20 @@
 							</ul>
 						</div>
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-12 col-md-6">
 								<div class="form-group">
 									<label>Acrónimo:</label>
 									<input type="text" placeholder="Acrónimo" data-toggle="tooltip"
-										   title="Indique el acrónimo del tipo de institución"
+										   title="Indique el acrónimo del tipo de organización"
 										   class="form-control input-sm" v-model="record.acronym" v-is-text>
 									<input type="hidden" v-model="record.id">
 			                    </div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-12 col-md-6">
 								<div class="form-group is-required">
 									<label>Nombre:</label>
 									<input type="text" placeholder="Tipo" class="form-control input-sm" data-toggle="tooltip"
-										   v-model="record.name" title="Indique el nombre del tipo de institución (requerido)"
+										   v-model="record.name" title="Indique el nombre del tipo de organización (requerido)"
                                            v-is-text>
 			                    </div>
 							</div>

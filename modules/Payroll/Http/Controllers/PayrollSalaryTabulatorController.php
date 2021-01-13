@@ -5,13 +5,10 @@ namespace Modules\Payroll\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
-
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Payroll\Rules\PayrollSalaryScales;
-
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Payroll\Exports\PayrollSalaryTabulatorExport;
-
 use Modules\Payroll\Models\PayrollSalaryTabulatorScale;
 use Modules\Payroll\Models\PayrollSalaryTabulator;
 use Modules\Payroll\Models\PayrollStaffType;
@@ -24,9 +21,8 @@ use App\Models\CodeSetting;
  * Clase que gestiona los tabuladores salariales
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class PayrollSalaryTabulatorController extends Controller
 {

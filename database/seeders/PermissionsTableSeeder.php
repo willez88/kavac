@@ -6,18 +6,30 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Roles\Models\Role;
 use App\Roles\Models\Permission;
-use App\Models\User;
-use App\Models\Setting;
-use App\Models\Institution;
-use App\Models\Tax;
-use App\Models\TaxUnit;
-use App\Models\RequiredDocument;
-use App\Models\ExchangeRate;
+use App\Models\City;
+use App\Models\CodeSetting;
+use App\Models\Country;
 use App\Models\Currency;
 use App\Models\Deduction;
 use App\Models\Department;
 use App\Models\Document;
+use App\Models\DocumentStatus;
+use App\Models\Estate;
+use App\Models\ExchangeRate;
+use App\Models\HistoryTax;
+use App\Models\Institution;
+use App\Models\InstitutionSector;
+use App\Models\InstitutionType;
+use App\Models\MaritalStatus;
+use App\Models\MeasurementUnit;
+use App\Models\Municipality;
+use App\Models\Parish;
 use App\Models\Profession;
+use App\Models\RequiredDocument;
+use App\Models\Setting;
+use App\Models\Tax;
+use App\Models\TaxUnit;
+use App\Models\User;
 use OwenIt\Auditing\Models\Audit;
 use DB;
 
@@ -45,7 +57,7 @@ class PermissionsTableSeeder extends Seeder
 
         $adminRole = Role::where('slug', 'admin')->first();
 
-        /** @var array Permisos disponibles para la gestión de registros comúnes */
+        /** @var array Permisos generales de la aplicación */
         $permissions = [
             [
                 'name' => 'Ver Logs del sistema', 'slug' => 'log.list',
@@ -72,6 +84,101 @@ class PermissionsTableSeeder extends Seeder
                 'model' => null, 'model_prefix' => '0general', 'slug_alt' => 'usuario.mensaje.enviar',
                 'short_description' => 'enviar mensajes a usuarios'
             ],
+            [
+                'name' => 'Respaldar Base de Datos', 'slug' => 'database.backup',
+                'description' => 'Acceso para respaldar base de datos',
+                'model' => null, 'model_prefix' => '0general',
+                'slug_alt' => 'basedatos.respaldar', 'short_description' => 'respaldar datos'
+            ],
+            [
+                'name' => 'Restaurar Base de Datos', 'slug' => 'database.restore',
+                'description' => 'Acceso para restaurar base de datos',
+                'model' => null, 'model_prefix' => '0general',
+                'slug_alt' => 'basedatos.restaurar', 'short_description' => 'restaurar datos'
+            ],
+            [
+                'name' => 'Ver histórico de actividad personal', 'slug' => 'history.list',
+                'description' => 'Acceso para ver histórico de acciones personales',
+                'model' => Audit::class, 'model_prefix' => '0general',
+                'slug_alt' => 'historico.ver', 'short_description' => 'ver historico personal'
+            ]
+        ];
+
+        /** @var array Permisos para la gestión de códigos de registro */
+        $permissions = array_merge($permissions, [
+            [
+                'name' => 'Crear Código de Registro', 'slug' => 'code.settings.create',
+                'description' => 'Acceso a la gestión de códigos de registro',
+                'model' => CodeSetting::class, 'model_prefix' => '0general',
+                'slug_alt' => 'codigo.registro.crear', 'short_description' => 'agregar código de registro'
+            ],
+            [
+                'name' => 'Editar Código de Registro', 'slug' => 'code.settings.edit',
+                'description' => 'Acceso para editar códigos de registro',
+                'model' => CodeSetting::class, 'model_prefix' => '0general',
+                'slug_alt' => 'codigo.registro.editar', 'short_description' => 'editar código de registro'
+            ],
+            [
+                'name' => 'Eliminar Código de Registro', 'slug' => 'code.settings.delete',
+                'description' => 'Acceso para eliminar códigos de registro',
+                'model' => CodeSetting::class, 'model_prefix' => '0general',
+                'slug_alt' => 'codigo.registro.eliminar', 'short_description' => 'eliminar código de registro'
+            ],
+            [
+                'name' => 'Ver Código de Registro', 'slug' => 'code.settings.list',
+                'description' => 'Acceso para ver códigos de registro',
+                'model' => CodeSetting::class, 'model_prefix' => '0general',
+                'slug_alt' => 'codigo.registro.ver', 'short_description' => 'ver códigos de registro'
+            ],
+            [
+                'name' => 'Notificar gestión de códigos de registro',
+                'slug' => 'code.settings.notify',
+                'description' => 'Notificar sobre gestión de datos de códigos de registro',
+                'model' => CodeSetting::class, 'model_prefix' => '0general',
+                'slug_alt' => 'codigo.registro.notificar',
+                'short_description' => 'notificar la gestión de códigos de registro'
+            ],
+        ]);
+
+        /** @var array Permisos para la configuración de parámetros generales */
+        $permissions = array_merge($permissions, [
+            [
+                'name' => 'Configurar parámetros generales', 'slug' => 'system.param.setting',
+                'description' => 'Acceso para configurar parámetros generales del sistema',
+                'model' => Setting::class, 'model_prefix' => '0general',
+                'slug_alt' => 'sistema.parametro.configurar',
+                'short_description' => 'configurar parámetros generales'
+            ],
+            [
+                'name' => 'Notificar configuración de parámetros generales', 'slug' => 'system.param.setting.notify',
+                'description' => 'Notificar sobre configuración parámetros generales del sistema',
+                'model' => Setting::class, 'model_prefix' => '0general',
+                'slug_alt' => 'sistema.parametro.configurar.notificar',
+                'short_description' => 'notificar la configuración de parámetros generales'
+            ],
+        ]);
+
+        /** @var array Permisos para la gestión de organizaciones */
+        $permissions = array_merge($permissions, [
+            [
+                'name' => 'Configurar organizaciones', 'slug' => 'institution.setting',
+                'description' => 'Acceso para configurar datos de organizaciones',
+                'model' => Institution::class, 'model_prefix' => '0general',
+                'slug_alt' => 'institucion.configurar',
+                'short_description' => 'configurar organizaciones'
+            ],
+            [
+                'name' => 'Notificar configuración de organizaciones',
+                'slug' => 'institution.notify',
+                'description' => 'Notificar sobre configuración de datos de organizaciones',
+                'model' => Institution::class, 'model_prefix' => '0general',
+                'slug_alt' => 'institucion.configurar.notificar',
+                'short_description' => 'notificar la configuración de organizaciones'
+            ],
+        ]);
+
+        /** @var array Permisos para la gestión de usuarios */
+        $permissions = array_merge($permissions, [
             [
                 'name' => 'Configurar cuenta de usuario', 'slug' => 'user.setting',
                 'description' => 'Acceso para configurar cuentas de usuarios',
@@ -100,37 +207,16 @@ class PermissionsTableSeeder extends Seeder
                 'short_description' => 'asignar / revocar permisos a usuarios'
             ],
             [
-                'name' => 'Respaldar Base de Datos', 'slug' => 'database.backup',
-                'description' => 'Acceso para respaldar base de datos',
-                'model' => null, 'model_prefix' => '0general',
-                'slug_alt' => 'basedatos.respaldar', 'short_description' => 'respaldar datos'
+                'name' => 'Notificar gestión de usuarios', 'slug' => 'user.manage.notify',
+                'description' => 'Notificar sobre gestión de usuarios',
+                'model' => User::class, 'model_prefix' => '0general',
+                'slug_alt' => 'usuario.gestion.notificar',
+                'short_description' => 'notificar gestión de usuarios'
             ],
-            [
-                'name' => 'Restaurar Base de Datos', 'slug' => 'database.restore',
-                'description' => 'Acceso para restaurar base de datos',
-                'model' => null, 'model_prefix' => '0general',
-                'slug_alt' => 'basedatos.restaurar', 'short_description' => 'restaurar datos'
-            ],
-            [
-                'name' => 'Ver histórico de actividad personal', 'slug' => 'history.list',
-                'description' => 'Acceso para ver histórico de acciones personales',
-                'model' => Audit::class, 'model_prefix' => '0general',
-                'slug_alt' => 'historico.ver', 'short_description' => 'ver historico personal'
-            ],
-            [
-                'name' => 'Configurar parámetros generales', 'slug' => 'system.param.setting',
-                'description' => 'Acceso para configurar parámetros generales del sistema',
-                'model' => Setting::class, 'model_prefix' => '0general',
-                'slug_alt' => 'sistema.parametro.configurar',
-                'short_description' => 'configurar parámetros generales'
-            ],
-            [
-                'name' => 'Configurar Instituciones', 'slug' => 'institution.setting',
-                'description' => 'Acceso para configurar datos de Instituciones',
-                'model' => Institution::class, 'model_prefix' => '0general',
-                'slug_alt' => 'institucion.configurar',
-                'short_description' => 'configurar instituciones'
-            ],
+        ]);
+
+        /** @var array Permisos para la gestión de impuestos */
+        $permissions = array_merge($permissions, [
             [
                 'name' => 'Crear Impuestos', 'slug' => 'tax.create',
                 'description' => 'Acceso al registro de impuestos',
@@ -156,6 +242,18 @@ class PermissionsTableSeeder extends Seeder
                 'slug_alt' => 'impuesto.ver', 'short_description' => 'ver impuestos'
             ],
             [
+                'name' => 'Notificar gestión de impuestos',
+                'slug' => 'tax.notify',
+                'description' => 'Notificar sobre gestión de datos de impuestos',
+                'model' => Tax::class, 'model_prefix' => '0general',
+                'slug_alt' => 'impuesto.notificar',
+                'short_description' => 'notificar la gestión de impuestos'
+            ],
+        ]);
+
+        /** @var array Permisos para la gestión de Unidades Tributarias */
+        $permissions = array_merge($permissions, [
+            [
                 'name' => 'Crear Unidades Tributarias', 'slug' => 'tax.unit.create',
                 'description' => 'Acceso al registro de unidades tributarias',
                 'model' => TaxUnit::class, 'model_prefix' => '0general',
@@ -179,6 +277,18 @@ class PermissionsTableSeeder extends Seeder
                 'model' => TaxUnit::class, 'model_prefix' => '0general',
                 'slug_alt' => 'unidad.tributaria.ver', 'short_description' => 'ver unidades tributarias'
             ],
+            [
+                'name' => 'Notificar gestión de unidades tributarias',
+                'slug' => 'tax.unit.notify',
+                'description' => 'Notificar sobre gestión de datos de unidades tributarias',
+                'model' => TaxUnit::class, 'model_prefix' => '0general',
+                'slug_alt' => 'unidad.tributaria.notificar',
+                'short_description' => 'notificar la gestión de unidades tributarias'
+            ],
+        ]);
+
+        /** @var array Permisos para la gestión de documentos requeridos */
+        $permissions = array_merge($permissions, [
             [
                 'name' => 'Crear Documento Requerido', 'slug' => 'document.required.create',
                 'description' => 'Acceso al registro de documentos requeridos',
@@ -204,6 +314,17 @@ class PermissionsTableSeeder extends Seeder
                 'slug_alt' => 'solicitud.documentos.ver', 'short_description' => 'ver documentos requeridos'
             ],
             [
+                'name' => 'Notificar gestión de Documento Requerido', 'slug' => 'document.required.notify',
+                'description' => 'Notificar gestión de documentos requeridos',
+                'model' => RequiredDocument::class, 'model_prefix' => '0general',
+                'slug_alt' => 'solicitud.documentos.notificar',
+                'short_description' => 'notificar gestión de documentos requeridos'
+            ],
+        ]);
+
+        /** @var array Permisos para la gestión de monedas */
+        $permissions = array_merge($permissions, [
+            [
                 'name' => 'Crear moneda', 'slug' => 'currency.create',
                 'description' => 'Acceso al registro de monedas',
                 'model' => Currency::class, 'model_prefix' => '0general',
@@ -227,6 +348,18 @@ class PermissionsTableSeeder extends Seeder
                 'model' => Currency::class, 'model_prefix' => '0general',
                 'slug_alt' => 'moneda.ver', 'short_description' => 'ver monedas'
             ],
+            [
+                'name' => 'Notificar gestión de monedas',
+                'slug' => 'currency.notify',
+                'description' => 'Notificar sobre gestión de datos de monedas',
+                'model' => Currency::class, 'model_prefix' => '0general',
+                'slug_alt' => 'moneda.notificar',
+                'short_description' => 'notificar la gestión de monedas'
+            ],
+        ]);
+
+        /** @var array Permisos para la gestión de tipos de cambio de monedas */
+        $permissions = array_merge($permissions, [
             [
                 'name' => 'Crear tipo de cambio', 'slug' => 'exchange.rate.create',
                 'description' => 'Acceso al registro de tipos de cambios',
@@ -252,6 +385,16 @@ class PermissionsTableSeeder extends Seeder
                 'slug_alt' => 'tipos.cambio.ver', 'short_description' => 'ver tipos de cambio'
             ],
             [
+                'name' => 'Notificar tipo de cambio', 'slug' => 'exchange.rate.notify',
+                'description' => 'Notificar gestión de tipos de cambio',
+                'model' => ExchangeRate::class, 'model_prefix' => '0general',
+                'slug_alt' => 'tipos.cambio.notificar', 'short_description' => 'notificar gestión de tipos de cambio'
+            ],
+        ]);
+
+        /** @var array Permisos para la gestión de deducciones / retenciones */
+        $permissions = array_merge($permissions, [
+            [
                 'name' => 'Crear deducción / retención', 'slug' => 'deduction.create',
                 'description' => 'Acceso al registro de deducciones',
                 'model' => Deduction::class, 'model_prefix' => '0general',
@@ -275,6 +418,18 @@ class PermissionsTableSeeder extends Seeder
                 'model' => Deduction::class, 'model_prefix' => '0general',
                 'slug_alt' => 'deduccion.ver', 'short_description' => 'ver deducciones'
             ],
+            [
+                'name' => 'Notificar gestión de deducciones / retenciones',
+                'slug' => 'deduction.notify',
+                'description' => 'Notificar sobre gestión de datos de deducciones / retenciones',
+                'model' => Deduction::class, 'model_prefix' => '0general',
+                'slug_alt' => 'deduccion.notificar',
+                'short_description' => 'notificar la gestión de deducciones / retenciones'
+            ],
+        ]);
+
+        /** @var array Permisos para la gestión de departamentos */
+        $permissions = array_merge($permissions, [
             [
                 'name' => 'Crear departamento', 'slug' => 'department.create',
                 'description' => 'Acceso al registro de departamentos',
@@ -300,6 +455,18 @@ class PermissionsTableSeeder extends Seeder
                 'slug_alt' => 'departamento.ver', 'short_description' => 'ver departamentos'
             ],
             [
+                'name' => 'Notificar gestión de departamentos',
+                'slug' => 'department.notify',
+                'description' => 'Notificar sobre gestión de datos de departamentos',
+                'model' => Department::class, 'model_prefix' => '0general',
+                'slug_alt' => 'departamento.notificar',
+                'short_description' => 'notificar la gestión de departamentos'
+            ],
+        ]);
+
+        /** @var array Permisos para la gestión de documentos */
+        $permissions = array_merge($permissions, [
+            [
                 'name' => 'Crear documento', 'slug' => 'document.create',
                 'description' => 'Acceso al registro de documentos',
                 'model' => Document::class, 'model_prefix' => '0general',
@@ -324,6 +491,54 @@ class PermissionsTableSeeder extends Seeder
                 'slug_alt' => 'documento.ver', 'short_description' => 'ver documentos'
             ],
             [
+                'name' => 'Notificar gestión de documentos',
+                'slug' => 'document.notify',
+                'description' => 'Notificar sobre gestión de datos de documentos',
+                'model' => Document::class, 'model_prefix' => '0general',
+                'slug_alt' => 'document.notificar',
+                'short_description' => 'notificar la gestión de documentos'
+            ],
+        ]);
+
+        /** @var array Permisos para la gestión de estados de documentos */
+        $permissions = array_merge($permissions, [
+            [
+                'name' => 'Crear estado de documento', 'slug' => 'document.status.create',
+                'description' => 'Acceso al registro de estado de documentos',
+                'model' => DocumentStatus::class, 'model_prefix' => '0general',
+                'slug_alt' => 'estado.documento.crear', 'short_description' => 'agregar estado de documentos'
+            ],
+            [
+                'name' => 'Editar estado de documento', 'slug' => 'document.status.edit',
+                'description' => 'Acceso para editar estado de documentos',
+                'model' => DocumentStatus::class, 'model_prefix' => '0general',
+                'slug_alt' => 'estado.documento.editar', 'short_description' => 'editar estado de documentos'
+            ],
+            [
+                'name' => 'Eliminar estado de documento', 'slug' => 'document.status.delete',
+                'description' => 'Acceso para eliminar estado de documentos',
+                'model' => DocumentStatus::class, 'model_prefix' => '0general',
+                'slug_alt' => 'estado.documento.eliminar', 'short_description' => 'eliminar estado de documentos'
+            ],
+            [
+                'name' => 'Ver estado de documento', 'slug' => 'document.status.list',
+                'description' => 'Acceso para ver estado de documentos',
+                'model' => DocumentStatus::class, 'model_prefix' => '0general',
+                'slug_alt' => 'estado.documento.ver', 'short_description' => 'ver estado de documentos'
+            ],
+            [
+                'name' => 'Notificar gestión de estado de documentos',
+                'slug' => 'document.status.notify',
+                'description' => 'Notificar sobre gestión de datos de estado de documentos',
+                'model' => DocumentStatus::class, 'model_prefix' => '0general',
+                'slug_alt' => 'estado.documento.notificar',
+                'short_description' => 'notificar la gestión de estado de documentos'
+            ],
+        ]);
+
+        /** @var array Permisos para la gestión de profesiones */
+        $permissions = array_merge($permissions, [
+            [
                 'name' => 'Crear profesión', 'slug' => 'profession.create',
                 'description' => 'Acceso al registro de profesiones',
                 'model' => Profession::class, 'model_prefix' => '0general',
@@ -347,73 +562,373 @@ class PermissionsTableSeeder extends Seeder
                 'model' => Profession::class, 'model_prefix' => '0general',
                 'slug_alt' => 'profesion.ver', 'short_description' => 'ver profesiones'
             ],
-        ];
-
-        /** @var array combina el arreglo de permisos con el arreglo de permisos para notificaciones */
-        $permissions = array_merge($permissions, [
-            [
-                'name' => 'Notificar configuración de instituciones',
-                'slug' => 'notify.institution',
-                'description' => 'Notificar sobre configuración de datos de Instituciones',
-                'model' => Institution::class, 'model_prefix' => '0general',
-                'slug_alt' => 'notificar.institucion.configurar',
-                'short_description' => 'notificar la configuración de instituciones'
-            ],
-            [
-                'name' => 'Notificar gestión de monedas',
-                'slug' => 'notify.currency',
-                'description' => 'Notificar sobre gestión de datos de monedas',
-                'model' => Currency::class, 'model_prefix' => '0general',
-                'slug_alt' => 'notificar.moneda',
-                'short_description' => 'notificar la gestión de monedas'
-            ],
-            [
-                'name' => 'Notificar gestión de deducciones / retenciones',
-                'slug' => 'notify.deduction',
-                'description' => 'Notificar sobre gestión de datos de deducciones / retenciones',
-                'model' => Deduction::class, 'model_prefix' => '0general',
-                'slug_alt' => 'notificar.deduccion',
-                'short_description' => 'notificar la gestión de deducciones / retenciones'
-            ],
-            [
-                'name' => 'Notificar gestión de impuestos',
-                'slug' => 'notify.tax',
-                'description' => 'Notificar sobre gestión de datos de impuestos',
-                'model' => Tax::class, 'model_prefix' => '0general',
-                'slug_alt' => 'notificar.impuesto',
-                'short_description' => 'notificar la gestión de impuestos'
-            ],
-            [
-                'name' => 'Notificar gestión de unidades tributarias',
-                'slug' => 'notify.taxunit',
-                'description' => 'Notificar sobre gestión de datos de unidades tributarias',
-                'model' => TaxUnit::class, 'model_prefix' => '0general',
-                'slug_alt' => 'notificar.unidad.tributaria',
-                'short_description' => 'notificar la gestión de unidades tributarias'
-            ],
-            [
-                'name' => 'Notificar gestión de departamentos',
-                'slug' => 'notify.department',
-                'description' => 'Notificar sobre gestión de datos de departamentos',
-                'model' => Department::class, 'model_prefix' => '0general',
-                'slug_alt' => 'notificar.departamento',
-                'short_description' => 'notificar la gestión de departamentos'
-            ],
-            [
-                'name' => 'Notificar gestión de documentos',
-                'slug' => 'notify.document',
-                'description' => 'Notificar sobre gestión de datos de documentos',
-                'model' => Document::class, 'model_prefix' => '0general',
-                'slug_alt' => 'notificar.departamento',
-                'short_description' => 'notificar la gestión de documentos'
-            ],
             [
                 'name' => 'Notificar gestión de profesiones',
-                'slug' => 'notify.profession',
+                'slug' => 'profession.notify',
                 'description' => 'Notificar sobre gestión de datos de profesiones',
                 'model' => Profession::class, 'model_prefix' => '0general',
-                'slug_alt' => 'notificar.profesion',
+                'slug_alt' => 'profesion.notificar',
                 'short_description' => 'notificar la gestión de profesiones'
+            ],
+        ]);
+
+        /** @var array Permisos para la gestión de ciudades */
+        $permissions = array_merge($permissions, [
+            [
+                'name' => 'Crear Ciudades', 'slug' => 'city.create',
+                'description' => 'Acceso al registro de ciudades',
+                'model' => City::class, 'model_prefix' => '0general',
+                'slug_alt' => 'ciudad.crear', 'short_description' => 'agregar ciudad'
+            ],
+            [
+                'name' => 'Editar Ciudades', 'slug' => 'city.edit',
+                'description' => 'Acceso para editar ciudades',
+                'model' => City::class, 'model_prefix' => '0general',
+                'slug_alt' => 'ciudad.editar', 'short_description' => 'editar ciudad'
+            ],
+            [
+                'name' => 'Eliminar Ciudades', 'slug' => 'city.delete',
+                'description' => 'Acceso para eliminar ciudades',
+                'model' => City::class, 'model_prefix' => '0general',
+                'slug_alt' => 'ciudad.eliminar', 'short_description' => 'eliminar ciudad'
+            ],
+            [
+                'name' => 'Ver Ciudades', 'slug' => 'city.list',
+                'description' => 'Acceso para ver ciudades',
+                'model' => City::class, 'model_prefix' => '0general',
+                'slug_alt' => 'ciudad.ver', 'short_description' => 'ver ciudades'
+            ],
+            [
+                'name' => 'Notificar gestión de ciudades',
+                'slug' => 'city.notify',
+                'description' => 'Notificar sobre gestión de datos de ciudades',
+                'model' => City::class, 'model_prefix' => '0general',
+                'slug_alt' => 'ciudad.notificar',
+                'short_description' => 'notificar la gestión de ciudades'
+            ],
+        ]);
+
+        /** @var array Permisos para la gestión de países */
+        $permissions = array_merge($permissions, [
+            [
+                'name' => 'Crear Países', 'slug' => 'country.create',
+                'description' => 'Acceso al registro de países',
+                'model' => Country::class, 'model_prefix' => '0general',
+                'slug_alt' => 'pais.crear', 'short_description' => 'agregar pais'
+            ],
+            [
+                'name' => 'Editar Países', 'slug' => 'country.edit',
+                'description' => 'Acceso para editar países',
+                'model' => Country::class, 'model_prefix' => '0general',
+                'slug_alt' => 'pais.editar', 'short_description' => 'editar pais'
+            ],
+            [
+                'name' => 'Eliminar Países', 'slug' => 'country.delete',
+                'description' => 'Acceso para eliminar países',
+                'model' => Country::class, 'model_prefix' => '0general',
+                'slug_alt' => 'pais.eliminar', 'short_description' => 'eliminar pais'
+            ],
+            [
+                'name' => 'Ver Países', 'slug' => 'country.list',
+                'description' => 'Acceso para ver países',
+                'model' => Country::class, 'model_prefix' => '0general',
+                'slug_alt' => 'pais.ver', 'short_description' => 'ver países'
+            ],
+            [
+                'name' => 'Notificar gestión de países',
+                'slug' => 'country.notify',
+                'description' => 'Notificar sobre gestión de datos de países',
+                'model' => Country::class, 'model_prefix' => '0general',
+                'slug_alt' => 'pais.notificar',
+                'short_description' => 'notificar la gestión de países'
+            ],
+        ]);
+
+        /** @var array Permisos para la gestión de Estados */
+        $permissions = array_merge($permissions, [
+            [
+                'name' => 'Crear Estados', 'slug' => 'estate.create',
+                'description' => 'Acceso al registro de Estados',
+                'model' => Estate::class, 'model_prefix' => '0general',
+                'slug_alt' => 'estate.crear', 'short_description' => 'agregar estado'
+            ],
+            [
+                'name' => 'Editar Estados', 'slug' => 'estate.edit',
+                'description' => 'Acceso para editar Estados',
+                'model' => Estate::class, 'model_prefix' => '0general',
+                'slug_alt' => 'estate.editar', 'short_description' => 'editar estado'
+            ],
+            [
+                'name' => 'Eliminar Estados', 'slug' => 'estate.delete',
+                'description' => 'Acceso para eliminar Estados',
+                'model' => Estate::class, 'model_prefix' => '0general',
+                'slug_alt' => 'estate.eliminar', 'short_description' => 'eliminar estado'
+            ],
+            [
+                'name' => 'Ver Estados', 'slug' => 'estate.list',
+                'description' => 'Acceso para ver Estados',
+                'model' => Estate::class, 'model_prefix' => '0general',
+                'slug_alt' => 'estate.ver', 'short_description' => 'ver Estados'
+            ],
+            [
+                'name' => 'Notificar gestión de Estados',
+                'slug' => 'estate.notify',
+                'description' => 'Notificar sobre gestión de datos de Estados',
+                'model' => Estate::class, 'model_prefix' => '0general',
+                'slug_alt' => 'estate.notificar',
+                'short_description' => 'notificar la gestión de Estados'
+            ],
+        ]);
+
+        /** @var array Permisos para la gestión de Municipios */
+        $permissions = array_merge($permissions, [
+            [
+                'name' => 'Crear Municipios', 'slug' => 'municipality.create',
+                'description' => 'Acceso al registro de Municipios',
+                'model' => Municipality::class, 'model_prefix' => '0general',
+                'slug_alt' => 'municipality.crear', 'short_description' => 'agregar municipio'
+            ],
+            [
+                'name' => 'Editar Municipios', 'slug' => 'municipality.edit',
+                'description' => 'Acceso para editar Municipios',
+                'model' => Municipality::class, 'model_prefix' => '0general',
+                'slug_alt' => 'municipality.editar', 'short_description' => 'editar municipio'
+            ],
+            [
+                'name' => 'Eliminar Municipios', 'slug' => 'municipality.delete',
+                'description' => 'Acceso para eliminar Municipios',
+                'model' => Municipality::class, 'model_prefix' => '0general',
+                'slug_alt' => 'municipality.eliminar', 'short_description' => 'eliminar municipio'
+            ],
+            [
+                'name' => 'Ver Municipios', 'slug' => 'municipality.list',
+                'description' => 'Acceso para ver Municipios',
+                'model' => Municipality::class, 'model_prefix' => '0general',
+                'slug_alt' => 'municipality.ver', 'short_description' => 'ver Municipios'
+            ],
+            [
+                'name' => 'Notificar gestión de Municipios',
+                'slug' => 'municipality.notify',
+                'description' => 'Notificar sobre gestión de datos de Municipios',
+                'model' => Municipality::class, 'model_prefix' => '0general',
+                'slug_alt' => 'municipality.notificar',
+                'short_description' => 'notificar la gestión de Municipios'
+            ],
+        ]);
+
+        /** @var array Permisos para la gestión de Parroquias */
+        $permissions = array_merge($permissions, [
+            [
+                'name' => 'Crear Parroquias', 'slug' => 'parish.create',
+                'description' => 'Acceso al registro de Parroquias',
+                'model' => Parish::class, 'model_prefix' => '0general',
+                'slug_alt' => 'parish.crear', 'short_description' => 'agregar parroquia'
+            ],
+            [
+                'name' => 'Editar Parroquias', 'slug' => 'parish.edit',
+                'description' => 'Acceso para editar Parroquias',
+                'model' => Parish::class, 'model_prefix' => '0general',
+                'slug_alt' => 'parish.editar', 'short_description' => 'editar parroquia'
+            ],
+            [
+                'name' => 'Eliminar Parroquias', 'slug' => 'parish.delete',
+                'description' => 'Acceso para eliminar Parroquias',
+                'model' => Parish::class, 'model_prefix' => '0general',
+                'slug_alt' => 'parish.eliminar', 'short_description' => 'eliminar parroquia'
+            ],
+            [
+                'name' => 'Ver Parroquias', 'slug' => 'parish.list',
+                'description' => 'Acceso para ver Parroquias',
+                'model' => Parish::class, 'model_prefix' => '0general',
+                'slug_alt' => 'parish.ver', 'short_description' => 'ver Parroquias'
+            ],
+            [
+                'name' => 'Notificar gestión de Parroquias',
+                'slug' => 'parish.notify',
+                'description' => 'Notificar sobre gestión de datos de Parroquias',
+                'model' => Parish::class, 'model_prefix' => '0general',
+                'slug_alt' => 'parish.notificar',
+                'short_description' => 'notificar la gestión de Parroquias'
+            ],
+        ]);
+
+        /** @var array Permisos para la gestión de histórico de impuestos */
+        $permissions = array_merge($permissions, [
+            [
+                'name' => 'Crear histórico de impuestos', 'slug' => 'history.tax.create',
+                'description' => 'Acceso al registro de histórico de impuestos',
+                'model' => HistoryTax::class, 'model_prefix' => '0general',
+                'slug_alt' => 'history.tax.crear', 'short_description' => 'agregar histórico de impuesto'
+            ],
+            [
+                'name' => 'Editar histórico de impuestos', 'slug' => 'history.tax.edit',
+                'description' => 'Acceso para editar histórico de impuestos',
+                'model' => HistoryTax::class, 'model_prefix' => '0general',
+                'slug_alt' => 'history.tax.editar', 'short_description' => 'editar histórico de impuesto'
+            ],
+            [
+                'name' => 'Eliminar histórico de impuestos', 'slug' => 'history.tax.delete',
+                'description' => 'Acceso para eliminar histórico de impuestos',
+                'model' => HistoryTax::class, 'model_prefix' => '0general',
+                'slug_alt' => 'history.tax.eliminar', 'short_description' => 'eliminar histórico de impuesto'
+            ],
+            [
+                'name' => 'Ver histórico de impuestos', 'slug' => 'history.tax.list',
+                'description' => 'Acceso para ver histórico de impuestos',
+                'model' => HistoryTax::class, 'model_prefix' => '0general',
+                'slug_alt' => 'history.tax.ver', 'short_description' => 'ver histórico de impuestos'
+            ],
+            [
+                'name' => 'Notificar gestión de histórico de impuestos',
+                'slug' => 'history.tax.notify',
+                'description' => 'Notificar sobre gestión de datos de histórico de impuestos',
+                'model' => HistoryTax::class, 'model_prefix' => '0general',
+                'slug_alt' => 'history.tax.notificar',
+                'short_description' => 'notificar la gestión de histórico de impuestos'
+            ],
+        ]);
+
+        /** @var array Permisos para la gestión de sectores de organizaciones */
+        $permissions = array_merge($permissions, [
+            [
+                'name' => 'Crear sectores de organizaciones', 'slug' => 'institution.sector.create',
+                'description' => 'Acceso al registro de sectores de organizaciones',
+                'model' => InstitutionSector::class, 'model_prefix' => '0general',
+                'slug_alt' => 'institution.sector.crear', 'short_description' => 'agregar sector de organización'
+            ],
+            [
+                'name' => 'Editar sectores de organizaciones', 'slug' => 'institution.sector.edit',
+                'description' => 'Acceso para editar sectores de organizaciones',
+                'model' => InstitutionSector::class, 'model_prefix' => '0general',
+                'slug_alt' => 'institution.sector.editar', 'short_description' => 'editar sector de organización'
+            ],
+            [
+                'name' => 'Eliminar sectores de organizaciones', 'slug' => 'institution.sector.delete',
+                'description' => 'Acceso para eliminar sectores de organizaciones',
+                'model' => InstitutionSector::class, 'model_prefix' => '0general',
+                'slug_alt' => 'institution.sector.eliminar', 'short_description' => 'eliminar sector de organización'
+            ],
+            [
+                'name' => 'Ver sectores de organizaciones', 'slug' => 'institution.sector.list',
+                'description' => 'Acceso para ver sectores de organizaciones',
+                'model' => InstitutionSector::class, 'model_prefix' => '0general',
+                'slug_alt' => 'institution.sector.ver', 'short_description' => 'ver sectores de organizaciones'
+            ],
+            [
+                'name' => 'Notificar gestión de sectores de organizaciones',
+                'slug' => 'institution.sector.notify',
+                'description' => 'Notificar sobre gestión de datos de sectores de organizaciones',
+                'model' => InstitutionSector::class, 'model_prefix' => '0general',
+                'slug_alt' => 'institution.sector.notificar',
+                'short_description' => 'notificar la gestión de sectores de organizaciones'
+            ],
+        ]);
+
+        /** @var array Permisos para la gestión de tipos de organizaciones */
+        $permissions = array_merge($permissions, [
+            [
+                'name' => 'Crear tipos de organizaciones', 'slug' => 'institution.type.create',
+                'description' => 'Acceso al registro de tipos de organizaciones',
+                'model' => InstitutionType::class, 'model_prefix' => '0general',
+                'slug_alt' => 'institucion.tipo.crear', 'short_description' => 'agregar tipo de organización'
+            ],
+            [
+                'name' => 'Editar tipos de organizaciones', 'slug' => 'institution.type.edit',
+                'description' => 'Acceso para editar tipos de organizaciones',
+                'model' => InstitutionType::class, 'model_prefix' => '0general',
+                'slug_alt' => 'institucion.tipo.editar', 'short_description' => 'editar tipo de organización'
+            ],
+            [
+                'name' => 'Eliminar tipos de organizaciones', 'slug' => 'institution.type.delete',
+                'description' => 'Acceso para eliminar tipos de organizaciones',
+                'model' => InstitutionType::class, 'model_prefix' => '0general',
+                'slug_alt' => 'institucion.tipo.eliminar', 'short_description' => 'eliminar tipo de organización'
+            ],
+            [
+                'name' => 'Ver tipos de organizaciones', 'slug' => 'institution.type.list',
+                'description' => 'Acceso para ver tipos de organizaciones',
+                'model' => InstitutionType::class, 'model_prefix' => '0general',
+                'slug_alt' => 'institucion.tipo.ver', 'short_description' => 'ver tipos de organizaciones'
+            ],
+            [
+                'name' => 'Notificar gestión de tipos de organizaciones',
+                'slug' => 'institution.type.notify',
+                'description' => 'Notificar sobre gestión de datos de tipos de organizaciones',
+                'model' => InstitutionType::class, 'model_prefix' => '0general',
+                'slug_alt' => 'institucion.tipo.notificar',
+                'short_description' => 'notificar la gestión de tipos de organizaciones'
+            ],
+        ]);
+
+        /** @var array Permisos para la gestión de estados civiles */
+        $permissions = array_merge($permissions, [
+            [
+                'name' => 'Crear estado civil', 'slug' => 'marital.status.create',
+                'description' => 'Acceso al registro de estados civiles',
+                'model' => MaritalStatus::class, 'model_prefix' => '0general',
+                'slug_alt' => 'estado.civil.crear', 'short_description' => 'agregar estados civiles'
+            ],
+            [
+                'name' => 'Editar estado civil', 'slug' => 'marital.status.edit',
+                'description' => 'Acceso para editar estados civiles',
+                'model' => MaritalStatus::class, 'model_prefix' => '0general',
+                'slug_alt' => 'estado.civil.editar', 'short_description' => 'editar estados civiles'
+            ],
+            [
+                'name' => 'Eliminar estado civil', 'slug' => 'marital.status.delete',
+                'description' => 'Acceso para eliminar estados civiles',
+                'model' => MaritalStatus::class, 'model_prefix' => '0general',
+                'slug_alt' => 'estado.civil.eliminar', 'short_description' => 'eliminar estados civiles'
+            ],
+            [
+                'name' => 'Ver estado civil', 'slug' => 'marital.status.list',
+                'description' => 'Acceso para ver estados civiles',
+                'model' => MaritalStatus::class, 'model_prefix' => '0general',
+                'slug_alt' => 'estado.civil.ver', 'short_description' => 'ver estados civiles'
+            ],
+            [
+                'name' => 'Notificar gestión de estados civiles',
+                'slug' => 'marital.status.notify',
+                'description' => 'Notificar sobre gestión de datos de estados civiles',
+                'model' => MaritalStatus::class, 'model_prefix' => '0general',
+                'slug_alt' => 'estado.civil.notificar',
+                'short_description' => 'notificar la gestión de estados civiles'
+            ],
+        ]);
+
+        /** @var array Permisos para la gestión de unidades de medida */
+        $permissions = array_merge($permissions, [
+            [
+                'name' => 'Crear unidad de medida', 'slug' => 'measurement.unit.create',
+                'description' => 'Acceso al registro de unidades de medida',
+                'model' => MeasurementUnit::class, 'model_prefix' => '0general',
+                'slug_alt' => 'unidad.medida.crear', 'short_description' => 'agregar unidades de medida'
+            ],
+            [
+                'name' => 'Editar unidad de medida', 'slug' => 'measurement.unit.edit',
+                'description' => 'Acceso para editar unidades de medida',
+                'model' => MeasurementUnit::class, 'model_prefix' => '0general',
+                'slug_alt' => 'unidad.medida.editar', 'short_description' => 'editar unidades de medida'
+            ],
+            [
+                'name' => 'Eliminar unidad de medida', 'slug' => 'measurement.unit.delete',
+                'description' => 'Acceso para eliminar unidades de medida',
+                'model' => MeasurementUnit::class, 'model_prefix' => '0general',
+                'slug_alt' => 'unidad.medida.eliminar', 'short_description' => 'eliminar unidades de medida'
+            ],
+            [
+                'name' => 'Ver unidad de medida', 'slug' => 'measurement.unit.list',
+                'description' => 'Acceso para ver unidades de medida',
+                'model' => MeasurementUnit::class, 'model_prefix' => '0general',
+                'slug_alt' => 'unidad.medida.ver', 'short_description' => 'ver unidades de medida'
+            ],
+            [
+                'name' => 'Notificar gestión de unidades de medida',
+                'slug' => 'measurement.unit.notify',
+                'description' => 'Notificar sobre gestión de datos de unidades de medida',
+                'model' => MeasurementUnit::class, 'model_prefix' => '0general',
+                'slug_alt' => 'unidad.medida.notificar',
+                'short_description' => 'notificar la gestión de unidades de medida'
             ],
         ]);
 

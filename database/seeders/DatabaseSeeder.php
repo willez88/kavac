@@ -43,9 +43,9 @@ class DatabaseSeeder extends Seeder
         $this->call(ParishesTableSeeder::class);
         /** Registros de Ciudades asociadas a los Estados */
         $this->call(CitiesTableSeeder::class);
-        /** Sectores por defecto para el registro de instituciones */
+        /** Sectores por defecto para el registro de organizaciones */
         $this->call(InstitutionSectorsTableSeeder::class);
-        /** Tipos de instituciones por defecto */
+        /** Tipos de organizaciones por defecto */
         $this->call(InstitutionTypesTableSeeder::class);
         /** Estados civiles */
         $this->call(MaritalStatusTableSeeder::class);

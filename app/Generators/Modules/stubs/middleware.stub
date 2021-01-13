@@ -1,18 +1,32 @@
 <?php
-
+/** [descripción del namespace] */
 namespace $NAMESPACE$;
 
 use Closure;
 use Illuminate\Http\Request;
 
+/**
+ * @class $CLASS$
+ * @brief [descripción detallada]
+ *
+ * [descripción corta]
+ *
+ * @author [autor de la clase] [correo del autor]
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class $CLASS$
 {
     /**
-     * Handle an incoming request.
+     * Gestiona una petición entrante
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
+     * @method    handle
+     *
+     * @param     Request    $request    Objeto con información de la petición
+     * @param     Closure    $next
+     *
+     * @return    mixed      [descripción de los datos devueltos]
      */
     public function handle(Request $request, Closure $next)
     {

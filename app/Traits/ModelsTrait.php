@@ -1,20 +1,24 @@
 <?php
+/** Traits de uso general */
 namespace App\Traits;
 
 /**
  * Trait para la gestión de modelos
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 trait ModelsTrait
 {
     /**
      * Método que escanea todos los modelos presentes en la aplicación
      *
+     * @method  getModels
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return array                Retorna un arreglo con los módulos
      */
     public function getModels($dir = "")
@@ -78,8 +82,12 @@ trait ModelsTrait
     /**
      * Identifica si un modelo esta establecido para una eliminación lógica
      *
+     * @method  isModelSoftDelete
+     *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @param  string  $model Nombre del modelo a evaluar
+     *
      * @return boolean        Devuelve verdadero si el modelo esta establecido para una eliminación lógica,
      *                        de lo contrario devuelve falso
      */

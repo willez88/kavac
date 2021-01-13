@@ -2,6 +2,7 @@
 
 namespace Modules\Payroll\Jobs;
 
+use Illuminate\Support\Str;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -14,6 +15,9 @@ use Modules\Payroll\Models\Institution;
 use Modules\Payroll\Models\PayrollStaff;
 use Modules\Payroll\Models\PayrollConcept;
 use Modules\Payroll\Models\PayrollStaffPayroll;
+use Modules\Payroll\Models\PayrollSalaryTabulatorScale;
+
+use Modules\Payroll\Repositories\PayrollAssociatedParametersRepository;
 
 class PayrollCreatePaymentRelationship implements ShouldQueue
 {
@@ -25,18 +29,6 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
      * @var    Object    $data
      */
     protected $data;
-
-    /**
-     * Arreglo con los registros asociados a la configuración de vacaciones
-     * @var Array $associatedVacation
-     */
-    protected $associatedVacation;
-
-    /**
-     * Arreglo con los registros asociados al expediente del trabajador
-     * @var Array $associatedRecords
-     */
-    protected $associatedRecords;
 
     /**
      * Variable que contiene el tiempo de espera para la ejecución del trabajo,
@@ -54,193 +46,6 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
     public function __construct(array $data)
     {
         $this->data = $data;
-
-        /** Define los campos de la configuración de vacaciones a emplear en el formulario */
-        $this->associatedVacation = [
-            [
-                'id'       => 'VACATION_DAYS',
-                'name'     => 'Días a otorgar para el disfrute de vacaciones',
-                'model'    => 'Modules\Payroll\Models\PayrollVacationPolicy',
-                'required' => ['vacation_days'],
-            ],
-            [
-                'id'       => 'ADDITIONAL_DAYS_PER_YEAR',
-                'name'     => 'Días de disfrute adicionales por año de servicio',
-                'model'    => 'Modules\Payroll\Models\PayrollVacationPolicy',
-                'required' => ['additional_days_per_year'],
-            ],
-            [
-                'id'       => 'DAYS_REQUESTED',
-                'name'     => 'Días a otogar para el pago de vacaciones',
-                'model'    => 'Modules\Payroll\Models\PayrollVacationRequests',
-                'required' => ['days_requested'],
-            ]
-        ];
-
-        /** Define los campos del expediente del trabajador a emplear en el formulario */
-        $this->associatedRecords = [
-            [
-                'id'       => 'STAFF',
-                'name'     => 'Datos Personales',
-                'model'    => 'Modules\Payroll\Models\PayrollStaff',
-                'required' => [],
-                'children' =>  [
-                    [
-                        'id'        => 'NATIONALITY',
-                        'name'      => 'Nacionalidad',
-                        'type'      => 'list',
-                        'model'     => 'Modules\Payroll\Models\PayrollNationality',
-                        'required'  => ['payroll_nationality_id']
-                    ],
-                    [
-                        'id'        => 'GENDER',
-                        'name'      => 'Género',
-                        'type'      => 'list',
-                        'model'     => 'Modules\Payroll\Models\PayrollGender',
-                        'required'  => ['payroll_gender_id']
-
-                    ],
-                    [
-                        'id'        => 'DISABLE',
-                        'name'      => 'Estatus Discapacitado',
-                        'type'      => 'boolean',
-                        'model'     => '',
-                        'required'  => ['has_disability']
-                    ],
-                    [
-                        'id'        => 'BLOOD_TYPE',
-                        'name'      => 'Tipo de sangre',
-                        'type'      => 'list',
-                        'model'     => 'Modules\Payroll\Models\PayrollBloodType',
-                        'required'  => ['payroll_blood_type_id']
-                    ],
-                    [
-                        'id'        => 'LICENSE_DEGREE',
-                        'name'      => 'Grado de licencia de conducir',
-                        'type'      => 'list',
-                        'model'     => 'Modules\Payroll\Models\PayrollLicenseDegree',
-                        'required'  => ['payroll_license_degree_id']
-                    ]
-                ]
-            ],
-            [
-                'id'       => 'PROFESIONAL',
-                'name'     => 'Datos Profesionales',
-                'model'    => 'Modules\Payroll\Models\PayrollProfesional',
-                'required' => ['payrollProfesional'],
-                'children' =>
-                [
-                    [
-                        'id'        => 'INSTRUCTION_DEGREE',
-                        'name'      => 'Grado de instrucción',
-                        'type'      => 'list',
-                        'model'     => 'Modules\Payroll\Models\PayrollInstructionDegree',
-                        'required'  => ['payroll_instruction_degree_id']
-                    ],
-                    [
-                        'id'        => 'PROFESSION',
-                        'name'      => 'Profesión',
-                        'type'      => 'list',
-                        'model'     => 'Modules\Payroll\Models\Profession',
-                        'required'  => ['Profession_id']
-                    ],
-                    [
-                        'id'        => 'STUDENT',
-                        'name'      => 'Estatus Estudiante',
-                        'type'      => 'boolean',
-                        'model'     => '',
-                        'required'  => ['is_student']
-                    ],
-                    [
-                        'id'        => 'NUMBER_LANG',
-                        'name'      => 'Número de idiomas',
-                        'type'      => 'number',
-                        'model'     => '',
-                        'required'  => ['payrollLanguages']
-                    ]
-                ]
-            ],
-            [
-                'id'       => 'SOCIOECONOMIC_INFORMATION',
-                'name'     => 'Datos Socioeconómicos',
-                'model'    => 'Modules\Payroll\Models\PayrollSocioeconomic',
-                'required' => ['payrollSocioecomicInformation'],
-                'children' =>
-                [
-                    [
-                        'id'       => 'MARITAL_STATUS',
-                        'name'     => 'Estado Civil',
-                        'type'     => 'list',
-                        'model'    => 'Modules\Payroll\Models\MaritalStatus',
-                        'required' => ['marital_status_id']
-                    ],
-                    [
-                        'id'       => 'NUMBER_CHILDREN',
-                        'name'     => 'Número de hijos',
-                        'type'     => 'number',
-                        'model'    => '',
-                        'required' => ['payrollChildrens']
-                    ]
-                ]
-            ],
-            [
-                'id'       => 'EMPLOYMENT_INFORMATION',
-                'name'     => 'Datos Laborales',
-                'required' => ['payrollEmploymentInformation'],
-                'children' =>
-                [
-                    [
-                        'id'       => 'START_APN',
-                        'name'     => 'Años en la administración pública',
-                        'type'     => 'date',
-                        'model'    => '',
-                        'required' => ['start_date_apn']
-                    ],
-                    [
-                        'id'       => 'START_DATE',
-                        'name'     => 'Años en la institución',
-                        'type'     => 'date',
-                        'model'    => '',
-                        'required' => ['start_date']
-                    ],
-                    [
-                        'id'       => 'POSITION_TYPE',
-                        'name'     => 'Tipo de cargo',
-                        'type'     => 'list',
-                        'model'    => 'Modules\Payroll\Models\PayrollPositionType',
-                        'required' => ['payroll_position_type_id']
-                    ],
-                    [
-                        'id'       => 'POSITION',
-                        'name'     => 'Cargo',
-                        'type'     => 'list',
-                        'model'    => 'Modules\Payroll\Models\PayrollPosition',
-                        'required' => ['payroll_position_id']
-                    ],
-                    [
-                        'id'       => 'DEPARTMENT',
-                        'name'     => 'Departamento',
-                        'type'     => 'list',
-                        'model'    => 'Modules\Payroll\Models\Department',
-                        'required' => ['department_id']
-                    ],
-                    [
-                        'id'       => 'STAFF_TYPE',
-                        'name'     => 'Tipo de personal',
-                        'type'     => 'list',
-                        'model'    => 'Modules\Payroll\Models\PayrollStaffType',
-                        'required' => ['payroll_staff_type_id']
-                    ],
-                    [
-                        'id'       => 'CONTRACT_TYPE',
-                        'name'     => 'Tipo de contrato',
-                        'type'     => 'list',
-                        'model'    => 'Modules\Payroll\Models\PayrollContractType',
-                        'required' => ['payroll_contract_type_id']
-                    ]
-                ]
-            ]
-        ];
     }
 
     /**
@@ -251,6 +56,7 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
     public function handle()
     {
         $created_at = now();
+        $payrollParameters = new PayrollAssociatedParametersRepository;
 
         /**
          * Objeto asociado al modelo Payroll
@@ -310,10 +116,10 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
                         }
                     }
                 }
+                array_push($concepts, ['field' => $payrollConcept, 'formula' => $formula]);
             } elseif ($payrollConcept->calculation_way == 'tabulator') {
-
+                array_push($concepts, ['field' => $payrollConcept, 'formula' => null]);
             }
-            array_push($concepts, ['field' => $payrollConcept, 'formula' => $formula]);
         }
         /** Se evaluan los parámetros del expediente del trabajador y de la configuración de vacaciones */
         /** Se identifica la institución en la que se está operando */
@@ -334,7 +140,7 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
         })->get();
 
         foreach ($payrollStaffs as $payrollStaff) {
-            /** Se definen los areglos de asignaciones y deducciones para clasificar los conceptos */
+            /** Se definen los arreglos de asignaciones y deducciones para clasificar los conceptos */
             $assignments = [];
             $deductions  = [];
             foreach ($concepts as $concept) {
@@ -359,7 +165,7 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
                         } else {
                             /** Se recorre el listado de parámetros asociados a la configuración de vacaciones 
                               * para sustituirlos por su valor real en la formula del concepto */
-                            foreach ($this->associatedVacation as $parameter) {
+                            foreach ($payrollParameters->loadData('associatedVacation') as $parameter) {
                                 if ($parameter['id'] == $current) {
                                     $records = (is_object($parameter['model']))
                                         ? $parameter['model']
@@ -375,7 +181,7 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
                             /** Se recorre el listado de parámetros asociados al expediente del trabajador
                               * para sustituirlos por su valor real en la formula del concepto */
                             if ($complete == false) {
-                                foreach ($this->associatedRecords as $parameter) {
+                                foreach ($payrollParameters->loadData('associatedWorkerFile') as $parameter) {
                                     if (!empty($parameter['children'])) {
                                         foreach ($parameter['children'] as $children) {
                                             if ($children['id'] == $current) {
@@ -390,7 +196,7 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
                                                     $record->loadCount($children['required'][0]);
                                                     $formula = str_replace(
                                                         $children['id'],
-                                                        $record[from_camel_case($children['required'][0]) . '_count'],
+                                                        $record[Str::camel($children['required'][0]) . '_count'],
                                                         $formula ?? $concept['formula']);
                                                 } elseif ($children['type'] == 'date') {
                                                     /** Se calcula el número de años según la fecha de ingreso
@@ -414,26 +220,78 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
                             }
                         }
                     }
-                    $concept['field']->load('payrollConceptType');
-                    if ($concept['field']->payrollConceptType['sign'] == '+') {
-                        array_push(
-                            $assignments,
-                            [
-                                'name'  => $concept['field']->name,
-                                'value' => $formula ? str_eval($formula): str_eval($concept['formula'])
-                            ]
-                        );
-                    } elseif ($concept['field']->payrollConceptType['sign'] == '-') {
-                        array_push(
-                            $deductions,
-                            [
-                                'name'  => $concept['field']->name,
-                                'value' => $formula ? str_eval($formula): str_eval($concept['formula'])
-                            ]
-                        );
-                    }
                 } elseif ($payrollConcept->calculation_way == 'tabulator') {
+                    /** Se carga la propiedad tabulador asociada al concepto */
+                    $payrollConcept->load('payrollSalaryTabulator');
+                    $payrollSalaryTabulator = $payrollConcept->payrollSalaryTabulator;
+                    if ($payrollSalaryTabulator->payroll_salary_tabulator_type == 'horizontal') {
+                        /** Se carga el escalafón horizontal asociado al tabulador */
+                        $payrollSalaryTabulator->load(['payrollHorizontalSalaryScale' => function($q) {
+                            $q->load('payrollScales');
+                        }]);
+                        foreach ($payrollParameters->loadData('associatedWorkerFile') as $parameter) {
+                            if (!empty($parameter['children'])) {
+                                foreach ($parameter['children'] as $children) {
+                                    if ($children['id'] == $payrollSalaryTabulator->payrollHorizontalSalaryScale['group_by']) {
+                                        $record = ($parameter['model'] != PayrollStaff::class)
+                                            ? $parameter['model']::where('payroll_staff_id', $payrollStaff->id)->first()
+                                            : $payrollStaff;
+                                        foreach ($payrollSalaryTabulator->payrollHorizontalSalaryScale->payrollScales as $scale) {
 
+                                        }
+                                        
+                                        if ($children['type'] == 'number') {
+                                            /** Se calcula el número de registros existentes según sea el caso
+                                             * y se sustituye por su valor real en la fórmula del concepto */
+                                            $record->loadCount($children['required'][0]);
+                                            $formula = str_replace(
+                                                $children['id'],
+                                                $record[Str::camel($children['required'][0]) . '_count'],
+                                                $formula ?? $concept['formula']);
+                                        } elseif ($children['type'] == 'date') {
+                                            /** Se calcula el número de años según la fecha de ingreso
+                                             * y se sustituye por su valor real en la fórmula del concepto */
+                                            $formula = str_replace(
+                                                $children['id'],
+                                                $record[age($record[$children['required'][0]])],
+                                                $formula ?? $concept['formula']);
+                                        } else {
+                                            /** Se identifica el valor según el expediente del trabajador
+                                             * y se sustituye por su valor real en la fórmula del concepto */
+                                            $formula = str_replace(
+                                                $children['id'],
+                                                $record[$children['required'][0]],
+                                                $formula ?? $concept['formula']);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } else if ($payrollSalaryTabulator->payroll_salary_tabulator_type == 'vertical') {
+
+                    } else {
+                        
+                    }
+                }
+                /** Se carga la propiedad payrollConceptType
+                 *  para determinar si clasificar el concepto como asignación o deducción */
+                $concept['field']->load('payrollConceptType');
+                if ($concept['field']->payrollConceptType['sign'] == '+') {
+                    array_push(
+                        $assignments,
+                        [
+                            'name'  => $concept['field']->name,
+                            'value' => $formula ? str_eval($formula): str_eval($concept['formula'])
+                        ]
+                    );
+                } elseif ($concept['field']->payrollConceptType['sign'] == '-') {
+                    array_push(
+                        $deductions,
+                        [
+                            'name'  => $concept['field']->name,
+                            'value' => $formula ? str_eval($formula): str_eval($concept['formula'])
+                        ]
+                    );
                 }
             }
             PayrollStaffPayroll::updateOrCreate(

@@ -23,6 +23,11 @@ $(document).ready(function() {
 
     /** Agrega un título a la tabla de registros */
     $(".VueTables").closest('.modal-table').prepend('<h6>Registros</h6>');
+    $(".VueTables").parent().parent('.row').prepend(
+        `<div class="col-12">
+            <h6 style="text-transform: uppercase;text-align: center;color: #0073b7;">Registros</h6>
+        </div>`
+    );
 });
 
 /**
@@ -151,7 +156,8 @@ var startGuidedTour = function(steps, disableInteraction = true, stepNumber = tr
     var steps = steps.filter(function(currentValue) {
         var value = currentValue.element.replace("#", "");
         var element = document.getElementById(value);
-        if (typeof(element.position) === "undefined") {
+
+        if (element !== null && typeof(element.position) === "undefined") {
             /**
              * Si no existe el atributo de posición se agrega por defecto para mostrar la información encima del
              * elemento

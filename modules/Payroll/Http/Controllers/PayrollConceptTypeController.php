@@ -4,7 +4,6 @@ namespace Modules\Payroll\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Payroll\Models\PayrollConceptType;
 
@@ -15,9 +14,8 @@ use Modules\Payroll\Models\PayrollConceptType;
  * Clase que gestiona los tipos de concepto
  *
  * @author     William Páez <wpaez at cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class PayrollConceptTypeController extends Controller
 {

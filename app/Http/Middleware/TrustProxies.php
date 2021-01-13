@@ -6,17 +6,23 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Request;
 use Fideloper\Proxy\TrustProxies as Middleware;
 
+/**
+ * @class TrustProxies
+ * @brief Gestiona los middleware para los proxies de confianza
+ *
+ * Gestiona los middleware para los proxies de confianza
+ */
 class TrustProxies extends Middleware
 {
     /**
-     * The trusted proxies for this application.
+     * Los proxies de confianza para esta aplicación.
      *
      * @var array|string
      */
     protected $proxies;
 
     /**
-     * The headers that should be used to detect proxies.
+     * Los encabezados que deben usarse para detectar proxies.
      *
      * @var int
      */

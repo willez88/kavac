@@ -1,19 +1,25 @@
 #Panel de Control Módulo de Contabilidad
 ****************************************
-<div style="text-align: justify;" >
 
 ![Screenshot](../img/logokavac.png#imagen)
 
-El **Panel de Control** del sistema incluye un apartado para el módulo de Bienes, donde se incorporan las secciones **Operaciones del Módulo de Contabilidad** y **Reportes de Contabilidad**.
+El módulo de **Contabilidad** incluye un **Panel de Control** para realizar seguimiento a las actividades desarrolladas desde el módulo, donde se incorporan las secciones **Operaciones del Módulo de Contabilidad** y **Reportes de Contabilidad**.
 
 ##Operaciones del módulo de contabilidad
 
 
-A través del **Panel de Control** es posible realizar un seguimiento de los asientos contables registrados en el sistema a partir de la sección de **Operaciones en Módulo de Contabilidad** del **Panel de Control**.   En esta sección se muestra en forma tabulada registros de los asientos contables con información relacionada con la fecha de registro, referencia, concepto referente a la operación, total relacionado con la partida doble (debe y haber del asiento) y el estado  del asiento contable. Es posible generar una impresión haciendo uso del botón ubicado en la columna titulada **Acción** para obtener más detalles. 
+A través de esta sección es posible realizar un seguimiento de los asientos contables registrados en el sistema, se muestra de forma tabulada los registros de asientos contables aprobados y no aprobados con información relacionada con la fecha de registro, referencia, concepto referente a la operación, total relacionado con la partida doble (debe y haber del asiento) y el estado  del asiento contable.
 
 
-![Screenshot](../img/figure_17.png)
-<div style="text-align: center;font-weight: bold">Figura 17: Asientos Contables</div>
+![Screenshot](../img/figure_21.png)<div style="text-align: center;font-weight: bold">Figura 21: Asientos Contables</div>
+
+A través de la columna titulada **Acción** es posible generar un archivo con información sobre el registro para **Asientos Contables Aprobados** presionando el botón **Imprimir Registro**.
+
+![Screenshot](../img/print.png) **Imprimir Registro**.   
+
+De la misma forma es posible **Aprobar**, **Editar** o **Eliminar** un registro para **Asientos Contables No Aprobados** haciendo uso de los botones de **Acciones de Registro**. 
+
+![Screenshot](../img/manage_4.png#imagen)
 
 ##Reportes de contabilidad
 
@@ -21,14 +27,13 @@ A través del **Panel de Control** es posible realizar un seguimiento de los asi
 El **Panel de Control** permite visualizar los diferentes reportes generados a partir del módulo de contabilidad.    En la sección de **Reportes de Contabilidad** se muestra de forma tabulada los reportes generados e información relacionada a cada uno de ellos. 
 
 
-![Screenshot](../img/figure_18.png)
-<div style="text-align: center;font-weight: bold">Figura: Reportes de Contabilidad</div>
+![Screenshot](../img/figure_22.png)<div style="text-align: center;font-weight: bold">Figura 22: Reportes de Contabilidad</div> 
 
-Los reportes son generados desde el **Módulo de Contabilidad**, y a través del **Panel de Control** es posible visualizar detalles de estos reportes. 
+A través del botón **Imprimir Registro** ubicado en la columna titulada **Acción** es posible generar un archivo con información sobre cada registro. 
+
+![Screenshot](../img/print.png) **Imprimir Registro**. 
 
 
-
-</div>
 
 
 

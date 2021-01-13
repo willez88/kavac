@@ -24,25 +24,32 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
  * @property  integer $institution_id
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class Department extends Model implements Auditable
 {
     use SoftDeletes;
     use AuditableTrait;
 
+    /**
+     * Lista de relaciones a incorporar en las consultas
+     *
+     * @var    array
+     */
     protected $with = ['institution'];
 
     /**
      * Lista de atributos para la gestión de fechas
+     *
      * @var array $dates
      */
     protected $dates = ['deleted_at'];
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
+     *
      * @var array $fillable
      */
     protected $fillable = [
@@ -60,7 +67,10 @@ class Department extends Model implements Auditable
     /**
      * Department belongs to Parent.
      *
+     * @method  parent
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function parent()
@@ -71,7 +81,10 @@ class Department extends Model implements Auditable
     /**
      * Department has many Childrens.
      *
+     * @method  childrens
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function childrens()
@@ -82,7 +95,10 @@ class Department extends Model implements Auditable
     /**
      * Department belongs to Institution.
      *
+     * @method  institution
+     *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function institution()

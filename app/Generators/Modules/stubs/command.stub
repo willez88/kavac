@@ -1,29 +1,42 @@
 <?php
-
+/** [descripción del namespace] */
 namespace $NAMESPACE$;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+/**
+ * @class $CLASS$
+ * @brief [descripción detallada]
+ *
+ * [descripción corta]
+ *
+ * @author [autor de la clase] [correo del autor]
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
 class $CLASS$ extends Command
 {
     /**
-     * The console command name.
+     * El nombre del comando.
      *
      * @var string
      */
     protected $name = '$COMMAND_NAME$';
 
     /**
-     * The console command description.
+     * La descripción del comando.
      *
      * @var string
      */
     protected $description = 'Command description.';
 
     /**
-     * Create a new command instance.
+     * Crea una nueva instancia del comando.
+     *
+     * @method __construct
      *
      * @return void
      */
@@ -33,9 +46,11 @@ class $CLASS$ extends Command
     }
 
     /**
-     * Execute the console command.
+     * Ejecuta el la consola de comandos.
      *
-     * @return mixed
+     * @method handle
+     *
+     * @return mixed [descripción sobre los datos devueltos por el método]
      */
     public function handle()
     {
@@ -43,9 +58,11 @@ class $CLASS$ extends Command
     }
 
     /**
-     * Get the console command arguments.
+     * Obtiene los argumentos del comando.
      *
-     * @return array
+     * @method getArguments
+     *
+     * @return array [descripción sobre los datos devueltos por el método]
      */
     protected function getArguments()
     {
@@ -55,9 +72,11 @@ class $CLASS$ extends Command
     }
 
     /**
-     * Get the console command options.
+     * Obtiene las opciones del comando.
      *
-     * @return array
+     * @method getOptions
+     *
+     * @return array [descripción sobre los datos devueltos por el método]
      */
     protected function getOptions()
     {

@@ -11,9 +11,8 @@ use Illuminate\Database\Migrations\Migration;
  * Gestiona la creación o eliminación de la tabla períodos de pago de nómina
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class CreatePayrollPaymentPeriodsTable extends Migration
 {
@@ -38,7 +37,7 @@ class CreatePayrollPaymentPeriodsTable extends Migration
                 $table->enum('payment_status', ['pending', 'generated'])->default('pending')
                       ->comment('Establece la condición del pago asociado al período ' .
                                                 '(pending: Pendiente, generated: Generado)');
-                
+
                 $table->foreignId('payroll_payment_type_id')
                       ->comment('Identificador único asociado al tipo de pago de nómina')
                       ->constrained()->onDelete('restrict')->onUpdate('cascade');

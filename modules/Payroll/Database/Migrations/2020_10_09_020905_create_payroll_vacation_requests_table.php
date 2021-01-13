@@ -11,9 +11,8 @@ use Illuminate\Database\Migrations\Migration;
  * Gestiona la creación o eliminación de la tabla de solicitud de vacaciones
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
- * @license    <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *                 LICENCIA DE SOFTWARE CENDITEL
- *             </a>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class CreatePayrollVacationRequestsTable extends Migration
 {
@@ -28,7 +27,7 @@ class CreatePayrollVacationRequestsTable extends Migration
         if (!Schema::hasTable('payroll_vacation_requests')) {
             Schema::create('payroll_vacation_requests', function (Blueprint $table) {
                 $table->id()->comment('Identificador único del registro');
-                
+
                 $table->string('code')->nullable()->unique()
                       ->comment('Código asociado a la solicitud de vacaciones');
                 $table->string('status')
@@ -45,7 +44,7 @@ class CreatePayrollVacationRequestsTable extends Migration
                 $table->foreignId('payroll_staff_id')
                       ->comment('Identificador único asociado al trabajador')
                       ->constrained()->onDelete('restrict')->onUpdate('cascade');
-                
+
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });

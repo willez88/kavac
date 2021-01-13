@@ -21,12 +21,12 @@
     },
     {
         "element" : "#switchBannerInReport",
-        "intro" : "Habilita/Deshabilita la opción de mostrar la imagen del banner de la institución en reportes",
+        "intro" : "Habilita/Deshabilita la opción de mostrar la imagen del banner o cintillo de la organización en reportes",
         "position" : "left"
     },
     {
         "element" : "#switchMultiInstitution",
-        "intro" : "Habilita/Deshabilita la opción de gestión para multiples instituciones",
+        "intro" : "Habilita/Deshabilita la opción de gestión para multiples organizaciones",
         "position" : "right"
     },
     {
