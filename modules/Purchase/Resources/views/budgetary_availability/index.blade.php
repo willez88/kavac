@@ -31,7 +31,9 @@
                     <purchase-budgetary-availability :records="{{ $record_items }}"
                                                     :currency="{{ $currency }}"
                                                     :supplier="{{ $supplier }}"
-                                                    :budget_items="{{ $budget_items }}" />
+                                                    :budget_items="{{ $budget_items }}"
+                                                    :specific_actions="{{ $specific_actions }}"
+                                                    :has_budget="{{ isset($has_budget)?'true':'false' }}"/>
                 </div>
             </div>
         </div>

@@ -62,6 +62,17 @@ class PurchaseBaseBudget extends Model implements Auditable
     }
 
     /**
+     * PurchaseBaseBudget has many Pivot.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function pivot_relatable()
+    {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = purchaseBaseBudget_id, localKey = id)
+        return $this->hasMany(Pivot::class, 'relatable_id');
+    }
+
+    /**
      * PurchaseBaseBudget has many purchaseQuotation.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

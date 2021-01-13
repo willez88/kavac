@@ -6,8 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
+use Modules\Purchase\Models\FiscalYear;
 use Modules\Purchase\Models\PurchaseOrder;
+use Modules\Purchase\Models\PurchaseQuotation;
 use Modules\Purchase\Models\PurchaseBaseBudget;
+
+use Module\Budget\Helpers\Helper;
 
 use Module;
 
@@ -38,6 +42,24 @@ class PurchaseBudgetaryAvailabilityController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'purchase_supplier_id' => 'required|integer',
+            'currency_id'          => 'required|integer',
+            'file'                 => 'required|mimes:pdf',
+            'base_budget_id'     => 'required',
+        ], [
+            'file_1.required'                 => 'El archivo de acta de inicio es obligatorio.',
+            'file_1.mimes'                    => 'El archivo de acta de inicio debe ser de tipo pdf.',
+            'file_2.required'                 => 'El archivo de invitación de las empresas es obligatorio.',
+            'file_2.mimes'                    => 'El archivo de invitación de las empresas debe ser de tipo pdf.',
+            'file_3.required'                 => 'El archivo de proforma / Cotización es obligatorio.',
+            'file_3.mimes'                    => 'El archivo de proforma / Cotización debe ser de tipo pdf.',
+            'purchase_supplier_id.required'   => 'El campo proveedor es obligatorio.',
+            'purchase_supplier_id.integer'    => 'El campo proveedor debe ser numerico.',
+            'currency_id.required'            => 'El campo de tipo de moneda es obligatorio.',
+            'currency_id.integer'             => 'El campo de tipo de moneda debe ser numerico.',
+            'base_budget_list'                => 'Debe seleccionar almenos un requerimiento.',
+        ]);
     }
 
     /**
@@ -46,48 +68,22 @@ class PurchaseBudgetaryAvailabilityController extends Controller
      */
     public function show($id)
     {
-        $purchase_order = PurchaseOrder::with(
-            'currency',
-            'purchaseSupplier',
-            'purchaseRequirement.purchaseRequirementItems.pivotPurchase',
-        )->find($id);
+        $purchase_quotation = PurchaseQuotation::with([
+            'purchaseSupplier', 
+            'currency', 
+            'pivot_recordable.relatable.purchaseRequirement',
+            'pivot_recordable.relatable.relatable.purchaseRequirementItem.warehouseProduct.measurementUnit',
+            'relatable.purchaseRequirementItem.warehouseProduct.measurementUnit',
+        ])->orderBy('id', 'ASC')->find($id);
 
-        if (!$purchase_order) {
+        if (!$purchase_quotation) {
             return view('errors.404');
         }
 
-        $currency = $purchase_order->currency;
-        $supplier = $purchase_order->purchaseSupplier;
+        $currency = $purchase_quotation->currency;
+        $supplier = $purchase_quotation->purchaseSupplier;
 
         $record_items = [];
-
-        // Se recorren los requerimientos
-        $requirements = $purchase_order->purchaseRequirement;
-        foreach ($requirements as $requirement) {
-            $data = [];
-            $data['code'] = $requirement['code'];
-
-            // Se recorren los items del requerimiento
-            $items = $requirement['purchaseRequirementItems'];
-            foreach ($items as $item) {
-                $data['name']        = $item['name'];
-                $data['description'] = $item['description'];
-                $data['qty']         = $item['quantity'].' '.$item['measurementUnit']['acronym'];
-
-                // se recorre la relacion del requerimiento para obtener los precios
-                foreach ($item['pivotPurchase'] as $r) {
-                    if ($r['relatable_type'] == PurchaseOrder::class) {
-                        $data['suppliers_price'] = $r['unit_price'];
-                        $data['suppliers_qty_price'] = $r['unit_price'];
-                    }
-                    if ($r['relatable_type'] == PurchaseBaseBudget::class) {
-                        $data['base_price'] = $r['unit_price'];
-                        $data['base_qty_price'] = $r['unit_price'];
-                    }
-                }
-                array_push($record_items, $data);
-            }
-        }
 
         /**
          * [$has_budget determina si esta instalado el modulo Budget]
@@ -102,21 +98,35 @@ class PurchaseBudgetaryAvailabilityController extends Controller
                 [],
                 true
             );
+
+            $specific_actions = template_choices(
+                'Modules\Budget\Models\BudgetSpecificAction',
+                ['code', '-', 'name'],
+                [],
+                true
+            );
+
             return view('purchase::budgetary_availability.index', [
-                'record_items' => json_encode($record_items),
+                'has_budget' => $has_budget,
+                'record_items' => $purchase_quotation,
                 'currency' => $currency,
                 'supplier' => $supplier,
                 'budget_items' => json_encode($budget_items),
+                'specific_actions' => json_encode($specific_actions),
             ]);
         } else {
             return view('purchase::budgetary_availability.index', [
-                'record_items' => json_encode($record_items),
+                'record_items' => $purchase_quotation,
                 'currency' => $currency,
                 'supplier' => $supplier,
                 'budget_items' => json_encode([[
-                        'id'=>'',
-                        'text'=>'Seleccione...'
-                    ]]),
+                    'id'=>'',
+                    'text'=>'Seleccione...'
+                ]]),
+                'specific_actions' => json_encode([[
+                    'id'=>'',
+                    'text'=>'Seleccione...'
+                ]]),
             ]);
         }
     }
@@ -145,5 +155,15 @@ class PurchaseBudgetaryAvailabilityController extends Controller
      */
     public function destroy()
     {
+    }
+
+    public function getBudgetAvailable($specific_action_id, $account_id)
+    {
+        return response()->json([
+            'amount' => budget_available(
+                                        FiscalYear::where('active', true)->first(), 
+                                        $specific_action_id, 
+                                        $account_id)
+        ], 200);
     }
 }
