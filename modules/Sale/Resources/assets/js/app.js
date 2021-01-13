@@ -15,6 +15,7 @@ Vue.component('sale-payment-method', () => import(
     /* webpackChunkName: "sale-payment-method" */
     './components/settings/SalePaymentMethodComponent.vue')
 );
+
 /**
  * Componente para listar, crear, actualizar y borrar datos de almacén
  *
@@ -23,16 +24,6 @@ Vue.component('sale-payment-method', () => import(
 Vue.component('sale-warehouse-method', () => import(
     /* webpackChunkName: "sale-warehouse-method" */
     './components/settings/SaleWarehouseMethodComponent.vue')
-);
-
-/**
- * Componente para gestionar el formato de codigo
- *
- * @author José Puentes <jpuentes@cenditel.gob.ve>
- */
-Vue.component('register-formatcode', () => import(
-    /* webpackChunkName: "register-formatcode" */
-    './components/settings/SaleCodeFormatComponent.vue')
 );
 
 /**
