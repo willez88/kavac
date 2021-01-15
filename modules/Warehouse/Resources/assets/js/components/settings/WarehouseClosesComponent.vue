@@ -98,7 +98,7 @@
 			                			<i class="fa fa-edit"></i>
 			                		</button>
 
-			                		<button @click="deleteRecord(props.row.id, 'closes')"
+			                		<button @click="deleteRecord(props.row.id, 'warehouse/closes')"
 											class="btn btn-danger btn-xs btn-icon btn-action"
 											title="Eliminar registro" data-toggle="tooltip"
 											type="button">

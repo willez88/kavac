@@ -366,7 +366,7 @@
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'salary-tabulators')"
+		                		<button @click="deleteRecord(props.index, 'payroll/salary-tabulators')"
 										class="btn btn-danger btn-xs btn-icon btn-action" title="Eliminar registro"
                                         data-toggle="tooltip" type="button">
 									<i class="fa fa-trash-o"></i>

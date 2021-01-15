@@ -93,7 +93,7 @@ class PayrollParameterController extends Controller
         $this->parameterTypes = [
             ['id' => 'global_value',        'name' => 'Valor global'],
             ['id' => 'resettable_variable', 'name' => 'Variable reiniciable a cero por período de nómina'],
-            ['id' => 'processed_variable',  'name' => 'Variabe procesada']
+            ['id' => 'processed_variable',  'name' => 'Variable procesada']
         ];
 
         /** Define los campos del expediente del trabajador a emplear en el formulario */
