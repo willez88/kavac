@@ -44,6 +44,7 @@
 						<div class="form-group is-required">
 							<label for="first_name">Nombre del Director</label>
         					<input type="text" class="form-control input-sm" data-toggle="tooltip"
+								   v-input-mask data-inputmask-regex="[a-zA-ZÁ-ÿ0-9\s]*"
                                    title="Indique el nombre del director" v-model="record.first_name">
 						</div>
 					</div>

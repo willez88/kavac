@@ -29,6 +29,7 @@
         						<div class="form-group is-required">
         							<label for="name">Nombre:</label>
         							<input type="text" id="name" placeholder="Nombre"
+										   v-input-mask data-inputmask-regex="[a-zA-ZÁ-ÿ0-9\s]*"
         								   class="form-control input-sm" v-model="record.name" data-toggle="tooltip"
         								   title="Indique el nombre de la solicitud requerida">
         							<input type="hidden" name="id" id="id" v-model="record.id">
@@ -38,6 +39,7 @@
                                 <div class="form-group is-required">
         							<label for="description">Descripción:</label>
         							<input type="text" id="description" placeholder="Descripción"
+										   v-input-mask data-inputmask-regex="[a-zA-ZÁ-ÿ0-9\s]*"
         								   class="form-control input-sm" v-model="record.description" data-toggle="tooltip"
         								   title="Indique la descripción de la solicitud requerida">
         	                    </div>
@@ -48,6 +50,7 @@
 								<div class="form-group is-required">
 									<label for="requirement">Requerimientos de solicitud:</label>
 									<input type="text" id="requirement" placeholder="Requerimientos de solicitud"
+										   v-input-mask data-inputmask-regex="[a-zA-ZÁ-ÿ0-9\s]*"
 										   class="form-control input-sm" v-model="record.requirement" data-toggle="tooltip"
 										   title="Indique el requerimiento de solicitud">
 								</div>
@@ -61,6 +64,9 @@
 	                </div>
 	                <div class="modal-body modal-table">
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
+							<div slot="updated_at" slot-scope="props" class="text-center">
+								{{ format_timestamp(props.row.updated_at, 'YYYY-MM-DD') }}
+							</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.row.id, $event)"
 		                				class="btn btn-warning btn-xs btn-icon btn-action"
@@ -73,6 +79,7 @@
 										type="button">
 									<i class="fa fa-trash-o"></i>
 								</button>
+
 	                		</div>
 	                	</v-client-table>
 	                </div>
@@ -94,7 +101,7 @@
 				},
 				errors: [],
 				records: [],
-				columns: ['name', 'description', 'requirement', 'id'],
+				columns: ['name', 'description', 'requirement', 'updated_at', 'id'],
 			}
 		},
 		methods: {
@@ -158,14 +165,16 @@
 				'name': 'Nombre',
                 'description': 'Descripción',
 				'requirement': 'Requerimientos de solicitud',
+				'updated_at': 'Última modificación',
 				'id': 'Acción'
 			};
 			this.table_options.sortable = ['name'];
 			this.table_options.filterable = ['name'];
 			this.table_options.columnsClasses = {
 				'name': 'col-md-3',
-                'description': 'col-md-3',
+                'description': 'col-md-2',
 				'requirement': 'col-md-3',
+				'updated_at': 'col-md-2',
 				'id': 'col-md-2'
 			};
 		},

@@ -29,12 +29,23 @@
         						<div class="form-group is-required">
         							<label for="name">Nombre:</label>
         							<input type="text" id="name" placeholder="Nombre"
+										   v-input-mask data-inputmask-regex="[a-zA-ZÁ-ÿ0-9\s]*"
         								   class="form-control input-sm" v-model="record.name" data-toggle="tooltip"
         								   title="Indique el nombre del departamento">
         							<input type="hidden" name="id" id="id" v-model="record.id">
         	                    </div>
                             </div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="description">Descripción:</label>
+									<input type="text" id="description" placeholder="Descripción"
+										   v-input-mask data-inputmask-regex="[a-zA-ZÁ-ÿ0-9\s]*"
+										   class="form-control input-sm" v-model="record.description" data-toggle="tooltip"
+										   title="Indique la descripción del departamento">
+								</div>
+							</div>
                         </div>
+
 	                </div>
 					<div class="modal-footer">
 	                	<div class="form-group">
@@ -70,11 +81,12 @@
 			return {
 				record: {
 					id: '',
-					name: ''
+					name: '',
+					description: ''
 				},
 				errors: [],
 				records: [],
-				columns: ['name', 'id'],
+				columns: ['name', 'description', 'id'],
 			}
 		},
 		methods: {
@@ -87,6 +99,7 @@
 				this.record = {
 					id: '',
 					name: '',
+					description: ''
 				};
 			},
 			deleteRecord(index, url) {
@@ -134,12 +147,14 @@
 		created() {
 			this.table_options.headings = {
 				'name': 'Nombre',
+				'description': 'Descripción',
 				'id': 'Acción'
 			};
 			this.table_options.sortable = ['name'];
 			this.table_options.filterable = ['name'];
 			this.table_options.columnsClasses = {
 				'name': 'col-md-5',
+				'description': 'col-md-5',
 				'id': 'col-md-2'
 			};
 		},
