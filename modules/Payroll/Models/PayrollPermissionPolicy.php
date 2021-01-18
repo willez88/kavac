@@ -27,4 +27,9 @@ class PayrollPermissionPolicy extends Model implements Auditable
     protected $fillable = [
         'name', 'anticipation_day', 'day_min', 'day_max', 'active', 'institution_id'
     ];
+
+    public function payrollPermissionRequests()
+    {
+        return $this->hasMany(PayrollPermissionRequest::class);
+    }
 }

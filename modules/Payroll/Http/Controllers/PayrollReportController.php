@@ -123,6 +123,11 @@ class PayrollReportController extends Controller
         return view('payroll::reports.payroll-report-vacation-bonus-calculations');
     }
 
+    public function benefitsAdvance()
+    {
+        return view('payroll::reports.benefits.payroll-report-benefit-advances');
+    }
+
     /**
      * Muestra un listado para la generación de reportes según sea el caso
      *
