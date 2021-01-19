@@ -51,14 +51,14 @@ class PurchaseQuotation extends Model implements Auditable
     }
 
     /**
-     * PurchaseEstimate belongs to PurchaseBaseBudget.
+     * PurchaseQuotation has many Pivot.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function purchaseBaseBudget()
+    public function pivot_recordable()
     {
-        // belongsTo(RelatedModel, foreignKey = purchaseBaseBudget_id, keyOnRelatedModel = id)
-        return $this->belongsTo(PurchaseBaseBudget::class);
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = purchaseQuotation_id, localKey = id)
+        return $this->hasMany(Pivot::class, 'recordable_id');
     }
 
     /**

@@ -64,7 +64,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Registros Comúnes</h6>
+					<h6 class="card-title">Registros Comunes</h6>
 					<div class="card-btns">
 						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
 						   data-toggle="tooltip">

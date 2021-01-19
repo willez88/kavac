@@ -18,6 +18,7 @@ use Modules\Purchase\Models\PurchaseQuotation;
 use Modules\Purchase\Models\PurchaseRequirement;
 use Modules\Purchase\Models\PurchaseBaseBudget;
 use Modules\Purchase\Models\PurchasePivotModelsToRequirementItem;
+use Modules\Purchase\Models\Pivot;
 
 use Modules\Purchase\Models\Document;
 use Modules\Purchase\Models\HistoryTax;
@@ -154,8 +155,14 @@ class PurchaseQuotationController extends Controller
 			$base_budget->status = 'QUOTED';
 			$base_budget->save();
 
+			Pivot::create([
+				'relatable_type'  => PurchaseBaseBudget::class,
+				'relatable_id' 	  => $base_budget->id,
+				'recordable_type' => PurchaseQuotation::class,
+				'recordable_id'   => $purchase_quotation->id,
+			]);
 			// $purchase_quotation->purchase_base_budget_id = $base_budget->id;
-			$purchase_quotation->save();
+			// $purchase_quotation->save();
 
 			foreach ($record['relatable'] as $item) {
 				$asd = PurchasePivotModelsToRequirementItem::create([

@@ -51,12 +51,6 @@ Route::group(
         )->name('sale.get-sale-client');
 
         Route::resource(
-            'register-formatcode',
-            'SaleCodeFormatController',
-            ['as' => 'sale', 'except' => ['create','edit','show']]
-        );
-
-        Route::resource(
             'payment-method',
             'SalePaymentMethodController',
             ['as' => 'sale', 'except' => ['create','edit','show']]

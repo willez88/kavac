@@ -1,0 +1,70 @@
+[
+    {
+        "element": "#helpAudit",
+        "intro": "Muestra un listado con las últimas acciones realizadas por los usuarios"
+    },
+    {
+        "element": "#helpAuditFilterFromDate",
+        "intro": "Filtra los resultados a partir de una fecha específica"
+    },
+    {
+        "element": "#helpAuditFilterToDate",
+        "intro": "Filtra los resultados hasta una fecha específica"
+    },
+    {
+        "element": "#helpAuditFilterUser",
+        "intro": "Filtra los resultados de un usuario en particular"
+    },
+    {
+        "element": "#helpAuditFilterModule",
+        "intro": "Filtra los resultados de un módulo en específico"
+    },
+    {
+        "element": "#helpAuditFilterButton",
+        "intro": "Ejecuta la acción para filtrar los datos de acuerdo a la información suministrada"
+    },
+    {
+        "element": "#helpAuditLeyend",
+        "intro": "Identifica las acciones realizadas por los usuarios"
+    },
+    {
+        "element": "#helpAuditLeyendNew",
+        "intro": "Acciones realizadas por los usuarios para nuevos registros de la aplicación"
+    },
+    {
+        "element": "#helpAuditLeyendUpdate",
+        "intro": "Acciones realizadas por los usuarios para la actualización de datos"
+    },
+    {
+        "element": "#helpAuditLeyendRestore",
+        "intro": "Identifica la restauración de datos después de haber sido eliminados"
+    },
+    {
+        "element": "#helpAuditLeyendDelete",
+        "intro": "Acciones realizadas por los usuarios en la eliminación de registros"
+    },
+    {
+        "element": "#helpAuditTable",
+        "intro": "Listado de usuarios con información sobre las respectivas acciones ejecutadas"
+    },
+    {
+        "element": "#VueTables_th--date",
+        "intro": "Muestra la fecha y hora en la que se realizó la acción"
+    },
+    {
+        "element": "#VueTables_th--ip",
+        "intro": "Muestra la dirección IP desde donde se realizó la acción"
+    },
+    {
+        "element": "#VueTables_th--module",
+        "intro": "Muestra el módulo o sección de la aplicación en la que se realizó la acción"
+    },
+    {
+        "element": "#VueTables_th--users",
+        "intro": "Muestra información del usuario que realizó la acción"
+    },
+    {
+        "element": "#VueTables_th--id",
+        "intro": "Abre una ventana modal con información detallada de los datos"
+    }
+]

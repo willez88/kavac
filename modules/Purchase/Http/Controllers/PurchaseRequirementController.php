@@ -276,7 +276,6 @@ class PurchaseRequirementController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
-		dd($request->all());
 		$this->validate($request, [
 			'description'               => 'required|string',
 			'institution_id'            => 'required|integer',

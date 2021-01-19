@@ -151,13 +151,13 @@ class LoginController extends Controller
                     $user = User::where('username', $request->username)->first();
                     /** Valida que la contraseña coincida, en caso contrario notifica al usuario */
                     if ($user!== null && !Hash::check($value, $user->password)) {
-                        $fail('La contraseña es incorrecta');
+                        $fail('Estas credenciales no coinciden con nuestros registros');
                     }
                 }
             ],
             'captcha' => ['required', 'captcha']
         ], [
-            $this->username().'.exists' => 'El usuario no existe'
+            $this->username().'.exists' => 'Estas credenciales no coinciden con nuestros registros'
         ]);
     }
 

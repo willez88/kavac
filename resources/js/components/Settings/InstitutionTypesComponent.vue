@@ -4,7 +4,7 @@
 		   href="javascript:void(0)" title="Registros de tipos de organizaciones"
 		   data-toggle="tooltip" @click="addRecord('add_institution_type', 'institution-types', $event)">
 			<i class="icofont icofont-building-alt ico-3x"></i>
-			<span>Tipo<br>Organizaciones</span>
+			<span>Tipo de<br>Organizaciones</span>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_institution_type">
 			<div class="modal-dialog vue-crud" role="document">

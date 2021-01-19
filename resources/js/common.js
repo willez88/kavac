@@ -23,6 +23,11 @@ $(document).ready(function() {
 
     /** Agrega un título a la tabla de registros */
     $(".VueTables").closest('.modal-table').prepend('<h6>Registros</h6>');
+    $(".VueTables").parent().parent('.row').prepend(
+        `<div class="col-12">
+            <h6 style="text-transform: uppercase;text-align: center;color: #0073b7;">Registros</h6>
+        </div>`
+    );
 });
 
 /**

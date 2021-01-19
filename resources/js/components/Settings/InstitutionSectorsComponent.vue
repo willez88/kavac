@@ -1,10 +1,10 @@
 <template>
 	<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-2 mb-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-		   href="javascript:void(0)" title="Registros para sectores de organizaciones"
+		   href="javascript:void(0)" title="Registro para sectores de organizaciones"
 		   data-toggle="tooltip" @click="addRecord('add_institution_sector', 'institution-sectors', $event)">
 			<i class="icofont icofont-focus ico-3x"></i>
-			<span>Sector<br>Organizaciones</span>
+			<span>Sectores<br>Económicos</span>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_institution_sector">
 			<div class="modal-dialog vue-crud" role="document">
@@ -15,7 +15,7 @@
 						</button>
 						<h6>
 							<i class="icofont icofont-focus inline-block"></i>
-							Sector de Organización
+							Sector Económico
 						</h6>
 					</div>
 					<div class="modal-body">

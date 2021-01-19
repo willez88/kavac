@@ -767,3 +767,56 @@ if (! function_exists('restore_record')) {
         return false;
     }
 }
+
+if (! function_exists('info_modules')) {
+    function info_modules($min = false, $mod = null)
+    {
+        /** @var Module Objeto con información de todos los módulos de la aplicación */
+        $modules = Module::all();
+
+        /** @var array Arreglo con información detallada de los módulos de la aplicación */
+        $listModules = [];
+        foreach ($modules as $module) {
+            if ($module->isDisabled() || ($mod !== null && $module->getLowerName() !== trim(strtolower($mod)))) {
+                continue;
+            }
+            /** @var array Arreglo con los requerimientos del módulo */
+            $requirements = [];
+            if (count($module->getRequires()) > 0) {
+                foreach ($module->getRequires() as $modName => $version) {
+                    array_push($requirements, ['module' => $modName, 'versión' => $version]);
+                }
+            }
+
+            /** @var array Arreglo con información de los autores del módulo */
+            $authors = [];
+            if (!is_null($module->get('authors')) && count($module->get('authors')) > 0) {
+                foreach ($module->get('authors') as $author) {
+                    array_push($authors, ['name' => $author['name'], 'emails' => $author['email']]);
+                }
+            }
+
+            $moduleDetails = [
+                'originalName' => $module->getName(),
+                'alias' => $module->get('alias'),
+                'name' => $module->get('name_es') ?? $module->getName(),
+            ];
+
+            if (!$min) {
+                array_push($moduleDetails, [
+                    'icon' => $module->icon["name"] ?? "fa fa-cubes",
+                    'logo' => ($module->get('logo'))
+                              ? "assets/" . $module->get('name') . "/images/" . $module->get('logo')
+                              : "images/default-avatar.png",
+                    'description' => $module->getDescription(),
+                    'requirements' => $requirements,
+                    'authors' => $authors
+                ]);
+            }
+
+            array_push($listModules, $moduleDetails);
+        }
+
+        return $listModules;
+    }
+}

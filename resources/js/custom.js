@@ -191,6 +191,22 @@ $(document).ready(function() {
         });
     }
 
+    if ($('.btn-modal-clear').length) {
+        $('.btn-modal-clear').attr({
+            'title': 'Presione para reestablecer los campos del formulario',
+            'data-toggle': 'tooltip'
+        });
+        $('.btn-modal-clear').tooltip({
+            trigger: "hover",
+            delay: { hide: 100 }
+        });
+        $('.btn-modal-clear').on('shown.bs.tooltip', function() {
+            setTimeout(function() {
+                $('.btn-modal-clear').tooltip('hide');
+            }, 1500);
+        });
+    }
+
     if ($('.btn-modal-save').length) {
         $('.btn-modal-save').attr({
             'title': 'Presione para guardar el registro',
@@ -274,6 +290,26 @@ $(document).ready(function() {
             );
         }
     });
+
+    /** Campos del tipo Fecha */
+    if ($('input[type=date]').length) {
+        !$('input[type=date]').on('keydown', () => false);
+        /** Establece la fecha límite a seleccionar si no esta presente la clase no-restrict */
+        if (!$('input[type=date]').hasClass('no-restrict')) {
+            let today = new Date();
+            let dd = today.getDate();
+            let mm = today.getMonth() + 1;
+            let yyyy = today.getFullYear();
+            if(dd<10) {
+                dd='0'+dd;
+            }
+            if(mm<10) {
+                mm='0'+mm;
+            }
+            let now = `${yyyy}-${mm}-${dd}`;
+            $('input[type=date]').attr('max', now);
+        }
+    }
 
     if ($('.datatable').length) {
         /** Configuración de atributos para tablas con datatable */

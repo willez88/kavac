@@ -106,11 +106,14 @@
                                 <!-- valor -->
                                 <div class="form-group is-required">
                                     <label for="value">Valor:</label>
-                                    <input type="number" id="value" placeholder="Valor"
-                                           min="0" step=".01" onfocus="this.select()"
+                                    <input id="value" placeholder="Valor"
+                                           type="text" onfocus="this.select()"
                                            class="form-control input-sm" data-toggle="tooltip"
                                            title="Indique el valor del parámetro (requerido)"
-                                           v-model="record.value">
+                                           v-model="record.value"
+                                           v-input-mask data-inputmask="
+                                               'alias': 'numeric',
+                                               'allowMinus': 'false'">
                                 </div>
                                 <!-- ./valor -->
                             </div>
@@ -309,7 +312,7 @@
                                         title="Modificar registro" data-toggle="tooltip" type="button">
                                     <i class="fa fa-edit"></i>
                                 </button>
-                                <button @click="deleteRecord(props.index, 'parameters')"
+                                <button @click="deleteRecord(props.index, 'payroll/parameters')"
                                         class="btn btn-danger btn-xs btn-icon btn-action"
                                         title="Eliminar registro" data-toggle="tooltip"
                                         type="button">

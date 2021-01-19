@@ -1206,6 +1206,11 @@ a.level-notice:hover, a.level-info:hover, a.level-debug:hover {
 .multiselect__tag-icon:focus, .multiselect__tag-icon:hover {
   background: #F44b18; }
 
+/*.introjs-bullets ul li a {
+}*/
+.introjs-bullets ul li a.active {
+  background: #2ba3f7; }
+
 .visor {
   background-color: #1d1f21;
   height: 400px;
@@ -3150,6 +3155,8 @@ a .btn-simplex, a .btn-simplex:hover {
 
 .modal .modal-footer button {
   margin: 0 5px; }
+  .modal .modal-footer button.btn-default {
+    background-color: #d2d5d8; }
 
 .modal-dialog.vue-crud {
   min-width: 70% !important; }
