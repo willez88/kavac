@@ -205,7 +205,7 @@ class PayrollParameterController extends Controller
             [
                 'id'       => 'EMPLOYMENT_INFORMATION',
                 'name'     => 'Datos Laborales',
-                'required' => ['payrollEmploymentInformation'],
+                'required' => ['payrollEmployment'],
                 'children' =>
                 [
                     [

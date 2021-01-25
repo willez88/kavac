@@ -79,7 +79,7 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
         foreach ($this->data['payroll_concepts'] as $concept) {
             $formula = null;
             $payrollConcept = PayrollConcept::find($concept['id']);
-            /** Si el concepto está calculado mediante fórmula se identifican y sustituyen los parámetros, 
+            /** Si el concepto está calculado mediante fórmula se identifican y sustituyen los parámetros,
              * en caso contrario se optiene su valor de acuerdo al tabulador */
             if ($payrollConcept->calculation_way == 'formula') {
                 $exploded = multiexplode(
@@ -133,7 +133,7 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
         }
         */
         /** Se obtienen todos los trabajadores asociados a la institución y se evalua si aplica cada uno de los conceptos */
-        $payrollStaffs = PayrollStaff::whereHas('payrollEmploymentInformation', function ($q) use ($institution) {
+        $payrollStaffs = PayrollStaff::whereHas('payrollEmployment', function ($q) use ($institution) {
             $q->whereHas('department', function ($qq) use ($institution) {
                 $qq->where('institution_id', $institution->id);
             });
@@ -163,7 +163,7 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
                             unset($exploded[$key]);
                             $complete = true;
                         } else {
-                            /** Se recorre el listado de parámetros asociados a la configuración de vacaciones 
+                            /** Se recorre el listado de parámetros asociados a la configuración de vacaciones
                               * para sustituirlos por su valor real en la formula del concepto */
                             foreach ($payrollParameters->loadData('associatedVacation') as $parameter) {
                                 if ($parameter['id'] == $current) {
@@ -239,7 +239,7 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
                                         foreach ($payrollSalaryTabulator->payrollHorizontalSalaryScale->payrollScales as $scale) {
 
                                         }
-                                        
+
                                         if ($children['type'] == 'number') {
                                             /** Se calcula el número de registros existentes según sea el caso
                                              * y se sustituye por su valor real en la fórmula del concepto */
@@ -270,7 +270,7 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
                     } else if ($payrollSalaryTabulator->payroll_salary_tabulator_type == 'vertical') {
 
                     } else {
-                        
+
                     }
                 }
                 /** Se carga la propiedad payrollConceptType
