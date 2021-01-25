@@ -17,6 +17,6 @@ import PrettyCheckbox from 'pretty-checkbox-vue';
 Vue.use(PrettyCheckbox);
 
 /** Requerimiento del paquete CKEditor para ser implementado en Vuejs */
-import CKEditor from '@ckeditor/ckeditor5-vue';
+import CKEditor from '@ckeditor/ckeditor5-vue2';
 /** Establece el uso del plugin CKEditor */
 Vue.use(CKEditor);
