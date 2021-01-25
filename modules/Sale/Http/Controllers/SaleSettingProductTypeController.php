@@ -58,7 +58,7 @@ class SaleSettingProductTypeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required', 'max:100'],
+            'name' => ['required', 'unique:sale_setting_product_types,name', 'regex:/([A-Za-z0-9\s])\w+/u','max:100'],
         ]);
         $saleSettingProductType = SaleSettingProductType::create(['name' => $request->name]);
         return response()->json(['record' => $saleSettingProductType, 'message' => 'Success'], 200);
@@ -94,7 +94,7 @@ class SaleSettingProductTypeController extends Controller
     {
         $saleSettingProduct = SaleSettingProductType::find($id);
         $this->validate($request, [
-            'name' => ['required', 'max:100'],
+            'name' => ['required', 'unique:sale_setting_product_types,name' ,'max:100'],
         ]);
         $saleSettingProduct->name  = $request->name;
         $saleSettingProduct->save();

@@ -167,7 +167,7 @@
 			<div class="card">
 				<div class="card-header">
 					<h6 class="card-title">
-						{{ __('Registros Comúnes') }}
+						{{ __('Registros Comunes') }}
 						@include('buttons.help')
 					</h6>
 					<div class="card-btns">

@@ -259,20 +259,11 @@
 
 						fields = response.data.record;
 
-						if(fields.citizen_service_request_type_id == 1) {
-  							tipo = "Soporte técnico";
-  						} else if (fields.citizen_service_request_type_id == 2) {
-  							tipo = "Migración a software libre";
-  						} else if (fields.citizen_service_request_type_id == 3) {
-  							 tipo = "Desarrollo de software libre";
-  						} else {
-  							tipo = "Talleres de formación - asesorias";
-  						};
 
 						$(".modal-body #id").val( fields.id );
 		            	document.getElementById('date').innerText = (fields.date)?fields.date:'N/A';
+						document.getElementById('citizen_service_request_type_id').innerText = (fields.citizen_service_request_type_id)?fields.citizen_service_request_type.name:'N/A';
 		            	document.getElementById('motive_request').innerText = (fields.motive_request)?fields.motive_request:'N/A';
-		            	document.getElementById('citizen_service_request_type_id').innerText = tipo;
 		            	document.getElementById('applicant_name').innerText = (fields.first_name)?((fields.last_name)?(fields.first_name+fields.last_name):(fields.first_name)):'N/A';
 		            	let phoneText = `
 		            		<div class = "col-md-6">

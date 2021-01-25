@@ -4,8 +4,32 @@
         "intro" : "Esta sección permite establecer el formato a utilizar por los códigos en cada uno de los registros descritos, para comenzar en su implementación tenga especial cuidado en seguir las instrucciones en cuanto al formato que acepta esta configuración"
     },
     {
+        "element" : "#formatCode",
+        "intro" : "El formato del código está compuesto por 3 elementos separados por guión (-) y tiene una longitud máxima de 20 caracteres"
+    },
+    {
+        "element" : "#formatCodePrefix",
+        "intro" : "El primer elemento (prefijo) corresponde a un conjunto alfabético con una longitud máxima de 3 caracteres"
+    },
+    {
+        "element" : "#formatCodeDigits",
+        "intro" : "El segundo elemento (digitos) corresponde a un conjunto numérico con una longitud mínima de 4 caracteres y una longitud máxima de 8 caracteres"
+    },
+    {
+        "element" : "#formatCodeYear",
+        "intro" : "El tercer elemento (año) corresponde al año en el que se esta generando el registro, representado de forma simplificada con la cadena (YY) o completa con la cadena (YYYY)"
+    },
+    {
         "element" : "#staffsCode",
         "intro" : "La configuración de este código permite identificar los registros del personal mediante un formato único."
+    },
+    {
+        "element" : "#vacationRequestsCode",
+        "intro" : "La configuración de este código permite identificar los registros de las solicitudes de vacaciones mediante un formato único."
+    },
+    {
+        "element" : "#benefitsRequestsCode",
+        "intro" : "La configuración de este código permite identificar los registros de las solicitudes de adelanto de prestaciones mediante un formato único."
     },
     {
         "element" : "#salaryScalesCode",

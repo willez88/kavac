@@ -43,8 +43,8 @@ class CitizenServiceRequestController extends Controller
     {
         $this->validate($request, [
             'date'                             => ['required'],
-            'first_name'                       => ['required', 'max:100'],
-            'last_name'                        => ['required', 'max:100'],
+            'first_name'                       => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:100'],
+            'last_name'                        => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:100'],
             'id_number'                        => ['required', 'max:12', 'regex:/^([\d]{7}|[\d]{8})$/u'],
             'email'                            => ['required', 'email'],
             'city_id'                          => ['required'],
@@ -199,8 +199,8 @@ class CitizenServiceRequestController extends Controller
         $citizenServiceRequest = CitizenServiceRequest::find($id);
         $this->validate($request, [
             'date'                             => ['required'],
-            'first_name'                       => ['required', 'max:100'],
-            'last_name'                        => ['required', 'max:100'],
+            'first_name'                       => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:100'],
+            'last_name'                        => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:100'],
             'id_number'                        => ['required', 'max:12', 'regex:/^([\d]{7}|[\d]{8})$/u'],
             'email'                            => ['required', 'email'],
             'city_id'                          => ['required'],
@@ -326,7 +326,7 @@ class CitizenServiceRequestController extends Controller
     public function vueInfo($id)
     {
         $citizenServiceRequest = CitizenServiceRequest::where('id', $id)->with([
-            'phones','citizenServiceDepartment'
+            'phones','citizenServiceDepartment', 'citizenServiceRequestType'
         ])->first();
         return response()->json(['record' => $citizenServiceRequest], 200);
     }

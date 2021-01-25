@@ -1,36 +1,40 @@
 <template>
 	<section>
-	<v-client-table :columns="columns" :data="records" :options="table_options">
-		<div slot="code" slot-scope="props" class="text-center">
-			<span>
-				{{ props.row.code }}
-			</span>
-		</div>
-		<div slot="id" slot-scope="props" class="text-center">
-			<div class="d-inline-flex">
+    	<v-client-table :columns="columns" :data="records" :options="table_options">
+            <div slot="payroll_staff" slot-scope="props">
+                <span>
+                    {{
+                        props.row.payroll_staff
+                            ? props.row.payroll_staff.id
+                                ? props.row.payroll_staff.first_name + ' ' + props.row.payroll_staff.last_name
+                                : 'No definido'
+                            : 'No definido'
 
-				<citizenservice-register-info
-					:route_list="'registers/vue-info/' + props.row.id">
-				</citizenservice-register-info>
+                    }}
+                </span>
+            </div>
+    		<div slot="id" slot-scope="props" class="text-center">
+    			<div class="d-inline-flex">
 
-	    		<button @click="editForm(props.row.id)"
-	    				class="btn btn-warning btn-xs btn-icon btn-action"
-	    				title="Modificar registro" data-toggle="tooltip"
-	    				type="button">
-	    			<i class="fa fa-edit"></i>
-	    		</button>
-	    		<button @click="deleteRecord(props.index, '')"
-						class="btn btn-danger btn-xs btn-icon btn-action"
-						title="Eliminar registro" data-toggle="tooltip"
-						type="button">
-					<i class="fa fa-trash-o"></i>
-				</button>
-			</div>
-		</div>
+    				<payroll-permission-request-info
+    					:route_list="'permission-requests/vue-info/' + props.row.id">
+    				</payroll-permission-request-info>
 
-	</v-client-table>
-
-
+    	    		<button @click="editForm(props.row.id)"
+    	    				class="btn btn-warning btn-xs btn-icon btn-action"
+    	    				title="Modificar registro" data-toggle="tooltip" type="button"
+    	    				:disabled="props.row.status != 'Pendiente'">
+    	    			<i class="fa fa-edit"></i>
+    	    		</button>
+    	    		<button @click="deleteRecord(props.index, '')"
+    						class="btn btn-danger btn-xs btn-icon btn-action"
+    						title="Eliminar registro" data-toggle="tooltip" type="button"
+    						:disabled="props.row.status != 'Pendiente'">
+    					<i class="fa fa-trash-o"></i>
+    				</button>
+    			</div>
+    		</div>
+    	</v-client-table>
 	</section>
 </template>
 
@@ -39,21 +43,18 @@
 		data() {
 			return {
 				records: [],
-				columns: ['first_name', 'date_register', 'project_name',
-				'activities','email', 'id']
+				columns: ['payroll_staff', 'motive_permission', 'status', 'id']
 			}
 		},
 		created() {
 			this.table_options.headings = {
-				'first_name': 'Nombre del director',
-				'date_register': 'Fecha del registro',
-				'project_name': 'Nombre del proyecto',
-				'activities': 'Actividades',
-				'email': 'Correo del responsable',
+				'payroll_staff': 'Trabajador',
+				'motive_permission': 'Motivo del permiso',
+				'status':        'Estatus de la solicitud',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['first_name', 'date_register', 'project_name', 'activities', 'email'];
-			this.table_options.filterable = ['first_name', 'date_register', 'project_name', 'activities', 'email'];
+			this.table_options.sortable = ['payroll_staff', 'motive_permission', 'status'];
+			this.table_options.filterable = ['payroll_staff', 'motive_permission', 'status'];
 		},
 		mounted () {
 			this.initRecords(this.route_list, '');
@@ -62,7 +63,7 @@
 			/**
 			 * Inicializa los datos del formulario
 			 *
-			 * @author Ing. Yennifer Ramirez <yramirez@cenditel.gob.ve>
+			 * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
 			 */
 			reset() {
 
@@ -108,6 +109,6 @@
 	                this.showMessage('destroy');
 	            }
 	        },
-		}
+		},
 	};
 </script>

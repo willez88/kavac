@@ -231,4 +231,16 @@ class PayrollStaff extends Model implements Auditable
     {
         return $this->hasMany(PayrollStaffPayroll::class);
     }
+
+    /**
+     * Método que obtiene la información de las solicitudes de permisos asociadas al trabajador
+     *
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
+
+     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payrollPermissionRequests()
+    {
+        return $this->hasMany(PayrollPermissionRequest::class);
+    }
 }

@@ -64,7 +64,7 @@ class PayrollPermissionRequestController extends Controller
             'motive_permission'                => ['required', 'max:200'],
         ]);
 
-        $payrollVacationRequest = PayrollVacationRequest::create([
+        $payrollPermissionRequest = PayrollPermissionRequest::create([
             'status'                           => 'Pendiente',
             'date'                             => $request->date,
             'payroll_staff_id'                 => $request->payroll_staff_id,
@@ -146,7 +146,7 @@ class PayrollPermissionRequestController extends Controller
         $payrollPermissionRequest->end_date                         = $request->end_date;
         $payrollPermissionRequest->day_permission                   = $request->day_permission ;
         $payrollPermissionRequest->motive_permission                = $request->motive_permission;
-        $citizenServiceRequest->save();
+        $payrollPermissionRequest->save();
 
         $request->session()->flash('message', ['type' => 'update']);
         return response()->json(['result' => true, 'redirect' => route('payroll.permission-requests.index')], 200);
@@ -176,21 +176,51 @@ class PayrollPermissionRequestController extends Controller
     */
     public function vueList()
     {
-        return response()->json(['records' => PayrollPermissionRequest::all()], 200);
+        return response()->json(['records' => PayrollPermissionRequest::with(['payrollStaff'])->get()], 200);
     }
 
+    public function vueInfo($id)
+    {
+        $payrollPermissionRequest = PayrollPermissionRequest::where('id', $id)->with([
+            'payrollStaff', 'payrollPermissionPolicy'])->first();
+        return response()->json(['record' => $payrollPermissionRequest], 200);
+    }
     /**
      * Muestra un listado de las solicitudes de permiso pendientes
      *
      * @method    vuePendingList
      *
      * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
-     *
-     *
-    */
+     */
 
     public function vuePendingList()
     {
-        return response()->json(['records' => PayrollPermisssionRequest::where('status', 'Pendiente')->get()], 200);
+        return response()->json(['records' => PayrollPermissionRequest::where('status', 'Pendiente')->with([
+            'payrollStaff'])->get()], 200);
+    }
+
+    public function approved(Request $request, $id)
+    {
+        $payrollPermissionRequest = PayrollPermissionRequest::find($id);
+        $payrollPermissionRequest->status = 'Aprobado';
+
+
+        $payrollPermissionRequest->save();
+
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true, 'redirect' => route('payroll.permission-requests.index')], 200);
+    }
+
+
+    public function rejected(Request $request, $id)
+    {
+        $payrollPermissionRequest = PayrollPermissionRequest::find($id);
+        $payrollPermissionRequest->status = 'Rechazado';
+
+
+        $payrollPermissionRequest->save();
+
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true, 'redirect' => route('payroll.permission-requests.index')], 200);
     }
 }

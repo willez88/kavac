@@ -505,6 +505,8 @@ Route::group([
         'PayrollPermissionRequestController',
         ['as' => 'payroll', 'except' => ['edit', 'show']]
     );
+    /** Ruta que muestra información sobre la solicitud de permiso */
+    Route::get('permission-requests/vue-info/{permission_request}', 'PayrollPermissionRequestController@vueInfo');
 
     /** Ruta que obtiene un listado de las solicitudes de permiso */
     Route::get(
@@ -532,6 +534,15 @@ Route::group([
         'permission-requests/vue-pending-list',
         'PayrollPermissionRequestController@vuePendingList'
     )->name('payroll.permission-requests.vue-pending-list');
+
+    Route::put(
+        'permission-requests/request-approved/{permission_request}',
+        'PayrollPermissionRequestController@approved'
+    );
+    Route::put(
+        'permission-requests/request-rejected/{permission_request}',
+        'PayrollPermissionRequestController@rejected'
+    );
 
 
 
@@ -565,6 +576,12 @@ Route::group([
         ->name('payroll.reports.vacation-bonus-calculations');
         Route::post('vacation-bonus-calculations/create', 'PayrollReportController@create')
         ->name('payroll.reports.vacation-bonus-calculations.create');
+
+        /** Rutas que permiten generar reportes de los registros de prestaciones */
+        Route::get('benefits/benefit-advances', 'PayrollReportController@benefitAdvances')
+        ->name('payroll.reports.benefits.benefit-advances');
+        Route::post('benefits/benefit-advances/create', 'PayrollReportController@create')
+        ->name('payroll.reports.benefits.benefit-advances.create');
 
         Route::post('vue-list', 'PayrollReportController@vueList')
         ->name('payroll.reports.vue-list');

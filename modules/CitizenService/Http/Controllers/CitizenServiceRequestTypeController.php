@@ -41,9 +41,9 @@ class CitizenServiceRequestTypeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'        => ['required', 'max:100'],
-            'description' => ['required', 'max:200'],
-            'requirement' => ['required', 'max:300']
+            'name'        => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:100'],
+            'description' => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:200'],
+            'requirement' => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:300']
         ]);
         $citizenserviceRequestType = CitizenServiceRequestType::create([
             'name'        => $request->name,
@@ -83,9 +83,9 @@ class CitizenServiceRequestTypeController extends Controller
     {
         $citizenserviceRequestType = CitizenServiceRequestType::find($id);
         $this->validate($request, [
-            'name'        => ['required', 'max:100'],
-            'description' => ['required', 'max:200'],
-            'requirement' => ['required', 'max:300']
+            'name'        => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:100'],
+            'description' => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:200'],
+            'requirement' => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:300']
         ]);
         $citizenserviceRequestType->name        = $request->name;
         $citizenserviceRequestType->description = $request->description;

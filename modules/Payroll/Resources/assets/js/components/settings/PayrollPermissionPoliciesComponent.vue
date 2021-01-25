@@ -3,7 +3,7 @@
         <a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
            title="Registros de políticas de perimisos" data-toggle="tooltip"
            @click="addRecord('add_payroll-permission-policies', 'payroll/permission-policies', $event)">
-           <i class="icofont icofont-briefcase-alt-1 ico-3x"></i>
+           <i class="icofont icofont-paper ico-3x"></i>
            <span>Políticas de Permisos</span>
         </a>
         <div class="modal fade text-left" tabindex="-1" role="dialog" id="add_payroll-permission-policies">
@@ -14,7 +14,7 @@
                             <span aria-hidden="true">×</span>
                         </button>
                         <h6>
-                            <i class="icofont icofont-briefcase-alt-1 ico-3x"></i>
+                            <i class="icofont icofont-paper ico-3x"></i>
                             Políticas de Permisos
                         </h6>
                     </div>
@@ -124,7 +124,7 @@
                                         title="Modificar registro" data-toggle="tooltip" type="button">
                                     <i class="fa fa-edit"></i>
                                 </button>
-                                <button @click="deleteRecord(props.index, 'permission-policies')"
+                                <button @click="deleteRecord(props.index, 'payroll/permission-policies')"
                                         class="btn btn-danger btn-xs btn-icon btn-action"
                                         title="Eliminar registro" data-toggle="tooltip"
                                         type="button">

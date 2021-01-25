@@ -38,10 +38,12 @@ class CitizenServiceDepartmentController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required', 'max:100']
+            'name' => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:100'],
+            'description' => ['regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:200'],
         ]);
         $citizenServiceDepartment = CitizenServiceDepartment::create([
-            'name' => $request->name
+            'name' => $request->name,
+            'description' => $request->description
         ]);
         return response()->json(['record' => $citizenServiceDepartment, 'message' => 'Success'], 200);
     }
@@ -73,9 +75,11 @@ class CitizenServiceDepartmentController extends Controller
     {
         $citizenServiceDepartment = CitizenServiceDepartment::find($id);
         $this->validate($request, [
-            'name' => ['required', 'max:100']
+            'name' => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:100'],
+            'description' => ['regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:200'],
         ]);
         $citizenServiceDepartment->name  = $request->name;
+        $citizenServiceDepartment->description  = $request->description;
         $citizenServiceDepartment->save();
         return response()->json(['message' => 'Success'], 200);
     }
