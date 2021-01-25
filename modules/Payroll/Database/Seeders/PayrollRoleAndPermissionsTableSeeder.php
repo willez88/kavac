@@ -634,6 +634,41 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model_prefix' => 'nomina',
                 'slug_alt' => 'profesional.eliminar'
             ],
+            /**
+             * Employment informations
+             */
+            [
+                'name' => 'Ver los datos laborales',
+                'slug' => 'payroll.employments.list',
+                'description' => 'Acceso para ver los datos laborales',
+                'model' => 'Modules\Payroll\Models\PayrollEmployment',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'laboral.ver'
+            ],
+            [
+                'name' => 'Crear datos laborales',
+                'slug' => 'payroll.employments.create',
+                'description' => 'Acceso para crear datos laborales',
+                'model' => 'Modules\Payroll\Models\PayrollEmployment',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'laboral.crear'
+            ],
+            [
+                'name' => 'Editar datos laborales',
+                'slug' => 'payroll.employments.edit',
+                'description' => 'Acceso para editar datos laborales',
+                'model' => 'Modules\Payroll\Models\PayrollEmployment',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'laboral.editar'
+            ],
+            [
+                'name' => 'Eliminar datos laborales',
+                'slug' => 'payroll.employments.delete',
+                'description' => 'Acceso para eliminar datos laborales',
+                'model' => 'Modules\Payroll\Models\PayrollEmployment',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'laboral.eliminar'
+            ],
         ];
 
         foreach ($permissions as $permission) {

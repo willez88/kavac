@@ -217,23 +217,23 @@ Vue.component('payroll-professional', () => import(
 );
 
 /**
- * Componente para mostrar listado de información laboral
+ * Componente para mostrar listado de datos laborales
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-employment-informations-list', () => import(
-    /* webpackChunkName: "payroll-employment-informations-list" */
-    './components/PayrollEmploymentInformationListComponent.vue')
+Vue.component('payroll-employment-list', () => import(
+    /* webpackChunkName: "payroll-employment-list" */
+    './components/PayrollEmploymentListComponent.vue')
 );
 
 /**
- * Componente para registrar o actualizar información laboral
+ * Componente para registrar o actualizar datos laborales
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-employment-information', () => import(
-    /* webpackChunkName: "payroll-employment-information" */
-    './components/PayrollEmploymentInformationComponent.vue')
+Vue.component('payroll-employment', () => import(
+    /* webpackChunkName: "payroll-employment" */
+    './components/PayrollEmploymentComponent.vue')
 );
 
 /**

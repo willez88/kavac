@@ -32,8 +32,8 @@
                 <li class="{!! set_active_menu(['payroll.socioeconomics.index']) !!}">
                     <a href="{{ route('payroll.socioeconomics.index') }}">Datos Socioeconómicos</a>
                 </li>
-                <li class="{!! set_active_menu(['payroll.employment-informations.index']) !!}">
-                    <a href="{{ route('payroll.employment-informations.index') }}">Datos Laborales</a>
+                <li class="{!! set_active_menu(['payroll.employments.index']) !!}">
+                    <a href="{{ route('payroll.employments.index') }}">Datos Laborales</a>
                 </li>
             </ul>
         </li>

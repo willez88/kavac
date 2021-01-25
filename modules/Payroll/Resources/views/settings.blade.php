@@ -9,7 +9,7 @@
 @stop
 
 @section('maproute-actual')
-	{{ __('Nómina') }}
+	{{ __('Talento Humano') }}
 @stop
 
 @section('maproute-title')

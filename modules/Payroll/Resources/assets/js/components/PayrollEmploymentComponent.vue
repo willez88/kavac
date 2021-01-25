@@ -158,7 +158,7 @@
 							title="Cancelar y regresar" @click="redirect_back(route_list)">
 						<i class="fa fa-ban"></i>
 					</button>
-	                <button type="button" @click="createRecord('payroll/employment-informations')"
+	                <button type="button" @click="createRecord('payroll/employments')"
 	                	class="btn btn-success btn-icon btn-round">
 	                	<i class="fa fa-save"></i>
 		            </button>
@@ -172,7 +172,7 @@
 <script>
 	export default {
 		props: {
-			payroll_employment_information_id: Number,
+			payroll_employment_id: Number,
 		},
 		data() {
 			return {
@@ -182,6 +182,7 @@
 					institution_id: '',
 					start_date_apn: '',
 					start_date: '',
+					end_date: '',
 					active: '',
 					payroll_inactivity_type_id: '',
 					institution_email: '',
@@ -207,10 +208,10 @@
 		},
 		methods: {
 
-			getEmploymentInformation() {
+			getEmployment() {
 				let vm = this;
 				axios.get(
-					`/payroll/employment-informations/${vm.payroll_employment_information_id}`
+					`/payroll/employments/${vm.payroll_employment_id}`
 				).then(response => {
 					vm.record = response.data.record;
 					vm.record.institution_id = response.data.record.department.institution_id;
@@ -225,6 +226,7 @@
 					payroll_staff_id: '',
 					start_date_apn: '',
 					start_date: '',
+					end_date: '',
 					active: false,
 					payroll_inactivity_type_id: '',
 					institution_email: '',
@@ -259,8 +261,8 @@
 			this.getInstitutions();
 		},
 		mounted() {
-			if(this.payroll_employment_information_id) {
-				this.getEmploymentInformation();
+			if(this.payroll_employment_id) {
+				this.getEmployment();
 			}
 			this.switchHandler('active');
 		},

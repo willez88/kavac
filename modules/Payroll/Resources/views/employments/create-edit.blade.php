@@ -9,7 +9,7 @@
 @stop
 
 @section('maproute-actual')
-	Nómina
+	Talento Humano
 @stop
 
 @section('maproute-title')
@@ -19,8 +19,8 @@
 @section('content')
 	<div class="row">
 		<div class="col-12">
-			<payroll-employment-information :payroll_employment_information_id="{!! (isset($payrollEmploymentInformation)) ? $payrollEmploymentInformation->id : "null" !!}">
-            </payroll-employment-information>
+			<payroll-employment :payroll_employment_id="{!! (isset($payrollEmployment)) ? $payrollEmployment->id : "null" !!}">
+            </payroll-employment>
 		</div>
 	</div>
 @stop
