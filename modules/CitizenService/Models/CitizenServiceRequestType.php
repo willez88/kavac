@@ -27,4 +27,15 @@ class CitizenServiceRequestType extends Model implements Auditable
     protected $fillable = [
         'name', 'description', 'requirement'
     ];
+
+    /**
+     * Método que obtiene un tipo de solicitud asociado a muchas solicitudes
+     *
+     * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function citizenServiceRequests()
+    {
+        return $this->hasMany(CitizenServiceRequest::class);
+    }
 }

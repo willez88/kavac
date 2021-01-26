@@ -39,7 +39,7 @@ class CitizenServiceRegisterController extends Controller
     {
         $this->validate($request, [
             'date_register' => ['required'],
-            'first_name'    => ['required', 'max:100'],
+            'first_name'    => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:100'],
             'project_name'  => ['required', 'max:100'],
             'activities'    => ['required', 'max:100'],
             'start_date'    => ['required','date'],
@@ -92,7 +92,7 @@ class CitizenServiceRegisterController extends Controller
         $citizenServiceRegister = CitizenServiceRegister::find($id);
         $this->validate($request, [
             'date_register'              => ['required'],
-            'first_name'                 => ['required', 'max:100'],
+            'first_name'                 => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:100'],
             'project_name'               => ['required', 'max:100'],
             'activities'                 => ['required', 'max:100'],
             'start_date'                 => ['required','date'],

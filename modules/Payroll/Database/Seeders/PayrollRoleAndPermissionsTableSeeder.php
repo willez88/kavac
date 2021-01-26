@@ -468,33 +468,6 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'slug_alt' => 'tipo.sector.eliminar'
             ],
             /**
-             * Employment informations
-             */
-            [
-                'name' => 'Ver los datos de información laboral', 'slug' => 'payroll.employment.informations.list',
-                'description' => 'Acceso para ver los datos de información laboral',
-                'model' => 'Modules\Payroll\Models\PayrollEmploymentInformation', 'model_prefix' => 'nomina',
-                'slug_alt' => 'informacion.laboral.ver'
-            ],
-            [
-                'name' => 'Crear datos de información laboral', 'slug' => 'payroll.employment.informations.create',
-                'description' => 'Acceso para crear datos de información laboral',
-                'model' => 'Modules\Payroll\Models\PayrollEmploymentInformation', 'model_prefix' => 'nomina',
-                'slug_alt' => 'informacion.laboral.crear'
-            ],
-            [
-                'name' => 'Editar datos de información laboral', 'slug' => 'payroll.employment.informations.edit',
-                'description' => 'Acceso para editar datos de información laboral',
-                'model' => 'Modules\Payroll\Models\PayrollEmploymentInformation', 'model_prefix' => 'nomina',
-                'slug_alt' => 'informacion.laboral.editar'
-            ],
-            [
-                'name' => 'Eliminar datos de información laboral', 'slug' => 'payroll.employment.informations.delete',
-                'description' => 'Acceso para eliminar datos de información laboral',
-                'model' => 'Modules\Payroll\Models\PayrollEmploymentInformation', 'model_prefix' => 'nomina',
-                'slug_alt' => 'informacion.laboral.eliminar'
-            ],
-            /**
              * driver licenses
              */
             [
@@ -633,6 +606,41 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollProfessional',
                 'model_prefix' => 'nomina',
                 'slug_alt' => 'profesional.eliminar'
+            ],
+            /**
+             * Employments
+             */
+            [
+                'name' => 'Ver los datos laborales',
+                'slug' => 'payroll.employments.list',
+                'description' => 'Acceso para ver los datos laborales',
+                'model' => 'Modules\Payroll\Models\PayrollEmployment',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'laboral.ver'
+            ],
+            [
+                'name' => 'Crear datos laborales',
+                'slug' => 'payroll.employments.create',
+                'description' => 'Acceso para crear datos laborales',
+                'model' => 'Modules\Payroll\Models\PayrollEmployment',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'laboral.crear'
+            ],
+            [
+                'name' => 'Editar datos laborales',
+                'slug' => 'payroll.employments.edit',
+                'description' => 'Acceso para editar datos laborales',
+                'model' => 'Modules\Payroll\Models\PayrollEmployment',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'laboral.editar'
+            ],
+            [
+                'name' => 'Eliminar datos laborales',
+                'slug' => 'payroll.employments.delete',
+                'description' => 'Acceso para eliminar datos laborales',
+                'model' => 'Modules\Payroll\Models\PayrollEmployment',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'laboral.eliminar'
             ],
         ];
 

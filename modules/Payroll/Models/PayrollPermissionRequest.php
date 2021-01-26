@@ -28,4 +28,21 @@ class PayrollPermissionRequest extends Model implements Auditable
         'status', 'date', 'payroll_staff_id', 'payroll_permission_policy_id', 'start_date',
         'end_date', 'day_permission', 'motive_permission',
     ];
+
+    /**
+     * Método que obtiene la información del trabajador asociado a la solicitud de permiso
+     *
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function payrollStaff()
+    {
+        return $this->belongsTo(PayrollStaff::class);
+    }
+
+    public function payrollPermissionPolicy()
+    {
+        return $this->belongsTo(PayrollPermissionPolicy::class);
+    }
 }

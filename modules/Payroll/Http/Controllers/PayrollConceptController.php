@@ -170,13 +170,13 @@ class PayrollConceptController extends Controller
             ],
             [
                 'id'    => 'staff_according_instruction_degree',
-                'name'  => 'Trabajadores de acuerdo su nivel de instrucción',
+                'name'  => 'Trabajadores de acuerdo a su nivel de instrucción',
                 'model' => 'Modules\Payroll\Models\PayrollInstructionDegree',
                 'type'  => 'list'
             ],
             [
                 'id'    => 'staff_according_antiquity_years',
-                'name'  => 'Trabajadores de acuerdo sus años de antiguedad',
+                'name'  => 'Trabajadores de acuerdo a sus años de antiguedad',
                 'model' => 'Modules\Payroll\Models\PayrollStaff',
                 'type'  => 'range'
             ],

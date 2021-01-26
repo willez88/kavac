@@ -30,7 +30,7 @@
                 </div>
                 <div class="card-body">
                     <payroll-permission-request-list
-                        route_list="{{ url('payroll/permision-requests/vue-list') }}"
+                        route_list="{{ url('payroll/permission-requests/vue-list') }}"
                         route_edit="{{ url('payroll/permission-requests/edit/{id}') }}"
                         route_delete="{{ url('payroll/permission-requests/delete') }}">
                     </payroll-permission-request-list>

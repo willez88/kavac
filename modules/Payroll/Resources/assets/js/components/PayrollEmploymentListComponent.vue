@@ -24,7 +24,7 @@
                 <span v-else>NO</span>
             </div>
     	</v-client-table>
-        <div class="modal fade" tabindex="-1" role="dialog" id="show_employment_information">
+        <div class="modal fade" tabindex="-1" role="dialog" id="show_employment">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -64,7 +64,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Fecha de egreso de la institución</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
+                                    <input type="date" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="end_date">
                                 </div>
                             </div>
@@ -185,12 +185,12 @@
             },
 
             show_info(id) {
-                axios.get('/payroll/employment-informations/' + id).then(response => {
+                axios.get('/payroll/employments/' + id).then(response => {
 					this.record = response.data.record;
                     $('#payroll_staff').val(this.record.payroll_staff.first_name + ' ' + this.record.payroll_staff.last_name);
                     $('#start_date_apn').val(this.record.start_date_apn);
                     $('#start_date').val(this.record.start_date);
-                    $('#start_end').val(this.record.start_end);
+                    $('#end_date').val(this.record.end_date);
                     (this.record.active) ? $('#active').bootstrapSwitch('state', true) : $('#active').bootstrapSwitch('state', false);
                     $('#payroll_inactivity_type').val( (this.record.payroll_inactivity_type) ? this.record.payroll_inactivity_type.name : ' ' );
                     $('#institution_email').val(this.record.institution_email);
@@ -202,7 +202,7 @@
                     $('#department').val(this.record.department.name);
                     $('#payroll_contract_type').val(this.record.payroll_contract_type.name);
 				});
-                $('#show_employment_information').modal('show');
+                $('#show_employment').modal('show');
             }
         }
     };

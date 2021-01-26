@@ -32,8 +32,8 @@
                 <li class="{!! set_active_menu(['payroll.socioeconomics.index']) !!}">
                     <a href="{{ route('payroll.socioeconomics.index') }}">Datos Socioeconómicos</a>
                 </li>
-                <li class="{!! set_active_menu(['payroll.employment-informations.index']) !!}">
-                    <a href="{{ route('payroll.employment-informations.index') }}">Datos Laborales</a>
+                <li class="{!! set_active_menu(['payroll.employments.index']) !!}">
+                    <a href="{{ route('payroll.employments.index') }}">Datos Laborales</a>
                 </li>
             </ul>
         </li>
@@ -46,12 +46,15 @@
         <li>
             <a href="javascript:void(0)" data-toggle="tooltip" data-placement="right"
                 title="Gestiona las solicitudes de vacaciones, prestaciones y constancias.">Solicitudes</a>
-            <ul class="submenu" style="{!! display_submenu(['vacation-requests', 'benefits-requests']) !!}">
+            <ul class="submenu" style="{!! display_submenu(['vacation-requests', 'benefits-requests', 'permission-requests']) !!}">
                 <li class="{!! set_active_menu(['payroll.vacation-requests.index']) !!}">
                     <a href="{{ route('payroll.vacation-requests.index') }}">Solicitud de vacaciones</a>
                 </li>
                 <li class="{!! set_active_menu(['payroll.benefits-requests.index']) !!}">
                     <a href="{{ route('payroll.benefits-requests.index') }}">Solicitud de prestaciones</a>
+                </li>
+                <li class="{!! set_active_menu(['payroll.permission-requests.index']) !!}">
+                    <a href="{{ route('payroll.permission-requests.index') }}">Solicitud de permisos</a>
                 </li>
             </ul>
 
@@ -81,7 +84,17 @@
                     </a>
                 </li>
                 <li><a href="#">Pago de bono vacacional</a></li>
+                <!--
+                <li title="Reporte de acumulado de prestaciones sociales"
+                    data-toggle="tooltip" data-placement="right"
+                    class="{!! set_active_menu('payroll.reports.benefits.benefit-advances') !!}">
+                    <a href="{{ route('payroll.reports.benefits.benefit-advances') }}">
+                        Acumulado de prestaciones sociales
+                    </a>
+                </li> -->
+
             </ul>
+
         </li>
     </ul>
 </li>

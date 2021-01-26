@@ -1,32 +1,30 @@
 <?php
-
+/** [descripción del namespace] */
 namespace Modules\Payroll\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
- * @class PayrollEmploymentInformation
- * @brief Datos de información laboral del trabajador
+ * @class PayrollEmployment
+ * @brief Datos laborales del trabajador
  *
- * Gestiona el modelo de información laboral
+ * Gestiona el modelo de datos laborales
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class PayrollEmploymentInformation extends Model implements Auditable
+class PayrollEmployment extends Model implements Auditable
 {
     use SoftDeletes;
     use AuditableTrait;
     use ModelsTrait;
 
-    protected $table = 'payroll_employment_informations';
     /**
      * Lista de atributos de relacion consultados automáticamente
      * @var array $with
@@ -41,17 +39,16 @@ class PayrollEmploymentInformation extends Model implements Auditable
 
     /**
      * Lista de atributos que pueden ser asignados masivamente
-     *
      * @var array $fillable
      */
     protected $fillable = [
-        'active', 'payroll_inactivity_type', 'start_date_apn', 'start_date', 'end_date', 'institution_email',
-        'function_description', 'payroll_position_type_id', 'payroll_position_id', 'deparment_id',
-        'payroll_staff_type_id', 'payroll_contract_type_id', 'payroll_staff_id', 'payroll_role_id'
+        'active', 'start_date_apn', 'start_date', 'end_date', 'institution_email', 'function_description',
+        'payroll_inactivity_type_id', 'payroll_position_type_id', 'payroll_position_id', 'deparment_id',
+        'payroll_staff_type_id', 'payroll_contract_type_id', 'payroll_staff_id'
     ];
 
     /**
-     * Método que obtiene la información laboral del trabajador que está asociada a muchas organizaciones
+     * Método que obtiene el dato laboral del trabajador que está asociada a muchas organizaciones
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -62,7 +59,7 @@ class PayrollEmploymentInformation extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la información laboral del trabajador asociado a una información personal del mismo
+     * Método que obtiene el dato laboral del trabajador asociado a un dato personal del mismo
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -73,7 +70,7 @@ class PayrollEmploymentInformation extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la información laboral del trabajador asociada a un tipo de inactividad
+     * Método que obtiene el dato laboral del trabajador asociado a un tipo de inactividad
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -84,7 +81,7 @@ class PayrollEmploymentInformation extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la información laboral del trabajador asociada a un tipo de cargo
+     * Método que obtiene el dato laboral del trabajador asociado a un tipo de cargo
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -95,7 +92,7 @@ class PayrollEmploymentInformation extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la información laboral del trabajador asociada a un cargo
+     * Método que obtiene el dato laboral del trabajador asociado a un cargo
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -106,7 +103,7 @@ class PayrollEmploymentInformation extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la información laboral del trabajador asociada a un departamento
+     * Método que obtiene el dato laboral del trabajador asociado a un departamento
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -117,7 +114,7 @@ class PayrollEmploymentInformation extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la información laboral del trabajador asociada a un tipo de personal
+     * Método que obtiene el dato laboral del trabajador asociado a un tipo de personal
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -128,7 +125,7 @@ class PayrollEmploymentInformation extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la información laboral del trabajador asociada a un tipo de contrato
+     * Método que obtiene el dato laboral del trabajador asociado a un tipo de contrato
      *
      * @author  William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

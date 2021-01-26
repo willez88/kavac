@@ -34,14 +34,15 @@
 				<div class="col-md-4">
 					<div class="form-group is-required">
 						<label for="date">Fecha de Solicitud</label>
-						<input type="text" readonly id="date" class="form-control input-sm" data-toggle="tooltip"
+						<input type="date" readonly data-toggle="tooltip"
+							   id="date" class="form-control input-sm"
 							   title="Indique la fecha de solicitud" v-model="record.date">
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group is-required">
 						<label for="payrollStaff">Trabajador</label>
-						<select2 :options="payrollStaffs"
+						<select2 :options="payroll_staffs"
 								  @input="getPayrollStaff()"
 								  v-model="record.payroll_staff_id"></select2>
                     </div>
@@ -53,21 +54,21 @@
 					</div>
 				</div>
             </div>
-
+			<label>Periodo del Permiso</label>
 			<div class="row">
-				<label>Periodo del Permiso</label>
-				<div class="col-md-4 offset-2">
+				<div class="col-md-4">
 					<div class="form-group">
 						<label>Desde:</label>
 						<div class="input-group input-sm">
 							<span class="input-group-addon">
 								<i class="now-ui-icons ui-1_calendar-60"></i>
 							</span>
-							<input type="date" data-toggle="tooltip" title="Indique la fecha minima de busqueda"
+							<input type="date" id="start_date" @input="getcalculate()" data-toggle="tooltip" title="Indique la fecha de inicio del permiso"
 								   class="form-control input-sm" v-model="record.start_date">
 						</div>
 					</div>
 				</div>
+
 				<div class="col-md-4">
 					<div class="form-group">
 						<label>Hasta:</label>
@@ -75,7 +76,7 @@
 							<span class="input-group-addon">
 								<i class="now-ui-icons ui-1_calendar-60"></i>
 							</span>
-							<input type="date" data-toggle="tooltip" title="Indique la fecha maxima de busqueda"
+							<input type="date" id="end_date" @input="getcalculate()" data-toggle="tooltip" title="Indique la fecha final del permiso"
 								   class="form-control input-sm" v-model="record.end_date">
 						</div>
 					</div>
@@ -88,14 +89,15 @@
 				    </div>
 				</div>
 			</div>
+			<div class="row">
 				<div class="col-md-4">
-					<div class="form-group is-required">
-						<label for="motive_permission">Motivo del permiso</label>
-    					<input type="text" id="motive_permissiont" class="form-control input-sm" data-toggle="tooltip"
-                               title="Indique el motivo del permiso" v-model="record.motive_permission">
+				    <div class="form-group is-required">
+					<label for="motive_permission">Motivo del permiso</label>
+    				<input type="text" id="motive_permission" class="form-control input-sm" data-toggle="tooltip"
+                        title="Indique el motivo del permiso" v-model="record.motive_permission">
 				    </div>
 				</div>
-
+			</div>
 		</div>
 
 		<div class="card-footer text-right">
@@ -108,7 +110,7 @@
                         title="Cancelar y regresar">
                     <i class="fa fa-ban"></i>
             </button>
-			<button type="button"  @click="createRecord('citizenservice/requests')" title="Guardar registro"
+			<button type="button"  @click="createRecord('payroll/permission-requests')" title="Guardar registro"
                     class="btn btn-success btn-icon btn-round btn-modal-save">
         			<i class="fa fa-save"></i>
             </button>
@@ -138,6 +140,17 @@
 			}
 		},
 		methods: {
+			loadForm(id){
+				const vm = this;
+
+	            axios.get('/payroll/permission-requests/vue-info/'+id).then(response => {
+	                if(typeof(response.data.record != "undefined")){
+						vm.record = response.data.record;
+
+	                }
+	            });
+				console.log(id);
+			},
 			/**
 			 * Método que borra todos los datos del formulario
 			 *
@@ -165,10 +178,54 @@
                         vm.payrollPermissionPolicy = field['text'];
                     }
                 });
-            }
+            },
+
+			getPayrollStaff() {
+                const vm = this;
+                $.each(vm.payroll_staffs, function(index, field) {
+                    if (field['id'] == '') {
+                        vm.payrollStaff = '';
+                    } else if (field['id'] == vm.record.payroll_staff_id) {
+                        vm.payrollStaff = field['text'];
+                    }
+                });
+            },
+
+			getcalculate(){
+				const vm = this;
+		    	// Creo una fecha
+		    	let start_date = new Date(document.getElementById('start_date').value.replaceAll('-', '/'));
+		    	let end_date   = new Date(document.getElementById('end_date').value.replaceAll('-', '/'));
+
+		    	let diff = end_date.getTime() - start_date.getTime()
+		    	let dias = diff/(1000*60*60*24) + 1
+		    	let cont = 0;
+		    	// (1000*60*60*24) --> milisegundos -> segundos -> minutos -> horas -> días
+		    	// Nuestro método para restar Sábados y Domingos
+
+		    	const sumarLaborables = (f, n) => {
+		      		for(var i=0; i<n; i++) {
+		        		f.setTime( f.getTime() + (1000*60*60*24) );
+		        		if( (f.getDay()==6) || (f.getDay()==0) )  // sábado o domingo
+		        		dias--;                                   // hacemos el bucle una unidad mas larga.
+		      		}
+		    	}
+
+		    	sumarLaborables(start_date, dias);
+		    	vm.record.day_permission = dias;
+				console.log(dias);
+			},
 		},
+
 		mounted() {
-			//
+			const vm = this;
+			if(this.requestid){
+				this.loadForm(this.requestid);
+			}
+			else {
+	            vm.record.date = moment(String(new Date())).format('YYYY-MM-DD');
+	        }
+
 		},
 		props: {
 			requestid: {
@@ -178,7 +235,7 @@
 		created() {
 			const vm = this;
 			vm.getPayrollStaffs();
-			vm.getPayrollPermissionPolicies()
+			vm.getPayrollPermissionPolicies();
 		},
 	};
 </script>

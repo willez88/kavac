@@ -54,13 +54,16 @@ class PayrollReportController extends Controller
         $pdf = new ReportRepository();
         $filename = 'payroll-report-' . Carbon::now() . '.pdf';
 
-        $body = ($request->current == 'vacation-enjoyment-summaries')
-                    ? 'payroll::pdf.payroll-vacation-enjoyment-summaries'
-                    : ($request->current == 'vacation-status')
-                        ? 'payroll::pdf.payroll-vacation-status'
-                        : ($request->current == 'registers')
-                            ? 'payroll::pdf.payroll-registers'
-                            : '';
+        if ($request->current == 'vacation-enjoyment-summaries') {
+            $body = 'payroll::pdf.payroll-vacation-enjoyment-summaries';
+        } elseif ($request->current == 'vacation-status') {
+            $body= 'payroll::pdf.payroll-vacation-status';
+        } elseif ($request->current == 'registers') {
+            $body = 'payroll::pdf.payroll-registers';
+        } else {
+            $body = '';
+        }
+
         $pdf->setConfig(
             [
                 'institution' => $institution,
@@ -118,6 +121,11 @@ class PayrollReportController extends Controller
     public function vacationBonusCalculations()
     {
         return view('payroll::reports.payroll-report-vacation-bonus-calculations');
+    }
+
+    public function benefitsAdvance()
+    {
+        return view('payroll::reports.benefits.payroll-report-benefit-advances');
     }
 
     /**

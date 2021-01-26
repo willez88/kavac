@@ -18,14 +18,14 @@ use App\Models\Department as BaseDepartment;
 class Department extends BaseDepartment
 {
     /**
-     * Método que obtiene el departamento asociado a muchas informaciones laborales del trabajador
+     * Método que obtiene el departamento asociado a muchos datos laborales del trabajador
      *
      * @author    William Páez <wpaez@cenditel.gob.ve>
      * @return    \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function payrollEmploymentInformations()
+    public function payrollEmployments()
     {
-        return $this->hasMany(PayrollEmploymentInformation::class);
+        return $this->hasMany(PayrollEmployment::class);
     }
 
     /**

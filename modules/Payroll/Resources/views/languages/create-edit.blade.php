@@ -9,7 +9,7 @@
 @stop
 
 @section('maproute-actual')
-	Nómina
+	Talento Humano
 @stop
 
 @section('maproute-title')

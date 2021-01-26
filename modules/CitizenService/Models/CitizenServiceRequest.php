@@ -73,12 +73,23 @@ class CitizenServiceRequest extends Model implements Auditable
     /**
      * Método que obtiene la solicitud asociado a un departamento
      *
-     * @author
+     * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function citizenServiceDepartment()
     {
         return $this->belongsTo(CitizenServiceDepartment::class);
+    }
+
+    /**
+     * Método que obtiene la solicitud asociado a un tipo de solicitud
+     *
+     * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function citizenServiceRequestType()
+    {
+        return $this->belongsTo(CitizenServiceRequestType::class);
     }
 
     /**

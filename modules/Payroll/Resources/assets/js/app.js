@@ -217,23 +217,23 @@ Vue.component('payroll-professional', () => import(
 );
 
 /**
- * Componente para mostrar listado de información laboral
+ * Componente para mostrar listado de datos laborales
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-employment-informations-list', () => import(
-    /* webpackChunkName: "payroll-employment-informations-list" */
-    './components/PayrollEmploymentInformationListComponent.vue')
+Vue.component('payroll-employment-list', () => import(
+    /* webpackChunkName: "payroll-employment-list" */
+    './components/PayrollEmploymentListComponent.vue')
 );
 
 /**
- * Componente para registrar o actualizar información laboral
+ * Componente para registrar o actualizar datos laborales
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-employment-information', () => import(
-    /* webpackChunkName: "payroll-employment-information" */
-    './components/PayrollEmploymentInformationComponent.vue')
+Vue.component('payroll-employment', () => import(
+    /* webpackChunkName: "payroll-employment" */
+    './components/PayrollEmploymentComponent.vue')
 );
 
 /**
@@ -477,6 +477,14 @@ Vue.component('payroll-report-vacation-bonus-calculations', () => import(
 );
 
 /**
+ * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
+ */
+Vue.component('payroll-report-benefit-advances', () => import(
+    /* webpackChunkName: "payroll-report-advance-benefits" */
+    './components/reports/benefits/PayrollReportBenefitAdvancesComponent.vue')
+);
+
+/**
  * Componente para gestionar políticas de permisos
  * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
  */
@@ -491,6 +499,33 @@ Vue.component('payroll-permission-policies', () => import(
 Vue.component('payroll-permission-request-create', () => import(
    /* webpackChunkName: "payroll-permission-policies" */
     './components/requests/permissions/PayrollPermissionRequestCreateComponent.vue')
+);
+/**
+ * Componente para mostrar el listado de las solicitudes de permisos
+ *
+ * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
+ */
+Vue.component('payroll-permission-request-list', () => import(
+    /* webpackChunkName: "payroll-permission-request-list" */
+    './components/requests/permissions/PayrollPermissionRequestListComponent.vue')
+);
+/**
+ * Componente que muestra información del permiso
+ *
+ * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
+ */
+Vue.component('payroll-permission-request-info', () => import(
+    /* webpackChunkName: "payroll-permission-request-info" */
+    './components/requests/permissions/PayrollPermissionRequestInfoComponent.vue')
+);
+/**
+ * Componente para mostrar el listado de las solicitudes de permisos pendientes
+ *
+ * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
+ */
+Vue.component('payroll-permission-request-pending-list', () => import(
+    /* webpackChunkName: "payroll-permission-request-pending-list" */
+    './components/requests/permissions/PayrollPermissionRequestPendingListComponent.vue')
 );
 
 

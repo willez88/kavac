@@ -24,7 +24,7 @@ class CitizenServiceDepartment extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'name'
+        'name', 'description'
     ];
 
     /**
