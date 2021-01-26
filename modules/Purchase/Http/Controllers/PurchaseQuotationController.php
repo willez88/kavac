@@ -111,44 +111,22 @@ class PurchaseQuotationController extends Controller
 			'subtotal'                => $request->subtotal,
 		]);
 
-		/////// Se guarda el archivo 1  ///////
-		$document = new UploadDocRepository();
-		$name = $request['file_1']->getClientOriginalName();
-		$docs = Document::where('file', ($name))->get()->count();
 
-		$document->uploadDoc(
-			$request['file_1'],
-			'documents',
-			PurchaseQuotation::class,
-			$purchase_quotation->id,
-			null
-		);
+		/////// Se guardan los archivos  ///////
+		$names_file = ['file_1','file_2','file_3',];
+		foreach ($names_file as $name_file_in_request) {
+			$document = new UploadDocRepository();
+			$name = $request[$name_file_in_request]->getClientOriginalName();
+			$docs = Document::where('file', ($name))->get()->count();
 
-		/////// Se guarda el archivo 2 ///////
-		$document = new UploadDocRepository();
-		$name = $request['file_2']->getClientOriginalName();
-		$docs = Document::where('file', ($name))->get()->count();
-
-		$document->uploadDoc(
-			$request['file_2'],
-			'documents',
-			PurchaseQuotation::class,
-			$purchase_quotation->id,
-			null
-		);
-
-		/////// Se guarda el archivo 3 ///////
-		$document = new UploadDocRepository();
-		$name = $request['file_3']->getClientOriginalName();
-		$docs = Document::where('file', ($name))->get()->count();
-
-		$document->uploadDoc(
-			$request['file_3'],
-			'documents',
-			PurchaseQuotation::class,
-			$purchase_quotation->id,
-			null
-		);
+			$document->uploadDoc(
+				$request[$name_file_in_request],
+				'documents',
+				PurchaseQuotation::class,
+				$purchase_quotation->id,
+				null
+			);
+		}
 
 		foreach (json_decode($request['base_budget_list'], true) as $record) {
 			$base_budget = PurchaseBaseBudget::with('purchaseRequirement')->find($record['id']);

@@ -8,6 +8,8 @@ use Illuminate\Routing\Controller;
 use App\Models\CodeSetting;
 use App\Rules\CodeSetting as CodeSettingRule;
 use Modules\Purchase\Models\PurchaseRequirement;
+use Modules\Purchase\Models\PurchaseQuotation;
+use Modules\Purchase\Models\PurchaseStates;
 
 class PurchaseSettingController extends Controller
 {
@@ -37,6 +39,8 @@ class PurchaseSettingController extends Controller
         $rqCode = $codeSettings->where('table', 'purchase_requirements')->first();
         /** @var object Contiene información sobre la configuración de código para la cotización */
         $quCode = $codeSettings->where('table', 'purchase_quotations')->first();
+        /** @var object Contiene información sobre la configuración de código para pre-compromisos */
+        $esCode = $codeSettings->where('table', 'purchase_states')->first();
         /** @var object Contiene información sobre la configuración de código para la acta */
         $miCode = $codeSettings->where('table', 'purchase_minutes')->first();
         /** @var object Contiene información sobre la configuración de código para la orden de compra */
@@ -46,7 +50,7 @@ class PurchaseSettingController extends Controller
         /** @var object Contiene información sobre la configuración de código para el reintegro */
         $reCode = $codeSettings->where('table', 'purchase_refunds')->first();
 
-        return view('purchase::settings', compact('rqCode', 'quCode', 'miCode', 'buCode', 'soCode', 'reCode'));
+        return view('purchase::settings', compact('rqCode', 'quCode', 'esCode', 'miCode', 'buCode', 'soCode', 'reCode'));
     }
 
     /**
@@ -69,6 +73,7 @@ class PurchaseSettingController extends Controller
         $request->validate([
             'requirements_code'   => [new CodeSettingRule],
             'quotations_code'     => [new CodeSettingRule],
+            'compromises_code'    => [new CodeSettingRule],
             'minutes_code'        => [new CodeSettingRule],
             'buy-orders_code'     => [new CodeSettingRule],
             'service-orders_code' => [new CodeSettingRule],
@@ -93,6 +98,9 @@ class PurchaseSettingController extends Controller
                         break;
                     case 'quotations':
                         $model = PurchaseQuotation::class;
+                        break;
+                    case 'states':
+                        $model = PurchaseStates::class;
                         break;
                     /*case 'minutes':
                         $model = PurchaseMinute::class;
