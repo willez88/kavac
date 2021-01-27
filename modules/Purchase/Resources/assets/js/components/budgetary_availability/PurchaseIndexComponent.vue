@@ -391,31 +391,29 @@ export default{
 			const vm = this;
 			url = (!url.includes('http://') || !url.includes('http://'))
 				  ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
-			else {
-				vm.loading = true;
-				axios.post(url, vm.record).then(response => {
-					if(response.data.error){
-						vm.errors.push(response.data.error);
-					}
-					else {
-						vm.errors = [];
-						vm.loading = false;
-						vm.showMessage('store');
-						location.href = window.app_url;
-					}
-				}).catch(error => {
+			vm.loading = true;
+			axios.post(url, vm.record).then(response => {
+				if(response.data.error){
+					vm.errors.push(response.data.error);
+				}
+				else {
 					vm.errors = [];
-					if (typeof(error.response) !="undefined") {
-						for (var index in error.response.data.errors) {
-							if (error.response.data.errors[index]) {
-								vm.errors.push(error.response.data.errors[index][0]);
-							}
+					vm.loading = false;
+					vm.showMessage('store');
+					location.href = window.app_url;
+				}
+			}).catch(error => {
+				vm.errors = [];
+				if (typeof(error.response) !="undefined") {
+					for (var index in error.response.data.errors) {
+						if (error.response.data.errors[index]) {
+							vm.errors.push(error.response.data.errors[index][0]);
 						}
 					}
+				}
 
-					vm.loading = false;
-				});
-			}
+				vm.loading = false;
+			});
 
 		},
 	}
