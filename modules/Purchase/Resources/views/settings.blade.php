@@ -93,7 +93,7 @@
 									) !!}
 								</div>
 							</div>
-							@if((Module::has('Budget') || Module::isEnabled('Budget')))
+							@if(!(Module::has('Budget') || !Module::isEnabled('Budget')))
 							<div class="col-md-4">
 								<div class="form-group">
 									{!! Form::label('states_code', 'Código de estados', []) !!}
