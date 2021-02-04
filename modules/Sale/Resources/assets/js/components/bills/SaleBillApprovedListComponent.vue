@@ -17,7 +17,14 @@
                     :route_list="'/sale/bills/info/'+ props.row.id">
                 </sale-bill-info>
 
-                
+                <a class="btn btn-primary btn-xs btn-icon"
+                        :href="'/sale/bills/pdf/'+props.row.id"
+                        title="Emitir factura"
+                        data-toggle="tooltip"
+                        target="_blank">
+                        <i class="fa fa-print" style="text-align: center;"></i>
+                </a>
+
             </div>
         </div>
     </v-client-table>
