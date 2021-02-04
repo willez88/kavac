@@ -9,7 +9,7 @@ Para el ingreso a esta funcionalidad el usuario se dirige a la opción **Contabi
 
 ##Libros contables
 
-El sistema de gestión de recursos KAVAC, cuenta con la generación de reportes para tres libros contables: libro diario, mayor analítico, y libro auxiliar. A través de estos reportes es posible obtener una sucesión de asientos contables ordenados de forma cronológica, un resumen de cuentas anotando todos los movimientos que afecten al debe, haber y saldo de la cuenta correspondiente, de la misma forma un resumen de las operaciones económicas registradas por cada cuenta.
+El KAVAC ‘Sistema de Gestión de Recursos’, cuenta con la generación de reportes para tres (3) libros contables: libro diario, mayor analítico, y libro auxiliar. A través de estos reportes es posible obtener una sucesión de asientos contables ordenados de forma cronológica, así como también un resumen de cuentas, anotando todos los movimientos que afecten al debe, haber y saldo de la cuenta correspondiente, de la misma forma un resumen de las operaciones económicas registradas por cada cuenta.
 
 ###Generar reporte de libro diario
 
@@ -37,11 +37,11 @@ El sistema de gestión de recursos KAVAC, cuenta con la generación de reportes 
 
 ##Estados financieros
 
-Mediante esta funcionalidad se visualizará informes financieros o estados contables que muestran la estructura económica de la organización, donde se plasman las actividades económicas que se realizan en la empresa durante un determinado periodo.   El sistema de gestión de recursos KAVAC, cuenta con la generación de reportes para 3 estados financieros: balance general, estado de resultados y balance de comprobación. 
+Mediante esta funcionalidad se visualizará informes financieros o estados contables que muestran la estructura económica de la organización, donde se plasman las actividades económicas que se realizan en la empresa durante un determinado periodo.   El KAVAC ‘Sistema de Gestión de Recursos’, cuenta con la generación de reportes para tres (3) estados financieros: balance general, estado de resultados y balance de comprobación. 
 
 ###Generar reporte de balance de comprobación 
 
-El reporte de balance de comprobación es un instrumento financiero que se utiliza para visualizar la lista del total de los debitos y de los créditos de las cuentas, junto al saldo de cada una de ellas (ya sea deudor o acreedor). De esta forma, permite establecer un resumen básico de un estado financiero. 
+El reporte de balance de comprobación es un instrumento financiero que se utiliza para visualizar la lista del total de los débitos y de los créditos de las cuentas, junto al saldo de cada una de ellas (ya sea deudor o acreedor). De esta forma, permite establecer un resumen básico de un estado financiero. 
 
 Para generar un reporte de balance de comprobación es necesario:
  
@@ -65,9 +65,9 @@ Para generar un reporte de estado de resultados es necesario:
 
 !!! note "Nota"
 
-	Al seleccionar los parámetros de búsqueda, el sistema permite elegir diferentes niveles de consulta a tráves del campo **Nivel de consulta**.  El sistema permite elegir seis niveles de consultas que definen las cuentas a mostrar.  Cada nivel incorpora las cuentas hijo, de esta forma el nivel uno muestra las cuentas patrimoniales como cuentas principales y el nivel seis muestra por su parte todas las cuentas involucradas. 
+	Al seleccionar los parámetros de búsqueda, el sistema permite elegir diferentes niveles de consulta, a tráves, del campo **Nivel de consulta**.  El sistema permite elegir seis (6) niveles de consultas que definen las cuentas a mostrar.  Cada nivel incorpora las cuentas hijo, de esta forma el nivel uno (1) muestra las cuentas patrimoniales como cuentas principales y el nivel seis (6) muestra por su parte todas las cuentas involucradas. 
 
-	Cabe destacar que según sea el nivel de consulta seleccionado, algunas cuentas no se incluyen en el reporte sin embargo, son cuentas involucradas en los procesos contables.  
+	Cabe destacar que según sea el nivel de consulta seleccionado, algunas cuentas no se incluyen en el reporte, sin embargo, son cuentas involucradas en los procesos contables.  
 	    
 
 ###Generar reporte de balance general
@@ -84,9 +84,9 @@ Para generar un reporte de balance general es necesario:
 
 !!! note "Nota"
 
-	Al seleccionar los parámetros de búsqueda, el sistema permite elegir diferentes niveles de consulta a tráves del campo **Nivel de consulta**.  El sistema permite elegir seis niveles de consultas que definen las cuentas a mostrar.  Cada nivel incorpora las cuentas hijo, de esta forma el nivel uno muestra las cuentas patrimoniales como cuentas principales y el nivel seis muestra por su parte todas las cuentas involucradas. 
+	Al seleccionar los parámetros de búsqueda, el sistema permite elegir diferentes niveles de consulta, a tráves, del campo **Nivel de consulta**.  El sistema permite elegir seis (6) niveles de consultas que definen las cuentas a mostrar.  Cada nivel incorpora las cuentas hijo, de esta forma el nivel (1) uno muestra las cuentas patrimoniales como cuentas principales y el nivel seis (6) muestra por su parte todas las cuentas involucradas. 
 
-	Cabe destacar que según sea el nivel de consulta seleccionado, algunas cuentas no se incluyen en el reporte sin embargo, son cuentas involucradas en los procesos contables. 
+	Cabe destacar que según sea el nivel de consulta seleccionado, algunas cuentas no se incluyen en el reporte, sin embargo, son cuentas involucradas en los procesos contables. 
 
 
 

@@ -1,6 +1,5 @@
 # Desincorporación de Bienes Institucionales 
 ********************************************
-<div style="text-align: justify;">
 
 ![Screenshot](img/logokavac.png#imagen)
 
@@ -34,7 +33,7 @@ Para **Ver información detallada**, **Editar** o **Eliminar** un registro se de
 
 ![Screenshot](/img/manage.png#imagen)
 
-</div>
+
 
 
 

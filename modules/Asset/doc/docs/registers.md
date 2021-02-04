@@ -1,6 +1,5 @@
 # Gestión de Registros de Bienes Institucionales 
 ************************************************
-<div style="text-align: justify;">
 
 ![Screenshot](img/logokavac.png#imagen)
 
@@ -85,7 +84,7 @@ A través de los botones ubicados en la columna titulada **Acción** de la tabla
 
 ![Screenshot](/img/manage_1.png) 
 
-</div>
+
 
 
 

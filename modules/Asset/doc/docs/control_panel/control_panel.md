@@ -1,6 +1,5 @@
 #Panel de Control Módulo de Bienes
 **********************************
-<div style="text-align: justify;" >
 
 ![Screenshot](../img/logokavac.png#imagen)
 
@@ -31,7 +30,6 @@ El sistema permite contar con un seguimiento de las operaciones en el **Módulo 
 <div style="text-align: center;font-weight: bold">Figura: Historial de Operaciones en el Módulo de Bienes</div>
 
 
-</div>
 
 
 

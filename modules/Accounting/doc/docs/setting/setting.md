@@ -13,7 +13,7 @@ Para ingresar a esta configuración debemos dirigirnos al **Módulo de Contabili
 
 ###Categorías de origen 
 
-Esta sección está orientada a la gestión de categorías de origen que generan un asiento contable.  Desde esta sección es posible crear una nueva categoría o gestionar alguna editando o eliminando una categoría registrada.
+Esta sección está orientada a la gestión de categorías de origen que generan un asiento contable.  Desde esta sección es posible crear una nueva categoría o gestionar alguna, editando o eliminando una categoría registrada.
 
 ####Crear categoría 
 
@@ -57,10 +57,10 @@ Parámetros para asignación de código para un nuevo registro:
 
 - Primer campo: grupo al que pertenece la cuenta.
 - Segundo campo: subgrupo al que pertenece la cuenta. 
-- tercer campo: rubro al que pertenece la cuenta. 
-- cuarto campo: identificador de cuenta a la que pertenece.
-- quinto campo: identificador de cuentas de primer orden. 
-- sexto campo: identificador de cuentas de segundo orden.
+- Tercer campo: rubro al que pertenece la cuenta. 
+- Cuarto campo: identificador de cuenta a la que pertenece.
+- Quinto campo: identificador de cuentas de primer orden. 
+- Sexto campo: identificador de cuentas de segundo orden.
 
 ####Gestión de registros 
 

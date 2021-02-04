@@ -1,6 +1,5 @@
 # Manual de Documentación de Usuario para el Módulo de Bienes
 *************************************************************
-<div style="text-align: justify;">
 
 ![Screenshot](img/logokavac.png#imagen)
 
@@ -15,7 +14,7 @@ El módulo de bienes posee una sección para **Registros**, desde esta sección 
 
 KAVAC incorpora una funcionalidad para gestionar la asignación de bienes a cada trabajador a través de la sección **Asignaciones**.
 
-La sección **Desincorporaciones**, permite la gestión de registro para el retiro de algún bien, el bien es registrado para desincorporación por inservible, obsolescencia, o reparación.
+La sección **Desincorporaciones**, permite la gestión de registro para el retiro de algún bien, el bien es registrado para desincorporación por inservible, obsolescencia o reparación.
 
 La gestión de prestamos de bienes institucionales se lleva a cabo en la sección **Solicitudes**, esta sección permite, además, tener un control de todas los registros de las solicitudes, prórrogas y entregas pendientes.      
 
@@ -44,37 +43,41 @@ Los usuarios que interactúan en este módulo, serán todos aquellos usuarios co
 
 Nombre del producto: KAVAC ‘Sistema de Gestión de Recursos’
 
-   Nombre del licenciante y año:  Licencia Combinada de Software y Contenidos de la Fundación CENDITEL . Versión 1.2 (Año: 2015).
+   Nombre del licenciante y año: Licencia Combinada de Software y Contenidos de la Fundación CENDITEL. Versión 1.2 (Año: 2015).
 
    Créditos: 
    
-   **Líder de proyecto / Diseño / Desarrollo / Autor**
+   **Líder de proyecto / Diseño / Desarrollo / Autor / Director de Desarrollo (2021)**
 
 - Roldan Vargas (rvargas@cenditel.gob.ve | roldandvg@gmail.com)
 
    **Analistas**
 
 - Julie Vera (jvera@cenditel.gob.ve)
-- María González (mgonzalez@cenditel.gob.ve)
+- María Laura González (mgonzalez@cenditel.gob.ve)
 - María Rujano (mrujano@cenditel.gob.ve)
 - Mariangel Molero (mmolero@cenditel.gob.ve)
 - Francisco Berbesí (fberbesi@cenditel.gob.ve)
 - Luis Ramírez (lgramirez@cenditel.gob.ve)
 - Hildayra Colmenares (hcolmenares@cenditel.gob.ve)
-- Kleibymar Montilla (kmontilla@cenditel.gob.ve)
-- Daniel Contreras (dcontreras@cenditel.gob.ve)
+- Kleivymar Montilla (kmontilla@cenditel.gob.ve)
 
    **Manuales**
 
 - Luis Ramírez (lgramirez@cenditel.gob.ve)
 - Marilyn Caballero (mcaballero@cenditel.gob.ve)
 
- **Desarrolladores**
+   **Desarrolladores**
 
 - William Paéz (wpaez@cenditel.gob.ve)
 - Henry Paredes (henryp2804@gmail.com)
 - Juan Rosas (jrosas@cenditel.gob.ve)
 - Yennifer Ramírez (yramirez@cenditel.gob.ve)
+- Pedro Buitrago (pbuitrago@cenditel.gob.ve)
+- Angelo Osorio (adosorio@cenditel.gob.ve)
+- José Puentes (jpuentes@cenditel.gob.ve)
+- Daniel Contreras (dcontreras@cenditel.gob.ve)
+- Miguel Narváez (mnarvaez@cenditel.gob.ve)
 
    **Director de Desarrollo (2018-2019)**
 
@@ -86,30 +89,25 @@ Nombre del producto: KAVAC ‘Sistema de Gestión de Recursos’
 
    **Colaborador**
 
-- Angelo Osorio (adosorio@cenditel.gob.ve)
+- Santiago Roca (sroca@cenditel.gob.ve)
 
 
-Licencia Combinada de Software y Contenidos de la Fundación CENDITEL (2015)   
+Licencia Combinada de Software y Contenidos de la Fundación CENDITEL (2015)  
 
 
-La Fundación Centro Nacional de Desarrollo e Investigación en Tecnologías Libres (CENDITEL), ente adscrito al Ministerio del Poder Popular para  Ciencia y Tecnología  (Mincyt), concede permiso, para usar, copiar, modificar y distribuir libremente y sin fines comerciales el Software KAVAC ‘Sistema deGestión de Recursos’ (sin garantía alguna) asimismo permite, copiar, adaptar, publicar y comunicar los contenidos, preservando en ambos casos los derechos morales de los autores y manteniendo los mismos principios para las obras derivadas, de conformidad con los términos y condiciones de las licencias de software y contenidos de la Fundación CENDITEL.
+La Fundación Centro Nacional de Desarrollo e Investigación en Tecnologías Libres (CENDITEL), ente adscrito al Ministerio del Poder Popular para  Ciencia y Tecnología (Mincyt), concede permiso, para usar, copiar, modificar y distribuir libremente y sin fines comerciales el Software KAVAC ‘Sistema de Gestión de Recursos’ (sin garantía alguna) asimismo permite, copiar, adaptar, publicar y comunicar los contenidos, preservando en ambos casos los derechos morales de los autores y manteniendo los mismos principios para las obras derivadas, de conformidad con los términos y condiciones de las licencias de software y contenidos de la Fundación CENDITEL.
 
 
 Cada vez que copie y distribuya este producto debe acompañarlo de una copia de las licencias. Para más información sobre los términos y condiciones de las licencias visite las siguientes direcciones electrónicas:  
 
 
-<!-- [Licencia de Software]( http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
-
-[Licencia de Contenidos]( http://conocimientolibre.cenditel.gob.ve/licencias/) -->
-
-
 [Licencia de Software](https://conocimientolibre.cenditel.gob.ve/legislacion)
 
-[Licencia de Contenidos]( https://conocimientolibre.cenditel.gob.ve/legislacion)
+[Licencia de Contenidos](https://conocimientolibre.cenditel.gob.ve/legislacion)
 
 ![Screenshot](img/licencia.png)
 
-</div>
+
 
 
 

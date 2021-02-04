@@ -1,6 +1,5 @@
 # Reportes de Bienes Institucionales 
 ************************************
-<div style="text-align: justify;">
 
 ![Screenshot](img/logokavac.png#imagen)
 
@@ -13,15 +12,17 @@ Las sección de reportes del módulo de bienes permite generar informes sobre lo
 
 El usuario puede ver todos los registros al presionar el botón **Buscar** y generar un reporte de cualquier tipo.
 
+![Screenshot](/img/search.png) **Buscar**. 
+
 ###Filtrar los registros 
 
-- En el reporte general los registros pueden ser filtrados por estatus de uso. 
-- En el reporte por clasificación los registros pueden ser filtrados por estatus de uso, tipo de bien, categoría general, subcategoría, categoría específica.
-- En el reporte por dependencia los registros pueden ser filtrados por por estatus de uso, intitución y departamento o depencia. 
+- En el reporte **General** los registros pueden ser filtrados por estatus de uso. 
+- En el reporte **Por Clasificación** los registros pueden ser filtrados por estatus de uso, tipo de bien, categoría general, subcategoría, categoría específica.
+- En el reporte **Por Dependencia** los registros pueden ser filtrados por por estatus de uso, intitución y departamento o depencia. 
 
-Una vez filtrados los registros de bienes es posible generar un reporte, haciendo uso del botón **Generar Reporte** ![Screenshot](/img/report.png) ubicado al final de la lista de registros.
+Una vez filtrados los registros de bienes es posible generar un reporte, haciendo uso del botón **Generar Reporte**, ubicado al final de la lista de registros.
 
-</div>
+![Screenshot](/img/report.png) **Generar Reporte**.
 
 
 

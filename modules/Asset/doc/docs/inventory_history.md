@@ -1,6 +1,5 @@
 # Historial de Inventario de Bienes Institucionales 
 ***************************************************
-<div style="text-align: justify;">
 
 ![Screenshot](img/logokavac.png#imagen)
 
@@ -18,7 +17,7 @@ Los reportes que se generan desde esta sección se dividen por tipo, ya sea: un 
 - Haciendo uso del botón **Crear** ![Screenshot](img/create.png#imagen) ubicado en la esquina superior derecha de esta sección, se guarda el estado actual del inventario.    
 - Verificar que el registro de inventario se encuentre en la sección **Historial de Inventario de Bienes Institucionales**.
 
-</div>
+
 
 
 
