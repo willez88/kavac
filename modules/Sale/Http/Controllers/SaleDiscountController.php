@@ -38,7 +38,7 @@ class SaleDiscountController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required', 'max:100'],
+            'name' => ['required', 'max:100', 'unique:sale_discounts,name', 'regex:/([A-Za-z\s])\w+/u'],
             'description' => ['required', 'max:200'],
             'percent' => ['required', 'max:3']
         ]);
@@ -73,7 +73,7 @@ class SaleDiscountController extends Controller
     {
         $SaleDiscount = SaleDiscount::find($id);
         $this->validate($request, [
-            'name' => ['required', 'max:100'],
+            'name' => ['required', 'max:100', 'unique:sale_discounts,name', 'regex:/([A-Za-z\s])\w+/u'],
             'description' => ['required', 'max:200'],
             'percent' => ['required', 'max:3']
         ]);
@@ -103,6 +103,6 @@ class SaleDiscountController extends Controller
      */
     public function getSaleDiscount()
     {
-        return response()->json(template_choices('Modules\Sale\Models\SaleDiscount', 'name', '', true));
+        return response()->json(template_choices('Modules\Sale\Models\SaleDiscount', 'percent', '', true));
     }
 }
