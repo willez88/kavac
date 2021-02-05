@@ -615,9 +615,9 @@
                     if (keys > 0) {
                         let firstFormula = vm.record.formula.substr(0, keys);
                         let lastFormula = vm.record.formula.substr(keys, vm.record.formula.length);
-                        vm.record.formula = firstFormula + $(this).data('value') + lastFormula;
+                        vm.record.formula = firstFormula + $(this).data('value').toString().substr(0, 1) + lastFormula;
                     } else {
-                        vm.record.formula += $(this).data('value');
+                        vm.record.formula += $(this).data('value').toString().substr(0, 1);
                     }
                 });
             });
