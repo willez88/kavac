@@ -36,37 +36,9 @@ class PayrollPaymentType extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'code', 'name', 'payment_periodicity', 'correlative', 'start_date', 'payment_relationship',
-        'associated_records', 'accounting_account_id', 'budget_account_id'
+        'code', 'name', 'payment_periodicity', 'correlative', 'start_date',
+        'payment_relationship', 'associated_records'
     ];
-
-    /**
-     * Método que obtiene la cuenta contable asociada al tipo de pago
-     *
-     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     *
-     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function accountingAccount()
-    {
-        return Module::has('Accounting')
-            ? $this->belongsTo(\Modules\Accounting\Models\AccountingAccount::class)
-            : [];
-    }
-
-    /**
-     * Método que obtiene la cuenta presupuestaria asociada al tipo de pago
-     *
-     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-     *
-     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function budgetAccount()
-    {
-        return Module::has('Budget')
-            ? $this->belongsTo(\Modules\Budget\Models\BudgetAccount::class)
-            : [];
-    }
 
     /**
      * Método que obtiene los conceptos asociados a muchos tipos de pago de nómina

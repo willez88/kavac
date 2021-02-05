@@ -55,8 +55,6 @@ class PayrollPaymentTypeController extends Controller
             'payment_periodicity'   => ['required'],
             'start_date'            => ['required'],
             'payment_relationship'  => ['required'],
-            'accounting_account_id' => ['required'],
-            'budget_account_id'     => ['required'],
             'payroll_concepts'      => ['required']
         ];
 
@@ -66,8 +64,6 @@ class PayrollPaymentTypeController extends Controller
             'payment_periodicity.required'   => 'El campo periodicidad de pago es obligatorio.',
             'start_date.required'            => 'El campo fecha de inicio del primer período es obligatorio.',
             'payment_relationship.required'  => 'El campo relación de pago es obligatorio.',
-            'accounting_account_id.required' => 'El campo cuenta contable es obligatorio.',
-            'budget_account_id.required'     => 'El campo cuenta presupuestaria es obligatorio.',
             'payroll_concepts.required'      => 'El campo conceptos es obligatorio.'
         ];
     }
@@ -89,8 +85,6 @@ class PayrollPaymentTypeController extends Controller
          * @var Object $payrollPaymentTypes
          */
         $payrollPaymentTypes = PayrollPaymentType::with(
-            'accountingAccount',
-            'budgetAccount',
             'payrollConcepts',
             'payrollPaymentPeriods'
         )->get();
@@ -118,8 +112,6 @@ class PayrollPaymentTypeController extends Controller
                     'correlative'           => $payrollPaymentType->correlative,
                     'start_date'            => $payrollPaymentType->start_date,
                     'payment_relationship'  => $payrollPaymentType->payment_relationship,
-                    'accounting_account_id' => $payrollPaymentType->accounting_account_id,
-                    'budget_account_id'     => $payrollPaymentType->budget_account_id,
                     'associated_records'    => json_decode($payrollPaymentType->associated_records),
                     'payroll_concepts'      => $listConcepts,
                     'payroll_payment_periods' => $payrollPaymentType->payrollPaymentPeriods
@@ -157,8 +149,6 @@ class PayrollPaymentTypeController extends Controller
                                            : false,
             'start_date'            => $request->start_date,
             'payment_relationship'  => $request->payment_relationship,
-            'accounting_account_id' => $request->accounting_account_id,
-            'budget_account_id'     => $request->budget_account_id,
             'associated_records'    => json_encode($request->associated_records)
         ]);
         /** Se agregan los conceptos asociados al tipo de pago a la tabla pivote */
@@ -214,8 +204,6 @@ class PayrollPaymentTypeController extends Controller
                                                          : $payrollPaymentType->correlative;
         $payrollPaymentType->start_date            = $request->start_date;
         $payrollPaymentType->payment_relationship  = $request->payment_relationship;
-        $payrollPaymentType->accounting_account_id = $request->accounting_account_id;
-        $payrollPaymentType->budget_account_id     = $request->budget_account_id;
         $payrollPaymentType->associated_records    = json_encode($request->associated_records);
         $payrollPaymentType->save();
 
