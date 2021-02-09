@@ -346,6 +346,13 @@ Route::group([
         'PayrollBloodTypeController@getPayrollBloodTypes'
     )->name('payroll.get-payroll-blood-types');
 
+    /** Rutas para gestionar los tipos de liquidación */
+    Route::resource(
+        'settlement-types',
+        'PayrollSettlementTypeController',
+        ['as' => 'payroll', 'except' => ['show','create','edit']]
+    );
+
     /** Rutas para gestionar los parámetros de nómina */
     Route::resource('parameters', 'PayrollParameterController', ['except' => ['show','create','edit']]);
 

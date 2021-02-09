@@ -642,6 +642,41 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model_prefix' => 'nomina',
                 'slug_alt' => 'laboral.eliminar'
             ],
+            /**
+             * Settlement types
+             */
+            [
+                'name' => 'Ver los tipos de liquidación',
+                'slug' => 'payroll.settlement.types.list',
+                'description' => 'Acceso para ver los tipos de liquidación',
+                'model' => 'Modules\Payroll\Models\PayrollSettlementType',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.liquidacion.ver'
+            ],
+            [
+                'name' => 'Crear tipos de liquidación',
+                'slug' => 'payroll.settlement.types.create',
+                'description' => 'Acceso para crear tipos de liquidación',
+                'model' => 'Modules\Payroll\Models\PayrollSettlementType',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.liquidacion.crear'
+            ],
+            [
+                'name' => 'Editar tipos de liquidación',
+                'slug' => 'payroll.settlement.types.edit',
+                'description' => 'Acceso para editar tipos de liquidación',
+                'model' => 'Modules\Payroll\Models\PayrollSettlementType',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.liquidacion.editar'
+            ],
+            [
+                'name' => 'Eliminar tipos de liquidación',
+                'slug' => 'payroll.settlement.types.delete',
+                'description' => 'Acceso para eliminar tipos de liquidación',
+                'model' => 'Modules\Payroll\Models\PayrollSettlementType',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.liquidacion.eliminar'
+            ],
         ];
 
         foreach ($permissions as $permission) {

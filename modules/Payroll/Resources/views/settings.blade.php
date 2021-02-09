@@ -282,6 +282,9 @@
 						{{-- Políticas de Permisos --}}
 						<payroll-permission-policies></payroll-permission-policies>
 
+						{{-- Tipos de liquidación --}}
+						<payroll-settlement-types></payroll-settlement-types>
+
 					</div>
 				</div>
 			</div>

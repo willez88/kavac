@@ -528,6 +528,16 @@ Vue.component('payroll-permission-request-pending-list', () => import(
     './components/requests/permissions/PayrollPermissionRequestPendingListComponent.vue')
 );
 
+/**
+ * Componente para listar, crear, actualizar y borrar datos de tipos de liquidación
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
+ */
+Vue.component('payroll-settlement-types', () => import(
+    /* webpackChunkName: "payroll-settlement-types" */
+    './components/settings/PayrollSettlementTypesComponent.vue')
+);
+
 
 /**
  * Componente para la gestión de calculos de salario
