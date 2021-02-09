@@ -36,4 +36,16 @@ class PayrollSettlementType extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = ['name', 'motive', 'payroll_concept_id'];
+
+    /**
+     * Método que obtiene el tipo de liquidación asociada a un concepto
+     *
+     * @author    William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function payrollConcept()
+    {
+        return $this->belongsTo(PayrollConcept::class);
+    }
 }

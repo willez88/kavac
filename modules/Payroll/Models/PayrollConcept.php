@@ -132,4 +132,16 @@ class PayrollConcept extends Model implements Auditable
             'payroll_payment_type_id'
         );
     }
+
+    /**
+     * Método que obtiene el concepto asociado a muchos tipos de liquidación
+     *
+     * @author    William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payrollSettlementTypes()
+    {
+        return $this->hasMany(PayrollSettlementType::class);
+    }
 }
