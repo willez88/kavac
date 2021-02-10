@@ -677,6 +677,76 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model_prefix' => 'nomina',
                 'slug_alt' => 'tipo.liquidacion.eliminar'
             ],
+            /**
+             * Relationships
+             */
+            [
+                'name' => 'Ver los parentescos',
+                'slug' => 'payroll.relationships.list',
+                'description' => 'Acceso para ver los parentescos',
+                'model' => 'Modules\Payroll\Models\PayrollRelationship',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'parentesco.ver'
+            ],
+            [
+                'name' => 'Crear parentescos',
+                'slug' => 'payroll.relationships.create',
+                'description' => 'Acceso para crear parentescos',
+                'model' => 'Modules\Payroll\Models\PayrollRelationship',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'parentesco.crear'
+            ],
+            [
+                'name' => 'Editar parentescos',
+                'slug' => 'payroll.relationships.edit',
+                'description' => 'Acceso para editar parentescos',
+                'model' => 'Modules\Payroll\Models\PayrollRelationship',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'parentesco.editar'
+            ],
+            [
+                'name' => 'Eliminar parentescos',
+                'slug' => 'payroll.relationships.delete',
+                'description' => 'Acceso para eliminar parentescos',
+                'model' => 'Modules\Payroll\Models\PayrollRelationship',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'parentesco.eliminar'
+            ],
+            /**
+             * Disabilities
+             */
+            [
+                'name' => 'Ver las discapacidades',
+                'slug' => 'payroll.disabilities.list',
+                'description' => 'Acceso para ver las discapacidades',
+                'model' => 'Modules\Payroll\Models\PayrollDisability',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'discapacidad.ver'
+            ],
+            [
+                'name' => 'Crear discapacidades',
+                'slug' => 'payroll.disabilities.create',
+                'description' => 'Acceso para crear discapacidades',
+                'model' => 'Modules\Payroll\Models\PayrollDisability',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'discapacidad.crear'
+            ],
+            [
+                'name' => 'Editar discapacidades',
+                'slug' => 'payroll.disabilities.edit',
+                'description' => 'Acceso para editar discapacidades',
+                'model' => 'Modules\Payroll\Models\PayrollDisability',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'discapacidad.editar'
+            ],
+            [
+                'name' => 'Eliminar discapacidades',
+                'slug' => 'payroll.disabilities.delete',
+                'description' => 'Acceso para eliminar discapacidades',
+                'model' => 'Modules\Payroll\Models\PayrollDisability',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'discapacidad.eliminar'
+            ],
         ];
 
         foreach ($permissions as $permission) {

@@ -2,11 +2,11 @@
 	<div class="text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de tipos de liquidación" data-toggle="tooltip"
-		   @click="addRecord('add_payroll_settlement_type', 'payroll/settlement-types', $event)">
+		   @click="addRecord('add_payroll_relationship', 'payroll/relationships', $event)">
            <i class="icofont icofont-eye ico-3x"></i>
-		   <span>Tipos de<br>Liquidación</span>
+		   <span>Parentescos</span>
 		</a>
-		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_payroll_settlement_type">
+		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_payroll_relationship">
 			<div class="modal-dialog vue-crud" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -15,7 +15,7 @@
 						</button>
 						<h6>
 							<i class="icofont icofont-eye ico-3x"></i>
-							Tipo de Liquidación
+							Parentesco
 						</h6>
 					</div>
 					<div class="modal-body">
@@ -30,36 +30,23 @@
         							<label for="name">Nombre:</label>
         							<input type="text" id="name" placeholder="Nombre"
         								   class="form-control input-sm" v-model="record.name" data-toggle="tooltip"
-        								   title="Indique el nombre del tipo de liquidación (requerido)">
+        								   title="Indique el nombre del parentesco (requerido)">
         							<input type="hidden" name="id" id="id" v-model="record.id">
         	                    </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group is-required">
-                                    <label>Concepto:</label>
-    								<select2 :options="payroll_concepts"
-    									v-model="record.payroll_concept_id">
-    								</select2>
-        	                    </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group is-required">
-                                    <label for="motive">Motivo:</label>
-                                    <ckeditor :editor="ckeditor.editor" id="motive"
-                                              data-toggle="tooltip"
-                                              title="Indique el motivo del tipo de liquidación (requerido)"
-                                              :config="ckeditor.editorConfig" class="form-control"
-                                              name="motive"
-                                              v-model="record.motive"></ckeditor>
+                                <div class="form-group">
+                                    <label for="name">Descripción:</label>
+        							<input type="text" id="description" placeholder="Descripción"
+        								   class="form-control input-sm" v-model="record.description" data-toggle="tooltip"
+        								   title="Indique la descripción">
         	                    </div>
                             </div>
                         </div>
 	                </div>
 					<div class="modal-footer">
 	                	<div class="form-group">
-	                		<modal-form-buttons :saveRoute="'payroll/settlement-types'"></modal-form-buttons>
+	                		<modal-form-buttons :saveRoute="'payroll/relationships'"></modal-form-buttons>
 	                	</div>
 	                </div>
 	                <div class="modal-body modal-table">
@@ -70,7 +57,7 @@
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.row.id, 'payroll/settlement-types')"
+		                		<button @click="deleteRecord(props.row.id, 'payroll/relationships')"
 										class="btn btn-danger btn-xs btn-icon btn-action"
 										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
@@ -92,13 +79,11 @@
 				record: {
 					id: '',
 					name: '',
-                    motive: '',
-                    payroll_concept_id: '',
+                    description: ''
 				},
 				errors: [],
 				records: [],
-                payroll_concepts: [],
-				columns: ['name', 'motive', 'id'],
+				columns: ['name', 'description', 'id'],
 			}
 		},
 		methods: {
@@ -111,25 +96,23 @@
 				this.record = {
 					id: '',
 					name: '',
-                    motive: '',
-                    payroll_concept_id: '',
+                    description: '',
 				};
 			},
 		},
 		created() {
 			this.table_options.headings = {
 				name: 'Nombre',
-                motive: 'Motivo',
+                motive: 'Descripción',
 				id: 'Acción'
 			};
 			this.table_options.sortable = ['name'];
 			this.table_options.filterable = ['name'];
 			this.table_options.columnsClasses = {
 				name: 'col-md-5',
-                motive: 'col-md-5',
+                description: 'col-md-5',
 				id: 'col-md-2'
 			};
-            this.getPayrollConcepts();
 		},
 	};
 </script>

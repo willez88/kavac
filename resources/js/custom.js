@@ -440,7 +440,7 @@ $(document).ready(function() {
                 group: 'Manuales'
             },
             {
-                name: 'William Paéz',
+                name: 'William Páez',
                 email: 'wpaez@cenditel.gob.ve',
                 group: 'Desarrolladores'
             },
@@ -533,7 +533,7 @@ $(document).ready(function() {
             { name: 'Kleibymar Montilla' },
             { name: 'Daniel Contreras' },
             { name: 'Marilyn Caballero' },
-            { name: 'William Paéz' },
+            { name: 'William Páez' },
             { name: 'Henry Paredes' },
             { name: 'Juan Rosas' },
             { name: 'Yennifer Ramírez' },

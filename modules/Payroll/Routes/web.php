@@ -353,6 +353,20 @@ Route::group([
         ['as' => 'payroll', 'except' => ['show','create','edit']]
     );
 
+    /** Rutas para gestionar los parentescos */
+    Route::resource(
+        'relationships',
+        'PayrollRelationshipController',
+        ['as' => 'payroll', 'except' => ['show','create','edit']]
+    );
+
+    /** Rutas para gestionar las discapacidades */
+    Route::resource(
+        'disabilities',
+        'PayrollDisabilityController',
+        ['as' => 'payroll', 'except' => ['show','create','edit']]
+    );
+
     /** Rutas para gestionar los parámetros de nómina */
     Route::resource('parameters', 'PayrollParameterController', ['except' => ['show','create','edit']]);
 
