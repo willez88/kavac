@@ -1,4 +1,4 @@
-@extends('asset::layouts.master')
+@extends('asset::layouts.master', ['setting_view' => true])
 
 @section('maproute-icon')
 	<i class="ion-settings"></i>
