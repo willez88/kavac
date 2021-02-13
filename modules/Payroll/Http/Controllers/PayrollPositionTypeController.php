@@ -69,7 +69,7 @@ class PayrollPositionTypeController extends Controller
     {
         $this->validate($request, [
             'name' => ['required', 'max:100', 'unique:payroll_position_types,name'],
-            'description' => ['required', 'max:200']
+            'description' => ['nullable', 'max:200']
         ]);
         $payrollPositionType = PayrollPositionType::create([
             'name' => $request->name, 'description' => $request->description
@@ -108,7 +108,7 @@ class PayrollPositionTypeController extends Controller
         $payrollPositionType = PayrollPositionType::find($id);
         $this->validate($request, [
             'name' => ['required', 'max:100', 'unique:payroll_position_types,name,'.$payrollPositionType->id],
-            'description' => ['required', 'max:200']
+            'description' => ['nullable', 'max:200']
         ]);
         $payrollPositionType->name  = $request->name;
         $payrollPositionType->description = $request->description;

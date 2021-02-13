@@ -38,7 +38,7 @@
 	                </div>
 					<div class="modal-footer">
 	                	<div class="form-group">
-	                		<modal-form-buttons :saveRoute="'payroll/languaje-levels'"></modal-form-buttons>
+	                		<modal-form-buttons :saveRoute="'payroll/language-levels'"></modal-form-buttons>
 	                	</div>
 	                </div>
 	                <div class="modal-body modal-table">

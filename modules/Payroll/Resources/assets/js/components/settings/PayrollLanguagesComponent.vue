@@ -46,7 +46,7 @@
 	                </div>
 					<div class="modal-footer">
 	                	<div class="form-group">
-	                		<modal-form-buttons :saveRoute="'payroll/languajes'"></modal-form-buttons>
+	                		<modal-form-buttons :saveRoute="'payroll/languages'"></modal-form-buttons>
 	                	</div>
 	                </div>
 	                <div class="modal-body modal-table">
