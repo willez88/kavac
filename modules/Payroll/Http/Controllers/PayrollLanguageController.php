@@ -68,7 +68,7 @@ class PayrollLanguageController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required', 'max:100'],
+            'name' => ['required', 'max:100', 'unique:payroll_languages,name'],
             'acronym' => ['required', 'max:10']
         ]);
         $payrollLanguage = PayrollLanguage::create(['name' => $request->name, 'acronym' => $request->acronym]);
@@ -105,7 +105,7 @@ class PayrollLanguageController extends Controller
     {
         $payrollLanguage = PayrollLanguage::find($id);
         $this->validate($request, [
-            'name' => ['required', 'max:100'],
+            'name' => ['required', 'max:100', 'unique:payroll_languages,name,'.$payrollLanguage->id],
             'acronym' => ['required', 'max:10']
         ]);
         $payrollLanguage->name  = $request->name;

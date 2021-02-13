@@ -68,7 +68,7 @@ class PayrollInactivityTypeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required', 'max:100']
+            'name' => ['required', 'max:100', 'unique:payroll_inactivity_types,name']
         ]);
 
         $payrollInactivityType = PayrollInactivityType::create(['name' => $request->name]);
@@ -105,7 +105,7 @@ class PayrollInactivityTypeController extends Controller
     {
         $payrollInactivityType = PayrollInactivityType::find($id);
         $this->validate($request, [
-            'name' => ['required', 'max:100']
+            'name' => ['required', 'max:100', 'unique:payroll_inactivity_types,name,'.$payrollInactivityType->id]
         ]);
         $payrollInactivityType->name = $request->name;
         $payrollInactivityType->save();

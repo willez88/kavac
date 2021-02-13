@@ -68,8 +68,8 @@ class PayrollLicenseDegreeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required', 'max:50'],
-            'description' => ['required', 'max:200'],
+            'name' => ['required', 'max:50', 'unique:payroll_license_degrees,name'],
+            'description' => ['nullable', 'max:200'],
         ]);
 
         $payrollLicenseDegree = PayrollLicenseDegree::create([
@@ -108,8 +108,8 @@ class PayrollLicenseDegreeController extends Controller
     {
         $payrollLicenseDegree = PayrollLicenseDegree::find($id);
         $this->validate($request, [
-            'name' => ['required', 'max:50'],
-            'description' => ['required', 'max:200'],
+            'name' => ['required', 'max:50', 'unique:payroll_license_degrees,name,'.$payrollLicenseDegree->id],
+            'description' => ['nullable', 'max:200'],
         ]);
 
         $payrollLicenseDegree->name = $request->name;

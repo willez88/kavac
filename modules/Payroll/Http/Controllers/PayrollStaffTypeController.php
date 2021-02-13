@@ -68,7 +68,7 @@ class PayrollStaffTypeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required', 'max:100'],
+            'name' => ['required', 'max:100', 'unique:payroll_staff_types,name'],
             'description' => ['nullable', 'max:200']
         ]);
         $payrollStaffType = PayrollStaffType::create(['name' => $request->name,'description' => $request->description]);
@@ -105,7 +105,7 @@ class PayrollStaffTypeController extends Controller
     {
         $payrollStaffType = PayrollStaffType::find($id);
         $this->validate($request, [
-            'name' => ['required', 'max:100'],
+            'name' => ['required', 'max:100', 'unique:payroll_staff_types,name,'.$payrollStaffType->id],
             'description' => ['nullable', 'max:200']
         ]);
         $payrollStaffType->name  = $request->name;

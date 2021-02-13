@@ -69,7 +69,7 @@ class PayrollNationalityController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required', 'max:100'],
+            'name' => ['required', 'max:100', 'unique:payroll_nationalities,name'],
             'country_id' => ['required', 'unique:payroll_nationalities,country_id']
         ]);
         $payrollNationality = PayrollNationality::create([
@@ -108,7 +108,7 @@ class PayrollNationalityController extends Controller
     {
         $payrollNationality = PayrollNationality::find($id);
         $this->validate($request, [
-            'name' => ['required', 'max:100'],
+            'name' => ['required', 'max:100', 'unique:payroll_nationalities,name,'.$payrollNationality->id],
             'country_id' => ['required', 'unique:payroll_nationalities,country_id,'.$payrollNationality->id]
         ]);
         $payrollNationality->name = $request->name;

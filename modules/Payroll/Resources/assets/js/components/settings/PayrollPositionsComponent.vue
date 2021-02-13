@@ -35,7 +35,7 @@
         	                    </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group is-required">
+                                <div class="form-group">
         							<label for="description">Descripción:</label>
         							<input type="text" id="description" placeholder="Descripción"
         								   class="form-control input-sm" v-model="record.description" data-toggle="tooltip"
