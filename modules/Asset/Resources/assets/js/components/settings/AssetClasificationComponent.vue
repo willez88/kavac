@@ -1,5 +1,5 @@
 <template>
-	<div class="col-xs-2 text-center">
+	<section id="assetClasificationComponent">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="" title="Registros de Clasificador de Bienes"
 		   data-toggle="tooltip"
@@ -41,7 +41,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label>Tipo de Bien:</label>
+									<label>Tipo de bien:</label>
 									<select2 :options="asset_types" @input="checkType()"
 											 v-model="record.asset_type_id"></select2>
 									<input type="hidden" v-model="record.id">
@@ -49,7 +49,7 @@
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label>Tipo de Bienes:</label>
+									<label>Tipo de bienes:</label>
 									<input type="text" placeholder="Nuevo Tipo de Bienes" data-toggle="tooltip"
 										   id ="type_id"
 										   title="Indique el nuevo Tipo de Bienes (requerido)"
@@ -60,14 +60,14 @@
 
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Categoría General:</label>
+									<label>Categoría general:</label>
 									<select2 :options="asset_categories" @input="checkCategory"
 											 v-model="record.category_id"></select2>
 			                    </div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Código de la Categoría:</label>
+									<label>Código de la categoría:</label>
 									<input type="text" placeholder="Código de la Categoría" data-toggle="tooltip"
 											id="category_code_id"
 										    title="Indique el código de la nueva Categoría (requerido)"
@@ -76,7 +76,7 @@
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Categoría General:</label>
+									<label>Categoría general:</label>
 									<input type="text" placeholder="Nueva Categoría General" data-toggle="tooltip"
 											id="category_name_id"
 											title="Indique la nueva Categoría General (requerido)"
@@ -93,7 +93,7 @@
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Código de la SubCategoría:</label>
+									<label>Código de la subcategoría:</label>
 									<input type="text" placeholder="Código de la SubCategoría" data-toggle="tooltip"
 											id="subcategory_code_id"
 										    title="Indique el código de la nueva SubCategoría (requerido)"
@@ -113,7 +113,7 @@
 
 							<div class="col-md-6">
 								<div class="form-group is-required">
-									<label>Código de la Categoría Específica:</label>
+									<label>Código de la categoría específica:</label>
 									<input type="text" placeholder="Código de la Categoría Específica" data-toggle="tooltip"
 										   title="Indique el código de la nueva Categoría Específica (requerido)"
 										   class="form-control input-sm" v-model="record.code">
@@ -121,7 +121,7 @@
 							</div>
 							<div class="col-md-6">
 								<div class="form-group is-required">
-									<label>Categoría Especifica:</label>
+									<label>Categoría especifica:</label>
 									<input type="text" placeholder="Nueva Categoría Específica" data-toggle="tooltip"
 										   title="Indique la nueva Categoría Específica (requerido)"
 										   class="form-control input-sm" v-model="record.name">
@@ -138,12 +138,12 @@
 
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.row.id, $event)"
-		                				class="btn btn-warning btn-xs btn-icon btn-action"
+		                				class="btn btn-warning btn-xs btn-icon btn-action" v-has-tooltip
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
 		                		<button @click="deleteRecord(props.row.id, 'asset/clasifications')"
-										class="btn btn-danger btn-xs btn-icon btn-action"
+										class="btn btn-danger btn-xs btn-icon btn-action" v-has-tooltip
 										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
 									<i class="fa fa-trash-o"></i>
@@ -169,7 +169,7 @@
 		        </div>
 		    </div>
 		</div>
-	</div>
+	</section>
 </template>
 
 <script>

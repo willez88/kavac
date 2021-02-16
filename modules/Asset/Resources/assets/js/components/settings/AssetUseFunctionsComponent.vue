@@ -1,5 +1,5 @@
 <template>
-    <div class="col-xs-2 text-center">
+    <section id="assetUseFunctionsComponent">
         <a class="btn-simplex btn-simplex-md btn-simplex-primary"
            href="#" title="Registros de las Funciones de Uso de los Bienes" data-toggle="tooltip"
            @click="addRecord('add_use_function', 'asset/use-functions', $event)">
@@ -39,8 +39,9 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group is-required">
-                                    <label>Función de Uso:</label>
+                                    <label>Función de uso:</label>
                                     <input type="text" placeholder="Nombre de la función de uso" data-toggle="tooltip"
+                                           v-input-mask data-inputmask-regex="[a-zA-ZÁ-ÿ\s]*$"
                                            title="Indique el nombre de la nueva función de uso de un bien (requerido)"
                                            class="form-control input-sm" v-model="record.name">
                                     <input type="hidden" v-model="record.id">
@@ -58,12 +59,12 @@
                         <v-client-table :columns="columns" :data="records" :options="table_options">
                             <div slot="id" slot-scope="props" class="text-center">
                                 <button @click="initUpdate(props.row.id, $event)"
-                                        class="btn btn-warning btn-xs btn-icon btn-action"
+                                        class="btn btn-warning btn-xs btn-icon btn-action" v-has-tooltip
                                         title="Modificar registro" data-toggle="tooltip" type="button">
                                     <i class="fa fa-edit"></i>
                                 </button>
                                 <button @click="deleteRecord(props.row.id, 'asset/use-functions')"
-                                        class="btn btn-danger btn-xs btn-icon btn-action"
+                                        class="btn btn-danger btn-xs btn-icon btn-action" v-has-tooltip
                                         title="Eliminar registro" data-toggle="tooltip"
                                         type="button">
                                     <i class="fa fa-trash-o"></i>
@@ -74,7 +75,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-	<div class="col-xs-2 text-center">
+	<section id="assetSubcategoriesComponent">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="#" title="Registros de Subcategorías de Bienes" data-toggle="tooltip"
 		   @click="addRecord('add_subcategory', 'asset/subcategories', $event)">
@@ -39,7 +39,7 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Tipo de Bien:</label>
+									<label>Tipo de bien:</label>
 									<select2 :options="asset_types" @input="getAssetCategories"
 											 v-model="record.asset_type_id"></select2>
 									<input type="hidden" v-model="record.id">
@@ -49,7 +49,7 @@
 
 							<div class="col-md-4">
 								<div class="form-group">
-									<label>Categoría General:</label>
+									<label>Categoría general:</label>
 									<select2 :options="asset_categories"
 											 v-model="record.asset_category_id"></select2>
 			                    </div>
@@ -57,7 +57,7 @@
 
 							<div class="col-md-6">
 								<div class="form-group is-required">
-									<label>Código de la Subcategoría:</label>
+									<label>Código de la subcategoría:</label>
 									<input type="text" placeholder="Código de Subcategoría" data-toggle="tooltip"
 										   title="Indique el código de la nueva Subcategoría (requerido)"
 										   class="form-control input-sm" v-model="record.code">
@@ -67,6 +67,7 @@
 								<div class="form-group is-required">
 									<label>Subcategoría:</label>
 									<input type="text" placeholder="Nueva SubCategoría" data-toggle="tooltip"
+										   v-input-mask data-inputmask-regex="[a-zA-ZÁ-ÿ\s]*$"
 										   title="Indique la nueva Subcategoría(requerido)"
 										   class="form-control input-sm" v-model="record.name">
 			                    </div>
@@ -83,12 +84,12 @@
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.row.id, $event)"
-		                				class="btn btn-warning btn-xs btn-icon btn-action"
+		                				class="btn btn-warning btn-xs btn-icon btn-action" v-has-tooltip
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
 		                		<button @click="deleteRecord(props.row.id, 'asset/subcategories')"
-										class="btn btn-danger btn-xs btn-icon btn-action"
+										class="btn btn-danger btn-xs btn-icon btn-action" v-has-tooltip
 										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
 									<i class="fa fa-trash-o"></i>
@@ -99,7 +100,7 @@
 		        </div>
 		    </div>
 		</div>
-	</div>
+	</section>
 </template>
 
 <script>

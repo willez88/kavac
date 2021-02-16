@@ -1,5 +1,5 @@
 <template>
-	<div class="col-xs-2 text-center">
+	<section id="assetTypesComponent">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="#" title="Registros de Tipos de Bienes" data-toggle="tooltip"
 		   @click="addRecord('add_type', 'asset/types', $event)">
@@ -39,8 +39,9 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group is-required">
-									<label>Tipo de Bien:</label>
+									<label>Tipo de bien:</label>
 									<input type="text" placeholder="Nombre del Tipo de Bien" data-toggle="tooltip"
+										   v-input-mask data-inputmask-regex="[a-zA-ZÁ-ÿ\s]*$"
 										   title="Indique el nombre del Nuevo Tipo de Bien (requerido)"
 										   class="form-control input-sm" v-model="record.name">
 									<input type="hidden" v-model="record.id">
@@ -58,12 +59,12 @@
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.row.id, $event)"
-		                				class="btn btn-warning btn-xs btn-icon btn-action"
+		                				class="btn btn-warning btn-xs btn-icon btn-action" v-has-tooltip
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
 		                		<button @click="deleteRecord(props.row.id, 'asset/types')"
-										class="btn btn-danger btn-xs btn-icon btn-action"
+										class="btn btn-danger btn-xs btn-icon btn-action" v-has-tooltip
 										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
 									<i class="fa fa-trash-o"></i>
@@ -74,7 +75,7 @@
 		        </div>
 		    </div>
 		</div>
-	</div>
+	</section>
 </template>
 
 <script>
