@@ -49,7 +49,7 @@
 			this.table_options.headings = {
 				'code': 'Código',
 				'motive': 'Motivo',
-				'created': 'Fecha de la Desincorporación',
+				'created': 'Fecha de desincorporación',
 				'id': 'Acción'
 			};
 			this.table_options.sortable = ['code', 'motive', 'created'];

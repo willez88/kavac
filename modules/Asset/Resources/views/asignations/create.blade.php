@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-	Gestión de Bienes Institucionales
+	Gestión de Bienes
 @stop
 
 @section('content')
@@ -21,7 +21,7 @@
 	<div class="col-12">
 		<div class="card" id="cardAssetAsignationForm">
 			<div class="card-header">
-				<h6 class="card-title text-uppercase">Asignación de Bienes Institucionales
+				<h6 class="card-title text-uppercase">Asignación de Bienes
 					@include('buttons.help', [
 					    'helpId' => 'AssetAsignationForm',
 					    'helpSteps' => get_json_resource('ui-guides/asignations/asignation_form.json', 'asset')

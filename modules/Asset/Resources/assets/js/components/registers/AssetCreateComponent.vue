@@ -21,7 +21,7 @@
 			<div class="row">
 				<div class="col-md-4" id="helpInstitution">
 					<div class="form-group is-required">
-						<label>Organizción:</label>
+						<label>Organización:</label>
 						<select2 :options="institutions"
 								data-toggle="tooltip"
 								title="Seleccione un registro de la lista"

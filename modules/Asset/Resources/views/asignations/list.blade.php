@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-	Gestión de Bienes Institucionales
+	Gestión de Bienes
 @stop
 
 @section('content')
@@ -21,7 +21,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Asignación de Bienes Institucionales</h6>
+					<h6 class="card-title">Asignación de Bienes</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.new', ['route' => route('asset.asignation.create')])

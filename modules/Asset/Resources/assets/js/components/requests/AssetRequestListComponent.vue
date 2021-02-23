@@ -76,10 +76,10 @@
 		created() {
 			this.table_options.headings = {
 				'code': 'Código',
-				'type': 'Tipo de Solicitud',
+				'type': 'Tipo de solicitud',
 				'motive': 'Motivo',
-				'created_at': 'Fecha de Emisión',
-				'state': 'Estado de la Solicitud',
+				'created_at': 'Fecha de emisión',
+				'state': 'Estado de la solicitud',
 				'id': 'Acción'
 			};
 			this.table_options.sortable = ['code', 'type','motive','created_at','state'];
