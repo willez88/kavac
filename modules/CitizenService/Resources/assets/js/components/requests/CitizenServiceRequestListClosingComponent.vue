@@ -40,8 +40,8 @@
 			this.readRecords(this.route_list);
 			this.table_options.headings = {
 				'requested_by': 'Solicitado por',
-				'state': 'Estado de la Solicitud',
-				'date': 'Fecha de la Solicitud',
+				'state': 'Estado de la solicitud',
+				'date': 'Fecha de la solicitud',
 				'id': 'Acción'
 			};
 			this.table_options.sortable = ['requested_by', 'state', 'date'];

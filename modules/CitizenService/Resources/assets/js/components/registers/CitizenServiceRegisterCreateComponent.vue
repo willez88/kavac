@@ -42,7 +42,7 @@
 
                     <div class="col-md-4">
 						<div class="form-group is-required">
-							<label for="first_name">Nombre del Director</label>
+							<label for="first_name">Nombre del director</label>
         					<input type="text" class="form-control input-sm" data-toggle="tooltip"
 								   v-input-mask data-inputmask-regex="[a-zA-ZÁ-ÿ0-9\s]*"
                                    title="Indique el nombre del director" v-model="record.first_name">
@@ -78,7 +78,7 @@
 					</div>
                     <div class="col-md-4">
 						<div class="form-group is-required">
-							<label for="email">Correo Electrónico</label>
+							<label for="email">Correo electrónico</label>
         					<input type="email" id="email" class="form-control input-sm" data-toggle="tooltip"
                                    title="Indique el correo electrónico del responsable" v-model="record.email">
 						</div>
@@ -99,6 +99,7 @@
 				<div class="col-md-3 offset-md-9" id="helpParamButtons">
 		        	<button type="button" @click="reset()"
 							class="btn btn-default btn-icon btn-round"
+							data-toggle="tooltip"
 							title ="Borrar datos del formulario">
 							<i class="fa fa-eraser"></i>
 					</button>

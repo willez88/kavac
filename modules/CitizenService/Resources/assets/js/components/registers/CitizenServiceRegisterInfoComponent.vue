@@ -27,7 +27,7 @@
 						<ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
 	                        <li class="nav-item">
 	                            <a class="nav-link active" data-toggle="tab" href="#general" id="info_general" role="tab">
-	                                <i class="ion-android-person"></i> Información General
+	                                <i class="ion-android-person"></i> Información general
 	                            </a>
 	                        </li>
 	                    </ul>
@@ -36,7 +36,7 @@
 		                    	<div class="row">
 								        <div class="col-md-4">
 								        	<div class="form-group">
-												<strong>Fecha del Registro</strong>
+												<strong>Fecha del registro</strong>
 												<div class="row" style="margin: 1px 0">
 													<span class="col-md-12" id="date_register">
 													</span>
@@ -47,7 +47,7 @@
 
 										<div class="col-md-4">
 											<div class="form-group">
-												<strong>Nombre del Director</strong>
+												<strong>Nombre del director</strong>
 												<div class="row" style="margin: 1px 0">
 													<span class="col-md-12" id="first_name">
 													</span>
@@ -57,7 +57,7 @@
 
 										<div class="col-md-4">
 											<div class="form-group">
-												<strong>Nombre del Proyecto</strong>
+												<strong>Nombre del proyecto</strong>
 												<div class="row" style="margin: 1px 0">
 													<span class="col-md-12" id="project_name">
 													</span>
@@ -77,7 +77,7 @@
 									</div>
 									<div class="col-md-4">
 											<div class="form-group">
-												<strong>Fecha de Inicio</strong>
+												<strong>Fecha de inicio</strong>
 												<div class="row" style="margin: 1px 0">
 													<span class="col-md-12" id="start_date">
 													</span>
@@ -86,7 +86,7 @@
 									</div>
 									<div class="col-md-4">
 											<div class="form-group">
-												<strong>Fecha de Culminación</strong>
+												<strong>Fecha de culminación</strong>
 												<div class="row" style="margin: 1px 0">
 													<span class="col-md-12" id="end_date">
 													</span>
@@ -97,7 +97,7 @@
 								<div class="row">
 									<div class="col-md-4">
 											<div class="form-group">
-												<strong>Correo Electrónico</strong>
+												<strong>Correo electrónico</strong>
 												<div class="row" style="margin: 1px 0">
 													<span class="col-md-12" id="email">
 													</span>

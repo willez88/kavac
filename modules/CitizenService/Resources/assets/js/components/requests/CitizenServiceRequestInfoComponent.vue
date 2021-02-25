@@ -28,22 +28,22 @@
 							<ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
 		                        <li class="nav-item">
 		                            <a class="nav-link active" data-toggle="tab" href="#general" id="info_general" role="tab">
-		                                <i class="ion-android-person"></i> Información General
+		                                <i class="ion-android-person"></i> Información general
 									</a>
 		                        </li>
 		                        <li class="nav-item">
 		                            <a class="nav-link" data-toggle="tab" href="#contact" role="tab">
-		                                <i class="ion-android-person"></i> Información de Contacto
+		                                <i class="ion-android-person"></i> Información de contacto
 		                            </a>
 		                        </li>
 		                        <li class="nav-item">
 		                            <a class="nav-link" data-toggle="tab" href="#institution" role="tab">
-		                                <i class="ion-arrow-person"></i> Información de la Institución
+		                                <i class="ion-arrow-person"></i> Información de la institución
 		                            </a>
 		                        </li>
 								<li class="nav-item">
 								  <a class="nav-link" data-toggle="tab" href="#info" role="tab">
-									  <i class="ion-arrow-person"></i> Información de Archivos
+									  <i class="ion-arrow-person"></i> Información de archivos
 								  </a>
 							  </li>
 		                    </ul>
@@ -54,7 +54,7 @@
 		                    	<div class="row">
 								        <div class="col-md-4">
 								        	<div class="form-group">
-												<strong>Fecha de la Solicitud</strong>
+												<strong>Fecha de la solicitud</strong>
 												<div class="row" style="margin: 1px 0">
 													<span class="col-md-12" id="date">
 													</span>
@@ -65,7 +65,7 @@
 
 										<div class="col-md-4">
 											<div class="form-group">
-												<strong>Motivo de la Solicitud</strong>
+												<strong>Motivo de la solicitud</strong>
 												<div class="row" style="margin: 1px 0">
 													<span class="col-md-12" id="motive_request">
 													</span>
@@ -75,7 +75,7 @@
 
 										<div class="col-md-4">
 											<div class="form-group">
-												<strong>Tipo de Solicitud</strong>
+												<strong>Tipo de solicitud</strong>
 												<div class="row" style="margin: 1px 0">
 													<span class="col-md-12" id="citizen_service_request_type_id">
 												   </span>
