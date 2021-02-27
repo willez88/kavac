@@ -124,9 +124,18 @@ class ReportRepository implements ReportInterface
      * @param      boolean          $hasQR         Indica si el reporte dispone de un código QR de verificación
      * @param      boolean          $hasBarCode    Indica si el reporte dispone de un código de barras que identifica
      *                                             el serial del documento
+     * @param      string           $logoAlign     Alineación del logo en el reporte. Los valores posibles son:
+     *                                             (L)eft, (R)ight, (C)enter. Valor por defecto es vacio lo cual
+     *                                             realiza la alineación en el centro
      */
-    public function setHeader($title = '', $subTitle = '', $hasQR = true, $hasBarCode = false)
-    {
+    public function setHeader(
+        $title = '',
+        $subTitle = '',
+        $hasQR = true,
+        $hasBarCode = false,
+        $logoAlign = '',
+        $titleAlign = 'C'
+    ) {
         $params = (object)[
             'institution' => $this->institution,
             'fontFamily' => $this->fontFamily,
@@ -136,9 +145,11 @@ class ReportRepository implements ReportInterface
             'hasQR' => $hasQR,
             'urlVerify' => $this->urlVerify,
             'title' => $title,
+            'titleAlign' => $titleAlign,
             'subTitle' => $subTitle,
             'reportDate' => $this->reportDate,
-            'headerY' => $this->headerY
+            'headerY' => $this->headerY,
+            'logoAlign' => $logoAlign
         ];
         $this->title = $title ?? 'Reporte';
         $this->pdf->setHeaderCallback(function ($pdf) use ($params) {
@@ -179,7 +190,7 @@ class ReportRepository implements ReportInterface
                     'T',
                     false,
                     300,
-                    '',
+                    $params->logoAlign,
                     false,
                     false,
                     0,
@@ -209,7 +220,7 @@ class ReportRepository implements ReportInterface
                 7,
                 $params->title,
                 0,
-                'C',
+                $params->titleAlign,
                 false,
                 1,
                 40,
