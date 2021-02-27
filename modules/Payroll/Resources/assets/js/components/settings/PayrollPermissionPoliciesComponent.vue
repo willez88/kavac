@@ -1,5 +1,5 @@
 <template>
-    <div class="col-xs-2 text-center">
+    <section id="payrollPermissionPoliciesFormComponent">
         <a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
            title="Registros de políticas de perimisos" data-toggle="tooltip"
            @click="addRecord('add_payroll-permission-policies', 'payroll/permission-policies', $event)">
@@ -136,7 +136,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </template>
 
 <script>
@@ -219,20 +219,20 @@
         },
         created() {
             this.table_options.headings = {
-                'name': 'Nombre',
+                'name':             'Nombre',
                 'anticipation_day': 'Dias de anticipación',
-                'day_range': 'Rango de días solicitados',
-                'active': 'Activo',
-                'id': 'Acción'
+                'day_range':        'Rango de días solicitados',
+                'active':           'Activo',
+                'id':               'Acción'
             };
             this.table_options.sortable = ['name'];
             this.table_options.filterable = ['name'];
             this.table_options.columnsClasses = {
-                'name': 'col-md-2',
-                'anticipation_day': 'col-md-3',
-                'day_range': 'col-md-3',
-                'active': 'col-md-2',
-                'id': 'col-md-2'
+                'name':             'col-xs-2',
+                'anticipation_day': 'col-xs-3',
+                'day_range':        'col-xs-3',
+                'active':           'col-xs-2',
+                'id':               'col-xs-2'
             };
         },
         mounted() {

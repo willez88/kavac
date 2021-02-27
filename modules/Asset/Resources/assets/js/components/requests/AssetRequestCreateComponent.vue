@@ -23,13 +23,13 @@
 				<div class="col-md-4" id="helpAssetRequestDate"
 					v-if="record.id">
 				    <div class="form-group">
-				        <label>Fecha de Solicitud</label>
+				        <label>Fecha de solicitud</label>
 				        <div class="input-group input-sm">
                         	<span class="input-group-addon">
                             	<i class="now-ui-icons ui-1_calendar-60"></i>
                         	</span>
                         	<input  type="text" class="form-control input-sm"
-                        			data-toogle="tooltip"
+                        			data-toggle="tooltip"
                         			title="Fecha de la solicitud" v-model="record.created_at"
                         			disabled="true">
                     	</div>
@@ -37,13 +37,13 @@
 				</div>
 				<div class="col-md-6" id="helpAssetRequestDeliveryDate">
 			        <div class="form-group is-required">
-			            <label>Fecha de Entrega</label>
+			            <label>Fecha de entrega</label>
 			            <div class="input-group input-sm">
 			                <span class="input-group-addon">
 								<i class="now-ui-icons ui-1_calendar-60"></i>
 			                </span>
 			                <input  type="date" class="form-control input-sm"
-			                		data-toogle="tooltip"
+			                		data-toggle="tooltip"
                         			title="Indique la fecha de entrega de los equipos"
                         			v-model="record.delivery_date">
 			            </div>
@@ -51,7 +51,7 @@
 			    </div>
 			    <div class="col-md-6" id="helpAssetRequestType">
 					<div class="form-group is-required">
-						<label>Tipo de Solicitud</label>
+						<label>Tipo de solicitud</label>
 						<select2 :options="types"
 								 v-model="record.type_id"></select2>
 					</div>
@@ -68,7 +68,8 @@
 				<div class="col-md-3">
 					<div class="form-group">
 						<label> Adjuntar archivos </label>
-						<input id="files" name="files" type="file"
+						<input id="files" name="files" type="file" data-toggle="tooltip"
+							   title="Adjuntar el archivo"
 							   accept=".docx, .doc, .odt, .pdf" multiple>
 					</div>
 				</div>
@@ -129,33 +130,33 @@
 			<div v-show="record.type_id == 3">
 				<div class="row"style="margin: 10px 0">
 					<div class="col-md-12">
-						<b>Información de Contacto</b>
+						<b>Información de contacto</b>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-4" id="helpAssetRequestAgentName">
 						<div class="form-group is-required">
-					        <label>Nombre del Agente Externo</label>
+					        <label>Nombre del agente externo</label>
 					        <input  type="text" class="form-control input-sm"
-					        		data-toogle="tooltip"
+					        		data-toggle="tooltip"
 	                        		title="Indique el nombre del agente externo responsable del bien" v-model="record.agent_name">
 					    </div>
 					</div>
 
 					<div class="col-md-4" id="helpAssetRequestAgentTelf">
 					    <div class="form-group is-required">
-					    	<label>Teléfono del Agente Externo</label>
+					    	<label>Teléfono del agente externo</label>
 					    	<input  type="text" class="form-control input-sm"
-					    			data-toogle="tooltip"
+					    			data-toggle="tooltip"
 	                        		title="Indique el teléfono del agente externo responsable del bien" v-model="record.agent_telf">
 					    </div>
 					</div>
 
 					<div class="col-md-4" id="helpAssetRequestAgentEmail">
 						<div class="form-group is-required">
-					    	<label>Correo del Agente Externo</label>
+					    	<label>Correo del agente externo</label>
 					    	<input  type="text" class="form-control input-sm"
-					    			data-toogle="tooltip"
+					    			data-toggle="tooltip"
 	                        		title="Indique el correo eléctronico del agente externo responsable del bien"
 	                        		v-model="record.agent_email">
 					    </div>
@@ -227,11 +228,12 @@
 				<div class="col-md-3 offset-md-9" id="helpParamButtons">
 		        	<button type="button" @click="reset()"
 							class="btn btn-default btn-icon btn-round"
+							data-toggle="tooltip"
 							title ="Borrar datos del formulario">
 							<i class="fa fa-eraser"></i>
 					</button>
 
-		        	<button type="button"
+		        	<button type="button" @click="redirect_back(route_list)"
 		        			class="btn btn-warning btn-icon btn-round btn-modal-close"
 		        			data-dismiss="modal"
 		        			title="Cancelar y regresar">

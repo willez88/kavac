@@ -117,6 +117,11 @@ class AssetSettingController extends Controller
 
         if ($saved) {
             $request->session()->flash('message', ['type' => 'store']);
+        } else {
+            $request->session()->flash('message', [
+                'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
+                'text' => 'No se registro ningún cambio'
+                ]);
         }
 
         return redirect()->back();

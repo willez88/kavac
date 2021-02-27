@@ -28,13 +28,13 @@
 						<ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
 	                        <li class="nav-item">
 	                            <a class="nav-link active" data-toggle="tab" href="#general" id="info_general" role="tab">
-	                                <i class="ion-android-person"></i> Información General
+	                                <i class="ion-android-person"></i> Información general
 	                            </a>
 	                        </li>
 
 	                        <li class="nav-item">
 	                            <a class="nav-link" data-toggle="tab" href="#equipment" role="tab" @click="loadEquipment()">
-	                                <i class="ion-arrow-swap"></i> Equipos Asignados
+	                                <i class="ion-arrow-swap"></i> Equipos asignados
 	                            </a>
 	                        </li>
 	                    </ul>
@@ -44,7 +44,7 @@
 	                    		<div class="row">
 							        <div class="col-md-6">
 										<div class="form-group">
-											<strong>Fecha de Registro</strong>
+											<strong>Fecha de registro</strong>
 											<div class="row" style="margin: 1px 0">
 												<span class="col-md-12" id="date_init">
 												</span>

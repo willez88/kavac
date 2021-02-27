@@ -8,6 +8,8 @@
 				<input  type="text"
 						class="form-control"
 						placeholder="Buscar..."
+						title="Filtrar resultados" 
+						data-toggle="tooltip"
 						v-model="search">
 			</div>
 		</div>
@@ -133,7 +135,7 @@
 		created() {
 			this.table_options.headings = {
 				'inventory_serial': 'Código',
-				'institution': 'Institución',
+				'institution': 'Organización',
 				'asset_condition': 'Condición Física',
 				'asset_status': 'Estatus de Uso',
 				'serial': 'Serial',

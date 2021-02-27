@@ -46,7 +46,7 @@
                                        class="nav-link text-center" id="vacationPolicyForm"
                                        @click="changePanel('vacationPolicyForm')">
                                         <span class="badge">1</span>
-                                        Definir Política Vacacional
+                                        Política vacacional
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -54,18 +54,25 @@
                                        class="nav-link text-center" id="vacationPaymentForm"
                                        @click="changePanel('vacationPaymentForm')">
                                         <span class="badge">2</span>
-                                        Definir Pago de Vacaciones
+                                        Pago de vacaciones
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" data-toggle="tab"
+                                       class="nav-link text-center" id="vacationRequestForm">
+                                        <span class="badge">3</span>
+                                        Solicitud de vacaciones
                                     </a>
                                 </li>
                             </ul>
                             <ul class="nav wizard-steps"
-                                v-else>
+                                v-else-if="panel == 'vacationPaymentForm'">
                                 <li class="nav-item">
                                     <a href="#w-vacationPolicyForm" data-toggle="tab"
                                        class="nav-link text-center" id="vacationPolicyForm"
                                        @click="changePanel('vacationPolicyForm')">
                                         <span class="badge">1</span>
-                                        Definir Política Vacacional
+                                        Política vacacional
                                     </a>
                                 </li>
                                 <li class="nav-item active">
@@ -73,7 +80,39 @@
                                        class="nav-link text-center" id="vacationPaymentForm"
                                        @click="changePanel('vacationPaymentForm')">
                                         <span class="badge">2</span>
-                                        Definir Pago de Vacaciones
+                                        Pago de vacaciones
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" data-toggle="tab"
+                                       class="nav-link text-center" id="vacationRequestForm">
+                                        <span class="badge">3</span>
+                                        Solicitud de vacaciones
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav wizard-steps"
+                                v-else>
+                                <li class="nav-item">
+                                    <a href="#" data-toggle="tab"
+                                       class="nav-link text-center" id="vacationPolicyForm">
+                                        <span class="badge">1</span>
+                                        Política vacacional
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#w-vacationPaymentForm" data-toggle="tab"
+                                       class="nav-link text-center" id="vacationPaymentForm"
+                                       @click="changePanel('vacationPaymentForm')">
+                                        <span class="badge">2</span>
+                                        Pago de vacaciones
+                                    </a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a href="#" data-toggle="tab"
+                                       class="nav-link text-center" id="vacationRequestForm">
+                                        <span class="badge">3</span>
+                                        Solicitud de vacaciones
                                     </a>
                                 </li>
                             </ul>
@@ -128,14 +167,14 @@
                                             </div>
                                         </div>
                                         <!-- ./activa -->
-                                        <!-- institución -->
+                                        <!-- organización -->
                                         <div class="col-md-4">
                                             <div class="form-group is-required">
-                                                <label>Institución:</label>
+                                                <label>Organización:</label>
                                                 <select2 :options="institutions" v-model="record.institution_id"></select2>
                                             </div>
                                         </div>
-                                        <!-- ./institución -->
+                                        <!-- ./organización -->
                                         <!-- tipo de vacaciones -->
                                         <div class="col-md-6">
                                             <div class="form-group is-required">

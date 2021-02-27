@@ -1,6 +1,5 @@
 # Solicitudes de Bienes Institucionales 
 ***************************************
-<div style="text-align: justify;">
 
 ![Screenshot](img/logokavac.png#imagen)
 
@@ -63,7 +62,6 @@ En esta sección se presentan las solicitudes de prórrogas pendientes, el encar
 En esta sección se presentan las notificaciones de entregas de equipos, el encargado de bienes institucionales evalúa la entrega y a través de los botones ubicados en la columna titulada acción puede: aceptar solicitud, rechazar solicitud o eliminar el registro. 
 
 
-</div>
 
 
 

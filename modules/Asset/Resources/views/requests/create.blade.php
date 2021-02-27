@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-	Gestión de Bienes Institucionales
+	Gestión de Bienes
 @stop
 
 @section('content')
@@ -21,7 +21,7 @@
     	<div class="col-12">
     		<div class="card" id="cardAssetRequestForm">
     			<div class="card-header">
-    				<h6 class="card-title text-uppercase">Solicitud de Bienes Institucionales
+    				<h6 class="card-title text-uppercase">Solicitudes de Bienes
     					@include('buttons.help', [
     					    'helpId' => 'AssetRequestForm',
     					    'helpSteps' => get_json_resource('ui-guides/requests/request_form.json', 'asset')

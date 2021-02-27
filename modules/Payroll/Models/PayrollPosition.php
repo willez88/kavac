@@ -61,16 +61,16 @@ class PayrollPosition extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene el cargo asociado a muchas informaciones laborales
+     * Método que obtiene el cargo asociado a muchos datos laborales
      *
      * @author William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function payrollEmploymentInformations()
+    public function payrollEmployments()
     {
-        return $this->hasMany(PayrollEmploymentInformation::class);
+        return $this->hasMany(PayrollEmployment::class);
     }
-    
+
     /**
      * Método que obtiene los requerimientos de las escalas asociados a un cargo
      *

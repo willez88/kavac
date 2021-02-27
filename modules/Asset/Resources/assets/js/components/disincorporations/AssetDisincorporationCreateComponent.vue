@@ -22,19 +22,19 @@
 			<div class="row">
 				<div class="col-md-6" id="helpDisincorporationDate">
 					<div class="form-group is-required">
-    					<label>Fecha de la Desincorporación</label>
+    					<label>Fecha de desincorporación</label>
     					<div class="input-group input-sm">
                         	<span class="input-group-addon">
                             	<i class="now-ui-icons ui-1_calendar-60"></i>
                         	</span>
-                        	<input type="date" class="form-control input-sm" data-toogle="tolltip"
-                        			title="Fecha de la desincorporación" v-model="record.date">
+                        	<input type="date" class="form-control input-sm" data-toggle="tooltip"
+                        			title="Fecha de desincorporación" v-model="record.date">
                     	</div>
 				    </div>
 				</div>
 				<div class="col-md-6" id="helpDisincorporationMotive">
 					<div class="form-group is-required">
-						<label>Motivo de la Desincorporación</label>
+						<label>Motivo de la desincorporación</label>
 						<select2 :options="asset_disincorporation_motives" data-toggle="tooltip"
 								 title="Indique el motivo de la desincorporación del bien"
 								 v-model="record.asset_disincorporation_motive_id"></select2>
@@ -61,7 +61,7 @@
 
 			<div class="row">
 				<div class="col-md-12">
-					<b>Información de los Bienes a ser Desincorporados</b>
+					<b>Información de los bienes a ser desincorporados</b>
 				</div>
 			</div>
 			<div class="row"style="margin: 10px 0">
@@ -73,7 +73,7 @@
 			<div class="row">
 				<div class="col-md-3" id="helpSearchAssetType">
 					<div class="form-group">
-						<label>Tipo de Bien</label>
+						<label>Tipo de bien</label>
 						<select2 :options="asset_types" @input="getAssetCategories()"
 								 data-toggle="tooltip"
 								 title="Indique el tipo del bien"
@@ -83,7 +83,7 @@
 
 				<div class="col-md-3" id="helpSearchAssetCategory">
 					<div class="form-group">
-						<label>Categoria General</label>
+						<label>Categoria general</label>
 						<select2 :options="asset_categories" @input="getAssetSubcategories()"
 								 data-toggle="tooltip"
 								 title="Indique la categoria general del bien"
@@ -102,7 +102,7 @@
 
 				<div class="col-md-3" id="helpSearchAssetSpecificCategory">
 					<div class="form-group">
-						<label>Categoria Específica</label>
+						<label>Categoria específica</label>
 						<select2 :options="asset_specific_categories"
 								 data-toggle="tooltip"
 								 title="Indique la categoria específica del bien"
@@ -190,11 +190,12 @@
 				<div class="col-md-3 offset-md-9" id="helpParamButtons">
 		        	<button type="button" @click="reset()"
 							class="btn btn-default btn-icon btn-round"
+							data-toggle="tooltip"
 							title ="Borrar datos del formulario">
 							<i class="fa fa-eraser"></i>
 					</button>
 
-		        	<button type="button"
+		        	<button type="button" @click="redirect_back(route_list)"
 		        			class="btn btn-warning btn-icon btn-round btn-modal-close"
 		        			data-dismiss="modal"
 		        			title="Cancelar y regresar">
@@ -515,4 +516,3 @@
 		}
 	};
 </script>
-

@@ -44,7 +44,7 @@
 	                    		<div class="row">
 							        <div class="col-md-6">
 										<div class="form-group">
-											<strong>Fecha de la Desincorporación</strong>
+											<strong>Fecha de desincorporación</strong>
 											<div class="row" style="margin: 1px 0">
 												<span class="col-md-12" id="date">
 												</span>

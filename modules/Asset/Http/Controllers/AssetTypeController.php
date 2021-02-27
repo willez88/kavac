@@ -26,11 +26,27 @@ class AssetTypeController extends Controller
      * Define la configuración de la clase
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
      */
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
         $this->middleware('permission:asset.setting.type');
+        /** Define las reglas de validación para el formulario */
+        $this->validateRules = [
+            'name'     => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100',  'unique:asset_types,name'],
+
+
+        ];
+
+        /** Define los mensajes de validación para las reglas del formulario */
+        $this->messages = [
+            'name.required'     => 'El campo tipo de bienes es obligatorio.',
+            'name.max'          => 'El campo tipo de bienes no debe contener más de 100 caracteres.',
+            'name.regex'        => 'El campo tipo de bienes no debe permitir números ni símbolos.',
+            'name.unique'       => 'El campo tipo de bienes ya ha sido registrado.'
+
+           ];
     }
 
     /**
@@ -48,14 +64,13 @@ class AssetTypeController extends Controller
      * Valida y registra un nuevo tipo de bien institucional
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
      * @param     \Illuminate\Http\Request         $request    Datos de la petición
      * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => ['required', 'max:100']
-        ]);
+        $this->validate($request, $this->validateRules, $this->messages);
 
 
         /**
@@ -74,15 +89,14 @@ class AssetTypeController extends Controller
      * Actualiza la información del tipo de bien institucional
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
      * @param     \Illuminate\Http\Request           $request    Datos de la petición
      * @param     \Modules\Asset\Models\AssetType    $type       Datos del tipo de bien
      * @return    \Illuminate\Http\JsonResponse      Objeto con los registros a mostrar
      */
     public function update(Request $request, AssetType $type)
     {
-        $this->validate($request, [
-            'name' => ['required', 'max:100']
-        ]);
+        $this->validate($request, $this->validateRules, $this->messages);
 
         $type->name = $request->input('name');
         $type->save();

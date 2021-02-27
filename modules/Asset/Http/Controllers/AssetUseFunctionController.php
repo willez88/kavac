@@ -25,11 +25,24 @@ class AssetUseFunctionController extends Controller
      * Define la configuración de la clase
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    YenniferRamirez <yramirez@cenditel.gob.ve>
      */
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
         //$this->middleware('permission:asset.setting.use-function');
+        /** Define las reglas de validación para el formulario */
+        $this->validateRules = [
+            'name'     => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100'],
+
+        ];
+
+        /** Define los mensajes de validación para las reglas del formulario */
+        $this->messages = [
+            'name.required'     => 'El campo función de uso es obligatorio.',
+            'name.max'          => 'El campo función de uso no debe contener más de 100 caracteres.',
+            'name.regex'        => 'El campo función de uso no debe permitir números ni símbolos.'
+           ];
     }
 
     /**
@@ -47,14 +60,13 @@ class AssetUseFunctionController extends Controller
      * Valida y registra una nueva funcion de uso
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
      * @param     \Illuminate\Http\Request         $request    Datos de la petición
      * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => ['required', 'max:100']
-        ]);
+        $this->validate($request, $this->validateRules, $this->messages);
 
 
         /**
@@ -73,6 +85,7 @@ class AssetUseFunctionController extends Controller
      * Actualiza la información de la función de uso de un bien
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
      * @param     \Illuminate\Http\Request         $request    Datos de la petición
      * @param     Integer                          $id         Identificador único de la función de usa a editar
      * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
@@ -80,10 +93,7 @@ class AssetUseFunctionController extends Controller
 
     public function update(Request $request, $id)
     {
-        $function = AssetUseFunction::find($id);
-        $this->validate($request, [
-            'name' => ['required', 'max:100']
-        ]);
+        $this->validate($request, $this->validateRules, $this->messages);
 
         if ($function) {
             $function->name = $request->input('name');

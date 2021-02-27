@@ -234,6 +234,7 @@ Route::group(
         Route::put('bills/bill-approved/{bill}', 'SaleBillController@approvedBill');
         Route::put('bills/bill-rejected/{bill}', 'SaleBillController@rejectedBill');
         Route::get('bills/vue-approved-list/{state}', 'SaleBillController@vueApprovedList');
+        Route::get('bills/pdf/{id}', 'Reports\SaleBillController@pdf');
 
         /*
          * ------------------------------------------------------------

@@ -56,14 +56,14 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group is-required">
-                        <label for="id_number">Cédula de Identidad</label>
+                        <label for="id_number">Cédula de identidad</label>
                         <input type="text" class="form-control input-sm" data-toggle="tooltip"
                                title="Indique la cédula de identidad del solicitante" v-model="record.id_number">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group is-required">
-                        <label for="email">Correo Electrónico</label>
+                        <label for="email">Correo electrónico</label>
                         <input type="email" id="email" class="form-control input-sm" data-toggle="tooltip"
                                title="Indique el correo electrónico del solicitante" v-model="record.email">
                     </div>
@@ -157,7 +157,7 @@
 				</div>
 				<div class="col-md-4">
 					<div class="form-group is-required">
-						<label for="citizenserviceRequestTypes">Tipo de Solicitud</label>
+						<label for="citizenserviceRequestTypes">Tipo de solicitud</label>
 						<select2 :options="citizen_service_request_types"
 								  @input="getCitizenServiceRequestType()"
 								  v-model="record.citizen_service_request_type_id"></select2>
@@ -171,7 +171,7 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="form-group is-required">
-							<label for="type_team">Tipo de Equipo</label>
+							<label for="type_team">Tipo de equipo</label>
         					<input type="text" id="type_team" class="form-control input-sm" data-toggle="tooltip"
                                    title="Indique el tipo de equipo" v-model="record.type_team"/>
 						</div>
@@ -206,35 +206,35 @@
 					</div>
                     <div class="col-md-4">
 						<div class="form-group is-required">
-							<label for="transfer">Motivo de Traslado</label>
+							<label for="transfer">Motivo de traslado</label>
         					<input type="text" id="transfer" class="form-control input-sm" data-toggle="tooltip"
                                    title="Indique el motivo de traslado" v-model="record.transfer"/>
 						</div>
 					</div>
 					<div class="col-md-4">
 						<div class="form-group is-required">
-							<label for="inventory_code">Código de Inventario</label>
+							<label for="inventory_code">Código de inventario</label>
         					<input type="text" id="inventory_code" class="form-control input-sm" data-toggle="tooltip"
                                    title="Indique el código de inventario" v-model="record.inventory_code"/>
 						</div>
 					</div>
                     <div class="col-md-4">
 						<div class="form-group is-required">
-							<label for="entryhour">Hora de Entrada</label>
+							<label for="entryhour">Hora de entrada</label>
         					<input type="time" id="entryhour" class="form-control input-sm" data-toggle="tooltip"
                                    title="Indique la hora de entrada del equipo" v-model="record.entryhour"/>
 						</div>
 					</div>
                     <div class="col-md-4">
 						<div class="form-group">
-							<label for="exithour">Hora de Salida</label>
+							<label for="exithour">Hora de salida</label>
         					<input type="time" id="exithour" class="form-control input-sm" data-toggle="tooltip"
                                    title="Indique la hora de salida del equipo" v-model="record.exithour"/>
 						</div>
 					</div>
 					<div class="col-md-4">
 						<div class="form-group is-required">
-							<label for="informationteam">Información Adicional del Equipo</label>
+							<label for="informationteam">Información adicional del equipo</label>
         					<input type="text" id="informationteam" class="form-control input-sm" data-toggle="tooltip"
                                    title="Indique la información adicional del equipo" v-model="record.informationteam"/>
 						</div>
@@ -276,7 +276,7 @@
 				<div class="row">
                     <div class="col-md-4">
 						<div class="form-group is-required">
-							<label for="institution_name">Nombre de la Institución</label>
+							<label for="institution_name">Nombre de la institución</label>
         					<input type="text" id="institution_name" class="form-control input-sm" data-toggle="tooltip"
                                    title="Indique el nombre de la institución" v-model="record.institution_name">
 						</div>
@@ -291,7 +291,7 @@
 					</div>
 					<div class="col-md-4">
 						<div class="form-group is-required">
-							<label for="institution_address">Dirección de la Institución</label>
+							<label for="institution_address">Dirección de la institución</label>
         					<input type="text" id="institution_address" class="form-control input-sm"
                                    data-toggle="tooltip" title="Indique la dirección de la institución"
                                    v-model="record.institution_address">
@@ -299,7 +299,7 @@
 					</div>
 					<div class="col-md-4">
 						<div class="form-group">
-							<label for="web">Dirección Web</label>
+							<label for="web">Dirección web</label>
         					<input type="url" id="web" class="form-control input-sm" data-toggle="tooltip"
                                    title="Indique la dirección web" v-model="record.web">
 						</div>
@@ -309,6 +309,7 @@
 		</div>
 		<div class="card-footer text-right">
         	<button type="button" @click="reset()" class="btn btn-default btn-icon btn-round"
+					data-toggle="tooltip"
                     title ="Borrar datos del formulario">
 					<i class="fa fa-eraser"></i>
 			</button>
@@ -317,9 +318,10 @@
                         title="Cancelar y regresar">
                     <i class="fa fa-ban"></i>
             </button>
-			<button type="button"  @click="createRecord('citizenservice/requests')" title="Guardar registro"
-                    class="btn btn-success btn-icon btn-round btn-modal-save">
-        			<i class="fa fa-save"></i>
+			<button type="button"  @click="createRecord('citizenservice/requests')"
+					class="btn btn-success btn-icon btn-round btn-modal-save"
+					title="Guardar registro">
+				<i class="fa fa-save"></i>
             </button>
         </div>
    	</div>

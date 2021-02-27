@@ -68,7 +68,7 @@ class PayrollStaffClassificationController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required', 'max:100'],
+            'name' => ['required', 'max:100', 'unique:payroll_staff_classifications,name'],
             'description' => ['nullable', 'max:200']
         ]);
         $payrollStaffClassification = PayrollStaffClassification::create([
@@ -107,7 +107,9 @@ class PayrollStaffClassificationController extends Controller
     {
         $payrollStaffClassification = PayrollStaffClassification::find($id);
         $this->validate($request, [
-            'name' => ['required', 'max:100'],
+            'name' => [
+                'required', 'max:100', 'unique:payroll_staff_classifications,name,'.$payrollStaffClassification->id
+            ],
             'description' => ['nullable', 'max:200']
         ]);
         $payrollStaffClassification->name  = $request->name;

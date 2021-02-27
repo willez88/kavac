@@ -21,11 +21,11 @@
 
 			<div class="row">
 				<div class="col-md-12">
-					<b>Información del Trabajador Responsable del bien</b>
+					<b>Información del trabajador responsable del bien</b>
 				</div>
 				<div class="col-md-4" id="helpInstitution">
 					<div class="form-group is-required">
-						<label>Institución:</label>
+						<label>Organización:</label>
 						<select2 :options="institutions" @input="getDepartments()"
 								 v-model="record.institution_id"></select2>
                     </div>
@@ -41,7 +41,7 @@
 				</div>
 				<div class="col-md-4" id="helpPositionType">
 					<div class="form-group">
-						<label>Puesto de Trabajo:</label>
+						<label>Puesto de trabajo:</label>
 						<select2 :options="payroll_position_types" @input=""
 								 v-model="record.payroll_position_type_id"></select2>
 						<input type="hidden" v-model="record.id">
@@ -65,7 +65,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<b>Información de los Bienes a ser Asignados</b>
+					<b>Información de los bienes a ser asignados</b>
 				</div>
 			</div>
 			<div class="row" style="margin: 10px 0">
@@ -77,7 +77,7 @@
 			<div class="row">
 				<div class="col-md-3" id="helpSearchAssetType">
 					<div class="form-group">
-						<label>Tipo de Bien</label>
+						<label>Tipo de bien</label>
 						<select2 :options="asset_types" @input="getAssetCategories()"
 								 v-model="record.asset_type_id"></select2>
 					</div>
@@ -85,7 +85,7 @@
 
 				<div class="col-md-3" id="helpSearchAssetCategory">
 					<div class="form-group">
-						<label>Categoria General</label>
+						<label>Categoria general</label>
 						<select2 :options="asset_categories" @input="getAssetSubcategories()"
 								 v-model="record.asset_category_id"
 								 title="Indique la categoria general del bien"></select2>
@@ -103,7 +103,7 @@
 
 				<div class="col-md-3" id="helpSearchAssetSpecificCategory">
 					<div class="form-group">
-						<label>Categoria Específica</label>
+						<label>Categoria específica</label>
 						<select2 :options="asset_specific_categories"
 								 v-model="record.asset_specific_category_id"
 								 title="Indique la categoria específica del bien"></select2>
@@ -194,11 +194,12 @@
 				<div class="col-md-3 offset-md-9" id="helpParamButtons">
 		        	<button type="button" @click="reset()"
 							class="btn btn-default btn-icon btn-round"
+							data-toggle="tooltip"
 							title ="Borrar datos del formulario">
 							<i class="fa fa-eraser"></i>
 					</button>
 
-		        	<button type="button"
+		        	<button type="button" @click="redirect_back(route_list)"
 		        			class="btn btn-warning btn-icon btn-round btn-modal-close"
 		        			data-dismiss="modal"
 		        			title="Cancelar y regresar">

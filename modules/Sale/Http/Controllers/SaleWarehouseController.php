@@ -72,7 +72,7 @@ class SaleWarehouseController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required', 'max:200'],
+            'name' => ['required', 'unique:sale_warehouses,name', 'regex:/([A-Za-z\s])\w+/u','max:200'],
             'address' => ['required', 'max:900'],
             'parish_id' => ['required'],
         ]);

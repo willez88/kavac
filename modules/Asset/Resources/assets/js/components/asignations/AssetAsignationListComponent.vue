@@ -49,7 +49,7 @@
 			this.table_options.headings = {
 				'code': 'Código',
 				'payroll_staff': 'Trabajador',
-				'created': 'Fecha de Asignación',
+				'created': 'Fecha de asignación',
 				'id': 'Acción'
 			};
 			this.table_options.sortable = ['code', 'payroll_staff', 'created'];

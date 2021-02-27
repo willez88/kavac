@@ -38,15 +38,15 @@ class PayrollContractType extends Model implements Auditable
     protected $fillable = ['name'];
 
     /**
-     * Método que obtiene el tipo de contrato asociado a muchas informaciones laborales del trabajador
+     * Método que obtiene el tipo de contrato asociado a muchos datos laborales del trabajador
      *
      * @author    William Páez <wpaez@cenditel.gob.ve>
      *
      * @return    \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function payrollEmploymentInformations()
+    public function payrollEmployments()
     {
-        return $this->hasMany(PayrollEmploymentInformation::class);
+        return $this->hasMany(PayrollEmployment::class);
     }
 
     /**

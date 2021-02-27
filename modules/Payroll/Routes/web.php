@@ -272,6 +272,15 @@ Route::group([
         'PayrollProfessionalController@getJsonProfessions'
     )->name('payroll.get-json-professions');
 
+    /** Rutas para gestionar los datos laborales del personal */
+    Route::resource('employments', 'PayrollEmploymentController', ['as' => 'payroll']);
+
+    /** Ruta que obtiene un listado de los datos laborales del personal */
+    Route::get(
+        'employments/show/vue-list',
+        'PayrollEmploymentController@vueList'
+    )->name('payroll.employments.vue-list');
+
     /** Rutas para gestionar los tipos de inactividad */
     Route::resource(
         'inactivity-types',
@@ -337,16 +346,26 @@ Route::group([
         'PayrollBloodTypeController@getPayrollBloodTypes'
     )->name('payroll.get-payroll-blood-types');
 
-    /** Rutas para gestionar los datos laborales del personal */
-    Route::resource('employment-informations', 'PayrollEmploymentInformationController', ['as' => 'payroll']);
+    /** Rutas para gestionar los tipos de liquidación */
+    Route::resource(
+        'settlement-types',
+        'PayrollSettlementTypeController',
+        ['as' => 'payroll', 'except' => ['show','create','edit']]
+    );
 
-    /** Ruta que obtiene un listado de los datos laborales del personal */
-    Route::get(
-        'employment-informations/show/vue-list',
-        'PayrollEmploymentInformationController@vueList'
-    )->name('payroll.employment-informations.vue-list');
+    /** Rutas para gestionar los parentescos */
+    Route::resource(
+        'relationships',
+        'PayrollRelationshipController',
+        ['as' => 'payroll', 'except' => ['show','create','edit']]
+    );
 
-
+    /** Rutas para gestionar las discapacidades */
+    Route::resource(
+        'disabilities',
+        'PayrollDisabilityController',
+        ['as' => 'payroll', 'except' => ['show','create','edit']]
+    );
 
     /** Rutas para gestionar los parámetros de nómina */
     Route::resource('parameters', 'PayrollParameterController', ['except' => ['show','create','edit']]);

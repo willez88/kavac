@@ -68,8 +68,8 @@ class SaleSettingProductController extends Controller
         if ($request->sale_setting_product_type_id == $saleSettingProductType1
         ) {
             $this->validate($request, [
-                'name' => ['required', 'max:100'],
-                'code' => ['required', 'max:100'],
+                'name' => ['required', 'unique:sale_setting_products,name', 'regex:/([A-Za-z\s])\w+/u','max:100'],
+                'code' => ['required', 'unique:sale_setting_products,code', 'regex:/([A-Za-z\s])\w+/u','max:100'],
                 'description' => ['required', 'max:200'],
                 'price' => ['required', 'max:100'],
                 'iva' => ['required', 'max:100'],

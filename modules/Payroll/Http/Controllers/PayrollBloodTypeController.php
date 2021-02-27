@@ -68,7 +68,7 @@ class PayrollBloodTypeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required', 'max:50']
+            'name' => ['required', 'max:50', 'unique:payroll_blood_types,name']
         ]);
 
         $payrollBloodType = PayrollBloodType::create([
@@ -107,7 +107,7 @@ class PayrollBloodTypeController extends Controller
     {
         $payrollBloodType = PayrollBloodType::find($id);
         $this->validate($request, [
-            'name' => ['required', 'max:50']
+            'name' => ['required', 'max:50', 'unique:payroll_blood_types,name,'.$payrollBloodType->id]
         ]);
 
         $payrollBloodType->name = $request->name;

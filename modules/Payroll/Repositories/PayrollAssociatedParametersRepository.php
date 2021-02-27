@@ -159,7 +159,7 @@ class PayrollAssociatedParametersRepository
             [
                 'id'       => 'EMPLOYMENT_INFORMATION',
                 'name'     => 'Datos Laborales',
-                'required' => ['payrollEmploymentInformation'],
+                'required' => ['payrollEmployment'],
                 'children' =>
                 [
                     [

@@ -20,16 +20,39 @@ use Modules\Asset\Models\AssetCondition;
 class AssetConditionController extends Controller
 {
     use ValidatesRequests;
+    /**
+     * Arreglo con las reglas de validación sobre los datos de un formulario
+     * @var Array $validateRules
+     */
+    protected $validateRules;
+    /**
+     * Arreglo con los mensajes para las reglas de validación
+     * @var Array $messages
+     */
+    protected $messages;
 
     /**
      * Define la configuración de la clase
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
      */
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
         //$this->middleware('permission:asset.setting.condition');
+        /** Define las reglas de validación para el formulario */
+        $this->validateRules = [
+            'name'     => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100'],
+
+        ];
+
+        /** Define los mensajes de validación para las reglas del formulario */
+        $this->messages = [
+            'name.required'     => 'El campo condición física es obligatorio.',
+            'name.max'          => 'El campo condición física no debe contener más de 100 caracteres.',
+            'name.regex'        => 'El campo condición física no debe permitir números ni símbolos.'
+           ];
     }
 
     /**
@@ -47,14 +70,13 @@ class AssetConditionController extends Controller
      * Valida y registra una nueva condición física
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
      * @param     \Illuminate\Http\Request         $request    Datos de la petición
      * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => ['required', 'max:100']
-        ]);
+        $this->validate($request, $this->validateRules, $this->messages);
 
 
         /**
@@ -73,15 +95,14 @@ class AssetConditionController extends Controller
      * Actualiza la información de la condición física de un bien
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
      * @param     \Illuminate\Http\Request                $request      Datos de la petición
      * @param     \Modules\Asset\Models\AssetCondition    $condition    Datos de la condición física
      * @return    \Illuminate\Http\JsonResponse           Objeto con los registros a mostrar
      */
     public function update(Request $request, AssetCondition $condition)
     {
-        $this->validate($request, [
-            'name' => ['required', 'max:100']
-        ]);
+        $this->validate($request, $this->validateRules, $this->messages);
 
         $condition->name = $request->input('name');
         $condition->save();

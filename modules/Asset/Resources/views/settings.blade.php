@@ -1,4 +1,4 @@
-@extends('asset::layouts.master')
+@extends('asset::layouts.master', ['setting_view' => true])
 
 @section('maproute-icon')
 	<i class="ion-settings"></i>
@@ -9,11 +9,11 @@
 @stop
 
 @section('maproute-actual')
-	Bienes
+	{{ __('Bienes') }}
 @stop
 
 @section('maproute-title')
-	Configuración
+	{{ __('Configuración') }}
 @stop
 
 @section('content')
@@ -21,8 +21,9 @@
 		<div class="col-12">
 			<div class="card" id="helpCodeSettingForm">
 				<div class="card-header">
-					<h6 class="card-title">Formatos de Códigos
-			    @include('buttons.help', [
+					<h6 class="card-title">
+						{{ __('Formatos de Códigos') }}
+			    		@include('buttons.help', [
 					    'helpId' => 'AssetCodeSetting',
 					    'helpSteps' => get_json_resource('ui-guides/settings/code_setting.json', 'asset')
 			    ])
@@ -38,7 +39,7 @@
 						@include('layouts.form-errors')
 						<div class="row">
 							<div class="col-12">
-								<h6>Gestión de Bienes</h6>
+								<h6>{{ __('Gestión de Bienes') }}</h6>
 							</div>
 						</div>
 						<div class="row">
@@ -111,7 +112,8 @@
 		<div class="col-12">
 			<div class="card" id="helpGeneralParamsForm">
 				<div class="card-header">
-					<h6 class="card-title">Parámetros Generales
+					<h6 class="card-title">
+					{{ __('Parámetros Generales') }}
 					@include('buttons.help', [
 					    'helpId' => 'GeneralParams',
 							'helpSteps' => get_json_resource('ui-guides/settings/general_parameters.json', 'asset')
@@ -144,7 +146,8 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Parámetros Específicos del Clasificador de Bienes
+					<h6 class="card-title">
+						{{ __('Parámetros Específicos del Clasificador de Bienes') }}
 						@include('buttons.help', [
 						    'helpId' => 'EspecificParams',
 								'helpSteps' => get_json_resource('ui-guides/settings/specific_parameters.json', 'asset')
@@ -173,5 +176,8 @@
 			</div>
 		</div>
 	</div>
-
+@stop
+@section('extra-js')
+    @parent
+    {!! Html::script('js/ckeditor.js', [], Request::secure()) !!}
 @stop

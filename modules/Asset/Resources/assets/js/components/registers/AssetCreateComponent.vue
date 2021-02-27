@@ -21,7 +21,7 @@
 			<div class="row">
 				<div class="col-md-4" id="helpInstitution">
 					<div class="form-group is-required">
-						<label>Institución:</label>
+						<label>Organización:</label>
 						<select2 :options="institutions"
 								data-toggle="tooltip"
 								title="Seleccione un registro de la lista"
@@ -33,7 +33,7 @@
 			<div class="row">
 				<div class="col-md-4" id="helpAssetType">
 					<div class="form-group is-required">
-						<label>Tipo de Bien:</label>
+						<label>Tipo de bien:</label>
 						<select2 :options="asset_types" id="asset_types_select"
 								@input="(!assetid)? getAssetCategories():''"
 								data-toggle="tooltip"
@@ -43,7 +43,7 @@
 				</div>
 				<div class="col-md-4" id="helpAssetCategory">
 					<div class="form-group is-required">
-						<label>Categoria General:</label>
+						<label>Categoría general:</label>
 						<select2 :options="asset_categories" id="asset_categories_select"
 								@input="(!assetid)? getAssetSubcategories():''"
 								:disabled="(!this.record.asset_type_id != '')"
@@ -65,7 +65,7 @@
 				</div>
 				<div class="col-md-4" id="helpAssetSpecificCategory">
 					<div class="form-group is-required">
-						<label>Categoria Específica:</label>
+						<label>Categoría específica:</label>
 						<select2 :options="asset_specific_categories"
 								:disabled="(!this.record.asset_subcategory_id != '')"
 								@input="getAssetRequired()"
@@ -87,14 +87,14 @@
 				<hr>
 				<div class="col-md-3" id="helpAssetAcquisitionType">
 					<div class="form-group is-required">
-						<label>Forma de Adquisición</label>
+						<label>Forma de adquisición</label>
 						<select2 :options="asset_acquisition_types"
 								v-model="record.asset_acquisition_type_id"></select2>
 					</div>
 				</div>
 				<div class="col-md-3" id="helpAssetAcquisitionYear">
 					<div class="form-group is-required">
-						<label>Fecha de Adquisición</label>
+						<label>Fecha de adquisición</label>
 						<input type="date" placeholder="Fecha de Adquisición" data-toggle="tooltip"
 							   title="Indique la fecha de adquisición"
 							   class="form-control input-sm" v-model="record.acquisition_date">
@@ -111,7 +111,7 @@
 
 				<div class="col-md-3" id="helpAssetCondition">
 					<div class="form-group is-required">
-						<label>Condición Física</label>
+						<label>Condición física</label>
 						<select2 :options="asset_conditions"
 								 data-toggle="tooltip"
 								 title="Seleccione un registro de la lista"
@@ -121,7 +121,7 @@
 
 				<div class="col-md-3" id="helpAssetStatus">
 					<div class="form-group is-required">
-						<label>Estatus de Uso</label>
+						<label>Estatus de uso</label>
 						<select2 :options="asset_status"
 								 data-toggle="tooltip"
 								 title="Seleccione un registro de la lista"
@@ -132,7 +132,7 @@
 				<div class="col-md-3" id="helpAssetUseFunction"
 					v-if="required.use_function == true">
 					<div class="form-group is-required">
-						<label>Función de Uso</label>
+						<label>Función de uso</label>
 						<select2 :options="asset_use_functions"
 								 data-toggle="tooltip"
 								 title="Seleccione un registro de la lista"
@@ -250,15 +250,15 @@
 				<div class="col-md-3 offset-md-9" id="helpParamButtons">
 		        	<button type="button" @click="reset()"
 							class="btn btn-default btn-icon btn-round"
+							data-toggle="tooltip"
 							title ="Borrar datos del formulario">
 							<i class="fa fa-eraser"></i>
 					</button>
 
-		        	<button type="button"
-		        			class="btn btn-warning btn-icon btn-round btn-modal-close"
-		        			data-dismiss="modal"
-		        			title="Cancelar y regresar">
-		        			<i class="fa fa-ban"></i>
+		        	<button type="button" @click="redirect_back(route_list)"
+							class="btn btn-warning btn-icon btn-round" data-toggle="tooltip"
+							title="Cancelar y regresar">
+						<i class="fa fa-ban"></i>
 		        	</button>
 
 		        	<button type="button"  @click="createRecord('asset/registers')"

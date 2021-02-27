@@ -4,7 +4,7 @@
 ![Screenshot](img/logokavac.png#imagen)
 
 
-El Manual de Documentación del sistema KAVAC a nivel de usuario tiene como objetivo facilitar la tarea de conocimiento, uso y aprendizaje del sistema desarrollado. Presenta información acerca de todas las operaciones básicas que el sistema ofrece, así como capturas de pantallas útiles para el seguimiento de la explicación de los procesos. Para iniciar en el sistema KAVAC, es necesario configurar el entorno de desarrollo, por lo que se amerita conocer a fondo las tareas y funciones de cada rol de usuario. La instalación del sistema KAVAC que se presenta a continuación nos abre paso  a la configuración y uso de cada aplicación, asimismo, nos mostrará los procesos de alojamiento del servidor de desarrollo. El sistema KAVAC está desarrollado en el lenguaje de programación PHP  usando el framework o entorno de desarrollo Laravel, lo que convierte a este sistema en una aplicación bastante versátil a nivel de desarrollo debido a la amplia comunidad colaborativa "Open Source" de usuarios relacionados con esta tecnología.
+El Manual de Documentación del sistema KAVAC a nivel de usuario tiene como objetivo facilitar la tarea de conocimiento, uso y aprendizaje del sistema desarrollado. Presenta información acerca de todas las operaciones básicas que el sistema ofrece, así como capturas de pantallas útiles para el seguimiento de la explicación de los procesos. Para iniciar en el sistema KAVAC, es necesario configurar el entorno de desarrollo, por lo que se amerita conocer y comprender a fondo las tareas y funciones de cada rol de usuario. La instalación del sistema KAVAC que se presenta a continuación nos abre paso  a la configuración y uso de cada aplicación, asimismo, nos mostrará los procesos de alojamiento del servidor. El sistema KAVAC está desarrollado en el lenguaje de programación PHP  usando el framework o entorno de desarrollo Laravel, lo que convierte a este sistema en una aplicación bastante versátil a nivel de desarrollo, debido a la amplia comunidad colaborativa "Open Source" de usuarios relacionados con esta tecnología.
 
 
 ## KAVAC sistema de gestión de recursos
@@ -16,7 +16,7 @@ KAVAC es un sistema de planificación y gestión de recursos organizacionales, q
 ##Aplicaciones
 
 
-KAVAC está diseñado de forma modular, cuenta con independencia entre los módulos, permitiendo la flexibilidad para ajustarse rápidamente a las características de cada organización. El sistema se encuentra estructurado de tal forma que los módulos convivan entre sí, sin embargo; no es necesario la instalación de todos los módulos para que algunos de ellos puedan coexistir.  Es posible comenzar utilizando solamente los módulos que se requieran, e ir integrando más módulos y funcionalidades posteriormente. Cada uno de los módulos del KAVAC cuenta con un panel de control y una configuración, que permite ajustarlos a las necesidades de la institución usuaria. 
+KAVAC está diseñado de forma modular, cuenta con independencia entre los módulos, permitiendo la flexibilidad para ajustarse rápidamente a las características de cada organización. El sistema se encuentra estructurado de tal forma que los módulos convivan entre sí, sin embargo; no es necesario la instalación de todos los módulos para que algunos de ellos puedan coexistir.  Es posible comenzar utilizando solamente los módulos que se requieran, e ir integrando más módulos y funcionalidades posteriormente. Cada uno de los módulos del KAVAC cuenta con un panel de control y una configuración que permite ajustarlos a las necesidades de la institución usuaria. 
 
 
 ![Screenshot](img/figure_1.png#imagen)<div style="text-align: center;font-weight: bold">Figura 1: Aplicaciones KAVAC</div>
@@ -40,7 +40,7 @@ Nombre del producto: KAVAC ‘Sistema de Gestión de Recursos’
 
    Nombre del licenciante y año: Licencia Combinada de Software y Contenidos de la Fundación CENDITEL. Versión 1.2 (Año: 2015).
 
-   Créditos: 
+   **Créditos**: 
    
    **Líder de proyecto / Diseño / Desarrollo / Autor / Director de Desarrollo (2021)**
 

@@ -217,23 +217,23 @@ Vue.component('payroll-professional', () => import(
 );
 
 /**
- * Componente para mostrar listado de información laboral
+ * Componente para mostrar listado de datos laborales
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-employment-informations-list', () => import(
-    /* webpackChunkName: "payroll-employment-informations-list" */
-    './components/PayrollEmploymentInformationListComponent.vue')
+Vue.component('payroll-employment-list', () => import(
+    /* webpackChunkName: "payroll-employment-list" */
+    './components/PayrollEmploymentListComponent.vue')
 );
 
 /**
- * Componente para registrar o actualizar información laboral
+ * Componente para registrar o actualizar datos laborales
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-employment-information', () => import(
-    /* webpackChunkName: "payroll-employment-information" */
-    './components/PayrollEmploymentInformationComponent.vue')
+Vue.component('payroll-employment', () => import(
+    /* webpackChunkName: "payroll-employment" */
+    './components/PayrollEmploymentComponent.vue')
 );
 
 /**
@@ -528,6 +528,35 @@ Vue.component('payroll-permission-request-pending-list', () => import(
     './components/requests/permissions/PayrollPermissionRequestPendingListComponent.vue')
 );
 
+/**
+ * Componente para listar, crear, actualizar y borrar datos de tipos de liquidación
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
+ */
+Vue.component('payroll-settlement-types', () => import(
+    /* webpackChunkName: "payroll-settlement-types" */
+    './components/settings/PayrollSettlementTypesComponent.vue')
+);
+
+/**
+ * Componente para listar, crear, actualizar y borrar datos de parentescos
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
+ */
+Vue.component('payroll-relationships', () => import(
+    /* webpackChunkName: "payroll-relationships" */
+    './components/settings/PayrollRelationshipsComponent.vue')
+);
+
+/**
+ * Componente para listar, crear, actualizar y borrar datos de discapacidades
+ *
+ * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
+ */
+Vue.component('payroll-disabilities', () => import(
+    /* webpackChunkName: "payroll-disabilities" */
+    './components/settings/PayrollDisabilitiesComponent.vue')
+);
 
 /**
  * Componente para la gestión de calculos de salario

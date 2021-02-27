@@ -22,7 +22,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group is-required">
-						<label for="citizenserviceRequestTypes">Tipo de Solicitud</label>
+						<label for="citizenserviceRequestTypes">Tipo de solicitud</label>
 					    <v-multiselect :options="citizen_service_request_types" track_by="text"
 								v-model="record.citizen_service_request_types"
 							    :hide_selected="false">
@@ -31,7 +31,7 @@
 				</div>
 				<div class="col-md-6">
 					<div class="form-group is-required">
-						<label>Estado de la Solicitud:</label>
+						<label>Estado de la solicitud:</label>
 						<v-multiselect :options="citizen_service_states" track_by="text"
 								v-model="record.citizen_service_states"
 							    :hide_selected="false">
@@ -42,7 +42,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group" style="text-align: right;">
-						<label>Busqueda por Periodo</label>
+						<label>Busqueda por periodo</label>
 						<div class="col-12">
                             <div class="col-12 bootstrap-switch-mini">
     							<input type="radio" name="type_search" value="period" id="sel_search_period"
@@ -55,7 +55,7 @@
 				</div>
 				<div class="col-md-6">
 					<div class=" form-group">
-						<label>Busqueda por Fecha </label>
+						<label>Busqueda por fecha </label>
 						<div class="col-12">
                             <div class="col-12 bootstrap-switch-mini">
 								<input type="radio" name="type_search" value="date" id="sel_search_date"
@@ -176,8 +176,8 @@
 			this.table_options.headings = {
 				'requested_by': 'Solicitado por',
 				'citizen_service_request_type_id': 'Tipos de solicitud',
-				'state': 'Estado de la Solicitud',
-				'date': 'Fecha de la Solicitud',
+				'state': 'Estado de la solicitud',
+				'date': 'Fecha de la solicitud',
 				'id': 'Acción'
 			};
 
@@ -212,7 +212,7 @@
 					fields[index] = this.records[index];
 				}
 
-			
+
 			//	if (vm.record.type_search == '') {
 			//		bootbox.alert("Seleccionar el tipo de reporte a generar");
 			//		return false;

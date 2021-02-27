@@ -60,24 +60,6 @@
                                 </div>
                             </div>
                             <!-- ./nombre -->
-                            <!-- cuenta contable -->
-                            <div class="col-md-4">
-                                <div class="form-group is-required">
-                                    <label>Cuenta contable</label>
-                                    <select2 :options="accounting_accounts"
-                                             v-model="record.accounting_account_id"></select2>
-                                </div>
-                            </div>
-                            <!-- ./cuenta contable -->
-                            <!-- cuenta presupuestaria -->
-                            <div class="col-md-4">
-                                <div class="form-group is-required">
-                                    <label>Cuenta presupuestario</label>
-                                    <select2 :options="budget_accounts"
-                                             v-model="record.budget_account_id"></select2>
-                                </div>
-                            </div>
-                            <!-- ./cuenta presupuestaria -->
                             <!-- periodicidad de pago -->
                             <div class="col-md-4">
                                 <div class="form-group is-required">
@@ -96,22 +78,6 @@
                                            class="form-control input-sm" v-model="record.periods_number">
                                 </div>
                             </div>
-                            <!-- correlativo al expediente de trabajador -->
-                            <div class="col-md-4">
-                                <div class=" form-group">
-                                    <label>¿Correlativo al expediente del trabajador?</label>
-                                    <div class="col-12">
-                                        <p-check class="pretty p-switch p-fill p-bigger"
-                                                 color="success" off-color="text-gray" toggle
-                                                 data-toggle="tooltip"
-                                                 title="¿El tipo de pago es correlativo al expediente del trabajador?"
-                                                 v-model="record.correlative">
-                                            <label slot="off-label"></label>
-                                        </p-check>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- ./correlativo al expediente de trabajador -->
                             <!-- fecha de inicio -->
                             <div class="col-md-4">
                                 <div class="form-group is-required">
@@ -131,18 +97,24 @@
                                 </div>
                             </div>
                             <!-- ./relación de pago -->
-                            <div class="col-md-6"
-                                 v-show="record.correlative">
-                                <div class="form-group is-required">
-                                    <label>Campos del expediente del trabajador:</label>
-                                    <v-multiselect :options="associated_records" track_by="text"
-                                                   :hide_selected="false"
-                                                   v-model="record.associated_records">
-                                    </v-multiselect>
+                            <!-- correlativo al expediente de trabajador -->
+                            <div class="col-md-4">
+                                <div class=" form-group">
+                                    <label>¿Correlativo al expediente del trabajador?</label>
+                                    <div class="col-12">
+                                        <p-check class="pretty p-switch p-fill p-bigger"
+                                                 color="success" off-color="text-gray" toggle
+                                                 data-toggle="tooltip"
+                                                 title="¿El tipo de pago es correlativo al expediente del trabajador?"
+                                                 v-model="record.correlative">
+                                            <label slot="off-label"></label>
+                                        </p-check>
+                                    </div>
                                 </div>
                             </div>
+                            <!-- ./correlativo al expediente de trabajador -->
                             <!-- conceptos -->
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <div class="form-group is-required">
                                     <label>Conceptos:</label>
                                     <v-multiselect :options="payroll_concepts" track_by="text"
@@ -152,6 +124,18 @@
                                 </div>
                             </div>
                             <!-- ./conceptos -->
+                            <!-- campos del expediente de trabajador -->
+                            <div class="col-md-12"
+                                 v-show="record.correlative">
+                                <div class="form-group is-required">
+                                    <label>Campos del expediente del trabajador:</label>
+                                    <v-multiselect :options="associated_records" track_by="text"
+                                                   :hide_selected="false"
+                                                   v-model="record.associated_records">
+                                    </v-multiselect>
+                                </div>
+                            </div>
+                            <!-- ./campos del expediente de trabajador -->
                         </div>
                         <div class="row">
                             <div class="col-12 text-right"
@@ -196,6 +180,9 @@
                     </div>
                     <div class="modal-body modal-table">
                         <v-client-table :columns="columns" :data="records" :options="table_options">
+                            <div slot="payment_periodicity" slot-scope="props" class="text-center">
+                                <span> {{ getPaymentPeriodicity(props.row.payment_periodicity) }} </span>
+                            </div>
                             <div slot="id" slot-scope="props" class="text-center">
                                 <button @click="initUpdate(props.row.id, $event)"
                                         class="btn btn-warning btn-xs btn-icon btn-action"
@@ -230,8 +217,6 @@
                     correlative:             false,
                     start_date:              '',
                     payment_relationship:    '',
-                    budget_account_id:       '',
-                    accounting_account_id:   '',
                     payroll_concepts:        [],
                     associated_records:      [],
                     payroll_payment_periods: []
@@ -273,8 +258,6 @@
                     'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'
                 ],
                 payroll_concepts:      [],
-                budget_accounts:       [],
-                accounting_accounts:   [],
                 associated_records:    []
             }
         },
@@ -306,8 +289,6 @@
             $("#add_payroll_payment_type").on('show.bs.modal', function() {
                 vm.reset();
                 vm.getPayrollConcepts();
-                vm.getAccountingAccounts();
-                vm.getBudgetAccounts();
                 vm.getOptions('payroll/get-associated-records');
             });
         },
@@ -421,65 +402,11 @@
                     correlative:             false,
                     start_date:              '',
                     payment_relationship:    '',
-                    budget_account_id:       '',
-                    accounting_account_id:   '',
                     payroll_concepts:        [],
                     associated_records:      [],
                     payroll_payment_periods: []
                 };
                 vm.view_periods = false;
-            },
-
-            /**
-             * Obtiene un listado de cuentas patrimoniales
-             *
-             * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-             */
-            getAccountingAccounts() {
-                const vm = this;
-                vm.accounting_accounts = [];
-                axios.get('/accounting/accounts').then(response => {
-                    if (response.data.records.length > 0) {
-                        vm.accounting_accounts.push({
-                            id: '',
-                            text: 'Seleccione...'
-                        });
-                        $.each(response.data.records, function() {
-                            vm.accounting_accounts.push({
-                                id: this.id,
-                                text: `${this.code} - ${this.denomination}`
-                            });
-                        });
-                    }
-                }).catch(error => {
-                    vm.logs('PayrollPaymentTypesComponent', 258, error, 'getAccountingAccounts');
-                });
-            },
-
-            /**
-             * Obtiene un listado de cuentas presupuestarias
-             *
-             * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-             */
-            getBudgetAccounts() {
-                const vm = this;
-                vm.budget_accounts = [];
-                axios.get('/budget/accounts/vue-list').then(response => {
-                    if (response.data.records.length > 0) {
-                        vm.budget_accounts.push({
-                            id:   '',
-                            text: 'Seleccione...'
-                        });
-                        $.each(response.data.records, function() {
-                            vm.budget_accounts.push({
-                                id:   this.id,
-                                text: `${this.code} - ${this.denomination}`
-                            });
-                        });
-                    }
-                }).catch(error => {
-                    vm.logs('PayrollPaymentTypesComponent', 258, error, 'getBudgetAccounts');
-                });
             },
             /**
              * Reescribe el método "getOptions" para cambiar su comportamiento por defecto
@@ -504,6 +431,17 @@
                     }
                 });
             },
+
+            getPaymentPeriodicity(payment_periodicity) {
+                const vm = this;
+                let value = '';
+                $.each(vm.payment_periodicities, function(index, field) {
+                    if (field['id'] == payment_periodicity) {
+                        value = field['text'];
+                    }
+                });
+                return value;
+            }
         }
     };
 </script>

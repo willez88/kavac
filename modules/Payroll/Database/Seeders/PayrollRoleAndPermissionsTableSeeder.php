@@ -468,33 +468,6 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'slug_alt' => 'tipo.sector.eliminar'
             ],
             /**
-             * Employment informations
-             */
-            [
-                'name' => 'Ver los datos de información laboral', 'slug' => 'payroll.employment.informations.list',
-                'description' => 'Acceso para ver los datos de información laboral',
-                'model' => 'Modules\Payroll\Models\PayrollEmploymentInformation', 'model_prefix' => 'nomina',
-                'slug_alt' => 'informacion.laboral.ver'
-            ],
-            [
-                'name' => 'Crear datos de información laboral', 'slug' => 'payroll.employment.informations.create',
-                'description' => 'Acceso para crear datos de información laboral',
-                'model' => 'Modules\Payroll\Models\PayrollEmploymentInformation', 'model_prefix' => 'nomina',
-                'slug_alt' => 'informacion.laboral.crear'
-            ],
-            [
-                'name' => 'Editar datos de información laboral', 'slug' => 'payroll.employment.informations.edit',
-                'description' => 'Acceso para editar datos de información laboral',
-                'model' => 'Modules\Payroll\Models\PayrollEmploymentInformation', 'model_prefix' => 'nomina',
-                'slug_alt' => 'informacion.laboral.editar'
-            ],
-            [
-                'name' => 'Eliminar datos de información laboral', 'slug' => 'payroll.employment.informations.delete',
-                'description' => 'Acceso para eliminar datos de información laboral',
-                'model' => 'Modules\Payroll\Models\PayrollEmploymentInformation', 'model_prefix' => 'nomina',
-                'slug_alt' => 'informacion.laboral.eliminar'
-            ],
-            /**
              * driver licenses
              */
             [
@@ -633,6 +606,146 @@ class PayrollRoleAndPermissionsTableSeeder extends Seeder
                 'model' => 'Modules\Payroll\Models\PayrollProfessional',
                 'model_prefix' => 'nomina',
                 'slug_alt' => 'profesional.eliminar'
+            ],
+            /**
+             * Employments
+             */
+            [
+                'name' => 'Ver los datos laborales',
+                'slug' => 'payroll.employments.list',
+                'description' => 'Acceso para ver los datos laborales',
+                'model' => 'Modules\Payroll\Models\PayrollEmployment',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'laboral.ver'
+            ],
+            [
+                'name' => 'Crear datos laborales',
+                'slug' => 'payroll.employments.create',
+                'description' => 'Acceso para crear datos laborales',
+                'model' => 'Modules\Payroll\Models\PayrollEmployment',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'laboral.crear'
+            ],
+            [
+                'name' => 'Editar datos laborales',
+                'slug' => 'payroll.employments.edit',
+                'description' => 'Acceso para editar datos laborales',
+                'model' => 'Modules\Payroll\Models\PayrollEmployment',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'laboral.editar'
+            ],
+            [
+                'name' => 'Eliminar datos laborales',
+                'slug' => 'payroll.employments.delete',
+                'description' => 'Acceso para eliminar datos laborales',
+                'model' => 'Modules\Payroll\Models\PayrollEmployment',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'laboral.eliminar'
+            ],
+            /**
+             * Settlement types
+             */
+            [
+                'name' => 'Ver los tipos de liquidación',
+                'slug' => 'payroll.settlement.types.list',
+                'description' => 'Acceso para ver los tipos de liquidación',
+                'model' => 'Modules\Payroll\Models\PayrollSettlementType',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.liquidacion.ver'
+            ],
+            [
+                'name' => 'Crear tipos de liquidación',
+                'slug' => 'payroll.settlement.types.create',
+                'description' => 'Acceso para crear tipos de liquidación',
+                'model' => 'Modules\Payroll\Models\PayrollSettlementType',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.liquidacion.crear'
+            ],
+            [
+                'name' => 'Editar tipos de liquidación',
+                'slug' => 'payroll.settlement.types.edit',
+                'description' => 'Acceso para editar tipos de liquidación',
+                'model' => 'Modules\Payroll\Models\PayrollSettlementType',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.liquidacion.editar'
+            ],
+            [
+                'name' => 'Eliminar tipos de liquidación',
+                'slug' => 'payroll.settlement.types.delete',
+                'description' => 'Acceso para eliminar tipos de liquidación',
+                'model' => 'Modules\Payroll\Models\PayrollSettlementType',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'tipo.liquidacion.eliminar'
+            ],
+            /**
+             * Relationships
+             */
+            [
+                'name' => 'Ver los parentescos',
+                'slug' => 'payroll.relationships.list',
+                'description' => 'Acceso para ver los parentescos',
+                'model' => 'Modules\Payroll\Models\PayrollRelationship',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'parentesco.ver'
+            ],
+            [
+                'name' => 'Crear parentescos',
+                'slug' => 'payroll.relationships.create',
+                'description' => 'Acceso para crear parentescos',
+                'model' => 'Modules\Payroll\Models\PayrollRelationship',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'parentesco.crear'
+            ],
+            [
+                'name' => 'Editar parentescos',
+                'slug' => 'payroll.relationships.edit',
+                'description' => 'Acceso para editar parentescos',
+                'model' => 'Modules\Payroll\Models\PayrollRelationship',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'parentesco.editar'
+            ],
+            [
+                'name' => 'Eliminar parentescos',
+                'slug' => 'payroll.relationships.delete',
+                'description' => 'Acceso para eliminar parentescos',
+                'model' => 'Modules\Payroll\Models\PayrollRelationship',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'parentesco.eliminar'
+            ],
+            /**
+             * Disabilities
+             */
+            [
+                'name' => 'Ver las discapacidades',
+                'slug' => 'payroll.disabilities.list',
+                'description' => 'Acceso para ver las discapacidades',
+                'model' => 'Modules\Payroll\Models\PayrollDisability',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'discapacidad.ver'
+            ],
+            [
+                'name' => 'Crear discapacidades',
+                'slug' => 'payroll.disabilities.create',
+                'description' => 'Acceso para crear discapacidades',
+                'model' => 'Modules\Payroll\Models\PayrollDisability',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'discapacidad.crear'
+            ],
+            [
+                'name' => 'Editar discapacidades',
+                'slug' => 'payroll.disabilities.edit',
+                'description' => 'Acceso para editar discapacidades',
+                'model' => 'Modules\Payroll\Models\PayrollDisability',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'discapacidad.editar'
+            ],
+            [
+                'name' => 'Eliminar discapacidades',
+                'slug' => 'payroll.disabilities.delete',
+                'description' => 'Acceso para eliminar discapacidades',
+                'model' => 'Modules\Payroll\Models\PayrollDisability',
+                'model_prefix' => 'nomina',
+                'slug_alt' => 'discapacidad.eliminar'
             ],
         ];
 

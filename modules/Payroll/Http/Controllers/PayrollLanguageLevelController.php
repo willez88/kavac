@@ -68,7 +68,7 @@ class PayrollLanguageLevelController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required', 'max:100']
+            'name' => ['required', 'max:100', 'unique:payroll_language_levels,name']
         ]);
         $payrollLanguageLevel = PayrollLanguageLevel::create(['name' => $request->name]);
         return response()->json(['record' => $payrollLanguageLevel, 'message' => 'Success'], 200);
@@ -104,7 +104,7 @@ class PayrollLanguageLevelController extends Controller
     {
         $payrollLanguageLevel = PayrollLanguageLevel::find($id);
         $this->validate($request, [
-            'name' => ['required', 'max:100']
+            'name' => ['required', 'max:100', 'unique:payroll_language_levels,name,'.$payrollLanguageLevel->id]
         ]);
         $payrollLanguageLevel->name  = $request->name;
         $payrollLanguageLevel->save();

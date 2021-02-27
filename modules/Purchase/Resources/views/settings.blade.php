@@ -93,6 +93,23 @@
 									) !!}
 								</div>
 							</div>
+							@if(!(Module::has('Budget') || !Module::isEnabled('Budget')))
+							<div class="col-md-4">
+								<div class="form-group">
+									{!! Form::label('states_code', 'Código de estados', []) !!}
+									{!! Form::text(
+										'states_code',
+										($esCode)?$esCode->format_code:old('states_code'), [
+											'class' => 'form-control input-sm',
+											'data-toggle' => 'tooltip',
+											'title' => 'Formato del código de estados',
+											'placeholder' => 'Ej. XXX-0000000000-YYYY',
+											'readonly' => ($esCode) ? true : false
+										]
+									) !!}
+								</div>
+							</div>
+							@endif
 							<div class="col-md-4">
 								<div class="form-group">
 									{!! Form::label('minutes_code', 'Código de Acta', []) !!}

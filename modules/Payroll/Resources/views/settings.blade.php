@@ -176,62 +176,56 @@
 				</div>
 				<div class="card-body">
 					<div class="row">
-						{{-- Configuración de tipos de personal --}}
+						{{-- Tipos de personal --}}
 						<payroll-staff-types></payroll-staff-types>
 
-						{{-- Configuración de tipos de cargos --}}
+						{{-- Tipos de cargos --}}
 						<payroll-position-types></payroll-position-types>
 
-						{{-- Configuración de cargos --}}
+						{{-- Cargos --}}
 						<payroll-positions></payroll-positions>
 
-						{{-- Configuración de clasificación del personal --}}
+						{{-- Clasificaciones del personal --}}
 						<payroll-staff-classifications></payroll-staff-classifications>
 
-						{{-- Configuración del grado de instrucción --}}
+						{{-- Grados de instrucción --}}
 						<payroll-instruction-degrees></payroll-instruction-degrees>
 
-						{{-- Configuración del tipo de estudio --}}
+						{{-- Tipos de estudio --}}
 						<payroll-study-types></payroll-study-types>
 
-						{{-- Configuración de la nacionalidad --}}
+						{{-- Nacionalidades --}}
 						<payroll-nationalities></payroll-nationalities>
 
-						{{-- Tipo de concepto --}}
-						{{--
-						<div class="col-md-2 text-center">
-							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('payroll.concept-types.index') }}" title="Registro de tipos de concepto"
-							   data-toggle="tooltip">
-								<i class="icofont icofont-plus ico-3x"></i>
-								<span>Tipos de<br>Concepto</span>
-							</a>
-						</div>
-						--}}
-
-						{{-- nivel de idioma --}}
+						{{-- Niveles de idioma --}}
 						<payroll-language-levels></payroll-language-levels>
 
-						{{-- idioma --}}
+						{{-- Idiomas --}}
 						<payroll-languages></payroll-languages>
 
-						{{-- género --}}
+						{{-- Géneros --}}
 						<payroll-genders></payroll-genders>
 
-						{{-- tipos de inactividad --}}
+						{{-- Tipos de inactividad --}}
 						<payroll-inactivity-types></payroll-inactivity-types>
 
-						{{-- tipos de contrato --}}
+						{{-- Tipos de contrato --}}
 						<payroll-contract-types></payroll-contract-types>
 
-						{{-- tipos de sector --}}
+						{{-- Tipos de sector --}}
 						<payroll-sector-types></payroll-sector-types>
 
-						{{-- grados de licencia de conducir --}}
+						{{-- Grados de licencia de conducir --}}
 						<payroll-license-degrees></payroll-license-degrees>
 
-						{{-- tipos de sangre --}}
+						{{-- Tipos de sangre --}}
 						<payroll-blood-types></payroll-blood-types>
+
+						{{-- Parentescos --}}
+						<payroll-relationships></payroll-relationships>
+
+						{{-- Discapacidades --}}
+						<payroll-disabilities></payroll-disabilities>
 					</div>
 				</div>
 			</div>
@@ -281,6 +275,9 @@
 
 						{{-- Políticas de Permisos --}}
 						<payroll-permission-policies></payroll-permission-policies>
+
+						{{-- Tipos de liquidación --}}
+						<payroll-settlement-types></payroll-settlement-types>
 
 					</div>
 				</div>

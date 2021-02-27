@@ -46,7 +46,7 @@
                             <div class="col-md-4">
                                 <div class="form-group is-required">
         							<label for="percent">Porcentaje:</label>
-        							<input type="number" id="percent" placeholder="Descripción"
+        							<input type="number" min="1" id="percent" placeholder="Descripción"
         								   class="form-control input-sm" v-model="record.percent" data-toggle="tooltip"
         								   title="Indique la descripción (requerido)">
         	                    </div>

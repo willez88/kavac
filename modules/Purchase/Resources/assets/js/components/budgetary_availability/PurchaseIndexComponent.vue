@@ -1,6 +1,21 @@
 <template>
 	<section>
 		<div class="row">
+			<div class="col-3">
+				<div class="form-group is-required">
+					<label for="description" class="control-label">Descripción</label>
+					<input type="text" class="form-control input-sm" id="description" v-model="record.description">
+				</div>
+			</div>
+			<div class="col-3">
+				<div class="form-group is-required">
+					<label class="control-label">Fecha</label>
+					<input :disabled="data_edit != null" type="date" class="form-control input-sm" v-model="record.date">
+				</div>
+			</div>
+			<div class="col-12">
+				<br>
+			</div>
 			<div class="col-12" v-if="items">
 				<v-client-table :columns="columns" :data="items" :options="table_options">
 					<div slot="quantity" slot-scope="props">
@@ -118,14 +133,14 @@
 									title="Hay disponibilidad"
 									data-toggle="tooltip"
 									:disabled="!budget_item_id || !(budget_available >= supplier_price_tot)" 
-									@click="">
+									@click="createRecord('/purchase/budgetary_availability')">
 								Hay disponibilidad
 							</button>
 							<button class="btn btn-danger btn-sm"
 									title="No hay disponibilidad"
 									data-toggle="tooltip"
 									:disabled="!budget_item_id || !(budget_available < supplier_price_tot)" 
-									@click="">
+									@click="createRecord('/purchase/budgetary_availability')">
 								No hay disponibilidad
 							</button>
 						</div>
@@ -133,13 +148,13 @@
 							<button class="btn btn-success btn-sm"
 									title="Hay disponibilidad"
 									data-toggle="tooltip"
-									@click="">
+									@click="createRecord('/purchase/budgetary_availability')">
 								Hay disponibilidad
 							</button>
 							<button class="btn btn-danger btn-sm"
 									title="No hay disponibilidad"
 									data-toggle="tooltip"
-									@click="">
+									@click="createRecord('/purchase/budgetary_availability')">
 								No hay disponibilidad
 							</button>
 						</div>
@@ -191,6 +206,9 @@ export default{
 	},
 	data(){
 		return{
+			record:{
+				descripcion:'',
+			},
 			columns: [  
 					'code',
 					'name',
@@ -246,6 +264,7 @@ export default{
 		const vm = this;
 
 		if (vm.records) {
+			vm.record = vm.records;
 			function get_supplier_price(list, id) {
 				var price = 0;
 				$.each(list, function(index, data) {
@@ -307,7 +326,7 @@ export default{
 		/**
 		* Establece la cantidad de decimales correspondientes a la moneda que se maneja
 		*
-		* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+		* @author Ing. Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 		*/
 		cualculateLimitDecimal(){
 			var res = "0.";
@@ -322,7 +341,7 @@ export default{
 
 		/**
 		* [CalculateTot Calcula el total del debe y haber del asiento contable]
-		* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+		* @author Ing. Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 		* @param  {[type]} r   [información del registro]
 		* @param  {[type]} pos [posición del registro]
 		*/
@@ -342,7 +361,7 @@ export default{
 
 		/**
 		 * [getBudgetAvailable Consulta el saldo de la partida presupuestaria]
-		 * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+		 * @author Ing. Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 		 * @return {[type]} [description]
 		 */
 		getBudgetAvailable(){
@@ -352,9 +371,51 @@ export default{
 			// ---------------------------------------------------------
 			axios.get(`/budget/getBudgetAvailable/${vm.specific_action_id}/${vm.budget_item_id}`).then(response=>{
 				console.log(response.data.balance);
-			    this.budget_available = response.data.balance;
+				this.budget_available = response.data.balance;
 			});
-		}
+		},
+
+		/**
+		 * Reescribe el Método createRecord para cambiar su comportamiento por defecto
+		 * Método que permite crear o actualizar un registro
+		 *
+		 * @author Ing. Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+		 *
+		 * @param  {string} url    Ruta de la acción a ejecutar para la creación o actualización de datos
+		 * @param  {string} list   Condición para establecer si se cargan datos en un listado de tabla.
+		 *                         El valor por defecto es verdadero.
+		 * @param  {string} reset  Condición que evalúa si se inicializan datos del formulario.
+		 *                         El valor por defecto es verdadero.
+		 */
+		createRecord(url, list = true, reset = true) {
+			const vm = this;
+			url = (!url.includes('http://') || !url.includes('http://'))
+				  ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
+			vm.loading = true;
+			axios.post(url, vm.record).then(response => {
+				if(response.data.error){
+					vm.errors.push(response.data.error);
+				}
+				else {
+					vm.errors = [];
+					vm.loading = false;
+					vm.showMessage('store');
+					location.href = window.app_url;
+				}
+			}).catch(error => {
+				vm.errors = [];
+				if (typeof(error.response) !="undefined") {
+					for (var index in error.response.data.errors) {
+						if (error.response.data.errors[index]) {
+							vm.errors.push(error.response.data.errors[index][0]);
+						}
+					}
+				}
+
+				vm.loading = false;
+			});
+
+		},
 	}
 };
 </script>

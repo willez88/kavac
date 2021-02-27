@@ -25,11 +25,24 @@ class AssetAcquisitionTypeController extends Controller
      * Define la configuración de la clase
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
      */
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
         //$this->middleware('permission:asset.setting.acquisition-type');
+        /** Define las reglas de validación para el formulario */
+        $this->validateRules = [
+            'name'     => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100'],
+
+        ];
+
+        /** Define los mensajes de validación para las reglas del formulario */
+        $this->messages = [
+            'name.required'     => 'El campo tipo de adquisición es obligatorio.',
+            'name.max'          => 'El campo tipo de adquisición no debe contener más de 100 caracteres.',
+            'name.regex'        => 'El campo tipo de adquisición no debe permitir números ni símbolos.'
+           ];
     }
 
     /**
@@ -47,14 +60,13 @@ class AssetAcquisitionTypeController extends Controller
      * Valida y registra un nuevo tipo adquisición de bien institucional
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    yennifer Ramirez <yramirez@cenditel.gob.ve>
      * @param     \Illuminate\Http\Request         $request    Datos de la petición
      * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => ['required', 'max:100']
-        ]);
+        $this->validate($request, $this->validateRules, $this->messages);
 
 
         /**
@@ -73,6 +85,7 @@ class AssetAcquisitionTypeController extends Controller
      * Actualiza la información del tipo de adquisición de un bien institucional
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
      * @param     \Illuminate\Http\Request                      $request             Datos de la petición
      * @param     \Modules\Asset\Models\AssetAcquisitionType    $acquisition_type    Datos del tipo de adquisición
      *                                                                               de un bien
@@ -81,9 +94,7 @@ class AssetAcquisitionTypeController extends Controller
 
     public function update(Request $request, AssetAcquisitionType $acquisition_type)
     {
-        $this->validate($request, [
-            'name' => ['required', 'max:100']
-        ]);
+        $this->validate($request, $this->validateRules, $this->messages);
 
         $acquisition_type->name = $request->input('name');
         $acquisition_type->save();

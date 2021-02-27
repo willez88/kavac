@@ -77,7 +77,7 @@ class BudgetCentralizedActionController extends Controller
                      ? template_choices(
                          \Modules\Payroll\Models\PayrollPosition::class,
                          'name',
-                         ['relationship' => 'payrollEmploymentInformations', 'where' => ['active' => true]]
+                         ['relationship' => 'payrollEmployments', 'where' => ['active' => true]]
                      )
                      : [];
         /** @var array Arreglo de opciones de personal a representar en la plantilla para su selección */
@@ -85,7 +85,7 @@ class BudgetCentralizedActionController extends Controller
                   ? template_choices(
                       \Modules\Payroll\Models\PayrollStaff::class,
                       ['id_number', '-', 'full_name'],
-                      ['relationship' => 'payrollEmploymentInformation', 'where' => ['active' => true]]
+                      ['relationship' => 'payrollEmployment', 'where' => ['active' => true]]
                   )
                   : [];
         return view('budget::centralized_actions.create-edit-form', compact(
@@ -182,7 +182,7 @@ class BudgetCentralizedActionController extends Controller
                      ? template_choices(
                          \Modules\Payroll\Models\PayrollPosition::class,
                          'name',
-                         ['relationship' => 'payrollEmploymentInformations', 'where' => ['active' => true]]
+                         ['relationship' => 'payrollEmployments', 'where' => ['active' => true]]
                      )
                      : [];
         /** @var array Arreglo de opciones de personal a representar en la plantilla para su selección */
@@ -190,7 +190,7 @@ class BudgetCentralizedActionController extends Controller
                   ? template_choices(
                       \Modules\Payroll\Models\PayrollStaff::class,
                       ['id_number', '-', 'full_name'],
-                      ['relationship' => 'payrollEmploymentInformation', 'where' => ['active' => true]]
+                      ['relationship' => 'payrollEmployment', 'where' => ['active' => true]]
                   )
                   : [];
 

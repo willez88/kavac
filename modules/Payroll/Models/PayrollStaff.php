@@ -27,7 +27,7 @@ class PayrollStaff extends Model implements Auditable
 
     protected $table = "payroll_staffs";
 
-    protected $with = ['payrollEmploymentInformation'];
+    protected $with = ['payrollEmployment'];
 
     /**
      * Lista de atributos para la gestión de fechas
@@ -155,9 +155,9 @@ class PayrollStaff extends Model implements Auditable
      *
      * @return    \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function payrollEmploymentInformation()
+    public function payrollEmployment()
     {
-        return $this->hasOne(PayrollEmploymentInformation::class);
+        return $this->hasOne(PayrollEmployment::class);
     }
 
     /**

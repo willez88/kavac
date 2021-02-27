@@ -8,6 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Models\AssetSubcategory;
 use Modules\Asset\Models\AssetSpecificCategory;
 use Modules\Asset\Models\AssetRequiredItem;
+use Modules\Asset\Rules\Setting\AssetSpecificCategoryUnique;
 
 /**
  * @class      AssetSpecificCategoryController
@@ -16,6 +17,7 @@ use Modules\Asset\Models\AssetRequiredItem;
  * Clase que gestiona las Categorias Especificas de bienes
  *
  * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ * @author     Yennifer Ramirez <yramirez@cenditel.gob.ve>
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
@@ -30,6 +32,26 @@ class AssetSpecificCategoryController extends Controller
     {
         /** Establece permisos de acceso para cada método del controlador */
         $this->middleware('permission:asset.setting.specific');
+        /** Define las reglas de validación para el formulario */
+        $this->validateRules = [
+            'name'          => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100'],
+            'code'          => ['required', 'max:10'],
+            'asset_subcategory_id' => ['required']
+
+
+        ];
+
+        /** Define los mensajes de validación para las reglas del formulario */
+        $this->messages = [
+            'name.required'     => 'El campo categoría específica es obligatorio.',
+            'name.max'          => 'El campo categoría específica no debe contener más de 100 caracteres.',
+            'name.regex'        => 'El campo categoría específica no debe permitir números ni símbolos.',
+            'code.required'     => 'El campo código de la categoría específica es obligatorio.',
+            'code.max'          => 'El campo código de la categoría específica no debe contener más de 10 caracteres.',
+            'asset_subcategory_id.required' => 'El campo subcategoría es obligatorio.'
+
+
+           ];
     }
     use ValidatesRequests;
     /**
@@ -65,16 +87,20 @@ class AssetSpecificCategoryController extends Controller
      * Valida y Registra un nueva Categoria Especifica
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
      * @param     \Illuminate\Http\Request         $request    Datos de la petición
      * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => ['required', 'max:100'],
-            'code' => ['required', 'max:10'],
-            'asset_subcategory_id' => ['required'],
-        ]);
+        $validateRules  = $this->validateRules;
+        $validateRules  = array_merge(
+            ['id' => [new AssetSpecificCategoryUnique($request->input('asset_subcategory_id'), $request->input('code'))
+            ]],
+            $validateRules
+        );
+
+        $this->validate($request, $this->validateRules, $this->messages);
 
 
         /**
@@ -95,17 +121,22 @@ class AssetSpecificCategoryController extends Controller
      * Actualiza la información de la Categoria Especifica de un Bien
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
      * @param     \Illuminate\Http\Request                       $request              Datos de la petición
      * @param     \Modules\Asset\Models\AssetSpecificCategory    $specific_category    Datos de la categoria especifica
      * @return    \Illuminate\Http\JsonResponse                  Objeto con los registros a mostrar
      */
     public function update(Request $request, AssetSpecificCategory $specific_category)
     {
-        $this->validate($request, [
-            'name' => ['required', 'max:100'],
-            'code' => ['required', 'max:10'],
-            'asset_subcategory_id' => ['required'],
-        ]);
+        $validateRules  = $this->validateRules;
+        $validateRules  = array_merge(
+            ['id' => [new AssetSpecificCategoryUnique($request->input('asset_subcategory_id'), $request->input('code'))
+            ]],
+            $validateRules
+        );
+        
+        $this->validate($request, $this->validateRules, $this->messages);
+
         $specific_category = AssetSpecificCategory::find($request->id);
 
         $specific_category->name = $request->input('name');

@@ -28,17 +28,17 @@
 						<ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
 	                        <li class="nav-item">
 	                            <a class="nav-link active" data-toggle="tab" href="#general" id="info_general" role="tab">
-	                                <i class="ion-android-person"></i> Información General
+	                                <i class="ion-android-person"></i> Información general
 	                            </a>
 	                        </li>
 	                        <li class="nav-item">
 	                            <a class="nav-link" data-toggle="tab" href="#contact" role="tab">
-	                                <i class="ion-android-person"></i> Información de Contacto
+	                                <i class="ion-android-person"></i> Información de contacto
 	                            </a>
 	                        </li>
 	                        <li class="nav-item">
 	                            <a class="nav-link" data-toggle="tab" href="#equipment" role="tab" @click="loadEquipment()">
-	                                <i class="ion-arrow-swap"></i> Equipos Solicitados
+	                                <i class="ion-arrow-swap"></i> Equipos solicitados
 	                            </a>
 	                        </li>
 	                    </ul>
@@ -48,7 +48,7 @@
 	                    		<div class="row">
 							        <div class="col-md-6">
 							        	<div class="form-group">
-											<strong>Fecha de la Solicitud</strong>
+											<strong>Fecha de la solicitud</strong>
 											<div class="row" style="margin: 1px 0">
 												<span class="col-md-12" id="date_init">
 												</span>
@@ -59,7 +59,7 @@
 
 									<div class="col-md-6">
 										<div class="form-group">
-											<strong>Motivo de la Solicitud</strong>
+											<strong>Motivo de la solicitud</strong>
 											<div class="row" style="margin: 1px 0">
 												<span class="col-md-12" id="motive">
 												</span>
@@ -69,7 +69,7 @@
 
 									<div class="col-md-6">
 										<div class="form-group">
-											<strong>Tipo de Solicitud</strong>
+											<strong>Tipo de solicitud</strong>
 											<div class="row" style="margin: 1px 0">
 												<span class="col-md-12" id="type">
 												</span>
@@ -79,7 +79,7 @@
 
 									<div class="col-md-6">
 										<div class="form-group">
-											<strong>Fecha de Entrega de los Bienes</strong>
+											<strong>Fecha de entrega de los bienes</strong>
 											<div class="row" style="margin: 1px 0">
 												<span class="col-md-12" id="delivery_date">
 												</span>
@@ -89,7 +89,7 @@
 
 									<div class="col-md-6">
 										<div class="form-group">
-											<strong>Ubicación de los Bienes</strong>
+											<strong>Ubicación de los bienes</strong>
 											<div class="row" style="margin: 1px 0">
 												<span class="col-md-12" id="ubication">
 												</span>

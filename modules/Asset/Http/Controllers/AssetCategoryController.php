@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Models\AssetCategory;
 use Modules\Asset\Models\AssetType;
+use Modules\Asset\Rules\Setting\AssetCategoryUnique;
 
 /**
  * @class      AssetCategoryController
@@ -26,11 +27,32 @@ class AssetCategoryController extends Controller
      * Define la configuración de la clase
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
      */
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
         $this->middleware('permission:asset.setting.category');
+        /** Define las reglas de validación para el formulario */
+        $this->validateRules = [
+            'name'          => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100'],
+            'code'          => ['required', 'max:10'],
+            'asset_type_id' => ['required']
+
+
+        ];
+
+        /** Define los mensajes de validación para las reglas del formulario */
+        $this->messages = [
+            'name.required'     => 'El campo categoría general es obligatorio.',
+            'name.max'          => 'El campo categoría general no debe contener más de 100 caracteres.',
+            'name.regex'        => 'El campo categoría general no debe permitir números ni símbolos.',
+            'code.required'     => 'El campo código de categoría general es obligatorio.',
+            'code.max'          => 'El campo código de categoría general no debe contener más de 10 caracteres.',
+            'asset_type_id.required' => 'El campo tipo de bien es obligatorio.'
+
+
+           ];
     }
 
     /**
@@ -48,16 +70,19 @@ class AssetCategoryController extends Controller
      * Valida y registra un nueva categoria general
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
      * @param     \Illuminate\Http\Request         $request    Datos de la petición
      * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => ['required', 'max:100'],
-            'code' => ['required', 'max:10'],
-            'asset_type_id' => ['required']
-        ]);
+        $validateRules  = $this->validateRules;
+        $validateRules  = array_merge(
+            ['id' => [new AssetCategoryUnique($request->input('asset_type_id'), $request->input('code'))]],
+            $validateRules
+        );
+
+        $this->validate($request, $validateRules, $this->messages);
 
 
         /**
@@ -78,17 +103,20 @@ class AssetCategoryController extends Controller
      * Actualiza la información de la categoria general
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
      * @param     \Illuminate\Http\Request               $request     Datos de la petición
      * @param     \Modules\Asset\Models\AssetCategory    $category    Datos de la categoria
      * @return    \Illuminate\Http\JsonResponse          Objeto con los registros a mostrar
      */
     public function update(Request $request, AssetCategory $category)
     {
-        $this->validate($request, [
-            'name' => ['required', 'max:100'],
-            'code' => ['required', 'max:10'],
-            'asset_type_id' => ['required']
-        ]);
+        $validateRules  = $this->validateRules;
+        $validateRules  = array_merge(
+            ['id' => [new AssetCategoryUnique($request->input('asset_type_id'), $request->input('code'))]],
+            $validateRules
+        );
+        
+        $this->validate($request, $this->validateRules, $this->messages);
 
 
         $category->name = $request->input('name');

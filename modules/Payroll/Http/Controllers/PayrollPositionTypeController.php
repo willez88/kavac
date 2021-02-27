@@ -68,8 +68,8 @@ class PayrollPositionTypeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required', 'max:100'],
-            'description' => ['required', 'max:200']
+            'name' => ['required', 'max:100', 'unique:payroll_position_types,name'],
+            'description' => ['nullable', 'max:200']
         ]);
         $payrollPositionType = PayrollPositionType::create([
             'name' => $request->name, 'description' => $request->description
@@ -107,8 +107,8 @@ class PayrollPositionTypeController extends Controller
     {
         $payrollPositionType = PayrollPositionType::find($id);
         $this->validate($request, [
-            'name' => ['required', 'max:100'],
-            'description' => ['required', 'max:200']
+            'name' => ['required', 'max:100', 'unique:payroll_position_types,name,'.$payrollPositionType->id],
+            'description' => ['nullable', 'max:200']
         ]);
         $payrollPositionType->name  = $request->name;
         $payrollPositionType->description = $request->description;
