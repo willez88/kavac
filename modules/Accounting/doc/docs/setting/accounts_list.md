@@ -306,3 +306,173 @@ El KAVAC ‘Sistema de Gestión de Recursos’, cuenta con un registro por defec
 |2.2.5.01.99.00	 |Depreciación acumulada de otros bienes de uso   | Activa    |
 |2.2.5.02.00.00	 |AMORTIZACIÓN ACUMULADA DE ACTIVOS INTANGIBLES   | Activa    |
 |2.2.5.02.01.00	 |Amortización acumulada de marcas de fábrica y patentes de invención         |Activa    |
+|2.2.5.02.02.00  |Amortización acumulada de derechos de autor   | Activa    |
+|2.2.5.02.03.00  |Amortización acumulada de gastos de organización   | Activa    |
+|2.2.5.02.04.00  |Amortización acumulada de paquetes y programas de computación   | Activa    |
+|2.2.5.02.05.00	 |Amortización acumulada de estudios y proyectos   | Activa    |
+|2.2.5.02.99.00	 |Amortización acumulada de otros activos intangibles   | Activa    |
+|2.2.9.00.00.00	 |OTROS PASIVOS A MEDIANO Y LARGO PLAZO	   | Activa    |
+|2.2.9.99.00.00	 |OTROS PASIVOS NO CORRIENTES   | Activa    |
+|3.0.0.00.00.00	 |PATRIMONIO   | Activa    |
+|3.1.0.00.00.00	 |HACIENDA PÚBLICA   | Activa    |
+|3.1.1.00.00.00  |CAPITAL FISCAL   | Activa    |
+|3.1.1.01.00.00  |CAPITAL FISCAL   | Activa    |
+|3.1.2.00.00.00	 |TRANSFERENCIAS Y DONACIONES DE CAPITAL RECIBIDAS   | Activa    |
+|3.1.2.01.00.00	 |TRANSFERENCIAS DE CAPITAL RECIBIDAS   | Activa    |
+|3.1.2.01.01.00	 |Transferencias de capital recibidas del sector privado   | Activa    |
+|3.1.2.01.02.00	 |Transferencias de capital recibidas del sector público   | Activa    |
+|3.1.2.01.03.00	 |Transferencias de capital recibidas del exterior   | Activa    |
+|3.1.2.01.99.00  |Otras transferencias de capital recibidas del sector público   | Activa    |
+|3.1.2.02.00.00	 |DONACIONES DE CAPITAL RECIBIDAS   | Activa    |
+|3.1.2.02.01.00	 |Donaciones de capital internas recibidas   | Activa    |
+|3.1.2.02.02.00  |Donaciones de capital externas recibidas   | Activa    |
+|3.1.3.00.00.00  |SITUADO Y APORTES ESPECIALES   | Activa    |
+|3.1.3.01.00.00	 |SITUADO   | Activa    |
+|3.1.3.01.01.00  |Situado Constitucional   | Activa    |
+|3.1.3.01.01.01	 |Situado Estadal   | Activa    
+|3.1.3.01.01.02  |Situado Municipal	  | Activa    |
+|3.1.3.01.02.00  |Situado Estadal a Municipal   | Activa    |
+|3.1.3.02.00.00	 |SUBSIDIO DE RÉGIMEN ESPECIAL   | Activa    |
+|3.1.3.03.00.00  |ASIGNACIONES ECONÓMICAS ESPECIALES   | Activa    |
+|3.1.3.03.01.00	 |Asignaciones económicas especiales – Estadal   | Activa    |
+|3.1.3.03.02.00	 |Asignaciones económicas especiales - Estadal a Municipal   | Activa    |
+|3.1.3.03.03.00	 |Asignaciones económicas especiales - Municipal   | Activa    |
+|3.1.3.03.04.00  |Asignaciones económicas especiales - Fondo Nacional de los Consejos Comunales   | Activa    |
+|3.1.3.03.05.00	 |Asignaciones económicas especiales - Apoyo al Fortalecimiento Institucional   | Activa    |
+|3.1.3.04.00.00	 |FONDO INTERGUBERNAMENTAL PARA LA DESCENTRALIZACIÓN   | Activa    |
+|3.1.3.05.00.00	 |FONDO DE COMPENSACIÓN INTERTERRITORIAL   | Activa    |
+|3.1.3.05.01.00	 |Fondo de Compensación Interterritorial Estadal   | Activa    |
+|3.1.3.05.02.00  |Fondo de Compensación Interterritorial Municipal   | Activa    |
+|3.1.3.05.03.00	 |Fondo de Compensación Interterritorial Poder Popular   | Activa    |
+|3.1.3.05.04.00	 |Fondo de Compensación Interterritorial Fortalecimiento Institucional   | Activa    |
+|3.1.3.07.00.00	 |TRANSFERENCIAS Y DONACIONES DE CAPITAL DE ORGANISMOS DEL SECTOR PÚBLICO RECIBIDAS POR LOS CONSEJOS COMUNALES   | Activa    |
+|3.1.3.07.01.00  |Transferencias de capital de organismos del sector público recibidas por los Consejos Comunales   | Activa    |
+|3.1.3.07.02.00	 |Donaciones de capital de organismos del sector público recibidas por los Consejos Comunales   | Activa    |
+|3.1.4.00.00.00	 |AJUSTE POR INFLACIÓN   | Activa    |
+|3.1.4.01.00.00	 |AJUSTE POR INFLACIÓN   | Activa    |
+|3.1.5.00.00.00	 |RESULTADOS   | Activa    |
+|3.1.5.01.00.00	 |RESULTADOS ACUMULADOS   | Activa    |
+|3.1.5.02.00.00	 |RESULTADOS DEL EJERCICIO   | Activa    |
+|3.2.0.00.00.00	 |PATRIMONIO INSTITUCIONAL   | Activa    |
+|3.2.1.00.00.00	 |CAPITAL INSTITUCIONAL	  | Activa    |
+|3.2.1.01.00.00	 |CAPITAL INSTITUCIONAL   | Activa    |
+|3.2.2.00.00.00	 |TRANSFERENCIAS, DONACIONES DE CAPITAL Y APORTES POR CAPITALIZAR RECIBIDOS   | Activa    |
+|3.2.2.01.00.00	 |TRANSFERENCIAS DE CAPITAL RECIBIDAS   | Activa    |
+|3.2.2.01.01.00	 |Transferencias de capital internas recibidas del sector privado   | Activa    |
+|3.2.2.01.02.00	 |Transferencias de capital internas recibidas del sector público   | Activa    |
+|3.2.2.01.03.00	 |Transferencias de capital recibidas del exterior   | Activa    |
+|3.2.2.01.99.00	 |Otras transferencias de capital internas recibidas del sector público	  | Activa    |
+|3.2.2.02.00.00	 |DONACIONES DE CAPITAL RECIBIDAS   | Activa    |
+|3.2.2.02.01.00	 |Donaciones de capital internas recibidas   | Activa    |
+|3.2.2.02.02.00	 |Donaciones de capital externas recibidas   | Activa    |
+|3.2.2.03.00.00	 |APORTES POR CAPITALIZAR RECIBIDOS	  | Activa    |
+|3.2.2.04.00.00	 |DIVIDENDOS POR DISTRIBUIR   | Activa    |
+|3.2.3.00.00.00	 |RESERVAS   | Activa    |
+|3.2.3.01.00.00  |RESERVAS LEGALES Y ESTATUTARIAS   | Activa    |   
+|3.2.4.00.00.00	 |AJUSTE POR INFLACIÓN   | Activa    |
+|3.2.4.01.00.00	 |AJUSTE POR INFLACIÓN   | Activa    |
+	
+3.2.5.00.00.00.000	RESULTADOS	
+Activa
+	
+3.2.5.01.00.00.000	RESULTADOS ACUMULADOS	
+Activa
+	
+3.2.5.02.00.00.000	RESULTADOS DEL EJERCICIO	
+Activa
+	
+4.0.0.00.00.00.000	CUENTAS DE ORDEN	
+Activa
+	
+4.1.0.00.00.00.000	CUENTAS DE ORDEN DEUDORAS	
+Activa
+	
+4.1.1.00.00.00.000	DIVERSAS	
+Activa
+	
+4.1.1.01.00.00.000	COMPROMISOS FUTUROS	
+Activa
+	
+4.1.1.02.00.00.000	FIANZAS Y GARANTÍAS A FAVOR DE LA ENTIDAD	
+Activa
+	
+4.1.1.02.01.00.000	Fondos en garantí a	
+Activa
+	
+4.1.1.02.02.00.000	Títulos y valores recibidos en garantía	
+Activa
+	
+4.1.1.02.03.00.000	Documentos representativos de fianzas a favor de la entidad	
+Activa
+	
+4.1.1.02.99.00.000	Otras garantías a favor de la entidad	
+Activa
+	
+4.1.1.03.00.00.000	MERCANCÍA DECOMISADA	
+Activa
+	
+4.1.1.04.00.00.000	MERCANCÍA DECOMISADA PERDIDA O EXTRAVIADA	
+Activa
+	
+4.1.1.05.00.00.000	DEMANDAS JUDICIALES	
+Activa
+	
+4.1.1.06.00.00.000	ESPECIES FISCALES	
+Activa
+	
+4.1.1.07.00.00.000	ESPECIES FISCALES ENTREGADAS	
+Activa
+	
+4.1.1.08.00.00.000	FONDOS Y VALORES EN CUSTODIA	
+Activa
+	
+4.1.1.08.01.00.000	Fondos en custodia	
+Activa
+	
+4.1.1.08.02.00.000	Valores en custodia	
+Activa
+	
+4.1.1.09.00.00.000	INMUEBLES DADOS EN COMODATO	
+Activa
+	
+4.1.1.10.00.00.000	RECLAMACIONES EN ESTUDIO	
+Activa
+	
+4.1.1.11.00.00.000	MERCANCÍAS RECIBIDAS EN CONSIGNACIÓN	
+Activa
+	
+4.1.1.12.00.00.000	FIDEICOMISO	
+Activa
+	
+4.1.1.13.00.00.000	INMUEBLES RECIBIDOS EN COMODATO	
+Activa
+	
+4.1.1.14.00.00.000	TRIBUTOS COBRADOS EN EXCESO	
+Activa
+	
+4.1.1.15.00.00.000	RAMOS DE INGRESOS DERECHOS LIQUIDADOS	
+Activa
+	
+4.1.1.16.00.00.000	EXONERACIONES DE INGRESOS	
+Activa
+	
+4.2.0.00.00.00.000	CUENTAS DE ORDEN ACREEDORAS	
+Activa
+	
+4.2.1.00.00.00.000	DIVERSAS	
+Activa
+	
+4.2.1.01.00.00.000	COMPROMISOS FUTUROS - CONTRA	
+Activa
+	
+4.2.1.02.00.00.000	FINANZAS Y GARANTÍAS A FAVOR DE LA ENTIDAD - CONTRA	
+Activa
+	
+4.2.1.02.01.00.000	Fondos en garantía	
+Activa
+	
+4.2.1.02.02.00.000	Títulos y valores recibidos en garantía	
+Activa
+	
+4.2.1.02.03.00.000	Documentos representativos de fianzas a favor de la entidad	
+Activa
