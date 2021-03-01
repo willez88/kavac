@@ -371,39 +371,17 @@ El KAVAC ‘Sistema de Gestión de Recursos’, cuenta con un registro por defec
 |3.2.3.01.00.00  |RESERVAS LEGALES Y ESTATUTARIAS   | Activa    |   
 |3.2.4.00.00.00	 |AJUSTE POR INFLACIÓN   | Activa    |
 |3.2.4.01.00.00	 |AJUSTE POR INFLACIÓN   | Activa    |
-	
-3.2.5.00.00.00.000	RESULTADOS	
-Activa
-	
-3.2.5.01.00.00.000	RESULTADOS ACUMULADOS	
-Activa
-	
-3.2.5.02.00.00.000	RESULTADOS DEL EJERCICIO	
-Activa
-	
-4.0.0.00.00.00.000	CUENTAS DE ORDEN	
-Activa
-	
-4.1.0.00.00.00.000	CUENTAS DE ORDEN DEUDORAS	
-Activa
-	
-4.1.1.00.00.00.000	DIVERSAS	
-Activa
-	
-4.1.1.01.00.00.000	COMPROMISOS FUTUROS	
-Activa
-	
-4.1.1.02.00.00.000	FIANZAS Y GARANTÍAS A FAVOR DE LA ENTIDAD	
-Activa
-	
-4.1.1.02.01.00.000	Fondos en garantí a	
-Activa
-	
-4.1.1.02.02.00.000	Títulos y valores recibidos en garantía	
-Activa
-	
-4.1.1.02.03.00.000	Documentos representativos de fianzas a favor de la entidad	
-Activa
+|3.2.5.00.00.00  |RESULTADOS   | Activa    |
+|3.2.5.01.00.00	 |RESULTADOS ACUMULADOS   | Activa    |
+|3.2.5.02.00.00	 |RESULTADOS DEL EJERCICIO   | Activa    |
+|4.0.0.00.00.00	 |CUENTAS DE ORDEN   | Activa    |
+|4.1.0.00.00.00	 |CUENTAS DE ORDEN DEUDORAS   | Activa    |
+|4.1.1.00.00.00	 |DIVERSAS   | Activa    |
+|4.1.1.01.00.00	 |COMPROMISOS FUTUROS   | Activa    |
+|4.1.1.02.00.00	 |FIANZAS Y GARANTÍAS A FAVOR DE LA ENTIDAD   | Activa    |
+|4.1.1.02.01.00  |Fondos en garantí a   | Activa    |
+|4.1.1.02.02.00	 |Títulos y valores recibidos en garantía   | Activa    |
+|4.1.1.02.03.00  |Documentos representativos de fianzas a favor de la entidad	Activa
 	
 4.1.1.02.99.00.000	Otras garantías a favor de la entidad	
 Activa
