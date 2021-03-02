@@ -24,14 +24,17 @@ class UpdateConstraintToAssetCategoriesTable extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         if (Schema::hasTable('asset_categories')) {
             Schema::table('asset_categories', function (Blueprint $table) {
-
-                $table->dropUnique(['asset_type_id', 'code', 'name']);
-                $table->unique(['asset_type_id', 'code'])->comment('Clave única para el registro');
+                if (has_index_key('asset_categories', 'asset_categories_asset_type_id_code_name_unique')) {
+                    $table->dropUnique(['asset_type_id', 'code', 'name']);
+                    $table->unique(['asset_type_id', 'code'])->comment('Clave única para el registro');
+                };
 
             });
         }
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -41,10 +44,16 @@ class UpdateConstraintToAssetCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::table('asset_categories', function (Blueprint $table) {
+        Schema::disableForeignKeyConstraints();
+        if (Schema::hasTable('asset_categories')) {
+            Schema::table('asset_categories', function (Blueprint $table) {
+                if (has_index_key('asset_categories', 'asset_categories_asset_type_id_code_unique')) {
+                    $table->dropUnique(['asset_type_id', 'code']);
+                    $table->unique(['asset_type_id', 'code', 'name'])->comment('Clave única para el registro');
+                };
 
-            $table->dropUnique(['asset_type_id', 'code']);
-            $table->unique(['asset_type_id', 'code', 'name'])->comment('Clave única para el registro');
-        });
+            });
+        }
+        Schema::enableForeignKeyConstraints();
     }
 }
