@@ -520,6 +520,25 @@ if (! function_exists('has_foreign_key')) {
     }
 }
 
+if (! function_exists('has_index_key')) {
+    /**
+     * Verifica si una tabla de la base de datos contiene un índice específico
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     string     $table       Nombre de la tabla en base de datos
+     * @param     string     $indexKey    Nombre del índice a verificar
+     *
+     * @return    boolean    Devuelve verdadero si el índice existe en la tabla, de lo contrario retorna falso
+     */
+    function has_index_key($table, $indexKey)
+    {
+        /** @var object Objeto con información detallada de las propiedades de la tabla */
+        $detailTable = Schema::getConnection()->getDoctrineSchemaManager()->listTableDetails($table);
+        return $detailTable->hasIndex($indexKey);
+    }
+}
+
 if (! function_exists('get_database_info')) {
     /**
      * Obtiene información de la base de datos
