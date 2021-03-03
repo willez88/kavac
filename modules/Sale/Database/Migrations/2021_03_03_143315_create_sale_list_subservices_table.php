@@ -28,6 +28,9 @@ class CreateSaleListSubservicesTable extends Migration
             $table->id();
             
             $table->timestamps();
+            $table->string('name', 150)->comment('Nombre');
+            $table->string('description', 500)->comment('descripción');
+            $table->string('custom_attribute', 500)->comment('Atributo Personalizado');
             $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
         });
     }

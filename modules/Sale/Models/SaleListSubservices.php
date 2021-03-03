@@ -10,14 +10,14 @@ use App\Traits\ModelsTrait;
 
 /**
  * @class SaleListSubservices
- * @brief [descripción detallada]
+ * @brief Datos de Lista de Subservicios 
  *
- * [descripción corta]
+ * Gestiona el modelo de Lista de Subservicios 
  *
- * @author [autor de la clase] [correo del autor]
- *
- * @license
- *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
  */
 class SaleListSubservices extends Model implements Auditable
 {
@@ -35,5 +35,5 @@ class SaleListSubservices extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = [];
+    protected $fillable = ['name','description','custom_attribute'];
 }

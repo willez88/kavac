@@ -27,6 +27,16 @@ Vue.component('sale-warehouse-method', () => import(
 );
 
 /**
+ * Componente para listar, crear, actualizar y borrar datos de Lista de Subservicios
+ *
+ * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+ */
+Vue.component('sale-list-subservices-method', () => import(
+    /* webpackChunkName: "sale-warehouse-method" */
+    './components/configuration/SaleListSubservicesMethod.vue')
+);
+
+/**
  * Componente para gestionar los clientes
  *
  * @author José Puentes <jpuentes@cenditel.gob.ve>

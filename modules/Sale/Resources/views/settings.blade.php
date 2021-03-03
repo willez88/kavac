@@ -18,8 +18,9 @@
 @stop
 
 @section('content')
-
+	
 	@include('sale::settings-code-formats')
+	@include('sale::general-configuration')
 	<div class="row">
 		<div class="col-12">
 			<div class="card">
