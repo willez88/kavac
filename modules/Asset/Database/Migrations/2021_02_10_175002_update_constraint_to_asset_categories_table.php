@@ -28,10 +28,11 @@ class UpdateConstraintToAssetCategoriesTable extends Migration
         if (Schema::hasTable('asset_categories')) {
             Schema::table('asset_categories', function (Blueprint $table) {
                 if (has_index_key('asset_categories', 'asset_categories_asset_type_id_code_name_unique')) {
+                    $table->dropForeign(['asset_type_id']);
                     $table->dropUnique(['asset_type_id', 'code', 'name']);
+                    $table->foreign('asset_type_id')->references('id')->on('asset_types')->onUpdate('cascade');
                     $table->unique(['asset_type_id', 'code'])->comment('Clave única para el registro');
                 };
-
             });
         }
         Schema::enableForeignKeyConstraints();
@@ -48,10 +49,11 @@ class UpdateConstraintToAssetCategoriesTable extends Migration
         if (Schema::hasTable('asset_categories')) {
             Schema::table('asset_categories', function (Blueprint $table) {
                 if (has_index_key('asset_categories', 'asset_categories_asset_type_id_code_unique')) {
+                    $table->dropForeign(['asset_type_id']);
                     $table->dropUnique(['asset_type_id', 'code']);
+                    $table->foreign('asset_type_id')->references('id')->on('asset_types')->onUpdate('cascade');
                     $table->unique(['asset_type_id', 'code', 'name'])->comment('Clave única para el registro');
                 };
-
             });
         }
         Schema::enableForeignKeyConstraints();
