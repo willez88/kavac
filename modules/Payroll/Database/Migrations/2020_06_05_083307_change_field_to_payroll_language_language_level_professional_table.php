@@ -27,6 +27,18 @@ class ChangeFieldToPayrollLanguageLanguageLevelProfessionalTable extends Migrati
     {
         Schema::disableForeignKeyConstraints();
         Schema::table('payroll_language_language_level_professional', function (Blueprint $table) {
+            if (has_index_key(
+                'payroll_language_language_level_professional',
+                'payroll_language_language_level_professional_unique'
+            )) {
+                $table->dropUnique('payroll_language_language_level_professional_unique');
+            }
+            if (has_foreign_key(
+                'payroll_language_language_level_professional',
+                'payroll_language_language_level_professional_information_fk'
+            )) {
+                $table->dropForeign('payroll_language_language_level_professional_information_fk');
+            }
             if (Schema::hasColumn(
                 'payroll_language_language_level_professional',
                 'payroll_professional_information_id'
@@ -34,7 +46,7 @@ class ChangeFieldToPayrollLanguageLanguageLevelProfessionalTable extends Migrati
             ) {
                 //$table->dropUnique('payroll_language_id');
                 //$table->dropUnique('payroll_professional_information_id');
-                $table->dropForeign('payroll_language_language_level_professional_information_fk');
+                //$table->dropForeign('payroll_language_language_level_professional_information_fk');
                 $table->dropColumn(['payroll_professional_information_id']);
             }
 
