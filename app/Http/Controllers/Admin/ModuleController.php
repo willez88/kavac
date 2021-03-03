@@ -33,7 +33,7 @@ class ModuleController extends Controller
     {
         $listModules = info_modules();
 
-        return view('admin.setting-modules', compact('modules', 'listModules'));
+        return view('admin.setting-modules', compact('listModules'));
     }
 
     /**
