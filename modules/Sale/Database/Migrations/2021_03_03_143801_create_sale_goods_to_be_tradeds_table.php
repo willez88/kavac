@@ -28,10 +28,10 @@ class CreateSaleGoodsToBeTradedsTable extends Migration
             $table->id();
             $table->string('name', 100)->comment('Nombre');
             $table->string('description', 500)->comment('descripción');
-            $table->integer('unit_price', 500)->comment('Precio Unitario');
-            $table->integer('coin', 500)->comment('Moneda');
-            $table->integer('coin', 500)->comment('Moneda');
-            $table->float('iva')
+            $table->integer('unit_price')->comment('Precio Unitario');
+            $table->integer('coin')->comment('Moneda');
+            //$table->integer('coin', 500)->comment('Moneda');
+            $table->float('iva');
 
 
             
