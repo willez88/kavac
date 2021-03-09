@@ -86,7 +86,7 @@ class CompileModules extends Command
             $this->line("<fg=green>Compilando archivos del sistema</>");
             if (!empty($withInstall)) {
                 $result = shell_exec("npm install");
-                if (strpos($result, 'successfully') === false) {
+                if (strpos($result, 'audited') === false) {
                     $hasError = true;
                     $errorMsg = $result;
                     $this->info("Ocurrió un error en la compilación");
