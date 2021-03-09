@@ -67,7 +67,7 @@ class PurchaseBudgetaryAvailabilityController extends Controller
             'description'                     => 'El campo descripción es un campo obligatorio.',
         ]);
 
-        $code_states = $this->generateCodeAvailable('purchase_states')
+        $code_states = $this->generateCodeAvailable('purchase_states');
         if (!$code_states) {
             return response()->json(['error'=>'Error al intentar generar código para el estado del pre-compromiso'], 200);
         }
