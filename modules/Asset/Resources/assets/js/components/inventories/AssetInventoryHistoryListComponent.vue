@@ -2,7 +2,7 @@
 	<div>
 		<div class="card">
 			<div class="card-header">
-				<h6 class="card-title text-uppercase">Historial de Inventario de Bienes Institucionales</h6>
+				<h6 class="card-title text-uppercase">Historial de Inventario de Bienes</h6>
 				<div class="card-btns">
 					<a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)"
 					   title="Ir atrás" data-toggle="tooltip">
@@ -26,14 +26,14 @@
 							<button @click="showReport(props.row.code, 'create_report')"
 									class="btn btn-primary btn-xs btn-icon btn-action"
 									title="Generar reporte de bienes" data-toggle="tooltip"
-									type="button">
+									type="button" v-has-tooltip>
 								<i class="fa fa-file-pdf-o"></i>
 							</button>
 
 				    		<button @click="deleteRecord(props.index, 'asset/inventory-history/delete')"
 									class="btn btn-danger btn-xs btn-icon btn-action"
 									title="Eliminar registro" data-toggle="tooltip"
-									type="button">
+									type="button" v-has-tooltip>
 								<i class="fa fa-trash-o"></i>
 							</button>
 						</div>
@@ -120,10 +120,10 @@
 		created() {
 			this.table_options.headings = {
 				'code': 'Código',
-				'created_at': 'Fecha de Creación',
-				'registered': 'Bienes Registrados',
-				'assigned': 'Bienes Asignados',
-				'disincorporated': 'Bienes Desincorporados',
+				'created_at': 'Fecha de creación',
+				'registered': 'Bienes registrados',
+				'assigned': 'Bienes asignados',
+				'disincorporated': 'Bienes desincorporados',
 				'id': 'Acción'
 			};
 			this.table_options.sortable = ['code', 'created_at', 'registered', 'assigned', 'disincorporated'];

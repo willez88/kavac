@@ -43,7 +43,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label>Fecha de Entrega Actual</label>
+									<label>Fecha de entrega actual</label>
 					        		<input type="date"
 										data-toggle="tooltip"
 										class="form-control input-sm" v-model="record.date"

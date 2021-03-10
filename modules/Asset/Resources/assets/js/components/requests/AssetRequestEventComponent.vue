@@ -39,7 +39,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group is-required">
-									<label>Tipo de Evento:</label>
+									<label>Tipo de evento:</label>
 									<select2 :options="types"
 											 data-toggle="tooltip"
 											 title="Indique el tipo de evento ocurrido"
@@ -51,7 +51,7 @@
 							</div>
 							<div class="col-md-6">
 								<div class="form-group is-required">
-									<label>Descripción del Evento</label>
+									<label>Descripción del evento</label>
                                     <ckeditor :editor="ckeditor.editor" id="description_event" data-toggle="tooltip"
                                               title="Indique una descripción del evento" :config="ckeditor.editorConfig"
                                               class="form-control" name="description_event" tag-name="textarea" rows="3"

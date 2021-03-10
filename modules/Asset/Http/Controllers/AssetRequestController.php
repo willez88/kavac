@@ -102,8 +102,8 @@ class AssetRequestController extends Controller
         if ($request->type == 3) {
             $this->validate($request, [
                 'ubication'  => ['required'],
-                'agent_name' => ['required'],
-                'agent_telf' => ['required'],
+                'agent_name' => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ\s]*/u', 'max:100'],
+                'agent_telf' => ['required', 'regex:[0-9\-]*'],
                 'agent_email' => ['required'],
             ]);
         }

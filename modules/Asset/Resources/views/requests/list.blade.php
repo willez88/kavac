@@ -44,7 +44,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Solicitudes de Equipos Pendientes</h6>
+					<h6 class="card-title">Solicitudes de Bienes Pendientes</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.minimize')
@@ -84,7 +84,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Solicitudes de Entregas Pendientes</h6>
+					<h6 class="card-title">Entrega de Bienes Pendientes</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.minimize')

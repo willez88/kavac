@@ -1,5 +1,5 @@
 <template>
-    <section id="payrollPermissionPoliciesFormComponent">
+    <section id="payrollPermissionPoliciesComponent">
         <a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
            title="Registros de políticas de perimisos" data-toggle="tooltip"
            @click="addRecord('add_payroll-permission-policies', 'payroll/permission-policies', $event)">

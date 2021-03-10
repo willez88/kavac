@@ -27,7 +27,7 @@
     					    'helpSteps' => get_json_resource('ui-guides/requests/request_form.json', 'asset')
     				    ])
     				</h6>
-    				</h6>
+
     				<div class="card-btns">
     					@include('buttons.previous', ['route' => url()->previous()])
     					@include('buttons.minimize')

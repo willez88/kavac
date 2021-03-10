@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-	Gestión de Bienes Institucionales
+	Gestión de Bienes
 @stop
 
 @section('content')
@@ -21,7 +21,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Reporte de Bienes Institucionales por Clasificación</h6>
+					<h6 class="card-title">Reporte de Bienes por Clasificación</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.minimize')
@@ -104,7 +104,7 @@
 						<div class="col-12" align="left">
 							<a type="button" href="../../asset/pdf" target='_blank' class='btn btn-sm btn-primary btn-custom'>
 								<i class="fa fa-plus-circle"></i>
-								<span>	Generar Reporte	</span>
+								<span>	Generar reporte	</span>
 							</a>
 						</div>
 					</div>
@@ -116,7 +116,7 @@
 
 									<th>Código</th>
 									<th>Ubicación</th>
-									<th>Condición Física</th>
+									<th>Condición física</th>
 									<th>Estatus de uso</th>
 									<th>Serial</th>
 									<th>Marca</th>

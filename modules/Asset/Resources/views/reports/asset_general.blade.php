@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-	Gestión de Bienes Institucionales
+	Gestión de Bienes
 @stop
 
 @section('content')
@@ -21,7 +21,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Reporte General de Bienes Institucionales</h6>
+					<h6 class="card-title">Reporte General de Bienes</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.minimize')
@@ -34,7 +34,7 @@
 							<b>Seleccione el Tipo de Busqueda</b>
 						</div>
 						<div class="form-group col-md-2">
-							<label>Busqueda por Periodo </label>
+							<label>Busqueda por periodo </label>
 							<div>
 								{!! Form::radio('search_type', 0, true,
 								[
@@ -48,7 +48,7 @@
 							</div>
 						</div>
 						<div class="form-group col-md-2">
-							<label>Busqueda por Mes</label>
+							<label>Busqueda por mes</label>
 							<div>
 								{!! Form::radio('search_type', 1, false,
 								[
@@ -63,7 +63,7 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<b>Fecha de Adquisición</b>
+							<b>Fecha de adquisición</b>
 						</div>
 
 						<div class="col-md-4">
@@ -159,7 +159,7 @@
 
 							<a type="button" href="../../asset/pdf2" target='_blank' class='btn btn-sm btn-primary btn-custom'>
 								<i class="fa fa-plus-circle"></i>
-								<span>	Generar Reporte	</span>
+								<span>	Generar reporte	</span>
 							</a>
 
 						</div>
@@ -172,12 +172,12 @@
 								<tr class="text-center">
 
 									<th>Código</th>
-									<th>Condición Física</th>
+									<th>Condición física</th>
 									<th>Estatus de uso</th>
 									<th>Serial</th>
 									<th>Marca</th>
 									<th>Modelo</th>
-									<th>Fecha de Registro</th>
+									<th>Fecha de registro</th>
 								</tr>
 							</thead>
 							<tbody>
