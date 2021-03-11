@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
 use Captcha;
@@ -147,13 +146,7 @@ class LoginController extends Controller
         $this->validate($request, [
             $this->username() => ['required', 'exists:users'],
             'password' => [
-                'required', 'string', function ($attribute, $value, $fail) use ($request) {
-                    $user = User::where('username', $request->username)->first();
-                    /** Valida que la contraseña coincida, en caso contrario notifica al usuario */
-                    if ($user!== null && !Hash::check($value, $user->password)) {
-                        $fail('Estas credenciales no coinciden con nuestros registros');
-                    }
-                }
+                'required', 'string'
             ],
             'captcha' => ['required', 'captcha']
         ], [

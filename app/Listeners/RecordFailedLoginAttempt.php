@@ -6,6 +6,7 @@ use Illuminate\Auth\Events\Failed;
 use App\Models\FailedLoginAttempt;
 use App\Notifications\UserBlocked;
 use App\Models\User;
+use App\Models\Parameter;
 
 /**
  * @class RecordFailedLoginAttempt
@@ -46,6 +47,22 @@ class RecordFailedLoginAttempt
         /** @var string Establece la fecha y hora en la que fue bloqueado el usuario */
         $event->user->blocked_at = date('Y-m-d H:i:s');
         $event->user->save();
+
+        $blackListIp = Parameter::where(['p_key' => 'black_list_ip'])->first();
+        $myIp = request()->ip();
+
+        if (!$blackListIp) {
+            Parameter::create([
+                'p_key' => 'black_list_ip',
+                'p_value' => json_encode([$myIp])
+            ]);
+        } else {
+            $list = json_decode($blackListIp->p_value);
+            if (!in_array($myIp, $list)) {
+                $blackListIp->p_value = json_encode(array_push($list, $myIp));
+                $blackListIp->save();
+            }
+        }
 
         $event->user->notify(new UserBlocked(User::find($event->user->id)));
 
