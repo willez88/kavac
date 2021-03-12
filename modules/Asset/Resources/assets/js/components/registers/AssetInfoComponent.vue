@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<a class="btn btn-info btn-xs btn-icon btn-action"
-		   href="#" title="Ver información del Bien" data-toggle="tooltip"
+		   href="#" title="Ver información del Bien" data-toggle="tooltip" v-has-tooltip
 		   @click="addRecord('add_asset', route_list ,$event)">
 			<i class="fa fa-info-circle"></i>
 		</a>
