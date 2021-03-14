@@ -1,6 +1,6 @@
 <template>
 	<div class="col-md-12">
-		<hr>
+		
 		<v-client-table :columns="columns" :data="records" :options="table_options">
 			<div slot="observation" slot-scope="props" class="text-center">
 				<span>
@@ -53,7 +53,7 @@
 				'asset_request.code': 'Código de solicitud',
 				'state': 'Estado de entrega',
 				'user.name': 'Solicitante',
-				'created_at': 'Fecha de Emisión',
+				'created_at': 'Fecha de emisión',
 				'observation': 'Observaciones',
 				'id': 'Acción'
 			};

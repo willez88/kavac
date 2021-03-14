@@ -138,7 +138,7 @@
 						<div class="form-group is-required">
 					        <label>Nombre del agente externo</label>
 					        <input  type="text" class="form-control input-sm"
-					        		data-toggle="tooltip"
+					        		data-toggle="tooltip" v-input-mask data-inputmask-regex="[a-zA-ZÁ-ÿ\s]*"
 	                        		title="Indique el nombre del agente externo responsable del bien" v-model="record.agent_name">
 					    </div>
 					</div>
@@ -147,7 +147,7 @@
 					    <div class="form-group is-required">
 					    	<label>Teléfono del agente externo</label>
 					    	<input  type="text" class="form-control input-sm"
-					    			data-toggle="tooltip"
+					    			data-toggle="tooltip" v-input-mask data-inputmask-regex="[0-9\-]*"
 	                        		title="Indique el teléfono del agente externo responsable del bien" v-model="record.agent_telf">
 					    </div>
 					</div>

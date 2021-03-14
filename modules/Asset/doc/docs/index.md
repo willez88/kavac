@@ -8,7 +8,7 @@ El Manual de Documentación del sistema KAVAC a nivel de usuario tiene como obje
 
 ##Módulo de bienes
 
-El sistema KAVAC incluye el módulo de bienes como parte de la administración que se encarga de analizar la adquisición, manejo, control y seguimiento de los recursos materiales. A través de sus funcionalidades permite generar una buena planificación de la adquisición de bienes, un correcto ingreso y una óptima gestión de los mismos en la institución.  
+El sistema KAVAC incluye el módulo de bienes como parte de la administración que se encarga de analizar la adquisición, manejo, control y seguimiento de los recursos materiales. A través de sus funcionalidades permite generar una buena planificación de la adquisición de bienes, un correcto ingreso y una óptima gestión de los mismos.  
 
 El módulo de bienes posee una sección para **Registros**, desde esta sección es posible realizar nuevos registros de bienes, importar y exportar registros realizados, un acceso rápido a la información de cada bien y la gestión de asignación y desincorporación de bienes.  
 

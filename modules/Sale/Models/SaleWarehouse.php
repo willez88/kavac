@@ -40,7 +40,7 @@ class SaleWarehouse extends Model implements Auditable
     /**
      * Método que obtiene las instituciones que gestionan el almacén
      *
-     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo
      * SaleWarehouseInstitutionWarehouse
      */

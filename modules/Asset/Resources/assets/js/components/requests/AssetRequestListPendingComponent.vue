@@ -1,6 +1,6 @@
 <template>
 	<div class="col-md-12">
-		<hr>
+		
 		<v-client-table :columns="columns" :data="records" :options="table_options">
 			<div slot="id" slot-scope="props" class="text-center">
 				<button @click="acceptRequest(props.index)"
@@ -34,8 +34,8 @@
 			this.table_options.headings = {
 				'state': 'Estado',
 				'user.name': 'Solicitante',
-				'created_at': 'Fecha de Emisión',
-				'delivery_date': 'Fecha de Entrega',
+				'created_at': 'Fecha de emisión',
+				'delivery_date': 'Fecha de entrega',
 				'id': 'Acción'
 			};
 			this.table_options.sortable = ['state','created_at','delivery_date'];

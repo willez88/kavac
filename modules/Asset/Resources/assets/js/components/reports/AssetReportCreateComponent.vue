@@ -27,7 +27,7 @@
 				</div>
 				<div class="col-md-3">
 					<div class="form-group">
-						<label>Por Clasificación</label>
+						<label>Por clasificación</label>
 						<div class="col-12">
                             <div class="col-12 bootstrap-switch-mini">
     							<input type="radio" name="type_report" value="clasification" id="sel_clasification_report"
@@ -39,7 +39,7 @@
 				</div>
 				<div class="col-md-3">
 					<div class="form-group">
-						<label>Por Dependencia</label>
+						<label>Por dependencia</label>
 						<div class="col-12">
                             <div class="col-12 bootstrap-switch-mini">
     							<input type="radio" name="type_report" value="dependence" id="sel_dependence_report"
@@ -54,7 +54,7 @@
 				<div class="row">
 					<div class="col-md-3">
 						<div class="form-group">
-							<label>Estatus de Uso:</label>
+							<label>Estatus de uso:</label>
 							<select2 :options="asset_status"
 								 	 data-toggle="tooltip"
 								 	 title="Seleccione un registro de la lista"
@@ -63,7 +63,7 @@
 					</div>
 				</div>
 				<div class="col-md-12">
-					<strong>Tipo de Busqueda</strong>
+					<strong>Tipo de busqueda</strong>
 				</div>
 			</div>
 			<div v-show="this.record.type_report == 'general'">
@@ -72,7 +72,7 @@
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
-							<label>Busqueda por Periodo</label>
+							<label>Busqueda por periodo</label>
 							<div class="col-12">
                                 <div class="col-12 bootstrap-switch-mini">
     								<input type="radio" name="type_search" value="date" id="sel_search_date"
@@ -85,7 +85,7 @@
 
 					<div class="col-md-4">
 						<div class=" form-group">
-							<label>Busqueda por Mes</label>
+							<label>Busqueda por mes</label>
 							<div class="col-12">
                                 <div class="col-12 bootstrap-switch-mini">
     								<input type="radio" name="type_search" value="mes" id="sel_search_mes"
@@ -155,7 +155,7 @@
 				<div class="row">
 					<div class="col-md-3">
 						<div class="form-group">
-							<label>Tipo de Bien:</label>
+							<label>Tipo de bien:</label>
 							<select2 :options="asset_types"
 									 @input="getAssetCategories()"
 									 v-model="record.asset_type_id"></select2>
@@ -163,7 +163,7 @@
 					</div>
 					<div class="col-md-3">
 						<div class="form-group">
-							<label>Categoria General:</label>
+							<label>Categoria general:</label>
 							<select2 :options="asset_categories"
 									 @input="getAssetSubcategories()"
 									 v-model="record.asset_category_id"></select2>
@@ -179,7 +179,7 @@
 					</div>
 					<div class="col-md-3">
 						<div class="form-group">
-							<label>Categoria Específica:</label>
+							<label>Categoria específica:</label>
 							<select2 :options="asset_specific_categories"
 									v-model="record.asset_specific_category_id"></select2>
 						</div>
@@ -191,7 +191,7 @@
 					<div class="col-md-2"></div>
 					<div class="col-md-4">
 						<div class="form-group">
-							<label>Institución:</label>
+							<label>Organización:</label>
 							<select2 :options="institutions"
 									 @input="getDepartments()"
 									 v-model="record.institution_id"></select2>
@@ -274,7 +274,7 @@
 		        	<button type="button" class='btn btn-sm btn-primary btn-custom'
 							@click="createRecord()">
 						<i class="fa fa-file-pdf-o"></i>
-						<span>Generar Reporte</span>
+						<span>Generar reporte</span>
 					</button>
 				</div>
 		    </div>
@@ -354,8 +354,8 @@
 				table_options: {
 					headings: {
 						'inventory_serial': 'Código',
-						'condition': 'Condición Física',
-						'status': 'Estatus de Uso',
+						'condition': 'Condición física',
+						'status': 'Estatus de uso',
 						'serial': 'Serial',
 						'marca': 'Marca',
 						'model': 'Modelo',

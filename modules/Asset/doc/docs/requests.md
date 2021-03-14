@@ -10,7 +10,7 @@ La gestión para préstamos de bienes institucionales se lleva a cabo a través 
 ###Crear una nueva solicitud 
 
 !!! warning "Advertencia"
-	Los bienes disponibles para la sección de solicitudes, son aquellos identificados bajo el estatus de uso **En Almacen o Deposito para su Asignación**.   
+	*	Los bienes disponibles para la sección de solicitudes, son aquellos identificados bajo el estatus de uso **En Almacen o Deposito para su Asignación**.   
 
 **Para crear un nuevo registro**
 

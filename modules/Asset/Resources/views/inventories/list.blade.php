@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-	Gestión de Bienes Institucionales
+	Gestión de Bienes
 @stop
 
 @section('content')

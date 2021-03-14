@@ -1,4 +1,4 @@
-<a href="javascript:void(0)" title="{{ __('haz click para ver la ayuda guiada de este elemento') }}"
+<a href="javascript:void(0)" title="{{ __('Haz click para ver la ayuda guiada de este elemento') }}"
    data-toggle="tooltip" class="btn-help" id="btnHelp{{ $helpId ?? '' }}">
     <i class="ion ion-ios-help-outline cursor-pointer"></i>
 </a>

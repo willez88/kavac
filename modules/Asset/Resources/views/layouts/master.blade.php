@@ -7,7 +7,5 @@
 
 @section('modules-css')
     @parent
-    @if(!isset($setting_view))
-        {!! Html::style(mix('modules/asset/css/app.css'), [], Request::secure()) !!}
-    @endif
+    {!! Html::style(mix('modules/payroll/css/app.css'), [], Request::secure()) !!}
 @endsection

@@ -1,18 +1,5 @@
 <template>
 	<section>
-		<div class="form-group form-inline pull-left VueTables__search-2">
-			<div class="VueTables__search-field">
-				<label class="">
-					Buscar:
-				</label>
-				<input  type="text"
-						class="form-control"
-						placeholder="Buscar..."
-						title="Filtrar resultados" 
-						data-toggle="tooltip"
-						v-model="search">
-			</div>
-		</div>
 
 		<div class="form-group form-inline pull-right VueTables__limit-2">
 			<div class="VueTables__limit-field">
@@ -47,25 +34,25 @@
 					<button @click="assignAsset(props.row.id)"
 		    				class="btn btn-primary btn-xs btn-icon btn-action"
 		    				title="Asignar Bien" data-toggle="tooltip" :disabled="(props.row.asset_status_id == 10)?false:true"
-		    				type="button">
+		    				type="button" v-has-tooltip>
 		    			<i class="fa fa-filter"></i>
 		    		</button>
 		    		<button @click="disassignAsset(props.row.id)"
 		    				class="btn btn-danger btn-xs btn-icon btn-action"
 		    				title="Desincorporar Bien" data-toggle="tooltip" :disabled="((props.row.asset_status_id < 6)||(props.row.asset_status_id > 9))?false:true"
-		    				type="button">
+		    				type="button" v-has-tooltip>
 		    			<i class="fa fa-chain"></i>
 		    		</button>
 
 					<button @click="editForm(props.row.id)"
 		    				class="btn btn-warning btn-xs btn-icon btn-action"
-		    				title="Modificar registro" data-toggle="tooltip" type="button">
+		    				title="Modificar registro" data-toggle="tooltip" type="button" v-has-tooltip>
 		    			<i class="fa fa-edit"></i>
 		    		</button>
 		    		<button @click="deleteRecord(props.index, '')"
 							class="btn btn-danger btn-xs btn-icon btn-action"
 							title="Eliminar registro" data-toggle="tooltip"
-							type="button">
+							type="button" v-has-tooltip>
 						<i class="fa fa-trash-o"></i>
 					</button>
 				</div>
@@ -136,8 +123,8 @@
 			this.table_options.headings = {
 				'inventory_serial': 'Código',
 				'institution': 'Organización',
-				'asset_condition': 'Condición Física',
-				'asset_status': 'Estatus de Uso',
+				'asset_condition': 'Condición física',
+				'asset_status': 'Estatus de uso',
 				'serial': 'Serial',
 				'marca': 'Marca',
 				'model': 'Modelo',

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<a class="btn btn-info btn-xs btn-icon btn-action"
-		   href="#" title="Ver información del Bien" data-toggle="tooltip"
+		   href="#" title="Ver información del Bien" data-toggle="tooltip" v-has-tooltip
 		   @click="addRecord('add_asset', route_list ,$event)">
 			<i class="fa fa-info-circle"></i>
 		</a>
@@ -72,7 +72,7 @@
 
 							        <div class="col-md-6">
 										<div class="form-group">
-											<strong>Categoria Especifica</strong>
+											<strong>Categoria especifica</strong>
 											<div class="row" style="margin: 1px 0">
 								        		<span class="col-md-12" id="asset_specific">
 												</span>
@@ -126,7 +126,7 @@
 	                    		<div class="row">
 	                    			<div class="col-md-6">
 										<div class="form-group">
-											<strong>Forma de Adquisición</strong>
+											<strong>Forma de adquisición</strong>
 											<div class="row" style="margin: 1px 0">
 								        		<span class="col-md-12" id="asset_acquisition_type">
 												</span>
@@ -137,7 +137,7 @@
 
 							        <div class="col-md-6">
 										<div class="form-group">
-											<strong>Fecha de Adquisición</strong>
+											<strong>Fecha de adquisición</strong>
 											<div class="row" style="margin: 1px 0">
 								        		<span class="col-md-12" id="asset_acquisition_date">
 												</span>
@@ -169,7 +169,7 @@
 
 							        <div class="col-md-6">
 										<div class="form-group">
-											<strong>Condición Física</strong>
+											<strong>Condición física</strong>
 											<div class="row" style="margin: 1px 0">
 								        		<span class="col-md-12" id="asset_condition">
 												</span>
@@ -180,7 +180,7 @@
 
 							        <div class="col-md-6">
 										<div class="form-group">
-											<strong>Estatus de Uso</strong>
+											<strong>Estatus de uso</strong>
 											<div class="row" style="margin: 1px 0">
 								        		<span class="col-md-12" id="asset_status">
 												</span>
@@ -190,7 +190,7 @@
 
 							        <div class="col-md-6">
 										<div class="form-group">
-											<strong>Función de Uso</strong>
+											<strong>Función de uso</strong>
 											<div class="row" style="margin: 1px 0">
 								        		<span class="col-md-12" id="asset_use_function">
 												</span>
@@ -201,7 +201,7 @@
 
 							        <div class="col-md-6">
 										<div class="form-group">
-											<strong>Serial de Fábrica</strong>
+											<strong>Serial de fábrica</strong>
 											<div class="row" style="margin: 1px 0">
 								        		<span class="col-md-12" id="asset_serial">
 												</span>

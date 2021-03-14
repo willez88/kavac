@@ -245,5 +245,21 @@ Route::group(
             ->name('sale.report.orders');
         //Route::post('reports/orders/vue-list', 'SaleOrderReportController@vueList');
 
+        /**
+         * -----------------------------------------------------------------------
+         * Rutas para la configuración de Lista de subservicios
+         * -----------------------------------------------------------------------
+         *
+         * Gestiona los datos de configuración de Lista de subservicios
+         */
+        Route::resource(
+            'list-subservices-method',
+            'SaleListSubservicesController',
+            ['as' => 'sale', 'except' => ['create','edit','show']]
+        );
+        Route::get(
+            'get-salelistsubservicesmethod',
+            'SaleListSubservicesController@getSaleListSubservicesMethod'
+        )->name('sale.get-sale-listsubservicesmethod');
     }
 );
