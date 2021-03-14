@@ -107,14 +107,14 @@
 
 					<hr>
 					<h6 class="card-title">
-						Detalles de Idiomas <i class="fa fa-plus-circle cursor-pointer" @click="addLanguageDetails"></i>
+						Detalles de Idiomas <i class="fa fa-plus-circle cursor-pointer" @click="addPayrollLanguages"></i>
 					</h6>
-					<div class="row" v-for="(language_detail, index) in record.language_details">
+					<div class="row" v-for="(payroll_language, index) in record.payroll_languages">
                         <div class="col-3">
 							<div class="form-group is-required">
 								<label>Idioma:</label>
 								<select2 :options="payroll_languages"
-									v-model="language_detail.payroll_language_id">
+									v-model="payroll_language.payroll_lang_id">
 								</select2>
 							</div>
                         </div>
@@ -122,7 +122,7 @@
 							<div class="form-group is-required">
 								<label>Nivel de Idioma:</label>
 								<select2 :options="payroll_language_levels"
-									v-model="language_detail.payroll_language_level_id">
+									v-model="payroll_language.payroll_language_level_id">
 								</select2>
 							</div>
 						</div>
@@ -130,7 +130,7 @@
 							<div class="form-group">
 								<br>
 								<button class="btn btn-sm btn-danger btn-action" type="button"
-									@click="removeRow(index, record.language_details)"
+									@click="removeRow(index, record.payroll_languages)"
 									title="Eliminar este dato" data-toggle="tooltip" data-placement="right">
 									<i class="fa fa-minus-circle"></i>
 								</button>
@@ -198,7 +198,7 @@
 					study_program_name: '',
 					class_schedule: '',
 					professions: [],
-					language_details: [],
+					payroll_languages: [],
 				},
 				errors: [],
 				payroll_staffs: [],
@@ -227,13 +227,12 @@
 					vm.record.payroll_staff = response.data.record.payroll_staff;
 					vm.record.payroll_study_type = response.data.record.payroll_study_type;
 					vm.record.payroll_instruction_degree = response.data.record.payroll_instruction_degree;
-					vm.record.payroll_languages = response.data.record.payroll_languages;
-					vm.record.payroll_language_levels = response.data.record.payroll_language_levels;
+					//vm.record.payroll_languages = response.data.record.payroll_languages;
 
-					for (const a in vm.record.payroll_languages) {
-						vm.record.language_details.push({
-							payroll_language_id: vm.record.payroll_languages[a].id,
-							payroll_language_level_id: vm.record.payroll_language_levels[a].id,
+					for (const a in response.data.record.payroll_languages) {
+						vm.record.payroll_languages.push({
+							payroll_lang_id: response.data.record.payroll_languages[a].id,
+							payroll_language_level_id: response.data.record.payroll_languages[a].pivot.payroll_language_level_id,
 						});
 					}
 				});
@@ -250,18 +249,18 @@
 					study_program_name: '',
 					class_schedule: '',
 					professions: [],
-					language_details: []
+					payroll_languages: []
 				};
 			},
 
 			/**
-			 * Agrega una nueva Fila para el registro de detalles de idiomas
+			 * Agrega una nueva Fila para el registro de idiomas
 			 *
 			 * @author William Páez <wpaez@cenditel.gob.ve>
 			 */
-			addLanguageDetails() {
-				this.record.language_details.push({
-					payroll_language_id: '',
+			addPayrollLanguages() {
+				this.record.payroll_languages.push({
+					payroll_lang_id: '',
 					payroll_language_level_id: '',
 				});
 			},
@@ -298,7 +297,7 @@
 			}
 		},
 		created() {
-			this.record.language_details = [];
+			this.record.payroll_languages = [];
 			this.record.professions = [];
 			this.getPayrollStaffs();
 			this.getPayrollInstructionDegrees();

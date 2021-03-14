@@ -40,36 +40,4 @@ class PayrollLanguageLevel extends Model implements Auditable
     protected $fillable = [
         'name'
     ];
-
-    /**
-     * Método que obtiene los niveles de idioma asociados a muchas informaciones profesionales del trabajador
-     *
-     * @author William Páez <wpaezs@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function payrollProfessionals()
-    {
-        return $this->belongsToMany(
-            PayrollProfessional::class,
-            'payroll_language_language_level_professional',
-            'payroll_language_level_id',
-            'payroll_professional_id'
-        )->withPivot('payroll_language_id')->withTimestamps();
-    }
-
-    /**
-     * Método que obtiene los idiomas asociados a muchas informaciones profesionales del trabajador
-     *
-     * @author William Páez <wpaezs@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function payrollLanguages()
-    {
-        return $this->belongsToMany(
-            PayrollLanguage::class,
-            'payroll_language_language_level_professional',
-            'payroll_language_level_id',
-            'payroll_language_id'
-        )->withPivot('payroll_professional_id')->withTimestamps();
-    }
 }

@@ -27,8 +27,9 @@ class AddFieldToPayrollChildrensTable extends Migration
     {
         Schema::table('payroll_childrens', function (Blueprint $table) {
             if (!Schema::hasColumn('payroll_childrens', 'payroll_socioeconomic_id')) {
-                $table->foreignId('payroll_socioeconomic_id')->nullable()->constrained()
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('payroll_socioeconomic_id')->nullable()
+                      ->comment('Identificador del dato socioeconómico')->constrained()
+                      ->onUpdate('cascade')->onDelete('restrict');
             }
         });
     }

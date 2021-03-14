@@ -36,21 +36,27 @@ class CreatePayrollEmploymentsTable extends Migration
                       ->unique()->nullable()->comment('Correo electrónico institucional');
                 $table->text('function_description')->nullable()->comment('Descripción de funciones');
 
-                $table->foreignId('payroll_inactivity_type_id')->nullable()->constrained()
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('payroll_inactivity_type_id')->nullable()
+                      ->comment('Identificador del tipo de inactividad')->constrained()
+                      ->onUpdate('cascade')->onDelete('restrict');
 
-                $table->foreignId('payroll_position_type_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('payroll_position_type_id')->comment('Identificador del tipo de cargo')
+                      ->constrained()->onUpdate('cascade')->onDelete('restrict');
 
-                $table->foreignId('payroll_position_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('payroll_position_id')->comment('Identificador del cargo')
+                      ->constrained()->onUpdate('cascade')->onDelete('restrict');
 
-                $table->foreignId('payroll_staff_type_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('payroll_staff_type_id')->comment('Identificador del tipo de personal')
+                      ->constrained()->onUpdate('cascade')->onDelete('restrict');
 
-                $table->foreignId('department_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('department_id')->comment('Identificador del departamento')
+                      ->constrained()->onUpdate('cascade')->onDelete('restrict');
 
-                $table->foreignId('payroll_contract_type_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('payroll_contract_type_id')->comment('Identificador del tipo de contrato')
+                      ->constrained()->onUpdate('cascade')->onDelete('restrict');
 
-                $table->foreignId('payroll_staff_id')->unique()->constrained()
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('payroll_staff_id')->unique()->comment('Identificador del dato personal')
+                      ->constrained()->onUpdate('cascade')->onDelete('restrict');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

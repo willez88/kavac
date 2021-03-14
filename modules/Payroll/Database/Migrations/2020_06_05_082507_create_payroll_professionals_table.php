@@ -37,14 +37,15 @@ class CreatePayrollProfessionalsTable extends Migration
                 $table->text('class_schedule')->nullable()->comment('Horario de clase');
                 $table->boolean('is_student')->default(false)->comment('Establece si el trabajdor es estudiante o no');
 
-                $table->foreignId('payroll_staff_id')->unique()->constrained()
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('payroll_staff_id')->unique()->comment('Identificador del dato personal')
+                      ->constrained()->onUpdate('cascade')->onDelete('restrict');
 
-                $table->foreignId('payroll_instruction_degree_id')->constrained()
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('payroll_instruction_degree_id')->comment('Identificador del grado de instrucción')
+                      ->constrained()->onUpdate('cascade')->onDelete('restrict');
 
-                $table->foreignId('payroll_study_type_id')->nullable()->constrained()
-                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('payroll_study_type_id')->nullable()
+                      ->comment('Identificador del tipo de estudio')->constrained()
+                      ->onUpdate('cascade')->onDelete('restrict');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
