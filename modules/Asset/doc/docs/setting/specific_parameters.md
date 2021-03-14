@@ -16,7 +16,7 @@ Crear tipo de bien:
 - Completar el formulario ingresando el nombre del tipo de bien.  
 - Presionar el botón **Guardar** ![Screenshot](../img/save.png) y verificar que se haya almacenado en la lista de registros. 
 
-![Screenshot](../img/tipo_bien.jpg)<div style="text-align: center;font-weight: bold">Figura: Tipos de Bienes</div>
+![Screenshot](../img/figure_19.jpg)<div style="text-align: center;font-weight: bold">Figura 19: Tipos de Bienes</div>
 
 
 Gestión de registros: 
@@ -37,7 +37,7 @@ Crear categoría general:
 - Completar el formulario ingresando el tipo de bien al que pertenece la categoría, código de la categoría general y el nombre de la categoría general.
 - Presionar el botón **Guardar** ![Screenshot](../img/save.png) y verificar que se haya almacenado en la lista de registros. 
 
-![Screenshot](../img/categoria_general.jpg)<div style="text-align: center;font-weight: bold">Figura: Categorías Generales</div>
+![Screenshot](../img/figure_20.jpg)<div style="text-align: center;font-weight: bold">Figura 20: Categorías Generales</div>
 
 Gestión de registros: 
 
@@ -56,7 +56,7 @@ Crear subcategoría:
 - Completar el formulario.   
 - Presionar el botón **Guardar** ![Screenshot](../img/save.png) y verificar que se haya almacenado en la lista de registros. 
 
-![Screenshot](../img/subcategorias.jpg)<div style="text-align: center;font-weight: bold">Figura: Subcategorías</div>
+![Screenshot](../img/figure_21.jpg)<div style="text-align: center;font-weight: bold">Figura 21: Subcategorías</div>
 
 Gestión de registros: 
 
@@ -75,7 +75,7 @@ Crear categoría específica:
 - Completar el formulario.   
 - Presionar el botón **Guardar** ![Screenshot](../img/save.png) y verificar que se haya almacenado en la lista de registros. 
 
-![Screenshot](../img/categoria_especifica.jpg)<div style="text-align: center;font-weight: bold">Figura: Categorías Específicas</div>
+![Screenshot](../img/figure_22.jpg)<div style="text-align: center;font-weight: bold">Figura 22: Categorías Específicas</div>
 
 Gestión de registros: 
 

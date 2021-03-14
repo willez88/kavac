@@ -16,7 +16,7 @@ Crear condición física:
 - Completar el formulario ingresando el nombre de la condición física.   
 - Presionar el botón **Guardar** ![Screenshot](../img/save.png) y verificar que se haya almacenado en la lista de registros. 
 
-![Screenshot](../img/condiciones_fisicas.jpg)<div style="text-align: center;font-weight: bold">Figura: Condiciones Físicas</div>
+![Screenshot](../img/figure_15.jpg)<div style="text-align: center;font-weight: bold">Figura 15: Condiciones Físicas</div>
 
 Gestión de registros: 
 
@@ -35,7 +35,7 @@ Crear estatus de uso:
 - Completar el formulario ingresando el nombre del estatus de uso.   
 - Presionar el botón **Guardar** ![Screenshot](../img/save.png) y verificar que se haya almacenado en la lista de registros. 
 
-![Screenshot](../img/estatus_uso.jpg)<div style="text-align: center;font-weight: bold">Figura: Estatus de Uso</div>
+![Screenshot](../img/figure_16.jpg)<div style="text-align: center;font-weight: bold">Figura 16: Estatus de Uso</div>
 
 Gestión de registros: 
 
@@ -54,7 +54,7 @@ Crear función de uso:
 - Completar el formulario ingresando el nombre de la función de uso.   
 - Presionar el botón **Guardar** ![Screenshot](../img/save.png) y verificar que se haya almacenado en la lista de registros. 
 
-![Screenshot](../img/funciones_uso.jpg)<div style="text-align: center;font-weight: bold">Figura: Funciones de Uso</div>
+![Screenshot](../img/figure_17.jpg)<div style="text-align: center;font-weight: bold">Figura 17: Funciones de Uso</div>
 
 Gestión de registros: 
 
@@ -74,7 +74,7 @@ Crear tipo de adquisición:
 - Presionar el botón **Guardar** ![Screenshot](../img/save.png) y verificar que se haya almacenado en la lista de registros. 
  
 
-![Screenshot](../img/tipo_adquisicion.jpg)<div style="text-align: center;font-weight: bold">Figura: Tipo de Adquisición</div>
+![Screenshot](../img/figure_18.jpg)<div style="text-align: center;font-weight: bold">Figura 18: Tipo de Adquisición</div>
 
 Gestión de registros: 
 
