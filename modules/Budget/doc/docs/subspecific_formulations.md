@@ -1,6 +1,5 @@
 # Formulación de Presupuesto 
 ****************************
-<div style="text-align: justify;">
 
 ![Screenshot](img/logokavac.png#imagen)
 
@@ -19,7 +18,10 @@ Esta funcionalidad permite al analista de presupuesto o al usuario con permisos 
 
 Para el registro de formulación de presupuesto es necesario completar el formulario de la sección **Formulación de Presupuesto de Gastos por Sub Específica**. Los campos de selección que se muestran en esta sección corresponden a registros previos realizados en el sistema (Institución que genera, Acción Centralizada, Acción Específica y Moneda). Estos datos se adjuntan al nuevo registro de **Formulación**. 
 
-A través de los botones de acciones de registro ![Screenshot](img/import_export.png#imagen) es posible **Importar** y **Exportar** respectivamente, archivos con extensión **.csv**, **ods**, **.xls** y **.xlss**.
+!!! info ""
+    A través de los botones de acciones de registro es posible **Importar** y **Exportar** respectivamente, archivos con extensión **.csv**, **ods**, **.xls** y **.xlss**.
+
+    ![Screenshot](img/import_export.png#imagen) 
 
 A continuación se muestra un registro de **Formulación de Presupuesto**:
 
@@ -28,9 +30,6 @@ A continuación se muestra un registro de **Formulación de Presupuesto**:
 Para **Ver información detallada**, **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de registros en la sección de **Formulaciones de Presupuesto**.
 
 ![Screenshot](img/manage.png#imagen)
-
-
-</div>
 
 
 

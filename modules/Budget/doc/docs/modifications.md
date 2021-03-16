@@ -1,6 +1,5 @@
 # Modificaciones Presupuestarias 
 ********************************
-<div style="text-align: justify;">
 
 ![Screenshot](img/logokavac.png#imagen)
 
@@ -23,7 +22,10 @@ Para el registro de un crédito adicional es necesario completar el formulario 
 
 **Cuentas presupuestarias**
 
-Una vez se formula el registro del crédito adicional, se habilitara la opción **Agregar** ![Screenshot](img/add.png#imagen) para poder ingresar las cuentas y los datos numéricos, en el apartado **Cuentas Presupuestarias**; que influyen en el crédito adicional. Los campos de selección que se muestran en esta sección corresponden a registros previos realizados en el sistema (Acción Específica y Cuenta). Estos datos se adjuntan al nuevo registro de **Crédito Adicional**.
+Una vez se formula el registro del crédito adicional, se habilitara la opción **Agregar** para poder ingresar las cuentas y los datos numéricos, en el apartado **Cuentas Presupuestarias**; que influyen en el crédito adicional. Los campos de selección que se muestran en esta sección corresponden a registros previos realizados en el sistema (Acción Específica y Cuenta). Estos datos se adjuntan al nuevo registro de **Crédito Adicional**.
+
+!!! info "Botón Agregar"
+    ![Screenshot](img/add.png#imagen)
 
 A continuación se muestra un registro de **Crédito Adicional** para la compra de artículos de oficina:
 
@@ -51,7 +53,10 @@ Para el registro de reducción es necesario completar el formulario de la secci
 
 **Cuentas presupuestarias**
 
-Una vez se formula el registro de la reducción, se habilitara la opción **Agregar** ![Screenshot](img/add.png#imagen) para poder ingresar las cuentas y los datos numéricos que influyen en la reducción. Los campos de selección que se muestran en esta sección corresponden a registros previos realizados en el sistema (Acción Específica y Cuenta). Estos datos se adjuntan al nuevo registro de **Reducciones**.
+Una vez se formula el registro de la reducción, se habilitara la opción **Agregar** para poder ingresar las cuentas y los datos numéricos que influyen en la reducción. Los campos de selección que se muestran en esta sección corresponden a registros previos realizados en el sistema (Acción Específica y Cuenta). Estos datos se adjuntan al nuevo registro de **Reducciones**.
+
+!!! info "Botón Agregar"
+    ![Screenshot](img/add.png#imagen)
 
 A continuación se muestra un registro de **Reducciones** para una reducción en el presupuesto destinado a la compra de equipos de oficina.
 
@@ -80,7 +85,10 @@ Para el registro de traspaso es necesario completar el formulario de la secció
 
 **Cuentas presupuestarias**
 
-Una vez se formula el registro del traspaso, se habilitara la opción **Agregar** ![Screenshot](img/add.png#imagen) para poder ingresar las cuentas y los datos numéricos que influyen en el traspaso. Los campos de selección que se muestran en esta sección corresponden a registros previos realizados en el sistema (Acción Específica y Cuenta). Estos datos se adjuntan al nuevo registro de **Traspaso**.
+Una vez se formula el registro del traspaso, se habilitara la opción **Agregar** para poder ingresar las cuentas y los datos numéricos que influyen en el traspaso. Los campos de selección que se muestran en esta sección corresponden a registros previos realizados en el sistema (Acción Específica y Cuenta). Estos datos se adjuntan al nuevo registro de **Traspaso**.
+
+!!! info "Botón Agregar"
+    ![Screenshot](img/add.png#imagen)
 
 A continuación se muestra un registro de **Traspaso** para el pago de equipos de computación:
 
@@ -91,7 +99,6 @@ Para **Ver información detallada**, **Editar** o **Eliminar** un registro se de
 ![Screenshot](img/manage.png#imagen)
 
 
-</div>
 
 
 
