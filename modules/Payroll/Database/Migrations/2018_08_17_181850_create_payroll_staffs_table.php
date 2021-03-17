@@ -39,7 +39,8 @@ class CreatePayrollStaffsTable extends Migration
                       ->comment('Nombre y apellido del contacto de emergencia');
                 $table->string('emergency_phone', 20)->nullable()->comment('Teléfono del contacto de emergencia');
                 $table->string('address', 200)->comment('Dirección de habitación del personal');
-                $table->foreignId('parish_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('parish_id')->comment('Identificador de la parroquia')
+                      ->constrained()->onDelete('restrict')->onUpdate('cascade');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });

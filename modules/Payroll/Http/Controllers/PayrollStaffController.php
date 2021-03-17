@@ -87,6 +87,7 @@ class PayrollStaffController extends Controller
             'birthdate' => [new AgeToWork(($parameter) ? $parameter->p_value : 0)],
             'payroll_gender_id' => ['required'],
             'payroll_blood_type_id' => ['required'],
+            'payroll_disability_id' => ['required'],
             'social_security' => ['nullable'],
             'emergency_contact' => ['nullable'],
             'emergency_phone' => ['nullable', 'regex:/^\+\d{2}-\d{3}-\d{7}$/u'],
@@ -130,17 +131,7 @@ class PayrollStaffController extends Controller
         $payrollStaff->email = $request->email;
         $payrollStaff->birthdate = $request->birthdate;
         $payrollStaff->payroll_gender_id = $request->payroll_gender_id;
-
-        if ($request->has_disability) {
-            $this->validate($request, [
-                'disability' => ['required'],
-            ]);
-            $payrollStaff->has_disability = ($request->has_disability!==null);
-            $payrollStaff->disability = $request->disability;
-        } else {
-            $payrollStaff->has_disability = false;
-            $payrollStaff->disability = null;
-        }
+        $payrollStaff->payroll_disability_id = $request->payroll_disability_id;
 
         if ($request->has_driver_license) {
             $this->validate($request, [
@@ -187,7 +178,7 @@ class PayrollStaffController extends Controller
     public function show($id)
     {
         $payrollStaff = PayrollStaff::where('id', $id)->with([
-            'payrollNationality','payrollGender','payrollLicenseDegree','payrollBloodType',
+            'payrollNationality','payrollGender','payrollLicenseDegree','payrollBloodType', 'payrollDisability',
             'parish' => function ($query) {
                 $query->with(['municipality' => function ($query) {
                     $query->with(['estate' => function ($query) {
@@ -239,6 +230,7 @@ class PayrollStaffController extends Controller
             'birthdate' => [new AgeToWork(($parameter) ? $parameter->p_value : 0)],
             'payroll_gender_id' => ['required'],
             'payroll_blood_type_id' => ['required'],
+            'payroll_disability_id' => ['required'],
             'social_security' => ['nullable'],
             'emergency_contact' => ['nullable'],
             'emergency_phone' => ['nullable', 'regex:/^\d{2}-\d{3}-\d{7}$/u'],
@@ -265,17 +257,7 @@ class PayrollStaffController extends Controller
         $payrollStaff->email  = $request->email;
         $payrollStaff->birthdate = $request->birthdate;
         $payrollStaff->payroll_gender_id = $request->payroll_gender_id;
-
-        if ($request->has_disability) {
-            $this->validate($request, [
-                'disability' => ['required'],
-            ]);
-            $payrollStaff->has_disability = ($request->has_disability!==null);
-            $payrollStaff->disability = $request->disability;
-        } else {
-            $payrollStaff->has_disability = false;
-            $payrollStaff->disability = null;
-        }
+        $payrollStaff->payroll_disability_id = $request->payroll_disability_id;
 
         if ($request->has_driver_license) {
             $this->validate($request, [
@@ -343,7 +325,7 @@ class PayrollStaffController extends Controller
     public function vueList()
     {
         return response()->json(['records' => PayrollStaff::with([
-            'payrollNationality','payrollGender','parish','payrollLicenseDegree','payrollBloodType'
+            'payrollNationality','payrollGender','parish','payrollLicenseDegree','payrollBloodType', 'payrollDisability'
         ])->get()], 200);
     }
 

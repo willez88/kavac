@@ -243,4 +243,16 @@ class PayrollStaff extends Model implements Auditable
     {
         return $this->hasMany(PayrollPermissionRequest::class);
     }
+
+    /**
+     * Método que obtiene el dato personal del trabajador asociada a una discapacidad
+     *
+     * @author    William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function payrollDisability()
+    {
+        return $this->belongsTo(PayrollDisability::class);
+    }
 }

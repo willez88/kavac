@@ -123,19 +123,9 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>¿Posee una Discapacidad?</label>
-                                    <div class="col-12 bootstrap-switch-mini">
-                                        <input id="has_disability" class="form-control bootstrap-switch"
-                                               data-on-label="SI" data-off-label="NO" type="checkbox"
-                                               :value="record.has_disability">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4" v-show="record.has_disability">
-                                <div class="form-group">
                                     <label>Discapacidad</label>
                                     <input type="text" data-toggle="tooltip" class="form-control input-sm"
-                                        disabled="true" id="disability">
+                                        disabled="true" id="payroll_disability">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -297,8 +287,7 @@
                     $('#payroll_gender').val(this.record.payroll_gender.name);
                     $('#emergency_contact').val(this.record.emergency_contact);
                     $('#emergency_phone').val(this.record.emergency_phone);
-                    (this.record.has_disability) ? $('#has_disability').bootstrapSwitch('state', true) : $('#has_disability').bootstrapSwitch('state', false);
-                    $('#disability').val(this.record.disability);
+                    $('#payroll_disability').val(this.record.payroll_disability.name);
                     $('#payroll_blood_type').val(this.record.payroll_blood_type.name);
                     $('#social_security').val(this.record.social_security);
                     (this.record.has_driver_license) ? $('#has_driver_license').bootstrapSwitch('state', true) : $('#has_driver_license').bootstrapSwitch('state', false);
