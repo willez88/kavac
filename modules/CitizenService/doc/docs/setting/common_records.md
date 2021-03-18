@@ -1,6 +1,5 @@
 #Panel de Control Módulo de Oficina de Atención al Ciudadano
 ************************************************************
-<div style="text-align: justify;" >
 
 ![Screenshot](../img/logokavac.png#imagen)
 
@@ -33,8 +32,6 @@ Para registrar un departamento:
 ![Screenshot](../img/departamentos.jpg)<div style="text-align: center;font-weight: bold">Figura: Departamentos</div>  
 
 Esta sección permite **Editar** o **Eliminar** cualquier registro, haciendo uso de los botones ubicados en la columna titulada **Acción** de la tabla de registros.  
-
-</div>
 
 
 

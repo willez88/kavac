@@ -1,6 +1,5 @@
 # Cronograma de actividades  
 ***************************
-<div style="text-align: justify;">
 
 ![Screenshot](img/logokavac.png#imagen)
 
@@ -15,11 +14,7 @@ En la sección **Cronograma** se listan todas las actividades asignadas que han 
 - Completar el formulario de la sección **Cronograma de actividades**
 - Presionar el botón **Guardar** y verificar el registro en la sección **Cronograma**
 
-![Screenshot](/img/.jpg)<div style="text-align: center;font-weight: bold">Figura: Cronograma de Actividades</div>  
- 
-
-
-</div>
+<div style="text-align: center;font-weight: bold">Figura: Cronograma de Actividades</div>
 
 
 

@@ -1,6 +1,5 @@
 # Reportes del Módulo de Atención al Ciudadano 
 **********************************************
-<div style="text-align: justify;">
 
 ![Screenshot](img/logokavac.png#imagen)
 
@@ -10,14 +9,9 @@ Desde la sección de **Reportes** se generan informes sobre las solicitudes real
 
 ![Screenshot](/img/reportes.jpg)<div style="text-align: center;font-weight: bold">Figura: Reportes</div>  
 
-<!-- **Para generar un reporte**
+**Para generar un reporte**
 
 - Dirigirse al **Módulo de Oficina de Atención al Ciudadano** y ubicarse en la sección **Reportes**
-
- -->
-
-
-</div>
 
 
 
