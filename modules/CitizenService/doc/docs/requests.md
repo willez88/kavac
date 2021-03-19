@@ -23,9 +23,9 @@ En el formulario de la solicitud se incluyen los datos asociados al solicitante,
 
 !!! info ""
 
-	![Screenshot](/img/mas.jpg)
+	![Screenshot](/img/mas.jpg) 
 
-![Screenshot](img/figure_2.jpg)<div style="text-align: center;font-weight: bold">Figura 2: Datos de la Persona Solicitante</div>  
+![Screenshot](img/figure_2_1.png)<div style="text-align: center;font-weight: bold">Figura 2: Formulario de solicitud</div>  
 
 ### Gestión de registros
 

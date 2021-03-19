@@ -28,7 +28,7 @@ Los usuarios que interactuan en este módulo, serán todos aquellos usuarios con
 ## Funcionalidades
 
 - Gestión de solicitudes.
-- Seguimiento del estado de solicitudes. 
+- Seguimiento de solicitudes. 
 - Generación de reportes asociados a las diferentes solicitudes.
 - Gestión de actividades laborales a través de un cronograma. 
 

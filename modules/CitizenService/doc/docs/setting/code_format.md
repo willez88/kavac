@@ -18,3 +18,5 @@ Por Ejemplo:
 Se podría establecer un formato para registros como REG-00000000-YYYY. REG hace referencia al prefijo registro, 00000000 será el número del registro y YYYY corresponde al año. 
 
 Una vez se establezca el formato de códigos deseado se puede ejecutar cualquier cambio haciendo uso de los **Botones de Acciones de Formulario**, ya sea **Guardar**, **Cancelar** o **Borrar datos del formulario**.  
+
+![Screenshot](../img/form_actions.png#imagen)
