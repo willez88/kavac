@@ -25,7 +25,7 @@ La gestión para el retiro de bienes se lleva a cabo a través de la sección **
 
 	Para desincorporar más de un bien, se hace uso del botón **Checkbox** ubicado en la primera columna de la tabla de registros, finalmente se presiona el botón **Guardar** para registrar la desincorporación.
 
-	![Screenshot](/img/search.png) **Buscar** 
+	![Screenshot](img/search.png) **Buscar** 
 
 ###Gestión de registros
 
