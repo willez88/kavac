@@ -15,7 +15,7 @@ use App\Traits\ModelsTrait;
  * Gestiona el modelo de géneros
  *
  * @author     William Páez <wpaez@cenditel.gob.ve>
- * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
@@ -42,7 +42,7 @@ class PayrollGender extends Model implements Auditable
     /**
      * Método que obtiene el género que está asociado a muchas informaciones personales del trabajador
      *
-     * @author    William Páez <wpaezs@cenditel.gob.ve>
+     * @author    William Páez <wpaez@cenditel.gob.ve>
      *
      * @return    \Illuminate\Database\Eloquent\Relations\HasMany
      */

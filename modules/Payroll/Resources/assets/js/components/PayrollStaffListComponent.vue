@@ -123,6 +123,16 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
+                                    <label>¿Posee una Discapacidad?</label>
+                                    <div class="col-12 bootstrap-switch-mini">
+                                        <input id="has_disability" class="form-control bootstrap-switch"
+                                               data-on-label="SI" data-off-label="NO" type="checkbox"
+                                               :value="record.has_disability">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" v-if="record.has_disability">
+                                <div class="form-group">
                                     <label>Discapacidad</label>
                                     <input type="text" data-toggle="tooltip" class="form-control input-sm"
                                         disabled="true" id="payroll_disability">
@@ -287,11 +297,12 @@
                     $('#payroll_gender').val(this.record.payroll_gender.name);
                     $('#emergency_contact').val(this.record.emergency_contact);
                     $('#emergency_phone').val(this.record.emergency_phone);
-                    $('#payroll_disability').val(this.record.payroll_disability.name);
+                    (this.record.has_disability) ? $('#has_disability').bootstrapSwitch('state', true) : $('#has_disability').bootstrapSwitch('state', false);
+                    $('#payroll_disability').val((this.record.payroll_disability) ? this.record.payroll_disability.name : ' ');
                     $('#payroll_blood_type').val(this.record.payroll_blood_type.name);
                     $('#social_security').val(this.record.social_security);
                     (this.record.has_driver_license) ? $('#has_driver_license').bootstrapSwitch('state', true) : $('#has_driver_license').bootstrapSwitch('state', false);
-                    $('#payroll_license_degree').val( (this.record.payroll_license_degree) ? this.record.payroll_license_degree.name : ' ' );
+                    $('#payroll_license_degree').val((this.record.payroll_license_degree) ? this.record.payroll_license_degree.name : ' ');
                     $('#country').val(this.record.parish.municipality.estate.country.name);
                     $('#estate').val(this.record.parish.municipality.estate.name);
                     $('#municipality').val(this.record.parish.municipality.name);

@@ -16,7 +16,7 @@ use App\Traits\ModelsTrait;
  * Gestiona el modelo de idiomas
  *
  * @author     William Páez <wpaez@cenditel.gob.ve>
- * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */

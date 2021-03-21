@@ -11,7 +11,7 @@ use App\Models\Department as BaseDepartment;
  * Gestiona el modelo de departamentos
  *
  * @author     William Páez <wpaez@cenditel.gob.ve>
- * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */

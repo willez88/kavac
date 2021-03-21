@@ -26,5 +26,9 @@
     {
         "element" : "#payrollPaymentTypesFormComponent",
         "intro" : "Gestiona información acerca de los tipos de pago de nómina"
+    },
+    {
+        "element" : "#payroll_settlement_type",
+        "intro" : "Gestiona información acerca de los tipos de liquidación."
     }
 ]

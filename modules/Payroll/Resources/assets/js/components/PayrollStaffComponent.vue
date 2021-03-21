@@ -102,6 +102,20 @@
 
 					<div class="row">
 						<div class="col-md-4">
+							<div class="form-group">
+								<label>¿Posee una Discapacidad?</label>
+								<div class="col-md-12">
+                                    <div class="col-12 bootstrap-switch-mini">
+    									<input id="has_disability" name="has_disability" type="checkbox"
+                                               class="form-control bootstrap-switch sel_has_disability"
+                                               data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
+                                               title="Indique si el trabajador posee una discapacidad o no"
+                                               v-model="record.has_disability" value="true"/>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4" v-if="record.has_disability">
 							<div class="form-group is-required">
 								<label>Discapacidad</label>
 								<select2 :options="payroll_disabilities" v-model="record.payroll_disability_id">
@@ -115,6 +129,9 @@
                                 </select2>
 							</div>
 						</div>
+					</div>
+
+					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Seguro Social</label>
@@ -122,9 +139,6 @@
                                        title="Indique el número de seguro social"/>
 							</div>
 						</div>
-					</div>
-
-					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>¿Posee Licencia de Conducir?</label>
@@ -272,6 +286,7 @@
                     email: '',
                     birthdate: '',
                     payroll_gender_id: '',
+					has_disability: '',
 					payroll_disability_id: '',
 					payroll_blood_type_id: '',
 					social_security: '',
@@ -336,14 +351,30 @@
 			this.getPayrollLicenseDegrees();
 			this.getPayrollBloodTypes();
 			this.getPayrollDisabilities();
-			this.record.has_driver_license = true;
+			this.record.has_disability = false;
+			this.record.has_driver_license = false;
 			this.record.phones = [];
 		},
 		mounted() {
 			if(this.payroll_staff_id) {
 				this.getStaff();
 			}
+			this.switchHandler('has_disability');
 			this.switchHandler('has_driver_license');
+		},
+		watch: {
+			record: {
+				deep: true,
+				handler: function() {
+					const vm = this;
+					if (vm.record.has_disability) {
+						$('#has_disability').bootstrapSwitch('state', true, true);
+					}
+					if (vm.record.has_driver_license) {
+						$('#has_driver_license').bootstrapSwitch('state', true, true);
+					}
+				}
+			}
 		}
 	};
 </script>

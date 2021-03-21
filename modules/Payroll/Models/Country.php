@@ -10,7 +10,7 @@ class Country extends BaseCountry
     /**
      * Método que obtiene el país asociado a una nacionalidad
      *
-     * @author William Páez <wpaezs@cenditel.gob.ve>
+     * @author William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function payrollNationality()
