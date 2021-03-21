@@ -14,7 +14,7 @@ Crear tipo de bien:
 - Dirigirse a la **Configuración** del módulo de **Bienes**.
 - Ingresar a **Tipos de Bienes** en la sección **Parámetros Específicos del Clasificador de Bienes**.
 - Completar el formulario ingresando el nombre del tipo de bien.  
-- Presionar el botón **Guardar** ![Screenshot](../img/save.png) y verificar que se haya almacenado en la lista de registros. 
+- Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros. 
 
 ![Screenshot](../img/figure_19.jpg)<div style="text-align: center;font-weight: bold">Figura 19: Tipos de Bienes</div>
 
@@ -35,7 +35,7 @@ Crear categoría general:
 - Dirigirse a la **Configuración** del módulo de **Bienes**.
 - Ingresar a **Categorías Generales** en la sección **Parámetros Específicos del Clasificador de Bienes**.
 - Completar el formulario ingresando el tipo de bien al que pertenece la categoría, código de la categoría general y el nombre de la categoría general.
-- Presionar el botón **Guardar** ![Screenshot](../img/save.png) y verificar que se haya almacenado en la lista de registros. 
+- Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros. 
 
 ![Screenshot](../img/figure_20.jpg)<div style="text-align: center;font-weight: bold">Figura 20: Categorías Generales</div>
 
@@ -54,7 +54,7 @@ Crear subcategoría:
 - Dirigirse a la **Configuración** del módulo de **Bienes**.
 - Ingresar a **Subcategorías** en la sección **Parámetros Específicos del Clasificador de Bienes**.
 - Completar el formulario.   
-- Presionar el botón **Guardar** ![Screenshot](../img/save.png) y verificar que se haya almacenado en la lista de registros. 
+- Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros. 
 
 ![Screenshot](../img/figure_21.jpg)<div style="text-align: center;font-weight: bold">Figura 21: Subcategorías</div>
 
@@ -73,7 +73,7 @@ Crear categoría específica:
 - Dirigirse a la **Configuración** del módulo de **Bienes**.
 - Ingresar a **Categorías Específicas** en la sección **Parámetros Específicos del Clasificador de Bienes**.
 - Completar el formulario.   
-- Presionar el botón **Guardar** ![Screenshot](../img/save.png) y verificar que se haya almacenado en la lista de registros. 
+- Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros. 
 
 ![Screenshot](../img/figure_22.jpg)<div style="text-align: center;font-weight: bold">Figura 22: Categorías Específicas</div>
 
