@@ -59,7 +59,6 @@
 
         <p class="mb-1"> <span class="font-weight-bold"> Ha iniciado sesión como: </span> {{ $user->name }} </p>
         <p class="mb-1">
-          <span class="font-weight-bold"> {{ __('Datos del certificado:') }} </span>
           @if($cert == 'true')
             <ul class="fa-ul">
               <li><span class="font-weight-bold"> {{ __('Identidad:') }} </span> {{ $Identidad }} </li>
