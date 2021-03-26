@@ -97,10 +97,9 @@
 		<div class="card-footer text-right">
 			<div class="row">
 				<div class="col-md-3 offset-md-9" id="helpParamButtons">
-		        	<button type="button" @click="reset()"
-							class="btn btn-default btn-icon btn-round"
+					<button type="button" @click="reset()" class="btn btn-default btn-icon btn-round"
 							data-toggle="tooltip"
-							title ="Borrar datos del formulario">
+		                    title ="Borrar datos del formulario">
 							<i class="fa fa-eraser"></i>
 					</button>
 

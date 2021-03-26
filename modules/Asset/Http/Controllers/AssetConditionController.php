@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Models\AssetCondition;
+use Illuminate\Validation\Rule;
 
 /**
  * @class      AssetConditionController
@@ -43,7 +44,7 @@ class AssetConditionController extends Controller
         //$this->middleware('permission:asset.setting.condition');
         /** Define las reglas de validación para el formulario */
         $this->validateRules = [
-            'name'     => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100'],
+            'name'     => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100', Rule::unique('asset_conditions')],
 
         ];
 
@@ -51,7 +52,8 @@ class AssetConditionController extends Controller
         $this->messages = [
             'name.required'     => 'El campo condición física es obligatorio.',
             'name.max'          => 'El campo condición física no debe contener más de 100 caracteres.',
-            'name.regex'        => 'El campo condición física no debe permitir números ni símbolos.'
+            'name.regex'        => 'El campo condición física no debe permitir números ni símbolos.',
+            'name.unique'       => 'El campo condición física ya ha sido registrado'
            ];
     }
 
@@ -102,7 +104,14 @@ class AssetConditionController extends Controller
      */
     public function update(Request $request, AssetCondition $condition)
     {
-        $this->validate($request, $this->validateRules, $this->messages);
+        $validateRules  = $this->validateRules;
+        $validateRules  = array_replace(
+            $validateRules,
+            ['name' => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100',
+                            Rule::unique('asset_conditions')->ignore($condition->id)]]
+        );
+
+        $this->validate($request, $validateRules, $this->messages);
 
         $condition->name = $request->input('name');
         $condition->save();

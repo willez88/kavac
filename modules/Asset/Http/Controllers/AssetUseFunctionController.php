@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Models\AssetUseFunction;
+use Illuminate\Validation\Rule;
 
 /**
  * @class      AssetUseFunctionController
@@ -33,7 +34,7 @@ class AssetUseFunctionController extends Controller
         //$this->middleware('permission:asset.setting.use-function');
         /** Define las reglas de validación para el formulario */
         $this->validateRules = [
-            'name'     => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100'],
+            'name'     => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100', Rule::unique('asset_use_functions')],
 
         ];
 
@@ -41,7 +42,8 @@ class AssetUseFunctionController extends Controller
         $this->messages = [
             'name.required'     => 'El campo función de uso es obligatorio.',
             'name.max'          => 'El campo función de uso no debe contener más de 100 caracteres.',
-            'name.regex'        => 'El campo función de uso no debe permitir números ni símbolos.'
+            'name.regex'        => 'El campo función de uso no debe permitir números ni símbolos.',
+            'name.unique'       => 'El campo función de uso ya ha sido registrado'
            ];
     }
 
@@ -91,10 +93,18 @@ class AssetUseFunctionController extends Controller
      * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
 
-    public function update(Request $request, $id)
+    public function update(Request $request, AssetUseFunction $function)
     {
-        $this->validate($request, $this->validateRules, $this->messages);
+        $validateRules  = $this->validateRules;
+        $validateRules  = array_replace(
+            $validateRules,
+            ['name' => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100',
+                            Rule::unique('asset_use_functions')->ignore($function->id)]]
+        );
 
+        $this->validate($request, $validateRules, $this->messages);
+
+        $function = AssetUseFunction::find($id);
         if ($function) {
             $function->name = $request->input('name');
             $function->save();

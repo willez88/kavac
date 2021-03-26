@@ -7,5 +7,5 @@
 
 @section('modules-css')
     @parent
-    {!! Html::style(mix('modules/payroll/css/app.css'), [], Request::secure()) !!}
+    {!! Html::style(mix('modules/asset/css/app.css'), [], Request::secure()) !!}
 @endsection

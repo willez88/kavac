@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Models\AssetStatus;
+use Illuminate\Validation\Rule;
 
 /**
  * @class      AssetStatusController
@@ -43,7 +44,7 @@ class AssetStatusController extends Controller
         //$this->middleware('permission:asset.setting.status');
         /** Define las reglas de validación para el formulario */
         $this->validateRules = [
-            'name'     => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100'],
+            'name'     => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100', Rule::unique('asset_status')],
 
         ];
 
@@ -51,7 +52,8 @@ class AssetStatusController extends Controller
         $this->messages = [
             'name.required'     => 'El campo estatus de uso es obligatorio.',
             'name.max'          => 'El campo estatus de uso no debe contener más de 100 caracteres.',
-            'name.regex'        => 'El campo estatus de uso no debe permitir números ni símbolos.'
+            'name.regex'        => 'El campo estatus de uso no debe permitir números ni símbolos.',
+            'name.unique'       => 'El campo estatus de uso ya ha sido registrado'
            ];
     }
 
@@ -103,7 +105,13 @@ class AssetStatusController extends Controller
 
     public function update(Request $request, AssetStatus $status)
     {
-        $this->validate($request, $this->validateRules, $this->messages);
+        $validateRules  = $this->validateRules;
+        $validateRules  = array_replace(
+            $validateRules,
+            ['name' => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100',
+                            Rule::unique('asset_status')->ignore($status->id)]]
+        );
+        $this->validate($request, $validateRules, $this->messages);
 
         $status->name = $request->input('name');
         $status->save();
