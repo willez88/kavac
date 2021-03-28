@@ -23,7 +23,7 @@
 								{!! Form::label('sale_warehouse_inventory_products_code', 'Código para los productos', []) !!}
 								{!! Form::text('products_code', ($pdCode) ? $pdCode->format_code : old('warehouse_inventory_products_code'), [
 									'class' => 'form-control input-sm', 'data-toggle' => 'tooltip',
-									'title' => 'Formato para el código de los proveedores',
+									'title' => 'Formato para el código de los productos',
 									'placeholder' => 'Ej. XXX-00000000-YYYY',
 									'readonly' => ($pdCode) ? true : false
 								]) !!}
@@ -34,7 +34,7 @@
 								{!! Form::label('sale_warehouse_movements_code', 'Código para los movimientos', []) !!}
 								{!! Form::text('movements_code', ($mvCode) ? $mvCode->format_code : old('movements_code'), [
 									'class' => 'form-control input-sm', 'data-toggle' => 'tooltip',
-									'title' => 'Formato para el código de los clientes',
+									'title' => 'Formato para el código de los movimientos',
 									'placeholder' => 'Ej. XXX-00000000-YYYY',
 									'readonly' => ($mvCode) ? true : false
 								]) !!}
