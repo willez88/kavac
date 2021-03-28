@@ -9,7 +9,7 @@ class Parish extends BaseParish
     /**
      * Método que obtiene la parroquia asociada a muchas informaciones personales del trabajador
      *
-     * @author William Páez <wpaezs@cenditel.gob.ve>
+     * @author William Páez <wpaez@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function payrollStaffs()

@@ -825,5 +825,17 @@ Vue.mixin({
                 this.payroll_permission_policies = response.data;
             });
         },
+
+        /**
+		 * Obtiene los datos de discapacidades registradas
+		 *
+		 * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
+		 */
+		 getPayrollDisabilities() {
+			this.payroll_disabilities = [];
+			axios.get('/payroll/get-disabilities').then(response => {
+				this.payroll_disabilities = response.data;
+			});
+		},
 	},
 });

@@ -14,10 +14,10 @@ use App\Traits\ModelsTrait;
  *
  * Gestiona el modelo de nacionalidad
  *
- * @author William Páez <wpaez at cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author William Páez <wpaez@cenditel.gob.ve>
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class PayrollNationality extends Model implements Auditable
 {

@@ -128,6 +128,17 @@ Route::group(
             'SaleSettingDepositController@getSaleSettingDeposit'
         )->name('sale.get-sale-setting-deposit');
 
+        Route::resource(
+            'type-good',
+            'SaleTypeGoodController',
+            ['as' => 'sale', 'except' => ['create','edit','show']]
+        );
+
+        Route::get(
+            'get-type-good',
+            'SaleTypeGoodController@getSaleTypeGoodsAttributes'
+        )->name('sale.get-sale-type-good');
+
         /**
          * -----------------------------------------------------------------------
          * Rutas para la configuración de Almacen de Comercialización

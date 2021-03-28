@@ -165,4 +165,18 @@ class PayrollDisabilityController extends Controller
         $payrollDisability->delete();
         return response()->json(['record' => $payrollDisability, 'message' => 'Success'], 200);
     }
+
+    /**
+     * Obtiene las discapacidades registradas
+     *
+     * @method    getPayrollDisabilities
+     *
+     * @author    William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
+     *
+     * @return    Renderable    Json con los datos
+     */
+    public function getPayrollDisabilities()
+    {
+        return response()->json(template_choices(PayrollDisability::class, 'name', '', true));
+    }
 }

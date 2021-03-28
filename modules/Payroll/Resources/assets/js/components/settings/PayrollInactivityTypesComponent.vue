@@ -1,5 +1,5 @@
 <template>
-	<div class="text-center">
+	<section class="text-center" id="payroll_inactivity_type">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de tipos de inactividad" data-toggle="tooltip"
 		   @click="addRecord('add_payroll_inactivity_type', 'payroll/inactivity-types', $event)">
@@ -61,7 +61,7 @@
 		        </div>
 		    </div>
 		</div>
-	</div>
+	</section>
 </template>
 
 <script>

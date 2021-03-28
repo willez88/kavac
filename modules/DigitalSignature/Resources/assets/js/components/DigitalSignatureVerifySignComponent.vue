@@ -33,19 +33,34 @@
                                    @change="selectedFile('pdf')" required />
                             <label id="pdf-label" for="pdf"> Seleccionar archivo pdf </label>
                         </div>
-                        <button class="btn btn-primary btn-sm btn-round btn-modal-close" @click="verifyFile()">
-                            <i class="fa fa-search"></i>
-                            Verificar
-                        </button>
                         <div class="row" v-if="show">
                             <div class="col-12 pt-3">
                                 <h6> Detalle de la firma </h6>
-                                <p v-for="item in records"> {{ item }} </p>
+                                <p> Número de firma(s): {{ records.count }} </p>
+                                <table class="table table-bordered">
+                                    <tbody v-for="item in records.signs">
+                                        <tr v-for="(value, key, index) in item">
+                                            <template v-if="index === 0">
+                                                <th class="text-right"> {{ key }}: </th>
+                                                <th class="text-left"> {{ value }} </th>
+                                            </template>
+                                            <template v-else>
+                                                <td class="text-right"> {{ key }}: </td>
+                                                <td> {{ value }} </td>
+                                            </template>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-default btn-sm btn-round btn-modal-close" type="button" data-dismiss="modal">
+                        <button class="btn btn-primary btn-sm btn-round btn-modal-close" @click="verifyFile()">
+                            <i class="fa fa-search"></i>
+                            Verificar
+                        </button>
+                        <button class="btn btn-default btn-sm btn-round btn-modal-close" type="button" @click="reset()"
+                                data-dismiss="modal">
                             Cerrar
                         </button>
                     </div>
@@ -70,9 +85,13 @@
             /**
              * Método que borra todos los datos del formulario
              *
-             * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
+             * @author Angelo Osorio <adosorio@cenditel.gob.ve> | <danielking.321@gmail.com>
              */
-            reset() {},
+            reset() {
+                const vm = this;
+                vm.records = [];
+                vm.show = false;
+            },
 
             /**
              * Método que escribe el valor del nombre del pdf del input type=file en el label en este
@@ -100,7 +119,10 @@
                 vm.loading = true;
                 axios.post('digitalsignature/apiVerifysignfile', data).then(function (response) {
                     vm.errors = [];
-                    vm.records = (typeof(response.data.records) === 'string') ? JSON.parse(response.data.records) : response.data.records;
+                    vm.records = (typeof(response.data.records) === 'string')
+                               ? JSON.parse(response.data.records)
+                               : response.data.records;
+                    console.log(vm.records);
                     vm.show = true;
                     vm.loading = false;
                 }).catch(error => {

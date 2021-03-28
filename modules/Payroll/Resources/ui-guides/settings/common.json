@@ -1,0 +1,74 @@
+[
+    {
+        "element" : "#payroll_common",
+        "intro" : "Esta sección permite gestionar la configuración de registros comunes del módulo de talento humano."
+    },
+    {
+        "element" : "#payroll_staff_type",
+        "intro" : "Gestiona información acerca de los tipos de personal."
+    },
+    {
+        "element" : "#payroll_position_type",
+        "intro" : "Gestiona información acerca de los tipos de cargo."
+    },
+    {
+        "element" : "#payroll_position",
+        "intro" : "Gestiona información acerca de los cargos."
+    },
+    {
+        "element" : "#payroll_staff_classification",
+        "intro" : "Gestiona información acerca de la clasificación del personal."
+    },
+    {
+        "element" : "#payroll_instruction_degree",
+        "intro" : "Gestiona información acerca de los grados de instrucción."
+    },
+    {
+        "element" : "#payroll_study_type",
+        "intro" : "Gestiona información acerca de los tipos de estudio."
+    },
+    {
+        "element" : "#payroll_nationality",
+        "intro" : "Gestiona información acerca de las nacionalidades."
+    },
+    {
+        "element" : "#payroll_language_level",
+        "intro" : "Gestiona información acerca de los niveles de idioma."
+    },
+    {
+        "element" : "#payroll_language",
+        "intro" : "Gestiona información acerca de los idiomas."
+    },
+    {
+        "element" : "#payroll_gender",
+        "intro" : "Gestiona información acerca de los géneros de las personas."
+    },
+    {
+        "element" : "#payroll_inactivity_type",
+        "intro" : "Gestiona información acerca de los tipos de inactividad."
+    },
+    {
+        "element" : "#payroll_contract_type",
+        "intro" : "Gestiona información acerca de los tipos de contrato."
+    },
+    {
+        "element" : "#payroll_sector_type",
+        "intro" : "Gestiona información acerca de los tipos de sector."
+    },
+    {
+        "element" : "#payroll_license_degree",
+        "intro" : "Gestiona información acerca de las licencias de conducir que tienen las personas."
+    },
+    {
+        "element" : "#payroll_blood_type",
+        "intro" : "Gestiona información acerca de los tipos de sangre que tienen las personas."
+    },
+    {
+        "element" : "#payroll_relationship",
+        "intro" : "Gestiona información acerca de los parentescos."
+    },
+    {
+        "element" : "#payroll_disability",
+        "intro" : "Gestiona información acerca de las discapacidades de las personas."
+    }
+]

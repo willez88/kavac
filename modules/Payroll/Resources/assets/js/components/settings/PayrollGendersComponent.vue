@@ -1,5 +1,5 @@
 <template>
-	<div class="text-center">
+	<section class="text-center" id="payroll_gender">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de géneros" data-toggle="tooltip"
 		   @click="addRecord('add_payroll_gender', 'payroll/genders', $event)">
@@ -61,7 +61,7 @@
 		        </div>
 		    </div>
 		</div>
-	</div>
+	</section>
 </template>
 
 <script>

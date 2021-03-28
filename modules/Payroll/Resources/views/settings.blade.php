@@ -123,11 +123,14 @@
 	</div>
 	<div class="row">
 		<div class="col-12">
-			<div class="card">
+			<div class="card" id="payroll_work_age">
 				<div class="card-header">
 					<h6 class="card-title">
 						{{ __('Configuración de la Edad Laboral Permitida') }}
-						@include('buttons.help')
+						@include('buttons.help', [
+							'helpId' => 'PayrollWorkAge',
+							'helpSteps' => get_json_resource('ui-guides/settings/work_age.json', 'payroll')
+						])
 					</h6>
 					<div class="card-btns">
 						@include('buttons.minimize')
@@ -138,7 +141,7 @@
 					<div class="card-body">
 						@include('layouts.form-errors')
 						<div class="row">
-							<div class="col-md-4">
+							<div class="col-md-4" id="work_age">
 								<div class="form-group">
 									@if (Modules\Payroll\Models\Parameter::where([
 							            'active' => true, 'required_by' => 'payroll',
@@ -150,6 +153,7 @@
 											'title' => 'Indique la edad laboral permitida', 'min' => '1',
 											'placeholder' => 'Edad'
 										]) !!}
+										{!! Form::hidden('p_key', 'work_age'); !!}
 									@endif
 								</div>
 							</div>
@@ -164,11 +168,14 @@
 	</div>
 	<div class="row">
 		<div class="col-12">
-			<div class="card">
+			<div class="card" id="payroll_common">
 				<div class="card-header">
 					<h6 class="card-title">
 						{{ __('Registros Comunes') }}
-						@include('buttons.help')
+						@include('buttons.help', [
+							'helpId' => 'PayrollCommon',
+							'helpSteps' => get_json_resource('ui-guides/settings/common.json', 'payroll')
+						])
 					</h6>
 					<div class="card-btns">
 						@include('buttons.minimize')

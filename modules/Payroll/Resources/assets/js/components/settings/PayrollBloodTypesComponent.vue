@@ -1,5 +1,5 @@
 <template>
-	<div class="text-center">
+	<section class="text-center" id="payroll_blood_type">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de tipos de sangre" data-toggle="tooltip"
 		   @click="addRecord('add_payroll_blood_type', 'payroll/blood-types', $event)">
@@ -61,7 +61,7 @@
 		        </div>
 		    </div>
 		</div>
-	</div>
+	</section>
 </template>
 
 <script>

@@ -23,25 +23,71 @@
             </div>
             <h6 class="card-title">Datos del cliente:</h6>
             <div class="row">
+              <!-- <div class="col-md-4">
+                  <div class="form-group">
+                      <label>Tipo de persona: </label>
+                      <div class="d-flex">
+                          <label class="pr-3">Natural</label>
+                          <div>
+                              <p-check class="pretty p-switch p-fill p-bigger"
+                                        color="success" off-color="text-gray" toggle
+                                        data-toggle="tooltip" true-value="Jurídica" false-value="Natural"
+                                        title="Seleccione el tipo de persona"
+                                        v-model="record.type_person_juridica">
+                                  <label slot="off-label"></label>
+                              </p-check>
+                          </div>
+                          <label class="pl-3">Jurídica</label>
+                      </div>
+                  </div>
+              </div> -->
               <div class="col-md-4">
                 <div class="form-group is-required">
                   <label for="type_person">Tipo de persona:</label>
                   <select2 :options="types_person" id='type_person_juridica' v-model="record.type_person_juridica"></select2>
                 </div>
               </div>
-              <div class="col-md-4">
-                <div class="form-group is-required">
-                  <label for="rif">RIF</label>
-                  <input type="text" id="rif" class="form-control input-sm" data-toggle="tooltip"
-                    title="Indique el rif del cliente" v-model="record.rif">
-                </div>
+              
+              <div v-show="record.type_person_juridica == 'Jurídica'" class="col-md-4">
+                  <div class="form-group is-required">
+                      <label for="rif">RIF</label>
+                      <input type="text" id="rif" class="form-control input-sm" data-toggle="tooltip"
+                      title="Indique el rif del cliente" v-model="record.rif">
+                  </div>
               </div>
-              <div class="col-md-4">
-                <div class="form-group is-required">
-                  <label for="name">Nombre o razón social:</label>
-                  <input type="text" id="name" class="form-control input-sm" data-toggle="tooltip"
-                    title="Nombre o razón social" v-model="record.name">
-                </div>
+              <div v-show="record.type_person_juridica == 'Jurídica'" class="col-md-4">
+                  <div class="form-group is-required">
+                      <label for="business_name">Razón social:</label>
+                      <input type="text" id="name" class="form-control input-sm" data-toggle="tooltip"
+                      title="Razón social" v-model="record.business_name">
+                  </div>
+              </div>
+              <div v-show="record.type_person_juridica == 'Jurídica'" class="col-md-4">
+                  <div class="form-group is-required">
+                      <label for="representative_name">Nombres y apellidos del representante legal:</label>
+                      <input type="text" id="name" class="form-control input-sm" data-toggle="tooltip"
+                      title="Nombres y Apellidos del representante legal" v-model="record.representative_name">
+                  </div>
+              </div>
+              <div v-show="record.type_person_juridica == 'Natural'" class="col-md-4">
+                    <label for="name">Tipo de identificación:</label>
+                    <div class="d-flex">
+                        <div class="col-md-3 form-group is-required">
+                            <select2 data-toggle="tooltip" title="Tipo de identificación" 
+                            :options="id_types" v-model="record.id_type"></select2>
+                        </div>
+                        <div class="col-md-9 form-group is-required">
+                            <input type="text" id="id_type" class="form-control input-sm" data-toggle="tooltip"
+                             title="Introduza la identificación" v-model="record.id_number">
+                        </div>
+                    </div>
+              </div>
+              <div v-show="record.type_person_juridica == 'Natural'" class="col-md-4">
+                  <div class="form-group is-required">
+                      <label for="name">Nombre y apellido:</label>
+                      <input type="text" id="name" class="form-control input-sm" data-toggle="tooltip"
+                      title="Nombre y apellido" v-model="record.name">
+                  </div>
               </div>
             </div>
             <div class="row">
@@ -58,23 +104,17 @@
               <div class="col-md-4">
                 <div class="form-group is-required">
                   <label for="estate_id">Estado</label>
-                  <select2 :options="estates" @input="getCities" v-model="record.estate_id"></select2>
+                  <select2 :options="estates" @input="getMunicipalities" v-model="record.estate_id"></select2>
                 </div>
               </div>
-              <div class="col-md-4">
-                <div class="form-group is-required">
-                  <label>Ciudad</label>
-                  <select2 :options="cities" @input="getMunicipalities()" v-model="record.city_id"></select2>
-                </div>
-              </div>
-            </div>
-            <div class="row">
               <div class="col-md-4">
                 <div class="form-group is-required">
                   <label>Municipio</label>
                   <select2 :options="municipalities" @input="getParishes" v-model="record.municipality_id"></select2>
                 </div>
               </div>
+            </div>
+            <div class="row">
               <div class="col-md-4">
                 <div class="form-group is-required">
                   <label for="parish_id">Parroquia</label>
@@ -85,41 +125,42 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group is-required">
-                  <label for="direction">Dirección</label>
-                  <ckeditor :editor="ckeditor.editor" id="address_tax" data-toggle="tooltip"
+                  <label>Dirección Fiscal</label>
+                  <ckeditor :editor="ckeditor.editor" id="direction" data-toggle="tooltip"
                     title="Indique dirección física del bien" :config="ckeditor.editorConfig"
-                    class="form-control" name="address_tax" tag-name="textarea" rows="3"
+                    class="form-control" name="direction" tag-name="textarea" rows="3"
                     v-model="record.address_tax"></ckeditor>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-12">
-                <div class="form-group is-required">
-                  <label>Dirección Fiscal</label>
-                  <ckeditor :editor="ckeditor.editor" id="direction" data-toggle="tooltip"
-                    title="Indique dirección física del bien" :config="ckeditor.editorConfig"
-                    class="form-control" name="direction" tag-name="textarea" rows="3"
-                    v-model="record.address"></ckeditor>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <h6 class="card-title">Datos del contacto:</h6>
                 <div class="row">
-                  <div class="col-md-4">
+                  <div v-show="record.type_person_juridica == 'Jurídica'" class="col-md-4">
                     <div class="form-group is-required">
-                      <label for="name_client">Nombre y apellido:</label>
+                      <label for="name_client">Persona de contacto:</label>
                       <input type="text" id="name_client" class="form-control input-sm" data-toggle="tooltip"
-                        title="Nombre y apellido" v-model="record.name_client">
+                        title="Persona de contacto" v-model="record.name_client">
                     </div>
                   </div>
-                  <div class="col-md-4">
-                    <div class="form-group is-required">
-                      <label for="email_client">Correo electrónico:</label>
-                      <input type="text" id="email_client" class="form-control input-sm" data-toggle="tooltip"
-                        title="Correo electrónico" v-model="record.email_client">
+                  <div class="col-md-12">
+                    <h6 class="card-title">Correo electrónico <i class="fa fa-plus-circle cursor-pointer" @click="addEmail"></i></h6>
+                    <div class="row" v-for="(email, index) in record.emails">
+                      <div class="col-md-4">
+                        <div class="form-group is-required">
+                          <label for="email_client">Correo electrónico:</label>
+                          <input type="text" id="email_client" class="form-control input-sm" data-toggle="tooltip"
+                            title="Correo electrónico" v-model="record.emails.email">
+                        </div>
+                      </div>
+                      <div class="col-1">
+                        <div class="form-group">
+                          <button class="mt-4 btn btn-sm btn-danger btn-action" type="button" @click="removeRow(index, record.emails)"
+                            title="Eliminar este dato" data-toggle="tooltip">
+                              <i class="fa fa-minus-circle"></i>
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="col-md-12">
@@ -202,18 +243,20 @@
       return {
         record: {
           rif: '',
+          business_name: '',
           type_person_juridica: '',
+          representative_name: '',
           name: '',
           country_id: '',
           estate_id: '',
-          city_id: '',
           municipality_id: '',
           parish_id: '',
-          address: '',
           address_tax: '',
           name_client: '',
-          email_client: '',
-          phones: []
+          emails: [],
+          phones: [],
+          id_type: '',
+          id_number: '',
         },
         errors: [],
         records: [],
@@ -223,7 +266,12 @@
         municipalities: ['0'],
         parishes: ['0'],
         columns: ['type_person_juridica', 'rif', 'name_client', 'id'],
-        types_person: ['Seleccione...', 'Jurídica', 'Natural']
+        types_person:  [
+            {'id':'', 'text':"Seleccione..."},
+            {'id':'Natural', 'text':'Natural'},
+            {'id':'Jurídica', 'text':'Jurídica'}
+        ],
+        id_types: ['V', 'E', 'P'],
       }
     },
     methods: {
@@ -237,12 +285,22 @@
           city_id: '',
           municipality_id: '',
           parish_id: '',
-          address: '',
           address_tax: '',
           name_client: '',
-          email_client: '',
+          emails: [],
           phones: []
         };
+      },
+      /**
+       * Agrega una nueva columna para el registro de correos electrónicos
+       *
+       * @author Daniel Contreras <dcontreras@cenditel.gob.ve> | <exodiadaniel@gmail.com>
+       */ 
+      addEmail: function() {
+        const vm = this;
+        vm.record.emails.push({
+          email: '',
+        });
       },
     },
     created() {
@@ -251,6 +309,7 @@
       this.getMunicipalities();
       this.getParishes();
       this.record.phones = [];
+      this.record.emails = [];
 
       this.table_options.headings = {
         'type_person_juridica': 'Tipo de Persona',

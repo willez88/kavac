@@ -111,16 +111,15 @@
                                                data-toggle="tooltip" data-on-label="SI" data-off-label="NO"
                                                title="Indique si el trabajador posee una discapacidad o no"
                                                v-model="record.has_disability" value="true"/>
-                                    </div>
+									</div>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-4" v-if="record.has_disability">
 							<div class="form-group is-required">
 								<label>Discapacidad</label>
-								<input type="text" class="form-control input-sm"
-									title="Indique la descripción de la discapacidad"
-									v-model="record.disability"/>
+								<select2 :options="payroll_disabilities" v-model="record.payroll_disability_id">
+                                </select2>
 							</div>
 						</div>
 						<div class="col-md-4">
@@ -288,7 +287,7 @@
                     birthdate: '',
                     payroll_gender_id: '',
 					has_disability: '',
-					disability: '',
+					payroll_disability_id: '',
 					payroll_blood_type_id: '',
 					social_security: '',
 					has_driver_license: '',
@@ -312,6 +311,7 @@
                 parishes: [],
 				payroll_license_degrees: [],
 				payroll_blood_types: [],
+				payroll_disabilities: [],
 			}
 		},
 		methods: {
@@ -350,8 +350,9 @@
             this.getMunicipalities();
 			this.getPayrollLicenseDegrees();
 			this.getPayrollBloodTypes();
+			this.getPayrollDisabilities();
 			this.record.has_disability = false;
-			this.record.has_driver_license = true;
+			this.record.has_driver_license = false;
 			this.record.phones = [];
 		},
 		mounted() {
@@ -360,6 +361,20 @@
 			}
 			this.switchHandler('has_disability');
 			this.switchHandler('has_driver_license');
+		},
+		watch: {
+			record: {
+				deep: true,
+				handler: function() {
+					const vm = this;
+					if (vm.record.has_disability) {
+						$('#has_disability').bootstrapSwitch('state', true, true);
+					}
+					if (vm.record.has_driver_license) {
+						$('#has_driver_license').bootstrapSwitch('state', true, true);
+					}
+				}
+			}
 		}
 	};
 </script>

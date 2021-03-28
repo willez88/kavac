@@ -37,6 +37,7 @@ class ParameterController extends Controller
      * @method    store
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     * @author     William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
      *
      * @param     Request    $request    Objeto con información de la petición
      *
@@ -44,19 +45,32 @@ class ParameterController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'p_value' => ['required', 'integer', 'min:1']
-        ]);
-        Parameter::updateOrCreate(
-            [
-                'p_key' => 'work_age',
-                'required_by' => 'payroll',
-                'active' => true
-            ],
-            [
-                'p_value' => $request->p_value
-            ]
-        );
+        /** Validación de parámetro edad laboral permitida que viene del módulo de talento humano */
+        $parameter = Parameter::where([
+            'required_by' => 'payroll', 'p_key' => $request->p_key
+        ])->first();
+        if ($parameter) {
+            $this->validate(
+                $request,
+                [
+                    'p_value' => ['required', 'integer', 'min:1']
+                ],
+                [],
+                [
+                    'p_value' => 'edad laboral permitida'
+                ]
+            );
+            Parameter::updateOrCreate(
+                [
+                    'p_key' => $request->p_key,
+                    'required_by' => 'payroll',
+                    'active' => true
+                ],
+                [
+                    'p_value' => $request->p_value
+                ]
+            );
+        }
         $request->session()->flash('message', ['type' => 'store']);
         return redirect()->back();
     }

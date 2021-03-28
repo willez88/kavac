@@ -1,9 +1,9 @@
 <template>
-	<div class="text-center">
+	<section class="text-center" id="payroll_disability">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de discapacidades" data-toggle="tooltip"
 		   @click="addRecord('add_payroll_disability', 'payroll/disabilities', $event)">
-           <i class="icofont icofont-eye ico-3x"></i>
+           <i class="icofont icofont-ui-handicapped ico-3x"></i>
 		   <span>Discapacidades</span>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_payroll_disability">
@@ -14,7 +14,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-eye ico-3x"></i>
+							<i class="icofont icofont-ui-handicapped ico-3x"></i>
 							Discapacidad
 						</h6>
 					</div>
@@ -69,7 +69,7 @@
 		        </div>
 		    </div>
 		</div>
-	</div>
+	</section>
 </template>
 
 <script>
