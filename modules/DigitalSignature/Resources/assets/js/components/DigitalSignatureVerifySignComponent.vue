@@ -55,13 +55,13 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary btn-sm btn-round btn-modal-close" @click="verifyFile()">
-                            <i class="fa fa-search"></i>
-                            Verificar
-                        </button>
                         <button class="btn btn-default btn-sm btn-round btn-modal-close" type="button" @click="reset()"
                                 data-dismiss="modal">
                             Cerrar
+                        </button>
+                        <button class="btn btn-primary btn-sm btn-round btn-modal-close" @click="verifyFile()">
+                            <i class="fa fa-search"></i>
+                            Verificar
                         </button>
                     </div>
                 </div>
