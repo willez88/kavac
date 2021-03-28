@@ -216,6 +216,16 @@ Vue.component('sale-report-orders', () => import(
 );
 
 /**
+ * Componente para gestionar la creación de los tipos de bien
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-type-good', () => import(
+    /* webpackChunkName: "sale-type-good" */
+    './components/settings/SaleTypeGoodComponent.vue')
+);
+
+/**
  * Opciones de configuración global del módulo de Commercialización
  */
 Vue.mixin({
