@@ -12,7 +12,7 @@ La gestión para préstamos de bienes se lleva a cabo a través de la sección *
 ### Crear una nueva solicitud
 
 !!! warning "Advertencia"
-	*	Los bienes disponibles para la sección de solicitudes, son aquellos identificados bajo el **Estatus de uso** "En Almacén o Deposito para su asignación".  En caso de que un bien se encuentre asignado es necesario liberar este bien de dicha asignación y cambiar su estatus de uso, permitiendo así su disponibilidad para una solicitud.   
+	*	Los bienes disponibles para la sección de solicitudes, son aquellos identificados bajo el **Estatus de uso** "En Almacén o Depósito para su asignación".  En caso de que un bien se encuentre asignado es necesario liberar este bien de dicha asignación y cambiar su estatus de uso, permitiendo así su disponibilidad para una solicitud.   
 
 **Para crear un nuevo registro**
 
@@ -31,14 +31,14 @@ La gestión para préstamos de bienes se lleva a cabo a través de la sección *
 
 ### Entrega de equipo 
 
-La entrega de equipos se gestiona desde la tabla de **Solicitudes de Bienes**, haciendo uso de los botones ubicados en la columna titulada **Acción**, a través de estos botones es posible realizar las siguientes acciones : solicitar prórroga, reportar un suceso y entregar un equipo. 
+La entrega de equipos se gestiona desde la tabla de **Solicitudes de Bienes**, haciendo uso de los botones ubicados en la columna titulada **Acción**, a través de estos botones es posible realizar las siguientes acciones: solicitar prórroga, reportar un suceso y entregar un equipo. 
 
 !!! note ""
 	![Screenshot](img/manage_3.png) 
 
 #### Solicitar prórroga 
 
-El usuario responsable del equipo puede solicitar una extensión de tiempo para la entrega del equipo, cabe destacar que el sistema solo permite un alargue de cuarenta y ocho horas adicionales. 
+El usuario responsable del equipo puede solicitar una extensión de tiempo para la entrega del equipo, cabe destacar que el sistema solo permite una extensión de cuarenta y ocho horas adicionales. 
 
 !!! info "Botón solicitar prorroga"
 	![Screenshot](img/extension.png) 
@@ -80,7 +80,7 @@ En esta sección se listan las solicitudes para entrega de bienes.	El encargado 
 
 ![Screenshot](img/figure_12.png)<div style="text-align: center;font-weight: bold">Figura 12: Solicitudes de Prórrogas Pendientes</div>
 
-Una vez a sido aprobada la entrega, la solicitud cambia su estado como **Entregados**.
+Una vez haya sido aprobada la entrega, la solicitud cambia su estado como **Entregados**.
 
 
 
