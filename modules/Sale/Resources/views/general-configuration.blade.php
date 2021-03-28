@@ -17,6 +17,8 @@
 				<div class="row">
 					{{-- Configuración de Lista de subservicios--}}
 					<sale-list-subservices-method></sale-list-subservices-method>
+					<sale-settings-charge-money></sale-settings-charge-money>
+					<sale-settings-form-payment></sale-settings-form-payment>
 				</div>
 			</div>
 		</div>

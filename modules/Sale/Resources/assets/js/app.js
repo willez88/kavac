@@ -46,6 +46,15 @@ Vue.component('register-clients', () => import(
     './components/settings/SaleClientsComponent.vue')
 );
 
+Vue.component('sale-settings-charge-money', () => import(
+    /* webpackChunkName: "form-payment" */
+    './components/settings/SaleChargeMoneyComponent.vue')
+);
+
+Vue.component('sale-settings-form-payment', () => import(
+    /* webpackChunkName: "form-payment" */
+    './components/settings/SaleFormPaymentComponent.vue')
+);
 /**
  * Componente para listar, crear, actualizar y borrar datos de los productos
  *
