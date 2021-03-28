@@ -2,7 +2,7 @@
 	Para información detallada sobre el uso de la funcionalidad de carga masiva visite la sección de **Módulo de Bienes**/**Registros**/**Importar registro**.
 
 ??? question "¿Cómo asignar un serial diferente a varios bienes que se han registrado desde un solo registro?"
-	El registro de bienes de forma manual permite registrar un solo bien o mas bienes.  Para registra mas bienes solo basta con especificar la cantidad de bienes en el campo **Cantidad** del formulario de registros.  Una vez se realiza el registro cada bien tiene asignado la misma denominación para el serial, si se requiere cambiar el serial, el usuario debe editar cada registro a través de la tabla de registros o actualizar estos datos en una nueva importación de registros exportando los registros ya existentes. 
+	El registro de bienes de forma manual permite registrar un solo bien o más bienes.  Para registrar más bienes solo es necesario especificar la cantidad de bienes en el campo **Cantidad** del formulario de registros.  Una vez realizado el registro cada bien tiene asignado la misma denominación para el serial, si se requiere cambiar el serial, el usuario debe editar cada registro a través de la tabla de registros o actualizar estos datos en una nueva importación de registros exportando los registros ya existentes. 
 
 ??? question "¿Cómo usar la funcionalidad de registro de formato de códigos?"
     El **Formato de Códigos** es una funcionalidad que posee la mayoría de módulos del sistema, se usa para generar referencias sobre los registros.  Cada sección de **Formato de Códigos** posee una descripción de los parámetros a seguir para establecer un formato.
