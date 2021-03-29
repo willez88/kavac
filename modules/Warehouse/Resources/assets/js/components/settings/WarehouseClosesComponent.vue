@@ -1,5 +1,5 @@
 <template>
-	<div class="col-xs-2 text-center">
+	<section>
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="#" title="Registros de Cierres de Almacén" data-toggle="tooltip"
 		   @click="addRecordClose($event)">
@@ -112,7 +112,7 @@
 		        </div>
 		    </div>
 		</div>
-	</div>
+	</section>
 </template>
 
 <script>
