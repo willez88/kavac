@@ -25,10 +25,8 @@ class SaleClients extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'id', 'rif', 'type_person_juridica', 'name', 'country_id', 'estate_id', 'city_id', 'municipality_id',
-        'parish_id', 'address', 'address_tax', 'name_client', 'email_client', 'phone_client'
+        'rif', 'business_name', 'representative_name', 'type_person_juridica', 'name', 'country_id', 'estate_id', 'municipality_id', 'parish_id', 'address_tax', 'name_client', 'emails', 'phones', 'id_number', 'id_type'
     ];
-
     /**
      * Obtiene todos los número telefónicos asociados al cliente
      *

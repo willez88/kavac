@@ -59,7 +59,6 @@
 
         <p class="mb-1"> <span class="font-weight-bold"> Ha iniciado sesión como: </span> {{ $user->name }} </p>
         <p class="mb-1">
-          <span class="font-weight-bold"> {{ __('Datos del certificado:') }} </span>
           @if($cert == 'true')
             <ul class="fa-ul">
               <li><span class="font-weight-bold"> {{ __('Identidad:') }} </span> {{ $Identidad }} </li>
@@ -137,13 +136,13 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <p class="pb-3"> ¿Está seguro de querer eliminar el certificado? </p>
+                  <p class="pb-3"> ¿Está seguro de eliminar el certificado? </p>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" data-dismiss="modal">
+                  <button type="button" class="btn btn-default btn-modal-close" data-dismiss="modal">
                     <i class="fa fa-times"></i> Cancelar
                   </button>
-                  <a class="btn btn-primary btn-sm btn-round" href="{{ route('deleteCertificate') }}">
+                  <a class="btn btn-primary" href="{{ route('deleteCertificate') }}">
                     <i class="fa fa-check"></i> Confirmar
                   </a>
                 </div>

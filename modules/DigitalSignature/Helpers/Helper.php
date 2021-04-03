@@ -15,7 +15,7 @@ class Helper
     /**
      * Retorna la dirección completa del ejecutable del firma PortableSigner o del archivo a firmar o verificar
      */
-    
+
     function getPathSign($nameFile)
     {
         $module = Module::find('DigitalSignature');
@@ -34,46 +34,72 @@ class Helper
     /**
      * Manejo de la cadena de caracteres de la verificación de la firma electrónica
      */
-    
+
     function getRespVerify($respverify)
     {
         $count = 0;
-        $iten = 0;
+        $item = 0;
+        $records = [
+            "count" => 0,
+            "signs" => [],
+        ];
         $infoVerify = array();
+
+        # Cuenta el número de firmas del archivo
         for($i = 0; $i < count($respverify); $i++) {
             if(substr_count($respverify[$i], 'Signature #') !== 0) {
                 $count++;
             }
-        } 
-        
-        array_push($infoVerify, "Número de firma(s): " . $count);
-        for($j = 0; $j < $count; $j++) {
-            $sing = $j+1;
-            array_push($infoVerify, "## Firma: " . $sing ." ##");
-            $post = strrpos($respverify[2+$iten], ': ') + 1;
-            $str = substr($respverify[2+$iten], $post);
-            array_push($infoVerify, "Nombre del firmante: " . $str);
-            $post = strrpos($respverify[3+$iten], ': ') + 1;
-            $str = substr($respverify[3+$iten], $post);
-            array_push($infoVerify, "Sujeto firmante: " . $str);
-            $post = strrpos($respverify[4+$iten], ': ') + 1;
-            $str = substr($respverify[4+$iten], $post);
-            array_push($infoVerify, "Fecha de la firma: " . $str);
-            $post = strrpos($respverify[5+$iten], ': ') + 1;
-            $str = substr($respverify[5+$iten], $post);
-            array_push($infoVerify, "Algoritmo hash (reseña): " . $str);
-            $post = strrpos($respverify[6+$iten], ': ') + 1;
-            $str = substr($respverify[6+$iten], $post);
-            array_push($infoVerify, "Tipo de firma: " . $str);
-            $post = strrpos($respverify[9+$iten], ': ') + 1;
-            $str = substr($respverify[9+$iten], $post);
-            array_push($infoVerify, "Validación de la firma: " . $str);
-            $post = strrpos($respverify[10+$iten], ': ') + 1;
-            $str = substr($respverify[10+$iten], $post);
-            array_push($infoVerify, "Validación del certificado: " . $str);
-            $iten = $iten + 10;
         }
 
-        return ($infoVerify);
+        # Número de firmas
+        $records["count"] = $count;
+
+        # Recorte de los datos de la cadena
+        function findData($signsInfo, $count, $item) {
+            $post = strrpos($signsInfo[ $count + $item ], ': ') + 2;
+            $str = substr($signsInfo[ $count + $item ], $post);
+            return $str;
+        }
+
+        for($j = 1; $j <= $count; $j++) {
+
+            # Número de la firma
+            $records["signs"][$j]["Firma"] = $j;
+
+            # Nombre del firmante
+            $str = findData($respverify, 2, $item);
+            $records["signs"][$j]["Nombre del firmante"] = $str;
+
+            # Sujeto firmante
+            $str = findData($respverify, 3, $item);
+            $records["signs"][$j]["Sujeto firmante"] = $str;
+
+            # Fecha de la firma
+            $str = findData($respverify, 4, $item);
+            $records["signs"][$j]["Fecha de la firma"] = $str;
+
+            # Algoritmo hash (reseña)
+            $str = findData($respverify, 5, $item);
+            $records["signs"][$j]["Algoritmo hash (reseña)"] = $str;
+
+            # Tipo de firma
+            $str = findData($respverify, 6, $item);
+            $records["signs"][$j]["Tipo de firma"] = $str;
+
+            # Validación de la firma
+            $str = findData($respverify, 9, $item);
+            $records["signs"][$j]["Validación de la firma"] = $str;
+
+            # Validación del certificado
+            $str = findData($respverify, 10, $item);
+            $records["signs"][$j]["Validación del certificado"] = $str;
+
+            $item = $item + 10;
+        }
+
+        # $records["signs"] = $infoVerify;
+
+        return ($records);
     }
 }

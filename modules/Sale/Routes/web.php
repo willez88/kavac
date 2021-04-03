@@ -68,6 +68,23 @@ Route::group(
         );
 
         /**
+         * Gestión de los metodos de cobro
+         */
+        Route::resource(
+            'register-charge-money',
+            'SaleChargeMoneyController',
+            ['as' => 'sale']
+        );
+
+        /**
+         * Gestión de las formas de cobro
+         */
+        Route::resource(
+            'register-form-payment',
+            'SaleFormPaymentController',
+            ['as' => 'sale']
+        );
+        /**
          * -----------------------------------------------------------------------
          * Rutas para la configuración general del módulo de Comercialización
          * -----------------------------------------------------------------------
@@ -110,6 +127,17 @@ Route::group(
             'get-setting-deposit',
             'SaleSettingDepositController@getSaleSettingDeposit'
         )->name('sale.get-sale-setting-deposit');
+
+        Route::resource(
+            'type-good',
+            'SaleTypeGoodController',
+            ['as' => 'sale', 'except' => ['create','edit','show']]
+        );
+
+        Route::get(
+            'get-type-good',
+            'SaleTypeGoodController@getSaleTypeGoodsAttributes'
+        )->name('sale.get-sale-type-good');
 
         /**
          * -----------------------------------------------------------------------

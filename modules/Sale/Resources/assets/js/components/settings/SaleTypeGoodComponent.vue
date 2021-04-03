@@ -1,16 +1,16 @@
 <template>
-	<section>
+	<div class="col-xs-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-		   href="#" title="Registros de Productos Almacenables" data-toggle="tooltip"
-		   @click="addRecord('add_product', 'warehouse/products', $event)">
+		   href="#" title="Registro de Tipo de bien" data-toggle="tooltip"
+		   @click="addRecord('add_type_good', 'sale/type-good', $event)">
 			<i class="icofont icofont-cubes ico-3x"></i>
-			<span>Productos</span>
+			<span>Tipo de bien</span>
 		</a>
-		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_product">
+		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_type_good">
 			<div class="modal-dialog vue-crud" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" data-toggle="tooltip"
+						<!-- <button type="button" data-toggle="tooltip"
                                 class="btn btn-primary btn-xs btn-icon btn-action"
                                 style="margin-right: 3.5rem; margin-top: -.1rem;"
                                 title="Presione para subir los registros mediante hoja de cálculo."
@@ -27,13 +27,13 @@
                                 title="Presione para descargar el documento con la información de los registros."
                                 @click="exportData()">
                             <i class="fa fa-download"></i>
-                        </button>
+                        </button> -->
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
 							<i class="icofont icofont-cubes ico-2x"></i>
-							Registros de Productos Almacenables
+							Registros de tipo de bien
 						</h6>
 					</div>
 					<div class="modal-body">
@@ -57,14 +57,14 @@
 
 						<div class="row">
 							<div class="col-md-12">
-								<b>Datos del Producto</b>
+								<b>Datos del Tipo de Bien</b>
 							</div>
 
 							<div class="col-md-6">
 								<div class="form-group is-required">
-									<label>Nombre del Producto:</label>
-									<input type="text" placeholder="Nombre del Producto" data-toggle="tooltip"
-										   title="Indique el nombre del Nuevo producto (requerido)"
+									<label>Nombre:</label>
+									<input type="text" placeholder="Nombre del tipo de bien" data-toggle="tooltip"
+										   title="Indique el nombre del tipo de bien (requerido)"
 										   class="form-control input-sm" v-model="record.name">
 									<input type="hidden" v-model="record.id">
 			                    </div>
@@ -73,24 +73,21 @@
 							<div class="col-md-6">
 								<div class="form-group is-required">
 									<label>Descripción:</label>
-                                    <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
-                                              title="Indique una breve descripción del nuevo producto (requerido)"
-                                              :config="ckeditor.editorConfig" class="form-control" tag-name="textarea"
-                                              rows="3" v-model="record.description"></ckeditor>
+                                    <textarea id="description" 
+                                              :class="'form-control'"
+                                              @input="delete errors['description'];"
+                                              type="text" name="description" aria-labelledby="description_label"   aria-describedby=""       value="" data-toggle="tooltip"
+                                              title="Indique una breve descripción del tipo de bien (requerido)" tabindex="1" rows="3" required
+                                              v-model="record.description">
+                                    </textarea>
 			                    </div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-4">
-								<div class="form-group is-required">
-									<label>Unidad de Medida:</label>
-									<select2 :options="measurement_units" v-model="record.measurement_unit_id"></select2>
-			                    </div>
-							</div>
-							<div class="col-md-4">
 								<div class="form-group">
 									<a  data-toggle="tooltip"
-				                        title="Establecer los atributos del producto para gestionar las variantes">
+				                        title="Establecer los atributos del tipo de bien para gestionar las variantes">
 				                        <label for="" class="control-label">Atributos Personalizados</label>
 				                        <div class="col-12">
                                             <div class="bootstrap-switch-mini">
@@ -112,20 +109,20 @@
 							</div>
 							<div class="row" style="margin: 20px 0">
 
-								<div class="col-6" v-for="(attribute, index) in record.warehouse_product_attributes">
+								<div class="col-6" v-for="(attribute, index) in record.sale_type_good_attribute">
 
 									<div class="d-inline-flex">
 										<div class="col-10">
 											<div class="form-group">
 												<input type="text" placeholder="Nombre del nuevo atributo" data-toggle="tooltip"
-													   title="Indique el nombre del atributo del producto que desee hacer seguimiento (opcional)"
+													   title="Indique el nombre del atributo del tipo de bien que desee hacer seguimiento (opcional)"
 													   v-model="attribute.name" class="form-control input-sm">
 											</div>
 										</div>
 										<div class="col-2">
 											<div class="form-group">
 												<button class="btn btn-sm btn-danger btn-action" type="button"
-														@click="removeRow(index, record.warehouse_product_attributes)"
+														@click="removeRow(index, record.sale_type_good_attribute)"
 														title="Eliminar este dato" data-toggle="tooltip">
 													<i class="fa fa-minus-circle"></i>
 												</button>
@@ -138,7 +135,7 @@
 			        </div>
 			        <div class="modal-footer">
                         <div class="form-group">
-                            <modal-form-buttons :saveRoute="'warehouse/products'"></modal-form-buttons>
+                            <modal-form-buttons :saveRoute="'sale/type-good'"></modal-form-buttons>
                         </div>
                     </div>
 	                <div class="modal-body modal-table">
@@ -146,7 +143,7 @@
 						<v-client-table :columns="columns" :data="records" :options="table_options">
 							<div slot="attributes" slot-scope="props">
 								<div v-if="props.row.define_attributes">
-									<div v-for="att in props.row.warehouse_product_attributes">
+									<div v-for="att in props.row.sale_type_good_attribute">
 										<span>
 											{{ att.name }}
 										</span>
@@ -163,7 +160,7 @@
 			                				title="Modificar registro" data-toggle="tooltip" type="button">
 			                			<i class="fa fa-edit"></i>
 			                		</button>
-			                		<button @click="deleteRecord(props.row.id, 'warehouse/products')"
+			                		<button @click="deleteRecord(props.row.id, 'sale/type-good')"
 											class="btn btn-danger btn-xs btn-icon btn-action"
 											title="Eliminar registro" data-toggle="tooltip"
 											type="button">
@@ -176,7 +173,7 @@
 		        </div>
 		    </div>
 		</div>
-	</section>
+	</div>
 </template>
 
 <script>
@@ -188,15 +185,13 @@
 					name: '',
 					description: '',
 					define_attributes: false,
-					measurement_unit_id: '',
-					warehouse_product_attributes: [],
+					sale_type_good_attribute: [],
 				},
 
 				errors: [],
 				records: [],
 				columns: ['name', 'description', 'attributes', 'id'],
-				measurement_units: [],
-				formImport: false,
+				// formImport: false,
 
 			}
 		},
@@ -204,7 +199,7 @@
 			/**
 			 * Método que borra todos los datos del formulario
 			 *
-			 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+			 * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
 			 */
 			reset()
 			{
@@ -213,65 +208,50 @@
 					name: '',
 					description: '',
 					define_attributes: false,
-					measurement_unit_id: '',
-					warehouse_product_attributes: []
+					sale_type_good_attribute: []
 				};
 			},
 			/**
 			 * Método que agrega un nuevo campo de atributo al formulario
 			 *
-			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
+			 * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
 			 */
 			addAttribute()
 			{
-				var field = {id: '', name: '', warehouse_product_id: ''};
-				this.record.warehouse_product_attributes.push(field);
+				var field = {id: '', name: '', sale_type_good_id: ''};
+				this.record.sale_type_good_attribute.push(field);
 			},
-			/**
-			 * Método que obtiene las unidades de medida del producto
-			 *
-			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
-			 */
-			getMeasurementUnits() {
-				const vm = this;
-				vm.measurement_units = [];
+			// exportData() {
+            //     //instrucciones para exportar registros
+            //     location.href = '/sale/type-good/export/all';
+            // },
+            // importData() {
+            //     //instrucciones para exportar registros
+            //     const vm = this;
+            //     var url = '/sale/type-good/import/all' ;
+	        //     var formData = new FormData();
+	        //     var importFile = document.querySelector('#importFile');
+	        //     formData.append("file", importFile.files[0]);
+	        //     vm.loading = true;
+	        //     axios.post(url, formData, {
+	        //         headers: {
+	        //             'Content-Type': 'multipart/form-data'
+	        //         }
+	        //     }).then(response => {
+	        //     	console.log('exit');
+	        //     	vm.loading = false;
+	        //     	vm.showMessage('store');
+	        //     }).catch(error => {
+	        //         console.log('failure');
+	        //         vm.loading = false;
 
-				axios.get('/warehouse/get-measurement-units').then(response => {
-					vm.measurement_units = response.data;
-				});
-			},
-			exportData() {
-                //instrucciones para exportar registros
-                location.href = '/warehouse/products/export/all';
-            },
-            importData() {
-                //instrucciones para exportar registros
-                const vm = this;
-                var url = '/warehouse/products/import/all' ;
-	            var formData = new FormData();
-	            var importFile = document.querySelector('#importFile');
-	            formData.append("file", importFile.files[0]);
-	            vm.loading = true;
-	            axios.post(url, formData, {
-	                headers: {
-	                    'Content-Type': 'multipart/form-data'
-	                }
-	            }).then(response => {
-	            	console.log('exit');
-	            	vm.loading = false;
-	            	vm.showMessage('store');
-	            }).catch(error => {
-	                console.log('failure');
-	                vm.loading = false;
-
-	            });
-            }
-
+	        //     });
+            // }
 		},
 		created() {
 			const vm = this;
 			vm.table_options.headings = {
-				'name': 'Producto',
+				'name': 'Nombre',
 				'description': 'Descripción',
 				'attributes': 'Atributos',
 				'id': 'Acción'
@@ -287,7 +267,6 @@
 		},
 		mounted() {
 			const vm = this;
-			vm.getMeasurementUnits();
 			vm.switchHandler('define_attributes');
 		}
 	};

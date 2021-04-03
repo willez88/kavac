@@ -55,6 +55,8 @@
 							<sale-setting-deposit></sale-setting-deposit>
 							{{-- Configuración de Gestión de Pedidos--}}
 							<sale-order-management-method></sale-order-management-method>
+							{{-- Configuración de Tipo de bien--}}
+							<sale-type-good></sale-type-good>
 						</div>
 					</div>
 				</div>

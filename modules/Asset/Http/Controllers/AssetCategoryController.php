@@ -8,6 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Models\AssetCategory;
 use Modules\Asset\Models\AssetType;
 use Modules\Asset\Rules\Setting\AssetCategoryUnique;
+use Illuminate\Validation\Rule;
 
 /**
  * @class      AssetCategoryController
@@ -35,7 +36,7 @@ class AssetCategoryController extends Controller
         $this->middleware('permission:asset.setting.category');
         /** Define las reglas de validación para el formulario */
         $this->validateRules = [
-            'name'          => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100'],
+            'name'          => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100', Rule::unique('asset_categories')],
             'code'          => ['required', 'max:10'],
             'asset_type_id' => ['required']
 
@@ -47,6 +48,7 @@ class AssetCategoryController extends Controller
             'name.required'     => 'El campo categoría general es obligatorio.',
             'name.max'          => 'El campo categoría general no debe contener más de 100 caracteres.',
             'name.regex'        => 'El campo categoría general no debe permitir números ni símbolos.',
+            'name.unique'       => 'El campo categoría general ya ha sido registrado.',
             'code.required'     => 'El campo código de categoría general es obligatorio.',
             'code.max'          => 'El campo código de categoría general no debe contener más de 10 caracteres.',
             'asset_type_id.required' => 'El campo tipo de bien es obligatorio.'
@@ -111,12 +113,17 @@ class AssetCategoryController extends Controller
     public function update(Request $request, AssetCategory $category)
     {
         $validateRules  = $this->validateRules;
+        $validateRules  = array_replace(
+            $validateRules,
+            ['name' => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100',
+                            Rule::unique('asset_categories')->ignore($category->id)]]
+        );
         $validateRules  = array_merge(
             ['id' => [new AssetCategoryUnique($request->input('asset_type_id'), $request->input('code'))]],
             $validateRules
         );
-        
-        $this->validate($request, $this->validateRules, $this->messages);
+
+        $this->validate($request, $validateRules, $this->messages);
 
 
         $category->name = $request->input('name');

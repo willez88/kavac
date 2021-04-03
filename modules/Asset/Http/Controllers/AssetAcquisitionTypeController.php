@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Models\AssetAcquisitionType;
+use Illuminate\Validation\Rule;
 
 /**
  * @class      AssetAcquisitionTypeController
@@ -33,7 +34,9 @@ class AssetAcquisitionTypeController extends Controller
         //$this->middleware('permission:asset.setting.acquisition-type');
         /** Define las reglas de validación para el formulario */
         $this->validateRules = [
-            'name'     => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100'],
+            'name'     => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100',
+                            Rule::unique('asset_acquisition_types')]
+
 
         ];
 
@@ -41,7 +44,8 @@ class AssetAcquisitionTypeController extends Controller
         $this->messages = [
             'name.required'     => 'El campo tipo de adquisición es obligatorio.',
             'name.max'          => 'El campo tipo de adquisición no debe contener más de 100 caracteres.',
-            'name.regex'        => 'El campo tipo de adquisición no debe permitir números ni símbolos.'
+            'name.regex'        => 'El campo tipo de adquisición no debe permitir números ni símbolos.',
+            'name.unique'       => 'El campo tipo de adquisición ya ha sido registrado'
            ];
     }
 
@@ -67,8 +71,6 @@ class AssetAcquisitionTypeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, $this->validateRules, $this->messages);
-
-
         /**
          * Objeto asociado al modelo AssetAcquisitionType
          *
@@ -94,7 +96,14 @@ class AssetAcquisitionTypeController extends Controller
 
     public function update(Request $request, AssetAcquisitionType $acquisition_type)
     {
-        $this->validate($request, $this->validateRules, $this->messages);
+        $validateRules  = $this->validateRules;
+        $validateRules  = array_replace(
+            $validateRules,
+            ['name' => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100',
+                            Rule::unique('asset_acquisition_types')->ignore($acquisition_type->id)]]
+        );
+
+        $this->validate($request, $validateRules, $this->messages);
 
         $acquisition_type->name = $request->input('name');
         $acquisition_type->save();

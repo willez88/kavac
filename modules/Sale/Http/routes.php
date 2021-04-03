@@ -52,6 +52,24 @@ Route::group(
           ['as' => 'sale', 'except' => ['create','edit','show']]
         );
 
+        /**
+         * Gestión de los metodos de cobro
+         */
+        Route::resource(
+            'register-charge-money',
+            'SaleChargeMoneyController',
+            ['as' => 'sale']
+        );
+
+        /**
+         * Gestión de las formas de cobro
+         */
+        Route::resource(
+            'register-form-payment',
+            'SaleFormPaymentController',
+            ['as' => 'sale']
+        );
+
 	/**
      * -----------------------------------------------------------------------
      * Rutas para la configuración general del módulo de Comercialización

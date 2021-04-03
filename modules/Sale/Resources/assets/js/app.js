@@ -46,6 +46,15 @@ Vue.component('register-clients', () => import(
     './components/settings/SaleClientsComponent.vue')
 );
 
+Vue.component('sale-settings-charge-money', () => import(
+    /* webpackChunkName: "form-payment" */
+    './components/settings/SaleChargeMoneyComponent.vue')
+);
+
+Vue.component('sale-settings-form-payment', () => import(
+    /* webpackChunkName: "form-payment" */
+    './components/settings/SaleFormPaymentComponent.vue')
+);
 /**
  * Componente para listar, crear, actualizar y borrar datos de los productos
  *
@@ -213,6 +222,16 @@ Vue.component('sale-bill-approved-list', () => import(
 Vue.component('sale-report-orders', () => import(
     /* webpackChunkName: "sale-report-products" */
     './components/reports/SaleReportOrdersComponent.vue')
+);
+
+/**
+ * Componente para gestionar la creación de los tipos de bien
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-type-good', () => import(
+    /* webpackChunkName: "sale-type-good" */
+    './components/settings/SaleTypeGoodComponent.vue')
 );
 
 /**

@@ -5,7 +5,7 @@
 
 ## Desincorporación de bienes 
 
-La gestión para el retiro de bienes se lleva a cabo a través de la sección **Desincorporación de Bienes**, esta sección lista los registros de desincorporación realizados, permite crear un nuevo registro y a través de los botones ubicados en la columna titulada **Acción** de la tabla de registros, es posible visualizar la información de forma detallada, eliminar y modificar un registros.  
+La gestión para el retiro de bienes se lleva a cabo a través de la sección **Desincorporación de Bienes**, esta sección lista los registros de desincorporación realizados, permite crear un nuevo registro y a través de los botones ubicados en la columna titulada **Acción** de la tabla de registros, es posible visualizar la información de forma detallada, eliminar y modificar un registro.  
 
 
 ![Screenshot](img/figure_5.jpg)<div style="text-align: center;font-weight: bold">Figura 5: Bienes Desincorporados</div>

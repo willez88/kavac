@@ -205,7 +205,7 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'warehous
     Route::post('reports/inventory-products/vue-list', 'WarehouseReportController@vueList');
     Route::post('reports/inventory-products/create', 'WarehouseReportController@create');
 
-    Route::get('report/show/{code}', 'WarehouseReportController@show');
+    Route::get('reports/show/{code}', 'WarehouseReportController@show');
 
     /**
      * ------------------------------------------------------------

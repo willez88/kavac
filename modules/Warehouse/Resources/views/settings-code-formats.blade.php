@@ -20,10 +20,12 @@
 						<div class="row">
 							<div class="col-md-3" id="helpCodeInventoryProduct">
 								<div class="form-group">
-									{!! Form::label('product_code', 'Código de los productos en inventario', []) !!}
+									{!! Form::label('product_code', 'Código de los insumos en inventario', []) !!}
 									{!! Form::text('products_code', ($pdCode) ? $pdCode->format_code : old('products_code'), [
 										'class' => 'form-control input-sm', 'data-toggle' => 'tooltip',
-										'title' => 'Formato para el código de los productos en inventario',
+										'style' => 'text-transform:uppercase',
+										'title' => 'Formato para el código de los insumos en inventario',
+										'data-inputmask' => "'mask': 'a{1,3}-0{4,8}-y{2,4}'",
 										'placeholder' => 'Ej. XXX-00000000-YYYY',
 										'readonly' => ($pdCode) ? true : false
 									]) !!}

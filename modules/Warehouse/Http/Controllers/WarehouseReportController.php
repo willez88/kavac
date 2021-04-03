@@ -359,8 +359,8 @@ class WarehouseReportController extends Controller
                 'fields' => $fields
             ]
         );
-        $url = '/warehouse/report/show/' . $filename;
-        return response()->json(['result' => true, $redirect => $url], 200);
+        $url = '/warehouse/reports/show/' . $report->code;
+        return response()->json(['result' => true, 'redirect' => $url], 200);
     }
 
     public function show($code)

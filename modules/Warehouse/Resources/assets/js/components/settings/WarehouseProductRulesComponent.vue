@@ -1,5 +1,5 @@
 <template>
-	<div class="col-xs-2 text-center">
+	<section>
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="#" title="Reglas de Abastecimiento del Almacén" data-toggle="tooltip"
 		   @click="addRecord('add_rule', 'warehouse/rules', $event)">
@@ -140,7 +140,7 @@
 		        </div>
 		    </div>
 		</div>
-	</div>
+	</section>
 </template>
 
 <script>

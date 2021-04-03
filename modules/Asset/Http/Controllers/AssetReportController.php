@@ -8,6 +8,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Jobs\AssetGenerateReport;
+use Modules\Asset\Pdf\AssetReport as ReportRepository;
 use Modules\Asset\Models\AssetReport;
 use App\Models\CodeSetting;
 

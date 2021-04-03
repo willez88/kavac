@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Models\AssetType;
+use Illuminate\Validation\Rule;
 
 /**
  * @class      AssetTypeController
@@ -34,7 +35,8 @@ class AssetTypeController extends Controller
         $this->middleware('permission:asset.setting.type');
         /** Define las reglas de validación para el formulario */
         $this->validateRules = [
-            'name'     => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100',  'unique:asset_types,name'],
+            'name'     => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100',
+                            Rule::unique('asset_types')],
 
 
         ];
@@ -96,7 +98,13 @@ class AssetTypeController extends Controller
      */
     public function update(Request $request, AssetType $type)
     {
-        $this->validate($request, $this->validateRules, $this->messages);
+        $validateRules  = $this->validateRules;
+        $validateRules  = array_replace(
+            $validateRules,
+            ['name' => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100',
+                            Rule::unique('asset_types')->ignore($type->id)]]
+        );
+        $this->validate($request, $validateRules, $this->messages);
 
         $type->name = $request->input('name');
         $type->save();

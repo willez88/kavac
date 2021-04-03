@@ -5,7 +5,7 @@
 
 ## Bienes institucionales 
 
-En esta sección se listan todos los registros de bienes y se muestra información relevante sobre los mismos. La tabla de registros contiene datos del bien como lo son: condición física, estatus de uso, serial, marca y módelo; tambien se muestra un código de registro y el nombre de la institución involucrada. 
+En esta sección se listan todos los registros de bienes y se muestra información relevante sobre los mismos. La tabla de registros contiene datos del bien, como lo son: condición física, estatus de uso, serial, marca y modelo; también se muestra un código de registro y el nombre de la institución involucrada. 
 
 ![Screenshot](img/figure_1.png)<div style="text-align: center;font-weight: bold">Figura 1: Registros de Bienes</div>
 
@@ -21,14 +21,14 @@ A través de los botones ubicados en la columna titulada **Acción** el encargad
 ![Screenshot](img/figure_2.png)<div style="text-align: center;font-weight: bold">Figura 2: Registro Manual de Bienes</div>
 
 
-Este registro corresponde al método de forma manual, a través de esta funcionalidad es posible registrar solo un bien institucional.  Es importante considerar, que en el formulario de esta sección se solicita información asociada al bien (tipo de bien, categoría general de bien, sub categoría de bien, categoría específica de bien), que debe ser añadida previamente en la configuración del módulo. 	
+Este registro corresponde al método de forma manual, a través de esta funcionalidad es posible registrar solo un bien institucional.  Es importante considerar, que en el formulario de esta sección se solicita información asociada al bien (tipo de bien, categoría general de bien, subcategoría de bien, categoría específica de bien), que debe ser añadida previamente en la configuración del módulo. 	
 
 
 !!! note "Nota"
-	El **Estatus de uso** de cada bien define las acciones que se pueden ejecutar sobre dicho bien.  Por esta razón es importante considerar lo siguiente:
+	El **Estatus de uso** de cada Bien, define las acciones que se pueden ejecutar sobre dicho bien.  Por esta razón es importante considerar lo siguiente:
 
-	*	Un bien debe tener el **Estatus de uso** definido como: "En almacén o Deposito para su asignación" para formar parte de una solicitud de préstamo.
-	*	Un bien debe tener el **Estatus de uso** definido como: "En almacén o Deposito para su asignación" para ser asignado desde la sección de **Registros**.  Por otro lado es posible realizar la asignación manual de cualquier bien desde
+	*	Un bien debe tener el **Estatus de uso** definido como: "En almacén o Depósito para su asignación", para formar parte de una solicitud de préstamo.
+	*	Un bien debe tener el **Estatus de uso** definido como: "En almacén o Depósito para su asignación", para ser asignado desde la sección de **Registros**.  Por otro lado es posible realizar la asignación manual de cualquier bien desde
 	la sección **Asignaciones**.
 	*	Si un bien posee cualquier **Estatus de uso** para desincorporación se supondrá que existe un registro de desincorporación asociado a este bien.   En este sentido no se recomienda registrar un bien inicialmente con un **Estatus de uso** de desincorporación, por otro lado; se recomienda realizar la desincorporación de forma manual a través de la tabla de registros de bienes o la sección de **Desincorporaciones**. 	  
 
@@ -69,7 +69,7 @@ Los id son generados cada vez que se realiza un nuevo registro en la configuraci
 El archivo que el usuario ha exportado permite la edición de cualquier registro que se ha realizado previamente.  Sin embargo, el manejo de este contenido se debe realizar con precaución, ya que los registros pueden encontrase asociados a través de sus id (identificadores únicos).  
 
 
-**Para Importar un registros**
+**Para Importar un registro**
 
 - Dirigirse al **Módulo de Bienes**, luego a **Registros** y ubicarse en la sección **Bienes**.
 - Haciendo uso del botón **Importar** ![Screenshot](img/import.png) ubicado en la esquina superior derecha de esta sección, se procede a realizar la carga masiva.  

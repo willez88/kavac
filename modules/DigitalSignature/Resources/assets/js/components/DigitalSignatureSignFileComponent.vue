@@ -33,10 +33,6 @@
                                    @change="selectedFile('file')" required />
                             <label id="file-label" for="pdf"> Seleccionar archivo pdf </label>
                         </div>
-                        <button class="btn btn-primary btn-sm btn-round btn-modal-close" @click="signFile()">
-                            <i class="fa fa-search"></i>
-                            Firmar
-                        </button>
                         <div class="row" v-if="show">
                             <div class="col-12 pt-3">
                                 <h6> Detalle de la firma </h6>
@@ -48,8 +44,13 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-default btn-sm btn-round btn-modal-close" type="button" data-dismiss="modal">
+                        <button class="btn btn-default btn-sm btn-round btn-modal-close" type="button" @click="reset()"
+                                data-dismiss="modal">
                             Cerrar
+                        </button>
+                        <button class="btn btn-primary btn-sm btn-round btn-modal-close" @click="signFile()">
+                            <i class="icofont icofont-fountain-pen"></i>
+                            Firmar
                         </button>
                     </div>
                 </div>
@@ -73,9 +74,13 @@
             /**
              * Método que borra todos los datos del formulario
              *
-             * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
+             * @author Angelo Osorio <adosorio@cenditel.gob.ve> | <danielking.321@gmail.com>
              */
-            reset() {},
+            reset() {
+                const vm = this;
+                vm.records = [];
+                vm.show = false;
+            },
 
             /**
              * Método que escribe el valor del nombre del pdf del input type=file en el label en este
