@@ -1,0 +1,10 @@
+[
+    {
+        "element" : "#payroll_work_age",
+        "intro" : "Esta sección permite gestionar la configuración de la edad laboral permitida del módulo de talento humano."
+    },
+    {
+        "element" : "#work_age",
+        "intro" : "El campo debe ser un número entero positivo."
+    }
+]

@@ -1,6 +1,5 @@
 # Clasificador de Cuentas Presupuestarias 
 *****************************************
-<div style="text-align: justify;">
 
 ![Screenshot](img/logokavac.png#imagen)
 
@@ -17,13 +16,13 @@ A través de esta sección el analista de presupuesto o al usuario con permisos 
 
 A continuación se muestra un registro de **Cuenta Presupuestaria de Egresos**:
 
-!!! note ""
+!!! info ""
 
 	Las **cuentas presupuestarias de egresos** representan la salida monetaria de la organización que puede ser desde gastos de personal hasta la disminución del presupuesto.
 
 A continuación se muestra un registro de **Cuenta Presupuestaria de Recursos**:
 
-!!! note ""
+!!! info ""
 
 	Las **cuentas presupuestarias de recursos** representan la previsión de los recursos que la entidad espera obtener en el año para financiar los gastos que figuran en el presupuesto de egresos.
 
@@ -42,7 +41,7 @@ Para **Ver información detallada**, **Editar** o **Eliminar** un registro se de
 
 ![Screenshot](img/manage.png#imagen)
 
-</div>
+
 
 
 

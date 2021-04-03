@@ -64,6 +64,6 @@ class CreatePayrollLanguageLanguageLevelProfessionalTable extends Migration
      */
     public function down()
     {
-        Schema::drop('payroll_language_language_level_professional');
+        Schema::dropIfExists('payroll_language_language_level_professional');
     }
 }

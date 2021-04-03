@@ -29,7 +29,7 @@ class CreatePayrollLicenseDegreesTable extends Migration
             Schema::create('payroll_license_degrees', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->string('name', 50)->comment('Nombre de la licencia de conducir');
-                $table->string('description', 200)->comment('Descripción de la licencia de conducir');
+                $table->string('description', 200)->nullable()->comment('Descripción de la licencia de conducir');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });

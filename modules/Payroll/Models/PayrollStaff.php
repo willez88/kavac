@@ -15,7 +15,7 @@ use App\Traits\ModelsTrait;
  * Gestiona el modelo de datos del personal
  *
  * @author     William Páez <wpaez@cenditel.gob.ve>
- * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
@@ -40,9 +40,10 @@ class PayrollStaff extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'code','first_name','last_name','payroll_nationality_id','id_number','passport','email','birthdate',
-        'payroll_gender_id','emergency_contact','emergency_phone','parish_id','address','has_disability',
-        'disability','social_security','has_driver_license','payroll_license_degree_id','payroll_blood_type_id'
+        'code', 'first_name', 'last_name', 'id_number', 'passport', 'email', 'birthdate',
+        'emergency_contact', 'emergency_phone', 'address', 'has_disability', 'social_security',
+        'has_driver_license', 'payroll_license_degree_id', 'payroll_blood_type_id', 'parish_id',
+        'payroll_nationality_id', 'payroll_gender_id', 'payroll_disability_id'
     ];
 
     /**
@@ -242,5 +243,17 @@ class PayrollStaff extends Model implements Auditable
     public function payrollPermissionRequests()
     {
         return $this->hasMany(PayrollPermissionRequest::class);
+    }
+
+    /**
+     * Método que obtiene el dato personal del trabajador asociada a una discapacidad
+     *
+     * @author    William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function payrollDisability()
+    {
+        return $this->belongsTo(PayrollDisability::class);
     }
 }

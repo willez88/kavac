@@ -16,7 +16,7 @@ use App\Traits\ModelsTrait;
  * Gestiona el modelo de idiomas
  *
  * @author     William Páez <wpaez@cenditel.gob.ve>
- * @author     Henry Paredes <hparedes@cenditel.gob.ve>
+ *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
@@ -41,37 +41,20 @@ class PayrollLanguage extends Model implements Auditable
     ];
 
     /**
-     * Método que obtiene los idiomas asociados a muchas informaciones profesionales del trabajador
+     * Método que obtiene los idiomas asociados a muchos datos profesionales del trabajador
      *
-     * @author William Páez <wpaezs@cenditel.gob.ve>
+     * @author    William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function payrollProfessionals()
     {
         return $this->belongsToMany(
             PayrollProfessional::class,
-            'payroll_language_language_level_professional',
-            'payroll_language_id',
-            'payroll_professional_id'
+            'payroll_lang_prof',
+            'payroll_lang_id',
+            'payroll_prof_id'
         )->withPivot('payroll_language_level_id')->withTimestamps();
-    }
-
-    /**
-     * Método que obtiene los niveles de idioma asociados a muchas informaciones profesionales del trabajadr
-     *
-     * @author William Páez <wpaezs@cenditel.gob.ve>
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function payrollLanguageLevels()
-    {
-        return $this->belongsToMany(
-            PayrollLanguageLevel::class,
-            'payroll_language_language_level_professional',
-            'payroll_language_id',
-            'payroll_language_level_id'
-        )->withPivot('payroll_professional_id')->withTimestamps();
     }
 
     /**

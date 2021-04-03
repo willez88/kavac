@@ -36,4 +36,16 @@ class PayrollDisability extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = ['name', 'description'];
+
+    /**
+     * Método que obtiene la discapacidad que está asociado a muchos datos personales del trabajador
+     *
+     * @author    William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payrollStaffs()
+    {
+        return $this->hasMany(PayrollStaff::class);
+    }
 }

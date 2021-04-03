@@ -367,6 +367,12 @@ Route::group([
         ['as' => 'payroll', 'except' => ['show','create','edit']]
     );
 
+    /** Ruta que obtiene un arreglo con las discapacidades registradas */
+    Route::get(
+        'get-disabilities',
+        [Modules\Payroll\Http\Controllers\PayrollDisabilityController::class, 'getPayrollDisabilities']
+    )->name('payroll.get-payroll-disabilities');
+
     /** Rutas para gestionar los parámetros de nómina */
     Route::resource('parameters', 'PayrollParameterController', ['except' => ['show','create','edit']]);
 

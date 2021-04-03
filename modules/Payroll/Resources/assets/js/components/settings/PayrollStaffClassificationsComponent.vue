@@ -1,5 +1,5 @@
 <template>
-	<div class="text-center">
+	<section class="text-center" id="payroll_staff_classification">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de clasificación del personal" data-toggle="tooltip"
 		   @click="addRecord('add_payroll_staff_classification', 'payroll/staff-classifications', $event)">
@@ -69,7 +69,7 @@
 		        </div>
 		    </div>
 		</div>
-	</div>
+	</section>
 </template>
 
 <script>

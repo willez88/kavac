@@ -1,6 +1,5 @@
 # Manual de Documentación de Usuario para el Módulo de Presupuesto
 ******************************************************************
-<div style="text-align: justify;">
 
 ![Screenshot](img/logokavac.png#imagen)
 
@@ -9,7 +8,7 @@ El Manual de Documentación del sistema KAVAC a nivel de usuario tiene como obje
 
 ##Módulo de presupuesto
 
-El módulo de presupuesto tiene por objeto principal producir la formulación de la organización usuaria. Mediante el módulo de presupuesto del Kavac se coordina la asignación de recursos según modificaciones presupuestarias y la elaboración de dicha ejecución de manera de que al terminar el año fiscal las cuentas cierren correctamente. La estructura presupuestaria consiste en seleccionar las cuentas del clasificador presupuestario, crear y seleccionar los proyectos, las acciones centralizadas y las acciones específicas necesarias para el logro de las metas planteadas al principio del ejercicio fiscal, mediante la asignación racional de los recursos disponibles y especificación de los responsables de proyectos.
+El módulo de presupuesto tiene por objeto principal producir la formulación de la organización usuaria. Mediante el módulo de presupuesto del KAVAC se coordina la asignación de recursos según modificaciones presupuestarias y la elaboración de dicha ejecución de manera de que al terminar el año fiscal las cuentas cierren correctamente. La estructura presupuestaria consiste en seleccionar las cuentas del clasificador presupuestario, crear y seleccionar los proyectos, las acciones centralizadas y las acciones específicas necesarias para el logro de las metas planteadas al principio del ejercicio fiscal, mediante la asignación racional de los recursos disponibles y especificación de los responsables de proyectos.
 
 Los proyectos, las acciones centralizadas y las acciones específicas corresponden a los registros iniciales, registros que serán usados en las demás secciones del módulo según la configuración que se realice.
 
@@ -39,33 +38,37 @@ Nombre del producto: KAVAC ‘Sistema de Gestión de Recursos’
 
    Créditos: 
    
-   **Líder de proyecto / Diseño / Desarrollo / Autor**
+   **Líder de proyecto / Diseño / Desarrollo / Autor / Director de Desarrollo (2021)**
 
 - Roldan Vargas (rvargas@cenditel.gob.ve | roldandvg@gmail.com)
 
    **Analistas**
 
 - Julie Vera (jvera@cenditel.gob.ve)
-- María González (mgonzalez@cenditel.gob.ve)
+- María Laura González (mgonzalez@cenditel.gob.ve)
 - María Rujano (mrujano@cenditel.gob.ve)
 - Mariangel Molero (mmolero@cenditel.gob.ve)
 - Francisco Berbesí (fberbesi@cenditel.gob.ve)
 - Luis Ramírez (lgramirez@cenditel.gob.ve)
 - Hildayra Colmenares (hcolmenares@cenditel.gob.ve)
 - Kleivymar Montilla (kmontilla@cenditel.gob.ve)
-- Daniel Contreras (dcontreras@cenditel.gob.ve)
 
    **Manuales**
 
 - Luis Ramírez (lgramirez@cenditel.gob.ve)
 - Marilyn Caballero (mcaballero@cenditel.gob.ve)
 
- **Desarrolladores**
+   **Desarrolladores**
 
 - William Paéz (wpaez@cenditel.gob.ve)
 - Henry Paredes (henryp2804@gmail.com)
 - Juan Rosas (jrosas@cenditel.gob.ve)
 - Yennifer Ramírez (yramirez@cenditel.gob.ve)
+- Pedro Buitrago (pbuitrago@cenditel.gob.ve)
+- Angelo Osorio (adosorio@cenditel.gob.ve)
+- José Puentes (jpuentes@cenditel.gob.ve)
+- Daniel Contreras (dcontreras@cenditel.gob.ve)
+- Miguel Narváez (mnarvaez@cenditel.gob.ve)
 
    **Director de Desarrollo (2018-2019)**
 
@@ -77,7 +80,7 @@ Nombre del producto: KAVAC ‘Sistema de Gestión de Recursos’
 
    **Colaborador**
 
-- Angelo Osorio (adosorio@cenditel.gob.ve)
+- Santiago Roca (sroca@cenditel.gob.ve)
 
 
 Licencia Combinada de Software y Contenidos de la Fundación CENDITEL (2015)  
@@ -95,7 +98,7 @@ Cada vez que copie y distribuya este producto debe acompañarlo de una copia de 
 
 ![Screenshot](img/licencia.png)
 
-</div>
+
 
 
 

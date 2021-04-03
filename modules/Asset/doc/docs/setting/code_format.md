@@ -7,13 +7,11 @@
 
 La sección de **Formatos de Códigos** permite establecer un código de referencia para los registros posteriores (asignaciones, desincorporaciones, solicitudes, inventario y reportes), para completar esta configuración el usuario debe dirigirse al **Módulo de Bienes**, luego a **Configuración** y ubicarse en la sección **Formatos de Códigos**.
 
-Para establecer el código de referencia es necesario seguir los parámetros que se muestran a continuación:
+Cada código debe establecerse de acuerdo a un formato específico el cual se divide en tres (3) secciones: prefijo-dígitos-año.
 
-El formato se establece de la siguiente manera: prefijo - dígitos - año
-
-- prefijo (requerido): 1 a 3 caracteres
-- dígitos (requerido): 6 caracteres (mínimo), 8 caracteres (máximo)
-- año (requerido): 2 o 4 caracteres (YY o YYYY)
+- **Prefijo:** debe contener entre 1 a 3 caracteres y debe ser único.
+- **Dígitos:** Establece el número del registro y comprende una longitud de entre 4 a 8 caracteres como máximo. Para establecer la longitud de la numeración se debe indicar con ceros (0) de acuerdo a la cantidad de dígitos máximos que se desea registrar.
+- **Año:** Indica el formato del año para el código el cual se debe indicar con la letra "**Y**" de acuerdo al formato deseado. Los valores posibles son: **YY** para formato de año corto y **YYYY** para el formato de año largo.
 
 Ejemplos de códigos:
 

@@ -102,7 +102,7 @@
 				</div>
 
 				<div class="col-md-3" v-if="record.asset_type_id == 1">
-					<div class="form-group is-required">
+					<div class="form-group">
 						<label>Proveedor</label>
 						<select2 :options="proveedores"
 								v-model="record.proveedor_id"></select2>

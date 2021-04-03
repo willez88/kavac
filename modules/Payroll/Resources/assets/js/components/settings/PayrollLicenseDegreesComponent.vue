@@ -1,5 +1,5 @@
 <template>
-	<div class="text-center">
+	<section class="text-center" id="payroll_license_degree">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de grados de licencia de conducir" data-toggle="tooltip"
 		   @click="addRecord('add_payroll_license_degree', 'payroll/license-degrees', $event)">
@@ -69,7 +69,7 @@
 		        </div>
 		    </div>
 		</div>
-	</div>
+	</section>
 </template>
 
 <script>

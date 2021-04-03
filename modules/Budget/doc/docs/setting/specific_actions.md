@@ -1,6 +1,5 @@
 #Configuración Módulo de Presupuesto 
 ************************************
-<div style="text-align: justify;" >
 
 ![Screenshot](../img/logokavac.png#imagen)
 
@@ -26,5 +25,3 @@ Para el registro de acción específica es necesario completar el formulario de
 Para **Ver información detallada**, **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de registros en la sección de **Acciones Específicas**.
 
 ![Screenshot](../img/manage.png#imagen)
-
-</div>

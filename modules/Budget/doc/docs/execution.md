@@ -1,6 +1,5 @@
 # Ejecución de Presupuesto 
 **************************
-<div style="text-align: justify;">
 
 ![Screenshot](img/logokavac.png#imagen)
 
@@ -23,17 +22,17 @@ Esta sección permite al analista de presupuesto con permisos del módulo, la cr
 
 Para el registro de compromisos es necesario completar el formulario de la sección **Compromiso**. Los campos de selección que se muestran en esta sección corresponden a registros previos realizados en el sistema (Institución que genera). Estos datos se adjuntan al nuevo registro de **Compromiso**. 
 
-!!! note "Nota"
-	La opción **Agregar** permite al analista de presupuesto agregar registros de documentos previos realizados en el sistema. Al seleccionar un registro, los datos del mismo se adjuntan en el campo de documentos.
-
 **Cuentas presupuestarias**
 
-Una vez se formula el registro del compromiso, es posible agregar las cuentas y los datos numéricos que influyen en el compromiso a través de la opción **Agregar** ![Screenshot](img/add.png#imagen) ubicada en la sección **Cuentas Presupuestarias**.	Los campos de selección que se muestran en esta sección corresponden a registros previos realizados en el sistema (Acción Específica, Cuenta e Impuesto). Estos datos se adjuntan al nuevo registro de **Compromiso**.
+Una vez se formula el registro del compromiso, es posible agregar las cuentas y los datos numéricos que influyen en el compromiso a través de la opción **Agregar** ubicada en la sección **Cuentas Presupuestarias**.	Los campos de selección que se muestran en esta sección corresponden a registros previos realizados en el sistema (Acción Específica, Cuenta e Impuesto). Estos datos se adjuntan al nuevo registro de **Compromiso**.
 
-!!! note ""
+!!! info "Botón Agregar"
+    ![Screenshot](img/add.png#imagen)
+
+!!! info ""
 	Las **cuentas presupuestarias de egresos** representan la salida monetaria de la organización que puede ser desde Gastos de Personal hasta la Disminución del Presupuesto.
 
-!!! note ""
+!!! info ""
 	Las **cuentas presupuestarias de impuestos** son las partidas de presupuesto que se pagan, por ejemplo, al valor agregado o IVA, impuesto sobre la renta, entre otros.
 
 A continuación se muestra un registro de **Compromiso** para el pago de sueldos a trabajadores fijos:
@@ -44,7 +43,6 @@ Para **Ver información detallada**, **Editar** o **Eliminar** un registro se de
 
 ![Screenshot](img/manage.png#imagen)
 
-</div>
 
 
 

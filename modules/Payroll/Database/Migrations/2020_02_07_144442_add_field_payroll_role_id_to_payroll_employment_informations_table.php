@@ -28,7 +28,7 @@ class AddFieldPayrollRoleIdToPayrollEmploymentInformationsTable extends Migratio
         Schema::table('payroll_employment_informations', function (Blueprint $table) {
             if (!Schema::hasColumn('payroll_employment_informations', 'payroll_role_id')) {
                 $table->foreignId('payroll_role_id')->nullable()->constrained()
-                      ->onDelete('restrict')->onUpdate('cascade');
+                      ->onUpdate('cascade')->onDelete('restrict');
             }
         });
     }

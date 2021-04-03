@@ -2,7 +2,7 @@
     <div>
         <v-client-table :columns="columns" :data="records" :options="table_options">
     		<div slot="id" slot-scope="props" class="text-center">
-    			<button @click="show_info(props.row.id)" v-if="route_show"
+    			<button @click="showInfo(props.row.id)" v-if="route_show"
         				class="btn btn-info btn-xs btn-icon btn-action btn-tooltip"
         				title="Ver registro" data-toggle="tooltip" data-placement="bottom" type="button">
         			<i class="fa fa-eye"></i>
@@ -127,15 +127,17 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Idioma</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
-                                        disabled="true" :value="payroll_language.name">
+                                    <select2 :options="payroll_languages"
+    									v-model="payroll_language.id">
+    								</select2>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Dominio del Idioma</label>
-                                    <input type="text" data-toggle="tooltip" class="form-control input-sm"
-                                        disabled="true" :value="record.payroll_language_levels[index].name">
+                                    <select2 :options="payroll_language_levels"
+    									v-model="payroll_language.pivot.payroll_language_level_id">
+    								</select2>
                                 </div>
                             </div>
                         </div>
@@ -166,6 +168,8 @@
 			};
             this.table_options.sortable = ['payroll_staff.first_name', 'payroll_instruction_degree.name'];
 			this.table_options.filterable = ['payroll_staff.first_name', 'payroll_instruction_degree.name'];
+            this.getPayrollLanguages();
+			this.getPayrollLanguageLevels();
 		},
 
 		mounted() {
@@ -177,7 +181,7 @@
 
             },
 
-            show_info(id) {
+            showInfo(id) {
                 axios.get('/payroll/professionals/' + id).then(response => {
 					this.record = response.data.record;
                     $('#payroll_staff').val(this.record.payroll_staff.first_name + ' ' + this.record.payroll_staff.last_name);

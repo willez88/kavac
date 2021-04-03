@@ -1,6 +1,5 @@
 # Reportes del Módulo de Presupuesto 
 ************************************
-<div style="text-align: justify;">
 
 ![Screenshot](img/logokavac.png#imagen)
 
@@ -11,8 +10,6 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt, sapiente! Perspi
 ## Consolidado   
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione rerum maiores consectetur laboriosam inventore, vero expedita veniam nihil laudantium, porro labore reprehenderit nulla molestias tempore at sunt reiciendis totam itaque?
-
-</div>
 
 
 
