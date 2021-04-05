@@ -18,7 +18,7 @@
 @stop
 
 @section('content')
-	
+
 	@include('sale::settings-code-formats')
 	@include('sale::general-configuration')
 	<div class="row">
@@ -46,7 +46,7 @@
 							{{-- Configuración de Tipos de productos--}}
 							<sale-setting-product-type></sale-setting-product-type>
 							{{-- Configuración de Clientes --}}
-							<register-formatcode></register-formatcode>
+							<!--<register-formatcode></register-formatcode>-->
 							{{-- Configuración de Descuento --}}
 							<sale-discount></sale-discount>
 	                                                {{-- Solicitar cotización --}}
