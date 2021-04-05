@@ -24,7 +24,7 @@ use App\Traits\ModelsTrait;
  *              LICENCIA DE SOFTWARE CENDITEL
  *          </a>
  */
-class PurchaseStage extends Model implements Auditable
+class PurchaseStates extends Model implements Auditable
 {
     use SoftDeletes;
     use AuditableTrait;

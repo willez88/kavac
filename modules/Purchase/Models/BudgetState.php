@@ -2,8 +2,7 @@
 /** [descripción del namespace] */
 namespace Modules\Purchase\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Modules\Budget\Models\BudgetState as BaseBudgetState;
+use Modules\Budget\Models\BudgetStage as BaseBudgetStage;
 
 /**
  * @class BudgetState
@@ -16,7 +15,6 @@ use Modules\Budget\Models\BudgetState as BaseBudgetState;
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
-class BudgetState extends BaseBudgetState
+class BudgetState extends BaseBudgetStage
 {
-
 }
