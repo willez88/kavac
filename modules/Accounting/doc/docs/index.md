@@ -39,7 +39,7 @@ Nombre del producto: KAVAC ‘Sistema de Gestión de Recursos’
 
    Nombre del licenciante y año: Licencia Combinada de Software y Contenidos de la Fundación CENDITEL. Versión 1.2 (Año: 2015).
 
-   Créditos: 
+   **Créditos**: 
    
    **Líder de proyecto / Diseño / Desarrollo / Autor / Director de Desarrollo (2021)**
 

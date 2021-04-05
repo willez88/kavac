@@ -10,7 +10,7 @@ Desde esta sección se registran los tipos de solicitudes según los servicios q
 Para registrar un tipo de solicitud:
 
 - Dirigirse a la **Configuración** del módulo de **Oficina de Atención al Ciudadano**.
-- Ingresar a **Tipo de Solicitud** en la sección **Registros Comúnes**.
+- Ingresar a **Tipo de Solicitud** en la sección **Registros Comunes**.
 - Completar el formulario ingresando el nombre, la descripción y requerimientos de la solicitud.
 - Presionar el botón **Guardar** y verificar que se haya almacenado.
 
@@ -29,7 +29,7 @@ Desde esta sección se registran los departamentos o las diferentes direcciones 
 Para registrar un departamento:
 
 - Dirigirse a la **Configuración** del módulo de **Oficina de Atención al Ciudadano**.
-- Ingresar a **Departamentos** en la sección **Registros Comúnes**.
+- Ingresar a **Departamentos** en la sección **Registros Comunes**.
 - Completar el formulario ingresando el nombre y descripción del departamento.
 - Presionar el botón **Guardar** y verificar que se haya almacenado.
 

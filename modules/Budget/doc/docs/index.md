@@ -19,7 +19,7 @@ Asimismo, a través de la generación de reportes es posible tener un seguimient
 ##Sobre los usuarios
 
 
-Los usuarios que interactuan en este módulo, serán todos aquellos usuarios con roles y permisos sobre el módulo de contabilidad, previamente gestionados por el usuario con el rol de administrador. Para conocer mas sobre la gestión de roles y permisos visite el **Manual de Documentación del Sistema KAVAC**
+Los usuarios que interactúan en este módulo, serán todos aquellos usuarios con roles y permisos sobre el módulo de contabilidad, previamente gestionados por el usuario con el rol de administrador. Para conocer mas sobre la gestión de roles y permisos visite el **Manual de Documentación del Sistema KAVAC**
 
 ##Funcionalidades
 
@@ -36,7 +36,7 @@ Nombre del producto: KAVAC ‘Sistema de Gestión de Recursos’
 
    Nombre del licenciante y año: Licencia Combinada de Software y Contenidos de la Fundación CENDITEL. Versión 1.2 (Año: 2015).
 
-   Créditos: 
+   **Créditos**: 
    
    **Líder de proyecto / Diseño / Desarrollo / Autor / Director de Desarrollo (2021)**
 

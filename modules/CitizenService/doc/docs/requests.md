@@ -35,7 +35,7 @@ Para **Ver información detallada**, **Editar** o **Eliminar** un registro se de
 
 ## Solicitudes Pendientes
 
-Una vez se genera una nueva solicitud, además de añadirse a la tabla **Solicitudes** , el registro se almacena en la tabla de **Solicitudes Pendientes**, desde esta sección se gestiona la aprobación o rechazo de solicitud.
+Una vez se genera una nueva solicitud, además de añadirse a la tabla **Solicitudes**, el registro se almacena en la tabla de **Solicitudes Pendientes**, desde esta sección se gestiona la aprobación o rechazo de solicitud.
 
 ![Screenshot](img/figure_3.png)<div style="text-align: center;font-weight: bold">Figura 3: Solicitudes Pendientes</div>  
 
@@ -60,7 +60,7 @@ Una vez se inicia el cierre de solicitud se muestra una ventana emergente, en la
 
 ![Screenshot](img/figure_5.jpg)<div style="text-align: center;font-weight: bold">Figura 5: Cierre de Solicitud</div>  
 
-Una vez la solicitud ha sido abordada y se completa el cierra, el registro cambia su estado de **Iniciado** a **Culminado**.
+Una vez la solicitud ha sido ejecutada y se completa el cierra de solicitud, el registro cambia su estado de **Iniciado** a **Culminado**.
 
 
 

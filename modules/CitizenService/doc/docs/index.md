@@ -3,7 +3,7 @@
 
 ![Screenshot](img/logokavac.png#imagen)
 
-El Manual de Documentación del sistema KAVAC a nivel de usuario tiene como objetivo facilitar la tarea de conocimiento, uso y aprendizaje del sistema desarrollado. Presenta información acerca de todas las operaciones básicas que el sistema ofrece, así como capturas de pantallas útiles para el seguimiento de la explicación de los procesos. A continuación, se muestra la documentación de usuario para el módulo de oficina de atención al ciudadano, dicho módulo esta orientado a la gestión de solicitudes, generación de reportes en base a las solicitudes recibidas por la organización y la gestión de actividades laborales a través de un cronograma.  Los requerimientos de cada institución para la gestión de solicitudes, pueden ser ajustados a través de la configuración del módulo. En este manual se presenta una descripción de las opciones de este módulo, como usarlo y como ajustarlo a una institución u organización.
+El Manual de Documentación del sistema KAVAC a nivel de usuario tiene como objetivo facilitar la tarea de conocimiento, uso y aprendizaje del sistema desarrollado. Presenta información acerca de todas las operaciones básicas que el sistema ofrece, así como capturas de pantallas útiles para el seguimiento de la explicación de los procesos. A continuación, se muestra la documentación de usuario para el módulo de oficina de atención al ciudadano, dicho módulo esta orientado a la gestión de solicitudes, generación de reportes con base a las solicitudes recibidas por la organización y la gestión de actividades laborales a través de un cronograma.  Los requerimientos de cada institución para la gestión de solicitudes, pueden ser ajustados a través de la configuración del módulo. En este manual se presenta una descripción de las opciones de este módulo, como usarlo y como ajustarlo a una institución u organización.
 
 
 ## Módulo de atención al ciudadano
@@ -22,7 +22,7 @@ La sección **Ingresar Cronograma** permite la gestión de actividades laborales
 ## Sobre los usuarios
 
 
-Los usuarios que interactuan en este módulo, serán todos aquellos usuarios con roles y permisos sobre el módulo de oficina de atención al ciudadano, previamente gestionados por el usuario con el rol de administrador. Para conocer mas sobre la gestión de roles y permisos visite el **Manual de Documentación del Sistema KAVAC**.
+Los usuarios que interactúan en este módulo, serán todos aquellos usuarios con roles y permisos sobre el módulo de oficina de atención al ciudadano, previamente gestionados por el usuario con el rol de administrador. Para conocer mas sobre la gestión de roles y permisos visite el **Manual de Documentación del Sistema KAVAC**.
 
 
 ## Funcionalidades
@@ -36,9 +36,9 @@ Los usuarios que interactuan en este módulo, serán todos aquellos usuarios con
 
 Nombre del producto: KAVAC ‘Sistema de Gestión de Recursos’
 
-   Nombre del licenciante y año: Licencia Combinada de Software y Contenidos de la Fundación CENDITEL. Versión 1.2 (Año: 2015).
+   Nombre del licenciante y año: Licencia Combinada de Software y Contenidos de la Fundación CENDITEL. Versión 1.2 Año: (2015).
 
-   Créditos: 
+   **Créditos**: 
    
    **Líder de proyecto / Diseño / Desarrollo / Autor / Director de Desarrollo (2021)**
 

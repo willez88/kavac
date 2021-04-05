@@ -10,7 +10,9 @@ Este manual de usuario ha sido desarrollado usando el generador de sitios estát
 
 ##Pre-requisitos
 
-	* Python >= 3.5
+	* Python 
+
+MkDocs es compatible con las versiones 3.5, 3.6, 3.7, 3.8 y pypy3 de Python.
 
 ##Instalación
 
@@ -42,8 +44,19 @@ Ejecute el siguiente comando para verificar que todo funciona bien
 
 ###Instalación de Material-Mkdocs
 
+Ejecute el siguiente comando para instalar mkdocs-material en la versión usada para la generación de los manuales de usuario del sistema KAVAC
+
+	pip install mkdocs-material==5.4.0
+
+Ejecute el siguiente comando si desea instalar la última versión estable de mkdocs-material  
+
 	pip install mkdocs-material
 
+
+###Instalación de mkdocs-minify-plugin
+
+	pip install mkdocs-minify-plugin
+	
 
 ##Ejecuntando pruebas
 
@@ -99,3 +112,5 @@ Para realizar modificaciones en el tema se recomienda seguir la documentación d
 
 	*	[Mkdocs](https://www.mkdocs.org/) 	
 	*	[Material for Mkdocs](https://squidfunk.github.io/mkdocs-material/)
+
+	
