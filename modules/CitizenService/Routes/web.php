@@ -24,7 +24,7 @@ Route::group([
     Route::post('settings', 'CitizenServiceSettingController@store')->name('citizenservice.settings.store');
 
     /* Ruta para solicitudes*/
-    Route::resource('requests', 'CitizenServiceRequestController', ['only' => ['update']]);
+    Route::resource('requests', 'CitizenServiceRequestController', ['as' => 'citizenservice', 'only' => ['update']]);
 
     Route::get('/requests/create', 'CitizenServiceRequestController@create')->name('citizenservice.request.create');
     Route::post('/requests', 'CitizenServiceRequestController@store')->name('citizenservice.request.store');
