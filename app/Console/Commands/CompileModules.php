@@ -27,6 +27,7 @@ class CompileModules extends Command
                             {module? : The module name to compile}
                             {--p|prod : Option to compile in production mode}
                             {--i|install : With previous install node packages}
+                            {--u|update : With previous update node packages}
                             {--s|system : With core compile}';
 
     /**
@@ -65,8 +66,10 @@ class CompileModules extends Command
         $m = [];
         /** @var string Modo de compilación. dev = desarrollo, prod = producción */
         $compileMode = ($this->option('prod'))?'prod':'dev';
-
+        /** @var string Establece si se debe ejecutar el comando de instalación de paquetes */
         $withInstall = ($this->option('install'))?'&& npm install':'';
+        /** @var string Establece si se debe ejecutar el comando de actualización de paquetes */
+        $withUpdate = ($this->option('update'))?'&& npm update':'';
         /** @var boolean Determina si se encuentra un error en la compilación */
         $hasError = false;
         /** @var string Mensaje del error */
@@ -81,11 +84,19 @@ class CompileModules extends Command
         /** @var integer contador que registra el número de modulo que se compila */
         $index = 1;
 
+        $moduleCompileTitle = (!empty($withUpdate))
+                              ?"Actualizando paquetes y "
+                              :((!empty($withInstall))?"Instalando paquetes y ":"");
+
         if ($withCore) {
             $this->line('');
-            $this->line("<fg=green>Compilando archivos del sistema</>");
-            if (!empty($withInstall)) {
-                $result = shell_exec("npm install");
+            if (!empty($withInstall) || !empty($withUpdate)) {
+                $this->line('');
+                $this->line(
+                    "<fg=green>".(!empty($withInstall))?"Instalando":"Actualizando"." archivos del sistema</>"
+                );
+                $this->line('');
+                $result = shell_exec(!empty($withUpdate)?"npm update":"npm install");
                 if (strpos($result, 'audited') === false) {
                     $hasError = true;
                     $errorMsg = $result;
@@ -95,6 +106,10 @@ class CompileModules extends Command
                     return 0;
                 }
             }
+
+            $this->line('');
+            $this->line("<fg=green>Compilando archivos del sistema</>");
+            $this->line('');
             $result = shell_exec("npm run $compileMode");
             if (strpos($result, 'successfully') === false) {
                 $hasError = true;
@@ -111,8 +126,13 @@ class CompileModules extends Command
                 continue;
             }
             $this->line('');
-            $this->line("<fg=green>Compilando módulo $index/$count:</> <fg=yellow>" . $module->getName()) . "</>";
-            $result = shell_exec("cd modules/$module $withInstall && npm run $compileMode");
+            $this->line(
+                "<fg=green>{$moduleCompileTitle}Compilando módulo $index/$count:</> ".
+                "<fg=yellow>" . $module->getName()  . "</>"
+            );
+            $this->line('');
+            $packages = (!empty($withUpdate))?$withUpdate:$withInstall;
+            $result = shell_exec("cd modules/$module $packages && npm run $compileMode");
             if (strpos($result, 'successfully') === false) {
                 $hasError = true;
                 $errorMsg = $result;
