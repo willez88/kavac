@@ -53,7 +53,7 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'digitals
     /* Ruta para visualizar el interfaz para firmar documento PDF */
     Route::get('viewSignfile', function () {
         return view('digitalsignature::viewSignfile', ['signfile' => 'false']);
-    })->name('viewSignfile');
+    })->name('digitalsignature.viewSignfile');
 
 
     /**

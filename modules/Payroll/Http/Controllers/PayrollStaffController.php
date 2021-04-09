@@ -147,10 +147,10 @@ class PayrollStaffController extends Controller
                 ],
                 [],
                 [
-                    'phones.'.$i.'.type' => 'tipo #'.$i+1,
-                    'phones.'.$i.'.area_code' => 'código de area #'.$i+1,
-                    'phones.'.$i.'.number' => 'número #'.$i+1,
-                    'phones.'.$i.'.extension' => 'extensión #'.$i+1,
+                    'phones.'.$i.'.type' => 'tipo #'.($i+1),
+                    'phones.'.$i.'.area_code' => 'código de area #'.($i+1),
+                    'phones.'.$i.'.number' => 'número #'.($i+1),
+                    'phones.'.$i.'.extension' => 'extensión #'.($i+1),
                 ]
             );
             $i++;
@@ -296,10 +296,10 @@ class PayrollStaffController extends Controller
                 ],
                 [],
                 [
-                    'phones.'.$i.'.type' => 'tipo #'.$i+1,
-                    'phones.'.$i.'.area_code' => 'código de area #'.$i+1,
-                    'phones.'.$i.'.number' => 'número #'.$i+1,
-                    'phones.'.$i.'.extension' => 'extensión #'.$i+1,
+                    'phones.'.$i.'.type' => 'tipo #'.($i+1),
+                    'phones.'.$i.'.area_code' => 'código de area #'.($i+1),
+                    'phones.'.$i.'.number' => 'número #'.($i+1),
+                    'phones.'.$i.'.extension' => 'extensión #'.($i+1),
                 ]
             );
             $i++;

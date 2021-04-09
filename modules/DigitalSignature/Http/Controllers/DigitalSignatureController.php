@@ -363,7 +363,7 @@ class DigitalSignatureController extends Controller
 
                 $routeAction = $request->route()->getName();
 
-                return view( 'digitalsignature::viewSignfile', ['msg' => "El documento fue firmado exitosamente",
+                return view('digitalsignature::viewSignfile', ['msg' => "El documento fue firmado exitosamente",
                                             'namefile' => $filenamepdfsign,
                                             'signfile' => 'true']);
             }

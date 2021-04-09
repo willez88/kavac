@@ -374,7 +374,7 @@ Route::group([
     )->name('payroll.get-payroll-disabilities');
 
     /** Rutas para gestionar los parámetros de nómina */
-    Route::resource('parameters', 'PayrollParameterController', ['except' => ['show','create','edit']]);
+    Route::resource('parameters', 'PayrollParameterController', ['as' => 'payroll', 'except' => ['show','create','edit']]);
 
     /** Ruta que obtiene un arreglo con los parámetros de nómina registrados */
     Route::get('get-parameters', 'PayrollParameterController@getPayrollParameters');

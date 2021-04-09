@@ -76,7 +76,7 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'warehous
      */
 
 
-    Route::resource('receptions', 'WarehouseReceptionController', ['only' => 'store']);
+    Route::resource('receptions', 'WarehouseReceptionController', ['as' => 'warehouse', 'only' => 'store']);
     Route::patch('receptions/{reception}', 'WarehouseReceptionController@update');
     Route::get('receptions', 'WarehouseReceptionController@index')->name('warehouse.reception.index');
     Route::get('receptions/create', 'WarehouseReceptionController@create')->name('warehouse.reception.create');
@@ -143,7 +143,7 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'warehous
      * ------------------------------------------------------------
      */
 
-    Route::resource('requests', 'WarehouseRequestController', ['only' => 'store']);
+    Route::resource('requests', 'WarehouseRequestController', ['as' => 'warehouse', 'only' => 'store']);
     Route::patch('requests/{requests}', 'WarehouseRequestController@update');
     Route::get('requests', 'WarehouseRequestController@index')->name('warehouse.request.index');
     Route::get('requests/create', 'WarehouseRequestController@create')->name('warehouse.request.create');

@@ -50,7 +50,7 @@ Route::group(
             'SaleClientsController@getSaleClient'
         )->name('sale.get-sale-client');
 
-        Route::resource(
+        /**Route::resource(
             'payment-method',
             'SalePaymentMethodController',
             ['as' => 'sale', 'except' => ['create','edit','show']]
@@ -59,7 +59,7 @@ Route::group(
         Route::get(
             'get-paymentmethod',
             'SalePaymentMethodController@getSalePaymentMethod'
-        )->name('sale.get-sale-paymentmethod');
+        )->name('sale.get-sale-paymentmethod');*/
 
         Route::resource(
             'register-quote',
@@ -171,7 +171,7 @@ Route::group(
         Route::get(
             'get-discountmethod',
             'SaleDiscountController@getSaleDiscount'
-        )->name('sale.get-sale-paymentmethod');
+        )->name('sale.get-discountmethod');
 
         /**
          * ------------------------------------------------------------

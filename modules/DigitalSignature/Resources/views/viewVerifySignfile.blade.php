@@ -83,7 +83,7 @@
           <digitalsignature-signfile-component></digitalsignature-signfile-component>
 
           <div class="col-xs-2 text-center">
-            <a class="btn-simplex btn-simplex-md btn-simplex-primary" href="{{ route('viewSignfile') }}"
+            <a class="btn-simplex btn-simplex-md btn-simplex-primary" href="{{ route('digitalsignature.viewSignfile') }}"
                title="Firmar archivos usando el certificado cargado">
               <i class="icofont icofont-file-pdf ico-3x"></i>
               <span> Firmar PDF </span>
