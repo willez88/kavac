@@ -18,7 +18,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
      *
      * Permite mostrar archivos almacenados en los módulos de la aplicación
      */
-    Route::get('assets/{module}/{type}/{file}', [ function ($module, $type, $file) {
+    Route::get('assets/{module}/{type}/{file}', function ($module, $type, $file) {
         $module = ucfirst($module);
 
         $path = base_path("modules/$module/Resources/assets/$type/$file");
@@ -33,5 +33,5 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         $response->header("Content-Type", $type);
 
         return $response;
-    }]);
+    });
 });
