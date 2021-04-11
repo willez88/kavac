@@ -176,7 +176,11 @@
 
                     if (typeof(Inputmask) !== "undefined" && typeof(Inputmask) === "function") {
                         Inputmask().mask(document.querySelectorAll("input"));
+                        $('*[placeholder$="XXX-0000000000-YYYY"]').each(function() {
+                            Inputmask({regex: "^[A-Z]{1,3}$-[0]{4,8}-^([Y]{2}|[Y]{4})$"}).mask(this);
+                        });
                     }
+
 
                     /** oculta el mensaje de carga al renderizar por completo el DOM de la página */
                     $('.preloader').fadeOut(1000);
