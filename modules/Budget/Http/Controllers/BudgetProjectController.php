@@ -90,7 +90,7 @@ class BudgetProjectController extends Controller
         $positions = template_choices(
             PayrollPosition::class,
             'name',
-            ['relationship' => 'payrollEmployments', 'where' => ['active' => true]]
+            //['relationship' => 'payrollEmployments', 'where' => ['active' => true]]
         );
         /** @var array Arreglo de opciones de personal a representar en la plantilla para su selección */
         $staffs = template_choices(

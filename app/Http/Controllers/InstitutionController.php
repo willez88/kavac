@@ -4,8 +4,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Institution;
-use App\Models\DocumentStatus;
-use App\Models\FiscalYear;
 use Carbon\Carbon;
 
 /**
@@ -51,20 +49,26 @@ class InstitutionController extends Controller
     {
         /** @var string Texto que identifica el año fiscal actual */
         $year = $year ?? Carbon::now()->format("Y");
+        /** @var string Año de ejercicio fiscal por defecto */
+        $exec_year = $year;
         /** @var array Establece los filtros a aplicar para la consulta del año fiscal en curso */
         $filter = ['active' => true];
         $filter[(is_null($institution_id)) ? 'default' : 'id'] = (is_null($institution_id)) ? true : $institution_id;
         /** @var Institution Objeto con datos de los organismos a consultar */
-        $institution = Institution::where($filter)->first();
-        /** @var DocumentStatus Objeto con información del estatus de documento que permite la aprobación de documentos */
-        $documentStatus = DocumentStatus::where('action', 'AP')->first();
-        /** @var FiscalYear Objeto con información del año fiscal en curso */
-        $fiscalYear = FiscalYear::firstOrCreate(
-            ['year' => $year, 'active' => true]
-        );
+        $institution = Institution::with(['fiscalYears'])->where($filter)->first();
 
-        /** @var string Año fiscal actual */
-        $exec_year = $fiscalYear->year;
+        if ($institution) {
+            /** @var FiscalYear Año de ejercicio fiscal activo */
+            $fiscalYear = $institution->fiscalYears()->where('active', true)->first();
+            if (!$fiscalYear) {
+                $fiscalYear = $institution->fiscalYears()->updateOrCreate(
+                    ['active' => true, 'year' => $year],
+                    ['observations' => 'Ejercicio económico de ' . $institution->acronym]
+                );
+            }
+            /** @var string Año fiscal actual */
+            $exec_year = $fiscalYear->year;
+        }
 
         return response()->json(['result' => true, 'year' => $exec_year], 200);
     }

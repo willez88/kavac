@@ -18,6 +18,8 @@
         </div>
     </div>
     @if (Auth::user()->hasVerifiedEmail())
+        <h5 class="navigation-panel-title text-center">{{ __('AÑO FISCAL:') }} <span class="fiscal-year"></span></h5>
+        <hr>
         <h5 class="navigation-panel-title text-center">{{ __('MENU') }}</h5>
         <div id="jquery-accordion-menu" class="jquery-accordion-menu white">
             {{-- <div class="jquery-accordion-menu-header">Header </div> --}}

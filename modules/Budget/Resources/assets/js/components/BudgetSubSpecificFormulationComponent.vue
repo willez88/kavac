@@ -19,6 +19,18 @@
 					<li v-for="error in errors">{{ error }}</li>
 				</ul>
 			</div>
+            <div class="row mb-3" v-if="fiscal_years.length > 0">
+                <div class="col-2">
+                    <div class="form-group">
+                        <label for="" class="control-label">Ejercicio fiscal</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <select2 :options="fiscal_years" v-model="record.fiscal_year"></select2>
+                    </div>
+                </div>
+            </div>
 			<div class="row">
 				<div class="col-2">
 					<div class="form-group">
@@ -269,11 +281,14 @@
 					project_id: '',
 					centralized_action_id: '',
 					specific_action_id: '',
+                    fiscal_year: '',
 					formulated_accounts: []
 				},
 				errors: [],
 				records: [],
-				institutions: [],
+                /** @type {Array} Lista de años fiscales abiertos */
+                fiscal_years: [],
+                institutions: [],
 				currencies: [],
 				decimals: 2,
 				projects: [],
@@ -797,6 +812,7 @@
 
 		},
 		mounted() {
+            this.getOpenedFiscalYears();
 			this.getInstitutions();
 			this.getCurrencies();
 			this.getProjects();

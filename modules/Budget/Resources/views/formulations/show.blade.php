@@ -40,7 +40,7 @@
 						</div>
 						<div class="col-9">
 							<label>
-								{!! Form::open([
+                                {!! Form::open([
 									'route' => ['budget.subspecific-formulations.update', $formulation->id],
 									'method' => 'PUT', 'id' => 'form_assign'
 								]) !!}
@@ -48,8 +48,8 @@
 									{!! Form::checkbox('assigned', true, ($formulation->assigned), [
 										'class' => 'form-control bootstrap-switch bootstrap-switch-mini budget-assign',
 										'data-on-label' => __('SI'), 'data-off-label' => __('NO'),
-										'disabled' => ($formulation->assigned), 'data-toggle' => 'tooltip',
-										'title' => __('Asignar presupuesto')
+										'disabled' => ($formulation->assigned || $formulation->assigned==='1'),
+                                        'data-toggle' => 'tooltip', 'title' => __('Asignar presupuesto')
 									]) !!}
 								{!! Form::close() !!}
 							</label>
@@ -69,11 +69,21 @@
 					</div>
 					<div class="row form-group">
 						<div class="col-3 text-bold text-uppercase">{{ $formulation->specificAction->type }}:</div>
-						<div class="col-9">{{ $formulation->specificAction->specificable->description }}</div>
+						<div class="col-9 text-justify">
+                            {{ $formulation->specificAction->specificable->code }} -
+                            {{ $formulation->specificAction->specificable->name }}
+                        </div>
 					</div>
 					<div class="row form-group">
 						<div class="col-3 text-bold text-uppercase">{{ __('Acción Específica') }}:</div>
-						<div class="col-9">{{ $formulation->specificAction->description }}</div>
+						<div class="col-9">
+                            <div class="row">
+                                <div class="col-2">{{ $formulation->specificAction->code }} -</div>
+                                <div class="col-10 text-justify">
+                                    {!! $formulation->specificAction->description !!}
+                                </div>
+                            </div>
+                        </div>
 					</div>
 					<div class="row form-group">
 						<div class="col-3 text-bold text-uppercase">{{ __('Total Formulado') }}:</div>
@@ -151,16 +161,20 @@
 			@endif
 
 			$('.budget-assign').on('switchChange.bootstrapSwitch', function(e) {
-				console.log($(this).is(':checked'));
-				if ($(this).is(':checked')) {
+				var el = $(this);
+				if (el.is(':checked')) {
 					bootbox.confirm(
-						'{{ __('Esta seguro de asignar esta formulación?. Una vez asignado no puede ser modificado') }}',
+						'{{ __(
+                            'Esta seguro de asignar esta formulación?. Una vez asignado no puede ser modificado'
+                            )
+                        }}',
 						function(result) {
 							if (result) {
 								$("#form_assign").submit();
 							}
 							else {
-								$(this).is(':checked', false);
+								el.is(':checked', false);
+                                el.bootstrapSwitch('state', false, true);
 							}
 						}
 					);

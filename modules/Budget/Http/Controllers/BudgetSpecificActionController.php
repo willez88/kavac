@@ -109,7 +109,7 @@ class BudgetSpecificActionController extends Controller
             'from_date' => ['required', 'date'],
             'to_date' => ['required', 'date'],
             'code' => ['required'],
-            'name' => ['required'],
+            'name' => ['required', 'max:191'],
             'description' => ['required'],
             'project_centralized_action' => ['required'],
             'project_id' => ['required_if:project_centralized_action,project'],

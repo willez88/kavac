@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Schema::defaultStringLength(191);
+        Schema::defaultStringLength(255);
         Paginator::useBootstrap();
 
         /*foreach (\Module::collections(1) as $module) {

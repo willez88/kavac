@@ -93,7 +93,7 @@
 								<div class="form-group is-required">
 									{!! Form::label('to_date', __('Fecha final'), ['class' => 'control-label']) !!}
 									{!! Form::date('to_date', (isset($model))?$model->from_date:old('to_date'), [
-										'class' => 'form-control input-sm', 'placeholder' => 'dd/mm/YYYY',
+										'class' => 'form-control input-sm no-restrict', 'placeholder' => 'dd/mm/YYYY',
 										'data-toggle' => 'tooltip',
 										'title' => __('Fecha en la que finaliza la acción específica')
 									]) !!}

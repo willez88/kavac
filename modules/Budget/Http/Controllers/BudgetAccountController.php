@@ -269,7 +269,7 @@ class BudgetAccountController extends Controller
         $records = [];
 
         /** @var object Objeto que contiene los datos de las cuentas presupuestarias de egreso activas */
-        $accounts = BudgetAccount::where(['active' => true, 'egress' => 'true'])->get();
+        $accounts = BudgetAccount::where(['active' => true, 'egress' => true])->get();
 
         foreach ($accounts as $account) {
             /** @var array Arreglo con información de la cuenta presupuestaria */

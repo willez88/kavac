@@ -21,6 +21,7 @@ if (window.auth) {
     axios.get('/get-execution-year', {}).then(response => {
         if (response.data.result) {
             window.execution_year = response.data.year;
+            $('.fiscal-year').text(window.execution_year);
         }
     }).catch(error => {
         var err = error.toJSON();

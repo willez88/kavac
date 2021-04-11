@@ -85,7 +85,7 @@ class BudgetSubSpecificFormulationController extends Controller
             'formulated_accounts.*' => ['required']
         ]);
 
-        $year = date("Y");
+        $year = $request->fiscal_year ?? date("Y");
 
         $documentStatus = DocumentStatus::where('action', 'EL')->first();
         $codeSetting = CodeSetting::where("model", BudgetSubSpecificFormulation::class)->first();
@@ -112,7 +112,7 @@ class BudgetSubSpecificFormulationController extends Controller
         $code = generate_registration_code(
             $codeSetting->format_prefix,
             strlen($codeSetting->format_digits),
-            (strlen($codeSetting->format_year) === 2) ? date("y") : $year,
+            (strlen($codeSetting->format_year) === 2) ? date("y", mktime(0, 0, 0, 1, 1, $year)) : $year,
             BudgetSubSpecificFormulation::class,
             'code'
         );
@@ -365,19 +365,10 @@ class BudgetSubSpecificFormulationController extends Controller
             $msg = "El archivo no contiene registros a ser importados.";
         }
 
-        foreach ($records as $record) {
-            $rec = (object)$record;
-
-            if (!is_null($rec->total_real) && !is_numeric($rec->total_real)) {
-            }
-        }
         if (!empty($msg)) {
             return response()->json(['result' => false, 'message' => $msg], 200);
         }
 
-        return response()->json([
-            'result' => true,
-            'records' => Excel::toArray(new DataImport, request()->file('file'))[0]
-        ], 200);
+        return response()->json(['result' => true, 'records' => $records], 200);
     }
 }

@@ -247,6 +247,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     /** Rutas para la gestión de años fiscales */
     Route::resource('fiscal-years', 'FiscalYearController', ['except' => ['show']]);
+    Route::get('fiscal-years/opened/list', 'FiscalYearController@getOpened')->name('opened.fiscal-years');
 
     /** Rutas para la gestión de unidades de medida */
     Route::resource('measurement-units', 'MeasurementUnitController', ['except' => ['create', 'show', 'edit']]);

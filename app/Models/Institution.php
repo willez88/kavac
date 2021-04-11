@@ -150,6 +150,16 @@ class Institution extends Model implements Auditable
     }
 
     /**
+     * Institution has many FiscalYears.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function fiscalYears()
+    {
+        return $this->hasMany(FiscalYear::class);
+    }
+
+    /**
      * Filtra datos de la Organización de acuerdo al usuario autenticado
      *
      * @method     newQuery(boolean $excludeDeleted)

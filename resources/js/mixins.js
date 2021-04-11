@@ -109,7 +109,7 @@ Vue.mixin({
 				lock: true, //Indica si se bloquea o no la pantalla por inactividad
 				timer_timeout: 0
 			},
-			/**
+            /**
 			 * Opciones generales a implementar en tablas
 			 * @type {JSON}
 			 */
@@ -1072,6 +1072,14 @@ Vue.mixin({
 				}
 			}
 		},
+        getOpenedFiscalYears() {
+            const vm = this;
+            axios.get('/fiscal-years/opened/list').then(response => {
+                vm.fiscal_years = response.data.records;
+            }).catch(error => {
+                console.error(error);
+            });
+        },
 		/**
 		 * Método que permite borrar los filtros de la consulta en las tablas
 		 *

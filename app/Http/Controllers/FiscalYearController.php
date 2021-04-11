@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\FiscalYear;
+use App\Models\Institution;
 use Illuminate\Http\Request;
 
 /**
@@ -111,5 +112,31 @@ class FiscalYearController extends Controller
     public function destroy(FiscalYear $fiscalYear)
     {
         //
+    }
+
+    /**
+     * Listado de los años de ejercicio fiscal que aún no han sido cerrados
+     *
+     * @method    getOpened
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return    JsonResponse       Objeto con el listado de años de ejercicio fiscal
+     */
+    public function getOpened()
+    {
+        $currentYear = date("Y");
+        /** @var Institution Institución por defecto */
+        $institution = Institution::with(['fiscalYears'])->where('default', true)->first();
+        /** @var FiscalYear Años fiscales abiertos */
+        $fiscalYears = $institution->fiscalYears()
+                                   ->select('year as id', 'year as text')
+                                   ->where('closed', false)
+                                   ->get()
+                                   ->toArray();
+        if (!array_search($currentYear, array_column($fiscalYears, "id"))) {
+            array_push($fiscalYears, ['id' => $currentYear, 'text' => $currentYear]);
+        }
+        return response()->json(['records' => $fiscalYears], 200);
     }
 }

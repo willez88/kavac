@@ -39,4 +39,14 @@ class FiscalYear extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = ['year', 'active', 'observations'];
+
+    /**
+     * FiscalYear belongs to Institution.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function institution()
+    {
+        return $this->belongsTo(Institution::class);
+    }
 }
