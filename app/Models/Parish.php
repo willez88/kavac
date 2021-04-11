@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
+use DB;
 
 /**
  * @class Parish
@@ -66,5 +67,61 @@ class Parish extends Model implements Auditable
     public function municipality()
     {
         return $this->belongsTo(Municipality::class);
+    }
+
+    /**
+     * Scope para buscar y filtrar datos de Parroquias
+     *
+     * @method    scopeSearch
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder
+     * @param  string         $search    Cadena de texto a buscar
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(DB::raw('upper(name)'), 'LIKE', '%'.$search.'%')
+                     ->orWhere('code', 'LIKE', '%'.$search.'%')
+                     ->orWhereHas('municipality', function ($qMun) use ($search) {
+                         $qMun->where(DB::raw('upper(name)'), 'LIKE', '%'.$search.'%')
+                              ->orWhere('code', 'LIKE', '%'.$search.'%')
+                              ->orWhereHas('estate', function ($qEst) use ($search) {
+                                  $qEst->where(DB::raw('upper(name)'), 'LIKE', '%'.$search.'%')
+                                       ->orWhere('code', 'LIKE', '%'.$search.'%');
+                              });
+                     });
+    }
+
+    /**
+     * Ordena los resultados de la consulta de acuerdo a la columna establecida
+     *
+     * @method   scopeOrderByColumn
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder
+     * @param  string       $column     Nombre de la columna por la cual ordenar los resultados
+     * @param  string       $column     Método de ordenamiento, ascendente o descendente
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOrderByColumn($query, $column, $asc)
+    {
+        $method = ($asc) ? 'ASC' : 'DESC';
+
+        if ($column === 'municipality.estate.name') {
+            return $query->select('parishes.*')
+                         ->join('municipalities', 'parishes.municipality_id', '=', 'municipalities.id')
+                         ->join('estates', 'municipalities.estate_id', '=', 'estates.id')
+                         ->orderBy('estates.name', $method);
+        } elseif ($column === 'municipality.name') {
+            return $query->select('parishes.*')
+                         ->join('municipalities', 'parishes.municipality_id', '=', 'municipalities.id')
+                         ->orderBy('municipalities.name', $method);
+        }
+        return $query->orderBy($column, $method);
     }
 }

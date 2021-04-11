@@ -43,9 +43,24 @@ class ParishController extends Controller
      *
      * @return    JsonResponse    JSON con el listado de parroquias
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(['records' => Parish::with('municipality')->get()], 200);
+        $data = Parish::with('municipality');
+
+        if (!empty($request->query('query')) && $request->query('query')!=="{}") {
+            $data = $data->search($request->query('query'));
+        }
+        if ($request->orderBy) {
+            $data = $data->orderByColumn($request->orderBy, $request->ascending);
+        }
+
+        $data = $data->paginate($request->limit);
+
+        return response()->json([
+            'data' => $data->items(),
+            'count' => $data->total()
+        ], 200, [], env('APP_DEBUG') == true ? JSON_PRETTY_PRINT : 0);
+        //return response()->json(['records' => Parish::with('municipality')->get()], 200);
     }
 
     /**

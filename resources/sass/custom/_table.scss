@@ -37,6 +37,11 @@ table {
 	.form-control {
 		padding: 0.375rem 0.75rem;
 	}
+    .custom-select-sm {
+        padding-top: 0;
+        padding-bottom: 0;
+        color: #495057;
+    }
 }
 
 .dataTables_length {

@@ -114,9 +114,22 @@ Vue.mixin({
 			 * @type {JSON}
 			 */
 			table_options: {
-				pagination: { edge: true },
-				//filterByColumn: true,
 				highlightMatches: true,
+                perPage:10,
+                perPageValues:[10, 20, 50],
+                sortable: true,
+                filterable: false,
+                orderBy: false,
+                columnsDropdown: false,
+                dateFormat: "DD/MM/YYYY",
+				pagination: {
+                    show:true,
+                    dropdown: false,
+                    chunk: 10,
+                    edge: true,
+                    align: "right",
+                    nav: "fixed"
+                },
 				texts: {
 					filter: "Buscar:",
 					filterBy: 'Buscar por {column}',
@@ -126,7 +139,10 @@ Vue.mixin({
 					last: 'ÚLTIMO',
 					limit: 'Registros',
 					//page: 'Página:',
+                    loadingError: 'Oops! No se pudo cargar la información',
 					noResults: 'No existen registros',
+                    loading: "Cargando...",
+                    filterPlaceholder: "Buscar...",
 				},
 				sortIcon: {
 					is: 'fa-sort cursor-pointer',
@@ -691,6 +707,9 @@ Vue.mixin({
 							vm.records = JSON.parse(JSON.stringify(vm.records.filter((rec) => {
 								return rec.id !== id;
 							})));
+                            if (typeof(vm.$refs.tableResults) !== "undefined") {
+                                vm.$refs.tableResults.refresh();
+                            }
 							vm.showMessage('destroy');
 						}).catch(error => {
 							vm.logs('mixins.js', 498, error, 'deleteRecord');
@@ -1121,6 +1140,7 @@ Vue.mixin({
                     delay: {hide: 200}
                 });
             });
+            $("[id^=VueTables__limit]").removeClass('form-control').addClass('custom-select-sm');
         });
     }
 });

@@ -10,6 +10,8 @@
 import {ServerTable, ClientTable, Event} from 'vue-tables-2';
 /** Establece el uso del plugin ClientTable */
 Vue.use(ClientTable);
+/** Establece el uso del plugin ServerTable */
+Vue.use(ServerTable);
 
 /** Requerimiento del paquete pretty-checkbox-vue para checkbox y radio inputs personalizados */
 import PrettyCheckbox from 'pretty-checkbox-vue';

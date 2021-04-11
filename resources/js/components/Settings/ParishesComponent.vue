@@ -71,7 +71,7 @@
 	                	</div>
 	                </div>
 	                <div class="modal-body modal-table">
-	                	<v-client-table :columns="columns" :data="records" :options="table_options">
+	                	<!--<v-client-table :columns="columns" :data="records" :options="table_options">
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.row.id, $event)"
 		                				class="btn btn-warning btn-xs btn-icon btn-action"
@@ -85,7 +85,23 @@
 									<i class="fa fa-trash-o"></i>
 								</button>
 	                		</div>
-	                	</v-client-table>
+	                	</v-client-table>-->
+                        <v-server-table :url="'parishes'" :columns="columns" :options="table_options"
+                                        ref="tableResults">
+                            <div slot="id" slot-scope="props" class="text-center">
+                                <button @click="initUpdate(props.row.id, $event)"
+                                        class="btn btn-warning btn-xs btn-icon btn-action"
+                                        title="Modificar registro" data-toggle="tooltip" type="button">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                <button @click="deleteRecord(props.row.id, 'parishes')"
+                                        class="btn btn-danger btn-xs btn-icon btn-action"
+                                        title="Eliminar registro" data-toggle="tooltip"
+                                        type="button">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                            </div>
+                        </v-server-table>
 	                </div>
 		        </div>
 		    </div>
@@ -105,6 +121,7 @@
 					name: '',
 					code: ''
 				},
+                recordEdit: {},
                 selectedEstateId: '',
                 selectedMunicipalityId: '',
 				errors: [],
@@ -112,9 +129,23 @@
 				countries: [],
 				estates: ['0'],
 				municipalities: ['0'],
-				columns: ['municipality.name', 'name', 'code', 'id'],
+				columns: ['municipality.estate.name', 'municipality.name', 'name', 'code', 'id'],
 			}
 		},
+        watch: {
+            estates() {
+                const vm = this;
+                if (vm.record.id && !vm.record.estate_id) {
+                    vm.record.estate_id = vm.recordEdit.municipality.estate.id;
+                }
+            },
+            municipalities() {
+                const vm = this;
+                if (vm.record.id && !vm.record.municipality_id) {
+                    vm.record.municipality_id = vm.recordEdit.municipality.id;
+                }
+            }
+        },
 		methods: {
 			/**
 			 * Método que borra todos los datos del formulario
@@ -142,32 +173,38 @@
              * @param  {integer} index Identificador del registro a ser modificado
              * @param {object} event   Objeto que gestiona los eventos
              */
-            initUpdate(id, event) {
+            async initUpdate(id, event) {
                 let vm = this;
                 vm.errors = [];
-                let recordEdit = JSON.parse(JSON.stringify(vm.records.filter((rec) => {
+
+                let recordEdit = JSON.parse(JSON.stringify(vm.$refs.tableResults.data.filter((rec) => {
                     return rec.id === id;
                 })[0])) || vm.reset();
 
+                vm.recordEdit = recordEdit;
                 vm.record = recordEdit;
                 vm.record.country_id = recordEdit.municipality.estate.country.id;
-                vm.selectedEstateId = recordEdit.municipality.estate.id;
-                vm.selectedMunicipalityId = recordEdit.municipality.id;
+                /*vm.record.estate_id = recordEdit.municipality.estate.id;
+                vm.record.municipality_id = recordEdit.municipality.id;*/
+                /*vm.selectedEstateId = recordEdit.municipality.estate.id;
+                vm.selectedMunicipalityId = recordEdit.municipality.id;*/
                 event.preventDefault();
             }
 		},
 		created() {
 			this.table_options.headings = {
-				'municipality.name': 'Estado',
+                'municipality.estate.name': 'Estado',
+				'municipality.name': 'Municipio',
 				'name': 'Parroquia',
 				'code': 'Código',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['municipality.name', 'name', 'code'];
-			this.table_options.filterable = ['municipality.name', 'name', 'code'];
+			this.table_options.sortable = ['municipality.estate.name', 'municipality.name', 'name', 'code'];
+			this.table_options.filterable = ['municipality.estate.name', 'municipality.name', 'name', 'code'];
 			this.table_options.columnsClasses = {
+                'municipality.estate.name': 'col-md-3',
 				'municipality.name': 'col-md-3',
-				'name': 'col-md-6',
+				'name': 'col-md-3',
 				'code': 'col-md-1',
 				'id': 'col-md-2'
 			};
