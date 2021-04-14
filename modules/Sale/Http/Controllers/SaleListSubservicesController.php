@@ -5,7 +5,8 @@ namespace Modules\Sale\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Modules\Sale\Models\SaleListSubservices;
 /**
  * @class SaleListSubservicesController
  * @brief [descripción detallada]
@@ -19,6 +20,7 @@ use Illuminate\Routing\Controller;
  */
 class SaleListSubservicesController extends Controller
 {
+    use ValidatesRequests;
     /**
      * Define la configuración de la clase
      *
@@ -42,17 +44,12 @@ class SaleListSubservicesController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => SaleListSubservicesMethod::all()], 200);
+        return response()->json(['records' => SaleListSubservices::all()], 200);
     }
 
     /**
-     * [descripción del método]
-     *
-     * @method    create
-     *
-     * @author    [nombre del autor] [correo del autor]
-     *
-     * @return    Renderable    [description de los datos devueltos]
+     * Show the form for creating a new resource.
+     * @return Renderable
      */
     public function create()
     {
@@ -60,19 +57,22 @@ class SaleListSubservicesController extends Controller
     }
 
     /**
-     * [descripción del método]
+     * Valida y registra un nuevo metodo de lista de subsevicios
      *
-     * @method    store
-     *
-     * @author    [nombre del autor] [correo del autor]
-     *
-     * @param     object    Request    $request    Objeto con información de la petición
-     *
-     * @return    Renderable    [description de los datos devueltos]
+     * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request $request    Solicitud con los datos a guardar
+     * @return JsonResponse        Json: objeto guardado y mensaje de confirmación de la operación
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => ['required', 'max:100'],
+            'description' => ['required', 'max:200']
+        ]);
+        $salelistsubservicesMethod = SaleListSubservices::create([
+            'name' => $request->name,'description' => $request->description
+        ]);
+        return response()->json(['record' => $salelistsubservicesMethod, 'message' => 'Success'], 200);
     }
 
     /**
@@ -108,35 +108,47 @@ class SaleListSubservicesController extends Controller
     }
 
     /**
-     * [descripción del método]
+     * Actualiza la información del metodo de lista de subsevicios
      *
-     * @method    update
-     *
-     * @author    [nombre del autor] [correo del autor]
-     *
-     * @param     object    Request    $request         Objeto con datos de la petición
-     * @param     integer   $id        Identificador del registro
-     *
-     * @return    Renderable    [description de los datos devueltos]
+     * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request  $request   Solicitud con los datos a actualizar
+     * @param  integer $id                          Identificador del datos a actualizar
+     * @return JsonResponse        Json con mensaje de confirmación de la operación
      */
     public function update(Request $request, $id)
     {
-        //
+        $salelistsubservicesMethod = SaleListSubservices::find($id);
+        $this->validate($request, [
+            'name' => ['required', 'max:100'],
+            'description' => ['nullable', 'max:200']
+        ]);
+        $salelistsubservicesMethod->name  = $request->name;
+        $salelistsubservicesMethod->description = $request->description;
+        $salelistsubservicesMethod->save();
+        return response()->json(['message' => 'Success'], 200);
     }
 
     /**
-     * [descripción del método]
+     * Elimina el metodo de lista de subsevicios
      *
-     * @method    destroy
-     *
-     * @author    [nombre del autor] [correo del autor]
-     *
-     * @param     integer    $id    Identificador del registro
-     *
-     * @return    Renderable    [description de los datos devueltos]
+     * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+     * @param  integer $id                      Identificador del metodo de lista de subsevicios a eliminar
+     * @return JsonResponse    Json: objeto eliminado y mensaje de confirmación de la operación
      */
     public function destroy($id)
     {
-        //
+        $salelistsubservicesMethod = SaleListSubservices::find($id);
+        $salelistsubservicesMethod->delete();
+        return response()->json(['record' => $salelistsubservicesMethod, 'message' => 'Success'], 200);
+    }
+/**
+    * Obtiene los Subservicios registrados
+    *
+    * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+    * @return \Illuminate\Http\JsonResponse    Json con los datos de los Subservicios registrados
+    */
+    public function getSaleListSubServicesMethod()
+    {
+        return response()->json(template_choices('Modules\Sale\Models\SaleListSubservices', 'name', '', true));
     }
 }

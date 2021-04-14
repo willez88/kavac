@@ -35,5 +35,5 @@ class SaleListSubservices extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['name','description','custom_attribute'];
+    protected $fillable = ['name','description'];
 }

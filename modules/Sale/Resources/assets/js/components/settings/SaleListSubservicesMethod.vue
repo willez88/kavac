@@ -3,18 +3,18 @@
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
 		   title="Registros de Lista de Subservicios" data-toggle="tooltip"
 		   @click="addRecord('add_sale_list_subservices_method', 'sale/list-subservices-method', $event)">
-           <i class="icofont icofont-bill-alt ico-3x"></i>
+           <i class="icofont icofont-law-document ico-3x"></i>
 		   <span>Lista de Subservicios</span>
 		</a>
-		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_sale_payment_method">
-			<div class="modal-dialog vue-crud" role="document">
+		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_sale_list_subservices_method">
+			<div class="modal-dialog vue-crud" role="document"> 
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-bill-alt ico-3x"></i>
+							<i class="icofont icofont-law-document ico-3x"></i>
 							Lista de Subservicios
 						</h6>
 					</div>
@@ -58,7 +58,7 @@
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.row.id, 'payment-method')"
+		                		<button @click="deleteRecord(props.row.id, 'sale/list-subservices-method')"
 										class="btn btn-danger btn-xs btn-icon btn-action"
 										title="Eliminar registro" data-toggle="tooltip"
 										type="button">

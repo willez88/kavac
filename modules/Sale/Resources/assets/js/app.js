@@ -33,7 +33,7 @@ Vue.component('sale-warehouse-method', () => import(
  */
 Vue.component('sale-list-subservices-method', () => import(
     /* webpackChunkName: "sale-warehouse-method" */
-    './components/configuration/SaleListSubservicesMethod.vue')
+    './components/settings/SaleListSubservicesMethod.vue')
 );
 
 /**
@@ -249,6 +249,18 @@ Vue.mixin({
 			vm.sale_payment_method = [];
 			axios.get('/sale/get-paymentmethod').then(response => {
 				vm.sale_payment_method = response.data;
+			});
+		},
+		/**
+		 * Obtiene los datos de las Listas de Subservicios
+		 *
+		 * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+		 */
+		getSaleListSubServicesMethod() {
+			const vm = this;
+			vm.sale_list_subservices_method = [];
+			axios.get('/sale/get-listsubservicesmethod').then(response => {
+				vm.sale_list_subservices_method = response.data;
 			});
 		},
 		/**
