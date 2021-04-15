@@ -289,5 +289,25 @@ Route::group(
             'get-salelistsubservicesmethod',
             'SaleListSubservicesController@getSaleListSubservicesMethod'
         )->name('sale.get-sale-listsubservicesmethod');
+
+        /**
+
+         * ---------------------------------------------------------------------------------
+         * Rutas para gestionar la generación de facturas en el Modulo de Comercialización
+         * ---------------------------------------------------------------------------------
+         */
+
+        Route::resource('services', 'SaleServiceController', ['as' => 'sale', 'except' => ['create','edit','show']]);
+        //  Route::get('bills/create', 'SaleBillController@create')->name('sale.bills.create');
+        //  Route::get('bills', 'SaleBillController@index')->name('sale.bills.index');
+        //  Route::get('bills/vue-list', 'SaleBillController@vueList');
+        //  Route::patch('bills/{bill}', 'SaleBillController@update');
+        //  Route::get('bills/info/{bill}', 'SaleBillController@vueInfo');
+        //  Route::get('bills/edit/{bill}', 'SaleBillController@edit')->name('sale.bills.edit');
+        //  Route::delete('bills/delete/{bill}', 'SaleBillController@destroy')->name('sale.bills.destroy');
+        //  Route::put('bills/bill-approved/{bill}', 'SaleBillController@approvedBill');
+        //  Route::put('bills/bill-rejected/{bill}', 'SaleBillController@rejectedBill');
+        //  Route::get('bills/vue-approved-list/{state}', 'SaleBillController@vueApprovedList');
+        //  Route::get('bills/pdf/{id}', 'Reports\SaleBillController@pdf');
     }
 );
