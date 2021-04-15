@@ -42,10 +42,11 @@ class CodeSetting implements Rule
     public function passes($attribute, $value)
     {
         if ($value !== null) {
-            if (!substr_count($value, "-") == 2) {
+            $formatCode = str_replace("_", "", $value);
+            if (!substr_count($formatCode, "-") == 2) {
                 return false;
             }
-            list($prefix, $digits, $sufix) = explode('-', $value);
+            list($prefix, $digits, $sufix) = explode('-', $formatCode);
 
             return strlen($prefix) >= 1 && strlen($prefix) <= 3 && is_numeric($digits) && (int)$digits === 0
                    && strlen($digits) >= 4 && strlen($digits) <= 8 && (strlen($sufix) === 2
