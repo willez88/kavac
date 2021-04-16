@@ -298,7 +298,7 @@ Route::group(
          */
 
         Route::resource('services', 'SaleServiceController', ['as' => 'sale', 'except' => ['create','edit','show']]);
-        //  Route::get('bills/create', 'SaleBillController@create')->name('sale.bills.create');
+        Route::get('services/create', 'SaleServiceController@create')->name('sale.services.create');
         //  Route::get('bills', 'SaleBillController@index')->name('sale.bills.index');
         //  Route::get('bills/vue-list', 'SaleBillController@vueList');
         //  Route::patch('bills/{bill}', 'SaleBillController@update');
