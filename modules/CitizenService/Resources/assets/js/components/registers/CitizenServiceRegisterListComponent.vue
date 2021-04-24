@@ -10,7 +10,7 @@
 			<div class="d-inline-flex">
 
 				<citizenservice-register-info
-					:route_list="'registers/vue-info/' + props.row.id">
+					:route_list="'citizenservice/registers/vue-info/' + props.row.id">
 				</citizenservice-register-info>
 
 	    		<button @click="editForm(props.row.id)"
@@ -67,6 +67,7 @@
 			reset() {
 
 			},
+
 			deleteRecord(index, url) {
 	            var url = (url)?url:this.route_delete;
 	            var records = this.records;

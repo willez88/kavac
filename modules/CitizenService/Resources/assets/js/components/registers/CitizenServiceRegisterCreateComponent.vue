@@ -65,14 +65,14 @@
 					<div class="col-md-4">
 						<div class="form-group is-required">
 							<label for="start_date">Fecha de inicio</label>
-        					<input type="date" id="start_date" class="form-control input-sm" data-toggle="tooltip"
+        					<input type="date" id="start_date" class="form-control input-sm no-restrict" data-toggle="tooltip"
                                    title="Indique la fecha de inicio" v-model="record.start_date">
         				</div>
 					</div>
 					<div class="col-md-4">
 						<div class="form-group is-required">
 							<label for="end_date">Fecha de culminación</label>
-        					<input type="date" id="end_date" class="form-control input-sm" data-toggle="tooltip"
+        					<input type="date" id="end_date" class="form-control input-sm no-restrict" data-toggle="tooltip"
                                    title="Indique la fecha de culminación" v-model="record.end_date">
         				</div>
 					</div>
