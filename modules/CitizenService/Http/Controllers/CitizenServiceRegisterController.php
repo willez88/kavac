@@ -47,19 +47,19 @@ class CitizenServiceRegisterController extends Controller
 
         /** Define los mensajes de validación para las reglas del formulario */
         $this->messages = [
-            'first_name.required'   => 'El campo Nombre del director es obligatorio.',
-            'first_name.max'        => 'El campo Nombre del director no debe contener más de 100 caracteres.',
-            'first_name.regex'      => 'El campo Nombre del director no debe permitir números ni símbolos.',
-            'project_name.required' => 'El campo Nombre del proyecto es obligatorio',
-            'project_name.max'      => 'El campo Nombre del proyecto no debe contener más de 100 caracteres.',
-            'activities.required'   => 'El campo Actividades es obligatorio',
-            'activities.max'        => 'El campo Actividades no debe contener más de 100 caracteres.',
-            'start_date.required'   => 'El campo Fecha de inicio es obligatorio',
-            'end_date.required'     => 'El campo Fecha de culminación es obligatorio',
-            'email.required'        => 'El campo Correo electrónico es obligatorio',
-            'email.email'           => 'El campo Correo electrónico es de tipo email',
-            'percent.required'      => 'El campo Porcentaje de cumplimiento es obligatorio',
-            'percent.max'           => 'El campo Porcentaje de cumplimiento no debe contener más de 100 caracteres.'
+            'first_name.required'   => 'El campo nombre del director es obligatorio.',
+            'first_name.max'        => 'El campo nombre del director no debe contener más de 100 caracteres.',
+            'first_name.regex'      => 'El campo nombre del director no debe permitir números ni símbolos.',
+            'project_name.required' => 'El campo nombre del proyecto es obligatorio',
+            'project_name.max'      => 'El campo nombre del proyecto no debe contener más de 100 caracteres.',
+            'activities.required'   => 'El campo actividades es obligatorio',
+            'activities.max'        => 'El campo actividades no debe contener más de 100 caracteres.',
+            'start_date.required'   => 'El campo fecha de inicio es obligatorio',
+            'end_date.required'     => 'El campo fecha de culminación es obligatorio',
+            'email.required'        => 'El campo correo electrónico es obligatorio',
+            'email.email'           => 'El campo correo electrónico es de tipo email',
+            'percent.required'      => 'El campo porcentaje de cumplimiento es obligatorio',
+            'percent.max'           => 'El campo porcentaje de cumplimiento no debe contener más de 100 caracteres.'
         ];
     }
 
@@ -127,24 +127,24 @@ class CitizenServiceRegisterController extends Controller
      * @param  Request $request
      * @return JsonResponse
      */
-    public function update(Request $request, CitizenServiceRegister $citizenServiceRegister)
+    public function update(Request $request, $id)
     {
+        $citizenServiceRegister = CitizenServiceRegister::find($id);
         $validateRules  = $this->validateRules;
         $validateRules  = array_replace(
             $validateRules,
-            ['name' => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:100'
-            ->ignore($citizenServiceRegister->id)]]
+            ['first_name' => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:100' . $citizenServiceRegister->id]]
         );
         $this->validate($request, $validateRules, $this->messages);
 
-        $citizenServiceRegister->date_register         = $request->input('date_register');
-        $citizenServiceRegister->first_name            = $request->input('first_name');
-        $citizenServiceRegister->project_name          = $request->input('project_name');
-        $citizenServiceRegister->activities            = $request->input('activities');
-        $citizenServiceRegister->start_date            = $request->input('start_date');
-        $citizenServiceRegister->end_date              = $request->input('end_date');
-        $citizenServiceRegister->email                 = $request->input('email');
-        $citizenServiceRegister->percent               = $request->input('percent');
+        $citizenServiceRegister->date_register         = $request->date_register;
+        $citizenServiceRegister->first_name            = $request->first_name;
+        $citizenServiceRegister->project_name          = $request->project_name;
+        $citizenServiceRegister->activities            = $request->activities;
+        $citizenServiceRegister->start_date            = $request->start_date;
+        $citizenServiceRegister->end_date              = $request->end_date;
+        $citizenServiceRegister->email                 = $request->email;
+        $citizenServiceRegister->percent               = $request->percent;
         $citizenServiceRegister->save();
 
         $request->session()->flash('message', ['type' => 'update']);
