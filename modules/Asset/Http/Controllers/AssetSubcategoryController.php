@@ -9,6 +9,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Asset\Models\AssetSubcategory;
 use Modules\Asset\Models\AssetCategory;
 use Modules\Asset\Rules\Setting\AssetSubcategoryUnique;
+use Illuminate\Validation\Rule;
 
 /**
  * @class      AssetSubcategoryController
@@ -36,7 +37,8 @@ class AssetSubcategoryController extends Controller
         $this->middleware('permission:asset.setting.subcategory');
         /** Define las reglas de validación para el formulario */
         $this->validateRules = [
-            'name'          => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100'],
+            'name'          => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100',
+                                Rule::unique('asset_subcategories')],
             'code'          => ['required', 'max:10'],
             'asset_category_id' => ['required']
 
@@ -83,7 +85,7 @@ class AssetSubcategoryController extends Controller
             $validateRules
         );
 
-        $this->validate($request, $this->validateRules, $this->messages);
+        $this->validate($request, $validateRules, $this->messages);
 
 
         /**
@@ -112,12 +114,17 @@ class AssetSubcategoryController extends Controller
     public function update(Request $request, AssetSubcategory $subcategory)
     {
         $validateRules  = $this->validateRules;
+        $validateRules  = array_replace(
+            $validateRules,
+            ['name' => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100',
+                            Rule::unique('asset_subcategories')->ignore($subcategory->id)]]
+        );
         $validateRules  = array_merge(
             ['id' => [new AssetSubcategoryUnique($request->input('asset_category_id'), $request->input('code'))]],
             $validateRules
         );
 
-        $this->validate($request, $this->validateRules, $this->messages);
+        $this->validate($request, $validateRules, $this->messages);
 
         $subcategory->name = $request->input('name');
         $subcategory->code = $request->input('code');
