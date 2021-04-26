@@ -212,6 +212,25 @@
                             </div>
                         </div>
 
+                        <div class="row">
+    						<div class="col-md-4">
+    							<div class="form-group">
+    								<label>Talla de Uniforme</label>
+    								<input type="number" class="form-control input-sm"
+                                           disabled="true" id="uniform_size"/>
+    							</div>
+    						</div>
+                            <div class="col-md-4">
+    							<div class="form-group">
+    								<label>Historial Médico</label>
+    								<ckeditor :editor="ckeditor.editor" id="medical_history" data-toggle="tooltip"
+    	                                      title="Indique el historial médico" :config="ckeditor.editorConfig"
+    	                                      class="form-control" tag-name="textarea" rows="2" v-model="record.medical_history">
+    	                            </ckeditor>
+    							</div>
+    						</div>
+                        </div>
+
                         <hr>
                         <h6 class="card-title">
                             Números Telefónicos</i>
@@ -308,6 +327,7 @@
                     $('#municipality').val(this.record.parish.municipality.name);
                     $('#parish').val(this.record.parish.name);
                     $('#address').val(this.record.address);
+                    $('#uniform_size').val(this.record.uniform_size);
 				});
                 $('#show_staff').modal('show');
             },
