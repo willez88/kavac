@@ -43,8 +43,7 @@
           </a>
         </h6>
         <div class="card-btns">
-          <a href="#" title="" data-toggle="tooltip" class="card-minimize btn btn-card-action btn-round"
-             data-original-title="Minimizar">
+          <a href="#" title="" data-toggle="tooltip" class="card-minimize btn btn-card-action btn-round" data-original-title="Minimizar">
             <i class="now-ui-icons arrows-1_minimal-up"></i>
           </a>
         </div>
@@ -99,14 +98,13 @@
             <div class="modal-dialog vue-crud">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h6> <i class="icofont icofont-upload-alt inline-block"></i> Actualizar certificado</h6>
+                  <h6><i class="icofont icofont-upload-alt inline-block"></i> Actualizar certificado</h6>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form method="POST" enctype="multipart/form-data" accept-charset="UTF-8"
-                      action="{{ route('updateCertificate') }}">
+                  <form method="POST" enctype="multipart/form-data" accept-charset="UTF-8" action="{{ route('updateCertificate') }}">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                     <p>
                       <label for="pkcs12">Actualizar Certificado firmante</label>
@@ -114,27 +112,24 @@
                     </p>
                     <p>
                       <label for="phasepass">Contraseña del certificado</label>
-                      <input id="phasepass" class="form-control" type="password" name="password"
-                           placeholder="XXXXXX"  autocomplete="off" required />
+                      <input id="phasepass" class="form-control" type="password" name="password" placeholder="XXXXXX"  autocomplete="off" required />
                     </p>
                     <p class="text-right">
-                      <button type="submit" class="btn btn-success btn-icon btn-round"
-                          data-original-title="Subir certificado">
+                      <button type="submit" class="btn btn-success btn-icon btn-round" data-original-title="Subir certificado">
                         <i class="icofont icofont-upload-alt"></i>
                       </button>
                     </p>
                   </form>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
-                      data-dismiss="modal">
+                  <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" data-dismiss="modal">
                     Cerrar
                   </button>
                 </div>
               </div>
             </div>
           </div>
-          <!-- End of the update certificate button  -->
+          <!-- End of the update certificate button modal -->
 
           <!-- Modal delete certificate -->
           <div class="modal fade" id="modalConfirmDelete" tabindex="-1" aria-labelledby="modalConfirmDeleteLabel"
@@ -161,7 +156,7 @@
               </div>
             </div>
           </div>
-          <!-- End of modal of delete certificate button  -->
+          <!-- End of delete certificate button modal -->
 
           <!-- Certificate details button modal  -->
           <div class="modal fade" id="modalDetailCert" tabindex="-1" aria-labelledby="modalDetailCertLabel"
@@ -216,7 +211,7 @@
               </div>
             </div>
           </div>
-          <!-- End of modal certificate details button  -->
+          <!-- End of certificate details button modal -->
         </div>
         @endif
       </div>
@@ -239,7 +234,6 @@
         <div class="row">
           @if($cert == 'true')
             <digitalsignature-verifysign-component></digitalsignature-verifysign-component>
-
             <digitalsignature-signfile-component></digitalsignature-signfile-component>
           @endif
 
@@ -254,8 +248,9 @@
                 <span class="pt-2"> Cargar certificado </span>
               @endif
             </a>
-            <div class="modal fade" id="modalUploadCert" tabindex="-1" aria-labelledby="modalUploadCertLabel"
-               aria-hidden="true">
+
+            <!-- upload certificate button modal  -->
+            <div class="modal fade" id="modalUploadCert" tabindex="-1" aria-labelledby="modalUploadCertLabel" aria-hidden="true">
               <div class="modal-dialog vue-crud">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -265,23 +260,22 @@
                     </button>
                   </div>
                   <div class="modal-body text-left">
-                    <form method="POST" enctype="multipart/form-data" accept-charset="UTF-8"
-                        action="{{ route('signprofilestore') }}">
+                    <form method="POST" enctype="multipart/form-data" accept-charset="UTF-8" action="{{ route('signprofilestore') }}">
                       <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                       <p>
-                        <label for="pkcs12">Cargar Certificado firmante</label>
-                        <input id="pkcs12" class="form-control" type="file" name="pkcs12"
-                             accept=".p12" autocomplete="off" required />
+                        <label for="pkcs12">Cargar certificado firmante</label>
+                        <input id="pkcs12" class="form-control" type="file" name="pkcs12" accept=".p12" autocomplete="off" required />
                       </p>
                       <p>
                         <label for="phasepass">Contraseña del certificado</label>
-                        <input id="phasepass" class="form-control" type="password" name="password"
-                             placeholder="XXXXXX" autocomplete="off" required />
+                        <input id="phasepass" class="form-control" type="password" name="password" placeholder="XXXXXX" autocomplete="off" required />
                       </p>
                       <p class="text-right">
-                        <button type="submit" class="btn btn-success btn-icon btn-round"
-                            data-original-title="Subir certificado">
-                          <i class="icofont icofont-upload-alt"></i>
+                        <button class="btn btn-warning btn-icon btn-round btn-modal-close" data-dismiss="modal" data-original-title="Cancelar">
+                          <i class="fa fa-ban"></i>
+                        </button>
+                        <button type="submit" class="btn btn-success btn-icon btn-round" data-original-title="Subir certificado" title="Subir certificado">
+                          <i class="fa fa-save"></i>
                         </button>
                       </p>
                     </form>
@@ -289,6 +283,8 @@
                 </div>
               </div>
             </div>
+            <!-- End of upload certificate button modal -->
+
           </div>
         </div>
       </div>
