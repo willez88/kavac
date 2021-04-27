@@ -50,35 +50,50 @@
         </div>
       </div>
       <div class="card-body">
-
+        <!--
         @php
           $user = Auth::User();
         @endphp
+        -->
 
-        <h3 class="h4 border-bottom text-center pb-1 col-12 col-md-4"> Datos del certificado </h3>
-
-        <p class="mb-1"> <span class="font-weight-bold"> Ha iniciado sesión como: </span> {{ $user->name }} </p>
-        <p class="mb-1">
-          @if($cert == 'true')
-            <ul class="fa-ul">
-              <li><span class="font-weight-bold"> {{ __('Identidad:') }} </span> {{ $Identidad }} </li>
-              <li><span class="font-weight-bold">  {{ __('Validado por:') }} </span> {{ $Verificado }} </li>
-              <li><span class="font-weight-bold">  {{ __('Caduca:') }} </span> {{ $Caduca }} </li>
-            </ul>
-          @else
-            <p>
-              {{ __('No ha cargado un certificado') }}
-            </p>
-            <p class="text-info"> Nota: Para firmar y verificar archivos, debe cargar un certificado p12.</p>
-          @endif
-        </p>
+        @if($cert == 'true')
+          <h6 class="mb-3">Datos del certificado</h6>
+          <table class="table table-hover table-striped dt-responsive nowrap datatable">
+            <thead>
+              <tr class="text-center">
+                <th>{{ __('Identidad') }}</th>
+                <th>{{ __('Validado por') }}</th>
+                <th>{{ __('Caduca') }}</th>
+                <th>{{ __('Acción') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td>{{ $Identidad }}</td>
+                  <td class="text-center">{{ $Verificado }}</td>
+                  <td class="text-center">{{ $Caduca }}</td>
+                  <td class="text-center">
+                    <a class="btn btn-warning btn-xs btn-icon btn-action" href="#" data-target="#modalUpdateCert" data-toggle="modal" title="Actualizar certificado">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a class="btn btn-danger btn-xs btn-icon btn-action" href="#" data-target="#modalConfirmDelete" data-toggle="modal" title="Eliminar certificado">
+                      <i class="fa fa-trash-o"></i>
+                    </a>
+                    <a class="btn btn-info btn-xs btn-icon btn-action" href="#" onclick="certificateDetails()" data-target="#modalDetailCert" data-toggle="modal" title="Detalles del certificado">
+                      <i class="fa fa-eye"></i>
+                    </a>
+                  </td>
+                </tr>
+            </tbody>
+          </table>
+        @else
+          <h4>{{ __('No ha cargado un certificado') }}</h4>
+          <p class="text-info">Para firmar y verificar archivos debe cargar un certificado p12.</p>
+        @endif
 
         @if($cert == 'true')
         <div class="col-md-12">
-          <a class="btn btn-warning btn-xs btn-icon btn-action" href="#" data-target="#modalUpdateCert"
-             data-toggle="modal" title="Actualizar certificado">
-             <i class="fa fa-edit"></i>
-           </a>
+          <!-- Update certificate button modal  -->
           <div class="modal fade" id="modalUpdateCert" tabindex="-1" aria-labelledby="modalUpdateCertLabel"
              aria-hidden="true">
             <div class="modal-dialog vue-crud">
@@ -119,12 +134,9 @@
               </div>
             </div>
           </div>
+          <!-- End of the update certificate button  -->
 
-
-          <a class="btn btn-danger btn-xs btn-icon btn-action" href="#" data-target="#modalConfirmDelete"
-             data-toggle="modal" title="Eliminar certificado">
-            <i class="fa fa-trash-o"></i>
-          </a>
+          <!-- Modal delete certificate -->
           <div class="modal fade" id="modalConfirmDelete" tabindex="-1" aria-labelledby="modalConfirmDeleteLabel"
              aria-hidden="true">
             <div class="modal-dialog vue-crud">
@@ -149,11 +161,9 @@
               </div>
             </div>
           </div>
+          <!-- End of modal of delete certificate button  -->
 
-          <a class="btn btn-info btn-xs btn-icon btn-action" href="#" onclick="certificateDetails()"
-            data-target="#modalDetailCert" data-toggle="modal" title="Detalles del certificado">
-            <i class="fa fa-eye"></i>
-          </a>
+          <!-- Certificate details button modal  -->
           <div class="modal fade" id="modalDetailCert" tabindex="-1" aria-labelledby="modalDetailCertLabel"
              aria-hidden="true">
             <div class="modal-dialog vue-crud">
@@ -206,6 +216,7 @@
               </div>
             </div>
           </div>
+          <!-- End of modal certificate details button  -->
         </div>
         @endif
       </div>
