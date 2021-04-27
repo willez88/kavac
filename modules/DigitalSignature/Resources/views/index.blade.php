@@ -93,8 +93,7 @@
         @if($cert == 'true')
         <div class="col-md-12">
           <!-- Update certificate button modal  -->
-          <div class="modal fade" id="modalUpdateCert" tabindex="-1" aria-labelledby="modalUpdateCertLabel"
-             aria-hidden="true">
+          <div class="modal fade" id="modalUpdateCert" tabindex="-1" aria-labelledby="modalUpdateCertLabel" aria-hidden="true">
             <div class="modal-dialog vue-crud">
               <div class="modal-content">
                 <div class="modal-header">
@@ -157,48 +156,40 @@
           <!-- End of delete certificate button modal -->
 
           <!-- Certificate details button modal  -->
-          <div class="modal fade" id="modalDetailCert" tabindex="-1" aria-labelledby="modalDetailCertLabel"
-             aria-hidden="true">
+          <div class="modal fade" id="modalDetailCert" tabindex="-1" aria-labelledby="modalDetailCertLabel" aria-hidden="true">
             <div class="modal-dialog vue-crud">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h6> <i class="fa fa-certificate"></i> Detalles del certificado </h6>
+                  <h6><i class="fa fa-eye"></i> Detalles del certificado</h6>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <h6 class="text-info"> Nombre del asunto </h6>
-                  <ul class="fa-ul">
-                    <li> <b>C(País): </b> <span id="idsubjC"></span></li>
-                    <li> <b>ST(Estado): </b> <span id="idsubjST"></span></li>
-                    <li> <b>L(Localidad): </b> <span id="idsubjL"></span></li>
-                    <li> <b>O(Organización): </b> <span id="idsubjO"></span></li>
-                    <li> <b>OU(Unidad de organización): </b> <span id="idsubjOU"></span></li>
-                    <li> <b>CN(Nombre común): </b> <span id="idsubjCN"></span></li>
-                    <li> <b>EMAIL(Dirección de correo electrónico): </b> <span id="idsubjEMAIL"></span></li>
-                  </ul>
-
-                  <h6 class="text-info"> Nombre del emisor </h6>
-                  <ul class="fa-ul">
-                    <li> <b>C(País): </b> <span id="idissC"></span></li>
-                    <li> <b>ST(Estado): </b> <span id="idissST"></span></li>
-                    <li> <b>L(Localidad): </b> <span id="idissL"></span></li>
-                    <li> <b>O(Organización): </b> <span id="idissO"></span></li>
-                    <li> <b>OU(Unidad de organización): </b> <span id="idissOU"></span></li>
-                    <li> <b>CN(Nombre común): </b> <span id="idissCN"></span></li>
-                    <li> <b>EMAIL(Dirección de correo electrónico): </b> <span id="idissEMAIL"></span></li>
-                  </ul>
-                  <h6 class="text-info"> Certificado </h6>
-                  <ul class="fa-ul">
-                    <li> <b>Algoritmo de firma LN: </b> <span id="idsignatureTypeLN"></span></li>
-                    <li> <b>Algoritmo de firma NID: </b> <span id="idsignatureTypeNID"></span></li>
-                    <li> <b>Algoritmo de firma SN: </b> <span id="idsignatureTypeSN"></span></li>
-                    <li> <b>Serial: </b> <span id="idserialNumber"></span></li>
-                    <li> <b>Valido desde: </b> <span id="idvalidFrom"></span></li>
-                    <li> <b>Valido hasta: </b> <span id="idvalidTo"></span></li>
-                    <li> <b>Version: </b> <span id="idversion"></span></li>
-                  </ul>
+                  <h6 class="text-info">Nombre del asunto</h6>
+                  <p><b>C(País):</b> <span id="idsubjC"></span></p>
+                  <p><b>ST(Estado):</b> <span id="idsubjST"></span></p>
+                  <p><b>L(Localidad):</b> <span id="idsubjL"></span></p>
+                  <p><b>O(Organización):</b> <span id="idsubjO"></span></p>
+                  <p><b>OU(Unidad de organización):</b> <span id="idsubjOU"></span></p>
+                  <p><b>CN(Nombre común):</b> <span id="idsubjCN"></span></p>
+                  <p><b>EMAIL(Dirección de correo electrónico):</b> <span id="idsubjEMAIL"></span></p>
+                  <h6 class="text-info">Nombre del emisor</h6>
+                  <p><b>C(País):</b> <span id="idissC"></span></p>
+                  <p><b>ST(Estado):</b> <span id="idissST"></span></p>
+                  <p><b>L(Localidad):</b> <span id="idissL"></span></p>
+                  <p><b>O(Organización):</b> <span id="idissO"></span></p>
+                  <p><b>OU(Unidad de organización):</b> <span id="idissOU"></span></p>
+                  <p><b>CN(Nombre común):</b> <span id="idissCN"></span></p>
+                  <p><b>EMAIL(Dirección de correo electrónico):</b> <span id="idissEMAIL"></span></p>
+                  <h6 class="text-info">Certificado</h6>
+                  <p><b>Algoritmo de firma LN:</b> <span id="idsignatureTypeLN"></span></p>
+                  <p><b>Algoritmo de firma NID:</b> <span id="idsignatureTypeNID"></span></p>
+                  <p><b>Algoritmo de firma SN:</b> <span id="idsignatureTypeSN"></span></p>
+                  <p><b>Serial:</b> <span id="idserialNumber"></span></p>
+                  <p><b>Válido desde:</b> <span id="idvalidFrom"></span></p>
+                  <p><b>Válido hasta:</b> <span id="idvalidTo"></span></p>
+                  <p><b>Versión:</b> <span id="idversion"></span></p>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
@@ -222,8 +213,7 @@
       <div class="card-header">
         <h6 class="card-title"> Acciones Comunes </h6>
         <div class="card-btns">
-          <a href="#" data-toggle="tooltip" class="card-minimize btn btn-card-action btn-round"
-             data-original-title="Minimize Panel">
+          <a href="#" data-toggle="tooltip" class="card-minimize btn btn-card-action btn-round" data-original-title="Minimize Panel">
             <i class="now-ui-icons arrows-1_minimal-up"></i>
           </a>
         </div>
@@ -236,8 +226,7 @@
           @endif
 
           <div class="col-xs-2 text-center">
-            <a class="btn-simplex btn-simplex-md btn-simplex-primary" href="#" title="Formulario de carga del certificado"
-               data-toggle="modal" data-target="#{!! $cert=='true' ? 'modalUpdateCert' : 'modalUploadCert' !!}">
+            <a class="btn-simplex btn-simplex-md btn-simplex-primary" href="#" title="Formulario de carga del certificado" data-toggle="modal" data-target="#{!! $cert=='true' ? 'modalUpdateCert' : 'modalUploadCert' !!}">
               @if($cert == 'true')
                 <i class="icofont icofont-certificate-alt-1 ico-3x"></i>
                 <span class="pt-2"> Actualizar certificado </span>
@@ -292,10 +281,7 @@
 @stop
 
 <script>
-
-  /** Función que enviar el documento del formuario para la firma electrónica
-  */
-
+  // Función que enviar el documento del formuario para la firma electrónica.
   function signFilePdf() {
     console.log('signFile');
     let data = new FormData();
@@ -305,9 +291,7 @@
     });
   }
 
-  /** Función que muestra el detalle del certificado firmante
-  */
-
+  // Función que muestra el detalle del certificado firmante.
   function certificateDetails() {
     axios.get('{{ route('certificateDetails') }}', {
     })
