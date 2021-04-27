@@ -33,7 +33,7 @@
 						@include('buttons.minimize')
 					</div>
 				</div>
-				{!! Form::open(['route' => 'payroll.settings.store', 'method' => 'post']) !!}
+				{!! Form::open(['id' => 'form-codes', 'route' => 'payroll.settings.store', 'method' => 'post']) !!}
 					{!! Form::token() !!}
 					<div class="card-body">
 						@include('layouts.form-errors')

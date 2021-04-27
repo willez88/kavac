@@ -53,7 +53,7 @@
 						@include('buttons.minimize')
 					</div>
 				</div>
-				{!! Form::open(['route' => 'purchase.settings.store', 'method' => 'post']) !!}
+				{!! Form::open(['id' => 'form-codes', 'route' => 'purchase.settings.store', 'method' => 'post']) !!}
 					{!! Form::token() !!}
 					<div class="card-body">
 						@include('layouts.form-errors')
@@ -72,7 +72,7 @@
 											'class' => 'form-control input-sm',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código de los requerimientos de compra',
-											'placeholder' => 'Ej. XXX-0000000000-YYYY',
+											'placeholder' => 'Ej. XXX-00000000-YYYY',
 											'readonly' => ($rqCode) ? true : false
 										]
 									) !!}
@@ -87,7 +87,7 @@
 											'class' => 'form-control input-sm',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código de la cotización',
-											'placeholder' => 'Ej. XXX-0000000000-YYYY',
+											'placeholder' => 'Ej. XXX-00000000-YYYY',
 											'readonly' => ($quCode) ? true : false
 										]
 									) !!}
@@ -103,7 +103,7 @@
 											'class' => 'form-control input-sm',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código de estados',
-											'placeholder' => 'Ej. XXX-0000000000-YYYY',
+											'placeholder' => 'Ej. XXX-00000000-YYYY',
 											'readonly' => ($esCode) ? true : false
 										]
 									) !!}
@@ -119,7 +119,7 @@
 											'class' => 'form-control input-sm',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código de las actas',
-											'placeholder' => 'Ej. XXX-0000000000-YYYY',
+											'placeholder' => 'Ej. XXX-00000000-YYYY',
 											'readonly' => ($miCode) ? true : false
 										]
 									) !!}
@@ -136,7 +136,7 @@
 											'class' => 'form-control input-sm',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código de la orden de compra',
-											'placeholder' => 'Ej. XXX-0000000000-YYYY',
+											'placeholder' => 'Ej. XXX-00000000-YYYY',
 											'readonly' => ($buCode) ? true : false
 										]
 									) !!}
@@ -153,7 +153,7 @@
 											'class' => 'form-control input-sm',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código de la orden de servicio',
-											'placeholder' => 'Ej. XXX-0000000000-YYYY',
+											'placeholder' => 'Ej. XXX-00000000-YYYY',
 											'readonly' => ($soCode) ? true : false
 										]
 									) !!}
@@ -168,7 +168,7 @@
 											'class' => 'form-control input-sm',
 											'data-toggle' => 'tooltip',
 											'title' => 'Formato del código del reintegro',
-											'placeholder' => 'Ej. XXX-0000000000-YYYY',
+											'placeholder' => 'Ej. XXX-00000000-YYYY',
 											'readonly' => ($reCode) ? true : false
 										]
 									) !!}

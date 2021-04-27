@@ -57,7 +57,7 @@
 						@include('buttons.minimize')
 					</div>
 				</div>
-				{!! Form::open(['route' => 'finance.setting.store', 'method' => 'post']) !!}
+				{!! Form::open(['id' => 'form-codes', 'route' => 'finance.setting.store', 'method' => 'post']) !!}
 					{!! Form::token() !!}
 					<div class="card-body">
 						@include('layouts.form-errors')
@@ -73,7 +73,7 @@
 									{!! Form::text('checks_code', ($checkCode) ? $checkCode->format_code : old('checks_code'), [
 										'class' => 'form-control input-sm', 'data-toggle' => 'tooltip',
 										'title' => 'Formato para el código de la emisión de cheques',
-										'placeholder' => 'Ej. XXX-0000000000-YYYY',
+										'placeholder' => 'Ej. XXX-00000000-YYYY',
 										'readonly' => ($checkCode) ? true : false
 									]) !!}
 								</div>
