@@ -107,7 +107,7 @@
                   <form method="POST" enctype="multipart/form-data" accept-charset="UTF-8" action="{{ route('updateCertificate') }}">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                     <p>
-                      <label for="pkcs12">Actualizar Certificado firmante</label>
+                      <label for="pkcs12">Actualizar certificado del firmante</label>
                       <input id="pkcs12" type="file" class="form-control" name="pkcs12" accept=".p12" required />
                     </p>
                     <p>
@@ -115,16 +115,14 @@
                       <input id="phasepass" class="form-control" type="password" name="password" placeholder="XXXXXX"  autocomplete="off" required />
                     </p>
                     <p class="text-right">
-                      <button type="submit" class="btn btn-success btn-icon btn-round" data-original-title="Subir certificado">
-                        <i class="icofont icofont-upload-alt"></i>
+                      <button class="btn btn-warning btn-icon btn-round btn-modal-close" data-dismiss="modal" data-original-title="Cancelar">
+                        <i class="fa fa-ban"></i>
+                      </button>
+                      <button type="submit" class="btn btn-success btn-icon btn-round" data-original-title="Subir certificado" title="Subir certificado">
+                        <i class="fa fa-save"></i>
                       </button>
                     </p>
                   </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" data-dismiss="modal">
-                    Cerrar
-                  </button>
                 </div>
               </div>
             </div>
@@ -263,7 +261,7 @@
                     <form method="POST" enctype="multipart/form-data" accept-charset="UTF-8" action="{{ route('signprofilestore') }}">
                       <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                       <p>
-                        <label for="pkcs12">Cargar certificado firmante</label>
+                        <label for="pkcs12">Cargar certificado del firmante</label>
                         <input id="pkcs12" class="form-control" type="file" name="pkcs12" accept=".p12" autocomplete="off" required />
                       </p>
                       <p>
