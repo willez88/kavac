@@ -3,7 +3,7 @@
         <a class="btn-simplex btn-simplex-md btn-simplex-primary" href title="Firmar PDF" data-toggle="tooltip"
            @click="addRecord('digitalsignature-apiVerifySign', '', $event)">
             <i class="icofont icofont-file-pdf ico-3x"></i>
-            <span>Verificar firma PDF </span>
+            <span>Verificar firma PDF</span>
         </a>
         <div class="modal fade text-left" tabindex="-1" role="dialog" id="digitalsignature-apiVerifySign">
             <div class="modal-dialog modal-lg">
@@ -14,7 +14,7 @@
                         </button>
                         <h6>
                             <i class="icofont icofont-file-pdf ico-2x"></i>
-                            Verificar documentos PDF
+                            Verificar documento PDF
                         </h6>
                     </div>
                     <div class="modal-body">

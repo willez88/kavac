@@ -3,7 +3,7 @@
         <a class="btn-simplex btn-simplex-md btn-simplex-primary" href title="Firmar PDF" data-toggle="tooltip"
            @click="addRecord('digitalsignature-apiSignFile', '', $event)">
             <i class="icofont icofont-fountain-pen ico-3x"></i>
-            <span> Firmar PDF </span>
+            <span>Firmar PDF</span>
         </a>
         <div class="modal fade text-left" tabindex="-1" role="dialog" id="digitalsignature-apiSignFile">
             <div class="modal-dialog modal-lg">
@@ -14,7 +14,7 @@
                         </button>
                         <h6>
                             <i class="icofont icofont-fountain-pen ico-2x"></i>
-                            Firmar PDF
+                            Firmar documento PDF
                         </h6>
                     </div>
                     <div class="modal-body">
