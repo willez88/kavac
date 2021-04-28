@@ -33,7 +33,7 @@ Vue.component('sale-warehouse-method', () => import(
  */
 Vue.component('sale-list-subservices-method', () => import(
     /* webpackChunkName: "sale-warehouse-method" */
-    './components/configuration/SaleListSubservicesMethod.vue')
+    './components/settings/SaleListSubservicesMethod.vue')
 );
 
 /**
@@ -235,6 +235,46 @@ Vue.component('sale-type-good', () => import(
 );
 
 /**
+ * Componente para mostrar un listado de las solicitudes de servicios
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-service-list', () => import(
+    /* webpackChunkName: "sale-service-list" */
+    './components/services/SaleServiceListComponent.vue')
+);
+
+/**
+ * Componente para mostrar un listado de las solicitudes de servicios pendientes
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-service-pending-list', () => import(
+    /* webpackChunkName: "sale-service-pending-list" */
+    './components/services/SaleServicePendingListComponent.vue')
+);
+
+/**
+ * Componente para mostrar un listado de las solicitudes de servicios rechazadas
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-service-rejected-list', () => import(
+    /* webpackChunkName: "sale-service-rejected-list" */
+    './components/services/SaleServiceRejectedListComponent.vue')
+);
+
+/**
+ * Componente para mostrar un listado de las propuestas técnicas de solicitudes de servicios
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-technical-proposal-list', () => import(
+    /* webpackChunkName: "sale-technical-proposal-list" */
+    './components/services/SaleTechnicalProposalListComponent.vue')
+);
+
+/**
  * Opciones de configuración global del módulo de Commercialización
  */
 Vue.mixin({
@@ -249,6 +289,18 @@ Vue.mixin({
 			vm.sale_payment_method = [];
 			axios.get('/sale/get-paymentmethod').then(response => {
 				vm.sale_payment_method = response.data;
+			});
+		},
+		/**
+		 * Obtiene los datos de las Listas de Subservicios
+		 *
+		 * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+		 */
+		getSaleListSubServicesMethod() {
+			const vm = this;
+			vm.sale_list_subservices_method = [];
+			axios.get('/sale/get-listsubservicesmethod').then(response => {
+				vm.sale_list_subservices_method = response.data;
 			});
 		},
 		/**

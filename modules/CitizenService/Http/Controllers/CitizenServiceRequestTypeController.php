@@ -8,10 +8,50 @@ use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\CitizenService\Models\CitizenServiceRequestType;
+use Illuminate\Validation\Rule;
 
 class CitizenServiceRequestTypeController extends Controller
 {
     use ValidatesRequests;
+    /**
+     * Arreglo con las reglas de validación sobre los datos de un formulario
+     * @var Array $validateRules
+     */
+    protected $validateRules;
+    /**
+     * Arreglo con los mensajes para las reglas de validación
+     * @var Array $messages
+     */
+    protected $messages;
+
+    /**
+     * Define la configuración de la clase
+     *
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        /** Define las reglas de validación para el formulario */
+        $this->validateRules = [
+            'name'        => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:100'],
+            'description' => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:200'],
+            'requirement' => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:300']
+        ];
+
+        /** Define los mensajes de validación para las reglas del formulario */
+        $this->messages = [
+            'name.required'         => 'El campo nombre es obligatorio.',
+            'name.max'              => 'El campo nombre no debe contener más de 100 caracteres.',
+            'name.regex'            => 'El campo nombre no debe permitir números ni símbolos.',
+            'description.required'  => 'El campo descripción es obligatorio',
+            'description.max'       => 'El campo descripción no debe contener más de 100 caracteres.',
+            'description.regex'     => 'El campo descripción no debe permitir números ni símbolos.',
+            'requirement.required'  => 'El campo requerimientos de solicitud es obligatorio',
+            'requirement.max'       => 'El campo requerimientos de solicitud no debe contener más de 100 caracteres.',
+            'requirement.regex'     => 'El campo requerimientos de solicitud no debe permitir números ni símbolos.'
+        ];
+    }
     /**
       * Define la configuración de la clase
       *
@@ -40,20 +80,18 @@ class CitizenServiceRequestTypeController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name'        => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:100'],
-            'description' => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:200'],
-            'requirement' => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:300']
-        ]);
+        $this->validate($request, $this->validateRules, $this->messages);
+
+        //Guardar los registros del formulario en  CitizenServiceRequestType
         $citizenserviceRequestType = CitizenServiceRequestType::create([
-            'name'        => $request->name,
-            'description' => $request->description,
-            'requirement' => $request->requirement
+
+            'name'          => $request->input('name'),
+            'description'   => $request->input('description'),
+            'requirement'   => $request->input('requirement'),
         ]);
+
         return response()->json(['record' => $citizenserviceRequestType, 'message' => 'Success'], 200);
     }
-
-
     /**
      * Show the specified resource.
      * @return Renderable
@@ -82,15 +120,18 @@ class CitizenServiceRequestTypeController extends Controller
     public function update(Request $request, $id)
     {
         $citizenserviceRequestType = CitizenServiceRequestType::find($id);
-        $this->validate($request, [
-            'name'        => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:100'],
-            'description' => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:200'],
-            'requirement' => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:300']
-        ]);
-        $citizenserviceRequestType->name        = $request->name;
-        $citizenserviceRequestType->description = $request->description;
-        $citizenserviceRequestType->requirement = $request->requirement;
+        $validateRules  = $this->validateRules;
+        $validateRules  = array_replace(
+            $validateRules,
+            ['name' => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:100' . $citizenserviceRequestType->id]]
+        );
+        $this->validate($request, $validateRules, $this->messages);
+
+        $citizenserviceRequestType->name          = $request->name;
+        $citizenserviceRequestType->description   = $request->description;
+        $citizenserviceRequestType->requirement   = $request->requirement;
         $citizenserviceRequestType->save();
+
         return response()->json(['message' => 'Success'], 200);
     }
 

@@ -55,7 +55,7 @@ class AssetSpecificCategoryUnique implements Rule
      */
     public function passes($attribute, $value)
     {
-        $assetCategories = AssetSpecificCategory::where('asset_subcategory_id', $this->asset_type_id)
+        $assetCategories = AssetSpecificCategory::where('asset_subcategory_id', $this->asset_subcategory_id)
                          ->where('code', $this->code)
                          ->where('id', '<>', $value)
                          ->get();
