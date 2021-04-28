@@ -1,12 +1,13 @@
 <div class="row">
 	<div class="col-12">
-		<div class="card "id="helpGeneralParamsForm">
+		<div class="card" id="helpGeneralParamsForm">
 			<div class="card-header">
-				<h6 class="card-title">Parámetros Generales
+				<h6 class="card-title">
+					{{ __('Parámetros Generales') }}
 					@include('buttons.help', [
-					    'helpId' => 'GeneralParamsForm',
-							'helpSteps' => get_json_resource('ui-guides/settings/general_parameters.json', 'warehouse')
-						])
+				    	'helpId' => 'WarehouseGeneralParamsForm',
+						'helpSteps' => get_json_resource('ui-guides/settings/general_parameters.json', 'warehouse')
+					])
 				</h6>
 				<div class="card-btns">
 					@include('buttons.previous', ['route' => url()->previous()])
@@ -19,7 +20,7 @@
 					<div class="row">
 						<div class="col-md-3" id="switchMultiWarehouse">
 							<div class="form-group">
-								<label for="" class="control-label">Multi Almacén (varios almacenes)</label>
+								<label for="" class="control-label"> {{ __('Multi Almacén') }} </label>
 								<div class="col-12">
                                     <div class="bootstrap-switch-mini">
     									{!! Form::checkbox('multi_warehouse', true,

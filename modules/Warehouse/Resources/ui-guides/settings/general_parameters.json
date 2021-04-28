@@ -1,11 +1,11 @@
 [
     {
         "element" : "#helpGeneralParamsForm",
-        "intro" : "Esta sección permite establecer los parámetros generales del módulo de almacén",
+        "intro" : "Esta sección permite establecer los parámetros generales del módulo de almacén"
     },
     {
         "element" : "#switchMultiWarehouse",
-        "intro" : "Habilita/Deshabilita la opción de múltiple almacén en la aplicación",
+        "intro" : "Habilita/Deshabilita la opción de gestión para múltiples almacenes en la aplicación",
         "position" : "right"
     }
 ]

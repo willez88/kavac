@@ -1,10 +1,10 @@
 <template>
-	<section>
+	<section id="warehouseProductRuleFormComponent">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-		   href="#" title="Reglas de Abastecimiento del Almacén" data-toggle="tooltip"
+		   href="#" title="Reglas de abastecimiento del almacén" data-toggle="tooltip" v-has-tooltip
 		   @click="addRecord('add_rule', 'warehouse/rules', $event)">
 			<i class="icofont icofont-law-document ico-3x"></i>
-			<span>Reglas de Abastecimiento</span>
+			<span>Reglas de abastecimiento</span>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_rule">
 			<div class="modal-dialog vue-crud" role="document">
@@ -15,7 +15,7 @@
 						</button>
 						<h6>
 							<i class="icofont icofont-law-document ico-2x"></i>
-							Reglas de Abastecimiento del Almacén
+							Reglas de abastecimiento del almacén
 						</h6>
 					</div>
 					<div class="modal-body">
@@ -39,7 +39,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label>Institución que gestiona el Almacén:</label>
+									<label>Organización que gestiona el almacén:</label>
 									<select2 :options="institutions"
 											 v-model="institution_id"
 											 @input="getWarehouses()">
@@ -148,20 +148,20 @@
 		data() {
 			return {
 				record: {
-					id:'',
-					minimum: '',
-					maximum: '',
+					id: 							'',
+					minimum: 						'',
+					maximum: 						'',
 					warehouse_inventory_product_id: '',
 				},
 
-				editIndex: null,
+				editIndex:      null,
 				institution_id: '',
-				warehouse_id: '',
-				warehouses: [],
-				institutions: [],
-				errors: [],
-				records: [],
-				columns: ['code', 'description', 'details', 'inventory', 'rules', 'id'],
+				warehouse_id:   '',
+				warehouses:     [],
+				institutions:   [],
+				errors:         [],
+				records:        [],
+				columns:        ['code', 'description', 'details', 'inventory', 'rules', 'id'],
 			}
 		},
 		methods: {
@@ -172,15 +172,16 @@
 			 */
 			reset()
 			{
-				this.record = {
-					id: '',
-					minimum: '',
-					maximum: '',
+				const vm = this;
+				vm.record = {
+					id:      						'',
+					minimum: 						'',
+					maximum: 						'',
 					warehouse_inventory_product_id: '',
 				};
-				this.editIndex = null;
-				this.institution_id = '';
-				this.warehouse_id = '';
+				vm.editIndex      = null;
+				vm.institution_id = '';
+				vm.warehouse_id   = '';
 			},
 			/**
 	         * Método que obtiene los datos de los productos inventariados
@@ -220,9 +221,9 @@
 
 				if (vm.records[index-1].warehouse_inventory_rule == null)
 					this.record = {
-						id: '',
-						minimum: '',
-						maximum: '',
+						id:      						'',
+						minimum: 						'',
+						maximum: 						'',
 						warehouse_inventory_product_id: vm.records[index-1].id,
 					};
 				else
@@ -274,22 +275,22 @@
 		created() {
 			this.getInstitutions();
 			this.table_options.headings = {
-				'code': 'Código',
+				'code':        'Código',
 				'description': 'Descripción',
-				'details': 'Detalles',
-				'inventory': 'Inventario',
-				'rules': 'Reglas',
-				'id': 'Acción'
+				'details':     'Detalles',
+				'inventory':   'Inventario',
+				'rules':       'Reglas',
+				'id':          'Acción'
 			};
-			this.table_options.sortable = ['code', 'description', 'details', 'inventory', 'rules'];
-			this.table_options.filterable = ['code', 'description', 'details', 'inventory', 'rules'];
+			this.table_options.sortable       = ['code', 'description', 'details', 'inventory', 'rules'];
+			this.table_options.filterable     = ['code', 'description', 'details', 'inventory', 'rules'];
 			this.table_options.columnsClasses = {
-                'code': 'col-xs-2',
+                'code':        'col-xs-2',
                 'description': 'col-xs-2',
-                'details': 'col-xs-2',
-                'inventory': 'col-xs-2',
-                'rules': 'col-xs-2',
-                'id': 'col-xs-2'
+                'details':     'col-xs-2',
+                'inventory':   'col-xs-2',
+                'rules':       'col-xs-2',
+                'id':          'col-xs-2'
             };
 		},
 		mounted() {
