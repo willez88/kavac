@@ -1,7 +1,7 @@
 [
     {
         "element" : "#helpConfigParamsForm",
-        "intro" : "Esta sección permite establecer la configuración del módulo de almacén",
+        "intro" : "Esta sección permite establecer la configuración del módulo de almacén"
     },
     {
         "element" : "#helpWarehouses",
@@ -9,7 +9,7 @@
     },
     {
         "element" : "#helpWarehouseProducts",
-        "intro" : "Gestiona información acerca de los productos almacenables"
+        "intro" : "Gestiona información acerca de los insumos almacenables"
     },
     {
         "element" : "#helpWarehouseRules",
