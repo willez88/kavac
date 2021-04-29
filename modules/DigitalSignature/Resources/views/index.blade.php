@@ -43,91 +43,99 @@
           </a>
         </h6>
         <div class="card-btns">
-          <a href="#" title="" data-toggle="tooltip" class="card-minimize btn btn-card-action btn-round"
-             data-original-title="Minimizar">
+          <a href="#" title="" data-toggle="tooltip" class="card-minimize btn btn-card-action btn-round" data-original-title="Minimizar">
             <i class="now-ui-icons arrows-1_minimal-up"></i>
           </a>
         </div>
       </div>
       <div class="card-body">
-
+        <!--
         @php
           $user = Auth::User();
         @endphp
+        -->
 
-        <h3 class="h4 border-bottom text-center pb-1 col-12 col-md-4"> Datos del certificado </h3>
-
-        <p class="mb-1"> <span class="font-weight-bold"> Ha iniciado sesión como: </span> {{ $user->name }} </p>
-        <p class="mb-1">
-          @if($cert == 'true')
-            <ul class="fa-ul">
-              <li><span class="font-weight-bold"> {{ __('Identidad:') }} </span> {{ $Identidad }} </li>
-              <li><span class="font-weight-bold">  {{ __('Validado por:') }} </span> {{ $Verificado }} </li>
-              <li><span class="font-weight-bold">  {{ __('Caduca:') }} </span> {{ $Caduca }} </li>
-            </ul>
-          @else
-            <p>
-              {{ __('No ha cargado un certificado') }}
-            </p>
-            <p class="text-info"> Nota: Para firmar y verificar archivos, debe cargar un certificado p12.</p>
-          @endif
-        </p>
+        @if($cert == 'true')
+          <h6 class="mb-3">Datos del certificado</h6>
+          <table class="table table-hover table-striped dt-responsive nowrap datatable">
+            <thead>
+              <tr class="text-center">
+                <th>{{ __('Identidad') }}</th>
+                <th>{{ __('Validado por') }}</th>
+                <th>{{ __('Caduca') }}</th>
+                <th>{{ __('Acción') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td>{{ $Identidad }}</td>
+                  <td class="text-center">{{ $Verificado }}</td>
+                  <td class="text-center">{{ $Caduca }}</td>
+                  <td class="text-center">
+                    <a class="btn btn-warning btn-xs btn-icon btn-action" href="#" data-target="#modalUpdateCert" data-toggle="modal" title="Actualizar certificado">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                    <a class="btn btn-danger btn-xs btn-icon btn-action" href="#" data-target="#modalConfirmDelete" data-toggle="modal" title="Eliminar certificado">
+                      <i class="fa fa-trash-o"></i>
+                    </a>
+                    <a class="btn btn-info btn-xs btn-icon btn-action" href="#" onclick="certificateDetails()" data-target="#modalDetailCert" data-toggle="modal" title="Detalles del certificado">
+                      <i class="fa fa-eye"></i>
+                    </a>
+                  </td>
+                </tr>
+            </tbody>
+          </table>
+        @else
+          <h4>{{ __('No ha cargado un certificado') }}</h4>
+          <p class="text-info">Para firmar y verificar archivos debe cargar un certificado p12.</p>
+        @endif
 
         @if($cert == 'true')
         <div class="col-md-12">
-          <a class="btn btn-warning btn-xs btn-icon btn-action" href="#" data-target="#modalUpdateCert"
-             data-toggle="modal" title="Actualizar certificado">
-             <i class="fa fa-edit"></i>
-           </a>
-          <div class="modal fade" id="modalUpdateCert" tabindex="-1" aria-labelledby="modalUpdateCertLabel"
-             aria-hidden="true">
-            <div class="modal-dialog vue-crud">
+          <!-- Update certificate button modal  -->
+          <div class="modal fade" id="modalUpdateCert" tabindex="-1" aria-labelledby="modalUpdateCertLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg vue-crud">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h6> <i class="icofont icofont-upload-alt inline-block"></i> Actualizar certificado</h6>
+                  <h6 style="color:#636e7b">
+                    <i class="icofont icofont-certificate-alt-1 ico-2x"></i>
+                      Actualizar certificado
+                  </h6>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <div class="modal-body">
-                  <form method="POST" enctype="multipart/form-data" accept-charset="UTF-8"
-                      action="{{ route('updateCertificate') }}">
+                <form method="POST" enctype="multipart/form-data" accept-charset="UTF-8" action="{{ route('updateCertificate') }}">
+                  <div class="modal-body">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                     <p>
-                      <label for="pkcs12">Actualizar Certificado firmante</label>
+                      <label for="pkcs12">Actualizar certificado del firmante</label>
                       <input id="pkcs12" type="file" class="form-control" name="pkcs12" accept=".p12" required />
                     </p>
                     <p>
                       <label for="phasepass">Contraseña del certificado</label>
-                      <input id="phasepass" class="form-control" type="password" name="password"
-                           placeholder="XXXXXX"  autocomplete="off" required />
+                      <input id="phasepass" class="form-control" type="password" name="password" placeholder="XXXXXX"  autocomplete="off" required />
                     </p>
-                    <p class="text-right">
-                      <button type="submit" class="btn btn-success btn-icon btn-round"
-                          data-original-title="Subir certificado">
-                        <i class="icofont icofont-upload-alt"></i>
-                      </button>
-                    </p>
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
-                      data-dismiss="modal">
-                    Cerrar
-                  </button>
-                </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-default btn-sm btn-round btn-modal-close" type="button" @click="reset()" data-dismiss="modal">
+                      Cerrar
+                    </button>
+                    <button class="btn btn-primary btn-sm btn-round btn-modal-close">
+                      <i class="fa fa-upload"></i>
+                      Subir certificado
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
+          <!-- End of the update certificate button modal -->
 
-
-          <a class="btn btn-danger btn-xs btn-icon btn-action" href="#" data-target="#modalConfirmDelete"
-             data-toggle="modal" title="Eliminar certificado">
-            <i class="fa fa-trash-o"></i>
-          </a>
+          <!-- Modal delete certificate -->
           <div class="modal fade" id="modalConfirmDelete" tabindex="-1" aria-labelledby="modalConfirmDeleteLabel"
              aria-hidden="true">
-            <div class="modal-dialog vue-crud">
+            <div class="modal-dialog modal-sm vue-crud">
               <div class="modal-content">
                 <div class="modal-header">
                   <h6><i class="fa fa-times inline-block"></i> Eliminar certificado</h6>
@@ -139,63 +147,53 @@
                   <p class="pb-3"> ¿Está seguro de eliminar el certificado? </p>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default btn-modal-close" data-dismiss="modal">
-                    <i class="fa fa-times"></i> Cancelar
+                  <button class="btn btn-default btn-sm btn-round btn-modal-close" type="button" @click="reset()" data-dismiss="modal">
+                    Cerrar
                   </button>
-                  <a class="btn btn-primary" href="{{ route('deleteCertificate') }}">
+                  <a class="btn btn-primary btn-sm btn-round" href="{{ route('deleteCertificate') }}">
                     <i class="fa fa-check"></i> Confirmar
                   </a>
                 </div>
               </div>
             </div>
           </div>
+          <!-- End of delete certificate button modal -->
 
-          <a class="btn btn-info btn-xs btn-icon btn-action" href="#" onclick="certificateDetails()"
-            data-target="#modalDetailCert" data-toggle="modal" title="Detalles del certificado">
-            <i class="fa fa-eye"></i>
-          </a>
-          <div class="modal fade" id="modalDetailCert" tabindex="-1" aria-labelledby="modalDetailCertLabel"
-             aria-hidden="true">
+          <!-- Certificate details button modal  -->
+          <div class="modal fade" id="modalDetailCert" tabindex="-1" aria-labelledby="modalDetailCertLabel" aria-hidden="true">
             <div class="modal-dialog vue-crud">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h6> <i class="fa fa-certificate"></i> Detalles del certificado </h6>
+                  <h6><i class="fa fa-eye"></i> Detalles del certificado</h6>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <h6 class="text-info"> Nombre del asunto </h6>
-                  <ul class="fa-ul">
-                    <li> <b>C(País): </b> <span id="idsubjC"></span></li>
-                    <li> <b>ST(Estado): </b> <span id="idsubjST"></span></li>
-                    <li> <b>L(Localidad): </b> <span id="idsubjL"></span></li>
-                    <li> <b>O(Organización): </b> <span id="idsubjO"></span></li>
-                    <li> <b>OU(Unidad de organización): </b> <span id="idsubjOU"></span></li>
-                    <li> <b>CN(Nombre común): </b> <span id="idsubjCN"></span></li>
-                    <li> <b>EMAIL(Dirección de correo electrónico): </b> <span id="idsubjEMAIL"></span></li>
-                  </ul>
-
-                  <h6 class="text-info"> Nombre del emisor </h6>
-                  <ul class="fa-ul">
-                    <li> <b>C(País): </b> <span id="idissC"></span></li>
-                    <li> <b>ST(Estado): </b> <span id="idissST"></span></li>
-                    <li> <b>L(Localidad): </b> <span id="idissL"></span></li>
-                    <li> <b>O(Organización): </b> <span id="idissO"></span></li>
-                    <li> <b>OU(Unidad de organización): </b> <span id="idissOU"></span></li>
-                    <li> <b>CN(Nombre común): </b> <span id="idissCN"></span></li>
-                    <li> <b>EMAIL(Dirección de correo electrónico): </b> <span id="idissEMAIL"></span></li>
-                  </ul>
-                  <h6 class="text-info"> Certificado </h6>
-                  <ul class="fa-ul">
-                    <li> <b>Algoritmo de firma LN: </b> <span id="idsignatureTypeLN"></span></li>
-                    <li> <b>Algoritmo de firma NID: </b> <span id="idsignatureTypeNID"></span></li>
-                    <li> <b>Algoritmo de firma SN: </b> <span id="idsignatureTypeSN"></span></li>
-                    <li> <b>Serial: </b> <span id="idserialNumber"></span></li>
-                    <li> <b>Valido desde: </b> <span id="idvalidFrom"></span></li>
-                    <li> <b>Valido hasta: </b> <span id="idvalidTo"></span></li>
-                    <li> <b>Version: </b> <span id="idversion"></span></li>
-                  </ul>
+                  <h6 class="text-info">Nombre del asunto</h6>
+                  <p><b>C(País):</b> <span id="idsubjC"></span></p>
+                  <p><b>ST(Estado):</b> <span id="idsubjST"></span></p>
+                  <p><b>L(Localidad):</b> <span id="idsubjL"></span></p>
+                  <p><b>O(Organización):</b> <span id="idsubjO"></span></p>
+                  <p><b>OU(Unidad de organización):</b> <span id="idsubjOU"></span></p>
+                  <p><b>CN(Nombre común):</b> <span id="idsubjCN"></span></p>
+                  <p><b>EMAIL(Dirección de correo electrónico):</b> <span id="idsubjEMAIL"></span></p>
+                  <h6 class="text-info">Nombre del emisor</h6>
+                  <p><b>C(País):</b> <span id="idissC"></span></p>
+                  <p><b>ST(Estado):</b> <span id="idissST"></span></p>
+                  <p><b>L(Localidad):</b> <span id="idissL"></span></p>
+                  <p><b>O(Organización):</b> <span id="idissO"></span></p>
+                  <p><b>OU(Unidad de organización):</b> <span id="idissOU"></span></p>
+                  <p><b>CN(Nombre común):</b> <span id="idissCN"></span></p>
+                  <p><b>EMAIL(Dirección de correo electrónico):</b> <span id="idissEMAIL"></span></p>
+                  <h6 class="text-info">Certificado</h6>
+                  <p><b>Algoritmo de firma LN:</b> <span id="idsignatureTypeLN"></span></p>
+                  <p><b>Algoritmo de firma NID:</b> <span id="idsignatureTypeNID"></span></p>
+                  <p><b>Algoritmo de firma SN:</b> <span id="idsignatureTypeSN"></span></p>
+                  <p><b>Serial:</b> <span id="idserialNumber"></span></p>
+                  <p><b>Válido desde:</b> <span id="idvalidFrom"></span></p>
+                  <p><b>Válido hasta:</b> <span id="idvalidTo"></span></p>
+                  <p><b>Versión:</b> <span id="idversion"></span></p>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
@@ -206,6 +204,7 @@
               </div>
             </div>
           </div>
+          <!-- End of certificate details button modal -->
         </div>
         @endif
       </div>
@@ -218,8 +217,7 @@
       <div class="card-header">
         <h6 class="card-title"> Acciones Comunes </h6>
         <div class="card-btns">
-          <a href="#" data-toggle="tooltip" class="card-minimize btn btn-card-action btn-round"
-             data-original-title="Minimize Panel">
+          <a href="#" data-toggle="tooltip" class="card-minimize btn btn-card-action btn-round" data-original-title="Minimize Panel">
             <i class="now-ui-icons arrows-1_minimal-up"></i>
           </a>
         </div>
@@ -228,13 +226,11 @@
         <div class="row">
           @if($cert == 'true')
             <digitalsignature-verifysign-component></digitalsignature-verifysign-component>
-
             <digitalsignature-signfile-component></digitalsignature-signfile-component>
           @endif
 
           <div class="col-xs-2 text-center">
-            <a class="btn-simplex btn-simplex-md btn-simplex-primary" href="#" title="Formulario de carga del certificado"
-               data-toggle="modal" data-target="#{!! $cert=='true' ? 'modalUpdateCert' : 'modalUploadCert' !!}">
+            <a class="btn-simplex btn-simplex-md btn-simplex-primary" href="#" title="Formulario de carga del certificado" data-toggle="modal" data-target="#{!! $cert=='true' ? 'modalUpdateCert' : 'modalUploadCert' !!}">
               @if($cert == 'true')
                 <i class="icofont icofont-certificate-alt-1 ico-3x"></i>
                 <span class="pt-2"> Actualizar certificado </span>
@@ -243,8 +239,9 @@
                 <span class="pt-2"> Cargar certificado </span>
               @endif
             </a>
-            <div class="modal fade" id="modalUploadCert" tabindex="-1" aria-labelledby="modalUploadCertLabel"
-               aria-hidden="true">
+
+            <!-- upload certificate button modal  -->
+            <div class="modal fade" id="modalUploadCert" tabindex="-1" aria-labelledby="modalUploadCertLabel" aria-hidden="true">
               <div class="modal-dialog vue-crud">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -254,23 +251,22 @@
                     </button>
                   </div>
                   <div class="modal-body text-left">
-                    <form method="POST" enctype="multipart/form-data" accept-charset="UTF-8"
-                        action="{{ route('signprofilestore') }}">
+                    <form method="POST" enctype="multipart/form-data" accept-charset="UTF-8" action="{{ route('signprofilestore') }}">
                       <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                       <p>
-                        <label for="pkcs12">Cargar Certificado firmante</label>
-                        <input id="pkcs12" class="form-control" type="file" name="pkcs12"
-                             accept=".p12" autocomplete="off" required />
+                        <label for="pkcs12">Cargar certificado del firmante</label>
+                        <input id="pkcs12" class="form-control" type="file" name="pkcs12" accept=".p12" autocomplete="off" required />
                       </p>
                       <p>
                         <label for="phasepass">Contraseña del certificado</label>
-                        <input id="phasepass" class="form-control" type="password" name="password"
-                             placeholder="XXXXXX" autocomplete="off" required />
+                        <input id="phasepass" class="form-control" type="password" name="password" placeholder="XXXXXX" autocomplete="off" required />
                       </p>
                       <p class="text-right">
-                        <button type="submit" class="btn btn-success btn-icon btn-round"
-                            data-original-title="Subir certificado">
-                          <i class="icofont icofont-upload-alt"></i>
+                        <button class="btn btn-warning btn-icon btn-round btn-modal-close" data-dismiss="modal" data-original-title="Cancelar">
+                          <i class="fa fa-ban"></i>
+                        </button>
+                        <button type="submit" class="btn btn-success btn-icon btn-round" data-original-title="Subir certificado" title="Subir certificado">
+                          <i class="fa fa-save"></i>
                         </button>
                       </p>
                     </form>
@@ -278,6 +274,8 @@
                 </div>
               </div>
             </div>
+            <!-- End of upload certificate button modal -->
+
           </div>
         </div>
       </div>
@@ -287,10 +285,7 @@
 @stop
 
 <script>
-
-  /** Función que enviar el documento del formuario para la firma electrónica
-  */
-
+  // Función que enviar el documento del formuario para la firma electrónica.
   function signFilePdf() {
     console.log('signFile');
     let data = new FormData();
@@ -300,9 +295,7 @@
     });
   }
 
-  /** Función que muestra el detalle del certificado firmante
-  */
-
+  // Función que muestra el detalle del certificado firmante.
   function certificateDetails() {
     axios.get('{{ route('certificateDetails') }}', {
     })

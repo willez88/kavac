@@ -29,7 +29,7 @@
 						</a>
 					</div>
 				</div>
-				{!! Form::open(['route' => 'citizenservice.settings.store', 'method' => 'post']) !!}
+				{!! Form::open(['id' => 'form-codes', 'route' => 'citizenservice.settings.store', 'method' => 'post']) !!}
 					{!! Form::token() !!}
 					<div class="card-body">
 						@include('layouts.form-errors')
@@ -45,7 +45,7 @@
 									{!! Form::text('request_code', ($sCode) ? $sCode->format_code : old('request_code'), [
 										'class' => 'form-control input-sm', 'data-toggle' => 'tooltip',
 										'title' => 'Formato para el código de la solicitud',
-										'placeholder' => 'Ej. XXX-0000000000-YYYY',
+										'placeholder' => 'Ej. XXX-00000000-YYYY',
 										'readonly' => ($sCode) ? true : false
 									]) !!}
 								</div>

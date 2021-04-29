@@ -57,6 +57,8 @@
 							<sale-order-management-method></sale-order-management-method>
 							{{-- Configuración de Tipo de bien--}}
 							<sale-type-good></sale-type-good>
+							{{-- Configuración de Lista de subservicios--}}
+							<sale-list-subservices-method></sale-list-subservices-method>
 						</div>
 					</div>
 				</div>

@@ -201,6 +201,26 @@
 						</div>
                     </div>
 
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group is-required">
+								<label>Talla de Uniforme</label>
+								<input type="number" class="form-control input-sm" v-model="record.uniform_size"
+                                       title="Indique la talla del uniforme" min="1"/>
+							</div>
+						</div>
+                        <div class="col-md-4">
+							<div class="form-group">
+								<label>Historial Médico</label>
+								<ckeditor :editor="ckeditor.editor" id="medical_history" data-toggle="tooltip"
+	                                      title="Indique el historial médico" :config="ckeditor.editorConfig"
+	                                      class="form-control" tag-name="textarea" rows="2"
+	                                      v-model="record.medical_history">
+	                            </ckeditor>
+							</div>
+						</div>
+                    </div>
+
 					<hr>
 					<h6 class="card-title">
 						Números Telefónicos <i class="fa fa-plus-circle cursor-pointer" @click="addPhone"></i>
@@ -299,6 +319,8 @@
 					municipality_id: '',
                     parish_id: '',
                     address: '',
+					uniform_size: '',
+					medical_history: '',
 					phones: [],
 				},
 				errors: [],

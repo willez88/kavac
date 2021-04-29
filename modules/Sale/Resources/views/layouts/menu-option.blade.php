@@ -8,6 +8,10 @@
             <a href="/sale/settings" data-toggle="tooltip" data-placement="right" 
                title="Configuración de Comercialización">Configuración</a>
         </li>
+        <li class="{!! set_active_menu('sale.services.index') !!}">
+            <a href="/sale/services" data-toggle="tooltip" data-placement="right" 
+               title="Solicitud de servicios">Solicitud de servicios</a>
+        </li>
         <li class="{!! set_active_menu('sale.bill.index') !!}">
             <a href="/sale/bills" data-toggle="tooltip" data-placement="right" 
                title="Facturas">Facturas</a>
