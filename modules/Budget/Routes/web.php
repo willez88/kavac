@@ -98,7 +98,7 @@ Route::group(
             'centralized-actions',
             'BudgetCentralizedActionController',
             [
-            'as' => 'budget', 'except' => ['index', 'show']
+                'as' => 'budget', 'except' => ['index', 'show']
             ]
         );
         Route::get(
@@ -121,7 +121,7 @@ Route::group(
             'specific-actions',
             'BudgetSpecificActionController',
             [
-            'as' => 'budget', 'except' => ['index', 'show']
+                'as' => 'budget', 'except' => ['index', 'show']
             ]
         );
         Route::get(
@@ -154,7 +154,7 @@ Route::group(
             'subspecific-formulations',
             'BudgetSubSpecificFormulationController',
             [
-            'as' => 'budget', 'except' => ['show']
+                'as' => 'budget', 'except' => ['show']
             ]
         );
         Route::get(
@@ -229,5 +229,18 @@ Route::group(
             'compromises/get-document-sources/{institution_id}/{year}',
             'BudgetCompromiseController@getDocumentSources',
         )->name('budget.compromises.get-document-sources');
+
+        /**
+         * -----------------------------------------------------------------------
+         * Rutas para los reportes presupuestarios
+         * -----------------------------------------------------------------------
+         *
+         */
+
+        Route::group(['prefix' => 'report'], function () {
+            Route::get('/budgetAvailibity', 'Reports\BudgetReportsController@budgetAvailability')->name('budget.report.budgetAvailability');
+
+            Route::get('/budgetAvailibityPdf', 'Reports\BudgetReportsController@getPdf')->name('budget.report.budgetAvailabilityPdf');
+        });
     }
 );
