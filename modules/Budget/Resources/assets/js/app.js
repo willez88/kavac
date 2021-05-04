@@ -110,6 +110,16 @@ Vue.component('budget-compromise', () => import(
 );
 
 /**
+ * Componente para mostrar el formulario de disponibilidad presupuestaria
+ *
+ * @author Jonathan Alvarado <wizardx1407@gmail.com> | <jonathanalvarado1407@gmail.com>
+ */
+Vue.component('budget-availability', () => import(
+    /* webpackChunkName: "budget-availability" */
+    './components/BudgetAvailabilityComponent.vue')
+);
+
+/**
  * Opciones de configuración global del módulo de presupuesto
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
