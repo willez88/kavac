@@ -3,61 +3,46 @@
 
 ![Screenshot](img/logokavac.png#imagen)
 
-El Manual de Documentación del sistema KAVAC a nivel de usuario tiene como objetivo facilitar la tarea de conocimiento, uso y aprendizaje del sistema desarrollado. Presenta información acerca de todas las operaciones básicas que el sistema ofrece, así como capturas de pantalla útiles para el seguimiento de la explicación de los procesos. A continuación se muestra la documentación de usuario para el módulo de talento humano, este módulo esta dirigido a la gestión de la nómina institucional.
+El Manual de Documentación del sistema KAVAC a nivel de usuario tiene como objetivo facilitar la tarea de conocimiento, uso y aprendizaje del sistema desarrollado. Presenta información acerca de todas las operaciones básicas que el sistema ofrece, así como capturas de pantalla útiles para el seguimiento de la explicación de los procesos. A continuación, se muestra la documentación de usuario para el módulo de talento humano, dicho módulo se encuentra orientado a la gestión eficiente de la información y procesos del personal  de una organización, incluye opciones como el ajuste en tablas salariales, registro de expediente, registro de nómina, formulación de solicitudes, generación de reportes y través de la configuración del módulo es posible adaptar cada funcionalidad a las necesidades de la organización usuaria. En este manual se presenta una descripción de las funcionalidades de este módulo, como usarlo y como ajustarlo a una organización. 
+
+## Módulo de talento humano
+
+El sistema KAVAC incluye el módulo de talento humano con el objetivo principal de realizar un almacenamiento efectivo y una correcta administración de los datos del personal, en este sentido; incluye funcionalidades que permiten integrar información y procesos asociados al personal de la organización con otros módulos del sistema, consolidando así una estructura organizacional.  
+
+A través de la sección **Ajustes en Tablas Salariales** se lleva a cabo las actualizaciones de las tablas salariales, a partir de un aumento oficial de los salarios.   
+
+En la sección **Expediente** se gestionan los datos personales, profesionales, socioeconómicos y laborales del personal.
+
+A través de la sección **Registro de Nómina**, se realiza un registro financiero de la organización sobre los salarios del personal.
+
+La sección de **Solicitudes** esta orientada a la formulación de solicitudes hechas por los trabajadores, como lo son: solicitud de vacaciones, solicitud de prestaciones y solicitud de permisos.
+
+A través de la generación de **Reportes** es posible generar informes en tiempo real sobre: resumen de disfrute de vacaciones, estatus de vacaciones, cálculo del bono vacacional y pago de bono vacacional.  
+
+A través de la **Configuración** del módulo se establecen los códigos de registros, edad laboral permitida, registros comunes y parámetros generales de nómina.   Todos estos registros son parámetros que serán considerados en las demás secciones del módulo
+
+## Sobre los usuarios
+
+Los usuarios que interactúan en este módulo, serán todos aquellos usuarios con roles y permisos sobre el módulo de talento humano, previamente gestionados por el usuario con el rol de administrador. Para conocer más sobre la gestión de roles y permisos visite el **Manual de Documentación del Sistema KAVAC**.
 
 
-##Módulo de talento humano
+## Funcionalidades
 
-En este módulo se encuentran todas las funcionalidades asociadas a la gestión del personal de la institución, no sólo en lo que respecta a la emisión de nómina, sino también las solicitudes que los trabajadores realizan ante la institución.
+-	Ajustes en tablas salariales.
 
-<!-- El sistema KAVAC incluye el módulo de bienes como parte de la administración que se encarga de analizar la adquisición, manejo, control y seguimiento de los recursos materiales. A través de sus funcionalidades permite generar una buena planificación de la adquisición de bienes, un correcto ingreso y una óptima gestión de los mismos en la institución.  
+-  Registro de expediente. 
 
-El módulo de bienes posee una sección para **Registros**, desde esta sección es posible realizar nuevos registros de bienes, importar y exportar registros realizados, un acceso rápido a la información de cada bien y la gestión de asignación y desincorporación de bienes.  
+-  Registro de nómina.
 
-KAVAC incorpora una funcionalidad para gestionar la asignación de bienes a cada trabajador a través de la sección **Asignaciones**.
+-	Formulación de solicitudes.
 
-La sección **Desincorporaciones**, permite la gestión de registro para el retiro de algún bien, el bien es registrado para desincorporación por inservible, obsolescencia o reparación.
+-  Generación de reportes.   
 
-La gestión de prestamos de bienes institucionales se lleva a cabo en la sección **Solicitudes**, esta sección permite, además, tener un control de todas los registros de las solicitudes, prórrogas y entregas pendientes.      
-
-A través de la sección **Historial del Inventario** se generan los diferentes reportes para bienes registrados, que contiene una relación detallada y ordenada de los elementos que componen el activo o patrimonio de la institución.      
-
-De la misma forma, la sección **Reportes de Bienes**,  permite generar un reporte general, por clasificación o por dependencia de los registros realizados.  -->
-
-##Sobre los usuarios
+-  Relación directa con el módulo de Bienes. 
 
 
-Los usuarios que interactúan en este módulo, serán todos aquellos usuarios con roles y permisos sobre el módulo de bienes, previamente gestionados por el usuario con el rol de administrador. Para conocer más sobre la gestión de roles y permisos visite el **Manual de Documentación del Sistema KAVAC**.
 
-
-##Funcionalidades
-
--	Ingreso de Personal
-
--	Suspensión del Personal
-
--	Gestor de pagos laborales 
-
--	Simulador de tabuladores
-
--	Solicitud de vacaciones  
-
--	Solicitud de permisos
-
--	Emisión de documentos
-
--	Gestión de liquidaciones 
-
-<!-- - Relación directa con el Módulo de Compras.
-- Registro de bienes de forma manual y a través de carga masiva.
-- Asignación de bienes institucionales.
-- Desincorporación de bienes institucionales.
-- Solicitudes para préstamos de bienes institucionales. 
-- Gestión de inventario.
-- Generación de reportes en tiempo real. -->
-
-
-##Licencia
+## Licencia
 
 Nombre del producto: KAVAC ‘Sistema de Gestión de Recursos’
 
