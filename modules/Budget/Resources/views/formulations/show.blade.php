@@ -27,7 +27,7 @@
 					</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
-						@include('buttons.print', ['print' => []])
+						@include('buttons.print', ['route' => route('print.formulated', ['id' => $formulation->id])])
 						@include('buttons.minimize')
 					</div>
 				</div>
@@ -91,7 +91,8 @@
 							{{ $formulation->currency->symbol }}&#160;
 							{{ number_format(
 								$formulation->total_formulated, $formulation->currency->decimal_places, ",", "."
-							) }}</div>
+							) }}
+                        </div>
 					</div>
 					<table class="table table-bordered table-hover">
 						<thead>
@@ -181,5 +182,12 @@
 				}
 			});
 		});
+
+        var printFormulated = (id, esp) => {
+            location.href = `/budget/print-formulated/${id}`;
+            /*axios.get(`/budget/print-formulated/${id}`).catch(error => {
+                console.error(error);
+            });*/
+        };
 	</script>
 @endsection

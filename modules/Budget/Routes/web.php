@@ -177,6 +177,11 @@ Route::group(
             'get-import-formulation',
             'BudgetSubSpecificFormulationController@importFormulation'
         )->name('import.formulation');
+        Route::get(
+            'print-formulated/{id}',
+            'BudgetSubSpecificFormulationController@printFormulated'
+        )->name('print.formulated');
+        Route::get('reports/download', 'BudgetSubSpecificFormulationController@download');
 
         /**
          * -----------------------------------------------------------------------
