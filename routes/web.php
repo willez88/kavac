@@ -189,6 +189,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     /** Rutas para la gestión de Impuestos */
     Route::resource('taxes', 'TaxController', ['except' => ['create', 'show', 'edit']]);
+    Route::get('get-taxes', 'TaxController@getAll')->name('taxes.get-all');
 
     /** Rutas para la gestión de Unidades Tributarias */
     Route::resource('tax-units', 'TaxUnitController', ['except' => ['create', 'show', 'edit']]);
