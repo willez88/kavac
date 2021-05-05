@@ -201,6 +201,7 @@
                         </table>
                     </div>
                 </div>
+                <!-- Modal para agregar cuentas presupuestarias -->
                 <div class="modal fade" tabindex="-1" role="dialog" id="add_account">
                     <div class="modal-dialog vue-crud" role="document">
                         <div class="modal-content">
@@ -220,27 +221,21 @@
                                     </ul>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-12">
                                         <div class="form-group is-required">
                                             <label>Acción Específica:</label>
-                                            <select2 :options="specific_actions" v-model="specific_action_id"/>
+                                            <select2 :options="specific_actions"
+                                                     @input="getAccounts"
+                                                     v-model="specific_action_id"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-12">
                                         <div class="form-group is-required">
                                             <label>Cuenta:</label>
                                             <select2 :options="accounts" v-model="account_id"/>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Descripción:</label>
-                                        <input type="text" class="form-control input-sm" data-toggle="tooltip"
-                                               v-model="account_description" readonly
-                                               title="Denominación de la cuenta presupuestaria">
-                                    </div>
-                                    <div class="col-md-6">
+                                    <div class="col-12">
                                         <label>Concepto:</label>
                                         <input type="text" class="form-control input-sm" data-toggle="tooltip"
                                                v-model="account_concept"
@@ -259,9 +254,14 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3 mt-4">
-                                        <div class="form-group is-required">
+                                        <div class="form-group">
                                             <label>Impuesto:</label>
-                                            <select2 :options="taxes" v-model="account_tax_id"/>
+                                            <select class="select2" v-model="account_tax_id">
+                                                <option value="">Seleccione</option>
+                                                <option :value="tax.id" v-for="tax in taxes">
+                                                    {{ tax.name }} {{ tax.histories[0].percentaje }}%
+                                                </option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -322,7 +322,6 @@
                 specific_action_id: '',
                 accounts: [],
                 account_id: '',
-                account_description: '',
                 account_concept: '',
                 account_amount: 0,
                 account_tax_id: '',
@@ -332,6 +331,14 @@
                  */
                 document_sources: [],
                 document_number: ''
+            }
+        },
+        watch: {
+            record: {
+                deep: true,
+                handler: function() {
+                    //
+                }
             }
         },
         methods: {
@@ -362,7 +369,6 @@
                 this.specific_action_id = '';
                 this.accounts = [];
                 this.account_id = '';
-                this.account_description = '';
                 this.account_concept = '';
                 this.account_amount = 0;
                 this.account_tax_id = '';
@@ -383,8 +389,7 @@
                 let vm = this;
                 bootbox.confirm({
                     title: "Eliminar cuenta?",
-                    message: `Esta seguro de eliminar esta cuenta del registro de la modificación
-                              presupuestaria?`,
+                    message: `Esta seguro de eliminar esta cuenta del compromiso actual?`,
                     buttons: {
                         cancel: {
                             label: '<i class="fa fa-times"></i> Cancelar'
@@ -427,6 +432,47 @@
              * @param {string} type Tipo de registro
              */
             getSpecificActions() {
+                const vm = this;
+                vm.specific_actions = [];
+                vm.accounts = [];
+
+                if (vm.record.compromised_at && vm.record.source_document && vm.record.institution_id) {
+                    let year = vm.record.compromised_at.split("-")[0];
+                    let url = `${window.app_url}/budget/get-group-specific-actions/${year}/1/${vm.record.institution_id}`;
+                    axios.get(url).then(response => {
+                        vm.specific_actions = response.data;
+                    }).catch(error => {
+                        console.error(error);
+                    });
+                } else {
+                    $("#add_account").find('.close').click();
+                    bootbox.alert('Debe indicar los datos del compromiso antes de agregar cuentas');
+                }
+            },
+            /**
+             * Obtiene las cuentas presupuestarias formuladas de la acción específica seleccionada
+             *
+             * @method    getAccounts
+             *
+             * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             */
+            getAccounts() {
+                const vm = this;
+                vm.accounts = [];
+
+                if (vm.specific_action_id) {
+                    let specificActionId = vm.specific_action_id;
+                    let compromisedAt = vm.record.compromised_at;
+                    axios.get(
+                        `${window.app_url}/budget/get-opened-accounts/${specificActionId}/${compromisedAt}`
+                    ).then(response => {
+                        if (response.data.result) {
+                            vm.accounts = response.data.records;
+                        }
+                    }).catch(error => {
+                        console.error(error);
+                    });
+                }
             },
             /**
              * Obtiene los registros precomprometidos que aún no han sido comprometidos
@@ -462,7 +508,7 @@
             let vm = this;
             vm.reset();
             vm.getInstitutions();
-            vm.getSpecificActions();
+            vm.getTaxes();
 
             $("#add_source").on('shown.bs.modal', function() {
                 /** Carga los documentos que faltan por comprometer */
@@ -470,6 +516,13 @@
             }).on('hide.bs.modal', function() {
                 /** @type array Inicializa el arreglo de los documentos por comprometer */
                 vm.document_sources = [];
+            });
+
+            $("#add_account").on('shown.bs.modal', function() {
+                if (vm.specific_actions.length === 0) {
+                    /** Carga las acciones específicas para la respectiva formulación */
+                    vm.getSpecificActions();
+                }
             });
         }
     };

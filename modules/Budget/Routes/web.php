@@ -133,7 +133,7 @@ Route::group(
             'BudgetSpecificActionController@getSpecificActions'
         )->name('budget.get-specific-actions');
         Route::get(
-            'get-group-specific-actions/{formulated_year?}/{formulated?}',
+            'get-group-specific-actions/{formulated_year?}/{formulated?}/{institution_id?}',
             'BudgetSpecificActionController@getGroupAllSpecificActions'
         )->name('budget.get-specific-actions.groups');
         Route::get(
@@ -234,6 +234,18 @@ Route::group(
             'compromises/get-document-sources/{institution_id}/{year}',
             'BudgetCompromiseController@getDocumentSources',
         )->name('budget.compromises.get-document-sources');
+
+        /**
+         * -----------------------------------------------------------------------
+         * Rutas para la gestión de cuentas formuladas y aperturadas
+         * -----------------------------------------------------------------------
+         *
+         * Gestiona los datos de las cuentas aperturadas para la ejecución del presupuesto
+         */
+        Route::get(
+            'get-opened-accounts/{specificActionId}/{selDate?}',
+            'BudgetSpecificActionController@getOpenedAccounts'
+        )->name('budget.opened-accounts.get');
 
         /**
          * -----------------------------------------------------------------------

@@ -12,6 +12,7 @@ use Modules\Budget\Models\BudgetProject;
 use Modules\Budget\Models\BudgetCentralizedAction;
 use Modules\Budget\Models\BudgetSpecificAction;
 use Modules\Budget\Models\BudgetSubSpecificFormulation;
+use Modules\Budget\Models\BudgetAccountOpen;
 
 /**
  * @class BudgetSpecificActionController
@@ -306,10 +307,16 @@ class BudgetSpecificActionController extends Controller
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      * @param string $formulated_year Año de formulación por el cual filtrar la información
      * @param boolean $formulated     Indica si se debe validar con una formulación de presupuesto
+     * @param  integer $institutionId Identificador de la institución
+     * @param string $selDate         Fecha en la cual se esta realizando la consulta
      * @return JSON                   JSON con los datos de las acciones específicas
      */
-    public function getGroupAllSpecificActions($formulated_year = '', $formulated = null)
-    {
+    public function getGroupAllSpecificActions(
+        $formulated_year = '',
+        $formulated = null,
+        $institutionId = null,
+        $selDate = null
+    ) {
         if ($formulated_year && strlen($formulated_year) > 4) {
             try {
                 $formulated_year = Crypt::decrypt($formulated_year);
@@ -325,12 +332,29 @@ class BudgetSpecificActionController extends Controller
         /** @var array Arreglo que contiene las acciones específicas */
         $data = [['id' => '', 'text' => 'Seleccione...']];
 
+        /** @var Object Objeto con información de las acciones específicas a consultar */
+        $budgetSpecificAction = (is_null($institutionId))
+                                ? BudgetSpecificAction::with('specificable')
+                                : BudgetSpecificAction::with(['specificable' => function ($q) use ($institutionId) {
+                                    $q->whereHas('department', function ($qq) use ($institutionId) {
+                                        $qq->where('institution_id', $institutionId);
+                                    });
+                                }]);
+
+        if (!is_null($selDate)) {
+            $budgetSpecificAction = $budgetSpecificAction->where(
+                'from_date',
+                '>=',
+                $selDate
+            )->where('to_date', '<=', $selDate);
+        }
+
         /** @var object Objeto que contiene información de las acciones específicas */
-        $sp_accs = ($formulated_year) ? BudgetSpecificAction::whereYear('from_date', $formulated_year)
-                                                            ->orWhereYear('to_date', $formulated_year)
-                                                            ->with('specificable')
-                                                            ->get()
-                                      : BudgetSpecificAction::with('specificable')->get();
+        $sp_accs = ($formulated_year)
+                    ? $budgetSpecificAction->whereYear('from_date', $formulated_year)
+                                           ->orWhereYear('to_date', $formulated_year)
+                                           ->get()
+                    : $budgetSpecificAction->get();
 
         /** Agrega las acciones específicas para cada grupo */
         foreach ($sp_accs as $sp_acc) {
@@ -380,5 +404,50 @@ class BudgetSpecificActionController extends Controller
         return response()->json([
             'result' => true, 'record' => BudgetSpecificAction::where('id', $id)->with('specificable')->first()
         ], 200);
+    }
+
+    /**
+     * Listado de cuentas presupuestarias aperturadas para una acción específica
+     *
+     * @method    getOpenedAccounts
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     integer              $specificActionId    Identificador de la acción específica
+     * @param     string               $selDate             Fecha a partir de la cual buscar las cuentas aperturadas
+     *
+     * @return    JsonResponse         Objeto con información de las cuentas aperturadas
+     */
+    public function getOpenedAccounts($specificActionId, $selDate)
+    {
+        list($year, $month, $day) = explode("-", $selDate);
+        $records = [['id' => '', 'text' => 'Seleccione...']];
+        $monthField = listMonths(true)[(int)$month] . "_amount";
+        $openedAccounts = BudgetAccountOpen::with([
+            'budgetAccount', 'subSpecificFormulation'
+        ])->whereHas('budgetAccount', function ($q) {
+            $q->where('specific', '<>', '00')->where('disaggregate_tax', false);
+        })->whereHas('subSpecificFormulation', function ($q) use ($year, $specificActionId) {
+            $q->where('year', $year)->whereHas('specificAction', function ($qq) use ($specificActionId) {
+                $qq->where('id', $specificActionId);
+            });
+        })->where($monthField, '>', 0)->get();
+
+        foreach ($openedAccounts as $openAccount) {
+            $records[] = [
+                'id' => $openAccount->id,
+                'text' => $openAccount->budgetAccount->code . ' - ' .
+                          $openAccount->budgetAccount->denomination . ' (' .
+                          $openAccount->subSpecificFormulation->currency->symbol . " " .
+                          number_format(
+                              $openAccount->total_year_amount,
+                              $openAccount->subSpecificFormulation->currency->decimal_places,
+                              ",",
+                              "."
+                          ) . ')'
+            ];
+        }
+
+        return response()->json(['result' => true, 'records' => $records], 200);
     }
 }

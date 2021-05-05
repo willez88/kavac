@@ -43,6 +43,13 @@ class BudgetAccountOpen extends Model implements Auditable
     ];
 
     /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = ['created_at', 'updated_at'];
+
+    /**
      * BudgetAccountOpen belongs to BudgetAccount.
      *
      * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
@@ -61,6 +68,6 @@ class BudgetAccountOpen extends Model implements Auditable
      */
     public function subSpecificFormulation()
     {
-        return $this->belongsTo(BudgetSubSpecificFormulation::class);
+        return $this->belongsTo(BudgetSubSpecificFormulation::class, 'budget_sub_specific_formulation_id');
     }
 }

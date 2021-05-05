@@ -43,6 +43,20 @@ class BudgetAccount extends Model implements Auditable
     ];
 
     /**
+     * Listado de campos adjuntos a los campos por defecto
+     *
+     * @var    array
+     */
+    protected $appends = ['code'];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = ['created_at', 'updated_at'];
+
+    /**
      * Reescribe el método boot para establecer comportamientos por defecto en la consulta del modelo
      *
      * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
