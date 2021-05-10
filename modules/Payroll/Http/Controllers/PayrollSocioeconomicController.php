@@ -113,15 +113,25 @@ class PayrollSocioeconomicController extends Controller
             ]);
             $i = 0;
             foreach ($request->payroll_childrens as $payrollChildren) {
-                $this->validate($request, [
-                    'payroll_childrens.'.$i.'.first_name' => ['required'],
-                    'payroll_childrens.'.$i.'.last_name' => ['required'],
-                    'payroll_childrens.'.$i.'.id_number' => [
-                        'nullable',
-                        'regex:/^([\d]{7}|[\d]{8})$/u'
+                $this->validate(
+                    $request,
+                    [
+                        'payroll_childrens.'.$i.'.first_name' => ['required'],
+                        'payroll_childrens.'.$i.'.last_name' => ['required'],
+                        'payroll_childrens.'.$i.'.id_number' => [
+                            'nullable',
+                            'regex:/^([\d]{7}|[\d]{8})$/u'
+                        ],
+                        'payroll_childrens.'.$i.'.birthdate' => ['required', 'date'],
                     ],
-                    'payroll_childrens.'.$i.'.birthdate' => ['required', 'date'],
-                ]);
+                    [],
+                    [
+                        'payroll_childrens.'.$i.'.first_name' => 'nombres del hijo del trabajador #'.($i+1),
+                        'payroll_childrens.'.$i.'.last_name' => 'apellidos del hijo del trabajador #'.($i+1),
+                        'payroll_childrens.'.$i.'.id_number' => 'cédula de identidad del hijo del trabajador #'.($i+1),
+                        'payroll_childrens.'.$i.'.birthdate' => 'fecha de nacimiento del hijo del trabajador #'.($i+1),
+                    ],
+                );
                 $i++;
             }
             if ($request->payroll_childrens && !empty($request->payroll_childrens)) {
@@ -181,60 +191,83 @@ class PayrollSocioeconomicController extends Controller
     public function update(Request $request, $id)
     {
         $payrollSocioeconomic = PayrollSocioeconomic::find($id);
-        $this->validate($request, [
-            'full_name_twosome' => ['nullable', 'max:200'],
-            'id_number_twosome' => [
-                'nullable',
-                'regex:/^([\d]{7}|[\d]{8})$/u',
-                'unique:payroll_socioeconomics,id_number_twosome,'.$payrollSocioeconomic->id
-            ],
-            'birthdate_twosome' => ['nullable', 'date'],
-            'payroll_staff_id' => [
-                'required',
-                'unique:payroll_socioeconomics,payroll_staff_id,'.$payrollSocioeconomic->id
-            ],
-            'marital_status_id' => ['required']
-        ]);
+        $this->rules['payroll_staff_id'] = [
+            'required', 'unique:payroll_socioeconomics,payroll_staff_id,'.$payrollSocioeconomic->id
+        ];
+        $this->validate($request, $this->rules, [], $this->attributes);
+        $maritalStatus = MaritalStatus::where('name', 'Casado(a)')->first();
+        if ($request->marital_status_id == $maritalStatus->id) {
+            $this->validate(
+                $request,
+                [
+                    'full_name_twosome' => ['required', 'max:200'],
+                    'birthdate_twosome' => ['nullable', 'date'],
+                    'id_number_twosome' => [
+                        'nullable', 'regex:/^([\d]{7}|[\d]{8})$/u',
+                        'unique:payroll_socioeconomics,id_number_twosome,'.$payrollSocioeconomic->id
+                    ],
+                ],
+                [],
+                [
+                    'full_name_twosome' => 'nombres y apellidos de la pareja del trabajador',
+                    'birthdate_twosome' => 'fecha de nacimiento de la pareja del trabajador',
+                    'id_number_twosome' => 'cédula de identidad de la pareja del trabajdor',
+                ],
+            );
+        }
 
         $i = 0;
         foreach ($request->payroll_childrens as $payrollChildren) {
-            $this->validate($request, [
-                'payroll_childrens.'.$i.'.first_name' => ['required'],
-                'payroll_childrens.'.$i.'.last_name' => ['required'],
-                'payroll_childrens.'.$i.'.id_number' => [
-                    'nullable',
-                    'regex:/^([\d]{7}|[\d]{8})$/u'
+            $this->validate(
+                $request,
+                [
+                    'payroll_childrens.'.$i.'.first_name' => ['required'],
+                    'payroll_childrens.'.$i.'.last_name' => ['required'],
+                    'payroll_childrens.'.$i.'.id_number' => [
+                        'nullable',
+                        'regex:/^([\d]{7}|[\d]{8})$/u'
+                    ],
+                    'payroll_childrens.'.$i.'.birthdate' => ['required', 'date'],
                 ],
-                'payroll_childrens.'.$i.'.birthdate' => ['required', 'date'],
-            ]);
+                [],
+                [
+                    'payroll_childrens.'.$i.'.first_name' => 'nombres del hijo del trabajador #'.($i+1),
+                    'payroll_childrens.'.$i.'.last_name' => 'apellidos del hijo del trabajador #'.($i+1),
+                    'payroll_childrens.'.$i.'.id_number' => 'cédula de identidad del hijo del trabajador #'.($i+1),
+                    'payroll_childrens.'.$i.'.birthdate' => 'fecha de nacimiento del hijo del trabajador #'.($i+1),
+                ],
+            );
             $i++;
         }
+        DB::transaction(function () use ($payrollSocioeconomic, $request) {
+            $payrollSocioeconomic->full_name_twosome  = $request->full_name_twosome;
+            $payrollSocioeconomic->id_number_twosome  = $request->id_number_twosome;
+            $payrollSocioeconomic->birthdate_twosome  = $request->birthdate_twosome;
+            $payrollSocioeconomic->payroll_staff_id  = $request->payroll_staff_id;
+            $payrollSocioeconomic->marital_status_id  = $request->marital_status_id;
+            $payrollSocioeconomic->save();
 
-        $payrollSocioeconomic->full_name_twosome  = $request->full_name_twosome;
-        $payrollSocioeconomic->id_number_twosome  = $request->id_number_twosome;
-        $payrollSocioeconomic->birthdate_twosome  = $request->birthdate_twosome;
-        $payrollSocioeconomic->payroll_staff_id  = $request->payroll_staff_id;
-        $payrollSocioeconomic->marital_status_id  = $request->marital_status_id;
-        $payrollSocioeconomic->save();
-
-        foreach ($payrollSocioeconomic->payrollChildrens as $payrollChildren) {
-            $payrollChildren->delete();
-        }
-
-        if ($request->payroll_childrens && !empty($request->payroll_childrens)) {
-            foreach ($request->payroll_childrens as $payrollChildren) {
-                $payrollSocioeconomic->payrollChildrens()->updateOrCreate(
-                    [
-                        'first_name' => $payrollChildren['first_name'], 'last_name' => $payrollChildren['last_name'],
-                        'id_number' => $payrollChildren['id_number'], 'birthdate' => $payrollChildren['birthdate']
-                    ],
-                    [
-                        'first_name' => $payrollChildren['first_name'], 'last_name' => $payrollChildren['last_name'],
-                        'id_number' => $payrollChildren['id_number'], 'birthdate' => $payrollChildren['birthdate']
-                    ]
-                );
+            foreach ($payrollSocioeconomic->payrollChildrens as $payrollChildren) {
+                $payrollChildren->delete();
             }
-        }
+
+            if ($request->payroll_childrens && !empty($request->payroll_childrens)) {
+                foreach ($request->payroll_childrens as $payrollChildren) {
+                    $payrollSocioeconomic->payrollChildrens()->updateOrCreate(
+                        [
+                            'first_name' => $payrollChildren['first_name'],
+                            'last_name' => $payrollChildren['last_name'], 'id_number' => $payrollChildren['id_number'],
+                            'birthdate' => $payrollChildren['birthdate'],
+                        ],
+                        [
+                            'first_name' => $payrollChildren['first_name'],
+                            'last_name' => $payrollChildren['last_name'], 'id_number' => $payrollChildren['id_number'],
+                            'birthdate' => $payrollChildren['birthdate'],
+                        ]
+                    );
+                }
+            }
+        });
         $request->session()->flash('message', ['type' => 'store']);
         return response()->json([
             'result' => true, 'redirect' => route('payroll.socioeconomics.index')
