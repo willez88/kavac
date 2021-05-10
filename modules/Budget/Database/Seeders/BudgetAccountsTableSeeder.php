@@ -5306,7 +5306,7 @@ class BudgetAccountsTableSeeder extends Seeder
             [
                 'group' => '4', 'item' => '03', 'generic' => '18', 'specific' => '01', 'subspecific' => '00',
                 'denomination' => 'Impuesto al valor agregado',
-                'active' => true
+                'active' => true, 'disaggregate_tax' => true
             ],
             [
                 'group' => '4', 'item' => '03', 'generic' => '18', 'specific' => '99', 'subspecific' => '00',

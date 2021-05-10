@@ -143,7 +143,8 @@ class BudgetAccountController extends Controller
             'egress' => ($request->account_type=="egress"),
             'active' => ($request->active!==null),
             'original' => ($request->original!==null),
-            'parent_id' => ($parent == false)?null:$parent->id
+            'parent_id' => ($parent == false)?null:$parent->id,
+            'disaggregate_tax' => ($request->disaggregate_tax!==null)?true:false
         ]);
 
         $request->session()->flash('message', ['type' => 'store']);
@@ -208,6 +209,7 @@ class BudgetAccountController extends Controller
         $budgetAccount->generic = $generic;
         $budgetAccount->specific = $specific;
         $budgetAccount->subspecific = $subspecific;
+        $budgetAccount->disaggregate_tax = ($request->disaggregate_tax!==null)?true:false;
         $budgetAccount->save();
 
         $request->session()->flash('message', ['type' => 'update']);

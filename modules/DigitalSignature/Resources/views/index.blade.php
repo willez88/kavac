@@ -94,16 +94,19 @@
         <div class="col-md-12">
           <!-- Update certificate button modal  -->
           <div class="modal fade" id="modalUpdateCert" tabindex="-1" aria-labelledby="modalUpdateCertLabel" aria-hidden="true">
-            <div class="modal-dialog vue-crud">
+            <div class="modal-dialog modal-lg vue-crud">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h6><i class="icofont icofont-upload-alt inline-block"></i> Actualizar certificado</h6>
+                  <h6 style="color:#636e7b">
+                    <i class="icofont icofont-certificate-alt-1 ico-2x"></i>
+                      Actualizar certificado
+                  </h6>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <div class="modal-body">
-                  <form method="POST" enctype="multipart/form-data" accept-charset="UTF-8" action="{{ route('updateCertificate') }}">
+                <form method="POST" enctype="multipart/form-data" accept-charset="UTF-8" action="{{ route('updateCertificate') }}">
+                  <div class="modal-body">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                     <p>
                       <label for="pkcs12">Actualizar certificado del firmante</label>
@@ -113,16 +116,17 @@
                       <label for="phasepass">Contraseña del certificado</label>
                       <input id="phasepass" class="form-control" type="password" name="password" placeholder="XXXXXX"  autocomplete="off" required />
                     </p>
-                    <p class="text-right">
-                      <button class="btn btn-warning btn-icon btn-round btn-modal-close" data-dismiss="modal" data-original-title="Cancelar">
-                        <i class="fa fa-ban"></i>
-                      </button>
-                      <button type="submit" class="btn btn-success btn-icon btn-round" data-original-title="Subir certificado" title="Subir certificado">
-                        <i class="fa fa-save"></i>
-                      </button>
-                    </p>
-                  </form>
-                </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-default btn-sm btn-round btn-modal-close" type="button" @click="reset()" data-dismiss="modal">
+                      Cerrar
+                    </button>
+                    <button class="btn btn-primary btn-sm btn-round btn-modal-close">
+                      <i class="fa fa-upload"></i>
+                      Subir certificado
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -131,7 +135,7 @@
           <!-- Modal delete certificate -->
           <div class="modal fade" id="modalConfirmDelete" tabindex="-1" aria-labelledby="modalConfirmDeleteLabel"
              aria-hidden="true">
-            <div class="modal-dialog vue-crud">
+            <div class="modal-dialog modal-sm vue-crud">
               <div class="modal-content">
                 <div class="modal-header">
                   <h6><i class="fa fa-times inline-block"></i> Eliminar certificado</h6>
@@ -143,10 +147,10 @@
                   <p class="pb-3"> ¿Está seguro de eliminar el certificado? </p>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default btn-modal-close" data-dismiss="modal">
-                    <i class="fa fa-times"></i> Cancelar
+                  <button class="btn btn-default btn-sm btn-round btn-modal-close" type="button" @click="reset()" data-dismiss="modal">
+                    Cerrar
                   </button>
-                  <a class="btn btn-primary" href="{{ route('deleteCertificate') }}">
+                  <a class="btn btn-primary btn-sm btn-round" href="{{ route('deleteCertificate') }}">
                     <i class="fa fa-check"></i> Confirmar
                   </a>
                 </div>
