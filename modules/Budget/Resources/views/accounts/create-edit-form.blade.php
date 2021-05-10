@@ -137,6 +137,24 @@
 											</div>
 										</div>
 									</div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="" class="control-label">{{ __('Afecta Impuesto') }}</label>
+                                            <div class="col-12">
+                                                <div class="col-12 bootstrap-switch-mini">
+                                                    {!! Form::checkbox(
+                                                        'disaggregate_tax', true,
+                                                        (isset($model) && $model->disaggregate_tax), [
+                                                            'id' => 'disaggregate_tax',
+                                                            'class' => 'form-control bootstrap-switch',
+                                                            'data-on-label' => __('SI'), 'data-off-label' => __('NO'),
+                                                            'checked' => true
+                                                        ]
+                                                    ) !!}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 								</div>
 							</div>
 						</div>

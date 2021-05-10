@@ -103,10 +103,10 @@
                                         data-dismiss="modal">
                                     Cerrar
                                 </button>
-                                <button type="button" @click="addDocument"
+                                <!--<button type="button" @click="addDocument"
                                         class="btn btn-primary btn-sm btn-round btn-modal-save">
                                     Agregar
-                                </button>
+                                </button>-->
                             </div>
                         </div>
                     </div>
@@ -221,6 +221,9 @@
                                     </ul>
                                 </div>
                                 <div class="row">
+                                    <div class="col-12" v-if="hasDocumentSelected()">
+                                        {{ setItemCompromise() }}
+                                    </div>
                                     <div class="col-12">
                                         <div class="form-group is-required">
                                             <label>Acción Específica:</label>
@@ -236,10 +239,12 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <label>Concepto:</label>
-                                        <input type="text" class="form-control input-sm" data-toggle="tooltip"
-                                               v-model="account_concept"
-                                               title="Indique el concepto de la cuenta presupuestaria a agregar">
+                                        <div class="form-group">
+                                            <label>Concepto:</label>
+                                            <input type="text" class="form-control input-sm" data-toggle="tooltip"
+                                                   v-model="account_concept"
+                                                   title="Indique el concepto de la cuenta presupuestaria a agregar">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -309,7 +314,8 @@
                     source_document: '',
                     description: '',
                     accounts: [],
-                    tax_accounts: []
+                    tax_accounts: [],
+                    documentToCompromise: {}
                 },
                 errors: [],
                 institutions: [],
@@ -330,7 +336,7 @@
                  * Campos temporales para agregar documentos al compromiso
                  */
                 document_sources: [],
-                document_number: ''
+                document_number: '',
             }
         },
         watch: {
@@ -423,7 +429,10 @@
              * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
              */
             addDocument(sourceId) {
-
+                const vm = this;
+                vm.record.documentToCompromise = JSON.parse(JSON.stringify(vm.document_sources.filter(doc => {
+                    return doc.id === sourceId;
+                })[0]));
             },
             /**
              * Obtiene las Acciones Específicas
@@ -431,15 +440,16 @@
              * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
              * @param {string} type Tipo de registro
              */
-            getSpecificActions() {
+            async getSpecificActions() {
                 const vm = this;
+                vm.loading = true;
                 vm.specific_actions = [];
                 vm.accounts = [];
 
                 if (vm.record.compromised_at && vm.record.source_document && vm.record.institution_id) {
                     let year = vm.record.compromised_at.split("-")[0];
                     let url = `${window.app_url}/budget/get-group-specific-actions/${year}/1/${vm.record.institution_id}`;
-                    axios.get(url).then(response => {
+                    await axios.get(url).then(response => {
                         vm.specific_actions = response.data;
                     }).catch(error => {
                         console.error(error);
@@ -448,6 +458,8 @@
                     $("#add_account").find('.close').click();
                     bootbox.alert('Debe indicar los datos del compromiso antes de agregar cuentas');
                 }
+
+                vm.loading = false;
             },
             /**
              * Obtiene las cuentas presupuestarias formuladas de la acción específica seleccionada
@@ -456,23 +468,33 @@
              *
              * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
              */
-            getAccounts() {
+            async getAccounts() {
                 const vm = this;
+                vm.loading = true;
                 vm.accounts = [];
 
                 if (vm.specific_action_id) {
                     let specificActionId = vm.specific_action_id;
                     let compromisedAt = vm.record.compromised_at;
-                    axios.get(
+                    await axios.get(
                         `${window.app_url}/budget/get-opened-accounts/${specificActionId}/${compromisedAt}`
                     ).then(response => {
                         if (response.data.result) {
                             vm.accounts = response.data.records;
                         }
+                        if (response.data.records.length === 1 && response.data.records[0].id === "") {
+                            vm.showMessage(
+                                'custom', 'Alerta!', 'danger', 'screen-error',
+                                `No existen cuentas aperturadas para esta acción específica o con saldo para la fecha
+                                seleccionada`
+                            );
+                        }
                     }).catch(error => {
                         console.error(error);
                     });
                 }
+
+                vm.loading = false;
             },
             /**
              * Obtiene los registros precomprometidos que aún no han sido comprometidos
@@ -499,6 +521,35 @@
                 }).catch(error => {
                     console.warn(error);
                 });
+            },
+            /**
+             * Determina si se ha seleccionado un documento desde otras fuentes para ser comprometido
+             *
+             * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             *
+             * @return    {Boolean}              Devuelve verdadero si tiene un documento seleccionado,
+             *                                   de lo contrario devuelve falso
+             */
+            hasDocumentSelected() {
+                const vm = this;
+                let compromise = vm.record.documentToCompromise;
+                return (
+                    typeof(compromise.budget_compromise_details)!=='undefined' &&
+                    compromise.budget_compromise_details.length > 0
+                );
+            },
+            /**
+             * Muestra el item del compromiso proveniente de fuentes externas que se esta comprometiendo
+             *
+             * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+             *
+             * @return {String} Texto con información del ítem a comprometer
+             */
+            setItemCompromise() {
+                const vm = this;
+                let totalItems = vm.record.documentToCompromise.budget_compromise_details.length;
+                let currentItem = vm.record.accounts.length;
+                return `Item ${currentItem} / ${totalItems}`;
             }
         },
         created() {
@@ -523,6 +574,11 @@
                     /** Carga las acciones específicas para la respectiva formulación */
                     vm.getSpecificActions();
                 }
+            }).on('hide.bs.modal', function() {
+                /** @type {Array} Inicializa el arreglo de acciones específicas a seleccionar */
+                vm.specific_actions = [];
+                /** @type array Inicializa el arreglo de las cuentas presupuestarias seleccionadas */
+                vm.accounts = [];
             });
         }
     };

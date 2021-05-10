@@ -80,6 +80,7 @@ Vue.directive('is-text', {
 	}
 });
 
+/** Directiva para determinar si el elemento dispone de tooltip */
 Vue.directive('has-tooltip', {
     bind: (el, binding) => {
         $(el).tooltip({

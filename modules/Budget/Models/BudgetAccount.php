@@ -39,7 +39,7 @@ class BudgetAccount extends Model implements Auditable
      */
     protected $fillable = [
         'group', 'item', 'generic', 'specific', 'subspecific', 'denomination', 'active', 'resource',
-        'egress', 'tax_id', 'parent_id', 'original'
+        'egress', 'tax_id', 'parent_id', 'original', 'disaggregate_tax'
     ];
 
     /**
