@@ -35,17 +35,62 @@ class AssetController extends Controller
     use ValidatesRequests;
 
     /**
+     * Arreglo con las reglas de validación sobre los datos de un formulario
+     * @var Array $validateRules
+     */
+    protected $validateRules;
+
+    /**
+     * Arreglo con los mensajes para las reglas de validación
+     * @var Array $messages
+     */
+    protected $messages;
+    /**
      * Define la configuración de la clase
-     *
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      */
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:asset.list', ['only' => 'index']);
-        $this->middleware('permission:asset.create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:asset.edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:asset.delete', ['only' => 'destroy']);
+        $this->validateRules = [
+            'asset_type_id' => ['required'],
+            'asset_category_id' => ['required'],
+            'asset_subcategory_id' => ['required'],
+            'asset_specific_category_id' => ['required'],
+            'asset_acquisition_type_id' => ['required'],
+            'acquisition_date' => ['required', new AcquisitionYear(Date("Y"))],
+            'asset_status_id' => ['required'],
+            'asset_condition_id' => ['required'],
+            'value' => ['required', 'regex:/^\d+(\.\d+)?$/u'],
+            'currency_id' => ['required'],
+            'institution_id' => ['required'],
+        ];
+
+        /** Define los mensajes de validación para las reglas del formulario */
+        $this->messages = [
+            'institution_id'                       => 'El campo organización es obligatorio.',
+            'aseet_type_id.required'               => 'El campo tipo de bien es obligatorio.',
+            'aseet_category_id.required'           => 'El campo categoria general es obligatorio.',
+            'aseet_subcategory_id.required'        => 'El campo subcategoria es obligatorio.',
+            'aseet_specific_category_id.required'  => 'El campo categoria especifica es obligatorio.',
+            'asset_acquisition_type_id'            => 'El campo forma de adquisición es obligatorio.',
+            'acquisition_date'                     => 'El campo fecha de adquisición es obligatorio.',
+            'asset_status_id'                      => 'El campo estatus de uso es obligatorio.',
+            'value'                                => 'El campo valor es obligatorio.',
+            'currency_id'                          => 'El campo moneda es obligatorio.',
+            'serial'                               => 'El campo serial es obligatorio.',
+            'marca'                                => 'El campo marca es obligatorio.',
+            'model'                                => 'El campo modelo es obligatorio.',
+            'asset_use_function_id'                => 'El campo función de uso es obligatorio.',
+            'parish_id'                            => 'El campo país es obligatorio.',
+            'address'                              => 'El campo dirección es obligatorio.',
+
+
+
+
+
+        ];
     }
 
     /**
@@ -74,6 +119,7 @@ class AssetController extends Controller
      * Valida y registra un nuevo bien institucional
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
      * @param     \Illuminate\Http\Request         $request    Datos de la petición
      * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar
      */
@@ -82,45 +128,46 @@ class AssetController extends Controller
         $item_required = AssetRequiredItem::where('asset_specific_category_id', $request->asset_specific_category_id)
             ->first();
         if (!is_null($item_required)) {
-            $this->validate($request, [
-                'asset_type_id' => ['required'],
-                'asset_category_id' => ['required'],
-                'asset_subcategory_id' => ['required'],
-                'asset_specific_category_id' => ['required'],
-                'asset_acquisition_type_id' => ['required'],
-                'acquisition_date' => ['required', new AcquisitionYear(Date("Y"))],
-                'asset_status_id' => ['required'],
-                'asset_condition_id' => ['required'],
-                'value' => ['required', 'regex:/^\d+(\.\d+)?$/u'],
-                'quantity' => ['regex:/^[1-9][0-9]*$/'],
-                'currency_id' => ['required'],
-                'institution_id' => ['required'],
+            $validateRules  = $this->validateRules;
+            $validateRules  = array_merge(
+                $validateRules,
+                [
+                    'serial' => new RequiredItem($item_required->serial),
+                    'marca'  => new RequiredItem($item_required->marca),
+                    'model' => new RequiredItem($item_required->model),
+                    'asset_use_function_id' => new RequiredItem($item_required->use_function),
+                    'parish_id' => new RequiredItem($item_required->address),
+                    'address' => new RequiredItem($item_required->address),
 
-                'serial' => new RequiredItem($item_required->serial),
-                'marca'  => new RequiredItem($item_required->marca),
-                'model' => new RequiredItem($item_required->model),
-                'asset_use_function_id' => new RequiredItem($item_required->use_function),
-                'parish_id' => new RequiredItem($item_required->address),
-                'address' => new RequiredItem($item_required->address),
-            ]);
+                ]
+            );
+            $this->validate($request, $validateRules, $this->messages);
         } else {
-            $this->validate($request, [
-                'asset_type_id' => ['required'],
-                'asset_category_id' => ['required'],
-                'asset_subcategory_id' => ['required'],
-                'asset_specific_category_id' => ['required'],
-                'asset_acquisition_type_id' => ['required'],
-                'acquisition_date' => ['required', new AcquisitionYear(Date("Y"))],
-                'asset_status_id' => ['required'],
-                'asset_condition_id' => ['required'],
-                'value' => ['required', 'regex:/^\d+(\.\d+)?$/u'],
-                'quantity' => ['required', 'regex:/^[1-9][0-9]*$/'],
-                'currency_id' => ['required'],
-                'institution_id' => ['required'],
-
-            ]);
+            $this->validate($request, $this->validateRules, $this->messages);
         }
-        AssetCreateAssets::dispatch($request->all());
+        $asset = Asset::create([
+            'asset_type_id'              => $request->asset_type_id,
+            'asset_category_id'          => $request->asset_category_id,
+            'asset_subcategory_id'       => $request->asset_subcategory_id,
+            'asset_specific_category_id' => $request->asset_specific_category_id,
+            'specifications'             => $request->specifications,
+            'asset_condition_id'         => $request->asset_condition_id,
+            'asset_acquisition_type_id'  => $request->asset_acquisition_type_id,
+            'acquisition_date'           => $request->acquisition_date,
+            'asset_status_id'            => $request->asset_status_id,
+            'serial'                     => $request->serial,
+            'marca'                      => $request->marca,
+            'model'                      => $request->model,
+            'value'                      => $request->value,
+            'currency_id'                => $request->currency_id,
+            'institution_id'             => $request->institution_id,
+            'asset_use_function_id'      => $request->asset_use_function_id,
+            'parish_id'                  => $request->parish_id,
+            'address'                    => $request->address,
+
+        ]);
+        $asset->inventory_serial = $asset->getCode();
+        $asset->save();
 
         $request->session()->flash('message', ['type' => 'store']);
         return response()->json(['result' => true, 'redirect' => route('asset.register.index')], 200);
@@ -130,6 +177,7 @@ class AssetController extends Controller
      * Muestra el formulario para actualizar la información de los bienes institucionales
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
      * @param     \Modules\Asset\Models\Asset    $asset    Datos del Bien
      * @return    Renderable
      */
@@ -150,56 +198,53 @@ class AssetController extends Controller
     public function update(Request $request, $id)
     {
         $asset = Asset::find($id);
-        $this->validate($request, [
 
-            'asset_type_id' => ['required'],
-            'asset_category_id' => ['required'],
-            'asset_subcategory_id' => ['required'],
-            'asset_specific_category_id' => ['required'],
-            'asset_acquisition_type_id' => ['required'],
-            'acquisition_date' => ['required', new AcquisitionYear(Date("Y"))],
-            'asset_status_id' => ['required'],
-            'asset_condition_id' => ['required'],
-            'value' => ['required', 'regex:/^\d+(\.\d+)?$/u'],
-            'currency_id' => ['required'],
-            'institution_id' => ['required'],
-        ]);
 
         if ($request->asset_type_id == 1) {
-            $this->validate($request, [
-                'serial' => ['required', 'max:50'],
-                'marca'  => ['required', 'max:50'],
-                'model' => ['required', 'max:50'],
-            ]);
+            $validateRules  = $this->validateRules;
+            $validateRules  = array_merge(
+                $validateRules,
+                [
+                    'serial' => ['required', 'max:50'],
+                    'marca'  => ['required', 'max:50'],
+                    'model' => ['required', 'max:50'],
+
+                ]
+            );
         } elseif ($request->type_id == 2) {
-            $this->validate($request, [
-                'asset_use_function_id' => ['required'],
-                'parish_id' => ['required'],
-                'address' => ['required'],
-            ]);
+            $validateRules  = $this->validateRules;
+            $validateRules  = array_merge(
+                $validateRules,
+                [
+                    'asset_use_function_id' => ['required'],
+                    'parish_id' => ['required'],
+                    'address' => ['required'],
+
+                ]
+            );
         }
 
-        $asset->asset_type_id = $request->asset_type_id;
-        $asset->asset_category_id = $request->asset_category_id;
-        $asset->asset_subcategory_id = $request->asset_subcategory_id;
-        $asset->asset_specific_category_id = $request->asset_specific_category_id;
-        $asset->specifications = $request->specifications;
-        //$asset->proveedor_id = $request->proveedor_id;
-        $asset->asset_condition_id = $request->asset_condition_id;
-        $asset->asset_acquisition_type_id = $request->asset_acquisition_type_id;
-        $asset->acquisition_date = $request->acquisition_date;
-        $asset->serial = $request->serial;
-        $asset->marca = $request->marca;
-        $asset->model = $request->model;
-        $asset->value = $request->value;
-        $asset->currency_id = $request->currency_id;
-        $asset->institution_id = $request->institution_id;
-        $asset->asset_use_function_id = $request->asset_use_function_id;
-        $asset->parish_id = $request->parish_id;
-        $asset->address = $request->address;
-        $asset->asset_status_id = $request->asset_status_id;
+        $asset->update([
+            'asset_type_id'              => $request->asset_type_id,
+            'asset_category_id'          => $request->asset_category_id,
+            'asset_subcategory_id'       => $request->asset_subcategory_id,
+            'asset_specific_category_id' => $request->asset_specific_category_id,
+            'specifications'             => $request->specifications,
+            'asset_condition_id'         => $request->asset_condition_id,
+            'asset_acquisition_type_id'  => $request->asset_acquisition_type_id,
+            'acquisition_date'           => $request->acquisition_date,
+            'asset_status_id'            => $request->asset_status_id,
+            'serial'                     => $request->serial,
+            'marca'                      => $request->marca,
+            'model'                      => $request->model,
+            'value'                      => $request->value,
+            'currency_id'                => $request->currency_id,
+            'institution_id'             => $request->institution_id,
+            'asset_use_function_id'      => $request->asset_use_function_id,
+            'parish_id'                  => $request->parish_id,
+            'address'                    => $request->address,
 
-        $asset->save();
+        ]);
 
         $request->session()->flash('message', ['type' => 'update']);
         return response()->json(['result' => true, 'redirect' => route('asset.register.index')], 200);

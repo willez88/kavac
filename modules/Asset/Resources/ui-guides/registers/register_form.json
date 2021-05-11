@@ -85,11 +85,6 @@
         "position" : "right"
     },
     {
-        "element" : "#helpAssetQuantity",
-        "intro" : "Parámetro que establece la catidad de bienes a registrar",
-        "position" : "right"
-    },
-    {
         "element" : "#helpAssetCountry",
         "intro" : "Parámetro que establece el país donde se ubica el bien. Solo para bienes inmuebles",
         "position" : "right"
