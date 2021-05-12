@@ -4,24 +4,35 @@ site_name: Documentación de Usuario.
 # Page tree
 nav:
       - Inicio: index.md
-      #- Módulo de Bienes:
-      #  - Registros: registers.md
-      # - Asignaciones: assignments.md
-      #  - Desincorporaciones: disincorporations.md
-      #  - Solicitudes: requests.md
-      #  - Historial de Inventario: inventory_history.md
-      #  - Reportes: reports.md
-      #- Configuración: 
-      #  - Formato de Códigos: setting/code_format.md
-      #  - Parámetros Generales: setting/general_parameters.md
-      #  - Parámetros Específicos: setting/specific_parameters.md 
-      #- Panel de Control: 
-      #  - Panel de Control: control_panel/control_panel.md 
-      #- Preguntas Frecuentes: frequent_questions.md  
+      - Módulo de Talento Humano:
+        - Ajustes en Tablas Salariales: registers.md
+        - Expediente:
+          - Datos Personales: assignments.md
+          - Datos Profesionales: requests.md
+          - Datos Socioeconómicos : inventory_history.md
+          - Datos Laborales : inventory_history.md
+        - Registros de Nómina: reports.md
+        - Solicitudes:
+          - Solicitud de vacaciones: assignments.md
+          - Solicitud de prestaciones: disincorporations.md
+          - Solicitud de permisos: requests.md
+        - Reportes: 
+          - Disfrute de vacaciones: reports.md
+          - Estatus de vacaciones: reports.md
+          - Cálculo de bono vacacional: reports.md
+          - Pago de bono vacacional: reports.md
+      - Configuración: 
+        - Formato de Códigos: setting/code_format.md
+        - Configuración de la Edad Laboral Permitida: setting/working_age.md
+        - Registros Comunes: setting/common_records.md 
+        - Parámetros Generales de Nómina: setting/general_parameters.md 
+      - Panel de Control: 
+        - Panel de Control: control_panel/control_panel.md 
+      - Preguntas Frecuentes: frequent_questions.md  
 
 # Repository
 repo_name: Repositorio-Kavac
-repo_url: https://tibisay.cenditel.gob.ve/sistema-de-gestion/
+repo_url: https://gestion.cenditel.gob.ve/trac/browser/kavac/
 
 # Configuration
 theme:
@@ -36,7 +47,7 @@ theme:
   search_index_only: true
 
   # Default values, taken from mkdocs_theme.yml
-  language: en
+  language: es
   features:
     - navigation.tabs
     #- navigation.instant

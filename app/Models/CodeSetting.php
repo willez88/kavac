@@ -66,6 +66,21 @@ class CodeSetting extends Model implements Auditable
         return "{$this->format_prefix}-{$this->format_digits}-{$this->format_year}";
     }
 
+    public function setFormatPrefixAttribute($value)
+    {
+        $this->attributes['format_prefix'] = str_replace("_", "", $value);
+    }
+
+    public function setFormatDigitsAttribute($value)
+    {
+        $this->attributes['format_digits'] = str_replace("_", "", $value);
+    }
+
+    public function setFormatYearAttribute($value)
+    {
+        $this->attributes['format_year'] = str_replace("_", "", $value);
+    }
+
     /**
      * Método que permite dividir el formato del código
      *

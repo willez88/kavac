@@ -80,6 +80,7 @@ Vue.directive('is-text', {
 	}
 });
 
+/** Directiva para determinar si el elemento dispone de tooltip */
 Vue.directive('has-tooltip', {
     bind: (el, binding) => {
         $(el).tooltip({
@@ -1072,10 +1073,30 @@ Vue.mixin({
 				}
 			}
 		},
+        /**
+         * Listado de años fiscales
+         *
+         * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         */
         getOpenedFiscalYears() {
             const vm = this;
             axios.get('/fiscal-years/opened/list').then(response => {
                 vm.fiscal_years = response.data.records;
+            }).catch(error => {
+                console.error(error);
+            });
+        },
+        /**
+         * Listado de impuestos
+         *
+         * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         */
+        getTaxes() {
+            const vm = this;
+            axios.get(`${window.app_url}/get-taxes`).then(response => {
+                if (response.data.records.length > 0) {
+                    vm.taxes = response.data.records;
+                }
             }).catch(error => {
                 console.error(error);
             });

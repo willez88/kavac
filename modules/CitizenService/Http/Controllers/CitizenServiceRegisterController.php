@@ -59,7 +59,9 @@ class CitizenServiceRegisterController extends Controller
             'email.required'        => 'El campo correo electrónico es obligatorio',
             'email.email'           => 'El campo correo electrónico es de tipo email',
             'percent.required'      => 'El campo porcentaje de cumplimiento es obligatorio',
-            'percent.max'           => 'El campo porcentaje de cumplimiento no debe contener más de 100 caracteres.'
+            'percent.max'           => 'El campo porcentaje de cumplimiento no debe contener más de 100 caracteres.',
+            'percent.integer'       => 'El campo porcentaje de cumpliento debe ser entero',
+            'percent.min'           => 'El campo porcentaje de cumpliento número minimo es 1',
         ];
     }
 
@@ -129,14 +131,10 @@ class CitizenServiceRegisterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $citizenServiceRegister = CitizenServiceRegister::find($id);
-        $validateRules  = $this->validateRules;
-        $validateRules  = array_replace(
-            $validateRules,
-            ['first_name' => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:100' . $citizenServiceRegister->id]]
-        );
-        $this->validate($request, $validateRules, $this->messages);
 
+
+        $this->validate($request, $this->validateRules, $this->messages);
+        $citizenServiceRegister = CitizenServiceRegister::find($id);
         $citizenServiceRegister->date_register         = $request->date_register;
         $citizenServiceRegister->first_name            = $request->first_name;
         $citizenServiceRegister->project_name          = $request->project_name;

@@ -75,19 +75,19 @@ class WarehouseSettingController extends Controller
      */
     public function store(Request $request)
     {
-        /** Reglas de validación para la configuración de códigos */
-        $this->validate($request, [
-            'products_code' => [new CodeSettingRule],
-            'movements_code' => [new CodeSettingRule],
-            'requests_code' => [new CodeSettingRule],
-            'reports_code' => [new CodeSettingRule],
-            'inventories_code' => [new CodeSettingRule]
-        ]);
-
         /** @var array $codes Arreglo con información de los campos de códigos configurados */
         $codes = $request->input();
         /** @var boolean $saved Define el estatus verdadero para indicar que no se ha registrado información */
         $saved = false;
+
+        /** Reglas de validación para la configuración de códigos */
+        $this->validate($request, [
+            'products_code'    => [new CodeSettingRule],
+            'movements_code'   => [new CodeSettingRule],
+            'requests_code'    => [new CodeSettingRule],
+            'reports_code'     => [new CodeSettingRule],
+            'inventories_code' => [new CodeSettingRule]
+        ]);
 
         foreach ($codes as $key => $value) {
             /** @var string $model Define el modelo al cual hace referencia el código */

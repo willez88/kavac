@@ -1,10 +1,10 @@
 <template>
-	<section>
+	<section id="warehouseClosesFormComponent">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-		   href="#" title="Registros de Cierres de Almacén" data-toggle="tooltip"
+		   href="#" title="Registros de cierres de almacén" data-toggle="tooltip" v-has-tooltip
 		   @click="addRecordClose($event)">
 			<i class="icofont icofont-ui-unlock ico-3x"></i>
-			<span>Cierres de Almacén</span>
+			<span>Cierres de almacén</span>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_close">
 			<div class="modal-dialog vue-crud" role="document">
@@ -15,7 +15,7 @@
 						</button>
 						<h6>
 							<i class="icofont icofont-ui-unlock ico-2x"></i>
-							Nuevo Cierre de Almacén
+							Nuevo cierre de almacén
 						</h6>
 					</div>
 					<div class="modal-body">
@@ -39,7 +39,7 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group is-required">
-									<label>Nombre del Almacén:</label>
+									<label>Nombre del almacén:</label>
 									<select2 :options="warehouses"
 														 v-model="record.warehouse_id"></select2>
 									<input type="hidden" v-model="record.id">
@@ -48,7 +48,7 @@
 
 							<div class="col-md-4">
 								<div class="form-group is-required">
-									<label>Inicio del Cierre de Almacén:</label>
+									<label>Inicio del cierre de almacén:</label>
 									<input type="date" placeholder="Inicio del cierre del almacén" data-toggle="tooltip"
 													   title="Indique la fecha de inicio del cierre del almacén (requerido)"
 													   class="form-control input-sm" v-model="record.initial_date">
@@ -56,7 +56,7 @@
 							</div>
 							<div class="col-md-4">
 								<div class="form-group is-required">
-									<label>Fin del Cierre de Almacén:</label>
+									<label>Fin del cierre de almacén:</label>
 									<input type="date" placeholder="Fin del cierre del almacén" data-toggle="tooltip"
 													   title="Indique la fecha en que culmina el cierre del almacén (requerido)"
 													   class="form-control input-sm" v-model="record.end_date">
@@ -65,7 +65,7 @@
 
 							<div class="col-md-12">
 								<div class="form-group is-required">
-									<label>Observaciones del Cierre de Almacén:</label>
+									<label>Observaciones del cierre de almacén:</label>
                                     <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
                                               title="Indique alguna observación referente al cierre de almacén (requerido)"
                                               :config="ckeditor.editorConfig" class="form-control" tag-name="textarea"
@@ -196,9 +196,9 @@
 			this.table_options.headings = {
 				'warehouse.name': 'Almacén',
 				'initial_user.name': 'Cerrado por',
-				'initial_date': 'Inicio del Cierre',
+				'initial_date': 'Inicio del cierre',
 				'end_user.name': 'Aperturado por',
-				'end_date': 'Fin del Cierre',
+				'end_date': 'Fin del cierre',
 				'id': 'Acción',
 			};
 			this.table_options.sortable = [
