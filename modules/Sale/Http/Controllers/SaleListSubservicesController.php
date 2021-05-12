@@ -6,7 +6,9 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Modules\Sale\Models\SaleListSubservicesAttribute;
 use Modules\Sale\Models\SaleListSubservices;
+
 /**
  * @class SaleListSubservicesController
  * @brief [descripción detallada]
@@ -70,8 +72,22 @@ class SaleListSubservicesController extends Controller
             'description' => ['required', 'max:200']
         ]);
         $salelistsubservicesMethod = SaleListSubservices::create([
-            'name' => $request->name,'description' => $request->description
+            'name' => $request->name,
+            'description' => $request->description,
+            'define_attributes'   => !empty($request->define_attributes)
+                                        ? $request->define_attributes
+                                        : false
         ]);
+
+        if ($salelistsubservicesMethod->define_attributes) {
+            foreach ($request->sale_lists_subservices_attribute as $att) {
+                $attribute = SaleListSubservicesAttribute::create([
+                    'name'                 => $att['name'],
+                    'sale_type_good_id' => $salelistsubservicesMethod->id
+                ]);
+            }
+        };
+
         return response()->json(['record' => $salelistsubservicesMethod, 'message' => 'Success'], 200);
     }
 
