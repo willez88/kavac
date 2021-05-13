@@ -46,16 +46,7 @@ class SaleListSubservicesController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => SaleListSubservices::all()], 200);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('sale::create');
+        return response()->json(['records' => SaleListSubservices::with('SaleListSubservicesAttribute')->get()], 200);
     }
 
     /**
@@ -78,12 +69,13 @@ class SaleListSubservicesController extends Controller
                                         ? $request->define_attributes
                                         : false
         ]);
+return print_r($salelistsubservicesMethod->define_attributes);
 
         if ($salelistsubservicesMethod->define_attributes) {
             foreach ($request->sale_lists_subservices_attribute as $att) {
                 $attribute = SaleListSubservicesAttribute::create([
-                    'name'                 => $att['name'],
-                    'sale_type_good_id' => $salelistsubservicesMethod->id
+                    'value'                 => $att['value'],
+                    'sale_list_subservices_id' => $salelistsubservicesMethod->id
                 ]);
             }
         };
