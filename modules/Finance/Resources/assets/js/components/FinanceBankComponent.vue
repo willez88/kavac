@@ -15,7 +15,7 @@
 						</button>
 						<h6>
 							<i class="icofont icofont-bank-alt inline-block"></i>
-							Bancos
+							Banco
 						</h6>
 					</div>
 					<div class="modal-body">
@@ -48,7 +48,7 @@
 							</div>
 							<div class="col-md-4">
 								<div class="form-group is-required">
-									<label>Nonmbre Abreviado</label>
+									<label>Nombre Abreviado</label>
 									<input type="text" placeholder="Nombre corto" data-toggle="tooltip"
 										   title="Indique el nombre abreviado de la entidad bancaria (requerido)"
 										   class="form-control input-sm" v-model="record.short_name">

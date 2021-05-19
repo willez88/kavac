@@ -3,7 +3,7 @@
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="#" title="Registros de tipos de cuenta bancaria"
 		   data-toggle="tooltip"
-		   @click="addRecord('add_account_type', '/finance/account-types', $event)">
+		   @click="addRecord( 'add_account_type','/finance/account-types', $event)">
 			<i class="icofont icofont-mathematical ico-3x"></i>
 			<span>Tipos<br>Cuenta</span>
 		</a>
