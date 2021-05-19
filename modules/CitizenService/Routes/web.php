@@ -85,7 +85,7 @@ Route::group([
      * Rutas para generar registro de actividades
      */
 
-    //Route::resource('registers', 'CitizenServiceRegisterController', ['only' => ['update']]);
+    Route::resource('registers', 'CitizenServiceRegisterController', ['as' => 'citizenservice', 'only' => ['update']]);
 
     Route::get('/registers/create', 'CitizenServiceRegisterController@create')->name('citizenservice.register.create');
 
@@ -94,7 +94,7 @@ Route::group([
     Route::post('registers', 'CitizenServiceRegisterController@store');
 
     Route::get(
-        'registers/edit/{register}',
+        '/registers/edit/{register}',
         'CitizenServiceRegisterController@edit'
     )->name('citizenservice.register.edit');
 

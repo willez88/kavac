@@ -31,14 +31,20 @@ class AssetAsignationController extends Controller
      * Define la configuración de la clase
      *
      * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
      */
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:asset.asignation.list', ['only' => 'index']);
-        $this->middleware('permission:asset.asignation.create', ['only' => ['create', 'assetAssign', 'store']]);
-        $this->middleware('permission:asset.asignation.edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:asset.asignation.delete', ['only' => 'destroy']);
+        $this->validateRules = [
+            'payroll_staff_id' => ['required']
+        ];
+
+        /** Define los mensajes de validación para las reglas del formulario */
+        $this->messages = [
+            'payroll_staff_id.required'    => 'El campo trabajador es obligatorio.'
+
+        ];
     }
 
     /**
@@ -85,10 +91,8 @@ class AssetAsignationController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'payroll_staff_id' => ['required'],
-        ]);
-
+        $this->validate($request, $this->validateRules, $this->messages);
+        
         $codeSetting = CodeSetting::where('table', 'asset_asignations')->first();
         if (is_null($codeSetting)) {
             $request->session()->flash('message', [

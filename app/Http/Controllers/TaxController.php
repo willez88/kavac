@@ -137,4 +137,21 @@ class TaxController extends Controller
         $tax->delete();
         return response()->json(['record' => $tax, 'message' => 'Success'], 200);
     }
+
+    /**
+     * Listado de impuestos registrados
+     *
+     * @method    getAll
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return    JsonResponse    Objeto con información de los impuestos
+     */
+    public function getAll()
+    {
+        $taxes = Tax::with(['histories' => function ($q) {
+            $q->orderBy('operation_date', 'desc');
+        }])->where('active', true)->get();
+        return response()->json(['records' => $taxes]);
+    }
 }

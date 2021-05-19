@@ -9,6 +9,7 @@ use Modules\Asset\Models\AssetSubcategory;
 use Modules\Asset\Models\AssetSpecificCategory;
 use Modules\Asset\Models\AssetRequiredItem;
 use Modules\Asset\Rules\Setting\AssetSpecificCategoryUnique;
+use Illuminate\Validation\Rule;
 
 /**
  * @class      AssetSpecificCategoryController
@@ -34,7 +35,8 @@ class AssetSpecificCategoryController extends Controller
         $this->middleware('permission:asset.setting.specific');
         /** Define las reglas de validación para el formulario */
         $this->validateRules = [
-            'name'          => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100'],
+            'name'          => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100',
+                                Rule::unique('asset_specific_categories')],
             'code'          => ['required', 'max:10'],
             'asset_subcategory_id' => ['required']
 
@@ -100,7 +102,7 @@ class AssetSpecificCategoryController extends Controller
             $validateRules
         );
 
-        $this->validate($request, $this->validateRules, $this->messages);
+        $this->validate($request, $validateRules, $this->messages);
 
 
         /**
@@ -129,13 +131,18 @@ class AssetSpecificCategoryController extends Controller
     public function update(Request $request, AssetSpecificCategory $specific_category)
     {
         $validateRules  = $this->validateRules;
+        $validateRules  = array_replace(
+            $validateRules,
+            ['name' => ['required', 'regex:/^[a-zA-ZÁ-ÿ\s]*$/u', 'max:100',
+                            Rule::unique('asset_specific_categories')->ignore($specific_category->id)]]
+        );
         $validateRules  = array_merge(
             ['id' => [new AssetSpecificCategoryUnique($request->input('asset_subcategory_id'), $request->input('code'))
             ]],
             $validateRules
         );
-        
-        $this->validate($request, $this->validateRules, $this->messages);
+
+        $this->validate($request, $validateRules, $this->messages);
 
         $specific_category = AssetSpecificCategory::find($request->id);
 

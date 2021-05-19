@@ -235,6 +235,46 @@ Vue.component('sale-type-good', () => import(
 );
 
 /**
+ * Componente para mostrar un listado de las solicitudes de servicios
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-service-list', () => import(
+    /* webpackChunkName: "sale-service-list" */
+    './components/services/SaleServiceListComponent.vue')
+);
+
+/**
+ * Componente para mostrar un listado de las solicitudes de servicios pendientes
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-service-pending-list', () => import(
+    /* webpackChunkName: "sale-service-pending-list" */
+    './components/services/SaleServicePendingListComponent.vue')
+);
+
+/**
+ * Componente para mostrar un listado de las solicitudes de servicios rechazadas
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-service-rejected-list', () => import(
+    /* webpackChunkName: "sale-service-rejected-list" */
+    './components/services/SaleServiceRejectedListComponent.vue')
+);
+
+/**
+ * Componente para mostrar un listado de las propuestas técnicas de solicitudes de servicios
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-technical-proposal-list', () => import(
+    /* webpackChunkName: "sale-technical-proposal-list" */
+    './components/services/SaleTechnicalProposalListComponent.vue')
+);
+
+/**
  * Opciones de configuración global del módulo de Commercialización
  */
 Vue.mixin({

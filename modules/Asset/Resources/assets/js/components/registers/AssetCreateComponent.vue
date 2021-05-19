@@ -183,15 +183,6 @@
 								 v-model="record.currency_id"></select2>
 					</div>
 				</div>
-				<div class="col-md-3" id="helpAssetQuantity"
-					v-if="record.id == ''">
-					<div class="form-group is-required">
-						<label>Cantidad</label>
-						<input type="number" min="0" placeholder="Cantidad" data-toggle="tooltip"
-							   title="Indique la cantidad del bien a registrar"
-							   class="form-control input-sm" v-model="record.quantity">
-					</div>
-				</div>
 			</div>
 			<div v-if="required.address == true">
 				<hr>
@@ -294,7 +285,7 @@
 					marca: '',
 					model: '',
 					value: '',
-					quantity: '',
+					
 
 					country_id: '',
 					estate_id: '',
@@ -353,7 +344,7 @@
 					marca: '',
 					model: '',
 					value: '',
-					quantity: '',
+
 
 					country_id: '',
 					estate_id: '',

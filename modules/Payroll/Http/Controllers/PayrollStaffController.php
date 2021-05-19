@@ -56,7 +56,9 @@ class PayrollStaffController extends Controller
             'payroll_blood_type_id' => ['required'],
             'social_security' => ['nullable'],
             'parish_id' => ['required'],
-            'address' => ['required', 'max:200']
+            'address' => ['required', 'max:200'],
+            'uniform_size' => ['required', 'integer', 'min:1'],
+            'medical_history' => ['nullable'],
         ];
 
         /** Define los atributos para los campos personalizados*/
@@ -68,6 +70,8 @@ class PayrollStaffController extends Controller
             'payroll_gender_id' => 'género',
             'payroll_blood_type_id' => 'tipo de sangre',
             'parish_id' => 'parroquia',
+            'uniform_size' => 'talla de uniforme',
+            'medical_history' => 'historial médico'
         ];
     }
 
@@ -189,6 +193,8 @@ class PayrollStaffController extends Controller
             'emergency_phone' => $request->emergency_phone,
             'parish_id' => $request->parish_id,
             'address' => $request->address,
+            'uniform_size' => $request->uniform_size,
+            'medical_history' => $request->medical_history,
         ]);
         if ($request->phones && !empty($request->phones)) {
             foreach ($request->phones as $phone) {
@@ -323,6 +329,8 @@ class PayrollStaffController extends Controller
         $payrollStaff->emergency_phone = $request->emergency_phone;
         $payrollStaff->parish_id = $request->parish_id;
         $payrollStaff->address = $request->address;
+        $payrollStaff->uniform_size = $request->uniform_size;
+        $payrollStaff->medical_history = $request->medical_history;
         $payrollStaff->save();
         foreach ($payrollStaff->phones as $phone) {
             $phone->delete();

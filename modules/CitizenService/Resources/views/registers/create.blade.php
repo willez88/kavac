@@ -20,6 +20,7 @@
 <div class="row">
 	<div class="col-12">
 		<citizenservice-register-create
+		
 				route_list="{{ url('citizenservice/register')}}"
 				:requestid ="{!! (isset($request)) ? $request->id : 'null' !!}">
 		</citizenservice-register-create>

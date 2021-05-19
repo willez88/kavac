@@ -16,6 +16,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\HeadingRowImport;
 use App\Imports\DataImport;
 use App\Models\FiscalYear;
+use App\Repositories\ReportRepository;
 
 /**
  * @class BudgetSubSpecificFormulationController
@@ -370,5 +371,55 @@ class BudgetSubSpecificFormulationController extends Controller
         }
 
         return response()->json(['result' => true, 'records' => $records], 200);
+    }
+
+    /**
+     * Genera el reporte de presupuesto formulado
+     *
+     * @method    printFormulated
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     integer            $id    Identificador del presupuesto formulado a imprimir
+     *
+     * @return    Response           Respuesta de la solicitud para descargar el reporte
+     */
+    public function printFormulated($id)
+    {
+        $pdf = new ReportRepository;
+        $formulation = BudgetSubSpecificFormulation::with(['currency', 'institution'])
+                                                   ->where('id', $id)->first();
+        $filename = 'formulated-' . $formulation->id . '.pdf';
+        $pdf->setConfig(
+            [
+                'institution' => $formulation->institution,
+                'urlVerify'   => 'www.google.com',
+                'orientation' => 'P',
+                'filename'    => $filename
+            ]
+        );
+        $pdf->setHeader("Oficina de Programación y Presupuesto", "Presupuesto de Gastos por Sub Específicas");
+
+        $pdf->setFooter();
+        $pdf->setBody('budget::reports.formulation', true, compact('formulation'));
+        $file = storage_path() . '/reports/' . $filename;
+        return response()->download($file, $filename, [], 'inline');
+    }
+
+    /**
+     * Instrucción que permite descargar un archivo
+     *
+     * @method    download
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     string      $filename    Nombre del archivo a descargar
+     *
+     * @return    Response    Objeto con datos de respuesta a la petición
+     */
+    public function download($filename)
+    {
+        $file = storage_path() . '/budget/reports/download/' . $filename;
+        return response()->download($file, $filename, [], 'inline');
     }
 }

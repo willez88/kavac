@@ -9,11 +9,11 @@
 @stop
 
 @section('maproute-actual')
-	Almacén
+	{{ __('Almacén') }}
 @stop
 
 @section('maproute-title')
-	Configuración
+	{{ __('Configuración') }}
 @stop
 
 @section('content')
@@ -21,13 +21,14 @@
 	@include('warehouse::settings-parameters')
 	<div class="row">
 		<div class="col-12">
-			<div class="card" id="cardConfigParamsForm">
+			<div class="card" id="helpConfigParamsForm">
 				<div class="card-header">
-					<h6 class="card-title">Configuración General de Almacén
+					<h6 class="card-title">
+						{{ __('Configuración General de Almacén') }}
 						@include('buttons.help', [
-						    	'helpId' => 'ConfigParamsForm',
-								'helpSteps' => get_json_resource('ui-guides/settings/config_parameters.json', 'warehouse')
-						])
+						    'helpId' => 'ConfigParamsForm',
+						    'helpSteps' => get_json_resource('ui-guides/settings/config_parameters.json', 'warehouse')
+				    	])
 					</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
@@ -36,16 +37,16 @@
 				</div>
 				<div class="card-body">
 					<div class="row">
-						{{-- Configuración de Almacenes --}}
+						{{-- Configuración de almacenes --}}
 						<warehouses id="helpWarehouses"></warehouses>
 
-						{{-- Configuración de Productos Almacenables --}}
+						{{-- Configuración de insumos almacenables --}}
 						<warehouse-products id="helpWarehouseProducts"></warehouse-products>
 
-						{{-- Configuración de Reglas de Almacén --}}
+						{{-- Configuración de reglas de almacén --}}
 						<warehouse-rules id="helpWarehouseRules"></warehouse-rules>
 
-						{{-- Configuración de Cierres de Almacén --}}
+						{{-- Configuración de cierres de almacén --}}
 						<warehouse-closes id="helpWarehouseCloses"></warehouse-closes>
 
 					</div>

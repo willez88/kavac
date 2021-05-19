@@ -368,10 +368,27 @@ class ReportRepository implements ReportInterface
                 /** @var string Número de página del reporte */
                 $pageNumber = __('Pág. ').$pdf->getAliasNumPage().'/'.$pdf->getAliasNbPages();
                 /** Texto a mostrar para el número de página */
-                $pdf->MultiCell(20, 4, $pageNumber, 0, 'R', false, 1, 185, -8, true, 1, false, true, 1, 'T', true);
+                $pdf->MultiCell(20, 4, $pageNumber, 0, 'R', false, 0, 185, -8, true, 1, false, true, 1, 'T', true);
             }
             /** Texto a mostrar en el pie de página del reporte */
-            $pdf->MultiCell(198, 8, $footerText, 0, 'C', false, 1, 7, -12, true, 1, false, true, 0, 'T', true);
+            $pdf->MultiCell(
+                198,
+                8,
+                $footerText,
+                0,
+                'C',
+                false,
+                0,
+                7,
+                -12,
+                true,
+                1,
+                true,
+                true,
+                0,
+                'T',
+                true
+            );
             /** Línea de separación entre el cuerpo del reporte y el pie de página */
             $pdf->Line(7, 265, 205, 265, $lineStyle);
         });

@@ -33,7 +33,7 @@
 						@include('buttons.minimize')
 					</div>
 				</div>
-				{!! Form::open(['route' => 'asset.setting.store', 'method' => 'post']) !!}
+				{!! Form::open(['id' => 'form-codes', 'route' => 'asset.setting.store', 'method' => 'post']) !!}
 					{!! Form::token() !!}
 					<div class="card-body">
 						@include('layouts.form-errors')

@@ -35,5 +35,17 @@ class SaleListSubservices extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['name','description'];
+    protected $fillable = ['name','description', 'define_attributes'];
+
+    /**
+     * Método que obtiene la lista de Subservicios
+     *
+     * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany Objeto con el registro relacionado al modelo
+     * SaleListSubservicesAttribute
+     */
+    public function SaleListSubservicesAttribute()
+    {
+        return $this->hasMany(SaleListSubservicesAttribute::class);
+    }
 }

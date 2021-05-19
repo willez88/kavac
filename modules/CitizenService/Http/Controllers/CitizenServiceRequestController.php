@@ -292,7 +292,7 @@ class CitizenServiceRequestController extends Controller
 
         if ($request->phones && !empty($request->phones)) {
             foreach ($request->phones as $phone) {
-                $citizenserviceRequest->phones()->save(new Phone([
+                $citizenServiceRequest->phones()->save(new Phone([
                     'type' => $phone['type'],
                     'area_code' => $phone['area_code'],
                     'number' => $phone['number'],

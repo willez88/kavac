@@ -154,7 +154,7 @@
 						$(".modal-body #id").val( fields.id );
 		            	document.getElementById('date').innerText = (fields.date)?fields.date:fields.created_at;
 		            	document.getElementById('motive').innerText = (fields.asset_disincorporation_motive)?fields.asset_disincorporation_motive.name:'N/A';
-		            	document.getElementById('observation').innerText = (fields.observation)?fields.observation:'N/A';
+		            	document.getElementById('observation').innerHTML = (fields.observation)?fields.observation:'N/A';
 					}
 					if ($("#" + modal_id).length) {
 						$("#" + modal_id).modal('show');

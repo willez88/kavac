@@ -70,6 +70,7 @@
             <ul class="submenu">
                 <li><a href="javascript:void(0)">{{ __('Mayor Análitico') }}</a></li>
                 <li><a href="javascript:void(0)">{{ __('Consolidado') }}</a></li>
+                <li><a href="{{ route('budget.report.budgetAvailability') }}" data-toggle="tooltip" data-placement="right">Disponibilidad Presupuestaria</a></li>
             </ul>
         </li>
     </ul>

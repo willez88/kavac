@@ -1,7 +1,7 @@
 <template>
     <section id="assetAcquisitionTypesComponent">
         <a class="btn-simplex btn-simplex-md btn-simplex-primary"
-           href="#" title="Registros de Tipos de Adquisición de un Bien" data-toggle="tooltip"
+           href="#" title="Registros de Tipos de Adquisición de un Bien" data-toggle="tooltip" v-has-tooltip
            @click="addRecord('add_acquisition_type', 'asset/acquisition-types', $event)">
             <i class="icofont icofont-read-book ico-3x"></i>
             <span>Tipos de Adquisición</span>
