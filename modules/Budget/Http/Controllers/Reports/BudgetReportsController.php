@@ -16,6 +16,7 @@ use Modules\Budget\Models\Currency;
 
 use App\Repositories\ReportRepository;
 use DateTime;
+use PhpParser\Node\Expr\Cast\Bool_;
 
 /**
  * @class BudgetAccountOpenController
@@ -58,11 +59,41 @@ class BudgetReportsController extends Controller
 
         $budgetItems = $this->getBudgetAccounts();
 
-        $budgetItems = array_map(function ($budgetItem) {
-            return (int)str_replace('.', '', $budgetItem->getCodeAttribute());
-        }, $budgetItems);
+        /* $budgetItems = array_map(function ($budgetItem) {
+            return array(
+                'text' => $budgetItem->denomination,
+                'id' => (int)str_replace('.', '', $budgetItem->getCodeAttribute())
+            );
+        }, $budgetItems); */
 
-        return view('budget::reports.budgetAvailability', ['budgetItems' => json_encode($budgetItems)]);
+        $data = array();
+        $temp = array('text' => '', 'children' => []);
+        $isFirst = true;
+
+        foreach ($budgetItems as $budgetItem) {
+
+            $code = str_replace('.', '', $budgetItem->getCodeAttribute());
+
+            if (substr_count($code, '0') == 8) {
+
+                if (!$isFirst) {
+                    array_push($data, $temp);
+                    $temp = array('text' => '', 'children' => []);
+                }
+
+                $temp['text'] = $budgetItem->denomination;
+                $isFirst = false;
+            }
+
+            array_push($temp['children'], array(
+                'text' => $budgetItem->denomination,
+                'id' => (int)$code
+            ));
+        }
+
+        array_push($data, $temp);
+
+        return view('budget::reports.budgetAvailability', ['budgetItems' => json_encode($data)]);
     }
 
     /**
@@ -98,9 +129,11 @@ class BudgetReportsController extends Controller
      *
      * @author    Jonathan Alvarado <wizardx1407@gmail.com> | <jonathanalvarado1407@gmail.com>
      *
+     * @param      bool accountsWithMovements
+     * 
      * @return    Array Arreglo ordenado de cuentas presupuestarias formuladas
      */
-    public function getBudgetAccountsOpen()
+    public function getBudgetAccountsOpen(bool $accountsWithMovements)
     {
         $budgetItems = BudgetAccountOpen::all()->all();
 
@@ -116,7 +149,7 @@ class BudgetReportsController extends Controller
             else return -1;
         });
 
-        return array_map(function ($budgetItem) {
+        $budgetItems = array_map(function ($budgetItem) {
             $subSpecificFormulation = BudgetSubSpecificFormulation::where('id', $budgetItem->budget_sub_specific_formulation_id)->first();
 
             $budgetItem['asigned_percentage'] = round(($budgetItem->total_year_amount * 100) / $subSpecificFormulation->total_formulated, 2);
@@ -132,6 +165,13 @@ class BudgetReportsController extends Controller
 
             return $budgetItem;
         }, $budgetItems);
+
+        return array_filter($budgetItems, function ($budgetItem) use ($accountsWithMovements) {
+
+            if ($accountsWithMovements && $budgetItem['amount_available'] === $budgetItem['total_year_amount']) return false;
+
+            return true;
+        });
     }
 
 
@@ -176,11 +216,12 @@ class BudgetReportsController extends Controller
             'finalDate' => 'required',
             'initialCode' => 'required',
             'finalCode' => 'required',
+            'accountsWithMovements' => 'required'
         ]);
 
         $pdf = new ReportRepository();
 
-        $records = $this->getBudgetAccountsOpen();
+        $records = $this->getBudgetAccountsOpen($data['accountsWithMovements']);
 
         $records = $this->filterBudgetAccounts($records, $data['initialCode'], $data['finalCode'], $data['initialDate'], $data['finalDate']);
 
