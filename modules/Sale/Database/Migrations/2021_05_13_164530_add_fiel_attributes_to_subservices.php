@@ -39,7 +39,7 @@ class AddFielAttributesToSubservices extends Migration
     {
         Schema::table('sale_list_subservices', function (Blueprint $table) {
              if (Schema::hasColumn('sale_list_subservices', 'define_attributes')) {
-                $table->dropUnique(['define_attributes']);
+                //$table->dropUnique(['define_attributes']);
                 $table->dropColumn('define_attributes');
             }
         });
