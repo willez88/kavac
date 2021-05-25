@@ -15,6 +15,7 @@ use Modules\Asset\Models\AssetDisincorporation;
 use Modules\Asset\Models\Asset;
 use App\Models\Profile;
 
+
 /**
  * @class     AssetDisincorporationController
  * @brief     Controlador de las desincorporaciones de bienes institucionales
@@ -37,10 +38,24 @@ class AssetDisincorporationController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:asset.disincorporation.list', ['only' => 'index']);
-        $this->middleware('permission:asset.disincorporation.create', ['only' =>['create', 'assetDisassign', 'store']]);
-        $this->middleware('permission:asset.disincorporation.edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:asset.disincorporation.delete', ['only' => 'destroy']);
+        $this->validateRules = [
+            'date'                             => ['required'],
+            'asset_disincorporation_motive_id' => ['required'],
+            'observation'                      => ['required'],
+            'files.*'                          => ['required', 'max:5000', 'mimes:jpeg,jpg,png,pdf,docx,doc,odt']
+        ];
+
+        /** Define los mensajes de validación para las reglas del formulario */
+        $this->messages = [
+            'date.required'                              => 'El campo fecha de desincorporación es obligatorio.',
+            'asset_disincorporation_motive_id.required'  => 'El campo motivo de la desincorporación es obligatorio.',
+            'observation.required'                       => 'El campo observaciones generales es obligatorio.',
+            'files.*.required'     => 'El campo adjuntar archivos es obligatorio.',
+            'files.*.max'          => 'El campo adjuntar archivos no debe contener más de 5000 caracteres.',
+            'files.*.mimes'        => 'El campo adjuntar archivos no permite ese formato.'
+
+
+           ];
     }
 
     /**
@@ -74,13 +89,8 @@ class AssetDisincorporationController extends Controller
     */
     public function store(Request $request, UploadImageRepository $upImage, UploadDocRepository $upDoc)
     {
-        $this->validate($request, [
-            'date'                             => ['required'],
-            'asset_disincorporation_motive_id' => ['required'],
-            'observation'                      => ['required'],
-            'files.*'                          => ['required', 'max:5000', 'mimes:jpeg,jpg,png,pdf,docx,doc,odt']
-
-        ]);
+        $validateRules  = $this->validateRules;
+        $this->validate($request, $validateRules, $this->messages);
 
         $codeSetting = CodeSetting::where('table', 'asset_disincorporations')->first();
         if (is_null($codeSetting)) {
@@ -203,6 +213,7 @@ class AssetDisincorporationController extends Controller
 
         $update = now();
         /** Se agregan los nuevos elementos a la solicitud */
+
         foreach ($request->assets as $asset_id) {
             $asset = Asset::find($asset_id);
             $asset->asset_status_id = 7;

@@ -13,6 +13,16 @@ Vue.component('finance-banks', () => import(
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
+Vue.component('finance-payment-methods', () => import(
+    /* webpackChunkName: "finance-banking-agencies" */
+    './components/FinancePaymentMethodsComponent.vue')
+);
+
+/**
+ * Componente para la gestión de agencias bancarias
+ *
+ * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ */
 Vue.component('finance-banking-agencies', () => import(
     /* webpackChunkName: "finance-banking-agencies" */
     './components/FinanceBankingAgencyComponent.vue')

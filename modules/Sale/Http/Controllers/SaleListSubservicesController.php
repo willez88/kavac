@@ -6,7 +6,9 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Modules\Sale\Models\SaleListSubservicesAttribute;
 use Modules\Sale\Models\SaleListSubservices;
+
 /**
  * @class SaleListSubservicesController
  * @brief [descripción detallada]
@@ -44,16 +46,7 @@ class SaleListSubservicesController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => SaleListSubservices::all()], 200);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('sale::create');
+        return response()->json(['records' => SaleListSubservices::with('SaleListSubservicesAttribute')->get()], 200);
     }
 
     /**
@@ -70,8 +63,23 @@ class SaleListSubservicesController extends Controller
             'description' => ['required', 'max:200']
         ]);
         $salelistsubservicesMethod = SaleListSubservices::create([
-            'name' => $request->name,'description' => $request->description
+            'name' => $request->name,
+            'description' => $request->description,
+            'define_attributes'   => !empty($request->define_attributes)
+                                        ? $request->define_attributes
+                                        : false
         ]);
+return print_r($salelistsubservicesMethod->define_attributes);
+
+        if ($salelistsubservicesMethod->define_attributes) {
+            foreach ($request->sale_lists_subservices_attribute as $att) {
+                $attribute = SaleListSubservicesAttribute::create([
+                    'value'                 => $att['value'],
+                    'sale_list_subservices_id' => $salelistsubservicesMethod->id
+                ]);
+            }
+        };
+
         return response()->json(['record' => $salelistsubservicesMethod, 'message' => 'Success'], 200);
     }
 

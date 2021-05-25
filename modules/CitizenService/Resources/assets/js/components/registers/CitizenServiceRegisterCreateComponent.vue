@@ -86,7 +86,8 @@
 					<div class="col-md-4">
 						<div class="form-group is-required">
 							<label for="percent">Porcentaje de cumplimiento</label>
-        					<input type="number" min="1" max="100" id="percent" class="form-control input-sm" data-toggle="tooltip"
+        					<input type="text" min="1" max="100" id="percent" class="form-control input-sm" data-toggle="tooltip"
+								   v-input-mask data-inputmask-regex="[0-9]*"
                                    title="Indique el porcentaje de cumplimiento" v-model="record.percent">
 						</div>
 					</div>

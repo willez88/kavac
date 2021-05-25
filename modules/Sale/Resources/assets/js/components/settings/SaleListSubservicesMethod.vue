@@ -18,7 +18,6 @@
 							Lista de Subservicios
 						</h6>
 					</div>
-
 					<div class="modal-body">
 						<div class="alert alert-danger" v-if="errors.length > 0">
 							<ul>
@@ -44,6 +43,56 @@
         	                    </div>
                             </div>
                         </div>
+                        <div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<a  data-toggle="tooltip"
+				                        title="Establecer los atributos del tipo de bien para gestionar las variantes">
+				                        <label for="" class="control-label">Atributos Personalizados</label>
+				                        <div class="col-12">
+                                            <div class="bootstrap-switch-mini">
+        										<input type="checkbox" class="form-control bootstrap-switch" id="define_attributes"
+        											name="define_attributes"
+        											data-on-label="Si" data-off-label="No" value="true"
+        											v-model="record.define_attributes">
+                                            </div>
+    									</div>
+				                    </a>
+								</div>
+							</div>
+						</div>
+						<div v-show="this.record.define_attributes">
+							<div class="row" style="margin: 10px 0">
+								<h6 class="card-title cursor-pointer" @click="addAttribute()" >
+									Gestionar nuevo atributo <i class="fa fa-plus-circle"></i>
+								</h6>
+							</div>
+							<div class="row" style="margin: 20px 0">
+
+								<div class="col-6" v-for="(attribute, index) in record.sale_list_subservices_attribute">
+
+									<div class="d-inline-flex">
+										<div class="col-10">
+											<div class="form-group">
+												<input type="text" placeholder="Nombre del nuevo atributo" data-toggle="tooltip"
+													   title="Indique el nombre del atributo del tipo de bien que desee hacer seguimiento (opcional)"
+													   v-model="attribute.value" class="form-control input-sm">
+											</div>
+										</div>
+										<div class="col-2">
+											<div class="form-group">
+												<button class="btn btn-sm btn-danger btn-action" type="button"
+														@click="removeRow(index, record.sale_list_subservices_attribute)"
+														title="Eliminar este dato" data-toggle="tooltip">
+													<i class="fa fa-minus-circle"></i>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
 	                </div>
 					<div class="modal-footer">
 	                	<div class="form-group">
@@ -52,6 +101,18 @@
 	                </div>
 	                <div class="modal-body modal-table">
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
+							<div slot="attributes" slot-scope="props">
+								<div v-if="props.row.define_attributes">
+									<div v-for="att in props.row.sale_list_subservices_attribute">
+										<span>
+											{{ att.value }}
+										</span>
+									</div>
+								</div>
+								<div v-else>
+									<span>N/A</span>
+								</div>
+							</div>								                		
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.row.id, $event)"
 		                				class="btn btn-warning btn-xs btn-icon btn-action"
@@ -81,11 +142,13 @@
 				record: {
 					id: '',
 					name: '',
-                    description: ''
+                    description: '',
+                    define_attributes: false,
+                    sale_list_subservices_attribute: [],                
 				},
 				errors: [],
 				records: [],
-				columns: ['name', 'description', 'id'],
+				columns: ['name', 'description', 'attributes', 'id'],
 			}
 		},
 		methods: {
@@ -98,23 +161,36 @@
 				this.record = {
 					id: '',
 					name: '',
-                    description: ''
+                    description: '',
+                    define_attributes: false,
+                    sale_list_subservices_attribute: [],
 				};
+			},
+		addAttribute()
+			{
+				var field = {id: '', value: '', sale_list_subservices_id: ''};
+				this.record.sale_list_subservices_attribute.push(field);
 			},
 		},
 		created() {
 			this.table_options.headings = {
 				'name': 'Nombre',
                 'description': 'Descripción',
+                'attributes': 'Atributos',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['name'];
-			this.table_options.filterable = ['name'];
+			this.table_options.sortable = ['name', 'description'];
+			this.table_options.filterable = ['name', 'description'];
 			this.table_options.columnsClasses = {
-				'name': 'col-md-5',
-                'description': 'col-md-5',
-				'id': 'col-md-2'
+                'name': 'col-xs-2',
+                'description': 'col-xs-4',
+                'attributes': 'col-xs-4',
+                'id': 'col-xs-2'
 			};
 		},
+		mounted() {
+			const vm = this;
+			vm.switchHandler('define_attributes');
+		}
 	};
 </script>

@@ -408,10 +408,11 @@
 
 				vm.errors = [];
 				if(!vm.selected.length > 0){
-                	bootbox.alert("Debe agregar almenos un elemento a la solicitud");
+                	bootbox.alert("Debe agregar al menos un elemento de la tabla a la solicitud");
 					return false;
 				};
 				if (this.record.id) {
+					this.record.assets=this.selected;
 	                this.updateRecord(url);
 	            } else {
 	            	vm.loading = true;
