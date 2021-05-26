@@ -78,6 +78,7 @@ class SaleTypeGoodController extends Controller
                 ]);
             }
         };
+        
         return response()->json(['record' => $typeGood, 'message' => 'Success'], 200);
     }
 
