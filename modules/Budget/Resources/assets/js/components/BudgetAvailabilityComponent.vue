@@ -14,7 +14,7 @@
 						></select2>
 					</div>
 					<div class="form-group is-required mt-3">
-						<label class="control-label">Fecha</label>
+						<label class="control-label">Desde</label>
 						<input
 							class="form-control input-sm"
 							type="date"
@@ -34,7 +34,7 @@
 						></select2>
 					</div>
 					<div class="form-group is-required mt-3">
-						<label class="control-label">Fecha</label
+						<label class="control-label">Hasta</label
 						><input
 							class="form-control input-sm"
 							type="date"
