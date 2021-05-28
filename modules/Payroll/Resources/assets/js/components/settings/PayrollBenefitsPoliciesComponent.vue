@@ -46,7 +46,7 @@
                                        class="nav-link text-center" id="benefitsPolicyForm"
                                        @click="changePanel('benefitsPolicyForm')">
                                         <span class="badge">1</span>
-                                        Definir Política de Prestaciones Sociales
+                                        Definir política de prestaciones sociales
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -54,7 +54,7 @@
                                        class="nav-link text-center" id="benefitsPaymentForm"
                                        @click="changePanel('benefitsPaymentForm')">
                                         <span class="badge">2</span>
-                                        Definir Pago de Prestaciones Sociales
+                                        Definir pago de prestaciones sociales
                                     </a>
                                 </li>
                             </ul>
@@ -65,7 +65,7 @@
                                        class="nav-link text-center" id="benefitsPolicyForm"
                                        @click="changePanel('benefitsPolicyForm')">
                                         <span class="badge">1</span>
-                                        Definir Política de Prestaciones Sociales
+                                        Definir política de prestaciones sociales
                                     </a>
                                 </li>
                                 <li class="nav-item active">
@@ -73,7 +73,7 @@
                                        class="nav-link text-center" id="benefitsPaymentForm"
                                        @click="changePanel('benefitsPaymentForm')">
                                         <span class="badge">2</span>
-                                        Definir Pago de Prestaciones Sociales
+                                        Definir pago de prestaciones sociales
                                     </a>
                                 </li>
                             </ul>
@@ -128,14 +128,14 @@
                                             </div>
                                         </div>
                                         <!-- ./activa -->
-                                        <!-- institución -->
+                                        <!-- Organización -->
                                         <div class="col-md-4">
                                             <div class="form-group is-required">
-                                                <label>Institución:</label>
+                                                <label>Organización:</label>
                                                 <select2 :options="institutions" v-model="record.institution_id"></select2>
                                             </div>
                                         </div>
-                                        <!-- ./institución -->
+                                        <!-- ./Organización -->
                                     </div>
                                     <div class="row" style="align-items: baseline;">
                                         <!-- días a cancelar por garantías de prestaciones sociales -->

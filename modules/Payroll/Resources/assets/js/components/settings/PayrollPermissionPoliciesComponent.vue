@@ -52,7 +52,7 @@
                             <!-- ./activa -->
                             <div class="col-md-6">
                                 <div class="form-group is-required">
-                                    <label for="institutions">Institución</label>
+                                    <label for="institutions">Organización</label>
                                     <select2 :options="institutions"
                                              v-model="record.institution_id"></select2>
                                 </div>

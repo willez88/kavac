@@ -128,7 +128,7 @@
                                     </div>
                                     <div class="col-xs-3">
                                         <div class="form-group">
-                                            <label>Valor Absoluto</label>
+                                            <label>Valor absoluto</label>
                                             <div class="col-12">
                                                 <p-radio class="pretty p-switch p-fill p-bigger"
                                                          color="success" off-color="text-gray" toggle
@@ -140,7 +140,7 @@
                                     </div>
                                     <div class="col-xs-3">
                                         <div class="form-group">
-                                            <label>Unidad Tributaria</label>
+                                            <label>Unidad tributaria</label>
                                             <div class="col-12">
                                                 <p-radio class="pretty p-switch p-fill p-bigger"
                                                          color="success" off-color="text-gray" toggle
@@ -183,14 +183,14 @@
                                 </div>
                             </div>
                             <!-- ./cuenta presupuestaria -->
-                            <!-- institución -->
+                            <!-- Organización -->
                             <div class="col-md-4">
                                 <div class=" form-group is-required">
-                                    <label>Institución:</label>
+                                    <label>Organización:</label>
                                     <select2 :options="institutions" v-model="record.institution_id"></select2>
                                 </div>
                             </div>
-                            <!-- ./institución -->
+                            <!-- ./Organización -->
                             <!-- forma de cálculo -->
                             <div class="col-md-4">
                                 <div class=" form-group is-required">
@@ -294,7 +294,7 @@
                                 <div class="row" style="align-items: flex-end;">
                                     <div class="col-xs-3 col-md-3">
                                         <div class="form-group">
-                                            <label for="worker_record">¿Expediente del Trabajador?</label>
+                                            <label for="worker_record">¿Expediente del trabajador?</label>
                                             <div class="col-12">
                                                 <p-radio class="pretty p-switch p-fill p-bigger"
                                                          color="success" off-color="text-gray" toggle
@@ -561,10 +561,10 @@
                 ],
                 affects:                   [
                     {"id": "",                     "text": "Seleccione..."},
-                    {"id": "base_salary",          "text": "Salario Base"},
-                    {"id": "normal_salary",        "text": "Salario Normal"},
-                    {"id": "dialy_salary",         "text": "Salario Diario"},
-                    {"id": "comprehensive_salary", "text": "Salario Integral"},
+                    {"id": "base_salary",          "text": "Salario base"},
+                    {"id": "normal_salary",        "text": "Salario normal"},
+                    {"id": "dialy_salary",         "text": "Salario diario"},
+                    {"id": "comprehensive_salary", "text": "Salario integral"},
                     {"id": "none",                 "text": "Ninguno"}
                 ]
             }
@@ -575,7 +575,7 @@
                 'code':           'Código',
                 'name':           'Nombre',
                 'description':    'Descripción',
-                'incidence_type': 'Tipo de Incidencia',
+                'incidence_type': 'Tipo de incidencia',
                 'id':              'Acción'
             };
             vm.table_options.sortable       = ['code', 'name', 'description', 'incidence_type'];
