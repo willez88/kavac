@@ -21,12 +21,12 @@
 
 			<div class="row">
 				<div class="col-md-6">
-					<b>Origen de los productos</b>
+					<b>Origen de los insumos</b>
 					<div class="col-12 d-inline-flex">
 						<div class="col-6" id="helpInstitutionInitial"
 							v-if="movementid == null">
 							<div class="form-group is-required">
-								<label>Nombre de la Institución:</label>
+								<label>Nombre de la organización:</label>
 								<select2 :options="institutions" @input="getWarehouseStart(record.initial_institution_id)" v-model="record.initial_institution_id"></select2>
 								<input type="hidden" v-model="record.id">
 		                    </div>
@@ -34,7 +34,7 @@
 						<div class="col-6" id="helpInstitutionInitial"
 							v-else>
 							<div class="form-group is-required">
-								<label>Nombre de la Institución:</label>
+								<label>Nombre de la organización:</label>
 								<input type="text" data-toggle="tooltip"
 												class="form-control"
 												id="institution_start"
@@ -45,7 +45,7 @@
 						<div class="col-6" id="helpWarehouseInitial"
 							v-if="movementid == null">
 							<div class="form-group is-required">
-								<label>Nombre del Almacén:</label>
+								<label>Nombre del almacén:</label>
 								<select2 :options="initial_warehouses" @input="getWarehouseProducts()"
 								v-model="record.initial_warehouse_id"></select2>
 		                    </div>
@@ -53,7 +53,7 @@
 						<div class="col-6" id="helpWarehouseInitial"
 							v-else>
 							<div class="form-group is-required">
-								<label>Nombre del Almacén:</label>
+								<label>Nombre del almacén:</label>
 								<input type="text" data-toggle="tooltip"
 												class="form-control"
 												id="warehouse_start"
@@ -64,18 +64,18 @@
 				</div>
 
 				<div class="col-md-6">
-					<b>Destino de los productos</b>
+					<b>Destino de los insumos</b>
 					<div class="col-12 d-inline-flex">
 						<div class="col-6" id="helpInstitutionEnd">
 							<div class="form-group is-required">
-								<label>Nombre de la Institución:</label>
+								<label>Nombre de la organización:</label>
 								<select2 :options="institutions" @input="getWarehouseFinish(record.end_institution_id)" v-model="record.end_institution_id"></select2>
 		                    </div>
 						</div>
 
 						<div class="col-6"  id="helpWarehouseEnd">
 							<div class="form-group is-required">
-								<label>Nombre del Almacén:</label>
+								<label>Nombre del almacén:</label>
 								<select2 :options="end_warehouses"
 								v-model="record.end_warehouse_id"></select2>
 		                    </div>
@@ -338,7 +338,7 @@
                 	if (element) {
                 		var value = element.value;
 	                    if (value == "") {
-							bootbox.alert("Debe ingresar la cantidad solicitada para cada producto seleccionado");
+							bootbox.alert("Debe ingresar la cantidad solicitada para cada insumo seleccionado");
 							return false;
 						}
 	                    vm.record.warehouse_inventory_products.push({ id:campo, movemented:value});

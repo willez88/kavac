@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<a class="btn btn-default btn-xs btn-icon btn-action"
-		   href="#" title="Entregar productos" data-toggle="tooltip"
+		   href="#" title="Entregar insumos" data-toggle="tooltip"
 		   @click="initRequest('view_request_pending',$event)">
 			<i class="fa fa-calendar-check-o"></i>
 		</a>
@@ -13,7 +13,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							Confirmar Entrega de la Solicitud
+							Confirmar entrega de la solicitud
 						</h6>
 					</div>
 					<div class="modal-body">

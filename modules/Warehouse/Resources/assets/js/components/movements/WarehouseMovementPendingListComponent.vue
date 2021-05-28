@@ -34,13 +34,13 @@
                 </warehouse-movement-confirm-create>
                 
                 <button @click="approvedRequest(props.index)" 
-                        class="btn btn-success btn-xs btn-icon btn-action" title="Aceptar Solicitud"
+                        class="btn btn-success btn-xs btn-icon btn-action" title="Aceptar solicitud"
                         data-toggle="tooltip" type="button"
                         :disabled="props.row.state != 'Pendiente'">
                     <i class="fa fa-check"></i>
                 </button>
                 <button @click="rejectedRequest(props.index)" 
-                        class="btn btn-danger btn-xs btn-icon btn-action" title="Rechazar Solicitud"
+                        class="btn btn-danger btn-xs btn-icon btn-action" title="Rechazar solicitud"
                         data-toggle="tooltip" type="button"
                         :disabled="props.row.state != 'Pendiente'">
                     <i class="fa fa-ban"></i>
@@ -63,8 +63,8 @@
                 'code': 'Código',
                 'warehouse_initial': 'Origen',
                 'warehouse_end': 'Destino',
-                'state': 'Estado de la Solicitud',
-                'created_at': 'Fecha de la Solicitud',
+                'state': 'Estado de la solicitud',
+                'created_at': 'Fecha de la solicitud',
                 'id': 'Acción'
             };
             this.table_options.sortable = [

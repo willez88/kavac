@@ -43,12 +43,12 @@
 		},
 		created() {
 			this.table_options.headings = {
-				'code': 'Código',
-				'department': 'Departamento Solicitante',
-				'motive': 'Motivo',
-				'state': 'Estado de la Solicitud',
-				'created_at': 'Fecha de la Solicitud',
-				'id': 'Acción'
+				'code':       'Código',
+				'department': 'Departamento solicitante',
+				'motive': 	  'Motivo',
+				'state':      'Estado de la solicitud',
+				'created_at': 'Fecha de la solicitud',
+				'id':         'Acción'
 			};
 			this.table_options.sortable = ['code', 'department', 'motive', 'state', 'created_at'];
 			this.table_options.filterable = ['code', 'department', 'motive', 'state', 'created_at'];
