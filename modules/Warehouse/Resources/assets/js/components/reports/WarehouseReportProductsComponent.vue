@@ -13,14 +13,14 @@
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<label>Producto:</label>
+						<label>Insumo:</label>
 						<select2 :options="warehouse_products"
 								 v-model="record.warehouse_product_id"></select2>
 	                </div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<label>Institución:</label>
+						<label>Organización:</label>
 						<select2 :options="institutions"
 								 v-model="record.institution_id"></select2>
 					</div>
@@ -37,7 +37,7 @@
 			<div class="row text-center">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label>Busqueda por Periodo</label>
+						<label>Busqueda por periodo</label>
 						<div class="col-12">
                             <div class="col-12 bootstrap-switch-mini">
 								<input type="radio" name="type_search" value="date" id="sel_search_date"
@@ -49,7 +49,7 @@
 				</div>
 				<div class="col-md-6">
 					<div class=" form-group">
-						<label>Busqueda por Mes</label>
+						<label>Busqueda por mes</label>
 						<div class="col-12">
                             <div class="col-12 bootstrap-switch-mini">
 								<input type="radio" name="type_search" value="mes" id="sel_search_mes"
@@ -155,7 +155,7 @@
 		        	<button type="button" class='btn btn-sm btn-primary btn-custom'
 							@click="createReport('inventory-products')">
 						<i class="fa fa-file-pdf-o"></i>
-						<span>Generar Reporte</span>
+						<span>Generar reporte</span>
 					</button>
 				</div>
 		    </div>
@@ -273,9 +273,9 @@
 		},
 		created() {
 			this.table_options.headings = {
-				'code': 'Código',
+				'code':        'Código',
 				'description': 'Descripción',
-				'inventory': 'Inventario',
+				'inventory':   'Inventario',
 			};
 			this.table_options.sortable = ['code', 'description', 'inventory'];
 			this.table_options.filterable = ['code', 'description', 'inventory'];

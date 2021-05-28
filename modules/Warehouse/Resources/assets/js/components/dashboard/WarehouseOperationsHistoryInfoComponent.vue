@@ -14,7 +14,7 @@
                         </button>
                         <h6>
                             <i class="icofont icofont-read-book ico-2x"></i> 
-                            Información de la Operación Registrada
+                            Información de la operación registrada
                         </h6>
                     </div>
                     
@@ -33,7 +33,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#equipment" role="tab" @click="loadEquipment()">
-                                    <i class="ion-arrow-swap"></i> Equipos
+                                    <i class="ion-arrow-swap"></i> Insumos
                                 </a>
                             </li>
                         </ul>
@@ -43,7 +43,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <strong>Fecha de la Operación</strong>
+                                            <strong>Fecha de la operación</strong>
                                             <div class="row" style="margin: 1px 0">
                                                 <span class="col-md-12" id="created_at"></span>
                                             </div>
@@ -52,7 +52,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <strong>Tipo de Operación</strong>
+                                            <strong>Tipo de operación</strong>
                                             <div class="row" style="margin: 1px 0">
                                                 <span class="col-md-12" id="type_operation"></span>
                                             </div>
@@ -143,10 +143,10 @@
         created() {
             this.table_options.headings = {
                 'code': 'Código',
-                'warehouse_inventory_product.warehouse_product.name': 'Nombre',
+                'warehouse_inventory_product.warehouse_product.name':        'Nombre',
                 'warehouse_inventory_product.warehouse_product.description': 'Descripción',
-                'quantity': 'Cantidad Agregada',
-                'unit_value': 'Valor por Unidad'
+                'quantity':                                                  'Cantidad agregada',
+                'unit_value':                                                'Valor por unidad'
 
             };
             this.table_options.sortable = [
