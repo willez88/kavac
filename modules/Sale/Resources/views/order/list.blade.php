@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-    Solicitud de servicios
+    Solicitud de pedidos
 @stop
 
 @section('content')

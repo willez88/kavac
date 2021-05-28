@@ -21,7 +21,7 @@
                 title="Expediente del personal">Expediente</a>
             <ul class="submenu" style="{!! display_submenu([
                     'staffs', 'socioeconomics', 'professionals',
-                    'employment-informations'
+                    'employments'
                 ]) !!}">
                 <li class="{!! set_active_menu(['payroll.staffs.index', 'payroll.staffs.create', 'payroll.staffs.edit']) !!}">
                     <a href="{{ route('payroll.staffs.index') }}">Datos Personales</a>

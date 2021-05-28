@@ -86,7 +86,7 @@ class BudgetReportsController extends Controller
             }
 
             array_push($temp['children'], array(
-                'text' => $budgetItem->denomination,
+                'text' => $budgetItem->denomination . ' ' . "($code)",
                 'id' => (int)$code
             ));
         }
@@ -230,6 +230,12 @@ class BudgetReportsController extends Controller
         $fiscal_year = FiscalYear::where('active', true)->first();
 
         $currency = Currency::where('default', true)->first();
+
+        if (strtotime($data['initialDate']) > strtotime($data['finalDate'])) {
+            $temp = $data['initialDate'];
+            $data['initialDate'] = $data['finalDate'];
+            $data['finalDate'] = $temp;
+        }
 
         $pdf->setConfig(['institution' => $institution]);
         $pdf->setHeader('Reporte de Presupuesto', 'Presupuesto Formulado del ejercicio económico financiero vigente');

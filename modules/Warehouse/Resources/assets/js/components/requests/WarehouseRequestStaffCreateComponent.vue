@@ -21,12 +21,12 @@
 
 			<div class="row">
 				<div class="col-md-12">
-					<b>Datos de la Solicitud</b>
+					<b>Datos de la solicitud</b>
 				</div>
 
 				<div class="col-md-4" id="helpWarehouseRequestDate">
 					<div class="form-group is-required">
-						<label>Fecha de la Solicitud</label>
+						<label>Fecha de la solicitud</label>
 						<input type="text" data-toggle="tooltip"
 							   title="Fecha de la solicitud"
 							   class="form-control input-sm"
@@ -38,7 +38,7 @@
 
 				<div class="col-md-8" id="helpWarehouseRequestMotive">
 					<div class="form-group is-required">
-						<label>Motivo de la Solicitud</label>
+						<label>Motivo de la solicitud</label>
                         <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
                                   title="Indique el motivo de la solicitud (requerido)"
                                   :config="ckeditor.editorConfig" class="form-control" tag-name="textarea" rows="3"
@@ -120,7 +120,7 @@
 			<div class="row">
 				<div class="col-md-3 offset-md-9" id="helpParamButtons">
 		        	<button type="button" @click="reset()"
-							class="btn btn-default btn-icon btn-round"
+							class="btn btn-default btn-icon btn-round" v-has-tooltip
 							title ="Borrar datos del formulario">
 							<i class="fa fa-eraser"></i>
 					</button>
@@ -175,10 +175,10 @@
 						return ((checkbox)&&(checkbox.checked))? 'selected-row cursor-pointer' : 'cursor-pointer';
 					},
 					headings: {
-						'code': 'Código',
+						'code':        'Código',
 						'description': 'Descripción',
-						'inventory': 'Inventario',
-						'requested': 'Solicitados',
+						'inventory':   'Inventario',
+						'requested':   'Solicitados',
 					},
 					sortable: ['code', 'description', 'inventory', 'requested'],
 					filterable: ['code', 'description', 'inventory', 'requested']
@@ -317,7 +317,7 @@
                 $.each(vm.selected,function(index,campo){
                     var value = document.getElementById("request_product_"+campo).value;
                     if (value == "") {
-						bootbox.alert("Debe ingresar la cantidad solicitada para cada producto seleccionado");
+						bootbox.alert("Debe ingresar la cantidad solicitada para cada insumo seleccionado");
 						complete = false;
 						return;
 					}

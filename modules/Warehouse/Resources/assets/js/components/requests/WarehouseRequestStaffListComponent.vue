@@ -43,12 +43,12 @@
 		},
 		created() {
 			this.table_options.headings = {
-				'code': 'Código',
+				'code':          'Código',
 				'payroll_staff': 'Solicitante',
-				'motive': 'Motivo',
-				'state': 'Estado de la Solicitud',
-				'created_at': 'Fecha de la Solicitud',
-				'id': 'Acción'
+				'motive':        'Motivo',
+				'state':         'Estado de la solicitud',
+				'created_at':    'Fecha de la solicitud',
+				'id':            'Acción'
 			};
 			this.table_options.sortable = ['code', 'payroll_staff', 'motive', 'state', 'created_at'];
 			this.table_options.filterable = ['code', 'payroll_staff', 'motive', 'state', 'created_at'];

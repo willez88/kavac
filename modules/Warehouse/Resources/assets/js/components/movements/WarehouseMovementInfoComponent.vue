@@ -34,7 +34,7 @@
 	                        
 	                        <li class="nav-item">
 	                            <a class="nav-link" data-toggle="tab" href="#equipment" role="tab" @click="loadProducts()">
-	                                <i class="ion-arrow-swap"></i> Equipos
+	                                <i class="ion-arrow-swap"></i> Insumos
 	                            </a>
 	                        </li>
 	                    </ul>
@@ -45,7 +45,7 @@
 
 							        <div class="col-md-6">
 										<div class="form-group">
-											<strong>Fecha de Registro</strong>
+											<strong>Fecha de registro</strong>
 											<div class="row" style="margin: 1px 0">
 												<span class="col-md-12" id="date_init">
 												</span>
@@ -55,7 +55,7 @@
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<strong>Estado del Movimiento</strong>
+											<strong>Estado del movimiento</strong>
 											<div class="row" style="margin: 1px 0">
 												<span class="col-md-12" id="state">
 												</span>
@@ -166,8 +166,8 @@
 				'code': 'Código',
 				'warehouse_inventory_product.warehouse_product.name': 'Nombre',
 				'warehouse_inventory_product.warehouse_product.description': 'Descripción',
-				'quantity': 'Cantidad Agregada',
-				'unit_value': 'Valor por Unidad'
+				'quantity': 'Cantidad agregada',
+				'unit_value': 'Valor por unidad'
 
 			};
 			this.table_options.sortable = [

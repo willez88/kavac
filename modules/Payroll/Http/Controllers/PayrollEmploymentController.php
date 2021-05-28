@@ -37,6 +37,34 @@ class PayrollEmploymentController extends Controller
         $this->middleware('permission:payroll.employments.create', ['only' => 'store']);
         $this->middleware('permission:payroll.employments.edit', ['only' => ['create', 'update']]);
         $this->middleware('permission:payroll.employments.delete', ['only' => 'destroy']);
+
+        /** Define las reglas de validación para el formulario */
+        $this->rules = [
+            'start_date_apn' => ['required', 'date', 'before_or_equal:start_date'],
+            'start_date' => ['required', 'date'],
+            'end_date' => ['nullable', 'date'],
+            'function_description' => ['nullable'],
+            'payroll_position_type_id' => ['required'],
+            'payroll_position_id' => ['required'],
+            'payroll_staff_type_id' => ['required'],
+            'institution_id' => ['required'],
+            'department_id' => ['required'],
+            'payroll_contract_type_id' => ['required'],
+        ];
+
+        /** Define los atributos para los campos personalizados */
+        $this->attributes = [
+            'start_date_apn' => 'fecha de ingreso a la administración pública',
+            'start_date' => 'fecha de ingreso a la institución',
+            'end_date' => 'fecha de egreso de la institución',
+            'function_description' => 'descripción de funciones',
+            'payroll_position_type_id' => 'tipo de cargo',
+            'payroll_position_id' => 'cargo',
+            'payroll_staff_type_id' => 'tipo de personal',
+            'institution_id' => 'institución',
+            'department_id' => 'departamento',
+            'payroll_contract_type_id' => 'tipo de contracto',
+        ];
     }
 
     /**
@@ -80,51 +108,41 @@ class PayrollEmploymentController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
-            'payroll_staff_id' => ['required', 'unique:payroll_employments,payroll_staff_id'],
-            'start_date_apn' => ['required', 'date', 'before_or_equal:start_date'],
-            'start_date' => ['required', 'date'],
-            'end_date' => ['nullable', 'date'],
-            'institution_email' => ['email', 'nullable', 'unique:payroll_employments,institution_email'],
-            'function_description' => ['nullable'],
-            'payroll_position_type_id' => ['required'],
-            'payroll_position_id' => ['required'],
-            'payroll_staff_type_id' => ['required'],
-            'institution_id' => ['required'],
-            'department_id' => ['required'],
-            'payroll_contract_type_id' => ['required'],
-        ];
+        $this->rules['payroll_staff_id'] = ['required', 'unique:payroll_employments,payroll_staff_id'];
+        $this->rules['institution_email'] = ['email', 'nullable', 'unique:payroll_employments,institution_email'];
         if ($request->end_date) {
-            array_push($rules['start_date_apn'], 'before_or_equal:end_date');
-            array_push($rules['start_date'], 'before_or_equal:end_date');
-            array_push($rules['end_date'], 'after_or_equal:start_date');
+            $this->rules['start_date_apn'] = ['before_or_equal:end_date'];
+            $this->rules['start_date'] = ['before_or_equal:end_date'];
+            $this->rules['end_date'] = ['after_or_equal:start_date'];
         }
-        $this->validate($request, $rules);
-        $payrollEmployment = new PayrollEmployment;
-        $payrollEmployment->payroll_staff_id  = $request->payroll_staff_id;
-        $payrollEmployment->start_date_apn = $request->start_date_apn;
-        $payrollEmployment->start_date = $request->start_date;
-        $payrollEmployment->end_date = $request->end_date;
-
-        $payrollEmployment->active = $request->active;
-        if ($payrollEmployment->active) {
-            $payrollEmployment->payroll_inactivity_type_id = null;
-        } else {
-            $this->validate($request, [
-                'payroll_inactivity_type_id' => ['required']
-            ]);
-            $payrollEmployment->active = false;
-            $payrollEmployment->payroll_inactivity_type_id = $request->payroll_inactivity_type_id;
+        if (!$request->active) {
+            $this->validate(
+                $request,
+                [
+                    'payroll_inactivity_type_id' => ['required'],
+                ],
+                [],
+                [
+                    'payroll_inactivity_type_id' => 'tipo de inactividad',
+                ],
+            );
         }
-
-        $payrollEmployment->institution_email = $request->institution_email;
-        $payrollEmployment->function_description = $request->function_description;
-        $payrollEmployment->payroll_position_type_id = $request->payroll_position_type_id;
-        $payrollEmployment->payroll_position_id = $request->payroll_position_id;
-        $payrollEmployment->payroll_staff_type_id = $request->payroll_staff_type_id;
-        $payrollEmployment->department_id = $request->department_id;
-        $payrollEmployment->payroll_contract_type_id = $request->payroll_contract_type_id;
-        $payrollEmployment->save();
+        $this->validate($request, $this->rules, [], $this->attributes);
+        $payrollEmployment = PayrollEmployment::create([
+            'payroll_staff_id' => $request->payroll_staff_id,
+            'start_date_apn' => $request->start_date_apn,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'active' => ($request->active!==null),
+            'payroll_inactivity_type_id' => (!$request->active) ? $request->payroll_inactivity_type_id : null,
+            'institution_email' => $request->institution_email,
+            'function_description' => $request->function_description,
+            'payroll_position_type_id' => $request->payroll_position_type_id,
+            'payroll_position_id' => $request->payroll_position_id,
+            'payroll_staff_type_id' => $request->payroll_staff_type_id,
+            'department_id' => $request->department_id,
+            'payroll_contract_type_id' => $request->payroll_contract_type_id,
+        ]);
 
         // Registrar ciertos datos del perfil
         $payrollStaff = PayrollStaff::find($request->payroll_staff_id);
@@ -189,48 +207,42 @@ class PayrollEmploymentController extends Controller
     public function update(Request $request, $id)
     {
         $payrollEmployment = PayrollEmployment::find($id);
-        $this->validate($request, [
-            'payroll_staff_id' => [
-                'required',
-                'unique:payroll_employments,payroll_staff_id,'.$payrollEmployment->id
-            ],
-            'start_date_apn' => ['required', 'date', 'before_or_equal:start_date', 'before_or_equal:end_date'],
-            'start_date' => ['required', 'date', 'before_or_equal:end_date'],
-            'end_date' => ['nullable', 'date'],
-            'institution_email' => [
-                'email','nullable',
-                'unique:payroll_employments,institution_email,'.$payrollEmployment->id
-            ],
-            'function_description' => ['nullable'],
-            'payroll_position_type_id' => ['required'],
-            'payroll_position_id' => ['required'],
-            'payroll_staff_type_id' => ['required'],
-            'institution_id' => ['required'],
-            'department_id' => ['required'],
-            'payroll_contract_type_id' => ['required'],
-        ]);
+        $this->rules['payroll_staff_id'] = [
+            'required', 'unique:payroll_employments,payroll_staff_id,'.$payrollEmployment->id
+        ];
+        $this->rules['institution_email'] = [
+            'email', 'nullable', 'unique:payroll_employments,institution_email,'.$payrollEmployment->id
+        ];
+        if ($request->end_date) {
+            $this->rules['start_date_apn'] = ['before_or_equal:end_date'];
+            $this->rules['start_date'] = ['before_or_equal:end_date'];
+            $this->rules['end_date'] = ['after_or_equal:start_date'];
+        }
+        if (!$request->active) {
+            $this->validate(
+                $request,
+                [
+                    'payroll_inactivity_type_id' => ['required'],
+                ],
+                [],
+                [
+                    'payroll_inactivity_type_id' => 'tipo de inactividad',
+                ],
+            );
+        }
+        $this->validate($request, $this->rules, [], $this->attributes);
         $payrollEmployment->payroll_staff_id  = $request->payroll_staff_id;
         $payrollEmployment->start_date_apn = $request->start_date_apn;
         $payrollEmployment->start_date = $request->start_date;
         $payrollEmployment->end_date = $request->end_date;
-
-        $payrollEmployment->active = $request->active;
-        if ($payrollEmployment->active) {
-            $payrollEmployment->payroll_inactivity_type_id = null;
-        } else {
-            $this->validate($request, [
-                'payroll_inactivity_type_id' => ['required']
-            ]);
-            $payrollEmployment->active = false;
-            $payrollEmployment->payroll_inactivity_type_id = $request->payroll_inactivity_type_id;
-        }
-
+        $payrollEmployment->active = ($request->active!==null);
+        $payrollEmployment
+            ->payroll_inactivity_type_id = (!$request->active) ? $request->payroll_inactivity_type_id : null;
         $payrollEmployment->institution_email = $request->institution_email;
         $payrollEmployment->function_description = $request->function_description;
         $payrollEmployment->payroll_position_type_id = $request->payroll_position_type_id;
         $payrollEmployment->payroll_position_id = $request->payroll_position_id;
         $payrollEmployment->payroll_staff_type_id = $request->payroll_staff_type_id;
-        //$payrollEmployment->institution_id = $request->institution_id;
         $payrollEmployment->department_id = $request->department_id;
         $payrollEmployment->payroll_contract_type_id = $request->payroll_contract_type_id;
         $payrollEmployment->save();

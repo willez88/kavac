@@ -21,12 +21,12 @@
 
 			<div class="row">
 				<div class="col-md-12">
-					<b>Datos de la Solicitud</b>
+					<b>Datos de la solicitud</b>
 				</div>
 
 				<div class="col-md-4" id="helpWarehouseRequestDate">
 					<div class="form-group is-required">
-						<label>Fecha de la Solicitud</label>
+						<label>Fecha de la solicitud</label>
 						<input type="text" data-toggle="tooltip"
 							   title="Fecha de la solicitud"
 							   class="form-control input-sm"
@@ -38,14 +38,14 @@
 
 				<div class="col-md-4" id="helpWarehouseRequestDepartment">
 					<div class=" form-group is-required">
-						<label>Dependencia Solicitante</label>
+						<label>Dependencia solicitante</label>
 						<select2 :options="departments"
 							v-model="record.department_id"></select2>
 					</div>
 				</div>
 				<div class="col-md-4" id="helpWarehouseRequestMotive">
 					<div class="form-group is-required">
-						<label>Motivo de la Solicitud</label>
+						<label>Motivo de la solicitud</label>
                         <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
                                   title="Indique el motivo de la solicitud (requerido)"
                                   :config="ckeditor.editorConfig" class="form-control" tag-name="textarea" rows="3"
@@ -75,7 +75,7 @@
     							<input type="radio" name="project_centralized_action" value="project"
     								   class="form-control bootstrap-switch bootstrap-switch-mini sel_pry_acc"
     								   id="sel_centralized_action" data-on-label="SI" data-off-label="NO">
-    							Acción Centralizada
+    							Acción centralizada
                             </div>
                         </label>
 						<select2 :options="budget_centralized_actions" id="budget_centralized_action_id" @input="getBudgetSpecificActions('CentralizedAction')" disabled
@@ -84,7 +84,7 @@
 				</div>
 				<div class="col-md-12" id="helpWarehouseRequestSpecificAction">
 					<div class=" form-group is-required">
-						<label>Acción Específica</label>
+						<label>Acción específica</label>
 						<select2 :options="budget_specific_actions" id="budget_specific_action_id"
 							v-model="record.budget_specific_action_id" disabled></select2>
 					</div>
@@ -199,10 +199,10 @@
 						return ((checkbox)&&(checkbox.checked))? 'selected-row cursor-pointer' : 'cursor-pointer';
 					},
 					headings: {
-						'code': 'Código',
+						'code':        'Código',
 						'description': 'Descripción',
-						'inventory': 'Inventario',
-						'requested': 'Solicitados',
+						'inventory':   'Inventario',
+						'requested':   'Solicitados',
 					},
 					sortable: ['code', 'description', 'inventory', 'requested'],
 					filterable: ['code', 'description', 'inventory', 'requested']
@@ -343,7 +343,7 @@
                 $.each(vm.selected,function(index,campo){
                     var value = document.getElementById("request_product_"+campo).value;
                     if (value == "") {
-						bootbox.alert("Debe ingresar la cantidad solicitada para cada producto seleccionado");
+						bootbox.alert("Debe ingresar la cantidad solicitada para cada insumo seleccionado");
 						complete = false;
 						return;
 					}
