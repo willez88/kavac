@@ -37,6 +37,21 @@ Vue.component('sale-list-subservices-method', () => import(
 );
 
 /**
+ * Componente para gestionar los pedidos
+ *
+ * @author José Puentes <jpuentes@cenditel.gob.ve>
+ */
+Vue.component('register-order-client', () => import(
+    /* webpackChunkName: "register-clients" */
+    './components/order/SaleOrderComponent.vue')
+);
+
+Vue.component('approve-order-client', () => import(
+    /* webpackChunkName: "register-clients" */
+    './components/order/SaleOrderApproveComponent.vue')
+);
+
+/**
  * Componente para gestionar los clientes
  *
  * @author José Puentes <jpuentes@cenditel.gob.ve>

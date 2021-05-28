@@ -28,6 +28,17 @@ Route::group(
         Route::post('settings', 'SaleSettingController@store')->name('sale.settings.store');
 
         /**
+         * Panel de control referente a los pedidos
+         */
+        Route::get('order', 'SaleOrderSettingController@index')->name('sale.order.index');
+
+        Route::resource(
+            'order-register',
+            'SaleOrderSettingController',
+            ['as' => 'order', 'except' => ['create','edit','show']]
+        );
+
+        /**
          * -----------------------------------------------------------------------
          * Rutas para la configuración general del módulo de Comercialización
          * -----------------------------------------------------------------------
