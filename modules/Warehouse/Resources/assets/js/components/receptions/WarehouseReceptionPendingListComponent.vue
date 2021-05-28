@@ -30,13 +30,13 @@
                     </warehouse-reception-info>
                     
                     <button @click="approvedRequest(props.index)" 
-                            class="btn btn-success btn-xs btn-icon btn-action" title="Aceptar Solicitud"
+                            class="btn btn-success btn-xs btn-icon btn-action" title="Aceptar solicitud"
                             data-toggle="tooltip" type="button"
                             :disabled="props.row.state != 'Pendiente'">
                         <i class="fa fa-check"></i>
                     </button>
                     <button @click="rejectedRequest(props.index)" 
-                            class="btn btn-danger btn-xs btn-icon btn-action" title="Rechazar Solicitud"
+                            class="btn btn-danger btn-xs btn-icon btn-action" title="Rechazar solicitud"
                             data-toggle="tooltip" type="button"
                             :disabled="props.row.state != 'Pendiente'">
                         <i class="fa fa-ban"></i>
@@ -57,13 +57,13 @@
         },
         created() {
             this.table_options.headings = {
-                'code': 'Código',
-                'registered_by': 'Registrado por',
-                'description': 'Descripción',
+                'code':              'Código',
+                'registered_by':     'Registrado por',
+                'description':       'Descripción',
                 'warehouse_initial': 'Almacén',
-                'state': 'Estado de la Solicitud',
-                'created_at': 'Fecha de la Solicitud',
-                'id': 'Acción'
+                'state':             'Estado de la solicitud',
+                'created_at':        'Fecha de la solicitud',
+                'id':                'Acción'
             };
             this.table_options.sortable = [
                 'code', 'registered_by', 'description', 'warehouse_initial', 'state', 'created_at'
