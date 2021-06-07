@@ -17,6 +17,7 @@
 				<div class="row">
 					<sale-settings-charge-money></sale-settings-charge-money>
 					<sale-settings-form-payment></sale-settings-form-payment>
+					<sale-frecuencies></sale-frecuencies>
 				</div>
 			</div>
 		</div>
