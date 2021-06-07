@@ -51,7 +51,7 @@
 				'code': 'Código',
 				'description': 'Descripción',
 				'warehouse': 'Almacén',
-				'created_at': 'Fecha de Ingreso',
+				'created_at': 'Fecha de ingreso',
 				'state': 'Estado de la solicitud',
 				'id': 'Acción'
 			};

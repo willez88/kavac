@@ -31,7 +31,7 @@
 				</div>
 				<div class="col-md-3">
 					<div class=" form-group">
-						<label>Más Solicitados</label>
+						<label>Más solicitados</label>
 						<div class="col-12">
                             <div class="col-12 bootstrap-switch-mini">
     							<input type="radio" name="type_graph_products" value="max_request"
@@ -44,7 +44,7 @@
 
 				<div class="col-md-3">
 					<div class=" form-group">
-						<label>Menos Solicitados</label>
+						<label>Menos solicitados</label>
 						<div class="col-12">
                             <div class="col-12 bootstrap-switch-mini">
     							<input type="radio" name="type_graph_products" value="min_request"

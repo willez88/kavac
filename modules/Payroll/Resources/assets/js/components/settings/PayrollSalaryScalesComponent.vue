@@ -72,13 +72,13 @@
                                         <!-- ./activa -->
                                     </div>
                                     <div class="col-md-8">
-                                        <!-- institución -->
+                                        <!-- Organización -->
                                         <div class="form-group is-required">
-                                            <label for="institution">Institución:</label>
+                                            <label for="institution">Organización:</label>
                                             <select2 :options="institutions"
                                                      v-model="record.institution_id"></select2>
                                         </div>
-                                        <!-- ./institución -->
+                                        <!-- ./Organización -->
                                     </div>
                                 </div>
                                 <div class="row">
@@ -117,7 +117,7 @@
                                 <div class="col-7 pad-top-10 with-border with-radius table-responsive"
                                      style="place-self: baseline;"
                                      v-if="record.group_by">
-                                    <h6 class="text-center">Escalas o Niveles del Escalafón</h6>
+                                    <h6 class="text-center">Escalas o niveles del escalafón</h6>
                                     <div class="row" v-if="record.payroll_scales.length == 0">
                                         <div class="col-md-12">
                                             <div class="alert alert-info" role="alert">
@@ -186,7 +186,7 @@
                                 </div>
                                 <div class="col-4 offset-1 pad-top-10 with-border with-radius table-responsive"
                                      v-if="record.group_by">
-                                    <h6 class="text-center">Nueva Escala</h6>
+                                    <h6 class="text-center">Nueva escala</h6>
                                     <div class="row" style="align-items: flex-end;"
                                          v-if="type != 'boolean'
                                             && type != 'list'">
@@ -195,7 +195,7 @@
                                         </strong>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>Valor Puntual</label>
+                                                <label>Valor puntual</label>
                                                 <div class="col-12">
                                                     <p-radio class="pretty p-switch p-fill p-bigger"
                                                              color="success" off-color="text-gray" toggle

@@ -43,7 +43,7 @@ class PayrollEmployment extends Model implements Auditable
      */
     protected $fillable = [
         'active', 'start_date_apn', 'start_date', 'end_date', 'institution_email', 'function_description',
-        'payroll_inactivity_type_id', 'payroll_position_type_id', 'payroll_position_id', 'deparment_id',
+        'payroll_inactivity_type_id', 'payroll_position_type_id', 'payroll_position_id', 'department_id',
         'payroll_staff_type_id', 'payroll_contract_type_id', 'payroll_staff_id'
     ];
 

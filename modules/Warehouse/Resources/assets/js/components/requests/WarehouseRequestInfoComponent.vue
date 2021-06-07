@@ -14,7 +14,7 @@
 						</button>
 						<h6>
 							<i class="icofont icofont-read-book ico-2x"></i> 
-							Información de la Solicitud Registrada
+							Información de la solicitud registrada
 						</h6>
 					</div>
 					
@@ -28,7 +28,7 @@
 	                        
 	                        <li class="nav-item">
 	                            <a class="nav-link" data-toggle="tab" href="#equipment" role="tab" @click="loadProducts()">
-	                                <i class="ion-arrow-swap"></i> Equipos Solicitados
+	                                <i class="ion-arrow-swap"></i> Insumos Solicitados
 	                            </a>
 	                        </li>
 	                    </ul>
@@ -39,7 +39,7 @@
 									
 									<div class="col-md-6">
 										<div class="form-group">
-											<strong>Fecha de Registro</strong>
+											<strong>Fecha de registro</strong>
 											<div class="row" style="margin: 1px 0">
 												<span class="col-md-12" id="date_init">
 												</span>
@@ -49,7 +49,7 @@
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<strong>Departamento Solicitante</strong>
+											<strong>Departamento solicitante</strong>
 											<div class="row" style="margin: 1px 0">
 												<span class="col-md-12" id="department">
 												</span>
@@ -67,7 +67,7 @@
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<strong>Estado de la Solicitud</strong>
+											<strong>Estado de la solicitud</strong>
 											<div class="row" style="margin: 1px 0">
 												<span class="col-md-12" id="state">
 												</span>

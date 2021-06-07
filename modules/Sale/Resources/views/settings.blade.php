@@ -59,6 +59,8 @@
 							<sale-type-good></sale-type-good>
 							{{-- Configuración de Lista de subservicios--}}
 							<sale-list-subservices-method></sale-list-subservices-method>
+							{{-- Configuración de Costos Comunes--}}
+							<sale-periodic-cost></sale-periodic-cost>
 						</div>
 					</div>
 				</div>

@@ -37,5 +37,13 @@
                 </li>
             </ul>
         </li>
+        <li class="{!! set_active_menu('sale.payment.index') !!}">
+            <a href="/sale/payment" data-toggle="tooltip" data-placement="right"
+               title="Registro y aprobación de pagos">Pagos</a>
+        </li>
+        <li class="{!! set_active_menu('sale.reception.index') !!}">
+            <a href="/sale/order" data-toggle="tooltip" data-placement="right"
+               title="Pedidos">Pedidos</a>
+        </li>
     </ul>
 </li>

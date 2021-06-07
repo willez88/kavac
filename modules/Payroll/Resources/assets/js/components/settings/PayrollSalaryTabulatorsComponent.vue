@@ -47,7 +47,7 @@
                                        class="nav-link text-center" id="tabuladorForm"
                                        @click="changePanel('Form')">
                                         <span class="badge">1</span>
-                                        Definir Tabulador
+                                        Definir tabulador
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -55,7 +55,7 @@
                                        class="nav-link text-center" id="tabuladorShow"
                                        @click="changePanel('Show')">
                                         <span class="badge">2</span>
-                                        Cargar Tabulador
+                                        Cargar tabulador
                                     </a>
                                 </li>
                             </ul>
@@ -66,7 +66,7 @@
                                        class="nav-link text-center" id="tabuladorForm"
                                        @click="changePanel('Form')">
                                         <span class="badge">1</span>
-                                        Definir Tabulador
+                                        Definir tabulador
                                     </a>
                                 </li>
                                 <li class="nav-item active">
@@ -74,7 +74,7 @@
                                        class="nav-link text-center" id="tabuladorShow"
                                        @click="changePanel('Show')">
                                         <span class="badge">2</span>
-                                        Cargar Tabulador
+                                        Cargar tabulador
                                     </a>
                                 </li>
                             </ul>
@@ -123,7 +123,7 @@
                                             </div>
                                             <!-- tipo de personal -->
                                             <div class="form-group is-required">
-                                                <label>Tipo de Personal</label>
+                                                <label>Tipo de personal</label>
                                                 <v-multiselect :options="payroll_staff_types" track_by="text"
                                                                :hide_selected="false"
                                                                v-model="record.payroll_staff_types">
@@ -145,13 +145,13 @@
                                             <!-- ./descripción -->
             							</div>
                                         <div class="col-md-6">
-                                            <!-- institución -->
+                                            <!-- Organización -->
                                             <div class="form-group is-required">
-                                                <label>Institución:</label>
+                                                <label>Organización:</label>
                                                 <select2 :options="institutions"
                                                          v-model="record.institution_id"></select2>
                                             </div>
-                                            <!-- ./institución -->
+                                            <!-- ./Organización -->
                                         </div>
                                         <div class="col-md-6">
                                             <!-- tipo de tabulador -->

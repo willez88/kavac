@@ -37,6 +37,21 @@ Vue.component('sale-list-subservices-method', () => import(
 );
 
 /**
+ * Componente para gestionar los pedidos
+ *
+ * @author José Puentes <jpuentes@cenditel.gob.ve>
+ */
+Vue.component('register-order-client', () => import(
+    /* webpackChunkName: "register-clients" */
+    './components/order/SaleOrderComponent.vue')
+);
+
+Vue.component('approve-order-client', () => import(
+    /* webpackChunkName: "register-clients" */
+    './components/order/SaleOrderApproveComponent.vue')
+);
+
+/**
  * Componente para gestionar los clientes
  *
  * @author José Puentes <jpuentes@cenditel.gob.ve>
@@ -275,6 +290,27 @@ Vue.component('sale-technical-proposal-list', () => import(
 );
 
 /**
+ * Componente para gestionar las frecuencias de tiempo
+ *
+ * Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+ */
+
+Vue.component('sale-frecuencies', () => import(
+    /* webpackChunkName: "sale-frecuencies-list" */
+    './components/settings/SaleSettingFrecuenciesComponent.vue')
+);
+
+/**
+ * Componente para gestionar los pagos comunes
+ *
+ * Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+ */
+Vue.component('sale-periodic-cost', () => import(
+    /* webpackChunkName: "sale-periodic-cost-list" */
+    './components/settings/SalePeriodicCostComponent.vue')
+);
+
+/**
  * Opciones de configuración global del módulo de Commercialización
  */
 Vue.mixin({
@@ -377,6 +413,19 @@ Vue.mixin({
 			vm.sale_warehouse_method = [];
 			axios.get('/sale/get-saleordermanagementmethod').then(response => {
 				vm.sale_order_management_method = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene un arreglo con las frecuencias
+		 *
+		 * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+		 */
+		getFrecuencies() {
+			const vm = this;
+			vm.frecuencies = [];
+			axios.get('/sale/get-frecuencies').then(response => {
+				vm.frecuencies = response.data;
 			});
 		},
 	},

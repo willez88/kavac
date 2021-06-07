@@ -2,7 +2,7 @@
 /** [descripción del namespace] */
 namespace Modules\Sale\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
+//use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -69,10 +69,9 @@ class SaleListSubservicesController extends Controller
                                         ? $request->define_attributes
                                         : false
         ]);
-return print_r($salelistsubservicesMethod->define_attributes);
 
         if ($salelistsubservicesMethod->define_attributes) {
-            foreach ($request->sale_lists_subservices_attribute as $att) {
+            foreach ($request->sale_list_subservices_attribute as $att) {
                 $attribute = SaleListSubservicesAttribute::create([
                     'value'                 => $att['value'],
                     'sale_list_subservices_id' => $salelistsubservicesMethod->id
@@ -123,17 +122,67 @@ return print_r($salelistsubservicesMethod->define_attributes);
      * @param  integer $id                          Identificador del datos a actualizar
      * @return JsonResponse        Json con mensaje de confirmación de la operación
      */
+
     public function update(Request $request, $id)
     {
+        //dd($salelistsubservicesMethod);
         $salelistsubservicesMethod = SaleListSubservices::find($id);
+        //dd($salelistsubservicesMethod);
+
         $this->validate($request, [
-            'name' => ['required', 'max:100'],
-            'description' => ['nullable', 'max:200']
+            'name'                => ['required', 'max:100'],
+            'description'         => ['required']
         ]);
-        $salelistsubservicesMethod->name  = $request->name;
-        $salelistsubservicesMethod->description = $request->description;
+        //$salelistsubservicesMethod = new SaleListSubservices;
+        //$salelistsubservicesMethod->id                  = $request->id;
+        $salelistsubservicesMethod->name                = $request->input('name');
+        $salelistsubservicesMethod->description         = $request->input('description');
+        $salelistsubservicesMethod->define_attributes   =  !empty($request->define_attributes)
+                                          ? $request->input('define_attributes')
+                                          : false;
         $salelistsubservicesMethod->save();
+        $salelist_subservicesattribute = SaleListSubservicesAttribute::where('sale_list_subservices_id', $salelistsubservicesMethod->id)->get();
+
+        //return $salelistsubservicesMethod;
+        /** Busco si en la solicitud se eliminaron atributos registrados anteriormente */
+        if ($salelist_subservicesattribute) {
+            foreach ($salelist_subservicesattribute as $att) {
+                $equal = false;
+                foreach ($request->sale_list_subservices_attribute as $attr) {
+                    if ($attr['value'] == $att->value) {
+                        $equal = true;
+                        break;
+                    }
+                }
+                if ($equal == false) {
+                    $value = $att->SaleListSubservices();
+                    if ($value) {
+                        $att->delete();
+                    }
+                    
+                }
+            }
+        }
+
+        /** Registro los nuevos atributos */
+        if ($salelistsubservicesMethod->define_attributes == true) {
+            foreach ($request->sale_list_subservices_attribute as $att) {
+                $attribute = SaleListSubservicesAttribute::where('value', $att['value'])
+                             ->where('sale_list_subservices_id', $salelistsubservicesMethod->id)->first();
+                if (is_null($attribute)) {
+                    //return $att;
+                    $attribute = SaleListSubservicesAttribute::create([
+                        'value' => $att['value'],
+                        'sale_list_subservices_id' => $salelistsubservicesMethod->id
+                    ]);
+                }
+            }
+        };
+
         return response()->json(['message' => 'Success'], 200);
+        //return response()->json(['record' => $salelistsubservicesMethod, 'message' => 'Success'], 200);
+
+
     }
 
     /**

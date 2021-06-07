@@ -24,13 +24,13 @@
 				</warehouse-request-pending>
 
 				<button @click="approvedRequest(props.index)" 
-						class="btn btn-success btn-xs btn-icon btn-action" title="Aceptar Solicitud"
+						class="btn btn-success btn-xs btn-icon btn-action" title="Aceptar solicitud"
 						data-toggle="tooltip" type="button"
 						:disabled="props.row.state != 'Pendiente'">
 					<i class="fa fa-check"></i>
 				</button>
 				<button @click="rejectedRequest(props.index)" 
-						class="btn btn-danger btn-xs btn-icon btn-action" title="Rechazar Solicitud"
+						class="btn btn-danger btn-xs btn-icon btn-action" title="Rechazar solicitud"
 						data-toggle="tooltip" type="button"
 						:disabled="props.row.state != 'Pendiente'">
 					<i class="fa fa-ban"></i>
@@ -50,12 +50,12 @@
 		},
 		created() {
 			this.table_options.headings = {
-				'code': 'Código',
+				'code':         'Código',
 				'requested_by': 'Solicitado por',
-				'motive': 'Motivo',
-				'state': 'Estado de la Solicitud',
-				'created_at': 'Fecha de la Solicitud',
-				'id': 'Acción'
+				'motive':       'Motivo',
+				'state':        'Estado de la solicitud',
+				'created_at':   'Fecha de la solicitud',
+				'id':           'Acción'
 			};
 			this.table_options.sortable = ['code', 'requested_by', 'motive', 'state', 'created_at'];
 			this.table_options.filterable = ['code', 'requested_by', 'motive', 'state', 'created_at'];

@@ -28,6 +28,17 @@ Route::group(
         Route::post('settings', 'SaleSettingController@store')->name('sale.settings.store');
 
         /**
+         * Panel de control referente a los pedidos
+         */
+        Route::get('order', 'SaleOrderSettingController@index')->name('sale.order.index');
+
+        Route::resource(
+            'order-register',
+            'SaleOrderSettingController',
+            ['as' => 'order', 'except' => ['create','edit','show']]
+        );
+
+        /**
          * -----------------------------------------------------------------------
          * Rutas para la configuración general del módulo de Comercialización
          * -----------------------------------------------------------------------
@@ -309,5 +320,29 @@ Route::group(
         //  Route::put('bills/bill-rejected/{bill}', 'SaleBillController@rejectedBill');
         //  Route::get('bills/vue-approved-list/{state}', 'SaleBillController@vueApprovedList');
         //  Route::get('bills/pdf/{id}', 'Reports\SaleBillController@pdf');
+
+        //Frecuency (periodicidad de tiempo)
+        Route::resource(
+            'frecuencies',
+            'FrecuencyController',
+            ['as' => 'sale', 'except' => ['create','edit','show']]
+        );
+
+        Route::get(
+            'get-frecuencies',
+            'FrecuencyController@getFrecuencies'
+        )->name('sale.get-sale-frecuencies');
+
+        //PeriodicCost (Costos fijos)
+        Route::resource(
+            'periodic-cost',
+            'PeriodicCostController',
+            ['as' => 'sale', 'except' => ['create','edit','show']]
+        );
+
+        Route::get(
+            'get-periodic-cost',
+            'PeriodicCostController@getPeriodicCostAttributes'
+        )->name('sale.get-sale-periodic-cost');
     }
 );

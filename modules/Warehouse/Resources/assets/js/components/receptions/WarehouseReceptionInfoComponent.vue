@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<a class="btn btn-info btn-xs btn-icon btn-action" 
-		   href="#" title="Ver información del registro" data-toggle="tooltip" 
+		   href="#" title="Ver información de los insumos registrados" data-toggle="tooltip" 
 		   @click="addRecord('view_reception', route_list , $event)">
 			<i class="fa fa-info-circle"></i>
 		</a>
@@ -14,7 +14,7 @@
 						</button>
 						<h6>
 							<i class="icofont icofont-read-book ico-2x"></i> 
-							Información de la Recepción Registrada
+							Información de los insumos registrados
 						</h6>
 					</div>
 					
@@ -34,7 +34,7 @@
 	                        
 	                        <li class="nav-item">
 	                            <a class="nav-link" data-toggle="tab" href="#equipment" role="tab" @click="loadProducts()">
-	                                <i class="ion-arrow-swap"></i> Equipos Ingresados
+	                                <i class="ion-arrow-swap"></i> Insumos Ingresados
 	                            </a>
 	                        </li>
 	                    </ul>
@@ -45,7 +45,7 @@
 									
 							        <div class="col-md-6">
 										<div class="form-group">
-											<strong>Fecha de Registro</strong>
+											<strong>Fecha de registro</strong>
 											<div class="row" style="margin: 1px 0">
 												<span class="col-md-12" id="date_init">
 												</span>
@@ -74,7 +74,7 @@
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<strong>Estado de la Solicitud</strong>
+											<strong>Estado de la solicitud</strong>
 											<div class="row" style="margin: 1px 0">
 												<span class="col-md-12" id="state">
 												</span>
@@ -144,10 +144,10 @@
 		created() {
 			this.table_options.headings = {
 				'code': 'Código',
-				'warehouse_inventory_product.warehouse_product.name': 'Nombre',
+				'warehouse_inventory_product.warehouse_product.name':        'Nombre',
 				'warehouse_inventory_product.warehouse_product.description': 'Descripción',
-				'quantity': 'Cantidad Agregada',
-				'unit_value': 'Valor por Unidad'
+				'quantity':                                                  'Cantidad agregada',
+				'unit_value':                                                'Valor por unidad'
 
 			};
 			this.table_options.sortable = [
