@@ -96,11 +96,11 @@
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="class_schedule">
+								<label for="class_schedules">
 									Horario de Clase:
 	                            </label>
-								<input id="class_schedule" name="class_schedule" type="file"
-									accept=".odt, .pdf" multiple>
+								<input id="class_schedules" name="class_schedules" type="file"
+									accept=".odt, .pdf" @change="processFiles()" multiple>
 							</div>
 						</div>
 					</div>
@@ -196,7 +196,7 @@
 					is_student: '',
 					payroll_study_type_id: '',
 					study_program_name: '',
-					class_schedule: '',
+					class_schedules: '',
 					professions: [],
 					payroll_languages: [],
 				},
@@ -208,6 +208,7 @@
 				payroll_study_types: [],
 				payroll_languages: [],
 				payroll_language_levels: [],
+				class_schedules_files: [],
 			}
 		},
 		methods: {
@@ -247,7 +248,7 @@
 					is_student: false,
 					payroll_study_type_id: '',
 					study_program_name: '',
-					class_schedule: '',
+					class_schedules: '',
 					professions: [],
 					payroll_languages: []
 				};
@@ -267,13 +268,11 @@
 
 			processFiles() {
                 const vm = this;
-                var inputFile = document.querySelector('#acknowledgments');
-				var tam = inputFile.files.length;
-				console.log(tam);
-				for (var x = 0; x < tam; x++) {
-    				formData.append('acknowledgments[]', document.getElementById('acknowledgments').files[x]);
+                var inputFile = document.querySelector('#class_schedules');
+				for (var x = 0; x < inputFile.files.length; x++) {
+    				formData.append('class_schedules[' + x + ']', inputFiles.files[i]);
 				}
-                /*axios.post('upload-image.store', formData, {
+                axios.post('upload-document.store', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -293,7 +292,7 @@
                             }
                         }
                     }
-                });*/
+                });
 			}
 		},
 		created() {
