@@ -6,7 +6,7 @@ require('laravel-mix-merge-manifest');
 
 mix.setPublicPath('../../public').mergeManifest();
 
-var m = __dirname.split("\\");
+var m = __dirname.split("/");
 var moduleName = m[m.length-1].toLowerCase();
 
 mix.js(__dirname + '/Resources/assets/js/app.js', `modules/${moduleName}/js`)
