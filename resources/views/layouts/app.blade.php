@@ -185,7 +185,7 @@
 
                     if (typeof(Inputmask) !== "undefined" && typeof(Inputmask) === "function") {
                         Inputmask().mask(document.querySelectorAll("input"));
-                        $('*[placeholder$="XXX-0000000000-YYYY"]').each(function() {
+                        $('*[placeholder$="XXX-00000000-YYYY"]').each(function() {
                             Inputmask({
                                 regex: "^[A-Z]{1,3}$-[0]{4,8}-^([Y]{2}|[Y]{4})$",
                                 clearMaskOnLostFocus: true
