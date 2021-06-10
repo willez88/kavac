@@ -194,7 +194,7 @@
                 var inputFile = document.querySelector('#file');
                 formData.append("file", inputFile.files[0]);
                 formData.append("request_id", $(".modal-body #id").val())
-                axios.post('/citizenservice/requests/validate-document', formData, {
+                axios.post('/requests/validate-document', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }

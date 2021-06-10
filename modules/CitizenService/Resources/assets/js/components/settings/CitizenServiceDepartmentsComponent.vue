@@ -29,7 +29,7 @@
         						<div class="form-group is-required">
         							<label for="name">Nombre:</label>
         							<input type="text" id="name" placeholder="Nombre"
-										   v-input-mask data-inputmask-regex="[a-zA-ZÁ-ÿ0-9\s]*"
+										   v-input-mask data-inputmask-regex="[a-zA-ZÁ-ÿ\s]*"
         								   class="form-control input-sm" v-model="record.name" data-toggle="tooltip"
         								   title="Indique el nombre del departamento">
         							<input type="hidden" name="id" id="id" v-model="record.id">
@@ -39,7 +39,7 @@
 								<div class="form-group">
 									<label for="description">Descripción:</label>
 									<input type="text" id="description" placeholder="Descripción"
-										   v-input-mask data-inputmask-regex="[a-zA-ZÁ-ÿ0-9\s]*"
+										   v-input-mask data-inputmask-regex="[a-zA-ZÁ-ÿ\s]*"
 										   class="form-control input-sm" v-model="record.description" data-toggle="tooltip"
 										   title="Indique la descripción del departamento">
 								</div>
@@ -60,7 +60,7 @@
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'citizenservice/departments')"
+		                		<button @click="deleteRecord(props.index, 'departments')"
 										class="btn btn-danger btn-xs btn-icon btn-action"
 										title="Eliminar registro" data-toggle="tooltip"
 										type="button">

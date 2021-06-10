@@ -10,7 +10,7 @@
     			<div class="d-inline-flex">
 
     				<citizenservice-request-info
-    					:route_list="'citizenservice/requests/vue-info/' + props.row.id">
+    					:route_list="'requests/vue-info/' + props.row.id">
     				</citizenservice-request-info>
 
     	    		<button @click="editForm(props.row.id)"
