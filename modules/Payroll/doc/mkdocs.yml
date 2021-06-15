@@ -5,15 +5,15 @@ site_name: Documentación de Usuario.
 nav:
       - Inicio: index.md
       - Módulo de Talento Humano:
-        - Ajustes en Tablas Salariales: registers.md
+        - Ajustes en Tablas Salariales: salary_adjustments.md
         - Expediente:
-          - Datos Personales: assignments.md
-          - Datos Profesionales: requests.md
-          - Datos Socioeconómicos : inventory_history.md
-          - Datos Laborales : inventory_history.md
-        - Registros de Nómina: reports.md
+          - Datos Personales: record/staffs.md
+          - Datos Profesionales: record/professionals.md
+          - Datos Socioeconómicos : record/socioeconomics.md
+          - Datos Laborales : record/employments.md
+        - Registros de Nómina: payroll.md
         - Solicitudes:
-          - Solicitud de vacaciones: assignments.md
+          - Solicitud de vacaciones: requests/vacation.md
           - Solicitud de prestaciones: disincorporations.md
           - Solicitud de permisos: requests.md
         - Reportes: 

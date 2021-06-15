@@ -214,7 +214,7 @@ Definir políticas de prestaciones:
 
 !!! info ""
 
-    -   Para completar el formulario se requiere al menos un registro previo de **Tipo de Pago**.
+    Para completar el formulario se requiere al menos un registro previo de **Tipo de Pago**.
 
 ![Screenshot](/img/image38.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Definir Política de Prestaciones Sociales</div>
 
@@ -236,7 +236,7 @@ Definir políticas de permisos:
 -   Completar el formulario de la sección **Políticas de Permisos** .
 -   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image40.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Definir Política de Permisos</div>
+![Screenshot](/img/image40.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Política de Permisos</div>
 
 Gestión de registros:
 
@@ -254,7 +254,7 @@ Definir un tipo de liquidación:
 -   Completar el formulario de la sección **Tipo de Liquidación** .
 -   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image41.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Definir Política de Permisos</div>
+![Screenshot](/img/image41.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Tipo de Liquidación</div>
 
 Gestión de registros:
 
