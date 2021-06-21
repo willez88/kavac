@@ -42,7 +42,7 @@
                     <div class="form-group is-required">
                         <label for="first_name">Nombres</label>
                         <input type="text" class="form-control input-sm" data-toggle="tooltip"
-							   v-input-mask data-inputmask-regex="[a-zA-ZÁ-ÿ0-9\s]*"
+							   v-input-mask data-inputmask-regex="[a-zA-ZÁ-ÿ\s]*"
                                title="Indique los nombres del solicitante" v-model="record.first_name">
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                     <div class="form-group is-required">
                         <label for="last_name">Apellidos</label>
                         <input type="text" id="apellido" class="form-control input-sm" data-toggle="tooltip"
-							   v-input-mask data-inputmask-regex="[a-zA-ZÁ-ÿ0-9\s]*"
+							   v-input-mask data-inputmask-regex="[a-zA-ZÁ-ÿ\s]*"
                                title="Indique los apellidos del solicitante" v-model="record.last_name">
                     </div>
                 </div>
@@ -278,6 +278,7 @@
 						<div class="form-group is-required">
 							<label for="institution_name">Nombre de la institución</label>
         					<input type="text" id="institution_name" class="form-control input-sm" data-toggle="tooltip"
+        					 	   v-input-mask data-inputmask-regex="[a-zA-ZÁ-ÿ\s]*"
                                    title="Indique el nombre de la institución" v-model="record.institution_name">
 						</div>
 					</div>

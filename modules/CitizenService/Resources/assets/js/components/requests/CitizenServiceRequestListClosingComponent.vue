@@ -10,7 +10,7 @@
 				<div class="d-inline-flex">
 
 					<citizenservice-request-close
-						:route_list="'citizenservice/get-documents/' + props.row.id"
+						:route_list="'/get-documents/' + props.row.id"
 						:request_id="props.row.id">
 					</citizenservice-request-close>
 
