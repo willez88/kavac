@@ -15,13 +15,13 @@
 
     	    		<button @click="editForm(props.row.id)"
     	    				class="btn btn-warning btn-xs btn-icon btn-action"
-    	    				title="Modificar registro" data-toggle="tooltip" type="button"
+    	    				title="Modificar registro" data-toggle="tooltip" type="button" v-has-tooltip
     	    				:disabled="props.row.state != 'Pendiente'">
     	    			<i class="fa fa-edit"></i>
     	    		</button>
     	    		<button @click="deleteRecord(props.index, '')"
     						class="btn btn-danger btn-xs btn-icon btn-action"
-    						title="Eliminar registro" data-toggle="tooltip" type="button"
+    						title="Eliminar registro" data-toggle="tooltip" type="button" v-has-tooltip
     						:disabled="props.row.state != 'Pendiente'">
     					<i class="fa fa-trash-o"></i>
     				</button>

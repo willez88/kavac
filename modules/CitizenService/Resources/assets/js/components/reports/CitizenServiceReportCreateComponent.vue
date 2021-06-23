@@ -76,7 +76,7 @@
 			                        <i class="now-ui-icons ui-1_calendar-60"></i>
 			                    </span>
 			                    <input type="date" data-toggle="tooltip" title="Indique la fecha minima de busqueda"
-									   class="form-control input-sm" v-model="record.start_date">
+									   class="form-control input-sm no-restrict" v-model="record.start_date">
 			                </div>
 	                    </div>
 					</div>
@@ -88,7 +88,7 @@
 			                        <i class="now-ui-icons ui-1_calendar-60"></i>
 			                    </span>
 			                    <input type="date" data-toggle="tooltip" title="Indique la fecha maxima de busqueda"
-									   class="form-control input-sm" v-model="record.end_date">
+									   class="form-control input-sm no-restrict" v-model="record.end_date">
 			                </div>
 	                    </div>
 					</div>
@@ -123,7 +123,7 @@
 				<div slot="id" slot-scope="props" class="text-center">
 					<div class="d-inline-flex">
 						<button @click="createReport()" class="btn btn-primary btn-xs btn-icon btn-action"
-                                title="Generar reporte" data-toggle="tooltip" type="button">
+                                title="Generar reporte" data-toggle="tooltip" v-has-tooltip type="button">
 							<i class="fa fa-file-pdf-o"></i>
 						</button>
 					</div>
@@ -211,17 +211,7 @@
 				for (var index in this.records) {
 					fields[index] = this.records[index];
 				}
-
-
-			//	if (vm.record.type_search == '') {
-			//		bootbox.alert("Seleccionar el tipo de reporte a generar");
-			//		return false;
-			//	}
-			//	if (vm.record.type_search == 'date') {
-			//		return false;
-			//	}
-
-
+				
 				axios.post('/citizenservice/reports/request/create' , fields).then(response => {
 					if (response.data.result == false)
 						location.href = response.data.redirect;

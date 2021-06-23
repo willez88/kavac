@@ -1,7 +1,7 @@
 <template>
     <section>
         <a class="btn btn-info btn-xs btn-icon btn-action"
-           href="#" title="Cerrar" data-toggle="tooltip"
+           href="#" title="Cerrar" data-toggle="tooltip" v-has-tooltip
            @click="addRecord('view_close'+request_id, route_list, $event)">
            <i class="icofont icofont-zipped"></i>
         </a>
