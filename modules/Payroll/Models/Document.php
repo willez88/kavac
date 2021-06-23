@@ -1,21 +1,21 @@
 <?php
-/** [descripción del namespace] */
+/** Modelos de talento humano de base de datos */
 namespace Modules\Payroll\Models;
 
-use App\Models\Profile as BaseProfile;
+use App\Models\Document as BaseDocument;
 
 /**
- * @class Profile
- * @brief Datos del perfil del usuario
+ * @class Document
+ * @brief Datos de documentos
  *
- * Gestiona el modelo de perfil
+ * Gestiona el modelo de documentos
  *
  * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
  *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
-class Profile extends BaseProfile
+class Document extends BaseDocument
 {
 
 }

@@ -14,7 +14,7 @@ use App\Traits\ModelsTrait;
  *
  * Gestiona el modelo de tipos de estudio
  *
- * @author William Páez <wpaez@cenditel.gob.ve>
+ * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
  *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
@@ -43,7 +43,7 @@ class PayrollStudyType extends Model implements Auditable
     /**
      * Método que obtiene el tipo de estudio asociado a muchas informaciones profesionales
      *
-     * @author William Páez <wpaezs@cenditel.gob.ve>
+     * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function payrollProfessionals()

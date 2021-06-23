@@ -241,6 +241,12 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     ]);
     Route::get('get-image/{image}', 'ImageController@getImage')->name('get-image');
 
+    /** Ruta para la gestión de documentos */
+    Route::resource('upload-document', 'DocumentController', [
+        'except' => ['index', 'create', 'show', 'edit', 'update']
+    ]);
+    Route::get('get-document/{document}', 'DocumentController@getDocument')->name('get-document');
+
     /** Rutas para la gestión de perfiles */
     Route::resource('profiles', 'ProfileController', [
         'except' => ['index', 'create', 'show', 'edit', 'update', 'destroy']

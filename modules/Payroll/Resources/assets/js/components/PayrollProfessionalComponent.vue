@@ -100,7 +100,7 @@
 									Horario de Clase:
 	                            </label>
 								<input id="class_schedules" name="class_schedules" type="file"
-									accept=".odt, .pdf" @change="processFiles()" multiple>
+									accept=".odt, .pdf" @change="processFiles($event)" multiple>
 							</div>
 						</div>
 					</div>
@@ -196,7 +196,7 @@
 					is_student: '',
 					payroll_study_type_id: '',
 					study_program_name: '',
-					class_schedules: '',
+					class_schedule_ids: [],
 					professions: [],
 					payroll_languages: [],
 				},
@@ -248,7 +248,7 @@
 					is_student: false,
 					payroll_study_type_id: '',
 					study_program_name: '',
-					class_schedules: '',
+					class_schedule_ids: [],
 					professions: [],
 					payroll_languages: []
 				};
@@ -266,19 +266,20 @@
 				});
 			},
 
-			processFiles() {
+			processFiles(event) {
                 const vm = this;
-                var inputFile = document.querySelector('#class_schedules');
-				for (var x = 0; x < inputFile.files.length; x++) {
-    				formData.append('class_schedules[' + x + ']', inputFiles.files[i]);
+                var inputFiles = document.querySelector('#'+event.currentTarget.id);
+				for (var x = 0; x < inputFiles.files.length; x++) {
+    				formData.append('documents[' + x + ']', inputFiles.files[x]);
 				}
-                axios.post('upload-document.store', formData, {
+				console.log(formData);
+                axios.post('upload-document', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 }).then(response => {
-                	console.log(response.data.image_id);
-                	console.log(response.data.image_url);
+					vm.record.class_schedule_ids = response.data.document_ids;
+                	console.log(response.data.document_ids);
                     vm.showMessage(
 	                    'custom', 'Éxito', 'success', 'screen-ok',
 	                    'Documento cargado de manera existosa.'

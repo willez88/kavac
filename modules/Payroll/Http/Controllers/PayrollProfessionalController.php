@@ -11,6 +11,8 @@ use Modules\Payroll\Models\Profession;
 use Modules\Payroll\Models\PayrollLanguage;
 use Modules\Payroll\Models\PayrollLanguageLevel;
 use Modules\Payroll\Models\PayrollInstructionDegree;
+use Modules\Payroll\Models\Document;
+use Modules\Payroll\Models\PayrollClassSchedule;
 use Modules\Payroll\Rules\PayrollLangProfUnique;
 use Illuminate\Support\Facades\DB;
 
@@ -147,6 +149,13 @@ class PayrollProfessionalController extends Controller
                 'study_program_name' => ($request->is_student) ? $request->study_program_name : null,
                 'class_schedule' => ($request->is_student) ? $request->class_schedule : null,
             ]);
+            $class_schedule = PayrollClassSchedule::create(['payroll_professional_id' => $payrollProfessional->id]);
+            foreach ($request->class_schedule_ids as $class_schedule_id) {
+                $document = Document::find($class_schedule_id['id']);
+                $document->documentable_type = PayrollClassSchedule::class;
+                $document->documentable_id = $class_schedule->id;
+                $document->save();
+            }
             $i = 0;
             foreach ($request->payroll_languages as $payroll_language) {
                 $this->validate(
@@ -192,7 +201,9 @@ class PayrollProfessionalController extends Controller
     {
         $payrollProfessional = PayrollProfessional::where('id', $id)->with([
             'payrollStaff','payrollInstructionDegree','professions','payrollStudyType',
-            'payrollLanguages'
+            'payrollLanguages', 'payrollClassSchedules' => function ($query) {
+                $query->with('documents');
+            },
         ])->first();
         return response()->json(['record' => $payrollProfessional], 200);
     }
@@ -354,7 +365,10 @@ class PayrollProfessionalController extends Controller
     {
         return response()->json(['records' => PayrollProfessional::with([
             'payrollStaff', 'payrollInstructionDegree','professions',
-            'payrollStudyType', 'payrollLanguages'
+            'payrollStudyType', 'payrollLanguages',
+            'payrollClassSchedules' => function ($query) {
+                $query->with('documents');
+            },
         ])->get()], 200);
     }
 

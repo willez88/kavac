@@ -38,9 +38,20 @@ class PayrollClassSchedule extends Model implements Auditable
     protected $fillable = ['payroll_professional_id'];
 
     /**
+     * Método que obtiene el dato profesional asociado a un dato personal del trabajador
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function payrollProfessional()
+    {
+        return $this->belongsTo(PayrollProfessional::class);
+    }
+
+    /**
      * Obtiene todos los documentos asociados al horario de clase
      *
-     * @author William Páez <wpaez@cenditel.gob.ve>
+     * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function documents()

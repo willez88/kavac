@@ -102,13 +102,13 @@ class PayrollProfessional extends Model implements Auditable
     }
 
     /**
-     * Obtiene todos los documentos asociados a la información profesional del trabajador
+     * Método que obtiene el horario de clase asociado a muchos datos profesionales del trabajador
      *
-     * @author William Páez <wpaez@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function documents()
+    public function payrollClassSchedules()
     {
-        return $this->morphMany(\App\Models\Document::class, 'documentable');
+        return $this->hasMany(PayrollClassSchedule::class);
     }
 }

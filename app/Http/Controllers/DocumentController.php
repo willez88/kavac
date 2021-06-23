@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Document;
+use App\Repositories\UploadDocRepository;
 use Illuminate\Http\Request;
 
 /**
@@ -48,12 +49,25 @@ class DocumentController extends Controller
      * @method    store
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     * @author     William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
      *
      * @param     Request    $request    Objeto con información de la petición
+     * @param     UploadDocRepository    $up         Objeto con las propiedades necesarias para registrar y subir
+     *
+     * @return    JsonResponse      JSON con información del resultado en el registro del documento
      */
-    public function store(Request $request)
+    public function store(Request $request, UploadDocRepository $up)
     {
-        //
+        $document_ids = [];
+        if ($request->documents) {
+            foreach ($request->file('documents') as $document) {
+                if ($up->uploadDoc($document, 'documents')) {
+                    $document_ids[] = array('id' => $up->getDocStored()->id);
+                }
+            }
+            return response()->json(['result' => true, 'document_ids' => $document_ids], 200);
+        }
+        return response()->json(['result' => false, 'message' => __('No se pudo subir el documento')], 200);
     }
 
     /**
