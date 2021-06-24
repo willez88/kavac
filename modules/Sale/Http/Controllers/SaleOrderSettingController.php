@@ -6,6 +6,10 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Modules\Sale\Models\SaleOrder;
+use Modules\Sale\Models\SaleSettingProduct;
+
 /**
  * @class SaleOrderSettingController
  * @brief [descripción detallada]
@@ -19,6 +23,8 @@ use Illuminate\Routing\Controller;
  */
 class SaleOrderSettingController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * [descripción del método]
      *
@@ -30,7 +36,14 @@ class SaleOrderSettingController extends Controller
      */
     public function index()
     {
+        //return view('sale::order.list');
+        return response()->json(['records' => SaleOrder::all()], 200);
+    }
+
+    public function options()
+    {
         return view('sale::order.list');
+        //return response()->json(['records' => SaleOrder::all()], 200);
     }
 
     /**
@@ -44,7 +57,7 @@ class SaleOrderSettingController extends Controller
      */
     public function create()
     {
-        return view('sale::create');
+        //return view('sale::create');
     }
 
     /**
@@ -60,7 +73,19 @@ class SaleOrderSettingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => ['required', 'max:100'],
+            'email' => ['required', 'max:200'],
+            'phone' => ['required', 'regex:/^\d{2}-\d{3}-\d{7}$/u'],
+            'description' => ['required', 'max:200']
+        ]);
+        $order = SaleOrder::create([
+            'name'        => $request->name,
+            'email'       => $request->email,
+            'phone'       => $request->phone,
+            'description' => $request->description
+        ]);
+        return response()->json(['record' => $order, 'message' => 'Success'], 200);
     }
 
     /**
@@ -109,7 +134,19 @@ class SaleOrderSettingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $order = SaleOrder::find($id);
+        $this->validate($request, [
+            'name' => ['required', 'max:100'],
+            'email' => ['required', 'max:200'],
+            'phone' => ['required', 'regex:/^\d{2}-\d{3}-\d{7}$/u'],
+            'description' => ['required', 'max:200']
+        ]);
+        $order->name  = $request->name;
+        $order->email  = $request->email;
+        $order->phone  = $request->phone;
+        $order->description = $request->description;
+        $order->save();
+        return response()->json(['message' => 'Success'], 200);
     }
 
     /**
@@ -125,6 +162,21 @@ class SaleOrderSettingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = SaleOrder::find($id);
+        $order->delete();
+        return response()->json(['record' => $order, 'message' => 'Success'], 200);
+    }
+
+    /**
+     * Obtiene el listado de las categorias generales de bienes institucionales a implementar en elementos select
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+     * @param     Integer    $type_id    Identificador único del tipo de bien
+     * @return    Array      Arreglo con los registros a mostrar
+     */
+    public function getPriceProduct($id = null)
+    {
+        $product = SaleSettingProduct::find($id);
+        return response()->json(['record' => $product, 'message' => 'Success'], 200);
     }
 }
