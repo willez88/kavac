@@ -65,8 +65,8 @@
                     <span>
                         {{
                             props.row.payroll_staff
-                            ? props.row.payroll_staff.payroll_employment_information
-                                ? props.row.payroll_staff.payroll_employment_information.start_date
+                            ? props.row.payroll_staff.payroll_employment
+                                ? props.row.payroll_staff.payroll_employment.start_date
                                 : 'No definido'
                             : 'No definido'
                         }}
@@ -74,7 +74,7 @@
                 </div>
                 <div slot="year_antiquity" slot-scope="props">
                     <span>
-                        {{ getYearAntiquity(props.row.payroll_staff.payroll_employment_information.start_date) }}
+                        {{ getYearAntiquity(props.row.payroll_staff.payroll_employment.start_date) }}
                     </span>
                 </div>
                 <div slot="vacation_period" slot-scope="props">
