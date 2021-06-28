@@ -598,6 +598,12 @@ Route::group([
         ->name('payroll.reports.vacation-status');
         Route::post('vacation-status/create', 'PayrollReportController@create')
         ->name('payroll.reports.vacation-status.create');
+        
+        /** Ruta que permite generar el reporte de los registros de los empleados */
+          Route::get('employment-status', 'PayrollReportController@employmentStatus')
+        ->name('payroll.reports.employment-status');
+        Route::post('employment-status/create', 'PayrollReportController@create')
+        ->name('payroll.reports.employment-status.create');
 
         Route::get('vacation-bonus-calculations', 'PayrollReportController@vacationBonusCalculations')
         ->name('payroll.reports.vacation-bonus-calculations');

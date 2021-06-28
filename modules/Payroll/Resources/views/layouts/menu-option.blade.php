@@ -76,6 +76,13 @@
                         Estatus de vacaciones
                     </a>
                 </li>
+                 <li title="Reporte del status del empleado"
+                    data-toggle="tooltip" data-placement="right"
+                    class="{!! set_active_menu('payroll.reports.employment-status') !!}">
+                    <a href="{{ route('payroll.reports.employment-status') }}">
+                         Reporte detallado de trabajadores
+                    </a>
+                </li>
                 <li title="Reporte del cálculo de bono vacacional"
                     data-toggle="tooltip" data-placement="right"
                     class="{!! set_active_menu('payroll.reports.vacation-status') !!}">
