@@ -5,12 +5,12 @@
 			<div slot="id" slot-scope="props" class="text-center">
 				<button @click="acceptRequest(props.index)"
 						class="btn btn-success btn-xs btn-icon btn-action"
-						title="Aceptar Solicitud" data-toggle="tooltip" type="button">
+						title="Aceptar Solicitud" data-toggle="tooltip" v-has-tooltip type="button">
 					<i class="fa fa-check"></i>
 				</button>
 
 				<button @click="rejectedRequest(props.index)"
-						class="btn btn-danger btn-xs btn-icon btn-action" title="Rechazar Solicitud" data-toggle="tooltip" type="button">
+						class="btn btn-danger btn-xs btn-icon btn-action" title="Rechazar Solicitud" data-toggle="tooltip" v-has-tooltip type="button">
 					<i class="fa fa-ban"></i>
 				</button>
 			</div>

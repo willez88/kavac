@@ -64,7 +64,7 @@
 								<i class="now-ui-icons ui-1_calendar-60"></i>
 							</span>
 							<input type="date" id="start_date" @input="getcalculate()" data-toggle="tooltip" title="Indique la fecha de inicio del permiso"
-								   class="form-control input-sm" v-model="record.start_date">
+								   class="form-control input-sm no-restrict" v-model="record.start_date">
 						</div>
 					</div>
 				</div>
@@ -77,7 +77,7 @@
 								<i class="now-ui-icons ui-1_calendar-60"></i>
 							</span>
 							<input type="date" id="end_date" @input="getcalculate()" data-toggle="tooltip" title="Indique la fecha final del permiso"
-								   class="form-control input-sm" v-model="record.end_date">
+								   class="form-control input-sm no-restrict" v-model="record.end_date">
 						</div>
 					</div>
 				</div>
@@ -101,7 +101,7 @@
 		</div>
 
 		<div class="card-footer text-right">
-        	<button type="button" @click="reset()" class="btn btn-default btn-icon btn-round"
+        	<button type="button" @click="reset()" class="btn btn-default btn-icon btn-round" data-toggle="tooltip"
                     title ="Borrar datos del formulario">
 					<i class="fa fa-eraser"></i>
 			</button>

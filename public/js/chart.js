@@ -77,7 +77,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "http://localhost:8000/";
+/******/ 	__webpack_require__.p = "http://127.0.0.1:8000/";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
@@ -137,7 +137,11 @@ eval("/**\n*--------------------------------------------------------------------
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 module.exports = __webpack_require__(/*! /home/ezequiel/programacion/kavac_cenditel/resources/js/chart.js */"./resources/js/chart.js");
+=======
+module.exports = __webpack_require__(/*! /home/daniel/programacion/laravel/kavac_cenditel/resources/js/chart.js */"./resources/js/chart.js");
+>>>>>>> 7307434bb73b067029da8b397bef7af5d1fb5c8a
 
 
 /***/ })

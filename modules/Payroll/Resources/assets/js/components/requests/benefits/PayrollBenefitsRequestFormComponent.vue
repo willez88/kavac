@@ -300,24 +300,24 @@
                                     ? vm.payroll_staff['last_name']
                                     : 'No definido';
                             document.getElementById('payroll_staff_start_date').innerText =
-                                vm.payroll_staff['payroll_employment_information']
-                                    ? vm.payroll_staff['payroll_employment_information']['start_date']
-                                        ? vm.payroll_staff['payroll_employment_information']['start_date']
+                                vm.payroll_staff['payroll_employment']
+                                    ? vm.payroll_staff['payroll_employment']['start_date']
+                                        ? vm.payroll_staff['payroll_employment']['start_date']
                                         : 'No definido'
                                     : 'No definido';
                             document.getElementById('payroll_staff_department').innerText =
-                                vm.payroll_staff['payroll_employment_information']
-                                    ? vm.payroll_staff['payroll_employment_information']['department']
-                                        ? vm.payroll_staff['payroll_employment_information']['department']['name']
-                                            ? vm.payroll_staff['payroll_employment_information']['department']['name']
+                                vm.payroll_staff['payroll_employment']
+                                    ? vm.payroll_staff['payroll_employment']['department']
+                                        ? vm.payroll_staff['payroll_employment']['department']['name']
+                                            ? vm.payroll_staff['payroll_employment']['department']['name']
                                             : 'No definido'
                                         : 'No definido'
                                     : 'No definido';
                             document.getElementById('payroll_staff_position').innerText =
-                                vm.payroll_staff['payroll_employment_information']
-                                    ? vm.payroll_staff['payroll_employment_information']['payroll_position']
-                                        ? vm.payroll_staff['payroll_employment_information']['payroll_position']['name']
-                                            ? vm.payroll_staff['payroll_employment_information']['payroll_position']['name']
+                                vm.payroll_staff['payroll_employment']
+                                    ? vm.payroll_staff['payroll_employment']['payroll_position']
+                                        ? vm.payroll_staff['payroll_employment']['payroll_position']['name']
+                                            ? vm.payroll_staff['payroll_employment']['payroll_position']['name']
                                             : 'No definido'
                                         : 'No definido'
                                     : 'No definido';

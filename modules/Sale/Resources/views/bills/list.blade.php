@@ -21,7 +21,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h6 class="card-title">Facturas</h6>
+                    <h6 class="card-title">Facturas emitidas</h6>
                     <div class="card-btns">
                         @include('buttons.previous', ['route' => url()->previous()])
                         @include('buttons.new', ['route' => route('sale.bills.create')])
@@ -43,7 +43,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h6 class="card-title">Facturas Pendientes</h6>
+                    <h6 class="card-title">Facturas pendientes</h6>
                     <div class="card-btns">
                         @include('buttons.previous', ['route' => url()->previous()])
                         @include('buttons.minimize')
@@ -62,7 +62,26 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h6 class="card-title">Facturas Aprobadas</h6>
+                    <h6 class="card-title">Solicitudes de facturas rechazadas</h6>
+                    <div class="card-btns">
+                        @include('buttons.previous', ['route' => url()->previous()])
+                        @include('buttons.minimize')
+                    </div>
+                </div>
+                <div class="card-body">
+                    <sale-bill-rejected-list
+                        route_list="{{ url('sale/bills/vue-approved-list') }}"
+                        route_update='sale/bills'>
+                    </sale-bill-rejected-list>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="card-title">Facturas aprobadas</h6>
                     <div class="card-btns">
                         @include('buttons.previous', ['route' => url()->previous()])
                         @include('buttons.minimize')
@@ -73,6 +92,25 @@
                         route_list="{{ url('sale/bills/vue-approved-list') }}"
                         route_update='sale/bills'>
                     </sale-bill-approved-list>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="card-title">Facturas emitidas por pagos de anticipos</h6>
+                    <div class="card-btns">
+                        @include('buttons.previous', ['route' => url()->previous()])
+                        @include('buttons.minimize')
+                    </div>
+                </div>
+                <div class="card-body">
+                    <sale-bill-pending-list
+                        route_list="{{ url('sale/bills/vue-list') }}"
+                        route_update='sale/bills'>
+                    </sale-bill-pending-list>
                 </div>
             </div>
         </div>

@@ -91,12 +91,22 @@ class CitizenServiceRequestController extends Controller
 
         $i = 0;
         foreach ($request->phones as $phone) {
-            $this->validate($request, [
-                'phones.'.$i.'.type' => ['required'],
-                'phones.'.$i.'.area_code' => ['required', 'digits:3'],
-                'phones.'.$i.'.number' => ['required', 'digits:7'],
-                'phones.'.$i.'.extension' => ['nullable', 'digits_between:3,6'],
-            ]);
+            $this->validate(
+                $request,
+                [
+                    'phones.'.$i.'.type' => ['required'],
+                    'phones.'.$i.'.area_code' => ['required', 'digits:3'],
+                    'phones.'.$i.'.number' => ['required', 'digits:7'],
+                    'phones.'.$i.'.extension' => ['nullable', 'digits_between:3,6'],
+                ],
+                [],
+                [
+                    'phones.'.$i.'.type' => 'tipo #'.($i+1),
+                    'phones.'.$i.'.area_code' => 'código de area #'.($i+1),
+                    'phones.'.$i.'.number' => 'número #'.($i+1),
+                    'phones.'.$i.'.extension' => 'extensión #'.($i+1),
+                ]
+            );
             $i++;
         }
 
@@ -252,16 +262,24 @@ class CitizenServiceRequestController extends Controller
             $citizenServiceRequest->web = null;
         }
 
-
-
         $i = 0;
         foreach ($request->phones as $phone) {
-            $this->validate($request, [
-                'phones.'.$i.'.type' => ['required'],
-                'phones.'.$i.'.area_code' => ['required', 'digits:3'],
-                'phones.'.$i.'.number' => ['required', 'digits:7'],
-                'phones.'.$i.'.extension' => ['nullable', 'digits_between:3,6'],
-            ]);
+            $this->validate(
+                $request,
+                [
+                    'phones.'.$i.'.type' => ['required'],
+                    'phones.'.$i.'.area_code' => ['required', 'digits:3'],
+                    'phones.'.$i.'.number' => ['required', 'digits:7'],
+                    'phones.'.$i.'.extension' => ['nullable', 'digits_between:3,6'],
+                ],
+                [],
+                [
+                    'phones.'.$i.'.type' => 'tipo #'.($i+1),
+                    'phones.'.$i.'.area_code' => 'código de area #'.($i+1),
+                    'phones.'.$i.'.number' => 'número #'.($i+1),
+                    'phones.'.$i.'.extension' => 'extensión #'.($i+1),
+                ]
+            );
             $i++;
         }
         $citizenServiceRequest->date                             = $request->date;
@@ -290,14 +308,21 @@ class CitizenServiceRequestController extends Controller
         $citizenServiceRequest->informationteam                  = $request->informationteam;
         $citizenServiceRequest->save();
 
+        foreach ($citizenServiceRequest->phones as $phone) {
+            $phone->delete();
+        }
         if ($request->phones && !empty($request->phones)) {
             foreach ($request->phones as $phone) {
-                $citizenServiceRequest->phones()->save(new Phone([
-                    'type' => $phone['type'],
-                    'area_code' => $phone['area_code'],
-                    'number' => $phone['number'],
-                    'extension' => $phone['extension']
-                ]));
+                $citizenServiceRequest->phones()->updateOrCreate(
+                    [
+                        'type' => $phone['type'], 'area_code' => $phone['area_code'],
+                        'number' => $phone['number'], 'extension' => $phone['extension']
+                    ],
+                    [
+                        'type' => $phone['type'], 'area_code' => $phone['area_code'],
+                        'number' => $phone['number'], 'extension' => $phone['extension']
+                    ]
+                );
             }
         }
 

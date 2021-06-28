@@ -30,13 +30,16 @@ Route::group(
         /**
          * Panel de control referente a los pedidos
          */
-        Route::get('order', 'SaleOrderSettingController@index')->name('sale.order.index');
+        Route::get('order', 'SaleOrderSettingController@options')->name('sale.order.options');
 
         Route::resource(
-            'order-register',
+            'register-order',
             'SaleOrderSettingController',
             ['as' => 'order', 'except' => ['create','edit','show']]
         );
+
+        /** Ruta que obtiene un array con los precios registrados, de acuerdo al producto seleccionado */
+        Route::get('get-price-product/{id?}', 'SaleOrderSettingController@getPriceProduct');
 
         /**
          * -----------------------------------------------------------------------

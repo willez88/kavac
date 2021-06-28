@@ -14,7 +14,7 @@ nav:
         - Registros de Nómina: payroll.md
         - Solicitudes:
           - Solicitud de vacaciones: requests/vacation.md
-          - Solicitud de prestaciones: disincorporations.md
+          - Solicitud de prestaciones: requests/benefits.md
           - Solicitud de permisos: requests.md
         - Reportes: 
           - Disfrute de vacaciones: reports.md

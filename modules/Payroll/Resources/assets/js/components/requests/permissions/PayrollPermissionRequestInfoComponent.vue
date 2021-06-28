@@ -1,7 +1,7 @@
 <template>
 	<section>
 		<a class="btn btn-info btn-xs btn-icon btn-action"
-		   href="#" title="Ver información" data-toggle="tooltip"
+		   href="#" title="Ver información" data-toggle="tooltip" v-has-tooltip
 		   @click="addRecord('view_permission', route_list, $event)">
 			<i class="fa fa-eye"></i>
 		</a>

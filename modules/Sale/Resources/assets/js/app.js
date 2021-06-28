@@ -229,6 +229,27 @@ Vue.component('sale-bill-approved-list', () => import(
     './components/bills/SaleBillApprovedListComponent.vue')
 );
 
+/**
+ * Componente para mostrar un listado de las facturas rechazadas
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-bill-rejected-list', () => import(
+    /* webpackChunkName: "sale-bill-rejected-list" */
+    './components/bills/SaleBillRejectedListComponent.vue')
+);
+
+/**
+ * Componente para mostrar un listado de las facturas emitidas por 
+ pagos de anticipo
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-bill-advance-payment-list', () => import(
+    /* webpackChunkName: "sale-bill-advance-payment-list" */
+    './components/bills/SaleBillAdvancePaymentListComponent.vue')
+);
+
 /*
  * Componente para gestionar la creación de los reportes de Pedidos
  *
@@ -257,6 +278,16 @@ Vue.component('sale-type-good', () => import(
 Vue.component('sale-service-list', () => import(
     /* webpackChunkName: "sale-service-list" */
     './components/services/SaleServiceListComponent.vue')
+);
+
+/**
+ * Componente para crear una solicitud de servicios
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-service-create', () => import(
+    /* webpackChunkName: "sale-service-list" */
+    './components/services/SaleServiceCreateComponent.vue')
 );
 
 /**
