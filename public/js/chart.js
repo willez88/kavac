@@ -77,7 +77,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "http://localhost:8000/";
+/******/ 	__webpack_require__.p = "http://127.0.0.1:8000/";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
@@ -137,7 +137,7 @@ eval("/**\n*--------------------------------------------------------------------
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/rvargas/RESPALDOS/PROYECTOS/CENDITEL/kavac/resources/js/chart.js */"./resources/js/chart.js");
+module.exports = __webpack_require__(/*! /home/daniel/programacion/laravel/kavac_cenditel/resources/js/chart.js */"./resources/js/chart.js");
 
 
 /***/ })
