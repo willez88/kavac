@@ -9,12 +9,21 @@
     <tr>
         <td width="50%">
             {{
-                $field->payrollStaff
-                ? $field->payrollStaff->first_name . ' ' . $field->payrollStaff->last_name
-                : 'No definido'
+                $field->first_name
+                    ? $field->first_name . ' ' . $field->last_name
+                    : 'No definido'
             }}
         </td>
-        <td width="50%"> {{ $field->active }} </td>
+        <td width="50%">
+            {{
+                $field->payrollEmployment
+                    ? $field->payrollEmployment->active
+                        ? ($field->payrollEmployment->active ==  'true')
+                            ? 'Si'
+                            : 'No'
+                        : 'No'
+                    : 'No'
+            }} </td>
     </tr>
     <tr><th></th></tr>
     <tr style="background-color: #BDBDBD;">
@@ -23,10 +32,20 @@
       
     </tr>
     <tr>
-        <td width="50%"> {{ $field->payrollEmployment->institution_email }} </td>
-        <td width="50%"> {{    $field->payrollStaff
-                ? $field->payrollStaff->id_number
-                : 'No definido'}} </td>
+        <td width="50%">
+            {{
+                $field->institution_email
+                    ? $field->institution_email
+                    : 'No definido'
+            }}
+        </td>
+        <td width="50%">
+            {{
+                $field->id_number
+                    ? $field->id_number
+                    : 'No definido'
+            }}
+        </td>
        
     </tr>
     <tr><th></th></tr>

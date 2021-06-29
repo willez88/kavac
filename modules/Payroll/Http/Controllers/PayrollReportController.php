@@ -63,7 +63,7 @@ class PayrollReportController extends Controller
         } elseif ($request->current == 'registers') {
             $body = 'payroll::pdf.payroll-registers';
         } elseif ($request->current == 'employment-status') {
-            $body = 'payroll::pdf.employment-status';
+            $body = 'payroll::pdf.payroll-employment-status';
         } else {
             $body = '';
         }
@@ -88,8 +88,7 @@ class PayrollReportController extends Controller
             $records = $payrollRegister->payrollStaffPayrolls;
             $pdf->setHeader("Reporte de registros de nómina");
         } elseif ($request->current == 'employment-status') {
-            $payrollEmployment = PayrollStaff::find($request->input('id'));
-            $records = $payrollEmployment->payrollEmploymentPayrolls;
+            $records = PayrollStaff::find($request->input('id'));
             $pdf->setHeader("Reporte de estatus de los trabajadores");
         } 
         $pdf->setFooter();
