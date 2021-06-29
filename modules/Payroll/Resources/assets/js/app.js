@@ -457,6 +457,16 @@ Vue.component('payroll-review-benefits-request-pending-form', () => import(
 );
 
 /**
+ * Componentes para gestionar la creación de los reportes de talento humano para los empleados
+ *
+ * @author Ezequiel <ebaptistae@cenditel.gob.ve>
+ */
+Vue.component('payroll-report-employment-status', () => import(
+    /* webpackChunkName: "payroll-report-emplyment-status" */
+    './components/reports/PayrollReportEmploymentStatusComponent.vue')
+);
+
+/**
  * Componentes para gestionar la creación de los reportes de talento humano
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>

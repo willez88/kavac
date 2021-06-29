@@ -2,11 +2,11 @@
   <div class="text-center">
     <a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
       title="Registrar Pedido" data-toggle="tooltip"
-      @click="addRecord('add_sale_clients', 'sale/order-register', $event);">
+      @click="addRecord('add_sale_order', 'sale/register-order', $event);">
       <i class="icofont icofont-archive ico-3x"></i>
       <span>Registrar Pedido</span>
     </a>
-    <div class="modal fade text-left" tabindex="-1" role="dialog" id="add_sale_clients">
+    <div class="modal fade text-left" tabindex="-1" role="dialog" id="add_sale_order">
       <div class="modal-dialog vue-crud" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -26,24 +26,24 @@
               <div class="col-md-6">
                 <div class="form-group is-required">
                   <label for="name">Nombre y apellido del solicitante:</label>
-                  <input type="text" id="name_client" class="form-control input-sm" data-toggle="tooltip"
-                    title="Nombre y apellido del solicitante" v-model="record.name_client">
+                  <input type="text" id="name" class="form-control input-sm" data-toggle="tooltip"
+                    title="Nombre y apellido del solicitante" v-model="record.name">
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group is-required">
-                  <label for="name">Correo electrónico del solicitante:</label>
-                  <input type="text" id="mail_client" class="form-control input-sm" data-toggle="tooltip"
-                    title="Correo electrónico del solicitante" v-model="record.mail_client">
+                  <label for="email">Correo electrónico del solicitante:</label>
+                  <input type="text" id="email" class="form-control input-sm" data-toggle="tooltip"
+                    title="Correo electrónico del solicitante" v-model="record.email">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group is-required">
-                  <label for="name">Número de teléfono:</label>
-                  <input type="text" id="phone_client" class="form-control input-sm" data-toggle="tooltip"
-                    title="Número de teléfono" v-model="record.phone_client">
+                  <label for="phone">Número de teléfono:</label>
+                  <input type="text" id="phone" class="form-control input-sm" data-toggle="tooltip"
+                    title="Número de teléfono" v-model="record.phone" placeholder="00-000-0000000">
                 </div>
               </div>
             </div>
@@ -53,8 +53,8 @@
                   <label>Descripción de la actividad económica</label>
                   <ckeditor :editor="ckeditor.editor" id="direction" data-toggle="tooltip"
                     title="Indique la descripción de la actividad económica" :config="ckeditor.editorConfig"
-                    class="form-control" name="direction" tag-name="textarea" rows="3"
-                    v-model="record.description_activity"></ckeditor>
+                    class="form-control" name="description" tag-name="textarea" rows="3"
+                    v-model="record.description"></ckeditor>
                 </div>
               </div>
             </div>
@@ -70,20 +70,36 @@
               </div>
             </div>
             <div class="row" v-for="(product, index) in record.list_products">
-              <div class="col-md-5">
-                <div class="form-group is-required">
-                  <select2 :options="sale_setting_products"
-                    v-model="product.name"></select2>
-                </div>
-              </div>
               <div class="col-md-4">
                 <div class="form-group is-required">
-                  <input type="text" placeholder="Cantidad de productos" title="Cantidad de productos" v-model="product.quantity" class="form-control input-sm" required>
+                  <label>Producto</label>
+                  <select2 :options="sale_setting_products"
+                    v-model="product.name" @input="getPriceProduct" class="list-product" :data-index="index"></select2>
+                  <input type="hidden" v-model="product.id">
+                </div>
+              </div>
+              <div class="col-md-1">
+                <div class="form-group is-required">
+                  <label>Estado:</label>
+                  <input type="text" disabled placeholder="Estado del producto" title="" v-model="product.status" class="form-control input-sm" required :data-index="index">
                 </div>
               </div>
               <div class="col-md-2">
                 <div class="form-group is-required">
-                  <input type="text" placeholder="Cantidad total" title="Cantidad total" v-model="product.total" class="form-control input-sm" required>
+                  <label>Cantidad de productos:</label>
+                  <input type="text" placeholder="Cantidad de productos" title="Cantidad de productos" v-model="product.quantity" class="form-control input-sm" required :data-index="index" @input="getTotalProduct">
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group is-required">
+                  <label>Precio unitario:</label>
+                  <input type="text" disabled placeholder="Precio unitario" title="Precio unitario" v-model="product.price_product" class="form-control input-sm" required :data-index="index">
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group is-required">
+                  <label>Monto total del pedido:</label>
+                  <input type="text" disabled placeholder="Cantidad total" title="Cantidad total" v-model="product.total" class="form-control input-sm" required :data-index="index">
                 </div>
               </div>
               <div class="col-1">
@@ -97,7 +113,7 @@
           </div>
           <div class="modal-footer">
             <div class="form-group">
-              <modal-form-buttons :saveRoute="'sale/register-clients'"></modal-form-buttons>
+              <modal-form-buttons :saveRoute="'sale/register-order'"></modal-form-buttons>
             </div>
           </div>
           <div class="modal-body modal-table">
@@ -130,14 +146,14 @@
         record: {
           id: '',
           list_products: [],
-          name_client: '',
-          mail_client: '',
-          description_activity: '',
+          name: '',
+          email: '',
+          description: '',
         },
         sale_setting_products: [],
         errors: [],
         records: [],
-        columns: ['name_client', 'mail_client', 'phone_client', 'id'],
+        columns: ['name', 'email', 'phone', 'id'],
       }
     },
     methods: {
@@ -145,11 +161,32 @@
         this.record = {
           id: '',
           list_products: [],
-          name_client: '',
-          mail_client: '',
-          phone_client: '',
-          description_activity: ''
+          name: '',
+          email: '',
+          phone: '',
+          description: ''
         };
+      },
+      getTotalProduct(event) {
+        const vm = this;
+        const index = $(event.target).data('index');
+
+        const price = vm.record.list_products[index].price_product;
+        vm.record.list_products[index].total = price * $(event.target).val();
+      },
+      getPriceProduct(value) {
+        const vm = this;
+        var $element = '';
+
+        $("select.list-product").change(function () {
+          $element = this;
+
+          if ($element.value) {
+			axios.get('/sale/get-price-product' + '/' + $element.value).then(function (response) {
+			  vm.record.list_products[$($element).data('index')].price_product = response.data.record.price;
+		    });
+	      }
+        });
       },
       getSaleSettingProducts() {
         const vm = this;
@@ -159,8 +196,12 @@
       },
       addProductFormPayment() {
         this.record.list_products.push({
+          id: '',
           name: '',
-          quantity: ''
+          status: '',
+          quantity: 0,
+          price_product: 0,
+          total: 0
         });
       },
       deleteProductFormPayment(index) {
@@ -169,17 +210,17 @@
     },
     created() {
       this.table_options.headings = {
-        'name_client': 'Nombre y apellido del solicitante',
-        'mail_client': 'Correo del solicitante',
-        'phone_client': 'Correo del solicitante',
+        'name': 'Nombre y apellido del solicitante',
+        'email': 'Correo del solicitante',
+        'phone': 'Telefono del solicitante',
         'id': 'Acción'
       };
-      this.table_options.sortable = ['name_client'];
-      this.table_options.filterable = ['name_client'];
+      this.table_options.sortable = ['name'];
+      this.table_options.filterable = ['name'];
       this.table_options.columnsClasses = {
-        'name_client': 'col-xs-4',
-        'mail_client': 'col-xs-3',
-        'phone_client': 'col-xs-3',
+        'name': 'col-xs-4',
+        'email': 'col-xs-3',
+        'phone': 'col-xs-3',
         'id': 'col-xs-2'
       };
     },

@@ -67,7 +67,7 @@
         methods: {
             price(prods){
                 const vm = this;
-                var total = 0;
+                let total = 0;
                 $.each(prods, function(index, prod) {
                     total += prod['quantity']*parseInt(prod['sale_warehouse_inventory_product']['unit_value']);
                 });

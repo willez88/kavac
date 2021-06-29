@@ -9,6 +9,8 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Payroll\Repositories\ReportRepository;
 use Carbon\Carbon;
 use Modules\Payroll\Models\PayrollVacationRequest;
+use Modules\Payroll\Models\PayrollStaff;
+use Modules\Payroll\Models\PayrollEmployment;
 use Modules\Payroll\Models\Payroll;
 use Modules\Payroll\Models\Institution;
 
@@ -60,6 +62,8 @@ class PayrollReportController extends Controller
             $body= 'payroll::pdf.payroll-vacation-status';
         } elseif ($request->current == 'registers') {
             $body = 'payroll::pdf.payroll-registers';
+        } elseif ($request->current == 'employment-status') {
+            $body = 'payroll::pdf.payroll-employment-status';
         } else {
             $body = '';
         }
@@ -83,7 +87,10 @@ class PayrollReportController extends Controller
             $payrollRegister = Payroll::find($request->input('id'));
             $records = $payrollRegister->payrollStaffPayrolls;
             $pdf->setHeader("Reporte de registros de nómina");
-        }
+        } elseif ($request->current == 'employment-status') {
+            $records = PayrollStaff::find($request->input('id'));
+            $pdf->setHeader("Reporte de estatus de los trabajadores");
+        } 
         $pdf->setFooter();
         $pdf->setBody(
             $body,
@@ -126,6 +133,15 @@ class PayrollReportController extends Controller
     public function benefitsAdvance()
     {
         return view('payroll::reports.benefits.payroll-report-benefit-advances');
+    }
+    /**
+     * Funcion publica para los reportes de empleados.
+     *
+     * @author Ezequiel Baptista <ebaptista@cenditel.gob.ve>
+     */
+       public function employmentStatus()
+    {
+        return view('payroll::reports.payroll-report-employment-status');
     }
 
     /**

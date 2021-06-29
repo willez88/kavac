@@ -9,7 +9,10 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Payroll\Models\PayrollEmployment;
 use Modules\Payroll\Models\PayrollStaff;
 use Modules\Payroll\Models\Profile;
-
+use App\Models\Phone;
+use App\Models\CodeSetting;
+use App\Rules\AgeToWork;
+use Modules\Payroll\Models\Parameter;
 /**
  * @class PayrollEmploymentController
  * @brief Controlador de datos laborales
@@ -168,11 +171,16 @@ class PayrollEmploymentController extends Controller
      */
     public function show($id)
     {
+        
         $payrollEmployment = PayrollEmployment::where('id', $id)->with([
-            'payrollStaff', 'payrollInactivityType', 'payrollPositionType',
+            'payrollStaff'=> function ($query) {
+                $query->with('payrollNationality','payrollGender','payrollLicenseDegree','payrollBloodType','payrollDisability',);
+            }, 'payrollInactivityType', 'payrollPositionType',
             'payrollPosition', 'payrollStaffType', 'department', 'payrollContractType'
         ])->first();
-        return response()->json(['record' => $payrollEmployment], 200);
+        return response()->json(['record' => $payrollEmployment, 'age' => age($payrollEmployment->payrollStaff->birthdate)], 200);
+        
+       
     }
 
     /**

@@ -229,6 +229,27 @@ Vue.component('sale-bill-approved-list', () => import(
     './components/bills/SaleBillApprovedListComponent.vue')
 );
 
+/**
+ * Componente para mostrar un listado de las facturas rechazadas
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-bill-rejected-list', () => import(
+    /* webpackChunkName: "sale-bill-rejected-list" */
+    './components/bills/SaleBillRejectedListComponent.vue')
+);
+
+/**
+ * Componente para mostrar un listado de las facturas emitidas por 
+ pagos de anticipo
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-bill-advance-payment-list', () => import(
+    /* webpackChunkName: "sale-bill-advance-payment-list" */
+    './components/bills/SaleBillAdvancePaymentListComponent.vue')
+);
+
 /*
  * Componente para gestionar la creación de los reportes de Pedidos
  *
