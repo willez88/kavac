@@ -207,5 +207,7 @@
             vm.getPayrollStaffs();
             vm.initRecords(vm.route_list, '');
         }
+   
+
     };
 </script>

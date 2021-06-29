@@ -137,7 +137,11 @@ eval("/**\n*--------------------------------------------------------------------
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
+module.exports = __webpack_require__(/*! /home/ezequiel/programacion/kavac_cenditel/resources/js/chart.js */"./resources/js/chart.js");
+=======
 module.exports = __webpack_require__(/*! /home/daniel/programacion/laravel/kavac_cenditel/resources/js/chart.js */"./resources/js/chart.js");
+>>>>>>> 7307434bb73b067029da8b397bef7af5d1fb5c8a
 
 
 /***/ })
