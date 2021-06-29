@@ -281,16 +281,6 @@ Vue.component('sale-service-list', () => import(
 );
 
 /**
- * Componente para crear una solicitud de servicios
- *
- * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
- */
-Vue.component('sale-service-create', () => import(
-    /* webpackChunkName: "sale-service-list" */
-    './components/services/SaleServiceCreateComponent.vue')
-);
-
-/**
  * Componente para mostrar un listado de las solicitudes de servicios pendientes
  *
  * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
