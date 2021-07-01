@@ -20,7 +20,7 @@
                         </select2>
                     </div>
                 </div>
-                <!-- ./trabajador -->
+           
             </div>
             <div class="row">
                 <div class="col-md-12">

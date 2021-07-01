@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Modules\Payroll\Models\PayrollVacationRequest;
 use Modules\Payroll\Models\PayrollStaff;
 use Modules\Payroll\Models\PayrollEmployment;
+use Modules\Payroll\Models\PayrollPositionType;
 use Modules\Payroll\Models\Payroll;
 use Modules\Payroll\Models\Institution;
 
