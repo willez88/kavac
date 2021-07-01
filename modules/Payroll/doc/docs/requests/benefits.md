@@ -37,8 +37,8 @@ Para **aprobar** o **rechazar** una solicitud el usuario encargado de talento hu
 !!! info "Botón revisar solicitud"
     ![Screenshot](../img/check.png#imagen)
 
-A continuación se muestra una ventana emergente con información asociada al registro y un botón de selección que permite ajustar el **Estatus de la solicitud**, luego de realizar la revisión correspondiente y seleccionar la opción de estatus se registran los cambios presionando el botón **Guardar** ubicado en la parte inferior derecha de la ventana emergente.   
+A continuación se muestra una ventana emergente con información asociada al registro y un botón de selección que permite ajustar el **Estatus de la solicitud** (aprobar o rechazar), luego de realizar la revisión correspondiente y seleccionar la opción de estatus, se registran los cambios presionando el botón **Guardar** ubicado en la parte inferior derecha de la ventana emergente.   
 
-![Screenshot](../img/image57.png)<div style="text-align: center;font-weight: bold">Figura: Revisión de solicitud de Adelanto de Prestaciones </div>
+![Screenshot](../img/image57.png)<div style="text-align: center;font-weight: bold">Figura: Revisión de Solicitud de Adelanto de Prestaciones </div>
 
 El trabajador es notificado sobre la fecha de aprobación en el caso de ser aprobada o motivo de rechazo en el caso de ser rechazada.

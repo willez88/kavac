@@ -15,7 +15,7 @@ nav:
         - Solicitudes:
           - Solicitud de vacaciones: requests/vacation.md
           - Solicitud de prestaciones: requests/benefits.md
-          - Solicitud de permisos: requests.md
+          - Solicitud de permisos: requests/permission.md
         - Reportes: 
           - Disfrute de vacaciones: reports.md
           - Estatus de vacaciones: reports.md
