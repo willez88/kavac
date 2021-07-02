@@ -26,7 +26,7 @@ A través de la sección **Solicitudes de Permisos** se lleva a cabo la gestión
 
 ### Gestión de registros
 
-Para **Ver información detallada**, **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de registros en la sección de **Solicitudes de Vacaciones**.
+Para **Ver información detallada**, **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de registros en la sección de **Solicitudes de Permisos**.
 
 ![Screenshot](../img/manage.png)
 
@@ -36,3 +36,18 @@ Para **Ver información detallada**, **Editar** o **Eliminar** un registro se de
 Una vez se genera una nueva solicitud, además de añadirse a la tabla **Solicitudes de Permisos**, el registro se almacena en la tabla de **Solicitudes de Permisos Pendientes**, desde esta sección se gestiona la aprobación o rechazo de solicitud.
 
 ![Screenshot](../img/image64.png)<div style="text-align: center;font-weight: bold">Figura: Solicitudes de Permisos Pendientes</div>
+
+
+### Aprobar o rechazar solicitud
+
+Para aprobar o rechazar una solicitud el usuario encargado de talento humano o usuario con permisos especiales, hace uso de los botones aprobar o rechazar ubicados en la columna titulada **Acción** de la tabla de Solicitudes de **Permisos Pendientes**.
+
+!!! success "Botón aprobar"
+    ![Screenshot](../img/approve.png)
+
+!!! danger "Botón rechazar"
+    ![Screenshot](../img/deny.png)
+
+Una vez la solicitud ha sido aprobada o rechazada cambia su estatus en el listado de solicitudes que han sido formuladas.
+    
+![Screenshot](../img/image65.png)<div style="text-align: center;font-weight: bold">Figura: Solicitud Aprobada</div>
