@@ -20,7 +20,10 @@ A través de los botones ubicados en la columna titulada **Acción** el encargad
 
 !!! info "Nota"
     -   Los campos de selección **Grado de instrucción**, **Profesiones**, **Tipo de Estudio**, **Idiomas** y **Nivel de Idiomas** del formulario de la sección **Registrar los Datos Profesionales**, corresponden a datos registrados previamente en la configuración del módulo.
-    
+    -   El campo **Horario de clase** admite formatos de archivo **odt** y **pdf**.
+    -   El campo **Cursos** admite formatos de archivo **odt**, **jpg**, **png** y **pdf**.
+    -   El campo **Reconocimientos** admite formatos de archivo **odt**, **jpg**, **png** y **pdf**.
+
 ![Screenshot](../img/image47.png)<div style="text-align: center;font-weight: bold">Figura: Registrar los Datos Personales</div>
 
 ### Gestión de registros 

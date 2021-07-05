@@ -5,10 +5,7 @@
 
 ## Registros de Nómina
 
-En esta sección se listan todos los registros de nómina que han sido realizados, de igual forma es posible realizar nuevos registros de nómina y gestión de registros ya existentes editando o eliminando algún registro. 
-
-<!-- ![Screenshot](../img/image53.png)<div style="text-align: center;font-weight: bold">Figura: </div>  -->
-
+A través de esta sección se realizan los registros de nómina que corresponden a registros financieros que una organización realiza sobre los salarios de los empleados.   En esta sección se listan todos los registros de nómina que han sido realizados, de igual forma es posible realizar gestión de registros ya existentes editando o eliminando algún registro. 
 ### Crear registro de nómina 
 
 -   Dirigirse al módulo de **Talento Humano** e ingresar en la opción **Registros de Nómina**.

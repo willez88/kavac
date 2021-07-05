@@ -19,8 +19,9 @@ nav:
         - Reportes: 
           - Disfrute de vacaciones: reports/vacation.md
           - Estatus de vacaciones: reports/vacation_status.md
-          - Cálculo de bono vacacional: reports.md
-          - Pago de bono vacacional: reports.md
+          - Reporte detallado de trabajadores: reports/employees.md
+          # - Cálculo de bono vacacional: reports.md
+          # - Pago de bono vacacional: reports.md
       - Configuración: 
         - Formato de Códigos: setting/code_format.md
         - Configuración de la Edad Laboral Permitida: setting/working_age.md
