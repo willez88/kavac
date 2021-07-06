@@ -1,13 +1,12 @@
 # Manual de Documentación de Usuario para el Módulo de Almacén
 **************************************************************
-<div style="text-align: justify;">
 
 ![Screenshot](img/logokavac.png#imagen)
 
-El Manual de Documentación del sistema KAVAC a nivel de usuario tiene como objetivo facilitar la tarea de conocimiento, uso y aprendizaje del sistema desarrollado. Presenta información acerca de todas las operaciones básicas que el sistema ofrece, así como capturas de pantallas útiles para el seguimiento de la explicación. A continuación se muestra la documentación de usuario para el módulo de almacén, dicho módulo permite a la institución usuaria llevar a cabo la gestión del stock de sus productos.  El módulo de almacén permite llevar a cabo la gestión de recepciones o ingreso de articulos, gestión de solicitud de artículos de almacén, gestión de movimientos de artículos entre almacenes y gestión de reportes. Este módulo cuenta con una configuración y un panel de control que permiten ajustarlo a las necesidades de la institución usuaria. En este manual se presenta una descripción de las opciones de este módulo, cómo usarlo y cómo ajustarlo a una institución u organización.
+El Manual de Documentación del sistema KAVAC a nivel de usuario tiene como objetivo facilitar la tarea de conocimiento, uso y aprendizaje del sistema desarrollado. Presenta información acerca de todas las operaciones básicas que el sistema ofrece, así como capturas de pantallas útiles para el seguimiento de la explicación. A continuación se muestra la documentación de usuario para el módulo de almacén, dicho módulo permite a la institución usuaria llevar a cabo la gestión del stock de sus productos.  El módulo de almacén permite llevar a cabo la gestión de recepciones o ingreso de articulos, gestión de solicitud de artículos de almacén, gestión de movimientos de artículos entre almacenes y gestión de reportes. De igual forma, el módulo de almacén cuenta con una configuración y un panel de control que permiten ajustarlo a las necesidades de la institución usuaria. En este manual se presenta una descripción de las opciones de este módulo, cómo usarlo y cómo ajustarlo a una institución u organización.
 
 
-##Módulo de almacén
+## Módulo de almacén
 
 En este módulo se lleva a cabo la gestión de insumos y materiales que la organización maneja y requiere para su funcionamiento, maneja además “n” número de almacenes asociados a la i-ésima sede de la organización. 
 
@@ -25,7 +24,7 @@ La sección de **Reportes** permite generar informes en tiempo real para inventa
 Los usuarios que interactuan en este módulo, serán todos aquellos usuarios con roles y permisos sobre el módulo de almacén, previamente gestionados por el usuario con el rol de administrador. Para conocer mas sobre la gestión de roles y permisos visite el **Manual de Documentación del Sistema KAVAC**.
 
 
-##Funcionalidades
+## Funcionalidades
 
    - Registro de materiales e insumos. 
 
@@ -43,41 +42,46 @@ Los usuarios que interactuan en este módulo, serán todos aquellos usuarios con
 
    - Desincorporación de materiales: Esta funcionalidad le permite al usuario gestionar los materiales que han sido dañados o deteriorados.  
 
-##Licencia
 
-Nombre del producto: KAVAC Sistema de Gestión de Recursos
+## Licencia
 
-   Nombre del licenciante y año: Fundación CENDITEL (Año)
+Nombre del producto: KAVAC ‘Sistema de Gestión de Recursos’
 
-   Créditos: 
+   Nombre del licenciante y año: Licencia Combinada de Software y Contenidos de la Fundación CENDITEL. Versión 1.2 (Año: 2015).
+
+   **Créditos**: 
    
-   **Lider de proyecto / Diseño / Desarrollo / Autor**
+   **Líder de proyecto / Diseño / Desarrollo / Autor / Director de Desarrollo (2021)**
 
 - Roldan Vargas (rvargas@cenditel.gob.ve | roldandvg@gmail.com)
 
    **Analistas**
 
 - Julie Vera (jvera@cenditel.gob.ve)
-- María González (mgonzalez@cenditel.gob.ve)
+- María Laura González (mgonzalez@cenditel.gob.ve)
 - María Rujano (mrujano@cenditel.gob.ve)
 - Mariangel Molero (mmolero@cenditel.gob.ve)
 - Francisco Berbesí (fberbesi@cenditel.gob.ve)
 - Luis Ramírez (lgramirez@cenditel.gob.ve)
 - Hildayra Colmenares (hcolmenares@cenditel.gob.ve)
-- Kleibymar Montilla (kmontilla@cenditel.gob.ve)
-- Daniel Contreras (dcontreras@cenditel.gob.ve)
+- Kleivymar Montilla (kmontilla@cenditel.gob.ve)
 
    **Manuales**
 
 - Luis Ramírez (lgramirez@cenditel.gob.ve)
 - Marilyn Caballero (mcaballero@cenditel.gob.ve)
 
- **Desarrolladores**
+   **Desarrolladores**
 
 - William Paéz (wpaez@cenditel.gob.ve)
 - Henry Paredes (henryp2804@gmail.com)
 - Juan Rosas (jrosas@cenditel.gob.ve)
 - Yennifer Ramírez (yramirez@cenditel.gob.ve)
+- Pedro Buitrago (pbuitrago@cenditel.gob.ve)
+- Angelo Osorio (adosorio@cenditel.gob.ve)
+- José Puentes (jpuentes@cenditel.gob.ve)
+- Daniel Contreras (dcontreras@cenditel.gob.ve)
+- Miguel Narváez (mnarvaez@cenditel.gob.ve)
 
    **Director de Desarrollo (2018-2019)**
 
@@ -89,25 +93,25 @@ Nombre del producto: KAVAC Sistema de Gestión de Recursos
 
    **Colaborador**
 
-- Angelo Osorio (adosorio@cenditel.gob.ve)
+- Santiago Roca (sroca@cenditel.gob.ve)
 
 
-Licencia Combinada de Software y Contenidos de la Fundación CENDITEL   
+Licencia Combinada de Software y Contenidos de la Fundación CENDITEL (2015)  
 
 
-La Fundación Centro Nacional de Desarrollo e Investigación en Tecnologías Libres (CENDITEL), ente adscrito al Ministerio del Poder Popular para  Ciencia y Tecnología (MINCYT), concede permiso, para usar, copiar, modificar y distribuir libremente y sin fines comerciales el Software KAVAC Sistema de Gestión de Recursos (sin garantía alguna) asimismo permite, copiar, adaptar, publicar y comunicar los contenidos, preservando en ambos casos los derechos morales de los autores y manteniendo los mismos principios para las obras derivadas, de conformidad con los términos y condiciones de las licencias de software y contenidos de la Fundación CENDITEL.
+La Fundación Centro Nacional de Desarrollo e Investigación en Tecnologías Libres (CENDITEL), ente adscrito al Ministerio del Poder Popular para  Ciencia y Tecnología (Mincyt), concede permiso, para usar, copiar, modificar y distribuir libremente y sin fines comerciales el Software KAVAC ‘Sistema de Gestión de Recursos’ (sin garantía alguna) asimismo permite, copiar, adaptar, publicar y comunicar los contenidos, preservando en ambos casos los derechos morales de los autores y manteniendo los mismos principios para las obras derivadas, de conformidad con los términos y condiciones de las licencias de software y contenidos de la Fundación CENDITEL.
 
 
 Cada vez que copie y distribuya este producto debe acompañarlo de una copia de las licencias. Para más información sobre los términos y condiciones de las licencias visite las siguientes direcciones electrónicas:  
 
 
-[Licencia de Software]( http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+[Licencia de Software](https://conocimientolibre.cenditel.gob.ve/legislacion)
 
-[Licencia de Contenidos]( http://conocimientolibre.cenditel.gob.ve/licencias/)
+[Licencia de Contenidos](https://conocimientolibre.cenditel.gob.ve/legislacion)
 
 ![Screenshot](img/licencia.png)
 
-</div>
+
 
 
 

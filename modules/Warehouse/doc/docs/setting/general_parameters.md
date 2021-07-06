@@ -1,10 +1,9 @@
-#Configuración Módulo de Almacén
+# Configuración Módulo de Almacén
 ********************************
-<div style="text-align: justify;" >
 
 ![Screenshot](../img/logokavac.png#imagen)
 
-##Parámetros generales
+## Parámetros generales
 
 Desde está sección se activa la funcionalidad Multi Almacén, haciendo uso del botón de selección y guardando los cambios a través de los botones de acciones de registro.  
 
@@ -18,4 +17,3 @@ Desde está sección se activa la funcionalidad Multi Almacén, haciendo uso del
 - Presionar el botón Guardar y verificar que se haya almacenado en la lista de registros
 
 	
-</div>

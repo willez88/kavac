@@ -1,12 +1,11 @@
-#Configuración Módulo de Almacén
+# Configuración Módulo de Almacén
 ********************************
-<div style="text-align: justify;" >
 
 ![Screenshot](../img/logokavac.png#imagen)
 
-##Configuración general de almacén 
+## Configuración general de almacén 
 
-###Almacenes
+### Almacenes
 
 Desde esta sección se realiza la gestión de almacenes, es posible registrar un nuevo almacén, editar o eliminar algún registro.
 
@@ -21,7 +20,7 @@ Desde esta sección se realiza la gestión de almacenes, es posible registrar un
 
 Esta sección permite Editar o Eliminar cualquier registro, haciendo uso de los botones ubicados en la columna titulada Acción de la tabla de registros.    
 
-###Productos
+### Productos
 
 Desde esta sección se realiza la gestión de productos, es posible registrar uno o varios productos, editar o eliminar algún registro.
 
@@ -38,7 +37,7 @@ Desde esta sección se realiza la gestión de productos, es posible registrar un
 
 Esta sección permite Editar o Eliminar cualquier registro, haciendo uso de los botones ubicados en la columna titulada Acción de la tabla de registros.    
 
-####Importar registros
+#### Importar registros
 
 Mediante esta funcionalidad es posible cargar los registros de productos de forma masiva a tráves de una hoja de cálculo. Se sugiere que al momento de realizar una importación de registros, se sigan las recomendaciones que se señalan en esté manual para la funcionalidad importar registros.
 
@@ -89,7 +88,7 @@ El archivo que el usuario ha exportado le permite editar esta infomación, es de
 - Seleccionar el archivo del directorio local, para transferir a la aplicación  
 - Verificar que los registros se hayan almacenado en la lista de registros  
 
-####Exportar registros
+#### Exportar registros
 
 Mediante esta funcionalidad es posible obtener una copia de todos los registros a tráves de una hoja de cálculo.
 
@@ -100,7 +99,7 @@ Mediante esta funcionalidad es posible obtener una copia de todos los registros 
 - Presionar el botón Exportar ubicado en la esquina superior derecha de esta sección  
 - Una copia del archivo se transfiera de la aplicación al equipo, este archivo contiene todos los registros de productos en el sistema  
 
-###Reglas de abastecimiento 
+### Reglas de abastecimiento 
 
 Desde esta sección se realiza la gestión de reglas de abastecimiento, es posible establecer un numero mínimo y máximo en el stock.  Para los artículos considerados como almacenables, esta herramienta permite contar con reglas para asegurarse de que los productos con mas demanda nunca queden sin existencias o superen el máximo establecido de stock. Además, desde esta sección es posible editar o eliminar algún registro realizado.
 
@@ -117,7 +116,7 @@ Esta sección permite Editar o Eliminar cualquier registro, haciendo uso de los 
 
 
 
-###Cierres de almacén 
+### Cierres de almacén 
 
 Desde esta sección se realiza la gestión para cierre de almacén, es posible programar un cierre de almacén, editar o eliminar algún registro.
 

@@ -1,6 +1,5 @@
 # Gestión de Solicitudes  
 ************************
-<div style="text-align: justify;">
 
 ![Screenshot](img/logokavac.png#imagen)
 
@@ -170,7 +169,6 @@ Luego que la entrega ha sido confirmada la solicitud cambia su estado a Entregad
 
 ![Screenshot](/img/listo_entregado.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Estado Solicitud-Entregado</div>
 
-</div>
 
 
 

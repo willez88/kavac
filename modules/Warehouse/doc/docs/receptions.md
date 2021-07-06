@@ -1,6 +1,5 @@
 # Gestión de Recepción e Ingreso de Artículos 
 *********************************************
-<div style="text-align: justify;">
 
 ![Screenshot](img/logokavac.png#imagen)
 
@@ -76,8 +75,6 @@ ubicado en la columna titulada Acción de la tabla de registros se aprueba la so
 - Haciendo uso del botón Rechazar ![Screenshot](img/disapprove.png#imagen)
 ubicado en la columna titulada Acción de la tabla de registros se rechaza la solicitud
 
-
-</div>
 
 
 

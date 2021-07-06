@@ -1,6 +1,5 @@
 # Gestión de Movimientos en Almacén 
 ***********************************
-<div style="text-align: justify;">
 
 ![Screenshot](img/logokavac.png#imagen)
 
@@ -73,8 +72,6 @@ ubicado en la columna titulada Acción de la tabla de solicitudes
 
 Luego que la entrega ha sido confirmada la solicitud cambia su estado a Confirmado en la tabla de Movimientos de Almacén.
 
-
-</div>
 
 
 
