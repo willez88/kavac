@@ -102,13 +102,13 @@ class PayrollProfessional extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene el horario de clase asociado a muchos datos profesionales del trabajador
+     * Método que obtiene el horario de clase asociado a un dato profesional del trabajador
      *
      * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function payrollClassSchedules()
+    public function payrollClassSchedule()
     {
-        return $this->hasMany(PayrollClassSchedule::class);
+        return $this->hasOne(PayrollClassSchedule::class);
     }
 }
