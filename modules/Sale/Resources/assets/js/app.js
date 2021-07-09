@@ -331,6 +331,19 @@ Vue.component('sale-periodic-cost', () => import(
     './components/settings/SalePeriodicCostComponent.vue')
 );
 
+
+/**
+ * Componente para gestionar bienes a Comercializar
+ *
+ * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+ */
+
+Vue.component('sale-goods-to-be-traded', () => import(
+    /* webpackChunkName: "sale-goods-to-be-traded-list" */
+    './components/settings/SaleGoodsToBeTradedComponent.vue')
+);
+
+
 /**
  * Opciones de configuración global del módulo de Commercialización
  */

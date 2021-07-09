@@ -18,6 +18,7 @@
 					<sale-settings-charge-money></sale-settings-charge-money>
 					<sale-settings-form-payment></sale-settings-form-payment>
 					<sale-frecuencies></sale-frecuencies>
+					<sale-goods-to-be-traded></sale-goods-to-be-traded>
 				</div>
 			</div>
 		</div>
