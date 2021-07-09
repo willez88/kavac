@@ -44,14 +44,14 @@ class UpdateSaleGoodsToBeTradeds extends Migration
                     $table->integer('unit_of_measurement_id')->unsigned()->nullable()->comment('Unidad de Medida');
                     $table->integer('units_depend_charge_id')->unsigned()->nullable()->comment('Unidades y dependencias a cargo');
                 });
-                if (!Schema::hasTable('payroll_staff_types')) {
+                if (!Schema::hasTable('payroll_staffs')) {
                     //SI TH NO ESTA INSTALADO
                     $table->after('custom_attribute', function ($table) {
                         $table->string('name_worker', 100)->comment('Nombre');
                         $table->string('Surname_worker', 500)->comment('Apellido');
                         $table->string('Telephone_worker', 500)->comment('Teléfono');
                         $table->string('Email_worker', 500)->comment('Correo electrónico');
-                    });
+                    }); 
                 }
                 else{
                     //SI TH ESTA INSTALADO
@@ -109,9 +109,8 @@ class UpdateSaleGoodsToBeTradeds extends Migration
                 if (Schema::hasColumn('sale_goods_to_be_tradeds', 'Email_worker')) {
                 //Se elimina Coin por Email_worker
                 $table->dropColumn(['Email_worker']);
-                };                                                                                             
+                };                                                                                           
             }
-
         });
     }
 }

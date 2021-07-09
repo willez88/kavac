@@ -347,5 +347,12 @@ Route::group(
             'get-periodic-cost',
             'PeriodicCostController@getPeriodicCostAttributes'
         )->name('sale.get-sale-periodic-cost');
+        
+        /*
+         * ------------------------------------------------------------
+         * Ruta para el panel de Pagos del módulo de Comercialización
+         * ------------------------------------------------------------
+         */
+        Route::get('payment', 'SalePaymentController@index')->name('sale.payment.index');
     }
 );
