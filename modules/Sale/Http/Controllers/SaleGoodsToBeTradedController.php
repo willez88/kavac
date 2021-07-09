@@ -5,6 +5,8 @@ namespace Modules\Sale\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Modules\Sale\Models\SaleGoodsToBeTraded;
 
 /**
  * @class SaleGoodsToBeTradedController
@@ -30,7 +32,7 @@ class SaleGoodsToBeTradedController extends Controller
      */
     public function index()
     {
-        return view('sale::index');
+        return response()->json(['records' => SaleGoodsToBeTraded::all()], 200);
     }
 
     /**
@@ -126,5 +128,15 @@ class SaleGoodsToBeTradedController extends Controller
     public function destroy($id)
     {
         //
+    }
+    /**
+     * Obtiene los Bienes a Comercializar.
+     *
+     * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+     * @return JsonResponse    Json con los datos de bienes a comercializar.
+     */
+    public function getSaleGoodsToBeTraded()
+    {
+        return response()->json(template_choices('Modules\Sale\Models\SaleGoodsToBeTraded', 'name', '', true));
     }
 }

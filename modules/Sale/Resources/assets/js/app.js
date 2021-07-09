@@ -462,5 +462,18 @@ Vue.mixin({
 				vm.frecuencies = response.data;
 			});
 		},
+
+        /**
+         * Obtiene los datos de Bienes a Comercializar
+         *
+         * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+         */
+        getSaleGoodsToBeTraded() {
+            const vm = this;
+            vm.good_to_be_traded = [];
+            axios.get('/sale/get-salegoodstobetraded').then(response => {
+                vm.sale_good_to_be_traded = response.data;
+            });
+        },
 	},
 });

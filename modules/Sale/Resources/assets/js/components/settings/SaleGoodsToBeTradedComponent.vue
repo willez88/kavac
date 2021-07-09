@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <a class="btn-simplex btn-simplex-md btn-simplex-primary" href="" title="Registros de Bienes a Comercializar" data-toggle="tooltip" @click="addRecord('add_good_to_be_traded', 'sale/frecuencies', $event)">
+    <a class="btn-simplex btn-simplex-md btn-simplex-primary" href="" title="Registros de Bienes a Comercializar" data-toggle="tooltip" @click="addRecord('add_good_to_be_traded', 'sale/good_to_be_traded', $event)">
       <i class="icofont icofont-read-book ico-3x"></i>
       <span>Bienes a Comercializar</span>
     </a>
@@ -27,11 +27,32 @@
                   <input type="hidden" name="id" id="id" v-model="record.id">
                 </div>
               </div>
+              <div class="col-md-6">
+                <div class="form-group is-required">
+                  <label for="name">Descripción:</label>
+                  <input type="text" id="description" placeholder="Descripción" class="form-control input-sm" v-model="record.description" data-toggle="tooltip" title="descripción (requerido)">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group is-required">
+                  <label for="name">Precio Unitario:</label>
+                  <input type="text" id="name" placeholder="Precio Unitario" class="form-control input-sm" v-model="record.name" data-toggle="tooltip" title="Indique el Precio Unitario (requerido)">
+                  <input type="hidden" name="id" id="id" v-model="record.id">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group is-required">
+                  <label for="name">Moneda:</label>
+                  <input type="text" id="description" placeholder="Moneda" class="form-control input-sm" v-model="record.description" data-toggle="tooltip" title="Moneda (requerido)">
+                </div>
+              </div>
             </div>
           </div>
           <div class="modal-footer">
             <div class="form-group">
-              <modal-form-buttons :saveRoute="'sale/frecuencies'"></modal-form-buttons>
+              <modal-form-buttons :saveRoute="'sale/good_to_be_traded'"></modal-form-buttons>
             </div>
           </div>
           <div class="modal-body modal-table">
@@ -40,7 +61,7 @@
                 <button @click="initUpdate(props.row.id, $event)" class="btn btn-warning btn-xs btn-icon btn-action" title="Modificar" data-toggle="tooltip" type="button">
                   <i class="fa fa-edit"></i>
                 </button>
-                <button @click="deleteRecord(props.row.id, 'sale/frecuencies')" class="btn btn-danger btn-xs btn-icon btn-action" title="Eliminar" data-toggle="tooltip" type="button">
+                <button @click="deleteRecord(props.row.id, 'sale/good_to_be_traded')" class="btn btn-danger btn-xs btn-icon btn-action" title="Eliminar" data-toggle="tooltip" type="button">
                   <i class="fa fa-trash-o"></i>
                 </button>
               </div>
