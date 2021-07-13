@@ -3,9 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Schema;
-use Nwidart\Modules\Contracts\ActivatorInterface;
 use Carbon\Carbon;
-use Module;
+use Nwidart\Modules\Module;
 
 if (! function_exists('set_active_menu')) {
     /**
