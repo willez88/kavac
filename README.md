@@ -191,7 +191,7 @@ MAIL_ENCRYPTION | Define el protocolo de cifrado usado por el gestor de correo e
 
 ## Compilar archivos js y css de cada modulo de la aplicación:
 
-    $ php artisan module:compile -s
+    $ php artisan module:compile -s -i
 
 ## Base de datos
 
