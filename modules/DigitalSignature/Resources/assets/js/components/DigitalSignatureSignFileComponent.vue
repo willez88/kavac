@@ -38,7 +38,7 @@
                                 <h6> Detalle de la firma </h6>
                                 <p> {{ records.msg }} </p>
                                 <p> Descargar archivo:
-                                    <a :href="'digitalsignature/apiGetFile/'+records.namefile">{{ records.namefile }}</a>
+                                    <a :href="'/digitalsignature/apiGetFile/'+records.namefile">{{ records.namefile }}</a>
                                 </p>
                             </div>
                         </div>
