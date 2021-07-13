@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Schema;
 use Carbon\Carbon;
-use Nwidart\Modules\Module;
+use Nwidart\Modules\Facades\Module;
 
 if (! function_exists('set_active_menu')) {
     /**
