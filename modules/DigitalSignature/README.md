@@ -3,3 +3,4 @@
 ## 1) Instalar los siguientes paquetes del sistema operativo:
 
 default-jre
+poppler-utils
