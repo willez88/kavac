@@ -279,7 +279,6 @@
 				for (var x = 0; x < inputFiles.files.length; x++) {
     				formData.append('documents[' + x + ']', inputFiles.files[x]);
 				}
-				console.log(formData);
                 axios.post('upload-document', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -293,7 +292,7 @@
 	                );
                 }).catch(error => {
                     vm.errors = [];
-                    if (typeof(error.response) !="undefined") {
+                    if (typeof(error.response) != "undefined") {
                         for (var index in error.response.data.errors) {
                             if (error.response.data.errors[index]) {
                                 vm.errors.push(error.response.data.errors[index][0]);
@@ -305,7 +304,6 @@
 
 			deleteDocument(index, documents) {
 				axios.delete(`upload-document/${documents[index].id}`).then(response => {
-					console.log('Documento eliminada');
 					documents.splice(index, 1);
 				});
 			},
