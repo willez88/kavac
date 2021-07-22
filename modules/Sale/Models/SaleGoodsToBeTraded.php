@@ -35,5 +35,5 @@ class SaleGoodsToBeTraded extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = [];
+    protected $fillable = ['id', 'name', 'description', 'unit_price', 'custom_attribute', 'currency_id', 'unit_of_measurement_id', 'units_depend_charge_id', 'worker_id'];
 }

@@ -331,6 +331,19 @@ Vue.component('sale-periodic-cost', () => import(
     './components/settings/SalePeriodicCostComponent.vue')
 );
 
+
+/**
+ * Componente para gestionar bienes a Comercializar
+ *
+ * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+ */
+
+Vue.component('sale-goods-to-be-traded', () => import(
+    /* webpackChunkName: "sale-goods-to-be-traded-list" */
+    './components/settings/SaleGoodsToBeTradedComponent.vue')
+);
+
+
 /**
  * Opciones de configuración global del módulo de Commercialización
  */
@@ -449,5 +462,18 @@ Vue.mixin({
 				vm.frecuencies = response.data;
 			});
 		},
+
+        /**
+         * Obtiene los datos de Bienes a Comercializar
+         *
+         * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+         */
+        getSaleGoodsToBeTraded() {
+            const vm = this;
+            vm.good_to_be_traded = [];
+            axios.get('/sale/get-salegoodstobetraded').then(response => {
+                vm.sale_good_to_be_traded = response.data;
+            });
+        },
 	},
 });

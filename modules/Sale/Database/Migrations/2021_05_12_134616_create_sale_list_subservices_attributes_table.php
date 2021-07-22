@@ -30,11 +30,11 @@ class CreateSaleListSubservicesAttributesTable extends Migration
 
                 $table->string('value', 100)->comment('Valor o descripción del atributo');
                 $table->foreignId('sale_list_subservices_id')->constrained()
-                  ->onDelete('restrict')->onUpdate('cascade');
+                      ->index('sale_list_subservices_id_foreign')->onDelete('restrict')->onUpdate('cascade');
 
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
-            });      
+            });
         }
     }
 
