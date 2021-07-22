@@ -42,10 +42,14 @@ class CreatePurchaseCompromiseDetailsTable extends Migration
             });
             
             Schema::table('purchase_compromise_details', function (Blueprint $table) {
-                if (!has_foreign_key('purchase_compromise_details', 'budget_compromise_details_formulation_fk')) {
+                if (!has_foreign_key(
+                    'purchase_compromise_details',
+                    'purchase_budget_compromise_details_formulation_fk'
+                )
+                ) {
                     $table->foreign(
                         'budget_sub_specific_formulation_id',
-                        'budget_compromise_details_formulation_fk'
+                        'purchase_budget_compromise_details_formulation_fk'
                     )->references('id')->on('budget_sub_specific_formulations')->onUpdate('cascade');
                 }
             });
