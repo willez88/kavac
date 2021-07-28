@@ -1,9 +1,9 @@
 <template>
     <section id="payrollReviewVacationRequestPendingFormComponent">
-        <a class="btn btn-default btn-xs btn-icon btn-action"
+        <a class="btn btn-info btn-xs btn-icon btn-action"
            href="#" title="Revisar solicitud" data-toggle="tooltip"
-           @click="addRecord('view_review_vacation_request_pending' + id, route_show ,$event)">
-           <i class="fa fa-filter"></i>
+           @click="addRecord('view_review_vacation_request_pending' + id, route_show, $event)">
+           <i class="fa fa-eye"></i>
         </a>
 
         <div class="modal fade text-left" tabindex="-1" role="dialog" :id="'view_review_vacation_request_pending' + id">

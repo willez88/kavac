@@ -1,7 +1,7 @@
 <template>
     <section id="payrollVacationRequestShow">
         <a class="btn btn-info btn-xs btn-icon btn-action"
-           href="#" title="Ver información del registro" data-toggle="tooltip"
+           href="#" title="Ver información del registro" data-toggle="tooltip" v-has-tooltip
            @click="addRecord('view_vacation_request' + id, route_show ,$event)">
             <i class="fa fa-info-circle"></i>
         </a>
