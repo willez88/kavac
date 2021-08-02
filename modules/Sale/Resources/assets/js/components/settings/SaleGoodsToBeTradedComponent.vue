@@ -49,6 +49,45 @@
                 </div>
               </div>
             </div>
+
+            <div class="row">
+              <div class="col-md-1">
+                <div class="form-group">
+                    <a  data-toggle="tooltip" title="Impuesto al valor agregado">
+                      <label for="" class="control-label">IVA</label>
+                      <div class="col-12">
+                        <div class="bootstrap-switch-mini">
+                          <input type="checkbox" class="form-control bootstrap-switch" id="define_attributes"
+                          name="define_attributes"
+                          data-on-label="Si" data-off-label="No" value="true"
+                          v-model="record.define_attributes">
+                        </div>
+                      </div>
+                    </a>
+                </div>
+              </div>
+              <div v-show="this.record.define_attributes">
+                <div class="col-md-12">
+                    <label for="name">Impuesto al valor agregado:</label>
+                    <input type="text" id="iva" placeholder="iva" class="form-control input-sm" v-model="record.iva" data-toggle="tooltip" title="iva (Impuesto al valor agregado)">
+                </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="form-group is-required">
+                      <label>Unidad de medida:</label>
+                      <select2 :options="measurement_units" v-model="record.measurement_unit_id"></select2>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group is-required">
+                  <label>Departamento:</label>
+                  <select2 :options="departments" v-model="record.department_id"
+                       id="department"></select2>
+                </div>
+              </div>
+
+            </div>
+
           </div>
           <div class="modal-footer">
             <div class="form-group">
@@ -111,4 +150,27 @@ export default {
     };
   },
 };
+
+/**
+ *
+ *  campo Unidades y dependencias a cargo =========  Departamento
+ * http://localhost:8000/payroll/employments/create 
+ *
+ * 
+ *  * 
+ * 
+ * 
+ * en warehouseProductsFormComponent
+ * 
+ * <div class="col-md-4">
+      <div class="form-group is-required">
+          <label>Unidad de medida:</label>
+          <select2 :options="measurement_units" v-model="record.measurement_unit_id"></select2>
+      </div>
+  </div>
+ * 
+ * 
+ * 
+ * 
+ */
 </script>
