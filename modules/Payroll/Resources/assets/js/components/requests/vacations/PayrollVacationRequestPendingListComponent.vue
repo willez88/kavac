@@ -1,30 +1,30 @@
 <template>
-    <v-client-table :columns="columns" :data="records" :options="table_options">
-        <div slot="date" slot-scope="props">
-            <span> {{ format_date(props.row.created_at, 'YYYY-MM-DD') }} </span>
-        </div>
-        <div slot="payroll_staff" slot-scope="props">
-            <span>
-                {{ 
-                    props.row.payroll_staff
-                        ? props.row.payroll_staff.id
-                            ? props.row.payroll_staff.first_name + ' ' + props.row.payroll_staff.last_name
+    <section id="payrollVacationRequestPendingListComponent">
+        <v-client-table :columns="columns" :data="records" :options="table_options">
+            <div slot="date" slot-scope="props">
+                <span> {{ format_date(props.row.created_at, 'YYYY-MM-DD') }} </span>
+            </div>
+            <div slot="payroll_staff" slot-scope="props">
+                <span>
+                    {{ 
+                        props.row.payroll_staff
+                            ? props.row.payroll_staff.id
+                                ? props.row.payroll_staff.first_name + ' ' + props.row.payroll_staff.last_name
+                                : 'No definido'
                             : 'No definido'
-                        : 'No definido'
 
-                }}
-            </span>
-        </div>
-        
-        <div slot="id" slot-scope="props" class="text-center">
-            <div class="d-inline-flex">
+                    }}
+                </span>
+            </div>
+            
+            <div slot="id" slot-scope="props" class="text-center">
                 <payroll-review-vacation-request-pending-form
                     :route_show="'payroll/vacation-requests/show/' + props.row.id"
                     :id="props.row.id">
                 </payroll-review-vacation-request-pending-form>
             </div>
-        </div>
-    </v-client-table>
+        </v-client-table>
+    </section>
 </template>
 
 <script>

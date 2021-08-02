@@ -38,14 +38,90 @@
               <div class="col-md-6">
                 <div class="form-group is-required">
                   <label for="name">Precio Unitario:</label>
-                  <input type="text" id="name" placeholder="Precio Unitario" class="form-control input-sm" v-model="record.name" data-toggle="tooltip" title="Indique el Precio Unitario (requerido)">
-                  <input type="hidden" name="id" id="id" v-model="record.id">
+                  <input type="text" id="name" placeholder="Precio Unitario" class="form-control input-sm" v-model="record.unit_price" data-toggle="tooltip" title="Indique el Precio Unitario (requerido)">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group is-required">
                   <label for="name">Moneda:</label>
-                  <input type="text" id="description" placeholder="Moneda" class="form-control input-sm" v-model="record.description" data-toggle="tooltip" title="Moneda (requerido)">
+                  <input type="text" id="description" placeholder="Moneda" class="form-control input-sm" v-model="record.coin" data-toggle="tooltip" title="Moneda (requerido)">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group is-required">
+                  <label for="iva">IVA:</label>
+                  <input type="text" id="iva" placeholder="IVA" class="form-control input-sm" v-model="record.iva" data-toggle="tooltip" title="Indique el Precio Unitario (requerido)">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group is-required">
+                  <label for="name">Unidad de medida:</label>
+                  <input type="text" id="description" placeholder="Unidad de medida" class="form-control input-sm" v-model="record.measurement_unit" data-toggle="tooltip" title="Moneda (requerido)">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group is-required">
+                  <label for="name">Unidades y dependencias a cargo:</label>
+                  <input type="text" id="name" placeholder="Unidades y dependencias a cargo" class="form-control input-sm" v-model="record.unit_in_charge" data-toggle="tooltip" title="Indique el Precio Unitario (requerido)">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group is-required">
+                  <label for="name">Lista de trabajadores:</label>
+                  <input type="text" id="description" placeholder="Lista de trabajadores" class="form-control input-sm" v-model="record.worker" data-toggle="tooltip" title="Moneda (requerido)">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <a  data-toggle="tooltip"
+                                title="Establecer los atributos del tipo de bien para gestionar las variantes">
+                                <label for="" class="control-label">Atributos Personalizados</label>
+                                <div class="col-12">
+                                            <div class="bootstrap-switch-mini">
+                            <input type="checkbox" class="form-control bootstrap-switch"
+                              name="define_attributes"
+                              data-on-label="Si" data-off-label="No" value="true"
+                              v-model="record.define_attributes">
+                                            </div>
+                      </div>
+                            </a>
+                </div>
+              </div>
+            </div>
+            <div v-show="this.record.define_attributes">
+              <div class="row" style="margin: 10px 0">
+                <h6 class="card-title cursor-pointer" @click="addAttribute()" >
+                  Gestionar nuevo atributo <i class="fa fa-plus-circle"></i>
+                </h6>
+              </div>
+              <div class="row" style="margin: 20px 0">
+
+                <div class="col-6" v-for="(attribute, index) in record.custom_attribute">
+
+                  <div class="d-inline-flex">
+                    <div class="col-10">
+                      <div class="form-group">
+                        <input type="text" placeholder="Nombre del nuevo atributo" data-toggle="tooltip"
+                             title="Indique el nombre del atributo del tipo de bien que desee hacer seguimiento (opcional)"
+                             v-model="attribute.name" class="form-control input-sm">
+                      </div>
+                    </div>
+                    <div class="col-2">
+                      <div class="form-group">
+                        <button class="btn btn-sm btn-danger btn-action" type="button"
+                            @click="removeRow(index, record.custom_attribute)"
+                            title="Eliminar este dato" data-toggle="tooltip">
+                          <i class="fa fa-minus-circle"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -122,7 +198,15 @@ export default {
     return {
       record: {
         id: '',
-        name: ''
+        name: '',
+        unit_price: '',
+        coin: '',
+        iva: '',
+        measurement_unit: '',
+        unit_in_charge: '',
+        worker: '',
+        define_attributes: false,
+        custom_attribute: [],
       },
       errors: [],
       records: [],
@@ -135,6 +219,16 @@ export default {
         id: '',
         name: ''
       };
+    },
+
+    /**
+     * Método que agrega un nuevo campo de atributo al formulario
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     */
+    addAttribute() {      
+      let field = {id: '', name: '', sale_good_to_be_traded_id: ''};
+      this.record.custom_attribute.push(field);
     },
   },
   created() {

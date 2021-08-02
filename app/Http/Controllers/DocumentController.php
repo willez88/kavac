@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use App\Models\Document;
 use App\Repositories\UploadDocRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use DB;
 
 /**
  * @class DocumentController

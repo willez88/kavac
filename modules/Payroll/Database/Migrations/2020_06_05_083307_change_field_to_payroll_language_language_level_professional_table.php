@@ -10,106 +10,31 @@ use Illuminate\Database\Migrations\Migration;
  *
  * Gestiona cambios en la tabla payroll_language_language_level_professional
  *
- * @author William Páez <wpaez@cenditel.gob.ve>
- * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
- *              LICENCIA DE SOFTWARE CENDITEL
- *          </a>
+ * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
 class ChangeFieldToPayrollLanguageLanguageLevelProfessionalTable extends Migration
 {
     /**
-     * Método que elimina el campo payroll_professional_information_id y agrega payroll_professional_id a la tabla
+     * Método que elimina la tabla debido a que ya no está en uso
      *
-     * @author William Páez <wpaez@cenditel.gob.ve>
+     * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
      * @return void
      */
     public function up()
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::table('payroll_language_language_level_professional', function (Blueprint $table) {
-            if (has_index_key(
-                'payroll_language_language_level_professional',
-                'payroll_language_language_level_professional_unique'
-            )) {
-                $table->dropUnique('payroll_language_language_level_professional_unique');
-            }
-            if (has_foreign_key(
-                'payroll_language_language_level_professional',
-                'payroll_language_language_level_professional_information_fk'
-            )) {
-                $table->dropForeign('payroll_language_language_level_professional_information_fk');
-            }
-            if (Schema::hasColumn(
-                'payroll_language_language_level_professional',
-                'payroll_professional_information_id'
-            )
-            ) {
-                //$table->dropUnique('payroll_language_id');
-                //$table->dropUnique('payroll_professional_information_id');
-                //$table->dropForeign('payroll_language_language_level_professional_information_fk');
-                $table->dropColumn(['payroll_professional_information_id']);
-            }
-
-            if (!Schema::hasColumn('payroll_language_language_level_professional', 'payroll_professional_id')) {
-                $table->unsignedBigInteger('payroll_professional_id')->nullable()->comment(
-                    'Identificador profesional del trabajador'
-                );
-                $table->foreign(
-                    'payroll_professional_id',
-                    'payroll_language_language_level_professional_professional_fk'
-                )->references('id')->on('payroll_professionals')->onDelete('restrict')->onUpdate('cascade');
-            }
-
-            /*$table->dropUnique('payroll_language_language_level_professional_unique');
-            $table->unique(
-                ['payroll_language_id', 'payroll_professional_id'],
-                'payroll_language_language_level_professional_unique'
-            )->comment('Clave única para el registro');*/
-        });
-        Schema::enableForeignKeyConstraints();
+        Schema::dropIfExists('payroll_language_language_level_professional');
     }
 
     /**
-     * Método que elimina el campo payroll_professional_id y agrega payroll_professional_information_id a la tabla
+     * Método que elimina la tabla debido a que ya no está en uso
      *
-     * @author William Páez <wpaez@cenditel.gob.ve>
+     * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
      * @return void
      */
     public function down()
     {
-        Schema::table('payroll_language_language_level_professional', function (Blueprint $table) {
-            if (has_foreign_key(
-                'payroll_language_language_level_professional',
-                'payroll_language_language_level_professional_professional_fk'
-            )) {
-                $table->dropForeign('payroll_language_language_level_professional_professional_fk');
-            }
-            if (Schema::hasColumn(
-                'payroll_language_language_level_professional',
-                'payroll_professional_id'
-            )
-            ) {
-                //$table->dropUnique(['payroll_language_id', 'payroll_professional_id']);
-                //$table->dropForeign('payroll_language_language_level_professional_professional_fk');
-                $table->dropColumn(['payroll_professional_id']);
-            }
-            if (!Schema::hasColumn(
-                'payroll_language_language_level_professional',
-                'payroll_professional_information_id'
-            )
-            ) {
-                $table->unsignedBigInteger('payroll_professional_information_id')->nullable();
-                $table->foreign(
-                    'payroll_professional_information_id',
-                    'payroll_language_language_level_professional_information_fk'
-                )->references('id')->on('payroll_professional_informations')->onDelete('cascade');
-            }
-
-            /*$table->dropUnique('payroll_language_language_level_professional_unique');
-            $table->unique(
-                ['payroll_language_id', 'payroll_professional_information_id'],
-                'payroll_language_language_level_professional_unique'
-            )->comment('Clave única para el registro');*/
-        });
+        Schema::dropIfExists('payroll_language_language_level_professional');
     }
 }

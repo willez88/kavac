@@ -138,7 +138,6 @@ class PayrollProfessionalController extends Controller
                 ],
             );
         }
-
         DB::transaction(function () use ($request) {
             $payrollProfessional = PayrollProfessional::create([
                 'payroll_staff_id' => $request->payroll_staff_id,
@@ -149,12 +148,16 @@ class PayrollProfessionalController extends Controller
                 'study_program_name' => ($request->is_student) ? $request->study_program_name : null,
                 'class_schedule' => ($request->is_student) ? $request->class_schedule : null,
             ]);
-            $class_schedule = PayrollClassSchedule::create(['payroll_professional_id' => $payrollProfessional->id]);
-            foreach ($request->class_schedule_ids as $class_schedule_id) {
-                $document = Document::find($class_schedule_id['id']);
-                $document->documentable_type = PayrollClassSchedule::class;
-                $document->documentable_id = $class_schedule->id;
-                $document->save();
+            $payroll_class_schedule = PayrollClassSchedule::create(
+                ['payroll_professional_id' => $payrollProfessional->id]
+            );
+            if ($request->class_schedule_ids && !empty($request->class_schedule_ids)) {
+                foreach ($request->class_schedule_ids as $class_schedule_id) {
+                    $document = Document::find($class_schedule_id['id']);
+                    $document->documentable_type = PayrollClassSchedule::class;
+                    $document->documentable_id = $payroll_class_schedule->id;
+                    $document->save();
+                }
             }
             $i = 0;
             foreach ($request->payroll_languages as $payroll_language) {
@@ -201,7 +204,7 @@ class PayrollProfessionalController extends Controller
     {
         $payrollProfessional = PayrollProfessional::where('id', $id)->with([
             'payrollStaff','payrollInstructionDegree','professions','payrollStudyType',
-            'payrollLanguages', 'payrollClassSchedules' => function ($query) {
+            'payrollLanguages', 'payrollClassSchedule' => function ($query) {
                 $query->with('documents');
             },
         ])->first();
@@ -231,7 +234,11 @@ class PayrollProfessionalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $payrollProfessional = PayrollProfessional::find($id);
+        //$payrollProfessional = PayrollProfessional::find($id);
+        $payrollProfessional = PayrollProfessional::where('id', $id)->with([
+            'payrollStaff','payrollInstructionDegree','professions','payrollStudyType',
+            'payrollLanguages','payrollClassSchedule'
+        ])->first();
         $this->rules['payroll_staff_id'] = [
             'required',
             'unique:payroll_professionals,payroll_staff_id,'.$payrollProfessional->id,
@@ -298,6 +305,14 @@ class PayrollProfessionalController extends Controller
             $payrollProfessional->study_program_name = ($request->is_student) ? $request->study_program_name : null;
             $payrollProfessional->class_schedule = ($request->is_student) ? $request->class_schedule: null;
             $payrollProfessional->save();
+            if ($request->class_schedule_ids && !empty($request->class_schedule_ids)) {
+                foreach ($request->class_schedule_ids as $class_schedule_id) {
+                    $document = Document::find($class_schedule_id['id']);
+                    $document->documentable_type = PayrollClassSchedule::class;
+                    $document->documentable_id = $payrollProfessional->payrollClassSchedule->id;
+                    $document->save();
+                }
+            }
             foreach ($payrollProfessional->payrollLanguages as $payrollLanguage) {
                 $payroll_lang = PayrollLanguage::find($payrollLanguage['id']);
                 $payrollProfessional->payrollLanguages()->detach($payroll_lang->id);
@@ -366,7 +381,7 @@ class PayrollProfessionalController extends Controller
         return response()->json(['records' => PayrollProfessional::with([
             'payrollStaff', 'payrollInstructionDegree','professions',
             'payrollStudyType', 'payrollLanguages',
-            'payrollClassSchedules' => function ($query) {
+            'payrollClassSchedule' => function ($query) {
                 $query->with('documents');
             },
         ])->get()], 200);

@@ -99,6 +99,14 @@
 								<label for="class_schedules">
 									Horario de Clase:
 	                            </label>
+								<div v-for="(document, index) in payroll_class_schedule.documents">
+									<a :href="`/${document.url}`" target="_blank">Documento</a>
+									<button class="btn btn-sm btn-danger btn-action" type="button"
+	                                        @click="deleteDocument(index, payroll_class_schedule.documents)"
+	                                        title="Eliminar este dato" data-toggle="tooltip">
+	                                    <i class="fa fa-minus-circle"></i>
+	                                </button>
+								</div>
 								<input id="class_schedules" name="class_schedules" type="file"
 									accept=".odt, .pdf" @change="processFiles($event)" multiple>
 							</div>
@@ -208,14 +216,14 @@
 				payroll_study_types: [],
 				payroll_languages: [],
 				payroll_language_levels: [],
-				class_schedules_files: [],
+				payroll_class_schedule: '',
 			}
 		},
 		methods: {
 
 			getProfessional() {
 				const vm = this;
-				axios.get('/payroll/professionals/' + vm.payroll_professional_id).then(response => {
+				axios.get(`/payroll/professionals/${vm.payroll_professional_id}`).then(response => {
 					vm.record.id = response.data.record.id;
 					vm.record.payroll_staff_id = response.data.record.payroll_staff_id;
 					vm.record.payroll_instruction_degree_id = response.data.record.payroll_instruction_degree_id;
@@ -228,14 +236,13 @@
 					vm.record.payroll_staff = response.data.record.payroll_staff;
 					vm.record.payroll_study_type = response.data.record.payroll_study_type;
 					vm.record.payroll_instruction_degree = response.data.record.payroll_instruction_degree;
-					//vm.record.payroll_languages = response.data.record.payroll_languages;
-
 					for (const a in response.data.record.payroll_languages) {
 						vm.record.payroll_languages.push({
 							payroll_lang_id: response.data.record.payroll_languages[a].id,
 							payroll_language_level_id: response.data.record.payroll_languages[a].pivot.payroll_language_level_id,
 						});
 					}
+					vm.payroll_class_schedule = response.data.record.payroll_class_schedule;
 				});
 			},
 
@@ -272,7 +279,6 @@
 				for (var x = 0; x < inputFiles.files.length; x++) {
     				formData.append('documents[' + x + ']', inputFiles.files[x]);
 				}
-				console.log(formData);
                 axios.post('upload-document', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -286,7 +292,7 @@
 	                );
                 }).catch(error => {
                     vm.errors = [];
-                    if (typeof(error.response) !="undefined") {
+                    if (typeof(error.response) != "undefined") {
                         for (var index in error.response.data.errors) {
                             if (error.response.data.errors[index]) {
                                 vm.errors.push(error.response.data.errors[index][0]);
@@ -294,7 +300,13 @@
                         }
                     }
                 });
-			}
+			},
+
+			deleteDocument(index, documents) {
+				axios.delete(`upload-document/${documents[index].id}`).then(response => {
+					documents.splice(index, 1);
+				});
+			},
 		},
 		created() {
 			this.record.payroll_languages = [];
