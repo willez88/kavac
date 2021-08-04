@@ -1,7 +1,7 @@
 <template>
     <section id="assetStatusComponent">
         <a class="btn-simplex btn-simplex-md btn-simplex-primary"
-           href="#" title="Registros de Estatus de Uso de los Bienes" data-toggle="tooltip"
+           href="" title="Registros de Estatus de Uso de los Bienes" data-toggle="tooltip"
            @click="addRecord('add_status', 'asset/status', $event)">
             <i class="icofont icofont-read-book ico-3x"></i>
             <span>Estatus de Uso</span>
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class="modal-body modal-table">
-                        <hr>
+                       
                         <v-client-table :columns="columns" :data="records" :options="table_options">
                             <div slot="id" slot-scope="props" class="text-center">
                                 <button @click="initUpdate(props.row.id, $event)"
