@@ -17,12 +17,12 @@
     			<div class="d-inline-flex">
 
     				<payroll-permission-request-info
-    					:route_list="'permission-requests/vue-info/' + props.row.id">
+    					:route_list="'payroll/permission-requests/vue-info/' + props.row.id">
     				</payroll-permission-request-info>
 
     	    		<button @click="editForm(props.row.id)"
     	    				class="btn btn-warning btn-xs btn-icon btn-action"
-    	    				title="Modificar registro" data-toggle="tooltip" type="button" v-has-tooltip 
+    	    				title="Modificar registro" data-toggle="tooltip" type="button" v-has-tooltip
     	    				:disabled="props.row.status != 'Pendiente'">
     	    			<i class="fa fa-edit"></i>
     	    		</button>

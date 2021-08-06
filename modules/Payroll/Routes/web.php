@@ -533,7 +533,8 @@ Route::group([
         ['as' => 'payroll', 'except' => ['edit', 'show']]
     );
     /** Ruta que muestra información sobre la solicitud de permiso */
-    Route::get('permission-requests/vue-info/{permission_request}', 'PayrollPermissionRequestController@vueInfo');
+    Route::get('permission-requests/vue-info/{permission_request}', 'PayrollPermissionRequestController@vueInfo')
+    ->name('payroll.permission-requests.vue-info');
 
     /** Ruta que obtiene un listado de las solicitudes de permiso */
     Route::get(

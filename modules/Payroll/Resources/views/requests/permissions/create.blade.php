@@ -20,8 +20,8 @@
     <div class="row">
         <div class="col-12">
             <payroll-permission-request-create
-                :requestid="{!! (isset($payrollPermissionRequest)) ? $payrollPermissionRequest->id : "null" !!}"
-                route_list='{{ url('payroll/permission-requests') }}'>
+                route_list="{{ url('payroll/permission-requests') }}"
+                :requestid="{!! (isset($payrollPermissionRequest)) ? $payrollPermissionRequest->id : 'null' !!}">
             </payroll-permission-request-create>
         </div>
     </div>
