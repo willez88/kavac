@@ -36,7 +36,7 @@ class PayrollStaffController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:payroll.staffs.list', ['only' => ['index','vueList']]);
+        $this->middleware('permission:payroll.staffs.list', ['only' => ['index', 'vueList']]);
         $this->middleware('permission:payroll.staffs.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:payroll.staffs.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.staffs.delete', ['only' => 'destroy']);
@@ -144,17 +144,17 @@ class PayrollStaffController extends Controller
             $this->validate(
                 $request,
                 [
-                    'phones.'.$i.'.type' => ['required'],
-                    'phones.'.$i.'.area_code' => ['required', 'digits:3'],
-                    'phones.'.$i.'.number' => ['required', 'digits:7'],
-                    'phones.'.$i.'.extension' => ['nullable', 'digits_between:3,6'],
+                    'phones.' . $i . '.type' => ['required'],
+                    'phones.' . $i . '.area_code' => ['required', 'digits:3'],
+                    'phones.' . $i . '.number' => ['required', 'digits:7'],
+                    'phones.' . $i . '.extension' => ['nullable', 'digits_between:3,6'],
                 ],
                 [],
                 [
-                    'phones.'.$i.'.type' => 'tipo #'.($i+1),
-                    'phones.'.$i.'.area_code' => 'código de area #'.($i+1),
-                    'phones.'.$i.'.number' => 'número #'.($i+1),
-                    'phones.'.$i.'.extension' => 'extensión #'.($i+1),
+                    'phones.' . $i . '.type' => 'tipo #' . ($i + 1),
+                    'phones.' . $i . '.area_code' => 'código de area #' . ($i + 1),
+                    'phones.' . $i . '.number' => 'número #' . ($i + 1),
+                    'phones.' . $i . '.extension' => 'extensión #' . ($i + 1),
                 ]
             );
             $i++;
@@ -183,9 +183,9 @@ class PayrollStaffController extends Controller
             'email' => $request->email,
             'birthdate' => $request->birthdate,
             'payroll_gender_id' => $request->payroll_gender_id,
-            'has_disability' => ($request->has_disability!==null),
+            'has_disability' => ($request->has_disability !== null),
             'payroll_disability_id' => ($request->has_disability) ? $request->payroll_disability_id : null,
-            'has_driver_license' => ($request->has_driver_license!==null),
+            'has_driver_license' => ($request->has_driver_license !== null),
             'payroll_license_degree_id' => ($request->has_driver_license) ? $request->payroll_license_degree_id : null,
             'social_security' => $request->social_security,
             'payroll_blood_type_id' => $request->payroll_blood_type_id,
@@ -220,7 +220,7 @@ class PayrollStaffController extends Controller
     public function show($id)
     {
         $payrollStaff = PayrollStaff::where('id', $id)->with([
-            'payrollNationality','payrollGender','payrollLicenseDegree','payrollBloodType','payrollDisability',
+            'payrollNationality', 'payrollGender', 'payrollLicenseDegree', 'payrollBloodType', 'payrollDisability',
             'parish' => function ($query) {
                 $query->with(['municipality' => function ($query) {
                     $query->with(['estate' => function ($query) {
@@ -260,10 +260,10 @@ class PayrollStaffController extends Controller
         ])->first();
         $payrollStaff = PayrollStaff::find($id);
         $this->rules['id_number'] = [
-            'required', 'regex:/^([\d]{7}|[\d]{8})$/u', 'unique:payroll_staffs,id_number,'.$payrollStaff->id
+            'required', 'regex:/^([\d]{7}|[\d]{8})$/u', 'unique:payroll_staffs,id_number,' . $payrollStaff->id
         ];
-        $this->rules['passport'] = ['nullable', 'max:20', 'unique:payroll_staffs,passport,'.$payrollStaff->id];
-        $this->rules['email'] = ['nullable', 'email', 'unique:payroll_staffs,email,'.$payrollStaff->id];
+        $this->rules['passport'] = ['nullable', 'max:20', 'unique:payroll_staffs,passport,' . $payrollStaff->id];
+        $this->rules['email'] = ['nullable', 'email', 'unique:payroll_staffs,email,' . $payrollStaff->id];
         $this->rules['birthdate'] = ['required', 'date', new AgeToWork(($parameter) ? $parameter->p_value : 0)];
         $this->validate($request, $this->rules, [], $this->attributes);
         if ($request->has_disability) {
@@ -295,17 +295,17 @@ class PayrollStaffController extends Controller
             $this->validate(
                 $request,
                 [
-                    'phones.'.$i.'.type' => ['required'],
-                    'phones.'.$i.'.area_code' => ['required', 'digits:3'],
-                    'phones.'.$i.'.number' => ['required', 'digits:7'],
-                    'phones.'.$i.'.extension' => ['nullable', 'digits_between:3,6'],
+                    'phones.' . $i . '.type' => ['required'],
+                    'phones.' . $i . '.area_code' => ['required', 'digits:3'],
+                    'phones.' . $i . '.number' => ['required', 'digits:7'],
+                    'phones.' . $i . '.extension' => ['nullable', 'digits_between:3,6'],
                 ],
                 [],
                 [
-                    'phones.'.$i.'.type' => 'tipo #'.($i+1),
-                    'phones.'.$i.'.area_code' => 'código de area #'.($i+1),
-                    'phones.'.$i.'.number' => 'número #'.($i+1),
-                    'phones.'.$i.'.extension' => 'extensión #'.($i+1),
+                    'phones.' . $i . '.type' => 'tipo #' . ($i + 1),
+                    'phones.' . $i . '.area_code' => 'código de area #' . ($i + 1),
+                    'phones.' . $i . '.number' => 'número #' . ($i + 1),
+                    'phones.' . $i . '.extension' => 'extensión #' . ($i + 1),
                 ]
             );
             $i++;
@@ -318,9 +318,9 @@ class PayrollStaffController extends Controller
         $payrollStaff->email  = $request->email;
         $payrollStaff->birthdate = $request->birthdate;
         $payrollStaff->payroll_gender_id = $request->payroll_gender_id;
-        $payrollStaff->has_disability = ($request->has_disability!==null);
+        $payrollStaff->has_disability = ($request->has_disability !== null);
         $payrollStaff->payroll_disability_id = ($request->has_disability) ? $request->payroll_disability_id : null;
-        $payrollStaff->has_driver_license = ($request->has_driver_license!==null);
+        $payrollStaff->has_driver_license = ($request->has_driver_license !== null);
         $payrollStaff->payroll_license_degree_id = ($request->has_driver_license) ?
             $request->payroll_license_degree_id : null;
         $payrollStaff->social_security = $request->social_security;
@@ -376,7 +376,7 @@ class PayrollStaffController extends Controller
     public function vueList()
     {
         return response()->json(['records' => PayrollStaff::with([
-            'payrollNationality','payrollGender','parish','payrollLicenseDegree','payrollBloodType','payrollDisability'
+            'payrollNationality', 'payrollGender', 'parish', 'payrollLicenseDegree', 'payrollBloodType', 'payrollDisability'
         ])->get()], 200);
     }
 
@@ -388,6 +388,6 @@ class PayrollStaffController extends Controller
      */
     public function getPayrollStaffs()
     {
-        return response()->json(template_choices(PayrollStaff::class, ['id_number','-','full_name'], '', true));
+        return response()->json(template_choices(PayrollStaff::class, ['id_number', '-', 'full_name'], '', true));
     }
 }

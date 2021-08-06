@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Schema;
 use Carbon\Carbon;
 
-if (! function_exists('set_active_menu')) {
+if (!function_exists('set_active_menu')) {
     /**
      * Define la opción activa del menú según la URL actual
      *
@@ -30,7 +30,7 @@ if (! function_exists('set_active_menu')) {
     }
 }
 
-if (! function_exists('display_submenu')) {
+if (!function_exists('display_submenu')) {
     /**
      * Define si se expande o contrae las opciones de un submenÚ
      *
@@ -52,7 +52,7 @@ if (! function_exists('display_submenu')) {
     }
 }
 
-if (! function_exists('generate_registration_code')) {
+if (!function_exists('generate_registration_code')) {
     /**
      * Genera códigos a implementar en los diferentes registros del sistema
      *
@@ -69,7 +69,7 @@ if (! function_exists('generate_registration_code')) {
         $newCode = 1;
 
         $targetModel = $model::select($field)->where($field, 'like', "{$prefix}-%-{$year}")->withTrashed()
-                             ->orderBy($field, 'desc')->first();
+            ->orderBy($field, 'desc')->first();
 
         $newCode += ($targetModel) ? (int)explode('-', $targetModel->$field)[1] : 0;
 
@@ -95,6 +95,7 @@ if (!function_exists('template_choices')) {
      * @param  boolean          $vuejs     Indica si las opciones a mostrar son para una plantilla
      *                                     normal o para VueJS
      * @param  integer          $except_id Identificador del registro a excluir. Opcional
+     * @param string            $placeholder Texto del campo inicial de una lista
      * @return array                       Arreglo con las opciones a mostrar
      */
     function template_choices($model, $fields = 'name', $filters = [], $vuejs = false, $except_id = null)
@@ -120,8 +121,8 @@ if (!function_exists('template_choices')) {
                 $text = '';
                 foreach ($fields as $field) {
                     $text .= ($field !== "-" && $field !== " ")
-                             ? $rec->$field
-                             : (($field === " ") ? $field : " {$field} ");
+                        ? $rec->$field
+                        : (($field === " ") ? $field : " {$field} ");
                 }
             } else {
                 $text = $rec->$fields;
@@ -133,7 +134,7 @@ if (!function_exists('template_choices')) {
                  * (normal o con VueJS)
                  */
                 ($vuejs) ? array_push($options, ['id' => $rec->id, 'text' => $text])
-                         : $options[$rec->id] = $text;
+                    : $options[$rec->id] = $text;
             }
         }
         return $options;
@@ -304,8 +305,8 @@ if (!function_exists('ci_exists')) {
                         'secondName' => (!$oneName) ? $data[1] : '',
                         'firstLastName' => (!$oneName) ? $data[2] : $data[1],
                         'secondLastName' => (!$oneName)
-                                            ? ((!$oneLastName) ? $data[3] : $data[2])
-                                            : ((!$oneLastName) ? $data[2] : $data[1]),
+                            ? ((!$oneLastName) ? $data[3] : $data[2])
+                            : ((!$oneLastName) ? $data[2] : $data[1]),
                     ]);
                     $exists = true;
                 }
@@ -316,7 +317,7 @@ if (!function_exists('ci_exists')) {
     }
 }
 
-if (! function_exists('generate_code')) {
+if (!function_exists('generate_code')) {
     /**
      * Genera una cadena aleatoria
      *
@@ -333,7 +334,7 @@ if (! function_exists('generate_code')) {
         $code = substr(str_shuffle(str_repeat($pool, $length)), 0, $length);
 
         $generatedCode = ($model::where($field, $code)->first())
-                         ? $model::where($field, $code)->first()->$field : '';
+            ? $model::where($field, $code)->first()->$field : '';
 
         while ($generatedCode == $code) {
             $code = substr(str_shuffle(str_repeat($pool, $length)), 0, $length);
@@ -343,7 +344,7 @@ if (! function_exists('generate_code')) {
     }
 }
 
-if (! function_exists('get_json_resource')) {
+if (!function_exists('get_json_resource')) {
     /**
      * Obtiene el contenido de recursos json
      *
@@ -367,7 +368,7 @@ if (! function_exists('get_json_resource')) {
     }
 }
 
-if (! function_exists('check_connection')) {
+if (!function_exists('check_connection')) {
     /**
      * Determina si existe o no una conexión externa a Internet
      *
@@ -385,7 +386,7 @@ if (! function_exists('check_connection')) {
     }
 }
 
-if (! function_exists('get_institution')) {
+if (!function_exists('get_institution')) {
     /**
      * Obtiene la informacion de una organización
      *
@@ -406,7 +407,7 @@ if (! function_exists('get_institution')) {
     }
 }
 
-if (! function_exists('generate_hash')) {
+if (!function_exists('generate_hash')) {
     /**
      * Genera una cadena aleatoria
      *
@@ -450,7 +451,7 @@ if (! function_exists('generate_hash')) {
     }
 }
 
-if (! function_exists('execution_year')) {
+if (!function_exists('execution_year')) {
     /**
      * Obtiene el año de ejecución del ejercicio económico
      *
@@ -466,7 +467,7 @@ if (! function_exists('execution_year')) {
     }
 }
 
-if (! function_exists('set_current_timestamp')) {
+if (!function_exists('set_current_timestamp')) {
     /**
      * Establece la fecha actual con marca de tiempo
      *
@@ -481,7 +482,7 @@ if (! function_exists('set_current_timestamp')) {
 }
 
 
-if (! function_exists('list_table_foreign_keys')) {
+if (!function_exists('list_table_foreign_keys')) {
     /**
      * Obtiene un listado de claves foráneas de una tabla
      *
@@ -501,7 +502,7 @@ if (! function_exists('list_table_foreign_keys')) {
     }
 }
 
-if (! function_exists('has_foreign_key')) {
+if (!function_exists('has_foreign_key')) {
     /**
      * Verifica si una tabla de la base de datos contiene una clave foránea específica
      *
@@ -520,7 +521,7 @@ if (! function_exists('has_foreign_key')) {
     }
 }
 
-if (! function_exists('has_index_key')) {
+if (!function_exists('has_index_key')) {
     /**
      * Verifica si una tabla de la base de datos contiene un índice específico
      *
@@ -539,7 +540,7 @@ if (! function_exists('has_index_key')) {
     }
 }
 
-if (! function_exists('get_database_info')) {
+if (!function_exists('get_database_info')) {
     /**
      * Obtiene información de la base de datos
      *
@@ -551,20 +552,20 @@ if (! function_exists('get_database_info')) {
     {
         if (env('DB_CONNECTION') === 'sqlite') {
             /** @var PDO Conexión a base de datos SQLite */
-            $conn = new PDO('sqlite:'.env('DB_DATABASE'));
+            $conn = new PDO('sqlite:' . env('DB_DATABASE'));
         } else {
             /** @var PDO Conexión a base de datos PostgreSQL o MySQL */
             $conn = new PDO(
-                env('DB_CONNECTION').':host='.env('DB_HOST').';port='.env('DB_PORT').';dbname='.env('DB_DATABASE'),
+                env('DB_CONNECTION') . ':host=' . env('DB_HOST') . ';port=' . env('DB_PORT') . ';dbname=' . env('DB_DATABASE'),
                 env('DB_USERNAME'),
                 env('DB_PASSWORD')
             );
         }
         /** @var string Versión de la base de datos */
         $version = $conn->getAttribute(PDO::ATTR_SERVER_VERSION);
-        if (env('DB_CONNECTION')==='pgsql') {
+        if (env('DB_CONNECTION') === 'pgsql') {
             $version = substr($version, 0, strpos($version, ' '));
-        } elseif (env('DB_CONNECTION')==='mysql') {
+        } elseif (env('DB_CONNECTION') === 'mysql') {
             $version = substr($version, 0, strpos($version, '-'));
         }
 
@@ -591,7 +592,7 @@ if (! function_exists('get_database_info')) {
     }
 }
 
-if (! function_exists('strpos_array')) {
+if (!function_exists('strpos_array')) {
     /**
      * Verifica si los datos en un arraglo se encuentran en una cadena de texto
      *
@@ -616,7 +617,7 @@ if (! function_exists('strpos_array')) {
     }
 }
 
-if (! function_exists('secure_record')) {
+if (!function_exists('secure_record')) {
     /**
      * Cifra y descifra registros
      *
@@ -633,7 +634,7 @@ if (! function_exists('secure_record')) {
     }
 }
 
-if (! function_exists('age')) {
+if (!function_exists('age')) {
     /**
      * Calcula la edad de una persona en años
      *
@@ -658,7 +659,7 @@ if (! function_exists('age')) {
     }
 }
 
-if (! function_exists('convert_filesize')) {
+if (!function_exists('convert_filesize')) {
     /**
      * Convierte un tamaño expresado en bytes a Bytes, KiloBytes, MegaBytes, etc...
      *
@@ -685,7 +686,7 @@ if (! function_exists('convert_filesize')) {
     }
 }
 
-if (! function_exists('convert_to_bytes')) {
+if (!function_exists('convert_to_bytes')) {
     /**
      * Convierte un tamaño de archivo expresado en Bytes, KiloBytes, MegaBytes, etc.., a bytes
      *
@@ -715,7 +716,7 @@ if (! function_exists('convert_to_bytes')) {
     }
 }
 
-if (! function_exists('check_max_upload_size')) {
+if (!function_exists('check_max_upload_size')) {
     /**
      * Verifica si el archivo a subir esta dentro de los parámetros establecidos en la configuración de PHP
      *
@@ -763,7 +764,7 @@ if (! function_exists('check_max_upload_size')) {
     }
 }
 
-if (! function_exists('restore_record')) {
+if (!function_exists('restore_record')) {
     /**
      * Restaura registros eliminados del sistema
      *
@@ -787,7 +788,7 @@ if (! function_exists('restore_record')) {
     }
 }
 
-if (! function_exists('info_modules')) {
+if (!function_exists('info_modules')) {
     function info_modules($min = false, $mod = null)
     {
         /** @var Module Objeto con información de todos los módulos de la aplicación */
@@ -825,8 +826,8 @@ if (! function_exists('info_modules')) {
                 array_push($moduleDetails, [
                     'icon' => $module->icon["name"] ?? "fa fa-cubes",
                     'logo' => ($module->get('logo'))
-                              ? "assets/" . $module->get('name') . "/images/" . $module->get('logo')
-                              : "images/default-avatar.png",
+                        ? "assets/" . $module->get('name') . "/images/" . $module->get('logo')
+                        : "images/default-avatar.png",
                     'description' => $module->getDescription(),
                     'requirements' => $requirements,
                     'authors' => $authors
@@ -841,7 +842,7 @@ if (! function_exists('info_modules')) {
 }
 
 
-if (! function_exists('listMonths')) {
+if (!function_exists('listMonths')) {
     /**
      * Listado de meses
      *

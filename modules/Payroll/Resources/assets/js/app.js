@@ -1,19 +1,21 @@
 /**
-*--------------------------------------------------------------------------
-* App Scripts
-*--------------------------------------------------------------------------
-*
-* Scripts del Modulo de Nomina a compilar por la aplicación
-*/
+ *--------------------------------------------------------------------------
+ * App Scripts
+ *--------------------------------------------------------------------------
+ *
+ * Scripts del Modulo de Nomina a compilar por la aplicación
+ */
 
 /**
  * Componente para listar, crear, actualizar y borrar datos de tipos de personal
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-staff-types', () => import(
-    /* webpackChunkName: "payroll-staff-types" */
-    './components/settings/PayrollStaffTypesComponent.vue')
+Vue.component('payroll-staff-types', () =>
+	import(
+		/* webpackChunkName: "payroll-staff-types" */
+		'./components/settings/PayrollStaffTypesComponent.vue'
+	)
 );
 
 /**
@@ -21,9 +23,11 @@ Vue.component('payroll-staff-types', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-position-types', () => import(
-    /* webpackChunkName: "payroll-position-types" */
-    './components/settings/PayrollPositionTypesComponent.vue')
+Vue.component('payroll-position-types', () =>
+	import(
+		/* webpackChunkName: "payroll-position-types" */
+		'./components/settings/PayrollPositionTypesComponent.vue'
+	)
 );
 
 /**
@@ -31,9 +35,11 @@ Vue.component('payroll-position-types', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-positions', () => import(
-    /* webpackChunkName: "payroll-positions" */
-    './components/settings/PayrollPositionsComponent.vue')
+Vue.component('payroll-positions', () =>
+	import(
+		/* webpackChunkName: "payroll-positions" */
+		'./components/settings/PayrollPositionsComponent.vue'
+	)
 );
 
 /**
@@ -41,9 +47,11 @@ Vue.component('payroll-positions', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-staff-classifications', () => import(
-    /* webpackChunkName: "payroll-staff-classifications" */
-    './components/settings/PayrollStaffClassificationsComponent.vue')
+Vue.component('payroll-staff-classifications', () =>
+	import(
+		/* webpackChunkName: "payroll-staff-classifications" */
+		'./components/settings/PayrollStaffClassificationsComponent.vue'
+	)
 );
 
 /**
@@ -51,9 +59,11 @@ Vue.component('payroll-staff-classifications', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-instruction-degrees', () => import(
-    /* webpackChunkName: "payroll-instruction-degrees" */
-    './components/settings/PayrollInstructionDegreesComponent.vue')
+Vue.component('payroll-instruction-degrees', () =>
+	import(
+		/* webpackChunkName: "payroll-instruction-degrees" */
+		'./components/settings/PayrollInstructionDegreesComponent.vue'
+	)
 );
 
 /**
@@ -61,9 +71,11 @@ Vue.component('payroll-instruction-degrees', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-study-types', () => import(
-    /* webpackChunkName: "payroll-study-types" */
-    './components/settings/PayrollStudyTypesComponent.vue')
+Vue.component('payroll-study-types', () =>
+	import(
+		/* webpackChunkName: "payroll-study-types" */
+		'./components/settings/PayrollStudyTypesComponent.vue'
+	)
 );
 
 /**
@@ -71,9 +83,11 @@ Vue.component('payroll-study-types', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-nationalities', () => import(
-    /* webpackChunkName: "payroll-nationalities" */
-    './components/settings/PayrollNationalitiesComponent.vue')
+Vue.component('payroll-nationalities', () =>
+	import(
+		/* webpackChunkName: "payroll-nationalities" */
+		'./components/settings/PayrollNationalitiesComponent.vue'
+	)
 );
 
 /**
@@ -81,9 +95,11 @@ Vue.component('payroll-nationalities', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-languages', () => import(
-    /* webpackChunkName: "payroll-languages" */
-    './components/settings/PayrollLanguagesComponent.vue')
+Vue.component('payroll-languages', () =>
+	import(
+		/* webpackChunkName: "payroll-languages" */
+		'./components/settings/PayrollLanguagesComponent.vue'
+	)
 );
 
 /**
@@ -91,9 +107,11 @@ Vue.component('payroll-languages', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-language-levels', () => import(
-    /* webpackChunkName: "payroll-language-levels" */
-    './components/settings/PayrollLanguageLevelsComponent.vue')
+Vue.component('payroll-language-levels', () =>
+	import(
+		/* webpackChunkName: "payroll-language-levels" */
+		'./components/settings/PayrollLanguageLevelsComponent.vue'
+	)
 );
 
 /**
@@ -101,9 +119,11 @@ Vue.component('payroll-language-levels', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-genders', () => import(
-    /* webpackChunkName: "payroll-genders" */
-    './components/settings/PayrollGendersComponent.vue')
+Vue.component('payroll-genders', () =>
+	import(
+		/* webpackChunkName: "payroll-genders" */
+		'./components/settings/PayrollGendersComponent.vue'
+	)
 );
 
 /**
@@ -111,9 +131,11 @@ Vue.component('payroll-genders', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-inactivity-types', () => import(
-    /* webpackChunkName: "payroll-inactivity-types" */
-    './components/settings/PayrollInactivityTypesComponent.vue')
+Vue.component('payroll-inactivity-types', () =>
+	import(
+		/* webpackChunkName: "payroll-inactivity-types" */
+		'./components/settings/PayrollInactivityTypesComponent.vue'
+	)
 );
 
 /**
@@ -121,9 +143,11 @@ Vue.component('payroll-inactivity-types', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-contract-types', () => import(
-    /* webpackChunkName: "payroll-contract-types" */
-    './components/settings/PayrollContractTypesComponent.vue')
+Vue.component('payroll-contract-types', () =>
+	import(
+		/* webpackChunkName: "payroll-contract-types" */
+		'./components/settings/PayrollContractTypesComponent.vue'
+	)
 );
 
 /**
@@ -131,9 +155,11 @@ Vue.component('payroll-contract-types', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-sector-types', () => import(
-    /* webpackChunkName: "payroll-sector-types" */
-    './components/settings/PayrollSectorTypesComponent.vue')
+Vue.component('payroll-sector-types', () =>
+	import(
+		/* webpackChunkName: "payroll-sector-types" */
+		'./components/settings/PayrollSectorTypesComponent.vue'
+	)
 );
 
 /**
@@ -141,9 +167,11 @@ Vue.component('payroll-sector-types', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-license-degrees', () => import(
-    /* webpackChunkName: "payroll-license-degrees" */
-    './components/settings/PayrollLicenseDegreesComponent.vue')
+Vue.component('payroll-license-degrees', () =>
+	import(
+		/* webpackChunkName: "payroll-license-degrees" */
+		'./components/settings/PayrollLicenseDegreesComponent.vue'
+	)
 );
 
 /**
@@ -151,9 +179,11 @@ Vue.component('payroll-license-degrees', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-blood-types', () => import(
-    /* webpackChunkName: "payroll-blood-types" */
-    './components/settings/PayrollBloodTypesComponent.vue')
+Vue.component('payroll-blood-types', () =>
+	import(
+		/* webpackChunkName: "payroll-blood-types" */
+		'./components/settings/PayrollBloodTypesComponent.vue'
+	)
 );
 
 /**
@@ -161,9 +191,11 @@ Vue.component('payroll-blood-types', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-staffs-list', () => import(
-    /* webpackChunkName: "payroll-staffs-list" */
-    './components/PayrollStaffListComponent.vue')
+Vue.component('payroll-staffs-list', () =>
+	import(
+		/* webpackChunkName: "payroll-staffs-list" */
+		'./components/PayrollStaffListComponent.vue'
+	)
 );
 
 /**
@@ -171,9 +203,11 @@ Vue.component('payroll-staffs-list', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-staff', () => import(
-    /* webpackChunkName: "payroll-staff" */
-    './components/PayrollStaffComponent.vue')
+Vue.component('payroll-staff', () =>
+	import(
+		/* webpackChunkName: "payroll-staff" */
+		'./components/PayrollStaffComponent.vue'
+	)
 );
 
 /**
@@ -181,9 +215,11 @@ Vue.component('payroll-staff', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-socioeconomic-list', () => import(
-    /* webpackChunkName: "payroll-socioeconomic-list" */
-    './components/PayrollSocioeconomicListComponent.vue')
+Vue.component('payroll-socioeconomic-list', () =>
+	import(
+		/* webpackChunkName: "payroll-socioeconomic-list" */
+		'./components/PayrollSocioeconomicListComponent.vue'
+	)
 );
 
 /**
@@ -191,9 +227,11 @@ Vue.component('payroll-socioeconomic-list', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-socioeconomic', () => import(
-    /* webpackChunkName: "payroll-socioeconomic" */
-    './components/PayrollSocioeconomicComponent.vue')
+Vue.component('payroll-socioeconomic', () =>
+	import(
+		/* webpackChunkName: "payroll-socioeconomic" */
+		'./components/PayrollSocioeconomicComponent.vue'
+	)
 );
 
 /**
@@ -201,9 +239,11 @@ Vue.component('payroll-socioeconomic', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-professional-list', () => import(
-    /* webpackChunkName: "payroll-professional-list" */
-    './components/PayrollProfessionalListComponent.vue')
+Vue.component('payroll-professional-list', () =>
+	import(
+		/* webpackChunkName: "payroll-professional-list" */
+		'./components/PayrollProfessionalListComponent.vue'
+	)
 );
 
 /**
@@ -211,9 +251,11 @@ Vue.component('payroll-professional-list', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-professional', () => import(
-    /* webpackChunkName: "payroll-professional" */
-    './components/PayrollProfessionalComponent.vue')
+Vue.component('payroll-professional', () =>
+	import(
+		/* webpackChunkName: "payroll-professional" */
+		'./components/PayrollProfessionalComponent.vue'
+	)
 );
 
 /**
@@ -221,9 +263,11 @@ Vue.component('payroll-professional', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-employment-list', () => import(
-    /* webpackChunkName: "payroll-employment-list" */
-    './components/PayrollEmploymentListComponent.vue')
+Vue.component('payroll-employment-list', () =>
+	import(
+		/* webpackChunkName: "payroll-employment-list" */
+		'./components/PayrollEmploymentListComponent.vue'
+	)
 );
 
 /**
@@ -231,9 +275,11 @@ Vue.component('payroll-employment-list', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve>
  */
-Vue.component('payroll-employment', () => import(
-    /* webpackChunkName: "payroll-employment" */
-    './components/PayrollEmploymentComponent.vue')
+Vue.component('payroll-employment', () =>
+	import(
+		/* webpackChunkName: "payroll-employment" */
+		'./components/PayrollEmploymentComponent.vue'
+	)
 );
 
 /**
@@ -241,9 +287,11 @@ Vue.component('payroll-employment', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-parameters', () => import(
-    /* webpackChunkName: "payroll-parameters" */
-    './components/settings/PayrollParametersComponent.vue')
+Vue.component('payroll-parameters', () =>
+	import(
+		/* webpackChunkName: "payroll-parameters" */
+		'./components/settings/PayrollParametersComponent.vue'
+	)
 );
 
 /**
@@ -251,9 +299,11 @@ Vue.component('payroll-parameters', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-salary-scales', () => import(
-    /* webpackChunkName: "payroll-salary-scales" */
-    './components/settings/PayrollSalaryScalesComponent.vue')
+Vue.component('payroll-salary-scales', () =>
+	import(
+		/* webpackChunkName: "payroll-salary-scales" */
+		'./components/settings/PayrollSalaryScalesComponent.vue'
+	)
 );
 
 /**
@@ -261,9 +311,11 @@ Vue.component('payroll-salary-scales', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-salary-tabulators', () => import(
-    /* webpackChunkName: "payroll-salary-tabulators" */
-    './components/settings/PayrollSalaryTabulatorsComponent.vue')
+Vue.component('payroll-salary-tabulators', () =>
+	import(
+		/* webpackChunkName: "payroll-salary-tabulators" */
+		'./components/settings/PayrollSalaryTabulatorsComponent.vue'
+	)
 );
 
 /**
@@ -271,9 +323,11 @@ Vue.component('payroll-salary-tabulators', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-concept-types', () => import(
-    /* webpackChunkName: "payroll-concept-types" */
-    './components/settings/PayrollConceptTypesComponent.vue')
+Vue.component('payroll-concept-types', () =>
+	import(
+		/* webpackChunkName: "payroll-concept-types" */
+		'./components/settings/PayrollConceptTypesComponent.vue'
+	)
 );
 
 /**
@@ -281,9 +335,11 @@ Vue.component('payroll-concept-types', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-concepts', () => import(
-    /* webpackChunkName: "payroll-concepts" */
-    './components/settings/PayrollConceptsComponent.vue')
+Vue.component('payroll-concepts', () =>
+	import(
+		/* webpackChunkName: "payroll-concepts" */
+		'./components/settings/PayrollConceptsComponent.vue'
+	)
 );
 
 /**
@@ -291,9 +347,11 @@ Vue.component('payroll-concepts', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-payment-types', () => import(
-    /* webpackChunkName: "payroll-payment-types" */
-    './components/settings/PayrollPaymentTypesComponent.vue')
+Vue.component('payroll-payment-types', () =>
+	import(
+		/* webpackChunkName: "payroll-payment-types" */
+		'./components/settings/PayrollPaymentTypesComponent.vue'
+	)
 );
 
 /**
@@ -301,9 +359,11 @@ Vue.component('payroll-payment-types', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-vacation-policies', () => import(
-    /* webpackChunkName: "payroll-vacation-policies" */
-    './components/settings/PayrollVacationPoliciesComponent.vue')
+Vue.component('payroll-vacation-policies', () =>
+	import(
+		/* webpackChunkName: "payroll-vacation-policies" */
+		'./components/settings/PayrollVacationPoliciesComponent.vue'
+	)
 );
 
 /**
@@ -311,9 +371,11 @@ Vue.component('payroll-vacation-policies', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-benefits-policies', () => import(
-    /* webpackChunkName: "payroll-benefits-policies" */
-    './components/settings/PayrollBenefitsPoliciesComponent.vue')
+Vue.component('payroll-benefits-policies', () =>
+	import(
+		/* webpackChunkName: "payroll-benefits-policies" */
+		'./components/settings/PayrollBenefitsPoliciesComponent.vue'
+	)
 );
 
 /**
@@ -321,9 +383,11 @@ Vue.component('payroll-benefits-policies', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-registers-form', () => import(
-    /* webpackChunkName: "payroll-registers-form" */
-    './components/registers/PayrollFormComponent.vue')
+Vue.component('payroll-registers-form', () =>
+	import(
+		/* webpackChunkName: "payroll-registers-form" */
+		'./components/registers/PayrollFormComponent.vue'
+	)
 );
 
 /**
@@ -331,9 +395,11 @@ Vue.component('payroll-registers-form', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-registers-show', () => import(
-    /* webpackChunkName: "payroll-registers-show" */
-    './components/registers/PayrollShowComponent.vue')
+Vue.component('payroll-registers-show', () =>
+	import(
+		/* webpackChunkName: "payroll-registers-show" */
+		'./components/registers/PayrollShowComponent.vue'
+	)
 );
 
 /**
@@ -341,9 +407,11 @@ Vue.component('payroll-registers-show', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-registers-list', () => import(
-    /* webpackChunkName: "payroll-registers-list" */
-    './components/registers/PayrollListComponent.vue')
+Vue.component('payroll-registers-list', () =>
+	import(
+		/* webpackChunkName: "payroll-registers-list" */
+		'./components/registers/PayrollListComponent.vue'
+	)
 );
 
 /**
@@ -351,9 +419,11 @@ Vue.component('payroll-registers-list', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-salary-adjustments-form', () => import(
-    /* webpackChunkName: "payroll-salary-adjustments-form" */
-    './components/salary_adjustments/PayrollSalaryAdjustmentsFormComponent.vue')
+Vue.component('payroll-salary-adjustments-form', () =>
+	import(
+		/* webpackChunkName: "payroll-salary-adjustments-form" */
+		'./components/salary_adjustments/PayrollSalaryAdjustmentsFormComponent.vue'
+	)
 );
 
 /**
@@ -361,9 +431,11 @@ Vue.component('payroll-salary-adjustments-form', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-vacation-request-list', () => import(
-    /* webpackChunkName: "payroll-vacation-request-list" */
-    './components/requests/vacations/PayrollVacationRequestListComponent.vue')
+Vue.component('payroll-vacation-request-list', () =>
+	import(
+		/* webpackChunkName: "payroll-vacation-request-list" */
+		'./components/requests/vacations/PayrollVacationRequestListComponent.vue'
+	)
 );
 
 /**
@@ -371,9 +443,11 @@ Vue.component('payroll-vacation-request-list', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-vacation-request-show', () => import(
-    /* webpackChunkName: "payroll-vacation-request-show" */
-    './components/requests/vacations/PayrollVacationRequestShowComponent.vue')
+Vue.component('payroll-vacation-request-show', () =>
+	import(
+		/* webpackChunkName: "payroll-vacation-request-show" */
+		'./components/requests/vacations/PayrollVacationRequestShowComponent.vue'
+	)
 );
 
 /**
@@ -381,9 +455,11 @@ Vue.component('payroll-vacation-request-show', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-vacation-request-form', () => import(
-    /* webpackChunkName: "payroll-vacation-request-form" */
-    './components/requests/vacations/PayrollVacationRequestFormComponent.vue')
+Vue.component('payroll-vacation-request-form', () =>
+	import(
+		/* webpackChunkName: "payroll-vacation-request-form" */
+		'./components/requests/vacations/PayrollVacationRequestFormComponent.vue'
+	)
 );
 
 /**
@@ -391,9 +467,11 @@ Vue.component('payroll-vacation-request-form', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-vacation-request-pending-list', () => import(
-    /* webpackChunkName: "payroll-vacation-request-pending-list" */
-    './components/requests/vacations/PayrollVacationRequestPendingListComponent.vue')
+Vue.component('payroll-vacation-request-pending-list', () =>
+	import(
+		/* webpackChunkName: "payroll-vacation-request-pending-list" */
+		'./components/requests/vacations/PayrollVacationRequestPendingListComponent.vue'
+	)
 );
 
 /**
@@ -401,9 +479,11 @@ Vue.component('payroll-vacation-request-pending-list', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-review-vacation-request-pending-form', () => import(
-    /* webpackChunkName: "payroll-review-vacation-request-pending-form" */
-    './components/requests/vacations/PayrollReviewVacationRequestPendingFormComponent.vue')
+Vue.component('payroll-review-vacation-request-pending-form', () =>
+	import(
+		/* webpackChunkName: "payroll-review-vacation-request-pending-form" */
+		'./components/requests/vacations/PayrollReviewVacationRequestPendingFormComponent.vue'
+	)
 );
 
 /**
@@ -411,9 +491,11 @@ Vue.component('payroll-review-vacation-request-pending-form', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-benefits-request-list', () => import(
-    /* webpackChunkName: "payroll-benefits-request-list" */
-    './components/requests/benefits/PayrollBenefitsRequestListComponent.vue')
+Vue.component('payroll-benefits-request-list', () =>
+	import(
+		/* webpackChunkName: "payroll-benefits-request-list" */
+		'./components/requests/benefits/PayrollBenefitsRequestListComponent.vue'
+	)
 );
 
 /**
@@ -421,9 +503,11 @@ Vue.component('payroll-benefits-request-list', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-benefits-request-show', () => import(
-    /* webpackChunkName: "payroll-benefits-request-show" */
-    './components/requests/benefits/PayrollBenefitsRequestShowComponent.vue')
+Vue.component('payroll-benefits-request-show', () =>
+	import(
+		/* webpackChunkName: "payroll-benefits-request-show" */
+		'./components/requests/benefits/PayrollBenefitsRequestShowComponent.vue'
+	)
 );
 
 /**
@@ -431,9 +515,11 @@ Vue.component('payroll-benefits-request-show', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-benefits-request-form', () => import(
-    /* webpackChunkName: "payroll-benefits-request-form" */
-    './components/requests/benefits/PayrollBenefitsRequestFormComponent.vue')
+Vue.component('payroll-benefits-request-form', () =>
+	import(
+		/* webpackChunkName: "payroll-benefits-request-form" */
+		'./components/requests/benefits/PayrollBenefitsRequestFormComponent.vue'
+	)
 );
 
 /**
@@ -441,9 +527,11 @@ Vue.component('payroll-benefits-request-form', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-benefits-request-pending-list', () => import(
-    /* webpackChunkName: "payroll-benefits-request-pending-list" */
-    './components/requests/benefits/PayrollBenefitsRequestPendingListComponent.vue')
+Vue.component('payroll-benefits-request-pending-list', () =>
+	import(
+		/* webpackChunkName: "payroll-benefits-request-pending-list" */
+		'./components/requests/benefits/PayrollBenefitsRequestPendingListComponent.vue'
+	)
 );
 
 /**
@@ -451,9 +539,11 @@ Vue.component('payroll-benefits-request-pending-list', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-review-benefits-request-pending-form', () => import(
-    /* webpackChunkName: "payroll-review-benefits-request-pending-form" */
-    './components/requests/benefits/PayrollReviewBenefitsRequestPendingFormComponent.vue')
+Vue.component('payroll-review-benefits-request-pending-form', () =>
+	import(
+		/* webpackChunkName: "payroll-review-benefits-request-pending-form" */
+		'./components/requests/benefits/PayrollReviewBenefitsRequestPendingFormComponent.vue'
+	)
 );
 
 /**
@@ -461,9 +551,11 @@ Vue.component('payroll-review-benefits-request-pending-form', () => import(
  *
  * @author Ezequiel <ebaptistae@cenditel.gob.ve>
  */
-Vue.component('payroll-report-employment-status', () => import(
-    /* webpackChunkName: "payroll-report-emplyment-status" */
-    './components/reports/PayrollReportEmploymentStatusComponent.vue')
+Vue.component('payroll-report-employment-status', () =>
+	import(
+		/* webpackChunkName: "payroll-report-emplyment-status" */
+		'./components/reports/PayrollReportEmploymentStatusComponent.vue'
+	)
 );
 
 /**
@@ -471,71 +563,96 @@ Vue.component('payroll-report-employment-status', () => import(
  *
  * @author Henry Paredes <hparedes@cenditel.gob.ve>
  */
-Vue.component('payroll-report-vacation-enjoyment-summaries', () => import(
-    /* webpackChunkName: "payroll-report-vacation-enjoyment-summaries" */
-    './components/reports/PayrollReportVacationEnjoymentSummariesComponent.vue')
+Vue.component('payroll-report-vacation-enjoyment-summaries', () =>
+	import(
+		/* webpackChunkName: "payroll-report-vacation-enjoyment-summaries" */
+		'./components/reports/PayrollReportVacationEnjoymentSummariesComponent.vue'
+	)
 );
 
-Vue.component('payroll-report-vacation-status', () => import(
-    /* webpackChunkName: "payroll-report-vacation-status" */
-    './components/reports/PayrollReportVacationStatusComponent.vue')
+Vue.component('payroll-report-vacation-status', () =>
+	import(
+		/* webpackChunkName: "payroll-report-vacation-status" */
+		'./components/reports/PayrollReportVacationStatusComponent.vue'
+	)
 );
 
-Vue.component('payroll-report-vacation-bonus-calculations', () => import(
-    /* webpackChunkName: "payroll-report-vacation-bonus-calculations" */
-    './components/reports/PayrollReportVacationBonusCalculationsComponent.vue')
+Vue.component('payroll-report-vacation-bonus-calculations', () =>
+	import(
+		/* webpackChunkName: "payroll-report-vacation-bonus-calculations" */
+		'./components/reports/PayrollReportVacationBonusCalculationsComponent.vue'
+	)
+);
+
+Vue.component('payroll-report-staff-vacation-enjoyment', () =>
+	import(
+		/* webpackChunkName: "payroll-report-staff-vacation-enjoyment" */
+		'./components/reports/PayrollReportStaffVacationEnjoymentComponent.vue'
+	)
 );
 
 /**
  * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
  */
-Vue.component('payroll-report-benefit-advances', () => import(
-    /* webpackChunkName: "payroll-report-advance-benefits" */
-    './components/reports/benefits/PayrollReportBenefitAdvancesComponent.vue')
+Vue.component('payroll-report-benefit-advances', () =>
+	import(
+		/* webpackChunkName: "payroll-report-advance-benefits" */
+		'./components/reports/benefits/PayrollReportBenefitAdvancesComponent.vue'
+	)
 );
 
 /**
  * Componente para gestionar políticas de permisos
  * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
  */
-Vue.component('payroll-permission-policies', () => import(
-   /* webpackChunkName: "payroll-permission-policies" */
-    './components/settings/PayrollPermissionPoliciesComponent.vue')
+Vue.component('payroll-permission-policies', () =>
+	import(
+		/* webpackChunkName: "payroll-permission-policies" */
+		'./components/settings/PayrollPermissionPoliciesComponent.vue'
+	)
 );
 /**
  * Componente para gestionar solicitud de permiso
  * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
  */
-Vue.component('payroll-permission-request-create', () => import(
-   /* webpackChunkName: "payroll-permission-policies" */
-    './components/requests/permissions/PayrollPermissionRequestCreateComponent.vue')
+Vue.component('payroll-permission-request-create', () =>
+	import(
+		/* webpackChunkName: "payroll-permission-policies" */
+		'./components/requests/permissions/PayrollPermissionRequestCreateComponent.vue'
+	)
 );
 /**
  * Componente para mostrar el listado de las solicitudes de permisos
  *
  * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
  */
-Vue.component('payroll-permission-request-list', () => import(
-    /* webpackChunkName: "payroll-permission-request-list" */
-    './components/requests/permissions/PayrollPermissionRequestListComponent.vue')
+Vue.component('payroll-permission-request-list', () =>
+	import(
+		/* webpackChunkName: "payroll-permission-request-list" */
+		'./components/requests/permissions/PayrollPermissionRequestListComponent.vue'
+	)
 );
 /**
  * Componente que muestra información del permiso
  *
  * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
  */
-Vue.component('payroll-permission-request-info', () => import(
-    /* webpackChunkName: "payroll-permission-request-info" */
-    './components/requests/permissions/PayrollPermissionRequestInfoComponent.vue')
+Vue.component('payroll-permission-request-info', () =>
+	import(
+		/* webpackChunkName: "payroll-permission-request-info" */
+		'./components/requests/permissions/PayrollPermissionRequestInfoComponent.vue'
+	)
 );
 /**
  * Componente para mostrar el listado de las solicitudes de permisos pendientes
  *
  * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
  */
-Vue.component('payroll-permission-request-pending-list', () => import(
-    /* webpackChunkName: "payroll-permission-request-pending-list" */
-    './components/requests/permissions/PayrollPermissionRequestPendingListComponent.vue')
+Vue.component('payroll-permission-request-pending-list', () =>
+	import(
+		/* webpackChunkName: "payroll-permission-request-pending-list" */
+		'./components/requests/permissions/PayrollPermissionRequestPendingListComponent.vue'
+	)
 );
 
 /**
@@ -543,9 +660,11 @@ Vue.component('payroll-permission-request-pending-list', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
  */
-Vue.component('payroll-settlement-types', () => import(
-    /* webpackChunkName: "payroll-settlement-types" */
-    './components/settings/PayrollSettlementTypesComponent.vue')
+Vue.component('payroll-settlement-types', () =>
+	import(
+		/* webpackChunkName: "payroll-settlement-types" */
+		'./components/settings/PayrollSettlementTypesComponent.vue'
+	)
 );
 
 /**
@@ -553,9 +672,11 @@ Vue.component('payroll-settlement-types', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
  */
-Vue.component('payroll-relationships', () => import(
-    /* webpackChunkName: "payroll-relationships" */
-    './components/settings/PayrollRelationshipsComponent.vue')
+Vue.component('payroll-relationships', () =>
+	import(
+		/* webpackChunkName: "payroll-relationships" */
+		'./components/settings/PayrollRelationshipsComponent.vue'
+	)
 );
 
 /**
@@ -563,9 +684,11 @@ Vue.component('payroll-relationships', () => import(
  *
  * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
  */
-Vue.component('payroll-disabilities', () => import(
-    /* webpackChunkName: "payroll-disabilities" */
-    './components/settings/PayrollDisabilitiesComponent.vue')
+Vue.component('payroll-disabilities', () =>
+	import(
+		/* webpackChunkName: "payroll-disabilities" */
+		'./components/settings/PayrollDisabilitiesComponent.vue'
+	)
 );
 
 /**
@@ -580,55 +703,54 @@ Vue.component('payroll-disabilities', () => import(
  */
 Vue.mixin({
 	methods: {
-
-        /**
-         * Método que obtiene un arreglo con los conceptos registrados
-         *
-         * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-         */
-        getPayrollConcepts() {
-            const vm = this;
-            vm.payroll_concepts = [];
-            axios.get('/payroll/get-concepts').then(response => {
-                vm.payroll_concepts = response.data;
-            });
-        },
-        /**
-         * Método que obtiene un arreglo con los tipos de conceptos registrados
-         *
-         * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-         */
-        getPayrollConceptTypes() {
-            const vm = this;
-            vm.payroll_concept_types = [];
-            axios.get('/payroll/get-concept-types').then(response => {
-                vm.payroll_concept_types = response.data;
-            });
-        },
-        /**
-         * Método que obtiene un arreglo con los tipos de pago registrados
-         *
-         * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-         */
-        getPayrollPaymentTypes() {
-            const vm = this;
-            vm.payroll_payment_types = [];
-            axios.get('/payroll/get-payment-types').then(response => {
-                vm.payroll_payment_types = response.data;
-            });
-        },
-        /**
-         * Método que obtiene un arreglo con los tipos de conceptos registrados
-         *
-         * @author    Henry Paredes <hparedes@cenditel.gob.ve>
-         */
-        getPayrollSalaryTabulators() {
-            const vm = this;
-            vm.payroll_salary_tabulators = [];
-            axios.get('/payroll/get-salary-tabulators').then(response => {
-                vm.payroll_salary_tabulators = response.data;
-            });
-        },
+		/**
+		 * Método que obtiene un arreglo con los conceptos registrados
+		 *
+		 * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+		 */
+		getPayrollConcepts() {
+			const vm = this;
+			vm.payroll_concepts = [];
+			axios.get('/payroll/get-concepts').then(response => {
+				vm.payroll_concepts = response.data;
+			});
+		},
+		/**
+		 * Método que obtiene un arreglo con los tipos de conceptos registrados
+		 *
+		 * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+		 */
+		getPayrollConceptTypes() {
+			const vm = this;
+			vm.payroll_concept_types = [];
+			axios.get('/payroll/get-concept-types').then(response => {
+				vm.payroll_concept_types = response.data;
+			});
+		},
+		/**
+		 * Método que obtiene un arreglo con los tipos de pago registrados
+		 *
+		 * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+		 */
+		getPayrollPaymentTypes() {
+			const vm = this;
+			vm.payroll_payment_types = [];
+			axios.get('/payroll/get-payment-types').then(response => {
+				vm.payroll_payment_types = response.data;
+			});
+		},
+		/**
+		 * Método que obtiene un arreglo con los tipos de conceptos registrados
+		 *
+		 * @author    Henry Paredes <hparedes@cenditel.gob.ve>
+		 */
+		getPayrollSalaryTabulators() {
+			const vm = this;
+			vm.payroll_salary_tabulators = [];
+			axios.get('/payroll/get-salary-tabulators').then(response => {
+				vm.payroll_salary_tabulators = response.data;
+			});
+		},
 
 		/**
 		 * Obtiene los datos de las nacionalidades registradas
@@ -793,7 +915,7 @@ Vue.mixin({
 		 *
 		 * @author William Páez <wpaez@cenditel.gob.ve>
 		 */
-		 getPayrollSectorTypes() {
+		getPayrollSectorTypes() {
 			this.payroll_sector_types = [];
 			axios.get('/payroll/get-sector-types').then(response => {
 				this.payroll_sector_types = response.data;
@@ -805,7 +927,7 @@ Vue.mixin({
 		 *
 		 * @author William Páez <wpaez@cenditel.gob.ve>
 		 */
-		 getPayrollLicenseDegrees() {
+		getPayrollLicenseDegrees() {
 			this.payroll_license_degrees = [];
 			axios.get('/payroll/get-license-degrees').then(response => {
 				this.payroll_license_degrees = response.data;
@@ -817,35 +939,35 @@ Vue.mixin({
 		 *
 		 * @author William Páez <wpaez@cenditel.gob.ve>
 		 */
-		 getPayrollBloodTypes() {
+		getPayrollBloodTypes() {
 			this.payroll_blood_types = [];
 			axios.get('/payroll/get-blood-types').then(response => {
 				this.payroll_blood_types = response.data;
 			});
 		},
 
-        /**
-         * Obtiene los datos de políticas de permiso
-         *
-         * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
-         */
-         getPayrollPermissionPolicies() {
-            this.payroll_permission_policies = [];
-            axios.get('/payroll/get-permission-policies').then(response => {
-                this.payroll_permission_policies = response.data;
-            });
-        },
+		/**
+		 * Obtiene los datos de políticas de permiso
+		 *
+		 * @author Yennifer Ramirez <yramirez@cenditel.gob.ve>
+		 */
+		getPayrollPermissionPolicies() {
+			this.payroll_permission_policies = [];
+			axios.get('/payroll/get-permission-policies').then(response => {
+				this.payroll_permission_policies = response.data;
+			});
+		},
 
-        /**
+		/**
 		 * Obtiene los datos de discapacidades registradas
 		 *
 		 * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
 		 */
-		 getPayrollDisabilities() {
+		getPayrollDisabilities() {
 			this.payroll_disabilities = [];
 			axios.get('/payroll/get-disabilities').then(response => {
 				this.payroll_disabilities = response.data;
 			});
-		},
-	},
+		}
+	}
 });

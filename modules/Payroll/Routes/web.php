@@ -17,7 +17,7 @@ Route::group([
 ], function () {
 
     /** Rutas para gestionar la nómina de trabajadores de la institución */
-    Route::resource('registers', 'PayrollController', ['as' => 'payroll', 'except' => ['edit','show']]);
+    Route::resource('registers', 'PayrollController', ['as' => 'payroll', 'except' => ['edit', 'show']]);
 
     /** Ruta que permite editar la información de un registro de nómina */
     Route::get('registers/edit/{register}', 'PayrollController@edit')->name('payroll.registers.edit');
@@ -44,7 +44,7 @@ Route::group([
     Route::resource(
         'staff-types',
         'PayrollStaffTypeController',
-        ['as' => 'payroll', 'except' => ['create','edit','show']]
+        ['as' => 'payroll', 'except' => ['create', 'edit', 'show']]
     );
 
     /** Ruta que obtiene un arreglo con los tipos de personal registrados */
@@ -57,7 +57,7 @@ Route::group([
     Route::resource(
         'position-types',
         'PayrollPositionTypeController',
-        ['as' => 'payroll', 'except' => ['create','edit','show']]
+        ['as' => 'payroll', 'except' => ['create', 'edit', 'show']]
     );
 
     /** Ruta que obtiene un arreglo con los tipos de cargo registrados */
@@ -70,7 +70,7 @@ Route::group([
     Route::resource(
         'positions',
         'PayrollPositionController',
-        ['as' => 'payroll', 'except' => ['create','edit','show']]
+        ['as' => 'payroll', 'except' => ['create', 'edit', 'show']]
     );
 
     /** Ruta que obtiene un arreglo con los cargos registrados */
@@ -83,7 +83,7 @@ Route::group([
     Route::resource(
         'staff-classifications',
         'PayrollStaffClassificationController',
-        ['as' => 'payroll', 'except' => ['create','edit','show']]
+        ['as' => 'payroll', 'except' => ['create', 'edit', 'show']]
     );
 
     /** Ruta que obtiene un arreglo con las clasificaciones del personal registrados */
@@ -118,7 +118,7 @@ Route::group([
     Route::resource(
         'study-types',
         'PayrollStudyTypeController',
-        ['as' => 'payroll', 'except' => ['create','edit','show']]
+        ['as' => 'payroll', 'except' => ['create', 'edit', 'show']]
     );
 
     /** Ruta que obtiene un arreglo con los tipos de estudios registrados */
@@ -144,7 +144,7 @@ Route::group([
     Route::resource(
         'concepts',
         'PayrollConceptController',
-        ['as' => 'payroll', 'except' => ['show','create','edit']]
+        ['as' => 'payroll', 'except' => ['show', 'create', 'edit']]
     );
 
     /** Ruta que obtiene un arreglo con los conceptos registrados */
@@ -169,7 +169,7 @@ Route::group([
     Route::resource(
         'concept-types',
         'PayrollConceptTypeController',
-        ['as' => 'payroll', 'except' => ['show','create','edit']]
+        ['as' => 'payroll', 'except' => ['show', 'create', 'edit']]
     );
 
     /** Ruta que obtiene un arreglo con los tipos de concepto registrados */
@@ -182,7 +182,7 @@ Route::group([
     Route::resource(
         'payment-types',
         'PayrollPaymentTypeController',
-        ['as' => 'payroll', 'except' => ['show','create','edit']]
+        ['as' => 'payroll', 'except' => ['show', 'create', 'edit']]
     );
 
     /** Ruta que obtiene un arreglo con los tipos de pago registrados */
@@ -207,7 +207,7 @@ Route::group([
     Route::resource(
         'vacation-policies',
         'PayrollVacationPolicyController',
-        ['as' => 'payroll', 'except' => ['create','edit']]
+        ['as' => 'payroll', 'except' => ['create', 'edit']]
     );
 
     /** Ruta que obtiene la información de un registro de política de prestaciones según el trabajador */
@@ -220,7 +220,7 @@ Route::group([
     Route::resource(
         'benefits-policies',
         'PayrollBenefitsPolicyController',
-        ['as' => 'payroll', 'except' => ['create','edit']]
+        ['as' => 'payroll', 'except' => ['create', 'edit']]
     );
 
     /** Rutas para gestionar los niveles de idioma */
@@ -285,7 +285,7 @@ Route::group([
     Route::resource(
         'inactivity-types',
         'PayrollInactivityTypeController',
-        ['as' => 'payroll', 'except' => ['show','create','edit']]
+        ['as' => 'payroll', 'except' => ['show', 'create', 'edit']]
     );
 
     /** Ruta que obtiene un arreglo con los tipos de inactividad registrados */
@@ -298,7 +298,7 @@ Route::group([
     Route::resource(
         'contract-types',
         'PayrollContractTypeController',
-        ['as' => 'payroll', 'except' => ['show','create','edit']]
+        ['as' => 'payroll', 'except' => ['show', 'create', 'edit']]
     );
 
     /** Ruta que obtiene un arreglo con los tipos de contrato registrados */
@@ -311,7 +311,7 @@ Route::group([
     Route::resource(
         'sector-types',
         'PayrollSectorTypeController',
-        ['as' => 'payroll', 'except' => ['show','create','edit']]
+        ['as' => 'payroll', 'except' => ['show', 'create', 'edit']]
     );
 
     /** Ruta que obtiene un arreglo con los tipos de sector registrados */
@@ -324,7 +324,7 @@ Route::group([
     Route::resource(
         'license-degrees',
         'PayrollLicenseDegreeController',
-        ['as' => 'payroll', 'except' => ['show','create','edit']]
+        ['as' => 'payroll', 'except' => ['show', 'create', 'edit']]
     );
 
     /** Ruta que obtiene un arreglo con los grados de licencia de conducir registrados */
@@ -337,7 +337,7 @@ Route::group([
     Route::resource(
         'blood-types',
         'PayrollBloodTypeController',
-        ['as' => 'payroll', 'except' => ['show','create','edit']]
+        ['as' => 'payroll', 'except' => ['show', 'create', 'edit']]
     );
 
     /** Ruta que obtiene un arreglo con los tipos de sangre registrados */
@@ -350,21 +350,21 @@ Route::group([
     Route::resource(
         'settlement-types',
         'PayrollSettlementTypeController',
-        ['as' => 'payroll', 'except' => ['show','create','edit']]
+        ['as' => 'payroll', 'except' => ['show', 'create', 'edit']]
     );
 
     /** Rutas para gestionar los parentescos */
     Route::resource(
         'relationships',
         'PayrollRelationshipController',
-        ['as' => 'payroll', 'except' => ['show','create','edit']]
+        ['as' => 'payroll', 'except' => ['show', 'create', 'edit']]
     );
 
     /** Rutas para gestionar las discapacidades */
     Route::resource(
         'disabilities',
         'PayrollDisabilityController',
-        ['as' => 'payroll', 'except' => ['show','create','edit']]
+        ['as' => 'payroll', 'except' => ['show', 'create', 'edit']]
     );
 
     /** Ruta que obtiene un arreglo con las discapacidades registradas */
@@ -374,7 +374,7 @@ Route::group([
     )->name('payroll.get-payroll-disabilities');
 
     /** Rutas para gestionar los parámetros de nómina */
-    Route::resource('parameters', 'PayrollParameterController', ['as' => 'payroll', 'except' => ['show','create','edit']]);
+    Route::resource('parameters', 'PayrollParameterController', ['as' => 'payroll', 'except' => ['show', 'create', 'edit']]);
 
     /** Ruta que obtiene un arreglo con los parámetros de nómina registrados */
     Route::get('get-parameters', 'PayrollParameterController@getPayrollParameters');
@@ -390,7 +390,7 @@ Route::group([
 
 
     /** Rutas para gestionar los escalafones de nómina */
-    Route::resource('salary-scales', 'PayrollSalaryScaleController', ['except' => ['show','create','edit']]);
+    Route::resource('salary-scales', 'PayrollSalaryScaleController', ['except' => ['show', 'create', 'edit']]);
 
     /** Ruta que obtiene un arreglo con los escalafones de nómina registrados */
     Route::post('get-salary-scales', 'PayrollSalaryScaleController@getSalaryScales');
@@ -399,7 +399,7 @@ Route::group([
     Route::get('salary-scales/info/{id}', 'PayrollSalaryScaleController@info');
 
     /** Rutas para gestionar los tabuladores de nómina */
-    Route::resource('salary-tabulators', 'PayrollSalaryTabulatorController', ['except' => ['show','create','edit']]);
+    Route::resource('salary-tabulators', 'PayrollSalaryTabulatorController', ['except' => ['show', 'create', 'edit']]);
 
     /** Ruta que obtiene la información de un registro de nómina */
     Route::get(
@@ -520,7 +520,7 @@ Route::group([
     Route::resource(
         'permission-policies',
         'PayrollPermissionPolicyController',
-        ['as' => 'payroll', 'except' => ['create','edit','show']]
+        ['as' => 'payroll', 'except' => ['create', 'edit', 'show']]
     );
     Route::get('/get-permission-policies', 'PayrollPermissionPolicyController@getPermissionPolicies');
 
@@ -583,40 +583,45 @@ Route::group([
         'prefix' => 'reports'
     ], function () {
         Route::get('show/{filename}', 'PayrollReportController@show')
-        ->name('payroll.reports.show');
+            ->name('payroll.reports.show');
 
         /** Ruta que permite generar el reporte de los registros de nómina asociados a un pago */
         Route::post('registers/create', 'PayrollReportController@create')
-        ->name('payroll.reports.registers.create');
+            ->name('payroll.reports.registers.create');
 
         Route::get('vacation-enjoyment-summaries', 'PayrollReportController@vacationEnjoymentSummaries')
-        ->name('payroll.reports.vacation-enjoyment-summaries');
+            ->name('payroll.reports.vacation-enjoyment-summaries');
         Route::post('vacation-enjoyment-summaries/create', 'PayrollReportController@create')
-        ->name('payroll.reports.vacation-enjoyment-summaries.create');
+            ->name('payroll.reports.vacation-enjoyment-summaries.create');
 
         Route::get('vacation-status', 'PayrollReportController@vacationStatus')
-        ->name('payroll.reports.vacation-status');
+            ->name('payroll.reports.vacation-status');
         Route::post('vacation-status/create', 'PayrollReportController@create')
-        ->name('payroll.reports.vacation-status.create');
-        
+            ->name('payroll.reports.vacation-status.create');
+
         /** Ruta que permite generar el reporte de los registros de los empleados */
-          Route::get('employment-status', 'PayrollReportController@employmentStatus')
-        ->name('payroll.reports.employment-status');
+        Route::get('employment-status', 'PayrollReportController@employmentStatus')
+            ->name('payroll.reports.employment-status');
         Route::post('employment-status/create', 'PayrollReportController@create')
-        ->name('payroll.reports.employment-status.create');
+            ->name('payroll.reports.employment-status.create');
 
         Route::get('vacation-bonus-calculations', 'PayrollReportController@vacationBonusCalculations')
-        ->name('payroll.reports.vacation-bonus-calculations');
+            ->name('payroll.reports.vacation-bonus-calculations');
         Route::post('vacation-bonus-calculations/create', 'PayrollReportController@create')
-        ->name('payroll.reports.vacation-bonus-calculations.create');
+            ->name('payroll.reports.vacation-bonus-calculations.create');
 
         /** Rutas que permiten generar reportes de los registros de prestaciones */
         Route::get('benefits/benefit-advances', 'PayrollReportController@benefitAdvances')
-        ->name('payroll.reports.benefits.benefit-advances');
+            ->name('payroll.reports.benefits.benefit-advances');
         Route::post('benefits/benefit-advances/create', 'PayrollReportController@create')
-        ->name('payroll.reports.benefits.benefit-advances.create');
+            ->name('payroll.reports.benefits.benefit-advances.create');
+
+        Route::get('staff-vacation-enjoyment', 'PayrollReportController@staffVacationEnjoyment')
+            ->name('payroll.reports.staff-vacation-enjoyment');
+        Route::post('staff-vacation-enjoyment/create', 'PayrollReportController@create')
+            ->name('payroll.reports.staff-vacation-enjoyment.create');
 
         Route::post('vue-list', 'PayrollReportController@vueList')
-        ->name('payroll.reports.vue-list');
+            ->name('payroll.reports.vue-list');
     });
 });

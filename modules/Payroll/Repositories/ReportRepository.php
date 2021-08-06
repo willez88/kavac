@@ -73,14 +73,14 @@ class ReportRepository implements ReportInterface
         $this->qrCodeStyle = $params['qrCodeStyle'] ?? [
             'border' => false,
             'padding' => 0,
-            'fgcolor' => [0,0,0],
+            'fgcolor' => [0, 0, 0],
             'bgcolor' => false
         ];
         $this->barCodeStyle = $params['barCodeStyle'] ?? [
             'border' => 0,
             'vpadding' => 'auto',
             'hpadding' => 'auto',
-            'fgcolor' => [0,0,0],
+            'fgcolor' => [0, 0, 0],
             'bgcolor' => false, //array(255,255,255)
             'module_width' => 1, // width of a single module in points
             'module_height' => 1 // height of a single module in points
@@ -136,7 +136,7 @@ class ReportRepository implements ReportInterface
             if (!is_null($params->institution->banner)) {
                 /** Imagen del banner institucional a implementar en el reporte */
                 $pdf->Image(
-                    storage_path('pictures') . '/' . $params->institution->banner->file,
+                    storage_path('pictures') . DIRECTORY_SEPARATOR . $params->institution->banner->file,
                     7,
                     10,
                     $this->pdf->getPageWidth(),
@@ -158,7 +158,7 @@ class ReportRepository implements ReportInterface
             if (!is_null($params->institution->logo)) {
                 /** Imagen del logotipo institucional a implementar en el reporte */
                 $pdf->Image(
-                    storage_path('pictures') . '/' . $params->institution->logo->file,
+                    storage_path('pictures') . DIRECTORY_SEPARATOR  . $params->institution->logo->file,
                     10,
                     $params->headerY,
                     25,
@@ -182,7 +182,7 @@ class ReportRepository implements ReportInterface
                 $pdf->write2DBarcode(
                     $params->urlVerify,
                     'QRCODE,H',
-                    ($this->orientation == 'P')?190:260,
+                    ($this->orientation == 'P') ? 190 : 260,
                     $params->headerY,
                     12,
                     12,
@@ -194,7 +194,7 @@ class ReportRepository implements ReportInterface
             $pdf->SetFont($params->fontFamily, 'B', 15);
             /** Título del reporte */
             $pdf->MultiCell(
-                ($this->orientation == 'P')?145:215,
+                ($this->orientation == 'P') ? 145 : 215,
                 7,
                 $params->title,
                 0,
@@ -215,7 +215,7 @@ class ReportRepository implements ReportInterface
             $pdf->SetFont($params->fontFamily, 'B', 12);
             /** Descripción breve del reporte */
             $pdf->MultiCell(
-                ($this->orientation == 'P')?72:140,
+                ($this->orientation == 'P') ? 72 : 140,
                 4,
                 $params->subTitle,
                 0,
@@ -234,7 +234,7 @@ class ReportRepository implements ReportInterface
             );
             /** Fecha de emisión del reporte */
             $pdf->MultiCell(
-                ($this->orientation == 'P')?72:140,
+                ($this->orientation == 'P') ? 72 : 140,
                 4,
                 $params->reportDate,
                 0,
@@ -255,7 +255,7 @@ class ReportRepository implements ReportInterface
             $pdf->Line(
                 7,
                 $params->headerY + 15,
-                ($this->orientation == 'P')? 208.9 : 272.5,
+                ($this->orientation == 'P') ? 208.9 : 272.5,
                 $params->headerY + 15,
                 $params->lineStyle
             );
@@ -332,7 +332,7 @@ class ReportRepository implements ReportInterface
          * FD: Es equivalente a las opciones F + D
          * E: Devuelve el documento del tipo mime base64 para ser adjuntado en correos electrónicos
          */
-        $this->pdf->Output(storage_path() . '/reports/' . $this->filename, 'F');
+        $this->pdf->Output(storage_path() . DIRECTORY_SEPARATOR . 'reports' . DIRECTORY_SEPARATOR . $this->filename, 'F');
     }
 
     public function setFooter($pages = true, $footerText = '')
@@ -360,7 +360,7 @@ class ReportRepository implements ReportInterface
                     'R',
                     false,
                     1,
-                    ($this->orientation == 'P')?190:252.5,
+                    ($this->orientation == 'P') ? 190 : 252.5,
                     -8,
                     true,
                     1,
@@ -373,7 +373,7 @@ class ReportRepository implements ReportInterface
             }
             /** Texto a mostrar en el pie de página del reporte */
             $pdf->MultiCell(
-                ($this->orientation == 'P')? 198 : 242.5,
+                ($this->orientation == 'P') ? 198 : 242.5,
                 8,
                 $footerText,
                 0,
@@ -393,9 +393,9 @@ class ReportRepository implements ReportInterface
             /** Línea de separación entre el cuerpo del reporte y el pie de página */
             $pdf->Line(
                 7,
-                ($this->orientation == 'P')? 265 : 203,
-                ($this->orientation == 'P')? 208.9 : 272.5,
-                ($this->orientation == 'P')? 265 : 203,
+                ($this->orientation == 'P') ? 265 : 203,
+                ($this->orientation == 'P') ? 208.9 : 272.5,
+                ($this->orientation == 'P') ? 265 : 203,
                 $lineStyle
             );
         });
@@ -403,9 +403,9 @@ class ReportRepository implements ReportInterface
 
     public function show($file = null, $dest = 'I')
     {
-        $filename = storage_path() . '/reports/' . $file ?? 'payroll-report-' . Carbon::now() . '.pdf';
+        $filename = storage_path() . DIRECTORY_SEPARATOR . 'reports' . DIRECTORY_SEPARATOR . $file ?? 'payroll-report-' . Carbon::now() . '.pdf';
+        $this->pdf->Output(storage_path() . DIRECTORY_SEPARATOR . 'reports' . DIRECTORY_SEPARATOR . $file, $dest);
         return response()->download($filename);
-        $this->pdf->Output(storage_path() . '/reports/' . $file, $dest);
         if ($dest == 'F') {
             return response()->download($filename);
         };

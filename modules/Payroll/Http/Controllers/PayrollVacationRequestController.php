@@ -8,6 +8,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use Modules\Payroll\Models\PayrollVacationRequest;
+use Modules\Payroll\Models\PayrollVacationPolicy;
+use Modules\Payroll\Models\PayrollStaff;
 use Modules\Payroll\Models\Institution;
 use App\Models\CodeSetting;
 
@@ -117,7 +119,7 @@ class PayrollVacationRequestController extends Controller
             $request->session()->flash('message', [
                 'type' => 'other', 'title' => 'Alerta', 'icon' => 'screen-error', 'class' => 'growl-danger',
                 'text' => 'Debe configurar previamente el formato para el código a generar'
-                ]);
+            ]);
             return response()->json(['result' => false, 'redirect' => route('payroll.settings.index')], 200);
         }
 
@@ -214,6 +216,8 @@ class PayrollVacationRequestController extends Controller
          * Objeto asociado al modelo PayrollVacationRequest
          * @var    Object    $payrollVacationRequest
          */
+
+
         $payrollVacationRequest = PayrollVacationRequest::find($id);
         $this->validate($request, $this->validateRules, $this->messages);
 
@@ -223,6 +227,7 @@ class PayrollVacationRequestController extends Controller
         } else {
             $institution = Institution::where('active', true)->where('default', true)->first();
         }
+
         $payrollVacationRequest->update([
             'status'               => $payrollVacationRequest->status,
             'days_requested'       => $request->input('days_requested'),
@@ -279,7 +284,9 @@ class PayrollVacationRequestController extends Controller
             $institution = Institution::where('active', true)->where('default', true)->first();
         }
         if ($user->hasRole('admin')) {
-            $records = PayrollVacationRequest::where('institution_id', $institution->id)->get();
+            $records = PayrollVacationRequest::where('institution_id', $institution->id)
+                ->where('status', 'approved')
+                ->get();
         } else {
             $records = [];
         }
@@ -306,8 +313,8 @@ class PayrollVacationRequestController extends Controller
         }
         if ($user->hasRole('admin')) {
             $records = PayrollVacationRequest::where('institution_id', $institution->id)
-                                             ->where('status', 'pending')
-                                             ->get();
+                ->where('status', 'pending')
+                ->get();
         } else {
             $records = [];
         }
@@ -328,7 +335,7 @@ class PayrollVacationRequestController extends Controller
     public function getVacationRequests($staff_id)
     {
         $payrollVacationRequest = PayrollVacationRequest::where('payroll_staff_id', $staff_id)
-                                                        ->whereIn('status', ['pending', 'approved'])->get();
+            ->whereIn('status', ['pending', 'approved'])->get();
         return response()->json(['records' => $payrollVacationRequest], 200);
     }
 
