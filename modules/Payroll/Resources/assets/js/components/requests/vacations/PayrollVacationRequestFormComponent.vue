@@ -1,228 +1,211 @@
 <template>
-    <section id="PayrollVacationRequestFormComponent">
-        <div class="card">
-            <div class="card-header">
-                <h6 class="card-title">Solicitud de vacaciones</h6>
-                <div class="card-btns">
-                    <a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)"
-                       title="Ir atrás" data-toggle="tooltip">
-                        <i class="fa fa-reply"></i>
-                    </a>
-                    <a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
-                       data-toggle="tooltip">
-                        <i class="now-ui-icons arrows-1_minimal-up"></i>
-                    </a>
+    <section id="PayrollVacationRequestForm">
+        <div class="card-body">
+            <!-- mensajes de error -->
+            <div class="alert alert-danger" v-if="errors.length > 0">
+                <div class="container">
+                    <div class="alert-icon">
+                        <i class="now-ui-icons objects_support-17"></i>
+                    </div>
+                    <strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                            @click.prevent="errors = []">
+                        <span aria-hidden="true">
+                            <i class="now-ui-icons ui-1_simple-remove"></i>
+                        </span>
+                    </button>
+                    <ul>
+                        <li v-for="error in errors">{{ error }}</li>
+                    </ul>
                 </div>
             </div>
-
-            <div class="card-body">
-                <!-- mensajes de error -->
-                <div class="alert alert-danger" v-if="errors.length > 0">
-                    <div class="container">
-                        <div class="alert-icon">
-                            <i class="now-ui-icons objects_support-17"></i>
-                        </div>
-                        <strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"
-                                @click.prevent="errors = []">
-                            <span aria-hidden="true">
-                                <i class="now-ui-icons ui-1_simple-remove"></i>
-                            </span>
-                        </button>
-                        <ul>
-                            <li v-for="error in errors">{{ error }}</li>
-                        </ul>
+            <!-- ./mensajes de error -->
+            <div class="row">
+                <!-- código de la solicitud -->
+                <div class="col-md-4" v-if="id > 0" id="helpPayrollVacationRequestCode">
+                    <div class="form-group is-required">
+                        <label>Código de la solicitud:</label>
+                        <input type="text" readonly
+                               data-toggle="tooltip" title=""
+                               class="form-control input-sm"
+                               v-model="record.code">
                     </div>
                 </div>
-                <!-- ./mensajes de error -->
-                <div class="row">
-                    <!-- código de la solicitud -->
-                    <div class="col-md-4" v-if="id > 0">
-                        <div class="form-group is-required">
-                            <label>Código de la solicitud:</label>
-                            <input type="text" readonly
-                                   data-toggle="tooltip" title=""
-                                   class="form-control input-sm"
-                                   v-model="record.code">
-                        </div>
+                <!-- ./código de la solicitud -->
+                <!-- fecha de la solicitud -->
+                <div class="col-md-4" id="helpPayrollVacationRequestDate">
+                    <div class="form-group is-required">
+                        <label>Fecha de la solicitud:</label>
+                        <input type="date" readonly
+                               data-toggle="tooltip"
+                               title="Fecha de generación de la solicitud"
+                               class="form-control input-sm" v-model="record.created_at">
+                        <input type="hidden" v-model="record.id">
                     </div>
-                    <!-- ./código de la solicitud -->
-                    <!-- fecha de la solicitud -->
-                    <div class="col-md-4">
-                        <div class="form-group is-required">
-                            <label>Fecha de la solicitud:</label>
-                            <input type="date" readonly
-                                   data-toggle="tooltip"
-                                   title="Fecha de generación de la solicitud"
-                                   class="form-control input-sm" v-model="record.created_at">
-                            <input type="hidden" v-model="record.id">
-                        </div>
-                    </div>
-                    <!-- ./fecha de la solicitud -->
-                    <!-- trabajador -->
-                    <div class="col-md-4">
-                        <div class="form-group is-required">
-                            <label>Trabajador:</label>
-                            <select2 :options="payroll_staffs"
-                                     @input="getPayrollStaffInfo()"
-                                     v-model="record.payroll_staff_id">
-                            </select2>
-                        </div>
-                    </div>
-                    <!-- ./trabajador -->
-                    <!-- año del período vacacional -->
-                    <div class="col-md-4">
-                        <div class="form-group is-required">
-                            <label>Año del período vacacional:</label>
-                            <select2 :options="vacation_period_years"
-                                     @input="getPayrollVacationPeriods()"
-                                     v-model="record.vacation_period_year">
-                            </select2>
-                        </div>
-                    </div>
-                    <!-- ./año del período vacacional -->
-                    <!-- días solicitudos -->
-                    <div class="col-md-4" v-if="record.vacation_period_year > 0">
-                        <div class="form-group is-required">
-                            <label>Días solicitados:</label>
-                            <input type="text"
-                                   data-toggle="tooltip" title="Indique la cantidad de días solicitados"
-                                   @input="updatePendingDays()"
-                                   class="form-control input-sm"
-                                   v-input-mask data-inputmask="
-                                        'alias': 'numeric',
-                                        'allowMinus': 'false',
-                                        'digits': 0"
-                                   v-model="record.days_requested">
-                        </div>
-                    </div>
-                    <!-- ./días solicitados -->
                 </div>
-                <div class="row">
-                    <!-- fecha de inicio de vacaciones -->
-                    <div class="col-md-4">
-                        <div class="form-group is-required">
-                            <label>Fecha de inicio de vacaciones:</label>
-                            <input type="date"
-                                   data-toggle="tooltip"
-                                   title="Fecha de inicio de vacaciones"
-                                   class="form-control input-sm" v-model="record.start_date">
-                        </div>
+                <!-- ./fecha de la solicitud -->
+                <!-- trabajador -->
+                <div class="col-md-4" id="helpPayrollVacationRequestStaff">
+                    <div class="form-group is-required">
+                        <label>Trabajador:</label>
+                        <select2 :options="payroll_staffs"
+                                 @input="getPayrollStaffInfo()"
+                                 v-model="record.payroll_staff_id">
+                        </select2>
                     </div>
-                    <!-- ./fecha de inicio de vacaciones -->
-                    <!-- fecha de culminación de vacaciones -->
-                    <div class="col-md-4">
-                        <div class="form-group is-required">
-                            <label>Fecha de culminación de vacaciones:</label>
-                            <input type="date"
-                                   data-toggle="tooltip"
-                                   title="Fecha de culminación de vacaciones"
-                                   class="form-control input-sm" v-model="record.end_date">
-                        </div>
-                    </div>
-                    <!-- ./fecha de culminación de vacaciones -->
                 </div>
-                <section class="row" v-show="payroll_staff['id'] > 0">
-                    <div class="col-md-12">
-                        <h6 class="card-title"> Información del trabajador </h6>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <strong> Nombres: </strong>
-                                    <div class="row" style="margin: 1px 0">
-                                        <span class="col-md-12" id="payroll_staff_first_name"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <strong>Apellidos:</strong>
-                                    <div class="row" style="margin: 1px 0">
-                                        <span class="col-md-12" id="payroll_staff_last_name"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <strong>Fecha de ingreso:</strong>
-                                    <div class="row" style="margin: 1px 0">
-                                        <span class="col-md-12" id="payroll_staff_start_date"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <strong>Cargo:</strong>
-                                    <div class="row" style="margin: 1px 0">
-                                        <span class="col-md-12" id="payroll_staff_position"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <strong>Dependencia:</strong>
-                                    <div class="row" style="margin: 1px 0">
-                                        <span class="col-md-12" id="payroll_staff_department"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row"  v-show="record.vacation_period_year > 0">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <strong>Días de disfrute según antigüedad:</strong>
-                                    <div class="row" style="margin: 1px 0">
-                                        <span class="col-md-12" id="vacation_days_to_antiquity"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <strong>Días pendientes:</strong>
-                                    <div class="row" style="margin: 1px 0">
-                                        <span class="col-md-12" id="pending_days"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4 with-border with-radius"
-                                 v-for="vacation_request_for_period in vacation_request_for_periods">
-                                <div class="form-group">
-                                    <strong> Período: </strong>
-                                    <div class="row" style="margin: 1px 0">
-                                        <span class="col-md-12"> {{ vacation_request_for_period['period'] }} </span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <strong> Días Solicitados: </strong>
-                                    <div class="row" style="margin: 1px 0">
-                                        <span class="col-md-12"> {{ vacation_request_for_period['days_requested'] }} </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <!-- ./trabajador -->
+                <!-- año del período vacacional -->
+                <div class="col-md-4" id="helpPayrollVacationPeriodYear">
+                    <div class="form-group is-required">
+                        <label>Año del período vacacional:</label>
+                        <select2 :options="vacation_period_years"
+                                 @input="getPayrollVacationPeriods()"
+                                 v-model="record.vacation_period_year">
+                        </select2>
                     </div>
-                </section>
+                </div>
+                <!-- ./año del período vacacional -->
+                <!-- días solicitudos -->
+                <div class="col-md-4" v-if="record.vacation_period_year > 0" id="helpPayrollVacationDaysRequested">
+                    <div class="form-group is-required">
+                        <label>Días solicitados:</label>
+                        <input type="text"
+                               data-toggle="tooltip" title="Indique la cantidad de días solicitados"
+                               @input="updatePendingDays()"
+                               class="form-control input-sm"
+                               v-input-mask data-inputmask="
+                                    'alias': 'numeric',
+                                    'allowMinus': 'false',
+                                    'digits': 0"
+                               v-model="record.days_requested">
+                    </div>
+                </div>
+                <!-- ./días solicitados -->
             </div>
-
-            <div class="card-footer text-right">
-                <button type="button" @click="reset()"
-                        class="btn btn-default btn-icon btn-round" data-toggle="tooltip"
-                        title="Borrar datos del formulario">
-                    <i class="fa fa-eraser"></i>
-                </button>
-                <button type="button" @click="redirect_back(route_list)"
-                        class="btn btn-warning btn-icon btn-round" data-toggle="tooltip"
-                        title="Cancelar y regresar">
-                    <i class="fa fa-ban"></i>
-                </button>
-                <button type="button" @click="createRecord('payroll/vacation-requests')"
-                        class="btn btn-success btn-icon btn-round">
-                    <i class="fa fa-save"></i>
-                </button>
+            <div class="row">
+                <!-- fecha de inicio de vacaciones -->
+                <div class="col-md-4" id="helpPayrollVacationStartDate">
+                    <div class="form-group is-required">
+                        <label>Fecha de inicio de vacaciones:</label>
+                        <input type="date"
+                               data-toggle="tooltip"
+                               title="Fecha de inicio de vacaciones"
+                               class="form-control input-sm" v-model="record.start_date">
+                    </div>
+                </div>
+                <!-- ./fecha de inicio de vacaciones -->
+                <!-- fecha de culminación de vacaciones -->
+                <div class="col-md-4" id="helpPayrollVacationEndDate">
+                    <div class="form-group is-required">
+                        <label>Fecha de culminación de vacaciones:</label>
+                        <input type="date"
+                               data-toggle="tooltip"
+                               title="Fecha de culminación de vacaciones"
+                               class="form-control input-sm" v-model="record.end_date">
+                    </div>
+                </div>
+                <!-- ./fecha de culminación de vacaciones -->
             </div>
+            <section class="row" v-show="payroll_staff['id'] > 0">
+                <div class="col-md-12">
+                    <h6 class="card-title"> Información del trabajador </h6>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <strong> Nombres: </strong>
+                                <div class="row" style="margin: 1px 0">
+                                    <span class="col-md-12" id="payroll_staff_first_name"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <strong>Apellidos:</strong>
+                                <div class="row" style="margin: 1px 0">
+                                    <span class="col-md-12" id="payroll_staff_last_name"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <strong>Fecha de ingreso:</strong>
+                                <div class="row" style="margin: 1px 0">
+                                    <span class="col-md-12" id="payroll_staff_start_date"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <strong>Cargo:</strong>
+                                <div class="row" style="margin: 1px 0">
+                                    <span class="col-md-12" id="payroll_staff_position"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <strong>Dependencia:</strong>
+                                <div class="row" style="margin: 1px 0">
+                                    <span class="col-md-12" id="payroll_staff_department"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row"  v-show="record.vacation_period_year > 0">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <strong>Días de disfrute según antigüedad:</strong>
+                                <div class="row" style="margin: 1px 0">
+                                    <span class="col-md-12" id="vacation_days_to_antiquity"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <strong>Días pendientes:</strong>
+                                <div class="row" style="margin: 1px 0">
+                                    <span class="col-md-12" id="pending_days"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 with-border with-radius"
+                             v-for="vacation_request_for_period in vacation_request_for_periods">
+                            <div class="form-group">
+                                <strong> Período: </strong>
+                                <div class="row" style="margin: 1px 0">
+                                    <span class="col-md-12"> {{ vacation_request_for_period['period'] }} </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <strong> Días Solicitados: </strong>
+                                <div class="row" style="margin: 1px 0">
+                                    <span class="col-md-12"> {{ vacation_request_for_period['days_requested'] }} </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
 
+        <div class="card-footer text-right" id="helpParamButtons">
+            <button type="button" @click="reset()"
+                    class="btn btn-default btn-icon btn-round" data-toggle="tooltip"
+                    title="Borrar datos del formulario">
+                <i class="fa fa-eraser"></i>
+            </button>
+            <button type="button" @click="redirect_back(route_list)"
+                    class="btn btn-warning btn-icon btn-round" data-toggle="tooltip"
+                    title="Cancelar y regresar">
+                <i class="fa fa-ban"></i>
+            </button>
+            <button type="button" @click="createRecord('payroll/vacation-requests')"
+                    class="btn btn-success btn-icon btn-round">
+                <i class="fa fa-save"></i>
+            </button>
         </div>
     </section>
 </template>
@@ -453,9 +436,9 @@
              *
              * @param    {integer}    id    Identificador del registro a mostrar
              */
-            showRecord(id) {
+            async showRecord(id) {
                 const vm = this;
-                axios.get('/payroll/vacation-requests/show/' + id).then(response => {
+                await axios.get('/payroll/vacation-requests/show/' + id).then(response => {
                     vm.record = response.data.record;
                     vm.record.created_at = vm.format_date(response.data.record.created_at, 'YYYY-MM-DD');
                 });

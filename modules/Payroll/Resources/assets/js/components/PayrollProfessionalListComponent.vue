@@ -107,10 +107,9 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Horario de Clase</label>
-                                    <ckeditor :editor="ckeditor.editor" id="class_schedule" data-toggle="tooltip"
-                                              title="Indique el horario de clase" :config="ckeditor.editorConfig"
-                                              class="form-control" name="class_schedule" tag-name="textarea"
-                                              rows="4"></ckeditor>
+                                    <div v-for="(document, index) in payroll_class_schedule.documents">
+    									<a :href="`/${document.url}`" target="_blank">Documento</a>
+    								</div>
                                 </div>
                             </div>
                         </div>
@@ -155,6 +154,7 @@
 				records: [],
                 record: [],
 				columns: ['payroll_staff.first_name', 'payroll_instruction_degree.name', 'professions', 'is_student', 'id'],
+                payroll_class_schedule: '',
 			}
 		},
 
@@ -182,7 +182,7 @@
             },
 
             showInfo(id) {
-                axios.get('/payroll/professionals/' + id).then(response => {
+                axios.get(`/payroll/professionals/${id}`).then(response => {
 					this.record = response.data.record;
                     $('#payroll_staff').val(this.record.payroll_staff.first_name + ' ' + this.record.payroll_staff.last_name);
                     $('#payroll_instruction_degree').val(this.record.payroll_instruction_degree.name);
@@ -190,7 +190,7 @@
                     (this.record.is_student) ? $('#is_student').bootstrapSwitch('state', true) : $('#is_student').bootstrapSwitch('state', false);
                     $('#payroll_study_type').val( (this.record.payroll_study_type) ? this.record.payroll_study_type.name : ' ' );
                     $('#study_program_name').val(this.record.study_program_name);
-                    $('#class_schedule').val(this.record.class_schedule);
+                    this.payroll_class_schedule = response.data.record.payroll_class_schedule;
 				});
                 $('#show_professional').modal('show');
             }

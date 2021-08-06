@@ -1,0 +1,46 @@
+[
+    {
+        "element" : "#cardPayrollVacationRequestForm",
+        "intro" : "Formulario de solicitud de vacaciones"
+    },
+    {
+        "element" : "#helpPayrollVacationRequestCode",
+        "intro" : "Parámetro que establece el código de la solicitud (generado por el sistema)",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpPayrollVacationRequestDate",
+        "intro" : "Parámetro que establece la fecha en que se genera la solicitud (generada por el sistema)",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpPayrollVacationRequestStaff",
+        "intro" : "Parámetro que establece el trabajador asociado a la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpPayrollVacationPeriodYear",
+        "intro" : "Parámetro que establece el año del período vacacional asociado a la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpPayrollVacationDaysRequested",
+        "intro" : "Parámetro que establece los días solicitados asociada a la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpPayrollVacationStartDate",
+        "intro" : "Parámetro que establece la fecha inicial del período vacacional asociado a la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpPayrollVacationEndDate",
+        "intro" : "Parámetro que establece la fecha de culminación del período vacacional asociado a la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpParamButtons",
+        "intro" : "Botones para ejecutar las acciones de limpiar, cancelar o guardar los datos del formulario",
+        "position" : "left"
+    }
+]

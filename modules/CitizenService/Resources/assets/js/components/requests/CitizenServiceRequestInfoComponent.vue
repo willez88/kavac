@@ -226,9 +226,9 @@
             	document.getElementById("info_general").click();
 
 
-            	axios.get(url).then(response => {
+            	axios.get('/' + url).then(response => {
 
-					axios.get('citizenservice/get-documents/' + response.data.record.id).then(response => {
+					axios.get('/citizenservice/get-documents/' + response.data.record.id).then(response => {
 
 
                       documents=response.data;

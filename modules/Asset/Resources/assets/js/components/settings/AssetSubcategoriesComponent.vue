@@ -80,7 +80,7 @@
                         </div>
                     </div>
 	                <div class="modal-body modal-table">
-	                	<hr>
+	                	
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.row.id, $event)"

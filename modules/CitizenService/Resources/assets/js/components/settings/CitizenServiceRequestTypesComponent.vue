@@ -73,7 +73,7 @@
 		                				title="Modificar registro" data-toggle="tooltip" v-has-tooltip type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-		                		<button @click="deleteRecord(props.index, 'citizenservice/request-types')"
+		                		<button @click="deleteRecord(props.row.id, 'citizenservice/request-types')"
 										class="btn btn-danger btn-xs btn-icon btn-action"
 										title="Eliminar registro" data-toggle="tooltip" v-has-tooltip
 										type="button">
@@ -118,47 +118,7 @@
 					requirement: ''
 				};
 			},
-			deleteRecord(index, url) {
-	            var url = (url)?url:this.route_delete;
-	            var records = this.records;
-	            var confirmated = false;
-	            var index = index - 1;
-	            const vm = this;
-
-	            bootbox.confirm({
-	                title: "¿Eliminar registro?",
-	                message: "¿Está seguro de eliminar este registro?",
-	                buttons: {
-	                    cancel: {
-	                        label: '<i class="fa fa-times"></i> Cancelar'
-	                    },
-	                    confirm: {
-	                        label: '<i class="fa fa-check"></i> Confirmar'
-	                    }
-	                },
-	                callback: function (result) {
-	                    if (result) {
-	                        confirmated = true;
-	                        axios.delete(url + '/' + records[index].id).then(response => {
-	                            if (typeof(response.data.error) !== "undefined") {
-	                                /** Muestra un mensaje de error si sucede algún evento en la eliminación */
-	                                vm.showMessage('custom', 'Alerta!', 'warning', 'screen-error', response.data.message);
-	                                return false;
-	                            }
-	                            records.splice(index, 1);
-	                            vm.showMessage('destroy');
-	                        }).catch(error => {
-	                            vm.logs('mixins.js', 498, error, 'deleteRecord');
-	                        });
-	                    }
-	                }
-	            });
-
-	            if (confirmated) {
-	                this.records = records;
-	                this.showMessage('destroy');
-	            }
-	        },
+			
 		},
 		created() {
 			this.table_options.headings = {
