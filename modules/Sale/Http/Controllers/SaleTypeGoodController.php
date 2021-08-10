@@ -155,18 +155,6 @@ class SaleTypeGoodController extends Controller
         return response()->json(['record' => $typeGood, 'message' => 'Success'], 200);
     }
 
-    // /**
-    //  * Muestra una lista de los productos almacenables para elementos del tipo select
-    //  *
-    //  * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
-    //  * @return Array con los registros a mostrar
-    //  */
-
-    // public function getSaleTypeGoods()
-    // {
-    //     return template_choices('Modules\Sale\Models\SaleTypeGood', 'name', '', true);
-    // }
-
 
     /**
      * Muestra una lista de los atributos de un producto
@@ -175,13 +163,34 @@ class SaleTypeGoodController extends Controller
      * @return JsonResponse
      */
 
-    public function getSaleTypeGoodsAttributes($type_good_id)
+    public function getSaleTypeGoodsAttributes()
     {
         return response()->json([
-            'records' => SaleTypeGoodAttribute::with('saleTypeGood')->where(
-                'sale_type_good_id',
-                $type_good_id
-            )->get()
+            'records' => SaleTypeGoodAttribute::with('saleTypeGood')->get()
         ]);
+    }
+
+    /**
+     * Muestra una lista de los tipos de bienes
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return JsonResponse
+     */
+
+    public function getSaleTypeGoods()
+    {
+        $records = [];
+        $typeGoods = SaleTypeGood::orderBy('id', 'ASC')->get();
+
+        array_push($records, ['id' => '', 'text' => 'Seleccione...']);
+
+        foreach ($typeGoods as $typeGood) {
+            array_push($records, [
+                'id'            => $typeGood->id,
+                'name'          => $typeGood->name,
+                'text'          => $typeGood->name,
+            ]);
+        }
+        return response()->json(['records' => $records], 200);
     }
 }

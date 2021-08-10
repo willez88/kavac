@@ -149,9 +149,14 @@ Route::group(
         );
 
         Route::get(
-            'get-type-good',
+            'get-type-goods',
+            'SaleTypeGoodController@getSaleTypeGoods'
+        );
+
+        Route::get(
+            'get-type-good-attributes',
             'SaleTypeGoodController@getSaleTypeGoodsAttributes'
-        )->name('sale.get-sale-type-good');
+        )->name('sale.get-sale-type-good-attributes');
 
         /**
          * -----------------------------------------------------------------------
@@ -365,6 +370,20 @@ Route::group(
             'SaleGoodsToBeTradedController',
             ['as' => 'sale', 'except' => ['create','edit','show']]
         );
-        
+
+        Route::get(
+            'get-goods-attributes',
+            'SaleGoodsToBeTradedController@getSaleGoodsAttributes'
+        )->name('sale.get-sale-goods-attribute');
+
+        /**
+         * -------------------------------------------------------------------
+         * Rutas para gestionar los Elementos select de bienes a comercializar
+         * -------------------------------------------------------------------
+         */
+        Route::get('get-currencies', 'SaleGoodsToBeTradedController@getCurrencies');
+        Route::get('get-departments', 'SaleGoodsToBeTradedController@getDepartments');
+        Route::get('get-taxes', 'SaleGoodsToBeTradedController@getTaxes');
+        Route::get('get-payroll-staffs', 'SaleGoodsToBeTradedController@getPayrollStaffs');
     }
 );
