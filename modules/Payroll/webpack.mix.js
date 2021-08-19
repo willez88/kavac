@@ -8,7 +8,7 @@ require('laravel-mix-merge-manifest');
 
 mix.setPublicPath('../../public').mergeManifest();
 
-var m = __dirname.split('\\');
+var m = __dirname.split('/');
 var moduleName = m[m.length - 1].toLowerCase();
 
 mix.js(

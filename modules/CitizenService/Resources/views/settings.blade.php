@@ -9,24 +9,30 @@
 @stop
 
 @section('maproute-actual')
-	Atención / Ciudadano
+	{{ __('Atención / Ciudadano') }}
+	
 @stop
 
 @section('maproute-title')
-	Configuración
+	{{ __('Configuración') }}
+
 @stop
 
 @section('content')
 	<div class="row">
 		<div class="col-12">
-			<div class="card">
+			<div class="card" id="helpCodeSettingForm">
 				<div class="card-header">
-					<h6 class="card-title">Formatos de Códigos</h6>
+					<h6 class="card-title">
+						{{ __('Formatos de Códigos') }}
+						@include('buttons.help', [
+					    'helpId' => 'CitizenServiceCodeSetting',
+					    'helpSteps' => get_json_resource('ui-guides/settings/code_setting.json', 'citizenservice')
+			    		])
+			    	</h6>
 					<div class="card-btns">
-						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
-						   data-toggle="tooltip">
-							<i class="now-ui-icons arrows-1_minimal-up"></i>
-						</a>
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.minimize')
 					</div>
 				</div>
 				{!! Form::open(['id' => 'form-codes', 'route' => 'citizenservice.settings.store', 'method' => 'post']) !!}
@@ -35,11 +41,11 @@
 						@include('layouts.form-errors')
 						<div class="row">
 							<div class="col-12">
-								<h6>Código de solicitud</h6>
+								<h6>{{ __('Código de solicitud') }}</h6>
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-4">
+							<div class="col-md-4" id="helpCodeRequest">
 								<div class="form-group">
 									{!! Form::label('request_code', 'Código de la solicitud', []) !!}
 									{!! Form::text('request_code', ($sCode) ? $sCode->format_code : old('request_code'), [
@@ -62,22 +68,26 @@
 	</div>
 	<div class="row">
 		<div class="col-12">
-			<div class="card">
+			<div class="card" id="helpCommonForm">
 				<div class="card-header">
-					<h6 class="card-title">Registros Comunes</h6>
+					<h6 class="card-title">
+					{{ __('Registros Comunes') }}
+					@include('buttons.help', [
+					    'helpId' => 'Common',
+							'helpSteps' => get_json_resource('ui-guides/settings/common.json', 'citizenservice')
+					])
+					</h6>
 					<div class="card-btns">
-						<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
-						   data-toggle="tooltip">
-							<i class="now-ui-icons arrows-1_minimal-up"></i>
-						</a>
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
 					<div class="row">
 						{{-- Configuración de tipos de solicitud --}}
-						<citizenservice-request-types></citizenservice-request-types>
+						<citizenservice-request-types id="helpCitizenServiceRequestTypes"></citizenservice-request-types>
 						{{-- Configuración de departamentos --}}
-						<citizenservice-departments></citizenservice-departments>
+						<citizenservice-departments id="helpCitizenServiceDepartments"></citizenservice-departments>
 					</div>
 				</div>
 			</div>

@@ -3,8 +3,6 @@
 
 ![Screenshot](../img/logokavac.png#imagen)
 
-##Sección 1
-
 
 
 

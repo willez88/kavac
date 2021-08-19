@@ -1,0 +1,14 @@
+[
+    {
+        "element" : "#helpCommonForm",
+        "intro" : "Esta sección permite gestionar la configuración de registros comunes del módulo atención al ciudadano."
+    },
+    {
+        "element" : "#helpCitizenServiceRequestTypes",
+        "intro" : "Gestiona información acerca de los tipos de solicitudes que tiene la institución."
+    },
+    {
+        "element" : "#helpCitizenServiceDepartments",
+        "intro" : "Gestiona información acerca de los tipos de departamentos que tiene la institución"
+    }
+]
