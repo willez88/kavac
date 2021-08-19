@@ -5,41 +5,57 @@
 
 ## Configuración general de almacén 
 
+A través de esta sección se realizan los registros iniciales del módulo de almacén, registros que serán usados en las demás secciones del módulo según la configuración que se realice.	De igual forma se pueden realizar ajustes sobre los datos ya existentes.  
+
+![Screenshot](../img/general.png)<div style="text-align: center;font-weight: bold">Configuración General de Almacén </div>
 ### Almacenes
 
-Desde esta sección se realiza la gestión de almacenes, es posible registrar un nuevo almacén, editar o eliminar algún registro.
+Desde esta sección se realiza la gestión de almacenes, esta opción permite registrar un nuevo almacén, editar o eliminar algún registro.
 
-**Para realizar un nuevo registro** 
+#### Crear un nuevo registro 
 
-- Dirigirse a la Configuración del módulo de Almacén
-- Ingresar a Almacenes en la sección Configuración General de Almacén
-- Completar el formulario   
-- Presionar el botón Guardar y verificar que se haya almacenado en la lista de registros
+- Dirigirse a la **Configuración** del módulo de **Almacén**.
+- Ingresar a **Almacenes** en la sección **Configuración General de Almacén**.
+- Completar el formulario **Gestión de Almacenes **.   
+- Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/figure_2.png)<div style="text-align: center;font-weight: bold">Figura: Almacenes</div>
+![Screenshot](../img/figure_2.png)<div style="text-align: center;font-weight: bold">Figura: Almacenes</div>
 
-Esta sección permite Editar o Eliminar cualquier registro, haciendo uso de los botones ubicados en la columna titulada Acción de la tabla de registros.    
+![Screenshot](../img/registros.png)<div style="text-align: center;font-weight: bold">Figura: Registros de Almacenes</div>
+#### Gestión de registros  
 
-### Productos
+A través de los botones ubicados en la columna titulada **Acción** de la tabla de registros, es posible **Gestionar Almacén**/**Dejar de Gestionar Almacén**, **Editar** o **Eliminar** un registro.
 
-Desde esta sección se realiza la gestión de productos, es posible registrar uno o varios productos, editar o eliminar algún registro.
+![Screenshot](../img/manage_3.png)
 
-**Para realizar un nuevo registro** 
+!!! failure "Dejar de Gestionar Almacén"
+	![Screenshot](../img/unmanaged.png)
 
-- Dirigirse a la Configuración del módulo de Almacén
-- Ingresar a Productos en la sección Configuración General de Almacén
-- Completar el formulario   
-- Presionar el botón Guardar y verificar que se haya almacenado en la lista de registros
+!!! success "Gestionar Almacén"
+	![Screenshot](../img/manage_warehouse.png)
+### Insumos
 
-![Screenshot](/img/formulario.png)<div style="text-align: center;font-weight: bold">Figura: Formulario de Registro para Productos</div>
+Desde esta sección se realiza la gestión de insumos, es posible realizar un nuevo registro, editar o eliminar algún registro existente.
 
-![Screenshot](/img/figure_200.png)<div style="text-align: center;font-weight: bold">Figura: Productos</div>
+#### Crear un nuevo registro
 
-Esta sección permite Editar o Eliminar cualquier registro, haciendo uso de los botones ubicados en la columna titulada Acción de la tabla de registros.    
+- Dirigirse a la **Configuración** del módulo de **Almacén**.
+- Ingresar a **Insumos** en la sección **Configuración General de Almacén**.
+- Completar el formulario **Registros de Insumos Almacenables**.   
+- Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
+![Screenshot](../img/formulario.png)<div style="text-align: center;font-weight: bold">Figura: Formulario de Registro para Insumos Almacenables</div>
+
+![Screenshot](../img/figure_200.png)<div style="text-align: center;font-weight: bold">Figura: Insumos</div>
+
+#### Gestión de registros
+
+Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
+
+![Screenshot](../img/manage_2.png)
 #### Importar registros
 
-Mediante esta funcionalidad es posible cargar los registros de productos de forma masiva a tráves de una hoja de cálculo. Se sugiere que al momento de realizar una importación de registros, se sigan las recomendaciones que se señalan en esté manual para la funcionalidad importar registros.
+Mediante esta funcionalidad es posible cargar los registros de insumos de forma masiva a tráves de una hoja de cálculo. Se sugiere que al momento de realizar una importación de registros, se sigan las recomendaciones que se señalan en esté manual para la funcionalidad importar registros.
 
 **Funcionalidad para importar registros**
 
@@ -75,18 +91,18 @@ Los **id** son generados cada vez que se realiza un nuevo registro en la configu
 El archivo que el usuario ha exportado le permite editar esta infomación, es decir, puede actualizar cualquier registro que se ha realizado previamente.  Sin embargo, el manejo de este contenido se debe realizar con precaución, ya que los registros pueden encontrase asociados a través de sus **id**.  
 
 !!! note "Nota"
-	Las unidades de medida son registradas inicialmente en la Configuración General del Sistema KAVAC.
+	Las unidades de medida son registradas inicialmente en la **Configuración General del Sistema KAVAC**.
 
 !!! warning "Advertencia"
 	Los formatos permitidos para la carga de archivos son:  **csv**, **xls**, **xlsx** y **ods**.  
 
 **Para importar registros**
 
-- Dirigirse a la Configuración del módulo de Almacén
-- Ingresar a Productos en la sección Configuración General de Almacén
-- Presionar el botón Importar ubicado en la esquina superior derecha de esta sección  
-- Seleccionar el archivo del directorio local, para transferir a la aplicación  
-- Verificar que los registros se hayan almacenado en la lista de registros  
+- Dirigirse a la **Configuración del módulo de Almacén**.
+- Ingresar a **Insumos** en la sección **Configuración General de Almacén**.
+- Presionar el botón **Importar** ![Screenshot](../img/import.png) ubicado en la esquina superior derecha de esta sección.  
+- Seleccionar el archivo del directorio local, para transferir a la aplicación.  
+- Verificar que los registros se hayan almacenado en la lista de registros recargando la página.  
 
 #### Exportar registros
 
@@ -94,42 +110,50 @@ Mediante esta funcionalidad es posible obtener una copia de todos los registros 
 
 **Para exportar registros**
 
-- Dirigirse a la Configuración del módulo de Almacén
-- Ingresar a Productos en la sección Configuración General de Almacén**
-- Presionar el botón Exportar ubicado en la esquina superior derecha de esta sección  
-- Una copia del archivo se transfiera de la aplicación al equipo, este archivo contiene todos los registros de productos en el sistema  
+- Dirigirse a la **Configuración** del módulo de **Almacén**.
+- Ingresar a **Insumos** en la sección **Configuración General de Almacén**.
+- Presionar el botón **Exportar** ![Screenshot](../img/export.png) ubicado en la esquina superior derecha de esta sección.  
+- Una copia del archivo se transfiere de la aplicación al equipo, este archivo contiene todos los registros de productos almacenados en el sistema.  
 
 ### Reglas de abastecimiento 
 
 Desde esta sección se realiza la gestión de reglas de abastecimiento, es posible establecer un numero mínimo y máximo en el stock.  Para los artículos considerados como almacenables, esta herramienta permite contar con reglas para asegurarse de que los productos con mas demanda nunca queden sin existencias o superen el máximo establecido de stock. Además, desde esta sección es posible editar o eliminar algún registro realizado.
 
-**Para realizar un nuevo registro** 
+#### Crear un nuevo registro
 
-- Dirigirse a la Configuración del módulo de Almacén
-- Ingresar a Reglas de Abastecimiento en la sección Configuración General de Almacén
-- Completar el formulario   
-- Presionar el botón Guardar y verificar que se haya almacenado en la lista de registros
+- Dirigirse a la **Configuración** del módulo de **Almacén**.
+- Ingresar a **Reglas de Abastecimiento** en la sección **Configuración General de Almacén**.
+- Completar el formulario  **Reglas de Abastecimiento del Almacén**.  
+- Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/figure_2.png)<div style="text-align: center;font-weight: bold">Figura: Almacenes</div>
+![Screenshot](/img/image10.png)<div style="text-align: center;font-weight: bold">Figura: Reglas de Abastecimiento del Almacén</div>
 
-Esta sección permite Editar o Eliminar cualquier registro, haciendo uso de los botones ubicados en la columna titulada Acción de la tabla de registros.    
+!!! warning "Advertencia"
+	Para establecer las reglas de abastecimiento deben existir registros de ingreso al almacén, de esta forma el sistema va listar todos los productos almacenables para que el usuario indique cuál de esa lista se va ingresar al almacén.
 
+#### Gestión de registros
 
+Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
+
+![Screenshot](../img/manage_2.png)
 
 ### Cierres de almacén 
 
 Desde esta sección se realiza la gestión para cierre de almacén, es posible programar un cierre de almacén, editar o eliminar algún registro.
 
-**Para programar un cierre de almacén**  
+#### Programar un cierre de almacén  
 
-- Dirigirse a la Configuración del módulo de Almacén
-- Ingresar a Cierres de Almacén en la sección Configuración General de Almacén
-- Completar el formulario   
-- Presionar el botón Guardar y verificar que se haya almacenado en la lista de registros
+- Dirigirse a la **Configuración** del módulo de **Almacén**.
+- Ingresar a **Cierres de Almacén** en la sección **Configuración General de Almacén**.
+- Completar el formulario **Nuevo Cierre de Almacén**.   
+- Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/figure_2.png)<div style="text-align: center;font-weight: bold">Figura: Almacenes</div>
+![Screenshot](/img/cierre.png)<div style="text-align: center;font-weight: bold">Figura: Almacenes</div>
 
-Esta sección permite Editar o Eliminar cualquier registro, haciendo uso de los botones ubicados en la columna titulada Acción de la tabla de registros.    
+#### Gestión de registros
 
+Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
+
+![Screenshot](../img/manage_2.png)
 	
 </div>
