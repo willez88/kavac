@@ -93,21 +93,23 @@ class SaleGoodsToBeTradedController extends Controller
      *
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
      * @param  \Illuminate\Http\Request  $request (Datos de la petición)
-     * @param  \Modules\Sale\Models\SaleGoodsToBeTraded $goodsToBeTraded (Registro a ser actualizado)
+     * @param  $id (id del registro a ser actualizado)
      * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
-    public function update(Request $request, SaleGoodsToBeTraded $goodsToBeTraded)
+    public function update(Request $request, $id)
     {
         $this->validate($request, [
             'name'                => ['required', 'max:100'],
             'description'         => ['required'],
-            'unit_price'          => ['required', 'min:0'],
+            'unit_price'          => ['required', 'integer', 'min:1'],
             'currency_id'         => ['required'],            
             'measurement_unit_id' => ['required'],
             'department_id'       => ['required'],
             'payroll_staff_id'    => ['required'],
             'description'         => ['required'],
         ]);
+
+        $goodsToBeTraded = SaleGoodsToBeTraded::find($id);
 
         $goodsToBeTraded->name                = $request->input('name');
         $goodsToBeTraded->description         = $request->input('description');
