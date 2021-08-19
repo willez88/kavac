@@ -1,6 +1,6 @@
 <template>
-	<div class="col-xs-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href=""
+	<section id="citizenserviceRequestTypesComponent">
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href="#"
 		   title="Registros de tipo de solicitudes" data-toggle="tooltip"
 		   @click="addRecord('add_citizenservice-request-type', 'citizenservice/request-types', $event)">
            <i class="icofont icofont-briefcase-alt-1 ico-3x"></i>
@@ -20,10 +20,22 @@
 					</div>
 					<div class="modal-body">
 						<div class="alert alert-danger" v-if="errors.length > 0">
-							<ul>
-								<li v-for="error in errors">{{ error }}</li>
-							</ul>
-						</div>
+                            <div class="container">
+                                <div class="alert-icon">
+                                    <i class="now-ui-icons objects_support-17"></i>
+                                </div>
+                                <strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                                        @click.prevent="errors = []">
+                                    <span aria-hidden="true">
+                                        <i class="now-ui-icons ui-1_simple-remove"></i>
+                                    </span>
+                                </button>
+                                <ul>
+                                    <li v-for="error in errors">{{ error }}</li>
+                                </ul>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-5">
         						<div class="form-group is-required">
@@ -86,7 +98,7 @@
 		        </div>
 		    </div>
 		</div>
-	</div>
+	</section>
 </template>
 
 <script>

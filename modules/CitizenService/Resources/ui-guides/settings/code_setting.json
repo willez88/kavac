@@ -1,0 +1,10 @@
+[
+    {
+        "element" : "#helpCodeSettingForm",
+        "intro" : "Esta sección permite establecer el formato a utilizar por los códigos en cada uno de los registros descritos, para comenzar en su implementación tenga especial cuidado en seguir las instrucciones en cuanto al formato que acepta esta configuración"
+    },   
+    {
+        "element" : "#helpCodeRequest",
+        "intro" : "La configuración de este código permite identificar los registros de las solicitudes mediante un formato único."
+    }
+]
