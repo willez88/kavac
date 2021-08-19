@@ -36,9 +36,8 @@
                 </div>
             </div>
 		    <div class="card-body">
-			  <div class="row">
-                {{-- link --}}
-              </div>
+                <payment-registered-list></payment-registered-list>
+                {{-- <payment-registered-list route_edit="{{ url('sale/payment/{id}/edit') }}" /> --}}
             </div>
         </div>
     </div>
@@ -63,9 +62,8 @@
                 </div>
             </div>
             <div class="card-body">
-              <div class="row">
-                {{-- link --}}
-              </div>
+                <pending-payments-list></pending-payments-list>
+                {{-- <payment-registered-list route_edit="{{ url('sale/payment/{id}/edit') }}" /> --}}
             </div>
         </div>
     </div>
@@ -90,9 +88,8 @@
                 </div>
             </div>  
             <div class="card-body">
-              <div class="row">
-                {{-- link --}}
-              </div>
+                <approved-payments-list></approved-payments-list>
+                {{-- <payment-registered-list route_edit="{{ url('sale/payment/{id}/edit') }}" /> --}}
             </div>
         </div>
     </div>
@@ -117,9 +114,8 @@
                 </div>
             </div>  
             <div class="card-body">
-              <div class="row">
-                {{-- link --}}
-              </div>
+                <approved-advance-payments-list></approved-advance-payments-list>
+                {{-- <payment-registered-list route_edit="{{ url('sale/payment/{id}/edit') }}" /> --}}
             </div>
         </div>
     </div>
@@ -134,8 +130,4 @@
         };
     </script>
 @endsection
-
-                              
-
-
-
+                        
