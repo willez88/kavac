@@ -15,7 +15,82 @@ use App\Rules\Rif as RifRule;
 class CitizenServiceRequestController extends Controller
 {
     use ValidatesRequests;
+     /**
+     * Arreglo con las reglas de validación sobre los datos de un formulario
+     * @var Array $validateRules
+     */
+    protected $validateRules;
+    /**
+     * Arreglo con los mensajes para las reglas de validación
+     * @var Array $messages
+     */
+    protected $messages;
 
+    /**
+     * Define la configuración de la clase
+     *
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        /** Define las reglas de validación para el formulario */
+        $this->validateRules = [
+            'date'                  => ['required'],
+            'first_name'            => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:100'],
+            'last_name'             => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:100'],
+            'id_number'             => ['required', 'max:12', 'regex:/^([\d]{7}|[\d]{8})$/u'],
+            'email'                 => ['required', 'email'],
+            'city_id'               => ['required'],
+            'municipality_id'       => ['required'],
+            'address'               => ['required', 'max:200'],
+            'motive_request'        => ['required', 'max:200'],
+            'citizen_service_request_type_id'  => ['required'],
+        ];
+
+        /** Define los mensajes de validación para las reglas del formulario */
+        $this->messages = [
+            'date.required'         => 'El campo fecha es obligatorio.',
+            'first_name.required'   => 'El campo nombres es obligatorio.',
+            'first_name.max'        => 'El campo nombres no debe contener más de 100 caracteres.',
+            'first_name.regex'      => 'El campo nombres no debe permitir números ni símbolos.',
+            'last_name.required'    => 'El campo apellidos es obligatorio',
+            'last_name.max'         => 'El campo apellidos no debe contener más de 100 caracteres.',
+            'last_name.regex'       => 'El campo apellidos no debe permitir números ni símbolos.',
+            'id_number.required'    => 'El campo cédula de identidad es obligatorio.',
+            'id_number.max'         => 'El campo cédula de identidad no debe de contener más de 12 caracteres.',
+            'id_number.regex'       => 'El campo cédula de identidad debe tener los caracteres.',
+            'email.required'        => 'El campo correo electrónico es obligatorio. ',
+            'email.email'           => 'El campo correo electrónico debe de ingresarse en formato de correo.',
+            'city_id.required'           => 'El campo ciudad es obligatorio.',
+            'municipality_id.required'   => 'El campo municipio es obligatorio.',
+            'address.required'           => 'El campo dirección es obligatorio.', 
+            'address.max'                => 'El campo dirección no debe contener más de 200 caracteres.',
+            'motive_request.required'    => 'El campo motivo de la solicitud es obligatorio.', 
+            'motive_request.max'         => 'El campo motivo de la solicitud no debe de contener 200 caracteres.',
+            'citizen_service_request_type_id.required'  => 'El campo tipo de solicitud es obligatorio.',
+            'citizen_service_department_id.required'    => 'El campo dirección de departamento es obligatorio.',
+            
+            'inventory_code.required'  => 'El campo código de inventario es obligatorio.',
+            'type_team.required'       => 'El campo tipo de equipo es obligatorio.',
+            'brand.required'           => 'El campo marca es obligatorio.',
+            'model.required'           => 'El campo modelo es obligatorio.',
+            'serial.required'          => 'El campo serial es obligatorio.',
+            'color.required'           => 'El campo color es obligatorio.',
+            'transfer.required'        => 'El campo motivo de traslado es obligatorio.',
+            'entryhour.required'       => 'El campo hora de entrada es obligatorio.',
+            'informationteam.required' => 'El campo información adicional del equipo es obligatorio.',
+
+            'institution_name.required'   => 'El campo nombre de la institución es obligatorio.', 
+            'institution_name.max'        => 'El campo nombre de la institución no debe de contener más de 200 caracteres.',
+            'rif.required'                => 'El campo rif es obligatorio.', 
+            'rif.unique:citizen_service_requests,rif' => 'El campo rif debe de ser único.', 
+            'rif.size'                    => 'El campo rif no debe de contener más de 10 caracteres. ',
+            'institution_address.required'   => 'El campo dirección de la institución es obligatorio.', 
+            'institution_address.max'        => 'El campo dirección de la institución no debe de contener más de 200 caracteres.',
+            'web.max'      => 'El campo dirección web no debe de contener más de 200 caracteres.',
+        ];
+    }
     /**
      * Muestra un listado de las solicitudes de atención al ciudadano
      * @return Renderable
@@ -41,25 +116,10 @@ class CitizenServiceRequestController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'date'                             => ['required'],
-            'first_name'                       => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:100'],
-            'last_name'                        => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:100'],
-            'id_number'                        => ['required', 'max:12', 'regex:/^([\d]{7}|[\d]{8})$/u'],
-            'email'                            => ['required', 'email'],
-            'city_id'                          => ['required'],
-            'municipality_id'                  => ['required'],
-            'address'                          => ['required', 'max:200'],
-            'motive_request'                   => ['required', 'max:200'],
-            'citizen_service_request_type_id'  => ['required'],
 
-        ]);
-
-
-
-        $requestType = $request->citizen_service_request_type_id;
-        if ($requestType == 1) {
-            $this->validate($request, [
+        $validateRules = $this->validateRules;
+        if ($request->citizen_service_request_type_id == 1) {
+            $validateRules = array_merge($validateRules, [
                 'inventory_code'  => ['required'],
                 'type_team'       => ['required'],
                 'brand'           => ['required'],
@@ -69,26 +129,27 @@ class CitizenServiceRequestController extends Controller
                 'transfer'        => ['required'],
                 'entryhour'       => ['required'],
                 'informationteam' => ['required'],
-
             ]);
-        }
-        if ($requestType ==2 || $requestType ==3 || $requestType ==4) {
-            $this->validate($request, [
+                   
+        } elseif ($request->citizen_service_request_type_id == 2 || $request->citizen_service_request_type_id == 3 || $request->citizen_service_request_type_id == 4) {
+            $validateRules = array_merge($validateRules, [
                 'citizen_service_department_id'    => ['required'],
-
             ]);
+            
         }
 
 
         if ($request->type_institution) {
-            $this->validate($request, [
+            $validateRules = array_merge($validateRules, [
                 'institution_name'              => ['required', 'max:200'],
                 'rif' => ['required', 'unique:citizen_service_requests,rif', 'size:10', new RifRule],
                 'institution_address'           => ['required', 'max:200'],
                 'web'                           => ['max:200'],
             ]);
         }
-
+        
+        $this->validate($request, $validateRules, $this->messages);
+        
         $i = 0;
         foreach ($request->phones as $phone) {
             $this->validate(
@@ -146,7 +207,7 @@ class CitizenServiceRequestController extends Controller
             'citizen_service_request_type_id'  => $request->citizen_service_request_type_id,
             'citizen_service_department_id'    => $request->citizen_service_department_id,
 
-            'type_institution'                 =>$request->type_institution ?? false,
+            'type_institution'                 => $request->type_institution ?? false,
             'institution_name'                 => $request->institution_name,
             'rif'                              => $request->rif,
             'institution_address'              => $request->institution_address,
@@ -207,48 +268,34 @@ class CitizenServiceRequestController extends Controller
     public function update(Request $request, $id)
     {
         $citizenServiceRequest = CitizenServiceRequest::find($id);
-        $this->validate($request, [
-            'date'                             => ['required'],
-            'first_name'                       => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:100'],
-            'last_name'                        => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:100'],
-            'id_number'                        => ['required', 'max:12', 'regex:/^([\d]{7}|[\d]{8})$/u'],
-            'email'                            => ['required', 'email'],
-            'city_id'                          => ['required'],
-            'municipality_id'                  => ['required'],
-            'address'                          => ['required', 'max:200'],
-            'motive_request'                   => ['required', 'max:200'],
-            'citizen_service_request_type_id'  => ['required'],
-            'citizen_service_department_id'    => ['required'],
-
-        ]);
-
-
-
+        $validateRules = $this->validateRules;
         if ($request->citizen_service_request_type_id == 1) {
-            $this->validate($request, [
-                'inventory_code'                   => ['required'],
-                'type_team'                        => ['required'],
-                'brand'                            => ['required'],
-                'model'                            => ['required'],
-                'serial'                           => ['required'],
-                'color'                            => ['required'],
-                'transfer'                         => ['required'],
-                'entryhour'                        => ['required'],
-                'exithour'                         => ['required'],
-                'informationteam'                  => ['required'],
+            $validateRules = array_merge($validateRules, [
+                'inventory_code'  => ['required'],
+                'type_team'       => ['required'],
+                'brand'           => ['required'],
+                'model'           => ['required'],
+                'serial'          => ['required'],
+                'color'           => ['required'],
+                'transfer'        => ['required'],
+                'entryhour'       => ['required'],
+                'informationteam' => ['required'],
+            ]);
+                   
+        } elseif ($request->citizen_service_request_type_id == 2 || $request->citizen_service_request_type_id == 3 || $request->citizen_service_request_type_id == 4) {
+            $validateRules = array_merge($validateRules, [
+                'citizen_service_department_id'    => ['required'],
             ]);
         }
-
-
-
+        
         if ($request->type_institution) {
-            $this->validate($request, [
+            $validateRules = array_merge($validateRules, [
                 'institution_name'              => ['required', 'max:200'],
-                'rif' => ['required', 'unique:citizen_service_requests,rif,'.$citizenServiceRequest->id,
-                          'size:10', new RifRule],
+                'rif' => ['required', 'unique:citizen_service_requests,rif', 'size:10', new RifRule],
                 'institution_address'           => ['required', 'max:200'],
                 'web'                           => ['max:200'],
             ]);
+        
             $citizenServiceRequest->type_institution = $request->type_institution ?? false;
             $citizenServiceRequest->institution_name = $request->institution_name;
             $citizenServiceRequest->rif = $request->rif;
@@ -261,7 +308,9 @@ class CitizenServiceRequestController extends Controller
             $citizenServiceRequest->institution_address = null;
             $citizenServiceRequest->web = null;
         }
-
+        
+        $this->validate($request, $validateRules, $this->messages);
+        
         $i = 0;
         foreach ($request->phones as $phone) {
             $this->validate(
@@ -282,6 +331,7 @@ class CitizenServiceRequestController extends Controller
             );
             $i++;
         }
+
         $citizenServiceRequest->date                             = $request->date;
         $citizenServiceRequest->first_name                       = $request->first_name;
         $citizenServiceRequest->last_name                        = $request->last_name;
@@ -325,7 +375,7 @@ class CitizenServiceRequestController extends Controller
                 );
             }
         }
-
+        
         $request->session()->flash('message', ['type' => 'update']);
         return response()->json(['result' => true, 'redirect' => route('citizenservice.request.index')], 200);
     }
