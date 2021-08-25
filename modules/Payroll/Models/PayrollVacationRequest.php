@@ -86,24 +86,24 @@ class PayrollVacationRequest extends Model implements Auditable
             if ($endDate != "") {
                 if ($payrollStaffId != "") {
                     return $query->whereDate('start_date', '>=', $startDate)
-                                 ->whereDate('end_date', '=<', $endDate)
-                                 ->where('payroll_staff_id', $payrollStaffId);
+                        ->whereDate('end_date', '<=', $endDate)
+                        ->where('payroll_staff_id', $payrollStaffId);
                 }
                 return $query->whereDate('start_date', '>=', $startDate)
-                                 ->whereDate('end_date', '=<', $endDate);
+                    ->whereDate('end_date', '<=', $endDate);
             }
             if ($payrollStaffId != "") {
                 return $query->whereDate('start_date', '>=', $startDate)
-                             ->where('payroll_staff_id', $payrollStaffId);
+                    ->where('payroll_staff_id', $payrollStaffId);
             }
             return $query->whereDate('start_date', '>=', $startDate);
         }
         if ($endDate != "") {
             if ($payrollStaffId != "") {
-                return $query->whereDate('end_date', '=<', $endDate)
-                             ->where('payroll_staff_id', $payrollStaffId);
+                return $query->whereDate('end_date', '<=', $endDate)
+                    ->where('payroll_staff_id', $payrollStaffId);
             }
-            return $query->whereDate('end_date', '=<', $endDate);
+            return $query->whereDate('end_date', '<=', $endDate);
         }
         if ($payrollStaffId != "") {
             return $query->where('payroll_staff_id', $payrollStaffId);

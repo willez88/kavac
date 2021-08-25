@@ -331,7 +331,6 @@ Vue.component('sale-periodic-cost', () => import(
     './components/settings/SalePeriodicCostComponent.vue')
 );
 
-
 /**
  * Componente para gestionar bienes a Comercializar
  *
@@ -343,6 +342,49 @@ Vue.component('sale-goods-to-be-traded', () => import(
     './components/settings/SaleGoodsToBeTradedComponent.vue')
 );
 
+/**
+ * Componente para gestionar Pagos Registrados
+ *
+ * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+ */
+
+Vue.component('payment-registered-list', () => import(
+    /* webpackChunkName: "payment-registered-list" */
+    './components/payment/SalePaymentRegisteredListComponent.vue')
+);
+
+/**
+ * Componente para gestionar Pagos Pendientes
+ *
+ * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+ */
+
+Vue.component('pending-payments-list', () => import(
+    /* webpackChunkName: "payment-registered-list" */
+    './components/payment/SalePendingPaymentsListComponent.vue')
+);
+
+/**
+ * Componente para gestionar Pagos Aprobados
+ *
+ * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+ */
+
+Vue.component('approved-payments-list', () => import(
+    /* webpackChunkName: "payment-registered-list" */
+    './components/payment/SaleApprovedPaymentsListComponent.vue')
+);
+
+/**
+ * Componente para gestionar Pagos de anticvipos Aprobados
+ *
+ * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+ */
+
+Vue.component('approved-advance-payments-list', () => import(
+    /* webpackChunkName: "payment-registered-list" */
+    './components/payment/SaleApprovedAdvancePaymentsListComponent.vue')
+);
 
 /**
  * Opciones de configuración global del módulo de Commercialización

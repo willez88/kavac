@@ -14,7 +14,7 @@ use App\Traits\ModelsTrait;
  *
  * [descripción corta]
  *
- * @author [autor de la clase] [correo del autor]
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
  *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
@@ -35,5 +35,89 @@ class SaleGoodsToBeTraded extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['id', 'name', 'description', 'unit_price', 'custom_attribute', 'currency_id', 'unit_of_measurement_id', 'units_depend_charge_id', 'worker_id'];
+    protected $fillable = ['name', 'description', 'unit_price', 'define_attributes', 'currency_id', 'measurement_unit_id', 'department_id', 'history_tax_id' ,'payroll_staff_id', 'sale_type_good_id'];
+
+    /**
+     * Método que obtiene las formas de pago almacenadas en el sistema
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * Currency
+     */
+    public function currency()
+    {
+        return $this->belongsTo(\App\Models\Currency::class);
+    }
+
+    /**
+     * Método que obtiene las unidades de medida almacenadas en el sistema
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * MeasurementUnit
+     */
+    public function measurementUnit()
+    {
+        return $this->belongsTo(\App\Models\MeasurementUnit::class);
+    }
+
+    /**
+     * Método que obtiene las unidades / dependencias almacenadas en el sistema
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * Department
+     */
+    public function department()
+    {
+        return $this->belongsTo(\App\Models\Department::class);
+    }
+
+    /**
+     * Método que obtiene los porcentajes de impuestos almacenados en el sistema
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * HistoryTax
+     */
+    public function historyTax()
+    {
+        return $this->belongsTo(\App\Models\HistoryTax::class);
+    }
+
+    /**
+     * Método que obtiene l a lista de trabajadores almacenados en el modulo payroll
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * PayrollStaff
+     */
+    public function payrollStaff()
+    {
+        return $this->belongsTo(\Modules\Payroll\Models\PayrollStaff::class);
+    }
+
+    /**
+     * Método que obtiene los atributos de los bienes a comercializar
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo Objeto con el registro relacionado al modelo
+     * saleTypeGood
+     */
+    public function saleTypeGood()
+    {
+        return $this->belongsTo(SaleTypeGood::class);
+    }
+
+    /**
+     * Método que obtiene los atributos de los bienes a comercializar
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany Objeto con el registro relacionado al modelo
+     * saleGoodsAttribute
+     */
+    public function saleGoodsAttribute()
+    {
+        return $this->hasMany(SaleGoodsAttribute::class);
+    }
 }

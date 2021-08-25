@@ -65,19 +65,19 @@ class PayrollVacationPolicyController extends Controller
             'vacation_periods.required'                      => 'El campo período(s) vacacional es obligatorio.',
             'vacation_type.required'                         => 'El campo tipo de vacaciones es obligatorio.',
             'vacation_periods_accumulated_per_year.required' => 'El campo períodos vacacionales acumulados por año ' .
-                                                                'es obligatorio.',
+                'es obligatorio.',
             'vacation_days.required'                         => 'El campo días a otorgar para el disfrute de ' .
-                                                                'vacaciones es obligatorio.',
+                'vacaciones es obligatorio.',
             'vacation_period_per_year.required'              => 'El campo períodos vacacionales permitidos por año ' .
-                                                                'es obligatorio.',
+                'es obligatorio.',
             'additional_days_per_year.required'              => 'El campo días adicionales a otorgar para el ' .
-                                                                'disfrute de vacaciones es obligatorio.',
+                'disfrute de vacaciones es obligatorio.',
             'minimum_additional_days_per_year.required'      => 'El campo días de disfrute de vacaciones mínimo ' .
-                                                                'por año de servicio es obligatorio.',
+                'por año de servicio es obligatorio.',
             'maximum_additional_days_per_year.required'      => 'El campo días de disfrute de vacaciones máximo ' .
-                                                                'por año de servicio es obligatorio.',
+                'por año de servicio es obligatorio.',
             'salary_type.required'                           => 'El campo salario a emplear para el cálculo del bono ' .
-                                                                'vacacional es obligatorio.',
+                'vacacional es obligatorio.',
             'payroll_payment_type_id.required'               => 'El campo tipo de pago de nómina es obligatorio.'
         ];
     }
@@ -183,8 +183,8 @@ class PayrollVacationPolicyController extends Controller
         $payrollVacationPolicy = PayrollVacationPolicy::create([
             'name'                                  => $request->input('name'),
             'active'                                => !empty($request->active)
-                                                        ? $request->active
-                                                        : false,
+                ? $request->active
+                : false,
             'start_date'                            => $request->input('start_date'),
             'end_date'                              => $request->input('end_date'),
             'vacation_periods'                      => json_encode($request->input('vacation_periods')),
@@ -267,13 +267,13 @@ class PayrollVacationPolicyController extends Controller
         $payrollVacationPolicy->update([
             'name'                                  => $request->input('name'),
             'active'                                => !empty($request->active)
-                                                        ? $request->active
-                                                        : false,
+                ? $request->active
+                : false,
             'start_date'                            => $request->input('start_date'),
             'end_date'                              => $request->input('end_date'),
             'vacation_periods'                      => json_encode($request->input('vacation_periods')),
             'vacation_type'                         => $request->input('vacation_type'),
-            'institution_id'                        => $institution->id,
+            'institution_id'                        => 1 || $institution->id,
             'vacation_periods_accumulated_per_year' => $request->input('vacation_periods_accumulated_per_year'),
             'vacation_days'                         => $request->input('vacation_days'),
             'vacation_period_per_year'              => $request->input('vacation_period_per_year'),

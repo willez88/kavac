@@ -372,19 +372,20 @@
 				estates: [],
 				cities: [],
 				municipalities: [],
+				citizenServiceRequestType: '',
 				citizen_service_request_types: [],
 				citizen_service_departments: [],
 				citizen_service_documents: []
 			}
 		},
 		methods: {
-			loadForm(id){
+			async loadForm(id){
 				const vm = this;
 
-	            axios.get('/citizenservice/requests/vue-info/'+id).then(response => {
+	            await axios.get('/citizenservice/requests/vue-info/'+id).then(response => {
 	                if(typeof(response.data.record != "undefined")){
 						vm.record = response.data.record;
-
+						vm.record.country_id = vm.record.municipality.estate.country_id;
 	                }
 	            });
 			},

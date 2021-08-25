@@ -28,24 +28,22 @@
                 </span>
             </div>
             <div slot="id" slot-scope="props" class="text-center">
-                <div class="d-inline-flex ">
-                    <payroll-vacation-request-show
-                        :route_show="'payroll/vacation-requests/show/' + props.row.id"
-                        :id="props.row.id">
-                    </payroll-vacation-request-show>
-                    <button @click="editForm(props.row.id)"
-                            class="btn btn-warning btn-xs btn-icon btn-action"
-                            data-toggle="tooltip" title="Modificar registro"
-                            data-placement="bottom" type="button">
-                        <i class="fa fa-edit"></i>
-                    </button>
-                    <button @click="deleteRecord(props.index, '')"
-                            class="btn btn-danger btn-xs btn-icon btn-action btn-tooltip"
-                            title="Eliminar registro" data-toggle="tooltip" data-placement="bottom"
-                            type="button">
-                        <i class="fa fa-trash-o"></i>
-                    </button>
-                </div>
+                <payroll-vacation-request-show
+                    :route_show="'payroll/vacation-requests/show/' + props.row.id"
+                    :id="props.row.id">
+                </payroll-vacation-request-show>
+                <button @click="editForm(props.row.id)"
+                        class="btn btn-warning btn-xs btn-icon btn-action"
+                        data-toggle="tooltip" title="Modificar registro"
+                        v-has-tooltip type="button">
+                    <i class="fa fa-edit"></i>
+                </button>
+                <button @click="deleteRecord(props.index, '')"
+                        class="btn btn-danger btn-xs btn-icon btn-action btn-tooltip"
+                        title="Eliminar registro" data-toggle="tooltip"
+                        v-has-tooltip type="button">
+                    <i class="fa fa-trash-o"></i>
+                </button>
             </div>
         </v-client-table>
     </section>

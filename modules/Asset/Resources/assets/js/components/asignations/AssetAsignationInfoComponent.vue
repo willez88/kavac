@@ -137,7 +137,7 @@
 
             	document.getElementById("info_general").click();
 
-            	axios.get(url).then(response => {
+            	axios.get('/' + url).then(response => {
 					if (typeof(response.data.records) !== "undefined") {
 						fields = response.data.records;
 
