@@ -24,6 +24,9 @@
 		<div slot="specific_action" slot-scope="props">
 			{{ props.row.specific_action.code }} - {{ props.row.specific_action.name }}
 		</div>
+        <div slot="total_formulated" slot-scope="props">
+            {{ formatToCurrency(props.row.total_formulated, props.row.currency.symbol) }}
+        </div>
 		<div slot="assigned" slot-scope="props">
 			<span class="text-danger text-bold" v-if="!(props.row.assigned)">NO</span>
 			<span class="text-success text-bold" v-else>SI</span>
