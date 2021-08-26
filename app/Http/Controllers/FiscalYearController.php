@@ -134,9 +134,11 @@ class FiscalYearController extends Controller
                                    ->where('closed', false)
                                    ->get()
                                    ->toArray();
-        if (!array_search($currentYear, array_column($fiscalYears, "id"))) {
+
+        if (!in_array(['id' => $currentYear, 'text' => $currentYear], $fiscalYears)) {
             array_push($fiscalYears, ['id' => $currentYear, 'text' => $currentYear]);
         }
+
         return response()->json(['records' => $fiscalYears], 200);
     }
 }
