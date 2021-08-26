@@ -92,17 +92,17 @@
 	                <div class="modal-body modal-table">
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 	                		<div slot="histories.operation_date" slot-scope="props" class="text-center">
-	                			<span class="text-center" v-for="history in props.row.histories">
-	                				{{ format_date(history.operation_date) }}
+	                			<span class="text-center">
+	                				{{ format_date(props.row.histories[0].operation_date) }}
 	                			</span>
 	                		</div>
 	                		<div slot="histories.percentage" slot-scope="props" class="text-center">
-	                			<span class="text-center" v-for="history in props.row.histories">
-	                				{{ history.percentage }} %
+	                			<span class="text-center">
+	                				{{ props.row.histories[0].percentage }} %
 	                			</span>
 	                		</div>
 							<div slot="active" slot-scope="props" class="text-center">
-								<span v-if="props.row.active === true" class="text-bold text-success">SI</span>
+								<span v-if="props.row.active" class="text-bold text-success">SI</span>
 								<span v-else class="text-bold text-danger">NO</span>
 							</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
