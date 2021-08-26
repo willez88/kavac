@@ -48,7 +48,7 @@ class TaxController extends Controller
     public function index()
     {
         return response()->json(['records' => Tax::with(['histories' => function ($query) {
-            return $query->orderBy('operation_date', 'desc')->first();
+            return $query->orderBy('operation_date', 'desc');
         }])->get()], 200);
     }
 
@@ -112,11 +112,14 @@ class TaxController extends Controller
 
         $tax->name = $request->name;
         $tax->description = $request->description;
-        $tax->operation_date = $request->operation_date;
-        $tax->percentage = $request->percentage;
-        $tax->affect_tax = ($request->affect_tax);
-        $tax->active = ($request->active);
+        $tax->affect_tax = ($request->affect_tax) ? true : false;
+        $tax->active = ($request->active) ? true : false;
         $tax->save();
+
+        $tax->histories()->create([
+            'operation_date' => $request->operation_date,
+            'percentage' => $request->percentage
+        ]);
 
         return response()->json(['message' => __('Registro actualizado correctamente')], 200);
     }
