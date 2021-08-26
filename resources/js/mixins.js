@@ -343,6 +343,34 @@ Vue.mixin({
 				seconds: d._data.seconds
 			};
 		},
+        /**
+         * Método que muestra un número formateado
+         *
+         * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         *
+         * @param     {Float}             amount      Cantidad numérica a formatear
+         * @param     {String}            symbol      Símbolo a concatenar en el monto
+         * @param     {String}            style       Estilo del monto a formatear, los valores posibles son:
+         *                                            - "decimal" para formatear cualquier número con decimales
+         *                                            - "currency" para formatear números de tipo moneda
+         *                                            - "percent" para formatear porcentajes
+         *                                            - "unit" para formatear unidades de medida
+         * @param     {String}            currency    Establece el tipo de moneda a formatear. Un listado completo de
+         *                                            los tipos de moneda se puede encontrar en el enlace
+         *                                            https://www.iban.com/currency-codes
+         *
+         * @return    {String}            Devuelve el monto formateado de acuerdo a los requerimientos suministrados
+         */
+        formatToCurrency: function(amount, symbol = null, style = 'currency', currency = 'VEF') {
+            let formatter = new Intl.NumberFormat('es-VE', {
+                style: style,
+                currency: currency
+            });
+
+            return (symbol && style === 'currency')
+                   ? formatter.format(amount).replace('Bs.', symbol)
+                   : formatter.format(amount);
+        },
 		/**
 		 * Agrega dias, meses o años a una fecha proporcionada
 		 *
