@@ -28,6 +28,7 @@
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
 						@include('buttons.print', ['route' => route('print.formulated', ['id' => $formulation->id])])
+						@include('buttons.sign', ['route' => route('print.formulatedsign', ['id' => $formulation->id])])
 						@include('buttons.minimize')
 					</div>
 				</div>

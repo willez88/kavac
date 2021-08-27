@@ -351,6 +351,59 @@ class ReportRepository implements ReportInterface
         $this->pdf->Output($this->filename, 'I');
     }
 
+    public function setBodySign($body, $isHTML = true, $htmlParams = [])
+    {
+        /** @var string Contenido del reporte */
+        $htmlContent = $body;
+        /** Configuración sobre el autor del reporte */
+        $this->pdf->SetAuthor(__('Sistema de Gestión de Recursos - :app', ['app' => config('app.name')]));
+        /** Configuración del título de reporte */
+        $this->pdf->SetTitle($this->title);
+        /** Configuración sobre el asunto del reporte */
+        $this->pdf->SetSubject($this->subject);
+        /** Configuración de los márgenes del cuerpo del reporte */
+        $this->pdf->SetMargins(7, 45, 7);
+        /** Establece si se configura o no las fuentes para sub configuraciones */
+        $this->pdf->SetFontSubsetting(false);
+        /** Configuración de la fuente por defecto del cuerpo del reporte */
+        $this->pdf->SetFontSize('10px');
+        /**
+         * Configuración que permite realizar un salto de página automático al alcanzar el límite inferior del cuerpo
+         * del reporte
+         */
+        $this->pdf->SetAutoPageBreak(true, 15); //PDF_MARGIN_BOTTOM
+        /** Agrega las respectivas páginas del reporte */
+        $this->pdf->AddPage($this->orientation, $this->format);
+
+        if ($isHTML) {
+            $view = \View::make($body, $htmlParams);
+            $htmlContent = $view->render();
+        }
+        /** Escribre el contenido del reporte */
+        $this->pdf->writeHTML($htmlContent, true, false, true, false, '');
+        /** Establece el apuntador del reporte a la última página generada */
+        $this->pdf->lastPage();
+        /**
+         * Genera el reporte. Las opciones disponibles son:
+         *
+         * I: Genera el archivo directamente para ser visualizado en el navegador
+         * D: Genera el archivo y forza la descarga del mismo
+         * F: Guarda el archivo generado en la ruta del servidor establecida por defecto
+         * S: Devuelve el documento generado como una cadena de texto
+         * FI: Es equivalente a las opciones F + I
+         * FD: Es equivalente a las opciones F + D
+         * E: Devuelve el documento del tipo mime base64 para ser adjuntado en correos electrónicos
+         */
+        // $this->pdf->Output($this->filename, 'F');
+        $this->pdf->Output(storage_path() . '/reports/' . $this->filename, 'F');
+        $isEnableSign = isModuleEnabled('DigitalSignature');
+        if ($isEnableSign) {
+            error_log("El módulo está activado " . $isEnableSign);
+        } else {
+            error_log("El módulo está desactivado " . $isEnableSign);
+        }
+    }
+
     public function setFooter($pages = true, $footerText = '')
     {
         $fontFamily = $this->fontFamily;

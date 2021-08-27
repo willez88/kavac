@@ -406,6 +406,41 @@ class BudgetSubSpecificFormulationController extends Controller
         return response()->download($file, $filename, [], 'inline');
     }
 
+
+    /**
+     * Genera el reporte de presupuesto formulado
+     *
+     * @method    printFormulated
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     integer            $id    Identificador del presupuesto formulado a imprimir
+     *
+     * @return    Response           Respuesta de la solicitud para descargar el reporte
+     */
+    public function printFormulatedSign($id)
+    {
+        $pdf = new ReportRepository;
+        $formulation = BudgetSubSpecificFormulation::with(['currency', 'institution'])
+                                                   ->where('id', $id)->first();
+        $filename = 'formulated-sign-' . $formulation->id . '.pdf';
+        $pdf->setConfig(
+            [
+                'institution' => $formulation->institution,
+                'urlVerify'   => 'www.google.com',
+                'orientation' => 'P',
+                'filename'    => $filename
+            ]
+        );
+        $pdf->setHeader("Oficina de Programación y Presupuesto", "Presupuesto de Gastos por Sub Específicas");
+
+        $pdf->setFooter();
+        $pdf->setBodySign('budget::reports.formulation', true, compact('formulation'));
+        $file = storage_path() . '/reports/' . $filename;
+        // return response()->download($file, $filename, [], 'inline');
+        return response()->json(['result' => true, 'message' => "Guardado con éxito"], 200);
+    }
+
     /**
      * Instrucción que permite descargar un archivo
      *
