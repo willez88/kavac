@@ -116,8 +116,8 @@ Vue.component('accounting-entry', () => import(
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-entry-listing', () => import(
-    /* webpackChunkName: "accounting-entry-listing" */
+Vue.component('accounting-entry-li', () => import(
+    /* webpackChunkName: "accounting-entry-li" */
     './components/entries/AccountingListComponent.vue')
 );
 
