@@ -146,7 +146,7 @@
                                             <div class="form-group">
                                                 <label>Hasta:</label>
                                                 <input type="date" id="end_date" placeholder="Hasta"
-                                                       data-toggle="tooltip" title="Indique la fecha de aplicación asociada a la política vacacional"
+                                                       data-toggle="tooltip" title="Indique la fecha de aplicación asociada a la política vacacional" :min="record.start_date"
                                                        class="form-control input-sm" v-model="record.end_date">
                                             </div>
                                         </div>
@@ -258,7 +258,7 @@
                                             <div class="form-group is-required">
                                                 <label>Fecha de Finalización:</label>
                                                 <input type="date" id="end_date_vacation" placeholder="Fecha de Finalización"
-                                                       data-toggle="tooltip" title="Indique la fecha de Finalización del período vacacional"
+                                                       data-toggle="tooltip" title="Indique la fecha de Finalización del período vacacional" :min="vacation_period.start_date"
                                                        class="form-control input-sm" v-model="vacation_period.end_date">
                                             </div>
                                         </div>
