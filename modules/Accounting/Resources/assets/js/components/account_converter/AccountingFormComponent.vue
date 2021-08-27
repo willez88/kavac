@@ -5,12 +5,12 @@
             <accounting-show-errors ref="accountingConverterForm" />
 
             <div class="row">
-                <div class="col-6 is-required">
+                <div class="col-xs-12 col-sm-12 col-md-6 is-required">
                     <label class="control-label">Cuentas Presupuestarias</label>
                     <select2 :options="budgetOptions" v-model="budgetSelect" data-toggle="tooltip"
                              title="Seleccione una cuenta presupuestaria"></select2>
                 </div>
-                <div class="col-6 is-required">
+                <div class="col-xs-12 col-sm-12 col-md-6 is-required">
                     <label class="control-label">Cuentas Patrimoniales</label>
                     <select2 :options="accountingOptions" v-model="accountingSelect" data-toggle="tooltip"
                              title="Seleccione una cuenta patrimonial"></select2>
