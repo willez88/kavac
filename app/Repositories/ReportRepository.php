@@ -395,12 +395,14 @@ class ReportRepository implements ReportInterface
          * E: Devuelve el documento del tipo mime base64 para ser adjuntado en correos electrónicos
          */
         // $this->pdf->Output($this->filename, 'F');
-        $this->pdf->Output(storage_path() . '/reports/' . $this->filename, 'F');
         $isEnableSign = isModuleEnabled('DigitalSignature');
         if ($isEnableSign) {
             error_log("El módulo está activado " . $isEnableSign);
+            $this->pdf->Output(storage_path() . '/reports/' . $this->filename, 'F');
+            return true;
         } else {
             error_log("El módulo está desactivado " . $isEnableSign);
+            return false;
         }
     }
 

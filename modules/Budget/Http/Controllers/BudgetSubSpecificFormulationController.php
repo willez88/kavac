@@ -435,10 +435,14 @@ class BudgetSubSpecificFormulationController extends Controller
         $pdf->setHeader("Oficina de Programación y Presupuesto", "Presupuesto de Gastos por Sub Específicas");
 
         $pdf->setFooter();
-        $pdf->setBodySign('budget::reports.formulation', true, compact('formulation'));
-        $file = storage_path() . '/reports/' . $filename;
-        // return response()->download($file, $filename, [], 'inline');
-        return response()->json(['result' => true, 'message' => "Guardado con éxito"], 200);
+        $sign = $pdf->setBodySign('budget::reports.formulation', true, compact('formulation'));
+        if($sign) {
+            $file = storage_path() . '/reports/' . $filename;
+            return response()->json(['result' => true, 'message' => "Guardado con éxito", 'pathpdf' => $file], 200);
+        }
+        else {
+            return response()->json(['result' => false, 'message' => "No esta activado el modulo de firma", 'pathpdf' => ''], 200);   
+        }
     }
 
     /**
