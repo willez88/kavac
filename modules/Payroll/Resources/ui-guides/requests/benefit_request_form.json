@@ -1,0 +1,36 @@
+[
+    {
+        "element" : "#cardPayrollBenefitRequestForm",
+        "intro" : "Formulario de solicitud de adelanto de prestaciones"
+    },
+    {
+        "element" : "#helpPayrollBenefitRequestCode",
+        "intro" : "Parámetro que establece el código de la solicitud (generado por el sistema)",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpPayrollBenefitRequestDate",
+        "intro" : "Parámetro que establece la fecha en que se genera la solicitud (generada por el sistema)",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpPayrollBenefitRequestStaff",
+        "intro" : "Parámetro que establece el trabajador asociado a la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpPayrollBenefitAmountRequested",
+        "intro" : "Parámetro que establece el monto de adelanto de prestaciones asociado a la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpPayrollBenefitMotive",
+        "intro" : "Parámetro que establece el motivo asociado a la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpParamButtons",
+        "intro" : "Botones para ejecutar las acciones de limpiar, cancelar o guardar los datos del formulario",
+        "position" : "left"
+    }
+]
