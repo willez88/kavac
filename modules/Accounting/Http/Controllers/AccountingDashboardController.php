@@ -12,7 +12,7 @@ use Modules\Accounting\Models\Currency;
 use Modules\Accounting\Models\Profile;
 
 /**
- * @class AccountingAccountConverterController
+ * @class AccountingDashboardController
  * @brief Controlador para el manejo del dashboard
  *
  * Clase que gestiona la informacion del dashboard de contabilidad
