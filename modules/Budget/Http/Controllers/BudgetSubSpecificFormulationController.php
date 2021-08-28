@@ -17,7 +17,7 @@ use Maatwebsite\Excel\HeadingRowImport;
 use App\Imports\DataImport;
 use App\Models\FiscalYear;
 use App\Repositories\ReportRepository;
-
+use Modules\DigitalSignature\Repositories\ReportRepositorySign;
 /**
  * @class BudgetSubSpecificFormulationController
  * @brief Controlador de formulaciones de presupuesto por sub específicas
@@ -420,7 +420,7 @@ class BudgetSubSpecificFormulationController extends Controller
      */
     public function printFormulatedSign($id)
     {
-        $pdf = new ReportRepository;
+        $pdf = new ReportRepositorySign;
         $formulation = BudgetSubSpecificFormulation::with(['currency', 'institution'])
                                                    ->where('id', $id)->first();
         $filename = 'formulated-sign-' . $formulation->id . '.pdf';
@@ -435,7 +435,7 @@ class BudgetSubSpecificFormulationController extends Controller
         $pdf->setHeader("Oficina de Programación y Presupuesto", "Presupuesto de Gastos por Sub Específicas");
 
         $pdf->setFooter();
-        $sign = $pdf->setBodySign('budget::reports.formulation', true, compact('formulation'));
+        $sign = $pdf->setBody('budget::reports.formulation', true, compact('formulation'));
         if($sign) {
             $file = storage_path() . '/reports/' . $filename;
             return response()->json(['result' => true, 'message' => "Guardado con éxito", 'pathpdf' => $file], 200);

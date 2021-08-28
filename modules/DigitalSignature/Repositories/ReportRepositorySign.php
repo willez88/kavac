@@ -1,7 +1,7 @@
 <?php
 
-/** Repositorios del sistema */
-namespace App\Repositories;
+/** Repositorio del modulo DigitalSignature  */
+namespace Modules\DigitalSignature\Repositories;
 
 use App\Repositories\Contracts\ReportInterface;
 use App\Models\Parameter;
@@ -9,7 +9,7 @@ use Carbon\Carbon;
 use Elibyy\TCPDF\TCPDF as PDF;
 
 /**
- * @class ReportRepository
+ * @class ReportRepositorySign
  * @brief Gestiona los reportes de la aplicación
  *
  * Gestiona los reportes de la aplicación
@@ -19,7 +19,7 @@ use Elibyy\TCPDF\TCPDF as PDF;
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */   
-class ReportRepository implements ReportInterface
+class ReportRepositorySign implements ReportInterface
 {
     /** @var string Establece la orientación de la página, los posibles valores son P o L */
     private $orientation;
@@ -292,19 +292,6 @@ class ReportRepository implements ReportInterface
         });
     }
 
-    /**
-     * Método que permite agregar el contenido del reporte a generar
-     *
-     * @method     setBody(string $body, boolean $isHTML, array $htmlParams)
-     *
-     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
-     *
-     * @param      string         $body        Plantilla a utilizar para el reporte en caso de estar establecido
-     *                                         como isHTML, en caso contrario será un texto a incluir en el cuerpo
-     *                                         del reporte
-     * @param      boolean        $isHTML      Establece si el cuerpo del reporte es una plantilla de blade a renderizar
-     * @param      array          $htmlParams  Conjunto de parámetros requeridos por la plantilla de blade
-     */
     public function setBody($body, $isHTML = true, $htmlParams = [])
     {
         /** @var string Contenido del reporte */
@@ -348,7 +335,16 @@ class ReportRepository implements ReportInterface
          * FD: Es equivalente a las opciones F + D
          * E: Devuelve el documento del tipo mime base64 para ser adjuntado en correos electrónicos
          */
-        $this->pdf->Output($this->filename, 'I');
+        // $this->pdf->Output($this->filename, 'F');
+        $isEnableSign = isModuleEnabled('DigitalSignature');
+        if ($isEnableSign) {
+            error_log("El módulo está activado " . $isEnableSign);
+            $this->pdf->Output(storage_path() . '/reports/' . $this->filename, 'F');
+            return true;
+        } else {
+            error_log("El módulo está desactivado " . $isEnableSign);
+            return false;
+        }
     }
 
     public function setFooter($pages = true, $footerText = '')
