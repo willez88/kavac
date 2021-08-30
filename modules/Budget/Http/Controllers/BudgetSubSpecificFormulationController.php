@@ -423,7 +423,7 @@ class BudgetSubSpecificFormulationController extends Controller
         $pdf = new ReportRepositorySign;
         $formulation = BudgetSubSpecificFormulation::with(['currency', 'institution'])
                                                    ->where('id', $id)->first();
-        $filename = 'formulated-sign-' . $formulation->id . '.pdf';
+        $filename = 'formulated-' . $formulation->id . '.pdf';
         $pdf->setConfig(
             [
                 'institution' => $formulation->institution,
@@ -436,12 +436,12 @@ class BudgetSubSpecificFormulationController extends Controller
 
         $pdf->setFooter();
         $sign = $pdf->setBody('budget::reports.formulation', true, compact('formulation'));
-        if($sign) {
-            $file = storage_path() . '/reports/' . $filename;
-            return response()->json(['result' => true, 'message' => "Guardado con éxito", 'pathpdf' => $file], 200);
+
+        if($sign['status'] == 'true') {
+            return response()->download($sign['file'], $sign['filename'], [], 'inline');
         }
         else {
-            return response()->json(['result' => false, 'message' => "No esta activado el modulo de firma", 'pathpdf' => ''], 200);   
+            return response()->json(['result' => $sign['status'], 'message' => $sign['message']], 200);
         }
     }
 

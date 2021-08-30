@@ -4,6 +4,12 @@
 namespace Modules\DigitalSignature\Repositories;
 
 use App\Repositories\Contracts\ReportInterface;
+use Modules\DigitalSignature\Models\User;
+use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Support\Facades\Crypt;
+use Modules\DigitalSignature\Helpers\Helper;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use App\Models\Parameter;
 use Carbon\Carbon;
 use Elibyy\TCPDF\TCPDF as PDF;
@@ -53,6 +59,8 @@ class ReportRepositorySign implements ReportInterface
     private $headerTextY;
     /** @var object Crea y gestiona el objeto PDF */
     private $pdf;
+    /** @var object usuario que firma el documento PDF */
+    private $auth;
 
     /**
      * Método constructor de la clase
@@ -335,16 +343,80 @@ class ReportRepositorySign implements ReportInterface
          * FD: Es equivalente a las opciones F + D
          * E: Devuelve el documento del tipo mime base64 para ser adjuntado en correos electrónicos
          */
-        // $this->pdf->Output($this->filename, 'F');
+        
+        /*Esta activo el modulo de firma electrónica */
         $isEnableSign = isModuleEnabled('DigitalSignature');
         if ($isEnableSign) {
             error_log("El módulo está activado " . $isEnableSign);
-            $this->pdf->Output(storage_path() . '/reports/' . $this->filename, 'F');
-            return true;
+            /* Usuario autenticado */
+            $this->auth = User::find(auth()->user()->id);
+            /* El usuario tiene certificado de firma almacenado */
+            if($this->auth->signprofiles) {
+                $this->pdf->Output(storage_path() . '/reports/' . $this->filename, 'F');
+                $filepath = storage_path() . '/reports/';
+                /* Se ejecuta la función de forma electrónica */
+                $path = $this->ReportsignFile($filepath);
+                if($path) {
+                    $filename = explode('/', $path);
+                    $reponse = array (
+                        'status' => 'true',
+                        'message' => 'El documento se firmo correctamente',
+                        'filename' => $filename[count($filename)-1],
+                        'file' => $path,
+                    );
+                    return $reponse;
+                }
+            }
+            else {
+                $reponse = array (
+                    'status' => 'false',
+                    'message' => 'El usuario no tiene certificado de firma almacenado',
+                    'path' => '',
+                );
+            return $reponse;
+            }
         } else {
-            error_log("El módulo está desactivado " . $isEnableSign);
-            return false;
+            $reponse = array (
+                'status' => 'false',
+                'message' => 'Modulo de firma desactivado',
+                'path' => '',
+            );
+            return $reponse;
         }
+    }
+
+    /**
+     * Método que firma el reporte PDF
+     *
+     * @method     ReportsignFile(string $title, string $subTitle, boolean $hasQR, boolean $hasBarCode)
+     *
+     * @author     Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
+     *
+     * @param      string           $filepath         Dirección del reporte PDF a firmar
+     */
+    public function ReportsignFile($filepath) {
+
+        //Crear archivo pkcs#12
+        $cert = Crypt::decryptString($this->auth->signprofiles['cert']);
+        $pkey = Crypt::decryptString($this->auth->signprofiles['pkey']);
+        $passphrase = Str::random(10);
+
+        //Datos para la firma
+        $storePdf = $filepath . $this->filename;
+        $newname = explode(".", $this->filename);
+        $storePdfSign = $filepath . $newname[0] . '-sign.pdf';
+        $getpath = new Helper();
+        $filenamep12 = Str::random(10) . '.p12';
+        $storeCertificated = $getpath->getPathSign($filenamep12);
+        $createpkcs12 = openssl_pkcs12_export_to_file($cert,$storeCertificated,$pkey,$passphrase);
+        $pathPortableSigner = $getpath->getPathSign('PortableSigner');
+
+        //ejecución del comando para firmar
+        $comand = 'java -jar ' . $pathPortableSigner . ' -n -t ' . $storePdf . ' -o ' . $storePdfSign . ' -s ' . $storeCertificated . ' -p ' . $passphrase;
+        $run = exec($comand, $output);
+        //elimina el certficado .p12
+        Storage::disk('temporary')->delete($filenamep12);
+        return $storePdfSign;
     }
 
     public function setFooter($pages = true, $footerText = '')
