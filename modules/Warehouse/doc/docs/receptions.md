@@ -9,7 +9,7 @@ En esta sección se listan las formulaciones de solicitudes para ingreso de art�
 
 ![Screenshot](/img/figure_ingreso.png)<div style="text-align: center;font-weight: bold">Figura: Ingresos de Almacén</div>
 
-Los **Estados de Solicitud** que puede tomar un registro son: **Pendiente**, **Rechazado** o **Aprobado**; permitiendo así, poder realizar un seguimiento de la solicitud. 
+Los **Estados de Solicitud** que puede tomar un registro son: **Pendiente**, **Rechazado** o **Aprobado**, permitiendo así; poder realizar un seguimiento de las solicitudes. 
 
 Una vez se realiza una nueva solicitud esta toma el estado **Pendiente**, luego puede cambiar el estado como **Rechazado** o **Aprobado** dependiendo de la desición del encargado de almacén.   
 
@@ -55,27 +55,27 @@ Esta sección lista todos las solicitudes que han sido aprobadas rechazadas, o s
 
 ![Screenshot](/img/solicitudes_pendientes.png)<div style="text-align: center;font-weight: bold">Figura: Ingresos de Almacén Pendientes</div>
 
-Para **Ver información detallada**, **Aceptar** o **Rechazar** un registro se debe hacer uso de los botones ubicados en la columna titulada Acción de la tabla de registros en la sección de Ingresos de Almacén Pendientes.
+Para **Ver información detallada**, **Aceptar** o **Rechazar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de registros en la sección de **Ingresos de Almacén Pendientes**.
 
 ![Screenshot](img/manage_1.png#imagen)
 
 
-###Aceptar solicitud
+### Aceptar solicitud
 
-- Dirigirse al módulo de Almacén 
-- Ingresar en Recepciones de Almacén
-- Ubicarse en la sección Ingresos de Almacén Pendientes 
-- Haciendo uso del botón Aceptar ![Screenshot](img/approve.png#imagen)
-ubicado en la columna titulada Acción de la tabla de registros se aprueba la solicitud
+- Dirigirse al módulo de **Almacén**. 
+- Ingresar en **Recepciones de Almacén**.
+- Ubicarse en la sección **Ingresos de Almacén Pendientes**. 
+- Haciendo uso del botón **Aceptar** ![Screenshot](img/approve.png#imagen)
+ubicado en la columna titulada **Acción** de la tabla de registros se aprueba la solicitud.
 
 
 ###Rechazar solicitud
 
-- Dirigirse al módulo de Almacén 
-- Ingresar en Recepciones de Almacén
-- Ubicarse en la sección Ingresos de Almacén Pendientes 
-- Haciendo uso del botón Rechazar ![Screenshot](img/disapprove.png#imagen)
-ubicado en la columna titulada Acción de la tabla de registros se rechaza la solicitud
+- Dirigirse al módulo de **Almacén**. 
+- Ingresar en **Recepciones de Almacén**.
+- Ubicarse en la sección **Ingresos de Almacén Pendientes**. 
+- Haciendo uso del botón **Rechazar** ![Screenshot](img/disapprove.png#imagen)
+ubicado en la columna titulada **Acción** de la tabla de registros se rechaza la solicitud.
 
 
 

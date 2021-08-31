@@ -8,7 +8,10 @@ nav:
         - Recepciones de Almacén: receptions.md
         - Solicitudes de Almacén: requests.md
         - Movimientos de Almacén: movements.md
-        - Reportes: reports.md
+        - Reportes: 
+          - Inventario de productos: inventory.md
+          - Solicitudes de productos: request_report.md
+          - Stocks mínimo y máximo: stocks.md
       - Configuración: 
         - Formatos de Códigos: setting/code_format.md
         - Parámetros Generales: setting/general_parameters.md
