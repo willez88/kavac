@@ -367,7 +367,7 @@ Vue.mixin({
                 currency: currency
             });
 
-            return (symbol && style === 'currency')
+            return (symbol !== null && style === 'currency')
                    ? formatter.format(amount).replace('Bs.', symbol)
                    : formatter.format(amount);
         },
@@ -1124,6 +1124,21 @@ Vue.mixin({
             axios.get(`${window.app_url}/get-taxes`).then(response => {
                 if (response.data.records.length > 0) {
                     vm.taxes = response.data.records;
+                }
+            }).catch(error => {
+                console.error(error);
+            });
+        },
+        /**
+         * Listado de receptores en procesos del sistema (beneficiarios, proveedores, personal, etc...)
+         *
+         * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         */
+        getReceivers() {
+            const vm = this;
+            axios.get(`${window.app_url}/receivers`).then(response => {
+                if (response.data.records.length > 0) {
+                    vm.receivers = response.data.records;
                 }
             }).catch(error => {
                 console.error(error);

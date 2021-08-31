@@ -273,6 +273,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     /** Rutas que permiten gestionar datos para el bloqueo de pantalla por inactividad */
     Route::get('get-lockscreen-data', 'Auth\UserController@getLockScreenData')->name('get-lockscreen-data');
     Route::post('set-lockscreen-data', 'Auth\UserController@setLockScreenData')->name('set-lockscreen-data');
+
+    /** Rutas para gestionar los datos de los receptores de procesos dentro de la aplicación */
+    Route::resource('receivers', 'ReceiverController');
 });
 
 /**

@@ -401,15 +401,17 @@ class ReportRepository implements ReportInterface
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *
-     * @param     string|null    $file    Nombre del archivo a descargar. Este dato es opcional, si no se indica se
-     *                                    genera un archivo con la fecha actual del servidor como nombre
+     * @param     string|null    $file          Nombre del archivo a descargar. Este dato es opcional,
+     *                                          si no se indica se genera un archivo con la fecha actual del
+     *                                          servidor como nombre
+     * @param     string         $outputMethod  Método a usar para mostrar o descargar el documento
      *
      * @return    Response
      */
-    public function show($file = null)
+    public function show($file = null, $outputMethod = 'F')
     {
         $filename = storage_path() . '/reports/' . $file ?? 'report' . Carbon::now() . '.pdf';
-        $this->pdf->Output($filename, 'F');
+        $this->pdf->Output($filename, $outputMethod);
         return response()->download($filename);
     }
 }

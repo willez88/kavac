@@ -124,16 +124,24 @@ Vue.component('budget-availability', () => import(
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.mixin(
-    {
-        data() {
-            return {
-                /** @type {String} Especifica el año de ejercicio presupuestario en curso */
-                execution_year: ''
-            }
-        },
-        mounted() {
-            // Agregar instrucciones para determinar el año de ejecución
+Vue.mixin({
+    data() {
+        return {
+            /** @type {String} Especifica el año de ejercicio presupuestario en curso */
+            execution_year: ''
         }
+    },
+    methods: {
+        async getSpecificActionDetail(id) {
+            const response = await axios.get(`${window.app_url}/budget/detail-specific-actions/${id}`);
+            return response.data;
+        },
+        async getAccountDetail(id) {
+            const response = await axios.get(`${window.app_url}/budget/detail-accounts/${id}`);
+            return response.data;
+        }
+    },
+    mounted() {
+        // Agregar instrucciones para determinar el año de ejecución
     }
-);
+});

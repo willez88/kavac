@@ -135,11 +135,11 @@
                         <table class="table table-hover table-striped">
                             <thead>
                                 <tr>
-                                    <th>Acción Específica</th>
-                                    <th>Cuenta</th>
-                                    <th>Descripción</th>
-                                    <th>Monto</th>
-                                    <th>
+                                    <th class="col-4">Acción Específica</th>
+                                    <th class="col-2">Cuenta</th>
+                                    <th class="col-3">Descripción</th>
+                                    <th class="col-2">Monto</th>
+                                    <th class="col-1">
                                         <a class="btn btn-sm btn-info btn-action btn-tooltip" href="#"
                                            data-original-title="Agregar cuenta presupuestaria" data-toggle="modal"
                                            data-target="#add_account">
@@ -153,7 +153,7 @@
                                     <td>{{ account.spac_description }}</td>
                                     <td>{{ account.code }}</td>
                                     <td>{{ account.description }}</td>
-                                    <td class="text-right">{{ account.amount }}</td>
+                                    <td class="text-right">{{ formatToCurrency(account.amount, '') }}</td>
                                     <td class="text-center">
                                         <input type="hidden" name="account_id[]" readonly
                                                :value="account.specific_action_id + '|' + account.account_id">
@@ -365,15 +365,11 @@
                 this.source_document = '';
                 this.description = '';
                 this.errors = [];
-                this.institutions = [];
 
                 /**
                  * Campos temporales para agregar las cuentas presupuestarias a comprometer
                  */
-                this.taxes = [];
-                this.specific_actions = [];
                 this.specific_action_id = '';
-                this.accounts = [];
                 this.account_id = '';
                 this.account_concept = '';
                 this.account_amount = 0;
@@ -406,7 +402,7 @@
                     },
                     callback: function (result) {
                         if (result) {
-                            vm.budget_modification_accounts.splice(index, 1);
+                            vm.record.accounts.splice(index, 1);
                         }
                     }
                 });
@@ -418,8 +414,56 @@
              *
              * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
              */
-            addAccount() {
+            async addAccount() {
+                const vm = this;
 
+                if (
+                    !vm.specific_action_id && !vm.account_id && !vm.account_concept && !vm.account_amount &&
+                    !vm.account_tax_id
+                ) {
+                    vm.showMessage(
+                        'custom', 'Alerta!', 'warning', 'screen-error', 'Debe indicar todos los datos solicitados'
+                    );
+                    return;
+                }
+
+                let specificAction = {};
+                let account = {};
+                await vm.getSpecificActionDetail(vm.specific_action_id).then(detail => specificAction = detail.record);
+                await vm.getAccountDetail(vm.account_id).then(detail => account = detail.record);
+                vm.record.accounts.push({
+                    'spac_description': `${specificAction.specificable.code}-${specificAction.code} | ${specificAction.name}`,
+                    'code': account.code,
+                    'description': vm.account_concept,
+                    'amount': vm.account_amount,
+                    'specific_action_id': vm.specific_action_id,
+                    'account_id': vm.account_id,
+                    'tax_id': vm.account_tax_id
+                });
+
+                bootbox.confirm({
+                    title: "Agregar cuenta",
+                    message: `Desea agregar otra cuenta?`,
+                    buttons: {
+                        cancel: {
+                            label: '<i class="fa fa-times"></i> Cancelar'
+                        },
+                        confirm: {
+                            label: '<i class="fa fa-check"></i> Confirmar'
+                        }
+                    },
+                    callback: function (result) {
+                        if (!result) {
+                            $("#add_account").find('.close').click();
+                        }
+
+                        vm.specific_action_id = '';
+                        vm.account_id = '';
+                        vm.account_concept = '';
+                        vm.account_amount = 0;
+                        vm.account_tax_id = '';
+                    }
+                });
             },
             /**
              * Agrega un documento al compromiso

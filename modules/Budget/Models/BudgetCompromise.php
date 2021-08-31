@@ -30,7 +30,10 @@ class BudgetCompromise extends Model implements Auditable
      */
     protected $dates = ['deleted_at', 'compromised_at'];
 
-    protected $fillable = ['compromised_at', 'description', 'code', 'document_status_id'];
+    protected $fillable = [
+        'compromised_at', 'description', 'code', 'document_number', 'institution_id', 'document_status_id',
+        'sourceable_type', 'sourceable_id', 'compromiseable_type', 'compromiseable_id'
+    ];
 
     /**
      * Compromise morphs to models in compromiseable_type.
