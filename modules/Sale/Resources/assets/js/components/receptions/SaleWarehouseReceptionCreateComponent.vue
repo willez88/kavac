@@ -83,7 +83,37 @@
                                  v-model="sale_warehouse_inventory_product.measurement_unit_id"></select2>
                     </div>
                 </div>
+
+                <div class="col-md-3">
+                    <div v-show="this.record.iva || this.record.history_tax_id" class="form-group">
+                        <label>IVA:</label>
+                            <select2 :options="taxes"
+                                    v-model="record.history_tax_id"></select2>
+                    </div>
+                </div>
+
     		</div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <a  data-toggle="tooltip"
+                                    title="IVA">
+                            <label for="" class="control-label">IVA:</label>
+                            <div class="col-12">
+                                <div class="bootstrap-switch-mini">
+                                    <input type="checkbox" class="form-control bootstrap-switch"
+                                      name="iva"
+                                      data-on-label="Si" data-off-label="No" value="true"
+                                      v-model="record.iva">
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
     		<div class="row" v-show="sale_warehouse_inventory_product.length > 0">
     			<hr>
     			<div class="col-md-12">
@@ -163,6 +193,7 @@
     				id: '',
     				institution_id: '',
                     sale_warehouse_id: '',
+                    iva: false,
     				sale_warehouse_inventory_products: [],
 
     			},
@@ -210,6 +241,8 @@
 
                     sale_setting_product_id: '',
                     sale_setting_product_name: '',
+                    history_tax_id: '',
+                    iva: false,
     			},
     			this.editIndex = null;
     		},
@@ -242,6 +275,15 @@
 
                 axios.get('/sale/get-measurement-units').then(response => {
                     vm.measurement_units = response.data;
+                });
+            },
+
+            getTaxes() {
+                const vm = this;
+                vm.taxes = [];
+
+                axios.get('/sale/get-taxes').then(response => {
+                    vm.taxes = response.data;
                 });
             },
 
@@ -363,10 +405,14 @@
             this.getSaleWarehouse();
     		this.getCurrencies();
             this.getMeasurementUnits();
-
+            this.getTaxes();
     		if (this.receptionid) {
     			this.loadReception(this.receptionid);
     		}
     	},
+        mounted() {
+          const vm = this;
+          vm.switchHandler('iva');
+        },
     };
     </script>

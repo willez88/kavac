@@ -477,4 +477,16 @@ class SaleWarehouseReceptionController extends Controller
     {
         return template_choices('App\Models\MeasurementUnit', ['acronym', '-', 'name'], '', true);
     }
+
+    /**
+     * Muestra una lista del porcentaje de impuestos registrados en el sistema
+     *
+     * @author Daniel Contreras <mnarvaez@cenditel.gob.ve>
+     * @return Array con los registros a mostrar
+     */
+    public function getTaxes()
+    {
+        return template_choices('App\Models\HistoryTax', ['percentage'], '', true);
+    }
+
 }
