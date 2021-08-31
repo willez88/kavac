@@ -43,17 +43,59 @@ Una vez instalado composer comprobamos la correcta instalación con el siguiente
 
     $ composer --version
 
-Por otro lado, se requiere contar con los paquetes NodeJS y NPM para gestionar los paquetes requeridos para la reactividad en la gestión de datos de algunos procesos, para lo cual se requiere seguir la documentación de [nodejs](https://nodejs.org/) para el sistema operativo en el que se vaya a ejecutar la aplicación.
+Por otro lado, se requiere contar con los paquetes NodeJS y NPM para gestionar los paquetes requeridos para la reactividad en la gestión de datos de algunos procesos.
+
+Se recomienda seguir la documentación disponible desde: https://linuxconfig.org/how-to-install-node-js-on-ubuntu-16-04-xenial-xerus-linux-server pero para este manual recomendamos los siguientes pasos:
+
+Procedimiento de instalación mediante el script nativo de node **nvm** el cual permite más
+control en cuanto a la versión de **node** y **npm** a ser instalada.
+
+Instalar los prerequisitos del S.O. mediante el siguiente comando:
+
+    $ sudo apt install build-essential libssl-dev
+
+Descargar el script de instalación más reciente mediante **curl**, para ello
+se requiere ejecutar el comando:
+
+    $ sudo curl -o- https://raw.githubusercontent.com/creationix/nvm/{version}/install.sh | bash
+
+Se debe sustituir la número de versión con la más reciente publicada la
+cual se puede encontrar [aquí](https://github.com/nvm-sh/nvm/releases), ejemplo:
+
+    $ sudo curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
+
+Lo siguiente es configurar el acceso del nuevo script **NVM** con el siguiente comando:
+
+    $ . ~/.profile
+
+Esto permitira acceder al comando nvm desde cualquier ruta, una vez realizada
+la configuración, se procederá a verificar el listado de versiones de **node**
+disponibles en el repositorio para lo cual se require ejecutar el comando:
+
+    $ nvm ls-remote | grep -i lts
+
+Esto debe mostrar un listado de versiones de node que correspondan
+a las versiones **LTS**, ejemplo:
+
+v10.15.3   (LTS: Dubnium)
+v10.16.0   (LTS: Dubnium)
+v10.16.1   (LTS: Dubnium)
+v10.16.2   (LTS: Dubnium)
+v10.16.3   (Latest LTS: Dubnium)
+
+Ahora procedemos a la instalación de la versión de node más actualizada que presente la lista, para lo cual se ejecutará el comando:
+
+    $ nvm install 10.16.3
 
 Una vez instalado NodeJS comprobamos la correcta instalación con el siguiente comando:
 
     $ node -v
 
-Una vez instalado npm comprobamos su correcta instalación con el siguiente comando:
+Los comandos anteriores nos instalaran NodeJS y también npm, por lo cual comprobamos su correcta instalación con el siguiente comando:
 
     $ npm -v
 
-Ahora se deben instalar las dependencias de php de la aplicación, por lo cual los siguientes comando se deben ejecutar sobre la ruta base de la aplicación:
+Ahora se deben instalar las dependencias de php de la aplicación, por lo cual los siguientes comando se deben ejecutar dentro del directorio base de la aplicación:
 
     $ composer install
 
