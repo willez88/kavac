@@ -38,10 +38,10 @@ class SaleWarehouseMovement extends Model implements Auditable
      */
     protected $fillable = [
         'code', 'type', 'observations', 'state', 'sale_warehouse_institution_warehouse_initial_id',
-        'sale_warehouse_institution_warehouse_end_id', 'user_id', 'description'
+        'sale_warehouse_institution_warehouse_end_id', 'user_id', 'history_tax_id', 'description'
     ];
 
-
+    
     /**
      * Método que obtiene el registro de institución gestiona almacén de donde parten los artículos
      *

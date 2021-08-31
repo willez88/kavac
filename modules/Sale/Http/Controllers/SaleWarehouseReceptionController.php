@@ -135,6 +135,7 @@ class SaleWarehouseReceptionController extends Controller
                 'code' => $code,
                 'type' => 'C',
                 'state' => 'Pendiente',
+                'history_tax_id' => $request->input('history_tax_id'),
                 'description' => 'Registro manual de productos en el inventario del almacén',
                 'sale_warehouse_institution_warehouse_end_id' => $inst_ware->id,
                 'user_id' => Auth::id(),
@@ -481,7 +482,7 @@ class SaleWarehouseReceptionController extends Controller
     /**
      * Muestra una lista del porcentaje de impuestos registrados en el sistema
      *
-     * @author Daniel Contreras <mnarvaez@cenditel.gob.ve>
+     * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
      * @return Array con los registros a mostrar
      */
     public function getTaxes()
