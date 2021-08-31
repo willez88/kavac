@@ -25,6 +25,7 @@ Se requiere de un Sistema Operativo de 64 bits y la instalación de algunos paqu
     php >= 7.4.x
     php-gd
     php-mbstring
+    php-xml
     php-tokenizer
     php-zip
     php-pgsql
