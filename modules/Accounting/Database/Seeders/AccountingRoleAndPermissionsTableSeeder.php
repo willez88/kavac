@@ -84,7 +84,7 @@ class AccountingRoleAndPermissionsTableSeeder extends Seeder
                 'name'              => 'vista principal de consulta del convertidor de cuentas',
                 'slug'              => 'accounting.converter.index',
                 'description'       => 'Acceso para listar conversiones',
-                'model'             => 'Modules\Accounting\Models\AccountingAccountConverter',
+                'model'             => 'Modules\Accounting\Models\Accountable',
                 'model_prefix'      => 'contabilidad',
                 'slug_alt'          => 'conversion.ver',
                 'short_description' => 'listar conversion'
@@ -93,7 +93,7 @@ class AccountingRoleAndPermissionsTableSeeder extends Seeder
                 'name'              => 'Crear nueva conversión',
                 'slug'              => 'accounting.converter.create',
                 'description'       => 'Acceso para crear nuevas conversiones',
-                'model'             => 'Modules\Accounting\Models\AccountingAccountConverter',
+                'model'             => 'Modules\Accounting\Models\Accountable',
                 'model_prefix'      => 'contabilidad',
                 'slug_alt'          => 'conversion.crear',
                 'short_description' => 'agregar conversion'
@@ -102,7 +102,7 @@ class AccountingRoleAndPermissionsTableSeeder extends Seeder
                 'name'              => 'Editar conversiones',
                 'slug'              => 'accounting.converter.edit',
                 'description'       => 'Acceso para editar registro conversiones',
-                'model'             => 'Modules\Accounting\Models\AccountingAccountConverter',
+                'model'             => 'Modules\Accounting\Models\Accountable',
                 'model_prefix'      => 'contabilidad',
                 'slug_alt'          => 'conversion.editar',
                 'short_description' => 'editar conversion'
@@ -111,7 +111,7 @@ class AccountingRoleAndPermissionsTableSeeder extends Seeder
                 'name'              => 'Eliminar conversión',
                 'slug'              => 'accounting.converter.delete',
                 'description'       => 'Acceso para eliminar registro de conversiones',
-                'model'             => 'Modules\Accounting\Models\AccountingAccountConverter',
+                'model'             => 'Modules\Accounting\Models\Accountable',
                 'model_prefix'      => 'contabilidad',
                 'slug_alt'          => 'conversion.eliminar',
                 'short_description' => 'eliminar conversion'

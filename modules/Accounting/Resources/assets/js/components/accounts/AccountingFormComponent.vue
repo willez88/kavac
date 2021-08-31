@@ -16,7 +16,7 @@
                                 <input id="code" type="text" class="form-control input-sm" placeholder="0.0.0.00.00.00.000" data-toggle="tooltip" title="Código de la cuenta patrimonial" v-model='record.code'>
                             </div>
                         </div>
-                        <!-- :onkeyup="record.code=onlyNumbers(record.code)" -->
+                        <!-- :onkeyup="record.code=justAllow(record.code)" -->
                     </div>
                 </div>
                 <div class='col-md-6'>

@@ -116,8 +116,8 @@ Vue.component('accounting-entry', () => import(
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-entry-listing', () => import(
-    /* webpackChunkName: "accounting-entry-listing" */
+Vue.component('accounting-entry-li', () => import(
+    /* webpackChunkName: "accounting-entry-li" */
     './components/entries/AccountingListComponent.vue')
 );
 
@@ -408,23 +408,17 @@ Vue.mixin({
 		* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 		* @return {String} con la cadena permitida
 		*/
-		onlyNumbers(string, filter = null){
-			var out = '';
-
-			/** Caracteres validos por defecto */
-			var dafaultFilter = '1234567890';
-			if(filter != null){
-				dafaultFilter = filter;
-			}
+		justAllow(prop, string, filter = '1234567890'){
+			const vm = this;
+			vm.record[prop] = '';
 
 		    /** Recorrer el texto y verificar si el caracter se encuentra en la lista de validos  */
-		    for (var i=0; i<string.length; i++)
-		       if (dafaultFilter.indexOf(string.charAt(i)) != -1)
-		             //Se añaden a la salida los caracteres validos
-			     out += string.charAt(i);
-
-		    /** Retornar valor filtrado */
-		    return out;
+		    for (var i=0; i<string.length; i++){
+				//Se añaden a la salida los caracteres validos
+		       if (filter.indexOf(string.charAt(i)) != -1){
+			     	vm.record[prop] += string.charAt(i);
+		       }
+		    }
 		}
 	}
 });

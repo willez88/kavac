@@ -1,11 +1,14 @@
 {
     "name": "laravel/laravel",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "^7.3",
+        "php": "^7.3|^8.0",
         "arcanedev/log-viewer": "^8.0",
         "beyondcode/laravel-websockets": "^1.8",
         "doctrine/dbal": "^2.11",

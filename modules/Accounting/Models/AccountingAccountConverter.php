@@ -47,6 +47,6 @@ class AccountingAccountConverter extends Model implements Auditable
      */
     public function accountingAccount()
     {
-        return $this->belongsTo(AccountingAccount::class);
+        return $this->belongsTo(AccountingAccount::class, 'accounting_account_id');
     }
 }

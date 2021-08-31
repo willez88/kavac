@@ -43,18 +43,27 @@ class AccountingAccount extends Model implements Auditable
         'parent_id',
     ];
 
-    /**
-     * AccountingAccount has one AccountingAccountConverter.
+/**
+     * AccountingAccount morphs many Accountable.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @author    Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
-    public function accountConverters()
+    public function accountable()
     {
-        return $this->hasOne(AccountingAccountConverter::class);
+        // morphMany(MorphedModel, morphableName, type = able_type, relatedKeyName = able_id, localKey = id)
+        return $this->morphMany(Accountable::class, 'accountable');
     }
 
+    /**
+     * AccountingAccount has many AccountingEntryAccount.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function entryAccount()
     {
+        // hasMany(RelatedModel, foreignKeyOnRelatedModel = accountingAccount_id, localKey = id)
         return $this->hasMany(AccountingEntryAccount::class);
     }
 

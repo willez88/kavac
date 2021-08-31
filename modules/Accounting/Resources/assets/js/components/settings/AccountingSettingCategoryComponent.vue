@@ -35,10 +35,10 @@
                                     <div class="col-6">
                                         <div class="form-group is-required">
                                             <label class="control-label">Acrónimo</label>
-                                            <input type="text" :onkeyup="record.acronym=onlyNumbers(record.acronym,'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')"
+                                            <input type="text" 
                                                    class="form-control input-sm" maxlength="4"
                                                    title="Ingrese el acrónimo" data-toggle="tooltip"
-                                                   v-model="record.acronym">
+                                                   v-model="acronym">
                                         </div>
                                     </div>
 								</div>
@@ -83,7 +83,26 @@ export default{
 				name:'',
 				acronym:'',
 			},
+			acronym:'',
 			state:'store'
+		}
+	},
+	watch:{
+		acronym(res){
+			const vm = this;
+			var out = '';
+			var filter = 'abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ'
+
+		    /** Recorrer el texto y verificar si el caracter se encuentra en la lista de validos  */
+		    for (var i=0; i<res.length; i++){
+				//Se añaden a la salida los caracteres validos
+		       if (filter.indexOf(res.charAt(i)) != -1){
+		    		// console.log(res.charAt(i))
+			     	out += res.charAt(i);
+		       }
+		    }
+		    vm.record.acronym = out;
+		    vm.acronym = out;
 		}
 	},
 	created(){
@@ -111,6 +130,7 @@ export default{
 				name: '',
 				acronym: '',
 			};
+			this.acronym = '';
 		},
 
 		/**

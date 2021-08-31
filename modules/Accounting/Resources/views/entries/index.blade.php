@@ -56,7 +56,7 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-entry-listing></accounting-entry-listing>
+					<accounting-entry-li></accounting-entry-li>
 				</div>
 			</div>
 		</div>

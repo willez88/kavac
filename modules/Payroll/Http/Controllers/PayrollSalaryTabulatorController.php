@@ -52,7 +52,7 @@ class PayrollSalaryTabulatorController extends Controller
 
         /** Define las reglas de validación para el formulario */
         $this->validateRules = [
-            'name'                            => ['required'],
+            'name'                            => ['required', 'max:100', 'unique:payroll_salary_tabulators,name'],
             'currency_id'                     => ['required'],
             'payroll_staff_types'             => ['required'],
             'institution_id'                  => ['required'],
@@ -192,7 +192,12 @@ class PayrollSalaryTabulatorController extends Controller
     public function update(Request $request, $id)
     {
         $salaryTabulator = PayrollSalaryTabulator::where('id', $id)->first();
-        $this->validate($request, $this->validateRules, $this->messages);
+        $validateRules = $this->validateRules;
+        $validateRules  = array_replace(
+            $validateRules,
+            ['name' => ['required', 'max:100', 'unique:payroll_salary_tabulators,name,' . $salaryTabulator->id]]
+        );
+        $this->validate($request, $validateRules, $this->messages);
 
         DB::transaction(function () use ($request, $salaryTabulator) {
             $salaryTabulator->update([

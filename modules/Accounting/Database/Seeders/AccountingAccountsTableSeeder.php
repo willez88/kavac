@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Modules\Accounting\Models\AccountingAccount;
 use Modules\Accounting\Models\AccountingSeatAccount;
-use Modules\Accounting\Models\AccountingAccountConverter;
+use Modules\Accounting\Models\Accountable;
 use Exception;
 
 /**
@@ -3515,11 +3515,10 @@ class AccountingAccountsTableSeeder extends Seeder
 
                         try {
                             /**
-                            * Se actualizan los valores de las llaves foraneas en el modelo AccountingAccountConverter que
-                            * tenia la cuenta por el nuevo registro actualizado se actualiza la información en la base
-                            * de datos
+                            * Se actualizan los valores de las llaves foraneas en el modelo Accountable que
+                            * tenia la cuenta por el nuevo registro actualizado.
                             */
-                            $converters = AccountingAccountConverter::where('accounting_account_id', $account_to->id)->get();
+                            $converters = Accountable::where('accounting_account_id', $account_to->id)->get();
                             foreach ($converters as $acc) {
                                 $acc->accounting_account_id = $acc_new->id;
                                 $acc->save();

@@ -50,7 +50,7 @@ class PayrollConceptTypeController extends Controller
 
         /** Define las reglas de validación para el formulario */
         $this->validateRules = [
-            'name'        => ['required', 'max:100'],
+            'name'        => ['required', 'max:100', 'unique:payroll_concept_types,name'],
             'description' => ['nullable', 'max:200'],
             'sign'        => ['required', 'max:1']
         ];
@@ -106,7 +106,12 @@ class PayrollConceptTypeController extends Controller
          * @var Object $payrollConceptType
          */
         $payrollConceptType = PayrollConceptType::find($id);
-        $this->validate($request, $this->validateRules, $this->messages);
+        $validateRules  = $this->validateRules;
+        $validateRules  = array_replace(
+            $validateRules,
+            ['name' => ['required', 'max:100', 'unique:payroll_concept_types,name,' . $payrollConceptType->id]]
+        );
+        $this->validate($request, $validateRules, $this->messages);
 
         $payrollConceptType->name  = $request->name;
         $payrollConceptType->description = $request->description;

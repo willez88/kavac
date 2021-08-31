@@ -28,10 +28,10 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<accounting-entry-listing 
+					<accounting-entry-li 
 					route_list = "{{ url('accounting/entries/Filter-Records') }}"
 					route_edit = "{{ url('accounting/entries/{id}/edit') }}" 
-					:entries = "{{ $entries }}"> </accounting-entry-listing>
+					:entries = "{{ $entries }}"> </accounting-entry-li>
 				</div>
 			</div>
 		</div>

@@ -45,6 +45,7 @@
                                     <label for="name">Nombre:</label>
                                     <input type="text" id="name" placeholder="Nombre"
                                            class="form-control input-sm" v-model="record.name" data-toggle="tooltip"
+                                           v-input-mask data-inputmask-regex="[a-zA-Z ]*"
                                            title="Indique el nombre del tipo de concepto (requerido)">
                                     <input type="hidden" name="id" id="id" v-model="record.id">
                                 </div>

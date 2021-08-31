@@ -20,46 +20,11 @@ class ComposerStaticInitcca586c6e039858c683c8120d5bbeb08
         ),
     );
 
-    public static $classMap = array (
-        'Modules\\Warehouse\\Database\\Seeders\\WarehouseDatabaseSeeder' => __DIR__ . '/../..' . '/Database/Seeders/WarehouseDatabaseSeeder.php',
-        'Modules\\Warehouse\\Database\\Seeders\\WarehouseRoleAndPermissionsTableSeeder' => __DIR__ . '/../..' . '/Database/Seeders/WarehouseRoleAndPermissionsTableSeeder.php',
-        'Modules\\Warehouse\\Http\\Controllers\\WarehouseCloseController' => __DIR__ . '/../..' . '/Http/Controllers/WarehouseCloseController.php',
-        'Modules\\Warehouse\\Http\\Controllers\\WarehouseController' => __DIR__ . '/../..' . '/Http/Controllers/WarehouseController.php',
-        'Modules\\Warehouse\\Http\\Controllers\\WarehouseDashboardController' => __DIR__ . '/../..' . '/Http/Controllers/WarehouseDashboardController.php',
-        'Modules\\Warehouse\\Http\\Controllers\\WarehouseInventoryRuleController' => __DIR__ . '/../..' . '/Http/Controllers/WarehouseInventoryRuleController.php',
-        'Modules\\Warehouse\\Http\\Controllers\\WarehouseMovementController' => __DIR__ . '/../..' . '/Http/Controllers/WarehouseMovementController.php',
-        'Modules\\Warehouse\\Http\\Controllers\\WarehousePDFController' => __DIR__ . '/../..' . '/Http/Controllers/WarehousePDFController.php',
-        'Modules\\Warehouse\\Http\\Controllers\\WarehouseProductAttributeController' => __DIR__ . '/../..' . '/Http/Controllers/WarehouseProductAttributeController.php',
-        'Modules\\Warehouse\\Http\\Controllers\\WarehouseProductController' => __DIR__ . '/../..' . '/Http/Controllers/WarehouseProductController.php',
-        'Modules\\Warehouse\\Http\\Controllers\\WarehouseReceptionController' => __DIR__ . '/../..' . '/Http/Controllers/WarehouseReceptionController.php',
-        'Modules\\Warehouse\\Http\\Controllers\\WarehouseReportController' => __DIR__ . '/../..' . '/Http/Controllers/WarehouseReportController.php',
-        'Modules\\Warehouse\\Http\\Controllers\\WarehouseRequestController' => __DIR__ . '/../..' . '/Http/Controllers/WarehouseRequestController.php',
-        'Modules\\Warehouse\\Http\\Controllers\\WarehouseRequestStaffController' => __DIR__ . '/../..' . '/Http/Controllers/WarehouseRequestStaffController.php',
-        'Modules\\Warehouse\\Http\\Controllers\\WarehouseServiceController' => __DIR__ . '/../..' . '/Http/Controllers/WarehouseServiceController.php',
-        'Modules\\Warehouse\\Http\\Controllers\\WarehouseSettingController' => __DIR__ . '/../..' . '/Http/Controllers/WarehouseSettingController.php',
-        'Modules\\Warehouse\\Models\\Warehouse' => __DIR__ . '/../..' . '/Models/Warehouse.php',
-        'Modules\\Warehouse\\Models\\WarehouseClose' => __DIR__ . '/../..' . '/Models/WarehouseClose.php',
-        'Modules\\Warehouse\\Models\\WarehouseInstitutionWarehouse' => __DIR__ . '/../..' . '/Models/WarehouseInstitutionWarehouse.php',
-        'Modules\\Warehouse\\Models\\WarehouseInventoryProduct' => __DIR__ . '/../..' . '/Models/WarehouseInventoryProduct.php',
-        'Modules\\Warehouse\\Models\\WarehouseInventoryProductMovement' => __DIR__ . '/../..' . '/Models/WarehouseInventoryProductMovement.php',
-        'Modules\\Warehouse\\Models\\WarehouseInventoryProductRequest' => __DIR__ . '/../..' . '/Models/WarehouseInventoryProductRequest.php',
-        'Modules\\Warehouse\\Models\\WarehouseInventoryRule' => __DIR__ . '/../..' . '/Models/WarehouseInventoryRule.php',
-        'Modules\\Warehouse\\Models\\WarehouseMovement' => __DIR__ . '/../..' . '/Models/WarehouseMovement.php',
-        'Modules\\Warehouse\\Models\\WarehouseProduct' => __DIR__ . '/../..' . '/Models/WarehouseProduct.php',
-        'Modules\\Warehouse\\Models\\WarehouseProductAttribute' => __DIR__ . '/../..' . '/Models/WarehouseProductAttribute.php',
-        'Modules\\Warehouse\\Models\\WarehouseProductValue' => __DIR__ . '/../..' . '/Models/WarehouseProductValue.php',
-        'Modules\\Warehouse\\Models\\WarehouseReport' => __DIR__ . '/../..' . '/Models/WarehouseReport.php',
-        'Modules\\Warehouse\\Models\\WarehouseRequest' => __DIR__ . '/../..' . '/Models/WarehouseRequest.php',
-        'Modules\\Warehouse\\Pdf\\Pdf' => __DIR__ . '/../..' . '/Pdf/Pdf.php',
-        'Modules\\Warehouse\\Providers\\WarehouseServiceProvider' => __DIR__ . '/../..' . '/Providers/WarehouseServiceProvider.php',
-    );
-
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitcca586c6e039858c683c8120d5bbeb08::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitcca586c6e039858c683c8120d5bbeb08::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitcca586c6e039858c683c8120d5bbeb08::$classMap;
 
         }, null, ClassLoader::class);
     }

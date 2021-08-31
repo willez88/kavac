@@ -4,32 +4,32 @@
             <accounting-show-errors ref="accountingConverter" />
 
             <div class="row">
-                <div class="col-2" id="helpSearchSelectBudget">
+                <div class="col-xs-6 col-sm-6 col-lg-2" id="helpSearchSelectBudget">
                     <label for="sel_budget_acc" class="control-label">Por código presupuestario</label>
                     <div class="col-12 bootstrap-switch-mini">
                         <input type="radio" name="sel_account_type" id="sel_budget_acc" data-on-label="SI"
                                data-off-label="NO" @click="loadAccounts('budget')" class="form-control bootstrap-switch sel_pry_acc">
                     </div>
                 </div>
-                <div class="col-2" id="helpSearchSelectAccounting">
+                <div class="col-xs-6 col-sm-6 col-lg-2" id="helpSearchSelectAccounting">
                     <label for="sel_account_type" class="control-label">Por código patrimonial</label>
                     <div class="col-12 bootstrap-switch-mini">
                         <input type="radio" name="sel_account_type" id="sel_accounting_acc" checked="true"
                                data-on-label="SI" @click="loadAccounts('accounting')" data-off-label="NO" class="form-control bootstrap-switch sel_pry_acc">
                     </div>
                 </div>
-                <div class="col-8 row" id="helpSearchRangeAccount">
-                    <div class="col-5">
+                <div class="col-xs-12 col-sm-12 col-lg-8 row" id="helpSearchRangeAccount">
+                    <div class="col-xs-12 col-sm-12 col-lg-5">
                         <label class="control-label">Desde</label>
                         <select2 id="sel_acc_init" :options="accountOptions[0]" v-model="accountSelect.init_id"
                                  :disabled="SelectAll"></select2>
                     </div>
-                    <div class="col-5">
+                    <div class="col-xs-12 col-sm-12 col-lg-5">
                         <label class="control-label">Hasta</label>
                         <select2 id="sel_acc_end" :options="accountOptions[1]" v-model="accountSelect.end_id"
                                  :disabled="SelectAll"></select2>
                     </div>
-                    <div class="col-2" id="helpSearchRangeAll">
+                    <div class="col-xs-12 col-sm-12 col-lg-2" id="helpSearchRangeAll">
                         <label for="" class="control-label">Seleccionar todas</label>
                         <div class="col-12 bootstrap-switch-mini">
                             <input type="checkbox" name="sel_account_type" id="sel_all_acc" data-on-label="SI"
