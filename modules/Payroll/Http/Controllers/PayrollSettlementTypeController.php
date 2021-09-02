@@ -35,6 +35,19 @@ class PayrollSettlementTypeController extends Controller
         $this->middleware('permission:payroll.settlement.types.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:payroll.settlement.types.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.settlement.types.delete', ['only' => 'destroy']);
+
+        /** Define las reglas de validación para el formulario */
+        $this->rules = [
+            'name' => [],
+            'motive' => ['required', 'max:10'],
+            'payroll_concept_id' => ['required'],
+        ];
+
+        /** Define los atributos para los campos personalizados */
+        $this->attributes = [
+            'motive' => 'motivo',
+            'payroll_concept_id' => 'concepto'
+        ];
     }
 
     /**
@@ -78,12 +91,8 @@ class PayrollSettlementTypeController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => ['required', 'max:100', 'unique:payroll_settlement_types,name'],
-            'motive' => ['required'],
-            'payroll_concept_id' => ['required']
-        ]);
-
+        $this->rules['name'] = ['required', 'unique:payroll_settlement_types,name'];
+        $this->validate($request, $this->rules, [], $this->attributes);
         $payrollSettlementType = PayrollSettlementType::create([
             'name' => $request->name,
             'motive' => $request->motive,
@@ -139,12 +148,8 @@ class PayrollSettlementTypeController extends Controller
     public function update(Request $request, $id)
     {
         $payrollSettlementType = PayrollSettlementType::find($id);
-        $this->validate($request, [
-            'name' => ['required', 'max:100', 'unique:payroll_settlement_types,name,'.$payrollSettlementType->id],
-            'motive' => ['required'],
-            'payroll_concept_id' => ['required']
-        ]);
-
+        $this->rules['name'] = ['required', 'unique:payroll_settlement_types,name,' . $payrollSettlementType->id];
+        $this->validate($request, $this->rules, [], $this->attributes);
         $payrollSettlementType->name = $request->name;
         $payrollSettlementType->motive = $request->motive;
         $payrollSettlementType->payroll_concept_id = $request->payroll_concept_id;

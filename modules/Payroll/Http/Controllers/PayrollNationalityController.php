@@ -37,6 +37,11 @@ class PayrollNationalityController extends Controller
         $this->middleware('permission:payroll.nationalities.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:payroll.nationalities.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.nationalities.delete', ['only' => 'destroy']);
+
+        /** Define los atributos para los campos personalizados */
+        $this->attributes = [
+            'country_id' => 'país',
+        ];
     }
 
     /**
@@ -68,10 +73,9 @@ class PayrollNationalityController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => ['required', 'max:100', 'unique:payroll_nationalities,name'],
-            'country_id' => ['required', 'unique:payroll_nationalities,country_id']
-        ]);
+        $this->rules['name'] = ['required', 'unique:payroll_nationalities,name'];
+        $this->rules['country_id'] = ['required', 'unique:payroll_nationalities,country_id'];
+        $this->validate($request, $this->rules, [], $this->attributes);
         $payrollNationality = PayrollNationality::create([
             'name' => $request->name, 'country_id' => $request->country_id
         ]);
@@ -107,10 +111,9 @@ class PayrollNationalityController extends Controller
     public function update(Request $request, $id)
     {
         $payrollNationality = PayrollNationality::find($id);
-        $this->validate($request, [
-            'name' => ['required', 'max:100', 'unique:payroll_nationalities,name,'.$payrollNationality->id],
-            'country_id' => ['required', 'unique:payroll_nationalities,country_id,'.$payrollNationality->id]
-        ]);
+        $this->rules['name'] = ['required', 'unique:payroll_nationalities,name,' . $payrollNationality->id];
+        $this->rules['country_id'] = ['required', 'unique:payroll_nationalities,country_id,'. $payrollNationality->id];
+        $this->validate($request, $this->rules, [], $this->attributes);
         $payrollNationality->name = $request->name;
         $payrollNationality->country_id = $request->country_id;
         $payrollNationality->save();

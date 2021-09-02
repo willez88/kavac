@@ -376,7 +376,8 @@ class PayrollStaffController extends Controller
     public function vueList()
     {
         return response()->json(['records' => PayrollStaff::with([
-            'payrollNationality', 'payrollGender', 'parish', 'payrollLicenseDegree', 'payrollBloodType', 'payrollDisability'
+            'payrollNationality', 'payrollGender', 'parish', 'payrollLicenseDegree', 'payrollBloodType',
+            'payrollDisability'
         ])->get()], 200);
     }
 

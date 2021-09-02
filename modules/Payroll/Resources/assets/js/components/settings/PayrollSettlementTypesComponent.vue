@@ -129,7 +129,12 @@
                 motive: 'col-md-5',
 				id: 'col-md-2'
 			};
-            this.getPayrollConcepts();
 		},
+		mounted() {
+            const vm = this;
+            $("#add_payroll_settlement_type").on('show.bs.modal', function() {
+                vm.getPayrollConcepts();
+            });
+        },
 	};
 </script>

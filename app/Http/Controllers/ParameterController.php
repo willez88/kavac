@@ -53,7 +53,7 @@ class ParameterController extends Controller
             $this->validate(
                 $request,
                 [
-                    'p_value' => ['required', 'integer', 'min:1']
+                    'p_value' => ['required', 'integer', 'min:16']
                 ],
                 [],
                 [

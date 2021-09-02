@@ -36,6 +36,17 @@ class PayrollLanguageController extends Controller
         $this->middleware('permission:payroll.languages.create', ['only' => ['create', 'store']]);
         $this->middleware('permission:payroll.languages.edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:payroll.languages.delete', ['only' => 'destroy']);
+
+        /** Define las reglas de validación para el formulario */
+        $this->rules = [
+            'name' => [],
+            'acronym' => ['required', 'max:10'],
+        ];
+
+        /** Define los atributos para los campos personalizados */
+        $this->attributes = [
+            'acronym' => 'acrónimo',
+        ];
     }
 
     /**
@@ -67,10 +78,8 @@ class PayrollLanguageController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => ['required', 'max:100', 'unique:payroll_languages,name'],
-            'acronym' => ['required', 'max:10']
-        ]);
+        $this->rules['name'] = ['required', 'unique:payroll_languages,name'];
+        $this->validate($request, $this->rules, [], $this->attributes);
         $payrollLanguage = PayrollLanguage::create(['name' => $request->name, 'acronym' => $request->acronym]);
         return response()->json(['record' => $payrollLanguage, 'message' => 'Success'], 200);
     }
@@ -104,10 +113,8 @@ class PayrollLanguageController extends Controller
     public function update(Request $request, $id)
     {
         $payrollLanguage = PayrollLanguage::find($id);
-        $this->validate($request, [
-            'name' => ['required', 'max:100', 'unique:payroll_languages,name,'.$payrollLanguage->id],
-            'acronym' => ['required', 'max:10']
-        ]);
+        $this->rules['name'] = ['required', 'unique:payroll_languages,name,' . $payrollLanguage->id];
+        $this->validate($request, $this->rules, [], $this->attributes);
         $payrollLanguage->name  = $request->name;
         $payrollLanguage->acronym  = $request->acronym;
         $payrollLanguage->save();
