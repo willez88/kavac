@@ -13,7 +13,7 @@ En esta sección se listan todos los registros realizados de movimientos o trasp
 
 Los **Estados de la Solicitud** que puede tomar un registro son: **Pendiente**, **Rechazado**, **Aprobado** o **Confirmado**;  permitiendo así, tener un seguimiento de las solicitudes para movimientos entre almacenes. 
 
-Una vez se realiza una nueva solicitud esta toma el estado **Pendiente**, luego puede cambiar el estado como **Rechazado**, **Aprobado** o **Confirmado** dependiendo de la desición del encargado de almacén.
+Una vez se realiza una nueva solicitud esta toma el estado **Pendiente**, luego puede cambiar el estado como **Rechazado**, **Aprobado** o **Confirmado** dependiendo de la decisión del encargado de almacén.
 
 ### Crear una nueva solicitud
 

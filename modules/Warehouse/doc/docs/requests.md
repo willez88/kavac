@@ -13,7 +13,7 @@ En esta sección se listan las solicitudes por requerimiento de artículos o mat
 
 Los **Estados de la Solicitud** que puede tomar un registro son: **Pendiente**, **Rechazado**, **Aprobado** o **Entregado**,  permitiendo así; tener un seguimiento de las solicitudes. 
 
-Una vez se realiza una nueva solicitud esta toma el estado **Pendiente**, luego puede cambiar el estado como **Rechazado**, **Aprobado** o **Entregado** dependiendo de la desición del encargado de almacén.  
+Una vez se realiza una nueva solicitud esta toma el estado **Pendiente**, luego puede cambiar el estado como **Rechazado**, **Aprobado** o **Entregado** dependiendo de la decisión del encargado de almacén.  
 
 ### Crear una nueva solicitud
 
@@ -78,7 +78,7 @@ En esta sección se listan las solicitudes por requerimiento de artículos o mat
 
 Los **Estados de la Solicitud** que puede tomar un registro son: **Pendiente**, **Rechazado**, **Aprobado** o **Entregado**,  permitiendo así; tener un seguimiento de las solicitudes. 
 
-Una vez se realiza una nueva solicitud esta toma el estado **Pendiente**, luego puede cambiar el estado como **Rechazado**, **Aprobado** o **Entregado** dependiendo de la desición del encargado de almacén. 
+Una vez se realiza una nueva solicitud esta toma el estado **Pendiente**, luego puede cambiar el estado como **Rechazado**, **Aprobado** o **Entregado** dependiendo de la decisión del encargado de almacén. 
 
 ### Crear una nueva solicitud
 

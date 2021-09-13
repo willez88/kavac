@@ -11,7 +11,7 @@ En esta sección se listan las formulaciones de solicitudes para ingreso de art�
 
 Los **Estados de Solicitud** que puede tomar un registro son: **Pendiente**, **Rechazado** o **Aprobado**, permitiendo así; poder realizar un seguimiento de las solicitudes. 
 
-Una vez se realiza una nueva solicitud esta toma el estado **Pendiente**, luego puede cambiar el estado como **Rechazado** o **Aprobado** dependiendo de la desición del encargado de almacén.   
+Una vez se realiza una nueva solicitud esta toma el estado **Pendiente**, luego puede cambiar el estado como **Rechazado** o **Aprobado** dependiendo de la decisión del encargado de almacén.   
 
 ### Crear una nueva solicitud
 

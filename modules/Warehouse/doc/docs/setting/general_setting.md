@@ -155,5 +155,3 @@ Desde esta sección se realiza la gestión para cierre de almacén, es posible p
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
 ![Screenshot](../img/manage_2.png)
-	
-</div>

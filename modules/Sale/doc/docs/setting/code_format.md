@@ -1,11 +1,11 @@
-# Configuración Módulo de Almacén
-********************************
+# Configuración Módulo de Comercialización
+******************************************
 
 ![Screenshot](../img/logokavac.png#imagen)
 
 ## Formatos de códigos
 
-La sección de **Formatos de Códigos** permite establecer un código de referencia para los registros posteriores (insumos en inventario, movimientos, solicitudes, reportes e inventario), para completar esta configuración el usuario debe dirigirse al módulo de **Almacén**, luego a **Configuración** y ubicarse en la sección **Formatos de Códigos**.
+La sección de **Formatos de Códigos** permite establecer un código de referencia para los registros posteriores (productos, movimientos, facturas), para completar esta configuración el usuario debe dirigirse al módulo de **Comercialización**, luego a **Configuración** y ubicarse en la sección **Formatos de Códigos**.
 
 Cada código debe establecerse de acuerdo a un formato específico el cual se divide en tres (3) secciones: prefijo-dígitos-año.
 
@@ -15,9 +15,9 @@ Cada código debe establecerse de acuerdo a un formato específico el cual se di
 
 Ejemplos de códigos:
 
-|Productos|Movimientos|Solicitudes|Reportes|Inventario|      
-|--- |--- |--- |--- |--- |
-|PRO-00000000-YYYY |MOV-00000000-YYYY |SOL-00000000-YYYY |REP-00000000-YYYY |INV-00000000-YYYY |
+|Productos|Movimientos|Facturas|      
+|--- |--- |--- |
+|PRO-00000000-YYYY |MOV-00000000-YYYY |FAC-00000000-YYYY |
 
 Una vez se establezca el formato de códigos deseado se puede ejecutar cualquier cambio haciendo uso de los **Botones de Acciones de Formulario**, ya sea **Borrar**, **Cancelar** o **Guardar** respectivamente. 
 

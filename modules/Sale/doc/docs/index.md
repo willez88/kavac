@@ -21,8 +21,6 @@ Los usuarios que interactuan en este módulo, serán todos aquellos usuarios con
 
 ## Funcionalidades
 
- 
-
 
 ## Licencia
 
