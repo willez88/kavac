@@ -63,6 +63,13 @@
 									v-model="record.instruction_degree_name"/>
 							</div>
 						</div>
+					</div>
+
+					<hr>
+					<h6 class="card-title">
+						Estudios Universitarios
+					</h6>
+					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>¿Es Estudiante?</label>
@@ -78,7 +85,6 @@
 							</div>
 						</div>
 					</div>
-
 					<div class="row d-none" id="block_student">
 						<div class="col-md-4">
 							<div class="form-group">
@@ -145,8 +151,11 @@
 							</div>
 						</div>
 					</div>
-					<hr>
 
+					<hr>
+					<h6 class="card-title">
+						Capacitación y Reconocimientos <i class="fa fa-plus-circle cursor-pointer" @click=""></i>
+					</h6>
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">
