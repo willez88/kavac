@@ -62,12 +62,21 @@ class CitizenServiceRequest extends Model implements Auditable
     /**
      * Obtiene todos los número telefónicos asociados a la solicitud
      *
-
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function documents()
     {
         return $this->morphMany(\App\Models\Document::class, 'documentable');
+    }
+
+    /**
+     * Obtiene todos los número telefónicos asociados a la solicitud
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function images()
+    {
+        return $this->morphMany(\App\Models\Image::class, 'imageable');
     }
 
     /**

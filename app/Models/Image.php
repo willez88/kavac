@@ -43,7 +43,9 @@ class Image extends Model implements Auditable
      *
      * @var array $fillable
      */
-    protected $fillable = ['file', 'url', 'max_width', 'max_height', 'min_width', 'min_height'];
+    protected $fillable = [
+        'file', 'url', 'max_width', 'max_height', 'min_width', 'min_height', 'imageable_type', 'imageable_id'
+    ];
 
     /**
      * Método que obtiene los logos de las organizaciones
