@@ -94,6 +94,7 @@ class DigitalSignatureController extends Controller
          * @var path: dirección de almacenaminto del archivo -p12
          * @var certStore: archivo .p12
          * @var passphrase: frase de paso del archivo .p12
+         * @var passphraseCrypt: frase de paso encritada
          * @var pkcs12: objeto del certificado firmante
          * @var cert: Certificado del firmante
          * @var pkey: clave privada
@@ -112,11 +113,13 @@ class DigitalSignatureController extends Controller
         $pkcs12 = openssl_pkcs12_read($certStore, $certInfo, $passphrase );
         $cert = Crypt::encryptString($certInfo['cert']);
         $pkey = Crypt::encryptString($certInfo['pkey']);
+        $passphraseCrypt = Crypt::encryptString($passphrase);
 
 
         $profile = new Signprofile();
         $profile->cert = $cert;
         $profile->pkey = $pkey;
+        $profile->passphrase = $passphraseCrypt;
         $profile->user_id = Auth::user()->id;
         $profile->save();
         Storage::disk('temporary')->delete($filename);
@@ -155,6 +158,7 @@ class DigitalSignatureController extends Controller
          * @var path: dirección de almacenaminto del archivo -p12
          * @var certStore: archivo .p12
          * @var passphrase: frase de paso del archivo .p12
+         * @var passphraseCrypt: frase de paso encritada
          * @var pkcs12: objeto del certificado firmante
          * @var cert: Certificado del firmante
          * @var pkey: clave privada
@@ -178,11 +182,12 @@ class DigitalSignatureController extends Controller
         $pkcs12 = openssl_pkcs12_read($certStore, $certInfo, $passphrase );
         $cert = Crypt::encryptString($certInfo['cert']);
         $pkey = Crypt::encryptString($certInfo['pkey']);
-
+        $passphraseCrypt = Crypt::encryptString($passphrase);
 
         $profile = new Signprofile();
         $profile->cert = $cert;
         $profile->pkey = $pkey;
+        $profile->passphrase = $passphraseCrypt;
         $profile->user_id = Auth::user()->id;
         $profile->save();
         Storage::disk('temporary')->delete($filename);
@@ -335,7 +340,8 @@ class DigitalSignatureController extends Controller
                 //Crear archivo pkcs#12
                 $cert = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['cert']);
                 $pkey = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['pkey']);
-                $passphrase = Str::random(10);
+                //$passphrase = Str::random(10);
+                $passphrase = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['passphrase']);
 
                 //Datos para la firma
                 $filenamep12 = Str::random(10) . '.p12';
@@ -508,7 +514,8 @@ class DigitalSignatureController extends Controller
                 //Crear archivo pkcs#12
                 $cert = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['cert']);
                 $pkey = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['pkey']);
-                $passphrase = Str::random(10);
+                //$passphrase = Str::random(10);
+                $passphrase = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['passphrase']);
 
                 //Datos para la firma
                 $filenamep12 = Str::random(10) . '.p12';
@@ -596,6 +603,61 @@ class DigitalSignatureController extends Controller
         $records = json_encode($respVerify->getRespVerify($output), JSON_UNESCAPED_UNICODE);
 
         return response()->json(['verifyFile' => "true", 'records' => $records]);
+    }
+
+    /**
+     * Metodo para validar la autenticación del usuario y autorizar la ejecución
+     *
+     * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
+     * @return json
+     */
+    public function validateAuthentication($passphrase) {
+        if(Auth::user()) {
+            if(User::find(auth()->user()->id)->signprofiles) {
+                //$passphrase = 1234568;
+                $passphraseCompare = Crypt::encryptString($passphrase);  
+                $passphraseOrigin = User::find(auth()->user()->id)->signprofiles['passphrase'];
+                if($passphraseCompare == $passphraseOrigin) {
+                    return response()->json([
+                        'authorization' => 'true',
+                        'msg' => "Autenticación validad"]);
+                }
+                else {
+                    return response()->json([
+                        'validate' => 'false',
+                        'msg' => "Autenticación invalidad"]);
+                }
+            }
+            return redirect()->route('fileprofile');
+        }
+        return redirect()->route('login');
+    }
+
+    /**
+     * Metodo para validar la autenticación del usuario
+     *
+     * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
+     * @return json
+     */
+    public function validateAuthenticationApi($passphrase) {
+        if(Auth::user()) {
+            if(User::find(auth()->user()->id)->signprofiles) {
+                $passphraseCompare = Crypt::encryptString($passphrase);  
+                $passphraseOrigin = User::find(auth()->user()->id)->signprofiles['passphrase'];
+                if($passphraseCompare == $passphraseOrigin) {
+                    return response()->json([
+                        'authentication' => 'true',
+                        'msg' => "Autenticación validad"]);
+                }
+                else {
+                    return response()->json([
+                        'authentication' => 'false',
+                        'msg' => "Autenticación validad"]);
+                }
+            }
+            return redirect()->route('fileprofile');
+        }
+        return redirect()->route('login');
     }
 }
 

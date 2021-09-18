@@ -17,6 +17,7 @@ Route::group(
         Route::get('listCertificate', 'DigitalSignatureController@listCertificate')->name('listCertificate');
         Route::get('deleteCertificate', 'DigitalSignatureController@destroy')->name('deleteCertificate');
         Route::get('getFile/{filename}', 'DigitalSignatureController@getFile')->name('getFile');
+        Route::get('validateAuthentication', 'DigitalSignatureController@validateAuthentication')->name('validateAuthentication');
     }
 );
 

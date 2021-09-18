@@ -92,4 +92,14 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'digitals
     /* Ruta para descargar documento PDF firmado */
     Route::get('apiGetFile/{filename}', 'DigitalSignatureController@getFile')->name('apiGetFile');
 
+    /**
+    * ---------------------------------------------
+    * Rutas para vaidar la autenticación
+    * ---------------------------------------------
+    */
+    /* Ruta para validar la autenticación */
+    Route::get('validateAuthentication', 'DigitalSignatureController@validateAuthentication')->name('validateAuthentication');
+    /* Ruta para validar la autenticación API */
+    Route::get('apivalidateAuthentication', 'DigitalSignatureController@validateAuthenticationApi')->name('apivalidateAuthentication');
+
 });
