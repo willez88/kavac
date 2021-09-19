@@ -614,10 +614,11 @@ class DigitalSignatureController extends Controller
     public function validateAuthentication($passphrase) {
         if(Auth::user()) {
             if(User::find(auth()->user()->id)->signprofiles) {
-                //$passphrase = 1234568;
-                $passphraseCompare = Crypt::encryptString($passphrase);  
-                $passphraseOrigin = User::find(auth()->user()->id)->signprofiles['passphrase'];
-                if($passphraseCompare == $passphraseOrigin) {
+                //$passphrase = 123456;
+                //$passphraseCompare = Crypt::encryptString($passphrase);  
+                $passphraseOrigin = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['passphrase']);
+
+                if($passphrase == $passphraseOrigin) {
                     return response()->json([
                         'authorization' => 'true',
                         'msg' => "Autenticación validad"]);
