@@ -107,7 +107,7 @@ Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubic
 
 ### Cotización	
 
-A través de esta opción se gestionan los registros de cotizaciones, el cual corresponden a solicitudes.    
+A través de esta opción se gestionan los registros de cotizaciones, para el cual cada cotización corresponde a una formulación de solicitud.    
 
 **Registrar cotización**
 
@@ -120,7 +120,7 @@ A través de esta opción se gestionan los registros de cotizaciones, el cual co
 
 !!! note "Datos de formulario"
     *   Los datos asociados al campo **Unidad de medida** son registros iniciales de la sección **Registros Comunes** de la **Configuración General del Sistema**.
-    *   El campo **Tipo de producto** corresponde a datos registrados previamente en la sección **Registros Comunes** de la **Configuración** del módulo de **Comercialización**.
+    *   El campo **Tipo de producto** corresponde a datos registrados previamente en la sección **Registros Comunes**, opción **Tipos de Productos** de la **Configuración** del módulo de **Comercialización**.
     *   Los datos asociados  al campo **Modalidad de pago** corresponden a datos registrados previamente en la sección **Registros Comunes**, opción **Formas de cobro** de la **Configuración** del módulo de **Comercialización**.   
 
 **Gestión de registros** 
@@ -131,30 +131,81 @@ Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubic
 
 ### Pagos
 
+A través de esta opción se gestionan las formas de pagos a emplear en la organización. 
+
 **Crear**
 
-**Gestión** 
+-   Dirigirse a la **Configuración** del módulo de **Comercialización**.
+-   Ingresar en la opción **Pagos** ubicado en la sección **Registros Comunes**.
+-   Completar el formulario **Forma de Pago**.
+-   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
+
+![Screenshot](../img/image1021.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Formulario Forma de Pago</div> 
+
+**Gestión de registros** 
+
+Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de **Registros**.
+
+![Screenshot](../img/manage_1.png#imagen)
 
 ### Pedidos	
 
-**Crear**
-
-**Gestión** 
-
 ### Tipo de bien	
 
-**Crear**
+A través de esta opción se gestionan los tipos de bienes a gestionar en el módulo de comercialización en la organización usuaria. 
 
-**Gestión** 
+**Crear registro de tipo de bien**
+
+-   Dirigirse a la **Configuración** del módulo de **Comercialización**.
+-   Ingresar en la opción **Tipo de Bien** ubicado en la sección **Registros Comunes**.
+-   Completar el formulario **Registros de Tipo de Bien**.
+-   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
+
+![Screenshot](../img/image1022.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Formulario Registros de Tipo de Bien</div> 
+
+**Gestión de registros** 
+
+Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de **Registros**.
+
+![Screenshot](../img/manage_1.png#imagen)
 
 ### Lista de subservicios
 
-**Crear**
+A través de esta opción se gestionan subservicios a emplear en el módulo de comercialización en la organización usuaria. 
 
-**Gestión** 
+**Establecer subservicio**
+
+-   Dirigirse a la **Configuración** del módulo de **Comercialización**.
+-   Ingresar en la opción **Lista de Subservicios** ubicado en la sección **Registros Comunes**.
+-   Completar el formulario **Lista de Subservicios**.
+-   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
+
+![Screenshot](../img/image1023.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Formulario Lista de Subservicios</div> 
+
+**Gestión de registros** 
+
+Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de **Registros**.
+
+![Screenshot](../img/manage_1.png#imagen)
 
 ### Costos fijos	
 
-**Crear**
+A través de esta opción se establecen los costos fijos, que representan valores monetarios a gestionar en el módulo de comercialización. 
 
-**Gestión** 
+**Crear registro de costos fijos**
+
+-   Dirigirse a la **Configuración** del módulo de **Comercialización**.
+-   Ingresar en la opción **Costos Fijos** ubicado en la sección **Registros Comunes**.
+-   Completar el formulario **Costos Fijos**.
+-   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
+
+![Screenshot](../img/image1024.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Formulario Registros de Tipo de Bien</div> 
+
+!!! note "Datos de formulario"
+    *   Los datos asociados  al campo **Periodicidad de pago** corresponden a datos registrados previamente en la sección **Registros Comunes**, opción **Periodos de Tiempo** de la **Configuración** del módulo de **Comercialización**. 
+
+**Gestión de registros** 
+
+Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de **Registros**.
+
+![Screenshot](../img/manage_1.png#imagen)
