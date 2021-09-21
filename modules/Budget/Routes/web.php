@@ -258,6 +258,15 @@ Route::group(
             Route::get('/budgetAvailibity', 'Reports\BudgetReportsController@budgetAvailability')->name('budget.report.budgetAvailability');
 
             Route::get('/budgetAvailibityPdf', 'Reports\BudgetReportsController@getPdf')->name('budget.report.budgetAvailabilityPdf');
+
+            Route::get('/projects', 'Reports\BudgetReportsController@getProjectsView')->name('budget.report.projects');
+            Route::get('/projects-report', 'Reports\BudgetReportsController@getProjectsReportData')->name('budget.report.projects.data');
+            Route::get('/projects-report-pdf', 'Reports\BudgetReportsController@getProjectsReportPdf')->name('budget.report.projects.pdf');
+
+            Route::get('/formulated', 'Reports\BudgetReportsController@getFormulatedView')->name('budget.report.formulated');
+            Route::get('/formulations', 'Reports\BudgetReportsController@getFormulations')->name('budget.formulations');
+            Route::get('/formulated-report', 'Reports\BudgetReportsController@getFormulatedReportData')->name('budget.report.formulated.data');
+            Route::get('/formulated-report-pdf', 'Reports\BudgetReportsController@getFormulatedReportPdf')->name('budget.report.formulated.pdf');
         });
     }
 );

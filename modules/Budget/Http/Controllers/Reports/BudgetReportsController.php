@@ -7,6 +7,8 @@ namespace Modules\Budget\Http\Controllers\Reports;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Budget\Models\BudgetProject;
+use Modules\Budget\Models\BudgetCentralizedAction;
 use Modules\Budget\Models\BudgetAccountOpen;
 use Modules\Budget\Models\BudgetAccount;
 use Modules\Budget\Models\BudgetSubSpecificFormulation;
@@ -15,8 +17,6 @@ use App\Models\FiscalYear;
 use Modules\Budget\Models\Currency;
 
 use App\Repositories\ReportRepository;
-use DateTime;
-use PhpParser\Node\Expr\Cast\Bool_;
 
 /**
  * @class BudgetAccountOpenController
@@ -249,5 +249,222 @@ class BudgetReportsController extends Controller
             'initialDate' => $data['initialDate'],
             'finalDate' => $data['finalDate'],
         ]);
+    }
+
+    public function getProjectsView()
+    {
+        return view('budget::reports.projects');
+    }
+
+    public function getProjectsReportData(Request $request)
+    {
+        try {
+            $project_code = $request->input('project_code');
+            $search = $request->input('search');
+
+            $query = BudgetProject::query();
+
+            if ($project_code) {
+                $query->where("code", "LIKE", "%" . $project_code . "%");
+            }
+
+            if ($search) {
+                $query->where("name", "LIKE", "%" . $search . "%");
+            }
+
+            $query = $query->get();
+
+            $response = [
+                'data' => $query,
+                "message" => "Data para reporte de proyectos"
+            ];
+        } catch (\Exception $e) {
+            $code = $e->getCode() ? (is_numeric($e->getCode()) ? $e->getCode() : 500) : 500;
+            $msg = $e->getMessage() ?? "Error al obtener la data para el reporte de proyectos";
+            $response = [
+                "message" => $msg,
+                "errors" => []
+            ];
+        }
+
+        return response()->json($response, $code ?? 200);
+    }
+
+    public function getProjectsReportPdf(Request $request)
+    {
+        try {
+            $project_code = $request->input('project_code');
+            $search = $request->input('search');
+
+            $query = BudgetProject::query();
+
+            if ($project_code) {
+                $query->where("code", "LIKE", "%" . $project_code . "%");
+            }
+
+            if ($search) {
+                $query->where("name", "LIKE", "%" . $search . "%");
+            }
+
+            $query = $query->get();
+
+
+
+            $pdf = new ReportRepository();
+            $institution = Institution::find(1);
+
+            $pdf->setConfig(['institution' => $institution]);
+            $pdf->setHeader('Reporte de proyectos', 'Reporte de proyectos de la institucion');
+            $pdf->setFooter();
+            $pdf->setBody('budget::pdf.projects', true, [
+                'pdf' => $pdf,
+                'records' => $query,
+            ]);
+        } catch (\Exception $e) {
+            $code = $e->getCode() ? (is_numeric($e->getCode()) ? $e->getCode() : 500) : 500;
+            $msg = $e->getMessage() ?? "Error al obtener la data para el reporte de proyectos";
+            $response = [
+                "message" => $msg,
+                "errors" => []
+            ];
+
+
+            return response()->json($response, $code ?? 200);
+        }
+    }
+
+    public function getFormulatedView()
+    {
+        $formulations = BudgetSubSpecificFormulation::all(['year']);
+
+        $years = [];
+
+        foreach ($formulations as $formulation) {
+            $years[] = $formulation->year;
+        }
+
+        $years = array_unique($years);
+
+        return view('budget::reports.budgetFormulated', ['years' => json_encode($years)]);
+    }
+
+    public function getFormulations(Request $request)
+    {
+        $entity = $request->input('is_project')
+            ? BudgetProject::class
+            : BudgetCentralizedAction::class;
+
+        $id = $request->input('id');
+
+        $query = BudgetSubSpecificFormulation::query();
+
+        $query = $query->whereHas('specificAction', function ($query) use ($entity, $id) {
+            $query->whereHasMorph('specificable', [BudgetProject::class, BudgetCentralizedAction::class], function ($query) use ($entity, $id) {
+                return $query->where('specificable_id', $id)
+                    ->where('specificable_type', $entity);
+            });
+        });
+
+        $query = $query->get();
+
+        $formulations = $query->count() ? [['id' => '', 'text' => 'Seleccione']] : [];
+
+        foreach ($query as $formulation) {
+            $formulations[] = [
+                'id' => $formulation->id,
+                'text' => $formulation->code
+            ];
+        }
+
+        return response()->json($formulations);
+    }
+
+
+    public function getFormulatedReportData(Request $request)
+    {
+
+        $formulation_id = $request->input('formulation_id');
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+
+        $query = BudgetAccountOpen::where('budget_sub_specific_formulation_id', $formulation_id);
+
+        if ($start_date) {
+            $query->where('created_at', '>=', $start_date);
+        }
+
+        if ($end_date) {
+            $query->where('created_at', '<=', $end_date);
+        }
+
+        $query = $query->get();
+
+        $total = $query->sum('total_real_amount');
+
+        foreach ($query as $account) {
+            $account->code = $account->budgetAccount->getCodeAttribute();
+            $account->percentage = round(($account->total_real_amount * 100) / $total);
+            $account->total = $total;
+        }
+
+        return response()->json(['data' => $query]);
+    }
+
+    public function getFormulatedReportPdf(Request $request)
+    {
+        try {
+
+            $formulation_id = $request->input('formulation_id');
+            $start_date = $request->input('start_date');
+            $end_date = $request->input('end_date');
+
+            $query = BudgetAccountOpen::where('budget_sub_specific_formulation_id', $formulation_id);
+
+            if ($start_date) {
+                $query->where('created_at', '>=', $start_date);
+            }
+
+            if ($end_date) {
+                $query->where('created_at', '<=', $end_date);
+            }
+
+            $query = $query->get();
+            $total = $query->sum('total_real_amount');
+
+            foreach ($query as $account) {
+                $account->code = $account->budgetAccount->getCodeAttribute();
+                $account->percentage = round(($account->total_real_amount * 100) / $total);
+                $account->total = $total;
+            }
+
+            $pdf = new ReportRepository();
+
+            $institution = Institution::find(1);
+
+            $fiscal_year = FiscalYear::where('active', true)->first();
+
+            $currency = Currency::where('default', true)->first();
+
+            $pdf->setConfig(['institution' => $institution]);
+            $pdf->setHeader('Reporte de Presupuesto', 'Presupuesto Formulado del ejercicio económico financiero vigente');
+            $pdf->setFooter();
+            $pdf->setBody('budget::pdf.formulations', true, [
+                'pdf' => $pdf,
+                'records' => $query,
+                'institution' => $institution,
+                'currencySymbol' => $currency['symbol'],
+                'fiscal_year' => $fiscal_year['year'],
+            ]);
+        } catch (\Exception $e) {
+            $code = $e->getCode() ? (is_numeric($e->getCode()) ? $e->getCode() : 500) : 500;
+            $msg = $e->getMessage() ?? "Error al obtener la data para el reporte de formulationes";
+            $response = [
+                "message" => $msg,
+                "errors" => []
+            ];
+
+
+            return response()->json($response, $code ?? 200);
+        }
     }
 }
