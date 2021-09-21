@@ -131,6 +131,9 @@
 				<div slot="requested_by" slot-scope="props" class="text-center">
 	                <span>{{ props.row.first_name + ' ' + props.row.last_name }}</span>
 	        	</div>
+	        	<div slot="citizen_service_request_type_id" slot-scope="props" class="text-center">
+	                <span>{{ props.row.citizen_service_request_type ? props.row.citizen_service_request_type.name :''}}</span>
+	        	</div>
 			</v-client-table>
 		</div>
 	</div>

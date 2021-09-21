@@ -11,7 +11,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Repositories\UploadImageRepository;
 use App\Repositories\UploadDocRepository;
 use Modules\CitizenService\Models\CitizenServiceRequest;
-
+use DB;
 
 class CitizenServiceRequestCloseController extends Controller
 {
@@ -82,6 +82,7 @@ class CitizenServiceRequestCloseController extends Controller
                 'pictures',
                 CitizenServiceRequest::class,
                 $request->request_id,
+                true
             )) {
 
                      $file_id = $upImage->getImageStored()->id;
@@ -107,7 +108,11 @@ class CitizenServiceRequestCloseController extends Controller
      */
     public function show($filename)
     {
-        $file = storage_path() . '/documents/' . $filename;
+        if (\Storage::disk('pictures')->exists($filename)) {
+            $file = storage_path() . '/pictures/' . $filename;
+        } elseif (\Storage::disk('documents')->exists($filename)) {
+            $file = storage_path() . '/documents/' . $filename;
+        }
 
         return response()->download($file, $filename, [], 'inline');
     }
@@ -144,8 +149,39 @@ class CitizenServiceRequestCloseController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-            $image = Image::find($id);
-            $doc = Document::find($id);
+        $image = Image::find($id);
+        $doc = Document::find($id);
+        if (isset($image)) {
+            $file = $image->file;
+            if (!is_null($file)) {
+                DB::transaction(function () use ($image, $file, $request) {
+                    if ($request->force_delete) {
+                        $image->forceDelete();
+                        if (Storage::disk((isset($request->store)) ? $request->store : 'pictures')->exists($file)) {
+                            Storage::disk((isset($request->store)) ? $request->store : 'pictures')->delete($file);
+                        }
+                    } else {
+                        $image->delete();
+                    }
+                });
+                return response()->json(['result' => true, 'message' => 'Success'], 200);
+            }
+        } elseif (isset($doc)) {
+            $file = $doc->file;
+            if (!is_null($file)) {
+                DB::transaction(function () use ($doc, $file, $request) {
+                    if ($request->force_delete) {
+                        $doc->forceDelete();
+                        if (Storage::disk((isset($request->store)) ? $request->store : 'documents')->exists($file)) {
+                            Storage::disk((isset($request->store)) ? $request->store : 'documents')->delete($file);
+                        }
+                    } else {
+                        $doc->delete();
+                    }
+                });
+                return response()->json(['result' => true, 'message' => 'Success'], 200);
+            }
+        }
         if ((is_null($image)) && (!is_null($doc))) {
             return response()->json([
                 'result' => false, 'message' => __('El archivo no existe o ya fue eliminado')
@@ -155,41 +191,34 @@ class CitizenServiceRequestCloseController extends Controller
                'result' => false, 'message' => __('El archivo no existe o ya fue eliminado')
             ], 200);
         }
-        $file = $image->file;
-        if (!is_null($file)) {
-            DB::transaction(function () use ($image, $file, $request) {
-                if ($request->force_delete) {
-                    $image->forceDelete();
-                    if (Storage::disk((isset($request->store)) ? $request->store : 'pictures')->exists($file)) {
-                        Storage::disk((isset($request->store)) ? $request->store : 'pictures')->delete($file);
-                    }
-                } else {
-                    $image->delete();
-                }
-            });
-            return response()->json(['result' => true, 'message' => 'Success'], 200);
-        }
-        $file = $doc->file;
-        if (!is_null($file)) {
-            DB::transaction(function () use ($doc, $file, $request) {
-                if ($request->force_delete) {
-                    $doc->forceDelete();
-                    if (Storage::disk((isset($request->store)) ? $request->store : 'documents')->exists($file)) {
-                        Storage::disk((isset($request->store)) ? $request->store : 'documents')->delete($file);
-                    }
-                } else {
-                    $doc->delete();
-                }
-            });
-
-            return response()->json(['result' => true, 'message' => 'Success'], 200);
-        }
+        
     }
 
-    public function getCitizenServiceRequestDocuments($id)
+    public function getCitizenServiceRequestDocuments($id, $all=null)
     {
-        $citizenServiceRequest = CitizenServiceRequest::where('id', $id)
-            ->with('documents')->first();
-        return response()->json(['records' => $citizenServiceRequest->documents], 200);
+        if (is_null($all)) {
+            $citizenServiceRequest = CitizenServiceRequest::where(['id' => $id, 'state' => 'Culminado'])
+            ->with('documents', 'images')->first();
+        } else {
+            $citizenServiceRequest = CitizenServiceRequest::where(['id' => $id])
+            ->with('documents', 'images')->first();
+        }
+        $docs = $citizenServiceRequest->documents ?? null;
+        $images = $citizenServiceRequest->images ?? null;
+        $records = [];
+        if (isset($docs)) {
+            if (isset($images)) {
+                $records = $docs->merge($images);
+            } else {
+                $records = $docs;
+            }
+        } elseif (isset($images)) {
+            if (isset($docs)) {
+                $records = $images->merge($docs);
+            } else {
+                $records = $images;
+            }
+        }
+        return response()->json(['records' => $records], 200);
     }
 }
