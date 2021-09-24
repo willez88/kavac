@@ -21,7 +21,6 @@
 		<div class="col-12">
 			<div class="card" id="codeSettingForm">
 				<div class="card-header">
-					<td class="text-center">{{ $enable }}</td>
 					<h6 class="card-title">
 						{{ __('Formatos de Códigos') }}
 						@include('buttons.help', [

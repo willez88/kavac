@@ -158,7 +158,8 @@ class BudgetSubSpecificFormulationController extends Controller
     public function show($id)
     {
         $formulation = BudgetSubSpecificFormulation::find($id);
-        return view('budget::formulations.show', compact('formulation'));
+        $enable = isModuleEnabled('DigitalSignature');
+        return view('budget::formulations.show', compact('formulation', 'enable'));
     }
 
     /**
