@@ -501,51 +501,55 @@ class DigitalSignatureController extends Controller
             // Si tiene un certificado firmante almacenado
             if(User::find(auth()->user()->id)->signprofiles) {
 
-                //Documento pdf
-                $filename = Str::random(10);
-                $filenamepdf = $filename . '.pdf';
-                $path = $request->file('pdf')->storeAs('',$filenamepdf, 'temporary');
-                $filenamepdfsign = $filename . '-sign.pdf';
-                $getpath = new Helper();
-                $storePdfSign = $getpath->getPathSign($filenamepdfsign);
-                $storePdf = $getpath->getPathSign($filenamepdf);
+                if ($request->file('pdf')) {
+                    //Documento pdf
+                    $filename = Str::random(10);
+                    $filenamepdf = $filename . '.pdf';
+                    $path = $request->file('pdf')->storeAs('',$filenamepdf, 'temporary');
+                    $filenamepdfsign = $filename . '-sign.pdf';
+                    $getpath = new Helper();
+                    $storePdfSign = $getpath->getPathSign($filenamepdfsign);
+                    $storePdf = $getpath->getPathSign($filenamepdf);
 
 
-                //Crear archivo pkcs#12
-                $cert = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['cert']);
-                $pkey = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['pkey']);
-                //$passphrase = Str::random(10);
-                $passphrase = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['passphrase']);
+                    //Crear archivo pkcs#12
+                    $cert = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['cert']);
+                    $pkey = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['pkey']);
+                    //$passphrase = Str::random(10);
+                    $passphrase = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['passphrase']);
 
-                //Datos para la firma
-                $filenamep12 = Str::random(10) . '.p12';
-                $storeCertificated = $getpath->getPathSign($filenamep12);
-                $createpkcs12 = openssl_pkcs12_export_to_file($cert,$storeCertificated,$pkey,$passphrase);
-                $pathPortableSigner = $getpath->getPathSign('PortableSigner');
+                    //Datos para la firma
+                    $filenamep12 = Str::random(10) . '.p12';
+                    $storeCertificated = $getpath->getPathSign($filenamep12);
+                    $createpkcs12 = openssl_pkcs12_export_to_file($cert,$storeCertificated,$pkey,$passphrase);
+                    $pathPortableSigner = $getpath->getPathSign('PortableSigner');
 
-                //ejecución del comando para firmar
-                $comand = 'java -jar ' . $pathPortableSigner . ' -n -t ' . $storePdf . ' -o ' . $storePdfSign . ' -s ' . $storeCertificated . ' -p ' . $passphrase;
-                $run = exec($comand, $output);
+                    //ejecución del comando para firmar
+                    $comand = 'java -jar ' . $pathPortableSigner . ' -n -t ' . $storePdf . ' -o ' . $storePdfSign . ' -s ' . $storeCertificated . ' -p ' . $passphrase;
+                    $run = exec($comand, $output);
 
-                //enlace para descargar el documento PDF
-                $pathDownload = asset('storage/temporary/'.$filenamepdfsign);
-                $headers = array(
-                     'Content-Type: application/pdf',
-                   );
+                    //enlace para descargar el documento PDF
+                    $pathDownload = asset('storage/temporary/'.$filenamepdfsign);
+                    $headers = array(
+                         'Content-Type: application/pdf',
+                       );
 
-                //elimina el certficado .p12
-                Storage::disk('temporary')->delete($filenamep12);
+                    //elimina el certficado .p12
+                    Storage::disk('temporary')->delete($filenamep12);
 
-                //elimina el documento pdf
-                Storage::disk('temporary')->delete($filenamepdf);
+                    //elimina el documento pdf
+                    Storage::disk('temporary')->delete($filenamepdf);
 
-                $previousUrl = app('url')->previous(); //obtiene el nombre de la ruta
+                    $previousUrl = app('url')->previous(); //obtiene el nombre de la ruta
 
-                $routeAction = $request->route()->getName();
+                    $routeAction = $request->route()->getName();
 
-                return response()->json(['msg' => "El documento fue firmado exitosamente",
-                                        'namefile' => $filenamepdfsign,
-                                        'signfile' => 'true']);
+                    return response()->json(['msg' => "El documento fue firmado exitosamente",
+                                            'namefile' => $filenamepdfsign,
+                                            'signfile' => 'true']);
+                }
+                return response()->json(['msg' => "Seleccione un documento PDF"]);
+
             }
             return redirect()->route('fileprofile');
         }
@@ -611,7 +615,7 @@ class DigitalSignatureController extends Controller
      * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
      * @return json
      */
-    public function validateAuthentication($passphrase) {
+    public function validateAuth($passphrase) {
         if(Auth::user()) {
             if(User::find(auth()->user()->id)->signprofiles) {
                 //$passphrase = 123456;
@@ -621,12 +625,12 @@ class DigitalSignatureController extends Controller
                 if($passphrase == $passphraseOrigin) {
                     return response()->json([
                         'authorization' => 'true',
-                        'msg' => "Autenticación validad"]);
+                        'msg' => "Autenticación validada"]);
                 }
                 else {
                     return response()->json([
                         'validate' => 'false',
-                        'msg' => "Autenticación invalidad"]);
+                        'msg' => "Autenticación invalidada"]);
                 }
             }
             return redirect()->route('fileprofile');
@@ -640,22 +644,23 @@ class DigitalSignatureController extends Controller
      * @author Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
      * @return json
      */
-    public function validateAuthenticationApi($passphrase) {
+    public function validateAuthApi(Request $request) {
         if(Auth::user()) {
             if(User::find(auth()->user()->id)->signprofiles) {
-                //$passphraseCompare = Crypt::encryptString($passphrase);  
-                //$passphraseOrigin = User::find(auth()->user()->id)->signprofiles['passphrase'];
+
+                $passphrase = $request->get('passphrase');
                 $passphraseOrigin = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['passphrase']);
+
                 if($passphrase == $passphraseOrigin) {
                     return response()->json([
-                        'authentication' => 'true',
-                        'msg' => "Autenticación validad"]);
+                        'auth' => true,
+                        'msg' => ""
+                    ]);
                 }
-                else {
-                    return response()->json([
-                        'authentication' => 'false',
-                        'msg' => "Autenticación validad"]);
-                }
+                return response()->json([
+                    'auth' => false,
+                    'msg' => "La contraseña del certificado no concuerda con la guardada"
+                ]);
             }
             return redirect()->route('fileprofile');
         }

@@ -94,12 +94,13 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'digitals
 
     /**
     * ---------------------------------------------
-    * Rutas para vaidar la autenticación
+    * Rutas para validar la autenticación
     * ---------------------------------------------
     */
-    /* Ruta para validar la autenticación */
-    Route::get('validateAuthentication', 'DigitalSignatureController@validateAuthentication')->name('validateAuthentication');
-    /* Ruta para validar la autenticación API */
-    Route::get('apivalidateAuthentication', 'DigitalSignatureController@validateAuthenticationApi')->name('apivalidateAuthentication');
 
+    /* Ruta para validar la autenticación */
+    Route::get('validateAuth', 'DigitalSignatureController@validateAuth')->name('validateAuth');
+
+    /* Ruta para validar la autenticación API */
+    Route::post('validateAuthApi', 'DigitalSignatureController@validateAuthApi')->name('validateAuthApi');
 });
