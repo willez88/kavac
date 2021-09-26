@@ -16,7 +16,7 @@ Crear un parámetro global de nómina:
 -   Completar el formulario de registro.
 -   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image27.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Parámetro Global de Nómina</div>
+![Screenshot](../img/image27.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Parámetro Global de Nómina</div>
 
 !!! info ""
     El formulario de registro de **Parámetro Global de Nómina** incluye tres (3) tipos de parámetros: 
@@ -41,7 +41,7 @@ Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen) 
+![Screenshot](../img/manage_1.png#imagen) 
 
 ### Escalafones salariales 
 
@@ -56,7 +56,7 @@ Crear un escalafón salarial:
 -   Agregar una o más escalas.      
 -   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image28.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Escalafón Salarial</div>
+![Screenshot](../img/image28.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Escalafón Salarial</div>
 
 !!! info ""
     En la sección **Nueva Escala** es posible agregar una o más escalas, para ello es necesario indicar un **Nombre** y el **Valor** por cada escala, las opciones del campo **Valor** son definidas a partir del tipo de agrupación seleccionado en el campo anterior **Agrupar por**. 
@@ -68,7 +68,7 @@ Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen) 
+![Screenshot](../img/manage_1.png#imagen) 
 
 
 ### Tabulador de nómina
@@ -90,16 +90,16 @@ Definir tabulador de nómina:
 !!! info ""
     Para definir un tabulador de nómina es necesario contar con registros previos de **Escalafones Salariales**. 
 
-![Screenshot](/img/image30.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Tabulador de Nómina(Definir Tabulador)</div>
+![Screenshot](../img/image30.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Tabulador de Nómina(Definir Tabulador)</div>
 
-![Screenshot](/img/image31.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Tabulador de Nómina(Cargar Tabulador)</div>
+![Screenshot](../img/image31.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Tabulador de Nómina(Cargar Tabulador)</div>
 
  
 Gestión de registros:
 
 Para **Descargar** tabulador, **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_3.png#imagen) 
+![Screenshot](../img/manage_3.png#imagen) 
 
 ### Tipos de conceptos
 
@@ -112,13 +112,13 @@ Definir un tipo de concepto:
 -   Completar el formulario indicando **Nombre**, **Signo** y **Descripción** del concepto.
 -   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image32.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Tipo de Concepto</div>
+![Screenshot](../img/image32.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Tipo de Concepto</div>
 
 Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen) 
+![Screenshot](../img/manage_1.png#imagen) 
 
 ### Conceptos
 
@@ -137,13 +137,13 @@ Definir un concepto:
     *      Fórmula
     *      De acuerdo a tabulador
 
-![Screenshot](/img/image33.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Concepto</div>
+![Screenshot](../img/image33.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Concepto</div>
 
 Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen) 
+![Screenshot](../img/manage_1.png#imagen) 
 ### Tipos de pago 
 
 Desde esta sección se establecen los diferentes tipos de pagos de nómina.  Esta funcionalidad permite establecer un código de identificación unico para el tipo de pago en cuestión, programar períodos de pago y establecer las incidencias sobre las diferentes categorías.   
@@ -158,15 +158,15 @@ Definir un tipo de pago:
 !!! info ""
     Para completar el formulario se requiere al menos un registro previo de **Concepto**.
 
-![Screenshot](/img/image34.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Tipo de Pago</div>
+![Screenshot](../img/image34.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Tipo de Pago</div>
 
-![Screenshot](/img/image35.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Período de Pago Definido</div>
+![Screenshot](../img/image35.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Período de Pago Definido</div>
 
 Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen) 
+![Screenshot](../img/manage_1.png#imagen) 
 
 ### Política vacacional 
 
@@ -190,15 +190,15 @@ Definir política vacacional:
     ![Screenshot](/img/add.png#imagen)
 
 
-![Screenshot](/img/image36.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Políticas Vacacionales</div>
+![Screenshot](../img/image36.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Políticas Vacacionales</div>
 
-![Screenshot](/img/image37.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Pago de Vacaciones</div>
+![Screenshot](../img/image37.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Pago de Vacaciones</div>
 
 Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen) 
+![Screenshot](../img/manage_1.png#imagen) 
 
 ### Políticas de prestaciones 
 
@@ -216,15 +216,15 @@ Definir políticas de prestaciones:
 
     Para completar el formulario se requiere al menos un registro previo de **Tipo de Pago**.
 
-![Screenshot](/img/image38.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Definir Política de Prestaciones Sociales</div>
+![Screenshot](../img/image38.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Definir Política de Prestaciones Sociales</div>
 
-![Screenshot](/img/image39.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Definir Pago de Prestaciones Sociales</div>
+![Screenshot](../img/image39.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Definir Pago de Prestaciones Sociales</div>
 
 Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen) 
+![Screenshot](../img/manage_1.png#imagen) 
 ### Políticas de permisos
 
 A través de esta funcionalidad se definen los parámetros a seguir para la solicitud de permisos.
@@ -236,13 +236,13 @@ Definir políticas de permisos:
 -   Completar el formulario de la sección **Políticas de Permisos** .
 -   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image40.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Política de Permisos</div>
+![Screenshot](../img/image40.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Política de Permisos</div>
 
 Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen) 
+![Screenshot](../img/manage_1.png#imagen) 
 ### Tipos de liquidación 
 
 En esta sección se realiza el registro de diferentes tipos de liquidaciones que pueden representar el cierre de un proceso.  Para el registro de un tipo de liquidación se requiere un registro previo de **Concepto**. 
@@ -254,12 +254,12 @@ Definir un tipo de liquidación:
 -   Completar el formulario de la sección **Tipo de Liquidación** .
 -   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image41.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Tipo de Liquidación</div>
+![Screenshot](../img/image41.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Tipo de Liquidación</div>
 
 Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen) 
+![Screenshot](../img/manage_1.png#imagen) 
 
 

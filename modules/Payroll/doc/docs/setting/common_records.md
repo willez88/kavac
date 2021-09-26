@@ -16,13 +16,13 @@ Crear tipo de personal:
 -   Completar el formulario ingresando el nombre y la descripción del tipo de personal.
 -   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image10.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Tipo de Personal</div>
+![Screenshot](../img/image10.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Tipo de Personal</div>
 
 Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen)
+![Screenshot](../img/manage_1.png#imagen)
 
 ### Tipos de cargo
 
@@ -35,13 +35,13 @@ Crear tipo de cargo:
 -   Completar el formulario ingresando el nombre y la descripción del tipo de cargo.
 -   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image11.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Tipo de Cargo</div>
+![Screenshot](../img/image11.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Tipo de Cargo</div>
 
 Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen)
+![Screenshot](../img/manage_1.png#imagen)
 
 ### Cargos
 
@@ -54,13 +54,13 @@ Crear registro de cargo:
 -   Completar el formulario ingresando el nombre y la descripción del cargo.
 -   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image12.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Cargo</div>
+![Screenshot](../img/image12.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Cargo</div>
 
 Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen)
+![Screenshot](../img/manage_1.png#imagen)
 
 ### Clasificación del personal
 
@@ -73,13 +73,13 @@ Crear clasificación del personal:
 -   Completar el formulario ingresando el nombre y la descripción de la clasificación.
 -   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image13.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Clasificación del Personal</div>
+![Screenshot](../img/image13.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Clasificación del Personal</div>
 
 Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen)
+![Screenshot](../img/manage_1.png#imagen)
 
 ### Grados de instrucción
 
@@ -92,13 +92,13 @@ Crear grado de instrucción:
 -   Completar el formulario ingresando el nombre y la descripción del grado de instrucción.
 -   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image14.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Grado de Instrucción</div>
+![Screenshot](../img/image14.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Grado de Instrucción</div>
 
 Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen)
+![Screenshot](../img/manage_1.png#imagen)
 
 
 ### Tipos de estudio
@@ -112,13 +112,13 @@ Crear tipo de estudio:
 -   Completar el formulario ingresando el nombre y la descripción del tipo de estudio.
 -   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image15.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Tipo de Estudio</div>
+![Screenshot](../img/image15.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Tipo de Estudio</div>
 
 Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen)
+![Screenshot](../img/manage_1.png#imagen)
 
 ### Nacionalidades
 
@@ -131,13 +131,13 @@ Crear nacionalidad:
 -   Completar el formulario ingresando el nombre y la descripción de la nacionalidad.
 -   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image16.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Nacionalidades</div>
+![Screenshot](../img/image16.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Nacionalidades</div>
 
 Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen)
+![Screenshot](../img/manage_1.png#imagen)
 
 ### Niveles de idioma
 
@@ -150,13 +150,13 @@ Crear nivel de idioma:
 -   Completar el formulario ingresando el nombre del nivel de idioma.
 -   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image17.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Niveles de Idiomas</div>
+![Screenshot](../img/image17.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Niveles de Idiomas</div>
 
 Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen)
+![Screenshot](../img/manage_1.png#imagen)
 
 ### Idiomas
 
@@ -169,13 +169,13 @@ Crear registro de idioma:
 -   Completar el formulario ingresando el nombre y el acrónimo del idioma.
 -   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image18.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Idiomas</div>
+![Screenshot](../img/image18.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Idiomas</div>
 
 Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen)
+![Screenshot](../img/manage_1.png#imagen)
 
 ### Géneros
 
@@ -188,13 +188,13 @@ Crear registro de género:
 -   Completar el formulario ingresando el nombre del género.
 -   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image19.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Géneros</div>
+![Screenshot](../img/image19.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Géneros</div>
 
 Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen)
+![Screenshot](../img/manage_1.png#imagen)
 
 ### Tipos de inactividad
 
@@ -207,14 +207,14 @@ Crear tipo de inactividad:
 -   Completar el formulario ingresando el nombre del tipo de inactividad.
 -   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image20.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Géneros</div>
+![Screenshot](../img/image20.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Géneros</div>
 
 
 Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen)
+![Screenshot](../img/manage_1.png#imagen)
 
 ### Tipos de contrato
 
@@ -227,13 +227,13 @@ Crear tipo de contrato:
 -   Completar el formulario ingresando el nombre del tipo de contrato.
 -   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image21.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Tipos de Contratos</div>
+![Screenshot](../img/image21.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Tipos de Contratos</div>
 
 Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen)
+![Screenshot](../img/manage_1.png#imagen)
 
 ### Tipos de sector
 
@@ -246,13 +246,13 @@ Crear tipo de sector:
 -   Completar el formulario ingresando el nombre del tipo de sector.
 -   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image22.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Tipo de Sector</div>
+![Screenshot](../img/image22.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Tipo de Sector</div>
 
 Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen)
+![Screenshot](../img/manage_1.png#imagen)
 
 ### Licencia de conducir
 
@@ -265,13 +265,13 @@ Crear un registro de grado de licencia de conducir:
 -   Completar el formulario ingresando el nombre y la descripción del grado de licencia de conducir.
 -   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image23.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Grado de Licencia de Conducir</div>
+![Screenshot](../img/image23.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Grado de Licencia de Conducir</div>
 
 Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen)
+![Screenshot](../img/manage_1.png#imagen)
 
 ### Tipos de sangre
 
@@ -284,13 +284,13 @@ Crear un registro de tipo de sangre:
 -   Completar el formulario ingresando el nombre del tipo de sangre.
 -   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image24.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Tipo de Sangre</div>
+![Screenshot](../img/image24.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Tipo de Sangre</div>
 
 Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen)
+![Screenshot](../img/manage_1.png#imagen)
 
 ### Parentescos
 
@@ -301,13 +301,13 @@ Crear un registro de parentesco:
 -   Completar el formulario ingresando el nombre y la descripción del parentesco.
 -   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image25.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Parentesco</div>
+![Screenshot](../img/image25.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Parentesco</div>
 
 Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen)
+![Screenshot](../img/manage_1.png#imagen)
 
 ### Discapacidades
 
@@ -320,10 +320,10 @@ Crear un registro de discapacidad:
 -   Completar el formulario ingresando el nombre y la descripción de la discapacidad.
 -   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image26.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Discapacidades</div>
+![Screenshot](../img/image26.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registro de Discapacidades</div>
 
 Gestión de registros:
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de Registros.
 
-![Screenshot](/img/manage_1.png#imagen)
+![Screenshot](../img/manage_1.png#imagen)
