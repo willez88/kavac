@@ -26,6 +26,18 @@ class WarehouseCloseController extends Controller
     use ValidatesRequests;
 
     /**
+     * Arreglo con las reglas de validación sobre los datos de un formulario
+     * @var Array $validateRules
+     */
+    protected $validateRules;
+
+    /**
+     * Arreglo con los mensajes para las reglas de validación
+     * @var Array $messages
+     */
+    protected $messages;
+
+    /**
      * Define la configuración de la clase
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
@@ -34,6 +46,20 @@ class WarehouseCloseController extends Controller
     {
         /** Establece permisos de acceso para cada método del controlador */
         $this->middleware('permission:warehouse.setting.close');
+
+        /** Define las reglas de validación para el formulario */
+        $this->validateRules = [
+            'warehouse_id' => ['required'],
+            'initial_date' => ['required'],
+            'observations' => ['required']
+        ];
+
+        /** Define los mensajes de validación para las reglas del formulario */
+        $this->messages = [
+            'warehouse_id.required' => 'El campo nombre del almacén es obligatorio.',
+            'initial_date.required' => 'El campo inicio del cierre de almacén es obligatorio.',
+            'observations.required' => 'El campo observaciones del cierre de almacén es obligatorio.'
+        ];
     }
 
     /**
@@ -59,11 +85,7 @@ class WarehouseCloseController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'initial_date'    => ['required'],
-            'observations'  => ['required'],
-            'warehouse_id' => ['required'],
-        ]);
+        $this->validate($request, $this->validateRules, $this->messages);
 
         $warehouse = Warehouse::find($request->warehouse_id);
         $hoy = date("Y-m-d");

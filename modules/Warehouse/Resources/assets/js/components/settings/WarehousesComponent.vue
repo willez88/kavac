@@ -157,10 +157,7 @@
                                 </span>
                             </div>
                             <div slot="address" slot-scope="props">
-                                <span>
-                                    {{ (props.row.warehouse.address)?
-                                        props.row.warehouse.address:'' }}
-                                </span>
+                                <span v-html="props.row.warehouse.address"></span>
                             </div>
                             <div slot="institution" slot-scope="props">
                                 <span>
@@ -347,8 +344,14 @@
                 'id':          'Acción'
             };
 
-            vm.table_options.sortable       = ['name', 'country', 'estate', 'address', 'institution', 'active'];
-            vm.table_options.filterable     = ['name', 'country', 'estate', 'address', 'institution', 'active'];
+            vm.table_options.sortable       = [
+                'warehouse.name', 'warehouse.parish.municipality.estate.country.name',
+                'warehouse.parish.municipality.estate.name', 'warehouse.address', 'institution.acronym', 'active'
+            ];
+            vm.table_options.filterable     = [
+                'warehouse.name', 'warehouse.parish.municipality.estate.country.name',
+                'warehouse.parish.municipality.estate.name', 'warehouse.address', 'institution.acronym', 'active'
+            ];
             vm.table_options.columnsClasses = {
                 'name':        'col-xs-1',
                 'country':     'col-xs-2',
