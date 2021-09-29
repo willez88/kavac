@@ -48,7 +48,7 @@ class SaleServiceController extends Controller
      */
     public function create()
     {
-        return view('sale::create');
+        return view('sale::services.create');
     }
 
     /**
