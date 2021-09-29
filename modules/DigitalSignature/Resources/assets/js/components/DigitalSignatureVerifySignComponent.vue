@@ -3,7 +3,7 @@
         <a class="btn-simplex btn-simplex-md btn-simplex-primary" href title="Firmar PDF" data-toggle="tooltip"
            @click="addRecord('digitalsignature-apiVerifySign', '', $event)">
             <i class="icofont icofont-file-pdf ico-3x"></i>
-            <span>Verificar firma PDF</span>
+            <span>Verificar firma PDF </span>
         </a>
         <div class="modal fade text-left" tabindex="-1" role="dialog" id="digitalsignature-apiVerifySign">
             <div class="modal-dialog modal-lg">
@@ -55,7 +55,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-default btn-sm btn-round btn-modal-close" type="button" @click="reset()" data-dismiss="modal">
+                        <button class="btn btn-default btn-sm btn-round btn-modal-close" type="button" @click="reset()"
+                                data-dismiss="modal">
                             Cerrar
                         </button>
                         <button class="btn btn-primary btn-sm btn-round" @click="verifyFile()">
@@ -116,12 +117,11 @@
                 let pdfToVerify = document.getElementById('pdf').files[0];
                 data.append('pdf', pdfToVerify);
                 vm.loading = true;
-                axios.post('digitalsignature/apiVerifysignfile', data).then(function (response) {
+                axios.post('/digitalsignature/apiVerifysignfile', data).then(function (response) {
                     vm.errors = [];
                     vm.records = (typeof(response.data.records) === 'string')
                                ? JSON.parse(response.data.records)
                                : response.data.records;
-                    console.log(vm.records);
                     vm.show = true;
                     vm.loading = false;
                 }).catch(error => {

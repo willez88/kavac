@@ -181,6 +181,10 @@ Route::group(
             'print-formulated/{id}',
             'BudgetSubSpecificFormulationController@printFormulated'
         )->name('print.formulated');
+        Route::get(
+            'print-formulated-sign/{id}',
+            'BudgetSubSpecificFormulationController@printFormulatedSign'
+        )->name('print.formulatedsign');
         Route::get('reports/download', 'BudgetSubSpecificFormulationController@download');
 
         /**

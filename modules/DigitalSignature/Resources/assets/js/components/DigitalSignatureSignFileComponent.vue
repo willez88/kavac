@@ -31,23 +31,32 @@
                             </button>
                             <input id="file" class="d-none" type="file" name="file" accept=".pdf"
                                    @change="selectedFile('file')" required />
-                            <label id="file-label" for="pdf"> Seleccionar archivo pdf </label>
+                            <label id="file-label" for="pdf" tabindex="1"> Seleccionar archivo pdf </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="passphrase">Contraseña del certificado</label>
+                            <input id="passphrase" class="form-control" type="password" name="password" tabindex="2"
+                                   placeholder="Contraseña del certificado" v-model="passphrase" />
+                            <p class="text-danger" v-if="verify"> {{ records.msg }} </p>
                         </div>
                         <div class="row" v-if="show">
                             <div class="col-12 pt-3">
                                 <h6> Detalle de la firma </h6>
                                 <p> {{ records.msg }} </p>
                                 <p> Descargar archivo:
-                                    <a :href="'digitalsignature/apiGetFile/'+records.namefile">{{ records.namefile }}</a>
+                                    <a :href="'/digitalsignature/apiGetFile/'+records.namefile">
+                                        {{ records.namefile }}
+                                    </a>
                                 </p>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-default btn-sm btn-round btn-modal-close" type="button" @click="reset()" data-dismiss="modal">
+                        <button class="btn btn-default btn-sm btn-round btn-modal-close" type="button" @click="reset()"
+                                data-dismiss="modal">
                             Cerrar
                         </button>
-                        <button class="btn btn-primary btn-sm btn-round btn-modal-close" @click="signFile()">
+                        <button class="btn btn-primary btn-sm btn-round btn-modal-close" @click="validatePassphrase()">
                             <i class="icofont icofont-fountain-pen"></i>
                             Firmar
                         </button>
@@ -66,6 +75,8 @@
                 records: [],
                 show: false,
                 loading: false,
+                passphrase: '',
+                verify: false,
             }
         },
 
@@ -79,6 +90,7 @@
                 const vm = this;
                 vm.records = [];
                 vm.show = false;
+                vm.passphrase = '';
             },
 
             /**
@@ -122,7 +134,58 @@
                         }
                     }
                 });
-            }
+            },
+
+            /**
+             * Método que sube el archivo pdf y retorna la respuesta al componente
+             *
+             * @author Angelo Osorio <adosorio@cenditel.gob.ve> | <danielking.321@gmail.com>
+             */
+            validatePassphrase() {
+                const vm = this;
+                let data = { 'passphrase': vm.passphrase };
+                axios.post('digitalsignature/validateAuthApi', data).then(function (response) {
+                    vm.records = response.data;
+                    vm.errors = [];
+                    vm.verify = true;
+                    vm.loading = false;
+                    if (response.data.auth === true) {
+                        let data = new FormData();
+                        let pdfToSign = document.getElementById('file').files[0];
+                        data.append('pdf', pdfToSign);
+                        vm.loading = true;
+                        axios.post('digitalsignature/apiSignFile', data).then(function (response) {
+                            vm.records = response.data;
+                            vm.errors = [];
+                            vm.show = true;
+                            vm.verify = false;
+                            vm.loading = false;
+                        }).catch(error => {
+                            vm.errors = [];
+                            vm.loading = false;
+
+                            if (typeof(error.response) !="undefined") {
+                                for (var index in error.response.data.errors) {
+                                    if (error.response.data.errors[index]) {
+                                        vm.errors.push(error.response.data.errors[index][0]);
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }).catch(error => {
+                    vm.errors = [];
+                    vm.loading = false;
+
+                    if (typeof(error.response) !="undefined") {
+                        for (var index in error.response.data.errors) {
+                            if (error.response.data.errors[index]) {
+                                vm.errors.push(error.response.data.errors[index][0]);
+                            }
+                        }
+                    }
+                });
+            },
         },
     };
 </script>
