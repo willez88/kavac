@@ -35,6 +35,10 @@
                     data-toggle="tooltip" data-placement="right">
                     <a href="/sale/reports/orders">Pedidos</a>
                 </li>
+                <li title="Reporte de pagos"
+                    data-toggle="tooltip" data-placement="right">
+                    <a href="/sale/reports/payment">Pagos</a>
+                </li>
             </ul>
         </li>
         <li class="{!! set_active_menu('sale.payment.index') !!}">

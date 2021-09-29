@@ -385,5 +385,15 @@ Route::group(
         Route::get('get-departments', 'SaleGoodsToBeTradedController@getDepartments');
         Route::get('get-taxes', 'SaleGoodsToBeTradedController@getTaxes');
         Route::get('get-payroll-staffs', 'SaleGoodsToBeTradedController@getPayrollStaffs');
+
+
+        /*
+         * ------------------------------------------------------------
+         * Rutas para gestionar la generación de reportes en el Modulo de Pagos
+         * ------------------------------------------------------------
+         */
+        Route::get('reports/payment', 'SalePaymentReportController@listPayment')
+            ->name('sale.report.payment');
+
     }
 );

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Schema;
 use Carbon\Carbon;
+use Nwidart\Modules\Facades\Module;
 
 if (!function_exists('set_active_menu')) {
     /**
@@ -867,5 +868,23 @@ if (!function_exists('listMonths')) {
             'jan' => 1, 'feb' => 2, 'mar' => 3,  'apr' => 4,  'may' => 5,  'jun' => 6,
             'jul' => 7, 'aug' => 8, 'sep' => 9, 'oct' => 10, 'nov' => 11, 'dec' => 12
         ];
+    }
+}
+
+if (! function_exists('isModuleEnabled')) {
+    /**
+     * Estado de un módulo
+     *
+     * @method    isModuleEnabled
+     *
+     * @author     Pedro Buitrago <pbuitrago@cenditel.gob.ve> | <pedrobui@gmail.com>
+     *
+     * @param     string    $moduleName    Nombre del modulo
+     *
+     * @return    boolean   Devuelver verdadero si el modulo esta activo, de lo contrario devuelve falso
+     */
+    function isModuleEnabled($moduleName)
+    {
+        return Module::collections()->has($moduleName);
     }
 }
