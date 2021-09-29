@@ -145,12 +145,12 @@
                   </div>
                   <div class="col-md-12">
                     <h6 class="card-title">Correo electrónico <i class="fa fa-plus-circle cursor-pointer" @click="addEmail"></i></h6>
-                    <div class="row" v-for="(email, index) in record.emails">
+                    <div class="row" v-for="(clients_email, index) in record.sale_clients_email">
                       <div class="col-md-4">
                         <div class="form-group is-required">
                           <label for="email_client">Correo electrónico:</label>
                           <input type="text" id="email_client" class="form-control input-sm" data-toggle="tooltip"
-                            title="Correo electrónico" v-model="record.emails.email">
+                            title="Correo electrónico" v-model="clients_email.email">
                         </div>
                       </div>
                       <div class="col-1">
@@ -164,45 +164,51 @@
                     </div>
                   </div>
                   <div class="col-md-12">
-                    <h6 class="card-title">Números Telefónicos <i class="fa fa-plus-circle cursor-pointer" @click="addPhone"></i></h6>
-                    <div class="row" v-for="(phone, index) in record.phones">
-                      <div class="col-3">
-                        <div class="form-group is-required">
-                          <select data-toggle="tooltip" v-model="phone.type" class="form-control" title="Seleccione el tipo de número telefónico">
-                            <option value="">Seleccione...</option>
-                            <option value="M">Móvil</option>
-                            <option value="T">Teléfono</option>
-                            <option value="F">Fax</option>
-                          </select>
+                    <h6 class="card-title">
+                        Números Telefónicos <i class="fa fa-plus-circle cursor-pointer" @click="addPhone"></i>
+                    </h6>
+                    <div class="row phone-row" v-for="(phone, index) in record.phones">
+                        <div class="col-3">
+                            <div class="form-group is-required">
+                                <select data-toggle="tooltip" v-model="phone.type" class="select2"
+                                        title="Seleccione el tipo de número telefónico" :data-phone-index="index">
+                                    <option value="">Seleccione...</option>
+                                    <option value="M">Móvil</option>
+                                    <option value="T">Teléfono</option>
+                                    <option value="F">Fax</option>
+                                </select>
+                            </div>
                         </div>
-                      </div>
-                      <div class="col-2">
-                        <div class="form-group is-required">
-                          <input type="text" placeholder="Cod. Area" data-toggle="tooltip"
-                            title="Indique el código de área" v-model="phone.area_code"
-                            class="form-control input-sm">
+                        <div class="col-2">
+                            <div class="form-group is-required">
+                                <input type="text" placeholder="Cod. Area" data-toggle="tooltip"
+                                       title="Indique el código de área" v-model="phone.area_code"
+                                       class="form-control input-sm" v-is-digits>
+                            </div>
                         </div>
-                      </div>
-                      <div class="col-4">
-                        <div class="form-group is-required">
-                          <input type="text" placeholder="Número" data-toggle="tooltip" title="Indique el número telefónico" v-model="phone.number_phones" class="form-control input-sm">
+                        <div class="col-4">
+                            <div class="form-group is-required">
+                                <input type="text" placeholder="Número" data-toggle="tooltip"
+                                       title="Indique el número telefónico"
+                                       v-model="phone.number" class="form-control input-sm" v-is-digits>
+                            </div>
                         </div>
-                      </div>
-                      <div class="col-2">
-                        <div class="form-group is-required">
-                          <input type="text" placeholder="Extensión" data-toggle="tooltip"
-                            title="Indique la extención telefónica (opcional)"
-                            v-model="phone.extension" class="form-control input-sm">
+                        <div class="col-2">
+                            <div class="form-group">
+                                <input type="text" placeholder="Extensión" data-toggle="tooltip"
+                                       title="Indique la extención telefónica (opcional)"
+                                       v-model="phone.extension" class="form-control input-sm" v-is-digits>
+                            </div>
                         </div>
-                      </div>
-                      <div class="col-1">
-                        <div class="form-group">
-                          <button class="btn btn-sm btn-danger btn-action" type="button" @click="removeRow(index, record.phones)"
-                            title="Eliminar este dato" data-toggle="tooltip">
-                              <i class="fa fa-minus-circle"></i>
-                          </button>
+                        <div class="col-1">
+                            <div class="form-group">
+                                <button class="btn btn-sm btn-danger btn-action" type="button"
+                                        @click="removeRow(index, record.phones)"
+                                        title="Eliminar este dato" data-toggle="tooltip">
+                                    <i class="fa fa-minus-circle"></i>
+                                </button>
+                            </div>
                         </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -253,7 +259,7 @@
           parish_id: '',
           address_tax: '',
           name_client: '',
-          emails: [],
+          sale_clients_email: [],
           phones: [],
           id_type: '',
           id_number: '',
@@ -287,7 +293,7 @@
           parish_id: '',
           address_tax: '',
           name_client: '',
-          emails: [],
+          sale_clients_email: [],
           phones: []
         };
       },
@@ -302,6 +308,15 @@
           email: '',
         });
       },
+      /**
+        * Método que agrega un nuevo campo de atributo al formulario
+        *
+        * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+        */
+        addEmail() {      
+          let field = {id: '', email: '', sale_client_id: ''};
+          this.record.sale_clients_email.push(field);
+        },
     },
     created() {
       this.getCountries();

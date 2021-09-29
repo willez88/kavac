@@ -25,7 +25,7 @@ class SaleClients extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'rif', 'business_name', 'representative_name', 'type_person_juridica', 'name', 'country_id', 'estate_id', 'municipality_id', 'parish_id', 'address_tax', 'name_client', 'emails', 'phones', 'id_number', 'id_type'
+        'rif', 'business_name', 'representative_name', 'type_person_juridica', 'name', 'country_id', 'estate_id', 'municipality_id', 'parish_id', 'address_tax', 'name_client', 'emails', 'id_number', 'id_type'
     ];
     /**
      * Obtiene todos los número telefónicos asociados al cliente
@@ -47,5 +47,17 @@ class SaleClients extends Model implements Auditable
     public function saleBills()
     {
         return $this->hasMany(SaleBill::class);
+    }
+
+    /**
+     * Método que obtiene las direcciones de correo del cliente
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany Objeto con el registro relacionado al modelo
+     * saleClientsEmail
+     */
+    public function saleClientsEmail()
+    {
+        return $this->hasMany(SaleClientsEmail::class);
     }
 }

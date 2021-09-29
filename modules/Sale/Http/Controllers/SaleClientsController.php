@@ -7,6 +7,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Sale\Models\SaleClients;
+use Modules\Sale\Models\SaleClientsEmail;
+use App\Models\Phone;
 use App\Rules\Rif as RifRule;
 
 class SaleClientsController extends Controller
@@ -22,16 +24,7 @@ class SaleClientsController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => SaleClients::all()], 200);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('sale::create');
+        return response()->json(['records' => SaleClients::with(['saleClientsEmail', 'phones'])->get()], 200);
     }
 
     /**
@@ -53,8 +46,6 @@ class SaleClientsController extends Controller
             'parish_id' => ['required', 'max:200'],
             'address_tax' => ['required', 'max:200'],
             'name_client' => ['required_if:type_person_juridica,Jurídica'],
-            // 'emails' => ['required'],
-            // 'phones' => ['nullable', 'regex:/^\d{2}-\d{3}-\d{7}$/u'],
             'id_type' => ['required_if:type_person_juridica,Natural'],
             'id_number' => ['required_if:type_person_juridica,Natural'],
         ]);
@@ -71,8 +62,6 @@ class SaleClientsController extends Controller
         $client->parish_id = $request->parish_id;
         $client->address_tax = $request->address_tax;
         $client->name_client = $request->name_client;
-        // $client->emails = $request->emails;
-        // $client->phones = $request->phones;
         $client->id_type = $request->id_type;
         $client->id_number = $request->id_number;
         $client->save();
@@ -88,11 +77,14 @@ class SaleClientsController extends Controller
             }
         }
 
-        // if ($request->emails && !empty($request->emails)) {
-        //     foreach ($request->emails as $emails) {
-        //         $client->$emails = $request->$emails;
-        //     }
-        // }
+        if ($request->emails && !empty($request->emails)) {
+            foreach ($request->emails as $email) {
+                $clientEmail = SaleClientEmail::create([
+                    'email'          => $email['email'],
+                    'sale_client_id' => $client->id
+                ]);
+            }
+        }
 
         $request->session()->flash('message', ['type' => 'store']);
         return response()->json(['result' => true, 'redirect' => route('sale.settings.index')], 200);
@@ -207,25 +199,44 @@ class SaleClientsController extends Controller
     }
 
     /**
-     * Obtiene el rif de los clientes registrados
+     * Muestra una lista de los tipos de bienes
      *
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
-     * @return \Illuminate\Http\JsonResponse    Json con los datos de los productos
+     * @return JsonResponse
      */
+
     public function getSaleClientsRif()
     {
-        return response()->json(template_choices(SaleClients::class, 'rif', '', true));
+        $records = [];
+        $saleClients = SaleClients::orderBy('id', 'ASC')->get();
+
+        array_push($records, ['id' => '', 'text' => 'Seleccione...']);
+
+        foreach ($saleClients as $saleClient) {
+            if ($saleClient->type_person_juridica == 'Natural') {
+                array_push($records, [
+                    'id'            => $saleClient->id,
+                    'text'          => $saleClient->name.' - '.$saleClient->id_type.$saleClient->id_number,
+                ]);
+            } elseif ($saleClient->type_person_juridica == 'Jurídica') {
+                array_push($records, [
+                    'id'            => $saleClient->id,
+                    'text'          => $saleClient->business_name.' - '.$saleClient->rif,
+                ]);
+            }
+        }
+        return response()->json(['records' => $records], 200);
     }
 
     /**
-     * Obtiene el rif de los clientes registrados
+     * Obtiene los clientes registrados
      *
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
      * @return \Illuminate\Http\JsonResponse    Json con los datos de los productos
      */
     public function getSaleClient($id)
     {
-        $saleClient = SaleClients::find($id);
+        $saleClient = SaleClients::with(['phones', 'sale_clients_email'])->find($id);
         return response()->json(['sale_client' => $saleClient], 200);
     }
 }
