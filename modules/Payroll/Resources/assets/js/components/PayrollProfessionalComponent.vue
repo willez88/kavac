@@ -159,10 +159,18 @@
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="course">
+								<label for="courses">
 									Cursos:
 	                            </label>
-								<input id="course" name="course" type="file"
+								<div v-for="(document, index) in payroll_course.documents">
+									<a :href="`/${document.url}`" target="_blank">Documento</a>
+									<button class="btn btn-sm btn-danger btn-action" type="button"
+	                                        @click="deleteDocument(index, payroll_course.documents)"
+	                                        title="Eliminar este dato" data-toggle="tooltip">
+	                                    <i class="fa fa-minus-circle"></i>
+	                                </button>
+								</div>
+								<input id="courses" name="courses" type="file"
 									accept=".png, .jpg, .pdf, .odt" multiple>
 							</div>
 						</div>
@@ -214,6 +222,7 @@
 					payroll_study_type_id: '',
 					study_program_name: '',
 					class_schedule_ids: [],
+					courses_ids: [],
 					professions: [],
 					payroll_languages: [],
 				},
@@ -226,6 +235,7 @@
 				payroll_languages: [],
 				payroll_language_levels: [],
 				payroll_class_schedule: '',
+				payroll_course: '',
 			}
 		},
 		methods: {
@@ -252,6 +262,7 @@
 						});
 					}
 					vm.payroll_class_schedule = response.data.record.payroll_class_schedule;
+					vm.payroll_course = response.data.record.payroll_course;
 				});
 			},
 
@@ -265,6 +276,7 @@
 					payroll_study_type_id: '',
 					study_program_name: '',
 					class_schedule_ids: [],
+					course_ids: [],
 					professions: [],
 					payroll_languages: []
 				};
