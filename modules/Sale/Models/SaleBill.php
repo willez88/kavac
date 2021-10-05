@@ -35,7 +35,7 @@ class SaleBill extends Model implements Auditable
      */
     public function saleClient()
     {
-        return $this->belongsTo(SaleClients::class);
+        return $this->belongsTo(SaleClient::class);
     }
 
     /**

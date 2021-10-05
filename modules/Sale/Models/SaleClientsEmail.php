@@ -38,14 +38,14 @@ class SaleClientsEmail extends Model implements Auditable
     protected $fillable = ['email', 'sale_client_id'];
 
     /**
-     * Método que obtiene los bienes a comercializar
+     * Método que obtiene los clientes registrados en el sistema
      *
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
-     * SaleTypeGood
+     * SaleClient
      */
-    public function saleClients()
+    public function saleClient()
     {
-        return $this->belongsTo(SaleClients::class);
+        return $this->belongsTo(SaleClient::class);
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Modules\Sale\Models\SaleClients;
+use Modules\Sale\Models\SaleClient;
 use Modules\Sale\Models\SaleClientsEmail;
 use App\Models\Phone;
 use App\Rules\Rif as RifRule;
@@ -24,7 +24,7 @@ class SaleClientsController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => SaleClients::with(['saleClientsEmail', 'phones'])->get()], 200);
+        return response()->json(['records' => SaleClient::with(['saleClientsEmail', 'phones'])->get()], 200);
     }
 
     /**
@@ -50,7 +50,7 @@ class SaleClientsController extends Controller
             'id_number' => ['required_if:type_person_juridica,Natural'],
         ]);
 
-        $client = new SaleClients;
+        $client = new SaleClient;
         $client->type_person_juridica = $request->type_person_juridica;
         $client->rif = $request->rif;
         $client->business_name = $request->business_name;
@@ -77,9 +77,9 @@ class SaleClientsController extends Controller
             }
         }
 
-        if ($request->emails && !empty($request->emails)) {
-            foreach ($request->emails as $email) {
-                $clientEmail = SaleClientEmail::create([
+        if ($request->sale_clients_email && !empty($request->sale_clients_email)) {
+            foreach ($request->sale_clients_email as $email) {
+                $clientEmail = SaleClientsEmail::create([
                     'email'          => $email['email'],
                     'sale_client_id' => $client->id
                 ]);
@@ -116,7 +116,7 @@ class SaleClientsController extends Controller
     public function update(Request $request, $id)
     {
         /** @var object Datos de la entidad bancaria */
-        $client = SaleClients::find($id);
+        $client = SaleClient::with('saleClientsEmail')->find($id);
 
         $this->validate($request, [
             'rif' => ['required_if:type_person_juridica,Jurídica', 'max:17'],
@@ -183,6 +183,21 @@ class SaleClientsController extends Controller
             }
         }
 
+        if ($request->sale_clients_email && !empty($request->sale_clients_email)) {
+            foreach ($request->sale_clients_email as $email) {
+                $client->saleClientsEmail()->updateOrCreate(
+                    [
+                        'email'          => $email['email'],
+                        'sale_client_id' => $client->id
+                    ],
+                    [
+                        'email'          => $email['email'],
+                        'sale_client_id' => $client->id
+                    ]
+                );
+            }
+        }
+
         $request->session()->flash('message', ['type' => 'update']);
         return response()->json(['result' => true, 'redirect' => route('sale.settings.index')], 200);
     }
@@ -205,14 +220,14 @@ class SaleClientsController extends Controller
      * @return JsonResponse
      */
 
-    public function getSaleClientsRif()
+    public function getSaleClientRif()
     {
         $records = [];
-        $saleClients = SaleClients::orderBy('id', 'ASC')->get();
+        $saleClient = SaleClient::orderBy('id', 'ASC')->get();
 
         array_push($records, ['id' => '', 'text' => 'Seleccione...']);
 
-        foreach ($saleClients as $saleClient) {
+        foreach ($saleClient as $saleClient) {
             if ($saleClient->type_person_juridica == 'Natural') {
                 array_push($records, [
                     'id'            => $saleClient->id,
@@ -236,7 +251,7 @@ class SaleClientsController extends Controller
      */
     public function getSaleClient($id)
     {
-        $saleClient = SaleClients::with(['phones', 'sale_clients_email'])->find($id);
+        $saleClient = SaleClient::with(['phones', 'sale_clients_email'])->find($id);
         return response()->json(['sale_client' => $saleClient], 200);
     }
 }
