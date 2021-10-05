@@ -170,8 +170,8 @@
 	                                    <i class="fa fa-minus-circle"></i>
 	                                </button>
 								</div>
-								<input id="courses" name="courses" type="file"
-									accept=".png, .jpg, .pdf, .odt" multiple>
+								<input id="course" name="course" type="file"
+									accept=".png, .jpg, .pdf, .odt" @change="processFile($event)">
 							</div>
 						</div>
 						<div class="col-md-4">
@@ -222,7 +222,7 @@
 					payroll_study_type_id: '',
 					study_program_name: '',
 					class_schedule_ids: [],
-					courses_ids: [],
+					course_ids: [],
 					professions: [],
 					payroll_languages: [],
 				},
@@ -261,8 +261,8 @@
 							payroll_language_level_id: response.data.record.payroll_languages[a].pivot.payroll_language_level_id,
 						});
 					}
-					vm.payroll_class_schedule = response.data.record.payroll_class_schedule;
-					vm.payroll_course = response.data.record.payroll_course;
+					vm.payroll_class_schedule = (response.data.record.payroll_class_schedule) ? response.data.record.payroll_class_schedule : {};
+					vm.payroll_course = (response.data.record.payroll_course) ? response.data.record.payroll_course : {};
 				});
 			},
 
@@ -299,6 +299,7 @@
                 var inputFiles = document.querySelector('#'+event.currentTarget.id);
 				for (var x = 0; x < inputFiles.files.length; x++) {
     				formData.append('documents[' + x + ']', inputFiles.files[x]);
+					console.log(inputFiles.files.[x].type);
 				}
                 axios.post('upload-document', formData, {
                     headers: {
@@ -321,6 +322,18 @@
                         }
                     }
                 });
+			},
+
+			processFile(event) {
+				const vm = this;
+				var inputFile = document.querySelector('#'+event.currentTarget.id);
+				var image_type = ['image/png', 'image/jpeg', 'image/jpg'];
+				if( inputFile.files[0].type.match('image/png') || inputFile.files[0].type.match('image/jpeg') || inputFile.files[0].type.match('image/jpg') ) {
+					console.log(inputFile.files[0].type);
+				}
+				else {
+					console.log(inputFile.files[0].type);
+				}
 			},
 
 			deleteDocument(index, documents) {

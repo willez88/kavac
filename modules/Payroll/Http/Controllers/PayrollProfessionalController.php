@@ -207,6 +207,9 @@ class PayrollProfessionalController extends Controller
             'payrollLanguages', 'payrollClassSchedule' => function ($query) {
                 $query->with('documents');
             },
+            'payrollCourse' => function ($query) {
+                $query->with('documents');
+            },
         ])->first();
         return response()->json(['record' => $payrollProfessional], 200);
     }
