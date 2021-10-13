@@ -47,9 +47,9 @@
 				</div>
 				<div class="card-body">
 					<asset-list
-						route_list="{{ url('asset/registers/vue-list') }}"
-						route_edit="{{ url('asset/registers/edit/{id}') }}"
-						route_delete="{{ url('asset/registers/delete') }}">
+						route_list="asset/registers/vue-list"
+						route_edit="asset/registers/edit/{id}"
+						route_delete="asset/registers/delete">
 					</asset-list>
 				</div>
 			</div>

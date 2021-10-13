@@ -30,9 +30,9 @@
 				</div>
 				<div class="card-body">
 					<citizenservice-register-list
-					 route_list="{{ url('citizenservice/registers/vue-list') }}"
-					 route_edit="{{ url('citizenservice/registers/edit/{id}') }}"
-					 route_delete="{{ url('citizenservice/registers/delete') }}">
+					 route_list="citizenservice/registers/vue-list"
+					 route_edit="citizenservice/registers/edit/{id}"
+					 route_delete="citizenservice/registers/delete">
 					</citizenservice-register-list>
 				</div>
 			</div>

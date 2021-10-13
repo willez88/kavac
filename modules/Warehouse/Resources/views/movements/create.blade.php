@@ -35,7 +35,7 @@
 				</div>
 			</div>
 			<warehouse-movement-create
-				route_list='{{ url('warehouse/movements')}}'
+				route_list='warehouse/movements'
 				:movementid ="{!! (isset($movement)) ? $movement->id : 'null' !!}">
 			</warehouse-movement-create>
 		</div>

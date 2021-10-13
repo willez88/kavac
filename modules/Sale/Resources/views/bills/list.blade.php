@@ -30,9 +30,9 @@
                 </div>
                 <div class="card-body">
                     <sale-bill-list
-                        route_list="{{ url('sale/bills/vue-list') }}"
-                        route_edit="{{ url('sale/bills/edit/{id}') }}"
-                        route_delete="{{ url('sale/bills/delete') }}">
+                        route_list="sale/bills/vue-list"
+                        route_edit="sale/bills/edit/{id}"
+                        route_delete="sale/bills/delete">
                     </sale-bill-list>
                 </div>
             </div>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="card-body">
                     <sale-bill-pending-list
-                        route_list="{{ url('sale/bills/vue-list') }}"
+                        route_list="sale/bills/vue-list"
                         route_update='sale/bills'>
                     </sale-bill-pending-list>
                 </div>
@@ -70,7 +70,7 @@
                 </div>
                 <div class="card-body">
                     <sale-bill-rejected-list
-                        route_list="{{ url('sale/bills/vue-approved-list') }}"
+                        route_list="sale/bills/vue-approved-list"
                         route_update='sale/bills'>
                     </sale-bill-rejected-list>
                 </div>
@@ -89,7 +89,7 @@
                 </div>
                 <div class="card-body">
                     <sale-bill-approved-list
-                        route_list="{{ url('sale/bills/vue-approved-list') }}"
+                        route_list="sale/bills/vue-approved-list"
                         route_update='sale/bills'>
                     </sale-bill-approved-list>
                 </div>
@@ -108,7 +108,7 @@
                 </div>
                 <div class="card-body">
                     <sale-bill-pending-list
-                        route_list="{{ url('sale/bills/vue-list') }}"
+                        route_list="sale/bills/vue-list"
                         route_update='sale/bills'>
                     </sale-bill-pending-list>
                 </div>

@@ -21,7 +21,7 @@
         <div class="col-12">
             <technicalsupport-diagnostic-create
                 :repair_id ="{!! (isset($technicalSupportRepair)) ? $technicalSupportRepair->id : 'null' !!}"
-                route_list="{{ url('technicalsupport/repairs')}}">
+                route_list="technicalsupport/repairs">
             </technicalsupport-diagnostic-create>
         </div>
     </div>

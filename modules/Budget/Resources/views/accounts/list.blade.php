@@ -32,9 +32,9 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<budget-accounts-list route_list='{{ url('budget/accounts/vue-list') }}'
-										  route_delete="{{ url('budget/accounts') }}"
-										  route_edit="{{ url('budget/accounts/{id}/edit') }}"/>
+					<budget-accounts-list route_list='budget/accounts/vue-list'
+										  route_delete="budget/accounts"
+										  route_edit="budget/accounts/{id}/edit"/>
 				</div>
 			</div>
 		</div>

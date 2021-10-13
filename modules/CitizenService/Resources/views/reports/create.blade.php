@@ -20,7 +20,7 @@
 <div class="row">
 	<div class="col-12">
 		<citizenservice-report-create
-				route_list="{{ url('citizenservice/reports/vue-list')}}">
+				route_list="citizenservice/reports/vue-list">
 		</citizenservice-report-create>
 	</div>
 </div>

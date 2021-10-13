@@ -35,7 +35,7 @@
                 </div>
             </div>
             <sale-bill-create
-                route_list='{{ url('sale/bills')}}'
+                route_list='sale/bills'
                 :billid ="{!! (isset($sale_bills)) ? $sale_bills->id : 'null' !!}">
             </sale-bill-create>
         </div>

@@ -21,8 +21,8 @@
         <div class="col-12">
             <payroll-salary-adjustments-form
                 route_list='{{ url()->previous() }}'
-                route_show="{{ url('payroll/salary-tabulators/show/{id}') }}"
-                route_create='{{ url('payroll/salary-adjustments') }}'>
+                route_show="payroll/salary-tabulators/show/{id}"
+                route_create='payroll/salary-adjustments'>
             </payroll-salary-adjustments-form>
         </div>
     </div>

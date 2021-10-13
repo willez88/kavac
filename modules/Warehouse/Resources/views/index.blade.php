@@ -45,7 +45,7 @@
                 </div>
                 <hr>
                 <warehouse-dashboard-product-list
-                    route_list="{{ url('warehouse/dashboard/vue-list-min-products') }}">
+                    route_list="warehouse/dashboard/vue-list-min-products">
                 </warehouse-dashboard-product-list>
             </div>
         </div>
@@ -70,7 +70,7 @@
             </div>
             <div class="card-body">
                 <warehouse-operations-history-list
-                    route_list="{{ url('warehouse/dashboard/operations/vue-list') }}">
+                    route_list="warehouse/dashboard/operations/vue-list">
                 </warehouse-operations-history-list>
             </div>
         </div>

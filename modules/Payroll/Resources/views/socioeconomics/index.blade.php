@@ -29,10 +29,10 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<payroll-socioeconomic-list route_list="{{ url('payroll/socioeconomics/show/vue-list') }}"
-						route_delete="{{ url('payroll/socioeconomics') }}"
-						route_edit="{{ url('payroll/socioeconomics/{id}/edit') }}"
-						route_show="{{ url('payroll/socioeconomics/{id}') }}">
+					<payroll-socioeconomic-list route_list="payroll/socioeconomics/show/vue-list"
+						route_delete="payroll/socioeconomics"
+						route_edit="payroll/socioeconomics/{id}/edit"
+						route_show="payroll/socioeconomics/{id}">
 					</payroll-socioeconomic-lit>
 				</div>
 			</div>

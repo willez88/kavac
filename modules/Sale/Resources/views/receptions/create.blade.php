@@ -35,7 +35,7 @@
 				</div>
 			</div>
 			<sale-warehouse-reception-create
-				route_list='{{ url('sale/receptions')}}'
+				route_list='sale/receptions'
 				:receptionid ="{!! (isset($reception)) ? $reception->id : 'null' !!}">
 			</sale-warehouse-reception-create>
 		</div>
