@@ -138,7 +138,13 @@
 				<div class="col-md-4">
 					<div class="form-group is-required">
 						<label for="municipalities">Municipio</label>
-						<select2 :options="municipalities" v-model="record.municipality_id"></select2>
+						<select2 :options="municipalities" @input="getParishes()" v-model="record.municipality_id"></select2>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group is-required">
+						<label for="parishes">Parroquia</label>
+						<select2 :options="parishes" v-model="record.parish_id"></select2>
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -153,6 +159,13 @@
 						<label for="motive_request">Motivo de la solicitud</label>
     					<input type="text" id="motive_request" class="form-control input-sm" data-toggle="tooltip"
                                title="Indique el motivo de la solicitud" v-model="record.motive_request">
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group is-required">
+						<label for="attribute">Atributos</label>
+    					<input type="text" id="attribute" class="form-control input-sm" data-toggle="tooltip"
+                               title="Indique el motivo de la solicitud" v-model="record.attribute">
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -343,8 +356,10 @@
 					phones: [],
 					city_id: '',
         			municipality_id: '',
+        			parish_id: '',
         			address: '',
         			motive_request: '',
+        			attribute: '',
         			citizen_service_request_type_id: '',
         			citizen_service_department_id: '',
 
@@ -372,6 +387,7 @@
 				estates: [],
 				cities: [],
 				municipalities: [],
+				parishes: [],
 				citizenServiceRequestType: '',
 				citizen_service_request_types: [],
 				citizen_service_departments: [],
@@ -405,8 +421,10 @@
 					phones: [],
 					city_id: '',
         			municipality_id: '',
+        			parish_id: '',
         			address: '',
         			motive_request: '',
+        			attribute: '',
 					citizen_service_request_type_id: '',
 					citizen_service_department_id: '',
 

@@ -26,7 +26,7 @@ class CitizenServiceRequest extends Model implements Auditable
     use AuditableTrait;
     use ModelsTrait;
 
-    protected $with = ['municipality', 'city'];
+    protected $with = ['city', 'parish'];
     /**
      * Lista de atributos para la gestión de fechas
      * @var array $dates
@@ -39,7 +39,7 @@ class CitizenServiceRequest extends Model implements Auditable
      */
     protected $fillable = [
         'code','first_name','last_name','id_number','email', 'date',
-        'city_id', 'municipality_id', 'address', 'motive_request', 'state',
+        'city_id', 'parish_id','address', 'motive_request', 'attribute', 'state',
         'institution_name','institution_address', 'rif', 'web',
         'citizen_service_request_type_id', 'type_institution', 'citizen_service_department_id', 'file_counter',
 
@@ -102,17 +102,6 @@ class CitizenServiceRequest extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la solicitud asociado a un municipio
-     *
-     * @author
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function municipality()
-    {
-        return $this->belongsTo(Municipality::class);
-    }
-
-    /**
      * Método que obtiene la solicitud asociado a una ciudad
      *
      * @author
@@ -121,6 +110,16 @@ class CitizenServiceRequest extends Model implements Auditable
     public function city()
     {
         return $this->belongsTo(City::class);
+    }
+    /**
+     * Método que obtiene la solicitud asociado a una parroquia
+     *
+     * @author
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function parish()
+    {
+        return $this->belongsTo(Parish::class);
     }
 
     public function scopeSearchPeriod(
