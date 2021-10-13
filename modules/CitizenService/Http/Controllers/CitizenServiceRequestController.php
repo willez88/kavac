@@ -64,7 +64,7 @@ class CitizenServiceRequestController extends Controller
             'email.required'        => 'El campo correo electrónico es obligatorio. ',
             'email.email'           => 'El campo correo electrónico debe de ingresarse en formato de correo.',
             'city_id.required'           => 'El campo ciudad es obligatorio.',
-            'parish_id.required'         => 'El campo parroqquia es obligatorio.',
+            'parish_id.required'         => 'El campo parroquia es obligatorio.',
             'address.required'           => 'El campo dirección es obligatorio.',
             'address.max'                => 'El campo dirección no debe contener más de 200 caracteres.',
             'motive_request.required'    => 'El campo motivo de la solicitud es obligatorio.',

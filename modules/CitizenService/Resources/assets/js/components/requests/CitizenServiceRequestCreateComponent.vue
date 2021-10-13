@@ -165,7 +165,7 @@
 					<div class="form-group is-required">
 						<label for="attribute">Atributos</label>
     					<input type="text" id="attribute" class="form-control input-sm" data-toggle="tooltip"
-                               title="Indique el motivo de la solicitud" v-model="record.attribute">
+                               title="Indique los atributos" v-model="record.attribute">
 					</div>
 				</div>
 				<div class="col-md-4">
