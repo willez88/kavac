@@ -120,25 +120,25 @@
 		    	<div class="col-md-4">
 					<div class="form-group is-required">
 						<label for="countries">País</label>
-						<select2 :options="countries" @input="getEstates()" v-model="record.country_id"></select2>
+						<select2 id="input_country" :options="countries" @input="getEstates()" v-model="record.country_id"></select2>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group is-required">
 						<label for="estates">Estado</label>
-						<select2 :options="estates" @input="getCities()" v-model="record.estate_id"></select2>
+						<select2  id="input_estate" :options="estates" @input="getCities()" v-model="record.estate_id"></select2>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group is-required">
 						<label for="cities">Ciudad</label>
-						<select2 :options="cities" @input="getMunicipalities()" v-model="record.city_id"></select2>
+						<select2  id="input_city" :options="cities" @input="getMunicipalities()" v-model="record.city_id"></select2>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group is-required">
 						<label for="municipalities">Municipio</label>
-						<select2 :options="municipalities" @input="getParishes()" v-model="record.municipality_id"></select2>
+						<select2 id="input_municipality" :options="municipalities" @input="getParishes()" v-model="record.municipality_id"></select2>
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -401,7 +401,7 @@
 	            await axios.get('/citizenservice/requests/vue-info/'+id).then(response => {
 	                if(typeof(response.data.record != "undefined")){
 						vm.record = response.data.record;
-						vm.record.country_id = vm.record.municipality.estate.country_id;
+						vm.record.country_id = vm.record.parish.municipality.estate.country_id;
 	                }
 	            });
 			},
