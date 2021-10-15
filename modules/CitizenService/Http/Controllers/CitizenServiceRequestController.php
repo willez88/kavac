@@ -417,15 +417,15 @@ class CitizenServiceRequestController extends Controller
 
     public function vueListClosing()
     {
-        $citizenServiceRequest = CitizenServiceRequest::where('state', 'Iniciado')->get();
+        $citizenServiceRequest = CitizenServiceRequest::where('state', 'Aceptado')->get();
         return response()->json(['records' => $citizenServiceRequest], 200);
     }
 
     public function approved(Request $request, $id)
     {
         $citizenServiceRequest = CitizenServiceRequest::find($id);
-        $citizenServiceRequest->state = 'Iniciado';
-
+        $citizenServiceRequest->state = 'Aceptado';
+        $citizenServiceRequest->observation  = $request->observation;
 
         $citizenServiceRequest->save();
 
@@ -438,6 +438,7 @@ class CitizenServiceRequestController extends Controller
     {
         $citizenServiceRequest = CitizenServiceRequest::find($id);
         $citizenServiceRequest->state = 'Rechazado';
+        $citizenServiceRequest->observation  = $request->observation;
 
 
         $citizenServiceRequest->save();

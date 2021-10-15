@@ -36,6 +36,11 @@ Vue.component('citizenservice-request-list-pending', () => import(
     './components/requests/CitizenServiceRequestListPendingComponent.vue')
 );
 
+Vue.component('citizenservice-request-pending', () => import(
+    /* webpackChunkName: "citizenservice-request-pending" */
+    './components/requests/CitizenServiceRequestPendingComponent.vue')
+);
+
 Vue.component('citizenservice-request-list-closing', () => import(
     /* webpackChunkName: "citizenservice-request-list-closing" */
     './components/requests/CitizenServiceRequestListClosingComponent.vue')
