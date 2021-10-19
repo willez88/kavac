@@ -155,7 +155,7 @@
                       </div>
                       <div class="col-1">
                         <div class="form-group">
-                          <button class="mt-4 btn btn-sm btn-danger btn-action" type="button" @click="removeRow(index, record.emails)"
+                          <button class="mt-4 btn btn-sm btn-danger btn-action" type="button" @click="removeRow(index, record.sale_clients_email)"
                             title="Eliminar este dato" data-toggle="tooltip">
                               <i class="fa fa-minus-circle"></i>
                           </button>

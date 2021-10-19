@@ -94,14 +94,14 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Pais:</label>
-                                    <select2 :options="countries" @input="getEstates"
+                                    <select2 id="input_country" :options="countries" @input="getEstates"
                                              v-model="record.country_id"></select2>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Estado:</label>
-                                    <select2 :options="estates" @input="getMunicipalities"
+                                    <select2 id="input_estate" :options="estates" @input="getMunicipalities"
                                              v-model="record.estate_id"></select2>
                                 </div>
                             </div>
@@ -308,6 +308,7 @@
                 var field = vm.records[index - 1];
                 vm.record = field.warehouse;
                 vm.record.institution_id = field.institution_id;
+                vm.record.country_id = field.warehouse.parish.municipality.estate.country_id;
                 var elements = {
                     active: vm.record.active,
                     main: field.main,

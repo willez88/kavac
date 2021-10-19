@@ -48,7 +48,7 @@
         	                    </div>
                             </div>
 							<div class="col-md-6">
-								<div class="form-group">
+								<div class="form-group is-required">
 									<label for="description">Descripción:</label>
 									<input type="text" id="description" placeholder="Descripción"
 										   v-input-mask data-inputmask-regex="[a-zA-ZÁ-ÿ\s]*"

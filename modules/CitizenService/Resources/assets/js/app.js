@@ -36,6 +36,11 @@ Vue.component('citizenservice-request-list-pending', () => import(
     './components/requests/CitizenServiceRequestListPendingComponent.vue')
 );
 
+Vue.component('citizenservice-request-pending', () => import(
+    /* webpackChunkName: "citizenservice-request-pending" */
+    './components/requests/CitizenServiceRequestPendingComponent.vue')
+);
+
 Vue.component('citizenservice-request-list-closing', () => import(
     /* webpackChunkName: "citizenservice-request-list-closing" */
     './components/requests/CitizenServiceRequestListClosingComponent.vue')
@@ -90,6 +95,79 @@ Vue.mixin({
 				this.citizen_service_departments = response.data;
 			});
 		},
+
+
+        /**
+         * Obtiene los Estados del Pais seleccionado
+         *
+         * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         */
+        async getEstates() {
+            const vm = this;
+            vm.estates = [];
+            if (vm.record.country_id) {
+                await axios.get(`/get-estates/${vm.record.country_id}`).then(response => {
+                    vm.estates = response.data;
+                });
+                if (vm.record.id) {
+                    vm.record.estate_id = vm.record.parish.municipality.estate_id;
+                }
+            }
+        },
+         /**
+         * Obtiene las ciudades del Estado seleccionado
+         *
+         * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         * @author Ing. Yennifer RRamirez <yramirez@cenditel.gob.ve> 
+         */
+        async getCities() {
+            const vm = this;
+            vm.cities = [];
+            if (vm.record.estate_id) {
+                await axios.get(`/get-cities/${vm.record.estate_id}`).then(response => {
+                    vm.cities = response.data;
+                });
+                if (vm.record.id) {
+                    vm.record.city_id = vm.record.city.id;
+                }
+            }
+        },
+        /**
+         * Obtiene los Municipios del Estado seleccionado
+         *
+         * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         *
+         * 
+         */
+        async getMunicipalities() {
+            const vm = this;
+            vm.municipalities = [];
+            if (vm.record.estate_id) {
+                await axios.get(`/get-municipalities/${vm.record.estate_id}`).then(response => {
+                    vm.municipalities = response.data;
+                });
+                if (vm.record.id) {
+                    vm.record.municipality_id = vm.record.parish.municipality_id;
+                }
+            }
+        },
+        /**
+         * Obtiene las parroquias del municipio seleccionado
+         *
+         * @author William Páez <wpaez@cenditel.gob.ve>
+         */
+        async getParishes() {
+            const vm = this;
+            vm.parishes = [];
+            if (vm.record.municipality_id) {
+                await axios.get(`/get-parishes/${vm.record.municipality_id}`).then(response => {
+                    vm.parishes = response.data;
+                });
+                if (vm.record.id) {
+                    vm.record.parish_id = vm.record.parish.id;
+                }
+            }
+        },
 
 	},
 });

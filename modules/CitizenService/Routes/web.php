@@ -34,7 +34,9 @@ Route::group([
         ->name('citizenservice.request.delete');
     Route::get('requests/vue-list', 'CitizenServiceRequestController@vueList');
     Route::get('requests/vue-info/{request}', 'CitizenServiceRequestController@vueInfo');
+    
     Route::get('requests/vue-pending-list', 'CitizenServiceRequestController@vueListPending');
+    
     Route::get('requests/vue-list-closing', 'CitizenServiceRequestController@vueListClosing');
 
 

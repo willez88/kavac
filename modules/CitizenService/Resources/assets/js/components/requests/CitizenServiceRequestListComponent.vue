@@ -35,6 +35,9 @@
 
                     </span>
             </div>
+            <div slot="observation" slot-scope="props" class="text-center">
+                <span v-html="props.row.observation?props.row.observation:'No definido'"></span>
+            </div>
     	</v-client-table>
 	</section>
 </template>
@@ -44,7 +47,7 @@
 		data() {
 			return {
 				records: [],
-				columns: ['requested_by', 'motive_request', 'state', 'date', 'id']
+				columns: ['requested_by', 'motive_request', 'state', 'observation', 'date', 'id']
 			}
 		},
 		created() {
@@ -52,11 +55,12 @@
 				'requested_by': 'Solicitado por',
 				'motive_request': 'Motivo',
 				'state': 'Estado de la solicitud',
+				'observation':'Observación de la solicitud',
 				'date': 'Fecha de la solicitud',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['requested_by', 'motive_request', 'state', 'date'];
-			this.table_options.filterable = ['requested_by', 'motive_request', 'state', 'date'];
+			this.table_options.sortable = ['requested_by', 'motive_request', 'state', 'observation', 'date'];
+			this.table_options.filterable = ['requested_by', 'motive_request', 'state', 'observation', 'date'];
 		},
 		mounted () {
 			this.initRecords(this.route_list, '');

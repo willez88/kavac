@@ -120,25 +120,31 @@
 		    	<div class="col-md-4">
 					<div class="form-group is-required">
 						<label for="countries">País</label>
-						<select2 :options="countries" @input="getEstates()" v-model="record.country_id"></select2>
+						<select2 id="input_country" :options="countries" @input="getEstates()" v-model="record.country_id"></select2>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group is-required">
 						<label for="estates">Estado</label>
-						<select2 :options="estates" @input="getCities()" v-model="record.estate_id"></select2>
+						<select2  id="input_estate" :options="estates" @input="getCities()" v-model="record.estate_id"></select2>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group is-required">
 						<label for="cities">Ciudad</label>
-						<select2 :options="cities" @input="getMunicipalities()" v-model="record.city_id"></select2>
+						<select2  id="input_city" :options="cities" @input="getMunicipalities()" v-model="record.city_id"></select2>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group is-required">
 						<label for="municipalities">Municipio</label>
-						<select2 :options="municipalities" v-model="record.municipality_id"></select2>
+						<select2 id="input_municipality" :options="municipalities" @input="getParishes()" v-model="record.municipality_id"></select2>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group is-required">
+						<label for="parishes">Parroquia</label>
+						<select2 :options="parishes" v-model="record.parish_id"></select2>
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -153,6 +159,13 @@
 						<label for="motive_request">Motivo de la solicitud</label>
     					<input type="text" id="motive_request" class="form-control input-sm" data-toggle="tooltip"
                                title="Indique el motivo de la solicitud" v-model="record.motive_request">
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group is-required">
+						<label for="attribute">Atributos</label>
+    					<input type="text" id="attribute" class="form-control input-sm" data-toggle="tooltip"
+                               title="Indique los atributos" v-model="record.attribute">
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -343,8 +356,10 @@
 					phones: [],
 					city_id: '',
         			municipality_id: '',
+        			parish_id: '',
         			address: '',
         			motive_request: '',
+        			attribute: '',
         			citizen_service_request_type_id: '',
         			citizen_service_department_id: '',
 
@@ -372,6 +387,7 @@
 				estates: [],
 				cities: [],
 				municipalities: [],
+				parishes: [],
 				citizenServiceRequestType: '',
 				citizen_service_request_types: [],
 				citizen_service_departments: [],
@@ -385,7 +401,7 @@
 	            await axios.get('/citizenservice/requests/vue-info/'+id).then(response => {
 	                if(typeof(response.data.record != "undefined")){
 						vm.record = response.data.record;
-						vm.record.country_id = vm.record.municipality.estate.country_id;
+						vm.record.country_id = vm.record.parish.municipality.estate.country_id;
 	                }
 	            });
 			},
@@ -405,8 +421,10 @@
 					phones: [],
 					city_id: '',
         			municipality_id: '',
+        			parish_id: '',
         			address: '',
         			motive_request: '',
+        			attribute: '',
 					citizen_service_request_type_id: '',
 					citizen_service_department_id: '',
 

@@ -8,7 +8,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
-class SaleClients extends Model implements Auditable
+class SaleClient extends Model implements Auditable
 {
     use SoftDeletes;
     use AuditableTrait;

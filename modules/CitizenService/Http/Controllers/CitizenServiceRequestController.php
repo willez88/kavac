@@ -42,9 +42,10 @@ class CitizenServiceRequestController extends Controller
             'id_number'             => ['required', 'max:12', 'regex:/^([\d]{7}|[\d]{8})$/u'],
             'email'                 => ['required', 'email'],
             'city_id'               => ['required'],
-            'municipality_id'       => ['required'],
+            'parish_id'             => ['required'],
             'address'               => ['required', 'max:200'],
             'motive_request'        => ['required', 'max:200'],
+            'attribute'             => ['required', 'max:200'],
             'citizen_service_request_type_id'  => ['required'],
         ];
 
@@ -63,11 +64,13 @@ class CitizenServiceRequestController extends Controller
             'email.required'        => 'El campo correo electrónico es obligatorio. ',
             'email.email'           => 'El campo correo electrónico debe de ingresarse en formato de correo.',
             'city_id.required'           => 'El campo ciudad es obligatorio.',
-            'municipality_id.required'   => 'El campo municipio es obligatorio.',
+            'parish_id.required'         => 'El campo parroquia es obligatorio.',
             'address.required'           => 'El campo dirección es obligatorio.',
             'address.max'                => 'El campo dirección no debe contener más de 200 caracteres.',
             'motive_request.required'    => 'El campo motivo de la solicitud es obligatorio.',
-            'motive_request.max'         => 'El campo motivo de la solicitud no debe de contener 200 caracteres.',
+            'motive_request.max'         => 'El campo motivo de la solicitud no debe de contener más de 200 caracteres.',
+            'attribute.required'         => 'El campo atributos es obligatorio.',
+            'attribute.max'              => 'El campo atributos no debe de contener más de 200 caracteres.',
             'citizen_service_request_type_id.required'  => 'El campo tipo de solicitud es obligatorio.',
             'citizen_service_department_id.required'    => 'El campo dirección de departamento es obligatorio.',
 
@@ -82,15 +85,13 @@ class CitizenServiceRequestController extends Controller
             'informationteam.required' => 'El campo información adicional del equipo es obligatorio.',
 
             'institution_name.required'   => 'El campo nombre de la institución es obligatorio.',
-            'institution_name.max'        => 'El campo nombre de la institución no debe de contener
-                                              más de 200 caracteres.',
+            'institution_name.max'        => 'El campo nombre de la institución no debe de contener más de 200 caracteres.',
             'rif.required'                => 'El campo rif es obligatorio.',
             'rif.unique:citizen_service_requests,rif' => 'El campo rif debe de ser único.',
             'rif.size'                    => 'El campo rif no debe de contener más de 10 caracteres. ',
             'institution_address.required'   => 'El campo dirección de la institución es obligatorio.',
-            'institution_address.max'        => 'El campo dirección de la institución no debe
-                                                 de contener más de 200 caracteres.',
-            'web.max'      => 'El campo dirección web no debe de contener más de 200 caracteres.',
+            'institution_address.max'        => 'El campo dirección de la institución no debe de contener más de 200 caracteres.',
+            'web.max'                        => 'El campo dirección web no debe de contener más de 200 caracteres.',
         ];
     }
     /**
@@ -201,9 +202,10 @@ class CitizenServiceRequestController extends Controller
             'id_number'                        => $request->id_number,
             'email'                            => $request->email,
             'city_id'                          => $request->city_id,
-            'municipality_id'                  => $request->municipality_id,
+            'parish_id'                        => $request->parish_id,
             'address'                          => $request->address,
             'motive_request'                   => $request->motive_request,
+            'attribute'                        => $request->attribute,
             'state'                            => 'Pendiente',
             'citizen_service_request_type_id'  => $request->citizen_service_request_type_id,
             'citizen_service_department_id'    => $request->citizen_service_department_id,
@@ -339,9 +341,10 @@ class CitizenServiceRequestController extends Controller
         $citizenServiceRequest->id_number                        = $request->id_number;
         $citizenServiceRequest->email                            = $request->email;
         $citizenServiceRequest->city_id                          = $request->city_id;
-        $citizenServiceRequest->municipality_id                  = $request->municipality_id;
+        $citizenServiceRequest->parish_id                        = $request->parish_id;
         $citizenServiceRequest->address                          = $request->address;
         $citizenServiceRequest->motive_request                   = $request->motive_request;
+        $citizenServiceRequest->attribute                        = $request->attribute;
         $citizenServiceRequest->state                            = 'Pendiente';
         $citizenServiceRequest->citizen_service_request_type_id  = $request->citizen_service_request_type_id;
         $citizenServiceRequest->citizen_service_department_id    = $request->citizen_service_department_id;
@@ -396,7 +399,7 @@ class CitizenServiceRequestController extends Controller
      */
     public function vueList()
     {
-        return response()->json(['records' => CitizenServiceRequest::with(['city', 'municipality'])->get()], 200);
+        return response()->json(['records' => CitizenServiceRequest::with(['city', 'parish'])->get()], 200);
     }
 
     public function vueInfo($id)
@@ -414,15 +417,15 @@ class CitizenServiceRequestController extends Controller
 
     public function vueListClosing()
     {
-        $citizenServiceRequest = CitizenServiceRequest::where('state', 'Iniciado')->get();
+        $citizenServiceRequest = CitizenServiceRequest::where('state', 'Aceptado')->get();
         return response()->json(['records' => $citizenServiceRequest], 200);
     }
 
     public function approved(Request $request, $id)
     {
         $citizenServiceRequest = CitizenServiceRequest::find($id);
-        $citizenServiceRequest->state = 'Iniciado';
-
+        $citizenServiceRequest->state = 'Aceptado';
+        $citizenServiceRequest->observation  = $request->observation;
 
         $citizenServiceRequest->save();
 
@@ -435,6 +438,7 @@ class CitizenServiceRequestController extends Controller
     {
         $citizenServiceRequest = CitizenServiceRequest::find($id);
         $citizenServiceRequest->state = 'Rechazado';
+        $citizenServiceRequest->observation  = $request->observation;
 
 
         $citizenServiceRequest->save();
