@@ -13,7 +13,8 @@ class SaleClient extends Model implements Auditable
     use SoftDeletes;
     use AuditableTrait;
     use ModelsTrait;
-
+    
+    protected $with = ['parish'];
     /**
      * Lista de atributos para la gestión de fechas
      * @var array $dates
@@ -59,5 +60,16 @@ class SaleClient extends Model implements Auditable
     public function saleClientsEmail()
     {
         return $this->hasMany(SaleClientsEmail::class);
+    }
+
+    /**
+     * Método que obtiene la solicitud asociado a una parroquia
+     *
+     * @author
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function parish()
+    {
+        return $this->belongsTo(Parish::class);
     }
 }
