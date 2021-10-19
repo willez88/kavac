@@ -397,6 +397,16 @@ Vue.component('approved-advance-payments-list', () => import(
 );
 
 /**
+ * Componente para gestionar la creación de los reportes de Pagos
+ *
+ * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+ */
+Vue.component('sale-report-payment', () => import(
+    /* webpackChunkName: "sale-report-payment" */
+    './components/reports/SaleReportPaymentComponent.vue')
+);
+
+/**
  * Opciones de configuración global del módulo de Commercialización
  */
 Vue.mixin({
