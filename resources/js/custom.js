@@ -563,6 +563,26 @@ $(document).ready(function() {
             $('.bootstrap-switch').tooltip('hide');
         }, 1500);
     });
+
+
+    /** Función que realiza la verificación de la frase de paso del certificado guardado */
+    $('#verify-modal').click(function() {
+        let data = { 'passphrase': $('#phasepass-modal').val() };
+        axios.post('/digitalsignature/validateAuthApi', data).then(function (response) {
+            if (response.data.auth === true) {
+                $('#signed-modal').removeClass('d-none');
+            }
+        }).catch(error => {
+            if (typeof(error.response) !="undefined") {
+                for (var index in error.response.data.errors) {
+                    if (error.response.data.errors[index]) {
+                        vm.errors.push(error.response.data.errors[index][0]);
+                    }
+                }
+            }
+        });
+    });
+
 });
 
 /** Script para medir la fortaleza de la contraseña */
@@ -667,3 +687,9 @@ function delete_record(url) {
         }
     });
 }
+
+
+
+
+
+
