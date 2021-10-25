@@ -23,9 +23,10 @@ class SaleSettingController extends Controller
         $pdCode = $codeSettings->where('table', 'sale_warehouse_inventory_products')->first();
         $mvCode = $codeSettings->where('table', 'sale_warehouse_movements')->first();
         $billCode = $codeSettings->where('table', 'sale_bills')->first();
+        $serviceCode = $codeSettings->where('table', 'sale_services')->first();
 
         return view(
-            'sale::settings', compact('codeSettings', 'pdCode', 'mvCode', 'billCode')
+            'sale::settings', compact('codeSettings', 'pdCode', 'mvCode', 'billCode', 'serviceCode')
         );
         //return view('sale::index');
     }
@@ -50,7 +51,8 @@ class SaleSettingController extends Controller
         $this->validate($request, [
             'products_code' => [new CodeSettingRule],
             'movements_code' => [new CodeSettingRule],
-            'bills_code' => [new CodeSettingRule]
+            'bills_code' => [new CodeSettingRule],
+            'services_code' => [new CodeSettingRule]
         ]);
 
         /** @var array $codes Arreglo con información de los campos de códigos configurados */
@@ -82,6 +84,11 @@ class SaleSettingController extends Controller
                     $table = "bills";
                     /** @var string $model Define el modelo de las facturas */
                     $model = \Modules\Sale\Models\SaleBill::class;
+                } elseif ($table === "services") {
+                    /** @var string $table Define la tabla asociado a las facturas */
+                    $table = "services";
+                    /** @var string $model Define el modelo de las facturas */
+                    $model = \Modules\Sale\Models\SaleService::class;
                 }
 
                 CodeSetting::updateOrCreate([
