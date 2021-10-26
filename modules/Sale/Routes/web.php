@@ -331,7 +331,7 @@ Route::group(
         /**
 
          * ---------------------------------------------------------------------------------
-         * Rutas para gestionar la generación de facturas en el Modulo de Comercialización
+         * Rutas para gestionar la generación de solicitudes de servicios en el Modulo de Comercialización
          * ---------------------------------------------------------------------------------
          */
 
@@ -394,6 +394,11 @@ Route::group(
             'get-goods-attributes',
             'SaleGoodsToBeTradedController@getSaleGoodsAttributes'
         )->name('sale.get-sale-goods-attribute');
+
+        Route::get(
+            'get-sale-goods',
+            'SaleGoodsToBeTradedController@getSaleGoods'
+        );
 
         /**
          * -------------------------------------------------------------------

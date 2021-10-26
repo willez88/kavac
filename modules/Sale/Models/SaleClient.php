@@ -72,4 +72,16 @@ class SaleClient extends Model implements Auditable
     {
         return $this->belongsTo(Parish::class);
     }
+
+    /**
+     * Método que obtiene los registros del formualrio de solicitud de servicios
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany Objeto con el registro relacionado al modelo
+     * saleClientsEmail
+     */
+    public function saleService()
+    {
+        return $this->hasMany(SaleService::class);
+    }
 }

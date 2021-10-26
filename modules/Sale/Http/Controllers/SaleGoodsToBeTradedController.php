@@ -239,4 +239,41 @@ class SaleGoodsToBeTradedController extends Controller
             )->get()
         ]);
     }
+
+    /**
+     * Muestra una lista de los bienes a comercializar
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return JsonResponse
+     */
+
+    public function getSaleGoods()
+    {
+        $records = [];
+        $goods = SaleGoodsToBeTraded::with(['department', 'payrollStaff' => function ($query) {
+            $query->with('phones');
+        }])->orderBy('id', 'ASC')->get();
+
+        array_push($records, ['id' => '', 'text' => 'Seleccione...']);
+
+        foreach ($goods as $good) {
+            $phone = '';
+            foreach($good->payrollStaff->phones as $phone){
+                $phone = $phone->extension.'-'.$phone->area_code.$phone->number;
+            }
+            array_push($records, [
+                'id'                   => $good->id,
+                'name'                 => $good->name,
+                'description'          => $good->description,
+                'department'           => $good->department->name,
+                'staff_name'           => $good->payrollStaff->first_name,
+                'staff_last_name'      => $good->payrollStaff->last_name,
+                'staff_email'          => $good->payrollStaff->email,
+                'staff_phone'          => $phone,
+                'text'                 => $good->name,
+
+            ]);
+        }
+        return response()->json(['records' => $records], 200);
+    }
 }

@@ -33,9 +33,7 @@
                     @include('buttons.minimize')
                 </div>
             </div>
-            <sale-service-create
-                route_list='{{ url('sale/services')}}'
-                :serviceid ="{!! (isset($sale_services)) ? $sale_services->id : 'null' !!}">
+            <sale-service-create>
             </sale-service-create>
         </div>
     </div>
