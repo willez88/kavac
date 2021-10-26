@@ -41,14 +41,24 @@ Vue.component('sale-list-subservices-method', () => import(
  *
  * @author José Puentes <jpuentes@cenditel.gob.ve>
  */
-Vue.component('register-order-client', () => import(
+Vue.component('register-order-create', () => import(
     /* webpackChunkName: "register-clients" */
-    './components/order/SaleOrderComponent.vue')
+    './components/order/SaleOrderComponentCreate.vue')
 );
 
-Vue.component('approve-order-client', () => import(
+Vue.component('register-order-pending-list', () => import(
     /* webpackChunkName: "register-clients" */
-    './components/order/SaleOrderApproveComponent.vue')
+    './components/order/SaleOrderComponentPendingList.vue')
+);
+
+Vue.component('register-order-approved-list', () => import(
+    /* webpackChunkName: "register-clients" */
+    './components/order/SaleOrderComponentApprovedList.vue')
+);
+
+Vue.component('register-order-rejected-list', () => import(
+    /* webpackChunkName: "register-clients" */
+    './components/order/SaleOrderComponentRejectedList.vue')
 );
 
 /**
