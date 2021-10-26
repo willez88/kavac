@@ -233,13 +233,6 @@
 
 					{{-- Discapacidades --}}
 					<payroll-disabilities></payroll-disabilities>
-
-
-					@if ($enable)
-						<testing-component></testing-component>
-
-						<signing-component></signing-component>
-					@endif
 				</div>
 			</div>
 		</div>
