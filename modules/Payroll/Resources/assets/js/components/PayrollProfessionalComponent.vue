@@ -296,7 +296,7 @@
 
 			processFiles(event) {
                 const vm = this;
-                var inputFiles = document.querySelector('#'+event.currentTarget.id);
+                var inputFiles = document.querySelector(`#${event.currentTarget.id}`);
 				for (var x = 0; x < inputFiles.files.length; x++) {
     				formData.append('documents[' + x + ']', inputFiles.files[x]);
 					console.log(inputFiles.files.[x].type);
@@ -326,7 +326,7 @@
 
 			processFile(event) {
 				const vm = this;
-				var inputFile = document.querySelector('#'+event.currentTarget.id);
+				var inputFile = document.querySelector(`#'${event.currentTarget.id}`);
 				var image_type = ['image/png', 'image/jpeg', 'image/jpg'];
 				if( inputFile.files[0].type.match('image/png') || inputFile.files[0].type.match('image/jpeg') || inputFile.files[0].type.match('image/jpg') ) {
 					console.log(inputFile.files[0].type);

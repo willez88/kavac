@@ -27,7 +27,6 @@ class CreatePayrollCoursesTable extends Migration
         if (!Schema::hasTable('payroll_courses')) {
             Schema::create('payroll_courses', function (Blueprint $table) {
                 $table->id();
-                $table->string('name', 100)->comment('Nombre del curso');
                 $table->foreignId('payroll_professional_id')->unique()
                       ->comment('Identificador del dato profesional')->constrained()
                       ->onUpdate('cascade')->onDelete('restrict');
