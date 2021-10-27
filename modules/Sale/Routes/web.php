@@ -30,12 +30,31 @@ Route::group(
         /**
          * Panel de control referente a los pedidos
          */
-        Route::get('order', 'SaleOrderSettingController@options')->name('sale.order.options');
+        Route::resource('order', 'SaleOrderSettingController', ['only' => 'store']);
+        Route::get('order/create', 'SaleOrderSettingController@create')->name('sale.order.create');
+        Route::get('order', 'SaleOrderSettingController@index')->name('sale.order.index');
+        Route::patch('order/{order}', 'SaleOrderSettingController@update');
+        Route::get('order/vue-list', 'SaleOrderSettingController@getListPending');
+        Route::get('order/list-rejected', 'SaleOrderSettingController@getListRejected');
+        Route::get('order/list-approved', 'SaleOrderSettingController@getListApproved');
 
         Route::resource(
-            'register-order',
-            'SaleOrderSettingController',
-            ['as' => 'order', 'except' => ['create','edit','show']]
+          'approve-order',
+          'SaleOrderSettingController',
+          ['as' => 'order', 'except' => ['create','edit','show']]
+        );
+
+        Route::put(
+          'order/rejected/{order}',
+          'SaleOrderSettingController@rejectedOrder'
+        );
+        Route::put(
+          'order/approved/{order}',
+          'SaleOrderSettingController@approvedOrder'
+        );
+        Route::put(
+          'order/delete/{order}',
+          'SaleOrderSettingController@destroy'
         );
 
         /** Ruta que obtiene un array con los precios registrados, de acuerdo al producto seleccionado */

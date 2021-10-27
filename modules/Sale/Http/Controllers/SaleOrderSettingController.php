@@ -36,8 +36,35 @@ class SaleOrderSettingController extends Controller
      */
     public function index()
     {
-        //return view('sale::order.list');
-        return response()->json(['records' => SaleOrder::all()], 200);
+        return view('sale::order.list');
+        //return response()->json(['records' => SaleOrder::all()], 200);
+    }
+
+    /**
+     * Obtiene un listado de las ordenes solicitadas con estado pendiente
+     */
+    public function getListPending()
+    {
+      $records = SaleOrder::where('status', '=', 'pending')->get();
+      return response()->json(['records' => $records], 200);
+    }
+
+    /**
+     * Obtiene un listado de las ordenes solicitadas con estado rechazadas
+     */
+    public function getListRejected()
+    {
+      $records = SaleOrder::where('status', '=', 'rechazado')->get();
+      return response()->json(['records' => $records], 200);
+    }
+
+    /**
+     * Obtiene un listado de las ordenes solicitadas con estado aprobadas
+     */
+    public function getListApproved()
+    {
+      $records = SaleOrder::where('status', '=', 'aprobado')->get();
+      return response()->json(['records' => $records], 200);
     }
 
     public function options()
@@ -57,7 +84,7 @@ class SaleOrderSettingController extends Controller
      */
     public function create()
     {
-        //return view('sale::create');
+        return view('sale::order.create');
     }
 
     /**
@@ -85,7 +112,8 @@ class SaleOrderSettingController extends Controller
             'phone'       => $request->phone,
             'description' => $request->description
         ]);
-        return response()->json(['record' => $order, 'message' => 'Success'], 200);
+
+        return response()->json(['record' => $order, 'message' => 'Success', 'redirect' => route('sale.order.index')], 200);
     }
 
     /**
@@ -146,7 +174,7 @@ class SaleOrderSettingController extends Controller
         $order->phone  = $request->phone;
         $order->description = $request->description;
         $order->save();
-        return response()->json(['message' => 'Success'], 200);
+        return response()->json(['message' => 'Success', 'redirect' => route('sale.order.index')], 200);
     }
 
     /**
@@ -164,7 +192,7 @@ class SaleOrderSettingController extends Controller
     {
         $order = SaleOrder::find($id);
         $order->delete();
-        return response()->json(['record' => $order, 'message' => 'Success'], 200);
+        return response()->json(['record' => $order, 'message' => 'Success', 'redirect' => route('sale.order.index')], 200);
     }
 
     /**
@@ -178,5 +206,31 @@ class SaleOrderSettingController extends Controller
     {
         $product = SaleSettingProduct::find($id);
         return response()->json(['record' => $product, 'message' => 'Success'], 200);
+    }
+
+    /**
+     * Rechaza la solicitud de la orden
+     */
+    public function rejectedOrder(Request $request, $id)
+    {
+        $sale_order = SaleOrder::find($id);
+        $sale_order->status = 'rechazado';
+        $sale_order->save();
+
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true, 'redirect' => route('sale.order.index')], 200);
+    }
+
+    /**
+     * Aprueba la solicitud de la orden
+     */
+    public function approvedOrder(Request $request, $id)
+    {
+        $sale_order = SaleOrder::find($id);
+        $sale_order->status = 'aprobado';
+        $sale_order->save();
+
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true, 'redirect' => route('sale.order.index')], 200);
     }
 }
