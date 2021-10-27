@@ -33,30 +33,26 @@
             <div class="col-md-3">
                 <div v-show="record.sale_client_id != 0" class="form-group">
                     <label for="sale_clients_email">Correo:</label>
-                    <input type="text" class="form-control input-sm" :disabled="true" 
-                        data-toggle="tooltip" title="Dirección" 
-                        id="sale_clients_email"></input>
+                    <p v-for="email in sale_client.sale_clients_email">
+                        <input type="text" class="form-control input-sm" :disabled="true" 
+                            data-toggle="tooltip" title="Dirección" 
+                            id="email" v-model="email.email"></input>
+                    </p>
                 </div>
             </div>
             <div class="col-md-3">
                 <div v-show="record.sale_client_id != 0" class="form-group">
                     <label for="phones">Número telefónico:</label>
-                    <input type="text" class="form-control input-sm" :disabled="true"
-                        data-toggle="tooltip" title="Dirección fiscal" 
-                        id="phones"></input>
+                    <p v-for="phone in sale_client.phones">
+                        <input type="text" class="form-control input-sm" :disabled="true"
+                            data-toggle="tooltip" title="Dirección fiscal" 
+                            id="phone" v-model="phone.extension + '-' + phone.area_code + phone.number"></input>
+                    </p>
                 </div>
             </div>
         </div>
         <br>
         <div class="row">
-            <div class="col-md-3">
-                <div class="form-group is-required">
-                    <label for="applicant_name">Nombre y apellido del solicitante:</label>
-                    <input type="text" class="form-control input-sm"
-                        data-toggle="tooltip" title="Nombre o razón social" 
-                        v-model="record.name" id="applicant_name"></input>
-                </div>
-            </div>
             <div class="col-md-3">
                 <div class="form-group is-required">
                     <label for="applicant_organization">Organización:</label>
@@ -92,11 +88,11 @@
             <div v-if="record.sale_goods_to_be_traded && record.sale_goods_to_be_traded.length > 0" class="col-md-3">
                 <div class="form-group">
                     <label for="applicant_name">Descripción:</label>
-                    <p v-for="good_to_be_traded in record.sale_goods_to_be_traded">
+                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
                         <input type="text" class="form-control input-sm"
                             data-toggle="tooltip" title="Nombre o razón social" 
                             :disabled="true"
-                            id="service_description"></input>
+                            id="service_description" v-model="good_to_be_traded.description"></input>
                     </p>
                 </div>
             </div>
@@ -111,11 +107,11 @@
             <div class="col-md-3" v-if="record.sale_goods_to_be_traded && record.sale_goods_to_be_traded.length > 0">
                 <div class="form-group">
                     <label for="applicant_name">Unidad o departamento:</label>
-                    <p v-for="good_to_be_traded in record.sale_goods_to_be_traded">
+                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
                         <input type="text" class="form-control input-sm"
                             data-toggle="tooltip" title="Nombre o razón social" 
                             :disabled="true"
-                            id="service_department"></input>
+                            id="service_department" v-model="good_to_be_traded.department"></input>
                     </p>
                     <br>
                 </div>
@@ -123,44 +119,44 @@
             <div class="col-md-3" v-if="record.sale_goods_to_be_traded && record.sale_goods_to_be_traded.length > 0">
                 <div id="saleServiceName" class="form-group">
                     <label for="applicant_name">Nombre:</label>
-                    <p v-for="good_to_be_traded in record.sale_goods_to_be_traded">
+                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
                         <input type="text" class="form-control input-sm"
                             data-toggle="tooltip" title="Nombre o razón social" 
                             :disabled="true"
-                            id="staff_name"></input>
+                            id="staff_name" v-model="good_to_be_traded.staff_name"></input>
                     </p>
                 </div>
             </div>
             <div class="col-md-3" v-if="record.sale_goods_to_be_traded && record.sale_goods_to_be_traded.length > 0">
                 <div id="saleServiceLastname" class="form-group">
                     <label for="applicant_name">Apellido:</label>
-                    <p v-for="good_to_be_traded in record.sale_goods_to_be_traded">
+                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
                         <input type="text" class="form-control input-sm"
                             data-toggle="tooltip" title="Nombre o razón social" 
                             :disabled="true"
-                            id="staff_last_name"></input>
+                            id="staff_last_name" v-model="good_to_be_traded.staff_last_name"></input>
                     </p>
                 </div>
             </div>
             <div class="col-md-3" v-if="record.sale_goods_to_be_traded && record.sale_goods_to_be_traded.length > 0">
                 <div id="saleServicePhone" class="form-group">
                     <label for="applicant_name">Teléfono:</label>
-                    <p v-for="good_to_be_traded in record.sale_goods_to_be_traded">
+                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
                         <input type="text" class="form-control input-sm"
                             data-toggle="tooltip" title="Nombre o razón social" 
                             :disabled="true"
-                            id="staff_phone"></input>
+                            id="staff_phone" v-model="good_to_be_traded.staff_phone"></input>
                     </p>
                 </div>
             </div>
             <div class="col-md-3" v-if="record.sale_goods_to_be_traded && record.sale_goods_to_be_traded.length > 0">
                 <div id="saleServiceEmail" class="form-group">
                     <label for="applicant_name">Correo electrónico:</label>
-                    <p v-for="good_to_be_traded in record.sale_goods_to_be_traded">
+                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
                         <input type="text" class="form-control input-sm"
                             data-toggle="tooltip" title="Nombre o razón social" 
                             :disabled="true"
-                            id="staff_email"></input>
+                            id="staff_email" v-model="good_to_be_traded.staff_email"></input>
                     </p>
                 </div>
             </div>
@@ -222,7 +218,6 @@ export default {
         return {
             record: {
                 id: '',
-                name: '',
                 organization: '',
                 description: '',
                 resume: '',
@@ -257,17 +252,18 @@ export default {
         sale_goods_to_be_traded() {
             const vm = this;
             vm.record.sale_goods_to_be_traded = [];
+
             for (let good_to_be_traded of vm.sale_goods_to_be_traded){
                 let good_to_be_traded_id = good_to_be_traded.id;
                 vm.record.sale_goods_to_be_traded.push(good_to_be_traded_id);
             }
+            
         }
     },
     methods: {
         reset() {
             this.record = {
                 id: '',
-                name: '',
                 organization: '',
                 description: '',
                 resume: '',
@@ -315,14 +311,6 @@ export default {
                     vm.sale_client.name = response.data.sale_client.name;
                     vm.sale_client.phones = response.data.sale_client.phones;
                     vm.sale_client.sale_clients_email = response.data.sale_client.sale_clients_email;
-
-                    $('#name_client').val(vm.sale_client.name);
-                    for (let sale_clients_email of vm.sale_client.sale_clients_email){
-                        $('#sale_clients_email').val(sale_clients_email.email);
-                    }
-                    for (let phone of vm.sale_client.phones){
-                        $('#phones').val(phone.number);
-                    }
                 });
             }
         },

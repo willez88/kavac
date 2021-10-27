@@ -68,7 +68,6 @@ class SaleServiceController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required'],
             'organization' => ['required'],
             'description' => ['required'],
             'resume' => ['required'],
@@ -97,7 +96,6 @@ class SaleServiceController extends Controller
             $data_request = SaleService::create([
                 'code' => $code,
                 'status' => 'Pendiente',
-                'name' => $request->input('name'),
                 'organization' => $request->input('organization'),
                 'description' => $request->input('description'),
                 'resume' => $request->input('resume'),

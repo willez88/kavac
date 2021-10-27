@@ -35,7 +35,7 @@ class SaleService extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['code', 'name', 'organization', 'description',
+    protected $fillable = ['code', 'organization', 'description',
         'resume', 'status', 'sale_goods_to_be_traded', 'sale_client_id', 'payroll_staff_id'];
 
     /**
