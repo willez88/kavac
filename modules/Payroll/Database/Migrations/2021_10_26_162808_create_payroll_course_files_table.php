@@ -6,11 +6,11 @@ use Illuminate\Database\Migrations\Migration;
 
 /**
  * @class CreatePayrollCourseFilesTable
- * @brief [descripción detallada]
+ * @brief Crear tabla archivos de curso
  *
- * [descripción corta]
+ * Gestiona la creación o eliminación de la tabla cursos
  *
- * @author [autor de la clase] [correo del autor]
+ * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
  *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
@@ -26,7 +26,9 @@ class CreatePayrollCourseFilesTable extends Migration
     {
         Schema::create('payroll_course_files', function (Blueprint $table) {
             $table->id();
-            
+            $table->foreignId('payroll_course_id')->
+                  ->comment('Identificador del archivo del curso')->constrained()
+                  ->onUpdate('cascade')->onDelete('restrict');
             $table->timestamps();
             $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
         });

@@ -154,33 +154,49 @@
 
 					<hr>
 					<h6 class="card-title">
-						Capacitación y Reconocimientos <i class="fa fa-plus-circle cursor-pointer" @click=""></i>
+						Capacitación y Reconocimientos <i class="fa fa-plus-circle cursor-pointer" @click="addPayrollCouAckFiles"></i>
 					</h6>
-					<div class="row">
-						<div class="col-md-4">
+					<div class="row" v-for="(payroll_cou_ack_file, index) in record.payroll_cou_ack_files">
+						<div class="col-3">
 							<div class="form-group">
-								<label for="courses">
-									Cursos:
+								<label>Nombre del Curso:</label>
+								<input type="text" class="form-control input-sm"
+									v-model="payroll_cou_ack_file.course_name"/>
+							</div>
+						</div>
+						<div class="col-2">
+							<div class="form-group">
+								<label for="course">
+									Curso:
 	                            </label>
-								<div v-for="(document, index) in payroll_course.documents">
-									<a :href="`/${document.url}`" target="_blank">Documento</a>
-									<button class="btn btn-sm btn-danger btn-action" type="button"
-	                                        @click="deleteDocument(index, payroll_course.documents)"
-	                                        title="Eliminar este dato" data-toggle="tooltip">
-	                                    <i class="fa fa-minus-circle"></i>
-	                                </button>
-								</div>
 								<input id="course" name="course" type="file"
 									accept=".png, .jpg, .pdf, .odt" @change="processFile($event)">
 							</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-3">
 							<div class="form-group">
-								<label for="acknowledgments">
-									Reconocimientos:
+								<label>Nombre del Reconocimiento:</label>
+								<input type="text" class="form-control input-sm"
+									v-model="payroll_cou_ack_file.ack_name"/>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="form-group">
+								<label for="acknowledgment">
+									Reconocimiento:
 	                            </label>
-								<input id="acknowledgments" name="acknowledgments" type="file"
-									accept=".png, .jpg, .pdf, .odt" @change="processFiles()" multiple>
+								<input id="acknowledgment" name="acknowledgment" type="file"
+									accept=".png, .jpg, .pdf, .odt" @change="processFile()">
+							</div>
+						</div>
+						<div class="col-1">
+							<div class="form-group">
+								<br>
+								<button class="btn btn-sm btn-danger btn-action" type="button"
+									@click="removeRow(index, record.payroll_cou_ack_files)"
+									title="Eliminar este dato" data-toggle="tooltip" data-placement="right">
+									<i class="fa fa-minus-circle"></i>
+								</button>
 							</div>
 						</div>
 					</div>
@@ -225,6 +241,7 @@
 					course_ids: [],
 					professions: [],
 					payroll_languages: [],
+					payroll_cou_ack_files: [],
 				},
 				errors: [],
 				payroll_staffs: [],
@@ -236,6 +253,7 @@
 				payroll_language_levels: [],
 				payroll_class_schedule: '',
 				payroll_course: '',
+				payroll_cou_ack_files: [],
 			}
 		},
 		methods: {
@@ -262,7 +280,7 @@
 						});
 					}
 					vm.payroll_class_schedule = (response.data.record.payroll_class_schedule) ? response.data.record.payroll_class_schedule : {};
-					vm.payroll_course = (response.data.record.payroll_course) ? response.data.record.payroll_course : {};
+					//vm.payroll_course = (response.data.record.payroll_course) ? response.data.record.payroll_course : {};
 				});
 			},
 
@@ -278,7 +296,8 @@
 					class_schedule_ids: [],
 					course_ids: [],
 					professions: [],
-					payroll_languages: []
+					payroll_languages: [],
+					payroll_cou_ack_files: [],
 				};
 			},
 
@@ -291,6 +310,18 @@
 				this.record.payroll_languages.push({
 					payroll_lang_id: '',
 					payroll_language_level_id: '',
+				});
+			},
+
+			/**
+			 * Agrega una nueva fila para el registro de cursos y reconocimientos
+			 *
+			 * @author William Páez <wpaez@cenditel.gob.ve>
+			 */
+			addPayrollCouAckFiles() {
+				this.record.payroll_cou_ack_files.push({
+					course_name: '',
+					ack_name: '',
 				});
 			},
 
@@ -345,6 +376,7 @@
 		created() {
 			this.record.payroll_languages = [];
 			this.record.professions = [];
+			this.record.payroll_cou_ack_files = [];
 			this.getPayrollStaffs();
 			this.getPayrollInstructionDegrees();
 			this.getProfessions();
