@@ -147,19 +147,16 @@ class SaleServiceController extends Controller
     }
 
     /**
-     * [descripción del método]
+     * Muestra el formulario para editar una solicitud de servicio
      *
-     * @method    edit
-     *
-     * @author    [nombre del autor] [correo del autor]
-     *
-     * @param     integer    $id    Identificador del registro
-     *
-     * @return    Renderable    [description de los datos devueltos]
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @param  Integer $id Identificador único del ingreso de almacén
+     * @return \Illuminate\Http\Response (JSON con los registros a mostrar)
      */
     public function edit($id)
     {
-        return view('sale::edit');
+        $services = SaleService::find($id);
+        return view('sale::services.create', compact("services"));
     }
 
     /**
@@ -176,7 +173,65 @@ class SaleServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $saleService = SaleService::find($id);
+        $this->validate($request, [
+            'organization' => ['required'],
+            'description' => ['required'],
+            'resume' => ['required'],
+            'sale_client_id' => ['required'],
+            'sale_goods_to_be_traded' => ['required'],
+        ]);
+
+        $saleService->organization                = $request->input('organization');
+        $saleService->description         = $request->input('description');
+        $saleService->resume          = $request->input('resume');
+        $saleService->sale_client_id         = $request->input('sale_client_id');
+        $saleService->sale_goods_to_be_traded = $request->input('sale_goods_to_be_traded');
+
+        $saleService->save();
+
+        $serviceRequirement = SaleGoodsAttribute::where('sale_service_id', $saleService->id)->get();
+
+        /** Busco si en la solicitud se eliminaron atributos registrados anteriormente */
+        foreach ($serviceRequirement as $requirement) {
+            $equal = false;
+            foreach ($request->requirements as $req) {
+                if ($req["name"] == $requirement->name) {
+                    $equal = true;
+                    break;
+                }
+            }
+        }
+
+        /** Registro los nuevos atributos */
+        if ($saleService->sale_service_requirement == true) {
+            foreach ($request->requirements as $req) {
+                $requirement = SaleServiceRequirement::where('name', $req['name'])
+                             ->where('sale_service_id', $saleService->id)->first();
+                if (is_null($requirement)) {
+                    $requirement = SaleServiceRequirement::create([
+                        'name' => $req['name'],
+                        'sale_service_id' => $saleService->id
+                    ]);
+                }
+            }
+        };
+        
+        if (is_null($saleSale)) {
+            $request->session()->flash(
+                'message',
+                [
+                    'type' => 'other',
+                    'title' => 'Alerta',
+                    'icon' => 'screen-error',
+                    'class' => 'growl-danger',
+                    'text' => 'No se pudo completar la operación.'
+                ]
+            );
+        } else {
+            $request->session()->flash('message', ['type' => 'update']);
+        }
+        return response()->json(['result' => true, 'redirect' => route('sale.services.index')], 200);
     }
 
     /**
@@ -193,5 +248,21 @@ class SaleServiceController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Obtiene un listado de las solicitudes registradas
+     */
+    public function vueList()
+    {
+        return response()->json(['records' => SaleService::with(['SaleServiceRequirement',
+            'saleClient'])->get()], 200);
+    }
+
+    public function vueInfo($id)
+    {
+        $saleService = SaleService::where('id', $id)->with(['SaleServiceRequirement',
+            'saleClient'])->first();
+        return response()->json(['record' => $saleService], 200);
     }
 }

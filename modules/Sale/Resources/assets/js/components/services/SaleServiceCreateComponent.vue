@@ -261,6 +261,31 @@ export default {
         }
     },
     methods: {
+        /**
+         * Método que carga la información del formulario al editar
+         *
+         *
+         */
+        async loadForm(id){
+            const vm = this;
+
+            await axios.get('/sale/services/info/'+id).then(response => {
+                if(typeof(response.data.record != "undefined")){
+                    vm.record = response.data.record;
+
+                    /*vm.sale_goods_to_be_traded = [];
+
+                    for (let data of response.data.record.sale_goods) {
+                        vm.sale_goods_to_be_traded.push(data);
+                    }*/
+                }
+            });
+        },
+        /**
+         * Método que borra todos los datos del formulario
+         *
+         *
+         */
         reset() {
             this.record = {
                 id: '',
@@ -331,6 +356,21 @@ export default {
             axios.get('/sale/get-sale-clients-fiscal-address/').then(response => {
                 vm.sale_clients_fiscal_address = response.data;
             });
+        },
+    },
+    mounted() {
+        const vm = this;
+
+        if(this.serviceid){
+            this.loadForm(this.serviceid);
+        }
+        else {
+            vm.record.date = moment(String(new Date())).format('YYYY-MM-DD');
+        }
+    },
+    props: {
+        serviceid: {
+            type: Number
         },
     },
     created() {

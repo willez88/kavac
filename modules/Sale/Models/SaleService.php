@@ -8,6 +8,8 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
+use Modules\Sale\Models\SaleGoodsToBeTraded;
+
 /**
  * @class SaleService
  * @brief Datos de solicitudes de servicios
@@ -45,6 +47,37 @@ class SaleService extends Model implements Auditable
     protected $casts = [
         'sale_goods_to_be_traded' => 'json'
     ];
+
+    /**
+     * Lista de atributos personalizados obtenidos por defecto
+     * @var array $appends
+     */
+    protected $appends = [
+        'sale_goods'
+    ];
+
+    /**
+     * Atributo que devuelve informacion de las propiedades en meta
+     *
+     * @author    Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     *
+     * @return    App\Models\Load\GlobalData\Property
+     */
+    public function getSaleGoodsAttribute()
+    {
+        $data = [];
+        if (!empty($this->sale_goods_to_be_traded)) {
+            foreach ($this->sale_goods_to_be_traded as $key => $value) {
+                $data[$key] = ($value != null) 
+                        ? SaleGoodsToBeTraded::where('id', $value)
+                                                ->with(['department', 'payrollStaff' => function ($query) {
+                                                        $query->with('phones');
+                                                    }])->get()
+                        : null;
+            }
+        }
+        return $data;
+    }
 
     /**
      * Método que obtiene los requerimientos de la solicitud de servicios

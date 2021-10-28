@@ -337,11 +337,11 @@ Route::group(
 
         Route::resource('services', 'SaleServiceController', ['as' => 'sale', 'except' => ['create','edit','show']]);
         Route::get('services/create', 'SaleServiceController@create')->name('sale.services.create');
+        Route::get('services/vue-list', 'SaleServiceController@vueList');
+        Route::get('services/edit/{id}', 'SaleServiceController@edit')->name('sale.services.edit');
+        Route::get('services/info/{id}', 'SaleServiceController@vueInfo');
+        Route::patch('services/{id}', 'SaleServiceController@update');
         //  Route::get('bills', 'SaleBillController@index')->name('sale.bills.index');
-        //  Route::get('bills/vue-list', 'SaleBillController@vueList');
-        //  Route::patch('bills/{bill}', 'SaleBillController@update');
-        //  Route::get('bills/info/{bill}', 'SaleBillController@vueInfo');
-        //  Route::get('bills/edit/{bill}', 'SaleBillController@edit')->name('sale.bills.edit');
         //  Route::delete('bills/delete/{bill}', 'SaleBillController@destroy')->name('sale.bills.destroy');
         //  Route::put('bills/bill-approved/{bill}', 'SaleBillController@approvedBill');
         //  Route::put('bills/bill-rejected/{bill}', 'SaleBillController@rejectedBill');
