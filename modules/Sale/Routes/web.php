@@ -133,15 +133,7 @@ Route::group(
             'get-paymentmethod',
             'SalePaymentMethodController@getSalePaymentMethod'
         )->name('sale.get-sale-paymentmethod');
-        Route::resource(
-            'setting-product',
-            'SaleSettingProductController',
-            ['as' => 'sale', 'except' => ['create','edit','show']]
-        );
-        Route::get(
-            'get-setting-product',
-            'SaleSettingProductController@getSaleSettingProduct'
-        )->name('sale.get-sale-setting-product');
+
         Route::resource(
             'setting-product-type',
             'SaleSettingProductTypeController',
@@ -371,6 +363,17 @@ Route::group(
             'get-periodic-cost',
             'PeriodicCostController@getPeriodicCostAttributes'
         )->name('sale.get-sale-periodic-cost');
+        //Products (productos)
+        Route::resource(
+            'product',
+            'SaleSettingProductController',
+            ['as' => 'sale', 'except' => ['create','edit','show']]
+        );
+
+        Route::get(
+            'get-setting-product',
+            'SaleSettingProductController@getSaleSettingProduct'
+        )->name('sale.get-sale-setting-product');
 
         /*
          * ------------------------------------------------------------

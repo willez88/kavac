@@ -35,22 +35,18 @@ class SaleSettingProduct extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['name', 'sale_setting_product_type_id', 'code', 'description', 'price', 'iva'];
+    protected $fillable = ['name', 'description', 'attributes'];
+
 
     /**
-     * Lista de registros relacionados
-     * @var array $with
-    */
-    protected $with = ['saleSettingProductType'];
-
-    /**
-     * Método que obtiene el tipo de producto
+     * Método que obtiene la lista de atributos de un producto
      *
-     * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @author PHD. Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany Objeto con el registro relacionado al modelo
+     * SaleSettingProductAttribute
      */
-    public function saleSettingProductType()
+    public function saleSettingProductAttribute()
     {
-        return $this->belongsTo(SaleSettingProductType::class);
+        return $this->hasMany(SaleSettingProductAttribute::class);
     }
 }
