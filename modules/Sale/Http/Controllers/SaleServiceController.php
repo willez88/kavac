@@ -173,7 +173,7 @@ class SaleServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $saleService = SaleService::find($id);
+        $saleService = SaleService::with('SaleServiceRequirement')->find($id);
         $this->validate($request, [
             'organization' => ['required'],
             'description' => ['required'],
@@ -182,20 +182,20 @@ class SaleServiceController extends Controller
             'sale_goods_to_be_traded' => ['required'],
         ]);
 
-        $saleService->organization                = $request->input('organization');
-        $saleService->description         = $request->input('description');
-        $saleService->resume          = $request->input('resume');
-        $saleService->sale_client_id         = $request->input('sale_client_id');
+        $saleService->organization            = $request->input('organization');
+        $saleService->description             = $request->input('description');
+        $saleService->resume                  = $request->input('resume');
+        $saleService->sale_client_id          = $request->input('sale_client_id');
         $saleService->sale_goods_to_be_traded = $request->input('sale_goods_to_be_traded');
 
         $saleService->save();
 
-        $serviceRequirement = SaleGoodsAttribute::where('sale_service_id', $saleService->id)->get();
+        $serviceRequirement = SaleServiceRequirement::where('sale_service_id', $saleService->id)->get();
 
         /** Busco si en la solicitud se eliminaron atributos registrados anteriormente */
         foreach ($serviceRequirement as $requirement) {
             $equal = false;
-            foreach ($request->requirements as $req) {
+            foreach ($request->sale_service_requirement as $req) {
                 if ($req["name"] == $requirement->name) {
                     $equal = true;
                     break;
@@ -204,8 +204,8 @@ class SaleServiceController extends Controller
         }
 
         /** Registro los nuevos atributos */
-        if ($saleService->sale_service_requirement == true) {
-            foreach ($request->requirements as $req) {
+        if ($saleService->SaleServiceRequirement == true) {
+            foreach ($request->sale_service_requirement as $req) {
                 $requirement = SaleServiceRequirement::where('name', $req['name'])
                              ->where('sale_service_id', $saleService->id)->first();
                 if (is_null($requirement)) {
@@ -217,7 +217,7 @@ class SaleServiceController extends Controller
             }
         };
         
-        if (is_null($saleSale)) {
+        if (is_null($saleService)) {
             $request->session()->flash(
                 'message',
                 [

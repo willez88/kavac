@@ -273,11 +273,20 @@ export default {
                 if(typeof(response.data.record != "undefined")){
                     vm.record = response.data.record;
 
-                    /*vm.sale_goods_to_be_traded = [];
+                    vm.sale_goods_to_be_traded = [];
+                    vm.record.requirements = [];
 
-                    for (let data of response.data.record.sale_goods) {
-                        vm.sale_goods_to_be_traded.push(data);
-                    }*/
+                    for (let data of vm.services) {
+                        for (let good_id of response.data.record.sale_goods_to_be_traded) {
+                            if (good_id == data.id) {
+                                vm.sale_goods_to_be_traded.push(data);
+                            }
+                        }
+                    }
+
+                    for (let requirement of response.data.record.sale_service_requirement) {
+                        vm.record.requirements.push(requirement);
+                    }
                 }
             });
         },
