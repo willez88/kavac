@@ -333,8 +333,8 @@ Route::group(
         Route::get('services/edit/{id}', 'SaleServiceController@edit')->name('sale.services.edit');
         Route::get('services/info/{id}', 'SaleServiceController@vueInfo');
         Route::patch('services/{id}', 'SaleServiceController@update');
+        Route::delete('services/delete/{id}', 'SaleServiceController@destroy')->name('sale.services.destroy');
         //  Route::get('bills', 'SaleBillController@index')->name('sale.bills.index');
-        //  Route::delete('bills/delete/{bill}', 'SaleBillController@destroy')->name('sale.bills.destroy');
         //  Route::put('bills/bill-approved/{bill}', 'SaleBillController@approvedBill');
         //  Route::put('bills/bill-rejected/{bill}', 'SaleBillController@rejectedBill');
         //  Route::get('bills/vue-approved-list/{state}', 'SaleBillController@vueApprovedList');

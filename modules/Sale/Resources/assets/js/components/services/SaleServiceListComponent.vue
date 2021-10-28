@@ -14,6 +14,9 @@
             <span>
                 {{ (props.row.sale_client.name) ? props.row.sale_client.name : '' }}
             </span>
+            <span>
+                {{ (props.row.sale_client.business_name) ? props.row.sale_client.business_name : '' }}
+            </span>
         </div>
         <div slot="department" slot-scope="props">
             <span v-for="sale_good in props.row.sale_goods">

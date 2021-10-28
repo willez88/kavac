@@ -192,31 +192,18 @@ class SaleServiceController extends Controller
 
         $serviceRequirement = SaleServiceRequirement::where('sale_service_id', $saleService->id)->get();
 
-        /** Busco si en la solicitud se eliminaron atributos registrados anteriormente */
-        foreach ($serviceRequirement as $requirement) {
-            $equal = false;
-            foreach ($request->sale_service_requirement as $req) {
-                if ($req["name"] == $requirement->name) {
-                    $equal = true;
-                    break;
-                }
+        foreach ($saleService->SaleServiceRequirement as $requirement) {
+            $requirement->delete();
+        }
+        if ($saleService->SaleServiceRequirement == true) {
+            foreach ($request->sale_service_requirement as $requirement) {
+                $serviceRequirement = SaleServiceRequirement::create([
+                    'name'          => $requirement['name'],
+                    'sale_service_id' => $saleService->id
+                ]);
             }
         }
 
-        /** Registro los nuevos atributos */
-        if ($saleService->SaleServiceRequirement == true) {
-            foreach ($request->sale_service_requirement as $req) {
-                $requirement = SaleServiceRequirement::where('name', $req['name'])
-                             ->where('sale_service_id', $saleService->id)->first();
-                if (is_null($requirement)) {
-                    $requirement = SaleServiceRequirement::create([
-                        'name' => $req['name'],
-                        'sale_service_id' => $saleService->id
-                    ]);
-                }
-            }
-        };
-        
         if (is_null($saleService)) {
             $request->session()->flash(
                 'message',
@@ -247,7 +234,15 @@ class SaleServiceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        /**
+         * Objeto con la información asociada al modelo SaleService
+         * @var Object $forestClimates
+         */
+        $saleService = SaleService::find($id);
+        if ($saleService) {
+            $saleService->delete();
+            return response()->json(['result' => true, 'redirect' => route('sale.services.index'), 'message' => 'Success'], 200);
+        }
     }
 
     /**
