@@ -1,27 +1,4 @@
 <template>
-    <v-client-table :columns="columns" :data="records" :options="table_options">
-        <div slot="code" slot-scope="props">
-            <span>
-                {{ (props.row.code) ? props.row.code : '' }}
-            </span>
-        </div>
-        <div slot="application_date" slot-scope="props">
-            <span>
-                {{ (props.row.created_at) ? props.row.created_at : '' }}
-            </span>
-        </div>
-        <div slot="sale_client" slot-scope="props">
-            <span>
-                {{ (props.row.sale_client.name) ? props.row.sale_client.name : '' }}
-            </span>
-            <span>
-                {{ (props.row.sale_client.business_name) ? props.row.sale_client.business_name : '' }}
-            </span>
-        </div>
-        <div slot="department" slot-scope="props">
-            <span v-for="sale_good in props.row.sale_goods">
-                <span v-for="good in sale_good">
-                    {{ (props.row.sale_goods) ? good.department.name : '' }}
     <section>
         <v-client-table :columns="columns" :data="records" :options="table_options" ref="tableResults">
             <div slot="code" slot-scope="props">
@@ -37,6 +14,9 @@
             <div slot="sale_client" slot-scope="props">
                 <span>
                     {{ (props.row.sale_client.name) ? props.row.sale_client.name : '' }}
+                </span>
+                <span>
+                    {{ (props.row.sale_client.business_name) ? props.row.sale_client.business_name : '' }}
                 </span>
             </div>
             <div slot="department" slot-scope="props">
