@@ -14,7 +14,7 @@ class SaleClient extends Model implements Auditable
     use AuditableTrait;
     use ModelsTrait;
     
-    protected $with = ['parish'];
+    protected $with = ['parish', 'saleClientsEmail'];
     /**
      * Lista de atributos para la gestión de fechas
      * @var array $dates
@@ -28,6 +28,15 @@ class SaleClient extends Model implements Auditable
     protected $fillable = [
         'rif', 'business_name', 'representative_name', 'type_person_juridica', 'name', 'country_id', 'estate_id', 'municipality_id', 'parish_id', 'address_tax', 'name_client', 'emails', 'id_number', 'id_type'
     ];
+
+    /**
+     * Lista de atributos que deben ser asignados a tipos nativos.
+     * @var array
+     */
+    protected $casts = [
+        'phones' => 'json'
+    ];
+
     /**
      * Obtiene todos los número telefónicos asociados al cliente
      *

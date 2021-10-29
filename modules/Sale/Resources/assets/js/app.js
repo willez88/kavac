@@ -301,6 +301,16 @@ Vue.component('sale-service-create', () => import(
 );
 
 /**
+ * Componente para mostrar la información asociada a una solicitud de servicios
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-service-info', () => import(
+    /* webpackChunkName: "sale-service-info" */
+    './components/services/SaleServiceInfoComponent.vue')
+);
+
+/**
  * Componente para mostrar un listado de las solicitudes de servicios pendientes
  *
  * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
@@ -598,6 +608,35 @@ Vue.mixin({
                     vm.record.parish_id = vm.record.parish.id;
                 }
             }
+        },
+
+        /**
+         * Método que establece los datos del registro seleccionado para el cual se desea mostrar detalles
+         *
+         * @method    setDetails
+         *
+         * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve>
+         * @author     Juan Rosas <jrosasr@cenditel.gob.ve>
+         * @author     Daniel Contreras <dcontreras@cenditel.gob.ve>
+         *
+         * @param     string   ref       Identificador del componente
+         * @param     integer  id        Identificador del registro seleccionado
+         * @param     object  var_list  Objeto con las variables y valores a asignar en las variables del componente
+         */
+        setDetails(ref, id, modal ,var_list = null) {
+            const vm = this;
+            if (var_list) {
+                for(var i in var_list){
+                    vm.$refs[ref][i] = var_list[i];
+                }
+            }else{
+                vm.$refs[ref].record = vm.$refs.tableResults.data.filter(r => {
+                    return r.id === id;
+                })[0];
+            }
+            vm.$refs[ref].id = id;
+
+            $(`#${modal}`).modal('show');
         },
 	},
 });
