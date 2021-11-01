@@ -31,6 +31,7 @@ class CreateSaleOrdersTable extends Migration
             $table->string('phone', 200)->comment('Número de teléfono');
             $table->string('description', 200)->comment('Descripción de la actividad económica');
             $table->string('status', 100)->nullable()->comment('Estado de la solicitud')->default('pending');
+            $table->json('products')->nullable()->comment('Lista de productos');
 
             $table->timestamps();
             $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');

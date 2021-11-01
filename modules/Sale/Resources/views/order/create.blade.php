@@ -28,7 +28,11 @@
 		</div>
 	  </div>
 	  <div class="card-body">
-        <register-order-create></register-order-create>
+        <register-order-create
+          route_list='{{ url('sale/order')}}'
+          :orderid ="{!! (isset($order)) ? $order->id : 'null' !!}"
+        >
+        </register-order-create>
       </div>
 	</div>
   </div>

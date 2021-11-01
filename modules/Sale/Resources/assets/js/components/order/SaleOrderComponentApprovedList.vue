@@ -13,7 +13,7 @@
         data() {
             return {
                 records: [],
-                columns: ['name', 'email', 'phone', 'products']
+                columns: ['name', 'email', 'phone']
             }
         },
         created() {
@@ -21,15 +21,13 @@
                 'name': 'Nombre y apellido',
                 'email': 'Correo',
                 'phone': 'Teléfono',
-                'products': 'Productos'
             };
-            this.table_options.sortable = ['name', 'email', 'phone', 'products'];
-            this.table_options.filterable = ['name', 'email', 'phone', 'products'];
+            this.table_options.sortable = ['name', 'email', 'phone'];
+            this.table_options.filterable = ['name', 'email', 'phone'];
             this.table_options.columnsClasses = {
-                'name': 'col-md-2',
-                'email': 'col-md-2',
-                'phone': 'col-md-2',
-                'products': 'col-md-4'
+                'name': 'col-md-4',
+                'email': 'col-md-4',
+                'phone': 'col-md-4',
             };
         },
         mounted () {

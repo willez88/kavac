@@ -100,20 +100,30 @@ class SaleOrderSettingController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => ['required', 'max:100'],
-            'email' => ['required', 'max:200'],
-            'phone' => ['required', 'regex:/^\d{2}-\d{3}-\d{7}$/u'],
-            'description' => ['required', 'max:200']
-        ]);
-        $order = SaleOrder::create([
-            'name'        => $request->name,
-            'email'       => $request->email,
-            'phone'       => $request->phone,
-            'description' => $request->description
-        ]);
+      $products = [];
 
-        return response()->json(['record' => $order, 'message' => 'Success', 'redirect' => route('sale.order.index')], 200);
+      if ($request->list_products && !empty($request->list_products)) {
+        foreach ($request->list_products as $product) {
+          $products[] = $product;
+        }
+      }
+
+      $this->validate($request, [
+        'name' => ['required', 'max:100'],
+        'email' => ['required', 'max:200'],
+        'phone' => ['required', 'regex:/^\d{2}-\d{3}-\d{7}$/u'],
+        'description' => ['required', 'max:200']
+      ]);
+
+      $order = SaleOrder::create([
+        'name'        => $request->name,
+        'email'       => $request->email,
+        'phone'       => $request->phone,
+        'description' => $request->description,
+        'products'    => json_encode($products, JSON_FORCE_OBJECT)
+      ]);
+
+      return response()->json(['record' => $order, 'message' => 'Success', 'redirect' => route('sale.order.index')], 200);
     }
 
     /**
@@ -145,7 +155,9 @@ class SaleOrderSettingController extends Controller
      */
     public function edit($id)
     {
-        return view('sale::edit');
+        $order = SaleOrder::find($id);
+        //dd($order);
+        return view('sale::order.create', compact('order'));
     }
 
     /**
@@ -163,6 +175,14 @@ class SaleOrderSettingController extends Controller
     public function update(Request $request, $id)
     {
         $order = SaleOrder::find($id);
+
+        $products = [];
+        if ($request->list_products && !empty($request->list_products)) {
+          foreach ($request->list_products as $product) {
+            $products[] = $product;
+          }
+        }
+
         $this->validate($request, [
             'name' => ['required', 'max:100'],
             'email' => ['required', 'max:200'],
@@ -173,6 +193,7 @@ class SaleOrderSettingController extends Controller
         $order->email  = $request->email;
         $order->phone  = $request->phone;
         $order->description = $request->description;
+        $order->products = json_encode($products, JSON_FORCE_OBJECT);
         $order->save();
         return response()->json(['message' => 'Success', 'redirect' => route('sale.order.index')], 200);
     }
@@ -232,5 +253,43 @@ class SaleOrderSettingController extends Controller
 
         $request->session()->flash('message', ['type' => 'update']);
         return response()->json(['result' => true, 'redirect' => route('sale.order.index')], 200);
+    }
+
+    /**
+     * Obtiene la información de la orden
+     */
+    public function getOrderInfo($id)
+    {
+      $data = [];
+      $record = SaleOrder::where('id', $id)->first();
+
+      if (!empty($record->products))  {
+        $products = json_decode($record->products, true);
+
+        foreach ($products as $key => $row) {
+          $product[] = [
+            'id' => $key,
+            'name' => $row['name'],
+            'quantity' => $row['quantity'],
+            'price_product' => $row['price_product'],
+            'total' => $row['total']
+          ];
+        }
+      }
+
+      if (!empty($record->id)) {
+        $data = [
+          'id' => $record->id,
+          'name' => $record->name,
+          'email' => $record->email,
+          'phone' => $record->phone,
+          'description' => $record->description,
+          'status' => $record->status,
+          'created_at' => $record->created_at,
+          'updated_at' => $record->updated_at,
+          'list_products' => $product,
+        ];
+      }
+      return response()->json(['records' => $data], 200);
     }
 }

@@ -202,6 +202,20 @@
           }
         }
       },
+      /**
+       * @param [Integer] $id Identificador único del registro a editar
+       */
+	  loadForm(id) {
+		const vm = this;
+        axios.get('/sale/order/info/' + id).then(response => {
+	      if (typeof(response.data.records != "undefined")){
+	        vm.record = response.data.records;
+	      }
+        });
+      }
+    },
+	props: {
+	  orderid: Number,
     },
     created() {
       this.record.list_products = [];
@@ -222,7 +236,15 @@
     },
     mounted() {
       this.getSaleSettingProducts();
+      if (this.orderid) {
+		this.loadForm(this.orderid);
+	  }
     },
   };
 </script>
+
+
+
+
+
 

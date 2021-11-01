@@ -32,6 +32,7 @@
                   {{-- Lista de pedidos de cliente --}}
                   <register-order-pending-list
                     route_list="{{ url('sale/order/vue-list') }}"
+					route_edit="{{ url('sale/order/edit/{id}') }}"
                     route_update='sale/order'
                   >
                   </register-order-pending-list>

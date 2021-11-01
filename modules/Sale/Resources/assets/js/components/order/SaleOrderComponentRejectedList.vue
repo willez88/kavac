@@ -24,7 +24,7 @@
         data() {
             return {
                 records: [],
-                columns: ['name', 'email', 'phone', 'products', 'id']
+                columns: ['name', 'email', 'phone', 'id']
             }
         },
         created() {
@@ -32,16 +32,14 @@
                 'name': 'Nombre y apellido',
                 'email': 'Correo',
                 'phone': 'Teléfono',
-                'products': 'Productos',
                 'id': 'Acción'
             };
-            this.table_options.sortable = ['name', 'email', 'phone', 'products'];
-            this.table_options.filterable = ['name', 'email', 'phone', 'products'];
+            this.table_options.sortable = ['name', 'email', 'phone'];
+            this.table_options.filterable = ['name', 'email', 'phone'];
             this.table_options.columnsClasses = {
-                'name': 'col-md-2',
-                'email': 'col-md-2',
-                'phone': 'col-md-2',
-                'products': 'col-md-4',
+                'name': 'col-md-3',
+                'email': 'col-md-3',
+                'phone': 'col-md-4',
                 'id': 'col-md-2'
             };
         },
