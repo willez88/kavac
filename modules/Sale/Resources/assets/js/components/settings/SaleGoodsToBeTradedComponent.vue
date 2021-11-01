@@ -45,9 +45,12 @@
                             <div class="col-md-6">
                                 <div class="form-group is-required">
                                     <label for="price">Precio unitario:</label>
-                                    <input type="number" min="1" id="price" placeholder="Precio unitario"
-                                           class="form-control input-sm" v-model="record.unit_price" data-toggle="tooltip"
-                                           title="Indique el precio unitario (requerido)">
+                                    <input id="price" class="form-control" type="text" data-toggle="tooltip"
+                                       title="Indique el precio unitario (requerido)" tabindex="10"
+                                       v-model="record.unit_price" required
+                                       v-input-mask data-inputmask="
+                                       'alias': 'numeric',
+                                       'allowMinus': 'false'"/>
                                 </div>
                             </div>
                         </div>

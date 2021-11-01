@@ -141,15 +141,7 @@ Route::group(
             'get-paymentmethod',
             'SalePaymentMethodController@getSalePaymentMethod'
         )->name('sale.get-sale-paymentmethod');
-        Route::resource(
-            'setting-product',
-            'SaleSettingProductController',
-            ['as' => 'sale', 'except' => ['create','edit','show']]
-        );
-        Route::get(
-            'get-setting-product',
-            'SaleSettingProductController@getSaleSettingProduct'
-        )->name('sale.get-sale-setting-product');
+
         Route::resource(
             'setting-product-type',
             'SaleSettingProductTypeController',
@@ -345,12 +337,12 @@ Route::group(
 
         Route::resource('services', 'SaleServiceController', ['as' => 'sale', 'except' => ['create','edit','show']]);
         Route::get('services/create', 'SaleServiceController@create')->name('sale.services.create');
+        Route::get('services/vue-list', 'SaleServiceController@vueList');
+        Route::get('services/edit/{id}', 'SaleServiceController@edit')->name('sale.services.edit');
+        Route::get('services/info/{id}', 'SaleServiceController@vueInfo');
+        Route::patch('services/{id}', 'SaleServiceController@update');
+        Route::delete('services/delete/{id}', 'SaleServiceController@destroy');
         //  Route::get('bills', 'SaleBillController@index')->name('sale.bills.index');
-        //  Route::get('bills/vue-list', 'SaleBillController@vueList');
-        //  Route::patch('bills/{bill}', 'SaleBillController@update');
-        //  Route::get('bills/info/{bill}', 'SaleBillController@vueInfo');
-        //  Route::get('bills/edit/{bill}', 'SaleBillController@edit')->name('sale.bills.edit');
-        //  Route::delete('bills/delete/{bill}', 'SaleBillController@destroy')->name('sale.bills.destroy');
         //  Route::put('bills/bill-approved/{bill}', 'SaleBillController@approvedBill');
         //  Route::put('bills/bill-rejected/{bill}', 'SaleBillController@rejectedBill');
         //  Route::get('bills/vue-approved-list/{state}', 'SaleBillController@vueApprovedList');
@@ -379,6 +371,17 @@ Route::group(
             'get-periodic-cost',
             'PeriodicCostController@getPeriodicCostAttributes'
         )->name('sale.get-sale-periodic-cost');
+        //Products (productos)
+        Route::resource(
+            'product',
+            'SaleSettingProductController',
+            ['as' => 'sale', 'except' => ['create','edit','show']]
+        );
+
+        Route::get(
+            'get-setting-product',
+            'SaleSettingProductController@getSaleSettingProduct'
+        )->name('sale.get-sale-setting-product');
 
         /*
          * ------------------------------------------------------------

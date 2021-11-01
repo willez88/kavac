@@ -1,11 +1,27 @@
 <template>
     <v-client-table :columns="columns" :data="records" :options="table_options">
-        <div slot="state" slot-scope="props">
+        <div slot="code" slot-scope="props">
             <span>
-                {{ (props.row.state)?props.row.state:'N/A' }}
+                {{ (props.row.code) ? props.row.code : '' }}
             </span>
         </div>
-        
+        <div slot="application_date" slot-scope="props">
+            <span>
+                {{ (props.row.created_at) ? props.row.created_at : '' }}
+            </span>
+        </div>
+        <div slot="sale_client" slot-scope="props">
+            <span>
+                {{ (props.row.sale_client.name) ? props.row.sale_client.name : '' }}
+            </span>
+        </div>
+        <div slot="department" slot-scope="props">
+            <span v-for="sale_good in props.row.sale_goods">
+                <span v-for="good in sale_good">
+                    {{ (props.row.sale_goods) ? good.department.name : '' }}
+                </span>
+            </span>
+        </div>
         <div slot="id" slot-scope="props" class="text-center">
             <div class="d-inline-flex">
                  <!--sale-bill-info
@@ -15,7 +31,7 @@
                 <button @click="approvedService(props.index)" 
                         class="btn btn-success btn-xs btn-icon btn-action" title="Aceptar Solicitud"
                         data-toggle="tooltip" type="button"
-                        :disabled="props.row.state != 'Pendiente'">
+                        :disabled="props.row.status != 'Pendiente'">
                     <i class="fa fa-check"></i>
                 </button>
             </div>
@@ -28,26 +44,26 @@
         data() {
             return {
                 records: [],
-                columns: ['code', 'application_date', 'sale_client.name_client', 'responsible_department', 'state', 'id']
+                columns: ['code', 'application_date', 'sale_client', 'department', 'status', 'id']
             }
         },
         created() {
             this.table_options.headings = {
                 'code': 'Código',
                 'application_date': 'Fecha de solicitud',
-                'sale_client.name_client': 'Nombre del cliente',
-                'responsible_department': 'Unidad o departamento responsable',
-                'state': 'Estado de la solicitud',
+                'sale_client': 'Nombre del cliente',
+                'department': 'Unidad o departamento responsable',
+                'status': 'Estado de la solicitud',
                 'id': 'Acción'
             };
-            this.table_options.sortable = ['code', 'application_date', 'sale_client.name_client', 'responsible_department', 'state'];
-            this.table_options.filterable = ['code', 'application_date', 'sale_client.name_client', 'responsible_department', 'state'];
+            this.table_options.sortable = ['code', 'application_date', 'sale_client', 'department', 'status'];
+            this.table_options.filterable = ['code', 'application_date', 'sale_client', 'department', 'status'];
             this.table_options.columnsClasses = {
                 'code': 'col-md-2',
                 'application_date': 'col-md-2',
-                'sale_client.name_client': 'col-md-2',
-                'responsible_department': 'col-md-2',
-                'state': 'col-md-2',
+                'sale_client': 'col-md-2',
+                'department': 'col-md-2',
+                'status': 'col-md-2',
                 'id': 'col-md-2'
             };
         },

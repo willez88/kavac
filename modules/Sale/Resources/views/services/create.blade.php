@@ -33,7 +33,8 @@
                     @include('buttons.minimize')
                 </div>
             </div>
-            <sale-service-create>
+            <sale-service-create
+                :serviceid ="{!! (isset($services)) ? $services->id : 'null' !!}">
             </sale-service-create>
         </div>
     </div>

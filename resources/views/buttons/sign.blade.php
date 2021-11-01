@@ -14,8 +14,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input id="phasepass-modal" class="form-control" type="password" name="password" tabindex="1"
-                           placeholder="pkcs12 password" required />
+                    <input
+                        id="phasepass-modal"
+                        class="form-control"
+                        type="password"
+                        name="password"
+                        tabindex="1"
+                        placeholder="pkcs12 password" required
+                    />
                     <a id="signed-modal" class="btn btn-link d-none mt-3" href="{{ $route }}" target="_blank">
                         <i class="icofont icofont-download-alt"></i>
                         Descargar archivo firmado
@@ -39,7 +45,7 @@
         'class' => 'btn btn-sm btn-primary btn-custom', 'data-toggle' => 'tooltip', 'type' => 'button',
         'title' => __('Firmar registro'),
         'onclick' => (isset($print['action']))
-                     ? "print({$print['action']})"
-                     : ((isset($print['function']))?$print['function']:'print()')
+        ? "print({$print['action']})"
+        : ((isset($print['function']))?$print['function']:'print()')
     ]) !!}
 @endif
