@@ -140,6 +140,31 @@
                                 </div>
                             </div>
                         </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h6 class="card-title">
+                                    Capacitación y Reconocimientos
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="row" v-for="(payroll_cou_ack_file, index) in payroll_cou_ack_files">
+                            <div class="col-3">
+    							<div class="form-group is-required">
+    								<label>Nombre del Curso:</label>
+    								<input type="text" class="form-control input-sm"
+    									disabled="true" v-model="payroll_cou_ack_file.course_name"/>
+    							</div>
+    						</div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label>Curso</label>
+                                    <div>
+                                        <a :href="`/${payroll_cou_ack_file.course_file_url}`" target="_blank">Documento</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -155,6 +180,7 @@
                 record: [],
 				columns: ['payroll_staff.first_name', 'payroll_instruction_degree.name', 'professions', 'is_student', 'id'],
                 payroll_class_schedule: '',
+                payroll_cou_ack_files: [],
 			}
 		},
 
@@ -191,6 +217,13 @@
                     $('#payroll_study_type').val( (this.record.payroll_study_type) ? this.record.payroll_study_type.name : ' ' );
                     $('#study_program_name').val(this.record.study_program_name);
                     this.payroll_class_schedule = response.data.record.payroll_class_schedule;
+                    this.payroll_course = response.data.record.payroll_course;
+                    for (const a in response.data.record.payroll_course.payroll_course_files) {
+                        this.payroll_cou_ack_files.push({
+                            course_name: response.data.record.payroll_course.payroll_course_files[a].name,
+                            course_file_url: response.data.record.payroll_course.payroll_course_files[a].documents[0].url,
+                        });
+                    }
 				});
                 $('#show_professional').modal('show');
             }

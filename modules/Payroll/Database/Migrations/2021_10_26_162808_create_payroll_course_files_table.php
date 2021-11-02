@@ -26,7 +26,8 @@ class CreatePayrollCourseFilesTable extends Migration
     {
         Schema::create('payroll_course_files', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('payroll_course_id')->
+            $table->string('name', 200)->comment('Nombre del curso');
+            $table->foreignId('payroll_course_id')
                   ->comment('Identificador del archivo del curso')->constrained()
                   ->onUpdate('cascade')->onDelete('restrict');
             $table->timestamps();

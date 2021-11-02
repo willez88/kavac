@@ -38,6 +38,17 @@ class PayrollCourseFile extends Model implements Auditable
     protected $fillable = ['name', 'payroll_course_id'];
 
     /**
+     * Método que obtiene el curso asociado a un archivo de curso
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function payrollCourse()
+    {
+        return $this->belongsTo(PayrollCourse::class);
+    }
+
+    /**
      * Obtiene todos los documentos asociados al curso
      *
      * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>

@@ -47,4 +47,15 @@ class PayrollCourse extends Model implements Auditable
     {
         return $this->belongsTo(PayrollProfessional::class);
     }
+
+    /**
+     * Método que obtiene el curso asociado a un archivo de curso
+     *
+     * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payrollCourseFiles()
+    {
+        return $this->hasMany(PayrollCourseFile::class);
+    }
 }

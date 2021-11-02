@@ -158,7 +158,7 @@
 					</h6>
 					<div class="row" v-for="(payroll_cou_ack_file, index) in record.payroll_cou_ack_files">
 						<div class="col-3">
-							<div class="form-group">
+							<div class="form-group is-required">
 								<label>Nombre del Curso:</label>
 								<input type="text" class="form-control input-sm"
 									v-model="payroll_cou_ack_file.course_name"/>
@@ -166,15 +166,13 @@
 						</div>
 						<div class="col-2">
 							<div class="form-group">
-								<label for="course">
-									Curso:
-	                            </label>
-								<input id="course" name="course" type="file"
-									accept=".png, .jpg, .pdf, .odt" @change="processFile($event)">
+								<label>Curso:</label>
+								<input :id="'course_'+index" type="file"
+									accept=".png, .jpg, .pdf, .odt" @change="processFile($event, index)">
 							</div>
 						</div>
 						<div class="col-3">
-							<div class="form-group">
+							<div class="form-group is-required">
 								<label>Nombre del Reconocimiento:</label>
 								<input type="text" class="form-control input-sm"
 									v-model="payroll_cou_ack_file.ack_name"/>
@@ -182,11 +180,9 @@
 						</div>
 						<div class="col-md-2">
 							<div class="form-group">
-								<label for="acknowledgment">
-									Reconocimiento:
-	                            </label>
-								<input id="acknowledgment" name="acknowledgment" type="file"
-									accept=".png, .jpg, .pdf, .odt" @change="processFile()">
+								<label>Reconocimiento:</label>
+								<input :id="'acknowledgment_'+index" type="file"
+									accept=".png, .jpg, .pdf, .odt" @change="processFile($event, index)">
 							</div>
 						</div>
 						<div class="col-1">
@@ -280,7 +276,7 @@
 						});
 					}
 					vm.payroll_class_schedule = (response.data.record.payroll_class_schedule) ? response.data.record.payroll_class_schedule : {};
-					//vm.payroll_course = (response.data.record.payroll_course) ? response.data.record.payroll_course : {};
+					vm.payroll_course = (response.data.record.payroll_course) ? response.data.record.payroll_course : {};
 				});
 			},
 
@@ -294,7 +290,6 @@
 					payroll_study_type_id: '',
 					study_program_name: '',
 					class_schedule_ids: [],
-					course_ids: [],
 					professions: [],
 					payroll_languages: [],
 					payroll_cou_ack_files: [],
@@ -321,15 +316,23 @@
 			addPayrollCouAckFiles() {
 				this.record.payroll_cou_ack_files.push({
 					course_name: '',
+					course_file_id: '',
 					ack_name: '',
+					ack_file_id: '',
 				});
 			},
 
+			/**
+			 * Guarda multiples archivos y guarda los id en la variable correspondiente
+			 * del objeto record
+			 *
+			 * @author William Páez <wpaez@cenditel.gob.ve>
+			 */
 			processFiles(event) {
                 const vm = this;
                 var inputFiles = document.querySelector(`#${event.currentTarget.id}`);
 				for (var x = 0; x < inputFiles.files.length; x++) {
-    				formData.append('documents[' + x + ']', inputFiles.files[x]);
+    				formData.append(`documents[${x}]`, inputFiles.files[x]);
 					console.log(inputFiles.files.[x].type);
 				}
                 axios.post('upload-document', formData, {
@@ -355,15 +358,47 @@
                 });
 			},
 
-			processFile(event) {
+			/**
+			 * Guarda un archivo y guarda el id en la variable correspondiente del
+			 * objeto record
+			 *
+			 * @author William Páez <wpaez@cenditel.gob.ve>
+			 */
+			processFile(event, index) {
 				const vm = this;
-				var inputFile = document.querySelector(`#'${event.currentTarget.id}`);
+				var inputFile = document.querySelector(`#${event.currentTarget.id}`);
+				event.preventDefault();
 				var image_type = ['image/png', 'image/jpeg', 'image/jpg'];
 				if( inputFile.files[0].type.match('image/png') || inputFile.files[0].type.match('image/jpeg') || inputFile.files[0].type.match('image/jpg') ) {
-					console.log(inputFile.files[0].type);
+					console.log('HOLA');
 				}
 				else {
-					console.log(inputFile.files[0].type);
+					formData.append(`documents[${0}]`, inputFile.files[0]);
+					axios.post('upload-document', formData, {
+	                    headers: {
+	                        'Content-Type': 'multipart/form-data'
+	                    }
+	                }).then(response => {
+						if( inputFile.id.match(`course_${index}`) ) {
+							vm.record.payroll_cou_ack_files[index].course_file_id = response.data.document_ids[0].id;
+						}
+						else {
+							vm.record.payroll_cou_ack_files[index].ack_file_id = response.data.document_ids[0].id;
+						}
+	                    vm.showMessage(
+		                    'custom', 'Éxito', 'success', 'screen-ok',
+		                    'Documento cargado de manera existosa.'
+		                );
+	                }).catch(error => {
+	                    vm.errors = [];
+	                    if (typeof(error.response) != "undefined") {
+	                        for (var index in error.response.data.errors) {
+	                            if (error.response.data.errors[index]) {
+	                                vm.errors.push(error.response.data.errors[index][0]);
+	                            }
+	                        }
+	                    }
+	                });
 				}
 			},
 

@@ -14,6 +14,8 @@ use Modules\Payroll\Models\PayrollInstructionDegree;
 use Modules\Payroll\Models\Document;
 use Modules\Payroll\Models\PayrollClassSchedule;
 use Modules\Payroll\Rules\PayrollLangProfUnique;
+use Modules\Payroll\Models\PayrollCourse;
+use Modules\Payroll\Models\PayrollCourseFile;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -148,9 +150,9 @@ class PayrollProfessionalController extends Controller
                 'study_program_name' => ($request->is_student) ? $request->study_program_name : null,
                 'class_schedule' => ($request->is_student) ? $request->class_schedule : null,
             ]);
-            $payroll_class_schedule = PayrollClassSchedule::create(
-                ['payroll_professional_id' => $payrollProfessional->id]
-            );
+            $payroll_class_schedule = PayrollClassSchedule::create([
+                'payroll_professional_id' => $payrollProfessional->id
+            ]);
             if ($request->class_schedule_ids && !empty($request->class_schedule_ids)) {
                 foreach ($request->class_schedule_ids as $class_schedule_id) {
                     $document = Document::find($class_schedule_id['id']);
@@ -188,6 +190,21 @@ class PayrollProfessionalController extends Controller
                 $prof = Profession::find($profession['id']);
                 $payrollProfessional->professions()->attach($prof);
             }
+            $payrollCourse = PayrollCourse::create([
+                'payroll_professional_id' => $payrollProfessional->id
+            ]);
+            if ($request->payroll_cou_ack_files && !empty($request->payroll_cou_ack_files)) {
+                foreach ($request->payroll_cou_ack_files as $payroll_cou_ack_file) {
+                    $payrollCourseFile = PayrollCourseFile::create([
+                        'name' => $payroll_cou_ack_file['course_name'],
+                        'payroll_course_id' => $payrollCourse->id,
+                    ]);
+                    $document = Document::find($payroll_cou_ack_file['course_file_id']);
+                    $document->documentable_type = PayrollCourseFile::class;
+                    $document->documentable_id = $payrollCourseFile->id;
+                    $document->save();
+                }
+            }
         });
         $request->session()->flash('message', ['type' => 'store']);
         return response()->json(['result' => true, 'redirect' => route('payroll.professionals.index')], 200);
@@ -208,7 +225,9 @@ class PayrollProfessionalController extends Controller
                 $query->with('documents');
             },
             'payrollCourse' => function ($query) {
-                $query->with('documents');
+                $query->with(['payrollCourseFiles' => function ($query) {
+                    $query->with('documents');
+                }]);
             },
         ])->first();
         return response()->json(['record' => $payrollProfessional], 200);
@@ -386,6 +405,11 @@ class PayrollProfessionalController extends Controller
             'payrollStudyType', 'payrollLanguages',
             'payrollClassSchedule' => function ($query) {
                 $query->with('documents');
+            },
+            'payrollCourse' => function ($query) {
+                $query->with(['payrollCourseFiles' => function ($query) {
+                    $query->with('documents');
+                }]);
             },
         ])->get()], 200);
     }
