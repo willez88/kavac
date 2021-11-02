@@ -52,9 +52,9 @@
 	                        {{-- Solicitar cotización --}}
 							<sale-quote></sale-quote>
 							{{-- Configuración de Formas de pago--}}
-							<sale-setting-deposit></sale-setting-deposit>
+							{{-- <sale-setting-deposit></sale-setting-deposit> --}}
 							{{-- Configuración de Gestión de Pedidos--}}
-							<sale-order-management-method></sale-order-management-method>
+							{{-- <sale-order-management-method></sale-order-management-method> --}}
 							{{-- Configuración de Tipo de bien--}}
 							<sale-type-good></sale-type-good>
 							{{-- Configuración de Lista de subservicios--}}
