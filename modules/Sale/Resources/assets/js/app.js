@@ -321,6 +321,16 @@ Vue.component('sale-service-pending-list', () => import(
 );
 
 /**
+ * Componente para mostrar aprobar o rechazar las solicitudes de servicios pendientes
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-service-pending', () => import(
+    /* webpackChunkName: "sale-service-pending" */
+    './components/services/SaleServicePendingComponent.vue')
+);
+
+/**
  * Componente para mostrar un listado de las solicitudes de servicios rechazadas
  *
  * @author Daniel Contreras <dcontreras@cenditel.gob.ve>

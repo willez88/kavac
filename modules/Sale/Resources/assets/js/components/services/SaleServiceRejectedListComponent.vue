@@ -1,5 +1,5 @@
 <template>
-    <v-client-table :columns="columns" :data="records" :options="table_options">
+    <v-client-table :columns="columns" :data="records" :options="table_options" ref="tableResults">
         <div slot="code" slot-scope="props">
             <span>
                 {{ (props.row.code) ? props.row.code : '' }}
@@ -24,18 +24,11 @@
         </div>
         <div slot="id" slot-scope="props" class="text-center">
             <div class="d-inline-flex">
-                 <!--sale-bill-info
-                    :route_list="'/sale/bills/info/'+ props.row.id">
-                </sale-bill-info-->
-
-                <a class="btn btn-primary btn-xs btn-icon"
-                        :href="'/sale/service/pdf/'+props.row.id"
-                        title="Emitir pdf"
-                        data-toggle="tooltip"
-                        target="_blank">
-                        <i class="fa fa-print" style="text-align: center;"></i>
-                </a>
-
+               <button @click.prevent="setDetails('ServiceInfo', props.row.id, 'SaleServiceInfo')"
+                        class="btn btn-info btn-xs btn-icon btn-action btn-tooltip"
+                        title="Ver registro" data-toggle="tooltip" data-placement="bottom" type="button">
+                    <i class="fa fa-eye"></i>
+                </button>
             </div>
         </div>
     </v-client-table>
@@ -84,14 +77,41 @@
             getSaleRejectedService() {
                 const vm = this;
 
-                axios.get('/sale/bills/vue-rejected-list/Rechazado').then(response => {
+                axios.get('/sale/services/vue-pending-list/Rechazado').then(response => {
                     vm.records = response.data.records;
                 });
             },
+
+            /**
+             * Método reemplaza el metodo setDetails para usar la referencia del parent por defecto
+             *
+             * @method    setDetails
+             *
+             * @author     Daniel Contreras <dcontreras@cenditel.gob.ve>
+             *
+             * @param     string   ref       Identificador del componente
+             * @param     integer  id        Identificador del registro seleccionado
+             * @param     object  var_list  Objeto con las variables y valores a asignar en las variables del componente
+             */
+            setDetails(ref, id, modal ,var_list = null) {
+                const vm = this;
+                if (var_list) {
+                    for(var i in var_list){
+                        vm.$parent.$refs[ref][i] = var_list[i];
+                    }
+                }else{
+                    vm.$parent.$refs[ref].record = vm.$refs.tableResults.data.filter(r => {
+                        return r.id === id;
+                    })[0];
+                }
+                vm.$parent.$refs[ref].id = id;
+
+                $(`#${modal}`).modal('show');
+                document.getElementById("info_general").click();
+            },
         },
         mounted() {
-            let vm = this;
-
+            const vm = this;
             vm.getSaleRejectedService();
         }
     };

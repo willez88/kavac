@@ -342,11 +342,9 @@ Route::group(
         Route::get('services/info/{id}', 'SaleServiceController@vueInfo');
         Route::patch('services/{id}', 'SaleServiceController@update');
         Route::delete('services/delete/{id}', 'SaleServiceController@destroy');
-        //  Route::get('bills', 'SaleBillController@index')->name('sale.bills.index');
-        //  Route::put('bills/bill-approved/{bill}', 'SaleBillController@approvedBill');
-        //  Route::put('bills/bill-rejected/{bill}', 'SaleBillController@rejectedBill');
-        //  Route::get('bills/vue-approved-list/{state}', 'SaleBillController@vueApprovedList');
-        //  Route::get('bills/pdf/{id}', 'Reports\SaleBillController@pdf');
+        Route::put('services/service-approved/{id}', 'SaleServiceController@approved');
+        Route::put('services/service-rejected/{id}', 'SaleServiceController@rejected');
+        Route::get('services/vue-pending-list/{status}', 'SaleServiceController@vuePendingList');
 
         //Frecuency (periodicidad de tiempo)
         Route::resource(

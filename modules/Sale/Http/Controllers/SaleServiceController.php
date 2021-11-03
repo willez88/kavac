@@ -251,13 +251,53 @@ class SaleServiceController extends Controller
     public function vueList()
     {
         return response()->json(['records' => SaleService::with(['SaleServiceRequirement',
-            'saleClient'])->get()], 200);
+            'saleClient', 'payrollStaff'])->get()], 200);
     }
 
     public function vueInfo($id)
     {
         $saleService = SaleService::where('id', $id)->with(['SaleServiceRequirement',
-            'saleClient'])->first();
+            'saleClient', 'payrollStaff'])->first();
         return response()->json(['record' => $saleService], 200);
+    }
+
+    public function approved(Request $request, $id)
+    {
+        $this->validate($request, [
+            'payroll_staff_id' => ['required'],
+        ]);
+        $saleService = SaleService::find($id);
+        $saleService->status = 'Aprobado';
+        $saleService->payroll_staff_id  = $request->payroll_staff_id;
+
+        $saleService->save();
+
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true, 'redirect' => route('sale.services.index')], 200);
+    }
+
+    public function rejected(Request $request, $id)
+    {
+        $saleService = SaleService::find($id);
+        $saleService->status = 'Rechazado';
+
+        $saleService->save();
+
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true, 'redirect' => route('sale.services.index')], 200);
+    }
+
+    /**
+     * Obtiene un listado de los servicios dependiendo si fuerón aprobados o rechazados
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     */
+    public function vuePendingList($status)
+    {
+        $saleService = SaleService::with(['SaleServiceRequirement',
+            'saleClient', 'payrollStaff'])
+            ->where('status', $status)->get();
+        return response()->json(['records' => $saleService], 200);
     }
 }
