@@ -1,5 +1,5 @@
 <?php
-/** Modelos de talento humano de base de datos */
+/** [descripción del namespace] */
 namespace Modules\Payroll\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -9,17 +9,17 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
- * @class PayrollCourse
- * @brief Datos de los cursos
+ * @class PayrollAcknowledgment
+ * @brief Datos de los reconocimientos
  *
- * Gestiona el modelo de cursos
+ * Gestiona el modelo de reconocimientos
  *
  * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
  *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
-class PayrollCourse extends Model implements Auditable
+class PayrollAcknowledgment extends Model implements Auditable
 {
     use SoftDeletes;
     use AuditableTrait;
@@ -38,7 +38,7 @@ class PayrollCourse extends Model implements Auditable
     protected $fillable = ['payroll_professional_id'];
 
     /**
-     * Método que obtiene el dato profesional asociado a un curso
+     * Método que obtiene el dato profesional asociado a un reconocimiento
      *
      * @author  William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -49,13 +49,13 @@ class PayrollCourse extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene el curso asociado a muchos archivos de curso
+     * Método que obtiene el reconocimiento asociado a muchos archivos de reconocimiento
      *
      * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function payrollCourseFiles()
+    public function payrollAcknowledgmentFiles()
     {
-        return $this->hasMany(PayrollCourseFile::class);
+        return $this->hasMany(PayrollAcknowledgmentFile::class);
     }
 }

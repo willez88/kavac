@@ -16,6 +16,8 @@ use Modules\Payroll\Models\PayrollClassSchedule;
 use Modules\Payroll\Rules\PayrollLangProfUnique;
 use Modules\Payroll\Models\PayrollCourse;
 use Modules\Payroll\Models\PayrollCourseFile;
+use Modules\Payroll\Models\PayrollAcknowledgment;
+use Modules\Payroll\Models\PayrollAcknowledgmentFile;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -145,7 +147,7 @@ class PayrollProfessionalController extends Controller
                 'payroll_staff_id' => $request->payroll_staff_id,
                 'payroll_instruction_degree_id' => $request->payroll_instruction_degree_id,
                 'instruction_degree_name' => $request->instruction_degree_name,
-                'is_student' => ($request->is_student!==null),
+                'is_student' => ($request->is_student) ? true : false,
                 'payroll_study_type_id' => ($request->is_student) ? $request->payroll_study_type_id : null,
                 'study_program_name' => ($request->is_student) ? $request->study_program_name : null,
                 'class_schedule' => ($request->is_student) ? $request->class_schedule : null,
@@ -193,6 +195,9 @@ class PayrollProfessionalController extends Controller
             $payrollCourse = PayrollCourse::create([
                 'payroll_professional_id' => $payrollProfessional->id
             ]);
+            $payrollAcknowledgment = PayrollAcknowledgment::create([
+                'payroll_professional_id' => $payrollProfessional->id
+            ]);
             if ($request->payroll_cou_ack_files && !empty($request->payroll_cou_ack_files)) {
                 foreach ($request->payroll_cou_ack_files as $payroll_cou_ack_file) {
                     $payrollCourseFile = PayrollCourseFile::create([
@@ -202,6 +207,14 @@ class PayrollProfessionalController extends Controller
                     $document = Document::find($payroll_cou_ack_file['course_file_id']);
                     $document->documentable_type = PayrollCourseFile::class;
                     $document->documentable_id = $payrollCourseFile->id;
+                    $document->save();
+                    $payrollAcknowledgmentFile = PayrollAcknowledgmentFile::create([
+                        'name' => $payroll_cou_ack_file['ack_name'],
+                        'payroll_acknowledgment_id' => $payrollAcknowledgment->id,
+                    ]);
+                    $document = Document::find($payroll_cou_ack_file['ack_file_id']);
+                    $document->documentable_type = PayrollAcknowledgmentFile::class;
+                    $document->documentable_id = $payrollAcknowledgmentFile->id;
                     $document->save();
                 }
             }
@@ -226,6 +239,11 @@ class PayrollProfessionalController extends Controller
             },
             'payrollCourse' => function ($query) {
                 $query->with(['payrollCourseFiles' => function ($query) {
+                    $query->with('documents');
+                }]);
+            },
+            'payrollAcknowledgment' => function ($query) {
+                $query->with(['payrollAcknowledgmentFiles' => function ($query) {
                     $query->with('documents');
                 }]);
             },
@@ -256,10 +274,15 @@ class PayrollProfessionalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //$payrollProfessional = PayrollProfessional::find($id);
         $payrollProfessional = PayrollProfessional::where('id', $id)->with([
-            'payrollStaff','payrollInstructionDegree','professions','payrollStudyType',
-            'payrollLanguages','payrollClassSchedule'
+            'payrollStaff', 'payrollInstructionDegree', 'professions', 'payrollStudyType',
+            'payrollLanguages', 'payrollClassSchedule',
+            'payrollCourse' => function ($query) {
+                $query->with('payrollCourseFiles');
+            },
+            'payrollAcknowledgment' => function ($query) {
+                $query->with('payrollAcknowledgmentFiles');
+            },
         ])->first();
         $this->rules['payroll_staff_id'] = [
             'required',
@@ -321,12 +344,15 @@ class PayrollProfessionalController extends Controller
         DB::transaction(function () use ($payrollProfessional, $request) {
             $payrollProfessional->payroll_staff_id = $request->payroll_staff_id;
             $payrollProfessional->payroll_instruction_degree_id = $request->payroll_instruction_degree_id;
-            $payrollProfessional->is_student = ($request->is_student!==null);
+            $payrollProfessional->is_student = ($request->is_student) ? true : false;
             $payrollProfessional
                 ->payroll_study_type_id = ($request->is_student) ? $request->payroll_study_type_id : null;
             $payrollProfessional->study_program_name = ($request->is_student) ? $request->study_program_name : null;
             $payrollProfessional->class_schedule = ($request->is_student) ? $request->class_schedule: null;
             $payrollProfessional->save();
+            if (!$request->is_student) {
+                Document::where('documentable_id', $payrollProfessional->payrollClassSchedule->id)->delete();
+            }
             if ($request->class_schedule_ids && !empty($request->class_schedule_ids)) {
                 foreach ($request->class_schedule_ids as $class_schedule_id) {
                     $document = Document::find($class_schedule_id['id']);
@@ -368,10 +394,37 @@ class PayrollProfessionalController extends Controller
                 $prof = Profession::find($profession['id']);
                 $payrollProfessional->professions()->detach($prof);
             }
-
             foreach ($request->professions as $profession) {
                 $prof = Profession::find($profession['id']);
                 $payrollProfessional->professions()->attach($prof);
+            }
+            PayrollCourseFile::where(
+                'payroll_course_id',
+                $payrollProfessional->payrollCourse->id,
+            )->delete();
+            PayrollAcknowledgmentFile::where(
+                'payroll_acknowledgment_id',
+                $payrollProfessional->payrollAcknowledgment->id,
+            )->delete();
+            if ($request->payroll_cou_ack_files && !empty($request->payroll_cou_ack_files)) {
+                foreach ($request->payroll_cou_ack_files as $payroll_cou_ack_file) {
+                    $payrollCourseFile = PayrollCourseFile::create([
+                        'name' => $payroll_cou_ack_file['course_name'],
+                        'payroll_course_id' => $payrollProfessional->payrollCourse->id,
+                    ]);
+                    $document = Document::find($payroll_cou_ack_file['course_file_id']);
+                    $document->documentable_type = PayrollCourseFile::class;
+                    $document->documentable_id = $payrollCourseFile->id;
+                    $document->save();
+                    $payrollAcknowledgmentFile = PayrollAcknowledgmentFile::create([
+                        'name' => $payroll_cou_ack_file['ack_name'],
+                        'payroll_acknowledgment_id' => $payrollProfessional->payrollAcknowledgment->id,
+                    ]);
+                    $document = Document::find($payroll_cou_ack_file['ack_file_id']);
+                    $document->documentable_type = PayrollAcknowledgmentFile::class;
+                    $document->documentable_id = $payrollAcknowledgmentFile->id;
+                    $document->save();
+                }
             }
         });
         $request->session()->flash('message', ['type' => 'store']);
@@ -408,6 +461,11 @@ class PayrollProfessionalController extends Controller
             },
             'payrollCourse' => function ($query) {
                 $query->with(['payrollCourseFiles' => function ($query) {
+                    $query->with('documents');
+                }]);
+            },
+            'payrollAcknowledgment' => function ($query) {
+                $query->with(['payrollAcknowledgmentFiles' => function ($query) {
                     $query->with('documents');
                 }]);
             },

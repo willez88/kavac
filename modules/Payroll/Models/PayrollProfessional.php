@@ -122,4 +122,15 @@ class PayrollProfessional extends Model implements Auditable
     {
         return $this->hasOne(PayrollCourse::class);
     }
+
+    /**
+     * Método que obtiene el reconocimiento asociado a un dato profesional del trabajador
+     *
+     * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function payrollAcknowledgment()
+    {
+        return $this->hasOne(PayrollAcknowledgment::class);
+    }
 }

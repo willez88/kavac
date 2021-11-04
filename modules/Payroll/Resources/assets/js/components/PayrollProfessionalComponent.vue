@@ -156,6 +156,7 @@
 					<h6 class="card-title">
 						Capacitación y Reconocimientos <i class="fa fa-plus-circle cursor-pointer" @click="addPayrollCouAckFiles"></i>
 					</h6>
+					<!--Formulario de registros nuevos-->
 					<div class="row" v-for="(payroll_cou_ack_file, index) in record.payroll_cou_ack_files">
 						<div class="col-3">
 							<div class="form-group is-required">
@@ -167,6 +168,9 @@
 						<div class="col-2">
 							<div class="form-group">
 								<label>Curso:</label>
+								<div v-for="(document, index) in payroll_cou_ack_file.course_file.documents">
+									<a :href="`/${document.url}`" target="_blank">Documento</a>
+								</div>
 								<input :id="'course_'+index" type="file"
 									accept=".png, .jpg, .pdf, .odt" @change="processFile($event, index)">
 							</div>
@@ -181,6 +185,9 @@
 						<div class="col-md-2">
 							<div class="form-group">
 								<label>Reconocimiento:</label>
+								<div v-for="(document, index) in payroll_cou_ack_file.ack_file.documents">
+									<a :href="`/${document.url}`" target="_blank">Documento</a>
+								</div>
 								<input :id="'acknowledgment_'+index" type="file"
 									accept=".png, .jpg, .pdf, .odt" @change="processFile($event, index)">
 							</div>
@@ -196,7 +203,6 @@
 							</div>
 						</div>
 					</div>
-
 				</div>
 
 				<div class="card-footer pull-right">
@@ -234,7 +240,6 @@
 					payroll_study_type_id: '',
 					study_program_name: '',
 					class_schedule_ids: [],
-					course_ids: [],
 					professions: [],
 					payroll_languages: [],
 					payroll_cou_ack_files: [],
@@ -249,6 +254,7 @@
 				payroll_language_levels: [],
 				payroll_class_schedule: '',
 				payroll_course: '',
+				payroll_acknowledgment: '',
 				payroll_cou_ack_files: [],
 			}
 		},
@@ -277,6 +283,17 @@
 					}
 					vm.payroll_class_schedule = (response.data.record.payroll_class_schedule) ? response.data.record.payroll_class_schedule : {};
 					vm.payroll_course = (response.data.record.payroll_course) ? response.data.record.payroll_course : {};
+					vm.payroll_acknowledgment = (response.data.record.payroll_acknowledgment) ? response.data.record.payroll_acknowledgment : {};
+					for (const a in response.data.record.payroll_course.payroll_course_files) {
+                        this.record.payroll_cou_ack_files.push({
+                            course_name: response.data.record.payroll_course.payroll_course_files[a].name,
+							course_file_id: response.data.record.payroll_course.payroll_course_files[a].documents[0].id,
+							course_file: response.data.record.payroll_course.payroll_course_files[a],
+                            ack_name: response.data.record.payroll_acknowledgment.payroll_acknowledgment_files[a].name,
+							ack_file_id: response.data.record.payroll_acknowledgment.payroll_acknowledgment_files[a].documents[0].id,
+							ack_file: response.data.record.payroll_acknowledgment.payroll_acknowledgment_files[a],
+                        });
+                    }
 				});
 			},
 
@@ -317,8 +334,10 @@
 				this.record.payroll_cou_ack_files.push({
 					course_name: '',
 					course_file_id: '',
+					course_file: '',
 					ack_name: '',
 					ack_file_id: '',
+					ack_file: '',
 				});
 			},
 
@@ -367,7 +386,7 @@
 			processFile(event, index) {
 				const vm = this;
 				var inputFile = document.querySelector(`#${event.currentTarget.id}`);
-				event.preventDefault();
+				//event.preventDefault();
 				var image_type = ['image/png', 'image/jpeg', 'image/jpg'];
 				if( inputFile.files[0].type.match('image/png') || inputFile.files[0].type.match('image/jpeg') || inputFile.files[0].type.match('image/jpg') ) {
 					console.log('HOLA');
@@ -402,10 +421,24 @@
 				}
 			},
 
+			/**
+			 * Elimina un documento
+			 *
+			 * @author William Páez <wpaez@cenditel.gob.ve>
+			 */
 			deleteDocument(index, documents) {
 				axios.delete(`upload-document/${documents[index].id}`).then(response => {
 					documents.splice(index, 1);
 				});
+			},
+
+			/**
+			 * Elimina una fila de capacitación y reconocimientos
+			 *
+			 * @author William Páez <wpaez@cenditel.gob.ve>
+			 */
+			deletePayrollCouAckFile() {
+
 			},
 		},
 		created() {
