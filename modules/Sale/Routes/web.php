@@ -40,9 +40,6 @@ Route::group(
 
         /** Ruta que muestra el formulario para actualizar la información de una orden */
         Route::get('order/edit/{order}', 'SaleOrderSettingController@edit')->name('sale.order.edit');
-        /** Ruta que muestra el formulario para registrar un nuevo bien institucional */
-        Route::get('order/edit/create', 'SaleOrderSettingController@create')->name('sale.order.create');
-
         /** Ruta que obtiene la información de un bien institucional registrado */
         Route::get('order/info/{order}', 'SaleOrderSettingController@getOrderInfo');
 

@@ -45,7 +45,26 @@ class SaleOrderSettingController extends Controller
      */
     public function getListPending()
     {
+      $data = [];
       $records = SaleOrder::where('status', '=', 'pending')->get();
+      foreach ($records as $key => $record) {
+        if (!empty($record->products))  {
+          $product = [];
+          $products = json_decode($record->products, true);
+
+          foreach ($products as $id => $row) {
+            $product[] = [
+              'id' => $id,
+              'name' => $row['name'],
+              'quantity' => $row['quantity'],
+              'price_product' => $row['price_product'],
+              'total' => $row['total']
+            ];
+          }
+          $records[$key]->list_products = $product;
+        }
+      }
+
       return response()->json(['records' => $records], 200);
     }
 
@@ -55,6 +74,23 @@ class SaleOrderSettingController extends Controller
     public function getListRejected()
     {
       $records = SaleOrder::where('status', '=', 'rechazado')->get();
+      foreach ($records as $key => $record) {
+        if (!empty($record->products))  {
+          $product = [];
+          $products = json_decode($record->products, true);
+
+          foreach ($products as $id => $row) {
+            $product[] = [
+              'id' => $id,
+              'name' => $row['name'],
+              'quantity' => $row['quantity'],
+              'price_product' => $row['price_product'],
+              'total' => $row['total']
+            ];
+          }
+          $records[$key]->list_products = $product;
+        }
+      }
       return response()->json(['records' => $records], 200);
     }
 
@@ -64,13 +100,30 @@ class SaleOrderSettingController extends Controller
     public function getListApproved()
     {
       $records = SaleOrder::where('status', '=', 'aprobado')->get();
+      foreach ($records as $key => $record) {
+        if (!empty($record->products))  {
+          $product = [];
+          $products = json_decode($record->products, true);
+
+          foreach ($products as $id => $row) {
+            $product[] = [
+              'id' => $id,
+              'name' => $row['name'],
+              'quantity' => $row['quantity'],
+              'price_product' => $row['price_product'],
+              'total' => $row['total']
+            ];
+          }
+          $records[$key]->list_products = $product;
+        }
+      }
       return response()->json(['records' => $records], 200);
     }
 
     public function options()
     {
-        return view('sale::order.list');
-        //return response()->json(['records' => SaleOrder::all()], 200);
+        //return view('sale::order.list');
+        return response()->json(['records' => SaleOrder::all()], 200);
     }
 
     /**
@@ -290,6 +343,6 @@ class SaleOrderSettingController extends Controller
           'list_products' => $product,
         ];
       }
-      return response()->json(['records' => $data], 200);
+      return response()->json(['values' => $data], 200);
     }
 }
