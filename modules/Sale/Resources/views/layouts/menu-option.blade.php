@@ -20,6 +20,14 @@
             <a href="/sale/receptions" data-toggle="tooltip" data-placement="right"
                title="Recepciones de almacén">Recepciones de almacén</a>
         </li>
+        <li class="{!! set_active_menu('sale.payment.index') !!}">
+            <a href="/sale/payment" data-toggle="tooltip" data-placement="right"
+               title="Registro y aprobación de pagos">Pagos</a>
+        </li>
+        <li class="{!! set_active_menu('sale.reception.index') !!}">
+            <a href="/sale/order" data-toggle="tooltip" data-placement="right"
+               title="Pedidos">Pedidos</a>
+        </li>
         <li>
             <a href="javascript:void(0)"
                data-toggle="tooltip" data-placement="right"
@@ -40,14 +48,6 @@
                     <a href="/sale/reports/payment">Pagos</a>
                 </li>
             </ul>
-        </li>
-        <li class="{!! set_active_menu('sale.payment.index') !!}">
-            <a href="/sale/payment" data-toggle="tooltip" data-placement="right"
-               title="Registro y aprobación de pagos">Pagos</a>
-        </li>
-        <li class="{!! set_active_menu('sale.reception.index') !!}">
-            <a href="/sale/order" data-toggle="tooltip" data-placement="right"
-               title="Pedidos">Pedidos</a>
         </li>
     </ul>
 </li>

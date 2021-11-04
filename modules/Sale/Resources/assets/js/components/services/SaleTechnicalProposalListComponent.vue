@@ -1,5 +1,5 @@
 <template>
-    <v-client-table :columns="columns" :data="records" :options="table_options">
+    <v-client-table :columns="columns" :data="records" :options="table_options" ref="tableResults">
         <div slot="code" slot-scope="props">
             <span>
                 {{ (props.row.code) ? props.row.code : '' }}
@@ -24,15 +24,10 @@
         </div>
         <div slot="id" slot-scope="props" class="text-center">
             <div class="d-inline-flex">
-                 <!--sale-bill-info
-                    :route_list="'/sale/bills/info/'+ props.row.id">
-                </sale-bill-info-->
-
-                <button @click="approvedService(props.index)" 
-                        class="btn btn-success btn-xs btn-icon btn-action" title="Aceptar Solicitud"
-                        data-toggle="tooltip" type="button"
-                        :disabled="props.row.status != 'Pendiente'">
-                    <i class="fa fa-check"></i>
+                 <button @click.prevent="setDetails('ServiceInfo', props.row.id, 'SaleServiceInfo')"
+                        class="btn btn-info btn-xs btn-icon btn-action btn-tooltip"
+                        title="Ver registro" data-toggle="tooltip" data-placement="bottom" type="button">
+                    <i class="fa fa-eye"></i>
                 </button>
             </div>
         </div>
@@ -68,7 +63,8 @@
             };
         },
         mounted () {
-            this.initRecords(this.route_list, '');
+            const vm = this;
+            vm.getSalePendingService()
         },
         methods: {
             /**
@@ -79,42 +75,40 @@
             reset() {
                 
             },
-            approvedService(index)
-            {
+            getSalePendingService() {
                 const vm = this;
-                var dialog = bootbox.confirm({
-                    title: 'Aprobar operación?',
-                    message: "<p>¿Seguro que desea aprobar esta operación?. Una vez aprobada la operación no se podrán realizar cambios en la misma.<p>",
-                    size: 'medium',
-                    buttons: {
-                        cancel: {
-                            label: '<i class="fa fa-times"></i> Cancelar'
-                        },
-                        confirm: {
-                            label: '<i class="fa fa-check"></i> Confirmar'
-                        }
-                    },
-                    callback: function (result) {
-                        if (result) {
-                            var fields = vm.records[index-1];
-                            var id = vm.records[index-1].id;
 
-                            axios.put('/'+vm.route_update+'/service-approved/'+id, fields).then(response => {
-                                if (typeof(response.data.redirect) !== "undefined")
-                                    location.href = response.data.redirect;
-                            }).catch(error => {
-                                vm.errors = [];
-                                if (typeof(error.response) !="undefined") {
-                                    for (var index in error.response.data.errors) {
-                                        if (error.response.data.errors[index]) {
-                                            vm.errors.push(error.response.data.errors[index][0]);
-                                        }
-                                    }
-                                }
-                            });
-                        }
-                    }
+                axios.get('/sale/services/vue-pending-list/Aprobado').then(response => {
+                    vm.records = response.data.records;
                 });
+            },
+
+            /**
+             * Método reemplaza el metodo setDetails para usar la referencia del parent por defecto
+             *
+             * @method    setDetails
+             *
+             * @author     Daniel Contreras <dcontreras@cenditel.gob.ve>
+             *
+             * @param     string   ref       Identificador del componente
+             * @param     integer  id        Identificador del registro seleccionado
+             * @param     object  var_list  Objeto con las variables y valores a asignar en las variables del componente
+             */
+            setDetails(ref, id, modal ,var_list = null) {
+                const vm = this;
+                if (var_list) {
+                    for(var i in var_list){
+                        vm.$parent.$refs[ref][i] = var_list[i];
+                    }
+                }else{
+                    vm.$parent.$refs[ref].record = vm.$refs.tableResults.data.filter(r => {
+                        return r.id === id;
+                    })[0];
+                }
+                vm.$parent.$refs[ref].id = id;
+
+                $(`#${modal}`).modal('show');
+                document.getElementById("info_general").click();
             },
         }
     };

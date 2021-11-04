@@ -48,9 +48,6 @@
                 </div>
             </div>
         </v-client-table>
-        <sale-service-info
-            ref="ServiceInfo">
-        </sale-service-info>
     </section>
 </template>
 
@@ -93,6 +90,34 @@
              */
             reset() {
 
+            },
+
+            /**
+             * Método reemplaza el metodo setDetails para usar la referencia del parent por defecto
+             *
+             * @method    setDetails
+             *
+             * @author     Daniel Contreras <dcontreras@cenditel.gob.ve>
+             *
+             * @param     string   ref       Identificador del componente
+             * @param     integer  id        Identificador del registro seleccionado
+             * @param     object  var_list  Objeto con las variables y valores a asignar en las variables del componente
+             */
+            setDetails(ref, id, modal ,var_list = null) {
+                const vm = this;
+                if (var_list) {
+                    for(var i in var_list){
+                        vm.$parent.$refs[ref][i] = var_list[i];
+                    }
+                }else{
+                    vm.$parent.$refs[ref].record = vm.$refs.tableResults.data.filter(r => {
+                        return r.id === id;
+                    })[0];
+                }
+                vm.$parent.$refs[ref].id = id;
+
+                $(`#${modal}`).modal('show');
+                document.getElementById("info_general").click();
             },
         }
     };

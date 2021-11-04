@@ -24,7 +24,6 @@
 					<h6 class="card-title">Reportes</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
-						@include('buttons.new', ['route' => route('citizenservice.register.create')])
 						@include('buttons.minimize')
 					</div>
 				</div>

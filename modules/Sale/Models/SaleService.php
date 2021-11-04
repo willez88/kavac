@@ -57,11 +57,11 @@ class SaleService extends Model implements Auditable
     ];
 
     /**
-     * Atributo que devuelve informacion de las propiedades en meta
+     * Atributo que devuelve informacion de los bienes a comercializar
      *
-     * @author    Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @author    Daniel Contreras <dcontreras@cenditel.gob.ve>
      *
-     * @return    App\Models\Load\GlobalData\Property
+     * @return    $data
      */
     public function getSaleGoodsAttribute()
     {
@@ -113,5 +113,17 @@ class SaleService extends Model implements Auditable
     public function saleGoodsToBeTraded()
     {
         return $this->belongsTo(SaleGoodsToBeTraded::class);
+    }
+
+    /**
+     * Método que obtiene la lista de trabajadores almacenados en el modulo payroll
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * PayrollStaff
+     */
+    public function payrollStaff()
+    {
+        return $this->belongsTo(\Modules\Payroll\Models\PayrollStaff::class);
     }
 }

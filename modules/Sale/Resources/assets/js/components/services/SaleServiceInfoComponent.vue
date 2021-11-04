@@ -123,6 +123,21 @@
                             </div>
                                 <div class="tab-pane" id="service_data" role="tabpanel">
                                     <div class="row">
+                                        <div v-if="record.payroll_staff_id" class="col-md-4">
+                                            <div class="form-group">
+                                                <strong>Encargado del servicio</strong>
+                                                <div class="row" style="margin: 1px 0">
+                                                    <span class="col-md-12" id="service_manager">
+                                                        {{
+                                                            record.payroll_staff_id
+                                                                ? record.payroll_staff.first_name + ' ' + record.payroll_staff.last_name
+                                                                    + ' - ' + record.payroll_staff.id_number 
+                                                                : 'No definido'
+                                                        }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <strong>Servicio</strong>
@@ -153,7 +168,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <strong>Resumen de la solicitud</strong>
@@ -164,7 +178,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <strong>Unidad o departamento</strong>
