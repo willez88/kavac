@@ -395,6 +395,16 @@ $(document).ready(function() {
                 group: 'Lider de proyecto / Diseño / Desarrollo / Autor / Director de Desarrollo (2021)'
             },
             {
+                name: 'Cipriano Alvarado',
+                email: 'calvarado@cenditel.gob.ve',
+                group: 'Diseñadores'
+            },
+            {
+                name: 'Jessica Ferreira',
+                email: 'jferreira@cenditel.gob.ve',
+                group: 'Diseñadores'
+            },
+            {
                 name: 'Julie Vera',
                 email: 'jvera@cenditel.gob.ve',
                 group: 'Analistas'
@@ -485,6 +495,16 @@ $(document).ready(function() {
                 group: 'Desarrolladores'
             },
             {
+                name: 'Marco Anthony Ocanto Sánchez',
+                email: 'sanchezmarco8882@gmail.com',
+                group: 'Desarrolladores'
+            },
+            {
+                name: 'Jonathan Alberto Alvarado Batista',
+                email: 'jonathanalvarado1407@gmail.com',
+                group: 'Desarrolladores'
+            },
+            {
                 name: 'Argenis Osorio',
                 email: 'aosorio@cenditel.gob.ve',
                 group: 'Director de Desarrollo (2018-2019)'
@@ -523,6 +543,8 @@ $(document).ready(function() {
         e.preventDefault();
         const appInfo = new AppInfo([
             { name: 'Roldan Vargas' },
+            { name: 'Cipriano Alvarado' },
+            { name: 'Jessica Ferreira' },
             { name: 'Julie Vera' },
             { name: 'María González' },
             { name: 'María Rujano' },
@@ -544,6 +566,8 @@ $(document).ready(function() {
             { name: 'Pedro Buitrago' },
             { name: 'José Puentes' },
             { name: 'Miguel Narváez' },
+            { name: 'Marco Ocanto' },
+            { name: 'Jonathan Alvarado' }
         ]);
         bootbox.alert({
             className: 'modal-credits',
