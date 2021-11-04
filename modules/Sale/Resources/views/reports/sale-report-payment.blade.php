@@ -28,10 +28,9 @@
                     @include('buttons.minimize')
                 </div>
             </div>
-
-            <!-- RUTA -->
-
-
+            <sale-report-payment
+                route_list="{{ url()->previous() }}">
+            </sale-report-payment>
         </div>
     </div>
 </div>

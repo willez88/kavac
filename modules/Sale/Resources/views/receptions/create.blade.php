@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-	Reportes
+	Ingresos de almacén
 @stop
 
 

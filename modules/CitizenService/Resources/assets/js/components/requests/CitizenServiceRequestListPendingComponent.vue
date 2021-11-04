@@ -4,16 +4,18 @@
 
 		<v-client-table :columns="columns" :data="records" :options="table_options">
 			<div slot="id" slot-scope="props" class="text-center">
-				<button @click="acceptRequest(props.index)"
-						class="btn btn-success btn-xs btn-icon btn-action"
-						title="Aceptar Solicitud" data-toggle="tooltip" v-has-tooltip type="button">
-					<i class="fa fa-check"></i>
-				</button>
+				<citizenservice-request-pending
+                    :requestid="props.row.id"
+                    route_update="citizenservice/requests/pending"
+                    request_type='accept'>
+                </citizenservice-request-pending>
 
-				<button @click="rejectedRequest(props.index)"
-						class="btn btn-danger btn-xs btn-icon btn-action" title="Rechazar Solicitud" data-toggle="tooltip" v-has-tooltip type="button">
-					<i class="fa fa-ban"></i>
-				</button>
+                <citizenservice-request-pending
+                    :requestid="props.row.id"
+                    route_update="citizenservice/requests/pending"
+                    request_type='rejected'>
+                </citizenservice-request-pending>
+
 			</div>
 			<div slot="requested_by" slot-scope="props" class="text-center">
                 <span>

@@ -1,5 +1,5 @@
 <template>
-    <div class="col-xs-2 text-center">
+    <div class="text-center">
         <a class="btn-simplex btn-simplex-md btn-simplex-primary" href title="Firmar PDF" data-toggle="tooltip"
            @click="addRecord('digitalsignature-apiVerifySign', '', $event)">
             <i class="icofont icofont-file-pdf ico-3x"></i>

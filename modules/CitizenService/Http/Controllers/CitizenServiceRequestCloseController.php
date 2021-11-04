@@ -43,7 +43,7 @@ class CitizenServiceRequestCloseController extends Controller
     {
         $citizenServiceRequest = CitizenServiceRequest::find($request->request_id);
         $this->validate($request, [
-            'file' => ['required', 'max:5000', 'mimes:jpeg,jpg,png,pdf,docx,doc,odt,mp4,avi'],
+            'file' => ['required', 'max:10000', 'mimes:jpeg,jpg,png,pdf,docx,doc,odt,mp4,avi'],
         ]);
 
         $documentFormat = ['doc', 'docx', 'pdf', 'odt'];

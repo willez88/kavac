@@ -33,7 +33,7 @@ class PayrollSettingController extends Controller
         ])->first();
         return view(
             'payroll::settings',
-            compact('codeSettings', 'sCode', 'ssCode', 'stCode', 'vRCode', 'bRCode', 'parameter', 'enable')
+            compact('codeSettings', 'sCode', 'ssCode', 'stCode', 'vRCode', 'bRCode', 'parameter')
         );
     }
 

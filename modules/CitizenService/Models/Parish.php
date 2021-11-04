@@ -2,12 +2,12 @@
 
 namespace Modules\CitizenService\Models;
 
-use App\Models\Municipality as BaseMunicipality;
+use App\Models\Parish as BaseParish;
 
-class Municipality extends BaseMunicipality
+class Parish extends BaseParish
 {
     /**
-     * Método que obtiene el municipio asociado con solicitudes
+     * Método que obtiene la parroquia asociado con solicitudes
      *
      * @author Yennifer Ramirez <yramirezs@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

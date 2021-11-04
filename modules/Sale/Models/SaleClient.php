@@ -13,7 +13,8 @@ class SaleClient extends Model implements Auditable
     use SoftDeletes;
     use AuditableTrait;
     use ModelsTrait;
-
+    
+    protected $with = ['parish', 'saleClientsEmail'];
     /**
      * Lista de atributos para la gestión de fechas
      * @var array $dates
@@ -27,6 +28,15 @@ class SaleClient extends Model implements Auditable
     protected $fillable = [
         'rif', 'business_name', 'representative_name', 'type_person_juridica', 'name', 'country_id', 'estate_id', 'municipality_id', 'parish_id', 'address_tax', 'name_client', 'emails', 'id_number', 'id_type'
     ];
+
+    /**
+     * Lista de atributos que deben ser asignados a tipos nativos.
+     * @var array
+     */
+    protected $casts = [
+        'phones' => 'json'
+    ];
+
     /**
      * Obtiene todos los número telefónicos asociados al cliente
      *
@@ -59,5 +69,28 @@ class SaleClient extends Model implements Auditable
     public function saleClientsEmail()
     {
         return $this->hasMany(SaleClientsEmail::class);
+    }
+
+    /**
+     * Método que obtiene la solicitud asociado a una parroquia
+     *
+     * @author
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function parish()
+    {
+        return $this->belongsTo(Parish::class);
+    }
+
+    /**
+     * Método que obtiene los registros del formualrio de solicitud de servicios
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany Objeto con el registro relacionado al modelo
+     * saleClientsEmail
+     */
+    public function saleService()
+    {
+        return $this->hasMany(SaleService::class);
     }
 }

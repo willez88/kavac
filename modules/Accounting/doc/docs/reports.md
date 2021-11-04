@@ -17,7 +17,7 @@ El KAVAC ‘Sistema de Gestión de Recursos’, cuenta con la generación de rep
 - Seleccionar los parámetros de búsqueda.
 - Seleccionar la opción **Generar Reporte** y verificar el documento generado por el sistema.
 
-![Screenshot](/img/figure_9.png)<div style="text-align: center;font-weight: bold">Figura 9: Generar Reporte de Libro Diario</div>
+![Screenshot](img/figure_9.png)<div style="text-align: center;font-weight: bold">Figura 9: Generar Reporte de Libro Diario</div>
 
 ###Generar reporte de mayor analítico
 
@@ -25,7 +25,7 @@ El KAVAC ‘Sistema de Gestión de Recursos’, cuenta con la generación de rep
 - Seleccionar los parámetros de búsqueda.
 - Seleccionar la opción **Generar Reporte** y verificar el documento generado por el sistema.
 
-![Screenshot](/img/figure_10.png)<div style="text-align: center;font-weight: bold">Figura 10: Generar Reporte de Mayor Analítico</div>
+![Screenshot](img/figure_10.png)<div style="text-align: center;font-weight: bold">Figura 10: Generar Reporte de Mayor Analítico</div>
 
 ###Generar reporte de libro auxiliar 
 
@@ -33,7 +33,7 @@ El KAVAC ‘Sistema de Gestión de Recursos’, cuenta con la generación de rep
 - Seleccionar los parámetros de búsqueda.
 - Seleccionar la opción **Generar Reporte** y verificar el documento generado por el sistema.
 
-![Screenshot](/img/figure_11.png)<div style="text-align: center;font-weight: bold">Figura 11: Generar Reporte de Libro Auxiliar</div>
+![Screenshot](img/figure_11.png)<div style="text-align: center;font-weight: bold">Figura 11: Generar Reporte de Libro Auxiliar</div>
 
 ##Estados financieros
 
@@ -49,7 +49,7 @@ Para generar un reporte de balance de comprobación es necesario:
 - Seleccionar los parámetros de búsqueda.
 - Seleccionar la opción **Generar Reporte** y verificar el documento generado por el sistema.
 
-![Screenshot](/img/figure_12.png)<div style="text-align: center;font-weight: bold">Figura 12: Generar Reporte de Balance de Comprobación. </div>
+![Screenshot](img/figure_12.png)<div style="text-align: center;font-weight: bold">Figura 12: Generar Reporte de Balance de Comprobación. </div>
 
 ###Generar reporte de estado de resultados
 
@@ -61,7 +61,7 @@ Para generar un reporte de estado de resultados es necesario:
 - Seleccionar los parámetros de búsqueda. 
 - Seleccionar la opción **Generar Reporte** y verificar el documento generado por el sistema.
 
-![Screenshot](/img/figure_13.png)<div style="text-align: center;font-weight: bold">Figura 13: Generar Reporte de Estado de Resultados</div>
+![Screenshot](img/figure_13.png)<div style="text-align: center;font-weight: bold">Figura 13: Generar Reporte de Estado de Resultados</div>
 
 !!! note "Nota"
 
@@ -80,7 +80,7 @@ Para generar un reporte de balance general es necesario:
 - Seleccionar los parámetros de búsqueda, 
 - Seleccionar la opción **Generar Reporte** y verificar el documento generado por el sistema.
 
-![Screenshot](/img/figure_14.png)<div style="text-align: center;font-weight: bold">Figura 14: Generar Reporte de Balance General</div>
+![Screenshot](img/figure_14.png)<div style="text-align: center;font-weight: bold">Figura 14: Generar Reporte de Balance General</div>
 
 !!! note "Nota"
 

@@ -237,7 +237,9 @@
         },
         mounted() {
             const vm = this;
-            vm.getInstitutions();
+            $("#add_payroll-permission-policies").on('show.bs.modal', function() {
+                vm.getInstitutions();
+            });
         },
     };
 </script>

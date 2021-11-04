@@ -64,9 +64,12 @@
     			<div class="col-md-3" id="saleHelpProductValue">
     				<div class="form-group is-required">
     					<label>Valor:</label>
-    					<input type="number" min="0" placeholder="Valor por unidad del producto" data-toggle="tooltip" step=".01"
-    						   class="form-control input-sm"
-    						   v-model="sale_warehouse_inventory_product.unit_value">
+                            <input class="form-control input-sm" type="text" data-toggle="tooltip"
+                                       title="Valor por unidad del producto" tabindex="10"
+                                       v-model="sale_warehouse_inventory_product.unit_value" required
+                                       v-input-mask data-inputmask="
+                                       'alias': 'numeric',
+                                       'allowMinus': 'false'"/>
                     </div>
     			</div>
     			<div class="col-md-3" id="SaleHelpProductCurrency">

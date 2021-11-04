@@ -13,7 +13,7 @@
 @stop
 
 @section('maproute-title')
-    Gestión de Almacenes
+    Comercialización Reporte inventario de productos
 @stop
 
 @section('content')

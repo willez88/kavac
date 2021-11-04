@@ -552,7 +552,7 @@ $(document).ready(function() {
             { name: 'Francisco Berbesí' },
             { name: 'Luis Ramírez' },
             { name: 'Hyildayra Colmenares' },
-            { name: 'Kleibymar Montilla' },
+            { name: 'Kleivymar Montilla' },
             { name: 'Daniel Contreras' },
             { name: 'Marilyn Caballero' },
             { name: 'William Páez' },
@@ -587,6 +587,30 @@ $(document).ready(function() {
             $('.bootstrap-switch').tooltip('hide');
         }, 1500);
     });
+
+    /**
+     * Función que realiza la verificación de la frase de paso del certificado
+     * p12 guardado en el modulo de Firma electrónica.
+     *
+     * @author Ing. Angelo Osorio  <adosorio@cenditel.gob.ve> | <adosorio@gmail.com>
+     */
+    $('#verify-modal').click(function() {
+        let data = { 'passphrase': $('#phasepass-modal').val() };
+        axios.post('/digitalsignature/validateAuthApi', data).then(function (response) {
+            if (response.data.auth === true) {
+                $('#signed-modal').removeClass('d-none');
+            }
+        }).catch(error => {
+            if (typeof(error.response) !="undefined") {
+                for (var index in error.response.data.errors) {
+                    if (error.response.data.errors[index]) {
+                        vm.errors.push(error.response.data.errors[index][0]);
+                    }
+                }
+            }
+        });
+    });
+
 });
 
 /** Script para medir la fortaleza de la contraseña */
@@ -691,3 +715,9 @@ function delete_record(url) {
         }
     });
 }
+
+
+
+
+
+

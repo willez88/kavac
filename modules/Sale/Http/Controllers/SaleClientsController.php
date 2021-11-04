@@ -87,7 +87,7 @@ class SaleClientsController extends Controller
         }
 
         $request->session()->flash('message', ['type' => 'store']);
-        return response()->json(['result' => true, 'redirect' => route('sale.settings.index')], 200);
+        return response()->json(['record' => $client, 'message' => 'Success'], 200);
     }
 
     /**
@@ -199,18 +199,27 @@ class SaleClientsController extends Controller
         }
 
         $request->session()->flash('message', ['type' => 'update']);
-        return response()->json(['result' => true, 'redirect' => route('sale.settings.index')], 200);
+        return response()->json(['result' => true], 200);
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @return JsonResponse
+     * Elimina un cliente registrado en el sistema
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @param  $id Identificador único del cliente
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
-    public function destroy()
+    public function destroy($id)
     {
-        $client = client::find($id);
-        $client->delete();
-        return response()->json(['record' => $client, 'message' => 'Success'], 200);
+        /**
+         * Objeto con la información asociada al modelo sustrato
+         * @var Object $forestClimates
+         */
+        $client = SaleClient::find($id);
+        if ($client) {
+            $client->delete();
+            return response()->json(['record' => $client, 'message' => 'Success'], 200);
+        }
     }
 
     /**
@@ -220,7 +229,7 @@ class SaleClientsController extends Controller
      * @return JsonResponse
      */
 
-    public function getSaleClientRif()
+    public function getSaleClientsRif()
     {
         $records = [];
         $saleClient = SaleClient::orderBy('id', 'ASC')->get();
@@ -251,7 +260,7 @@ class SaleClientsController extends Controller
      */
     public function getSaleClient($id)
     {
-        $saleClient = SaleClient::with(['phones', 'sale_clients_email'])->find($id);
+        $saleClient = SaleClient::with(['phones', 'saleClientsEmail'])->find($id);
         return response()->json(['sale_client' => $saleClient], 200);
     }
 }

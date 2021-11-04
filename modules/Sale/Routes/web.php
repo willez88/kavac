@@ -30,12 +30,36 @@ Route::group(
         /**
          * Panel de control referente a los pedidos
          */
-        Route::get('order', 'SaleOrderSettingController@options')->name('sale.order.options');
+        Route::resource('order', 'SaleOrderSettingController', ['only' => 'store']);
+        Route::get('order/create', 'SaleOrderSettingController@create')->name('sale.order.create');
+        Route::get('order', 'SaleOrderSettingController@index')->name('sale.order.index');
+        Route::patch('order/{order}', 'SaleOrderSettingController@update');
+        Route::get('order/vue-list', 'SaleOrderSettingController@getListPending');
+        Route::get('order/list-rejected', 'SaleOrderSettingController@getListRejected');
+        Route::get('order/list-approved', 'SaleOrderSettingController@getListApproved');
+
+        /** Ruta que muestra el formulario para actualizar la información de una orden */
+        Route::get('order/edit/{order}', 'SaleOrderSettingController@edit')->name('sale.order.edit');
+        /** Ruta que obtiene la información de un bien institucional registrado */
+        Route::get('order/info/{order}', 'SaleOrderSettingController@getOrderInfo');
 
         Route::resource(
-            'register-order',
-            'SaleOrderSettingController',
-            ['as' => 'order', 'except' => ['create','edit','show']]
+          'approve-order',
+          'SaleOrderSettingController',
+          ['as' => 'order', 'except' => ['create','edit','show']]
+        );
+
+        Route::put(
+          'order/rejected/{order}',
+          'SaleOrderSettingController@rejectedOrder'
+        );
+        Route::put(
+          'order/approved/{order}',
+          'SaleOrderSettingController@approvedOrder'
+        );
+        Route::put(
+          'order/delete/{order}',
+          'SaleOrderSettingController@destroy'
         );
 
         /** Ruta que obtiene un array con los precios registrados, de acuerdo al producto seleccionado */
@@ -114,15 +138,7 @@ Route::group(
             'get-paymentmethod',
             'SalePaymentMethodController@getSalePaymentMethod'
         )->name('sale.get-sale-paymentmethod');
-        Route::resource(
-            'setting-product',
-            'SaleSettingProductController',
-            ['as' => 'sale', 'except' => ['create','edit','show']]
-        );
-        Route::get(
-            'get-setting-product',
-            'SaleSettingProductController@getSaleSettingProduct'
-        )->name('sale.get-sale-setting-product');
+
         Route::resource(
             'setting-product-type',
             'SaleSettingProductTypeController',
@@ -312,22 +328,20 @@ Route::group(
         /**
 
          * ---------------------------------------------------------------------------------
-         * Rutas para gestionar la generación de facturas en el Modulo de Comercialización
+         * Rutas para gestionar la generación de solicitudes de servicios en el Modulo de Comercialización
          * ---------------------------------------------------------------------------------
          */
 
         Route::resource('services', 'SaleServiceController', ['as' => 'sale', 'except' => ['create','edit','show']]);
         Route::get('services/create', 'SaleServiceController@create')->name('sale.services.create');
-        //  Route::get('bills', 'SaleBillController@index')->name('sale.bills.index');
-        //  Route::get('bills/vue-list', 'SaleBillController@vueList');
-        //  Route::patch('bills/{bill}', 'SaleBillController@update');
-        //  Route::get('bills/info/{bill}', 'SaleBillController@vueInfo');
-        //  Route::get('bills/edit/{bill}', 'SaleBillController@edit')->name('sale.bills.edit');
-        //  Route::delete('bills/delete/{bill}', 'SaleBillController@destroy')->name('sale.bills.destroy');
-        //  Route::put('bills/bill-approved/{bill}', 'SaleBillController@approvedBill');
-        //  Route::put('bills/bill-rejected/{bill}', 'SaleBillController@rejectedBill');
-        //  Route::get('bills/vue-approved-list/{state}', 'SaleBillController@vueApprovedList');
-        //  Route::get('bills/pdf/{id}', 'Reports\SaleBillController@pdf');
+        Route::get('services/vue-list', 'SaleServiceController@vueList');
+        Route::get('services/edit/{id}', 'SaleServiceController@edit')->name('sale.services.edit');
+        Route::get('services/info/{id}', 'SaleServiceController@vueInfo');
+        Route::patch('services/{id}', 'SaleServiceController@update');
+        Route::delete('services/delete/{id}', 'SaleServiceController@destroy');
+        Route::put('services/service-approved/{id}', 'SaleServiceController@approved');
+        Route::put('services/service-rejected/{id}', 'SaleServiceController@rejected');
+        Route::get('services/vue-pending-list/{status}', 'SaleServiceController@vuePendingList');
 
         //Frecuency (periodicidad de tiempo)
         Route::resource(
@@ -352,6 +366,17 @@ Route::group(
             'get-periodic-cost',
             'PeriodicCostController@getPeriodicCostAttributes'
         )->name('sale.get-sale-periodic-cost');
+        //Products (productos)
+        Route::resource(
+            'product',
+            'SaleSettingProductController',
+            ['as' => 'sale', 'except' => ['create','edit','show']]
+        );
+
+        Route::get(
+            'get-setting-product',
+            'SaleSettingProductController@getSaleSettingProduct'
+        )->name('sale.get-sale-setting-product');
 
         /*
          * ------------------------------------------------------------
@@ -375,6 +400,11 @@ Route::group(
             'get-goods-attributes',
             'SaleGoodsToBeTradedController@getSaleGoodsAttributes'
         )->name('sale.get-sale-goods-attribute');
+
+        Route::get(
+            'get-sale-goods',
+            'SaleGoodsToBeTradedController@getSaleGoods'
+        );
 
         /**
          * -------------------------------------------------------------------
