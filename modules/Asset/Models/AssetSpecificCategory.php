@@ -38,6 +38,31 @@ class AssetSpecificCategory extends Model implements Auditable
     protected $fillable = ['code', 'name', 'asset_subcategory_id'];
 
     /**
+     * Lista de atributos personalizados obtenidos por defecto
+     *
+     * @var array $appends
+     */
+    protected $appends = [
+        'asset_type_id'
+    ];
+
+    /**
+     * Método que obtiene el valor asociado al campo asset_type_id
+     *
+     * @author    Henry Paredes <hparedes@cenditel.gob.ve> | <henryp2804@gmail.com>
+     *
+     * @return    Object    Objeto con las propiedades registrados
+     */
+    public function getAssetTypeIdAttribute()
+    {
+        $data = '';
+        if (isset($this->assetSubcategory)) {
+            $data = $this->assetSubcategory->assetCategory->assetType->id;
+        }
+        return $data;
+    }
+
+    /**
      * Método que obtiene la subcategoria asociada a la categoria especifica
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>

@@ -329,30 +329,42 @@ Vue.mixin({
 		 *
 		 * @author Henry Paredes <hparedes@cenditel.gob.ve>
 		 */
-		getAssetTypes() {
+		async getAssetTypes() {
 			const vm = this;
-			axios.get('/asset/get-types').then(response => {
+			await axios.get('/asset/get-types').then(response => {
 				vm.asset_types = response.data;
 			});
+            if ((vm.record.asset_type) && (vm.record.id)) {
+                if (vm.record.asset_type_id == '') {
+                    vm.record.asset_type_id = vm.record.asset_type.id;
+                }
+            }
 		},
 		/**
 		 * Obtiene los datos de las categorias generales de los bienes institucionales registrados
 		 *
 		 * @author Henry Paredes <hparedes@cenditel.gob.ve>
 		 */
-		getAssetCategories() {
+		async getAssetCategories() {
 			var vm = this;
 			vm.asset_categories = [];
 
 			if (vm.record.asset_type_id) {
-				axios.get('/asset/get-categories' + '/' + vm.record.asset_type_id).then(function (response) {
+				await axios.get('/asset/get-categories' + '/' + vm.record.asset_type_id).then(function (response) {
 					vm.asset_categories = response.data;
 				});
-			}
-			else if ((vm.assetid)&&(vm.record.asset_type_id == '')) {
-				axios.get('/asset/get-categories').then(function (response) {
-					vm.asset_categories = response.data;
-				});
+                if ((vm.record.asset_category) && (vm.record.id)) {
+                    if (vm.record.asset_type_id == '') {
+                        vm.record.asset_type_id = vm.record.asset_category.asset_type.id;
+                    }
+                    vm.record.asset_category_id = vm.record.asset_category.id;
+                }
+                if ((vm.record.asset_subcategory) && (vm.record.id)) {
+                    if (vm.record.asset_type_id == '') {
+                        vm.record.asset_type_id = vm.record.asset_subcategory.asset_category.asset_type.id;
+                    }
+                    vm.record.asset_category_id = vm.record.asset_subcategory.asset_category.id;
+                }
 			}
 		},
 		/**
@@ -360,19 +372,17 @@ Vue.mixin({
 		 *
 		 * @author Henry Paredes <hparedes@cenditel.gob.ve>
 		 */
-		getAssetSubcategories() {
+		async getAssetSubcategories() {
 			var vm = this;
 			vm.asset_subcategories = [];
 
 			if (vm.record.asset_category_id) {
-				axios.get('/asset/get-subcategories' + '/' + vm.record.asset_category_id).then(function (response) {
+				await axios.get('/asset/get-subcategories' + '/' + vm.record.asset_category_id).then(function (response) {
 					vm.asset_subcategories = response.data;
 				});
-			}
-			else if ((vm.assetid)&&(vm.record.asset_type_id == '')) {
-				axios.get('/asset/get-subcategories').then(function (response) {
-					vm.asset_subcategories = response.data;
-				});
+                if ((vm.record.asset_subcategory) && (vm.record.id)) {
+                    vm.record.asset_subcategory_id = vm.record.asset_subcategory.id;
+                }
 			}
 		},
 		/**
@@ -380,19 +390,17 @@ Vue.mixin({
 		 *
 		 * @author Henry Paredes <hparedes@cenditel.gob.ve>
 		 */
-		getAssetSpecificCategories() {
+		async getAssetSpecificCategories() {
 			var vm = this;
 			vm.asset_specific_categories = [];
 
-			if ((vm.record.asset_subcategory_id)&&(vm.record.asset_subcategory_id != '')) {
-				axios.get('/asset/get-specific-categories' + '/' + vm.record.asset_subcategory_id).then(function (response) {
+			if (vm.record.asset_subcategory_id) {
+				await axios.get('/asset/get-specific-categories' + '/' + vm.record.asset_subcategory_id).then(function (response) {
 					vm.asset_specific_categories = response.data;
 				});
-			}
-			else if ((vm.assetid)&&(vm.record.asset_type_id == '')) {
-				axios.get('/asset/get-specific-categories').then(function (response) {
-					vm.asset_specific_categories = response.data;
-				});
+                if ((vm.record.asset_specific_category) && (vm.record.id)) {
+                    vm.record.asset_specific_category_id = vm.record.asset_specific_category.id;
+                }
 			}
 		},
 		/**
