@@ -66,7 +66,10 @@ class AssetSubcategoryController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => AssetSubcategory::with('assetCategory')->get()], 200);
+        return response()->json(['records' => AssetSubcategory::with([
+            'assetCategory' => function ($query) {
+                $query->with('assetType');
+            }])->get()], 200);
     }
 
     /**

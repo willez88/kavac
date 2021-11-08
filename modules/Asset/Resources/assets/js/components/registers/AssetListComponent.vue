@@ -1,6 +1,5 @@
 <template>
 	<section>
-
 		<div class="form-group form-inline pull-right VueTables__limit-2">
 			<div class="VueTables__limit-field">
 				<label class="">Registros</label>
@@ -89,6 +88,11 @@
 	</section>
 </template>
 
+<style type="text/css">
+	.btn.btn-icon.btn-xs {
+	    margin-right: 5px;
+	}
+</style>
 <script>
 	export default {
 		data() {
