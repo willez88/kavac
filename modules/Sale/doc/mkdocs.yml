@@ -6,7 +6,6 @@ nav:
       - Inicio: index.md
       - Configuración: 
         - Formatos de Códigos: setting/code_format.md
-        - Configuración General: setting/general_setting.md
         - Registros Comunes: setting/common_registers.md
       - Panel de Control: 
         - Panel de Control: control_panel/control_panel.md 

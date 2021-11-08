@@ -7,8 +7,7 @@
 
 A través de esta sección se realizan los registros iniciales del módulo de comercialización, datos que serán usados en las demás secciones del módulo. De igual forma se pueden realizar modificaciones sobre los datos ya existentes incluidos por defecto en el sistema. 
 
-![Screenshot](../img/img1.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registros Comunes</div>
-
+![Screenshot](../img/img1_1.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Registros Comunes</div>
 
 ### Almacenes	
 
@@ -50,14 +49,14 @@ Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubic
 
 ### Productos	
 
-A través de esta opción se gestiona información sobre los productos y servicios a ofrecer por la organización. 
+A través de esta opción se gestiona información sobre los productos a ofrecer por la organización. 
 
 **Registrar producto/servicio**
 
--   Dirigirse a la **Configuración** del módulo de **Comercialización**.
--   Ingresar en la opción **Productos** ubicado en la sección **Registros Comunes**.
--   Completar el formulario **Productos**.
--   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
+-   Dirigirse a la **Configuración** del módulo de **Comercialización**. 
+-   Ingresar en la opción **Productos** ubicado en la sección **Registros Comunes**. 
+-   Completar el formulario **Productos**. 
+-   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros. 
 
 ![Screenshot](../img/image1018.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Formulario Productos</div>
 
@@ -209,3 +208,62 @@ A través de esta opción se establecen los costos fijos, que representan valore
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de **Registros**.
 
 ![Screenshot](../img/manage_1.png#imagen)
+
+### Métodos de cobro
+
+A través de esta funcionalidad se gestiona información sobre los diferentes métodos de cobro a emplear en la organización.
+
+**Crear método de cobro**
+
+-   Dirigirse a la **Configuración** del módulo de **Comercialización**. 
+-   Ingresar en la opción **Métodos de Cobro** ubicado en la sección **Registros comunes**. 
+-   Completar el formulario **Métodos de Cobro**. 
+-   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros. 
+
+![Screenshot](../img/img1025.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Formulario Métodos de Cobro</div>
+
+**Gestión de registros** 
+
+Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de **Registros**.
+
+![Screenshot](../img/manage_1.png#imagen)
+
+### Formas de cobro
+
+A través de esta funcionalidad se gestiona información sobre los diferentes formas de cobro a emplear en la organización. 
+
+**Crear forma de cobro**
+
+-   Dirigirse a la **Configuración** del módulo de **Comercialización**. 
+-   Ingresar en la opción **Formas de Cobro** ubicado en la sección **Registros comunes**. 
+-   Completar el formulario **Formas de Cobro**. 
+-   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros. 
+
+![Screenshot](../img/img1026.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Formulario Formas de Cobro</div>
+
+**Gestión de registros** 
+
+Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de **Registros**.
+
+![Screenshot](../img/manage_1.png#imagen)
+
+### Periodos de tiempo
+
+A través de esta funcionalidad se gestiona información sobre los periodos de tiempo a establecer para operaciones en la organización. 
+
+**Establecer periodos de tiempo**
+
+-   Dirigirse a la **Configuración** del módulo de **Comercialización**. 
+-   Ingresar en la opción **Periodos de Tiempo** ubicado en la sección **Registros comunes**. 
+-   Completar el formulario **Periodos de Tiempo**. 
+-   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros. 
+
+![Screenshot](../img/img1027.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Formulario Periodos de tiempo</div>
+
+**Gestión de registros** 
+
+Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de **Registros**.
+
+![Screenshot](../img/manage_1.png#imagen)
+
+
