@@ -44,7 +44,7 @@ class SalePaymentController extends Controller
      */
     public function create()
     {
-       // return view('sale::create');
+        return view('sale::payment.create');
     }
 
     /**

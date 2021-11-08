@@ -384,7 +384,7 @@ Route::group(
          * ------------------------------------------------------------
          */
         Route::get('payment', 'SalePaymentController@index')->name('sale.payment.index');
-
+        Route::get('payment/create', 'SalePaymentController@create')->name('payment.register.create');
         /*
          * ------------------------------------------------------------
          * Ruta para gestionar Bienes a Comercializar

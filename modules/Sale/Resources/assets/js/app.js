@@ -394,6 +394,16 @@ Vue.component('payment-registered-list', () => import(
 );
 
 /**
+ * Componente para registrar pagos
+ *
+ * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+ */
+Vue.component('payment-registered-create', () => import(
+    /* webpackChunkName: "payment-registered-list" */
+    './components/payment/SalePaymentCreateComponent.vue')
+);
+
+/**
  * Componente para gestionar Pagos Pendientes
  *
  * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
