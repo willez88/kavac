@@ -126,4 +126,16 @@ class SaleService extends Model implements Auditable
     {
         return $this->belongsTo(\Modules\Payroll\Models\PayrollStaff::class);
     }
+
+    /**
+     * Método que obtiene los requerimientos de la solicitud de servicios
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany Objeto con el registro relacionado al modelo
+     * SaleTechnicalProposal
+     */
+    public function saleTechnicalProposal()
+    {
+        return $this->hasMany(SaleTechnicalProposal::class);
+    }
 }

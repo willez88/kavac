@@ -1,0 +1,345 @@
+<template>
+<section id="SaleTechnicalProposalForm">
+    <div class="card-body">
+        <div class="alert alert-danger" v-if="errors.length > 0">
+            <div class="container">
+                <div class="alert-icon">
+                    <i class="now-ui-icons objects_support-17"></i>
+                </div>
+                <strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                        @click.prevent="errors = []">
+                    <span aria-hidden="true">
+                        <i class="now-ui-icons ui-1_simple-remove"></i>
+                    </span>
+                </button>
+                <ul>
+                    <li v-for="error in errors">{{ error }}</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <b>Datos del solicitante</b>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group is-required">
+                    <label>Cliente:</label>
+                    <select2 :options="sale_clients_rif"
+                             v-model="service.sale_client_id" @input="getSaleClient" :disabled="true"></select2>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div v-show="service.sale_client_id != 0" class="form-group">
+                    <label for="sale_clients_email">Correo:</label>
+                    <p v-for="email in sale_client.sale_clients_email">
+                        <input type="text" class="form-control input-sm" :disabled="true" 
+                            data-toggle="tooltip" title="Dirección" 
+                            id="email" v-model="email.email"></input>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div v-show="service.sale_client_id != 0" class="form-group">
+                    <label for="phones">Número telefónico:</label>
+                    <p v-for="phone in sale_client.phones">
+                        <input type="text" class="form-control input-sm" :disabled="true"
+                            data-toggle="tooltip" title="Dirección fiscal" 
+                            id="phone" v-model="phone.extension + '-' + phone.area_code + phone.number"></input>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group is-required">
+                    <label for="applicant_organization">Organización:</label>
+                    <input type="text" class="form-control input-sm" 
+                        data-toggle="tooltip" title="Dirección" 
+                        v-model="service.organization" :disabled="true" id="applicant_organization"></input>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group is-required">
+                    <label for="economic_activity">Descripción de la actividad económica:</label>
+                    <textarea type="text" class="form-control input-sm"
+                        data-toggle="tooltip" title="Dirección fiscal" 
+                        v-model="service.description" :disabled="true" id="economic_activity"></textarea>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <b>Datos de la solicitud de servicios</b>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group is-required">
+                    <label>Servicio:</label>
+                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
+                        <input type="text" class="form-control input-sm"
+                            data-toggle="tooltip" title="Nombre o razón social" 
+                            :disabled="true"
+                            id="service_description" v-model="good_to_be_traded.name"></input>
+                    </p>
+                </div>
+            </div>
+            <div v-if="service.sale_goods_to_be_traded && service.sale_goods_to_be_traded.length > 0" class="col-md-3">
+                <div class="form-group">
+                    <label for="applicant_name">Descripción:</label>
+                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
+                        <input type="text" class="form-control input-sm"
+                            data-toggle="tooltip" title="Nombre o razón social" 
+                            :disabled="true"
+                            id="service_description" v-model="good_to_be_traded.description"></input>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3" v-if="service.sale_goods_to_be_traded && service.sale_goods_to_be_traded.length > 0">
+                <div class="form-group">
+                    <label for="applicant_name">Unidad o departamento:</label>
+                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
+                        <input type="text" class="form-control input-sm"
+                            data-toggle="tooltip" title="Nombre o razón social" 
+                            :disabled="true"
+                            id="service_department" v-model="good_to_be_traded.department"></input>
+                    </p>
+                    <br>
+                </div>
+            </div>
+            <div class="col-md-3" v-if="service.sale_goods_to_be_traded && service.sale_goods_to_be_traded.length > 0">
+                <div id="saleServiceName" class="form-group">
+                    <label for="applicant_name">Nombre:</label>
+                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
+                        <input type="text" class="form-control input-sm"
+                            data-toggle="tooltip" title="Nombre o razón social" 
+                            :disabled="true"
+                            id="staff_name" v-model="good_to_be_traded.staff_name"></input>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3" v-if="service.sale_goods_to_be_traded && service.sale_goods_to_be_traded.length > 0">
+                <div id="saleServiceLastname" class="form-group">
+                    <label for="applicant_name">Apellido:</label>
+                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
+                        <input type="text" class="form-control input-sm"
+                            data-toggle="tooltip" title="Nombre o razón social" 
+                            :disabled="true"
+                            id="staff_last_name" v-model="good_to_be_traded.staff_last_name"></input>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3" v-if="service.sale_goods_to_be_traded && service.sale_goods_to_be_traded.length > 0">
+                <div id="saleServicePhone" class="form-group">
+                    <label for="applicant_name">Teléfono:</label>
+                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
+                        <input type="text" class="form-control input-sm"
+                            data-toggle="tooltip" title="Nombre o razón social" 
+                            :disabled="true"
+                            id="staff_phone" v-model="good_to_be_traded.staff_phone"></input>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3" v-if="service.sale_goods_to_be_traded && service.sale_goods_to_be_traded.length > 0">
+                <div id="saleServiceEmail" class="form-group">
+                    <label for="applicant_name">Correo electrónico:</label>
+                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
+                        <input type="text" class="form-control input-sm"
+                            data-toggle="tooltip" title="Nombre o razón social" 
+                            :disabled="true"
+                            id="staff_email" v-model="good_to_be_traded.staff_email"></input>
+                    </p>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+    <div class="card-footer text-right">
+        <div class="row">
+            <div class="col-md-3 offset-md-9" id="saleHelpParamButtons">
+                <button type="button" @click="reset()"
+                        class="btn btn-default btn-icon btn-round"
+                        title ="Borrar datos del formulario">
+                        <i class="fa fa-eraser"></i>
+                </button>
+
+                <button type="button"
+                        class="btn btn-warning btn-icon btn-round btn-modal-close"
+                        data-dismiss="modal"
+                        title="Cancelar y regresar">
+                        <i class="fa fa-ban"></i>
+                </button>
+
+                <button type="button"  @click="createRecord('sale/technical-proposals')"
+                        class="btn btn-success btn-icon btn-round btn-modal-save"
+                        title="Guardar registro">
+                    <i class="fa fa-save"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            record: {
+                
+            },
+            service: {
+                id: '',
+                organization: '',
+                description: '',
+                resume: '',
+                sale_goods_to_be_traded: [],
+                requirements: [],
+                sale_client_id: '',
+            },
+            sale_goods_to_be_traded: [],
+            services: [],
+            records: [],
+            errors: [],
+            sale_client: {
+                name : '',
+                phones : '',
+                sale_clients_email : '',
+            },
+            sale_clients_rif: [],
+            sale_clients_name: [],
+            sale_clients_address: [],
+            sale_clients_fiscal_address: [],
+        }
+    },
+    watch: {
+        /**
+         * Método que supervisa los cambios en el objeto sale_goods_to_be_traded para asignar sus valores
+         * en el record
+         *
+         * @author    Daniel Contreras <dcontreras@cenditel.gob.ve> | <exodiadaniel@gmail.com>
+         *
+         * @param     {object}    value    Objeto que contiene el valor de a búsqueda
+         */
+        sale_goods_to_be_traded() {
+            const vm = this;
+            vm.record.sale_goods_to_be_traded = [];
+
+            for (let good_to_be_traded of vm.sale_goods_to_be_traded){
+                let good_to_be_traded_id = good_to_be_traded.id;
+                vm.record.sale_goods_to_be_traded.push(good_to_be_traded_id);
+            }
+            
+        }
+    },
+    methods: {
+        /**
+         * Método que carga la información del formulario al editar
+         *
+         *
+         */
+        async loadForm(id){
+            const vm = this;
+
+            await axios.get('/sale/services/info/'+id).then(response => {
+                if(typeof(response.data.record != "undefined")){
+                    vm.service = response.data.record;
+
+                    vm.sale_goods_to_be_traded = [];
+                    vm.service.requirements = [];
+
+                    for (let data of vm.services) {
+                        for (let good_id of response.data.record.sale_goods_to_be_traded) {
+                            if (good_id == data.id) {
+                                vm.sale_goods_to_be_traded.push(data);
+                            }
+                        }
+                    }
+
+                    for (let requirement of response.data.record.sale_service_requirement) {
+                        vm.service.requirements.push(requirement);
+                    }
+                }
+            });
+        },
+        /**
+         * Método que borra todos los datos del formulario
+         *
+         *
+         */
+        reset() {
+            this.record = {};
+        },
+
+        getSaleGoods() {
+            const vm = this;
+            vm.services = [];
+
+            axios.get('/sale/get-sale-goods/').then(response => {
+                vm.services = response.data.records;
+            });
+        },
+
+        getSaleClientsRif() {
+            const vm = this;
+            vm.sale_clients_rif = [];
+
+            axios.get('/sale/get-sale-clients-rif/').then(response => {
+                vm.sale_clients_rif = response.data.records;
+            });
+        },
+
+        getSaleClient() {
+            const vm = this;
+            if (vm.service.sale_client_id > 0) {
+                axios.get('/sale/get-sale-client/' + vm.service.sale_client_id).then(response => {
+                    vm.sale_client.name = response.data.sale_client.name;
+                    vm.sale_client.phones = response.data.sale_client.phones;
+                    vm.sale_client.sale_clients_email = response.data.sale_client.sale_clients_email;
+                });
+            }
+        },
+
+        getSaleClientsAddress() {
+            const vm = this;
+            vm.sale_clients_address = [];
+
+            axios.get('/sale/get-sale-clients-address/').then(response => {
+                vm.sale_clients_address = response.data;
+            });
+        },
+
+        getSaleClientsFiscalAddress() {
+            const vm = this;
+            vm.sale_clients_fiscal_address = [];
+
+            axios.get('/sale/get-sale-clients-fiscal-address/').then(response => {
+                vm.sale_clients_fiscal_address = response.data;
+            });
+        },
+    },
+    mounted() {
+        const vm = this;
+
+        if(this.serviceid){
+            this.loadForm(this.serviceid);
+        }
+        else {
+            vm.service.date = moment(String(new Date())).format('YYYY-MM-DD');
+        }
+    },
+    props: {
+        serviceid: {
+            type: Number
+        },
+    },
+    created() {
+        this.getSaleClientsRif();
+        this.getSaleClient();
+        this.getSaleGoods();
+        this.service.sale_goods_to_be_traded = [];
+    },
+};
+</script>

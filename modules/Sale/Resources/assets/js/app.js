@@ -351,6 +351,16 @@ Vue.component('sale-technical-proposal-list', () => import(
 );
 
 /**
+ * Componente para completar las propuestas técnicas de solicitudes de servicios
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-technical-proposal-create', () => import(
+    /* webpackChunkName: "sale-technical-proposal-create" */
+    './components/services/SaleTechnicalProposalCreateComponent.vue')
+);
+
+/**
  * Componente para gestionar las frecuencias de tiempo
  *
  * Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>

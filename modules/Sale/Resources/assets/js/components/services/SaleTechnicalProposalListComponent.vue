@@ -29,6 +29,11 @@
                         title="Ver registro" data-toggle="tooltip" data-placement="bottom" type="button">
                     <i class="fa fa-eye"></i>
                 </button>
+                <button @click="completeTechnicalProposal(props.row.id)"
+                        class="btn btn-default btn-xs btn-icon btn-action"
+                        title="Completar propuesta técnica" data-toggle="tooltip" type="button" v-has-tooltip>
+                    <i class="fa fa-check"></i>
+                </button>
             </div>
         </div>
     </v-client-table>
@@ -75,6 +80,7 @@
             reset() {
                 
             },
+
             getSalePendingService() {
                 const vm = this;
 
@@ -109,6 +115,18 @@
 
                 $(`#${modal}`).modal('show');
                 document.getElementById("info_general").click();
+            },
+
+            /**
+             * Redirige al formulario para completar la propuesta técnica
+             *
+             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+             *
+             * @param [Integer] $id Identificador único del servicio
+             */
+            completeTechnicalProposal(id)
+            {
+                location.href = '/sale/technical-proposals/complete/' + id;
             },
         }
     };

@@ -326,7 +326,6 @@ Route::group(
         )->name('sale.get-sale-listsubservicesmethod');
 
         /**
-
          * ---------------------------------------------------------------------------------
          * Rutas para gestionar la generación de solicitudes de servicios en el Modulo de Comercialización
          * ---------------------------------------------------------------------------------
@@ -342,6 +341,16 @@ Route::group(
         Route::put('services/service-approved/{id}', 'SaleServiceController@approved');
         Route::put('services/service-rejected/{id}', 'SaleServiceController@rejected');
         Route::get('services/vue-pending-list/{status}', 'SaleServiceController@vuePendingList');
+
+        /**
+         * ---------------------------------------------------------------------------------
+         * Rutas para gestionar la generación de propuestas técnicas en el Modulo de Comercialización
+         * ---------------------------------------------------------------------------------
+         */
+
+        Route::resource('technical-proposals', 'SaleTechnicalProposalController', ['as' => 'sale', 'except' => ['create','edit','show']]);
+        Route::get('technical-proposals/complete/{id}', 'SaleTechnicalProposalController@saleCompleteTechnicalProposal')
+             ->name('sale.technical-proposals.create');
 
         //Frecuency (periodicidad de tiempo)
         Route::resource(
