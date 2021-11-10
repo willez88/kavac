@@ -393,7 +393,32 @@ Route::group(
          * ------------------------------------------------------------
          */
         Route::get('payment', 'SalePaymentController@index')->name('sale.payment.index');
+
         Route::get('payment/create', 'SalePaymentController@create')->name('payment.register.create');
+
+        Route::get(
+            'get-sales-client/{id}',
+            'SalePaymentController@getSaleClient'
+        )->name('sale.get-sales-client');
+
+        Route::get(
+            'get-sales-to-be-trade/{id}',
+            'SalePaymentController@getSaleGoodsToBeTraded'
+        )->name('sale.get-sales-to-be-trade');  
+
+        Route::get(
+            'get-sales-service/{id}',
+            'SalePaymentController@getSaleService'
+        )->name('sale.get-sales-service');       
+
+        Route::get('get-sale-order-list', 'SalePaymentController@getSaleOrderList');
+
+        Route::get('get-sale-service-list', 'SalePaymentController@getSaleServiceList');
+
+        Route::get('get-bank', 'SalePaymentController@getSaleBank');
+
+        Route::get('get-currencie', 'SalePaymentController@getCurrencie');
+
         /*
          * ------------------------------------------------------------
          * Ruta para gestionar Bienes a Comercializar

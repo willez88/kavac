@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Modules\Finance\Models\FinanceBank;
 use Modules\Sale\Models\SaleService;
 use Modules\Sale\Models\SaleClient;
 use Modules\Sale\Models\SaleGoodsToBeTraded;
@@ -136,7 +137,52 @@ class SalePaymentController extends Controller
     {
         //
     }
-    
+   
+ /**
+     * Muestra una lista de pediros registrados
+     *
+     * @author Miguel Narvaez <mnarvaezcenditel.gob.ve>
+     * @return Array con los pediros registrados a mostrar
+     */
+    public function getSaleOrderList()
+    {
+        return template_choices('Modules\Sale\Models\SaleOrderManagement', ['code', '-', 'name'], '', true);
+    }
+
+    /**
+     * Muestra una lista de servicios registrados
+     *
+     * @author Miguel Narvaez <mnarvaezcenditel.gob.ve>
+     * @return Array con los servicios registrados a mostrar
+     */
+    public function getSaleServiceList()
+    {
+        return template_choices('Modules\Sale\Models\SaleService', ['code', '-', 'organization'], '', true);
+    }
+
+    /**
+     * Muestra una lista de las monedas registradas en el sistema
+     *
+     * @author Miguel Narvaez <mnarvaezcenditel.gob.ve>
+     * @return Array con los registros a mostrar
+     */
+    public function getCurrencie()
+    {
+        return template_choices('App\Models\Currency', ['symbol', '-', 'name'], '', true);
+    }
+
+    /**
+     * Obtiene los bancos registrados
+     *
+     * @author Miguel Narvaez <mnarvaezcenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los bancos registrados
+     */
+    public function getSaleBank()
+    {
+
+        return template_choices('Modules\Finance\Models\FinanceBank', ['code', '-', 'name', '-', 'short_name'], '', true);
+    }
+
     /**
      * Obtiene los servicios registrados
      *

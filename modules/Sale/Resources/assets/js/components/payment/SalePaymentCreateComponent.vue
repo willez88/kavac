@@ -23,18 +23,19 @@
             <div class="col-md-12">
                 <b>Datos del cliente</b>
             </div>
+
             <div class="col-md-3">
                 <div class="form-group is-required">
                     <label>Servicio:</label>
-                    <select2 :options="sale_clients_rif"
-                             v-model="record.sale_client_id" @input="getSaleClient"></select2>
+                    <select2 :options="sale_service_list"
+                             v-model="record.sale_service_id" @input="getSaleService"></select2>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group is-required">
                     <label>Pedido:</label>
-                    <select2 :options="sale_clients_rif"
-                             v-model="record.sale_client_id" @input="getSaleClient" ></select2>
+                    <select2 :options="sale_order_list"
+                             v-model="record.sale_order_id" @input="getSalesOrder" ></select2>
                 </div>
             </div>
 
@@ -65,134 +66,63 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="form-group is-required">
-                    <label for="applicant_organization">Organización:</label>
+                    <label for="applicant_organization">codigo de la solicitud:</label>
                     <input type="text" class="form-control input-sm" 
                         data-toggle="tooltip" title="Dirección" 
-                        v-model="record.organization" id="applicant_organization"></input>
+                        v-model="record.organization" id="applicant_organization" :disabled="true"></input>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group is-required">
-                    <label for="economic_activity">Descripción de la actividad económica:</label>
-                    <textarea type="text" class="form-control input-sm"
-                        data-toggle="tooltip" title="Dirección fiscal" 
-                        v-model="record.description" id="economic_activity"></textarea>
+                    <label for="payment">Monto Total del pedido o servicio:</label>
+                    <input type="text" class="form-control input-sm" 
+                        data-toggle="tooltip" title="Total" 
+                        v-model="record.payment" id="payment" :disabled="true"></input>
                 </div>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-12">
-                <b>Datos de la solicitud de servicios</b>
-            </div>
+            </div>            
             <div class="col-md-3">
                 <div class="form-group is-required">
-                    <label>Servicio:</label>
-                    <v-multiselect :options="services" track_by="text"
-                                   :hide_selected="false" data-toggle="tooltip"
-                                   title="Indique los servicios a seleccionar"
-                                   v-model="sale_goods_to_be_traded">
-                    </v-multiselect>
-                </div>
-            </div>
-            <div v-if="record.sale_goods_to_be_traded && record.sale_goods_to_be_traded.length > 0" class="col-md-3">
-                <div class="form-group">
-                    <label for="applicant_name">Descripción:</label>
-                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
-                        <input type="text" class="form-control input-sm"
-                            data-toggle="tooltip" title="Nombre o razón social" 
-                            :disabled="true"
-                            id="service_description" v-model="good_to_be_traded.description"></input>
-                    </p>
+                    <label>Forma de pago:</label>
+                    <select2 :options="currencies"
+                              v-model="record.currency_id"></select2>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group is-required">
-                    <label for="economic_activity">Resumen de la solicitud:</label>
-                    <textarea type="text" class="form-control input-sm"
-                        data-toggle="tooltip" title="Dirección fiscal" 
-                        v-model="record.resume" id="economic_activity"></textarea>
+                    <label>Entidad bancaria:</label>
+                    <select2 :options="bank"
+                              v-model="record.bank_id"></select2>
                 </div>
             </div>
-            <div class="col-md-3" v-if="record.sale_goods_to_be_traded && record.sale_goods_to_be_traded.length > 0">
-                <div class="form-group">
-                    <label for="applicant_name">Unidad o departamento:</label>
-                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
-                        <input type="text" class="form-control input-sm"
-                            data-toggle="tooltip" title="Nombre o razón social" 
-                            :disabled="true"
-                            id="service_department" v-model="good_to_be_traded.department"></input>
-                    </p>
-                    <br>
+            <div class="col-md-3">
+                <div class="form-group is-required">
+                    <label for="number_reference">Número de referencia de la operación:</label>
+                    <input type="text" class="form-control input-sm" 
+                        data-toggle="tooltip" title="Número de referencia" 
+                        v-model="record.number_reference" id="number_reference"></input>
                 </div>
             </div>
-            <div class="col-md-3" v-if="record.sale_goods_to_be_traded && record.sale_goods_to_be_traded.length > 0">
-                <div id="saleServiceName" class="form-group">
-                    <label for="applicant_name">Nombre:</label>
-                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
-                        <input type="text" class="form-control input-sm"
-                            data-toggle="tooltip" title="Nombre o razón social" 
-                            :disabled="true"
-                            id="staff_name" v-model="good_to_be_traded.staff_name"></input>
-                    </p>
+            <div class="col-md-3">
+                <label>Fecha en que se realizó el pago:</label>
+                <div class="input-group input-sm">
+                    <span class="input-group-addon">
+                        <i class="now-ui-icons ui-1_calendar-60"></i>
+                    </span>
+                    <input type="date" data-toggle="tooltip"
+                           title="Fecha en que se realizó el pago"
+                           class="form-control input-sm" v-model="record.payment_date">
                 </div>
             </div>
-            <div class="col-md-3" v-if="record.sale_goods_to_be_traded && record.sale_goods_to_be_traded.length > 0">
-                <div id="saleServiceLastname" class="form-group">
-                    <label for="applicant_name">Apellido:</label>
-                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
-                        <input type="text" class="form-control input-sm"
-                            data-toggle="tooltip" title="Nombre o razón social" 
-                            :disabled="true"
-                            id="staff_last_name" v-model="good_to_be_traded.staff_last_name"></input>
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-3" v-if="record.sale_goods_to_be_traded && record.sale_goods_to_be_traded.length > 0">
-                <div id="saleServicePhone" class="form-group">
-                    <label for="applicant_name">Teléfono:</label>
-                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
-                        <input type="text" class="form-control input-sm"
-                            data-toggle="tooltip" title="Nombre o razón social" 
-                            :disabled="true"
-                            id="staff_phone" v-model="good_to_be_traded.staff_phone"></input>
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-3" v-if="record.sale_goods_to_be_traded && record.sale_goods_to_be_traded.length > 0">
-                <div id="saleServiceEmail" class="form-group">
-                    <label for="applicant_name">Correo electrónico:</label>
-                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
-                        <input type="text" class="form-control input-sm"
-                            data-toggle="tooltip" title="Nombre o razón social" 
-                            :disabled="true"
-                            id="staff_email" v-model="good_to_be_traded.staff_email"></input>
-                    </p>
-                </div>
-            </div>
-            <br>
-            <div class="col-md-12">
-                <h6 class="card-title">Requerimiento del solicitante <i class="fa fa-plus-circle cursor-pointer"
-                    @click="addRequirement()"></i></h6>
-                <div class="row" v-for="(service_requirement, index) in record.requirements">
-                    <div class="col-md-4">
-                        <div class="form-group is-required">
-                            <label for="service_requirement">Requerimiento del solicitante:</label>
-                            <input type="text" id="service_requirement" class="form-control input-sm" data-toggle="tooltip"
-                                title="Requerimiento del solicitante" v-model="service_requirement.name">
-                        </div>
-                    </div>
-                    <div class="col-1">
-                        <div class="form-group">
-                            <button class="mt-4 btn btn-sm btn-danger btn-action" type="button" @click="removeRow(index, record.requirements)"
-                                title="Eliminar este dato" data-toggle="tooltip">
-                                    <i class="fa fa-minus-circle"></i>
-                            </button>
-                        </div>
+            <div class="col-md-3">
+                <label class="control-label">El pago corresponde a un anticipo:</label>
+                <div class="col-12">
+                    <div class="bootstrap-switch-mini">
+                        <input type="checkbox" class="form-control bootstrap-switch"
+                            name="advance" data-toggle="tooltip" title="Indique si desea aplicar algún descuento"
+                            data-on-label="SI" data-off-label="NO" value="true" data-record="advance">
                     </div>
                 </div>
             </div>
-            <br>
         </div>
     </div>
     <div class="card-footer text-right">
@@ -235,6 +165,10 @@ export default {
                 requirements: [],
                 sale_client_id: '',
             },
+            sale_order_list: [],
+            sale_service_list: [],
+            bank: [],
+            currencies: [],
             sale_goods_to_be_traded: [],
             services: [],
             records: [],
@@ -317,17 +251,52 @@ export default {
             };
             this.sale_goods_to_be_traded = [];
         },
-        /**
-         * Agrega una nueva columna para los requerimientos del servicio
-         *
-         * @author Daniel Contreras <dcontreras@cenditel.gob.ve> | <exodiadaniel@gmail.com>
-         */ 
-        addRequirement() {
+
+        getSaleOrderList() {
+                const vm = this;
+                vm.sale_order_list = [];
+
+                axios.get('/sale/get-sale-order-list').then(response => {
+                        vm.sale_order_list = response.data;
+                });
+        },
+
+        getSaleServiceList() {
+                const vm = this;
+                vm.sale_service_list = [];
+
+                axios.get('/sale/get-sale-service-list').then(response => {
+                        vm.sale_service_list = response.data;
+                });
+        },
+
+        getBank() {
+                const vm = this;
+                vm.bank = [];
+
+                axios.get('/sale/get-bank').then(response => {
+                        vm.bank = response.data;
+                });
+        },
+
+        getCurrencies() {
+                const vm = this;
+                vm.currencies = [];
+
+                axios.get('/sale/get-currencie').then(response => {
+                        vm.currencies = response.data;
+                });
+        },
+
+        getSaleService() {
             const vm = this;
-            vm.record.requirements.push({
-                name: '',
-                sale_service_id: '',
-            });
+            if (vm.record.sale_service_id > 0) {
+                axios.get('/sale/get-sales-client/' + vm.record.sale_service_id).then(response => {
+                    vm.sales_client.name = response.data.sales_client.name;
+                    vm.sales_client.phones = response.data.sales_client.phones;
+                    vm.sales_client.sales_clients_email = response.data.sales_client.sales_clients_email;
+                });
+            }
         },
 
         getSaleGoods() {
@@ -393,6 +362,11 @@ export default {
         },
     },
     created() {
+        this.getSaleOrderList();
+        this.getSaleServiceList();
+        this.getBank();
+        this.getCurrencies();
+        this.getSaleService();
         this.getSaleClientsRif();
         this.getSaleClient();
         this.getSaleGoods();
