@@ -5,6 +5,15 @@ namespace Modules\Sale\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Modules\Sale\Models\SaleService;
+use Modules\Sale\Models\SaleClient;
+use Modules\Sale\Models\SaleGoodsToBeTraded;
+use Modules\Sale\Models\SaleClientsEmail;
+use Modules\Sale\Models\SaleOrder;
+use Modules\Sale\Models\SaleOrderManagement;
+use App\Models\Phone;
+use App\Rules\Rif as RifRule;
 
 /**
  * @class SalePaymentController
@@ -126,5 +135,41 @@ class SalePaymentController extends Controller
     public function destroy($id)
     {
         //
+    }
+    
+    /**
+     * Obtiene los servicios registrados
+     *
+     * @author Miguel Narvaez <mnarvaezcenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de los servicios
+     */
+    public function getSaleService($id)
+    {
+        $saleService = SaleService::with(['id', 'code', 'status', 'sale_goods_to_be_traded', 'sale_client_id'])->find($id);
+        return response()->json(['sale_service' => $saleService], 200);
+    }
+
+    /**
+     * Obtiene los Datos de la solicitud de servicios registrados
+     *
+     * @author Miguel Narvaez <mnarvaezcenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de la solicitud de servicios
+     */
+    public function getSaleGoodsToBeTraded($id)
+    {
+        $sale_goods_to_be_traded = SaleGoodsToBeTraded::with(['name', 'description', 'unit_price', 'currency_id', 'measurement_unit_id', 'department_id', 'sale_type_good_id', 'payroll_staff_id' ])->find($id);
+        return response()->json(['sale_goods_to_be_traded' => $sale_goods_to_be_traded], 200);
+    }
+
+    /**
+     * Obtiene los clientes registrados
+     *
+     * @author Miguel Narvaez <mnarvaezcenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de los clientes
+     */
+    public function getSaleClient($id)
+    {
+        $saleClient = SaleClient::with(['rif', 'id_type', 'id_number', 'name', 'phones', 'saleClientsEmail'])->find($id);
+        return response()->json(['sale_client' => $saleClient], 200);
     }
 }
