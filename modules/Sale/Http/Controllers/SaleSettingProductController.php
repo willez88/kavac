@@ -7,8 +7,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Modules\Sale\Models\SaleSettingProductAttribute;
 use Modules\Sale\Models\SaleSettingProduct;
-use Modules\Sale\Models\SaleSettingProductType;
 
 class SaleSettingProductController extends Controller
 {
@@ -33,164 +33,131 @@ class SaleSettingProductController extends Controller
      * Muestra todos los registros de los productos
      *
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @author PHD. Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
      * @return \Illuminate\Http\JsonResponse    Json con los datos
      */
     public function index()
     {
-        return response()->json(['records' => SaleSettingProduct::all()], 200);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        //return view('sale::create');
+        return response()->json(['records' => SaleSettingProduct::with(['SaleSettingProductAttribute'])->get()], 200);
     }
 
     /**
      * Valida y registra un nuevo producto
      *
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @author PHD. Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
      * @param  \Illuminate\Http\Request $request    Solicitud con los datos a guardar
      * @return \Illuminate\Http\JsonResponse        Json: objeto guardado y mensaje de confirmación de la operación
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'sale_setting_product_type_id' => ['required'],
-        ]);
-
-        $saleSettingProductType1 = SaleSettingProductType::where('name', 'Producto')->first()->id;
-        $saleSettingProductType2 = SaleSettingProductType::where('name', 'Servicio')->first()->id;
-
-        if ($request->sale_setting_product_type_id == $saleSettingProductType1
-        ) {
-            $this->validate($request, [
-                'name' => ['required', 'unique:sale_setting_products,name', 'regex:/([A-Za-z\s])\w+/u','max:100'],
-                'code' => ['required', 'unique:sale_setting_products,code', 'regex:/([A-Za-z\s])\w+/u','max:100'],
-                'description' => ['required', 'max:200'],
-                'price' => ['required', 'max:100'],
-                'iva' => ['required', 'max:100'],
-            ]);
-
-            $saleSettingProduct = SaleSettingProduct::create([
-                'sale_setting_product_type_id' => $request->sale_setting_product_type_id, 'name' => $request->name,
-                'code' => $request->code, 'description' => $request->description, 'price' => $request->price,
-                'iva' => $request->iva
-            ]);
-            return response()->json(['record' => $saleSettingProduct, 'message' => 'Success'], 200);
+        $this->saleSettingProductValidate($request);
+        foreach ($this->getSaleSaleSettingProductFields() as $id) {
+          if ($id != 'attributes') {
+            $inputs[$id] = $request->input($id);
+          }
+          else {
+            $inputs[$id] = !empty($request->{$id})? $request->input($id) : false;
+          }
         }
-
-        if ($request->sale_setting_product_type_id == $saleSettingProductType2
-        ) {
-            $this->validate($request, [
-                'name' => ['required', 'max:100'],
-                'code' => ['required', 'max:100'],
-                'description' => ['required', 'max:200'],
-                'price' => ['required', 'max:100'],
-                'iva' => ['nullable'],
-            ]);
-
-            $saleSettingProduct = SaleSettingProduct::create([
-                'sale_setting_product_type_id' => $request->sale_setting_product_type_id, 'name' => $request->name,
-                'code' => $request->code, 'description' => $request->description, 'price' => $request->price,
-                'iva' => $request->iva
-            ]);
-            return response()->json(['record' => $saleSettingProduct, 'message' => 'Success'], 200);
-        }
-    }
-
-    /**
-     * Show the specified resource.
-     * @return Renderable
-     */
-    public function show()
-    {
-        //return view('sale::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @return Renderable
-     */
-    public function edit()
-    {
-        //return view('sale::edit');
+        $SaleSettingProduct = SaleSettingProduct::create($inputs);
+        $attributes = $inputs['attributes']? $request->sale_setting_product_attribute : [];
+        $this->createAttributes($attributes, $SaleSettingProduct->id);
+        return response()->json(['record' => $SaleSettingProduct, 'message' => 'Success'], 200);
     }
 
     /**
      * Actualiza la información del producto
      *
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
-     * @param  \Illuminate\Http\Request  $request   Solicitud con los datos a actualizar
+     * @author PHD. Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+     * @param     object    Request    $request         Objeto con datos de la petición
      * @param  integer $id                          Identificador del datos a actualizar
-     * @return \Illuminate\Http\JsonResponse        Json con mensaje de confirmación de la operación
+     * @return \Illuminate\Http\JsonResponse con mensaje de exito
      */
     public function update(Request $request, $id)
     {
-        $saleSettingProduct = SaleSettingProduct::find($id);
-        $this->validate($request, [
-            'sale_setting_product_type_id' => ['required'],
-        ]);
 
-        $saleSettingProductType1 = SaleSettingProductType::where('name', 'Producto')->first()->id;
-        $saleSettingProductType2 = SaleSettingProductType::where('name', 'Servicio')->first()->id;
-
-        if ($request->sale_setting_product_type_id == $saleSettingProductType1
-        ) {
-            $this->validate($request, [
-                'name' => ['required', 'max:100'],
-                'code' => ['required', 'max:100'],
-                'description' => ['required', 'max:200'],
-                'price' => ['required', 'max:100'],
-                'iva' => ['required', 'max:100'],
-            ]);
-
-            $saleSettingProduct->sale_setting_product_type_id  = $request->sale_setting_product_type_id;
-            $saleSettingProduct->name  = $request->name;
-            $saleSettingProduct->code  = $request->code;
-            $saleSettingProduct->description = $request->description;
-            $saleSettingProduct->price  = $request->price;
-            $saleSettingProduct->iva  = $request->iva;
-            $saleSettingProduct->save();
-            return response()->json(['message' => 'Success'], 200);
+        $SaleSettingProduct = SaleSettingProduct::with('SaleSettingProductAttribute')->find($id);
+        $this->saleSettingProductValidate($request);
+        foreach ($this->getSaleSaleSettingProductFields() as $id) {
+          if ($id != 'attributes') {
+            $SaleSettingProduct->{$id} = $request->input($id);
+          }
+          else {
+            $SaleSettingProduct->{$id} = !empty($request->{$id})? $request->input($id) : false;
+          }
         }
-
-        if ($request->sale_setting_product_type_id == $saleSettingProductType2
-        ) {
-            $this->validate($request, [
-                'name' => ['required', 'max:100'],
-                'code' => ['required', 'max:100'],
-                'description' => ['required', 'max:200'],
-                'price' => ['required', 'max:100'],
-                'iva' => ['nullable'],
-            ]);
-
-            $saleSettingProduct->sale_setting_product_type_id  = $request->sale_setting_product_type_id;
-            $saleSettingProduct->name  = $request->name;
-            $saleSettingProduct->code  = $request->code;
-            $saleSettingProduct->description = $request->description;
-            $saleSettingProduct->price  = $request->price;
-            $saleSettingProduct->iva  = $request->iva;
-            $saleSettingProduct->save();
-            return response()->json(['message' => 'Success'], 200);
-        }
+        $SaleSettingProduct->save();
+        $attributes = !empty($request->attributes)? $request->sale_setting_product_attribute : [];
+        $this->createAttributes($attributes, $SaleSettingProduct->id);
+        return response()->json(['message' => 'Success'], 200);
     }
 
     /**
      * Elimina el producto
      *
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
-     * @param  integer $id                      Identificador del producto a eliminar
-     * @return \Illuminate\Http\JsonResponse    Json: objeto eliminado y mensaje de confirmación de la operación
+     * @author PHD. Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+     * @param  integer $id                          Identificador del datos a actualizar
+     * @return \Illuminate\Http\JsonResponse con mensaje de exito
      */
     public function destroy($id)
     {
-        $saleSettingProduct = SaleSettingProduct::find($id);
-        $saleSettingProduct->delete();
-        return response()->json(['record' => $saleSettingProduct, 'message' => 'Success'], 200);
+        $SaleSettingProduct = SaleSettingProduct::with('SaleSettingProductAttribute')->find($id);
+        $this->createAttributes([], $SaleSettingProduct->id);
+        $SaleSettingProduct->delete();
+        return response()->json(['record' => $SaleSettingProduct, 'message' => 'Success'], 200);
+    }
+
+    /**
+     * Realiza la validación de un costo fijo
+     *
+     * @method    saleSettingProductValidate
+     * @author PHD. Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+     * @param     object    Request    $request         Objeto con datos de la petición
+     */
+    public function saleSettingProductValidate(Request $request)
+    {
+        $validation = [];
+        $validation['name'] = ['required', 'max:60'];
+        $validation['description'] = ['required'];
+        if (!empty($request->attributes)) {
+            $validation['sale_setting_product_attribute.*'] = ['required', 'max:100'];
+        }
+        $this->validate($request, $validation);
+    }
+
+    /**
+     * Agrega atributos a un producto
+     *
+     * @method    createAttributes
+     * @author PHD. Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+     * @param     array    $attributes         Arreglo con los atributos a agregar
+     * @param     integer   $id        Identificador del Producto
+     */
+    public function createAttributes($attributes = [], $id = 0)
+    {
+        if ($id) {
+            SaleSettingProductAttribute::where('sale_setting_product_id', $id)->delete();
+            foreach ($attributes as $att) {
+                $attribute = SaleSettingProductAttribute::create([
+                    'name' => $att['name'],
+                    'sale_setting_product_id' => $id
+                ]);
+            }
+        }
+    }
+
+    /**
+     * Obtiene los campos de un producto
+     *
+     * @method    createAttributes
+     * @author PHD. Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+     */
+    public function getSaleSaleSettingProductFields()
+    {
+        return ['name', 'description', 'attributes'];
     }
 
     /**
@@ -202,5 +169,22 @@ class SaleSettingProductController extends Controller
     public function getSaleSettingProduct()
     {
         return response()->json(template_choices(SaleSettingProduct::class, 'name', '', true));
+    }
+
+    /**
+     * Muestra una lista de los atributos de un producto
+     *
+     * @author PHD. Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+     * @param     integer   $sale_setting_product_id        Identificador del producto
+     * @return \Illuminate\Http\JsonResponse con los atributos del producto
+     */
+    public function getSaleSettingProductAttributes($sale_setting_product_id)
+    {
+        return response()->json([
+            'records' => SaleSettingProductAttribute::with('SaleSettingProduct')->where(
+                'sale_setting_product_id',
+                $sale_setting_product_id
+            )->get()
+        ]);
     }
 }

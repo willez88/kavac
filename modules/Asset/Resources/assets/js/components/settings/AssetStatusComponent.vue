@@ -57,7 +57,7 @@
                     <div class="modal-body modal-table">
                        
                         <v-client-table :columns="columns" :data="records" :options="table_options">
-                            <div slot="id" slot-scope="props" class="text-center">
+                            <div slot="id" slot-scope="props">
                                 <button @click="initUpdate(props.row.id, $event)"
                                         class="btn btn-warning btn-xs btn-icon btn-action" v-has-tooltip
                                         title="Modificar registro" data-toggle="tooltip" type="button">
@@ -114,7 +114,7 @@
             this.table_options.filterable = ['name'];
             this.table_options.columnsClasses = {
                 'name': 'col-xs-10',
-                'id': 'col-xs-2'
+                'id':   'col-xs-2 text-center'
             };
         },
     };

@@ -126,7 +126,7 @@ Desde esta sección se realiza la gestión de reglas de abastecimiento, es posib
 - Completar el formulario  **Reglas de Abastecimiento del Almacén**.  
 - Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/image10.png)<div style="text-align: center;font-weight: bold">Figura: Reglas de Abastecimiento del Almacén</div>
+![Screenshot](../img/image10.png)<div style="text-align: center;font-weight: bold">Figura: Reglas de Abastecimiento del Almacén</div>
 
 !!! warning "Advertencia"
 	Para establecer las reglas de abastecimiento deben existir registros de ingreso al almacén, de esta forma el sistema va listar todos los productos almacenables para que el usuario indique cuál de esa lista se va ingresar al almacén.
@@ -148,7 +148,7 @@ Desde esta sección se realiza la gestión para cierre de almacén, es posible p
 - Completar el formulario **Nuevo Cierre de Almacén**.   
 - Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros.
 
-![Screenshot](/img/cierre.png)<div style="text-align: center;font-weight: bold">Figura: Almacenes</div>
+![Screenshot](../img/cierre.png)<div style="text-align: center;font-weight: bold">Figura: Almacenes</div>
 
 #### Gestión de registros
 

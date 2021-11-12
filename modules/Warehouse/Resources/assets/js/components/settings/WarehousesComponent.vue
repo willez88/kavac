@@ -94,14 +94,14 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Pais:</label>
-                                    <select2 :options="countries" @input="getEstates"
+                                    <select2 id="input_country" :options="countries" @input="getEstates"
                                              v-model="record.country_id"></select2>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Estado:</label>
-                                    <select2 :options="estates" @input="getMunicipalities"
+                                    <select2 id="input_estate" :options="estates" @input="getMunicipalities"
                                              v-model="record.estate_id"></select2>
                                 </div>
                             </div>
@@ -157,10 +157,7 @@
                                 </span>
                             </div>
                             <div slot="address" slot-scope="props">
-                                <span>
-                                    {{ (props.row.warehouse.address)?
-                                        props.row.warehouse.address:'' }}
-                                </span>
+                                <span v-html="props.row.warehouse.address"></span>
                             </div>
                             <div slot="institution" slot-scope="props">
                                 <span>
@@ -311,6 +308,7 @@
                 var field = vm.records[index - 1];
                 vm.record = field.warehouse;
                 vm.record.institution_id = field.institution_id;
+                vm.record.country_id = field.warehouse.parish.municipality.estate.country_id;
                 var elements = {
                     active: vm.record.active,
                     main: field.main,
@@ -347,8 +345,14 @@
                 'id':          'Acción'
             };
 
-            vm.table_options.sortable       = ['name', 'country', 'estate', 'address', 'institution', 'active'];
-            vm.table_options.filterable     = ['name', 'country', 'estate', 'address', 'institution', 'active'];
+            vm.table_options.sortable       = [
+                'warehouse.name', 'warehouse.parish.municipality.estate.country.name',
+                'warehouse.parish.municipality.estate.name', 'warehouse.address', 'institution.acronym', 'active'
+            ];
+            vm.table_options.filterable     = [
+                'warehouse.name', 'warehouse.parish.municipality.estate.country.name',
+                'warehouse.parish.municipality.estate.name', 'warehouse.address', 'institution.acronym', 'active'
+            ];
             vm.table_options.columnsClasses = {
                 'name':        'col-xs-1',
                 'country':     'col-xs-2',

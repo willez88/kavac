@@ -1,6 +1,6 @@
 {{-- Gestión de atención al ciudadano --}}
 <li>
-    <a href="#" title="Gestión de atención al ciudadano" data-toggle="tooltip" 
+    <a href="javascript:void(0)" title="Gestión de atención al ciudadano" data-toggle="tooltip" 
        data-placement="right">
         <i class="icofont icofont-users-social"></i><span>Atención / Ciudadano</span>
     </a>

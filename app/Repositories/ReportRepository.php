@@ -18,7 +18,7 @@ use Elibyy\TCPDF\TCPDF as PDF;
  *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
- */
+ */   
 class ReportRepository implements ReportInterface
 {
     /** @var string Establece la orientación de la página, los posibles valores son P o L */

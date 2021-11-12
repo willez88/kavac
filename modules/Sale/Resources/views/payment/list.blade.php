@@ -31,7 +31,7 @@
                         'title'       => __('Descargar'),
                         'onclick'     => 'exportData()'
                     ]) !!}                    
-                    @include('buttons.new', ['route' => route('warehouse.movement.create')])
+                    @include('buttons.new', ['route' => route('payment.register.create')])
                     @include('buttons.minimize')
                 </div>
             </div>

@@ -35,7 +35,7 @@
 					<div class="form-group is-required">
 						<label>Tipo de bien:</label>
 						<select2 :options="asset_types" id="asset_types_select"
-								@input="(!assetid)? getAssetCategories():''"
+								@input="getAssetCategories()"
 								data-toggle="tooltip"
 								title="Seleccione un registro de la lista"
 								v-model="record.asset_type_id"></select2>
@@ -45,7 +45,7 @@
 					<div class="form-group is-required">
 						<label>Categoría general:</label>
 						<select2 :options="asset_categories" id="asset_categories_select"
-								@input="(!assetid)? getAssetSubcategories():''"
+								@input="getAssetSubcategories()"
 								:disabled="(!this.record.asset_type_id != '')"
 								data-toggle="tooltip"
 								title="Seleccione un registro de la lista"
@@ -56,7 +56,7 @@
 					<div class="form-group is-required">
 						<label>Subcategoria:</label>
 						<select2 :options="asset_subcategories" id="asset_subcategories_select"
-								@input="(!assetid)? getAssetSpecificCategories():''"
+								@input="getAssetSpecificCategories()"
 								:disabled="(!this.record.asset_category_id != '')"
 								data-toggle="tooltip"
 								title="Seleccione un registro de la lista"
@@ -101,7 +101,7 @@
 					</div>
 				</div>
 
-				<div class="col-md-3" v-if="record.asset_type_id == 1">
+				<div class="col-md-3" v-if="((record.asset_type_id == 1) || ((record.asset_type) && (record.asset_type.id == 1)))">
 					<div class="form-group">
 						<label>Proveedor</label>
 						<select2 :options="proveedores"
@@ -412,37 +412,21 @@
 			 * @param [Integer] $id Identificador único del registro a editar
 			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
 			 */
-			loadForm(id){
+			async loadForm(id) {
 				const vm = this;
-	            axios.get('/asset/registers/info' + '/' + id).then(response => {
-	                if(typeof(response.data.records != "undefined")){
-	                    vm.record = response.data.records;
-	                }
-	            });
-	            vm.getAssetTypes();
-	            setTimeout(function() {
-	            	/** Se definen los eventos */
-		            $('#asset_types_select').on('change', function(){
-		            	vm.getAssetCategories();
-		            });
-		            $('#asset_categories_select').on('change', function(){
-		            	vm.getAssetSubcategories();
-		            });
-		            $('#asset_subcategories_select').on('change', function(){
-		            	vm.getAssetSpecificCategories();
-		            });
-		            /** Se cargan los selects dependientes */
-		            vm.record.asset_type_id = vm.record.asset_type.id;
-					setTimeout(function () {
-						vm.record.asset_category_id = vm.record.asset_category.id;
-						setTimeout(function () {
-							vm.record.asset_subcategory_id = vm.record.asset_subcategory.id;
-							setTimeout(function () {
-								vm.record.asset_specific_category_id = vm.record.asset_specific_category.id;
-								}, 1000);
-						}, 1000);
-					}, 1000);
-				}, 1000);
+				vm.loading = true;
+          		await axios.get('/asset/registers/info' + '/' + id).then(response => {
+              		if(typeof(response.data.records != "undefined")) {
+              			let recordEdit = response.data.records;
+                  		
+                  		vm.record = recordEdit;
+              		}
+          		});
+
+          		if (vm.record.parish) {
+          			vm.record.country_id = vm.record.parish.municipality.estate.country.id;
+          			vm.getEstates();
+          		}
 			},
 
 			/**
@@ -450,19 +434,18 @@
 			 * Obtiene los Estados del Pais seleccionado
 			 *
 			 */
-			getEstates() {
+			async getEstates() {
 				const vm = this;
 				vm.estates = [];
 
 				if (vm.record.country_id) {
-					axios.get('/get-estates/' + this.record.country_id).then(response => {
+					await axios.get('/get-estates/' + this.record.country_id).then(response => {
 						vm.estates = response.data;
 					});
-				}
-				else if ((vm.assetid)&&(vm.record.country_id == '')) {
-					axios.get('/get-estates').then(response => {
-						vm.estates = response.data;
-					});
+					if ((vm.record.parish) && (vm.record.id)) {
+	          			vm.record.estate_id = vm.record.parish.municipality.estate.id;
+	          			vm.getMunicipalities();
+	          		}
 				}
 			},
 
@@ -471,20 +454,19 @@
 			 * Obtiene los Municipios del Estado seleccionado
 			 *
 			 */
-			getMunicipalities() {
+			async getMunicipalities() {
 				const vm = this;
 				vm.municipalities = [];
 
 				if (vm.record.estate_id) {
-					axios.get('/get-municipalities/' + this.record.estate_id).then(response => {
+					await axios.get('/get-municipalities/' + this.record.estate_id).then(response => {
 						vm.municipalities = response.data;
 					});
 				}
-				else if ((vm.assetid)&&(vm.record.country_id == '')) {
-					axios.get('/get-municipalities').then(response => {
-						vm.municipalities = response.data;
-					});
-				}
+				if (vm.record.parish) {
+          			vm.record.municipality_id = vm.record.parish.municipality.id;
+          			vm.getParishes();
+          		}
 			},
 
 			/**
@@ -492,20 +474,18 @@
 			 * Obtiene las parroquias del municipio seleccionado
 			 *
 			 */
-			getParishes() {
+			async getParishes() {
 				const vm = this;
 				vm.parishes = [];
 
 				if (this.record.municipality_id) {
-					axios.get('/get-parishes/' + this.record.municipality_id).then(response => {
+					await axios.get('/get-parishes/' + this.record.municipality_id).then(response => {
 						vm.parishes = response.data;
 					});
 				}
-				else if ((vm.assetid)&&(vm.record.country_id == '')) {
-					axios.get('/get-parishes/' + this.record.municipality_id).then(response => {
-						vm.parishes = response.data;
-					});
-				}
+				if (vm.record.parish) {
+          			vm.record.parish_id = vm.record.parish.id;
+          		}
 			},
 			getAssetRequired() {
 				const vm = this;
@@ -519,21 +499,21 @@
 			},
 		},
 		created() {
-			this.getInstitutions();
-			this.getAssetAcquisitionTypes();
-			this.getAssetConditions();
-			this.getAssetStatus();
-			this.getAssetUseFunctions();
-			this.getCountries();
-			this.getCurrencies();
+			const vm = this;
+			vm.getAssetTypes();
+			vm.getInstitutions();
+			vm.getAssetAcquisitionTypes();
+			vm.getAssetConditions();
+			vm.getAssetStatus();
+			vm.getAssetUseFunctions();
+			vm.getCountries();
+			vm.getCurrencies();
 		},
 		mounted() {
-			if(this.assetid){
-				this.loadForm(this.assetid);
+			const vm = this;
+			if (vm.assetid) {
+				vm.loadForm(vm.assetid);
 			}
-			else{
-                this.getAssetTypes();
-            }
 		},
 	};
 </script>

@@ -1,5 +1,5 @@
 <?php
-
+/** [descripción del namespace] */
 namespace Modules\Sale\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -8,7 +8,18 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
-class SaleClients extends Model implements Auditable
+/**
+ * @class SaleGanttDiagramStage
+ * @brief [descripción detallada]
+ *
+ * [descripción corta]
+ *
+ * @author [autor de la clase] [correo del autor]
+ *
+ * @license
+ *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
+ */
+class SaleGanttDiagramStage extends Model implements Auditable
 {
     use SoftDeletes;
     use AuditableTrait;
@@ -24,28 +35,17 @@ class SaleClients extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = [
-        'rif', 'business_name', 'representative_name', 'type_person_juridica', 'name', 'country_id', 'estate_id', 'municipality_id', 'parish_id', 'address_tax', 'name_client', 'emails', 'phones', 'id_number', 'id_type'
-    ];
-    /**
-     * Obtiene todos los número telefónicos asociados al cliente
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-     */
-    public function phones()
-    {
-        return $this->morphMany(\App\Models\Phone::class, 'phoneable');
-    }
+    protected $fillable = ['stage', 'description', 'sale_gantt_diagram_id'];
 
     /**
-     * Método que obtiene la lista de facturas del módulo de comercialización
+     * Método que obtiene la lista de diagarmas de gantt almacenados en el modulo sale
      *
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
-     * SaleClients
+     * SaleGanttDiagram
      */
-    public function saleBills()
+    public function saleGanttDiagram()
     {
-        return $this->hasMany(SaleBill::class);
+        return $this->belongsTo(SaleGanttDiagram::class);
     }
 }

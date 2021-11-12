@@ -28,6 +28,18 @@ class WarehouseInventoryRuleController extends Controller
     use ValidatesRequests;
 
     /**
+     * Arreglo con las reglas de validación sobre los datos de un formulario
+     * @var Array $validateRules
+     */
+    protected $validateRules;
+
+    /**
+     * Arreglo con los mensajes para las reglas de validación
+     * @var Array $messages
+     */
+    protected $messages;
+
+    /**
      * Define la configuración de la clase
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
@@ -36,6 +48,18 @@ class WarehouseInventoryRuleController extends Controller
     {
         /** Establece permisos de acceso para cada método del controlador */
         $this->middleware('permission:warehouse.setting.rule');
+
+        /** Define las reglas de validación para el formulario */
+        $this->validateRules = [
+            'warehouse_inventory_product_id' => ['required'],
+            'minimum'                        => ['required']
+        ];
+
+        /** Define los mensajes de validación para las reglas del formulario */
+        $this->messages = [
+            'warehouse_inventory_product_id.required' => 'El campo nombre del almacén es obligatorio.',
+            'minimum.required'                        => 'El campo mínimo es obligatorio.'
+        ];
     }
 
     /**
@@ -66,10 +90,7 @@ class WarehouseInventoryRuleController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'minimum' => ['required'],
-            'warehouse_inventory_product_id' => ['required'],
-        ]);
+        $this->validate($request, $this->validateRules, $this->messages);
 
         $rule = WarehouseInventoryRule::create([
             'minimum' => $request->minimum,

@@ -20,11 +20,11 @@ Crear ajuste en tabla salarial
 	-	Los tabuladores salariales corresponden a registros previos realizados en la configuración del módulo.
 	-	Los aumentos salariales pueden ser expresados en porcentaje o valor absoluto, restringiendo el campo a un valor númerico. De igual forma, puede ser de tipo **Diferente** permitiendo al usuario especificar valores númericos con incidencias sobre cada escalafón salarial. 
 
-![Screenshot](/img/image43.png)<div style="text-align: center;font-weight: bold">Figura: Ajustes en Tablas Salariales</div>
+![Screenshot](img/image43.png)<div style="text-align: center;font-weight: bold">Figura: Ajustes en Tablas Salariales</div>
 
-![Screenshot](/img/image42.png)<div style="text-align: center;font-weight: bold">Figura: Ajustes Porcentual/Valor absoluto en Tablas Salariales</div>
+![Screenshot](img/image42.png)<div style="text-align: center;font-weight: bold">Figura: Ajustes Porcentual/Valor absoluto en Tablas Salariales</div>
 
-![Screenshot](/img/image44.png)<div style="text-align: center;font-weight: bold">Figura: Ajustes en Tablas Salariales (tipo de aumento diferente)</div> 
+![Screenshot](img/image44.png)<div style="text-align: center;font-weight: bold">Figura: Ajustes en Tablas Salariales (tipo de aumento diferente)</div> 
 
 
 

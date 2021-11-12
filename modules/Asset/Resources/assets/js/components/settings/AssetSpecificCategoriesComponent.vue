@@ -89,7 +89,7 @@
 	                <div class="modal-body modal-table">
 	                	
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
-	                		<div slot="id" slot-scope="props" class="text-center">
+	                		<div slot="id" slot-scope="props">
 	                			<button @click="initUpdate(props.row.id, $event)"
 		                				class="btn btn-warning btn-xs btn-icon btn-action" v-has-tooltip
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
@@ -140,10 +140,10 @@
 			this.table_options.sortable = ['asset_subcategory.name','name', 'code'];
 			this.table_options.filterable = ['asset_subcategory.name','name', 'code'];
 			this.table_options.columnsClasses = {
-                'asset_subcategory.name': 'col-xs-5',
-                'name': 'col-xs-4',
-                'code': 'col-xs-1 text-center',
-                'id': 'col-xs-2'
+                'asset_subcategory.name': 'col-md-5',
+                'name':                   'col-md-4',
+                'code':                   'col-md-1 text-center',
+                'id':                     'col-md-2 text-center'
             };
 
 		},
@@ -166,18 +166,6 @@
 					code: ''
                 };
             },
-            initUpdate(id, event) {
-                const vm = this;
-				vm.errors = [];
-
-                let recordEdit = JSON.parse(JSON.stringify(vm.records.filter((rec) => {
-                    return rec.id === id;
-                })[0])) || vm.reset();
-
-                vm.record = recordEdit;
-
-                event.preventDefault();
-			},
 		},
 	};
 </script>

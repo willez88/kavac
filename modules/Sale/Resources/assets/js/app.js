@@ -41,14 +41,24 @@ Vue.component('sale-list-subservices-method', () => import(
  *
  * @author José Puentes <jpuentes@cenditel.gob.ve>
  */
-Vue.component('register-order-client', () => import(
+Vue.component('register-order-create', () => import(
     /* webpackChunkName: "register-clients" */
-    './components/order/SaleOrderComponent.vue')
+    './components/order/SaleOrderComponentCreate.vue')
 );
 
-Vue.component('approve-order-client', () => import(
+Vue.component('register-order-pending-list', () => import(
     /* webpackChunkName: "register-clients" */
-    './components/order/SaleOrderApproveComponent.vue')
+    './components/order/SaleOrderComponentPendingList.vue')
+);
+
+Vue.component('register-order-approved-list', () => import(
+    /* webpackChunkName: "register-clients" */
+    './components/order/SaleOrderComponentApprovedList.vue')
+);
+
+Vue.component('register-order-rejected-list', () => import(
+    /* webpackChunkName: "register-clients" */
+    './components/order/SaleOrderComponentRejectedList.vue')
 );
 
 /**
@@ -281,6 +291,26 @@ Vue.component('sale-service-list', () => import(
 );
 
 /**
+ * Componente para registrar las solicitudes de servicios
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-service-create', () => import(
+    /* webpackChunkName: "sale-service-list" */
+    './components/services/SaleServiceCreateComponent.vue')
+);
+
+/**
+ * Componente para mostrar la información asociada a una solicitud de servicios
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-service-info', () => import(
+    /* webpackChunkName: "sale-service-info" */
+    './components/services/SaleServiceInfoComponent.vue')
+);
+
+/**
  * Componente para mostrar un listado de las solicitudes de servicios pendientes
  *
  * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
@@ -288,6 +318,16 @@ Vue.component('sale-service-list', () => import(
 Vue.component('sale-service-pending-list', () => import(
     /* webpackChunkName: "sale-service-pending-list" */
     './components/services/SaleServicePendingListComponent.vue')
+);
+
+/**
+ * Componente para mostrar aprobar o rechazar las solicitudes de servicios pendientes
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-service-pending', () => import(
+    /* webpackChunkName: "sale-service-pending" */
+    './components/services/SaleServicePendingComponent.vue')
 );
 
 /**
@@ -308,6 +348,16 @@ Vue.component('sale-service-rejected-list', () => import(
 Vue.component('sale-technical-proposal-list', () => import(
     /* webpackChunkName: "sale-technical-proposal-list" */
     './components/services/SaleTechnicalProposalListComponent.vue')
+);
+
+/**
+ * Componente para completar las propuestas técnicas de solicitudes de servicios
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-technical-proposal-create', () => import(
+    /* webpackChunkName: "sale-technical-proposal-create" */
+    './components/services/SaleTechnicalProposalCreateComponent.vue')
 );
 
 /**
@@ -354,6 +404,16 @@ Vue.component('payment-registered-list', () => import(
 );
 
 /**
+ * Componente para registrar pagos
+ *
+ * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+ */
+Vue.component('payment-registered-create', () => import(
+    /* webpackChunkName: "payment-registered-list" */
+    './components/payment/SalePaymentCreateComponent.vue')
+);
+
+/**
  * Componente para gestionar Pagos Pendientes
  *
  * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
@@ -384,6 +444,16 @@ Vue.component('approved-payments-list', () => import(
 Vue.component('approved-advance-payments-list', () => import(
     /* webpackChunkName: "payment-registered-list" */
     './components/payment/SaleApprovedAdvancePaymentsListComponent.vue')
+);
+
+/**
+ * Componente para gestionar la creación de los reportes de Pagos
+ *
+ * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+ */
+Vue.component('sale-report-payment', () => import(
+    /* webpackChunkName: "sale-report-payment" */
+    './components/reports/SaleReportPaymentComponent.vue')
 );
 
 /**
@@ -516,6 +586,87 @@ Vue.mixin({
             axios.get('/sale/get-salegoodstobetraded').then(response => {
                 vm.sale_good_to_be_traded = response.data;
             });
+        },
+
+        /**
+         * Obtiene los Estados del Pais seleccionado
+         *
+         * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         */
+        async getEstates() {
+            const vm = this;
+            vm.estates = [];
+            if (vm.record.country_id) {
+                await axios.get(`/get-estates/${vm.record.country_id}`).then(response => {
+                    vm.estates = response.data;
+                });
+                if (vm.record.id) {
+                    vm.record.estate_id = vm.record.parish.municipality.estate_id;
+                }
+            }
+        },
+        /**
+         * Obtiene los Municipios del Estado seleccionado
+         *
+         * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+         */
+        async getMunicipalities() {
+            const vm = this;
+            vm.municipalities = [];
+            if (vm.record.estate_id) {
+                await axios.get(`/get-municipalities/${vm.record.estate_id}`).then(response => {
+                    vm.municipalities = response.data;
+                });
+                if (vm.record.id) {
+                    vm.record.municipality_id = vm.record.parish.municipality_id;
+                }
+            }
+        },
+        /**
+         * Obtiene las parroquias del municipio seleccionado
+         *
+         * @author William Páez <wpaez@cenditel.gob.ve>
+         */
+        async getParishes() {
+            const vm = this;
+            vm.parishes = [];
+            if (vm.record.municipality_id) {
+                await axios.get(`/get-parishes/${vm.record.municipality_id}`).then(response => {
+                    vm.parishes = response.data;
+                });
+                if (vm.record.id) {
+                    vm.record.parish_id = vm.record.parish.id;
+                }
+            }
+        },
+
+        /**
+         * Método que establece los datos del registro seleccionado para el cual se desea mostrar detalles
+         *
+         * @method    setDetails
+         *
+         * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve>
+         * @author     Juan Rosas <jrosasr@cenditel.gob.ve>
+         * @author     Daniel Contreras <dcontreras@cenditel.gob.ve>
+         *
+         * @param     string   ref       Identificador del componente
+         * @param     integer  id        Identificador del registro seleccionado
+         * @param     object  var_list  Objeto con las variables y valores a asignar en las variables del componente
+         */
+        setDetails(ref, id, modal ,var_list = null) {
+            const vm = this;
+            if (var_list) {
+                for(var i in var_list){
+                    vm.$refs[ref][i] = var_list[i];
+                }
+            }else{
+                vm.$refs[ref].record = vm.$refs.tableResults.data.filter(r => {
+                    return r.id === id;
+                })[0];
+            }
+            vm.$refs[ref].id = id;
+
+            $(`#${modal}`).modal('show');
         },
 	},
 });

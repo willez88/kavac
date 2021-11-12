@@ -74,7 +74,7 @@
 	                <div class="modal-body modal-table">
 
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
-	                		<div slot="id" slot-scope="props" class="text-center">
+	                		<div slot="id" slot-scope="props">
 	                			<button @click="initUpdate(props.row.id, $event)"
 		                				class="btn btn-warning btn-xs btn-icon btn-action" v-has-tooltip
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
@@ -121,10 +121,10 @@
 			this.table_options.sortable = ['asset_type.name','name', 'code'];
 			this.table_options.filterable = ['asset_type.name','name', 'code'];
 			this.table_options.columnsClasses = {
-                'asset_type.name': 'col-xs-2',
-                'name': 'col-xs-6',
-                'code': 'col-xs-2',
-                'id': 'col-xs-2'
+                'asset_type.name': 'col-md-2',
+                'name':            'col-md-6',
+                'code':            'col-md-2 text-center',
+                'id':              'col-md-2 text-center'
             };
 		},
 		mounted() {
