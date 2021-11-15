@@ -219,6 +219,26 @@ Vue.component('purchase-budgetary-availability', () => import(
     './components/budgetary_availability/PurchaseIndexComponent.vue')
 );
 
+/**
+ *  Componente para gestionar la disponibilidad presupuestaria para una orden de compra
+ *
+ * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ */
+Vue.component('purchase-order-list', () => import(
+    /* webpackChunkName: "purchase-order-list" */
+    './components/purchase_order/PurchaseListComponent.vue')
+);
+
+/**
+ *  Componente para gestionar la disponibilidad presupuestaria para una orden de compra
+ *
+ * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ */
+Vue.component('purchase-order-form', () => import(
+    /* webpackChunkName: "purchase-order-form" */
+    './components/purchase_order/PurchaseFormComponent')
+);
+
 
 /**
  *  Componente generico del modulo para mostrar errores
