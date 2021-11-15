@@ -162,6 +162,19 @@ Route::group([
 
     /*
      * -----------------------------------------------------------------------
+     * Rutas para la gestión de ordenes de compras
+     * -----------------------------------------------------------------------
+     *
+     * Gestiona los datos de ordenes de compras
+     */
+    Route::resource('direct_hire', 'PurchaseDirectHireController', [
+        'as'     => 'purchase',
+    ]);
+    Route::post('direct_hire/{id}', 'PurchaseDirectHire@updatePurchaseOrder');
+
+
+    /*
+     * -----------------------------------------------------------------------
      * Rutas para la gestión de cotizaciones
      * -----------------------------------------------------------------------
      *
