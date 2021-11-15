@@ -9,10 +9,12 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 
 use Modules\Purchase\Models\HistoryTax;
 use Modules\Purchase\Models\TaxUnit;
+use Modules\Purchase\Models\Department;
 
 use Modules\Purchase\Models\PurchaseOrder;
 use Modules\Purchase\Models\PurchaseRequirement;
 use Modules\Purchase\Models\PurchasePivotModelsToRequirementItem;
+use Modules\Purchase\Models\PurchaseSupplierObject;
 
 
 /**
@@ -56,15 +58,43 @@ class PurchaseDirectHireController extends Controller
      */
     public function create()
     {
-        $suppliers  = template_choices('Modules\Purchase\Models\PurchaseSupplier', ['rif','-', 'name'], [], true);
+        $suppliers       = template_choices('Modules\Purchase\Models\PurchaseSupplier', ['rif','-', 'name'], [], true);
 
-        $currencies = template_choices('Modules\Purchase\Models\Currency', ['name'], [], true);
+        $currencies      = template_choices('Modules\Purchase\Models\Currency', ['name'], [], true);
+
+        $department_list = template_choices('App\Models\Department', 'name', [], true);
 
         $historyTax = HistoryTax::with('tax')->whereHas('tax', function ($query) {
             $query->where('active', true);
         })->where('operation_date', '<=', date('Y-m-d'))->orderBy('operation_date', 'DESC')->first();
 
         $taxUnit    = TaxUnit::where('active', true)->first();
+
+        $purchase_supplier_objects = [];
+        
+        array_push($purchase_supplier_objects, 
+            [
+                'id' => '',
+                'text' => 'Seleccione...',
+            ],
+        );
+
+        foreach (PurchaseSupplierObject::all() as $record) {
+            $type = $record->type;
+            if ($type == 'B') {
+                $type = 'Bienes';
+            }else if ($type == 'O') {
+                $type = 'Obras';
+            }else if ($type == 'S') {
+                $type = 'Servivios';
+            }
+            array_push($purchase_supplier_objects, 
+                [
+                    'id' => $record->id,
+                    'text' => $type.' - '.$record->name,
+                ],
+            );
+        }
 
         $requirements = PurchaseRequirement::with(
             'contratingDepartment',
@@ -74,11 +104,13 @@ class PurchaseDirectHireController extends Controller
         )->where('requirement_status', 'PROCESSED')
         ->orderBy('id', 'ASC')->get();
         return view('purchase::purchase_order.direct_hire_form', [
-            'requirements' => $requirements,
-            'currencies'   => json_encode($currencies),
-            'tax'          => json_encode($historyTax),
-            'tax_unit'     => json_encode($taxUnit),
-            'suppliers'    => json_encode($suppliers),
+            'requirements'    => $requirements,
+            'currencies'                => json_encode($currencies),
+            'tax'                       => json_encode($historyTax),
+            'tax_unit'                  => json_encode($taxUnit),
+            'department_list'           => json_encode($department_list),
+            'purchase_supplier_objects' => json_encode($purchase_supplier_objects),
+            'suppliers'                 => json_encode($suppliers),
         ]);
     }
 

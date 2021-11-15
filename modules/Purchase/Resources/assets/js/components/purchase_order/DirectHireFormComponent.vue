@@ -5,6 +5,54 @@
         <div class="row">
             <div class="col-3">
                 <div class="form-group is-required">
+                    <label for="description">Código de la solicitud del requerimiento</label>
+                    <input type="text" id="description" v-model="record.description" class="form-control">
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group is-required">
+                    <label class="control-label" for="departments1">Unidad contratante</label><br>
+                    <select2 :options="department_list" id="departments1" v-model="record.contracting_department_id"></select2>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group is-required">
+                    <label class="control-label" for="departments2">Unidad usuaria</label><br>
+                    <select2 :options="department_list" id="departments2" v-model="record.user_department_id"></select2>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group is-required">
+                    <label for="description">Presupuesto base estimado</label>
+                    <input type="text" id="description" v-model="record.description" class="form-control">
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group is-required">
+                    <label for="purchase_supplier_objects">Denominación del requerimiento</label>
+                    <select2 :options="purchase_supplier_objects" id="purchase_supplier_objects" v-model='record.purchase_supplier_object_id'></select2>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group is-required">
+                    <label for="description">Fuente de financiamiento</label>
+                    <input type="text" id="description" v-model="record.description" class="form-control">
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group is-required">
+                    <label for="description">Denominación especifica del requerimiento</label>
+                    <input type="text" id="description" v-model="record.description" class="form-control">
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group is-required">
+                    <label for="description">Disponibilidad presupuestaria</label>
+                    <input type="text" id="description" v-model="record.description" class="form-control">
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group is-required">
                     <label class="control-label" for="suppliers">Proveedor</label><br>
                     <select2 :options="suppliers" id="suppliers" v-model="purchase_supplier_id"></select2>
                 </div>
@@ -31,7 +79,7 @@
                     <select2 :options="currencies" id="currencies" v-model="currency_id"></select2>
                 </div>
             </div>
-            <div class="col-12 row">
+           <!--  <div class="col-12 row">
                 <div class="col-3">
                     <label for="acta_inicio">Acta de inicio (inhabilitado temporalmente)</label>
                     <label class="custom-control">
@@ -115,7 +163,7 @@
                         </div>
                     </div>
                 </v-client-table>
-            </div>
+            </div> -->
     
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
@@ -226,6 +274,18 @@ export default{
             type:Array,
             default: function() {
                 return [];
+            }
+        },
+        department_list:{
+            type:Array,
+            default: function(){
+                return [{ id:'', text:'Seleccione...'}];
+            }
+        },
+        purchase_supplier_objects:{
+            type:Array,
+            default: function(){
+                return [{ id:'', text:'Seleccione...'}];
             }
         },
     },
