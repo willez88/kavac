@@ -47,13 +47,19 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h6 class="card-title">{{ __('Elementos de formularios') }}</h6>
+                    <h6 class="card-title">
+                        {{ __('Elementos de formularios') }}
+                        @include('buttons.help', [
+                            'helpId' => 'developmentForms',
+                            'helpSteps' => get_json_resource('ui-guides/dev_forms.json')
+                        ])
+                    </h6>
                     <div class="card-btns">
                         @include('buttons.previous', ['route' => route('index')])
                         @include('buttons.minimize')
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body" id="helpForms">
                     <h6 class="pad-top-10">{{ __('Inputs') }}</h6>
                     <div class="row">
                         <div class="col-sm-6 col-lg-3">
@@ -155,12 +161,6 @@
                             <br>
                             <input type="checkbox" name="checkbox" class="bootstrap-switch"
                                    data-on-label="{{ __('SI') }}" data-off-label="{{ __('NO') }}">
-                        </div>
-                        <div class="col-sm-6 col-lg-3">
-                            <p class="category">{{ __('Sliders') }}</p>
-                            <div id="sliderRegular" class="slider"></div>
-                            <br>
-                            <div id="sliderDouble" class="slider slider-primary"></div>
                         </div>
                     </div>
                     <h6 class="pad-top-10">{{ __('Wizards') }}</h6>

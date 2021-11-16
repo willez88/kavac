@@ -1,3 +1,9 @@
+     _  __    ___     ___    ____ 
+    | |/ /   / \ \   / / \  / ___|
+    | ' /   / _ \ \ / / _ \| |    
+    | . \  / ___ \ V / ___ \ |___ 
+    |_|\_\/_/   \_\_/_/   \_\____|
+
 # KAVAC | Sistema de Gestión Organizacional
 
 ## Sobre la aplicación

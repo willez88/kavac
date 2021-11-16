@@ -30,7 +30,7 @@
         </nav>
         <div class="col-12 col-md-6 col-lg-5 text-center @guest text-light @endguest pt-2">
             &copy; <span class="currentYear"></span>, {{ __('Diseñado por') }}
-            <a href="mailto:rvargas@cenditel.gob.ve" data-toggle="tooltip"
+            <a href="mailto:rvargas at cenditel.gob.ve" data-toggle="tooltip"
                title="{{ __('Envíanos tus sugerencias o comentarios') }}">
                 Ing. Roldan Vargas
             </a>, {{ __('Desarrollado por') }}

@@ -1213,6 +1213,7 @@ Vue.mixin({
                 });
             });
             $("[id^=VueTables__limit]").removeClass('form-control').addClass('custom-select-sm');
+            $('.btn-action').tooltip({delay: {hide:100}});
         });
     }
 });

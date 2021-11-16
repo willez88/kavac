@@ -290,6 +290,8 @@ Route::group(['middleware' => ['auth', 'verified'], 'namespace' => 'Auth'], func
     /** Ruta de recursos para la gestión de usuarios */
     Route::resource('users', 'UserController');
     Route::get('user-info/{user}', 'UserController@info')->name('user-info');
+    Route::get('user-unlock/{user}', 'UserController@unlock')->name('user-unlock');
+    Route::get('users-all', 'UserController@getAll')->name('users-all');
 });
 
 /**

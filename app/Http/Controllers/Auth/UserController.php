@@ -627,4 +627,30 @@ class UserController extends Controller
 
         return response()->json(['result' => true, 'new_csrf' => csrf_token()], 200);
     }
+
+    /**
+     * Desbloquea un usuario
+     *
+     * @method    unlock
+     *
+     * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request    $request    Datos de la petición
+     * @param     User       $user       Usuario a desbloquear
+     *
+     * @return    ResponseJson
+     */
+    public function unlock(Request $request, User $user)
+    {
+        $user->blocked_at = null;
+        $user->save();
+        $request->session()->flash('message', ['type' => 'other', 'text' => 'Usuario desbloqueado']);
+        return response()->json(['result' => true], 200);
+    }
+
+    public function getAll()
+    {
+        $users = User::select('id', 'name')->get();
+        return response()->json(['result' => true, 'records' => $users]);
+    }
 }

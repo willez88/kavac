@@ -32,5 +32,15 @@
 		$(document).ready(function() {
 			$('.datatable').DataTable();
 		});
+
+		var unlockUser = function (userId) {
+			axios.get(`${window.app_url}/user-unlock/${userId}`).then(response => {
+				if (response.data.result) {
+					location.reload();
+				}
+			}).catch(error => {
+				console.error(error);
+			});
+		}
 	</script>
 @stop

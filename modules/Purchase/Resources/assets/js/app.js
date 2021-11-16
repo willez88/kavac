@@ -219,7 +219,45 @@ Vue.component('purchase-budgetary-availability', () => import(
     './components/budgetary_availability/PurchaseIndexComponent.vue')
 );
 
+/**
+ *  Componente para gestionar el listado de ordenes de compra
+ *
+ * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ */
+Vue.component('purchase-order-list', () => import(
+    /* webpackChunkName: "purchase-order-list" */
+    './components/purchase_order/PurchaseListComponent.vue')
+);
 
+/**
+ *  Componente para gestionar el registro y edicion de ordenes de compra
+ *
+ * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ */
+Vue.component('purchase-order-form', () => import(
+    /* webpackChunkName: "purchase-order-form" */
+    './components/purchase_order/PurchaseFormComponent')
+);
+
+/**
+ *  Componente para gestionar el listado contrataciones directas de ordenes de compra
+ *
+ * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ */
+Vue.component('purchase-order-direct-hire-list', () => import(
+    /* webpackChunkName: "purchase-order-direct-hire-list" */
+    './components/purchase_order/DirectHireListComponent.vue')
+);
+
+/**
+ *  Componente para gestionar la creacion y edicion de contrataciones directas de ordenes de compra
+ *
+ * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ */
+Vue.component('purchase-order-direct-hire-form', () => import(
+    /* webpackChunkName: "purchase-order-direct-hire-form" */
+    './components/purchase_order/DirectHireFormComponent.vue')
+);
 /**
  *  Componente generico del modulo para mostrar errores
  *
