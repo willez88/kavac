@@ -233,7 +233,7 @@
             <div class="col-md-3">
                 <div class="form-group is-required">
                     <label>Lista de trabajadores:</label>
-                        <select2 :options="payroll_staffs"
+                        <select2 :options="payroll_staffs_assigned"
                                     v-model="record.payroll_staff_id" @input="loadEquipment()"></select2>
                 </div>
             </div>
@@ -246,7 +246,7 @@
                 </div>
                 <br>
                 <div class="col-md-12">
-                    <v-client-table :columns="columns" :data="records" :options="table_options">
+                    <v-client-table :columns="columns_asstets" :data="records" :options="table_options">
                     </v-client-table>
                 </div>
             </div>
@@ -266,7 +266,7 @@
                     <label for="gantt_stage">Etapa:</label>
                     <input type="text" class="form-control input-sm" 
                         data-toggle="tooltip" title="Etapa" 
-                        v-model="record.stage" id="gantt_stage"></input>
+                        v-model="stage.stage" id="gantt_stage"></input>
                 </div>
             </div>
             <div class="col-md-3">
@@ -274,11 +274,120 @@
                     <label for="gantt_description">Descripción:</label>
                     <textarea type="text" class="form-control input-sm"
                         data-toggle="tooltip" title="Descripción" 
-                        v-model="record.description" id="gantt_description"></textarea>
+                        v-model="stage.description" id="gantt_description"></textarea>
+                </div>
+            </div>
+            <div class="col-md-12"></div>
+            <div class="col-md-6">
+                <button type="button" @click="addStage($event)" class="btn btn-sm btn-primary btn-custom float-right" 
+                        title="Agregar registro a la lista"
+                        data-toggle="tooltip">
+                    <i class="fa fa-plus-circle"></i>
+                    Agregar
+                </button>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <b>Actividades</b>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group is-required">
+                    <label>Etapas:</label>
+                        <select2 :options="stages"
+                                    v-model="activity.stage"></select2>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group is-required">
+                    <label for="gantt_stage">Actividad:</label>
+                    <input type="text" class="form-control input-sm" 
+                        data-toggle="tooltip" title="Etapa" 
+                        v-model="activity.name" id="gantt_stage"></input>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group is-required">
+                    <label for="gantt_description">Descripción:</label>
+                    <textarea type="text" class="form-control input-sm"
+                        data-toggle="tooltip" title="Descripción" 
+                        v-model="activity.description" id="gantt_description"></textarea>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group is-required">
+                    <label>Fecha de inicio:</label>
+                    <div class="input-group input-sm">
+                        <span class="input-group-addon">
+                            <i class="now-ui-icons ui-1_calendar-60"></i>
+                        </span>
+                        <input type="date" data-toggle="tooltip" title="Indique la fecha de inicio"
+                               class="form-control input-sm no-restrict" v-model="activity.start_date">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group is-required">
+                    <label>Fecha de fin:</label>
+                    <div class="input-group input-sm">
+                        <span class="input-group-addon">
+                            <i class="now-ui-icons ui-1_calendar-60"></i>
+                        </span>
+                        <input type="date" data-toggle="tooltip" title="Indique la fecha de fin"
+                               class="form-control input-sm no-restrict" v-model="activity.end_date">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group is-required">
+                    <label>Trabajador:</label>
+                        <select2 :options="payroll_staffs" v-model="activity.payroll_staff_id"
+                                    @input="activityStaff()"></select2>
+                </div>
+            </div>
+            <div class="col-md-3" id="saleHelpProductValue">
+                <div class="form-group is-required">
+                    <label>Porcentaje:</label>
+                        <input class="form-control input-sm" type="text"
+                                   v-model="activity.percentage" required
+                                   v-input-mask data-inputmask="
+                                   'alias': 'numeric',
+                                   'allowMinus': 'false'"/>
                 </div>
             </div>
             <div class="col-md-12">
-                <b>Actividades</b>
+                <button type="button" @click="addActivity($event)" class="btn btn-sm btn-primary btn-custom float-right" 
+                        title="Agregar registro a la lista"
+                        data-toggle="tooltip">
+                    <i class="fa fa-plus-circle"></i>
+                    Agregar
+                </button>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <v-client-table :columns="columns_activities" :data="record.activities" :options="table_option_activities">
+                    <div slot="id" slot-scope="props" class="text-center">
+                        <div class="d-inline-flex">
+                            <button @click="editActivity(props.index, $event)" 
+                                    class="btn btn-warning btn-xs btn-icon btn-action" 
+                                    title="Modificar registro" data-toggle="tooltip" type="button">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            
+                            <button @click="removeActivity(props.index, $event)" 
+                                    class="btn btn-danger btn-xs btn-icon btn-action" 
+                                    title="Eliminar registro" data-toggle="tooltip" 
+                                    type="button">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                        </div>
+                    </div>
+                </v-client-table>
             </div>
         </div>
     </div>
@@ -349,8 +458,31 @@ export default {
             sale_clients_fiscal_address: [],
             sale_list_subservices: [],
             frecuencies: [],
+            payroll_staffs_assigned: [],
             payroll_staffs: [],
-            columns: ['asset.inventory_serial','asset.serial','asset.marca','asset.model'],
+            stage: {
+                stage: '',
+                description: '',
+            },
+            stages: [{
+                id: '',
+                text: 'Seleccione...'
+            }],
+            activity: {
+                stage: '',
+                name: '',
+                description: '',
+                start_date: '',
+                end_date: '',
+                payroll_staff_id: '',
+                percentage: '',
+                payroll_staff: {},
+            },
+            columns_asstets: ['asset.inventory_serial','asset.serial','asset.marca','asset.model'],
+            columns_activities: ['stage','name','description','start_date','end_date', 'payroll_staff', 'percentage', 'id'],
+            table_option_assets: [],
+            table_option_activities: [],
+            editIndex: null,
         }
     },
     watch: {
@@ -370,7 +502,7 @@ export default {
                 let good_to_be_traded_id = good_to_be_traded.id;
                 vm.record.sale_goods_to_be_traded.push(good_to_be_traded_id);
             }
-        }
+        },
     },
     methods: {
         /**
@@ -397,6 +529,64 @@ export default {
                 sale_technical_proposal_id: '',
             });
         },
+
+        addStage(){
+            const vm = this;
+            vm.stages.push({
+                text: vm.stage.stage,
+                id: vm.stage.stage,
+            });
+            vm.stage.stage = '';
+            vm.stage.description = '';
+        },
+
+        addActivity(){
+            const vm = this;
+
+            if (this.editIndex === null) {                  
+                vm.record.activities.push({
+                    stage: vm.activity.stage,
+                    name: vm.activity.name,
+                    description: vm.activity.description,
+                    start_date: vm.activity.start_date,
+                    end_date: vm.activity.end_date,
+                    payroll_staff_id: vm.activity.payroll_staff_id,
+                    percentage: vm.activity.percentage,
+                    payroll_staff: vm.activity.payroll_staff,
+                });
+            }
+            else if (this.editIndex >= 0 ) {
+                vm.record.activities.splice(this.editIndex, 1);
+                vm.record.activities.push({
+                    stage: vm.activity.stage,
+                    name: vm.activity.name,
+                    description: vm.activity.description,
+                    start_date: vm.activity.start_date,
+                    end_date: vm.activity.end_date,
+                    payroll_staff_id: vm.activity.payroll_staff_id,
+                    percentage: vm.activity.percentage,
+                    payroll_staff: vm.activity.payroll_staff,
+                });
+                vm.editIndex = null;
+            }
+            vm.activity.stage = '';
+            vm.activity.name = '';
+            vm.activity.description = '';
+            vm.activity.start_date = '';
+            vm.activity.end_date = '';
+            vm.activity.payroll_staff = '';
+            vm.activity.payroll_staff_id = '';
+            vm.activity.percentage = '';
+        },
+
+        activityStaff() {
+            const vm = this;
+            for (let staff of vm.payroll_staffs){
+                let staff_id = staff.id;
+                vm.activity.payroll_staff = staff;
+            }
+        },
+
         /**
          * Método que carga la información del formulario al editar
          *
@@ -432,16 +622,37 @@ export default {
          *
          */
         reset() {
-            this.record = {};
+            this.record = {
+                sale_service_id: '',
+                duration: '',
+                frecuency_id: '',
+                asset_asignations: [],
+                sale_list_subservices: [],
+                payroll_staffs: [],
+                requirements: [],
+                specifications: [],
+                activities: [],
+                stages: [],
+            };
+            this.editIndex = null;
+        },
+
+        getPayrollStaffsAssigned() {
+            const vm = this;
+            vm.payroll_staffs_assigned = [];
+
+            axios.get('/sale/get-asignation-staffs/').then(response => {
+                    vm.payroll_staffs_assigned = response.data.records;
+            });
         },
 
         getPayrollStaffs() {
-                const vm = this;
-                vm.payroll_staffs = [];
+            const vm = this;
+            vm.payroll_staffs = [];
 
-                axios.get('/sale/get-asignation-staffs/').then(response => {
-                        vm.payroll_staffs = response.data.records;
-                });
+            axios.get('/sale/get-payroll-staffs').then(response => {
+                    vm.payroll_staffs = response.data;
+            });
         },
 
         getSaleGoods() {
@@ -519,7 +730,27 @@ export default {
             } else {
                 this.records = [];
             }
-        }
+        },
+
+        editActivity(index, event) {
+            this.activity = {
+                stage: '',
+                name: '',
+                description: '',
+                start_date: '',
+                end_date: '',
+                payroll_staff_id: '',
+                percentage: '',
+                payroll_staff: {},
+            };
+            this.editIndex = index-1;
+            this.activity = this.record.activities[index - 1];
+            event.preventDefault();
+        },
+
+        removeActivity(index, event) {
+            this.record.activities.splice(index-1, 1);
+        },
     },
     mounted() {
         const vm = this;
@@ -537,15 +768,50 @@ export default {
         },
     },
     created() {
+        this.table_option_activities = {
+            columnsDropdown: false,
+            dateFormat:"DD/MM/YYYY",
+            filterable: [],
+            headings: {},
+            orderBy: {},
+            pagination: {},
+            perPage: 10,
+            perPageValues: ['10','20','50'],
+            sortIcon: {
+                base:"fa",
+                down:"fa-sort-down cursor-pointer",
+                is:"fa-sort cursor-pointer",
+                up:"fa-sort-up cursor-pointer",
+            },
+            sortable: {},
+            texts: {
+                count:" ",
+                filter:"Buscar:",
+                filterBy:"Buscar por {column}",
+                filterPlaceholder:"Buscar...",
+                first:"PRIMERO",
+                last:"ÚLTIMO",
+                limit:"Registros",
+                loading:"Cargando...",
+                loadingError:"Oops! No se pudo cargar la información",
+                noResults:"No existen registros",
+            },
+        };
         this.getSaleClientsRif();
         this.getSaleClient();
         this.getSaleGoods();
         this.getFrencuency();
+        this.getPayrollStaffsAssigned();
         this.getPayrollStaffs();
         this.getSaleListSubservice();
+        this.activityStaff();
         this.service.sale_goods_to_be_traded = [];
         this.record.specifications = [];
         this.record.requirements = [];
+        this.stages = [{
+            id: '',
+            text: 'Seleccione...'
+        }];
         this.table_options.headings = {
             'asset.inventory_serial': 'Código',
             'asset.serial': 'Serial',
@@ -555,6 +821,20 @@ export default {
         this.table_options.sortable = ['asset.inventory_serial','asset.serial','asset.marca','asset.model'];
         this.table_options.filterable = ['asset.inventory_serial','asset.serial','asset.marca','asset.model'];
         this.table_options.orderBy = { 'column': 'asset.id'};
+        this.table_option_activities.headings = {
+            'stage': 'Etapa',
+            'name': 'Actividad',
+            'description': 'Descripción',
+            'start_date': 'Fecha de inicio',
+            'end_date': 'Fecha de fin',
+            'payroll_staff': 'Trabajador',
+            'percentage': 'Porcentaje',
+            'id': 'Acción'
+        };
+        this.table_option_activities.sortable = ['stage','name','description','start_date','end_date', 'payroll_staff', 'percentage'];
+        this.table_option_activities.filterable = ['stage','name','description','start_date','end_date', 'payroll_staff', 'percentage'];
+        this.table_option_activities.orderBy = { 'column': 'id'};
+        this.record.activities = [];
     },
 };
 </script>
