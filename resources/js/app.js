@@ -127,6 +127,16 @@ Vue.component('document-management', () => import(
     './components/Shared/DocumentManagementComponent.vue'
 ));
 
+Vue.component('send-messages', () => import(
+    /* webpackChunkName: "send-messages" */
+    './components/Shared/SendMessagesComponent.vue'
+));
+
+Vue.component('send-notifications', () => import(
+    /* webpackChunkName: "send-notifications" */
+    './components/Shared/SendNotificationsComponent.vue'
+));
+
 /**
  * Componente genérico para el uso de listas desplegables con select2 y selects dependientes
  *

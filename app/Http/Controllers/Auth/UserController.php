@@ -645,6 +645,12 @@ class UserController extends Controller
         $user->blocked_at = null;
         $user->save();
         $request->session()->flash('message', ['type' => 'other', 'text' => 'Usuario desbloqueado']);
-        return response()->json(['result' => true]);
+        return response()->json(['result' => true], 200);
+    }
+
+    public function getAll()
+    {
+        $users = User::select('id', 'name')->get();
+        return response()->json(['result' => true, 'records' => $users]);
     }
 }

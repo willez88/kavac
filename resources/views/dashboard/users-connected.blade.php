@@ -31,6 +31,8 @@
     					</div>
     				</div>
                 </div>
+                <send-messages></send-messages>
+                <send-notifications></send-notifications>
 				<table class="table table-hover table-striped dt-responsive nowrap datatable" id="helpConnectedUserList">
 					<thead>
 						<tr class="text-center">
@@ -92,7 +94,7 @@
                                     @endif
                                     {!! Form::button('<i class="fa fa-comment"></i>', [
                                         'class' => 'btn btn-default btn-xs btn-icon btn-action',
-                                        'data-toggle' => 'tooltip', 'onclick' => 'javascript:void(0)',
+                                        'data-toggle' => 'modal', 'data-target' => '#modalSendMessage',
                                         'title' => __('Enviar mensaje al usuario'),
                                     ]) !!}
                                     {!! Form::button('<i class="fa fa-cogs"></i>', [
@@ -102,7 +104,7 @@
                                     ]) !!}
                                     {!! Form::button('<i class="fa fa-bell"></i>', [
                                         'class' => 'btn btn-danger btn-xs btn-icon btn-action',
-                                        'data-toggle' => 'tooltip', 'onclick' => 'javascript:void(0)',
+                                        'data-toggle' => 'modal', 'data-target' => '#modalSendNotification',
                                         'title' => __('Enviar notificación de proceso'),
                                     ]) !!}
                                 	{!! Form::button('<i class="fa fa-info-circle"></i>', [
