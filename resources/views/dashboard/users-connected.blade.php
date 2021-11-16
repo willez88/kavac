@@ -82,12 +82,12 @@
 	                                @endif
 								</td>
 								<td class="text-center" width="10%">
-                                    @if($user->lock_screen)
+                                    @if($user->blocked_at)
                                     	{!! Form::button('<i class="fa fa-unlock"></i>', [
                                     		'class' => 'btn btn-success btn-xs btn-icon btn-action',
                                     		'data-toggle' => 'tooltip',
-                                    		'title' => __('Bloquear pantalla de aplicación'),
-                                            'onclick' => 'javascript::void(0)'
+                                    		'title' => __('Desbloquear usuario'),
+                                            'onclick' => 'unlockUser('.$user->id.')'
                                         ]) !!}
                                     @endif
                                     {!! Form::button('<i class="fa fa-comment"></i>', [
