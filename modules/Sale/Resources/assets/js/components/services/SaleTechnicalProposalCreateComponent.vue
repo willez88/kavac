@@ -155,6 +155,132 @@
             </div>
             <br>
         </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <b>Características del servicio</b>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group is-required">
+                    <label>Subservicio:</label>
+                    <select2 :options="sale_list_subservices"
+                             v-model="record.sale_list_subservices"></select2>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="duration">Duración:</label>
+                        <input type="text" class="form-control input-sm"
+                            data-toggle="tooltip" title="Duración"
+                            id="duration" v-model="record.duration"></input>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group is-required">
+                    <label>Duración:</label>
+                    <select2 :options="frecuencies"
+                             v-model="record.frecuency_id"></select2>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <h6 class="card-title">Especificaciones técnicas <i class="fa fa-plus-circle cursor-pointer"
+                    @click="addSpecification()"></i></h6>
+                <div class="row" v-for="(specification, index) in record.specifications">
+                    <div class="col-md-4">
+                        <div class="form-group is-required">
+                            <label for="specification">Especificaciones técnicas:</label>
+                            <input type="text" id="specification" class="form-control input-sm" data-toggle="tooltip"
+                                title="Requerimiento del solicitante" v-model="specification.name">
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div class="form-group">
+                            <button class="mt-4 btn btn-sm btn-danger btn-action" type="button" @click="removeRow(index, record.specifications)"
+                                title="Eliminar este dato" data-toggle="tooltip">
+                                    <i class="fa fa-minus-circle"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <h6 class="card-title">Requerimientos que serán suministrados por el cliente <i class="fa fa-plus-circle cursor-pointer"
+                    @click="addRequirement()"></i></h6>
+                <div class="row" v-for="(requirement, index) in record.requirements">
+                    <div class="col-md-4">
+                        <div class="form-group is-required">
+                            <label for="requirement">Requerimiento:</label>
+                            <input type="text" id="requirement" class="form-control input-sm" data-toggle="tooltip"
+                                title="Requerimiento del solicitante" v-model="requirement.name">
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div class="form-group">
+                            <button class="mt-4 btn btn-sm btn-danger btn-action" type="button" @click="removeRow(index, record.requirements)"
+                                title="Eliminar este dato" data-toggle="tooltip">
+                                    <i class="fa fa-minus-circle"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <b>Personal técnico a utilizar</b>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group is-required">
+                    <label>Lista de trabajadores:</label>
+                        <select2 :options="payroll_staffs"
+                                    v-model="record.payroll_staff_id" @input="loadEquipment()"></select2>
+                </div>
+            </div>
+        </div>
+        <div v-if="record.payroll_staff_id" class="tab-pane" id="equipment" role="tabpanel">
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <b>Equipos a utilizar</b>
+                </div>
+                <br>
+                <div class="col-md-12">
+                    <v-client-table :columns="columns" :data="records" :options="table_options">
+                    </v-client-table>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <b>Diagrama de Gantt</b>
+            </div>
+            <br>
+            <br>
+            <div class="col-md-12">
+                <b>Etapas</b>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group is-required">
+                    <label for="gantt_stage">Etapa:</label>
+                    <input type="text" class="form-control input-sm" 
+                        data-toggle="tooltip" title="Etapa" 
+                        v-model="record.stage" id="gantt_stage"></input>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group is-required">
+                    <label for="gantt_description">Descripción:</label>
+                    <textarea type="text" class="form-control input-sm"
+                        data-toggle="tooltip" title="Descripción" 
+                        v-model="record.description" id="gantt_description"></textarea>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <b>Actividades</b>
+            </div>
+        </div>
     </div>
     <div class="card-footer text-right">
         <div class="row">
@@ -188,7 +314,16 @@ export default {
     data() {
         return {
             record: {
-                
+                sale_service_id: '',
+                duration: '',
+                frecuency_id: '',
+                asset_asignations: [],
+                sale_list_subservices: [],
+                payroll_staffs: [],
+                requirements: [],
+                specifications: [],
+                activities: [],
+                stages: [],
             },
             service: {
                 id: '',
@@ -212,6 +347,10 @@ export default {
             sale_clients_name: [],
             sale_clients_address: [],
             sale_clients_fiscal_address: [],
+            sale_list_subservices: [],
+            frecuencies: [],
+            payroll_staffs: [],
+            columns: ['asset.inventory_serial','asset.serial','asset.marca','asset.model'],
         }
     },
     watch: {
@@ -231,10 +370,33 @@ export default {
                 let good_to_be_traded_id = good_to_be_traded.id;
                 vm.record.sale_goods_to_be_traded.push(good_to_be_traded_id);
             }
-            
         }
     },
     methods: {
+        /**
+         * Agrega una nueva columna para las especificaciones
+         *
+         * @author Daniel Contreras <dcontreras@cenditel.gob.ve> | <exodiadaniel@gmail.com>
+         */ 
+        addSpecification() {
+            const vm = this;
+            vm.record.specifications.push({
+                name: '',
+                sale_technical_proposal_id: '',
+            });
+        },
+        /**
+         * Agrega una nueva columna para los requerimientos
+         *
+         * @author Daniel Contreras <dcontreras@cenditel.gob.ve> | <exodiadaniel@gmail.com>
+         */ 
+        addRequirement() {
+            const vm = this;
+            vm.record.requirements.push({
+                name: '',
+                sale_technical_proposal_id: '',
+            });
+        },
         /**
          * Método que carga la información del formulario al editar
          *
@@ -273,12 +435,39 @@ export default {
             this.record = {};
         },
 
+        getPayrollStaffs() {
+                const vm = this;
+                vm.payroll_staffs = [];
+
+                axios.get('/sale/get-asignation-staffs/').then(response => {
+                        vm.payroll_staffs = response.data.records;
+                });
+        },
+
         getSaleGoods() {
             const vm = this;
             vm.services = [];
 
             axios.get('/sale/get-sale-goods/').then(response => {
                 vm.services = response.data.records;
+            });
+        },
+
+        getSaleListSubservice() {
+            const vm = this;
+            vm.sale_list_subservices = [];
+
+            axios.get('/sale/get-salelistsubservicesmethod/').then(response => {
+                vm.sale_list_subservices = response.data;
+            });
+        },
+
+        getFrencuency() {
+            const vm = this;
+            vm.frecuencies = [];
+
+            axios.get('/sale/get-frecuencies/').then(response => {
+                vm.frecuencies = response.data;
             });
         },
 
@@ -319,6 +508,18 @@ export default {
                 vm.sale_clients_fiscal_address = response.data;
             });
         },
+
+        loadEquipment(){
+            if(this.record.payroll_staff_id) {
+                let index = this.record.payroll_staff_id;
+                axios.get('/asset/asignations/vue-info/' + index).then(response => {
+                    this.records = response.data.records.asset_asignation_assets;
+                });
+
+            } else {
+                this.records = [];
+            }
+        }
     },
     mounted() {
         const vm = this;
@@ -339,7 +540,21 @@ export default {
         this.getSaleClientsRif();
         this.getSaleClient();
         this.getSaleGoods();
+        this.getFrencuency();
+        this.getPayrollStaffs();
+        this.getSaleListSubservice();
         this.service.sale_goods_to_be_traded = [];
+        this.record.specifications = [];
+        this.record.requirements = [];
+        this.table_options.headings = {
+            'asset.inventory_serial': 'Código',
+            'asset.serial': 'Serial',
+            'asset.marca': 'Marca',
+            'asset.model': 'Modelo',
+        };
+        this.table_options.sortable = ['asset.inventory_serial','asset.serial','asset.marca','asset.model'];
+        this.table_options.filterable = ['asset.inventory_serial','asset.serial','asset.marca','asset.model'];
+        this.table_options.orderBy = { 'column': 'asset.id'};
     },
 };
 </script>
