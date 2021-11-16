@@ -1,0 +1,14 @@
+[
+    {
+        "element": "#helpGraph",
+        "intro": "Muestra, gráficamente, la cantidad de eventos generados por el sistema de acuerdo al tipo"
+    },
+    {
+        "element": "#helpCards",
+        "intro": "Muestra los eventos generados de acuerdo al tipo"
+    },
+    {
+        "element": "#helpList",
+        "intro": "Listado de eventos registrados por fecha. Use los botones de acciones para ver mas detalles de un evento, descargarlo o eliminarlo del sistema"
+    }
+]
