@@ -266,4 +266,28 @@ Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubic
 
 ![Screenshot](../img/manage_1.png#imagen)
 
+### Bienes a comercializar
 
+A través de esta funcionalidad se gestiona información de los bienes disponibles para comercializar en la organización. 
+
+**Registrar bienes a comercializar**
+
+-   Dirigirse a la **Configuración** del módulo de **Comercialización**. 
+-   Ingresar en la opción **Bienes a Comercializar** ubicado en la sección **Registros comunes**. 
+-   Completar el formulario **Bienes a Comercializar**. 
+-   Presionar el botón **Guardar** y verificar que se haya almacenado en la lista de registros. 
+
+![Screenshot](../img/img1028.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Formulario Bienes A Comercializar</div>
+
+
+!!! note "Datos del formulario"
+    -   El campo **Tipo de bienes** son registros iniciales de la sección "Registros Comunes" de la configuración del módulo de **Comercialización**. 
+    -   Los campos **Moneda**, **Unidad de medida**, **Unidades y dependencias a cargo** e **IVA** son registrados iniciales de la sección "Registros Comúnes" de la **Configuración General** del Sistema KAVAC. 
+    -   El campo **Lista de trabajadores** esta asociado a los datos de nómina del módulo de **Talento Humano**, dicho campo permite indicar el trabajador requerido para gestionar dicho bien. 
+
+
+**Gestión de registros** 
+
+Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de **Registros**.
+
+![Screenshot](../img/manage_1.png#imagen)

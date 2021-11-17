@@ -4,6 +4,8 @@ site_name: Documentación de Usuario.
 # Page tree
 nav:
       - Inicio: index.md
+      - Módulo de Comercialización:
+        - Solicitud de Servicios: service_request.md
       - Configuración: 
         - Formatos de Códigos: setting/code_format.md
         - Registros Comunes: setting/common_registers.md

@@ -9,7 +9,7 @@ El Manual de Documentación del sistema KAVAC a nivel de usuario tiene como obje
 
 El sistema KAVAC incluye el módulo de comercialización como parte de la administración que se encarga de la gestión eficiente de todo lo que está relacionado con la venta y distribución de productos y servicios que una organización usuaria tiene a disposición para otras organizaciones. El módulo de comercialización se encuentra enmarcado en la gestión de relaciones con el cliente, conocida como CRM (en inglés Customer Relationship Management), integrando los recursos y funcionalidades necesarias en el sistema para llevar a cabo una optima estrategia en la administración de ventas.   
 
-A través de la **Configuración** del módulo de comercialización es posible adaptar los requerimientos de la organización usuaria al sistema , desde esta sección se lleva a acabo la gestión de **Formatos de Códigos**, **Registros Comunes** y la **Configuración General**, siendo estos los datos iniciales a usar en las demás secciones del módulo. 
+A través de la **Configuración** del módulo de comercialización es posible adaptar los requerimientos de la organización usuaria al sistema , desde esta sección se lleva a acabo la gestión de **Formatos de Códigos** y **Registros Comunes**, siendo estos los datos iniciales a usar en las demás secciones del módulo. 
 
 
 
