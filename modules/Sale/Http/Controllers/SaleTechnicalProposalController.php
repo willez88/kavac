@@ -15,6 +15,7 @@ use Modules\Sale\Models\SaleProposalRequirement;
 use Modules\Sale\Models\SaleProposalSpecification;
 use Modules\Sale\Models\SaleGanttDiagram;
 use Modules\Sale\Models\SaleGanttDiagramStage;
+use Modules\Asset\Models\AssetAsignation;
 
 /**
  * @class SaleTechnicalProposalController
@@ -123,15 +124,19 @@ class SaleTechnicalProposalController extends Controller
             }
         }
 
-        $ganttDiagram = SaleGanttDiagram::create([
-            'activity' => $request->input('activity'),
-            'description' => $request->input('description'),
-            'start_date' => $request->input('start_date'),
-            'end_date' => $request->input('end_date'),
-            'percentage' => $request->input('percentage'),
-            'payroll_staff_id' => $request->input('payroll_staff_id'),
-            'sale_technical_proposal_id' => $technicalProposal->id,
-        ]);
+        if ($request->activities && !empty($request->activities)) {
+            foreach ($request->activities as $activity) {
+                $ganttDiagram = SaleGanttDiagram::create([
+                    'activity' => $request->input('activity'),
+                    'description' => $request->input('description'),
+                    'start_date' => $request->input('start_date'),
+                    'end_date' => $request->input('end_date'),
+                    'percentage' => $request->input('percentage'),
+                    'payroll_staff_id' => $request->input('payroll_staff_id'),
+                    'sale_technical_proposal_id' => $technicalProposal->id,
+                ]);
+            }
+        }
 
         if ($request->stages && !empty($request->stages)) {
             foreach ($request->stages as $stage) {
@@ -223,5 +228,32 @@ class SaleTechnicalProposalController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Muestra una lista de los bienes asignados a un trabajador para los select
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return JsonResponse
+     */
+
+    public function getAsignationStaffs()
+    {
+        $records = [];
+        $assetAsignations = AssetAsignation::with('payrollStaff')->orderBy('id', 'ASC')
+                                    ->get();
+
+        array_push($records, ['id' => '', 'text' => 'Seleccione...']);
+        
+        foreach ($assetAsignations as $assetAsignation) {
+
+            array_push($records, [
+                'id'                   => $assetAsignation->id,
+                'text'                 => $assetAsignation->payrollStaff->first_name . ' ' .
+                                            $assetAsignation->payrollStaff->last_name . ' - ' .$assetAsignation->payrollStaff->id_number,
+
+            ]);
+        }
+        return response()->json(['records' => $records], 200);
     }
 }

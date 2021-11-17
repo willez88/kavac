@@ -449,6 +449,13 @@ Route::group(
         Route::get('get-departments', 'SaleGoodsToBeTradedController@getDepartments');
         Route::get('get-taxes', 'SaleGoodsToBeTradedController@getTaxes');
         Route::get('get-payroll-staffs', 'SaleGoodsToBeTradedController@getPayrollStaffs');
+        
+        /**
+         * -------------------------------------------------------------------
+         * Rutas para gestionar los Elementos select de la propuesta técnica
+         * -------------------------------------------------------------------
+         */
+        Route::get('get-asignation-staffs', 'SaleTechnicalProposalController@getAsignationStaffs');
 
 
         /*
