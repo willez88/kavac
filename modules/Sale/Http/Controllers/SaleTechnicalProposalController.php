@@ -85,17 +85,6 @@ class SaleTechnicalProposalController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'sale_list_subservices' => ['required'],
-            'duration'              => ['required'],
-            'frecuency_id'          => ['required'],
-            'stage'                 => ['required'],
-            'sale_gantt_diagram_id' => ['required'],
-            'activity'              => ['required'],
-            'start_date'            => ['required'],
-            'end_date'              => ['required'],
-            'payroll_staff_id'      => ['required'],
-        ]);
 
         $technicalProposal = SaleTechnicalProposal::create([
             'sale_service_id' => $request->input('sale_service_id'),

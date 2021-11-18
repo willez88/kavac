@@ -223,7 +223,9 @@ class AssetAsignationController extends Controller
      */
     public function vueInfo($id)
     {
-        $asignation = AssetAsignation::where('id', $id)
+        $ids = explode(',', $id);
+        if (count($ids) > 1) {
+            $asignation = AssetAsignation::whereIn('id', $ids)
             ->with(['payrollStaff','assetAsignationAssets' =>
                 function ($query) {
                     $query->with(
@@ -240,7 +242,27 @@ class AssetAsignationController extends Controller
                             );
                         }]
                     );
-                }])->first();
+                }])->get();
+        } else {
+            $asignation = AssetAsignation::where('id', $id)
+                ->with(['payrollStaff','assetAsignationAssets' =>
+                    function ($query) {
+                        $query->with(
+                            ['asset' => function ($query) {
+                                $query->with(
+                                    'assetType',
+                                    'assetCategory',
+                                    'assetSubcategory',
+                                    'assetSpecificCategory',
+                                    'assetAcquisitionType',
+                                    'assetCondition',
+                                    'assetStatus',
+                                    'assetUseFunction'
+                                );
+                            }]
+                        );
+                    }])->first();
+        }
 
         return response()->json(['records' => $asignation], 200);
     }

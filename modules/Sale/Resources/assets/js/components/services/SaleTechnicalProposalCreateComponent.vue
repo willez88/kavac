@@ -163,8 +163,11 @@
             <div class="col-md-3">
                 <div class="form-group is-required">
                     <label>Subservicio:</label>
-                    <select2 :options="sale_list_subservices"
-                             v-model="record.sale_list_subservices"></select2>
+                    <v-multiselect :options="list_subservices" track_by="text"
+                                   :hide_selected="false" data-toggle="tooltip"
+                                   title="Indique los subservicios a seleccionar"
+                                   v-model="sale_list_subservices">
+                    </v-multiselect>
                 </div>
             </div>
             <div class="col-md-3">
@@ -233,12 +236,15 @@
             <div class="col-md-3">
                 <div class="form-group is-required">
                     <label>Lista de trabajadores:</label>
-                        <select2 :options="payroll_staffs_assigned"
-                                    v-model="record.payroll_staff_id" @input="loadEquipment()"></select2>
+                    <v-multiselect :options="payroll_staffs_assignations" track_by="text"
+                                   :hide_selected="false" data-toggle="tooltip"
+                                   title="Indique los trabajadores a seleccionar"
+                                   v-model="payroll_staffs_assigned">
+                    </v-multiselect>
                 </div>
             </div>
         </div>
-        <div v-if="record.payroll_staff_id" class="tab-pane" id="equipment" role="tabpanel">
+        <div class="tab-pane" id="equipment" role="tabpanel">
             <hr>
             <div class="row">
                 <div class="col-md-12">
@@ -246,7 +252,30 @@
                 </div>
                 <br>
                 <div class="col-md-12">
-                    <v-client-table :columns="columns_asstets" :data="records" :options="table_options">
+                    <v-client-table :columns="columns_asstets" :data="records" :options="table_options" ref="tableResults">
+                        <div slot="inventory_serial" slot-scope="props" class="text-center">
+                            <p v-for="assets in props.row.asset_asignation_assets">
+                                {{ props.row.asset_asignation_assets ? assets.asset.inventory_serial : '' }}
+                            </p>
+                        </div>
+                        <div slot="payroll_staff" slot-scope="props" class="text-center">
+                            {{ props.row.payroll_staff ? props.row.payroll_staff.first_name + ' ' + props.row.payroll_staff.last_name + ' - ' + props.row.payroll_staff.id_number : '' }}
+                        </div>
+                        <div slot="serial" slot-scope="props" class="text-center">
+                            <p v-for="assets in props.row.asset_asignation_assets">
+                                {{ props.row.asset_asignation_assets ? assets.asset.serial : '' }}
+                            </p>
+                        </div>
+                        <div slot="marca" slot-scope="props" class="text-center">
+                            <p v-for="assets in props.row.asset_asignation_assets">
+                                {{ props.row.asset_asignation_assets ? assets.asset.marca : '' }}
+                            </p>
+                        </div>
+                        <div slot="model" slot-scope="props" class="text-center">
+                            <p v-for="assets in props.row.asset_asignation_assets">
+                                {{ props.row.asset_asignation_assets ? assets.asset.model : '' }}
+                            </p>
+                        </div>
                     </v-client-table>
                 </div>
             </div>
@@ -444,6 +473,7 @@ export default {
                 sale_client_id: '',
             },
             sale_goods_to_be_traded: [],
+            sale_list_subservices: [],
             services: [],
             records: [],
             errors: [],
@@ -456,8 +486,9 @@ export default {
             sale_clients_name: [],
             sale_clients_address: [],
             sale_clients_fiscal_address: [],
-            sale_list_subservices: [],
+            list_subservices: [],
             frecuencies: [],
+            payroll_staffs_assignations: [],
             payroll_staffs_assigned: [],
             payroll_staffs: [],
             stage: {
@@ -478,9 +509,8 @@ export default {
                 percentage: '',
                 payroll_staff: {},
             },
-            columns_asstets: ['asset.inventory_serial','asset.serial','asset.marca','asset.model'],
+            columns_asstets: ['inventory_serial','payroll_staff','serial','marca','model'],
             columns_activities: ['stage','name','description','start_date','end_date', 'payroll_staff', 'percentage', 'id'],
-            table_option_assets: [],
             table_option_activities: [],
             editIndex: null,
         }
@@ -502,6 +532,43 @@ export default {
                 let good_to_be_traded_id = good_to_be_traded.id;
                 vm.record.sale_goods_to_be_traded.push(good_to_be_traded_id);
             }
+        },
+
+        /**
+         * Método que supervisa los cambios en el objeto sale_list_subservices para asignar sus valores
+         * en el record
+         *
+         * @author    Daniel Contreras <dcontreras@cenditel.gob.ve> | <exodiadaniel@gmail.com>
+         *
+         * @param     {object}    value    Objeto que contiene el valor de a búsqueda
+         */
+        sale_list_subservices() {
+            const vm = this;
+            vm.record.sale_list_subservices = [];
+
+            for (let subservice of vm.sale_list_subservices){
+                let subservice_id = subservice.id;
+                vm.record.sale_list_subservices.push(subservice_id);
+            }
+        },
+
+        /**
+         * Método que supervisa los cambios en el objeto payroll_staffs_assigned para asignar sus valores
+         * en el record
+         *
+         * @author    Daniel Contreras <dcontreras@cenditel.gob.ve> | <exodiadaniel@gmail.com>
+         *
+         * @param     {object}    value    Objeto que contiene el valor de a búsqueda
+         */
+        payroll_staffs_assigned() {
+            const vm = this;
+            vm.record.payroll_staffs = [];
+
+            for (let staff of vm.payroll_staffs_assigned){
+                let staff_id = staff.id;
+                vm.record.payroll_staffs.push(staff_id);
+            }
+            vm.loadEquipment();
         },
     },
     methods: {
@@ -598,6 +665,7 @@ export default {
             await axios.get('/sale/services/info/'+id).then(response => {
                 if(typeof(response.data.record != "undefined")){
                     vm.service = response.data.record;
+                    vm.record.sale_service_id = vm.service.id;
 
                     vm.sale_goods_to_be_traded = [];
                     vm.service.requirements = [];
@@ -639,10 +707,10 @@ export default {
 
         getPayrollStaffsAssigned() {
             const vm = this;
-            vm.payroll_staffs_assigned = [];
+            vm.payroll_staffs_assignations = [];
 
             axios.get('/sale/get-asignation-staffs/').then(response => {
-                    vm.payroll_staffs_assigned = response.data.records;
+                    vm.payroll_staffs_assignations = response.data.records;
             });
         },
 
@@ -666,10 +734,10 @@ export default {
 
         getSaleListSubservice() {
             const vm = this;
-            vm.sale_list_subservices = [];
+            vm.list_subservices = [];
 
             axios.get('/sale/get-salelistsubservicesmethod/').then(response => {
-                vm.sale_list_subservices = response.data;
+                vm.list_subservices = response.data;
             });
         },
 
@@ -721,12 +789,19 @@ export default {
         },
 
         loadEquipment(){
-            if(this.record.payroll_staff_id) {
-                let index = this.record.payroll_staff_id;
-                axios.get('/asset/asignations/vue-info/' + index).then(response => {
-                    this.records = response.data.records.asset_asignation_assets;
+            if(this.record.payroll_staffs.length > 0) {
+                this.records = [];
+                axios.get('/asset/asignations/vue-info/' + this.record.payroll_staffs).then(response => {
+                    let assets = [];
+                    if (this.record.payroll_staffs.length > 1) {
+                        for (let data of response.data.records) {
+                            assets.push(data);
+                        }
+                        this.records = assets;
+                    } else {
+                        this.records.push(response.data.records);
+                    }
                 });
-
             } else {
                 this.records = [];
             }
@@ -808,19 +883,22 @@ export default {
         this.service.sale_goods_to_be_traded = [];
         this.record.specifications = [];
         this.record.requirements = [];
+        this.record.sale_list_subservices = [];
+        this.record.payroll_staffs = [];
         this.stages = [{
             id: '',
             text: 'Seleccione...'
         }];
         this.table_options.headings = {
-            'asset.inventory_serial': 'Código',
-            'asset.serial': 'Serial',
-            'asset.marca': 'Marca',
-            'asset.model': 'Modelo',
+            'inventory_serial': 'Código',
+            'payroll_staff': 'Trabajador',
+            'serial': 'Serial',
+            'marca': 'Marca',
+            'model': 'Modelo',
         };
-        this.table_options.sortable = ['asset.inventory_serial','asset.serial','asset.marca','asset.model'];
-        this.table_options.filterable = ['asset.inventory_serial','asset.serial','asset.marca','asset.model'];
-        this.table_options.orderBy = { 'column': 'asset.id'};
+        this.table_options.sortable = ['inventory_serial','payroll_staff','serial','marca','model'];
+        this.table_options.filterable = ['inventory_serial','payroll_staff','serial','marca','model'];
+        this.table_options.orderBy = { 'column': 'id'};
         this.table_option_activities.headings = {
             'stage': 'Etapa',
             'name': 'Actividad',

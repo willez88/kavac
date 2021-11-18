@@ -38,6 +38,15 @@ class SaleTechnicalProposal extends Model implements Auditable
     protected $fillable = ['duration', 'frecuency_id', 'sale_service_id', 'sale_list_subservices',
                             'asset_asignations', 'payroll_staffs'];
 
+    /**
+     * Lista de atributos que deben ser asignados a tipos nativos.
+     * @var array
+     */
+    protected $casts = [
+        'sale_list_subservices' => 'json',
+        'payroll_staffs' => 'json',
+    ];
+
 
     /**
      * Método que obtiene las solicitudes de servicios almacenados en el sistema
