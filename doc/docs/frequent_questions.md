@@ -4,7 +4,7 @@
 ??? question "¿Cómo adaptar el sistema KAVAC a cualquier organización?"
    	El sistema KAVAC está diseñado de forma modular, incluso cuando los módulos se relacionan entre si, existe independencia entre ellos.  Su diseño y estructura de desarrollo permite la extensión de nuevos módulos y funcionalidades que se puedan adaptar a una institución con requerimientos específicos.
 
-??? question "¿Cómo registrar varias organizaciones?""
+??? question "¿Cómo registrar varias organizaciones?"
 
     Una vez se ha iniciado las actividades en el sistema KAVAC, es necesario realizar el registro de al menos una organización.  Para el registro de otras organizaciones el usuario debe activar la opción **Multi Gestión**, ubicada en la sección **Parámetros Generales** de la Configuración General del sistema, de igual forma es necesario guardar los cambios para registrar esta configuración. 
 
