@@ -201,6 +201,20 @@ class DigitalSignatureController extends Controller
         }
 
         $pkcs12 = openssl_pkcs12_read($certStore, $certInfo, $passphrase );
+        if (!isset($certInfo['cert'])) {
+            $request->session()->flash(
+                'message',
+                [                    
+                    'type' => 'other',
+                    'title' => 'Alerta',
+                    'icon' => 'screen-error',
+                    'class' => 'growl-danger',
+                    'text' => 'Contraseña incorrecta'
+
+                ]
+            );
+            return redirect()->route('digitalsignature');
+        }
         $cert = Crypt::encryptString($certInfo['cert']);
         $pkey = Crypt::encryptString($certInfo['pkey']);
         $passphraseCrypt = Crypt::encryptString($passphrase);
@@ -212,6 +226,12 @@ class DigitalSignatureController extends Controller
         $profile->user_id = Auth::user()->id;
         $profile->save();
         Storage::disk('temporary')->delete($filename);
+        $request->session()->flash(
+            'message',
+            [                    
+                'type'     => 'store',
+            ]
+        );
 
         return redirect()->route('digitalsignature');
     }
