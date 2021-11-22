@@ -4,6 +4,18 @@
         
         <div class="row">
             <div class="col-3">
+                    <div class="form-group">
+                        <label class="control-label">Fecha de generación</label><br>
+                        <label class="control-label"><h5>{{ format_date(date) }}</h5></label>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label class="control-label">Ejercicio económico</label><br>
+                        <label class="control-label"><h5>{{ (fiscalYear)?fiscalYear.year:'' }}</h5></label>
+                    </div>
+                </div>
+            <div class="col-3">
                 <div class="form-group is-required">
                     <label for="description">Código de la solicitud del requerimiento</label>
                     <input type="text" id="description" v-model="record.description" class="form-control">
@@ -244,7 +256,10 @@ export default{
         },
         date:{
             type: String,
-            default: '',
+            default: function(){
+                const dateJs = new Date();
+                return dateJs.getFullYear()+'-'+(dateJs.getMonth()+1)+'-'+dateJs.getDate();
+            }
         },
         tax:{
             type:Object,
@@ -297,6 +312,7 @@ export default{
                 purchase_supplier_object:'',
                 currency:null,
             },
+            fiscalYear: null,
             record_items:[],
             columns: [  'code',
                         'description',
@@ -408,6 +424,10 @@ export default{
                 vm.addToList(vm.record_edit.purchase_requirement[i], prices);
             }
         }
+
+        axios.get('/purchase/get-fiscal-year').then(response => {
+            vm.fiscalYear = response.data.fiscal_year;
+        });
     },
     methods:{
 

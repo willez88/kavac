@@ -6,67 +6,27 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
 
+use Modules\Purchase\Models\FiscalYear;
+
 class PurchaseController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     * @return Renderable
+     * Obtiene el año fiscal actual
+     * @return JsonResponse
      */
-    public function index()
+    public function getFiscalYear()
     {
-        return view('purchase::index');
+        $fiscal_year = FiscalYear::where('active', true)->first();
+        return response()->json(['fiscal_year'=> $fiscal_year, 'message' => 'success'], 200);
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Renderable
+     * Obtine un listado de las instituciones
+     * @return JsonResponse
      */
-    public function create()
+    public function getInstitutions()
     {
-        return view('purchase::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-    }
-
-    /**
-     * Show the specified resource.
-     * @return Renderable
-     */
-    public function show()
-    {
-        return view('purchase::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @return Renderable
-     */
-    public function edit()
-    {
-        return view('purchase::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Renderable
-     */
-    public function update(Request $request)
-    {
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @return Renderable
-     */
-    public function destroy()
-    {
+        $institutions = template_choices('App\Models\Institution', 'name', [], true);
+        return response()->json(['institutions'=> $institutions, 'message' => 'success'], 200);
     }
 }

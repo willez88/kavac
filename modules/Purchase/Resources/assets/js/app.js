@@ -289,7 +289,7 @@ Vue.mixin(
                 if (message && refsID) {
                     refsID.showAlertMessages(message);
                 }
-            }
+            },
         }
     }
 );

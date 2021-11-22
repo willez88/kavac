@@ -17,8 +17,6 @@ use Modules\Purchase\Models\Department;
 
 use Modules\Warehouse\Models\WarehouseProduct;
 
-use Modules\Purchase\Models\FiscalYear;
-
 use App\Models\CodeSetting;
 
 class PurchaseRequirementController extends Controller
@@ -26,7 +24,6 @@ class PurchaseRequirementController extends Controller
 	use ValidatesRequests;
 
 	protected $supplier_objects;
-	protected $fiscal_years;
 	protected $currencies;
 
 	public function __construct()
@@ -49,7 +46,6 @@ class PurchaseRequirementController extends Controller
 		}
 
 		$this->supplier_objects = $supplier_objects;
-		$this->fiscal_years     = FiscalYear::where('active', true)->first();
 		$this->currencies       = template_choices('App\Models\Currency', 'name', [], true);
 	}
 
@@ -123,7 +119,6 @@ class PurchaseRequirementController extends Controller
 				'institutions'              => json_encode($institutions),
 				'purchase_supplier_objects' => json_encode($purchase_supplier_objects),
 				'measurement_units'         => json_encode($measurement_units),
-				'fiscal_years'              => $this->fiscal_years,
 			]);
 	}
 
@@ -265,7 +260,6 @@ class PurchaseRequirementController extends Controller
 				'purchase_supplier_objects' => json_encode($purchase_supplier_objects),
 				'measurement_units'         => json_encode($measurement_units),
 				'requirement_edit'          => $requirement_edit,
-				'fiscal_years'              => $this->fiscal_years,
 			]);
 	}
 
