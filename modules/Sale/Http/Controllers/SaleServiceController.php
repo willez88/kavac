@@ -12,6 +12,8 @@ use App\Models\CodeSetting;
 
 use Modules\Sale\Models\SaleService;
 use Modules\Sale\Models\SaleServiceRequirement;
+use Modules\Sale\Models\SaleTechnicalProposal;
+
 /**
  * @class SaleServiceController
  * @brief Controlador de solicitud de servicios
@@ -272,6 +274,11 @@ class SaleServiceController extends Controller
 
         $saleService->save();
 
+        $technicalProposal = SaleTechnicalProposal::create([
+            'sale_service_id' => $saleService->id,
+            'status' => 'En proceso'
+        ]);
+
         $request->session()->flash('message', ['type' => 'update']);
         return response()->json(['result' => true, 'redirect' => route('sale.services.index')], 200);
     }
@@ -282,6 +289,11 @@ class SaleServiceController extends Controller
         $saleService->status = 'Rechazado';
 
         $saleService->save();
+
+        $technicalProposal = SaleTechnicalProposal::where('sale_service_id', $id)->first();
+        if($technicalProposal) {
+            $technicalProposal->delete();
+        }
 
         $request->session()->flash('message', ['type' => 'update']);
         return response()->json(['result' => true, 'redirect' => route('sale.services.index')], 200);
@@ -296,8 +308,13 @@ class SaleServiceController extends Controller
     public function vuePendingList($status)
     {
         $saleService = SaleService::with(['SaleServiceRequirement',
-            'saleClient', 'payrollStaff'])
-            ->where('status', $status)->get();
+            'saleClient', 'payrollStaff', 'saleTechnicalProposal' => function ($query) {
+                $query->with(['saleService', 'saleProposalSpecification', 'saleProposalRequirement',
+                                'saleGanttDiagram' => function ($query) {
+                                    $query->with(['saleGanttDiagramStage','payrollStaff']);
+                                }]);
+                            }])->where('status', $status)->get();
+
         return response()->json(['records' => $saleService], 200);
     }
 }
