@@ -238,11 +238,13 @@
                     $('#study_program_name').val(vm.record.study_program_name);
                     vm.payroll_class_schedule = (response.data.record.payroll_class_schedule) ? response.data.record.payroll_class_schedule : {};
                     for (const a in response.data.record.payroll_course.payroll_course_files) {
+                        var payroll_course_file = response.data.record.payroll_course.payroll_course_files[a];
+                        var payroll_ack_file = response.data.record.payroll_acknowledgment.payroll_acknowledgment_files[a];
                         vm.payroll_cou_ack_files.push({
-                            course_name: response.data.record.payroll_course.payroll_course_files[a].name,
-                            course_file_url: response.data.record.payroll_course.payroll_course_files[a].documents[0].url,
-                            ack_name: response.data.record.payroll_acknowledgment.payroll_acknowledgment_files[a].name,
-                            ack_file_url: response.data.record.payroll_acknowledgment.payroll_acknowledgment_files[a].documents[0].url,
+                            course_name: payroll_course_file.name,
+                            course_file_url: (payroll_course_file.image) ? payroll_course_file.image.url : payroll_course_file.documents[0].url,
+                            ack_name: payroll_ack_file.name,
+                            ack_file_url: (payroll_ack_file.image) ? payroll_ack_file.image.url : payroll_ack_file.documents[0].url,
                         });
                     }
 				});

@@ -168,8 +168,8 @@
 						<div class="col-2">
 							<div class="form-group">
 								<label>Curso:</label>
-								<div v-for="(document, index) in payroll_cou_ack_file.course_file.documents">
-									<a :href="`/${document.url}`" target="_blank">Documento</a>
+								<div v-show="payroll_cou_ack_file.course_file_url">
+									<a :href="`/${payroll_cou_ack_file.course_file_url}`" target="_blank">Documento</a>
 								</div>
 								<input :id="'course_'+index" type="file"
 									accept=".png, .jpg, .pdf, .odt" @change="processFile($event, index)">
@@ -185,8 +185,8 @@
 						<div class="col-md-2">
 							<div class="form-group">
 								<label>Reconocimiento:</label>
-								<div v-for="(document, index) in payroll_cou_ack_file.ack_file.documents">
-									<a :href="`/${document.url}`" target="_blank">Documento</a>
+								<div v-show="payroll_cou_ack_file.ack_file_url">
+									<a :href="`/${payroll_cou_ack_file.ack_file_url}`" target="_blank">Documento</a>
 								</div>
 								<input :id="'acknowledgment_'+index" type="file"
 									accept=".png, .jpg, .pdf, .odt" @change="processFile($event, index)">
@@ -253,8 +253,6 @@
 				payroll_languages: [],
 				payroll_language_levels: [],
 				payroll_class_schedule: '',
-				payroll_course: '',
-				payroll_acknowledgment: '',
 				payroll_cou_ack_files: [],
 			}
 		},
@@ -282,16 +280,22 @@
 						});
 					}
 					vm.payroll_class_schedule = (response.data.record.payroll_class_schedule) ? response.data.record.payroll_class_schedule : {};
-					vm.payroll_course = (response.data.record.payroll_course) ? response.data.record.payroll_course : {};
-					vm.payroll_acknowledgment = (response.data.record.payroll_acknowledgment) ? response.data.record.payroll_acknowledgment : {};
 					for (const a in response.data.record.payroll_course.payroll_course_files) {
+						var payroll_course_file = response.data.record.payroll_course.payroll_course_files[a];
+                        var payroll_acknowledgment_file = response.data.record.payroll_acknowledgment.payroll_acknowledgment_files[a];
                         this.record.payroll_cou_ack_files.push({
-                            course_name: response.data.record.payroll_course.payroll_course_files[a].name,
-							course_file_id: response.data.record.payroll_course.payroll_course_files[a].documents[0].id,
-							course_file: response.data.record.payroll_course.payroll_course_files[a],
-                            ack_name: response.data.record.payroll_acknowledgment.payroll_acknowledgment_files[a].name,
-							ack_file_id: response.data.record.payroll_acknowledgment.payroll_acknowledgment_files[a].documents[0].id,
-							ack_file: response.data.record.payroll_acknowledgment.payroll_acknowledgment_files[a],
+                            course_name: payroll_course_file.name,
+							course: {
+								id: (payroll_course_file.image) ? payroll_course_file.image.id : payroll_course_file.documents[0].id,
+								file_type: (payroll_course_file.image) ? 'img' : 'doc',
+							},
+							course_file_url: (payroll_course_file.image) ? payroll_course_file.image.url : payroll_course_file.documents[0].url,
+                            ack_name: payroll_acknowledgment_file.name,
+							ack: {
+								id: (payroll_acknowledgment_file.image) ? payroll_acknowledgment_file.image.id : payroll_acknowledgment_file.documents[0].id,
+								file_type: (payroll_acknowledgment_file.image) ? 'img' : 'doc',
+							},
+							ack_file_url: (payroll_acknowledgment_file.image) ? payroll_acknowledgment_file.image.url : payroll_acknowledgment_file.documents[0].url,
                         });
                     }
 				});
@@ -333,11 +337,17 @@
 			addPayrollCouAckFiles() {
 				this.record.payroll_cou_ack_files.push({
 					course_name: '',
-					course_file_id: '',
-					course_file: '',
+					course: {
+						id: '',
+						file_type: '',
+					},
+					course_file_url: '',
 					ack_name: '',
-					ack_file_id: '',
-					ack_file: '',
+					ack: {
+						id: '',
+						file_type: '',
+					},
+					ack_file_url: '',
 				});
 			},
 
@@ -352,7 +362,6 @@
                 var inputFiles = document.querySelector(`#${event.currentTarget.id}`);
 				for (var x = 0; x < inputFiles.files.length; x++) {
     				formData.append(`documents[${x}]`, inputFiles.files[x]);
-					console.log(inputFiles.files.[x].type);
 				}
                 axios.post('upload-document', formData, {
                     headers: {
@@ -360,7 +369,6 @@
                     }
                 }).then(response => {
 					vm.record.class_schedule_ids = response.data.document_ids;
-                	console.log(response.data.document_ids);
                     vm.showMessage(
 	                    'custom', 'Éxito', 'success', 'screen-ok',
 	                    'Documento cargado de manera existosa.'
@@ -386,10 +394,35 @@
 			processFile(event, index) {
 				const vm = this;
 				var inputFile = document.querySelector(`#${event.currentTarget.id}`);
-				//event.preventDefault();
-				var image_type = ['image/png', 'image/jpeg', 'image/jpg'];
 				if( inputFile.files[0].type.match('image/png') || inputFile.files[0].type.match('image/jpeg') || inputFile.files[0].type.match('image/jpg') ) {
-					console.log('HOLA');
+					formData.append("image", inputFile.files[0]);
+					axios.post('upload-image', formData, {
+	                    headers: {
+	                        'Content-Type': 'multipart/form-data'
+	                    }
+	                }).then(response => {
+						if( inputFile.id.match(`course_${index}`) ) {
+							vm.record.payroll_cou_ack_files[index].course.id = response.data.image_id;
+							vm.record.payroll_cou_ack_files[index].course.file_type = 'img';
+						}
+						else {
+							vm.record.payroll_cou_ack_files[index].ack.id = response.data.image_id;
+							vm.record.payroll_cou_ack_files[index].ack.file_type = 'img';
+						}
+	                    vm.showMessage(
+		                    'custom', 'Éxito', 'success', 'screen-ok',
+		                    'Documento cargado de manera existosa.'
+		                );
+	                }).catch(error => {
+	                    vm.errors = [];
+	                    if (typeof(error.response) != "undefined") {
+	                        for (var index in error.response.data.errors) {
+	                            if (error.response.data.errors[index]) {
+	                                vm.errors.push(error.response.data.errors[index][0]);
+	                            }
+	                        }
+	                    }
+	                });
 				}
 				else {
 					formData.append(`documents[${0}]`, inputFile.files[0]);
@@ -399,10 +432,12 @@
 	                    }
 	                }).then(response => {
 						if( inputFile.id.match(`course_${index}`) ) {
-							vm.record.payroll_cou_ack_files[index].course_file_id = response.data.document_ids[0].id;
+							vm.record.payroll_cou_ack_files[index].course.id = response.data.document_ids[0].id;
+							vm.record.payroll_cou_ack_files[index].course.file_type = 'doc';
 						}
 						else {
-							vm.record.payroll_cou_ack_files[index].ack_file_id = response.data.document_ids[0].id;
+							vm.record.payroll_cou_ack_files[index].ack.id = response.data.document_ids[0].id;
+							vm.record.payroll_cou_ack_files[index].ack.file_type = 'doc';
 						}
 	                    vm.showMessage(
 		                    'custom', 'Éxito', 'success', 'screen-ok',

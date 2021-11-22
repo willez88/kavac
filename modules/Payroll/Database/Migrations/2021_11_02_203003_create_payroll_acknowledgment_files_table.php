@@ -31,6 +31,9 @@ class CreatePayrollAcknowledgmentFilesTable extends Migration
                 $table->foreignId('payroll_acknowledgment_id')
                       ->comment('Identificador del reconocimiento')->constrained()
                       ->onUpdate('cascade')->onDelete('restrict');
+                $table->foreignId('image_id')->nullable()
+                      ->comment('Identificador de la imagen')->constrained()
+                      ->onUpdate('cascade')->onDelete('restrict');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });

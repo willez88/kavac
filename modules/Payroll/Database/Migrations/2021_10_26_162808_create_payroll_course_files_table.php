@@ -31,6 +31,9 @@ class CreatePayrollCourseFilesTable extends Migration
                 $table->foreignId('payroll_course_id')
                       ->comment('Identificador del curso')->constrained()
                       ->onUpdate('cascade')->onDelete('restrict');
+                $table->foreignId('image_id')->nullable()
+                      ->comment('Identificador de la imagen')->constrained()
+                      ->onUpdate('cascade')->onDelete('restrict');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });

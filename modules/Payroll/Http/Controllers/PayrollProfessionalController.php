@@ -152,25 +152,25 @@ class PayrollProfessionalController extends Controller
                 'study_program_name' => ($request->is_student) ? $request->study_program_name : null,
                 'class_schedule' => ($request->is_student) ? $request->class_schedule : null,
             ]);
-            $payroll_class_schedule = PayrollClassSchedule::create([
+            $payrollClassSchedule = PayrollClassSchedule::create([
                 'payroll_professional_id' => $payrollProfessional->id
             ]);
             if ($request->class_schedule_ids && !empty($request->class_schedule_ids)) {
-                foreach ($request->class_schedule_ids as $class_schedule_id) {
-                    $document = Document::find($class_schedule_id['id']);
+                foreach ($request->class_schedule_ids as $classScheduleId) {
+                    $document = Document::find($classScheduleId['id']);
                     $document->documentable_type = PayrollClassSchedule::class;
-                    $document->documentable_id = $payroll_class_schedule->id;
+                    $document->documentable_id = $payrollClassSchedule->id;
                     $document->save();
                 }
             }
             $i = 0;
-            foreach ($request->payroll_languages as $payroll_language) {
+            foreach ($request->payroll_languages as $payrollLanguage) {
                 $this->validate(
                     $request,
                     [
                         'payroll_languages.'.$i.'.payroll_lang_id' => [
                             'required',
-                            new PayrollLangProfUnique($payrollProfessional->id, $payroll_language['payroll_lang_id'])
+                            new PayrollLangProfUnique($payrollProfessional->id, $payrollLanguage['payroll_lang_id'])
                         ],
                         'payroll_languages.'.$i.'.payroll_language_level_id' => ['required'],
                     ],
@@ -180,11 +180,11 @@ class PayrollProfessionalController extends Controller
                         'payroll_languages.'.$i.'.payroll_language_level_id' => 'nivel de idioma #'.($i+1),
                     ],
                 );
-                $payroll_lang = PayrollLanguage::find($payroll_language['payroll_lang_id']);
-                $payroll_language_level = PayrollLanguageLevel::find($payroll_language['payroll_language_level_id']);
+                $payrollLang = PayrollLanguage::find($payrollLanguage['payroll_lang_id']);
+                $payrollLanguageLevel = PayrollLanguageLevel::find($payrollLanguage['payroll_language_level_id']);
                 $payrollProfessional->payrollLanguages()->attach(
-                    $payroll_lang->id,
-                    ['payroll_language_level_id' => $payroll_language_level->id]
+                    $payrollLang->id,
+                    ['payroll_language_level_id' => $payrollLanguageLevel->id]
                 );
                 $i++;
             }
@@ -199,23 +199,39 @@ class PayrollProfessionalController extends Controller
                 'payroll_professional_id' => $payrollProfessional->id
             ]);
             if ($request->payroll_cou_ack_files && !empty($request->payroll_cou_ack_files)) {
-                foreach ($request->payroll_cou_ack_files as $payroll_cou_ack_file) {
-                    $payrollCourseFile = PayrollCourseFile::create([
-                        'name' => $payroll_cou_ack_file['course_name'],
-                        'payroll_course_id' => $payrollCourse->id,
-                    ]);
-                    $document = Document::find($payroll_cou_ack_file['course_file_id']);
-                    $document->documentable_type = PayrollCourseFile::class;
-                    $document->documentable_id = $payrollCourseFile->id;
-                    $document->save();
-                    $payrollAcknowledgmentFile = PayrollAcknowledgmentFile::create([
-                        'name' => $payroll_cou_ack_file['ack_name'],
-                        'payroll_acknowledgment_id' => $payrollAcknowledgment->id,
-                    ]);
-                    $document = Document::find($payroll_cou_ack_file['ack_file_id']);
-                    $document->documentable_type = PayrollAcknowledgmentFile::class;
-                    $document->documentable_id = $payrollAcknowledgmentFile->id;
-                    $document->save();
+                foreach ($request->payroll_cou_ack_files as $payrollCouAckFile) {
+                    if ($payrollCouAckFile['course']['file_type'] === 'img') {
+                        $payrollCourseFile = PayrollCourseFile::create([
+                            'name' => $payrollCouAckFile['course_name'],
+                            'payroll_course_id' => $payrollCourse->id,
+                            'image_id' => $payrollCouAckFile['course']['id'],
+                        ]);
+                    } else {
+                        $payrollCourseFile = PayrollCourseFile::create([
+                            'name' => $payrollCouAckFile['course_name'],
+                            'payroll_course_id' => $payrollCourse->id,
+                        ]);
+                        $document = Document::find($payrollCouAckFile['course']['id']);
+                        $document->documentable_type = PayrollCourseFile::class;
+                        $document->documentable_id = $payrollCourseFile->id;
+                        $document->save();
+                    }
+                    if ($payrollCouAckFile['ack']['file_type'] === 'img') {
+                        $payrollAcknowledgmentFile = PayrollAcknowledgmentFile::create([
+                            'name' => $payrollCouAckFile['ack_name'],
+                            'payroll_acknowledgment_id' => $payrollAcknowledgment->id,
+                            'image_id' => $payrollCouAckFile['ack']['id'],
+                        ]);
+                    } else {
+                        $payrollAcknowledgmentFile = PayrollAcknowledgmentFile::create([
+                            'name' => $payrollCouAckFile['ack_name'],
+                            'payroll_acknowledgment_id' => $payrollAcknowledgment->id,
+                        ]);
+                        $document = Document::find($payrollCouAckFile['ack']['id']);
+                        $document->documentable_type = PayrollAcknowledgmentFile::class;
+                        $document->documentable_id = $payrollAcknowledgmentFile->id;
+                        $document->save();
+                    }
                 }
             }
         });
@@ -233,18 +249,18 @@ class PayrollProfessionalController extends Controller
     public function show($id)
     {
         $payrollProfessional = PayrollProfessional::where('id', $id)->with([
-            'payrollStaff','payrollInstructionDegree','professions','payrollStudyType',
+            'payrollStaff', 'payrollInstructionDegree', 'professions', 'payrollStudyType',
             'payrollLanguages', 'payrollClassSchedule' => function ($query) {
                 $query->with('documents');
             },
             'payrollCourse' => function ($query) {
                 $query->with(['payrollCourseFiles' => function ($query) {
-                    $query->with('documents');
+                    $query->with(['image', 'documents']);
                 }]);
             },
             'payrollAcknowledgment' => function ($query) {
                 $query->with(['payrollAcknowledgmentFiles' => function ($query) {
-                    $query->with('documents');
+                    $query->with(['image', 'documents']);
                 }]);
             },
         ])->first();
@@ -354,25 +370,25 @@ class PayrollProfessionalController extends Controller
                 Document::where('documentable_id', $payrollProfessional->payrollClassSchedule->id)->delete();
             }
             if ($request->class_schedule_ids && !empty($request->class_schedule_ids)) {
-                foreach ($request->class_schedule_ids as $class_schedule_id) {
-                    $document = Document::find($class_schedule_id['id']);
+                foreach ($request->class_schedule_ids as $classScheduleId) {
+                    $document = Document::find($classScheduleId['id']);
                     $document->documentable_type = PayrollClassSchedule::class;
                     $document->documentable_id = $payrollProfessional->payrollClassSchedule->id;
                     $document->save();
                 }
             }
             foreach ($payrollProfessional->payrollLanguages as $payrollLanguage) {
-                $payroll_lang = PayrollLanguage::find($payrollLanguage['id']);
-                $payrollProfessional->payrollLanguages()->detach($payroll_lang->id);
+                $payrollLang = PayrollLanguage::find($payrollLanguage['id']);
+                $payrollProfessional->payrollLanguages()->detach($payrollLang->id);
             }
             $i = 0;
-            foreach ($request->payroll_languages as $payroll_language) {
+            foreach ($request->payroll_languages as $payrollLanguage) {
                 $this->validate(
                     $request,
                     [
                         'payroll_languages.'.$i.'.payroll_lang_id' => [
                             'required',
-                            new PayrollLangProfUnique($payrollProfessional->id, $payroll_language['payroll_lang_id'])
+                            new PayrollLangProfUnique($payrollProfessional->id, $payrollLanguage['payroll_lang_id'])
                         ],
                         'payroll_languages.'.$i.'.payroll_language_level_id' => ['required'],
                     ],
@@ -382,11 +398,11 @@ class PayrollProfessionalController extends Controller
                         'payroll_languages.'.$i.'.payroll_language_level_id' => 'nivel de idioma #'.($i+1),
                     ],
                 );
-                $payroll_lang = PayrollLanguage::find($payroll_language['payroll_lang_id']);
-                $payroll_language_level = PayrollLanguageLevel::find($payroll_language['payroll_language_level_id']);
+                $payrollLang = PayrollLanguage::find($payrollLanguage['payroll_lang_id']);
+                $payrollLanguageLevel = PayrollLanguageLevel::find($payrollLanguage['payroll_language_level_id']);
                 $payrollProfessional->payrollLanguages()->attach(
-                    $payroll_lang->id,
-                    ['payroll_language_level_id' => $payroll_language_level->id]
+                    $payrollLang->id,
+                    ['payroll_language_level_id' => $payrollLanguageLevel->id]
                 );
                 $i++;
             }
@@ -407,23 +423,39 @@ class PayrollProfessionalController extends Controller
                 $payrollProfessional->payrollAcknowledgment->id,
             )->delete();
             if ($request->payroll_cou_ack_files && !empty($request->payroll_cou_ack_files)) {
-                foreach ($request->payroll_cou_ack_files as $payroll_cou_ack_file) {
-                    $payrollCourseFile = PayrollCourseFile::create([
-                        'name' => $payroll_cou_ack_file['course_name'],
-                        'payroll_course_id' => $payrollProfessional->payrollCourse->id,
-                    ]);
-                    $document = Document::find($payroll_cou_ack_file['course_file_id']);
-                    $document->documentable_type = PayrollCourseFile::class;
-                    $document->documentable_id = $payrollCourseFile->id;
-                    $document->save();
-                    $payrollAcknowledgmentFile = PayrollAcknowledgmentFile::create([
-                        'name' => $payroll_cou_ack_file['ack_name'],
-                        'payroll_acknowledgment_id' => $payrollProfessional->payrollAcknowledgment->id,
-                    ]);
-                    $document = Document::find($payroll_cou_ack_file['ack_file_id']);
-                    $document->documentable_type = PayrollAcknowledgmentFile::class;
-                    $document->documentable_id = $payrollAcknowledgmentFile->id;
-                    $document->save();
+                foreach ($request->payroll_cou_ack_files as $payrollCouAckFile) {
+                    if ($payrollCouAckFile['course']['file_type'] === 'img') {
+                        $payrollCourseFile = PayrollCourseFile::create([
+                            'name' => $payrollCouAckFile['course_name'],
+                            'payroll_course_id' => $payrollProfessional->payrollCourse->id,
+                            'image_id' => $payrollCouAckFile['course']['id'],
+                        ]);
+                    } else {
+                        $payrollCourseFile = PayrollCourseFile::create([
+                            'name' => $payrollCouAckFile['course_name'],
+                            'payroll_course_id' => $payrollProfessional->payrollCourse->id,
+                        ]);
+                        $document = Document::find($payrollCouAckFile['course']['id']);
+                        $document->documentable_type = PayrollCourseFile::class;
+                        $document->documentable_id = $payrollCourseFile->id;
+                        $document->save();
+                    }
+                    if ($payrollCouAckFile['ack']['file_type'] === 'img') {
+                        $payrollAcknowledgmentFile = PayrollAcknowledgmentFile::create([
+                            'name' => $payrollCouAckFile['ack_name'],
+                            'payroll_acknowledgment_id' => $payrollProfessional->payrollAcknowledgment->id,
+                            'image_id' => $payrollCouAckFile['ack']['id'],
+                        ]);
+                    } else {
+                        $payrollAcknowledgmentFile = PayrollAcknowledgmentFile::create([
+                            'name' => $payrollCouAckFile['ack_name'],
+                            'payroll_acknowledgment_id' => $payrollProfessional->payrollAcknowledgment->id,
+                        ]);
+                        $document = Document::find($payrollCouAckFile['ack']['id']);
+                        $document->documentable_type = PayrollAcknowledgmentFile::class;
+                        $document->documentable_id = $payrollAcknowledgmentFile->id;
+                        $document->save();
+                    }
                 }
             }
         });

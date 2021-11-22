@@ -35,7 +35,7 @@ class PayrollCourseFile extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['name', 'payroll_course_id'];
+    protected $fillable = ['name', 'payroll_course_id', 'image_id'];
 
     /**
      * Método que obtiene el curso asociado a un archivo de curso
@@ -46,6 +46,17 @@ class PayrollCourseFile extends Model implements Auditable
     public function payrollCourse()
     {
         return $this->belongsTo(PayrollCourse::class);
+    }
+
+    /**
+     * Método que obtiene la imagen asociada a un archivo de curso
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function image()
+    {
+        return $this->belongsTo(Image::class);
     }
 
     /**
