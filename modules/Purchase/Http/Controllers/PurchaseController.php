@@ -27,6 +27,7 @@ class PurchaseController extends Controller
     public function getInstitutions()
     {
         $institutions = template_choices('App\Models\Institution', 'name', [], true);
+        // dd($institutions);
         return response()->json(['institutions'=> $institutions, 'message' => 'success'], 200);
     }
 }

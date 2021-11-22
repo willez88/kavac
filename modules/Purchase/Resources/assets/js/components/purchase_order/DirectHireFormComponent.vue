@@ -4,33 +4,40 @@
         
         <div class="row">
             <div class="col-3">
-                    <div class="form-group">
-                        <label class="control-label">Fecha de generación</label><br>
-                        <label class="control-label"><h5>{{ format_date(date) }}</h5></label>
-                    </div>
+                <div class="form-group">
+                    <label class="control-label">Fecha de generación</label><br>
+                    <label class="control-label"><h5>{{ format_date(date) }}</h5></label>
                 </div>
-                <div class="col-3">
-                    <div class="form-group">
-                        <label class="control-label">Ejercicio económico</label><br>
-                        <label class="control-label"><h5>{{ (fiscalYear)?fiscalYear.year:'' }}</h5></label>
-                    </div>
-                </div>
+            </div>
             <div class="col-3">
+                <div class="form-group">
+                    <label class="control-label">Ejercicio económico</label><br>
+                    <label class="control-label"><h5>{{ (fiscalYear)?fiscalYear.year:'' }}</h5></label>
+                </div>
+            </div>
+            <!-- <div class="col-3">
                 <div class="form-group is-required">
                     <label for="description">Código de la solicitud del requerimiento</label>
                     <input type="text" id="description" v-model="record.description" class="form-control">
+                </div>
+            </div> -->
+            <div class="col-6">
+                <div class="form-group is-required">
+                    <label class="control-label" for="institutions">Institución</label><br>
+                    <select2 :options="institutions" id="institutions" v-model="record.institution_id"
+                            @input="getDepartments()"></select2>
                 </div>
             </div>
             <div class="col-3">
                 <div class="form-group is-required">
                     <label class="control-label" for="departments1">Unidad contratante</label><br>
-                    <select2 :options="department_list" id="departments1" v-model="record.contracting_department_id"></select2>
+                    <select2 :options="departments" id="departments1" v-model="record.contracting_department_id"></select2>
                 </div>
             </div>
             <div class="col-3">
                 <div class="form-group is-required">
                     <label class="control-label" for="departments2">Unidad usuaria</label><br>
-                    <select2 :options="department_list" id="departments2" v-model="record.user_department_id"></select2>
+                    <select2 :options="departments" id="departments2" v-model="record.user_department_id"></select2>
                 </div>
             </div>
             <div class="col-3">
@@ -291,12 +298,6 @@ export default{
                 return [];
             }
         },
-        department_list:{
-            type:Array,
-            default: function(){
-                return [{ id:'', text:'Seleccione...'}];
-            }
-        },
         purchase_supplier_objects:{
             type:Array,
             default: function(){
@@ -308,11 +309,21 @@ export default{
         return {
             records:[],
             record:{
+                institution_id             : '',
+                contracting_department_id  : '',
+                user_department_id         : '',
+                warehouse_id               : '',
+                purchase_supplier_object_id: '',
+                description                : '',
+                fiscal_year_id             : '',
+                products                   : [],
                 purchase_supplier_id:'',
                 purchase_supplier_object:'',
                 currency:null,
             },
             fiscalYear: null,
+            institutions: [{id:'', text:'Seleccione...'}],
+            departments:[],
             record_items:[],
             columns: [  'code',
                         'description',
@@ -364,7 +375,8 @@ export default{
         }
     },
     created(){
-        this.table_options.headings = {
+        const vm = this;
+        vm.table_options.headings = {
             'code':                               'Código',
             'description':                        'Descripción',
             'fiscal_year.year':                   'Año fiscal',
@@ -375,7 +387,7 @@ export default{
             'id':                                 'Acción'
         };
 
-        this.table_options.columnsClasses = {
+        vm.table_options.columnsClasses = {
             'code':                               'col-xs-1 text-center',
             'description':                        'col-xs-2',
             'fiscal_year.year':                   'col-xs-1 text-center',
@@ -386,7 +398,7 @@ export default{
             'id':                                 'col-xs-1'
         };
 
-        this.table2_options.headings = {
+        vm.table2_options.headings = {
             'requirement_code':         'Código de requerimiento',
             'name':                     'Nombre',
             'quantity':                 'Cantidad',
@@ -395,7 +407,7 @@ export default{
             'qty_price':                'Cantidad * precio unitario',
         };
 
-        this.table2_options.columnsClasses = {
+        vm.table2_options.columnsClasses = {
             'requirement_code':         'col-xs-1 text-center',
             'name':                     'col-xs-3',
             'quantity':                 'col-xs-2',
@@ -404,7 +416,12 @@ export default{
             'qty_price':                'col-xs-2',
         };
 
-        this.table2_options.filterable = [];
+        vm.table2_options.filterable = [];
+
+        axios.get('/purchase/get-institutions').then(response => {
+            vm.institutions = response.data.institutions;
+            console.log(response.data.institutions)
+        });
     },
     mounted(){
         const vm = this;
@@ -625,6 +642,32 @@ export default{
                     vm.loading = false;
                 });
             }
+        },
+
+        /**
+         * Obtiene un listado de los departamebtos de una institucion
+         */
+        getDepartments() {
+            const vm = this;
+            vm.departments = [];
+
+            if (vm.record.institution_id != '') {
+                axios.get('/get-departments/' + vm.record.institution_id).then(response => {
+                    vm.departments = response.data;
+                    // vm.getWarehouses();
+                    vm.getWarehouseProducts();
+                });
+            }
+        },
+
+        /**
+         * Obtiene un listado de los productos en almacen
+         */
+        getWarehouseProducts() {
+            this.products = [];
+            axios.get('/warehouse/get-warehouse-products/').then(response => {
+                this.products = response.data;
+            });
         },
     },
     watch:{

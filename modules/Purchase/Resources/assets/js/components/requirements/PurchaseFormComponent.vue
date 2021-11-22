@@ -154,14 +154,14 @@
         data(){
             return {
                 record:{
-                    institution_id            : '',
-                    contracting_department_id : '',
-                    user_department_id        : '',
-                    warehouse_id              : '',
-                    purchase_supplier_object_id : '',
-                    description               : '',
-                    fiscal_year_id            : '',
-                    products                  : [],
+                    institution_id             : '',
+                    contracting_department_id  : '',
+                    user_department_id         : '',
+                    warehouse_id               : '',
+                    purchase_supplier_object_id: '',
+                    description                : '',
+                    fiscal_year_id             : '',
+                    products                   : [],
                 },
                 fiscalYear: null,
                 product:{},
