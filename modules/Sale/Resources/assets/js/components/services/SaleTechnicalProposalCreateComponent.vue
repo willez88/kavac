@@ -804,11 +804,12 @@ export default {
                         for (let gantt of response.data.record.sale_gantt_diagram){
                             let stage = '';
                             let staff = '';
+                            let gantt_stage = {};
 
                             for (stage of gantt.sale_gantt_diagram_stage){
                                 stage = stage;
 
-                                let gantt_stage = {
+                                gantt_stage = {
                                     id: stage.stage,
                                     stage: stage.stage,
                                     description: stage.description,
@@ -831,7 +832,7 @@ export default {
                                 payroll_staff: staff,
                                 payroll_staff_id: gantt.payroll_staff_id,
                                 percentage: gantt.percentage,
-                                stage: stage.stage,
+                                stage: gantt_stage,
                                 stage_id: stage.stage,
                                 start_date: gantt.start_date,
                             };
