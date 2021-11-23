@@ -13,6 +13,7 @@ use Modules\Sale\Models\SaleGoodsToBeTraded;
 use Modules\Sale\Models\SaleClientsEmail;
 use Modules\Sale\Models\SaleOrder;
 use Modules\Sale\Models\SaleOrderManagement;
+use Modules\Sale\Models\SaleRegisterPayment;
 use App\Models\Phone;
 use App\Rules\Rif as RifRule;
 
@@ -40,7 +41,13 @@ class SalePaymentController extends Controller
      */
     public function index()
     {
-        return view('sale::payment.list');
+        $records = SaleRegisterPayment::all();
+       // return response()->json(['records' => SaleRegisterPayment::all()], 200);
+        //return compact('records');
+        return view('sale::payment.list', compact('records'));
+
+        //$order = SaleService::where('description', 'max')->find('1');
+        //return compact('order');
     }
 
     /**
@@ -70,7 +77,14 @@ class SalePaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => ['required', 'max:100'],
+            'description' => ['required', 'max:200']
+        ]);
+        $SalePayment = SaleRegisterPayment::create([
+            'name' => $request->name,'description' => $request->description
+        ]);
+        return response()->json(['record' => $SalePayment, 'message' => 'Success'], 200);
     }
 
     /**
