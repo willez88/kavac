@@ -29,7 +29,13 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h6 class="card-title">{{ __('Log del [:date]', ['date' => $log->date]) }}</h6>
+                    <h6 class="card-title">
+                        {{ __('Log del [:date]', ['date' => $log->date]) }}
+                        @include('buttons.help', [
+                            'helpId' => 'logViewerDetail',
+                            'helpSteps' => get_json_resource('ui-guides/log_viewer_details.json')
+                        ])
+                    </h6>
                     <div class="card-btns">
                         @include('buttons.previous', ['route' => route('index')])
                         @include('buttons.minimize')
@@ -38,7 +44,7 @@
                 <div class="card-body">
                     <div class="row">
                         {{-- Menú de Logs --}}
-                        <div class="col-lg-2">
+                        <div class="col-lg-2" id="helpMenu">
                             <div class="card mb-4">
                                 <div class="card-header"><i class="fa fa-fw fa-flag"></i> {{ __('Niveles') }}</div>
                                 <div class="list-group list-group-flush log-menu">
@@ -77,33 +83,38 @@
                                     <div class="group-btns pull-right">
                                         <a href="{{ route('log-viewer::logs.download', [$log->date]) }}"
                                            class="btn btn-sm btn-success" title="{{ __('Descargar archivo de log') }}"
-                                           data-toggle="tooltip">
+                                           data-toggle="tooltip" id="helpFileDownload">
                                             <i class="fa fa-download"></i>
                                         </a>
                                         <a href="#delete-log-modal" class="btn btn-sm btn-danger btn-delete"
-                                           data-toggle="modal" title="{{ __('Eliminar archivo de log') }}">
+                                           data-toggle="modal" title="{{ __('Eliminar archivo de log') }}" id="helpFileDelete">
                                             <i class="fa fa-trash-o"></i>
                                         </a>
                                     </div>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body" id="helpFileDetail">
                                     <div class="table-responsive">
                                         <table class="table table-condensed mb-0">
                                             <tbody>
-                                                <tr>
+                                                <tr id="helpFilePath">
                                                     <th>{{ __('Ruta del archivo') }}:</th>
-                                                    <td colspan="7">{{ $log->getPath() }}</td>
+                                                    <td colspan="7">
+                                                        @php
+                                                            $logPath = explode("/storage/", $log->getPath());
+                                                        @endphp
+                                                        {{ './storage/' . $logPath[1] }}
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <th>{{ __('Registros de log') }}:</th>
-                                                    <td>
+                                                    <td id="helpFileCount">
                                                         <span class="badge badge-primary"
                                                               title="{{ __('Total de registros') }}: {{ $entries->total() }}" data-toggle="tooltip" data-placement="left">
                                                             {{ $entries->total() }}
                                                         </span>
                                                     </td>
                                                     <th>{{ __('Tamaño') }}:</th>
-                                                    <td>
+                                                    <td id="helpFileSize">
                                                         <span class="badge badge-primary"
                                                               title="{{ __('Tamaño del archivo') }}: {{ $log->size() }}"
                                                               data-toggle="tooltip" data-placement="left">
@@ -111,7 +122,7 @@
                                                         </span>
                                                     </td>
                                                     <th>{{ __('Creado en') }}:</th>
-                                                    <td>
+                                                    <td id="helpFileCreatedAt">
                                                         <span class="badge badge-primary"
                                                               title="{{ __('Fecha de creación') }}: {{ $log->createdAt() }}"
                                                               data-toggle="tooltip" data-placement="left">
@@ -119,7 +130,7 @@
                                                         </span>
                                                     </td>
                                                     <th>{{ __('Actualizado en') }}:</th>
-                                                    <td>
+                                                    <td id="helpFileUpdatedAt">
                                                         <span class="badge badge-primary"
                                                               title="{{ __('Última actualización') }}: {{ $log->updatedAt() }}" data-toggle="tooltip" data-placement="left">
                                                             {{ $log->updatedAt() }}
@@ -135,7 +146,7 @@
                                     <form action="{{ route('log-viewer::logs.search', [$log->date, $level]) }}"
                                           method="GET">
                                         <div class="form-group">
-                                            <div class="input-group">
+                                            <div class="input-group" id="helpLogSearch">
                                                 <input id="query" name="query" class="form-control"
                                                        value="{!! $query !!}" placeholder="{{ __('Buscar') }}"
                                                        title="{{ __('Indique aquí lo que desea buscar en los registros del log') }}" data-toggle="tooltip">
@@ -173,16 +184,16 @@
                                     </div>
                                 @endif
 
-                                <div class="card-body">
+                                <div class="card-body" id="helpLogList">
                                     <div class="table-responsive">
                                         <table id="entries" class="table mb-0">
                                             <thead>
                                                 <tr>
-                                                    <th>{{ __('ENV') }}</th>
-                                                    <th style="width: 120px;">{{ __('Nivel') }}</th>
-                                                    <th style="width: 65px;">{{ __('Hora') }}</th>
-                                                    <th>Evento</th>
-                                                    <th class="text-right">{{ __('Acciones') }}</th>
+                                                    <th id="helpEnv">{{ __('ENV') }}</th>
+                                                    <th id="helpLevel" style="width: 120px;">{{ __('Nivel') }}</th>
+                                                    <th id="helpTime" style="width: 65px;">{{ __('Hora') }}</th>
+                                                    <th id="helpLog">Evento</th>
+                                                    <th id="helpDetail" class="text-right">{{ __('Acciones') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

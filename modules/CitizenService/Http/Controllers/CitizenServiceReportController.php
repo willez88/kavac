@@ -161,7 +161,9 @@ class CitizenServiceReportController extends Controller
             $request->end_date,
             $request->citizen_service_request_types,
             $request->citizen_service_states
-        )->get();
+        )->with([
+            'citizenServiceRequestType'
+        ])->get();
 
         return response()->json(['records' => $citizenservice], 200);
     }
@@ -173,7 +175,9 @@ class CitizenServiceReportController extends Controller
             $request->date,
             $request->citizen_service_request_types,
             $request->citizen_service_states
-        )->get();
+        )->with([
+            'citizenServiceRequestType'
+        ])->get();
 
         return response()->json(['records' => $citizenservice], 200);
     }

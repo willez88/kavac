@@ -21,7 +21,13 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h6 class="card-title">{{ __('Registros de Logs') }}</h6>
+                    <h6 class="card-title">
+                        {{ __('Registros de Logs') }}
+                        @include('buttons.help', [
+                            'helpId' => 'logViewerDashboard',
+                            'helpSteps' => get_json_resource('ui-guides/log_viewer_dashboard.json')
+                        ])
+                    </h6>
                     <div class="card-btns">
                         @include('buttons.previous', ['route' => route('index')])
                         @include('buttons.minimize')
@@ -29,10 +35,10 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4" id="helpGraph">
                             <canvas id="stats-doughnut-chart" height="300" class="mb-3"></canvas>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-8" id="helpCards">
                             <div class="row">
                                 @foreach($percents as $level => $item)
                                     <div class="col-sm-6 col-md-4 mb-3">
@@ -62,7 +68,7 @@
                     <hr>
                     <h6 class="card-title">{{ __('Lista de Logs') }}</h6>
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12" id="helpList">
                             <div class="table-responsive">
                                 <table class="table table-sm table-hover">
                                     <thead>

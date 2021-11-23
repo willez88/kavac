@@ -91,7 +91,6 @@ class PurchaseSettingController extends Controller
             if ($key !== '_token' && !is_null($value)) {
                 list($table, $field) = explode("_", $key);
                 list($prefix, $digits, $sufix) = CodeSetting::divideCode($value);
-
                 switch ($table) {
                     case 'requirements':
                         $model = PurchaseRequirement::class;
@@ -102,20 +101,20 @@ class PurchaseSettingController extends Controller
                     case 'states':
                         $model = PurchaseStates::class;
                         break;
-                    /*case 'minutes':
+                    case 'minutes':
                         $model = PurchaseMinute::class;
                         break;
                     case 'buy-orders':
                         $model = PurchaseOrder::class;
                         $type = 'buy';
                         break;
-                    case 'services-orders':
+                    case 'service-orders':
                         $model = PurchaseOrder::class;
                         $type = 'service';
                         break;
                     case 'refunds':
                         $model = PurchaseRefund::class;
-                        break;*/
+                        break;
                     default:
                         $model = null;
                         break;

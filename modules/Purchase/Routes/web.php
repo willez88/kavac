@@ -32,6 +32,11 @@ Route::group([
      * Gestiona los datos de configuración del módulo de compras
      */
     Route::group(['middleware' => 'permission:purchase.setting.create'], function () {
+
+        Route::get('get-fiscal-year', 'PurchaseController@getFiscalYear');
+
+        Route::get('get-institutions', 'PurchaseController@getInstitutions');
+
         /** Ruta de acceso a parámetros de configuración del módulo */
         Route::get('settings', 'PurchaseSettingController@index')->name('purchase.settings.index');
         Route::post('settings', 'PurchaseSettingController@store')->name('purchase.settings.store');
@@ -159,6 +164,19 @@ Route::group([
         'as'     => 'purchase',
     ]);
     Route::post('purchase_order/{id}', 'PurchaseOrderController@updatePurchaseOrder');
+
+    /*
+     * -----------------------------------------------------------------------
+     * Rutas para la gestión de ordenes de compras
+     * -----------------------------------------------------------------------
+     *
+     * Gestiona los datos de ordenes de compras
+     */
+    Route::resource('direct_hire', 'PurchaseDirectHireController', [
+        'as'     => 'purchase',
+    ]);
+    Route::post('direct_hire/{id}', 'PurchaseDirectHire@updatePurchaseOrder');
+
 
     /*
      * -----------------------------------------------------------------------

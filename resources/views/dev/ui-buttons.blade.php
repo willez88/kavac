@@ -21,13 +21,19 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h6 class="card-title">{{ __('Botones') }}</h6>
+                    <h6 class="card-title">
+                        {{ __('Botones') }}
+                        @include('buttons.help', [
+                            'helpId' => 'developmentButtons',
+                            'helpSteps' => get_json_resource('ui-guides/dev_buttons.json')
+                        ])
+                    </h6>
                     <div class="card-btns">
                         @include('buttons.previous', ['route' => route('index')])
                         @include('buttons.minimize')
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body" id="helpButtons">
                     <h6 class="pad-top-10">{{ __('Estilos') }}</h6>
                     <div class="row">
                         <div class="col-md-12">

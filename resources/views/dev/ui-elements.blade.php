@@ -9,11 +9,11 @@
 @stop
 
 @section('maproute-actual')
-    {{ __('UI Elements') }}
+    {{ __('Componentes de Interfaz') }}
 @stop
 
 @section('maproute-title')
-    {{ __('UI Elements') }}
+    {{ __('Componentes de Interfaz') }}
 @stop
 
 @section('content')
@@ -21,13 +21,19 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">{{ __('Componentes') }}</h6>
+					<h6 class="card-title">
+						{{ __('Componentes') }}
+						@include('buttons.help', [
+                            'helpId' => 'developmentComponents',
+                            'helpSteps' => get_json_resource('ui-guides/dev_components.json')
+                        ])
+					</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => route('index')])
 						@include('buttons.minimize')
 					</div>
 				</div>
-				<div class="card-body">
+				<div class="card-body" id="helpComponents">
 					<h6>{{ __('Tarjetas informativas') }}</h6>
 					<div class="row">
 						<div class="col-3">

@@ -30,6 +30,18 @@ class WarehouseProductController extends Controller
     use ValidatesRequests;
 
     /**
+     * Arreglo con las reglas de validación sobre los datos de un formulario
+     * @var Array $validateRules
+     */
+    protected $validateRules;
+
+    /**
+     * Arreglo con los mensajes para las reglas de validación
+     * @var Array $messages
+     */
+    protected $messages;
+
+    /**
      * Define la configuración de la clase
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
@@ -38,6 +50,21 @@ class WarehouseProductController extends Controller
     {
         /** Establece permisos de acceso para cada método del controlador */
         $this->middleware('permission:warehouse.setting.product');
+
+        /** Define las reglas de validación para el formulario */
+        $this->validateRules = [
+            'name'                => ['required', 'max:100'],
+            'description'         => ['required'],
+            'measurement_unit_id' => ['required']
+        ];
+
+        /** Define los mensajes de validación para las reglas del formulario */
+        $this->messages = [
+            'name.required'                => 'El campo nombre del insumo es obligatorio.',
+            'name.max'                     => 'El campo nombre del insumo no debe ser mayor que 100 caracteres.',
+            'description.required'         => 'El campo descripción es obligatorio.',
+            'measurement_unit_id.required' => 'El campo unidad de medida es obligatorio.'
+        ];
     }
 
     /**
@@ -60,12 +87,7 @@ class WarehouseProductController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name'                => ['required', 'max:100'],
-            'description'         => ['required'],
-            'measurement_unit_id' => ['required']
-
-        ]);
+        $this->validate($request, $this->validateRules, $this->messages);
 
         $product = WarehouseProduct::create([
             'name'                => $request->input('name'),

@@ -51,7 +51,7 @@
                 </div>
                 <div class="card-body">
                     <sale-service-pending-list
-                        route_list="{{ url('sale/services/vue-list') }}"
+                        route_list="{{ url('sale/services/vue-pending-list/Pendiente') }}"
                         route_update='sale/services'>
                     </sale-service-pending-list>
                 </div>
@@ -70,9 +70,9 @@
                 </div>
                 <div class="card-body">
                     <sale-service-rejected-list
-                        route_list="{{ url('sale/services/vue-rejected-list') }}"
+                        route_list="{{ url('sale/services/vue-pending-list/Rechazado') }}"
                         route_update='sale/services'>
-                    </sale-service-rejected-list>
+                    </sale-service-rejected-list-->
                 </div>
             </div>
         </div>
@@ -89,12 +89,15 @@
                 </div>
                 <div class="card-body">
                     <sale-technical-proposal-list
-                        route_list="{{ url('sale/services/vue-technical-proposal-list') }}"
+                        route_list="{{ url('sale/services/vue-pending-list/Aprobado') }}"
                         route_update='sale/services'>
                     </sale-technical-proposal-list>
                 </div>
             </div>
         </div>
     </div>
+    <sale-service-info
+        ref="ServiceInfo">
+    </sale-service-info>
     @endrole
 @stop

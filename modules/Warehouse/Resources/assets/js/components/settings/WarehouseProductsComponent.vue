@@ -155,6 +155,9 @@
                                     <span>N/A</span>
                                 </div>
                             </div>
+                            <div slot="description" slot-scope="props">
+                                <span v-html="props.row.description"></span>
+                            </div>
                             <div slot="id" slot-scope="props" class="text-center">
                                 <div class="d-inline-flex">
                                     <button @click="initUpdate(props.row.id, $event)"

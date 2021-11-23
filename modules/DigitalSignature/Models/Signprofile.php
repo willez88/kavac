@@ -24,7 +24,7 @@ class Signprofile extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['user_id', 'cert', 'pkey'];
+    protected $fillable = ['user_id', 'cert', 'pkey', 'passphrase'];
 
     /**
      * Busca el perfil de firma

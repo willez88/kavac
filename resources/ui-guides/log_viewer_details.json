@@ -1,0 +1,66 @@
+[
+    {
+        "element": "#helpMenu",
+        "intro": "Opciones que permiten mostrar los eventos de la fecha seleccionada"
+    },
+    {
+        "element": "#helpFileDetail",
+        "intro": "Detalles del archivo que contiene la bitácora de eventos"
+    },
+    {
+        "element": "#helpFileDownload",
+        "intro": "Permite descargar el archivo con la bitácora de eventos"
+    },
+    {
+        "element": "#helpFileDelete",
+        "intro": "Elimina el archivo con la bitácora de eventos"
+    },
+    {
+        "element": "#helpFilePath",
+        "intro": "Ruta en donde se encuentra el archivo con la bitácora de eventos"
+    },
+    {
+        "element": "#helpFileCount",
+        "intro": "Cantidad de eventos registrados"
+    },
+    {
+        "element": "#helpFileSize",
+        "intro": "Tamaño del archivo"
+    },
+    {
+        "element": "#helpFileCreatedAt",
+        "intro": "Fecha y hora en la que se creo el archivo"
+    },
+    {
+        "element": "#helpFileUpdatedAt",
+        "intro": "Fecha y hora de la última actualización"
+    },
+    {
+        "element": "#helpLogSearch",
+        "intro": "Filtra la bitácora de eventos de acuerdo a los parámetros de búsqueda"
+    },
+    {
+        "element": "#helpLogList",
+        "intro": "Listado de eventos"
+    },
+    {
+        "element": "#helpEnv",
+        "intro": "Entorno en el que se generó el evento"
+    },
+    {
+        "element": "#helpLevel",
+        "intro": "Nivel del evento"
+    },
+    {
+        "element": "#helpTime",
+        "intro": "Hora en la que se generó el evento"
+    },
+    {
+        "element": "#helpLog",
+        "intro": "Descripción breve del evento"
+    },
+    {
+        "element": "#helpDetail",
+        "intro": "Al presionar muestra en detalle un listado de seguimiento sobre el evento generado"
+    }
+]

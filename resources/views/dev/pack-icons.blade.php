@@ -9,11 +9,11 @@
 @stop
 
 @section('maproute-actual')
-    {{ __('Pack Iconos') }}
+    {{ __('Paquetes de Iconos') }}
 @stop
 
 @section('maproute-title')
-    {{ __('Pack Iconos') }}
+    {{ __('Paquetes de Iconos') }}
 @stop
 
 @section('content')
@@ -21,14 +21,20 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">{{ __('Pack Iconos') }}</h6>
+					<h6 class="card-title">
+                        {{ __('Paquetes de Iconos') }}
+                        @include('buttons.help', [
+                            'helpId' => 'developmentIcons',
+                            'helpSteps' => get_json_resource('ui-guides/pack_icons.json')
+                        ])
+                    </h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => route('index')])
                         @include('buttons.minimize')
 					</div>
 				</div>
 				<div class="card-body">
-					<ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
+					<ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist" id="helpIconTabs">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" href="#icofont" role="tab">
                                 ICOFONT
@@ -55,7 +61,7 @@
                             </a>
                         </li>
                     </ul>
-                    <div class="tab-content">
+                    <div class="tab-content" id="helpPackContent">
                         <div class="tab-pane active" id="icofont" role="tabpanel">
 							<div class="row">
 								@foreach ($icofonts as $key => $icofont)

@@ -3,9 +3,11 @@
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('budget-accounts-list', () => import(
-    /* webpackChunkName: "budget-accounts-list" */
-    './components/BudgetAccountsListComponent.vue')
+Vue.component('budget-accounts-list', () =>
+	import(
+		/* webpackChunkName: "budget-accounts-list" */
+		'./components/BudgetAccountsListComponent.vue'
+	)
 );
 
 /**
@@ -13,9 +15,11 @@ Vue.component('budget-accounts-list', () => import(
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('budget-projects-list', () => import(
-    /* webpackChunkName: "budget-projects-list" */
-    './components/BudgetProjectsListComponent.vue')
+Vue.component('budget-projects-list', () =>
+	import(
+		/* webpackChunkName: "budget-projects-list" */
+		'./components/BudgetProjectsListComponent.vue'
+	)
 );
 
 /**
@@ -23,9 +27,11 @@ Vue.component('budget-projects-list', () => import(
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('budget-centralized-actions-list', () => import(
-    /* webpackChunkName: "budget-centralized-actions-list" */
-    './components/BudgetCentralizedActionsListComponent.vue')
+Vue.component('budget-centralized-actions-list', () =>
+	import(
+		/* webpackChunkName: "budget-centralized-actions-list" */
+		'./components/BudgetCentralizedActionsListComponent.vue'
+	)
 );
 
 /**
@@ -33,9 +39,11 @@ Vue.component('budget-centralized-actions-list', () => import(
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('budget-specific-actions-list', () => import(
-    /* webpackChunkName: "budget-specific-actions-list" */
-    './components/BudgetSpecificActionsListComponent.vue')
+Vue.component('budget-specific-actions-list', () =>
+	import(
+		/* webpackChunkName: "budget-specific-actions-list" */
+		'./components/BudgetSpecificActionsListComponent.vue'
+	)
 );
 
 /**
@@ -43,9 +51,11 @@ Vue.component('budget-specific-actions-list', () => import(
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('budget-formulation-list', () => import(
-    /* webpackChunkName: "budget-subspecific-formulation-list" */
-    './components/BudgetSubSpecificFormulationListComponent.vue')
+Vue.component('budget-formulation-list', () =>
+	import(
+		/* webpackChunkName: "budget-subspecific-formulation-list" */
+		'./components/BudgetSubSpecificFormulationListComponent.vue'
+	)
 );
 
 /**
@@ -53,9 +63,11 @@ Vue.component('budget-formulation-list', () => import(
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('budget-sub-specific-formulation', () => import(
-    /* webpackChunkName: "budget-subspecific-formulation" */
-    './components/BudgetSubSpecificFormulationComponent.vue')
+Vue.component('budget-sub-specific-formulation', () =>
+	import(
+		/* webpackChunkName: "budget-subspecific-formulation" */
+		'./components/BudgetSubSpecificFormulationComponent.vue'
+	)
 );
 
 /**
@@ -65,9 +77,11 @@ Vue.component('budget-sub-specific-formulation', () => import(
  *
  * @todo Problema al cargar con lazy load
  */
-Vue.component('budget-mod', () => import(
-    /* webpackChunkName: "budget-modification" */
-    './components/BudgetModificationComponent.vue')
+Vue.component('budget-mod', () =>
+	import(
+		/* webpackChunkName: "budget-modification" */
+		'./components/BudgetModificationComponent.vue'
+	)
 );
 
 /**
@@ -77,9 +91,11 @@ Vue.component('budget-mod', () => import(
  *
  * @todo Problema al cargar con lazy load
  */
-Vue.component('budget-mod-list', () => import(
-    /* webpackChunkName: "budget-modification-list" */
-    './components/BudgetModificationListComponent.vue')
+Vue.component('budget-mod-list', () =>
+	import(
+		/* webpackChunkName: "budget-modification-list" */
+		'./components/BudgetModificationListComponent.vue'
+	)
 );
 
 /**
@@ -94,9 +110,11 @@ Vue.component('budget-mod-list', () => import(
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('budget-compromise-list', () => import(
-    /* webpackChunkName: "budget-compromises-list" */
-    './components/BudgetCompromisesListComponent.vue')
+Vue.component('budget-compromise-list', () =>
+	import(
+		/* webpackChunkName: "budget-compromises-list" */
+		'./components/BudgetCompromisesListComponent.vue'
+	)
 );
 
 /**
@@ -104,9 +122,11 @@ Vue.component('budget-compromise-list', () => import(
  *
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
-Vue.component('budget-compromise', () => import(
-    /* webpackChunkName: "budget-compromise" */
-    './components/BudgetCompromiseComponent.vue')
+Vue.component('budget-compromise', () =>
+	import(
+		/* webpackChunkName: "budget-compromise" */
+		'./components/BudgetCompromiseComponent.vue'
+	)
 );
 
 /**
@@ -114,9 +134,35 @@ Vue.component('budget-compromise', () => import(
  *
  * @author Jonathan Alvarado <wizardx1407@gmail.com> | <jonathanalvarado1407@gmail.com>
  */
-Vue.component('budget-availability', () => import(
-    /* webpackChunkName: "budget-availability" */
-    './components/BudgetAvailabilityComponent.vue')
+Vue.component('budget-availability', () =>
+	import(
+		/* webpackChunkName: "budget-availability" */
+		'./components/BudgetAvailabilityComponent.vue'
+	)
+);
+
+/**
+ * Componente para mostrar lista de proyectos
+ *
+ * @author Jonathan Alvarado <wizardx1407@gmail.com> | <jonathanalvarado1407@gmail.com>
+ */
+Vue.component('budget-projects-report', () =>
+	import(
+		/* webpackChunkName: "budget-projects-list-report" */
+		'./components/reports/BudgetProjectsReportComponent.vue'
+	)
+);
+
+/**
+ * Componente para mostrar lista de proyectos
+ *
+ * @author Jonathan Alvarado <wizardx1407@gmail.com> | <jonathanalvarado1407@gmail.com>
+ */
+Vue.component('budget-formulated-report', () =>
+	import(
+		/* webpackChunkName: "budget-formulated-list-report" */
+		'./components/reports/BudgetFormulatedReportComponent.vue'
+	)
 );
 
 /**
@@ -125,23 +171,27 @@ Vue.component('budget-availability', () => import(
  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
  */
 Vue.mixin({
-    data() {
-        return {
-            /** @type {String} Especifica el año de ejercicio presupuestario en curso */
-            execution_year: ''
-        }
-    },
-    methods: {
-        async getSpecificActionDetail(id) {
-            const response = await axios.get(`${window.app_url}/budget/detail-specific-actions/${id}`);
-            return response.data;
-        },
-        async getAccountDetail(id) {
-            const response = await axios.get(`${window.app_url}/budget/detail-accounts/${id}`);
-            return response.data;
-        }
-    },
-    mounted() {
-        // Agregar instrucciones para determinar el año de ejecución
-    }
+	data() {
+		return {
+			/** @type {String} Especifica el año de ejercicio presupuestario en curso */
+			execution_year: ''
+		};
+	},
+	methods: {
+		async getSpecificActionDetail(id) {
+			const response = await axios.get(
+				`${window.app_url}/budget/detail-specific-actions/${id}`
+			);
+			return response.data;
+		},
+		async getAccountDetail(id) {
+			const response = await axios.get(
+				`${window.app_url}/budget/detail-accounts/${id}`
+			);
+			return response.data;
+		}
+	},
+	mounted() {
+		// Agregar instrucciones para determinar el año de ejecución
+	}
 });

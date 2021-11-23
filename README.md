@@ -1,3 +1,9 @@
+     _  __    ___     ___    ____ 
+    | |/ /   / \ \   / / \  / ___|
+    | ' /   / _ \ \ / / _ \| |    
+    | . \  / ___ \ V / ___ \ |___ 
+    |_|\_\/_/   \_\_/_/   \_\____|
+
 # KAVAC | Sistema de Gestión Organizacional
 
 ## Sobre la aplicación
@@ -444,7 +450,7 @@ Lo primero es configuar dentro del archivo de entorno (.env) la variable **QUEUE
 
     QUEUE_CONNECTION=database
 
-Si se desea configurar otro driver para la gestión de colas se puede obtener información en la documentación oficial del framework [Larave](https://docs.laravel.com).
+Si se desea configurar otro driver para la gestión de colas se puede obtener información en la documentación oficial del framework [Laravel](https://docs.laravel.com).
 
 Una vez configurado el servidor de colas es necesario realizar los procedimientos necesarios para que los
 **workers** que procesan las colas de trabajo esten activo en todo momento, para esto es recomendable configurar a supervisorctl  de la siguiente forma:
