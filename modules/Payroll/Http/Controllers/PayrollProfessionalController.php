@@ -142,6 +142,26 @@ class PayrollProfessionalController extends Controller
                 ],
             );
         }
+        $i = 0;
+        foreach ($request->payroll_cou_ack_files as $payrollCouAckFile) {
+            $this->validate(
+                $request,
+                [
+                    'payroll_cou_ack_files.' . $i . '.course_name' => ['required'],
+                    'payroll_cou_ack_files.' . $i . '.course.id' => ['required'],
+                    'payroll_cou_ack_files.' . $i . '.ack_name' => ['required'],
+                    'payroll_cou_ack_files.' . $i . '.ack.id' => ['required'],
+                ],
+                [],
+                [
+                    'payroll_cou_ack_files.' . $i . '.course_name' => 'nombre del curso #' . ($i + 1),
+                    'payroll_cou_ack_files.' . $i . '.course.id' => 'archivo del curso #' . ($i + 1),
+                    'payroll_cou_ack_files.' . $i . '.ack_name' => 'nombre del reconocimiento #' . ($i + 1),
+                    'payroll_cou_ack_files.' . $i . '.ack.id' => 'archivo del reconocimiento #' . ($i + 1),
+                ]
+            );
+            $i++;
+        }
         DB::transaction(function () use ($request) {
             $payrollProfessional = PayrollProfessional::create([
                 'payroll_staff_id' => $request->payroll_staff_id,
@@ -356,7 +376,26 @@ class PayrollProfessionalController extends Controller
                 ],
             );
         }
-
+        $i = 0;
+        foreach ($request->payroll_cou_ack_files as $payrollCouAckFile) {
+            $this->validate(
+                $request,
+                [
+                    'payroll_cou_ack_files.' . $i . '.course_name' => ['required'],
+                    'payroll_cou_ack_files.' . $i . '.course.id' => ['required'],
+                    'payroll_cou_ack_files.' . $i . '.ack_name' => ['required'],
+                    'payroll_cou_ack_files.' . $i . '.ack.id' => ['required'],
+                ],
+                [],
+                [
+                    'payroll_cou_ack_files.' . $i . '.course_name' => 'nombre del curso #' . ($i + 1),
+                    'payroll_cou_ack_files.' . $i . '.course.id' => 'archivo del curso #' . ($i + 1),
+                    'payroll_cou_ack_files.' . $i . '.ack_name' => 'nombre del reconocimiento #' . ($i + 1),
+                    'payroll_cou_ack_files.' . $i . '.ack.id' => 'archivo del reconocimiento #' . ($i + 1),
+                ]
+            );
+            $i++;
+        }
         DB::transaction(function () use ($payrollProfessional, $request) {
             $payrollProfessional->payroll_staff_id = $request->payroll_staff_id;
             $payrollProfessional->payroll_instruction_degree_id = $request->payroll_instruction_degree_id;
