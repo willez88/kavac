@@ -238,7 +238,7 @@ class SaleServiceController extends Controller
     {
         /**
          * Objeto con la información asociada al modelo SaleService
-         * @var Object $forestClimates
+         * @var Object $saleService
          */
         $saleService = SaleService::find($id);
         if ($saleService) {
@@ -315,6 +315,21 @@ class SaleServiceController extends Controller
                                 }]);
                             }])->where('status', $status)->get();
 
-        return response()->json(['records' => $saleService], 200);
+        if ($status == 'Aprobado') {
+            $records = [];
+            foreach ($saleService as $service) {
+                $technicalProposal = $service->saleTechnicalProposal;
+
+                foreach ($technicalProposal as $proposal) {
+                    if ($proposal) {
+                        array_push($records, $service);
+                    }
+                }
+            }
+
+            return response()->json(['records' => $records], 200);
+        } else {
+            return response()->json(['records' => $saleService], 200);
+        }
     }
 }

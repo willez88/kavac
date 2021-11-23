@@ -51,12 +51,11 @@
                                 :disabled="technical_proposal.status != 'Culminada'">
                             <i class="fa fa-edit"></i>
                         </button>
-                        <!-- <button @click="deleteRecord(props.row.id, 'sale/technical-proposals/delete')"
+                        <button @click="deleteRecord(props.row.id, 'sale/technical-proposals/delete')"
                                 class="btn btn-danger btn-xs btn-icon btn-action"
-                                title="Eliminar registro" data-toggle="tooltip" type="button" v-has-tooltip
-                                :disabled="technical_proposal.status != 'En proceso'">
+                                title="Eliminar registro" data-toggle="tooltip" type="button" v-has-tooltip>
                             <i class="fa fa-trash-o"></i>
-                        </button> -->
+                        </button>
                     </span>
                 </div>
             </div>

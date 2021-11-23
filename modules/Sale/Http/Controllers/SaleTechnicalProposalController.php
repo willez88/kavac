@@ -1,5 +1,5 @@
 <?php
-/** [descripción del namespace] */
+
 namespace Modules\Sale\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
@@ -18,12 +18,12 @@ use Modules\Sale\Models\SaleGanttDiagramStage;
 use Modules\Asset\Models\AssetAsignation;
 
 /**
- * @class SaleTechnicalProposalController
- * @brief [descripción detallada]
+ * @class SaleServiceController
+ * @brief Controlador de propuestas técnicas
  *
- * [descripción corta]
+ * Clase que gestiona las propuestas técnicas del módulo de comercialización
  *
- * @author [autor de la clase] [correo del autor]
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
  *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
@@ -121,16 +121,13 @@ class SaleTechnicalProposalController extends Controller
     }
 
     /**
-     * [descripción del método]
+     * Registra o actualiza las propuestas técnicas
      *
      * @method    update
      *
-     * @author    [nombre del autor] [correo del autor]
-     *
-     * @param     object    Request    $request         Objeto con datos de la petición
-     * @param     integer   $id        Identificador del registro
-     *
-     * @return    Renderable    [description de los datos devueltos]
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function update(Request $request, $id)
     {
@@ -221,19 +218,23 @@ class SaleTechnicalProposalController extends Controller
     }
 
     /**
-     * [descripción del método]
+     * Elimina una propuesta técnica
      *
      * @method    destroy
      *
-     * @author    [nombre del autor] [correo del autor]
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
      *
      * @param     integer    $id    Identificador del registro
      *
-     * @return    Renderable    [description de los datos devueltos]
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function destroy($id)
     {
-        //
+        $technicalProposal = SaleTechnicalProposal::where('sale_service_id', $id)->first();
+        if ($technicalProposal) {
+            $technicalProposal->delete();
+            return response()->json(['result' => true, 'redirect' => route('sale.services.index'), 'message' => 'Success'], 200);
+        }
     }
 
     public function vueInfo($id)
