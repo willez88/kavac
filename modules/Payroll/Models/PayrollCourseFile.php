@@ -9,17 +9,17 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
 
 /**
- * @class PayrollClassSchedule
- * @brief Datos de horarios de clase
+ * @class PayrollCourseFile
+ * @brief Datos de archivos de curso
  *
- * Gestiona el modelo de horarios de clase
+ * Gestiona el modelo archivos de curso
  *
  * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
  *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
  */
-class PayrollClassSchedule extends Model implements Auditable
+class PayrollCourseFile extends Model implements Auditable
 {
     use SoftDeletes;
     use AuditableTrait;
@@ -35,21 +35,32 @@ class PayrollClassSchedule extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['payroll_professional_id'];
+    protected $fillable = ['name', 'payroll_course_id', 'image_id'];
 
     /**
-     * Método que obtiene el dato profesional asociado a un horario de clase
+     * Método que obtiene el curso asociado a un archivo de curso
      *
      * @author  William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function payrollProfessional()
+    public function payrollCourse()
     {
-        return $this->belongsTo(PayrollProfessional::class);
+        return $this->belongsTo(PayrollCourse::class);
     }
 
     /**
-     * Obtiene todos los documentos asociados al horario de clase
+     * Método que obtiene la imagen asociada a un archivo de curso
+     *
+     * @author  William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function image()
+    {
+        return $this->belongsTo(Image::class);
+    }
+
+    /**
+     * Obtiene todos los documentos asociados al curso
      *
      * @author William Páez <wpaez@cenditel.gob.ve> | <paez.william8@gmail.com>
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
