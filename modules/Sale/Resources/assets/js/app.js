@@ -150,15 +150,6 @@ Vue.component('sale-warehouse-reception-info', () => import(
     './components/receptions/SaleWarehouseReceptionInfoComponent.vue')
 );
 
-/*
- * Componente para listar, crear, actualizar y borrar cotizaciones
- *
- * @author Jose Puentes <jpuentes@cenditel.gob.ve>
- */
-Vue.component('sale-quote', () => import(
-    './components/settings/SaleQuoteComponent.vue')
-);
-
 /**
  * Componente para listar, crear, actualizar y borrar datos de las formas de pago
  *
@@ -382,6 +373,26 @@ Vue.component('sale-periodic-cost', () => import(
 );
 
 /**
+ * Componentes para gestionar Cotizaciones
+ *
+ * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+ */
+Vue.component('sale-quote-form', () => import(
+    /* webpackChunkName: "sale-quote-create" */
+    './components/quotes/SaleQuoteFormComponent.vue')
+);
+
+/**
+ * Componente para mostrar un listado de Cotizaciones
+ *
+ * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+ */
+Vue.component('sale-quote-list', () => import(
+    /* webpackChunkName: "sale-quote-list" */
+    './components/quotes/SaleQuoteListComponent.vue')
+);
+
+/**
  * Componente para gestionar bienes a Comercializar
  *
  * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
@@ -572,6 +583,114 @@ Vue.mixin({
 			vm.frecuencies = [];
 			axios.get('/sale/get-frecuencies').then(response => {
 				vm.frecuencies = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene un arreglo con las frecuencias
+		 *
+		 * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+		 */
+		getQuoteInventoryProducts() {
+			const vm = this;
+			vm.quote_inventory_products_list = [];
+			axios.get('/sale/get-quote-inventory').then(response => {
+				vm.quote_inventory_products_list = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene un arreglo con los estados de las cotizaciones
+		 *
+		 * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+		 */
+		getQuoteStatus() {
+			const vm = this;
+			vm.quote_status_list = [];
+			axios.get('/sale/get-quote-status').then(response => {
+				vm.quote_status_list = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene un arreglo con la lista de los subservicios en cotizaciones
+		 *
+		 * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+		 */
+		getQuoteListSubservices() {
+			const vm = this;
+			vm.quote_subservices_list = [];
+			axios.get('/sale/get-quote-subservices').then(response => {
+				vm.quote_subservices_list = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene un arreglo con los impuestos en cotizaciones
+		 *
+		 * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+		 */
+		getQuoteTaxes() {
+			const vm = this;
+			vm.quote_taxes = [];
+			axios.get('/sale/get-quote-taxes').then(response => {
+				vm.taxes = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene un arreglo con los metodos de pago en cotizaciones
+		 *
+		 * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+		 */
+		getQuotePayments() {
+			const vm = this;
+			vm.quote_payments = [];
+			axios.get('/sale/get-quote-payment').then(response => {
+                               let quote_payment_id = vm.record.sale_payment_method_id;
+				vm.quote_payments = response.data;
+                               if (quote_payment_id > 0) {
+                                    $('#sale_payment_method_id').val(quote_payment_id).trigger('change');
+                               }
+			});
+		},
+
+		/**
+		 * Obtiene un arreglo con las unidades de medida en cotizaciones
+		 *
+		 * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+		 */
+		getQuoteMeasurementUnits() {
+			const vm = this;
+			vm.quote_measurement_units = [];
+			axios.get('/sale/get-quote-measurement-units').then(response => {
+				vm.quote_measurement_units = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene un arreglo con la lista los productos para ser comercializados en cotizaciones
+		 *
+		 * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+		 */
+		getQuoteGoodsToBeTraded() {
+			const vm = this;
+			vm.quote_good_to_be_traded = [];
+			axios.get('/sale/get-quote-sale-goods').then(response => {
+				vm.quote_good_to_be_traded = response.data;
+			});
+		},
+
+		/**
+		 * Obtiene un arreglo con la lista con los clientes en cotizaciones
+		 *
+		 * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+		 */
+		getQuoteClients() {
+			const vm = this;
+			vm.quote_clients = [];
+			axios.get('/sale/get-quote-clients').then(response => {
+				vm.quote_clients = response.data;
 			});
 		},
 

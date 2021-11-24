@@ -389,6 +389,38 @@ Route::group(
             'SaleSettingProductController@getSaleSettingProduct'
         )->name('sale.get-sale-setting-product');
 
+        /**
+         * ---------------------------------------------------------------------------------
+         * Rutas para gestionar la generación de cotizaciones en el Modulo de Comercialización
+         * ---------------------------------------------------------------------------------
+         */
+
+        Route::resource('quotes', 'SaleQuoteController', ['only' => 'store']);
+        Route::get('quotes/create', 'SaleQuoteController@create')->name('sale.quotes.create');
+        Route::get('quotes', 'SaleQuoteController@index')->name('sale.quotes.index');
+        Route::get('quotes/vue-list', 'SaleQuoteController@vueList');
+        Route::patch('quotes/{SaleQuote}', 'SaleQuoteController@update');
+        Route::get('quotes/info/{SaleQuote}', 'SaleQuoteController@vueInfo');
+        Route::get('quotes/edit/{SaleQuote}', 'SaleQuoteController@edit')->name('sale.quotes.edit');
+        Route::delete('quotes/delete/{SaleQuote}', 'SaleQuoteController@destroy')->name('sale.quotes.destroy');
+        Route::put('quotes/quote-approved/{SaleQuote}', 'SaleQuoteController@approvedQuote');
+        Route::put('quotes/quote-rejected/{SaleQuote}', 'SaleQuoteController@rejectedQuote');
+        Route::get('quotes/vue-state-list/{state}', 'SaleQuoteController@vueStateList');
+        Route::get('get-quote-taxes', 'SaleQuoteController@getTaxes');
+        Route::get('get-quote-status', 'SaleQuoteController@getSaleQuoteStatus');
+        Route::get('get-quote-subservices', 'SaleQuoteController@getSaleListSubservices');
+        Route::get('get-quote-sale-goods', 'SaleQuoteController@getQuoteGoodsToBeTradeds');
+        Route::get('get-quote-inventory', 'SaleQuoteController@getInventoryProducts');
+        Route::get('get-quote-payment', 'SaleQuoteController@getSalePayments');
+        Route::get('get-quote-price-product/{id?}', 'SaleQuoteController@getPriceProduct');
+        Route::get('get-quote-price-service/{id?}', 'SaleQuoteController@getPriceService');
+        Route::get('get-quote-measurement-units', 'SaleQuoteController@getMeasurementUnits');
+        Route::get('get-quote-clients', 'SaleQuoteController@getSaleClients');
+        //Route::get('quotes/pdf/{id}', 'Reports\SaleBillController@pdf');
+
+
+
+
         /*
          * ------------------------------------------------------------
          * Ruta para el panel de Pagos del módulo de Comercialización

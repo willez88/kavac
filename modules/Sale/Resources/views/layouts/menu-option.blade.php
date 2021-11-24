@@ -28,6 +28,10 @@
             <a href="/sale/order" data-toggle="tooltip" data-placement="right"
                title="Pedidos">Pedidos</a>
         </li>
+        <li class="{!! set_active_menu('sale.quotes.index') !!}">
+            <a href="/sale/quotes" data-toggle="tooltip" data-placement="right"
+               title="Registro y aprobación de cotizaciones">Cotizaciones</a>
+        </li>
         <li>
             <a href="javascript:void(0)"
                data-toggle="tooltip" data-placement="right"
@@ -49,5 +53,6 @@
                 </li>
             </ul>
         </li>
+
     </ul>
 </li>
