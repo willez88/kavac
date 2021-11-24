@@ -599,6 +599,10 @@ $(document).ready(function() {
         axios.post('/digitalsignature/validateAuthApi', data).then(function (response) {
             if (response.data.auth === true) {
                 $('#signed-modal').removeClass('d-none');
+                $('#authentication').addClass('d-none');
+            } else {
+                $('#authentication').removeClass('d-none');
+                $('#signed-modal').addClass('d-none');
             }
         }).catch(error => {
             if (typeof(error.response) !="undefined") {

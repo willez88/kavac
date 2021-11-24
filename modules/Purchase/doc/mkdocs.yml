@@ -4,17 +4,17 @@ site_name: Documentación de Usuario.
 # Page tree
 nav:
       - Inicio: index.md
-      # - Módulo de Compras:
-      #   - Proveedores: 
+      - Configuración: 
+        - Formatos de Códigos: setting/code_format.md
+        - Configuración General: setting/general_settings.md
+      - Módulo de Compras:
+        - Proveedores: supplier.md  
       #   - Requerimientos:
       #   - Plan de compra:
       #   - Cotización:
       #   - Acta:
       #   - Orden de compra / servicio:
       #   - Reintegro:
-      - Configuración: 
-        - Formatos de Códigos: setting/code_format.md
-        - Configuración General: setting/general_settings.md
       - Preguntas Frecuentes: frequent_questions.md  
 
 # Repository

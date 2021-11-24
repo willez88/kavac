@@ -60,4 +60,16 @@ class SaleGanttDiagram extends Model implements Auditable
     {
         return $this->hasMany(SaleGanttDiagramStage::class);
     }
+
+    /**
+     * Método que obtiene la lista de trabajadores almacenados en el modulo payroll
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * PayrollStaff
+     */
+    public function payrollStaff()
+    {
+        return $this->belongsTo(\Modules\Payroll\Models\PayrollStaff::class);
+    }
 }

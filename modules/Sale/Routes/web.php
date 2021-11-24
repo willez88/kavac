@@ -351,6 +351,8 @@ Route::group(
         Route::resource('technical-proposals', 'SaleTechnicalProposalController', ['as' => 'sale', 'except' => ['create','edit','show']]);
         Route::get('technical-proposals/complete/{id}', 'SaleTechnicalProposalController@saleCompleteTechnicalProposal')
              ->name('sale.technical-proposals.create');
+        Route::get('technical-proposals/info/{id}', 'SaleTechnicalProposalController@vueInfo');
+        Route::delete('technical-proposals/delete/{id}', 'SaleTechnicalProposalController@destroy');
 
         //Frecuency (periodicidad de tiempo)
         Route::resource(

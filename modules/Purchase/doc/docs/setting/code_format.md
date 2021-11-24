@@ -1,4 +1,4 @@
-#Configuración Módulo de Compras
+# Configuración Módulo de Compras
 *******************************
 
 ![Screenshot](../img/logokavac.png#imagen)

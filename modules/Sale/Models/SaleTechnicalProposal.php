@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
+use Modules\Payroll\Models\PayrollStaff;
+use Modules\Sale\Models\SaleListSubservices;
 
 /**
  * @class SaleTechnicalProposal
@@ -35,8 +37,8 @@ class SaleTechnicalProposal extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['duration', 'frecuency_id', 'sale_service_id', 'sale_list_subservices',
-                            'asset_asignations', 'payroll_staffs'];
+    protected $fillable = ['duration', 'frecuency_id', 'sale_service_id',
+                            'sale_list_subservices', 'payroll_staffs', 'status'];
 
     /**
      * Lista de atributos que deben ser asignados a tipos nativos.
@@ -47,6 +49,58 @@ class SaleTechnicalProposal extends Model implements Auditable
         'payroll_staffs' => 'json',
     ];
 
+    /**
+     * Lista de atributos personalizados obtenidos por defecto
+     * @var array $appends
+     */
+    protected $appends = [
+        'staffs', 'list_subservices'
+    ];
+
+    /**
+     * Atributo que devuelve informacion de los trabajadores con sus bienes asignados
+     *
+     * @author    Daniel Contreras <dcontreras@cenditel.gob.ve>
+     *
+     * @return    $data
+     */
+    public function getStaffsAttribute()
+    {
+        $data = [];
+        if (!empty($this->payroll_staffs)) {
+            foreach ($this->payroll_staffs as $key => $value) {
+                $data[$key] = ($value != null) 
+                        ? PayrollStaff::where('id', $value)
+                                                ->with(['assetAsignation' => function ($query) {
+                                                            $query->with(['assetAsignationAssets' => function ($q) {
+                                                                            $q->with('asset');
+                                                                        }]);
+                                                        }])->get()
+                        : null;
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * Atributo que devuelve informacion de los bienes a comercializar
+     *
+     * @author    Daniel Contreras <dcontreras@cenditel.gob.ve>
+     *
+     * @return    $data
+     */
+    public function getListSubservicesAttribute()
+    {
+        $data = [];
+        if (!empty($this->sale_list_subservices)) {
+            foreach ($this->sale_list_subservices as $key => $value) {
+                $data[$key] = ($value != null) 
+                        ? SaleListSubservices::where('id', $value)->get()
+                        : null;
+            }
+        }
+        return $data;
+    }
 
     /**
      * Método que obtiene las solicitudes de servicios almacenados en el sistema
@@ -70,18 +124,6 @@ class SaleTechnicalProposal extends Model implements Auditable
     public function saleSettingFrecuency()
     {
         return $this->belongsTo(SaleSettingFrecuency::class);
-    }
-
-    /**
-     * Método que obtiene la lista de cargos almacenados en el modulo payroll
-     *
-     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
-     * PayrollEmployment
-     */
-    public function payrollEmployment()
-    {
-        return $this->belongsTo(\Modules\Payroll\Models\PayrollEmployment::class);
     }
 
     /**
@@ -133,18 +175,6 @@ class SaleTechnicalProposal extends Model implements Auditable
     }
 
     /**
-     * Método que obtiene la lista de bienes asignados almacenados en el modulo asset
-     *
-     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
-     * AssetAsignation
-     */
-    public function assetAsignation()
-    {
-        return $this->belongsTo(\Modules\Asset\Models\AssetAsignation::class);
-    }
-
-    /**
      * Método que obtiene los registros almacenados en el modelo SaleGanttDiagram
      *
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
@@ -153,6 +183,6 @@ class SaleTechnicalProposal extends Model implements Auditable
      */
     public function saleGanttDiagram()
     {
-        return $this->hasOne(\Modules\Asset\Models\SaleGanttDiagram::class);
+        return $this->hasMany(SaleGanttDiagram::class);
     }
 }

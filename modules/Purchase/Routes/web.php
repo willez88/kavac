@@ -32,6 +32,11 @@ Route::group([
      * Gestiona los datos de configuración del módulo de compras
      */
     Route::group(['middleware' => 'permission:purchase.setting.create'], function () {
+
+        Route::get('get-fiscal-year', 'PurchaseController@getFiscalYear');
+
+        Route::get('get-institutions', 'PurchaseController@getInstitutions');
+
         /** Ruta de acceso a parámetros de configuración del módulo */
         Route::get('settings', 'PurchaseSettingController@index')->name('purchase.settings.index');
         Route::post('settings', 'PurchaseSettingController@store')->name('purchase.settings.store');

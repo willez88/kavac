@@ -24,7 +24,7 @@
                 <b>Datos del solicitante</b>
             </div>
             <div class="col-md-3">
-                <div class="form-group is-required">
+                <div class="form-group">
                     <label>Cliente:</label>
                     <select2 :options="sale_clients_rif"
                              v-model="service.sale_client_id" @input="getSaleClient" :disabled="true"></select2>
@@ -54,7 +54,7 @@
         <br>
         <div class="row">
             <div class="col-md-3">
-                <div class="form-group is-required">
+                <div class="form-group">
                     <label for="applicant_organization">Organización:</label>
                     <input type="text" class="form-control input-sm" 
                         data-toggle="tooltip" title="Dirección" 
@@ -62,7 +62,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="form-group is-required">
+                <div class="form-group">
                     <label for="economic_activity">Descripción de la actividad económica:</label>
                     <textarea type="text" class="form-control input-sm"
                         data-toggle="tooltip" title="Dirección fiscal" 
@@ -76,7 +76,7 @@
                 <b>Datos de la solicitud de servicios</b>
             </div>
             <div class="col-md-3">
-                <div class="form-group is-required">
+                <div class="form-group">
                     <label>Servicio:</label>
                     <p v-for="good_to_be_traded in sale_goods_to_be_traded">
                         <input type="text" class="form-control input-sm"
@@ -171,7 +171,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="form-group">
+                <div class="form-group is-required">
                     <label for="duration">Duración:</label>
                         <input type="text" class="form-control input-sm"
                             data-toggle="tooltip" title="Duración"
@@ -190,7 +190,7 @@
                     @click="addSpecification()"></i></h6>
                 <div class="row" v-for="(specification, index) in record.specifications">
                     <div class="col-md-4">
-                        <div class="form-group is-required">
+                        <div class="form-group">
                             <label for="specification">Especificaciones técnicas:</label>
                             <input type="text" id="specification" class="form-control input-sm" data-toggle="tooltip"
                                 title="Requerimiento del solicitante" v-model="specification.name">
@@ -211,7 +211,7 @@
                     @click="addRequirement()"></i></h6>
                 <div class="row" v-for="(requirement, index) in record.requirements">
                     <div class="col-md-4">
-                        <div class="form-group is-required">
+                        <div class="form-group">
                             <label for="requirement">Requerimiento:</label>
                             <input type="text" id="requirement" class="form-control input-sm" data-toggle="tooltip"
                                 title="Requerimiento del solicitante" v-model="requirement.name">
@@ -234,7 +234,7 @@
                 <b>Personal técnico a utilizar</b>
             </div>
             <div class="col-md-3">
-                <div class="form-group is-required">
+                <div class="form-group">
                     <label>Lista de trabajadores:</label>
                     <v-multiselect :options="payroll_staffs_assignations" track_by="text"
                                    :hide_selected="false" data-toggle="tooltip"
@@ -252,7 +252,7 @@
                 </div>
                 <br>
                 <div class="col-md-12">
-                    <v-client-table :columns="columns_asstets" :data="records" :options="table_options" ref="tableResults">
+                    <v-client-table :columns="columns_assets" :data="records" :options="table_options" ref="tableResults">
                         <div slot="inventory_serial" slot-scope="props" class="text-center">
                             <p v-for="assets in props.row.asset_asignation_assets">
                                 {{ props.row.asset_asignation_assets ? assets.asset.inventory_serial : '' }}
@@ -299,7 +299,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="form-group is-required">
+                <div class="form-group">
                     <label for="gantt_description">Descripción:</label>
                     <textarea type="text" class="form-control input-sm"
                         data-toggle="tooltip" title="Descripción" 
@@ -325,7 +325,7 @@
                 <div class="form-group is-required">
                     <label>Etapas:</label>
                         <select2 :options="stages"
-                                    v-model="activity.stage"></select2>
+                                    v-model="activity.stage_id" @input="activityStages()"></select2>
                 </div>
             </div>
             <div class="col-md-3">
@@ -337,7 +337,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="form-group is-required">
+                <div class="form-group">
                     <label for="gantt_description">Descripción:</label>
                     <textarea type="text" class="form-control input-sm"
                         data-toggle="tooltip" title="Descripción" 
@@ -455,13 +455,11 @@ export default {
                 sale_service_id: '',
                 duration: '',
                 frecuency_id: '',
-                asset_asignations: [],
                 sale_list_subservices: [],
                 payroll_staffs: [],
                 requirements: [],
                 specifications: [],
                 activities: [],
-                stages: [],
             },
             service: {
                 id: '',
@@ -500,7 +498,8 @@ export default {
                 text: 'Seleccione...'
             }],
             activity: {
-                stage: '',
+                stage: {},
+                stage_id: '',
                 name: '',
                 description: '',
                 start_date: '',
@@ -509,7 +508,7 @@ export default {
                 percentage: '',
                 payroll_staff: {},
             },
-            columns_asstets: ['inventory_serial','payroll_staff','serial','marca','model'],
+            columns_assets: ['inventory_serial','payroll_staff','serial','marca','model'],
             columns_activities: ['stage','name','description','start_date','end_date', 'payroll_staff', 'percentage', 'id'],
             table_option_activities: [],
             editIndex: null,
@@ -599,44 +598,110 @@ export default {
 
         addStage(){
             const vm = this;
-            vm.stages.push({
-                text: vm.stage.stage,
-                id: vm.stage.stage,
-            });
+            vm.errors = [];
+            if (!vm.stage.stage) {
+                $('html,body').animate({
+                    scrollTop: $("#SaleTechnicalProposalForm").offset()
+                }, 1000);
+                vm.errors.push('El campo etapa es obligatorio.');
+            } else {
+                vm.stages.push({
+                    description: vm.stage.description,
+                    stage: vm.stage.stage,
+                    text: vm.stage.stage,
+                    id: vm.stage.stage,
+                });
+            }
+
             vm.stage.stage = '';
             vm.stage.description = '';
         },
 
         addActivity(){
             const vm = this;
+            vm.errors = [];
 
             if (this.editIndex === null) {                  
-                vm.record.activities.push({
-                    stage: vm.activity.stage,
-                    name: vm.activity.name,
-                    description: vm.activity.description,
-                    start_date: vm.activity.start_date,
-                    end_date: vm.activity.end_date,
-                    payroll_staff_id: vm.activity.payroll_staff_id,
-                    percentage: vm.activity.percentage,
-                    payroll_staff: vm.activity.payroll_staff,
-                });
+                if (!vm.activity.stage_id) {
+                    vm.errors.push('El campo etapas es obligatorio.');
+                }
+                if (!vm.activity.name) {
+                    vm.errors.push('El campo actividad es obligatorio.');
+                }
+                if (!vm.activity.start_date) {
+                    vm.errors.push('El campo fecha de inicio es obligatorio.');
+                }
+                if (!vm.activity.end_date) {
+                    vm.errors.push('El campo fecha de fin es obligatorio.');
+                }
+                if (vm.activity.start_date > vm.activity.end_date) {
+                    vm.errors.push('El campo fecha de inicio no debe ser mayor al campo fecha de fin.');
+                }
+                if (!vm.activity.payroll_staff_id) {
+                    vm.errors.push('El campo trabajador es obligatorio.');
+                }
+                if (!vm.activity.percentage) {
+                    vm.errors.push('El campo porcentaje es obligatorio.');
+                }
+                if(vm.errors.length > 0){
+                    $('html,body').animate({
+                        scrollTop: $("#SaleTechnicalProposalForm").offset()
+                    }, 1000);
+                } else {
+                    vm.record.activities.push({
+                        stage: vm.activity.stage,
+                        stage_id: vm.activity.stage_id,
+                        name: vm.activity.name,
+                        description: vm.activity.description,
+                        start_date: vm.activity.start_date,
+                        end_date: vm.activity.end_date,
+                        payroll_staff_id: vm.activity.payroll_staff_id,
+                        percentage: vm.activity.percentage,
+                        payroll_staff: vm.activity.payroll_staff,
+                    });
+                }
             }
             else if (this.editIndex >= 0 ) {
-                vm.record.activities.splice(this.editIndex, 1);
-                vm.record.activities.push({
-                    stage: vm.activity.stage,
-                    name: vm.activity.name,
-                    description: vm.activity.description,
-                    start_date: vm.activity.start_date,
-                    end_date: vm.activity.end_date,
-                    payroll_staff_id: vm.activity.payroll_staff_id,
-                    percentage: vm.activity.percentage,
-                    payroll_staff: vm.activity.payroll_staff,
-                });
-                vm.editIndex = null;
+                if (!vm.activity.stage_id) {
+                    vm.errors.push('El campo etapas es obligatorio.');
+                }
+                if (!vm.activity.name) {
+                    vm.errors.push('El campo actividad es obligatorio.');
+                }
+                if (!vm.activity.start_date) {
+                    vm.errors.push('El campo fecha de inicio es obligatorio.');
+                }
+                if (!vm.activity.end_date) {
+                    vm.errors.push('El campo fecha de fin es obligatorio.');
+                }
+                if (!vm.activity.payroll_staff_id) {
+                    vm.errors.push('El campo trabajador es obligatorio.');
+                }
+                if (!vm.activity.percentage) {
+                    vm.errors.push('El campo porcentaje es obligatorio.');
+                }
+                if (vm.errors.length > 0){
+                    $('html,body').animate({
+                        scrollTop: $("#SaleTechnicalProposalForm").offset()
+                    }, 1000);
+                } else {
+                    vm.record.activities.splice(this.editIndex, 1);
+                    vm.record.activities.push({
+                        stage: vm.activity.stage,
+                        name: vm.activity.name,
+                        description: vm.activity.description,
+                        start_date: vm.activity.start_date,
+                        end_date: vm.activity.end_date,
+                        payroll_staff_id: vm.activity.payroll_staff_id,
+                        percentage: vm.activity.percentage,
+                        payroll_staff: vm.activity.payroll_staff,
+                        stage_id: vm.activity.stage_id,
+                    });
+                    vm.editIndex = null;
+                }
             }
             vm.activity.stage = '';
+            vm.activity.stage_id = '';
             vm.activity.name = '';
             vm.activity.description = '';
             vm.activity.start_date = '';
@@ -649,8 +714,18 @@ export default {
         activityStaff() {
             const vm = this;
             for (let staff of vm.payroll_staffs){
-                let staff_id = staff.id;
-                vm.activity.payroll_staff = staff;
+                if (vm.activity.payroll_staff_id == staff.id) {
+                    vm.activity.payroll_staff = staff;
+                };
+            };
+        },
+
+        activityStages() {
+            const vm = this;
+            for (let stage of vm.stages){
+                if(vm.activity.stage_id == stage.id) {
+                    vm.activity.stage = stage;
+                }
             }
         },
 
@@ -683,6 +758,90 @@ export default {
                     }
                 }
             });
+
+            await axios.get('/sale/technical-proposals/info/'+id).then(response => {
+                if(typeof(response.data.record != "undefined")){
+                    if (response.data.record.status == 'En proceso') {
+                        vm.record = {
+                            sale_service_id: vm.service.id,
+                            duration: '',
+                            frecuency_id: '',
+                            sale_list_subservices: [],
+                            payroll_staffs: [],
+                            requirements: [],
+                            specifications: [],
+                            activities: [],
+                        };
+                    } else {
+                        let data = response.data.record;
+                        vm.record = {
+                            sale_service_id: data.sale_service_id,
+                            duration: data.duration,
+                            frecuency_id: data.frecuency_id,
+                            sale_list_subservices: data.sale_list_subservices,
+                            payroll_staffs: data.payroll_staffs,
+                            requirements: data.sale_proposal_requirement,
+                            specifications: data.sale_proposal_specification,
+                            activities: [],
+                        };
+
+                        for (let subservice_id of data.sale_list_subservices) {
+                            for (let subservice of vm.list_subservices) {
+                                if (subservice_id == subservice.id){
+                                    vm.sale_list_subservices.push(subservice);
+                                };
+                            };
+                        };
+
+                        for (let staff_id of data.payroll_staffs) {
+                            for (let staff of vm.payroll_staffs_assignations) {
+                                if (staff_id == staff.id){
+                                    vm.payroll_staffs_assigned.push(staff);
+                                };
+                            };
+                        };
+                        
+                        for (let gantt of response.data.record.sale_gantt_diagram){
+                            let stage = '';
+                            let staff = '';
+                            let gantt_stage = {};
+
+                            for (stage of gantt.sale_gantt_diagram_stage){
+                                stage = stage;
+
+                                gantt_stage = {
+                                    id: stage.stage,
+                                    stage: stage.stage,
+                                    description: stage.description,
+                                    text: stage.stage,
+                                };
+
+                                vm.stages.push(gantt_stage);
+                            };
+                            
+                            for (staff of vm.payroll_staffs){
+                                if (gantt.payroll_staff_id == staff.id) {
+                                    staff = staff;
+                                }
+                            }
+                            
+                            let activity = {
+                                description: gantt.description,
+                                end_date: gantt.end_date,
+                                name: gantt.activity,
+                                payroll_staff: staff,
+                                payroll_staff_id: gantt.payroll_staff_id,
+                                percentage: gantt.percentage,
+                                stage: gantt_stage,
+                                stage_id: stage.stage,
+                                start_date: gantt.start_date,
+                            };
+                            
+                            vm.record.activities.push(activity);
+                        };
+                    }
+                }
+            });
         },
         /**
          * Método que borra todos los datos del formulario
@@ -694,13 +853,11 @@ export default {
                 sale_service_id: '',
                 duration: '',
                 frecuency_id: '',
-                asset_asignations: [],
                 sale_list_subservices: [],
                 payroll_staffs: [],
                 requirements: [],
                 specifications: [],
                 activities: [],
-                stages: [],
             };
             this.editIndex = null;
         },
@@ -826,6 +983,61 @@ export default {
         removeActivity(index, event) {
             this.record.activities.splice(index-1, 1);
         },
+
+        createRecord(url){
+            const vm = this;
+            let percentage = 0;
+
+            if (vm.record.activities.length > 1) {
+                for (let activity of vm.record.activities) {
+                    percentage += parseFloat(activity.percentage);
+                }
+            } else {
+                for (let activity of vm.record.activities) {
+                    percentage = activity.percentage;
+                }
+            }
+
+            if (percentage > 100){
+                vm.errors = [];
+                $('html,body').animate({
+                    scrollTop: $("#SaleTechnicalProposalForm").offset()
+                }, 1000);
+                vm.errors.push('El porcentaje de actividades no debe ser mayor a 100.');
+            } else {
+                vm.loading = true;
+                var fields = {};
+                url = (!url.includes('http://') || !url.includes('http://'))
+                      ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
+
+                for (var index in vm.record) {
+                    fields[index] = vm.record[index];
+                }
+                axios.patch(`${url}${(url.endsWith('/'))?'':'/'}${vm.record.sale_service_id}`, fields).then(response => {
+                    if (typeof(response.data.redirect) !== "undefined") {
+                        location.href = response.data.redirect;
+                    }
+                    else {
+                        vm.readRecords(url);
+                        vm.reset();
+                        vm.loading = false;
+                        vm.showMessage('update');
+                    }
+
+                }).catch(error => {
+                    vm.errors = [];
+
+                    if (typeof(error.response) !="undefined") {
+                        for (var index in error.response.data.errors) {
+                            if (error.response.data.errors[index]) {
+                                vm.errors.push(error.response.data.errors[index][0]);
+                            }
+                        }
+                    }
+                    vm.loading = false;
+                });
+            }
+        }
     },
     mounted() {
         const vm = this;
@@ -880,6 +1092,7 @@ export default {
         this.getPayrollStaffs();
         this.getSaleListSubservice();
         this.activityStaff();
+        this.activityStages();
         this.service.sale_goods_to_be_traded = [];
         this.record.specifications = [];
         this.record.requirements = [];

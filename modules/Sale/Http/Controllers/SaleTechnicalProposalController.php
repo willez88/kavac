@@ -1,5 +1,5 @@
 <?php
-/** [descripción del namespace] */
+
 namespace Modules\Sale\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
@@ -18,12 +18,12 @@ use Modules\Sale\Models\SaleGanttDiagramStage;
 use Modules\Asset\Models\AssetAsignation;
 
 /**
- * @class SaleTechnicalProposalController
- * @brief [descripción detallada]
+ * @class SaleServiceController
+ * @brief Controlador de propuestas técnicas
  *
- * [descripción corta]
+ * Clase que gestiona las propuestas técnicas del módulo de comercialización
  *
- * @author [autor de la clase] [correo del autor]
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
  *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
@@ -85,73 +85,7 @@ class SaleTechnicalProposalController extends Controller
      */
     public function store(Request $request)
     {
-
-        $technicalProposal = SaleTechnicalProposal::create([
-            'sale_service_id' => $request->input('sale_service_id'),
-            'duration' => $request->input('duration'),
-            'frecuency_id' => $request->input('frecuency_id'),
-            'asset_asignations' => $request->input('asset_asignations'),
-            'sale_list_subservices' => $request->input('sale_list_subservices'),
-            'payroll_staffs' => $request->input('payroll_staffs'),
-        ]);
-
-        if ($request->requirements && !empty($request->requirements)) {
-            foreach ($request->requirements as $requirement) {
-                $proposalRequirement = SaleProposalRequirement::create([
-                    'name'          => $requirement['name'],
-                    'sale_technical_proposal_id' => $technicalProposal->id
-                ]);
-            }
-        }
-
-        if ($request->specifications && !empty($request->specifications)) {
-            foreach ($request->specifications as $specification) {
-                $proposalSpecification = SaleProposalSpecification::create([
-                    'name'          => $specification['name'],
-                    'sale_technical_proposal_id' => $technicalProposal->id
-                ]);
-            }
-        }
-
-        if ($request->activities && !empty($request->activities)) {
-            foreach ($request->activities as $activity) {
-                $ganttDiagram = SaleGanttDiagram::create([
-                    'activity' => $request->input('activity'),
-                    'description' => $request->input('description'),
-                    'start_date' => $request->input('start_date'),
-                    'end_date' => $request->input('end_date'),
-                    'percentage' => $request->input('percentage'),
-                    'payroll_staff_id' => $request->input('payroll_staff_id'),
-                    'sale_technical_proposal_id' => $technicalProposal->id,
-                ]);
-            }
-        }
-
-        if ($request->stages && !empty($request->stages)) {
-            foreach ($request->stages as $stage) {
-                $ganttStage = SaleGanttDiagramStage::create([
-                    'stage'          => $ganttStage['stage'],
-                    'description'    => $ganttStage['description'],
-                    'sale_gantt_diagram_id' => $ganttDiagram->id
-                ]);
-            }
-        }
-
-        if (is_null($technicalProposal)) {
-            $request->session()->flash(
-                'message',
-                [
-                    'type' => 'other',
-                    'title' => 'Alerta',
-                    'icon' => 'screen-error',
-                    'class' => 'growl-danger',
-                    'text' => 'No se pudo completar la operación.'
-                ]
-            );
-        } else {
-            $request->session()->flash('message', ['type' => 'store']);
-        }
-        return response()->json(['result' => true, 'redirect' => route('sale.services.index')], 200);
+        //
     }
 
     /**
@@ -187,36 +121,129 @@ class SaleTechnicalProposalController extends Controller
     }
 
     /**
-     * [descripción del método]
+     * Registra o actualiza las propuestas técnicas
      *
      * @method    update
      *
-     * @author    [nombre del autor] [correo del autor]
-     *
-     * @param     object    Request    $request         Objeto con datos de la petición
-     * @param     integer   $id        Identificador del registro
-     *
-     * @return    Renderable    [description de los datos devueltos]
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @param  \Illuminate\Http\Request  $request (Datos de la petición)
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function update(Request $request, $id)
     {
-        //
+        $technicalProposal = SaleTechnicalProposal::with(['saleProposalSpecification', 'saleProposalRequirement',
+                                                        'saleGanttDiagram'])->where('sale_service_id', $id)
+                                                        ->first();
+        $this->validate($request, [
+            'sale_list_subservices' => ['required'],
+            'frecuency_id' => ['required'],
+            'duration' => ['required'],
+        ]);
+
+        $technicalProposal->sale_service_id       = $request->input('sale_service_id');
+        $technicalProposal->duration              = $request->input('duration');
+        $technicalProposal->frecuency_id          = $request->input('frecuency_id');
+        $technicalProposal->sale_list_subservices = $request->input('sale_list_subservices');
+        $technicalProposal->payroll_staffs        = $request->input('payroll_staffs');
+        $technicalProposal->status                = 'Culminada';
+
+        $technicalProposal->save();
+
+        foreach ($technicalProposal->saleProposalRequirement as $requirement) {
+            $requirement->delete();
+        }
+
+        foreach ($technicalProposal->saleProposalSpecification as $specification) {
+            $specification->delete();
+        }
+
+        foreach ($technicalProposal->saleGanttDiagram as $ganttDiagram) {
+            $ganttDiagram->delete();
+        }
+
+        if ($request->requirements && !empty($request->requirements)) {
+            foreach ($request->requirements as $requirement) {
+                $proposalRequirement = SaleProposalRequirement::updateOrCreate([
+                    'name'          => $requirement['name'],
+                    'sale_technical_proposal_id' => $technicalProposal->id
+                ]);
+            }
+        }
+
+        if ($request->specifications && !empty($request->specifications)) {
+            foreach ($request->specifications as $specification) {
+                $proposalSpecification = SaleProposalSpecification::updateOrCreate([
+                    'name'          => $specification['name'],
+                    'sale_technical_proposal_id' => $technicalProposal->id
+                ]);
+            }
+        }
+
+        if ($request->activities && !empty($request->activities)) {
+            foreach ($request->activities as $activity) {
+                $ganttDiagram = SaleGanttDiagram::updateOrCreate([
+                    'activity' => $activity['name'],
+                    'description' => $activity['description'],
+                    'start_date' => $activity['start_date'],
+                    'end_date' => $activity['end_date'],
+                    'percentage' => $activity['percentage'],
+                    'payroll_staff_id' => $activity['payroll_staff_id'],
+                    'sale_technical_proposal_id' => $technicalProposal->id,
+                ]);
+
+                $ganttStage = SaleGanttDiagramStage::updateOrCreate([
+                    'stage'          => $activity['stage']['stage'],
+                    'description'    => $activity['stage']['description'],
+                    'sale_gantt_diagram_id' => $ganttDiagram->id
+                ]);
+            }
+        }
+
+        if (is_null($technicalProposal)) {
+            $request->session()->flash(
+                'message',
+                [
+                    'type' => 'other',
+                    'title' => 'Alerta',
+                    'icon' => 'screen-error',
+                    'class' => 'growl-danger',
+                    'text' => 'No se pudo completar la operación.'
+                ]
+            );
+        } else {
+            $request->session()->flash('message', ['type' => 'store']);
+        }
+
+        return response()->json(['result' => true, 'redirect' => route('sale.services.index')], 200);
     }
 
     /**
-     * [descripción del método]
+     * Elimina una propuesta técnica
      *
      * @method    destroy
      *
-     * @author    [nombre del autor] [correo del autor]
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
      *
      * @param     integer    $id    Identificador del registro
      *
-     * @return    Renderable    [description de los datos devueltos]
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
      */
     public function destroy($id)
     {
-        //
+        $technicalProposal = SaleTechnicalProposal::where('sale_service_id', $id)->first();
+        if ($technicalProposal) {
+            $technicalProposal->delete();
+            return response()->json(['result' => true, 'redirect' => route('sale.services.index'), 'message' => 'Success'], 200);
+        }
+    }
+
+    public function vueInfo($id)
+    {
+        $technicalProposal = SaleTechnicalProposal::where('sale_service_id', $id)->with(['saleService',
+            'saleProposalSpecification', 'saleProposalRequirement', 'saleGanttDiagram' => function ($query) {
+                $query->with(['saleGanttDiagramStage', 'payrollStaff']);
+            }])->first();
+        return response()->json(['record' => $technicalProposal], 200);
     }
 
     /**

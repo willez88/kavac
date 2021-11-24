@@ -1,42 +1,66 @@
 <template>
-    <v-client-table :columns="columns" :data="records" :options="table_options" ref="tableResults">
-        <div slot="code" slot-scope="props">
-            <span>
-                {{ (props.row.code) ? props.row.code : '' }}
-            </span>
-        </div>
-        <div slot="application_date" slot-scope="props">
-            <span>
-                {{ (props.row.created_at) ? props.row.created_at : '' }}
-            </span>
-        </div>
-        <div slot="sale_client" slot-scope="props">
-            <span>
-                {{ (props.row.sale_client.name) ? props.row.sale_client.name : '' }}
-            </span>
-        </div>
-        <div slot="department" slot-scope="props">
-            <span v-for="sale_good in props.row.sale_goods">
-                <span v-for="good in sale_good">
-                    {{ (props.row.sale_goods) ? good.department.name : '' }}
+    <section>
+        <v-client-table :columns="columns" :data="records" :options="table_options" ref="tableResults">
+            <div slot="code" slot-scope="props">
+                <span>
+                    {{ (props.row.code) ? props.row.code : '' }}
                 </span>
-            </span>
-        </div>
-        <div slot="id" slot-scope="props" class="text-center">
-            <div class="d-inline-flex">
-                 <button @click.prevent="setDetails('ServiceInfo', props.row.id, 'SaleServiceInfo')"
-                        class="btn btn-info btn-xs btn-icon btn-action btn-tooltip"
-                        title="Ver registro" data-toggle="tooltip" data-placement="bottom" type="button">
-                    <i class="fa fa-eye"></i>
-                </button>
-                <button @click="completeTechnicalProposal(props.row.id)"
-                        class="btn btn-default btn-xs btn-icon btn-action"
-                        title="Completar propuesta técnica" data-toggle="tooltip" type="button" v-has-tooltip>
-                    <i class="fa fa-check"></i>
-                </button>
             </div>
-        </div>
-    </v-client-table>
+            <div slot="application_date" slot-scope="props">
+                <span>
+                    {{ (props.row.created_at) ? props.row.created_at : '' }}
+                </span>
+            </div>
+            <div slot="sale_client" slot-scope="props">
+                <span>
+                    {{ (props.row.sale_client.name) ? props.row.sale_client.name : '' }}
+                </span>
+                <span>
+                    {{ (props.row.sale_client.business_name) ? props.row.sale_client.business_name : '' }}
+                </span>
+            </div>
+            <div slot="department" slot-scope="props">
+                <span v-for="sale_good in props.row.sale_goods">
+                    <span v-for="good in sale_good">
+                        {{ (props.row.sale_goods) ? good.department.name : '' }}
+                    </span>
+                </span>
+            </div>
+            <div slot="state" slot-scope="props">
+                <span v-for="technical_proposal in props.row.sale_technical_proposal">
+                    {{ (props.row.sale_technical_proposal) ? technical_proposal.status : '' }}
+                </span>
+            </div>
+            <div slot="id" slot-scope="props" class="text-center">
+                <div class="d-inline-flex">
+                    <span v-for="technical_proposal in props.row.sale_technical_proposal">
+                        <button @click.prevent="setDetails('ServiceInfo', props.row.id, 'SaleServiceInfo')"
+                                class="btn btn-info btn-xs btn-icon btn-action btn-tooltip"
+                                title="Ver registro" data-toggle="tooltip" data-placement="bottom" type="button">
+                            <i class="fa fa-eye"></i>
+                        </button>
+                        <button @click="completeTechnicalProposal(props.row.id)"
+                                class="btn btn-default btn-xs btn-icon btn-action"
+                                title="Completar propuesta técnica" data-toggle="tooltip" type="button" v-has-tooltip
+                                :disabled="technical_proposal.status != 'En proceso'">
+                            <i class="fa fa-check"></i>
+                        </button>
+                        <button @click="completeTechnicalProposal(props.row.id)"
+                                class="btn btn-warning btn-xs btn-icon btn-action"
+                                title="Modificar registro" data-toggle="tooltip" type="button" v-has-tooltip
+                                :disabled="technical_proposal.status != 'Culminada'">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                        <button @click="deleteRecord(props.row.id, 'sale/technical-proposals/delete')"
+                                class="btn btn-danger btn-xs btn-icon btn-action"
+                                title="Eliminar registro" data-toggle="tooltip" type="button" v-has-tooltip>
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </v-client-table>
+    </section>
 </template>
 
 <script>
@@ -44,7 +68,7 @@
         data() {
             return {
                 records: [],
-                columns: ['code', 'application_date', 'sale_client', 'department', 'status', 'id']
+                columns: ['code', 'application_date', 'sale_client', 'department', 'state', 'id']
             }
         },
         created() {
@@ -53,23 +77,23 @@
                 'application_date': 'Fecha de solicitud',
                 'sale_client': 'Nombre del cliente',
                 'department': 'Unidad o departamento responsable',
-                'status': 'Estado de la solicitud',
+                'state': 'Estado de la propuesta',
                 'id': 'Acción'
             };
-            this.table_options.sortable = ['code', 'application_date', 'sale_client', 'department', 'status'];
-            this.table_options.filterable = ['code', 'application_date', 'sale_client', 'department', 'status'];
+            this.table_options.sortable = ['code', 'application_date', 'sale_client', 'department', 'state'];
+            this.table_options.filterable = ['code', 'application_date', 'sale_client', 'department', 'state'];
             this.table_options.columnsClasses = {
                 'code': 'col-md-2',
                 'application_date': 'col-md-2',
                 'sale_client': 'col-md-2',
                 'department': 'col-md-2',
-                'status': 'col-md-2',
+                'state': 'col-md-2',
                 'id': 'col-md-2'
             };
         },
         mounted () {
             const vm = this;
-            vm.getSalePendingService()
+            vm.getSalePendingService();
         },
         methods: {
             /**
@@ -122,12 +146,12 @@
              *
              * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
              *
-             * @param [Integer] $id Identificador único del servicio
+             * * @param [Integer] $id Identificador único del servicio
              */
             completeTechnicalProposal(id)
             {
                 location.href = '/sale/technical-proposals/complete/' + id;
             },
         }
-    };
+    }
 </script>
