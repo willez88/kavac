@@ -325,6 +325,8 @@ Route::group(['middleware' => ['auth', 'verified'], 'namespace' => 'Services'], 
         Route::get('all', 'NotificationsController@getAll');
         /** Mustra el listado de notificaciones */
         Route::get('list', 'NotificationsController@show')->name('notifications.list');
+        /** Marca una notificación como leída o no leída */
+        Route::post('mark', 'NotificationsController@mark');
     });
 });
 
