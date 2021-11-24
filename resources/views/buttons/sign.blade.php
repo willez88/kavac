@@ -26,6 +26,9 @@
                         <i class="icofont icofont-download-alt"></i>
                         Descargar archivo firmado
                     </a>
+                    <div id="authentication" class="d-none mt-3"> 
+                        <p> Autenticación invalidada </p>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-default btn-sm btn-round" type="button" data-dismiss="modal"
