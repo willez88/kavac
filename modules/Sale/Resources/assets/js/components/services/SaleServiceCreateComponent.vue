@@ -320,6 +320,11 @@ export default {
             });
         },
 
+        /**
+         * Método que obtiene los bienes registrados en comercialización
+         *
+         * @author Daniel Contreras <dcontreras@cenditel.gob.ve> | <exodiadaniel@gmail.com>
+         */
         getSaleGoods() {
             const vm = this;
             vm.services = [];
@@ -329,6 +334,11 @@ export default {
             });
         },
 
+        /**
+         * Método que obtiene los clientes registrados en comercialización para los select
+         *
+         * @author Daniel Contreras <dcontreras@cenditel.gob.ve> | <exodiadaniel@gmail.com>
+         */
         getSaleClientsRif() {
             const vm = this;
             vm.sale_clients_rif = [];
@@ -338,6 +348,11 @@ export default {
             });
         },
 
+        /**
+         * Método que obtiene los clientes registrados en comercialización
+         *
+         * @author Daniel Contreras <dcontreras@cenditel.gob.ve> | <exodiadaniel@gmail.com>
+         */
         getSaleClient() {
             const vm = this;
             if (vm.record.sale_client_id > 0) {
@@ -349,6 +364,11 @@ export default {
             }
         },
 
+        /**
+         * Método que obtiene los clientes registrados en comercialización
+         *
+         * @author Daniel Contreras <dcontreras@cenditel.gob.ve> | <exodiadaniel@gmail.com>
+         */
         getSaleClientsAddress() {
             const vm = this;
             vm.sale_clients_address = [];
@@ -358,6 +378,11 @@ export default {
             });
         },
 
+        /**
+         * Método que obtiene los clientes registrados en comercialización
+         *
+         * @author Daniel Contreras <dcontreras@cenditel.gob.ve> | <exodiadaniel@gmail.com>
+         */
         getSaleClientsFiscalAddress() {
             const vm = this;
             vm.sale_clients_fiscal_address = [];
