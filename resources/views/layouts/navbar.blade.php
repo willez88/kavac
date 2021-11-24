@@ -52,8 +52,8 @@
                     })->first();
                 @endphp
 				@if ($notify)
-                    <notifications :unreads="{{ auth()->user()->unreadNotifications->take(5) }}"
-                                   :user-id="{!! auth()->user()->id !!}"
+                    <notifications :unreads="{{ auth()->user()->unreadNotifications }}"
+                                   :user-id="{!! auth()->user()->id !!}" 
                                    list-notifications-url="{!! route('notifications.list') !!}"></notifications>
 				@endif
 
