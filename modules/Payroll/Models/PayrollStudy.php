@@ -36,7 +36,7 @@ class PayrollStudy extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'university_name', 'graduation_year', 'study_type_id', 'profession_id', 'payroll_professional_id'
+        'university_name', 'graduation_year', 'payroll_study_type_id', 'profession_id', 'payroll_professional_id'
     ];
 
     /**

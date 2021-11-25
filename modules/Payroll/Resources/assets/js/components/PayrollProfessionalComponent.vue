@@ -67,8 +67,50 @@
 
 					<hr>
 					<h6 class="card-title">
-						Estudios Universitarios
+						Estudios Universitarios <i class="fa fa-plus-circle cursor-pointer" @click="addPayrollStudies"></i>
 					</h6>
+					<div class="row" v-for="(payroll_study, index) in record.payroll_studies">
+                        <div class="col-3">
+							<div class="form-group is-required">
+								<label>Nombre de la Universidad:</label>
+								<input type="text" class="form-control input-sm"
+									v-model="payroll_study.university_name"/>
+							</div>
+                        </div>
+						<div class="col-2">
+							<div class="form-group is-required">
+								<label>Anño de Graduación:</label>
+								<input type="text" class="form-control input-sm"
+									v-model="payroll_study.graduation_year"/>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="form-group is-required">
+								<label>Tipo de Estudio:</label>
+								<select2 :options="payroll_study_types"
+									v-model="payroll_study.payroll_study_type_id">
+								</select2>
+							</div>
+						</div>
+						<div class="col-3">
+							<div class="form-group is-required">
+								<label>Profesión:</label>
+								<select2 :options="professions" v-model="payroll_study.profession_id">
+								</select2>
+							</div>
+						</div>
+						<div class="col-1">
+							<div class="form-group">
+								<br>
+								<button class="btn btn-sm btn-danger btn-action" type="button"
+									@click="removeRow(index, record.payroll_studies)"
+									title="Eliminar este dato" data-toggle="tooltip" data-placement="right">
+									<i class="fa fa-minus-circle"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">
@@ -243,6 +285,7 @@
 					professions: [],
 					payroll_languages: [],
 					payroll_cou_ack_files: [],
+					payroll_studies:[],
 				},
 				errors: [],
 				payroll_staffs: [],
@@ -314,6 +357,7 @@
 					professions: [],
 					payroll_languages: [],
 					payroll_cou_ack_files: [],
+					payroll_studies: [],
 				};
 			},
 
@@ -348,6 +392,20 @@
 						file_type: '',
 					},
 					ack_file_url: '',
+				});
+			},
+
+			/**
+			 * Agrega una nueva Fila para el registro de estudios
+			 *
+			 * @author William Páez <wpaez@cenditel.gob.ve>
+			 */
+			addPayrollStudies() {
+				this.record.payroll_studies.push({
+					university_name: '',
+					graduation_year: '',
+					payroll_study_type_id: '',
+					profession_id: '',
 				});
 			},
 
@@ -477,16 +535,17 @@
 			},
 		},
 		created() {
+			this.record.is_student = false;
 			this.record.payroll_languages = [];
 			this.record.professions = [];
 			this.record.payroll_cou_ack_files = [];
+			this.record.payroll_studies = [];
 			this.getPayrollStaffs();
 			this.getPayrollInstructionDegrees();
 			this.getProfessions();
 			this.getPayrollStudyTypes();
 			this.getPayrollLanguages();
 			this.getPayrollLanguageLevels();
-			this.record.is_student = false;
 		},
 		mounted() {
 			if(this.payroll_professional_id) {
