@@ -158,7 +158,7 @@ class AppInfo {
                     </a>
 				</li>
 				<li class="no-list-symbol">
-					<a href="${window.app_url}/docs/user" target="_blank" data-toggle="tooltip"
+					<a href="${window.app_url}/docs/user/" target="_blank" data-toggle="tooltip"
                        title="Documentación de usuario">
                         Manual de Usuarios
                     </a>
