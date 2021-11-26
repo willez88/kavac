@@ -120,7 +120,7 @@ class PayrollProfessionalController extends Controller
             $this->validate(
                 $request,
                 [
-                    'instruction_degree_name' => ['required'],
+                    'instruction_degree_name' => ['required', 'max:100'],
                 ],
                 [],
                 [
@@ -194,13 +194,12 @@ class PayrollProfessionalController extends Controller
                 'class_schedule' => ($request->is_student) ? $request->class_schedule : null,
             ]);
             foreach ($request->payroll_studies as $payrollStudy) {
-                PayrollStudy::create([
+                $payrollProfessional->payrollStudies()->save(new PayrollStudy([
                     'university_name' => $payrollStudy['university_name'],
                     'graduation_year' => $payrollStudy['graduation_year'],
                     'payroll_study_type_id' => $payrollStudy['payroll_study_type_id'],
                     'profession_id' => $payrollStudy['profession_id'],
-                    'payroll_professional_id' => $payrollProfessional->id,
-                ]);
+                ]));
             }
             $payrollClassSchedule = PayrollClassSchedule::create([
                 'payroll_professional_id' => $payrollProfessional->id
@@ -300,7 +299,8 @@ class PayrollProfessionalController extends Controller
     {
         $payrollProfessional = PayrollProfessional::where('id', $id)->with([
             'payrollStaff', 'payrollInstructionDegree', 'professions', 'payrollStudyType',
-            'payrollLanguages', 'payrollClassSchedule' => function ($query) {
+            'payrollLanguages', 'payrollStudies',
+            'payrollClassSchedule' => function ($query) {
                 $query->with('documents');
             },
             'payrollCourse' => function ($query) {
@@ -342,7 +342,7 @@ class PayrollProfessionalController extends Controller
     {
         $payrollProfessional = PayrollProfessional::where('id', $id)->with([
             'payrollStaff', 'payrollInstructionDegree', 'professions', 'payrollStudyType',
-            'payrollLanguages', 'payrollClassSchedule',
+            'payrollLanguages', 'payrollClassSchedule', 'payrollStudies',
             'payrollCourse' => function ($query) {
                 $query->with('payrollCourseFiles');
             },
@@ -382,7 +382,7 @@ class PayrollProfessionalController extends Controller
             $this->validate(
                 $request,
                 [
-                    'instruction_degree_name' => ['required'],
+                    'instruction_degree_name' => ['required', 'max:100'],
                 ],
                 [],
                 [
@@ -390,7 +390,26 @@ class PayrollProfessionalController extends Controller
                 ],
             );
         }
-
+        $i = 0;
+        foreach ($request->payroll_studies as $payrollStudy) {
+            $this->validate(
+                $request,
+                [
+                    'payroll_studies.' . $i . '.university_name' => ['required', 'max:200'],
+                    'payroll_studies.' . $i . '.graduation_year' => ['required', 'digits:4', 'integer'],
+                    'payroll_studies.' . $i . '.payroll_study_type_id' => ['required'],
+                    'payroll_studies.' . $i . '.profession_id' => ['required'],
+                ],
+                [],
+                [
+                    'payroll_studies.' . $i . '.university_name' => 'nombre de la universidad #' . ($i + 1),
+                    'payroll_studies.' . $i . '.graduation_year' => 'año de graduación #' . ($i + 1),
+                    'payroll_studies.' . $i . '.payroll_study_type_id' => 'tipo de estudio #' . ($i + 1),
+                    'payroll_studies.' . $i . '.profession_id' => 'profesión #' . ($i + 1),
+                ]
+            );
+            $i++;
+        }
         if ($request->is_student) {
             $this->validate(
                 $request,
@@ -435,6 +454,15 @@ class PayrollProfessionalController extends Controller
             $payrollProfessional->study_program_name = ($request->is_student) ? $request->study_program_name : null;
             $payrollProfessional->class_schedule = ($request->is_student) ? $request->class_schedule: null;
             $payrollProfessional->save();
+            $payrollProfessional->payrollStudies()->delete();
+            foreach ($request->payroll_studies as $payrollStudy) {
+                $payrollProfessional->payrollStudies()->save(new PayrollStudy([
+                    'university_name' => $payrollStudy['university_name'],
+                    'graduation_year' => $payrollStudy['graduation_year'],
+                    'payroll_study_type_id' => $payrollStudy['payroll_study_type_id'],
+                    'profession_id' => $payrollStudy['profession_id'],
+                ]));
+            }
             if (!$request->is_student) {
                 Document::where('documentable_id', $payrollProfessional->payrollClassSchedule->id)->delete();
             }
@@ -556,7 +584,7 @@ class PayrollProfessionalController extends Controller
     {
         return response()->json(['records' => PayrollProfessional::with([
             'payrollStaff', 'payrollInstructionDegree','professions',
-            'payrollStudyType', 'payrollLanguages',
+            'payrollStudyType', 'payrollLanguages', 'payrollStudies',
             'payrollClassSchedule' => function ($query) {
                 $query->with('documents');
             },

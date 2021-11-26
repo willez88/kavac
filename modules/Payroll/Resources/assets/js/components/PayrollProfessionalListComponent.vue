@@ -77,6 +77,41 @@
                         </div>
 
                         <hr>
+                        <h6 class="card-title">
+    						Estudios Universitarios
+    					</h6>
+                        <div class="row" v-for="(payroll_study, index) in record.payroll_studies">
+                            <div class="col-3">
+    							<div class="form-group is-required">
+    								<label>Nombre de la Universidad:</label>
+    								<input type="text" class="form-control input-sm"
+    									disabled="true" v-model="payroll_study.university_name"/>
+    							</div>
+                            </div>
+    						<div class="col-3">
+    							<div class="form-group is-required">
+    								<label>Anño de Graduación:</label>
+    								<input type="text" class="form-control input-sm"
+    									disabled="true" v-model="payroll_study.graduation_year"/>
+    							</div>
+    						</div>
+    						<div class="col-3">
+    							<div class="form-group is-required">
+    								<label>Tipo de Estudio:</label>
+    								<select2 :options="payroll_study_types"
+    									disabled="true" v-model="payroll_study.payroll_study_type_id">
+    								</select2>
+    							</div>
+    						</div>
+    						<div class="col-3">
+    							<div class="form-group is-required">
+    								<label>Profesión:</label>
+    								<select2 :options="professions"
+                                        disabled="true" v-model="payroll_study.profession_id">
+    								</select2>
+    							</div>
+    						</div>
+    					</div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -196,6 +231,8 @@
 				columns: ['payroll_staff.first_name', 'payroll_instruction_degree.name', 'professions', 'is_student', 'id'],
                 payroll_class_schedule: '',
                 payroll_cou_ack_files: [],
+                payroll_study_types: [],
+                professions: [],
 			}
 		},
 
@@ -211,6 +248,8 @@
 			this.table_options.filterable = ['payroll_staff.first_name', 'payroll_instruction_degree.name'];
             this.getPayrollLanguages();
 			this.getPayrollLanguageLevels();
+            this.getPayrollStudyTypes();
+            this.getProfessions();
 		},
 
 		mounted() {

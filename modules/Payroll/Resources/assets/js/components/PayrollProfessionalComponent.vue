@@ -341,6 +341,7 @@
 							ack_file_url: (payroll_acknowledgment_file.image) ? payroll_acknowledgment_file.image.url : payroll_acknowledgment_file.documents[0].url,
                         });
                     }
+					vm.record.payroll_studies = response.data.record.payroll_studies;
 				});
 			},
 
