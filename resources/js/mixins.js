@@ -317,7 +317,7 @@ Vue.mixin({
 		 * @return {string}       Fecha con el formato establecido
 		 */
 		format_timestamp: function(value) {
-			return moment(String(value)).format('DD/MM/YYYY hh:mm:ss');
+			return moment(String(value)).format('DD/MM/YYYY hh:mm:ss A');
 		},
 		/**
 		 * Método que calcula la diferencia entre dos fechas con marca de tiempo

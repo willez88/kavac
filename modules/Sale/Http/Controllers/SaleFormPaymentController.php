@@ -147,4 +147,15 @@ class SaleFormPaymentController extends Controller
 
     return response()->json(['record' => $form_payment, 'message' => 'Success'], 200);
   }
+
+  /**
+     * Obtiene las formas de cobro registrados
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return JsonResponse    Json con los datos de las formas de cobro
+     */
+    public function getSaleFormPayment()
+    {
+        return response()->json(template_choices('Modules\Sale\Models\SaleFormPayment', 'name_form_payment', '', true));
+    }
 }

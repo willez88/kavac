@@ -596,6 +596,11 @@ export default {
             });
         },
 
+        /**
+         * Método que carga agrega una nueva etapa para el diagrama de gantt
+         *
+         * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+         */
         addStage(){
             const vm = this;
             vm.errors = [];
@@ -617,6 +622,11 @@ export default {
             vm.stage.description = '';
         },
 
+        /**
+         * Método que agrega un nuevo registro a la tabla para el diagrama de gantt
+         *
+         * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+         */
         addActivity(){
             const vm = this;
             vm.errors = [];
@@ -711,6 +721,11 @@ export default {
             vm.activity.percentage = '';
         },
 
+        /**
+         * Método que agrega un trabajador a una actividad para el diagrama de gantt
+         *
+         * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+         */
         activityStaff() {
             const vm = this;
             for (let staff of vm.payroll_staffs){
@@ -720,6 +735,11 @@ export default {
             };
         },
 
+        /**
+         * Método que agrega una etapa a una actividad para el diagrama de gantt
+         *
+         * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+         */
         activityStages() {
             const vm = this;
             for (let stage of vm.stages){
@@ -732,7 +752,7 @@ export default {
         /**
          * Método que carga la información del formulario al editar
          *
-         *
+         * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
          */
         async loadForm(id){
             const vm = this;
@@ -846,7 +866,7 @@ export default {
         /**
          * Método que borra todos los datos del formulario
          *
-         *
+         * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
          */
         reset() {
             this.record = {
@@ -862,6 +882,11 @@ export default {
             this.editIndex = null;
         },
 
+        /**
+         * Método que carga los trabajadores con bienes asignados para los select
+         *
+         * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+         */
         getPayrollStaffsAssigned() {
             const vm = this;
             vm.payroll_staffs_assignations = [];
@@ -871,6 +896,11 @@ export default {
             });
         },
 
+        /**
+         * Método que carga los trabajadores registrados para los select
+         *
+         * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+         */
         getPayrollStaffs() {
             const vm = this;
             vm.payroll_staffs = [];
@@ -880,6 +910,11 @@ export default {
             });
         },
 
+        /**
+         * Método que carga los bienes para los select
+         *
+         * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+         */
         getSaleGoods() {
             const vm = this;
             vm.services = [];
@@ -889,6 +924,11 @@ export default {
             });
         },
 
+        /**
+         * Método que carga los subservicios registrados para los select
+         *
+         * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+         */
         getSaleListSubservice() {
             const vm = this;
             vm.list_subservices = [];
@@ -898,6 +938,11 @@ export default {
             });
         },
 
+        /**
+         * Método que carga los periodos de tiempo registrados para los select
+         *
+         * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+         */
         getFrencuency() {
             const vm = this;
             vm.frecuencies = [];
@@ -907,6 +952,11 @@ export default {
             });
         },
 
+        /**
+         * Método que carga los clientes registrados para los select
+         *
+         * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+         */
         getSaleClientsRif() {
             const vm = this;
             vm.sale_clients_rif = [];
@@ -916,6 +966,11 @@ export default {
             });
         },
 
+        /**
+         * Método que carga la información de los clientes registrados para los select
+         *
+         * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+         */
         getSaleClient() {
             const vm = this;
             if (vm.service.sale_client_id > 0) {
@@ -927,6 +982,11 @@ export default {
             }
         },
 
+        /**
+         * Método que carga la información de los clientes registrados para los select
+         *
+         * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+         */
         getSaleClientsAddress() {
             const vm = this;
             vm.sale_clients_address = [];
@@ -936,6 +996,11 @@ export default {
             });
         },
 
+        /**
+         * Método que carga la información de los clientes registrados para los select
+         *
+         * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+         */
         getSaleClientsFiscalAddress() {
             const vm = this;
             vm.sale_clients_fiscal_address = [];
@@ -945,6 +1010,11 @@ export default {
             });
         },
 
+        /**
+         * Método que carga la información para la tabla de bienes asignados
+         *
+         * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+         */
         loadEquipment(){
             if(this.record.payroll_staffs.length > 0) {
                 this.records = [];
@@ -964,6 +1034,11 @@ export default {
             }
         },
 
+        /**
+         * Método que permite la edición de una actividad para el diagrama de gantt
+         *
+         * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+         */
         editActivity(index, event) {
             this.activity = {
                 stage: '',
@@ -980,10 +1055,20 @@ export default {
             event.preventDefault();
         },
 
+        /**
+         * Método que permite eliminar una actividad para el diagrama de gantt
+         *
+         * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+         */
         removeActivity(index, event) {
             this.record.activities.splice(index-1, 1);
         },
 
+        /**
+         * Método que reemplaza el createRecord para no usar sus valores por defecto
+         *
+         * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+         */
         createRecord(url){
             const vm = this;
             let percentage = 0;

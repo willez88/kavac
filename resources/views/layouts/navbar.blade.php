@@ -52,8 +52,8 @@
                     })->first();
                 @endphp
 				@if ($notify)
-                    <notifications :unreads="{{ auth()->user()->unreadNotifications->take(5) }}"
-                                   :user-id="{!! auth()->user()->id !!}"
+                    <notifications :unreads="{{ auth()->user()->unreadNotifications }}"
+                                   :user-id="{!! auth()->user()->id !!}" 
                                    list-notifications-url="{!! route('notifications.list') !!}"></notifications>
 				@endif
 
@@ -184,7 +184,7 @@
                            title="{{ __('Bloquear pantalla de la aplicación') }}" data-toggle="tooltip"
                            data-placement="left">
 							<i class="ion-android-lock"></i>{{ __('Bloquear Pantalla') }}</a>
-						<a class="dropdown-item" href="{{ url('docs/user') }}" target="_blank"
+						<a class="dropdown-item" href="{{ url('docs/user') }}/" target="_blank"
                            title="{{ __('Ayuda') }} / {{ __('Manual de usuario') }}" data-toggle="tooltip"
                            data-placement="left">
 							<i class="ion-help-circled"></i>{{ __('Ayuda') }}</a>

@@ -105,6 +105,11 @@
                 
             },
 
+            /**
+             * Método que carga los registros en la tabla
+             *
+             * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+             */
             getSalePendingService() {
                 const vm = this;
 

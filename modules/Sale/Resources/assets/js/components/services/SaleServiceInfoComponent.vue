@@ -501,6 +501,11 @@
             reset() {
             },
 
+            /**
+             * Método que carga los registros en la tabla de equipos
+             *
+             * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+             */
             loadEquipment(){
                 for (let info of this.record.sale_technical_proposal) {
                     if(info.payroll_staffs.length > 0) {
@@ -522,6 +527,11 @@
                 }
             },
 
+            /**
+             * Método que carga los registros en la tabla de diagrama de gantt
+             *
+             * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+             */
             loadGanttDiagram(){
                 const vm = this;
                 vm.activities = [];

@@ -163,6 +163,11 @@
                     payroll_staff_id:''
                 };
             },
+            /**
+             * Método que carga los trabajadores registrados para el select 
+             *
+             * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+             */
             getPayrollStaffs() {
                 const vm = this;
                 vm.payroll_staffs = [];
@@ -171,6 +176,12 @@
                         vm.payroll_staffs = response.data;
                 });
             },
+
+            /**
+             * Método que carga el modal
+             *
+             * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+             */
             initPending(modal_id,event) {
 
                 $(".modal-body #id").val( this.serviceid );
@@ -179,6 +190,12 @@
                 }
                 event.preventDefault();
             },
+
+            /**
+             * Método que actualiza los registros al ser aprobados o rechazados
+             *
+             * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+             */
             updateRecord(url) {
                 const vm = this;
                 let id = $(".modal-body #id").val();

@@ -23,10 +23,15 @@ Los usuarios que interactúan en este módulo, serán todos aquellos usuarios co
 ## Funcionalidades
 
 - Relación directa con el Módulo de Presupuesto.
+
 - Gestión de proveedores.
+
 - Gestión de requerimientos.
+
 - Gestión de planes de compra.
+
 - Realización de órdenes de compra.
+
 - Registro de cotizaciones.
 
 ## Licencia
@@ -88,11 +93,11 @@ Licencia Combinada de Software y Contenidos de la Fundación CENDITEL (2015)
 La Fundación Centro Nacional de Desarrollo e Investigación en Tecnologías Libres (CENDITEL), ente adscrito al Ministerio del Poder Popular para  Ciencia y Tecnología (Mincyt), concede permiso, para usar, copiar, modificar y distribuir libremente y sin fines comerciales el Software KAVAC ‘Sistema de Gestión de Recursos’ (sin garantía alguna) asimismo permite, copiar, adaptar, publicar y comunicar los contenidos, preservando en ambos casos los derechos morales de los autores y manteniendo los mismos principios para las obras derivadas, de conformidad con los términos y condiciones de las licencias de software y contenidos de la Fundación CENDITEL.
 
 
-Cada vez que copie y distribuya este producto debe acompañarlo de una copia de las licencias. Para más información sobre los términos y condiciones de las licencias visite las siguientes direcciones electrónicas:  
+Cada vez que copie y distribuya este producto debe acompañarlo de una copia de las licencias. Para más información sobre los términos y condiciones de las licencias visite las siguientes direcciones electrónicas:
 
 
-[Licencia de Software](https://conocimientolibre.cenditel.gob.ve/legislacion)
+[Licencia de Software](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
 
-[Licencia de Contenidos](https://conocimientolibre.cenditel.gob.ve/legislacion)
+[Licencia de Contenidos](http://conocimientolibre.cenditel.gob.ve/licencias/)
 
 ![Screenshot](img/licencia.png)
