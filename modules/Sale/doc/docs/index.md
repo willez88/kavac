@@ -84,8 +84,8 @@ La Fundación Centro Nacional de Desarrollo e Investigación en Tecnologías Lib
 Cada vez que copie y distribuya este producto debe acompañarlo de una copia de las licencias. Para más información sobre los términos y condiciones de las licencias visite las siguientes direcciones electrónicas:  
 
 
-[Licencia de Software](https://conocimientolibre.cenditel.gob.ve/legislacion)
+[Licencia de Software](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
 
-[Licencia de Contenidos](https://conocimientolibre.cenditel.gob.ve/legislacion)
+[Licencia de Contenidos](http://conocimientolibre.cenditel.gob.ve/licencias/)
 
 ![Screenshot](img/licencia.png)
