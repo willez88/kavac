@@ -364,4 +364,23 @@ class SaleBillController extends Controller
             ->where('state', $state)->get();
         return response()->json(['records' => $sale_bills], 200);
     }
+
+    /**
+     * Obtiene la información de los productos o servicios a usar para el formulario
+     * de facturas
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     */
+    public function getBillProduct($product, $id){
+        if ($product == 'Producto') {
+            $product = SaleWarehouseInventoryProduct::find($id);
+            return response()->json(['record' => $product, 'message' => 'Success'], 200);
+        } else if ($product == 'Servicio') {
+            $product = SaleTypeGood::find($id);
+            return response()->json(['record' => $product, 'message' => 'Success'], 200);
+        } else {
+            return response()->json(['record' => [], 'message' => 'Success'], 200);
+        }
+    }
 }

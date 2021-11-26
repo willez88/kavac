@@ -22,7 +22,7 @@
     <div class="col-12">
         <div class="card" id="cardSaleBillForm">
             <div class="card-header">
-                <h6 class="card-title text-uppercase">Nuevo Ingreso al Almacén
+                <h6 class="card-title text-uppercase">Nueva Factura
                     @include('buttons.help', [
                         'helpId' => 'SaleBillForm',
                         'helpSteps' => get_json_resource('ui-guides/bills/sale_bill_form.json', 'sale')

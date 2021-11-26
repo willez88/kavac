@@ -122,6 +122,12 @@ Route::group(
             'SaleFormPaymentController',
             ['as' => 'sale']
         );
+
+        Route::get(
+            'get-form-payments',
+            'SaleFormPaymentController@getSaleFormPayment'
+        )->name('sale.get-sale-form-payment');
+
         /**
          * -----------------------------------------------------------------------
          * Rutas para la configuración general del módulo de Comercialización
@@ -297,6 +303,7 @@ Route::group(
         Route::put('bills/bill-approved/{bill}', 'SaleBillController@approvedBill');
         Route::put('bills/bill-rejected/{bill}', 'SaleBillController@rejectedBill');
         Route::get('bills/vue-approved-list/{state}', 'SaleBillController@vueApprovedList');
+        Route::get('get-bill-product/{product}/{id}', 'SaleBillController@getBillProduct');
         Route::get('bills/pdf/{id}', 'Reports\SaleBillController@pdf');
 
         /*
