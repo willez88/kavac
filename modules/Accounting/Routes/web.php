@@ -179,9 +179,22 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'accounti
         'Reports\AccountingDailyBookController@pdf'
     );
 
+
     Route::get(
         'report/dailyBook/pdfVue/{initDate}/{endDate}/{currency}',
         'Reports\AccountingDailyBookController@pdfVue'
+    );
+    /**
+     * rutas para reporte del libro diario firmado electrónicamente
+     */
+    Route::get(
+        'report/dailyBookSign/{report}',
+        'Reports\AccountingDailyBookController@pdfSign'
+    );
+
+    Route::get(
+        'report/dailyBookSign/pdfVue/{initDate}/{endDate}/{currency}',
+        'Reports\AccountingDailyBookController@pdfVueSign'
     );
 
     /**
