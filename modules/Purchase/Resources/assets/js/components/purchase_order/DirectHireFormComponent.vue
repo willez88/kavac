@@ -21,7 +21,13 @@
                     <input type="text" id="description" v-model="record.description" class="form-control">
                 </div>
             </div> -->
-            <div class="col-6">
+            <div class="col-3">
+                <div class="form-group is-required">
+                    <label class="control-label" for="currencies">Tipo de moneda</label><br>
+                    <select2 :options="currencies" id="currencies" v-model="currency_id"></select2>
+                </div>
+            </div>
+            <div class="col-3">
                 <div class="form-group is-required">
                     <label class="control-label" for="institutions">Institución</label><br>
                     <select2 :options="institutions" id="institutions" v-model="record.institution_id"
@@ -38,36 +44,6 @@
                 <div class="form-group is-required">
                     <label class="control-label" for="departments2">Unidad usuaria</label><br>
                     <select2 :options="departments" id="departments2" v-model="record.user_department_id"></select2>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="form-group is-required">
-                    <label for="description">Presupuesto base estimado</label>
-                    <input type="text" id="description" v-model="record.description" class="form-control">
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="form-group is-required">
-                    <label for="purchase_supplier_objects">Denominación del requerimiento</label>
-                    <select2 :options="purchase_supplier_objects" id="purchase_supplier_objects" v-model='record.purchase_supplier_object_id'></select2>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="form-group is-required">
-                    <label for="description">Fuente de financiamiento</label>
-                    <input type="text" id="description" v-model="record.description" class="form-control">
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="form-group is-required">
-                    <label for="description">Denominación especifica del requerimiento</label>
-                    <input type="text" id="description" v-model="record.description" class="form-control">
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="form-group is-required">
-                    <label for="description">Disponibilidad presupuestaria</label>
-                    <input type="text" id="description" v-model="record.description" class="form-control">
                 </div>
             </div>
             <div class="col-3">
@@ -92,11 +68,116 @@
                     </div>
                 </div>
             </div>
+          <!--   <div class="col-3">
+                <label for="estimated_base_budget">Presupuesto base estimado</label>
+                <label class="custom-control">
+                    <button type="button" data-toggle="tooltip"
+                            class="btn btn-sm btn-info btn-import"
+                            title="Presione para subir el archivo del documento."
+                            @click="setFile('estimated_base_budget')">
+                        <i class="fa fa-upload"></i>
+                    </button>
+                    <input type="file" 
+                            id="estimated_base_budget" 
+                            @change="uploadFile('estimated_base_budget', $event)"
+                            style="display:none;">
+                    <span class="badge badge-success" id="status_estimated_base_budget" style="display:none;">
+                        <strong>Documento Cargado.</strong>
+                    </span>
+                </label>
+            </div> -->
             <div class="col-3">
                 <div class="form-group is-required">
-                    <label class="control-label" for="currencies">Tipo de moneda</label><br>
-                    <select2 :options="currencies" id="currencies" v-model="currency_id"></select2>
+                    <label for="purchase_supplier_objects">Denominación del requerimiento</label>
+                    <select2 :options="purchase_supplier_objects" id="purchase_supplier_objects" v-model='record.purchase_supplier_object_id'></select2>
                 </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group is-required">
+                    <label for="description">Fuente de financiamiento</label>
+                    <input type="text" id="description" v-model="record.description" class="form-control">
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group is-required">
+                    <label for="description">Denominación especifica del requerimiento</label>
+                    <input type="text" id="description" v-model="record.description" class="form-control">
+                </div>
+            </div>
+<!--             <div class="col-3">
+                <div class="form-group is-required">
+                    <label for="Disponibilidad presupuestaria">Disponibilidad presupuestaria</label>
+                    <label class="custom-control">
+                        <button type="button" data-toggle="tooltip"
+                                class="btn btn-sm btn-info btn-import"
+                                title="Presione para subir el archivo del documento."
+                                @click="setFile('Disponibilidad presupuestaria')">
+                            <i class="fa fa-upload"></i>
+                        </button>
+                        <input type="file" 
+                                id="Disponibilidad presupuestaria" 
+                                @change="uploadFile('Disponibilidad presupuestaria', $event)"
+                                style="display:none;">
+                        <span class="badge badge-success" id="status_Disponibilidad presupuestaria" style="display:none;">
+                            <strong>Documento Cargado.</strong>
+                        </span>
+                    </label>
+                </div>
+            </div> -->
+            <div class="col-12">
+                <br>
+            </div>
+            <div class="col-12">
+                <h6 class="card-title">Lista de documentos requeridos</h6>
+            </div>
+            <div class="col-12">
+                <ul class="feature-list list-group list-group-flush">
+                    <li class="list-group-item"
+                        v-for="(file, idx) in files">
+                        <div class="feature-list-indicator bg-info">
+                            <label style="margin-left: 2rem;" >
+                                {{ idx.replace(/_/g, ' ') }}
+                            </label>
+                        </div>
+                        <div class="feature-list-content p-0" style="margin-left: 6rem;">
+                            <div class="feature-list-content-wrapper">
+                                <div class="feature-list-content-left mr-2">
+                                    <label class="custom-control">
+                                        <button type="button" data-toggle="tooltip"
+                                                class="btn btn-sm btn-danger btn-import"
+                                                title="Presione para subir el archivo."
+                                                @click="setFile(idx)">
+                                            <i class="fa fa-upload"></i>
+                                        </button>
+                                        <input type="file" 
+                                                :id="idx"
+                                                @change="uploadFile(idx, $event)"
+                                                style="display:none;">
+                                    </label>
+                                </div>
+                                <div class="feature-list-content-left">
+                                    <div class="feature-list-subheading">
+                                        <div v-if="files[idx]">
+                                            {{ files[idx].name }}
+                                        </div>
+                                        <div v-show="!files[idx]">
+                                            Cargar documento.
+                                        </div>
+                                    </div>
+                                    <div class="feature-list-subheading" :id="'status_'+idx"
+                                            style="display:none;">
+                                        <span class="badge badge-success">
+                                            <strong>Documento Cargado.</strong>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-12">
+                <hr>
             </div>
            <!--  <div class="col-12 row">
                 <div class="col-3">
@@ -372,6 +453,10 @@ export default{
             purchase_supplier_id:'',
             convertion_list:[],
             load_data_edit:false,
+            files:{
+                'Presupuesto_base_estimado' : null,
+                'Disponibilidad_presupuestaria': null,
+            },
         }
     },
     created(){
@@ -420,7 +505,7 @@ export default{
 
         axios.get('/purchase/get-institutions').then(response => {
             vm.institutions = response.data.institutions;
-            console.log(response.data.institutions)
+            // console.log(response.data.institutions)
         });
     },
     mounted(){
@@ -460,6 +545,26 @@ export default{
             this.tax_value = 0;
             this.total     = 0;
             this.$refs.PurchaseOrderFormComponent.reset();
+        },
+
+        uploadFile(inputID, e){
+            console.log(inputID)
+
+            let vm = this;
+            const files = e.target.files;
+
+            Array.from(files).forEach(file => vm.addFile(file, inputID));
+        },
+        addFile(file, inputID) {
+            if (!file.type.match('application/pdf')) {
+                this.showMessage(
+                    'custom', 'Error', 'danger', 'screen-error', 'Solo se permiten archivos pdf.'
+                );
+                return;
+            }else{
+                this.files[inputID] = file;
+                $('#status_'+inputID).show("slow");
+            }
         },
 
         addDecimals(value){

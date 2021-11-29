@@ -292,6 +292,7 @@ Vue.mixin({
 		 * @param {string} input_id Identificador del campo de tipo archivo
 		 */
 		setFile(input_id) {
+			console.log(input_id)
 			$(`#${input_id}`).click();
 		},
 		/**
