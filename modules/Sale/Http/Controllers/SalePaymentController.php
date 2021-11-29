@@ -12,6 +12,7 @@ use Modules\Sale\Models\SaleClient;
 use Modules\Sale\Models\SaleGoodsToBeTraded;
 use Modules\Sale\Models\SaleClientsEmail;
 use Modules\Sale\Models\SaleOrder;
+use Modules\Sale\Models\SaleFormPayment;
 use Modules\Sale\Models\SaleOrderManagement;
 use Modules\Sale\Models\SaleRegisterPayment;
 use App\Models\Phone;
@@ -42,7 +43,7 @@ class SalePaymentController extends Controller
     public function index()
     {
         $records = SaleRegisterPayment::all();
-       // return response()->json(['records' => SaleRegisterPayment::all()], 200);
+        // return response()->json(['records' => SaleRegisterPayment::all()], 200);
         //return compact('records');
         return view('sale::payment.list', compact('records'));
 
@@ -175,14 +176,14 @@ class SalePaymentController extends Controller
     }
 
     /**
-     * Muestra una lista de las monedas registradas en el sistema
+     * Muestra una Forma de cobro registrada
      *
      * @author Miguel Narvaez <mnarvaezcenditel.gob.ve>
      * @return Array con los registros a mostrar
      */
     public function getCurrencie()
     {
-        return template_choices('App\Models\Currency', ['symbol', '-', 'name'], '', true);
+        return template_choices('Modules\Sale\Models\SaleFormPayment', ['name_form_payment', '-', 'description_form_payment'], '', true);
     }
 
     /**
@@ -229,7 +230,15 @@ class SalePaymentController extends Controller
      */
     public function getSaleClient($id)
     {
-        $saleClient = SaleClient::with(['rif', 'id_type', 'id_number', 'name', 'phones', 'saleClientsEmail'])->find($id);
-        return response()->json(['sale_client' => $saleClient], 200);
+
+        $SaleService = SaleService::find($id);
+        //return $SaleService['sale_goods_to_be_tradeds'];
+        //return $SaleService->code;
+        //$SaleGoodsToBeTraded = SaleGoodsToBeTraded::with(['unit_price','history_tax_id'])->find($SaleService->sale_goods_to_be_tradeds );
+
+        //$saleClient = SaleClient::with(['rif', 'id_type', 'id_number', 'name', 'phones', 'saleClientsEmail'])->find($id);
+        //return $saleClient;
+        //return response()->json(['sale_client' => $saleClient], 200);
     }
 }
+
