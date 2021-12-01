@@ -176,6 +176,9 @@ Crear tipo de contratación:
 
 ![Screenshot](../img/figure_13.png)<div style="text-align: center;font-weight: bold">Figura: Tipos de Contrataciones</div>
 
+!!! info "Nota"
+    Para guardar un **tipo de contratación** se requiere el registro previo de un **tipo de operación de compra**, el cual corresponde a una opción de la **configuración general del módulo de compras**.  
+
 Gestión de registros: 
 
 Para **Editar** o **Eliminar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de **Registros**.
