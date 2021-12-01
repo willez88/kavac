@@ -1,5 +1,7 @@
 # Project information
 site_name: Documentación de Usuario.
+site_dir: ../../../public/docs/user_digitalsignature
+use_directory_urls: true
 
 # Page tree
 nav:
