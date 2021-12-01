@@ -160,9 +160,9 @@ export default{
 	computed:{
 		records_select: function(){
 			return [{
-					'id':'',
-					'text':'Seleccione...'
-				}].concat(this.records);
+				'id':'',
+				'text':'Seleccione...'
+			}].concat(this.records);
 		}
 	}
 };
