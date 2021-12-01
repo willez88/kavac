@@ -72,7 +72,7 @@
                     var year = this.code.split('-')[2];
                     if ((!prefix || (prefix.length < 1 || prefix.length > 3)) || 
                         (!digits || (digits.length < 6 || digits.length > 8)) || 
-                        (!year || (year != 'YY' && year != 'YYYY'))) {
+                        (!year || (year.toUpperCase() != 'YY' && year.toUpperCase() != 'YYYY')) ) {
                         errors.push('El campo código de referencia no cumple con el formato valido.');
                         res = true;
                     }

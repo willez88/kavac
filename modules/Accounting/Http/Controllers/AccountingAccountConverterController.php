@@ -134,7 +134,7 @@ class AccountingAccountConverterController extends Controller
 		]);
 
 		$account = AccountingAccount::find($request->accounting_account_id);
-		// dd($account);
+
 		/**
 		 * Crea el registro de conversiones
 		 */
@@ -159,7 +159,7 @@ class AccountingAccountConverterController extends Controller
 				'accountable_id'		=> $request->accountable_id,
 				'active'				=> true,
 			]);
-			
+
 			return response()->json(['message'=>'Success'], 200);
 		}
 		return response()->json(['message'=>'No se pudo crear la relacion entre registros.'], 200);
@@ -313,7 +313,7 @@ class AccountingAccountConverterController extends Controller
 			 * [$query contine los registros de conversión a en un rango de ids]
 			 * @var [Modules\Accounting\Models\Accountable]
 			 */
-			$query = Accountable::with('budgetAccount', 'accountingAccount')
+			$query = Accountable::with('accountable', 'accountingAccount')
 											->where('accountable_id', '>=', $init_id)
 											->where('accountable_id', '<=', $end_id)
 											->orderBy('id', 'ASC')->get();
@@ -330,7 +330,7 @@ class AccountingAccountConverterController extends Controller
 			 * [$query contine los registros de conversión a en un rango de ids]
 			 * @var [Modules\Accounting\Models\Accountable]
 			 */
-			$query = Accountable::with('accountingAccount', 'budgetAccount')->where('accounting_account_id', '>=', $init_id)
+			$query = Accountable::with('accountingAccount', 'accountable')->where('accounting_account_id', '>=', $init_id)
 											->where('accounting_account_id', '<=', $end_id)
 											->orderBy('id', 'ASC')->get();
 			// dd($query);
@@ -344,8 +344,8 @@ class AccountingAccountConverterController extends Controller
 				'id'                 => $r['id'],
 				'codeAccounting'     => $r['accountingAccount']->getCodeAttribute(),
 				'accounting_account' => $r['accountingAccount']['denomination'],
-				'codeBudget'         => $r['budgetAccount']->getCodeAttribute(),
-				'budget_account'     => $r['budgetAccount']['denomination'],
+				'codeBudget'         => $r['accountable']->getCodeAttribute(),
+				'budget_account'     => $r['accountable']['denomination'],
 			];
 			$cont++;
 		}
@@ -476,7 +476,7 @@ class AccountingAccountConverterController extends Controller
 		 * [$convertion registros relacionados]
 		 * @var [Modules\Accounting\Models\Accountable]
 		 */
-		$convertion = Accountable::with('budgetAccount')->where('accounting_account_id', $id)->first();
-		return response()->json(['record'=> $convertion->budgetAccount,'message'=>'Success'], 200);
+		$convertion = Accountable::with('accountable')->where('accounting_account_id', $id)->first();
+		return response()->json(['record'=> $convertion->accountable,'message'=>'Success'], 200);
 	}
 }

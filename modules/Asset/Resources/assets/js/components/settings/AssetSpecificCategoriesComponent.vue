@@ -3,7 +3,7 @@
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="#" title="Registros de Categorias Específicas de Bienes" data-toggle="tooltip"
 		   @click="addRecord('add_specific_category', 'asset/specific', $event)">
-			<i class="icofont icofont-read-book ico-3x"></i>
+			<i class="icofont icofont-cube ico-3x"></i>
 			<span>Categorias<br>Específicas</span>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_specific_category">
@@ -14,7 +14,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-read-book ico-2x"></i>
+							<i class="icofont icofont-cube ico-2x"></i>
 							Nueva Categoria Específica de Bienes
 						</h6>
 					</div>

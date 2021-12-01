@@ -13,7 +13,7 @@
 				<div class="col-3" id="helpDailyBookEndDate">
 					<label class="control-label">Fecha final</label>
 					<input type="date" class="form-control input-sm"
-						v-model="dateEnd">
+						v-model="dateEnd" :min="dateIni?dateIni:''" :disabled="dateIni?false:true">
 				</div>
 				<div class="col-3" id="helpDailyBookCurrency">
 					<label class="control-label">Expresar en</label>

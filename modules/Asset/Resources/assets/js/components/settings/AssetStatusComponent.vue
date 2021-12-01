@@ -3,7 +3,7 @@
         <a class="btn-simplex btn-simplex-md btn-simplex-primary"
            href="" title="Registros de Estatus de Uso de los Bienes" data-toggle="tooltip"
            @click="addRecord('add_status', 'asset/status', $event)">
-            <i class="icofont icofont-read-book ico-3x"></i>
+            <i class="icofont icofont-rotation ico-3x"></i>
             <span>Estatus de Uso</span>
         </a>
         <div class="modal fade text-left" tabindex="-1" role="dialog" id="add_status">
@@ -14,7 +14,7 @@
                             <span aria-hidden="true">×</span>
                         </button>
                         <h6>
-                            <i class="icofont icofont-read-book ico-2x"></i>
+                            <i class="icofont icofont-rotation ico-2x"></i>
                             Nuevo Estatus de Uso
                         </h6>
                     </div>
