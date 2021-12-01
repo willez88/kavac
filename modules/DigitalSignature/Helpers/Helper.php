@@ -37,9 +37,6 @@ class Helper
 
     function getRespVerify($respverify) 
     {
-        dump("getRespVerify");
-        dump($respverify);
-        dump(count($respverify));
         $count = 0;
         $item = 0;
         $records = [
