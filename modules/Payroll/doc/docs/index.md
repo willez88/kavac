@@ -19,7 +19,7 @@ La sección de **Solicitudes** esta orientada a la formulación de solicitudes h
 
 A través de la generación de **Reportes** es posible generar informes en tiempo real sobre: resumen de disfrute de vacaciones, estatus de vacaciones, cálculo del bono vacacional y pago de bono vacacional.  
 
-A través de la **Configuración** del módulo se establecen los códigos de registros, edad laboral permitida, registros comunes y parámetros generales de nómina.   Todos estos registros son parámetros que serán considerados en las demás secciones del módulo
+A través de la **Configuración** del módulo se establecen los códigos de registros, edad laboral permitida, registros comunes y parámetros generales de nómina.   Todos estos registros son parámetros que serán considerados en las demás secciones del módulo.
 
 ## Sobre los usuarios
 
