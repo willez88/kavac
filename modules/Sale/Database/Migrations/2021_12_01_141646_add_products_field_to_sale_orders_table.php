@@ -1,24 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-/**
- * @class CreateSaleOrdersTable
- * @brief [descripción detallada]
- *
- * [descripción corta]
- *
- * @author [autor de la clase] [correo del autor]
- *
- * @license
- *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
- */
-class CreateSaleOrdersTable extends Migration
+class AddProductsFieldToSaleOrdersTable extends Migration
 {
     /**
-     * Ejecuta las migraciones.
+     * Run the migrations.
      *
      * @return void
      */
@@ -39,7 +28,7 @@ class CreateSaleOrdersTable extends Migration
     }
 
     /**
-     * Revierte las migraciones.
+     * Reverse the migrations.
      *
      * @return void
      */
