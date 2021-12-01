@@ -3,7 +3,7 @@
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="#" title="Registros de Subcategorías de Bienes" data-toggle="tooltip"
 		   @click="addRecord('add_subcategory', 'asset/subcategories', $event)">
-			<i class="icofont icofont-read-book ico-3x"></i>
+			<i class="icofont icofont-sub-listing ico-3x"></i>
 			<span>Subcategorías</span>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_subcategory">
@@ -14,7 +14,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-read-book ico-2x"></i>
+							<i class="icofont icofont-sub-listing ico-2x"></i>
 							Nueva Subcategoría de Bienes
 						</h6>
 					</div>

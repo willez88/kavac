@@ -3,7 +3,7 @@
         <a class="btn-simplex btn-simplex-md btn-simplex-primary"
            href="#" title="Registros de Tipos de Adquisición de un Bien" data-toggle="tooltip" v-has-tooltip
            @click="addRecord('add_acquisition_type', 'asset/acquisition-types', $event)">
-            <i class="icofont icofont-read-book ico-3x"></i>
+            <i class="icofont icofont-shopping-cart ico-3x"></i>
             <span>Tipos de Adquisición</span>
         </a>
         <div class="modal fade text-left" tabindex="-1" role="dialog" id="add_acquisition_type">
@@ -14,7 +14,7 @@
                             <span aria-hidden="true">×</span>
                         </button>
                         <h6>
-                            <i class="icofont icofont-read-book ico-2x"></i>
+                            <i class="icofont icofont-shopping-cart ico-2x"></i>
                             Nuevo Tipo de Adquisición de un Bien
                         </h6>
                     </div>
