@@ -13,7 +13,7 @@
     },
     {
         "element" : "#helpAnaliticalMajorRangeAccount",
-        "intro" : "Rango de cuentas patrimoniales que se desean mostrar en el reporte."
+        "intro" : "Rango de cuentas patrimoniales que se desean mostrar en el reporte. <br> <b>Solo cargara las cuentas que se encuentren en asientos contables aprobados</b>"
     },
     {
         "element" : "#helpAnaliticalMajorCurrency",
