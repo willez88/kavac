@@ -1,0 +1,23 @@
+/*Variables CSS */
+:root {
+  --md-primary-fg-color: #2ca8ff;
+  --md-primary-fg-color--dark : #039be5;
+}
+
+/*Logo*/
+.md-header-nav__button.md-logo img {
+	width: 2.4rem;
+	height: 1.5rem;
+}
+
+
+/*Contenido*/
+p {
+	text-align: justify;
+}
+
+p img{
+	padding: 0.625rem;
+	border: 0.063rem solid #ddd;
+	border-radius: 0.313rem;
+}
