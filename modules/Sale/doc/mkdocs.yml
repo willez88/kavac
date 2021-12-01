@@ -1,5 +1,8 @@
 # Project information
 site_name: Documentación de Usuario.
+site_dir: ../../../public/docs/user_sale
+use_directory_urls: true
+
 
 # Page tree
 nav:
@@ -9,8 +12,6 @@ nav:
       - Configuración: 
         - Formatos de Códigos: setting/code_format.md
         - Registros Comunes: setting/common_registers.md
-      - Panel de Control: 
-        - Panel de Control: control_panel/control_panel.md 
       - Preguntas Frecuentes: frequent_questions.md
        
       
