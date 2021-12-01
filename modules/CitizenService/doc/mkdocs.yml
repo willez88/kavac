@@ -1,5 +1,7 @@
 # Project information
 site_name: Documentación de Usuario.
+site_dir: ../../../public/docs/user_citizenservice
+use_directory_urls: true
 
 # Page tree
 nav:
@@ -10,9 +12,7 @@ nav:
         - Ingresar Cronograma: schedule.md
       - Configuración: 
         - Formatos de Códigos: setting/code_format.md 
-        - Registros Comúnes: setting/common_records.md
-      - Panel de Control: 
-        - Panel de Control: control_panel/control_panel.md 
+        - Registros Comunes: setting/common_records.md
       - Preguntas Frecuentes: frequent_questions.md  
 
 # Repository
