@@ -24,9 +24,9 @@ A continuación se muestra un registro de **Proyecto**:
 !!! info "Registro de proyectos"
     Para el registro de proyectos es necesario completar el formulario de la sección **Proyecto**. 
     
-    -   Los campos selectores **Institución** y **Dependencia** solicitados por el sistema corresponden a registros previos realizados en la **Configuración General del Sistema/Registros Comúnes**.
+    -   Los campos selectores **Institución** y **Dependencia** solicitados por el sistema corresponden a registros previos realizados en la **Configuración General del Sistema/Registros Comunes**.
     
-    -   El campo selector **Cargo del Responsable** y **Responsable** solicitados por el sistema corresponden a registros previos realizados en la **Configuración del módulo de Talento Humano/Registros Comúnes** y el registro de **Expediente de Talento Humano** (expediente de usuario responsable).
+    -   El campo selector **Cargo del Responsable** y **Responsable** solicitados por el sistema corresponden a registros previos realizados en la **Configuración del módulo de Talento Humano/Registros Comunes** y el registro de **Expediente de Talento Humano** (expediente de usuario responsable).
 
     Estos datos se adjuntan al nuevo registro de **Proyecto**.
 
