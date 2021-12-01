@@ -2,12 +2,12 @@
 	<div class="col-xs-2 text-center">
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="#" title="Catálogo de Cuentas patrimoniales"
-		   data-toggle="tooltip" @click="addRecord('CRUD_accounts', 'accounting/accounts', $event)">
+		   data-toggle="tooltip" @click="addRecord('crud_accounts', 'accounting/accounts', $event)">
 			<i class="fa fa-list ico-3x"></i>
 			<span>Catálogo de cuentas</span>
 		</a>
 
-		<div class="modal fade text-left" tabindex="-1" role="dialog" id="CRUD_accounts">
+		<div class="modal fade text-left" tabindex="-1" role="dialog" id="crud_accounts">
 			<div class="modal-dialog vue-crud" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -45,7 +45,7 @@
 	                </div>
 	                <hr>
 					<div class="modal-body" style="margin-top: -5rem;" v-show="!formImport && records_select.length > 0">
-						<accounting-form :records="records_select" />
+						<accounting-form :records="records_select" ref="AccountForm" />
 	                </div>
 
 					<div class="modal-footer" v-if="!formImport">
@@ -92,6 +92,25 @@ export default{
 		 */
 		reset() {
 			this.formImport = false;
+		},
+
+		/**
+		 * Método que permite mostrar una ventana emergente con la información registrada
+		 * y la nueva a registrar
+		 *
+		 * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+		 *
+		 * @param {string} modal_id Identificador de la ventana modal
+		 * @param {string} url      Ruta para acceder a los datos solicitados
+		 * @param {object} event    Objeto que gestiona los eventos
+		 */
+		async addRecord(modal_id, url, event) {
+			event.preventDefault();
+            this.loading = true;
+            await this.initRecords(url, modal_id);
+            this.loading = false;
+
+            this.$refs.AccountForm.reset();
 		},
 
 		createRecord:function(url) {
