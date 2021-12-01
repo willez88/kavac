@@ -24,9 +24,9 @@ class SaleBill extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['code', 'state', 'sale_client_id', 'sale_warehouse_id', 'sale_payment_method_id', 'currency_id', 'sale_discount_id'];
+    protected $fillable = ['code', 'state', 'type', 'type_person', 'name', 'id_number', 'rif', 'phone', 'email', 'sale_form_payment_id'];
 
-     /**
+    /**
      * Método que obtiene la lista de clientes del módulo de comercialización
      *
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
@@ -57,9 +57,9 @@ class SaleBill extends Model implements Auditable
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
      * SalePaymentMethod
      */
-    public function salePaymentMethod()
+    public function saleFormPayment()
     {
-        return $this->belongsTo(SalePaymentMethod::class);
+        return $this->belongsTo(SaleFormPayment::class);
     }
 
     /**
@@ -86,7 +86,7 @@ class SaleBill extends Model implements Auditable
         return $this->hasMany(SaleBillInventoryProduct::class);
     }
 
-     /**
+    /**
      * Método que obtiene las formas de pago almacenadas en el sistema
      *
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
