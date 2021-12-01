@@ -108,7 +108,7 @@
 		</form>
 
 		<div v-if="records.length > 0">
-			<!-- <accounting-entry-li :seating="records" :currency="currency" :show="'approved'" /> -->
+			<accounting-entry-list :seating="records" :currency="currency" :show="'approved'" />
 		</div>
 	</div>
 </template>
