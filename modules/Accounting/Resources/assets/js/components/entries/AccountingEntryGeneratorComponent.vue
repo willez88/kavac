@@ -15,7 +15,7 @@
 				<div class="form-group is-required">
 					<label class="control-label">Concepto ó Descripción</label>
 					<input type="text" class="form-control input-sm" v-model="data.concept" data-toggle="tooltip"
-                             title="Concepto ó Descripción">
+                             title="Concepto ó Descripción"> 
 				</div>
 			</div>
 		</div>
