@@ -35,7 +35,7 @@ ubicado en la esquina superior derecha de esta sección, se procede a realizar u
 **Dependencia solicitante**
 
 !!! note "Nota"
-	Los datos correspondientes al campo Dependencia Solicitante (departamento), deben estar registrados previamente, de no estar registrados es necesario adjuntar esta información en la Configuración General del Sistema KAVAC, específicamente en la opción "Unidades/Dependencias" de la sección de "Registros Comúnes".
+	Los datos correspondientes al campo Dependencia Solicitante (departamento), deben estar registrados previamente, de no estar registrados es necesario adjuntar esta información en la Configuración General del Sistema KAVAC, específicamente en la opción "Unidades/Dependencias" de la sección de "Registros Comunes".
 
 **Proyecto y Acción Centralizada**
 	
@@ -99,7 +99,7 @@ ubicado en la esquina superior derecha de esta sección, se procede a realizar u
 **Departamento**
 
 !!! note "Nota"
-	Los datos correspondientes al campo Departamento, deben estar registrados previamente, de no estar registrados es necesario adjuntar esta información en la Configuración General del Sistema KAVAC, específicamente en la opción "Unidades/Dependencias" de la sección de "Registros Comúnes".
+	Los datos correspondientes al campo Departamento, deben estar registrados previamente, de no estar registrados es necesario adjuntar esta información en la Configuración General del Sistema KAVAC, específicamente en la opción "Unidades/Dependencias" de la sección de "Registros Comunes".
 
 **Cargo y Solicitante**
 	
