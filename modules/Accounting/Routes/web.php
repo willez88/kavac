@@ -211,6 +211,19 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'accounti
     );
 
     /**
+     * rutas para reporte de libro auxiliar con firma electrónica
+     */
+    Route::get(
+        'report/auxiliaryBookSign/{report}',
+        'Reports\AccountingAuxiliaryBookController@pdfSign'
+    );
+
+    Route::get(
+        'report/auxiliaryBookSign/pdfVue/{date}/{currency}/{account_id?}',
+        'Reports\AccountingAuxiliaryBookController@pdfVueSign'
+    );
+
+    /**
      * rutas para reporte de balance general
      */
     Route::get(
