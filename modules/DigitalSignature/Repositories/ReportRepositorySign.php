@@ -305,7 +305,6 @@ class ReportRepositorySign implements ReportInterface
     public function setBody($body, $isHTML = true, $htmlParams = [])
     {
         /** @var string Contenido del reporte */
-        //dump("setBody.....!!");
         $htmlContent = $body;
         /** Configuración sobre el autor del reporte */
         $this->pdf->SetAuthor(__('Sistema de Gestión de Recursos - :app', ['app' => config('app.name')]));
@@ -355,8 +354,6 @@ class ReportRepositorySign implements ReportInterface
             $this->auth = User::find(auth()->user()->id);
             /* El usuario tiene certificado de firma almacenado */
             if($this->auth->signprofiles) {
-                //dump("Nombre del archivo");
-                //dump($this->filename);
                 $this->pdf->Output(storage_path() . '/reports/' . $this->filename, 'F');
                 $filepath = storage_path() . '/reports/';
                 /* Se ejecuta la función de forma electrónica */
@@ -368,8 +365,7 @@ class ReportRepositorySign implements ReportInterface
                         'filename' => $this->fileNameSign,
                         'file' => $path,
                     );
-                    //dump("Luego de firmar");
-                    $this->pdf->Output($this->fileNameSign, 'I');
+                    //$this->pdf->Output($this->fileNameSign, 'I');
                     return $reponse;
                 }
             }
@@ -402,7 +398,6 @@ class ReportRepositorySign implements ReportInterface
      */
     public function ReportsignFile($filepath) {
 
-        //dump("ReportsignFile...!!!....");
         //Crear archivo pkcs#12
         $cert = Crypt::decryptString($this->auth->signprofiles['cert']);
         $pkey = Crypt::decryptString($this->auth->signprofiles['pkey']);
@@ -425,8 +420,6 @@ class ReportRepositorySign implements ReportInterface
         $run = exec($comand, $output);
         //elimina el certficado .p12
         Storage::disk('temporary')->delete($filenamep12);
-        //dump($storePdfSign);
-        //dump("*********");
         return $storePdfSign;
     }
 
