@@ -16,6 +16,7 @@ use Modules\Sale\Models\SaleFormPayment;
 use Modules\Sale\Models\SaleOrderManagement;
 use Modules\Sale\Models\SaleRegisterPayment;
 use App\Models\Phone;
+use App\Models\HistoryTax;
 use App\Rules\Rif as RifRule;
 
 /**
@@ -230,15 +231,24 @@ class SalePaymentController extends Controller
      */
     public function getSaleClient($id)
     {
-
         $SaleService = SaleService::find($id);
-        //return $SaleService['sale_goods_to_be_tradeds'];
-        //return $SaleService->code;
-        //$SaleGoodsToBeTraded = SaleGoodsToBeTraded::with(['unit_price','history_tax_id'])->find($SaleService->sale_goods_to_be_tradeds );
-
-        //$saleClient = SaleClient::with(['rif', 'id_type', 'id_number', 'name', 'phones', 'saleClientsEmail'])->find($id);
-        //return $saleClient;
-        //return response()->json(['sale_client' => $saleClient], 200);
+        $sale_goods_to_be_traded_count = count($SaleService->sale_goods_to_be_traded);
+        for ($i=0; $i < $sale_goods_to_be_traded_count; $i++) { 
+            //id de servicios
+            $SaleService->sale_goods_to_be_traded[$i];
+            //Consulta valor de servicio
+            $SaleGoodsToBeTraded = SaleGoodsToBeTraded::find($id);
+            // valor de impuesto
+            if ($SaleGoodsToBeTraded->history_tax_id) {
+                $HistoryTax = HistoryTax::find($SaleGoodsToBeTraded->history_tax_id);
+            }
+            else{$HistoryTax = 0;}
+            // valor de servicio con impuesto
+            $porcentaje = ((float)$HistoryTax->percentage * $SaleGoodsToBeTraded->unit_price) / 100; // Regla de tres
+            //total de servicio + impuesto
+            $total = $sumatoria[$i] = $porcentaje + $SaleGoodsToBeTraded->unit_price;
+        };
+        return response()->json(['code' => $SaleService->code,'total' => $total], 200);
     }
 }
 
