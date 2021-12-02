@@ -89,9 +89,9 @@ class AccountingSettingController extends Controller
                     'table'  => 'accounting_'. $table,
                     'field'  => $field,
                 ], [
-                    'format_prefix' => $prefix,
+                    'format_prefix' => strtoupper($prefix),
                     'format_digits' => $digits,
-                    'format_year'   => $sufix,
+                    'format_year'   => strtoupper($sufix),
                     'model'         => $model,
                 ]);
 

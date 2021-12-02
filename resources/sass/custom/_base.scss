@@ -42,6 +42,7 @@ small {font-size: 70%;}
 .break-words {
     white-space:normal;
     word-wrap: break-word;
+    word-break: break-all;
 }
 
 /** Estilos para el contenido de la aplicación */

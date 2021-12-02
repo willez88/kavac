@@ -615,6 +615,35 @@ $(document).ready(function() {
         });
     });
 
+    /**
+     * Función que define el atributo href para dirigir a la documentación 
+     * de usuario según la ubicación en el sistema
+     *
+     * @author Luis Ramírez  <lgramirez@cenditel.gob.ve>
+     */
+    $('#list_options_user').on('click', function(){
+        let link = document.getElementById('doc-user');
+        let path= window.location.pathname.split('/');
+        let location= path[1];
+        let module;
+
+        if (modules) {
+            modules.forEach(element => {
+                if (location === element.toLowerCase()) {
+                    module = element.toLowerCase();
+                    return module;
+                }
+            });
+            if (module) {
+                link.href= `${app_url}`+'/docs/user'+'_' +`${module}`+'/';  
+            }else{
+                link.href= `${app_url}`+'/docs/user/';
+            }
+        }else {
+            link.href= `${app_url}`+'/docs/user/';
+        }
+    });
+
 });
 
 /** Script para medir la fortaleza de la contraseña */

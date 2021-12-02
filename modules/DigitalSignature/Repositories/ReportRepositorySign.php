@@ -61,6 +61,8 @@ class ReportRepositorySign implements ReportInterface
     private $pdf;
     /** @var object usuario que firma el documento PDF */
     private $auth;
+    /** @var string Nombre del archivo pdf firmado */
+    private $fileNameSign;
 
     /**
      * Método constructor de la clase
@@ -357,13 +359,13 @@ class ReportRepositorySign implements ReportInterface
                 /* Se ejecuta la función de forma electrónica */
                 $path = $this->ReportsignFile($filepath);
                 if($path) {
-                    $filename = explode('/', $path);
                     $reponse = array (
                         'status' => 'true',
                         'message' => 'El documento se firmo correctamente',
-                        'filename' => $filename[count($filename)-1],
+                        'filename' => $this->fileNameSign,
                         'file' => $path,
                     );
+                    //$this->pdf->Output($this->fileNameSign, 'I');
                     return $reponse;
                 }
             }
@@ -373,7 +375,7 @@ class ReportRepositorySign implements ReportInterface
                     'message' => 'El usuario no tiene certificado de firma almacenado',
                     'path' => '',
                 );
-            return $reponse;
+            //return $reponse;
             }
         } else {
             $reponse = array (
@@ -381,7 +383,7 @@ class ReportRepositorySign implements ReportInterface
                 'message' => 'Modulo de firma desactivado',
                 'path' => '',
             );
-            return $reponse;
+            //return $reponse;
         }
     }
 
@@ -399,12 +401,14 @@ class ReportRepositorySign implements ReportInterface
         //Crear archivo pkcs#12
         $cert = Crypt::decryptString($this->auth->signprofiles['cert']);
         $pkey = Crypt::decryptString($this->auth->signprofiles['pkey']);
-        $passphrase = Str::random(10);
+        $passphrase = Crypt::decryptString(User::find(auth()->user()->id)->signprofiles['passphrase']);
+        //$passphrase = Str::random(20);
 
         //Datos para la firma
         $storePdf = $filepath . $this->filename;
         $newname = explode(".", $this->filename);
         $storePdfSign = $filepath . $newname[0] . '-sign.pdf';
+        $this->fileNameSign = $newname[0] . '-sign.pdf';
         $getpath = new Helper();
         $filenamep12 = Str::random(10) . '.p12';
         $storeCertificated = $getpath->getPathSign($filenamep12);

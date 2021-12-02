@@ -3,7 +3,7 @@
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href="#"
 		   title="Registros de tipo de solicitudes" data-toggle="tooltip"
 		   @click="addRecord('add_citizenservice-request-type', 'citizenservice/request-types', $event)">
-           <i class="icofont icofont-briefcase-alt-1 ico-3x"></i>
+           <i class="icofont icofont-files ico-3x"></i>
 		   <span>Tipo de Solicitud</span>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_citizenservice-request-type">
@@ -14,7 +14,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-briefcase-alt-1 ico-3x"></i>
+							<i class="icofont icofont-files ico-3x"></i>
 							Tipo de solicitud
 						</h6>
 					</div>

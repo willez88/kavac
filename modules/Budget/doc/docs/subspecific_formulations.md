@@ -23,7 +23,7 @@ A continuación se muestra un registro de **Formulación de Presupuesto**:
 !!! note "Formulación de presupuesto"
     Para el registro de formulación de presupuesto es necesario completar el formulario de la sección **Formulación de Presupuesto de Gastos por Sub Específica**. A continuación el sistema solicita al usuario se indique los siguientes datos:
 
-    -   **Institución** y **Moneda**, el cual corresponden a datos registrados previamente en la **Configuración General del Sistema/Registros Comúnes**. 
+    -   **Institución** y **Moneda**, el cual corresponden a datos registrados previamente en la **Configuración General del Sistema/Registros Comunes**. 
     -   **Proyecto**/**Acción Centralizada** y **Acción Específica**, el cual corresponden a datos registrados en la **Configuración** del módulo de **Presupuesto**.
 
     -   Para gestionar los valores por cada cuenta presupuestaria se habiltan los campos númericos a través del botón **Agregar cuenta presupuestaria a la formulación**:

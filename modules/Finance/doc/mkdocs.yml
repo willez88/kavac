@@ -1,1 +1,63 @@
-site_name: My Docs
+# Project information
+site_name: Documentación de Usuario.
+site_dir: ../../../public/docs/user_finance
+use_directory_urls: true
+
+# Page tree
+nav:
+      - Inicio: index.md 
+
+# Repository
+repo_name: Repositorio-Kavac
+repo_url: https://gestion.cenditel.gob.ve/trac/browser/kavac/
+
+# Configuration
+theme:
+  name: material
+
+  # 404 page
+  static_templates:
+    - 404.html
+
+  # Don't include MkDocs' JavaScript
+  include_search_page: false
+  search_index_only: true
+
+  # Default values, taken from mkdocs_theme.yml
+  language: es
+  features:
+    - navigation.tabs
+    #- navigation.instant
+  palette:
+    scheme: default
+    # primary: light-blue
+    accent: light-blue
+  font:
+    text: Roboto
+    code: Roboto Mono
+  favicon: images/favicon.png
+  logo: images/logo.png
+  icon: 
+    repo: fontawesome/brands/git-square 
+  
+          
+# Plugins
+plugins:
+  - search
+  - minify:
+      minify_html: true
+
+# Customization
+# extra:
+#   social:
+#     - icon: 
+#       link: 
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+
+# css additional
+extra_css:
+  - stylesheets/extra.css

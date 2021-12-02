@@ -29,7 +29,7 @@ ubicado en la esquina superior derecha de esta sección, se procede a realizar u
 ![Screenshot](img/figure_nuevoingreso.png)<div style="text-align: center;font-weight: bold">Figura: Nuevo Ingreso al Almacén</div>
 
 !!! note "Nota"
-	Los tipos de moneda son registrados inicialmente en la **Configuración General** del Sistema KAVAC, específicamente en la opción "Monedas" de la sección de "Registros Comúnes".
+	Los tipos de moneda son registrados inicialmente en la **Configuración General** del Sistema KAVAC, específicamente en la opción "Monedas" de la sección de "Registros Comunes".
 	
 !!! info "Información"
 	En el formulario de registro de la sección **Nuevo Ingreso al Almacén** es posible agregar todos los productos deseados, a través del botón:

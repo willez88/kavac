@@ -73,7 +73,7 @@
                         <select2 :options="types_person" id='type_person' v-model="record.type_person"></select2>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div v-if="record.type_person" class="col-md-3">
                     <div class="form-group is-required">
                         <label v-show="record.type_person == ''" for="name">Nombre de la Empresa:</label>
                         <label v-show="record.type_person == 'Jurídica'" for="name">Nombre de la Empresa:</label>
@@ -83,23 +83,28 @@
                         <input type="hidden" name="id" id="id" v-model="record.id">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div v-if="record.type_person == 'Jurídica'" class="col-md-3">
                     <div class="form-group is-required">
-                        <label v-show="record.type_person == ''" for="id_number">RIF</label>
-                        <label v-show="record.type_person == 'Jurídica'" for="id_number">RIF</label>
-                        <label v-show="record.type_person == 'Natural'" for="id_number">Identificación</label>
+                        <label for="rif">RIF</label>
+                        <input type="text" id="rif" class="form-control input-sm" data-toggle="tooltip"
+                            title="Indique la identificación del cliente" v-model="record.rif">
+                    </div>
+                </div>
+                <div v-if="record.type_person == 'Natural'" class="col-md-3">
+                    <div class="form-group is-required">
+                        <label for="id_number">Identificación</label>
                         <input type="text" id="id_number" class="form-control input-sm" data-toggle="tooltip"
                             title="Indique la identificación del cliente" v-model="record.id_number">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div v-if="record.type_person" class="col-md-3">
                     <div class="form-group is-required">
                         <label for="phone">Teléfono de contacto:</label>
                         <input type="text" id="phone" class="form-control input-sm" data-toggle="tooltip" required
                             title="Número de teléfono" v-model="record.phone" placeholder="00-000-0000000">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div v-if="record.type_person" class="col-md-3">
                     <div class="form-group is-required">
                         <label for="email">Correo Electrónico:</label>
                         <input type="text" id="email" class="form-control input-sm" data-toggle="tooltip" required
@@ -127,8 +132,8 @@
                 </div>
                 <div v-show="record.product_type == 'Servicio'" class="col-md-3">
                     <div class="form-group is-required">
-                        <label for="sale_type_good_id">Servicio:</label>
-                        <select2 :options="quote_good_to_be_traded" id="sale_type_good_id" v-model="record.sale_type_good_id" @input="updateProduct"></select2>
+                        <label for="sale_goods_to_be_traded_id">Servicio:</label>
+                        <select2 :options="bill_good_to_be_traded" id="sale_goods_to_be_traded_id" v-model="record.sale_goods_to_be_traded_id" @input="updateProduct"></select2>
                     </div>
                 </div>
                 <div v-show="record.product_type == 'Servicio'" class="col-md-3">
@@ -160,8 +165,6 @@
                     <div class="form-group is-required">
                         <label>Precio total:</label>
                         <input type="text" disabled placeholder="Total" id="total" title="Cantidad total" v-model="record.total" class="form-control input-sm" required>
-                        <input type="hidden" name="history_tax_id" id="history_tax_id" v-model="record.history_tax_id">
-                        <input type="hidden" name="history_tax_value" id="history_tax_value" v-model="record.history_tax_value">
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -186,7 +189,7 @@
             <v-client-table :columns="columns" :data="record.sale_bill_products" :options="table_options">
                 <div slot="sale_warehouse_inventory_product_id" slot-scope="props" class="text-center">
                     <span>
-                        {{ (props.row.sale_warehouse_inventory_product_id)? props.row.inventory_product.name : props.row.sale_type_good.name }}
+                        {{ (props.row.sale_warehouse_inventory_product_id)? props.row.inventory_product.name : props.row.sale_goods_to_be_traded.name }}
                     </span>
                 </div>
                 <div slot="sale_list_subservices_id" slot-scope="props" class="text-center">
@@ -223,7 +226,7 @@
                     <div class="d-inline-flex align-items-center">
                         <label class="font-weight-bold">IVA:</label>
                         <div class="form-group is-required">
-                            <input type="text" disabled placeholder="Total IVA" id="total_iva" title="Total IVA" v-model="record.bill_total - record.bill_total_without_tax" class="form-control input-sm">
+                            <input type="text" disabled placeholder="Total IVA" id="total_iva" title="Total IVA" v-model="(record.bill_total - record.bill_total_without_tax).toFixed(2)" class="form-control input-sm">
                         </div>
                     </div>
                 </div>
@@ -277,11 +280,8 @@
 <script>
     export default {
         props:{
-                bill:{
-                    type:Object,
-                    default: function() {
-                        return null;
-                    }
+                billid:{
+                    type:Number,
                 },
         },
         data() {
@@ -292,6 +292,7 @@
                     type_person: '',
                     name: '',
                     id_number: '',
+                    rif: '',
                     phone: '',
                     email: '',
                     bill_clients: [],
@@ -299,7 +300,7 @@
                     product_type: '',
                     sale_warehouse_inventory_product_id: '',
                     bill_edit: false,
-                    sale_type_good_id: '',
+                    sale_goods_to_be_traded_id: '',
                     measurement_unit_id: '',
                     value: 0,
                     quantity: 0,
@@ -344,21 +345,55 @@
                     {'id' : 'Servicio', 'text' : 'Servicio'}
                 ],
                 quote_inventory_products_list : [],
-                quote_good_to_be_traded : [],
+                bill_good_to_be_traded : [],
                 quote_subservices_list : [],
                 currencies : [],
                 quote_taxes : [],
                 quote_measurement_units : [],
                 bill_payments : [],
-                quote_good_to_be_traded : [],
             }
         },
         methods: {
             /**
+             * Método que carga la información del formulario al editar
+             *
+             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+             */
+            async loadForm(id){
+                const vm = this;
+
+                await axios.get('/sale/bills/info/'+id).then(response => {
+                    if(typeof(response.data.records != "undefined")){
+                        vm.record = response.data.records;
+
+                        for (let product of response.data.records.sale_bill_inventory_product) {
+                            if (product.sale_warehouse_inventory_product_id) {
+                                product.inventory_product = {
+                                    'id': product.sale_warehouse_inventory_product_id,
+                                    'name': product.sale_warehouse_inventory_product.sale_setting_product.name,
+                                };
+                            }
+
+                            if(product.history_tax_id) {
+                                product.total_without_tax = product.quantity * product.value;
+                                product.product_tax_value = (product.total_without_tax * parseFloat(product.history_tax.percentage)) / 100;
+                                product.total = product.total_without_tax + product.product_tax_value;
+                            } else {
+                                product.total_without_tax = product.quantity * product.value;
+                                product.product_tax_value = 0;
+                                product.total = product.total_without_tax + product.product_tax_value;
+                            }
+
+                            vm.record.sale_bill_products.push(product);                            
+                        }
+                    }
+                });
+            },
+
+            /**
              * Agrega la informacion del cliente desde el modal de clientes
              *
              * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
-             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
             */
             addClient(index, client) {
                 this.record.type_person = client.type_person_juridica;
@@ -372,7 +407,6 @@
              * Limpia el formulario por completo
              *
              * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
-             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
             */
             reset() {
                 const vm = this;
@@ -389,7 +423,7 @@
                 vm.record.product_position_value = 0;
                 vm.record.product_type = '';
                 vm.record.sale_warehouse_inventory_product_id = '';
-                vm.record.sale_type_good_id = '';
+                vm.record.sale_goods_to_be_traded_id = '';
                 vm.record.sale_list_subservices_id = '';
                 vm.resetProduct();
                 vm.record.bill_total_without_tax = 0;
@@ -399,7 +433,6 @@
              * Limpia el formulario de productos cuando hay un cambio en los selects
              *
              * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
-             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
             */
             resetProduct() {
                 const vm = this;
@@ -417,7 +450,6 @@
              * Agrega la informacion de un producto al formulario para su edicion
              *
              * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
-             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
             */
             editProduct(index, event) {
                 const vm = this;
@@ -425,7 +457,7 @@
                 let product = vm.record.sale_bill_products[index - 1];
                 vm.record.product_type = product.product_type;
                 vm.record.sale_warehouse_inventory_product_id = product.sale_warehouse_inventory_product_id;
-                vm.record.sale_type_good_id = product.sale_type_good_id;
+                vm.record.sale_goods_to_be_traded_id = product.sale_goods_to_be_traded_id;
                 vm.record.sale_list_subservices_id = product.sale_list_subservices_id;
                 vm.record.measurement_unit_id = product.measurement_unit_id;
                 vm.record.currency_id = product.currency_id;
@@ -455,7 +487,6 @@
              * Actualiza el total de los productos
              *
              * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
-             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
             */
             updateTotalProduct() {
                 const vm = this;
@@ -475,28 +506,42 @@
                 let id = 0;
                 if (vm.record.product_type == 'Producto') {
                     entity_load = 'Producto';
-                    vm.record.sale_type_good_id = '';
+                    vm.record.sale_goods_to_be_traded_id = '';
                     id = vm.record.sale_warehouse_inventory_product_id;
                 }
                 else {
                     entity_load = 'Servicio';
                     vm.record.sale_warehouse_inventory_product_id = '';
-                    id = vm.record.sale_type_good_id;
+                    id = vm.record.sale_goods_to_be_traded_id;
                 }
                 if (id) {
                     axios.get('/sale/get-bill-product' + '/' + entity_load + '/' + id).then(function (response) {
                         let product = response.data.record;
-                        console.log(product)
-                        if (product) {
-                            let product_value = product.unit_value? product.unit_value : vm.record.value;
+                        let tax_percentage = '';
+
+                        if (entity_load == 'Producto' && product) {
+                            let product_value = product.unit_value ? product.unit_value : vm.record.value;
                             vm.record.value = product_value;
-                            product_value = product.measurement_unit_id? product.measurement_unit_id : vm.record.measurement_unit_id;
+                            product_value = product.measurement_unit_id ? product.measurement_unit_id : vm.record.measurement_unit_id;
                             vm.record.measurement_unit_id = product_value;
-                            product_value = product.currency_id? product.currency_id : vm.record.currency_id;
+                            product_value = product.currency_id ? product.currency_id : vm.record.currency_id;
                             vm.record.currency_id = product_value;
-                            product_value = product.history_tax_id? product.history_tax_id : vm.record.history_tax_id;
+                            product_value = product.history_tax_id ? product.history_tax_id : vm.record.history_tax_id;
                             vm.record.history_tax_id = product_value;
-                            vm.record.history_tax_value = vm.quote_taxes[product_value]? parseFloat(quote_taxes[product_value].text) : vm.record.history_tax_value;
+                            vm.record.history_tax_value = vm.quote_taxes[product_value] ? parseFloat(quote_taxes[product_value].text) : vm.record.history_tax_value;
+                            vm.updateTotalProduct();
+                        }
+
+                        if (entity_load == 'Servicio' && product) {
+                            let product_value = product.unit_price ? product.unit_price : vm.record.value;
+                            vm.record.value = product_value;
+                            product_value = product.measurement_unit_id ? product.measurement_unit_id : vm.record.measurement_unit_id;
+                            vm.record.measurement_unit_id = product_value;
+                            product_value = product.currency_id ? product.currency_id : vm.record.currency_id;
+                            vm.record.currency_id = product_value;
+                            product_value = product.history_tax_id ? product.history_tax_id : vm.record.history_tax_id;
+                            vm.record.history_tax_id = product_value;
+                            vm.record.history_tax_value = product.history_tax_id ? parseFloat(product.history_tax.percentage) : vm.record.history_tax_value;
                             vm.updateTotalProduct();
                         }
                     });
@@ -534,23 +579,23 @@
                         'name': option_name,
                     };
 
-                    product.sale_type_good_id = '';
+                    product.sale_goods_to_be_traded_id = '';
                     product.sale_list_subservices_id = '';
                 }
                 else if (vm.record.product_type == 'Servicio') {
-                    if (vm.record.sale_type_good_id == '') {
+                    if (vm.record.sale_goods_to_be_traded_id == '') {
                         bootbox.alert("Debe seleccionar un servicio");
                         return false;
                     }
                     product.sale_warehouse_inventory_product_id = '';
-                    product.sale_type_good_id = vm.record.sale_type_good_id;
-                    option_name = product.sale_type_good_id;
-                    let good_to_be_traded = vm.quote_good_to_be_traded.find(o => o.id == product.sale_type_good_id);
+                    product.sale_goods_to_be_traded_id = vm.record.sale_goods_to_be_traded_id;
+                    option_name = product.sale_goods_to_be_traded_id;
+                    let good_to_be_traded = vm.bill_good_to_be_traded.find(o => o.id == product.sale_goods_to_be_traded_id);
                     if (typeof good_to_be_traded !== "undefined") {
                         option_name = good_to_be_traded.text;
                     }
-                    product.sale_type_good = {
-                        'id': product.sale_type_good_id,
+                    product.sale_goods_to_be_traded = {
+                        'id': product.sale_goods_to_be_traded_id,
                         'name': option_name,
                     };
                     product.sale_list_subservices_id = ''
@@ -596,7 +641,7 @@
                 product.total_without_tax = product.quantity * product.value;
                 
                 if (vm.record.currency_id == '') {
-                    bootbox.alert("La cantidad de productos debe ser mayor que 0");
+                    bootbox.alert("Debe seleccionar un tipo de moneda");
                     return false;
                 }
                 product.currency_id = vm.record.currency_id;
@@ -624,10 +669,11 @@
                 vm.record.sale_bill_products.push(product);
                 vm.record.bill_total = parseFloat(vm.record.bill_total) + parseFloat(product.total) - previos_total;
                 vm.record.bill_total_without_tax = parseFloat(vm.record.bill_total_without_tax) + parseFloat(product.total_without_tax) - previos_total_without_tax;
+                vm.product_type = '';
                 vm.record.product_position_value = 0;
                 vm.record.product_type = '';
                 vm.record.sale_warehouse_inventory_product_id = '';
-                vm.record.sale_type_good_id = '';
+                vm.record.sale_goods_to_be_traded_id = '';
                 vm.record.sale_list_subservices_id = '';
                 vm.record.quantity = 0;
                 this.resetProduct();
@@ -635,7 +681,6 @@
             /**
              * Crea o actualiza una cotización
              *
-             * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
              * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
             */
             createBill(url) {
@@ -648,25 +693,6 @@
                 }
             },
             /**
-             * Obtiene la fecha actual
-             *
-             * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
-             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
-            */
-            dateNow() {
-                let today = new Date();
-                let dd = today.getDate();
-                let mm = today.getMonth() + 1;
-                let yyyy = today.getFullYear();
-                if(dd < 10) {
-                        dd = '0' + dd;
-                }
-                if(mm < 10) {
-                        mm = '0' + mm;
-                }
-                return `${yyyy}-${mm}-${dd}`;
-            },
-            /**
              * Muestra el modal de clientes en el formulario
              *
              * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
@@ -677,121 +703,7 @@
                     $("#" + modal_id).modal('show');
                 }
             },
-            /**
-             * Agrega los campos de la cotización al formulario
-             *
-             * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
-             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
-            */
-            extractQuote() {
-                const vm = this;
-                if (vm.quote) {
-                    vm.bill_edit = true;
-                    vm.record.id = vm.quote.id;
-                    //extract client data
-                    vm.record.type_person = vm.quote.type_person;
-                    vm.record.name = vm.quote.name;
-                    vm.record.id_number = vm.quote.id_number;
-                    vm.record.phone = vm.quote.phone;
-                    vm.record.bill_total_without_tax = vm.quote.total_without_tax;
-                    vm.record.bill_total = vm.quote.total;
-                    //extract products data
-                    vm.record.sale_bill_products = [];
-                    $.each(vm.quote.sale_quote_product, function(index, product_load) {
-                        vm.productToList(product_load);
-                    });
-                    vm.record.email = vm.quote.email;
-                    vm.record.email = vm.quote.email;
-                    //extract complement data
-                    vm.record.sale_payment_method_id = vm.quote.sale_payment_method_id;
-                }
-            },
-            /**
-             * Agrega los productos de una cotización al formulario
-             *
-             * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
-             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
-            */
-            productToList(product_load = {}) {
-                const vm = this;
-                let product = {};
-                let option_name;
-                product.product_type = product_load.product_type;
-                if (product.product_type == 'Producto') {
-                    product.sale_warehouse_inventory_product_id = product_load.sale_warehouse_inventory_product_id;
-                    option_name = product.sale_warehouse_inventory_product_id;
-                    let inventory_product = product_load.sale_warehouse_inventory_product;
-                    if (typeof inventory_product !== "undefined" && inventory_product) {
-                        option_name = inventory_product.code;
-                    }
-                    product.inventory_product = {
-                        'id': product.sale_warehouse_inventory_product_id,
-                        'name': option_name,
-                    };
 
-                    product.sale_type_good_id = '';
-                    product.sale_list_subservices_id = '';
-                }
-                else if (product.product_type == 'Servicio') {
-                    product.sale_warehouse_inventory_product_id = '';
-                    product.sale_type_good_id = product_load.sale_type_good_id;
-                    option_name = product.sale_type_good_id;
-                    let good_to_be_traded = product_load.sale_type_good;
-                    if (typeof good_to_be_traded !== "undefined" && good_to_be_traded) {
-                        option_name = good_to_be_traded.name;
-                    }
-                    product.sale_type_good = {
-                        'id': product.sale_type_good_id,
-                        'name': option_name,
-                    };
-                    product.sale_list_subservices_id = ''
-                    if (product_load.sale_list_subservices_id != '') {
-                        product.sale_list_subservices_id = product_load.sale_list_subservices_id;
-                        option_name = product.sale_list_subservices_id;
-                        let subservices_list = product_load.sale_list_subservices;
-                        if (typeof subservices_list !== "undefined" && subservices_list) {
-                            option_name = subservices_list.name;
-                        }
-                        product.sale_list_subservices = {
-                            'id': product.sale_list_subservices_id,
-                            'name': option_name,
-                        };
-                    }
-                }
-                product.value = product_load.value;
-                product.measurement_unit_id = product_load.measurement_unit_id;
-                option_name = product.measurement_unit_id;
-                let measurement_unit = product_load.measurement_unit;
-                if (typeof measurement_unit !== "undefined") {
-                    option_name = measurement_unit.name;
-                }
-                product.measurement_unit = {
-                    'id': product.measurement_unit_id,
-                    'name': option_name,
-                };
-                product.quantity = product_load.quantity;
-                //math total without tax
-                product.total_without_tax = product.quantity * product.value;
-                product.currency_id = product_load.currency_id;
-                option_name = product.currency_id;
-                let currency = product_load.currency;
-                if (typeof currency !== "undefined") {
-                    option_name = currency.name;
-                }
-                product.currency = {
-                    'id': product.currency_id,
-                    'name': option_name,
-                };
-                product.history_tax_id = product_load.history_tax_id;
-                product.history_tax_value = product_load.history_tax? parseFloat(product_load.history_tax.percentage) : 0;
-                product.product_tax_value = (product.total_without_tax * product.history_tax_value) / 100;
-                product.total = product.total_without_tax + product.product_tax_value;
-                let product_index = parseInt(vm.record.product_position_value);
-                if (product_index > 0) {
-                    vm.record.sale_bill_products.splice(product_index - 1, 1);
-                }
-                vm.record.sale_bill_products.push(product);
-            },
             /**
              * Método que carga las formas de cobro para los select
              *
@@ -803,6 +715,19 @@
 
                 axios.get('/sale/get-form-payments/').then(response => {
                         vm.bill_payments = response.data;
+                });
+            },
+
+            /**
+             * Obtiene un arreglo con la lista los productos para ser comercializados en facturas
+             *
+             * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+             */
+            getBillGoodsToBeTraded() {
+                const vm = this;
+                vm.bill_good_to_be_traded = [];
+                axios.get('/sale/get-sale-goods').then(response => {
+                    vm.bill_good_to_be_traded = response.data.records;
                 });
             },
         },
@@ -895,7 +820,7 @@
                 const vm = this;
                 if (vm.product_type == 'Producto') {
                     vm.record.product_type = 'Producto';
-                    vm.record.sale_type_good_id = '';
+                    vm.record.sale_goods_to_be_traded_id = '';
                     vm.record.sale_list_subservices_id = '';
                     vm.record.value = 0;
                     vm.record.measurement_unit_id = '';
@@ -912,7 +837,7 @@
                     vm.record.total = 0;
                 } else {
                     vm.record.product_type = '';
-                    vm.record.sale_type_good_id = '';
+                    vm.record.sale_goods_to_be_traded_id = '';
                     vm.record.sale_list_subservices_id = '';
                     vm.record.value = 0;
                     vm.record.measurement_unit_id = '';
@@ -931,13 +856,17 @@
             vm.getCurrencies();
             vm.getQuoteTaxes();
             vm.getQuoteListSubservices();
-            vm.getQuoteGoodsToBeTraded();
             vm.getQuoteMeasurementUnits();
             vm.getQuotePayments();
             vm.getQuoteInventoryProducts();
             vm.getQuoteClients();
-            vm.extractQuote();
+            /*vm.extractQuote();*/
             vm.getSalePayments();
+            vm.getBillGoodsToBeTraded();
+
+            if(vm.billid){
+                vm.loadForm(vm.billid);
+            }
         },
     };
     //$(document).ready(function() {

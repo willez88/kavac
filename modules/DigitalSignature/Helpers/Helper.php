@@ -35,7 +35,7 @@ class Helper
      * Manejo de la cadena de caracteres de la verificación de la firma electrónica
      */
 
-    function getRespVerify($respverify)
+    function getRespVerify($respverify) 
     {
         $count = 0;
         $item = 0;
@@ -56,10 +56,21 @@ class Helper
         $records["count"] = $count;
 
         # Recorte de los datos de la cadena
-        function findData($signsInfo, $count, $item) {
-            $post = strrpos($signsInfo[ $count + $item ], ': ') + 2;
-            $str = substr($signsInfo[ $count + $item ], $post);
-            return $str;
+        # $signsInfo: array, informacion de la verificación de firma
+        # $count: posición dentro del array
+        # $item: bloque de información de la firma n 
+        # $data: nombre del dato a buscar
+        # $str_l: retorna la información del nombre de dato que busco
+
+        function findData($signsInfo, $count, $item, $data) {
+            $str_l = '';
+            if(count($signsInfo) > ($count + $item))  {
+                if(strpos($signsInfo[$count + $item], $data)) {
+                    $post = strrpos($signsInfo[ $count + $item ], ': ') + 2;
+                    $str_l = substr($signsInfo[ $count + $item ], $post);
+                }
+            }
+            return $str_l;
         }
 
         for($j = 1; $j <= $count; $j++) {
@@ -68,31 +79,31 @@ class Helper
             $records["signs"][$j]["Firma"] = $j;
 
             # Nombre del firmante
-            $str = findData($respverify, 2, $item);
+            $str = findData($respverify, 2, $item, 'Signer Certificate Common Name');
             $records["signs"][$j]["Nombre del firmante"] = $str;
 
             # Sujeto firmante
-            $str = findData($respverify, 3, $item);
+            $str = findData($respverify, 3, $item, 'Signer full Distinguished Name');
             $records["signs"][$j]["Sujeto firmante"] = $str;
 
             # Fecha de la firma
-            $str = findData($respverify, 4, $item);
+            $str = findData($respverify, 4, $item, 'Signing Time');
             $records["signs"][$j]["Fecha de la firma"] = $str;
 
             # Algoritmo hash (reseña)
-            $str = findData($respverify, 5, $item);
+            $str = findData($respverify, 5, $item, 'Signing Hash Algorithm');
             $records["signs"][$j]["Algoritmo hash (reseña)"] = $str;
 
             # Tipo de firma
-            $str = findData($respverify, 6, $item);
+            $str = findData($respverify, 6, $item, 'Signature Type');
             $records["signs"][$j]["Tipo de firma"] = $str;
 
             # Validación de la firma
-            $str = findData($respverify, 9, $item);
+            $str = findData($respverify, 9, $item, 'Signature Validation');
             $records["signs"][$j]["Validación de la firma"] = $str;
 
             # Validación del certificado
-            $str = findData($respverify, 10, $item);
+            $str = findData($respverify, 10, $item, 'Certificate Validation');
             $records["signs"][$j]["Validación del certificado"] = $str;
 
             $item = $item + 10;

@@ -7,13 +7,15 @@
 			<div class="col-12 col-md-6 form-group" id="helpEntriesCategory">
 				<div class="form-group is-required">
 					<label class="control-label">Categoría del asiento</label>
-					<select2 :options="categories" v-model="data.category"></select2>
+					<select2 :options="categories" v-model="data.category" data-toggle="tooltip"
+                             title="Categoría del asiento"></select2>
 				</div>
 			</div>
 			<div class="col-12 col-md-6 form-group" id="helpEntriesDescription">
 				<div class="form-group is-required">
 					<label class="control-label">Concepto ó Descripción</label>
-					<input type="text" class="form-control input-sm" v-model="data.concept">
+					<input type="text" class="form-control input-sm" v-model="data.concept" data-toggle="tooltip"
+                             title="Concepto ó Descripción"> 
 				</div>
 			</div>
 		</div>

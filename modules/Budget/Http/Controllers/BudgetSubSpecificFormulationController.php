@@ -375,7 +375,7 @@ class BudgetSubSpecificFormulationController extends Controller
     }
 
     /**
-     * Genera el reporte de presupuesto formulado
+     * Genera el reporte de presupuesto formulado 
      *
      * @method    printFormulated
      *
@@ -411,7 +411,7 @@ class BudgetSubSpecificFormulationController extends Controller
     /**
      * Genera el reporte de presupuesto formulado
      *
-     * @method    printFormulated
+     * @method    printFormulatedSign
      *
      * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
      *

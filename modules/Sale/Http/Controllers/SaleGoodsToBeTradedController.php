@@ -270,8 +270,11 @@ class SaleGoodsToBeTradedController extends Controller
                 'staff_last_name'      => $good->payrollStaff->last_name,
                 'staff_email'          => $good->payrollStaff->email,
                 'staff_phone'          => $phone,
+                'measurement_unit_id'  => $good->measurement_unit_id,
+                'unit_price'           => $good->unit_price,
+                'history_tax_id'       => $good->history_tax_id,
+                'currency_id'          => $good->currency_id,
                 'text'                 => $good->name,
-
             ]);
         }
         return response()->json(['records' => $records], 200);

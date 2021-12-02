@@ -1,6 +1,3 @@
-??? question "¿Cuál es la relación del módulo de contabilidad con otros módulos del sistema?"
-	El módulo de contabilidad tiene relación directa con otros módulos del sistema, como lo son: los módulos de presupuesto y compras. Si alguno de estos módulos no se encuentra habilitado o instalado, el módulo de contabilidad continua su funcionamiento sin problema en el sistema, una vez instalados se establece conexión directa con estos módulos. 
-
 ??? question "¿Cómo usar la funcionalidad de registro de formato de códigos?"
     El **Formato de Códigos** es una funcionalidad que posee la mayoría de módulos del sistema, se usa para generar referencias sobre los registros.  Cada sección de **Formato de Códigos** posee una descripción de los parámetros a seguir para establecer un formato.
 

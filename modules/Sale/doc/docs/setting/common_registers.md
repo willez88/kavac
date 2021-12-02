@@ -282,7 +282,7 @@ A través de esta funcionalidad se gestiona información de los bienes disponibl
 
 !!! note "Datos del formulario"
     -   El campo **Tipo de bienes** son registros iniciales de la sección "Registros Comunes" de la configuración del módulo de **Comercialización**. 
-    -   Los campos **Moneda**, **Unidad de medida**, **Unidades y dependencias a cargo** e **IVA** son registrados iniciales de la sección "Registros Comúnes" de la **Configuración General** del Sistema KAVAC. 
+    -   Los campos **Moneda**, **Unidad de medida**, **Unidades y dependencias a cargo** e **IVA** son registrados iniciales de la sección "Registros Comunes" de la **Configuración General** del Sistema KAVAC. 
     -   El campo **Lista de trabajadores** esta asociado a los datos de nómina del módulo de **Talento Humano**, dicho campo permite indicar el trabajador requerido para gestionar dicho bien. 
 
 

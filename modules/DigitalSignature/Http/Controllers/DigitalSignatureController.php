@@ -695,9 +695,9 @@ class DigitalSignatureController extends Controller
                 if($passphrase == $passphraseOrigin) {
                     return response()->json([
                         'auth' => true,
-                        'msg' => ""
+                        'msg' => "Autenticación validada"
                     ]);
-                }
+                } 
                 return response()->json([
                     'auth' => false,
                     'msg' => "La contraseña del certificado no concuerda con la guardada"
