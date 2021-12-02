@@ -39,7 +39,7 @@ class AccountingDailyBookController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:accounting.report.dailybook', ['only' => ['index', 'pdf', 'pdfVue']]);
+        $this->middleware('permission:accounting.report.dailybook', ['only' => ['index', 'pdf', 'pdfVue', 'pdfSign', 'pdfVueSign']]);
     }
     
     protected $records     = [];
