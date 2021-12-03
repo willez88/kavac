@@ -133,6 +133,15 @@ class PeriodicCostController extends Controller
      */
     public function periodicCostValidate(Request $request)
     {
+        $attributes = [
+          'name' => 'Nombre',
+          'description' => 'Descripción',
+          'value' => 'Valor monetario',
+          'currency_id' => 'Moneda',
+          'frecuency_id' => 'Periodicidad de pago',
+          'periodic_cost_attribute.*' => 'Atributos',
+        ];
+
         $validation = [];
         $validation['name'] = ['required', 'max:60'];
         $validation['description'] = ['required'];
@@ -142,7 +151,7 @@ class PeriodicCostController extends Controller
         if (!empty($request->attributes)) {
             $validation['periodic_cost_attribute.*'] = ['required', 'max:100'];
         }
-        $this->validate($request, $validation);
+        $this->validate($request, $validation, [], $attributes);
     }
 
     /**
