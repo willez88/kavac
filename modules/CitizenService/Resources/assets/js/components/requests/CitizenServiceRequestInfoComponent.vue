@@ -350,7 +350,7 @@
 						document.getElementById('citizen_service_department_id').innerText = (fields.citizen_service_department)?fields.citizen_service_department.name:'N/A';
 		            	document.getElementById('motive_request').innerText = (fields.motive_request)?fields.motive_request:'N/A';
 						document.getElementById('attribute').innerText = (fields.attribute)?fields.attribute:'N/A';
-		            	document.getElementById('applicant_name').innerText = (fields.first_name)?((fields.last_name)?(fields.first_name+fields.last_name):(fields.first_name)):'N/A';
+		            	document.getElementById('applicant_name').innerText = (fields.first_name)?((fields.last_name)?(fields.first_name + ' ' + fields.last_name):(fields.first_name)):'N/A';
 		            	let phoneText = `
 		            		<div class = "col-md-6">
 

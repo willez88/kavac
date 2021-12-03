@@ -1,6 +1,16 @@
 <template>
 	<section>
 	<v-client-table :columns="columns" :data="records" :options="table_options">
+		<div slot="payroll_staff" slot-scope="props" class="text-center">
+			<span>
+				 {{
+				 	props.row.payroll_staff
+				 	?
+                       (props.row.payroll_staff.first_name + ' ' + props.row.payroll_staff.last_name)
+				 	: 'No definido'
+                 }}
+			</span>
+		</div>
 		<div slot="code" slot-scope="props" class="text-center">
 			<span>
 				{{ props.row.code }}
@@ -39,21 +49,21 @@
 		data() {
 			return {
 				records: [],
-				columns: ['first_name', 'date_register', 'project_name',
+				columns: ['date_register', 'payroll_staff', 'project_name',
 				'activities','email', 'id']
 			}
 		},
 		created() {
 			this.table_options.headings = {
-				'first_name': 'Nombre del director',
+				'payroll_staff': 'Nombre del director',
 				'date_register': 'Fecha del registro',
 				'project_name': 'Nombre del proyecto',
 				'activities': 'Actividades',
 				'email': 'Correo del responsable',
 				'id': 'Acción'
 			};
-			this.table_options.sortable = ['first_name', 'date_register', 'project_name', 'activities', 'email'];
-			this.table_options.filterable = ['first_name', 'date_register', 'project_name', 'activities', 'email'];
+			this.table_options.sortable = ['payroll_staff', 'date_register', 'project_name', 'activities', 'email'];
+			this.table_options.filterable = ['payroll_staff', 'date_register', 'project_name', 'activities', 'email'];
 		},
 		mounted () {
 			this.initRecords(this.route_list, '');
