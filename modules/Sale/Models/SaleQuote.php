@@ -35,7 +35,7 @@ class SaleQuote extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['name','id_number', 'email', 'type_person', 'sale_payment_method_id', 'deadline_date', 'status', 'phone', 'total', 'total_without_tax'];
+    protected $fillable = ['name','id_number', 'email', 'type_person', 'sale_form_payment_id', 'deadline_date', 'status', 'phone', 'total', 'total_without_tax'];
 
     protected $appends = array('status_text');
 
@@ -46,9 +46,9 @@ class SaleQuote extends Model implements Auditable
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
      * SalePaymentMethod
      */
-    public function salePaymentMethod()
+    public function saleFormPayment()
     {
-        return $this->belongsTo(SalePaymentMethod::class);
+        return $this->belongsTo(SaleFormPayment::class);
     }
 
     /**

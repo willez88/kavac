@@ -418,7 +418,7 @@ Route::group(
         Route::get('get-quote-subservices', 'SaleQuoteController@getSaleListSubservices');
         Route::get('get-quote-sale-goods', 'SaleQuoteController@getQuoteGoodsToBeTradeds');
         Route::get('get-quote-inventory', 'SaleQuoteController@getInventoryProducts');
-        Route::get('get-quote-payment', 'SaleQuoteController@getSalePayments');
+        Route::get('get-quote-payment', 'SaleQuoteController@getSaleFormPayments');
         Route::get('get-quote-price-product/{id?}', 'SaleQuoteController@getPriceProduct');
         Route::get('get-quote-price-service/{id?}', 'SaleQuoteController@getPriceService');
         Route::get('get-quote-measurement-units', 'SaleQuoteController@getMeasurementUnits');

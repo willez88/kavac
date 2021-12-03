@@ -89,6 +89,11 @@
                 {{ (props.row.sale_list_subservices_id)? props.row.sale_list_subservices.name : 'N/A' }}
               </span>
             </div>
+            <div slot="product_tax_value" slot-scope="props" class="text-center">
+              <span>
+                {{ (props.row.total - props.row.total_without_tax).toFixed(2) }}
+              </span>
+            </div>
           </v-client-table>
           <div class="row">
             <div class="col-md-4 text-left">
@@ -97,7 +102,7 @@
             </div>
             <div class="col-md-4 text-left">
               <label class="font-weight-bold">IVA:</label>
-              <div class="data-value"><span>{{ quote_load.total - quote_load.total_without_tax }}</span></div>
+              <div class="data-value"><span>{{ (quote_load.total - quote_load.total_without_tax).toFixed(2) }}</span></div>
             </div>
             <div class="col-md-4 text-left">
               <label class="font-weight-bold">Total a pagar:</label>
@@ -108,7 +113,7 @@
           <div class="row">
             <div class="col-md-3" id="SaleHelpPaymentMethod">
               <label>Forma de cobro:</label>
-              <div class="data-value"><span>{{ quote_load.sale_payment_method.name }}</span></div>
+              <div class="data-value"><span>{{ quote_load.sale_form_payment.name_form_payment }}</span></div>
             </div>
             <div class="col-md-6">
               <label>Fecha límite de respuesta</label>
@@ -127,7 +132,7 @@
     data() {
       return {
         records: [],
-        columns: ['name', 'id_number', 'type_person', 'total', 'status', 'id'],
+        columns: ['name', 'id_number', 'type_person', 'total', 'deadline_date', 'status', 'id'],
         quote_load: {
           id: '',
           //Datos del solicitante
@@ -153,7 +158,8 @@
           product_position_value: 0,
           sale_quote_product: [],
           //Complementarios
-          sale_payment_method_id: '',
+          sale_form_payment_id: '',
+          sale_form_payment: {},
           sale_payment_method: {},
           deadline_date: '',
         },
@@ -177,18 +183,20 @@
         'id_number': 'Identificación',
         'type_person': 'Tipo de persona',
         'total_without_tax': 'Monto sin Impuesto',
+        'deadline_date': 'Fecha límite de respuesta',
         'total': 'Monto',
         'status': 'Estado de la cotización',
         'id': 'Acción',
       };
-      this.table_options.sortable = ['name', 'id_number', 'type_person', 'total', 'status'];
-      this.table_options.filterable = ['name', 'id_number', 'total', 'state'];
+      this.table_options.sortable = ['name', 'id_number', 'type_person', 'deadline_date', 'total', 'status'];
+      this.table_options.filterable = ['name', 'id_number', 'deadline_date', 'total', 'state'];
       this.table_options.columnsClasses = {
         'name': 'col-md-2',
         'id_number': 'col-md-2',
-        'type_person': 'col-md-2',
+        'type_person': 'col-md-1',
+        'deadline_date': 'col-md-2', 
         'total': 'col-md-2',
-        'status': 'col-md-2',
+        'status': 'col-md-1',
         'id': 'col-md-2',
       };
       this.table_options_products = {};

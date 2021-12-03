@@ -9,6 +9,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Sale\Models\SaleQuote;
 use Modules\Sale\Models\SaleQuoteProduct;
 use Modules\Sale\Models\SaleWarehouseInventoryProduct;
+use Modules\Sale\Models\SaleWarehouseMovement;
 use Modules\Sale\Models\SaleTypeGood;
 use App\Models\HistoryTax;
 use Modules\Sale\Models\SaleClient;
@@ -117,7 +118,7 @@ class SaleQuoteController extends Controller
     public function edit(SaleQuote $SaleQuote)
     {
         $width = [
-          'salePaymentMethod',
+          'SaleFormPayment',
           'saleQuoteProduct.saleWarehouseInventoryProduct',
           'saleQuoteProduct.saleTypeGood',
           'saleQuoteProduct.SaleListSubservices',
@@ -181,13 +182,31 @@ class SaleQuoteController extends Controller
      */
     public function saleQuoteValidate(Request $request)
     {
+        $attributes = [
+          'type_person' => 'Tipo de persona',
+          'name' => 'Nombre',
+          'id_number' => 'Identificación',
+          'phone' => 'Teléfono de contacto',
+          'email' => 'Correo Electrónico',
+          'sale_form_payment_id' => 'Forma de cobro',
+          'deadline_date' => 'Fecha límite de respuesta',
+          'sale_quote_products' => 'Productos',
+          'sale_quote_products.*.product_type' => 'Tipo de Producto',
+          'sale_quote_products.*.sale_type_good_id' => 'Servicio',
+          'sale_quote_products.*.sale_warehouse_inventory_product' => 'Producto',
+          'sale_quote_products.*.value' => 'Precio unitario',
+          'sale_quote_products.*.currency_id' => 'Moneda',
+          'sale_quote_products.*.measurement_unit_id' => 'Unidad de medida',
+          'sale_quote_products.*.quantity' => 'Cantidad de productos',
+
+        ];
         $validation = [];
         $validation['type_person'] = ['required'];
         $validation['name'] = ['required', 'max:100'];
-        $validation['id_number'] = ['required', 'max:60'];
+        $validation['id_number'] = ['required', 'digits_between:1,10'];
         $validation['phone'] = ['required', 'regex:/^\d{3}-\d{7}$/u'];
         $validation['email'] = ['required', 'email'];
-        $validation['sale_payment_method_id'] = ['required'];
+        $validation['sale_form_payment_id'] = ['required'];
         $validation['sale_quote_products'] = ['required'];
         $todayDate = date('Y-m-d');
         $validation['deadline_date'] = ['required', 'date', 'date_format:Y-m-d', 'after_or_equal:' . $todayDate];
@@ -198,7 +217,7 @@ class SaleQuoteController extends Controller
         $validation['sale_quote_products.*.currency_id'] = ['required'];
         $validation['sale_quote_products.*.measurement_unit_id'] = ['required'];
         $validation['sale_quote_products.*.quantity'] = ['required', 'integer', 'gt:0'];
-        $this->validate($request, $validation);
+        $this->validate($request, $validation, [], $attributes);
     }
 
     /**
@@ -242,7 +261,7 @@ class SaleQuoteController extends Controller
      */
     public function getSaleSaleQuoteFields()
     {
-        return ['name','id_number', 'email', 'type_person', 'sale_payment_method_id', 'deadline_date', 'status', 'phone'];
+        return ['name','id_number', 'email', 'type_person', 'sale_form_payment_id', 'deadline_date', 'status', 'phone'];
     }
 
     /**
@@ -325,7 +344,7 @@ class SaleQuoteController extends Controller
     public function vueInfo(SaleQuote $SaleQuote)
     {
         $width = [
-          'salePaymentMethod',
+          'SaleFormPayment',
           'saleQuoteProduct.saleWarehouseInventoryProduct',
           'saleQuoteProduct.saleTypeGood',
           'saleQuoteProduct.SaleListSubservices',
@@ -346,7 +365,7 @@ class SaleQuoteController extends Controller
      */
     public function vueList()
     {
-      return response()->json(['records' => SaleQuote::with(['saleQuoteProduct', 'salePaymentMethod'])->get()], 200);
+      return response()->json(['records' => SaleQuote::with(['saleQuoteProduct', 'SaleFormPayment'])->get()], 200);
     }
 
     /**
@@ -394,7 +413,16 @@ class SaleQuoteController extends Controller
      */
     public function getInventoryProducts()
     {
-        return template_choices('Modules\Sale\Models\SaleWarehouseInventoryProduct', ['code'], '', true);
+        $inventoryProduct = SaleWarehouseInventoryProduct::with(['SaleSettingProduct'])->get();
+        $options = [['id' => '', 'text' => 'Seleccione...']];
+        foreach ($inventoryProduct as $product) {
+          array_push($options, ['id' => $product->id, 'text' => $product->SaleSettingProduct->name ]);
+          //puede pasar que haya un producto en inventario con el mismo nombre y cantidades, unidades de medida, etc.
+          //pero no esta estipulado en el caso de uso para diferenciarlos
+          //descomentar y comentar el anterior para agregar el codigo del producto
+          //array_push($options, ['id' => $product->id, 'text' => $product->SaleSettingProduct->name . '(' . $product->code . ')' ]);
+        }
+        return $options;
     }
 
     /**
@@ -414,9 +442,9 @@ class SaleQuoteController extends Controller
      * @author PHD. Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
      * @return Array con los subservicios
      */
-    public function getSalePayments()
+    public function getSaleFormPayments()
     {
-        return template_choices('Modules\Sale\Models\SalePaymentMethod', ['name'], '', true);
+        return template_choices('Modules\Sale\Models\SaleFormPayment', ['name_form_payment'], '', true);
     }
 
     /**
@@ -429,6 +457,16 @@ class SaleQuoteController extends Controller
     public function getPriceProduct($id = null)
     {
         $product = SaleWarehouseInventoryProduct::find($id);
+        //desafortunadamente obtener los impuestos del producto no es sencillo
+        if ($product) {
+          $product->quantity_max = isset($product->exist)? $product->exist : 0;
+          $product->quantity_max -= isset($product->reserved)? $product->reserved : 0;
+          $SaleWarehouseMovement = SaleWarehouseMovement
+            ::join('sale_warehouse_inventory_product_movements', 'sale_warehouse_movements.id', '=', 'sale_warehouse_inventory_product_movements.sale_warehouse_movement_id')
+            ->where('sale_warehouse_inventory_product_movements.sale_warehouse_inventory_product_id', '=', $product->id)
+            ->first();
+            $product->history_tax_id = $SaleWarehouseMovement && isset($SaleWarehouseMovement->history_tax_id)? $SaleWarehouseMovement->history_tax_id : 0;
+        }
         return response()->json(['record' => $product, 'message' => 'Success'], 200);
     }
 
@@ -466,7 +504,6 @@ class SaleQuoteController extends Controller
     {
         return template_choices('App\Models\MeasurementUnit', ['acronym', '-', 'name'], '', true);
     }
-
 
     /**
      * Obtiene una lista con los clientes registrados
