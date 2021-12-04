@@ -993,13 +993,15 @@ class AccountingAuxiliaryBookController extends Controller
         $pdf->setConfig(['institution' => $institution, 'urlVerify' => url('report/auxiliaryBook/'.$report->id)]);
         $pdf->setHeader('Reporte de Contabilidad', 'Reporte de libro Auxiliar');
         $pdf->setFooter();
-        $pdf->setBody('accounting::pdf.auxiliary_book', true, [
+        $report = $pdf->setBody('accounting::pdf.auxiliary_book', true, [
             'pdf'      => $pdf,
             'record'   => $acc,
             'initDate' => $initDate,
             'endDate'  => $endDate,
             'currency' => $currency,
         ]);
+        $pdf->showPdfSign($report['filename']);
+
     }
     /**
      * [calculateOperation realiza la conversion de saldo]

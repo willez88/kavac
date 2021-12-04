@@ -397,6 +397,7 @@ class ReportRepositorySign implements ReportInterface
      * @param      string           $filepath         Dirección del reporte PDF a firmar
      */
     public function ReportsignFile($filepath) {
+        dump("ReportRepositorySign -> # ReportsignFile");
 
         //Crear archivo pkcs#12
         $cert = Crypt::decryptString($this->auth->signprofiles['cert']);
@@ -482,6 +483,25 @@ class ReportRepositorySign implements ReportInterface
     {
         $filename = storage_path() . '/reports/' . $file ?? 'report' . Carbon::now() . '.pdf';
         $this->pdf->Output($filename, 'F');
+        return response()->download($filename);
+    }
+
+    /**
+     * Descarga un reporte
+     *
+     * @method    show
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     string|null    $file    Nombre del archivo a descargar. Este dato es opcional, si no se indica se
+     *                                    genera un archivo con la fecha actual del servidor como nombre
+     *
+     * @return    Response
+     */
+    public function showPdfSign($file = null)
+    {
+        $filename = storage_path() . '/reports/' . $file ?? 'report' . Carbon::now() . '.pdf';
+        $this->pdf->Output($file, 'I');
         return response()->download($filename);
     }
 }
