@@ -397,7 +397,6 @@ class ReportRepositorySign implements ReportInterface
      * @param      string           $filepath         Dirección del reporte PDF a firmar
      */
     public function ReportsignFile($filepath) {
-        dump("ReportRepositorySign -> # ReportsignFile");
 
         //Crear archivo pkcs#12
         $cert = Crypt::decryptString($this->auth->signprofiles['cert']);
