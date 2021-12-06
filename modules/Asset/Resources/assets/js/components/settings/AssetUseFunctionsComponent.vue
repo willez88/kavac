@@ -3,7 +3,7 @@
         <a class="btn-simplex btn-simplex-md btn-simplex-primary"
            href="#" title="Registros de las Funciones de Uso de los Bienes" data-toggle="tooltip"
            @click="addRecord('add_use_function', 'asset/use-functions', $event)">
-            <i class="fa fa-map-signs ico-3x"></i>
+            <i class="icofont icofont-settings-alt ico-3x"></i>
             <span>Funciones de Uso</span>
         </a>
         <div class="modal fade text-left" tabindex="-1" role="dialog" id="add_use_function">
@@ -14,7 +14,7 @@
                             <span aria-hidden="true">×</span>
                         </button>
                         <h6>
-                            <i class="fa fa-map-signs ico-2x"></i>
+                            <i class="icofont icofont-settings-alt ico-2x"></i>
                             Nueva Función de Uso
                         </h6>
                     </div>

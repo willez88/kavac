@@ -47,6 +47,14 @@
 					<span>Generar reporte</span>
 					<i class="fa fa-print"></i>
 			</button>
+			<button class="btn btn-primary btn-sm"
+					data-toggle="tooltip"
+					title="Generar Reporte"
+					@click="OpenPdf(getUrlReportSign(),'_blank')"
+					id="helpAuxiliaryBookGenerateReportSign">
+					<span>Generar y firmar reporte</span>
+					<i class="fa fa-print"></i>
+			</button>
 		</div>
 	</div>
 </template>
@@ -75,6 +83,7 @@
 			return {
 				account_id:0,
 				url:'/accounting/report/auxiliaryBook/pdf/',
+				urlSign:'/accounting/report/auxiliaryBookSign/pdf/',
 				currency:'',
 				allAccounts:false,
 			}
@@ -126,6 +135,33 @@
 				this.$refs.errorAuxiliaryBook.reset();
 				var acc = (this.account_id == 0 && this.allAccounts)?'':'0';
 				return ( this.url+(this.year_init+'-'+this.month_init)+'/'+this.currency+'/'+acc );
+			},
+
+			/**
+			* Formatea la url para el reporte
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			* @return {string} url para el reporte
+			*/
+			getUrlReportSign:function() {
+
+				var errors = [];
+				if (!this.allAccounts && this.account_id <= 0) {
+					errors.push("Debe seleccionar una cuenta.");
+				}
+
+				if (!this.currency) {
+					errors.push("El tipo de moneda es obligatorio.");
+				}
+
+				if (errors.length > 0) {
+					this.$refs.errorAuxiliaryBook.showAlertMessages(errors);
+					return;
+				}
+
+				this.$refs.errorAuxiliaryBook.reset();
+				var acc = (this.account_id == 0 && this.allAccounts)?'':'0';
+				return ( this.urlSign+(this.year_init+'-'+this.month_init)+'/'+this.currency+'/'+acc );
 			}
 		},
 	};

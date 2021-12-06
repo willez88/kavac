@@ -2,7 +2,21 @@
   <section id="SaleQuoteViewClients">
     <div class="card-body">
       <div class="alert alert-danger" v-if="errors.length > 0">
-        <ul><li v-for="error in errors">{{ error }}</li></ul>
+        <div class="container">
+          <div class="alert-icon">
+            <i class="now-ui-icons objects_support-17"></i>
+          </div>
+          <strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+            @click.prevent="errors = []">
+            <span aria-hidden="true">
+              <i class="now-ui-icons ui-1_simple-remove"></i>
+            </span>
+          </button>
+          <ul>
+            <li v-for="error in errors">{{ error }}</li>
+          </ul>
+        </div>
       </div>
       <h6 class="card-title">I Datos del solicitante:
         <a class="btn btn-info btn-xs btn-icon btn-action display-inline" 
@@ -151,10 +165,13 @@
           <div class="form-group is-required">
             <label>Cantidad de productos:</label>
             <input type="text" placeholder="Cantidad de productos" id='quantity' title="Cantidad de productos" v-model="record.quantity" class="form-control input-sm" required @input="updateTotalProduct()">
+            <label v-show="record.has_quantity_max">Cantidad disponible en inventario: {{ record.quantity_max_value }} </label>
+            <input type="hidden" name="has_quantity_max" id="has_quantity_max" v-model="record.has_quantity_max">
+            <input type="hidden" name="quantity_max_value" id="quantity_max_value" v-model="record.quantity_max_value">
           </div>
         </div>
         <div class="col-md-2">
-          <div class="form-group is-required">
+          <div class="form-group">
             <label>Precio total:</label>
             <input type="text" disabled placeholder="Total" id="total" title="Cantidad total" v-model="record.total" class="form-control input-sm" required>
             <input type="hidden" name="history_tax_id" id="history_tax_id" v-model="record.history_tax_id">
@@ -216,7 +233,7 @@
         <div class="col-md-12 text-right">
           <div class="d-inline-flex align-items-center">
             <label class="font-weight-bold">Total sin iva:</label>
-            <div class="form-group is-required">
+            <div class="form-group">
               <input type="text" disabled placeholder="Total Sin IVA" id="quote_total_without_tax" title="Total sin IVA" v-model="record.quote_total_without_tax" class="form-control input-sm">
             </div>
           </div>
@@ -224,15 +241,15 @@
         <div class="col-md-12 text-right">
           <div class="d-inline-flex align-items-center">
             <label class="font-weight-bold">IVA:</label>
-            <div class="form-group is-required">
-              <input type="text" disabled placeholder="Total IVA" id="total_iva" title="Total IVA" v-model="record.quote_total - record.quote_total_without_tax" class="form-control input-sm">
+            <div class="form-group">
+              <input type="text" disabled placeholder="Total IVA" id="total_iva" title="Total IVA" v-model="(record.quote_total - record.quote_total_without_tax).toFixed(2)" class="form-control input-sm">
             </div>
           </div>
         </div>
         <div class="col-md-12 text-right">
           <div class="d-inline-flex align-items-center">
             <label class="font-weight-bold">Total a pagar:</label>
-            <div class="form-group is-required">
+            <div class="form-group">
               <input type="text" disabled placeholder="Total a pagar" id="quote_total" title="Total" v-model="record.quote_total" class="form-control input-sm">
             </div>
           </div>
@@ -243,7 +260,7 @@
         <div class="col-md-3" id="SaleHelpPaymentMethod">
           <div class="form-group is-required">
             <label>Forma de cobro:</label>
-            <select2 :options="quote_payments" v-model="record.sale_payment_method_id" id="sale_payment_method_id"></select2>
+            <select2 :options="quote_payments" v-model="record.sale_form_payment_id" id="sale_form_payment_id"></select2>
           </div>
         </div>
         <div class="col-md-6">
@@ -314,10 +331,12 @@
           currency_id: '',
           history_tax_id: '',
           history_tax_value: 0,
+          has_quantity_max: 0,
+          quantity_max_value: '',
           product_position_value: 0,
           sale_quote_products: [],
           //Complementarios
-          sale_payment_method_id: '',
+          sale_form_payment_id: '',
           deadline_date: this.dateNow(),
         },
         sale_quote_products: [],
@@ -367,7 +386,8 @@
       addClient(index, client) {
         this.record.type_person = client.type_person_juridica;
         this.record.name = client.name_client? client.name_client : client.name;
-        this.record.id_number = client.rif? client.rif : client.id_type + '-' + client.id_number;
+        this.record.id_number = client.rif? client.rif : client.id_number;
+        this.record.id_number = this.record.id_number.replace(/\D/g, "");
         this.record.phone = client.phones && client.phones.length? client.phones[0].area_code + '-' + client.phones[0].number : '';
         this.record.email = client.sale_clients_email && client.sale_clients_email.length? client.sale_clients_email[0].email : '';
         $("#view_sale_quote").modal('hide');
@@ -411,7 +431,8 @@
         vm.record.measurement_unit_id = '';
         vm.record.currency_id = '';
         vm.record.history_tax_id = '';
-        vm.record.history_tax_value = 0;
+        vm.record.has_quantity_max = 0;
+        vm.record.quantity_max_value = '';
         vm.updateTotalProduct();
       },
       /**
@@ -447,6 +468,8 @@
         vm.record.quantity = product.quantity;
         vm.record.history_tax_id = product.history_tax_id;
         vm.record.history_tax_value = product.history_tax_value;
+        vm.record.has_quantity_max = product.has_quantity_max;
+        vm.record.quantity_max_value = product.quantity_max_value;
         vm.updateTotalProduct();
         vm.record.product_position_value = index;
         event.preventDefault();
@@ -458,8 +481,8 @@
       */
       removeProduct(index, event) {
         const vm = this;
-        let previos_total = parseFloat(vm.record.sale_quote_products[product_index - 1].total);
-        let previos_total_without_tax = parseFloat(vm.record.sale_quote_products[product_index - 1].total_without_tax);
+        let previos_total = parseFloat(vm.record.sale_quote_products[index - 1].total);
+        let previos_total_without_tax = parseFloat(vm.record.sale_quote_products[index - 1].total_without_tax);
         vm.record.quote_total -= previos_total;
         vm.record.quote_total_without_tax -= previos_total_without_tax;
         this.record.sale_quote_products.splice(index - 1, 1);
@@ -472,7 +495,13 @@
       updateTotalProduct() {
         const vm = this;
         vm.record.quantity = parseInt(vm.record.quantity);
+        if (isNaN(vm.record.quantity)) {
+          vm.record.quantity = 0;
+        }
         vm.record.value = parseFloat(vm.record.value);
+        if (isNaN(vm.record.value)) {
+          vm.record.value = 0;
+        }
         vm.record.total = vm.record.value * vm.record.quantity;
       },
       /**
@@ -506,7 +535,22 @@
               vm.record.currency_id = product_value;
               product_value = product.history_tax_id? product.history_tax_id : vm.record.history_tax_id;
               vm.record.history_tax_id = product_value;
-              vm.record.history_tax_value = vm.quote_taxes[product_value]? parseFloat(quote_taxes[product_value].text) : vm.record.history_tax_value;
+              let tax_value = 0;
+              if (product_value > 0) {
+                let tax = vm.quote_taxes.find(o => o.id == product_value);
+                if (typeof tax !== "undefined") {
+                  tax_value = tax.text;
+                }
+              }
+              vm.record.history_tax_value = parseFloat(tax_value) / 100;
+              vm.record.has_quantity_max = 0;
+              vm.record.quantity_max_value = '';
+              product_value = product.exist? product.exist : 0;
+              if (product_value) {
+                vm.record.has_quantity_max = 1;
+                vm.record.quantity_max_value = product_value;
+              }
+
               vm.updateTotalProduct();
             }
           });
@@ -600,6 +644,12 @@
           bootbox.alert("La cantidad de productos debe ser mayor que 0");
           return false;
         }
+
+        if (vm.record.has_quantity_max && vm.record.quantity > vm.record.quantity_max_value) {
+          bootbox.alert("La cantidad de productos (" + vm.record.quantity + ") debe ser menor o igual a la cantidad disponible en inventario (" + vm.record.quantity_max_value + ")");
+          return false;
+        }
+
         product.quantity = vm.record.quantity;
         //math total without tax
         product.total_without_tax = product.quantity * product.value;
@@ -620,7 +670,7 @@
         };
         product.history_tax_id = vm.record.history_tax_id;
         product.history_tax_value = vm.record.history_tax_value;
-        product.product_tax_value = (product.total_without_tax * product.history_tax_value) / 100;
+        product.product_tax_value = (product.total_without_tax * product.history_tax_value);
         product.total = product.total_without_tax + product.product_tax_value;
         let product_index = parseInt(vm.record.product_position_value);
         let previos_total = 0;
@@ -633,6 +683,8 @@
         vm.record.sale_quote_products.push(product);
         vm.record.quote_total = parseFloat(vm.record.quote_total) + parseFloat(product.total) - previos_total;
         vm.record.quote_total_without_tax = parseFloat(vm.record.quote_total_without_tax) + parseFloat(product.total_without_tax) - previos_total_without_tax;
+        vm.record.quote_total = vm.record.quote_total.toFixed(2);
+        vm.record.quote_total_without_tax = vm.record.quote_total_without_tax.toFixed(2);
         vm.record.product_position_value = 0;
         vm.record.product_type = '';
         vm.record.sale_warehouse_inventory_product_id = '';
@@ -708,7 +760,7 @@
           vm.record.email = vm.quote.email;
           vm.record.email = vm.quote.email;
           //extract complement data
-          vm.record.sale_payment_method_id = vm.quote.sale_payment_method_id;
+          vm.record.sale_form_payment_id = vm.quote.sale_form_payment_id;
           vm.record.deadline_date = vm.quote.deadline_date;
         }
       },
@@ -722,12 +774,18 @@
         let product = {};
         let option_name;
         product.product_type = product_load.product_type;
+        product.has_quantity_max = 0;
+        product.quantity_max_value = '';
         if (product.product_type == 'Producto') {
           product.sale_warehouse_inventory_product_id = product_load.sale_warehouse_inventory_product_id;
           option_name = product.sale_warehouse_inventory_product_id;
           let inventory_product = product_load.sale_warehouse_inventory_product;
           if (typeof inventory_product !== "undefined" && inventory_product) {
             option_name = inventory_product.code;
+            if (inventory_product.exist) {
+              product.has_quantity_max = 1;
+              product.quantity_max_value = inventory_product.exist;
+            }
           }
           product.inventory_product = {
             'id': product.sale_warehouse_inventory_product_id,
@@ -776,7 +834,8 @@
         };
         product.quantity = product_load.quantity;
         //math total without tax
-        product.total_without_tax = product.quantity * product.value;
+        product.total_without_tax = product_load.total_without_tax;
+        product.total = product_load.total; 
         product.currency_id = product_load.currency_id;
         option_name = product.currency_id;
         let currency = product_load.currency;
@@ -788,9 +847,11 @@
           'name': option_name,
         };
         product.history_tax_id = product_load.history_tax_id;
-        product.history_tax_value = product_load.history_tax? parseFloat(product_load.history_tax.percentage) : 0;
-        product.product_tax_value = (product.total_without_tax * product.history_tax_value) / 100;
-        product.total = product.total_without_tax + product.product_tax_value;
+
+        //product.history_tax_value = product_load.history_tax? parseFloat(product_load.history_tax.percentage) : 0;
+        product.product_tax_value = product.total - product.total_without_tax;
+        product.product_tax_value = product.product_tax_value.toFixed(2);
+        //product.total = product.total_without_tax + product.product_tax_value;
         let product_index = parseInt(vm.record.product_position_value);
         if (product_index > 0) {
           vm.record.sale_quote_products.splice(product_index - 1, 1);
@@ -861,10 +922,10 @@
           const vm = this;
           //el select del metodo de pago ya cuenta con opciones
           //es posible en este momento seleccionar una opcion
-          if (vm.quote_edit && $('#sale_payment_method_id option').length > 1) {
-            if (vm.record.sale_payment_method_id != vm.quote.sale_payment_method_id) {
-              $("#sale_payment_method_id").val(vm.quote.sale_payment_method_id).select2();
-              vm.record.sale_payment_method_id = vm.quote.sale_payment_method_id;
+          if (vm.quote_edit && $('#sale_form_payment_id option').length > 1) {
+            if (vm.record.sale_form_payment_id != vm.quote.sale_form_payment_id) {
+              $("#sale_form_payment_id").val(vm.quote.sale_form_payment_id).select2();
+              vm.record.sale_form_payment_id = vm.quote.sale_form_payment_id;
             }
             else {
               vm.quote_edit = false;
@@ -872,8 +933,8 @@
           }
           //editar una cotizacion y el metodo de pago es diferente al del formulario
           //se modifica el valor del pago de record para que este continuamente viendo cambios (watch)
-          if (vm.quote_edit && vm.record.sale_payment_method_id != vm.quote.sale_payment_method_id) {
-            vm.record.sale_payment_method_id = vm.quote.sale_payment_method_id;
+          if (vm.quote_edit && vm.record.sale_form_payment_id != vm.quote.sale_form_payment_id) {
+            vm.record.sale_form_payment_id = vm.quote.sale_form_payment_id;
           }
         }
       }

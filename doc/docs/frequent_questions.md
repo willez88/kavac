@@ -39,3 +39,11 @@
 
     - Para crear un nuevo respaldo presione el botón **Crear un nuevo respaldo** ![Screenshot](img/new_database_backups.png#imagen) 
 
+??? question "¿Cómo completar de forma correcta el campo R.I.F?"
+    Para completar el campo R.I.F en el fomarto correcto, se debe iniciar con una letra mayúscula seguida de elementos numéricos sin guiones.
+
+    **Ejemplo:**
+    V111111111  
+
+    
+

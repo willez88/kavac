@@ -49,12 +49,11 @@
 											<div class="form-group">
 												<strong>Nombre del director</strong>
 												<div class="row" style="margin: 1px 0">
-													<span class="col-md-12" id="first_name">
+													<span class="col-md-12" id="payroll_staff">
 													</span>
 												</div>
 								            </div>
 										</div>
-
 										<div class="col-md-4">
 											<div class="form-group">
 												<strong>Nombre del proyecto</strong>
@@ -64,8 +63,18 @@
 												</div>
 								            </div>
 										</div>
+
 								</div>
 								<div class="row">
+									<div class="col-md-4">
+											<div class="form-group">
+												<strong>Equipo responsable</strong>
+												<div class="row" style="margin: 1px 0">
+													<span class="col-md-12" id="team_name">
+													</span>
+												</div>
+								            </div>
+									</div>
 									<div class="col-md-4">
 											<div class="form-group">
 												<strong>Actividades</strong>
@@ -75,6 +84,18 @@
 												</div>
 								            </div>
 									</div>
+									<div class="col-md-4">
+											<div class="form-group">
+												<strong>Correo electrónico</strong>
+												<div class="row" style="margin: 1px 0">
+													<span class="col-md-12" id="email">
+													</span>
+												</div>
+								            </div>
+									</div>
+								</div>
+								<div class="row">
+
 									<div class="col-md-4">
 											<div class="form-group">
 												<strong>Fecha de inicio</strong>
@@ -92,18 +113,7 @@
 													</span>
 												</div>
 								            </div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-4">
-											<div class="form-group">
-												<strong>Correo electrónico</strong>
-												<div class="row" style="margin: 1px 0">
-													<span class="col-md-12" id="email">
-													</span>
-												</div>
-								            </div>
-									</div>
+									</div>	
 									<div class="col-md-4">
 											<div class="form-group">
 												<strong>Porcentaje de cumplimiento</strong>
@@ -115,8 +125,6 @@
 									</div>
 								</div>
 							</div>
-
-
 	                    </div>
 	                </div>
 					<div class="modal-footer">
@@ -171,8 +179,9 @@
 						$(".modal-body #id").val( fields.id );
 
 		            	document.getElementById('date_register').innerText = (fields.date_register)?fields.date_register:'N/A';
-		            	document.getElementById('first_name').innerText = (fields.first_name)?fields.first_name:'N/A';
+		            	document.getElementById('payroll_staff').innerText = (fields.payroll_staff.first_name)?((fields.payroll_staff.last_name)?(fields.payroll_staff.first_name + ' ' + fields.payroll_staff.last_name):(fields.payroll_staff.first_name)):'N/A';
 		            	document.getElementById('project_name').innerText = (fields.project_name)?fields.project_name:'N/A';
+		            	document.getElementById('team_name').innerText = (fields.team_name)?fields.team_name:'N/A';
 		            	document.getElementById('activities').innerText = (fields.activities)?fields.activities:'N/A';
 		            	document.getElementById('start_date').innerText = (fields.start_date)?fields.start_date:'N/A';
 		            	document.getElementById('end_date').innerText = (fields.end_date)?fields.end_date:'N/A';

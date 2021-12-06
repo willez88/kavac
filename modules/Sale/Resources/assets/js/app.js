@@ -634,7 +634,7 @@ Vue.mixin({
 			const vm = this;
 			vm.quote_taxes = [];
 			axios.get('/sale/get-quote-taxes').then(response => {
-				vm.taxes = response.data;
+				vm.quote_taxes = response.data;
 			});
 		},
 

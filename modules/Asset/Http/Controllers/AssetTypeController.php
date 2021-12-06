@@ -43,10 +43,10 @@ class AssetTypeController extends Controller
 
         /** Define los mensajes de validación para las reglas del formulario */
         $this->messages = [
-            'name.required'     => 'El campo tipo de bienes es obligatorio.',
-            'name.max'          => 'El campo tipo de bienes no debe contener más de 100 caracteres.',
-            'name.regex'        => 'El campo tipo de bienes no debe permitir números ni símbolos.',
-            'name.unique'       => 'El campo tipo de bienes ya ha sido registrado.'
+            'name.required'     => 'El campo tipo de bien es obligatorio.',
+            'name.max'          => 'El campo tipo de bien no debe contener más de 100 caracteres.',
+            'name.regex'        => 'El campo tipo de bien no debe permitir números ni símbolos.',
+            'name.unique'       => 'El campo tipo de bien ya ha sido registrado.'
 
            ];
     }
