@@ -1000,7 +1000,12 @@ class AccountingAuxiliaryBookController extends Controller
             'endDate'  => $endDate,
             'currency' => $currency,
         ]);
-        $pdf->showPdfSign($report['filename']);
+        if($report['status'] == 'true') {
+            return response()->download($report['file'], $report['filename'], [], 'inline');
+        }
+        else {
+            return response()->json(['result' => $report['status'], 'message' => $report['message']], 200);
+        }
 
     }
     /**
