@@ -20,10 +20,22 @@
 					</div>
 					<div class="modal-body">
 						<div class="alert alert-danger" v-if="errors.length > 0">
-							<ul>
-								<li v-for="error in errors">{{ error }}</li>
-							</ul>
-						</div>
+                            <div class="container">
+                                <div class="alert-icon">
+                                    <i class="now-ui-icons objects_support-17"></i>
+                                </div>
+                                <strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                                        @click.prevent="errors = []">
+                                    <span aria-hidden="true">
+                                        <i class="now-ui-icons ui-1_simple-remove"></i>
+                                    </span>
+                                </button>
+                                <ul>
+                                    <li v-for="error in errors">{{ error }}</li>
+                                </ul>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-12">
         						<div class="form-group is-required">
@@ -101,6 +113,12 @@
 				'name': 'col-md-10',
 				'id': 'col-md-2'
 			};
+		},
+		mounted () {
+			const vm = this;
+			$("#add_payroll_language_level").on('show.bs.modal', function() {
+                vm.reset();
+            });
 		},
 	};
 </script>

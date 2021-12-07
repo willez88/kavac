@@ -18,9 +18,21 @@
 
 				<div class="card-body">
 					<div class="alert alert-danger" v-if="errors.length > 0">
-						<ul>
-							<li v-for="error in errors">{{ error }}</li>
-						</ul>
+						<div class="container">
+							<div class="alert-icon">
+								<i class="now-ui-icons objects_support-17"></i>
+							</div>
+							<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"
+									@click.prevent="errors = []">
+								<span aria-hidden="true">
+									<i class="now-ui-icons ui-1_simple-remove"></i>
+								</span>
+							</button>
+							<ul>
+								<li v-for="error in errors">{{ error }}</li>
+							</ul>
+						</div>
 					</div>
 
 					<div class="row">
@@ -166,22 +178,19 @@
                         <div class="col-md-4">
 							<div class="form-group is-required">
 								<label>País</label>
-								<select2 :options="countries" @input="getEstates" v-model="record.country_id"
-                                         id="country_id"></select2>
+								<select2 :options="countries" @input="getEstates()" v-model="record.country_id"></select2>
 							</div>
 						</div>
                         <div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Estado</label>
-								<select2 :options="estates" @input="getMunicipalities" id="estate_id"
-                                         v-model="record.estate_id"></select2>
+								<select2 :options="estates" @input="getMunicipalities()" v-model="record.estate_id"></select2>
 							</div>
 						</div>
                         <div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Municipio</label>
-								<select2 :options="municipalities" @input="getParishes" id="municipality_id"
-                                         v-model="record.municipality_id"></select2>
+								<select2 :options="municipalities" @input="getParishes()" v-model="record.municipality_id"></select2>
 							</div>
 						</div>
 					</div>
@@ -190,7 +199,7 @@
                         <div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Parroquia</label>
-								<select2 :options="parishes" id="parish_id" v-model="record.parish_id"></select2>
+								<select2 :options="parishes" v-model="record.parish_id"></select2>
 							</div>
 						</div>
                         <div class="col-md-4">
@@ -346,10 +355,11 @@
 
 			},
 
-			getStaff() {
+			async getStaff() {
 				let vm = this;
-				axios.get(`/payroll/staffs/${vm.payroll_staff_id}`).then(response => {
+				await axios.get(`/payroll/staffs/${vm.payroll_staff_id}`).then(response => {
 					vm.record = response.data.record;
+					vm.record.country_id = vm.record.parish.municipality.estate.country_id;
 					/*vm.record.id = response.data.record.id;
 					vm.record.first_name = response.data.record.first_name;
 					vm.record.last_name = response.data.record.last_name;
