@@ -260,15 +260,15 @@
 			if (this.entries) {
 				this.records = this.entries;
 			}
-			EventBus.$on('reload:listing',(data)=>{
-				this.records = data;
-			});
+			// EventBus.$on('reload:listing',(data)=>{
+			// 	this.records = data;
+			// });
 
-			EventBus.$on('list:entries',(data)=>{
-				this.search = '';
-				this.dataForm = data;
-				this.initRecords(this.url);
-			});
+			// EventBus.$on('list:entries',(data)=>{
+			// 	this.search = '';
+			// 	this.dataForm = data;
+			// 	this.initRecords(this.url);
+			// });
 		},
 	};
 
