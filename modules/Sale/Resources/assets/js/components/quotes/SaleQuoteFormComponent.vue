@@ -108,7 +108,7 @@
           <div class="form-group is-required">
             <label for="phone">Teléfono de contacto:</label>
             <input type="text" id="phone" class="form-control input-sm" data-toggle="tooltip" required
-              title="Número de teléfono" v-model="record.phone" placeholder="00-000-0000000">
+              title="Número de teléfono" v-model="record.phone" placeholder="000-0000000">
           </div>
         </div>
         <div class="col-md-6">
@@ -388,7 +388,7 @@
         this.record.name = client.name_client? client.name_client : client.name;
         this.record.id_number = client.rif? client.rif : client.id_number;
         this.record.id_number = this.record.id_number.replace(/\D/g, "");
-        this.record.phone = client.phones && client.phones.length? client.phones[0].area_code + '-' + client.phones[0].number : '';
+        this.record.phone = client.phones && client.phones.length? parseInt(client.phones[0].area_code) + '-' + client.phones[0].number : '';
         this.record.email = client.sale_clients_email && client.sale_clients_email.length? client.sale_clients_email[0].email : '';
         $("#view_sale_quote").modal('hide');
       },
