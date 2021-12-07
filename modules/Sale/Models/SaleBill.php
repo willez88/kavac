@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
+use Modules\Sale\Models\SaleBillInventoryProduct;
 
 class SaleBill extends Model implements Auditable
 {
@@ -25,6 +26,86 @@ class SaleBill extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = ['code', 'state', 'type', 'type_person', 'name', 'id_number', 'rif', 'phone', 'email', 'sale_form_payment_id'];
+
+    /**
+     * Lista de atributos personalizados obtenidos por defecto
+     * @var array $appends
+     */
+    protected $appends = [
+        'bill_total_without_taxs', 'bill_taxs', 'bill_totals'
+    ];
+
+    /**
+     * Atributo que devuelve informacion de los bienes a comercializar
+     *
+     * @author    Daniel Contreras <dcontreras@cenditel.gob.ve>
+     *
+     * @return    $data
+     */
+    public function getBillTotalWithoutTaxsAttribute()
+    {
+        $billProducts = SaleBillInventoryProduct::get();
+        $data = 0;
+
+        foreach ($billProducts as $product){
+            $value = $product->value * $product->quantity;
+            $data += $value;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Atributo que devuelve informacion de los bienes a comercializar
+     *
+     * @author    Daniel Contreras <dcontreras@cenditel.gob.ve>
+     *
+     * @return    $data
+     */
+    public function getBillTaxsAttribute()
+    {
+        $billProducts = SaleBillInventoryProduct::with('historyTax')->get();
+        $total_iva = 0;
+
+        foreach ($billProducts as $product){
+            if($product->historyTax){
+                $value = $product->value * $product->quantity;
+                $iva = $product->historyTax->percentage * $value / 100;
+                $total_iva += $iva;
+            }
+        }
+
+        return $total_iva;
+    }
+
+    /**
+     * Atributo que devuelve informacion de los bienes a comercializar
+     *
+     * @author    Daniel Contreras <dcontreras@cenditel.gob.ve>
+     *
+     * @return    $data
+     */
+    public function getBillTotalsAttribute()
+    {
+        $billProducts = SaleBillInventoryProduct::with('historyTax')->get();
+        $total_iva = 0;
+        $total_value = 0;
+        $total = 0;
+
+        foreach ($billProducts as $product){
+            $value = $product->value * $product->quantity;
+
+            if($product->historyTax){
+                $iva = $product->historyTax->percentage * $value / 100;
+                $total_iva += $iva;
+            }
+
+            $total_value += $value;
+            $total = $total_iva + $total_value;
+        }
+
+        return $total;
+    }
 
     /**
      * Método que obtiene la lista de clientes del módulo de comercialización

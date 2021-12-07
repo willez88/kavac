@@ -247,6 +247,18 @@ class PayrollStaff extends Model implements Auditable
         return $this->hasMany(PayrollPermissionRequest::class);
     }
 
+     /**
+     * Método que obtiene la información de registros de cronogramas de trabajadores.
+     *
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
+
+     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function citizenServiceRegister()
+    {
+        return $this->hasMany(CitizenServiceRegister::class);
+    }
+
     /**
      * Método que obtiene el dato personal del trabajador asociada a una discapacidad
      *

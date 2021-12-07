@@ -3,7 +3,7 @@
         <a class="btn-simplex btn-simplex-md btn-simplex-primary"
            href="#" title="Registros de Condiciones Físicas de los Bienes" data-toggle="tooltip"
            @click="addRecord('add_condition', 'asset/conditions', $event)">
-            <i class="icofont icofont-thermometer-alt ico-3x"></i>
+            <i class="icofont icofont-battery-half ico-3x"></i>
             <span>Condiciones Físicas</span>
         </a>
         <div class="modal fade text-left" tabindex="-1" role="dialog" id="add_condition">
@@ -14,7 +14,7 @@
                             <span aria-hidden="true">×</span>
                         </button>
                         <h6>
-                            <i class="icofont icofont-thermometer-alt ico-2x"></i>
+                            <i class="icofont icofont-battery-half ico-2x"></i>
                             Nueva Condición Física
                         </h6>
                     </div>

@@ -83,6 +83,8 @@ class SalePaymentController extends Controller
             'name' => ['required', 'max:100'],
             'description' => ['required', 'max:200']
         ]);
+        return $request;
+        
         $SalePayment = SaleRegisterPayment::create([
             'name' => $request->name,'description' => $request->description
         ]);
@@ -241,14 +243,15 @@ class SalePaymentController extends Controller
             // valor de impuesto
             if ($SaleGoodsToBeTraded->history_tax_id) {
                 $HistoryTax = HistoryTax::find($SaleGoodsToBeTraded->history_tax_id);
+                // valor de servicio con impuesto
+                $porcentaje = ((float)$HistoryTax->percentage * $SaleGoodsToBeTraded->unit_price) / 100; // Regla de tres
             }
-            else{$HistoryTax = 0;}
-            // valor de servicio con impuesto
-            $porcentaje = ((float)$HistoryTax->percentage * $SaleGoodsToBeTraded->unit_price) / 100; // Regla de tres
+            else{$porcentaje = 0;}
             //total de servicio + impuesto
             $total = $sumatoria[$i] = $porcentaje + $SaleGoodsToBeTraded->unit_price;
         };
-        return response()->json(['code' => $SaleService->code,'total' => $total], 200);
+        $value = [];
+        $value = array('code' =>  $SaleService->code, 'total' =>  $total);
+        return response()->json(['sale_service' => $value], 200);
     }
 }
-

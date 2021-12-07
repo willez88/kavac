@@ -18,47 +18,22 @@
                 </ul>
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-12">
                 <b>Datos del cliente</b>
             </div>
-
             <div class="col-md-3">
-                <div class="form-group is-required">
+                <div class="form-group" v-show="show_service">
                     <label>Servicio:</label>
                     <select2 :options="sale_service_list"
-                             v-model="record.sale_service_id" @input="getSaleService"></select2>
+                             v-model="record.sale_service_id" @input="getSaleService(); show();" ></select2>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="form-group is-required">
+                <div class="form-group" v-show="show_order">
                     <label>Pedido:</label>
                     <select2 :options="sale_order_list"
-                             v-model="record.sale_order_id" @input="getSalesOrder" ></select2>
-                </div>
-            </div>
-
-
-
-            <div class="col-md-3">
-                <div v-show="record.sale_client_id != 0" class="form-group">
-                    <label for="sale_clients_email">Correo:</label>
-                    <p v-for="email in sale_client.sale_clients_email">
-                        <input type="text" class="form-control input-sm" :disabled="true" 
-                            data-toggle="tooltip" title="Dirección" 
-                            id="email" v-model="email.email"></input>
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div v-show="record.sale_client_id != 0" class="form-group">
-                    <label for="phones">Número telefónico:</label>
-                    <p v-for="phone in sale_client.phones">
-                        <input type="text" class="form-control input-sm" :disabled="true"
-                            data-toggle="tooltip" title="Dirección fiscal" 
-                            id="phone" v-model="phone.extension + '-' + phone.area_code + phone.number"></input>
-                    </p>
+                             v-model="record.sale_order_id" @input="getSaleService(); show();" ></select2>
                 </div>
             </div>
         </div>
@@ -66,20 +41,20 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="form-group is-required">
-                    <label for="applicant_organization">codigo de la solicitud:</label>
+                    <label>Código de la solicitud:</label>
                     <input type="text" class="form-control input-sm" 
-                        data-toggle="tooltip" title="Dirección" 
-                        v-model="record.organization" id="applicant_organization" :disabled="true"></input>
+                        data-toggle="tooltip" title="Código de Solicitud" 
+                        v-model="sale_service.code" id="code" :disabled="true"></input>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group is-required">
-                    <label for="payment">Monto Total del pedido o servicio:</label>
+                    <label>Monto Total del pedido o servicio:</label>
                     <input type="text" class="form-control input-sm" 
                         data-toggle="tooltip" title="Total" 
-                        v-model="record.payment" id="payment" :disabled="true"></input>
+                        v-model="sale_service.total" id="total" :disabled="true" ></input>
                 </div>
-            </div>            
+            </div>    
             <div class="col-md-3">
                 <div class="form-group is-required">
                     <label>Forma de pago:</label>
@@ -119,7 +94,7 @@
                     <div class="bootstrap-switch-mini">
                         <input type="checkbox" class="form-control bootstrap-switch"
                             name="advance" data-toggle="tooltip" title="Indique si desea aplicar algún descuento"
-                            data-on-label="SI" data-off-label="NO" value="true" data-record="advance">
+                            data-on-label="SI" data-off-label="NO" value="true" data-record="advance" v-model="record.advance">
                     </div>
                 </div>
             </div>
@@ -133,14 +108,6 @@
                         title ="Borrar datos del formulario">
                         <i class="fa fa-eraser"></i>
                 </button>
-
-                <button type="button"
-                        class="btn btn-warning btn-icon btn-round btn-modal-close"
-                        data-dismiss="modal"
-                        title="Cancelar y regresar">
-                        <i class="fa fa-ban"></i>
-                </button>
-
                 <button type="button"  @click="createRecord('sale/services')"
                         class="btn btn-success btn-icon btn-round btn-modal-save"
                         title="Guardar registro">
@@ -158,13 +125,16 @@ export default {
         return {
             record: {
                 id: '',
-                organization: '',
-                description: '',
-                resume: '',
-                sale_goods_to_be_traded: [],
-                requirements: [],
-                sale_client_id: '',
+                sale_service_id: '',
+                sale_order_id: '',
+                currency_id: '',
+                bank_id: '',
+                number_reference: '',
+                payment_date: '',
+                advance: '',
             },
+            show_service: true,
+            show_order: true,
             sale_order_list: [],
             sale_service_list: [],
             bank: [],
@@ -173,35 +143,14 @@ export default {
             services: [],
             records: [],
             errors: [],
-            sale_client: {
-                name : '',
-                phones : '',
-                sale_clients_email : '',
+            sale_service: {
+                code : '',
+                total : '',
             },
-            sale_clients_rif: [],
-            sale_clients_name: [],
-            sale_clients_address: [],
-            sale_clients_fiscal_address: [],
-        }
-    },
-    watch: {
-        /**
-         * Método que supervisa los cambios en el objeto sale_goods_to_be_traded para asignar sus valores
-         * en el record
-         *
-         * @author    Daniel Contreras <dcontreras@cenditel.gob.ve> | <exodiadaniel@gmail.com>
-         *
-         * @param     {object}    value    Objeto que contiene el valor de a búsqueda
-         */
-        sale_goods_to_be_traded() {
-            const vm = this;
-            vm.record.sale_goods_to_be_traded = [];
-
-            for (let good_to_be_traded of vm.sale_goods_to_be_traded){
-                let good_to_be_traded_id = good_to_be_traded.id;
-                vm.record.sale_goods_to_be_traded.push(good_to_be_traded_id);
-            }
-            
+            sale_order: {
+                code : '',
+                total : '',
+            },
         }
     },
     methods: {
@@ -242,16 +191,32 @@ export default {
         reset() {
             this.record = {
                 id: '',
-                organization: '',
-                description: '',
-                resume: '',
-                sale_client_id: '',
-                sale_goods_to_be_traded: [],
-                requirements: [],
+                sale_service_id: '',
+                sale_order_id: '',
+                currency_id: '',
+                bank_id: '',
+                number_reference: '',
+                payment_date: '',
+                advance: '',
             };
-            this.sale_goods_to_be_traded = [];
+            this.sale_service = [];
         },
-
+        /**
+         * Método que oculta el campo servicio o pedido no seleccionado.
+         *
+         *
+         */        
+        show() {
+            const vm = this;
+            if (vm.record.sale_service_id > 0) {
+                vm.show_service=true;
+                vm.show_order=false;
+            };
+            if (vm.record.sale_order_id > 0) {
+                vm.show_order=true;
+                vm.show_service=false;
+            };
+        },
         getSaleOrderList() {
                 const vm = this;
                 vm.sale_order_list = [];
@@ -292,9 +257,8 @@ export default {
             const vm = this;
             if (vm.record.sale_service_id > 0) {
                 axios.get('/sale/get-sales-client/' + vm.record.sale_service_id).then(response => {
-                    vm.sales_client.name = response.data.sales_client.name;
-                    vm.sales_client.phones = response.data.sales_client.phones;
-                    vm.sales_client.sales_clients_email = response.data.sales_client.sales_clients_email;
+                    vm.sale_service.code = response.data.sale_service.code;
+                    vm.sale_service.total = response.data.sale_service.total;
                 });
             }
         },
@@ -306,26 +270,6 @@ export default {
             axios.get('/sale/get-sale-goods/').then(response => {
                 vm.services = response.data.records;
             });
-        },
-
-        getSaleClientsRif() {
-            const vm = this;
-            vm.sale_clients_rif = [];
-
-            axios.get('/sale/get-sale-clients-rif/').then(response => {
-                vm.sale_clients_rif = response.data.records;
-            });
-        },
-
-        getSaleClient() {
-            const vm = this;
-            if (vm.record.sale_client_id > 0) {
-                axios.get('/sale/get-sale-client/' + vm.record.sale_client_id).then(response => {
-                    vm.sale_client.name = response.data.sale_client.name;
-                    vm.sale_client.phones = response.data.sale_client.phones;
-                    vm.sale_client.sale_clients_email = response.data.sale_client.sale_clients_email;
-                });
-            }
         },
 
         getSaleClientsAddress() {
