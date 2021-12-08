@@ -119,8 +119,8 @@
                                 </div>
                             </div>
 
-                            <div class="tab-pane" id="products" role="tabpanel">            
-                                <div class="modal-table">
+                            <div class="tab-pane" id="products" role="tabpanel">
+                                <div class="modal-table" v-if="record.sale_bill_products">
                                     <v-client-table :columns="columns" :data="record.sale_bill_products" :options="table_options">
                                         <div slot="sale_warehouse_inventory_product_id" slot-scope="props" class="text-center">
                                             <span>
@@ -148,6 +148,32 @@
                                             </span>
                                         </div>
                                     </v-client-table>
+                                    <div class="row">
+                                        <div class="col-md-12 text-right">
+                                            <div class="d-inline-flex align-items-center">
+                                                <label class="font-weight-bold">Total sin iva:</label>
+                                                <div class="form-group">
+                                                    <input type="text" disabled placeholder="Total Sin IVA" id="bill_total_without_tax" title="Total sin IVA" v-model="record.bill_total_without_tax" class="form-control input-sm">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 text-right">
+                                            <div class="d-inline-flex align-items-center">
+                                                <label class="font-weight-bold">IVA:</label>
+                                                <div class="form-group">
+                                                    <input type="text" disabled placeholder="Total IVA" id="total_iva" title="Total IVA" v-model="(record.bill_total - record.bill_total_without_tax).toFixed(2)" class="form-control input-sm">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 text-right">
+                                            <div class="d-inline-flex align-items-center">
+                                                <label class="font-weight-bold">Total a pagar:</label>
+                                                <div class="form-group">
+                                                    <input type="text" disabled placeholder="Total a pagar" id="bill_total" title="Total" v-model="record.bill_total" class="form-control input-sm">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
