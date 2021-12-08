@@ -108,7 +108,7 @@
                         title ="Borrar datos del formulario">
                         <i class="fa fa-eraser"></i>
                 </button>
-                <button type="button"  @click="createRecord('sale/services')"
+                <button type="button"  @click="createRecord('sale/payment/store')"
                         class="btn btn-success btn-icon btn-round btn-modal-save"
                         title="Guardar registro">
                     <i class="fa fa-save"></i>
