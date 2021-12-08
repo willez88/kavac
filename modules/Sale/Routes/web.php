@@ -437,7 +437,7 @@ Route::group(
 
         Route::get('payment/create', 'SalePaymentController@create')->name('payment.register.create');
 
-        Route::get('payment/store', 'SalePaymentController@store')->name('payment.register.store');
+        Route::post('payment/store', 'SalePaymentController@store')->name('payment.register.store');
 
         Route::get(
             'get-sales-client/{id}',

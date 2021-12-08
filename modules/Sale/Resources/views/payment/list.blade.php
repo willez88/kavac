@@ -36,7 +36,9 @@
                 </div>
             </div>
 		    <div class="card-body">
-                <payment-registered-list></payment-registered-list>
+                <payment-registered-list route_list="{{ url('sale/payment/vue-list') }}">
+                    
+                </payment-registered-list>
                 {{-- <payment-registered-list route_edit="{{ url('sale/payment/{id}/edit') }}" /> --}}
             </div>
         </div>

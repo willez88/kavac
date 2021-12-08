@@ -11,6 +11,7 @@ use Modules\CitizenService\Models\CitizenServiceRequest;
 use App\Models\CodeSetting;
 use App\Models\Phone;
 use App\Rules\Rif as RifRule;
+use Illuminate\Validation\Rule;
 
 class CitizenServiceRequestController extends Controller
 {
@@ -294,7 +295,7 @@ class CitizenServiceRequestController extends Controller
         if ($request->type_institution) {
             $validateRules = array_merge($validateRules, [
                 'institution_name'              => ['required', 'max:200'],
-                'rif' => ['required', 'unique:citizen_service_requests,rif', 'size:10', new RifRule],
+                'rif' => ['required', Rule::unique('citizen_service_requests')->ignore($id), 'size:10', new RifRule],
                 'institution_address'           => ['required', 'max:200'],
                 'web'                           => ['max:200'],
             ]);

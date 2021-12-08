@@ -88,11 +88,6 @@
 	</section>
 </template>
 
-<style type="text/css">
-	.btn.btn-icon.btn-xs {
-	    margin-right: 5px;
-	}
-</style>
 <script>
 	export default {
 		data() {
