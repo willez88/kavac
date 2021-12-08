@@ -28,7 +28,7 @@
                                     <i class="now-ui-icons ui-1_calendar-60"></i>
                                 </span>
                                 <input type="date" class="form-control" data-toggle="tooltip" title="Desde la fecha"
-                                       v-model="start_date" placeholder="Fecha">
+                                       v-model="start_date" id="auditStartDate" placeholder="Fecha">
                             </div>
                         </div>
                         <div class="form-group col-md-2" id="helpAuditFilterToDate">
@@ -37,7 +37,7 @@
                                     <i class="now-ui-icons ui-1_calendar-60"></i>
                                 </span>
                                 <input type="date" class="form-control" data-toggle="tooltip" title="Hasta la fecha"
-                                       v-model="end_date" placeholder="Fecha">
+                                       v-model="end_date" id="auditEndDate" placeholder="Fecha">
                             </div>
                         </div>
                         <div class="form-group col-md-2" id="helpAuditFilterUser">
@@ -146,6 +146,16 @@
                 default: null
             }
         },
+        watch: {
+            start_date: function() {
+                const vm = this;
+                $('#auditEndDate').attr('min', vm.start_date);
+            },
+            end_date: function() {
+                const vm = this;
+                $('#auditStartDate').attr('max', vm.end_date);
+            }
+        },
         methods: {
             /**
              * Método que obtiene los registros a mostrar
@@ -154,10 +164,10 @@
              *
              * @param  {string} url Ruta que obtiene todos los registros solicitados
              */
-            readRecords() {
+            async readRecords() {
                 const vm = this;
                 vm.loading = true;
-                axios.post('/app/audit-records', {
+                await axios.post('/app/audit-records', {
                     start_date: vm.start_date,
                     end_date: vm.end_date,
                     user: vm.user,
@@ -169,8 +179,8 @@
                     vm.loading = false;
                 }).catch(error => {
                     console.error(error);
-                    vm.loading = false;
                 });
+                vm.loading = false;
             },
             /**
              * Muestra los detalles de un registro seleccionado
@@ -179,10 +189,10 @@
              *
              * @param     {string}    id    Identificador del registro para el cual se desea mostrar los detalles
              */
-            details(id) {
+            async details(id) {
                 const vm = this;
                 vm.loading = true;
-                axios.post('/app/audit-details', {
+                await axios.post('/app/audit-details', {
                     id: id
                 }).then(response => {
                     if (response.data.result) {
@@ -251,11 +261,10 @@
                             }
                         });
                     }
-                    vm.loading = false;
                 }).catch(error => {
                     console.error(error);
-                    vm.loading = false;
                 });
+                vm.loading = false;
             }
         },
         created() {
