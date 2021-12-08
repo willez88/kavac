@@ -1,0 +1,8 @@
+digraph "AssetDisincorporationAsset"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{AssetDisincorporationAsset\n|# $fillable\l|+ asset()\l+ assetDisincorporation()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Datos del listado de bienes registrados en una desincorporación."];
+}

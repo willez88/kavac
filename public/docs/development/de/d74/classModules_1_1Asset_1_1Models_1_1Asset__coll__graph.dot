@@ -1,0 +1,8 @@
+digraph "Asset"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Asset\n|# $dates\l# $fillable\l|+ assetAcquisitionType()\l+ assetAsignationAsset()\l+ assetCategory()\l+ assetCondition()\l+ assetDisincorporationAsset()\l+ assetInventoryAssets()\l+ assetRequestAsset()\l+ assetSpecificCategory()\l+ assetStatus()\l+ assetSubcategory()\ly 10 más...\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Datos de los bienes institucionales."];
+}

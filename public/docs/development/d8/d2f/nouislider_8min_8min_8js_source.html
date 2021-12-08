@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>KAVAC: Fichero Fuente nouislider.min.min.js</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+<link href="../../customdoxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../logo-doc.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">KAVAC
+   &#160;<span id="projectnumber">versión 1.0.0</span>
+   </div>
+   <div id="projectbrief">Sistema de Gestión Organizacional</div>
+  </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="../../search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.png" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "../../search",false,'Buscar');
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('d8/d2f/nouislider_8min_8min_8js_source.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">nouislider.min.min.js</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;!function(a){&quot;function&quot;==typeof define&amp;&amp;define.amd?define([],a):&quot;object&quot;==typeof exports?module.exports=a():window.noUiSlider=a()}(function(){&quot;use strict&quot;;function a(a,b){var c=document.createElement(&quot;div&quot;);return j(c,b),a.appendChild(c),c}</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;function b(a){return a.filter(function(a){return!this[a]&amp;&amp;(this[a]=!0)},{})}</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;function c(a,b){return Math.round(a/b)*b}</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;function d(a,b){var c=a.getBoundingClientRect(),d=a.ownerDocument,e=d.documentElement,f=m();return/webkit.*Chrome.*Mobile/i.test(navigator.userAgent)&amp;&amp;(f.x=0),b?c.top+f.y-e.clientTop:c.left+f.x-e.clientLeft}</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;function e(a){return&quot;number&quot;==typeof a&amp;&amp;!isNaN(a)&amp;&amp;isFinite(a)}</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;function f(a,b,c){c&gt;0&amp;&amp;(j(a,b),setTimeout(function(){k(a,b)},c))}</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;function g(a){return Math.max(Math.min(a,100),0)}</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;function h(a){return Array.isArray(a)?a:[a]}</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;function i(a){a=String(a);var b=a.split(&quot;.&quot;);return b.length&gt;1?b[1].length:0}</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;function j(a,b){a.classList?a.classList.add(b):a.className+=&quot; &quot;+b}</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;function k(a,b){a.classList?a.classList.remove(b):a.className=a.className.replace(new RegExp(&quot;(^|\\b)&quot;+b.split(&quot; &quot;).join(&quot;|&quot;)+&quot;(\\b|$)&quot;,&quot;gi&quot;),&quot; &quot;)}</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;function l(a,b){return a.classList?a.classList.contains(b):new RegExp(&quot;\\b&quot;+b+&quot;\\b&quot;).test(a.className)}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;function m(){var a=void 0!==window.pageXOffset,b=&quot;CSS1Compat&quot;===(document.compatMode||&quot;&quot;),c=a?window.pageXOffset:b?document.documentElement.scrollLeft:document.body.scrollLeft,d=a?window.pageYOffset:b?document.documentElement.scrollTop:document.body.scrollTop;return{x:c,y:d}}</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;function n(){return window.navigator.pointerEnabled?{start:&quot;pointerdown&quot;,move:&quot;pointermove&quot;,end:&quot;pointerup&quot;}:window.navigator.msPointerEnabled?{start:&quot;MSPointerDown&quot;,move:&quot;MSPointerMove&quot;,end:&quot;MSPointerUp&quot;}:{start:&quot;mousedown touchstart&quot;,move:&quot;mousemove touchmove&quot;,end:&quot;mouseup touchend&quot;}}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;function o(a,b){return 100/(b-a)}</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;function p(a,b){return 100*b/(a[1]-a[0])}</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;function q(a,b){return p(a,a[0]&lt;0?b+Math.abs(a[0]):b-a[0])}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;function r(a,b){return b*(a[1]-a[0])/100+a[0]}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;function s(a,b){for(var c=1;a&gt;=b[c];)c+=1;return c}</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;function t(a,b,c){if(c&gt;=a.slice(-1)[0])return 100;var d,e,f,g,h=s(c,a);return d=a[h-1],e=a[h],f=b[h-1],g=b[h],f+q([d,e],c)/o(f,g)}</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;function u(a,b,c){if(c&gt;=100)return a.slice(-1)[0];var d,e,f,g,h=s(c,b);return d=a[h-1],e=a[h],f=b[h-1],g=b[h],r([d,e],(c-f)*o(f,g))}</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;function v(a,b,d,e){if(100===e)return e;var f,g,h=s(e,a);return d?(f=a[h-1],g=a[h],e-f&gt;(g-f)/2?g:f):b[h-1]?a[h-1]+c(e-a[h-1],b[h-1]):e}</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;function w(a,b,c){var d;if(&quot;number&quot;==typeof b&amp;&amp;(b=[b]),&quot;[object Array]&quot;!==Object.prototype.toString.call(b))throw new Error(&quot;noUiSlider: &#39;range&#39; contains invalid value.&quot;);if(d=&quot;min&quot;===a?0:&quot;max&quot;===a?100:parseFloat(a),!e(d)||!e(b[0]))throw new Error(&quot;noUiSlider: &#39;range&#39; value isn&#39;t numeric.&quot;);c.xPct.push(d),c.xVal.push(b[0]),d?c.xSteps.push(!isNaN(b[1])&amp;&amp;b[1]):isNaN(b[1])||(c.xSteps[0]=b[1]),c.xHighestCompleteStep.push(0)}</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;function x(a,b,c){if(!b)return!0;c.xSteps[a]=p([c.xVal[a],c.xVal[a+1]],b)/o(c.xPct[a],c.xPct[a+1]);var d=(c.xVal[a+1]-c.xVal[a])/c.xNumSteps[a],e=Math.ceil(Number(d.toFixed(3))-1),f=c.xVal[a]+c.xNumSteps[a]*e;c.xHighestCompleteStep[a]=f}</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;function y(a,b,c,d){this.xPct=[],this.xVal=[],this.xSteps=[d||!1],this.xNumSteps=[!1],this.xHighestCompleteStep=[],this.snap=b,this.direction=c;var e,f=[];for(e in a)a.hasOwnProperty(e)&amp;&amp;f.push([a[e],e]);for(f.length&amp;&amp;&quot;object&quot;==typeof f[0][0]?f.sort(function(a,b){return a[0][0]-b[0][0]}):f.sort(function(a,b){return a[0]-b[0]}),e=0;e&lt;f.length;e++)w(f[e][1],f[e][0],this);for(this.xNumSteps=this.xSteps.slice(0),e=0;e&lt;this.xNumSteps.length;e++)x(e,this.xNumSteps[e],this)}</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;function z(a,b){if(!e(b))throw new Error(&quot;noUiSlider: &#39;step&#39; is not numeric.&quot;);a.singleStep=b}</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;function A(a,b){if(&quot;object&quot;!=typeof b||Array.isArray(b))throw new Error(&quot;noUiSlider: &#39;range&#39; is not an object.&quot;);if(void 0===b.min||void 0===b.max)throw new Error(&quot;noUiSlider: Missing &#39;min&#39; or &#39;max&#39; in &#39;range&#39;.&quot;);if(b.min===b.max)throw new Error(&quot;noUiSlider: &#39;range&#39; &#39;min&#39; and &#39;max&#39; cannot be equal.&quot;);a.spectrum=new y(b,a.snap,a.dir,a.singleStep)}</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;function B(a,b){if(b=h(b),!Array.isArray(b)||!b.length)throw new Error(&quot;noUiSlider: &#39;start&#39; option is incorrect.&quot;);a.handles=b.length,a.start=b}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;function C(a,b){if(a.snap=b,&quot;boolean&quot;!=typeof b)throw new Error(&quot;noUiSlider: &#39;snap&#39; option must be a boolean.&quot;)}</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;function D(a,b){if(a.animate=b,&quot;boolean&quot;!=typeof b)throw new Error(&quot;noUiSlider: &#39;animate&#39; option must be a boolean.&quot;)}</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;function E(a,b){if(a.animationDuration=b,&quot;number&quot;!=typeof b)throw new Error(&quot;noUiSlider: &#39;animationDuration&#39; option must be a number.&quot;)}</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;function F(a,b){var c,d=[!1];if(&quot;lower&quot;===b?b=[!0,!1]:&quot;upper&quot;===b&amp;&amp;(b=[!1,!0]),b===!0||b===!1){for(c=1;c&lt;a.handles;c++)d.push(b);d.push(!1)}else{if(!Array.isArray(b)||!b.length||b.length!==a.handles+1)throw new Error(&quot;noUiSlider: &#39;connect&#39; option doesn&#39;t match handle count.&quot;);d=b}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;a.connect=d}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;function G(a,b){switch(b){case&quot;horizontal&quot;:a.ort=0;break;case&quot;vertical&quot;:a.ort=1;break;default:throw new Error(&quot;noUiSlider: &#39;orientation&#39; option is invalid.&quot;)}}</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;function H(a,b){if(!e(b))throw new Error(&quot;noUiSlider: &#39;margin&#39; option must be numeric.&quot;);if(0!==b&amp;&amp;(a.margin=a.spectrum.getMargin(b),!a.margin))throw new Error(&quot;noUiSlider: &#39;margin&#39; option is only supported on linear sliders.&quot;)}</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;function I(a,b){if(!e(b))throw new Error(&quot;noUiSlider: &#39;limit&#39; option must be numeric.&quot;);if(a.limit=a.spectrum.getMargin(b),!a.limit||a.handles&lt;2)throw new Error(&quot;noUiSlider: &#39;limit&#39; option is only supported on linear sliders with 2 or more handles.&quot;)}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;function J(a,b){if(!e(b))throw new Error(&quot;noUiSlider: &#39;padding&#39; option must be numeric.&quot;);if(0!==b){if(a.padding=a.spectrum.getMargin(b),!a.padding)throw new Error(&quot;noUiSlider: &#39;padding&#39; option is only supported on linear sliders.&quot;);if(a.padding&lt;0)throw new Error(&quot;noUiSlider: &#39;padding&#39; option must be a positive number.&quot;);if(a.padding&gt;=50)throw new Error(&quot;noUiSlider: &#39;padding&#39; option must be less than half the range.&quot;)}}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;function K(a,b){switch(b){case&quot;ltr&quot;:a.dir=0;break;case&quot;rtl&quot;:a.dir=1;break;default:throw new Error(&quot;noUiSlider: &#39;direction&#39; option was not recognized.&quot;)}}</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;function L(a,b){if(&quot;string&quot;!=typeof b)throw new Error(&quot;noUiSlider: &#39;behaviour&#39; must be a string containing options.&quot;);var c=b.indexOf(&quot;tap&quot;)&gt;=0,d=b.indexOf(&quot;drag&quot;)&gt;=0,e=b.indexOf(&quot;fixed&quot;)&gt;=0,f=b.indexOf(&quot;snap&quot;)&gt;=0,g=b.indexOf(&quot;hover&quot;)&gt;=0;if(e){if(2!==a.handles)throw new Error(&quot;noUiSlider: &#39;fixed&#39; behaviour must be used with 2 handles&quot;);H(a,a.start[1]-a.start[0])}</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;a.events={tap:c||f,drag:d,fixed:e,snap:f,hover:g}}</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;function M(a,b){if(b!==!1)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;if(b===!0){a.tooltips=[];for(var c=0;c&lt;a.handles;c++)a.tooltips.push(!0)}else{if(a.tooltips=h(b),a.tooltips.length!==a.handles)throw new Error(&quot;noUiSlider: must pass a formatter for all handles.&quot;);a.tooltips.forEach(function(a){if(&quot;boolean&quot;!=typeof a&amp;&amp;(&quot;object&quot;!=typeof a||&quot;function&quot;!=typeof a.to))throw new Error(&quot;noUiSlider: &#39;tooltips&#39; must be passed a formatter or &#39;false&#39;.&quot;)})}}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;function N(a,b){if(a.format=b,&quot;function&quot;==typeof b.to&amp;&amp;&quot;function&quot;==typeof b.from)return!0;throw new Error(&quot;noUiSlider: &#39;format&#39; requires &#39;to&#39; and &#39;from&#39; methods.&quot;)}</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;function O(a,b){if(void 0!==b&amp;&amp;&quot;string&quot;!=typeof b&amp;&amp;b!==!1)throw new Error(&quot;noUiSlider: &#39;cssPrefix&#39; must be a string or `false`.&quot;);a.cssPrefix=b}</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;function P(a,b){if(void 0!==b&amp;&amp;&quot;object&quot;!=typeof b)throw new Error(&quot;noUiSlider: &#39;cssClasses&#39; must be an object.&quot;);if(&quot;string&quot;==typeof a.cssPrefix){a.cssClasses={};for(var c in b)b.hasOwnProperty(c)&amp;&amp;(a.cssClasses[c]=a.cssPrefix+b[c])}else a.cssClasses=b}</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;function Q(a,b){if(b!==!0&amp;&amp;b!==!1)throw new Error(&quot;noUiSlider: &#39;useRequestAnimationFrame&#39; option should be true (default) or false.&quot;);a.useRequestAnimationFrame=b}</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;function R(a){var b={margin:0,limit:0,padding:0,animate:!0,animationDuration:300,format:U},c={step:{r:!1,t:z},start:{r:!0,t:B},connect:{r:!0,t:F},direction:{r:!0,t:K},snap:{r:!1,t:C},animate:{r:!1,t:D},animationDuration:{r:!1,t:E},range:{r:!0,t:A},orientation:{r:!1,t:G},margin:{r:!1,t:H},limit:{r:!1,t:I},padding:{r:!1,t:J},behaviour:{r:!0,t:L},format:{r:!1,t:N},tooltips:{r:!1,t:M},cssPrefix:{r:!1,t:O},cssClasses:{r:!1,t:P},useRequestAnimationFrame:{r:!1,t:Q}},d={connect:!1,direction:&quot;ltr&quot;,behaviour:&quot;tap&quot;,orientation:&quot;horizontal&quot;,cssPrefix:&quot;noUi-&quot;,cssClasses:{target:&quot;target&quot;,base:&quot;base&quot;,origin:&quot;origin&quot;,handle:&quot;handle&quot;,handleLower:&quot;handle-lower&quot;,handleUpper:&quot;handle-upper&quot;,horizontal:&quot;horizontal&quot;,vertical:&quot;vertical&quot;,background:&quot;background&quot;,connect:&quot;connect&quot;,ltr:&quot;ltr&quot;,rtl:&quot;rtl&quot;,draggable:&quot;draggable&quot;,drag:&quot;state-drag&quot;,tap:&quot;state-tap&quot;,active:&quot;active&quot;,tooltip:&quot;tooltip&quot;,pips:&quot;pips&quot;,pipsHorizontal:&quot;pips-horizontal&quot;,pipsVertical:&quot;pips-vertical&quot;,marker:&quot;marker&quot;,markerHorizontal:&quot;marker-horizontal&quot;,markerVertical:&quot;marker-vertical&quot;,markerNormal:&quot;marker-normal&quot;,markerLarge:&quot;marker-large&quot;,markerSub:&quot;marker-sub&quot;,value:&quot;value&quot;,valueHorizontal:&quot;value-horizontal&quot;,valueVertical:&quot;value-vertical&quot;,valueNormal:&quot;value-normal&quot;,valueLarge:&quot;value-large&quot;,valueSub:&quot;value-sub&quot;},useRequestAnimationFrame:!0};Object.keys(c).forEach(function(e){if(void 0===a[e]&amp;&amp;void 0===d[e]){if(c[e].r)throw new Error(&quot;noUiSlider: &#39;&quot;+e+&quot;&#39; is required.&quot;);return!0}</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;c[e].t(b,void 0===a[e]?d[e]:a[e])}),b.pips=a.pips;var e=[[&quot;left&quot;,&quot;top&quot;],[&quot;right&quot;,&quot;bottom&quot;]];return b.style=e[b.dir][b.ort],b.styleOposite=e[b.dir?0:1][b.ort],b}</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;function S(c,e,i){function o(b,c){var d=a(b,e.cssClasses.origin),f=a(d,e.cssClasses.handle);return f.setAttribute(&quot;data-handle&quot;,c),0===c?j(f,e.cssClasses.handleLower):c===e.handles-1&amp;&amp;j(f,e.cssClasses.handleUpper),d}</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;function p(b,c){return!!c&amp;&amp;a(b,e.cssClasses.connect)}</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;function q(a,b){ba=[],ca=[],ca.push(p(b,a[0]));for(var c=0;c&lt;e.handles;c++)ba.push(o(b,c)),ha[c]=c,ca.push(p(b,a[c+1]))}</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;function r(b){j(b,e.cssClasses.target),0===e.dir?j(b,e.cssClasses.ltr):j(b,e.cssClasses.rtl),0===e.ort?j(b,e.cssClasses.horizontal):j(b,e.cssClasses.vertical),aa=a(b,e.cssClasses.base)}</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;function s(b,c){return!!e.tooltips[c]&amp;&amp;a(b.firstChild,e.cssClasses.tooltip)}</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;function t(){var a=ba.map(s);Z(&quot;update&quot;,function(b,c,d){if(a[c]){var f=b[c];e.tooltips[c]!==!0&amp;&amp;(f=e.tooltips[c].to(d[c])),a[c].innerHTML=f}})}</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;function u(a,b,c){if(&quot;range&quot;===a||&quot;steps&quot;===a)return ja.xVal;if(&quot;count&quot;===a){var d,e=100/(b-1),f=0;for(b=[];(d=f++*e)&lt;=100;)b.push(d);a=&quot;positions&quot;}</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;return&quot;positions&quot;===a?b.map(function(a){return ja.fromStepping(c?ja.getStep(a):a)}):&quot;values&quot;===a?c?b.map(function(a){return ja.fromStepping(ja.getStep(ja.toStepping(a)))}):b:void 0}</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;function v(a,c,d){function e(a,b){return(a+b).toFixed(7)/1}</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;var f={},g=ja.xVal[0],h=ja.xVal[ja.xVal.length-1],i=!1,j=!1,k=0;return d=b(d.slice().sort(function(a,b){return a-b})),d[0]!==g&amp;&amp;(d.unshift(g),i=!0),d[d.length-1]!==h&amp;&amp;(d.push(h),j=!0),d.forEach(function(b,g){var h,l,m,n,o,p,q,r,s,t,u=b,v=d[g+1];if(&quot;steps&quot;===c&amp;&amp;(h=ja.xNumSteps[g]),h||(h=v-u),u!==!1&amp;&amp;void 0!==v)</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;for(h=Math.max(h,1e-7),l=u;l&lt;=v;l=e(l,h)){for(n=ja.toStepping(l),o=n-k,r=o/a,s=Math.round(r),t=o/s,m=1;m&lt;=s;m+=1)p=k+m*t,f[p.toFixed(5)]=[&quot;x&quot;,0];q=d.indexOf(l)&gt;-1?1:&quot;steps&quot;===c?2:0,!g&amp;&amp;i&amp;&amp;(q=0),l===v&amp;&amp;j||(f[n.toFixed(5)]=[l,q]),k=n}}),f}</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;function w(a,b,c){function d(a,b){var c=b===e.cssClasses.value,d=c?m:n,f=c?k:l;return b+&quot; &quot;+d[e.ort]+&quot; &quot;+f[a]}</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;function f(a,b,c){return&#39;class=&quot;&#39;+d(c[1],b)+&#39;&quot; style=&quot;&#39;+e.style+&quot;: &quot;+a+&#39;%&quot;&#39;}</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;function g(a,d){d[1]=d[1]&amp;&amp;b?b(d[0],d[1]):d[1],i+=&quot;&lt;div &quot;+f(a,e.cssClasses.marker,d)+&quot;&gt;&lt;/div&gt;&quot;,d[1]&amp;&amp;(i+=&quot;&lt;div &quot;+f(a,e.cssClasses.value,d)+&quot;&gt;&quot;+c.to(d[0])+&quot;&lt;/div&gt;&quot;)}</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;var h=document.createElement(&quot;div&quot;),i=&quot;&quot;,k=[e.cssClasses.valueNormal,e.cssClasses.valueLarge,e.cssClasses.valueSub],l=[e.cssClasses.markerNormal,e.cssClasses.markerLarge,e.cssClasses.markerSub],m=[e.cssClasses.valueHorizontal,e.cssClasses.valueVertical],n=[e.cssClasses.markerHorizontal,e.cssClasses.markerVertical];return j(h,e.cssClasses.pips),j(h,0===e.ort?e.cssClasses.pipsHorizontal:e.cssClasses.pipsVertical),Object.keys(a).forEach(function(b){g(b,a[b])}),h.innerHTML=i,h}</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;function x(a){var b=a.mode,c=a.density||1,d=a.filter||!1,e=a.values||!1,f=a.stepped||!1,g=u(b,e,f),h=v(c,b,g),i=a.format||{to:Math.round};return fa.appendChild(w(h,d,i))}</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;function y(){var a=aa.getBoundingClientRect(),b=&quot;offset&quot;+[&quot;Width&quot;,&quot;Height&quot;][e.ort];return 0===e.ort?a.width||aa[b]:a.height||aa[b]}</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;function z(a,b,c,d){var f=function(b){return!fa.hasAttribute(&quot;disabled&quot;)&amp;&amp;(!l(fa,e.cssClasses.tap)&amp;&amp;(!!(b=A(b,d.pageOffset))&amp;&amp;(!(a===ea.start&amp;&amp;void 0!==b.buttons&amp;&amp;b.buttons&gt;1)&amp;&amp;((!d.hover||!b.buttons)&amp;&amp;(b.calcPoint=b.points[e.ort],void c(b,d))))))},g=[];return a.split(&quot; &quot;).forEach(function(a){b.addEventListener(a,f,!1),g.push([a,f])}),g}</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;function A(a,b){a.preventDefault();var c,d,e=0===a.type.indexOf(&quot;touch&quot;),f=0===a.type.indexOf(&quot;mouse&quot;),g=0===a.type.indexOf(&quot;pointer&quot;);if(0===a.type.indexOf(&quot;MSPointer&quot;)&amp;&amp;(g=!0),e){if(a.touches.length&gt;1)return!1;c=a.changedTouches[0].pageX,d=a.changedTouches[0].pageY}</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;return b=b||m(),(f||g)&amp;&amp;(c=a.clientX+b.x,d=a.clientY+b.y),a.pageOffset=b,a.points=[c,d],a.cursor=f||g,a}</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;function B(a){var b=a-d(aa,e.ort),c=100*b/y();return e.dir?100-c:c}</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;function C(a){var b=100,c=!1;return ba.forEach(function(d,e){if(!d.hasAttribute(&quot;disabled&quot;)){var f=Math.abs(ga[e]-a);f&lt;b&amp;&amp;(c=e,b=f)}}),c}</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;function D(a,b,c,d){var e=c.slice(),f=[!a,a],g=[a,!a];d=d.slice(),a&amp;&amp;d.reverse(),d.length&gt;1?d.forEach(function(a,c){var d=M(e,a,e[a]+b,f[c],g[c]);d===!1?b=0:(b=d-e[a],e[a]=d)}):f=g=[!0];var h=!1;d.forEach(function(a,d){h=Q(a,c[a]+b,f[d],g[d])||h}),h&amp;&amp;d.forEach(function(a){E(&quot;update&quot;,a),E(&quot;slide&quot;,a)})}</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;function E(a,b,c){Object.keys(la).forEach(function(d){var f=d.split(&quot;.&quot;)[0];a===f&amp;&amp;la[d].forEach(function(a){a.call(da,ka.map(e.format.to),b,ka.slice(),c||!1,ga.slice())})})}</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;function F(a,b){&quot;mouseout&quot;===a.type&amp;&amp;&quot;HTML&quot;===a.target.nodeName&amp;&amp;null===a.relatedTarget&amp;&amp;H(a,b)}</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;function G(a,b){if(navigator.appVersion.indexOf(&quot;MSIE 9&quot;)===-1&amp;&amp;0===a.buttons&amp;&amp;0!==b.buttonsProperty)return H(a,b);var c=(e.dir?-1:1)*(a.calcPoint-b.startCalcPoint),d=100*c/b.baseSize;D(c&gt;0,d,b.locations,b.handleNumbers)}</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;function H(a,b){ia&amp;&amp;(k(ia,e.cssClasses.active),ia=!1),a.cursor&amp;&amp;(document.body.style.cursor=&quot;&quot;,document.body.removeEventListener(&quot;selectstart&quot;,document.body.noUiListener)),document.documentElement.noUiListeners.forEach(function(a){document.documentElement.removeEventListener(a[0],a[1])}),k(fa,e.cssClasses.drag),P(),b.handleNumbers.forEach(function(a){E(&quot;set&quot;,a),E(&quot;change&quot;,a),E(&quot;end&quot;,a)})}</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;function I(a,b){if(1===b.handleNumbers.length){var c=ba[b.handleNumbers[0]];if(c.hasAttribute(&quot;disabled&quot;))return!1;ia=c.children[0],j(ia,e.cssClasses.active)}</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;a.preventDefault(),a.stopPropagation();var d=z(ea.move,document.documentElement,G,{startCalcPoint:a.calcPoint,baseSize:y(),pageOffset:a.pageOffset,handleNumbers:b.handleNumbers,buttonsProperty:a.buttons,locations:ga.slice()}),f=z(ea.end,document.documentElement,H,{handleNumbers:b.handleNumbers}),g=z(&quot;mouseout&quot;,document.documentElement,F,{handleNumbers:b.handleNumbers});if(document.documentElement.noUiListeners=d.concat(f,g),a.cursor){document.body.style.cursor=getComputedStyle(a.target).cursor,ba.length&gt;1&amp;&amp;j(fa,e.cssClasses.drag);var h=function(){return!1};document.body.noUiListener=h,document.body.addEventListener(&quot;selectstart&quot;,h,!1)}</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;b.handleNumbers.forEach(function(a){E(&quot;start&quot;,a)})}</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;function J(a){a.stopPropagation();var b=B(a.calcPoint),c=C(b);return c!==!1&amp;&amp;(e.events.snap||f(fa,e.cssClasses.tap,e.animationDuration),Q(c,b,!0,!0),P(),E(&quot;slide&quot;,c,!0),E(&quot;set&quot;,c,!0),E(&quot;change&quot;,c,!0),E(&quot;update&quot;,c,!0),void(e.events.snap&amp;&amp;I(a,{handleNumbers:[c]})))}</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;function K(a){var b=B(a.calcPoint),c=ja.getStep(b),d=ja.fromStepping(c);Object.keys(la).forEach(function(a){&quot;hover&quot;===a.split(&quot;.&quot;)[0]&amp;&amp;la[a].forEach(function(a){a.call(da,d)})})}</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;function L(a){a.fixed||ba.forEach(function(a,b){z(ea.start,a.children[0],I,{handleNumbers:[b]})}),a.tap&amp;&amp;z(ea.start,aa,J,{}),a.hover&amp;&amp;z(ea.move,aa,K,{hover:!0}),a.drag&amp;&amp;ca.forEach(function(b,c){if(b!==!1&amp;&amp;0!==c&amp;&amp;c!==ca.length-1){var d=ba[c-1],f=ba[c],g=[b];j(b,e.cssClasses.draggable),a.fixed&amp;&amp;(g.push(d.children[0]),g.push(f.children[0])),g.forEach(function(a){z(ea.start,a,I,{handles:[d,f],handleNumbers:[c-1,c]})})}})}</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;function M(a,b,c,d,f){return ba.length&gt;1&amp;&amp;(d&amp;&amp;b&gt;0&amp;&amp;(c=Math.max(c,a[b-1]+e.margin)),f&amp;&amp;b&lt;ba.length-1&amp;&amp;(c=Math.min(c,a[b+1]-e.margin))),ba.length&gt;1&amp;&amp;e.limit&amp;&amp;(d&amp;&amp;b&gt;0&amp;&amp;(c=Math.min(c,a[b-1]+e.limit)),f&amp;&amp;b&lt;ba.length-1&amp;&amp;(c=Math.max(c,a[b+1]-e.limit))),e.padding&amp;&amp;(0===b&amp;&amp;(c=Math.max(c,e.padding)),b===ba.length-1&amp;&amp;(c=Math.min(c,100-e.padding))),c=ja.getStep(c),c=g(c),c!==a[b]&amp;&amp;c}</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;function N(a){return a+&quot;%&quot;}</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;function O(a,b){ga[a]=b,ka[a]=ja.fromStepping(b);var c=function(){ba[a].style[e.style]=N(b),S(a),S(a+1)};window.requestAnimationFrame&amp;&amp;e.useRequestAnimationFrame?window.requestAnimationFrame(c):c()}</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;function P(){ha.forEach(function(a){var b=ga[a]&gt;50?-1:1,c=3+(ba.length+b*a);ba[a].childNodes[0].style.zIndex=c})}</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;function Q(a,b,c,d){return b=M(ga,a,b,c,d),b!==!1&amp;&amp;(O(a,b),!0)}</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;function S(a){if(ca[a]){var b=0,c=100;0!==a&amp;&amp;(b=ga[a-1]),a!==ca.length-1&amp;&amp;(c=ga[a]),ca[a].style[e.style]=N(b),ca[a].style[e.styleOposite]=N(100-c)}}</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;function T(a,b){null!==a&amp;&amp;a!==!1&amp;&amp;(&quot;number&quot;==typeof a&amp;&amp;(a=String(a)),a=e.format.from(a),a===!1||isNaN(a)||Q(b,ja.toStepping(a),!1,!1))}</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;function U(a,b){var c=h(a),d=void 0===ga[0];b=void 0===b||!!b,c.forEach(T),e.animate&amp;&amp;!d&amp;&amp;f(fa,e.cssClasses.tap,e.animationDuration),ha.forEach(function(a){Q(a,ga[a],!0,!1)}),P(),ha.forEach(function(a){E(&quot;update&quot;,a),null!==c[a]&amp;&amp;b&amp;&amp;E(&quot;set&quot;,a)})}</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;function V(a){U(e.start,a)}</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;function W(){var a=ka.map(e.format.to);return 1===a.length?a[0]:a}</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;function X(){for(var a in e.cssClasses)e.cssClasses.hasOwnProperty(a)&amp;&amp;k(fa,e.cssClasses[a]);for(;fa.firstChild;)fa.removeChild(fa.firstChild);delete fa.noUiSlider}</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;function Y(){return ga.map(function(a,b){var c=ja.getNearbySteps(a),d=ka[b],e=c.thisStep.step,f=null;e!==!1&amp;&amp;d+e&gt;c.stepAfter.startValue&amp;&amp;(e=c.stepAfter.startValue-d),f=d&gt;c.thisStep.startValue?c.thisStep.step:c.stepBefore.step!==!1&amp;&amp;d-c.stepBefore.highestStep,100===a?e=null:0===a&amp;&amp;(f=null);var g=ja.countStepDecimals();return null!==e&amp;&amp;e!==!1&amp;&amp;(e=Number(e.toFixed(g))),null!==f&amp;&amp;f!==!1&amp;&amp;(f=Number(f.toFixed(g))),[f,e]})}</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;function Z(a,b){la[a]=la[a]||[],la[a].push(b),&quot;update&quot;===a.split(&quot;.&quot;)[0]&amp;&amp;ba.forEach(function(a,b){E(&quot;update&quot;,b)})}</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;function $(a){var b=a&amp;&amp;a.split(&quot;.&quot;)[0],c=b&amp;&amp;a.substring(b.length);Object.keys(la).forEach(function(a){var d=a.split(&quot;.&quot;)[0],e=a.substring(d.length);b&amp;&amp;b!==d||c&amp;&amp;c!==e||delete la[a]})}</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;function _(a,b){var c=W(),d=[&quot;margin&quot;,&quot;limit&quot;,&quot;padding&quot;,&quot;range&quot;,&quot;animate&quot;,&quot;snap&quot;,&quot;step&quot;,&quot;format&quot;];d.forEach(function(b){void 0!==a[b]&amp;&amp;(i[b]=a[b])});var f=R(i);d.forEach(function(b){void 0!==a[b]&amp;&amp;(e[b]=f[b])}),f.spectrum.direction=ja.direction,ja=f.spectrum,e.margin=f.margin,e.limit=f.limit,e.padding=f.padding,ga=[],U(a.start||c,b)}</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;var aa,ba,ca,da,ea=n(),fa=c,ga=[],ha=[],ia=!1,ja=e.spectrum,ka=[],la={};if(fa.noUiSlider)throw new Error(&quot;Slider was already initialized.&quot;);return r(fa),q(e.connect,aa),da={destroy:X,steps:Y,on:Z,off:$,get:W,set:U,reset:V,__moveHandles:function(a,b,c){D(a,b,ga,c)},options:i,updateOptions:_,target:fa,pips:x},L(e.events),U(e.start),e.pips&amp;&amp;x(e.pips),e.tooltips&amp;&amp;t(),da}</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;function T(a,b){if(!a.nodeName)throw new Error(&quot;noUiSlider.create requires a single element.&quot;);var c=R(b,a),d=S(a,c,b);return a.noUiSlider=d,d}</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;y.prototype.getMargin=function(a){var b=this.xNumSteps[0];if(b&amp;&amp;a/b%1!==0)throw new Error(&quot;noUiSlider: &#39;limit&#39;, &#39;margin&#39; and &#39;padding&#39; must be divisible by step.&quot;);return 2===this.xPct.length&amp;&amp;p(this.xVal,a)},y.prototype.toStepping=function(a){return a=t(this.xVal,this.xPct,a)},y.prototype.fromStepping=function(a){return u(this.xVal,this.xPct,a)},y.prototype.getStep=function(a){return a=v(this.xPct,this.xSteps,this.snap,a)},y.prototype.getNearbySteps=function(a){var b=s(a,this.xPct);return{stepBefore:{startValue:this.xVal[b-2],step:this.xNumSteps[b-2],highestStep:this.xHighestCompleteStep[b-2]},thisStep:{startValue:this.xVal[b-1],step:this.xNumSteps[b-1],highestStep:this.xHighestCompleteStep[b-1]},stepAfter:{startValue:this.xVal[b-0],step:this.xNumSteps[b-0],highestStep:this.xHighestCompleteStep[b-0]}}},y.prototype.countStepDecimals=function(){var a=this.xNumSteps.map(i);return Math.max.apply(null,a)},y.prototype.convert=function(a){return this.getStep(this.toStepping(a))};var U={to:function(a){return void 0!==a&amp;&amp;a.toFixed(2)},from:Number};return{create:T}});</div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_0fc3f8f3ef96ce2d45d66d6e29832317.html">resources</a></li><li class="navelem"><a class="el" href="../../dir_a794a5ff81584a815c22a64994c08658.html">js</a></li><li class="navelem"><a class="el" href="../../dir_6b32be4c544df309a31d0b8b2bb74de2.html">now-ui-kit</a></li><li class="navelem"><a class="el" href="../../dir_adabbc8a6c2e6945a0b54a9026c71839.html">plugins</a></li><li class="navelem"><b>nouislider.min.min.js</b></li>
+    <li class="footer">Generado el Miércoles, 8 de Diciembre de 2021 14:39:58 para KAVAC por
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

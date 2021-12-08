@@ -1,0 +1,8 @@
+digraph "BudgetServiceProvider"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{BudgetServiceProvider\n|# $moduleName\l# $moduleNameLower\l|+ boot()\l+ provides()\l+ register()\l+ registerFactories()\l+ registerTranslations()\l+ registerViews()\l# registerConfig()\l- getPublishableViewPaths()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Service Provider del módulo de presupuesto."];
+}

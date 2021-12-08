@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>KAVAC: Fichero Fuente jquery.sharrre.min.js</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+<link href="../../customdoxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../logo-doc.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">KAVAC
+   &#160;<span id="projectnumber">versión 1.0.0</span>
+   </div>
+   <div id="projectbrief">Sistema de Gestión Organizacional</div>
+  </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="../../search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.png" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "../../search",false,'Buscar');
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('d4/d07/jquery_8sharrre_8min_8js_source.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">jquery.sharrre.min.js</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;;(function($,window,document,undefined){var pluginName=&#39;sharrre&#39;,defaults={className:&#39;sharrre&#39;,share:{googlePlus:false,facebook:false,twitter:false,digg:false,delicious:false,stumbleupon:false,linkedin:false,pinterest:false},shareTotal:0,template:&#39;&#39;,title:&#39;&#39;,url:document.location.href,text:document.title,urlCurl:&#39;sharrre.php&#39;,count:{}, total:0, shorterTotal:true, enableHover:true, enableCounter:true, enableTracking:false, hover:function(){}, hide:function(){}, click:function(){}, render:function(){}, buttons:{ googlePlus:{url:&#39;&#39;, urlCount:false, size:&#39;medium&#39;,lang:&#39;en-US&#39;,annotation:&#39;&#39;},facebook:{url:&#39;&#39;, urlCount:false, action:&#39;like&#39;,layout:&#39;button_count&#39;,width:&#39;&#39;,send:&#39;false&#39;,faces:&#39;false&#39;,colorscheme:&#39;&#39;,font:&#39;&#39;,lang:&#39;en_US&#39;},twitter:{ url:&#39;&#39;, urlCount:false, count:&#39;horizontal&#39;,hashtags:&#39;&#39;,via:&#39;&#39;,related:&#39;&#39;,lang:&#39;en&#39;},digg:{ url:&#39;&#39;, urlCount:false, type:&#39;DiggCompact&#39;},delicious:{url:&#39;&#39;, urlCount:false, size:&#39;medium&#39;},stumbleupon:{url:&#39;&#39;, urlCount:false, layout:&#39;1&#39;},linkedin:{ url:&#39;&#39;, urlCount:false, counter:&#39;&#39;},pinterest:{url:&#39;&#39;, media:&#39;&#39;,description:&#39;&#39;,layout:&#39;horizontal&#39;}}},urlJson={googlePlus:&quot;&quot;, facebook:&quot;https://graph.facebook.com/fql?q=SELECT%20url,%20normalized_url,%20share_count,%20like_count,%20comment_count,%20total_count,commentsbox_count,%20comments_fbid,%20click_count%20FROM%20link_stat%20WHERE%20url=%27{url}%27&amp;callback=?&quot;,twitter:&quot;http://cdn.api.twitter.com/1/urls/count.json?url={url}&amp;callback=?&quot;,digg:&quot;http://services.digg.com/2.0/story.getInfo?links={url}&amp;type=javascript&amp;callback=?&quot;,delicious:&#39;http://feeds.delicious.com/v2/json/urlinfo/data?url={url}&amp;callback=?&#39;,stumbleupon:&quot;&quot;,linkedin:&quot;http://www.linkedin.com/countserv/count/share?format=jsonp&amp;url={url}&amp;callback=?&quot;,pinterest:&quot;http://api.pinterest.com/v1/urls/count.json?url={url}&amp;callback=?&quot;},loadButton={googlePlus:function(self){var sett=self.options.buttons.googlePlus;$(self.element).find(&#39;.buttons&#39;).append(&#39;&lt;div class=&quot;button googleplus&quot;&gt;&lt;div class=&quot;g-plusone&quot; data-size=&quot;&#39;+sett.size+&#39;&quot; data-href=&quot;&#39;+(sett.url!==&#39;&#39;?sett.url:self.options.url)+&#39;&quot; data-annotation=&quot;&#39;+sett.annotation+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);window.___gcfg={lang:self.options.buttons.googlePlus.lang};var loading=0;if(typeof gapi===&#39;undefined&#39;&amp;&amp;loading==0){loading=1;(function(){var po=document.createElement(&#39;script&#39;);po.type=&#39;text/javascript&#39;;po.async=true;po.src=&#39;//apis.google.com/js/plusone.js&#39;;var s=document.getElementsByTagName(&#39;script&#39;)[0];s.parentNode.insertBefore(po,s);})();}else{gapi.plusone.go();}},facebook:function(self){var sett=self.options.buttons.facebook;$(self.element).find(&#39;.buttons&#39;).append(&#39;&lt;div class=&quot;button facebook&quot;&gt;&lt;div id=&quot;fb-root&quot;&gt;&lt;/div&gt;&lt;div class=&quot;fb-like&quot; data-href=&quot;&#39;+(sett.url!==&#39;&#39;?sett.url:self.options.url)+&#39;&quot; data-send=&quot;&#39;+sett.send+&#39;&quot; data-layout=&quot;&#39;+sett.layout+&#39;&quot; data-width=&quot;&#39;+sett.width+&#39;&quot; data-show-faces=&quot;&#39;+sett.faces+&#39;&quot; data-action=&quot;&#39;+sett.action+&#39;&quot; data-colorscheme=&quot;&#39;+sett.colorscheme+&#39;&quot; data-font=&quot;&#39;+sett.font+&#39;&quot; data-via=&quot;&#39;+sett.via+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);var loading=0;if(typeof FB===&#39;undefined&#39;&amp;&amp;loading==0){loading=1;(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return;}</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;js=d.createElement(s);js.id=id;js.src=&#39;//connect.facebook.net/&#39;+sett.lang+&#39;/all.js#xfbml=1&#39;;fjs.parentNode.insertBefore(js,fjs);}(document,&#39;script&#39;,&#39;facebook-jssdk&#39;));}else{FB.XFBML.parse();}},twitter:function(self){var sett=self.options.buttons.twitter;$(self.element).find(&#39;.buttons&#39;).append(&#39;&lt;div class=&quot;button twitter&quot;&gt;&lt;a href=&quot;https://twitter.com/share&quot; class=&quot;twitter-share-button&quot; data-url=&quot;&#39;+(sett.url!==&#39;&#39;?sett.url:self.options.url)+&#39;&quot; data-count=&quot;&#39;+sett.count+&#39;&quot; data-text=&quot;&#39;+self.options.text+&#39;&quot; data-via=&quot;&#39;+sett.via+&#39;&quot; data-hashtags=&quot;&#39;+sett.hashtags+&#39;&quot; data-related=&quot;&#39;+sett.related+&#39;&quot; data-lang=&quot;&#39;+sett.lang+&#39;&quot;&gt;Tweet&lt;/a&gt;&lt;/div&gt;&#39;);var loading=0;if(typeof twttr===&#39;undefined&#39;&amp;&amp;loading==0){loading=1;(function(){var twitterScriptTag=document.createElement(&#39;script&#39;);twitterScriptTag.type=&#39;text/javascript&#39;;twitterScriptTag.async=true;twitterScriptTag.src=&#39;//platform.twitter.com/widgets.js&#39;;var s=document.getElementsByTagName(&#39;script&#39;)[0];s.parentNode.insertBefore(twitterScriptTag,s);})();}else{$.ajax({url:&#39;//platform.twitter.com/widgets.js&#39;,dataType:&#39;script&#39;,cache:true});}},digg:function(self){var sett=self.options.buttons.digg;$(self.element).find(&#39;.buttons&#39;).append(&#39;&lt;div class=&quot;button digg&quot;&gt;&lt;a class=&quot;DiggThisButton &#39;+sett.type+&#39;&quot; rel=&quot;nofollow external&quot; href=&quot;http://digg.com/submit?url=&#39;+encodeURIComponent((sett.url!==&#39;&#39;?sett.url:self.options.url))+&#39;&quot;&gt;&lt;/a&gt;&lt;/div&gt;&#39;);var loading=0;if(typeof __DBW===&#39;undefined&#39;&amp;&amp;loading==0){loading=1;(function(){var s=document.createElement(&#39;SCRIPT&#39;),s1=document.getElementsByTagName(&#39;SCRIPT&#39;)[0];s.type=&#39;text/javascript&#39;;s.async=true;s.src=&#39;//widgets.digg.com/buttons.js&#39;;s1.parentNode.insertBefore(s,s1);})();}},delicious:function(self){if(self.options.buttons.delicious.size==&#39;tall&#39;){ var css=&#39;width:50px;&#39;,cssCount=&#39;height:35px;width:50px;font-size:15px;line-height:35px;&#39;,cssShare=&#39;height:18px;line-height:18px;margin-top:3px;&#39;;}else{ var css=&#39;width:93px;&#39;,cssCount=&#39;float:right;padding:0 3px;height:20px;width:26px;line-height:20px;&#39;,cssShare=&#39;float:left;height:20px;line-height:20px;&#39;;}</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;var count=self.shorterTotal(self.options.count.delicious);if(typeof count===&quot;undefined&quot;){count=0;}</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;$(self.element).find(&#39;.buttons&#39;).append(&#39;&lt;div class=&quot;button delicious&quot;&gt;&lt;div style=&quot;&#39;+css+&#39;font:12px Arial,Helvetica,sans-serif;cursor:pointer;color:#666666;display:inline-block;float:none;height:20px;line-height:normal;margin:0;padding:0;text-indent:0;vertical-align:baseline;&quot;&gt;&#39;+&#39;&lt;div style=&quot;&#39;+cssCount+&#39;background-color:#fff;margin-bottom:5px;overflow:hidden;text-align:center;border:1px solid #ccc;border-radius:3px;&quot;&gt;&#39;+count+&#39;&lt;/div&gt;&#39;+&#39;&lt;div style=&quot;&#39;+cssShare+&#39;display:block;padding:0;text-align:center;text-decoration:none;width:50px;background-color:#7EACEE;border:1px solid #40679C;border-radius:3px;color:#fff;&quot;&gt;&#39;+&#39;&lt;img src=&quot;http://www.delicious.com/static/img/delicious.small.gif&quot; height=&quot;10&quot; width=&quot;10&quot; alt=&quot;Delicious&quot; /&gt; Add&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&#39;);$(self.element).find(&#39;.delicious&#39;).on(&#39;click&#39;,function(){self.openPopup(&#39;delicious&#39;);});},stumbleupon:function(self){var sett=self.options.buttons.stumbleupon;$(self.element).find(&#39;.buttons&#39;).append(&#39;&lt;div class=&quot;button stumbleupon&quot;&gt;&lt;su:badge layout=&quot;&#39;+sett.layout+&#39;&quot; location=&quot;&#39;+(sett.url!==&#39;&#39;?sett.url:self.options.url)+&#39;&quot;&gt;&lt;/su:badge&gt;&lt;/div&gt;&#39;);var loading=0;if(typeof STMBLPN===&#39;undefined&#39;&amp;&amp;loading==0){loading=1;(function(){var li=document.createElement(&#39;script&#39;);li.type=&#39;text/javascript&#39;;li.async=true;li.src=&#39;//platform.stumbleupon.com/1/widgets.js&#39;;var s=document.getElementsByTagName(&#39;script&#39;)[0];s.parentNode.insertBefore(li,s);})();s=window.setTimeout(function(){if(typeof STMBLPN!==&#39;undefined&#39;){STMBLPN.processWidgets();clearInterval(s);}},500);}else{STMBLPN.processWidgets();}},linkedin:function(self){var sett=self.options.buttons.linkedin;$(self.element).find(&#39;.buttons&#39;).append(&#39;&lt;div class=&quot;button linkedin&quot;&gt;&lt;script type=&quot;in/share&quot; data-url=&quot;&#39;+(sett.url!==&#39;&#39;?sett.url:self.options.url)+&#39;&quot; data-counter=&quot;&#39;+sett.counter+&#39;&quot;&gt;&lt;/script&gt;&lt;/div&gt;&#39;);var loading=0;if(typeof window.IN===&#39;undefined&#39;&amp;&amp;loading==0){loading=1;(function(){var li=document.createElement(&#39;script&#39;);li.type=&#39;text/javascript&#39;;li.async=true;li.src=&#39;//platform.linkedin.com/in.js&#39;;var s=document.getElementsByTagName(&#39;script&#39;)[0];s.parentNode.insertBefore(li,s);})();}else{window.IN.init();}},pinterest:function(self){var sett=self.options.buttons.pinterest;$(self.element).find(&#39;.buttons&#39;).append(&#39;&lt;div class=&quot;button pinterest&quot;&gt;&lt;a href=&quot;http://pinterest.com/pin/create/button/?url=&#39;+(sett.url!==&#39;&#39;?sett.url:self.options.url)+&#39;&amp;media=&#39;+sett.media+&#39;&amp;description=&#39;+sett.description+&#39;&quot; class=&quot;pin-it-button&quot; count-layout=&quot;&#39;+sett.layout+&#39;&quot;&gt;Pin It&lt;/a&gt;&lt;/div&gt;&#39;);(function(){var li=document.createElement(&#39;script&#39;);li.type=&#39;text/javascript&#39;;li.async=true;li.src=&#39;//assets.pinterest.com/js/pinit.js&#39;;var s=document.getElementsByTagName(&#39;script&#39;)[0];s.parentNode.insertBefore(li,s);})();}},tracking={googlePlus:function(){},facebook:function(){fb=window.setInterval(function(){if(typeof FB!==&#39;undefined&#39;){FB.Event.subscribe(&#39;edge.create&#39;,function(targetUrl){_gaq.push([&#39;_trackSocial&#39;,&#39;facebook&#39;,&#39;like&#39;,targetUrl]);});FB.Event.subscribe(&#39;edge.remove&#39;,function(targetUrl){_gaq.push([&#39;_trackSocial&#39;,&#39;facebook&#39;,&#39;unlike&#39;,targetUrl]);});FB.Event.subscribe(&#39;message.send&#39;,function(targetUrl){_gaq.push([&#39;_trackSocial&#39;,&#39;facebook&#39;,&#39;send&#39;,targetUrl]);});clearInterval(fb);}},1000);},twitter:function(){tw=window.setInterval(function(){if(typeof twttr!==&#39;undefined&#39;){twttr.events.bind(&#39;tweet&#39;,function(event){if(event){_gaq.push([&#39;_trackSocial&#39;,&#39;twitter&#39;,&#39;tweet&#39;]);}});clearInterval(tw);}},1000);},digg:function(){},delicious:function(){},stumbleupon:function(){},linkedin:function(){function LinkedInShare(){_gaq.push([&#39;_trackSocial&#39;,&#39;linkedin&#39;,&#39;share&#39;]);}},pinterest:function(){}},popup={googlePlus:function(opt){window.open(&quot;https://plus.google.com/share?hl=&quot;+opt.buttons.googlePlus.lang+&quot;&amp;url=&quot;+encodeURIComponent((opt.buttons.googlePlus.url!==&#39;&#39;?opt.buttons.googlePlus.url:opt.url)),&quot;&quot;,&quot;toolbar=0, status=0, width=900, height=500&quot;);},facebook:function(opt){window.open(&quot;http://www.facebook.com/sharer/sharer.php?u=&quot;+encodeURIComponent((opt.buttons.facebook.url!==&#39;&#39;?opt.buttons.facebook.url:opt.url))+&quot;&amp;t=&quot;+opt.text+&quot;&quot;,&quot;&quot;,&quot;toolbar=0, status=0, width=900, height=500&quot;);},twitter:function(opt){window.open(&quot;https://twitter.com/intent/tweet?text=&quot;+encodeURIComponent(opt.text)+&quot;&amp;url=&quot;+encodeURIComponent((opt.buttons.twitter.url!==&#39;&#39;?opt.buttons.twitter.url:opt.url))+(opt.buttons.twitter.via!==&#39;&#39;?&#39;&amp;via=&#39;+opt.buttons.twitter.via:&#39;&#39;),&quot;&quot;,&quot;toolbar=0, status=0, width=650, height=360&quot;);},digg:function(opt){window.open(&quot;http://digg.com/tools/diggthis/submit?url=&quot;+encodeURIComponent((opt.buttons.digg.url!==&#39;&#39;?opt.buttons.digg.url:opt.url))+&quot;&amp;title=&quot;+opt.text+&quot;&amp;related=true&amp;style=true&quot;,&quot;&quot;,&quot;toolbar=0, status=0, width=650, height=360&quot;);},delicious:function(opt){window.open(&#39;http://www.delicious.com/save?v=5&amp;noui&amp;jump=close&amp;url=&#39;+encodeURIComponent((opt.buttons.delicious.url!==&#39;&#39;?opt.buttons.delicious.url:opt.url))+&#39;&amp;title=&#39;+opt.text,&#39;delicious&#39;,&#39;toolbar=no,width=550,height=550&#39;);},stumbleupon:function(opt){window.open(&#39;http://www.stumbleupon.com/badge/?url=&#39;+encodeURIComponent((opt.buttons.stumbleupon.url!==&#39;&#39;?opt.buttons.stumbleupon.url:opt.url)),&#39;stumbleupon&#39;,&#39;toolbar=no,width=550,height=550&#39;);},linkedin:function(opt){window.open(&#39;https://www.linkedin.com/cws/share?url=&#39;+encodeURIComponent((opt.buttons.linkedin.url!==&#39;&#39;?opt.buttons.linkedin.url:opt.url))+&#39;&amp;token=&amp;isFramed=true&#39;,&#39;linkedin&#39;,&#39;toolbar=no,width=550,height=550&#39;);},pinterest:function(opt){window.open(&#39;http://pinterest.com/pin/create/button/?url=&#39;+encodeURIComponent((opt.buttons.pinterest.url!==&#39;&#39;?opt.buttons.pinterest.url:opt.url))+&#39;&amp;media=&#39;+encodeURIComponent(opt.buttons.pinterest.media)+&#39;&amp;description=&#39;+opt.buttons.pinterest.description,&#39;pinterest&#39;,&#39;toolbar=no,width=700,height=300&#39;);}};function Plugin(element,options){this.element=element;this.options=$.extend(true,{},defaults,options);this.options.share=options.share; this._defaults=defaults;this._name=pluginName;this.init();};Plugin.prototype.init=function(){var self=this;if(this.options.urlCurl!==&#39;&#39;){urlJson.googlePlus=this.options.urlCurl+&#39;?url={url}&amp;type=googlePlus&#39;;urlJson.stumbleupon=this.options.urlCurl+&#39;?url={url}&amp;type=stumbleupon&#39;;}</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;$(this.element).addClass(this.options.className);</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; if(typeof $(this.element).data(&#39;title&#39;)!==&#39;undefined&#39;){this.options.title=$(this.element).attr(&#39;data-title&#39;);}</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;if(typeof $(this.element).data(&#39;url&#39;)!==&#39;undefined&#39;){this.options.url=$(this.element).data(&#39;url&#39;);}</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;if(typeof $(this.element).data(&#39;text&#39;)!==&#39;undefined&#39;){this.options.text=$(this.element).data(&#39;text&#39;);} </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;$.each(this.options.share,function(name,val){if(val===true){self.options.shareTotal++;}});if(self.options.enableCounter===true){</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; $.each(this.options.share,function(name,val){if(val===true){try{self.getSocialJson(name);}catch(e){}}});}else if(self.options.template!==&#39;&#39;){this.options.render(this,this.options);}else{ this.loadButtons();} </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;$(this.element).hover(function(){ if($(this).find(&#39;.buttons&#39;).length===0&amp;&amp;self.options.enableHover===true){self.loadButtons();}</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;self.options.hover(self,self.options);},function(){self.options.hide(self,self.options);}); $(this.element).click(function(){self.options.click(self,self.options);return false;});};Plugin.prototype.loadButtons=function(){var self=this;$(this.element).append(&#39;&lt;div class=&quot;buttons&quot;&gt;&lt;/div&gt;&#39;);$.each(self.options.share,function(name,val){if(val==true){loadButton[name](self);if(self.options.enableTracking===true){ tracking[name]();}}});};Plugin.prototype.getSocialJson=function(name){var self=this,count=0,url=urlJson[name].replace(&#39;{url}&#39;,encodeURIComponent(this.options.url));if(this.options.buttons[name].urlCount===true&amp;&amp;this.options.buttons[name].url!==&#39;&#39;){url=urlJson[name].replace(&#39;{url}&#39;,this.options.buttons[name].url);} </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;if(url!=&#39;&#39;&amp;&amp;self.options.urlCurl!==&#39;&#39;){ $.getJSON(url,function(json){if(typeof json.count!==&quot;undefined&quot;){ var temp=json.count+&#39;&#39;;temp=temp.replace(&#39;\u00c2\u00a0&#39;,&#39;&#39;); count+=parseInt(temp,10);}</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;else if(json.data&amp;&amp;json.data.length&gt;0&amp;&amp;typeof json.data[0].total_count!==&quot;undefined&quot;){ count+=parseInt(json.data[0].total_count,10);}else if(typeof json[0]!==&quot;undefined&quot;){ count+=parseInt(json[0].total_posts,10);}else if(typeof json[0]!==&quot;undefined&quot;){}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;self.options.count[name]=count;self.options.total+=count;self.renderer();self.rendererPerso();}).error(function(){self.options.count[name]=0;self.rendererPerso();});}else{self.renderer();self.options.count[name]=0;self.rendererPerso();}};Plugin.prototype.rendererPerso=function(){ var shareCount=0;for(e in this.options.count){shareCount++;}</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;if(shareCount===this.options.shareTotal){this.options.render(this,this.options);}};Plugin.prototype.renderer=function(){var total=this.options.total,template=this.options.template;if(this.options.shorterTotal===true){ total=this.shorterTotal(total);}</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;if(template!==&#39;&#39;){ template=template.replace(&#39;{total}&#39;,total);$(this.element).html(template);}else{ $(this.element).html(&#39;&lt;div class=&quot;box&quot;&gt;&lt;a class=&quot;count&quot; href=&quot;#&quot;&gt;&#39;+total+&#39;&lt;/a&gt;&#39;+</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;(this.options.title!==&#39;&#39;?&#39;&lt;a class=&quot;share&quot; href=&quot;#&quot;&gt;&#39;+this.options.title+&#39;&lt;/a&gt;&#39;:&#39;&#39;)+&#39;&lt;/div&gt;&#39;);}};Plugin.prototype.shorterTotal=function(num){if(num&gt;=1e6){num=(num/1e6).toFixed(2)+&quot;M&quot;}else if(num&gt;=1e3){num=(num/1e3).toFixed(1)+&quot;k&quot;}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;return num;};Plugin.prototype.openPopup=function(site){popup[site](this.options); if(this.options.enableTracking===true){var tracking={googlePlus:{site:&#39;Google&#39;,action:&#39;+1&#39;},facebook:{site:&#39;facebook&#39;,action:&#39;like&#39;},twitter:{site:&#39;twitter&#39;,action:&#39;tweet&#39;},digg:{site:&#39;digg&#39;,action:&#39;add&#39;},delicious:{site:&#39;delicious&#39;,action:&#39;add&#39;},stumbleupon:{site:&#39;stumbleupon&#39;,action:&#39;add&#39;},linkedin:{site:&#39;linkedin&#39;,action:&#39;share&#39;},pinterest:{site:&#39;pinterest&#39;,action:&#39;pin&#39;}};_gaq.push([&#39;_trackSocial&#39;,tracking[site].site,tracking[site].action]);}};Plugin.prototype.simulateClick=function(){var html=$(this.element).html();$(this.element).html(html.replace(this.options.total,this.options.total+1));};Plugin.prototype.update=function(url,text){if(url!==&#39;&#39;){this.options.url=url;}</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;if(text!==&#39;&#39;){this.options.text=text;}};$.fn[pluginName]=function(options){var args=arguments;if(options===undefined||typeof options===&#39;object&#39;){return this.each(function(){if(!$.data(this,&#39;plugin_&#39;+pluginName)){$.data(this,&#39;plugin_&#39;+pluginName,new Plugin(this,options));}});}else if(typeof options===&#39;string&#39;&amp;&amp;options[0]!==&#39;_&#39;&amp;&amp;options!==&#39;init&#39;){return this.each(function(){var instance=$.data(this,&#39;plugin_&#39;+pluginName);if(instance instanceof Plugin&amp;&amp;typeof instance[options]===&#39;function&#39;){instance[options].apply(instance,Array.prototype.slice.call(args,1));}});}};})(jQuery,window,document);</div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_0fc3f8f3ef96ce2d45d66d6e29832317.html">resources</a></li><li class="navelem"><a class="el" href="../../dir_a794a5ff81584a815c22a64994c08658.html">js</a></li><li class="navelem"><a class="el" href="../../dir_6b32be4c544df309a31d0b8b2bb74de2.html">now-ui-kit</a></li><li class="navelem"><a class="el" href="../../dir_adabbc8a6c2e6945a0b54a9026c71839.html">plugins</a></li><li class="navelem"><b>jquery.sharrre.min.js</b></li>
+    <li class="footer">Generado el Miércoles, 8 de Diciembre de 2021 14:39:58 para KAVAC por
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

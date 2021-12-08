@@ -1,0 +1,8 @@
+digraph "AssetInventory"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{AssetInventory\n|# $dates\l# $fillable\l|+ assetInventoryAssets()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Datos del inventario de bienes institucionales."];
+}

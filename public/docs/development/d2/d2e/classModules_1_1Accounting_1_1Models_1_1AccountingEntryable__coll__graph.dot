@@ -1,0 +1,8 @@
+digraph "AccountingEntryable"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{AccountingEntryable\n|# $dates\l# $fillable\l|+ accounting_entryable()\l+ accountingEntry()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Clase que gestiona la relacion N-M entre asientos contables y otros registros."];
+}

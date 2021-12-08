@@ -1,0 +1,8 @@
+digraph "PayrollBenefitsRequestController"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{PayrollBenefitsRequestController\n|# $messages\l# $validateRules\l|+ __construct()\l+ create()\l+ getBenefitsRequests()\l+ index()\l+ show()\l+ vueList()\l+ vuePendingList()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Controlador de solicitudes de prestaciones sociales."];
+}

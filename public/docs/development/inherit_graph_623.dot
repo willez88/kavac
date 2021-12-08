@@ -1,0 +1,9 @@
+digraph "Representación gráfica de la clase"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="UploadImageRepository",height=0.2,width=0.4,color="black",URL="$d8/d99/classApp_1_1Repositories_1_1UploadImageRepository.html",tooltip="Gestiona las acciones a ejecutar en la carga de imágenes al servidor."];
+}
