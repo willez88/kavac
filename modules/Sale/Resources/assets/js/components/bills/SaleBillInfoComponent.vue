@@ -35,97 +35,116 @@
 
                         <div class="tab-content">
                             <div class="tab-pane active" id="general" role="tabpanel">
-                                <div class="row">        
-                                    
+                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <strong>Fecha de Registro</strong>
+                                            <strong>Tipo de persona</strong>
                                             <div class="row" style="margin: 1px 0">
-                                                <span class="col-md-12" id="date_init">
+                                                <span class="col-md-12">
+                                                    {{ record.type_person }}
                                                 </span>
                                             </div>
-                                            <input type="hidden" id="id">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div v-if="record.type_person == 'Natural'" class="col-md-6">
+                                        <div class="form-group">
+                                            <strong>Nombre y apellido</strong>
+                                            <div class="row" style="margin: 1px 0">
+                                                <span class="col-md-12">
+                                                    {{ record.name }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div v-if="record.type_person == 'Natural'" class="col-md-6">
+                                        <div class="form-group">
+                                            <strong>Identificación</strong>
+                                            <div class="row" style="margin: 1px 0">
+                                                <span class="col-md-12">
+                                                    {{ record.id_number }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div v-if="record.type_person == 'Jurídica'" class="col-md-6">
+                                        <div class="form-group">
+                                            <strong>Nombre de la empresa</strong>
+                                            <div class="row" style="margin: 1px 0">
+                                                <span class="col-md-12">
+                                                    {{ record.name }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div v-if="record.type_person == 'Jurídica'" class="col-md-6">
                                         <div class="form-group">
                                             <strong>RIF</strong>
                                             <div class="row" style="margin: 1px 0">
-                                                <span class="col-md-12" id="sale_client_rif">
+                                                <span class="col-md-12">
+                                                    {{ record.rif }}
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <strong>Nombre del cliente</strong>
+                                            <strong>Teléfono de contacto  </strong>
                                             <div class="row" style="margin: 1px 0">
-                                                <span class="col-md-12" id="sale_client_name">
+                                                <span class="col-md-12">
+                                                    {{ record.phone }}
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <strong>Almacén</strong>
+                                            <strong>Correo electrónico</strong>
                                             <div class="row" style="margin: 1px 0">
-                                                <span class="col-md-12" id="sale_warehouse">
+                                                <span class="col-md-12">
+                                                    {{ record.email }}
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <strong>Forma de pago</strong>
+                                            <strong>Forma de cobro</strong>
                                             <div class="row" style="margin: 1px 0">
-                                                <span class="col-md-12" id="sale_payment_method">
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <strong>Descuento</strong>
-                                            <div class="row" style="margin: 1px 0">
-                                                <span class="col-md-12" id="sale_discount">
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <strong>Estado de la Solicitud</strong>
-                                            <div class="row" style="margin: 1px 0">
-                                                <span class="col-md-12" id="state">
+                                                <span class="col-md-12">
+                                                    {{ record.sale_form_payment_id ? record.sale_form_payment_name : '' }}
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="tab-pane" id="products" role="tabpanel">            
-                                <div class="modal-table" v-if="records">
-                                    <v-client-table :columns="columns" :data="records" :options="table_options">
-                                        <div slot="code" slot-scope="props" class="text-center">
+                                <div class="modal-table">
+                                    <v-client-table :columns="columns" :data="record.sale_bill_products" :options="table_options">
+                                        <div slot="sale_warehouse_inventory_product_id" slot-scope="props" class="text-center">
                                             <span>
-                                                {{ props.row.sale_warehouse_inventory_product.code }} 
+                                                {{ (props.row.sale_warehouse_inventory_product_id)? props.row.inventory_product_name : props.row.sale_goods_to_be_traded_name }}
                                             </span>
                                         </div>
-                                        <div slot="requested" slot-scope="props">
-                                            <span >
-                                                <b>Solicitados</b>
-                                                {{ props.row.quantity }}
+                                        <div slot="sale_list_subservices_id" slot-scope="props" class="text-center">
+                                            <span>
+                                                {{ (props.row.sale_list_subservices_id)? props.row.sale_list_subservices_name : 'N/A' }}
                                             </span>
                                         </div>
-                                        <div slot="unit_value" slot-scope="props">
+                                        <div slot="measurement_unit" slot-scope="props" class="text-center">
                                             <span>
-                                                <b>Valor:</b> {{props.row.sale_warehouse_inventory_product.unit_value}}
+                                                {{ (props.row.measurement_unit_id)? props.row.measurement_unit_name : 'N/A' }}
                                             </span>
                                         </div>
-                                        <div slot="price" slot-scope="props">
+                                        <div slot="currency" slot-scope="props" class="text-center">
                                             <span>
-                                                Precio total: {{ price(props.row.quantity, props.row.sale_warehouse_inventory_product.unit_value) }}
+                                                {{ (props.row.currency_id)? props.row.currency_name : 'N/A' }}
+                                            </span>
+                                        </div>
+                                        <div slot="product_tax_value" slot-scope="props" class="text-center">
+                                            <span>
+                                                {{ (props.row.history_tax_id)? props.row.history_tax_value : 'N/A' }}
                                             </span>
                                         </div>
                                     </v-client-table>
@@ -151,54 +170,62 @@
     export default {
         data() {
             return {
-                records: [],
+                record: {},
                 errors: [],
                 columns: [
-                    'code',
-                    'sale_warehouse_inventory_product.sale_setting_product.name',
-                    'sale_warehouse_inventory_product.sale_setting_product.description',
-                    'requested',
-                    'unit_value',
-                    'price'
+                    'product_type',
+                    'sale_warehouse_inventory_product_id',
+                    'sale_list_subservices_id',
+                    'measurement_unit',
+                    'value',
+                    'quantity',
+                    'total_without_tax',
+                    'product_tax_value',
+                    'total',
+                    'currency',
                 ],
             }
         },
         created() {
             this.table_options.headings = {
-                'code': 'Código',
-                'sale_warehouse_inventory_product.sale_setting_product.name': 'Nombre',
-                'sale_warehouse_inventory_product.sale_setting_product.description': 'Descripción',
-                'unit_value': 'Valor por unidad',
-                'requested': 'Solicitados',
-                'price': 'Precio total'
+                'product_type': 'Tipo de Producto',
+                'sale_warehouse_inventory_product_id': 'Producto',
+                'sale_list_subservices_id': 'Subservicio',
+                'measurement_unit': 'Unidad de medida',
+                'value': 'Precio unitario',
+                'quantity': 'Cantidad de productos',
+                'total_without_tax': 'Total sin iva',
+                'product_tax_value': 'Iva',
+                'total': 'Total',
+                'currency': 'Moneda',
             };
             this.table_options.sortable = [
-                'code',
-                'sale_warehouse_inventory_product.sale_setting_product.name',
-                'sale_warehouse_inventory_product.sale_setting_product.description',
-                'unit_value',
-                'requested',
-                'price'
+                'product_type',
+                'sale_warehouse_inventory_product_id',
+                'sale_list_subservices_id',
+                'measurement_unit',
+                'value',
+                'quantity',
+                'total_without_tax',
+                'product_tax_value',
+                'total',
+                'currency',
             ];
             this.table_options.filterable = [
-                'code',
-                'sale_warehouse_inventory_product.sale_setting_product.name',
-                'sale_warehouse_inventory_product.sale_setting_product.description',
-                'unit_value',
-                'requested',
-                'price'
+                'product_type',
+                'sale_warehouse_inventory_product_id',
+                'sale_list_subservices_id',
+                'measurement_unit',
+                'value',
+                'quantity',
+                'total_without_tax',
+                'product_tax_value',
+                'total',
+                'currency',
             ];
 
         },
         methods: {            
-            price(quantity, prod){
-                const vm = this;
-                var total = 0;
-                if (quantity && prod) {
-                    total += quantity*parseInt(prod);
-                }
-                return total;
-            },
             /**
              * Método que borra todos los datos del formulario
              * 
@@ -206,35 +233,80 @@
              */
             reset() {
             },
+
             /**
-             * Reescribe el método initRecords para cambiar su comportamiento por defecto
-             * Inicializa los registros base del formulario
+             * Muestra la información asociada a la factura
              *
              * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
-             * @param {string} url Ruta que obtiene los datos a ser mostrado en listados
-             * @param {string} modal_id Identificador del modal a mostrar con la información solicitada
              */
             initRecords(url, modal_id) {
                 this.errors = [];
                 this.reset();
 
                 const vm = this;
-                var fields = {};
                 
                 document.getElementById("info_general").click();
                 axios.get(url).then(response => {
-                    if (typeof(response.data.records) !== "undefined") {
-                        fields = response.data.records;
+                    if(typeof(response.data.records != "undefined")){
+                        let data = response.data.records;
+                        vm.record = {
+                            //Datos del solicitante
+                            type_person: data.type_person,
+                            name: data.name,
+                            id_number: data.id_number,
+                            rif: data.rif,
+                            phone: data.phone,
+                            email: data.email,
+                            bill_clients: [],
+                            //Descripción de productos
+                            bill_total_without_tax: 0,
+                            bill_total: 0,
+                            sale_bill_products: [],
+                            //Complementarios
+                            sale_form_payment_id: data.sale_form_payment_id,
+                            sale_form_payment_name: data.sale_form_payment.name_form_payment,
+                        },
+                        vm.record.sale_bill_products = [];
+                        vm.record.bill_total_without_tax = 0;
+                        vm.record.bill_total = 0;
 
-                        $(".modal-body #id").val( fields.id );
-                        document.getElementById('date_init').innerText = (fields.created_at)?fields.created_at:'';
-                        document.getElementById('sale_warehouse').innerText = (fields.sale_warehouse)?fields.sale_warehouse.name:'';
-                        document.getElementById('sale_client_rif').innerText = (fields.sale_client)?fields.sale_client.rif:'';
-                        document.getElementById('sale_client_name').innerText = (fields.sale_client)?fields.sale_client.name_client:'';
-                        document.getElementById('sale_payment_method').innerText = (fields.sale_payment_method)?fields.sale_payment_method.name:'';
-                        document.getElementById('sale_discount').innerText = (fields.sale_discount)?fields.sale_discount.name:'N/A';
-                        document.getElementById('state').innerText = (fields.state)?fields.state:'';
-                        this.records = fields.sale_bill_inventory_products;
+                        for (let product of response.data.records.sale_bill_inventory_product) {
+                            let total_without_tax = parseFloat(product.value) * product.quantity;
+                            let total = total_without_tax;
+                            let history_tax_value = 0;
+
+                            if (product.history_tax_id){
+                                history_tax_value = product.history_tax.percentage * total_without_tax / 100;
+                                total = total_without_tax + history_tax_value;
+                            }
+
+                            let bill_product = {
+                                product_type: product.product_type,
+                                sale_warehouse_inventory_product_id: product.sale_warehouse_inventory_product_id,
+                                sale_goods_to_be_traded_id: product.sale_goods_to_be_traded_id,
+                                sale_list_subservices_id: product.sale_list_subservices_id,
+                                measurement_unit_id: product.measurement_unit_id,
+                                currency_id: product.currency_id,
+                                history_tax_id: product.history_tax_id,
+                                value: product.value,
+                                quantity: product.quantity,
+                                total_without_tax: total_without_tax,
+                                sale_goods_to_be_traded_name: product.sale_goods_to_be_traded ? product.sale_goods_to_be_traded.name : '',
+                                inventory_product_name: product.sale_warehouse_inventory_product ? product.sale_warehouse_inventory_product.sale_setting_product.name : '',
+                                measurement_unit_name: product.measurement_unit.name,
+                                sale_list_subservices_name: product.sale_list_subservices ? product.sale_list_subservices.name : '',
+                                currency_name: product.currency.symbol + ' - ' + product.currency.name,
+                                history_tax_value: history_tax_value,
+                                total: total,
+                            };
+
+                            vm.record.sale_bill_products.push(bill_product);
+                        }
+
+                        for (let bill_inventory_product of vm.record.sale_bill_products) {
+                            vm.record.bill_total_without_tax += bill_inventory_product.total_without_tax;
+                            vm.record.bill_total += bill_inventory_product.total;
+                        }
                     }
                     if ($("#" + modal_id).length) {
                         $("#" + modal_id).modal('show');
@@ -253,19 +325,6 @@
                 });
 
             },
-
-            /**
-             * Actualiza los productos asociados a la factura
-             *
-             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
-             */
-            loadProducts() {
-                const vm = this;
-                var index = $(".modal-body #id").val();
-                axios.get('/sale/bills/info/' + index).then(response => {
-                    this.records = response.data.records.sale_bill_inventory_product;
-                });
-            }
         },
     }
 </script>
