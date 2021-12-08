@@ -435,7 +435,7 @@ $(document).ready(function() {
                 group: 'Analistas'
             },
             {
-                name: 'Kleibymar Montilla',
+                name: 'Kleivymar Montilla',
                 email: 'kmontilla@cenditel.gob.ve',
                 group: 'Analistas'
             },
