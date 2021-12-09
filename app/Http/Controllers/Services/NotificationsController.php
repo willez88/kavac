@@ -2,7 +2,11 @@
 /** Controladores para la gestión de servicios generales del sistema */
 namespace App\Http\Controllers\Services;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Notifications\SystemNotification;
+use Carbon\Carbon;
 
 /**
  * @class NotificationsController
@@ -77,5 +81,69 @@ class NotificationsController extends Controller
         /** @var Notification Objeto con todas las notificaciones del usuario */
         $notifications = auth()->user()->notifications()->get();
         return response()->json(['result' => true, 'notifications' => $notifications], 200);
+    }
+
+    /**
+     * Marca un mensaje de notificación como leído o no leído según la solicitud del usuarios
+     *
+     * @method    mark
+     *
+     * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request    $request    Datos de la petición
+     *
+     * @return    JsonResponse
+     */
+    public function mark(Request $request)
+    {
+        $readAt = Carbon::now();
+        $markAs = ($request->asRead) ? 'read' : 'unread';
+        
+        if (isset($request->multipleMark) && is_array($request->multipleMark) && count($request->multipleMark) > 0) {
+            $notifications = auth()->user()->notifications()->whereIn('id', $request->multipleMark);
+            if ($markAs === 'unread') {
+                $notifications = $notifications->whereNotNull('read_at')->get();
+                $readAt = null;
+            } else {
+                $notifications = $notifications->whereNull('read_at')->get();
+            }
+            foreach ($notifications as $notification) {
+                $notification->update([
+                    'read_at' => $readAt
+                ]);
+            }
+
+            return response()->json(['result' => true], 200);
+        }
+
+        $notification = auth()->user()->notifications()->find($request->notifyId);
+
+        $notification->update([
+            'read_at' => ($notification && $markAs === 'read') ? $readAt : null
+        ]);
+
+        return response()->json([
+            'result' => true, 'markAs' => $markAs, 'notifications' => auth()->user()->unreadNotifications
+        ], 200);
+    }
+
+    /**
+     * Envía notificación al usuario seleccionado
+     *
+     * @method    send
+     *
+     * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request    $request    Datos de la petición
+     *
+     * @return    JsonResponse
+     */
+    public function send(Request $request)
+    {
+        $user = User::find($request->user_id);
+        $user->notify(new SystemNotification($request->title, $request->details));
+        return response()->json([
+            'result' => true
+        ], 200);
     }
 }

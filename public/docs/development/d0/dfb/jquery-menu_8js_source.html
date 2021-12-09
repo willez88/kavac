@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>KAVAC: Fichero Fuente jquery-menu.js</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+<link href="../../customdoxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../logo-doc.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">KAVAC
+   &#160;<span id="projectnumber">versión 1.0.0</span>
+   </div>
+   <div id="projectbrief">Sistema de Gestión Organizacional</div>
+  </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="../../search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.png" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "../../search",false,'Buscar');
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('d0/dfb/jquery-menu_8js_source.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">jquery-menu.js</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;jQuery(document).ready(function(){</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    jQuery(&quot;#jquery-accordion-menu&quot;).jqueryAccordionMenu();</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;    jQuery(&quot;.colors a&quot;).click(function(){</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        if ($(this).attr(&quot;class&quot;) !=&quot;default&quot;) {</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            $(&quot;#jquery-accordion-menu&quot;).removeClass();</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;            $(&quot;#jquery-accordion-menu&quot;).addClass(&quot;jquery-accordion-menu&quot;).addClass($(this).attr(&quot;class&quot;));</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        }</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        else {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;            $(&quot;#jquery-accordion-menu&quot;).removeClass();</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;            $(&quot;#jquery-accordion-menu&quot;).addClass(&quot;jquery-accordion-menu&quot;);</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        }</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    });</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;});</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;eval(function(p,a,c,k,e,d){</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    e=function(c){return c};</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    if (!&#39;&#39;.replace(/^/,String)) {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        while(c--){</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;            d[c]=k[c]||c;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        }</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        k=[function(e){return d[e]}];</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        e=function(){</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;            return&#39;\\w+&#39;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        };</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        c=1;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    };</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    while(c--){</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        if (k[c]) {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            p=p.replace(new RegExp(&#39;\\b&#39;+e(c)+&#39;\\b&#39;,&#39;g&#39;),k[c])</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        }</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    return p;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}(&#39;94(61(54,52,50,53,51,55){51=61(50){64(50&lt;52?\&#39;\&#39;:51(95(50/52)))+((50=50%52)&gt;35?68.98(50+29):50.97(36))};73(!\&#39;\&#39;.70(/^/,68)){71(50--){55[51(50)]=53[50]||51(50)}53=[61(51){64 55[51]}];51=61(){64\&#39;\\\\59+\&#39;};50=1};71(50--){73(53[50]){54=54.70(109 96(\&#39;\\\\56\&#39;+51(50)+\&#39;\\\\56\&#39;,\&#39;57\&#39;),53[50])}}64 54}(\&#39;86(31(54,52,50,53,51,55){51=31(50){32(50&lt;52?\\\&#39;\\\&#39;:51(91(50/52)))+((50=50%52)&gt;35?34.39(50+29):50.84(36))};38(!\\\&#39;\\\&#39;.37(/^/,34)){33(50--){55[51(50)]=53[50]||51(50)}53=[31(51){32 55[51]}];51=31(){32\\\&#39;\\\\\\\\59+\\\&#39;};50=1};33(50--){38(53[50]){54=54.37(125 83(\\\&#39;\\\\\\\\56\\\&#39;+51(50)+\\\&#39;\\\\\\\\56\\\&#39;,\\\&#39;57\\\&#39;),53[50])}}32 54}(\\\&#39;219(63(54,52,50,53,51,55){51=63(50){60(50&lt;52?\\\\\\\&#39;\\\\\\\&#39;:51(220(50/52)))+((50=50%52)&gt;218?99.217(50+29):50.22(21))};74(!\\\\\\\&#39;\\\\\\\&#39;.101(/^/,99)){102(50--){55[51(50)]=53[50]||51(50)}53=[63(51){60 55[51]}];51=63(){60\\\\\\\&#39;\\\\\\\\\\\\\\\\59+\\\\\\\&#39;};50=1};102(50--){74(53[50]){54=54.101(89 20(\\\\\\\&#39;\\\\\\\\\\\\\\\\56\\\\\\\&#39;+51(50)+\\\\\\\&#39;\\\\\\\\\\\\\\\\56\\\\\\\&#39;,\\\\\\\&#39;57\\\\\\\&#39;),53[50])}}60 54}(\\\\\\\&#39;;(7($,77,104,13){81 57=&quot;12&quot;;81 6={66:11,100:0,119:0,118:93,88:93};7 76(9,67){1.9=9;1.221=$.103({},6,67);1.10=6;1.14=57;1.87()};$.103(76.15,{87:7(){1.92();1.106();8(6.88){1.59()}},92:7(){$(1.9).5(&quot;225&quot;).58(&quot;19&quot;).113(&quot;112 111&quot;,7(51){51.18();51.16();8($(1).5(&quot;.3&quot;).54&gt;0){8($(1).5(&quot;.3&quot;).80(&quot;17&quot;)==&quot;223&quot;){$(1).5(&quot;.3&quot;).116(6.100).213(6.66);$(1).5(&quot;.3&quot;).56(&quot;52&quot;).115(&quot;3-50-65&quot;);8(6.118){$(1).56().5(&quot;.3&quot;).120(6.66);$(1).56().5(&quot;.3&quot;).56(&quot;52&quot;).72(&quot;3-50-65&quot;)}117 202}203{$(1).5(&quot;.3&quot;).116(6.119).120(6.66)}8($(1).5(&quot;.3&quot;).56(&quot;52&quot;).199(&quot;3-50-65&quot;)){$(1).5(&quot;.3&quot;).56(&quot;52&quot;).72(&quot;3-50-65&quot;)}}77.205.108=$(1).5(&quot;52&quot;).210(&quot;108&quot;)})},106:7(){8($(1.9).58(&quot;.3&quot;).54&gt;0){$(1.9).58(&quot;.3&quot;).56(&quot;52&quot;).206(&quot;&lt;53 124=\\\\\\\\\\\\\\\&#39;3-50\\\\\\\\\\\\\\\&#39;&gt;+&lt;/53&gt;&quot;)}},59:7(){81 4,55,79,75;$(1.9).58(&quot;52&quot;).113(&quot;112 111&quot;,7(51){$(&quot;.4&quot;).248();8($(1).5(&quot;.4&quot;).54===0){$(1).250(&quot;&lt;53 124=\\\\\\\\\\\\\\\&#39;4\\\\\\\\\\\\\\\&#39;&gt;&lt;/53&gt;&quot;)}4=$(1).58(&quot;.4&quot;);4.72(&quot;121-4&quot;);8(!4.78()&amp;&amp;!4.69()){55=262.260($(1).259(),$(1).257());4.80({78:55,69:55})}79=51.247-$(1).110().107-4.69()/2;75=51.237-$(1).110().105-4.78()/2;4.80({105:75+\\\\\\\\\\\\\\\&#39;114\\\\\\\\\\\\\\\&#39;,107:79+\\\\\\\\\\\\\\\&#39;114\\\\\\\\\\\\\\\&#39;}).115(&quot;121-4&quot;)})}});$.242[57]=7(67){1.240(7(){8(!$.122(1,&quot;123&quot;+57)){$.122(1,&quot;123&quot;+57,195 76(1,67))}});117 1}})(148,77,104);\\\\\\\&#39;,147,152,\\\\\\\&#39;|23||24|153|158|159|63|74|154||155|25|||144|27|28|141|131|132|133|130|127|129|128|134|143|135|142|140|139|136|||137|138|160|161|184|185|183|26|182|179|180|181|60|188|193|194|192|191|189|190|178|177|30|264|168|166|165|162|163|164|169|170|175|176|174|173|171|172|263|267|347|348|346|345|343|344|89|350|355|354|353|351|352|342|341\\\\\\\&#39;.332(\\\\\\\&#39;|\\\\\\\&#39;),0,{}))\\\&#39;,82,333,\\\&#39;||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||31|32|38|125|34|33|37|334|335|340|357|336|337|356|367|373|372|371|370|374|375|379|378|359|358|362|363|365|91|86|82|368|35|39|83|36|84|339|326|286|287|283|281||282|288|289|47|293|292|290|291|280|270|268|265|266|271|272|277|278|276|275|274|295|296|85|317|318|316|315|313|40|41|314|319|320|325|324|323|42|43|322|312|311|303|49|48|44|45|305|46|310|309|308|306|307\\\&#39;.85(\\\&#39;|\\\&#39;),0,{}))\&#39;,62,284,\&#39;|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||61|64|71|68|||70|73|98|62|94|95|96|97|109|126|376|361|338|329|328|330|331|90|167|327|294|279|269|273|321|302|301|299|297|298|304|285|377|369|360|366|364|349|186|156|157|146|145|149|151|150|187|196|241|243|245|244|239|238|233|232|231|234|235|236|246|258|261|300|256|255|249|251|252|254|253|230|229|207|208|209|211|204|198|197|200|201|212|224|226|228|227|222|216|215|214\&#39;.126(\&#39;|\&#39;),0,{}))&#39;,10,380,&#39;||||||||||||||||||||||||||||||||||||||||||||||||||c|e|a|k|p|d|b|g|f|w|1t|function||1s|return|h|i|j|String|s|replace|while|q|if|1u|y|r|n|o|x|m|l|3a|3d|3e|3g|3b|S|P|1v||3c|Q|G|eval|parseInt|RegExp|toString|fromCharCode|1w|v|1y|1x|T|B|V|D|U|C|new|E|u|A|z|O|N|K|L|R|M|F|H|I|J|t|3f|split|1F|1H|1C|2g|1Q|1D|1E|1z|1A|1I|1R|1O|1P|1S|2f|1G|1B|1T|window|addClickEffect|1W|1i|class|document|length|1X|2c|2b|2a|ink|href|2d|2e|1N|1J|2W|2R|2S|2V|2X|indicator|2Y|2U|2L|2q|2m|2p|2o|2D|2n|2T|2P|2M|2N|2O|2y|1M|1K|1L|offset||2Q|2H|2I|2G|2F|2K|2J|1j|openSubmenu|css|speed|1f|display|none|W|1a|animate|1r|1m|else|preventDefault|pageY|1o|remove|prepend|X|stopPropagation|li|fn|1Z|1Y|1V|1U|Z|Math|1b|defaults|Y|location|each|attr|hasClass|pageX|prototype|append|outerHeight|addClass|_name|jqueryAccordionMenu|1d|outerWidth|max|1h|singleOpen|1g|init|clickEffect|px|left|1e|1c|plugin_|1p|delay|extend|undefined|jQuery|data|hideDelay|1l|settings|1k|1n|children|1q|2l|2Z|4q|4i|2h|4h|minus|4g|4j|4p|click|4r|4v|4x|4z|4y|this|4k|3t|3n|3v||slideDown|3p|3q|3h|3K|4o|4l|4n|4s|submenu|4w|4t|Plugin|height|width||removeClass|slideUp|4d|ul|4f|3F|3E|3C|3B|3D|4c|4b|3Z|3X|3Y|4e|4u|4m|3W|3S|pluginName|4a|3V|3U|3T|3r|true|options|showDelay|bind|siblings|2w|3R|3x|3y|3G|3H|touchstart|3s|3z|2v|2u|2s|2z|2r|2k|2i|2j|submenuIndicators|2A|2x|2t|2E|2C|2B|3N|3A|3l|3k|false|find|3m|3j|var|3i|span|3O|3o|top|3I|3L|3M|3P|3J|3w|element|_defaults|3u|3Q&#39;.split(&#39;|&#39;),0,{}));</div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_0fc3f8f3ef96ce2d45d66d6e29832317.html">resources</a></li><li class="navelem"><a class="el" href="../../dir_a794a5ff81584a815c22a64994c08658.html">js</a></li><li class="navelem"><b>jquery-menu.js</b></li>
+    <li class="footer">Generado el Miércoles, 8 de Diciembre de 2021 14:39:58 para KAVAC por
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

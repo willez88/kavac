@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
+use Module;
 
 /**
  * @class      PayrollStaff
@@ -246,6 +247,18 @@ class PayrollStaff extends Model implements Auditable
         return $this->hasMany(PayrollPermissionRequest::class);
     }
 
+     /**
+     * Método que obtiene la información de registros de cronogramas de trabajadores.
+     *
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
+
+     * @return    \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function citizenServiceRegister()
+    {
+        return $this->hasMany(CitizenServiceRegister::class);
+    }
+
     /**
      * Método que obtiene el dato personal del trabajador asociada a una discapacidad
      *
@@ -256,5 +269,18 @@ class PayrollStaff extends Model implements Auditable
     public function payrollDisability()
     {
         return $this->belongsTo(PayrollDisability::class);
+    }
+
+    /**
+     * Método que obtiene los bienes asignados a un trabajador
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return Array|\Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo
+     * AssetAsignation
+     */
+    public function assetAsignation()
+    {
+        return (Module::has('Asset'))
+               ? $this->hasMany(\Modules\Asset\Models\AssetAsignation::class) : [];
     }
 }

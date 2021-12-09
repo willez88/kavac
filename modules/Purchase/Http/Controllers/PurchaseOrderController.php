@@ -54,7 +54,7 @@ class PurchaseOrderController extends Controller
         $requirements = PurchaseRequirement::with(
             'contratingDepartment',
             'userDepartment',
-            'purchaseRequirementItems.measurementUnit',
+            'purchaseRequirementItems.warehouseProduct.measurementUnit',
             'purchaseBaseBudget.currency'
         )->where('requirement_status', 'PROCESSED')
         ->orderBy('id', 'ASC')->get();

@@ -30,20 +30,16 @@
                 <div class="card-body">
                     @if(isset($requirement_edit))
                         <purchase-requirements-form :supplier_objects="{{ $supplier_objects }}" 
-                                                    :date="{{ $date }}"
                                                     :institutions="{{ $institutions }}"
                                                     :purchase_supplier_objects="{{ $purchase_supplier_objects }}"
-                                                    :fiscal_years="{{ $fiscal_years }}"
                                                     :measurement_units="{{ $measurement_units }}"
                                                     :requirement_edit="{{ $requirement_edit }}"
                                                     :department_list="{{ $department_list }}"
                                                      />
                     @else
                         <purchase-requirements-form :supplier_objects="{{ $supplier_objects }}" 
-                                                    :date="{{ $date }}"
                                                     :institutions="{{ $institutions }}"
                                                     :purchase_supplier_objects="{{ $purchase_supplier_objects }}"
-                                                    :fiscal_years="{{ $fiscal_years }}"
                                                     :measurement_units="{{ $measurement_units }}"
                                                      />
                     @endif

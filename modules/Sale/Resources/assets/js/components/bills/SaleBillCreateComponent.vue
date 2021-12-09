@@ -1,483 +1,1029 @@
-    <template>
-    <section id="SaleWarehouseReceptionForm">
+<template>
+    <section id="SaleBillForm">
         <div class="card-body">
             <div class="alert alert-danger" v-if="errors.length > 0">
-                <div class="container">
-                    <div class="alert-icon">
-                        <i class="now-ui-icons objects_support-17"></i>
-                    </div>
-                    <strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"
-                            @click.prevent="errors = []">
-                        <span aria-hidden="true">
-                            <i class="now-ui-icons ui-1_simple-remove"></i>
-                        </span>
-                    </button>
-                    <ul>
-                        <li v-for="error in errors">{{ error }}</li>
-                    </ul>
-                </div>
+                <ul><li v-for="error in errors">{{ error }}</li></ul>
             </div>
-
             <div class="row">
                 <div class="col-md-12">
-                    <b>Datos del cliente</b>
+                    <b>Datos del solicitante</b>
+                    <a class="btn btn-info btn-xs btn-icon btn-action display-inline" 
+                        href="#" title="Ver información del registro" data-toggle="tooltip" 
+                        @click.prevent="showModal('view_sale_bill_clients')">
+                        <i class="icofont icofont-business-man ico-2x"></i>
+                    </a>
                 </div>
-                <div class="col-md-3" id="saleHelpClientsRif">
-                    <div class="form-group is-required">
-                        <label>Cédula o RIF:</label>
-                        <select2 :options="sale_clients_rif"
-                                 v-model="record.sale_client_id" @input="getSaleClient"></select2>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div id="saleHelpClientsName" v-show="record.sale_client_id != 0" class="form-group is-required">
-                        <label for="name_client">Nombre o razón social:</label>
-                        <input type="text" class="form-control input-sm" :disabled="true" 
-                            data-toggle="tooltip" title="Nombre o razón social" 
-                            id="name_client"></input>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div id="saleHelpClientsAddress" v-show="record.sale_client_id != 0" class="form-group is-required">
-                        <label for="address">Dirección:</label>
-                        <input type="text" class="form-control input-sm" :disabled="true" 
-                            data-toggle="tooltip" title="Dirección" 
-                            id="address"></input>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div id="saleHelpClientsFiscalAddress" v-show="record.sale_client_id != 0" class="form-group is-required">
-                        <label for="address_tax">Dirección fiscal:</label>
-                        <input type="text" class="form-control input-sm" :disabled="true"
-                            data-toggle="tooltip" title="Dirección fiscal" 
-                            id="address_tax"></input>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            
-            <div class="row" id="saleHelpSectionProducts">
-                <div class="col-md-12">
-                    <b>Selección de productos o servicios</b>
-                </div>
-                <div class="col-md-3" id="saleHelpProductName">
-                    <div class="form-group is-required">
-                        <label>Almacén:</label>
-                        <select2 :options="sale_warehouse" v-model="record.sale_warehouse_id"></select2>
-                    </div>
-                </div>
-                <div class="col-md-3" id="SaleHelpProductCurrency">
-                    <div class="form-group is-required">
-                        <label>Forma de pago:</label>
-                        <select2 :options="currencies"
-                                v-model="record.currency_id"></select2>
-                    </div>
-                </div>
-                <div class="col-md-3" id="SaleHelpPaymentMethod">
-                    <div class="form-group is-required">
-                        <label>Forma de cobro:</label>
-                        <select2 :options="sale_payment_method"
-                                v-model="record.sale_payment_method_id"></select2>
-                    </div>
-                </div>
-                <div class="col-md-3" id="SaleHelpDiscountSwitch">
-                    <div class="form-group col-md-3">
-                        <label class="control-label">Descuento:</label>
-                        <div class="col-12">
-                            <div class="bootstrap-switch-mini">
-                                <input type="checkbox" class="form-control bootstrap-switch"
-                                    name="discount" data-toggle="tooltip" title="Indique si desea aplicar algún descuento"
-                                    data-on-label="SI" data-off-label="NO" value="true" data-record="discount">
+                </h6>
+                <div class="client-list">
+                    <div class="modal fade text-left" tabindex="-1" role="dialog" id="view_sale_bill_clients" ref="clients-modal">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                    <h6><i class="icofont icofont-business-man ico-2x"></i> Clientes</h6>
+                                </div>
+                                <div class="modal-body modal-table">
+                                    <v-client-table :columns="columns_clients" :data="quote_clients" :options="table_options_clients">
+                                        <div slot="id" slot-scope="props" class="text-center">
+                                            <span>
+                                                <i class="fa fa-plus-circle cursor-pointer" @click="addClient(props.index, props.row)"></i>
+                                            </span>
+                                        </div>
+                                        <div slot="name_client" slot-scope="props" class="text-center">
+                                            <span>
+                                                {{ (props.row.name_client)? props.row.name_client : props.row.name }}
+                                            </span>
+                                        </div>
+                                        <div slot="rif" slot-scope="props" class="text-center">
+                                            <span>
+                                                {{ (props.row.rif)? props.row.rif : props.row.id_type + props.row.id_number }}
+                                            </span>
+                                        </div>
+                                        <div slot="phones" slot-scope="props">
+                                            <div v-if="props.row.phones">
+                                                <ul v-for="phone in props.row.phones">
+                                                    <li>{{ phone.type }}: ({{ phone.area_code }}) {{ phone.number }} ext: {{ phone.extension }}</li>
+                                                </ul>
+                                            </div>
+                                            <div v-else>
+                                                <span>N/A</span>
+                                            </div>
+                                        </div>
+                                        <div slot="sale_clients_email" slot-scope="props">
+                                            <div v-if="props.row.sale_clients_email">
+                                                <ul v-for="client_email in props.row.sale_clients_email">
+                                                    <li>{{ client_email.email }}</li>
+                                                </ul>
+                                            </div>
+                                            <div v-else>
+                                                <span>N/A</span>
+                                            </div>
+                                        </div>
+                                    </v-client-table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3" id="SaleHelpDiscount">
-                    <div class="form-group is-required" v-if="discount">
-                        <label>Descuento:</label>
-                        <select2 :options="sale_discount"
-                                v-model="record.sale_discount_id"></select2>
+                <div class="col-md-3">
+                    <div class="form-group is-required">
+                        <label for="type_person">Tipo de persona:</label>
+                        <select2 :options="types_person" id='type_person' v-model="record.type_person"></select2>
+                    </div>
+                </div>
+                <div v-if="record.type_person" class="col-md-3">
+                    <div class="form-group is-required">
+                        <label v-show="record.type_person == ''" for="name">Nombre de la Empresa:</label>
+                        <label v-show="record.type_person == 'Jurídica'" for="name">Nombre de la Empresa:</label>
+                        <label v-show="record.type_person == 'Natural'" for="name">Nombre y Apellido:</label>
+                        <input type="text" id="name" class="form-control input-sm" data-toggle="tooltip"
+                            title="Nombre" v-model="record.name">
+                        <input type="hidden" name="id" id="id" v-model="record.id">
+                    </div>
+                </div>
+                <div v-if="record.type_person == 'Jurídica'" class="col-md-3">
+                    <div class="form-group is-required">
+                        <label for="rif">RIF</label>
+                        <input type="text" id="rif" class="form-control input-sm" data-toggle="tooltip"
+                            title="Indique la identificación del cliente" v-model="record.rif">
+                    </div>
+                </div>
+                <div v-if="record.type_person == 'Natural'" class="col-md-3">
+                    <div class="form-group is-required">
+                        <label for="id_number">Identificación</label>
+                        <input type="text" id="id_number" class="form-control input-sm" data-toggle="tooltip"
+                            title="Indique la identificación del cliente" v-model="record.id_number">
+                    </div>
+                </div>
+                <div v-if="record.type_person" class="col-md-3">
+                    <div class="form-group is-required">
+                        <label for="phone">Teléfono de contacto:</label>
+                        <input type="text" id="phone" class="form-control input-sm" data-toggle="tooltip" required
+                            title="Número de teléfono" v-model="record.phone" placeholder="00-000-0000000">
+                    </div>
+                </div>
+                <div v-if="record.type_person" class="col-md-3">
+                    <div class="form-group is-required">
+                        <label for="email">Correo Electrónico:</label>
+                        <input type="text" id="email" class="form-control input-sm" data-toggle="tooltip" required
+                            title="Correo electrónico del solicitante" v-model="record.email">
                     </div>
                 </div>
             </div>
-            <div>
-                <hr>
-                <v-client-table id="saleHelpTable"
-                    @row-click="toggleActive" :columns="columns" :data="records" :options="table_options">
-                    <div slot="h__check" class="text-center">
-                        <label class="form-checkbox">
-                            <input type="checkbox" v-model="selectAll" @click="select()" class="cursor-pointer">
-                        </label>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <b>Descripción de productos</b>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group is-required">
+                        <label for="product_type">Tipo de Producto:</label>
+                        <select2 :options="type_products" id='product_type' v-model="product_type"></select2>
                     </div>
-
-                    <div slot="check" slot-scope="props" class="text-center">
-                        <label class="form-checkbox">
-                            <input type="checkbox" class="cursor-pointer" :value="props.row.id" :id="'checkbox_'+props.row.id" v-model="selected">
-                        </label>
+                </div>
+                <div v-show="bill_product.product_type == 'Producto'" class="col-md-3">
+                    <div class="form-group is-required">
+                        <label for="product_type">Producto:</label>
+                        <select2 :options="quote_inventory_products_list" id="sale_warehouse_inventory_product_id" v-model="bill_product.sale_warehouse_inventory_product_id" @input="updateProduct"></select2>
                     </div>
-                    <div slot="name" slot-scope="props">
-                        <span>
-                            <b> {{ (props.row.sale_setting_product)?
-                                'Nombre: ':'' }} </b>
-                            {{ (props.row.sale_setting_product)?
-                                props.row.sale_setting_product.name + '.':''
-                            }} <br>
-                        </span>
+                </div>
+                <div v-show="bill_product.product_type == 'Servicio'" class="col-md-3">
+                    <div class="form-group is-required">
+                        <label for="sale_goods_to_be_traded_id">Servicio:</label>
+                        <select2 :options="bill_good_to_be_traded" id="sale_goods_to_be_traded_id" v-model="bill_product.sale_goods_to_be_traded_id" @input="updateProduct"></select2>
                     </div>
-                    <div slot="description" slot-scope="props">
-                        <span>
-                            <b>Descripción</b>
-                            {{ (props.row.sale_setting_product)?
-                                props.row.sale_setting_product.description:''
-                            }}
-                        </span>
+                </div>
+                <div v-show="bill_product.product_type == 'Servicio'" class="col-md-3">
+                    <div class="form-group is-required">
+                        <label for="sale_list_subservices_id">Subservicios:</label>
+                        <select2 :options="quote_subservices_list" id="sale_list_subservices_id" v-model="bill_product.sale_list_subservices_id"></select2>
                     </div>
-                    <div slot="unit_value" slot-scope="props">
-                        <span>
-                            <b>Valor:</b> {{props.row.unit_value}} {{(props.row.currency)?props.row.currency.acronym:''}}
-                        </span>
+                </div>
+                <div class="col-md-3" id="SaleHelpProductMeasurementUnit">
+                    <div class="form-group is-required">
+                        <label>Unidad de medida</label>
+                        <select2 :options="quote_measurement_units" id='measurement_unit_id'
+                         v-model="bill_product.measurement_unit_id"></select2>
                     </div>
-                    <div slot="requested" slot-scope="props" >
-                        <div>
-                            <input type="number" class="form-control table-form input-sm" data-toggle="tooltip" min=0 :max="props.row.exist" :id="'sale_bill_product_'+props.row.id" onfocus="this.select()" @input="selectElement(props.row.id); price('sale_bill_product_'+props.row.id, props.row.unit_value, 'value_span_'+props.row.id)">
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group is-required">
+                        <label>Precio unitario:</label>
+                        <input type="text" placeholder="Precio unitario" id="value" title="Precio unitario" v-model="bill_product.value" class="form-control input-sm" required @change="updateTotalProduct()">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group is-required">
+                        <label>Cantidad de productos:</label>
+                        <input type="text" placeholder="Cantidad de productos" id='quantity' title="Cantidad de productos" v-model="bill_product.quantity" class="form-control input-sm" required @input="updateTotalProduct()">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group is-required">
+                        <label>Precio total:</label>
+                        <input type="text" disabled placeholder="Total" id="total" title="Cantidad total" v-model="bill_product.value * bill_product.quantity"class="form-control input-sm" required>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group is-required">
+                        <label>Moneda:</label>
+                        <select2 :options="currencies" v-model="bill_product.currency_id" id="currency_id"></select2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <div class="d-inline-flex mt-4">
+                        <button type="button" @click="addProduct($event)" class="btn btn-sm btn-primary btn-custom" 
+                            title="Agregar producto a la lista" data-toggle="tooltip">
+                            <i class="fa fa-plus-circle"></i>
+                            Agregar
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <v-client-table :columns="columns" :data="record.sale_bill_products" :options="table_options">
+                <div slot="sale_warehouse_inventory_product_id" slot-scope="props" class="text-center">
+                    <span>
+                        {{ (props.row.sale_warehouse_inventory_product_id)? props.row.inventory_product_name : props.row.sale_goods_to_be_traded_name }}
+                    </span>
+                </div>
+                <div slot="sale_list_subservices_id" slot-scope="props" class="text-center">
+                    <span>
+                        {{ (props.row.sale_list_subservices_id)? props.row.sale_list_subservices_name : 'N/A' }}
+                    </span>
+                </div>
+                <div slot="measurement_unit" slot-scope="props" class="text-center">
+                    <span>
+                        {{ (props.row.measurement_unit_id)? props.row.measurement_unit_name : 'N/A' }}
+                    </span>
+                </div>
+                <div slot="currency" slot-scope="props" class="text-center">
+                    <span>
+                        {{ (props.row.currency_id)? props.row.currency_name : 'N/A' }}
+                    </span>
+                </div>
+                <div slot="product_tax_value" slot-scope="props" class="text-center">
+                    <span>
+                        {{ (props.row.history_tax_id)? props.row.history_tax_value : 'N/A' }}
+                    </span>
+                </div>
+                <div slot="id" slot-scope="props" class="text-center">
+                    <div class="d-inline-flex">
+                        <button @click="editProduct(props.index, $event)" 
+                            class="btn btn-warning btn-xs btn-icon btn-action" 
+                            title="Modificar registro" data-toggle="tooltip" type="button">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                        <button @click="removeProduct(props.index, $event)" 
+                            class="btn btn-danger btn-xs btn-icon btn-action" 
+                            title="Eliminar registro" data-toggle="tooltip" 
+                            type="button">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </div>
+                </div>
+            </v-client-table>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <div class="d-inline-flex align-items-center">
+                        <label class="font-weight-bold">Total sin iva:</label>
+                        <div class="form-group is-required">
+                            <input type="text" disabled placeholder="Total Sin IVA" id="bill_total_without_tax" title="Total sin IVA" v-model="record.bill_total_without_tax" class="form-control input-sm">
                         </div>
                     </div>
-                    <div slot="price" slot-scope="props" >
-                        <div>
-                            <b>Precio total</b> <span :id="'value_span_'+props.row.id"></span>
+                </div>
+                <div class="col-md-12 text-right">
+                    <div class="d-inline-flex align-items-center">
+                        <label class="font-weight-bold">IVA:</label>
+                        <div class="form-group is-required">
+                            <input type="text" disabled placeholder="Total IVA" id="total_iva" title="Total IVA" v-model="(record.bill_total - record.bill_total_without_tax).toFixed(2)" class="form-control input-sm">
                         </div>
                     </div>
-                </v-client-table>
+                </div>
+                <div class="col-md-12 text-right">
+                    <div class="d-inline-flex align-items-center">
+                        <label class="font-weight-bold">Total a pagar:</label>
+                        <div class="form-group is-required">
+                            <input type="text" disabled placeholder="Total a pagar" id="bill_total" title="Total" v-model="record.bill_total" class="form-control input-sm">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <b>Complementarios</b>
+                </div>
+                <div class="col-md-3" id="SaleHelpPaymentMethod">
+                    <div class="form-group is-required">
+                        <label>Forma de cobro:</label>
+                        <select2 :options="bill_payments" v-model="record.sale_form_payment_id" id="sale_form_payment_id"></select2>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="card-footer text-right">
             <div class="row">
                 <div class="col-md-3 offset-md-9" id="saleHelpParamButtons">
-                    <button type="button" @click="reset()"
-                            class="btn btn-default btn-icon btn-round"
-                            title ="Borrar datos del formulario">
-                            <i class="fa fa-eraser"></i>
+                <button type="button" @click="reset()"
+                        class="btn btn-default btn-icon btn-round"
+                        title ="Borrar datos del formulario">
+                    <i class="fa fa-eraser"></i>
                     </button>
-
                     <button type="button"
-                            class="btn btn-warning btn-icon btn-round btn-modal-close"
-                            data-dismiss="modal"
-                            title="Cancelar y regresar">
-                            <i class="fa fa-ban"></i>
-                    </button>
-
-                    <button type="button"  @click="createBill('sale/bills')"
-                            class="btn btn-success btn-icon btn-round btn-modal-save"
-                            title="Guardar registro">
-                        <i class="fa fa-save"></i>
-                    </button>
+                    class="btn btn-warning btn-icon btn-round btn-modal-close"
+                    data-dismiss="modal"
+                    title="Cancelar y regresar">
+                    <i class="fa fa-ban"></i>
+                </button>
+                    <button type="button" @click="createBill('sale/bills')"
+                    class="btn btn-success btn-icon btn-round btn-modal-save"
+                    title="Guardar registro">
+                    <i class="fa fa-save"></i>
+                </button>
                 </div>
             </div>
         </div>
     </section>
-    </template>
+</template>
 
-    <script>
+<script>
     export default {
+        props:{
+                billid:{
+                    type:Number,
+                },
+        },
         data() {
             return {
                 record: {
                     id: '',
-                    sale_warehouse_id: '',
-                    sale_client_id: '',
-                    sale_payment_method_id: '',
+                    //Datos del solicitante
+                    type_person: '',
+                    name: '',
+                    id_number: '',
+                    rif: '',
+                    phone: '',
+                    email: '',
+                    bill_clients: [],
+                    //Descripción de productos
+                    bill_total_without_tax: '0',
+                    bill_total: '0',
+                    sale_bill_products: [],
+                    //Complementarios
+                    sale_form_payment_id: '',
+                },
+                bill_product: {
+                    product_type: '',
+                    sale_warehouse_inventory_product_id: '',
+                    sale_goods_to_be_traded_id: '',
+                    measurement_unit_id: '',
                     currency_id: '',
-                    sale_discount_id: '',
-                    institution_id: '',
-                    sale_setting_products: [],
+                    history_tax_id: '',
+                    value: 0,
+                    quantity: 0,
+                    total: 0,
                 },
-                
-                records: [],
-                columns: ['check', 'code', 'name', 'description', 'unit_value' ,'requested', 'price'],
+                product_type: '',
+                quote_clients: [],
                 errors: [],
-                selected: [],
-				selectAll: false,
-                discount: false,
-
-                sale_client: {
-                    name_client: '',
-                    address: '',
-                    address_tax: '',
-                },
-
-                table_options: {
-					rowClassCallback(row) {
-						var checkbox = document.getElementById('checkbox_' + row.id);
-						return ((checkbox)&&(checkbox.checked))? 'selected-row cursor-pointer' : 'cursor-pointer';
-					},
-					headings: {
-						'code': 'Código',
-						'name': 'Nombre',
-						'description': 'Descripción',
-                        'unit_value': 'Valor',
-						'requested': 'Solicitados',
-                        'price': 'Precio total'
-					},
-					sortable: ['code', 'name', 'description', 'unit_value', 'requested', 'price'],
-					filterable: ['code', 'name', 'description', 'unit_value', 'requested', 'price']
-				},
-                
-                sale_clients_rif: [],
-                sale_clients_name: [],
-                sale_clients_address: [],
-                sale_clients_fiscal_address: [],
-                sale_discount: [],
-                sale_warehouse: [],
-                currencies: [],
-                sale_payment_method: [],
-
-                /** Revisar */
+                columns: [
+                    'product_type',
+                    'sale_warehouse_inventory_product_id',
+                    'sale_list_subservices_id',
+                    'measurement_unit',
+                    'value',
+                    'quantity',
+                    'total_without_tax',
+                    'product_tax_value',
+                    'total',
+                    'currency',
+                    'id',
+                ],
+                columns_clients: ['id', 'type_person_juridica', 'rif', 'name_client', 'phones', 'sale_clients_email'],
+                types_person:  [
+                    {'id' : '', 'text' : "Seleccione..."},
+                    {'id' : 'Natural', 'text' : 'Natural'},
+                    {'id' : 'Jurídica', 'text' : 'Jurídica'}
+                ],
+                type_products:  [
+                    {'id' : '', 'text' : "Seleccione..."},
+                    {'id' : 'Producto', 'text' : 'Producto'},
+                    {'id' : 'Servicio', 'text' : 'Servicio'}
+                ],
+                quote_inventory_products_list : [],
+                bill_good_to_be_traded : [],
+                quote_subservices_list : [],
+                currencies : [],
+                quote_taxes : [],
+                quote_measurement_units : [],
+                bill_payments : [],
                 editIndex: null,
             }
         },
-        watch: {
-            discount: function() {
-                this.discount.id = (this.discount) ? this.record.id : '';
-            }
-        },
-        props: {
-            billid: Number,
-        },
         methods: {
-            loadBill(id) {
+            /**
+             * Método que carga la información del formulario al editar
+             *
+             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+             */
+            async loadForm(id){
                 const vm = this;
-                var fields = {};
 
-                axios.get('/sale/bills/info/' + id).then(response => {
+                await axios.get('/sale/bills/info/'+id).then(response => {
                     if(typeof(response.data.records != "undefined")){
-                        fields = response.data.records;
+                        let data = response.data.records;
                         vm.record = {
-                            id: fields.id,
-                            sale_warehouse_id: fields.sale_warehouse_id,
-                            sale_client_id: fields.sale_client_id,
-                            sale_payment_method_id: fields.sale_payment_method_id,
-                            currency_id: fields.currency_id,
-                            sale_discount_id: fields.sale_discount_id,
-                            created_at: vm.format_date(fields.created_at),
-                        };
-                        $.each(fields.sale_bill_inventory_product, function(index,campo){
-                            var element = document.getElementById("checkbox_"+campo.sale_warehouse_inventory_product_id);
-                            var input = document.getElementById("sale_bill_product_"+campo.sale_warehouse_inventory_product_id);
+                            id: data.id,
+                            //Datos del solicitante
+                            type_person: data.type_person,
+                            name: data.name,
+                            id_number: data.id_number,
+                            rif: data.rif,
+                            phone: data.phone,
+                            email: data.email,
+                            bill_clients: [],
+                            //Descripción de productos
+                            bill_total_without_tax: 0,
+                            bill_total: 0,
+                            sale_bill_products: [],
+                            //Complementarios
+                            sale_form_payment_id: data.sale_form_payment_id,
+                        },
+                        vm.record.sale_bill_products = [];
+                        vm.record.bill_total_without_tax = 0;
+                        vm.record.bill_total = 0;
 
-                            if(element && input){
-                                vm.selected.push(campo.sale_warehouse_inventory_product_id);
-                                element.click();
-                                input.value = campo.quantity;
-                                vm.price('sale_bill_product_'+campo.sale_warehouse_inventory_product_id, campo.sale_warehouse_inventory_product.unit_value, 'value_span_'+campo.sale_warehouse_inventory_product_id);
+                        for (let product of response.data.records.sale_bill_inventory_product) {
+                            let total_without_tax = parseFloat(product.value) * product.quantity;
+                            let total = total_without_tax;
+                            let history_tax_value = 0;
+
+                            if (product.history_tax_id){
+                                history_tax_value = product.history_tax.percentage * total_without_tax / 100;
+                                total = total_without_tax + history_tax_value;
                             }
-                        });
+
+                            let bill_product = {
+                                product_type: product.product_type,
+                                sale_warehouse_inventory_product_id: product.sale_warehouse_inventory_product_id,
+                                sale_goods_to_be_traded_id: product.sale_goods_to_be_traded_id,
+                                sale_list_subservices_id: product.sale_list_subservices_id,
+                                measurement_unit_id: product.measurement_unit_id,
+                                currency_id: product.currency_id,
+                                history_tax_id: product.history_tax_id,
+                                value: product.value,
+                                quantity: product.quantity,
+                                total_without_tax: total_without_tax,
+                                sale_goods_to_be_traded_name: product.sale_goods_to_be_traded ? product.sale_goods_to_be_traded.name : '',
+                                inventory_product_name: product.sale_warehouse_inventory_product ? product.sale_warehouse_inventory_product.sale_setting_product.name : '',
+                                measurement_unit_name: product.measurement_unit.name,
+                                sale_list_subservices_name: product.sale_list_subservices ? product.sale_list_subservices.name : '',
+                                currency_name: product.currency.symbol + ' - ' + product.currency.name,
+                                history_tax_value: history_tax_value,
+                                total: total,
+                            };
+
+                            vm.record.sale_bill_products.push(bill_product);
+                        }
+
+                        for (let bill_inventory_product of vm.record.sale_bill_products) {
+                            vm.record.bill_total_without_tax += bill_inventory_product.total_without_tax;
+                            vm.record.bill_total += bill_inventory_product.total;
+                        }
                     }
                 });
             },
-            createBill(url){
-				const vm = this;
-				vm.record.sale_setting_products = [];
-				var complete = true;
-                if(!vm.selected.length > 0){
-                	bootbox.alert("Debe agregar almenos un elemento a la solicitud");
-					return false;
-				};
-                $.each(vm.selected,function(index,campo){
-                    var value = document.getElementById("sale_bill_product_"+campo).value;
-                    if (value == "") {
-						bootbox.alert("Debe ingresar la cantidad solicitada para cada producto seleccionado");
-						complete = false;
-						return;
-					}
-                    vm.record.sale_setting_products.push(
-                        {id:campo, requested:value});
-                });
-                if (complete == true) {
 
-                    if (vm.record.id) {
-                        vm.updateRecord(url)    
-                    }else{
-                	   vm.createRecord(url)
-                    }
-                }
-                
-			},
-            toggleActive({ row }) {
-				const vm = this;
-				var checkbox = document.getElementById('checkbox_' + row.id);
-
-				if((checkbox)&&(checkbox.checked == false)){
-					var index = vm.selected.indexOf(row.id);
-					if (index >= 0){
-						vm.selected.splice(index,1);
-					}
-					else
-						checkbox.click();
-				}
-				else if ((checkbox)&&(checkbox.checked == true)) {
-					var index = vm.selected.indexOf(row.id);
-					if (index >= 0)
-						checkbox.click();
-					else
-						vm.selected.push(row.id);
-				}
+            /**
+             * Agrega la informacion del cliente desde el modal de clientes
+             *
+             * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+            */
+            addClient(index, client) {
+                this.record.type_person = client.type_person_juridica;
+                this.record.name = client.name_client? client.name_client : client.name;
+                this.record.id_number = client.rif? client.rif : client.id_type + '-' + client.id_number;
+                this.record.phone = client.phones && client.phones.length? client.phones[0].area_code + '-' + client.phones[0].number : '';
+                this.record.email = client.sale_clients_email && client.sale_clients_email.length? client.sale_clients_email[0].email : '';
+                $("#view_sale_bill_clients").modal('hide');
             },
+            /**
+             * Limpia el formulario por completo
+             *
+             * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+            */
             reset() {
-                this.record = {
+                const vm = this;
+                vm.record = {
                     id: '',
-                    sale_warehouse_id: '',
-                    sale_client_id: '',
-                    sale_payment_method_id: '',
-                    currency_id: '',
-                    sale_discount_id: '',
-                    institution_id: '',
-                    sale_setting_products: [],
+                    sale_bill_products: [],
+                    type_person: '',
+                    name: '',
+                    id_number: '',
+                    email: '',
+                    phone: '',
                 };
+                vm.editIndex = null;
             },
-            select() {
-				const vm = this;
-				vm.selected = [];
-				$.each(vm.records, function(index,campo){
-					var checkbox = document.getElementById('checkbox_' + campo.id);
-
-					if(!vm.selectAll)
-						vm.selected.push(campo.id);
-					else if(checkbox && checkbox.checked){
-						checkbox.click();
-					}
-				});
-			},
-			selectElement(id) {
-				var input = document.getElementById('sale_bill_product_' + id);
-	            var checkbox = document.getElementById('checkbox_' + id);
-	            if ((input.value == '')||(input.value == 0)){
-	                if(checkbox.checked){
-	                    checkbox.click();
-	                }
-	            }
-	            else if(!checkbox.checked){
-	                checkbox.click();
-	            }
-			},
-            getSaleWarehouse() {
+            /**
+             * Limpia el formulario de productos cuando hay un cambio en los selects
+             *
+             * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+            */
+            resetProduct() {
                 const vm = this;
-                vm.sale_warehouse = [];
-
-                axios.get('/sale/get-salewarehousemethod/' + vm.record.institution_id).then(response => {
-                    vm.sale_warehouse = response.data;
-                });
+                vm.record.quantity = 0;
+                vm.record.value = 0;
+                vm.record.total = 0;
+                vm.record.measurement_unit_id = '';
+                vm.record.currency_id = '';
+                vm.record.history_tax_id = '';
+                vm.record.history_tax_value = 0;
+                vm.updateTotalProduct();
             },
 
-            getSaleClientsRif() {
+            /**
+             * Método que permite la edición de un producto
+             *
+             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+            */
+            editProduct(index, event) {
                 const vm = this;
-                vm.sale_clients_rif = [];
+                vm.bill_product = {
+                    product_type: '',
+                    sale_warehouse_inventory_product_id: '',
+                    sale_goods_to_be_traded_id: '',
+                    measurement_unit_id: '',
+                    currency_id: '',
+                    history_tax_id: '',
+                    value: 0,
+                    quantity: 0,
+                    total: 0,
+                }
+                vm.editIndex = index-1;
+                vm.bill_product = vm.record.sale_bill_products[index - 1];
+                vm.product_type = vm.bill_product.product_type;
 
-                axios.get('/sale/get-sale-clients-rif/').then(response => {
-                    vm.sale_clients_rif = response.data;
-                });
+                event.preventDefault();
             },
 
-            getSaleClient() {
+            /**
+             * Elimina un producto de la tabla del formulario
+             *
+             * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+            */
+            removeProduct(index, event) {
                 const vm = this;
-                if (vm.record.sale_client_id > 0) {
-                    axios.get('/sale/get-sale-client/' + vm.record.sale_client_id).then(response => {
-                        vm.sale_client.name_client = response.data.sale_client.name_client;
-                        vm.sale_client.address = response.data.sale_client.address;
-                        vm.sale_client.address_tax = response.data.sale_client.address_tax;
+                vm.record.sale_bill_products.splice(index - 1, 1);
+                vm.record.bill_total_without_tax = 0;
+                vm.record.bill_total = 0;
 
-                        $('#name_client').val(vm.sale_client.name_client);
-                        $('#address').val(vm.sale_client.address);
-                        $('#address_tax').val(vm.sale_client.address_tax);
+                for (let product of vm.record.sale_bill_products) {
+                    vm.record.bill_total_without_tax += product.total_without_tax;
+                    vm.record.bill_total += product.total;
+                }
+            },
+            /**
+             * Actualiza el total de los productos
+             *
+             * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+            */
+            updateTotalProduct() {
+                const vm = this;
+                vm.record.quantity = parseInt(vm.record.quantity);
+                vm.record.value = parseFloat(vm.record.value);
+                vm.record.total = vm.record.value * vm.record.quantity;
+            },
+            /**
+             * Actualiza la informacion de un producto (desde inventario o bienes para comercializar)
+             *
+             * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+            */
+            updateProduct() {
+                const vm = this;
+                let entity_load = '';
+                let id = 0;
+                if (vm.bill_product.product_type == 'Producto') {
+                    entity_load = 'Producto';
+                    vm.bill_product.sale_goods_to_be_traded_id = '';
+                    id = vm.bill_product.sale_warehouse_inventory_product_id;
+                }
+                else {
+                    entity_load = 'Servicio';
+                    vm.bill_product.sale_warehouse_inventory_product_id = '';
+                    id = vm.bill_product.sale_goods_to_be_traded_id;
+                }
+                if (id) {
+                    axios.get('/sale/get-bill-product' + '/' + entity_load + '/' + id).then(function (response) {
+                        let product = response.data.record;
+                        let tax_percentage = '';
+
+                        if (entity_load == 'Producto' && product) {
+                            vm.bill_product.value = product.unit_value ? product.unit_value : vm.bill_product.value;
+                            vm.bill_product.measurement_unit_id = product.measurement_unit_id ? product.measurement_unit_id : vm.bill_product.measurement_unit_id;
+                            vm.bill_product.currency_id = product.currency_id ? product.currency_id : vm.bill_product.currency_id;
+                            vm.bill_product.history_tax_id = product.history_tax_id ? product.history_tax_id : vm.bill_product.history_tax_id;
+                            //vm.bill_product.history_tax_value = vm.quote_taxes[product_value] ? parseFloat(quote_taxes[product_value].text) : vm.bill_product.history_tax_value;
+                            vm.updateTotalProduct();
+                        }
+
+                        if (entity_load == 'Servicio' && product) {
+                            vm.bill_product.value = product.unit_price ? product.unit_price : vm.bill_product.value;
+                            vm.bill_product.measurement_unit_id = product.measurement_unit_id ? product.measurement_unit_id : vm.bill_product.measurement_unit_id;
+                            vm.bill_product.currency_id = product.currency_id ? product.currency_id : vm.bill_product.currency_id;
+                            vm.bill_product.history_tax_id = product.history_tax_id ? product.history_tax_id : vm.bill_product.history_tax_id;
+                            //vm.bill_product.history_tax_value = product.history_tax_id ? parseFloat(product.history_tax.percentage) : vm.bill_product.history_tax_value;
+                            vm.updateTotalProduct();
+                        }
                     });
                 }
             },
-
-            getSaleClientsAddress() {
+            /**
+             * Agrega un producto al formulario
+             *
+             * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+            */
+            addProduct(event) {
                 const vm = this;
-                vm.sale_clients_address = [];
+                vm.errors = [];
 
-                axios.get('/sale/get-sale-clients-address/').then(response => {
-                    vm.sale_clients_address = response.data;
-                });
-            },
-
-            getSaleClientsFiscalAddress() {
-                const vm = this;
-                vm.sale_clients_fiscal_address = [];
-
-                axios.get('/sale/get-sale-clients-fiscal-address/').then(response => {
-                    vm.sale_clients_fiscal_address = response.data;
-                });
-            },
-
-            getSalePaymentMethod() {
-                const vm = this;
-                vm.sale_payment_method = [];
-
-                axios.get('/sale/get-paymentmethod/').then(response => {
-                    vm.sale_payment_method = response.data;
-                });
-            },
-
-            getSaleDiscount() {
-                const vm = this;
-                vm.sale_discount = [];
-
-                axios.get('/sale/get-discountmethod/').then(response => {
-                    vm.sale_discount = response.data;
-                });
-            },
-
-            loadInventoryProduct(current) {
-                const vm = this;
-                vm.loading = true;
-                var fields = {};
-                for (var index in this.record) {
-                    fields[index] = this.record[index];
-                }
-                fields["current"] = current;
-                axios.post("/sale/reports/inventory-products/vue-list", fields).then(response => {
-                    if (typeof(response.data.records) != "undefined") {
-                        vm.records = response.data.records;
+                if (vm.editIndex === null) {
+                    if (!vm.bill_product.product_type) {
+                        vm.errors.push('El campo tipo de producto es obligatorio.');
                     }
-                    vm.loading = false;
-                }).catch(error => {
-                    if (typeof(error.response) != "undefined") {
-                        console.log("error");
+                    if (vm.bill_product.product_type == 'Producto' && !vm.bill_product.sale_warehouse_inventory_product_id) {
+                        vm.errors.push('El campo producto es obligatorio.');
                     }
-                    vm.loading = false;
+                    if (vm.bill_product.product_type == 'Servicio' && !vm.bill_product.sale_goods_to_be_traded_id) {
+                        vm.errors.push('El campo servicio es obligatorio.');
+                    }
+                    if (vm.bill_product.product_type == 'Servicio' && !vm.bill_product.sale_list_subservices_id) {
+                        vm.errors.push('El campo subservicio es obligatorio.');
+                    }
+                    if (!vm.bill_product.measurement_unit_id) {
+                        vm.errors.push('El campo unidad de medida es obligatorio.');
+                    }
+                    if (!vm.bill_product.currency_id) {
+                        vm.errors.push('El campo moneda es obligatorio.');
+                    }
+                    if (!vm.bill_product.value) {
+                        vm.errors.push('El campo precio unitario es obligatorio.');
+                    }
+                    if (!vm.bill_product.quantity) {
+                        vm.errors.push('El campo cantidad de productos es obligatorio.');
+                    }
+                    if(vm.errors.length > 0){
+                        $('html,body').animate({
+                            scrollTop: $("#SaleBillForm").offset()
+                        }, 1000);
+                    } else {
+                        let inventory_product_name = '';
+                        let good_to_be_traded_name = '';
+                        let sale_list_subservices_name = '';
+                        let measurement_unit_name = '';
+                        let currency_name = '';
+                        let history_tax_value = '';
+                        let total_without_tax = parseFloat(vm.bill_product.value) * parseFloat(vm.bill_product.quantity);
+                        let total = total_without_tax;
+
+                        if(vm.product_type == 'Servicio'){
+                            for (let good_to_be_traded of vm.bill_good_to_be_traded){
+                                if (vm.bill_product.sale_goods_to_be_traded_id > 0 && good_to_be_traded.id == vm.bill_product.sale_goods_to_be_traded_id) {
+                                    good_to_be_traded_name = good_to_be_traded.text;
+                                }
+                            }
+                            for (let list_subservices of vm.quote_subservices_list){
+                                if (list_subservices.id == vm.bill_product.sale_list_subservices_id) {
+                                    sale_list_subservices_name = list_subservices.text;
+                                }
+                            }
+                        }
+                        for (let inventory_products_list of vm.quote_inventory_products_list){
+                            if (vm.bill_product.sale_warehouse_inventory_product_id > 0 && inventory_products_list.id == vm.bill_product.sale_warehouse_inventory_product_id) {
+                                inventory_product_name = inventory_products_list.text;
+                            }
+                        }
+                        for (let measurement_unit of vm.quote_measurement_units){
+                            if (measurement_unit.id == vm.bill_product.measurement_unit_id) {
+                                measurement_unit_name = measurement_unit.text;
+                            }
+                        }
+                        for (let currency of vm.currencies){
+                            if (currency.id == vm.bill_product.currency_id) {
+                                currency_name = currency.text;
+                            }
+                        }
+                        for (let tax of vm.quote_taxes){
+                            if (tax.id == vm.bill_product.history_tax_id) {
+                                history_tax_value = parseFloat(tax.text) * total_without_tax / 100;
+                                total = total_without_tax + history_tax_value;
+                            } else {
+                                history_tax_value = '';
+                                total = total_without_tax;
+                            }
+                        }
+                        vm.record.sale_bill_products.push({
+                            product_type: vm.bill_product.product_type,
+                            sale_warehouse_inventory_product_id: vm.bill_product.sale_warehouse_inventory_product_id,
+                            sale_goods_to_be_traded_id: vm.bill_product.sale_goods_to_be_traded_id,
+                            sale_list_subservices_id: vm.bill_product.sale_list_subservices_id,
+                            measurement_unit_id: vm.bill_product.measurement_unit_id,
+                            currency_id: vm.bill_product.currency_id,
+                            history_tax_id: vm.bill_product.history_tax_id,
+                            value: vm.bill_product.value,
+                            quantity: vm.bill_product.quantity,
+                            total_without_tax: total_without_tax,
+                            sale_goods_to_be_traded_name: good_to_be_traded_name,
+                            inventory_product_name: inventory_product_name,
+                            measurement_unit_name: measurement_unit_name,
+                            sale_list_subservices_name: sale_list_subservices_name,
+                            currency_name: currency_name,
+                            history_tax_value: history_tax_value,
+                            total: total,
+                        });
+
+                        vm.record.bill_total_without_tax += parseFloat(total_without_tax);
+                        vm.record.bill_total += parseFloat(total);
+                    }
+                } else if (vm.editIndex >= 0) {
+                    if (!vm.bill_product.product_type) {
+                        vm.errors.push('El campo tipo de producto es obligatorio.');
+                    }
+                    if (vm.bill_product.product_type == 'Producto' && !vm.bill_product.sale_warehouse_inventory_product_id) {
+                        vm.errors.push('El campo producto es obligatorio.');
+                    }
+                    if (vm.bill_product.product_type == 'Servicio' && !vm.bill_product.sale_goods_to_be_traded_id) {
+                        vm.errors.push('El campo servicio es obligatorio.');
+                    }
+                    if (vm.bill_product.product_type == 'Servicio' && !vm.bill_product.sale_list_subservices_id) {
+                        vm.errors.push('El campo subservicio es obligatorio.');
+                    }
+                    if (!vm.bill_product.measurement_unit_id) {
+                        vm.errors.push('El campo unidad de medida es obligatorio.');
+                    }
+                    if (!vm.bill_product.currency_id) {
+                        vm.errors.push('El campo moneda es obligatorio.');
+                    }
+                    if (!vm.bill_product.value) {
+                        vm.errors.push('El campo precio unitario es obligatorio.');
+                    }
+                    if (!vm.bill_product.quantity) {
+                        vm.errors.push('El campo cantidad de productos es obligatorio.');
+                    }
+                    if(vm.errors.length > 0){
+                        $('html,body').animate({
+                            scrollTop: $("#SaleBillForm").offset()
+                        }, 1000);
+                    } else {
+                        let inventory_product_name = '';
+                        let good_to_be_traded_name = '';
+                        let sale_list_subservices_name = '';
+                        let measurement_unit_name = '';
+                        let currency_name = '';
+                        let history_tax_value = '';
+                        let total_without_tax = parseInt(vm.bill_product.value) * parseInt(vm.bill_product.quantity);
+                        let total = total_without_tax;
+
+                        if(vm.product_type == 'Servicio'){
+                            for (let good_to_be_traded of vm.bill_good_to_be_traded){
+                                if (vm.bill_product.sale_goods_to_be_traded_id > 0 && good_to_be_traded.id == vm.bill_product.sale_goods_to_be_traded_id) {
+                                    good_to_be_traded_name = good_to_be_traded.text;
+                                }
+                            }
+                            for (let list_subservices of vm.quote_subservices_list){
+                                if (list_subservices.id == vm.bill_product.sale_list_subservices_id) {
+                                    sale_list_subservices_name = list_subservices.text;
+                                }
+                            }
+                        }
+                        for (let inventory_products_list of vm.quote_inventory_products_list){
+                            if (vm.bill_product.sale_warehouse_inventory_product_id > 0 && inventory_products_list.id == vm.bill_product.sale_warehouse_inventory_product_id) {
+                                inventory_product_name = inventory_products_list.text;
+                            }
+                        }
+                        for (let measurement_unit of vm.quote_measurement_units){
+                            if (measurement_unit.id == vm.bill_product.measurement_unit_id) {
+                                measurement_unit_name = measurement_unit.text;
+                            }
+                        }
+                        for (let currency of vm.currencies){
+                            if (currency.id == vm.bill_product.currency_id) {
+                                currency_name = currency.text;
+                            }
+                        }
+                        for (let tax of vm.quote_taxes){
+                            if (tax.id == vm.bill_product.history_tax_id) {
+                                history_tax_value = parseFloat(tax.text) * total_without_tax / 100;
+                                total = total_without_tax + history_tax_value;
+                            } else {
+                                history_tax_value = '';
+                                total = total_without_tax;
+                            }
+                        }
+
+                        vm.record.sale_bill_products.splice(vm.editIndex, 1);
+                        vm.record.sale_bill_products.push({
+                            product_type: vm.bill_product.product_type,
+                            sale_warehouse_inventory_product_id: vm.bill_product.sale_warehouse_inventory_product_id,
+                            sale_goods_to_be_traded_id: vm.bill_product.sale_goods_to_be_traded_id,
+                            sale_list_subservices_id: vm.bill_product.sale_list_subservices_id,
+                            measurement_unit_id: vm.bill_product.measurement_unit_id,
+                            currency_id: vm.bill_product.currency_id,
+                            history_tax_id: vm.bill_product.history_tax_id,
+                            value: vm.bill_product.value,
+                            quantity: vm.bill_product.quantity,
+                            total_without_tax: total_without_tax,
+                            sale_goods_to_be_traded_name: good_to_be_traded_name,
+                            inventory_product_name: inventory_product_name,
+                            measurement_unit_name: measurement_unit_name,
+                            sale_list_subservices_name: sale_list_subservices_name,
+                            currency_name: currency_name,
+                            history_tax_value: history_tax_value,
+                            total: total,
+                        });
+
+                        vm.record.bill_total_without_tax = 0;
+                        vm.record.bill_total = 0;
+
+                        for (let product of vm.record.sale_bill_products) {
+                            vm.record.bill_total_without_tax += product.total_without_tax;
+                            vm.record.bill_total += product.total;
+                        }
+
+                        vm.editIndex = null;
+                    }
+                }
+
+                vm.product_type = '';
+                vm.bill_product.product_type = '';
+                vm.bill_product.sale_warehouse_inventory_product_id = '';
+                vm.bill_product.sale_goods_to_be_traded_id = '';
+                vm.bill_product.sale_list_subservices_id = '';
+                vm.bill_product.currency_id = '';
+                vm.bill_product.measurement_unit_id = '';
+                vm.bill_product.history_tax_id = '';
+                vm.bill_product.currency_name = '';
+                vm.bill_product.history_tax_value = '';
+                vm.bill_product.measurement_unit_name = '';
+                vm.bill_product.sale_goods_to_be_traded_name = '';
+                vm.bill_product.sale_list_subservices_name = '';
+                vm.bill_product.total_without_tax = '';
+                vm.bill_product.total = 0;
+                vm.bill_product.value = 0;
+                vm.bill_product.quantity = 0;
+                this.resetProduct();
+            },
+            /**
+             * Crea o actualiza una cotización
+             *
+             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+            */
+            createBill(url) {
+                const vm = this;
+                if (vm.record.id) {
+                    vm.updateRecord(url);  
+                } 
+                else{
+                    vm.createRecord(url);
+                }
+            },
+            /**
+             * Muestra el modal de clientes en el formulario
+             *
+             * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+            */
+            showModal(modal_id = '') {
+                if ($("#" + modal_id).length) {
+                    $("#" + modal_id).modal('show');
+                }
+            },
+
+            /**
+             * Método que carga las formas de cobro para los select
+             *
+             * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+             */
+            getSalePayments() {
+                const vm = this;
+                vm.bill_payments = [];
+
+                axios.get('/sale/get-form-payments/').then(response => {
+                        vm.bill_payments = response.data;
                 });
             },
-            price(id, unit_value, value_span){
-                var input = document.getElementById(id);
-                var span = document.getElementById(value_span);
-                if (input && span) {
-                    span.innerText = input.value * unit_value;
-                } else {
-                    span.innerText = '';
-                }
+
+            /**
+             * Obtiene un arreglo con la lista los productos para ser comercializados en facturas
+             *
+             * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+             */
+            getBillGoodsToBeTraded() {
+                const vm = this;
+                vm.bill_good_to_be_traded = [];
+                axios.get('/sale/get-sale-goods').then(response => {
+                    vm.bill_good_to_be_traded = response.data.records;
+                });
             },
         },
         created() {
-            this.getSaleClientsRif();
-            this.getSalePaymentMethod();
-            this.getSaleClient();
-            this.getSaleWarehouse();
-            this.getSaleDiscount();
-            this.loadInventoryProduct('inventory-products');
-            this.getCurrencies();
-            this.switchHandler('type_search');
+            this.record.sale_bill_products = [];
+            this.table_options.headings = {
+                'product_type': 'Tipo de Producto',
+                'sale_warehouse_inventory_product_id': 'Producto',
+                'sale_list_subservices_id': 'Subservicio',
+                'measurement_unit': 'Unidad de medida',
+                'value': 'Precio unitario',
+                'quantity': 'Cantidad de productos',
+                'total_without_tax': 'Total sin iva',
+                'product_tax_value': 'Iva',
+                'total': 'Total',
+                'currency': 'Moneda',
+                'id': 'Acción'
+            };
+            this.table_options.sortable = [];
+            this.table_options.filterable = [];
+            this.table_options.columnsClasses = {
+                'product_type': 'col-xs-1',
+                'sale_warehouse_inventory_product_id': 'col-xs-1',
+                'sale_list_subservices_id': 'col-xs-1',
+                'measurement_unit.name': 'col-xs-1',
+                'value': 'col-xs-1',
+                'quantity': 'col-xs-1',
+                'total_without_tax': 'col-xs-1',
+                'product_tax_value': 'col-xs-1',
+                'total': 'col-xs-1',
+                'currency_id': 'col-xs-1',
+                'id': 'col-xs-2'
+            };
+            this.table_options_clients = {
+                columnsDropdown: false,
+                dateFormat:"DD/MM/YYYY",
+                filterable: [],
+                headings: {},
+                orderBy: {},
+                pagination: {},
+                perPage: 10,
+                perPageValues: ['10','20','50'],
+                sortIcon: {
+                    base:"fa",
+                    down:"fa-sort-down cursor-pointer",
+                    is:"fa-sort cursor-pointer",
+                    up:"fa-sort-up cursor-pointer",
+                },
+                sortable: {},
+                texts: {
+                    count:" ",
+                    filter:"Buscar:",
+                    filterBy:"Buscar por {column}",
+                    filterPlaceholder:"Buscar...",
+                    first:"PRIMERO",
+                    last:"ÚLTIMO",
+                    limit:"Registros",
+                    loading:"Cargando...",
+                    loadingError:"Oops! No se pudo cargar la información",
+                    noResults:"No existen registros",
+                },
+            };
+            this.table_options_clients.headings = {
+                'id': 'Acción',
+                'type_person_juridica': 'Tipo de Persona',
+                'rif': 'Identificación del Cliente',
+                'name_client': 'Nombre',
+                'phones': 'Telefonos',
+                'sale_clients_email': 'Correo Electrónico'
+            };
+            this.table_options_clients.sortable = [
+                'type_person_juridica',
+            ];
+            this.table_options_clients.filterable = [
+                'type_person_juridica',
+                'rif',
+                'id_number',
+                'name',
+                'name_client',
+            ];
+        },
+        watch: {
+            /**
+             * Método que supervisa los cambios en el selector de tipo de producto para limpiar la información
+             * dependiendo de si es un producto, un servicio, o esta vacio
+             *
+             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+            */
+            product_type() {
+                const vm = this;
+                if (vm.product_type == 'Producto') {
+                    vm.bill_product.product_type = 'Producto';
+                    vm.record.sale_goods_to_be_traded_id = '';
+                    vm.record.sale_list_subservices_id = '';
+                    vm.record.value = 0;
+                    vm.record.measurement_unit_id = '';
+                    vm.record.currency_id = '';
+                    vm.record.quantity = 0;
+                    vm.record.total = 0;
+                } else if (vm.product_type == 'Servicio') {
+                    vm.bill_product.product_type = 'Servicio';
+                    vm.record.sale_warehouse_inventory_product_id = '';
+                    vm.record.value = 0;
+                    vm.record.measurement_unit_id = '';
+                    vm.record.currency_id = '';
+                    vm.record.quantity = 0;
+                    vm.record.total = 0;
+                } else {
+                    vm.bill_product.product_type = '';
+                    vm.record.sale_goods_to_be_traded_id = '';
+                    vm.record.sale_list_subservices_id = '';
+                    vm.record.value = 0;
+                    vm.record.measurement_unit_id = '';
+                    vm.record.currency_id = '';
+                    vm.record.quantity = 0;
+                    vm.record.total = 0;
+                }
+            }
         },
         mounted() {
-            let vm = this;
-            vm.switchHandler('discount');
-            $('input[name=discount].bootstrap-switch').on('switchChange.bootstrapSwitch', function() {
-                vm.discount = $(this).is(':checked');
-            });
+            const vm = this;
+            vm.record.bill_total_without_tax = 0;
+            vm.record.bill_total = 0;
+            vm.resetProduct();
+            vm.getCurrencies();
+            vm.getQuoteTaxes();
+            vm.getQuoteListSubservices();
+            vm.getQuoteMeasurementUnits();
+            vm.getQuotePayments();
+            vm.getQuoteInventoryProducts();
+            vm.getQuoteClients();
+            /*vm.extractQuote();*/
+            vm.getSalePayments();
+            vm.getBillGoodsToBeTraded();
+
             if(vm.billid){
-                vm.loadBill(vm.billid);
+                vm.loadForm(vm.billid);
             }
-        }
+        },
     };
-    </script>
+    //$(document).ready(function() {
+    //    let today = new Date();
+    //    let dd = today.getDate();
+    //    let mm = today.getMonth() + 1;
+    //    let yyyy = today.getFullYear();
+    //    if(dd < 10) {
+    //        dd = '0' + dd;
+    //    }
+    //    if(mm < 10) {
+    //        mm = '0' + mm;
+    //    }
+    //    let now = `${yyyy}-${mm}-${dd}`;
+    //    $('#deadline_date').attr('min', now);
+    //});
+</script>
+

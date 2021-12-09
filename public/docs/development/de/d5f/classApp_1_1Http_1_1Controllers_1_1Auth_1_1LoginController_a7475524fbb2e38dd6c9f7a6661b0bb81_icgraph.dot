@@ -1,0 +1,15 @@
+digraph "username"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="username",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Obtiene el campo usado como nombre de usuario para el acceso a la aplicación, usado por el controlado..."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="sendFailedLoginResponse",height=0.2,width=0.4,color="black",URL="$de/d5f/classApp_1_1Http_1_1Controllers_1_1Auth_1_1LoginController.html#a926ec095edbc2f3e70493cd14198192b",tooltip="Obtiene la instancia de peticiones de acceso fallidas."];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="sendLockedAccountResponse",height=0.2,width=0.4,color="black",URL="$de/d5f/classApp_1_1Http_1_1Controllers_1_1Auth_1_1LoginController.html#a5a8ed6520ebd7ecd55d21cc531f4db36",tooltip="Obtiene la instancia de la petición del usuario bloqueado."];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="validateLogin",height=0.2,width=0.4,color="black",URL="$de/d5f/classApp_1_1Http_1_1Controllers_1_1Auth_1_1LoginController.html#ae32415576e8245b435be09d06e561c4c",tooltip="Valida la petición de acceso del usuario."];
+}

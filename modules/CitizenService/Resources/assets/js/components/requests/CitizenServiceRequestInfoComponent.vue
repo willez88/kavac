@@ -76,9 +76,28 @@
 
 										<div class="col-md-4">
 											<div class="form-group">
+												<strong>Atributos</strong>
+												<div class="row" style="margin: 1px 0">
+													<span class="col-md-12" id="attribute">
+													</span>
+												</div>
+								            </div>
+										</div>
+
+										<div class="col-md-4">
+											<div class="form-group">
 												<strong>Tipo de solicitud</strong>
 												<div class="row" style="margin: 1px 0">
 													<span class="col-md-12" id="citizen_service_request_type_id">
+												   </span>
+												</div>
+								            </div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<strong>Dirección de departamento</strong>
+												<div class="row" style="margin: 1px 0">
+													<span class="col-md-12" id="citizen_service_department_id">
 												   </span>
 												</div>
 								            </div>
@@ -92,6 +111,15 @@
 												<strong>Nombre</strong>
 												<div class="row" style="margin: 1px 0">
 													<span class="col-md-12" id="applicant_name">
+													</span>
+												</div>
+								            </div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<strong>Cédula de identidad</strong>
+												<div class="row" style="margin: 1px 0">
+													<span class="col-md-12" id="id_number">
 													</span>
 												</div>
 								            </div>
@@ -116,6 +144,61 @@
 												</div>
 								            </div>
 										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<strong>País</strong>
+												<div class="row" style="margin: 1px 0">
+													<span class="col-md-12" id="country_id">
+												   </span>
+												</div>
+								            </div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<strong>Estado</strong>
+												<div class="row" style="margin: 1px 0">
+													<span class="col-md-12" id="estate_id">
+												   </span>
+												</div>
+								            </div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<strong>Ciudad</strong>
+												<div class="row" style="margin: 1px 0">
+													<span class="col-md-12" id="city_id">
+												   </span>
+												</div>
+								            </div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<strong>Municipio</strong>
+												<div class="row" style="margin: 1px 0">
+													<span class="col-md-12" id="municipality_id">
+												   </span>
+												</div>
+								            </div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<strong>Parroquia</strong>
+												<div class="row" style="margin: 1px 0">
+													<span class="col-md-12" id="parish_id">
+												   </span>
+												</div>
+								            </div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<strong>Dirección</strong>
+												<div class="row" style="margin: 1px 0">
+													<span class="col-md-12" id="address">
+												   </span>
+												</div>
+								            </div>
+										</div>
+
 		                    		</div>
 		                    	</div>
 		                    	<div class="tab-pane" id="institution" role="tabpanel">
@@ -264,8 +347,10 @@
 						$(".modal-body #id").val( fields.id );
 		            	document.getElementById('date').innerText = (fields.date)?fields.date:'N/A';
 						document.getElementById('citizen_service_request_type_id').innerText = (fields.citizen_service_request_type_id)?fields.citizen_service_request_type.name:'N/A';
+						document.getElementById('citizen_service_department_id').innerText = (fields.citizen_service_department)?fields.citizen_service_department.name:'N/A';
 		            	document.getElementById('motive_request').innerText = (fields.motive_request)?fields.motive_request:'N/A';
-		            	document.getElementById('applicant_name').innerText = (fields.first_name)?((fields.last_name)?(fields.first_name+fields.last_name):(fields.first_name)):'N/A';
+						document.getElementById('attribute').innerText = (fields.attribute)?fields.attribute:'N/A';
+		            	document.getElementById('applicant_name').innerText = (fields.first_name)?((fields.last_name)?(fields.first_name + ' ' + fields.last_name):(fields.first_name)):'N/A';
 		            	let phoneText = `
 		            		<div class = "col-md-6">
 
@@ -275,8 +360,16 @@
 						});
 
 		            	phoneText += '</div>';
+		            	document.getElementById('id_number').innerText = (fields.id_number)?fields.id_number:'N/A';
 		            	document.getElementById('applicant_phone').innerHTML = phoneText;
 		            	document.getElementById('email').innerText = (fields.email)?fields.email:'N/A';
+		            	document.getElementById('country_id').innerText = (fields.parish)?fields.parish.municipality.estate.country.name:'N/A';
+		            	document.getElementById('estate_id').innerText = (fields.parish)?fields.parish.municipality.estate.name:'N/A';
+		            	document.getElementById('municipality_id').innerText = (fields.parish)?fields.parish.municipality.name:'N/A';
+		            	document.getElementById('parish_id').innerText = (fields.parish)?fields.parish.name:'N/A';
+		            	document.getElementById('city_id').innerText = (fields.city)?fields.city.name:'N/A';
+		            	document.getElementById('address').innerText = (fields.address)?fields.address:'N/A';
+
 		            	document.getElementById('institution_name').innerText = (fields.institution_name)?fields.institution_name:'N/A';
 		            	document.getElementById('rif').innerText = (fields.rif)?fields.rif:'N/A';
 		            	document.getElementById('institution_address').innerText = (fields.institution_address)?fields.institution_address:'N/A';

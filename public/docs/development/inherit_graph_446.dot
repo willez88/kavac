@@ -1,0 +1,9 @@
+digraph "Representación gráfica de la clase"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="PayrollServiceController",height=0.2,width=0.4,color="black",URL="$d2/d0f/classModules_1_1Payroll_1_1Http_1_1Controllers_1_1PayrollServiceController.html",tooltip="Controlador de Servicios del Módulo de Nómina."];
+}

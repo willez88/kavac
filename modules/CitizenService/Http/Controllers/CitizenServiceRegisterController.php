@@ -34,31 +34,31 @@ class CitizenServiceRegisterController extends Controller
         /** Establece permisos de acceso para cada método del controlador */
         /** Define las reglas de validación para el formulario */
         $this->validateRules = [
-            'date_register' => ['required'],
-            'first_name'    => ['required', 'regex:/^[\D][a-zA-ZÁ-ÿ0-9\s]*/u', 'max:100'],
+            'date_register'     => ['required'],
+            'payroll_staff_id'  => ['required'],
             'project_name'  => ['required', 'max:100'],
+            'team_name'     => ['required', 'max:200'],
             'activities'    => ['required', 'max:100'],
             'start_date'    => ['required','date'],
             'end_date'      => ['required','after_or_equal:start_date'],
             'email'         => ['required', 'email'],
-            'percent'       => ['required', 'integer', 'min:1', 'max:100']
+            'percent'       => ['integer', 'min:1', 'max:100']
 
         ];
 
         /** Define los mensajes de validación para las reglas del formulario */
         $this->messages = [
-            'first_name.required'   => 'El campo nombre del director es obligatorio.',
-            'first_name.max'        => 'El campo nombre del director no debe contener más de 100 caracteres.',
-            'first_name.regex'      => 'El campo nombre del director no debe permitir números ni símbolos.',
+            'payroll_staff_id.required'   => 'El campo nombre del director es obligatorio.',
             'project_name.required' => 'El campo nombre del proyecto es obligatorio',
             'project_name.max'      => 'El campo nombre del proyecto no debe contener más de 100 caracteres.',
+            'team_name'             => 'El campo equipo responsable es obligatorio',
+            'team_name'             => 'El campo equipo responsable no debe contener más de 200 caracteres.',
             'activities.required'   => 'El campo actividades es obligatorio',
             'activities.max'        => 'El campo actividades no debe contener más de 100 caracteres.',
             'start_date.required'   => 'El campo fecha de inicio es obligatorio',
             'end_date.required'     => 'El campo fecha de culminación es obligatorio',
             'email.required'        => 'El campo correo electrónico es obligatorio',
             'email.email'           => 'El campo correo electrónico es de tipo email',
-            'percent.required'      => 'El campo porcentaje de cumplimiento es obligatorio',
             'percent.max'           => 'El campo porcentaje de cumplimiento no debe contener más de 100 caracteres.',
             'percent.integer'       => 'El campo porcentaje de cumpliento debe ser entero',
             'percent.min'           => 'El campo porcentaje de cumpliento número minimo es 1',
@@ -91,14 +91,15 @@ class CitizenServiceRegisterController extends Controller
         //Guardar los registros del formulario en  CitizenServiceRegister
         $citizenserviceRegister = CitizenServiceRegister::create([
 
-            'date_register' => $request->input('date_register'),
-            'first_name'    => $request->input('first_name'),
-            'project_name'  => $request->input('project_name'),
-            'activities'    => $request->input('activities'),
-            'start_date'    => $request->input('start_date'),
-            'end_date'      => $request->input('end_date'),
-            'email'         => $request->input('email'),
-            'percent'       => $request->input('percent')
+            'date_register'    => $request->input('date_register'),
+            'payroll_staff_id' => $request->input('payroll_staff_id'),
+            'project_name'     => $request->input('project_name'),
+            'team_name'        => $request->input('team_name'),
+            'activities'       => $request->input('activities'),
+            'start_date'       => $request->input('start_date'),
+            'end_date'         => $request->input('end_date'),
+            'email'            => $request->input('email'),
+            'percent'          => $request->input('percent')
         ]);
 
         $request->session()->flash('message', ['type' => 'store']);
@@ -136,8 +137,9 @@ class CitizenServiceRegisterController extends Controller
         $this->validate($request, $this->validateRules, $this->messages);
         $citizenServiceRegister = CitizenServiceRegister::find($id);
         $citizenServiceRegister->date_register         = $request->date_register;
-        $citizenServiceRegister->first_name            = $request->first_name;
+        $citizenServiceRegister->payroll_staff_id      = $request->payroll_staff_id;
         $citizenServiceRegister->project_name          = $request->project_name;
+        $citizenServiceRegister->team_name             = $request->team_name;
         $citizenServiceRegister->activities            = $request->activities;
         $citizenServiceRegister->start_date            = $request->start_date;
         $citizenServiceRegister->end_date              = $request->end_date;

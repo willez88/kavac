@@ -7,7 +7,7 @@
 
 En esta sección se listan las formulaciones de solicitudes para ingreso de artículos.	A través de esta sección es posible crear una nueva solicitud, ver información detallada del registro, editar y eliminar un registro. Esta tabla de solicitudes incluye información detallada en sus columnas que permite realizar un seguimiento del las diferentes solicitudes, como lo es el código de la solicitud, descripción de la solicitud, almacén involucrado, fecha de formulación y estado de la solicitud. 
 
-![Screenshot](/img/figure_ingreso.png)<div style="text-align: center;font-weight: bold">Figura: Ingresos de Almacén</div>
+![Screenshot](img/figure_ingreso.png)<div style="text-align: center;font-weight: bold">Figura: Ingresos de Almacén</div>
 
 Los **Estados de Solicitud** que puede tomar un registro son: **Pendiente**, **Rechazado** o **Aprobado**, permitiendo así; poder realizar un seguimiento de las solicitudes. 
 
@@ -26,10 +26,10 @@ ubicado en la esquina superior derecha de esta sección, se procede a realizar u
 - Se agregan los productos a ingresar a la solicitud. 
 - Se presiona el botón **Guardar** ![Screenshot](img/save.png#imagen) ubicado al final de esta sección, y se verifica en la lista de registros en **Ingresos de Almacén**.
 
-![Screenshot](/img/figure_nuevoingreso.png)<div style="text-align: center;font-weight: bold">Figura: Nuevo Ingreso al Almacén</div>
+![Screenshot](img/figure_nuevoingreso.png)<div style="text-align: center;font-weight: bold">Figura: Nuevo Ingreso al Almacén</div>
 
 !!! note "Nota"
-	Los tipos de moneda son registrados inicialmente en la **Configuración General** del Sistema KAVAC, específicamente en la opción "Monedas" de la sección de "Registros Comúnes".
+	Los tipos de moneda son registrados inicialmente en la **Configuración General** del Sistema KAVAC, específicamente en la opción "Monedas" de la sección de "Registros Comunes".
 	
 !!! info "Información"
 	En el formulario de registro de la sección **Nuevo Ingreso al Almacén** es posible agregar todos los productos deseados, a través del botón:
@@ -38,7 +38,7 @@ ubicado en la esquina superior derecha de esta sección, se procede a realizar u
 
 	Cada producto agregado se muestra en un tabla de registros, en la parte inferior de dicha sección.
 
-![Screenshot](/img/figure_productosingresar.png)<div style="text-align: center;font-weight: bold">Figura: Productos Agregados</div>
+![Screenshot](img/figure_productosingresar.png)<div style="text-align: center;font-weight: bold">Figura: Productos Agregados</div>
 
 
 Los productos que han sido agregados pueden ser editados o eliminados, a través de los botones ubicados en la columna titulada **Acción** de la tabla de **Productos Agregados**.  
@@ -53,7 +53,7 @@ Para **Ver información detallada**, **Editar** o **Eliminar** un registro se de
 
 Esta sección lista todos las solicitudes que han sido aprobadas rechazadas, o se encuentran pendientes por revisar.	Desde esta sección el encargado de bienes o el usuario con permisos especiales, puede **Aceptar** o **Rechazar** solicitudes que se encuentran en el estado **Pendiente**.
 
-![Screenshot](/img/solicitudes_pendientes.png)<div style="text-align: center;font-weight: bold">Figura: Ingresos de Almacén Pendientes</div>
+![Screenshot](img/solicitudes_pendientes.png)<div style="text-align: center;font-weight: bold">Figura: Ingresos de Almacén Pendientes</div>
 
 Para **Ver información detallada**, **Aceptar** o **Rechazar** un registro se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de registros en la sección de **Ingresos de Almacén Pendientes**.
 
@@ -69,7 +69,7 @@ Para **Ver información detallada**, **Aceptar** o **Rechazar** un registro se d
 ubicado en la columna titulada **Acción** de la tabla de registros se aprueba la solicitud.
 
 
-###Rechazar solicitud
+### Rechazar solicitud
 
 - Dirigirse al módulo de **Almacén**. 
 - Ingresar en **Recepciones de Almacén**.

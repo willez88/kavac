@@ -7,7 +7,7 @@
 
 En esta sección se listan las solicitudes por requerimiento de artículos o materiales que un departamento o dependencia requiere, a través de esta sección es posible **Crear** una nueva solicitud, **Ver** información detallada del registro, **Editar** y **Eliminar** un registro. 
 
-![Screenshot](/img/solicitud_departamento.png)<div style="text-align: center;font-weight: bold">Figura: Solicitudes por Departamento</div>
+![Screenshot](img/solicitud_departamento.png)<div style="text-align: center;font-weight: bold">Figura: Solicitudes por Departamento</div>
 
 **Estado de la solicitud**
 
@@ -28,25 +28,25 @@ ubicado en la esquina superior derecha de esta sección, se procede a realizar u
 - Se completa el formulario de registro de la sección **Solicitud de Almacén**. 
 - Se presiona el botón **Guardar** ![Screenshot](img/save.png#imagen) ubicado al final de esta sección, y se verifica en la lista de registros en **Solicitudes por Departamento**.
 
-![Screenshot](/img/solicitud.png)<div style="text-align: center;font-weight: bold">Figura: Solicitud de Almacén-Departamento</div>
+![Screenshot](img/solicitud.png)<div style="text-align: center;font-weight: bold">Figura: Solicitud de Almacén-Departamento</div>
 
 ### Sobre los datos de la solicitud
 
 **Dependencia solicitante**
 
 !!! note "Nota"
-	Los datos correspondientes al campo Dependencia Solicitante (departamento), deben estar registrados previamente, de no estar registrados es necesario adjuntar esta información en la Configuración General del Sistema KAVAC, específicamente en la opción "Unidades/Dependencias" de la sección de "Registros Comúnes".
+	Los datos correspondientes al campo Dependencia Solicitante (departamento), deben estar registrados previamente, de no estar registrados es necesario adjuntar esta información en la Configuración General del Sistema KAVAC, específicamente en la opción "Unidades/Dependencias" de la sección de "Registros Comunes".
 
 **Proyecto y Acción Centralizada**
 	
 Si la solicitud se encuentra relacionada directamente con un **Proyecto** cambie el botón de selección a la opción **SI** e ingrese un **Proyecto** y **Acción Específica** (asegurese de que exista al menos una **Acción Específica** asociada al **Proyecto**). 
 
-![Screenshot](/img/proyecto.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Solicitud de Almacén-Proyecto</div>
+![Screenshot](img/proyecto.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Solicitud de Almacén-Proyecto</div>
 
 
 Si la solicitud se encuentra relacionada directamente con una **Acción Centralizada** cambie el botón de selección a la opción **SI** e ingrese una **Acción Centralizada** y **Acción Específica** (asegurese de que exista al menos una **Acción Específica** asociada a la **Acción Centralizada**).
 
-![Screenshot](/img/accion_centralizada.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Solicitud de Almacén-Acción Centralizada</div>
+![Screenshot](img/accion_centralizada.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Solicitud de Almacén-Acción Centralizada</div>
 	
 !!! note "Nota"
 	Los datos correspondientes al campo Proyecto, Acción Específica y Acción Centralizada, deben estar registrados previamente, de no estar registrados es necesario adjuntar esta información en la Configuración del módulo de Presupuesto. 
@@ -55,7 +55,7 @@ Si la solicitud se encuentra relacionada directamente con una **Acción Centrali
 
 Seleccione los artículos a solicitar usando el botón Checkbox ubicado en la primera columna de la tabla de artículos y a través del campo ubicado en la columna titulada **Solicitados** indique el número de artículos a solicitar. 
 
-![Screenshot](/img/rect302.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Selección de Artículos</div>
+![Screenshot](img/rect302.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Selección de Artículos</div>
 
 !!! warning "Advertencia"
 	El número de artículos a solicitar debe ser menor o igual al número de artículos en Existencia
@@ -72,7 +72,7 @@ Para **Ver información detallada**, **Editar** o **Eliminar** un registro se de
 
 En esta sección se listan las solicitudes por requerimiento de artículos o materiales que un usuario requiere, a través de esta sección es posible **Crear** una nueva solicitud, **Ver** información detallada del registro, **Editar** y **Eliminar** un registro. 
 
-![Screenshot](/img/usuario.png)<div style="text-align: center;font-weight: bold">Figura: Solicitudes por Usuario</div>
+![Screenshot](img/usuario.png)<div style="text-align: center;font-weight: bold">Figura: Solicitudes por Usuario</div>
 
 **Estado de la solicitud**
 
@@ -92,14 +92,14 @@ ubicado en la esquina superior derecha de esta sección, se procede a realizar u
 - Se completa el formulario de registro de la sección **Solicitud de Almacén**. 
 - Se presiona el botón **Guardar** ![Screenshot](img/save.png#imagen) ubicado al final de la sección y se verifica en la lista de registros de la sección **Solicitudes por Usuario**.
 
-![Screenshot](/img/solicitud_usuario.png)<div style="text-align: center;font-weight: bold">Figura: Solicitud de Almacén-Usuario</div>
+![Screenshot](img/solicitud_usuario.png)<div style="text-align: center;font-weight: bold">Figura: Solicitud de Almacén-Usuario</div>
 
 ### Sobre los datos de la solicitud
 
 **Departamento**
 
 !!! note "Nota"
-	Los datos correspondientes al campo Departamento, deben estar registrados previamente, de no estar registrados es necesario adjuntar esta información en la Configuración General del Sistema KAVAC, específicamente en la opción "Unidades/Dependencias" de la sección de "Registros Comúnes".
+	Los datos correspondientes al campo Departamento, deben estar registrados previamente, de no estar registrados es necesario adjuntar esta información en la Configuración General del Sistema KAVAC, específicamente en la opción "Unidades/Dependencias" de la sección de "Registros Comunes".
 
 **Cargo y Solicitante**
 	
@@ -111,7 +111,7 @@ ubicado en la esquina superior derecha de esta sección, se procede a realizar u
 
 Seleccione los artículos a solicitar usando el botón Checkbox ubicado en la primera columna de la tabla de artículos y a través del campo ubicado en la columna titulada **Solicitados** indique el número de artículos a solicitar. 
 
-![Screenshot](/img/rect302.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Selección de Artículos</div>
+![Screenshot](img/rect302.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Selección de Artículos</div>
 
 !!! warning "Advertencia"
 	El número de artículos a solicitar debe ser menor o igual al número de artículos en Existencia
@@ -137,7 +137,7 @@ Para **Ver información detallada**, **Editar** o **Eliminar** un registro se de
 
 Esta sección lista todos las solicitudes que han sido aprobadas rechazadas, o se encuentran pendientes por revisar.	Desde esta sección el encargado de bienes o el usuario con permisos especiales, puede **Consultar información de solicitud**, **Aceptar** o **Rechazar** solicitudes que se encuentran en el estado **Pendiente**.
 
-![Screenshot](/img/pendientes.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Solicitudes Pendientes</div>
+![Screenshot](img/pendientes.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Solicitudes Pendientes</div>
  
 Para **Ver** información detallada, **Aceptar** o **Rechazar** una solicitud se debe hacer uso de los botones ubicados en la columna titulada **Acción** de la tabla de registros en la sección **Solicitudes Pendientes**.
 
@@ -166,7 +166,7 @@ ubicado en la columna titulada **Acción** de la tabla de registros se rechaza l
 
 Una vez la solicitud ha sido aceptada, y el artículo se encuentra disponible se habilita la opción **Entregar Producto** en la columna títulada **Acción**. 
 
-![Screenshot](/img/entregar.png)<div style="text-align: center">Figura: Solicitudes Pendientes</div>
+![Screenshot](img/entregar.png)<div style="text-align: center">Figura: Solicitudes Pendientes</div>
 
 
 ### Entregar producto
@@ -178,11 +178,11 @@ Una vez la solicitud ha sido aceptada, y el artículo se encuentra disponible se
 ubicado en la columna titulada **Acción** de la tabla de solicitudes.
 - Ingresar una observación y presionar el botón **Guardar** para confirmar entrega. 
 
-![Screenshot](/img/confirmar.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Solicitudes Pendientes</div>
+![Screenshot](img/confirmar.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Solicitudes Pendientes</div>
 
 Luego que la entrega ha sido confirmada la solicitud cambia su estado a **Entregado** en la tabla de **Solicitudes por Departamento** o **Solicitudes por Usuario** según sea el caso.
 
-![Screenshot](/img/listo_entregado.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Estado de Solicitud-Entregado</div>
+![Screenshot](img/listo_entregado.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Estado de Solicitud-Entregado</div>
 
 
 

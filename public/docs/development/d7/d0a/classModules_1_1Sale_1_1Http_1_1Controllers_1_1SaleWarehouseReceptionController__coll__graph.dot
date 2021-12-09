@@ -1,0 +1,8 @@
+digraph "SaleWarehouseReceptionController"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{SaleWarehouseReceptionController\n||+ __construct()\l+ approvedReception()\l+ create()\l+ destroy()\l+ edit()\l+ getMeasurementUnits()\l+ getTaxes()\l+ index()\l+ rejectedReception()\l+ update()\l+ vueInfo()\l+ vueList()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Controlador de recepciones de almacén."];
+}

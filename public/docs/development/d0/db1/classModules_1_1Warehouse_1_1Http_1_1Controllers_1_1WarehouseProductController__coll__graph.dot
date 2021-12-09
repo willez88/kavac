@@ -1,0 +1,8 @@
+digraph "WarehouseProductController"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{WarehouseProductController\n|# $messages\l# $validateRules\l|+ __construct()\l+ destroy()\l+ export()\l+ getInventoryProducts()\l+ getMeasurementUnits()\l+ getProductAttributes()\l+ getProductMeasurementUnit()\l+ getWarehouseProducts()\l+ import()\l+ index()\l+ store()\l+ update()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Controlador de los productos de almacén."];
+}

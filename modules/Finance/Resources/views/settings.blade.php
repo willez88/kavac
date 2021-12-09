@@ -9,7 +9,7 @@
 @stop
 
 @section('maproute-actual')
-	Finanza
+	Finanzas
 @stop
 
 @section('maproute-title')

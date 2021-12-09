@@ -1,0 +1,387 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>KAVAC: Fichero Fuente AccountingListComponent.vue</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+<link href="../../customdoxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../logo-doc.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">KAVAC
+   &#160;<span id="projectnumber">versión 1.0.0</span>
+   </div>
+   <div id="projectbrief">Sistema de Gestión Organizacional</div>
+  </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="../../search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.png" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "../../search",false,'Buscar');
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('d7/d30/entries_2AccountingListComponent_8vue_source.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">entries/AccountingListComponent.vue</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;&lt;template&gt;</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    &lt;section&gt;</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;        &lt;div class=&quot;form-group form-inline pull-left VueTables__search-2&quot;&gt;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;            &lt;div class=&quot;VueTables__search-field&quot;&gt;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;                &lt;label class=&quot;&quot;&gt;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                    Buscar:</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;                &lt;/label&gt;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;                &lt;input  type=&quot;text&quot;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;                        class=&quot;form-control&quot;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;                        placeholder=&quot;Buscar...&quot;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                        v-model=&quot;search&quot;&gt;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;            &lt;/div&gt;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        &lt;/div&gt;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        &lt;div class=&quot;form-group form-inline pull-right VueTables__limit-2&quot;&gt;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;            &lt;div class=&quot;VueTables__limit-field&quot;&gt;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                &lt;label class=&quot;&quot;&gt;Registros&lt;/label&gt;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;                &lt;select2 :options=&quot;perPageValues&quot;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;                    v-model=&quot;perPage&quot;&gt;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                &lt;/select2&gt;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;            &lt;/div&gt;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        &lt;/div&gt;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        &lt;v-client-table :columns=&quot;columns&quot; :data=&quot;records&quot; :options=&quot;table_options&quot; ref=&quot;tableMax&quot;&gt;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;            &lt;div slot=&quot;from_date&quot; slot-scope=&quot;props&quot; class=&quot;text-center&quot;&gt;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                {{ formatDate(props.row.from_date) }}</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            &lt;/div&gt;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            &lt;div slot=&quot;reference&quot; slot-scope=&quot;props&quot; class=&quot;text-center&quot;&gt;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                {{ props.row.reference }}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            &lt;/div&gt;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            &lt;div slot=&quot;total&quot; slot-scope=&quot;props&quot; class=&quot;text-right&quot;&gt;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                &lt;strong&gt;Debe: &lt;/strong&gt;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                {{ props.row.currency.symbol }} {{ parseFloat(props.row.tot_debit).toFixed(props.row.currency.decimal_places) }}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                &lt;br&gt;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                &lt;strong&gt;Haber&lt;/strong&gt;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                {{ props.row.currency.symbol }} {{ parseFloat(props.row.tot_assets).toFixed(props.row.currency.decimal_places) }}</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            &lt;/div&gt;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            &lt;div slot=&quot;approved&quot; slot-scope=&quot;props&quot; class=&quot;text-center&quot;&gt;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                &lt;span class=&quot;badge badge-success&quot; v-show=&quot;props.row.approved&quot;&gt;&lt;strong&gt;Aprobado&lt;/strong&gt;&lt;/span&gt;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                &lt;span class=&quot;badge badge-danger&quot; v-show=&quot;!props.row.approved&quot;&gt;&lt;strong&gt;No Aprobado&lt;/strong&gt;&lt;/span&gt;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            &lt;/div&gt;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            &lt;div slot=&quot;id&quot; slot-scope=&quot;props&quot; class=&quot;text-center&quot;&gt;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                &lt;div class=&quot;d-inline-flex&quot;&gt;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                    &lt;button @click=&quot;approve(props.index)&quot;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                            class=&quot;btn btn-success btn-xs btn-icon btn-action&quot;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                            title=&quot;Aprobar Registro&quot; data-toggle=&quot;tooltip&quot;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                            v-if=&quot;!props.row.approved&quot;&gt;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                        &lt;i class=&quot;fa fa-check&quot;&gt;&lt;/i&gt;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                    &lt;/button&gt;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                    &lt;accounting-entry-show :id=&quot;props.row.id&quot; :route_show=&quot;&#39;accounting/entries/&#39;+props.row.id&quot; /&gt;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                    &lt;button @click=&quot;editForm(props.row.id)&quot;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                            class=&quot;btn btn-warning btn-xs btn-icon btn-action&quot;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                            title=&quot;Modificar registro&quot; data-toggle=&quot;tooltip&quot;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                            v-if=&quot;!props.row.approved&quot;&gt;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                        &lt;i class=&quot;fa fa-edit&quot;&gt;&lt;/i&gt;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                    &lt;/button&gt;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                    &lt;button @click=&quot;deleteRecord(props.row.id,&#39;/accounting/entries&#39;)&quot;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                            class=&quot;btn btn-danger btn-xs btn-icon btn-action&quot;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                            title=&quot;Eliminar Registro&quot; data-toggle=&quot;tooltip&quot;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                            v-if=&quot;!props.row.approved&quot;&gt;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                        &lt;i class=&quot;fa fa-trash-o&quot;&gt;&lt;/i&gt;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                    &lt;/button&gt;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                    &lt;a class=&quot;btn btn-primary btn-xs btn-icon&quot;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                            :href=&quot;urlPdf+&#39;/pdf/&#39;+props.row.id&quot;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                            title=&quot;Imprimir Registro&quot;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                            data-toggle=&quot;tooltip&quot;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                            target=&quot;_blank&quot;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                            v-if=&quot;props.row.approved&quot;&gt;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                            &lt;i class=&quot;fa fa-print&quot; style=&quot;text-align: center;&quot;&gt;&lt;/i&gt;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                    &lt;/a&gt;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                &lt;/div&gt;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            &lt;/div&gt;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        &lt;/v-client-table&gt;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        &lt;div class=&quot;VuePagination-2 row col-md-12 &quot;&gt;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            &lt;nav class=&quot;text-center&quot;&gt;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                &lt;ul class=&quot;pagination VuePagination__pagination&quot; style=&quot;&quot;&gt;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                    &lt;li class=&quot;VuePagination__pagination-item page-item  VuePagination__pagination-item-prev-chunk&quot; v-if=&quot;page != 1&quot;&gt;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                        &lt;a class=&quot;page-link&quot; @click=&quot;changePage(1)&quot;&gt;PRIMERO&lt;/a&gt;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                    &lt;/li&gt;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                    &lt;li class=&quot;VuePagination__pagination-item page-item  VuePagination__pagination-item-prev-chunk disabled&quot;&gt;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                        &lt;a class=&quot;page-link&quot;&gt;&amp;lt;&amp;lt;&lt;/a&gt;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                    &lt;/li&gt;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                    &lt;li class=&quot;VuePagination__pagination-item page-item  VuePagination__pagination-item-prev-page&quot; v-if=&quot;page &gt; 1&quot;&gt;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                        &lt;a class=&quot;page-link&quot; @click=&quot;changePage(page - 1)&quot;&gt;&amp;lt;&lt;/a&gt;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                    &lt;/li&gt;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                    &lt;li :class=&quot;(page == number)?&#39;VuePagination__pagination-item page-item active&#39;:&#39;VuePagination__pagination-item page-item&#39;&quot; v-for=&quot;number in pageValues&quot; v-if=&quot;number &lt;= lastPage&quot;&gt;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                        &lt;a class=&quot;page-link active&quot; role=&quot;button&quot; @click=&quot;changePage(number)&quot;&gt;{{number}}&lt;/a&gt;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                    &lt;/li&gt;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                    &lt;li class=&quot;VuePagination__pagination-item page-item  VuePagination__pagination-item-next-page&quot; v-if=&quot;page &lt; lastPage&quot;&gt;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                        &lt;a class=&quot;page-link&quot; @click=&quot;changePage(page + 1)&quot;&gt;&amp;gt;&lt;/a&gt;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                    &lt;/li&gt;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                    &lt;li class=&quot;VuePagination__pagination-item page-item  VuePagination__pagination-item-next-chunk disabled&quot;&gt;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                        &lt;a class=&quot;page-link&quot;&gt;&amp;gt;&amp;gt;&lt;/a&gt;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                    &lt;/li&gt;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                    &lt;li class=&quot;VuePagination__pagination-item page-item  VuePagination__pagination-item-prev-chunk&quot; v-if=&quot;lastPage &amp;&amp; lastPage != page&quot;&gt;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                        &lt;a class=&quot;page-link&quot; @click=&quot;changePage(lastPage)&quot;&gt;ÚLTIMO&lt;/a&gt;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                    &lt;/li&gt;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                &lt;/ul&gt;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                &lt;p class=&quot;VuePagination__count text-center col-md-12&quot; style=&quot;&quot;&gt; &lt;/p&gt;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            &lt;/nav&gt;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        &lt;/div&gt;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    &lt;/section&gt;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;&lt;/template&gt;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;&lt;style type=&quot;text/css&quot; scope&gt;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    .VueTables__search {</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        display: none;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    }</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    .VueTables__limit {</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        display: none;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    .VuePagination {</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        display: none;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    }</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;&lt;/style&gt;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;&lt;script&gt;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    export default{</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        props:{</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            entries:{</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                type:Array,</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                default: function() {</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                    return [];</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                }</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            },</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        },</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        data(){</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            return {</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                url:&#39;/accounting/entries/Filter-Records&#39;,</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                dataForm:{},</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                records: [],</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                search: &#39;&#39;,</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                page: 1,</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                total: &#39;&#39;,</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                perPage: 10,</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                lastPage: &#39;&#39;,</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                pageValues: [1,2,3,4,5,6,7,8,9,10],</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                perPageValues: [</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                    {</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                        &#39;id&#39;: 10,</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                        &#39;text&#39;: &#39;10&#39;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                    },</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;                    {</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;                        &#39;id&#39;: 25,</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;                        &#39;text&#39;: &#39;25&#39;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                    },</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                    {</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                        &#39;id&#39;: 50,</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                        &#39;text&#39;: &#39;50&#39;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                    }</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                ],</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;                urlPdf:&#39;/accounting/entries&#39;,</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                columns: [&#39;from_date&#39;, &#39;reference&#39;, &#39;concept&#39;, &#39;total&#39;, &#39;approved&#39;, &#39;id&#39;]</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            }</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        },</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        watch: {</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;            perPage(res) {</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                if (this.page == 1){</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                    this.initRecords(this.url + &#39;/&#39; + res, &#39;&#39;);</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                } else {</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                    this.changePage(1);</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                }</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;            },</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;            page(res) {</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                this.initRecords(this.url + &#39;/&#39; + this.perPage + &#39;/&#39; + res, &#39;&#39;);</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;            },</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            search(res){</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                this.changePage(1);</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                this.initRecords(this.url);</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;            }</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        },</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        methods:{</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;            /**</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;             * Cambia la pagina actual de la tabla</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;             *</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;             * @author Juan Rosas &lt;jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com&gt;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;             *</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;             * @param [Integer] $page Número de pagina actual</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;             */</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;            changePage(page) {</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;                const vm = this;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;                vm.page = page;</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;                var pag = 0;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;                while(1) {</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                    if (pag + 10 &gt;= vm.page) {</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;                        pag += 1;</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                        break;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                    } else {</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                        pag += 10;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                    }</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;                }</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                vm.pageValues = [];</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                for (var i = 0; i &lt; 10; i++) {</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;                    vm.pageValues.push(pag + i);</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                }</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;            },</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;            /**</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;             * Reescribe el método initRecords para cambiar su comportamiento por defecto y realiza la consulta</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;             * en base a la informacion del formulario</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;             *</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;             * @author Juan Rosas &lt;jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com&gt;</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;             *</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;             * @param {string} url      Ruta que obtiene los datos a ser mostrado en listados</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;             */</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;            initRecords(url) {</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;                const vm = this;</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;                vm.dataForm[&#39;search&#39;] = vm.search;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;                axios.post(url, vm.dataForm).then(response=&gt;{</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;                    if (response.data.records.length == 0) {</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;                        vm.showMessage(</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;                                &#39;custom&#39;, &#39;Error&#39;, &#39;danger&#39;, &#39;screen-error&#39;, &quot;No se encontraron asientos contables aprobados con los parámetros de busqueda dados.&quot;</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;                            );</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;                    }else{</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;                        if (vm.dataForm[&#39;firstSearch&#39;]) {</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;                            vm.showMessage(&#39;custom&#39;, &#39;Éxito&#39;, &#39;success&#39;, &#39;screen-ok&#39;, &#39;Busqueda realizada de manera exitosa.&#39;);</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;                            vm.dataForm[&#39;firstSearch&#39;] = false;</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;                        }</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;                    }</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;                    vm.records = response.data.records;</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;                    vm.total = response.data.total;</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;                    vm.lastPage = response.data.lastPage;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;                    vm.$refs.tableMax.setLimit(vm.perPage);</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;                }).catch(error =&gt; {</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;                    if (typeof(error.response) !== &quot;undefined&quot;) {</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;                        if (error.response.status == 403) {</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;                            vm.showMessage(</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;                                &#39;custom&#39;, &#39;Acceso Denegado&#39;, &#39;danger&#39;, &#39;screen-error&#39;, error.response.data.message</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;                            );</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;                        }</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;                        else {</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;                            vm.logs(&#39;resources/js/all.js&#39;, 343, error, &#39;initRecords&#39;);</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;                        }</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;                    }</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;                });</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;            },</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        },</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        created(){</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;            this.table_options.headings = {</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;                &#39;from_date&#39;: &#39;FECHA&#39;,</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;                &#39;reference&#39;: &#39;REFERENCIA&#39;,</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;                &#39;concept&#39;  : &#39;CONCEPTO&#39;,</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;                &#39;total&#39;    : &#39;TOTAL&#39;,</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;                &#39;approved&#39; : &#39;ESTATUS&#39;,</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;                &#39;id&#39;       : &#39;ACCIÓN&#39;</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;            };</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;            this.table_options.sortable   = [];</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;            this.table_options.filterable = [];</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;            this.table_options.columnsClasses = {</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;                &#39;from_date&#39;   : &#39;col-xs-1&#39;,</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;                &#39;reference&#39;   : &#39;col-xs-2&#39;,</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;                &#39;denomination&#39;: &#39;col-xs-4&#39;,</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;                &#39;total&#39;       : &#39;col-xs-2&#39;,</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;                &#39;approved&#39;    : &#39;col-xs-1&#39;,</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;                &#39;id&#39;          : &#39;col-xs-2&#39;</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;            };</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160; </div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;            this.table_options.filterable = [];</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;            if (this.entries) {</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;                this.records = this.entries;</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;            }</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;            EventBus.$on(&#39;reload:listing&#39;,(data)=&gt;{</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;                this.records = data;</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;            });</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160; </div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;            EventBus.$on(&#39;list:entries&#39;,(data)=&gt;{</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;                this.search = &#39;&#39;;</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;                this.dataForm = data;</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;                this.initRecords(this.url);</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;            });</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        },</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    };</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160; </div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;&lt;/script&gt;</div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_e05d7e2b1ecd646af5bb94391405f3b5.html">modules</a></li><li class="navelem"><a class="el" href="../../dir_e9c51124d36e4406d93a0c0797fbe518.html">Accounting</a></li><li class="navelem"><a class="el" href="../../dir_501290b7233389ca32691a7df2f78736.html">Resources</a></li><li class="navelem"><a class="el" href="../../dir_036437eaab0a42f3f36fb9134559543c.html">assets</a></li><li class="navelem"><a class="el" href="../../dir_2ba7af93db78ba957502a2db0387e614.html">js</a></li><li class="navelem"><a class="el" href="../../dir_016ac149ec1e05090c5919cb7004b196.html">components</a></li><li class="navelem"><a class="el" href="../../dir_2af546904e6053c80a8d64e1e4a80c8f.html">entries</a></li><li class="navelem"><b>AccountingListComponent.vue</b></li>
+    <li class="footer">Generado el Miércoles, 8 de Diciembre de 2021 14:39:56 para KAVAC por
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

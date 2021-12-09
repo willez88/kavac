@@ -115,6 +115,21 @@ class Handler extends ExceptionHandler
             ]);
         }
 
+        if ($exception instanceof Swift_TransportException || $exception->getCode() === 530) {
+            $msg = 'Error del sistema. Si el problema persiste contacte al administrador';
+
+            if ($request->ajax()) {
+                return response()->json(['result' => false, 'message' => $msg], 200);
+            }
+
+            $request->session()->flash('message', [
+                'type' => 'other', 'msg' => $msg, 'text' => $msg, 'title' => 'Error!', 'icon' => 'screen-error',
+                'class' => 'growl-danger'
+            ]);
+
+            return redirect()->back();
+        }
+
         return parent::render($request, $exception);
     }
 }

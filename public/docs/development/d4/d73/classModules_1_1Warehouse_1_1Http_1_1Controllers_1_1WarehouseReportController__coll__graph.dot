@@ -1,0 +1,8 @@
+digraph "WarehouseReportController"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{WarehouseReportController\n||+ __construct()\l+ create()\l+ index()\l+ inventoryProducts()\l+ requestProducts()\l+ show()\l+ stocks()\l+ vueList()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Controlador de los reportes de productos registrados en almacén."];
+}

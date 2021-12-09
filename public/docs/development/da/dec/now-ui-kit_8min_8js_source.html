@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>KAVAC: Fichero Fuente now-ui-kit.min.js</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+<link href="../../customdoxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../logo-doc.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">KAVAC
+   &#160;<span id="projectnumber">versión 1.0.0</span>
+   </div>
+   <div id="projectbrief">Sistema de Gestión Organizacional</div>
+  </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="../../search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.png" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "../../search",false,'Buscar');
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('da/dec/now-ui-kit_8min_8js_source.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">now-ui-kit.min.js</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;var transparent=true;var transparentDemo=true;var fixedTop=false;var navbar_initialized,backgroundOrange=false,toggle_initialized=false;$(document).ready(function(){ $(&#39;[data-toggle=&quot;tooltip&quot;], [rel=&quot;tooltip&quot;]&#39;).tooltip({trigger:&quot;hover&quot;,delay:{hide:200}}); $(&#39;[data-toggle=&quot;popover&quot;]&#39;).each(function(){color_class=$(this).data(&#39;color&#39;);$(this).popover({template:&#39;&lt;div class=&quot;popover popover-&#39;+color_class+&#39;&quot; role=&quot;tooltip&quot;&gt;&lt;div class=&quot;arrow&quot;&gt;&lt;/div&gt;&lt;h3 class=&quot;popover-header&quot;&gt;&lt;/h3&gt;&lt;div class=&quot;popover-body&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;});}); nowuiKit.initNavbarImage();$navbar=$(&#39;.navbar[color-on-scroll]&#39;);scroll_distance=$navbar.attr(&#39;color-on-scroll&#39;)||500;if($(&#39;.navbar[color-on-scroll]&#39;).length!=0){nowuiKit.checkScrollForTransparentNavbar();$(window).on(&#39;scroll&#39;,nowuiKit.checkScrollForTransparentNavbar)}</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;$(&#39;.form-control&#39;).on(&quot;focus&quot;,function(){$(this).parent(&#39;.input-group&#39;).addClass(&quot;input-group-focus&quot;);}).on(&quot;blur&quot;,function(){$(this).parent(&quot;.input-group&quot;).removeClass(&quot;input-group-focus&quot;);}); $(&#39;.bootstrap-switch&#39;).each(function(){$this=$(this);data_on_label=$this.data(&#39;on-label&#39;)||&#39;&#39;;data_off_label=$this.data(&#39;off-label&#39;)||&#39;&#39;;data_on_color=$this.data(&#39;on-color&#39;)||&#39;&#39;;data_off_color=$this.data(&#39;off-color&#39;)||&#39;&#39;;$this.bootstrapSwitch({onText:data_on_label,offText:data_off_label});});if($(window).width()&gt;=992){big_image=$(&#39;.page-header-image[data-parallax=&quot;true&quot;]&#39;);$(window).on(&#39;scroll&#39;,nowuiKitDemo.checkScrollForParallax);} </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;$(&#39;.carousel&#39;).carousel({interval:4000});$(&#39;.date-picker&#39;).each(function(){$(this).datepicker({templates:{leftArrow:&#39;&lt;i class=&quot;now-ui-icons arrows-1_minimal-left&quot;&gt;&lt;/i&gt;&#39;,rightArrow:&#39;&lt;i class=&quot;now-ui-icons arrows-1_minimal-right&quot;&gt;&lt;/i&gt;&#39;}}).on(&#39;show&#39;,function(){$(&#39;.datepicker&#39;).addClass(&#39;open&#39;);datepicker_color=$(this).data(&#39;datepicker-color&#39;);if(datepicker_color.length!=0){$(&#39;.datepicker&#39;).addClass(&#39;datepicker-&#39;+datepicker_color+&#39;&#39;);}}).on(&#39;hide&#39;,function(){$(&#39;.datepicker&#39;).removeClass(&#39;open&#39;);});});});$(window).on(&#39;resize&#39;,function(){nowuiKit.initNavbarImage();});$(document).on(&#39;click&#39;,&#39;.navbar-toggler&#39;,function(){$toggle=$(this);if(nowuiKit.misc.navbar_menu_visible==1){$(&#39;html&#39;).removeClass(&#39;nav-open&#39;);nowuiKit.misc.navbar_menu_visible=0;$(&#39;#bodyClick&#39;).remove();setTimeout(function(){$toggle.removeClass(&#39;toggled&#39;);},550);}else{setTimeout(function(){$toggle.addClass(&#39;toggled&#39;);},580);div=&#39;&lt;div id=&quot;bodyClick&quot;&gt;&lt;/div&gt;&#39;;$(div).appendTo(&#39;body&#39;).click(function(){$(&#39;html&#39;).removeClass(&#39;nav-open&#39;);nowuiKit.misc.navbar_menu_visible=0;setTimeout(function(){$toggle.removeClass(&#39;toggled&#39;);$(&#39;#bodyClick&#39;).remove();},550);});$(&#39;html&#39;).addClass(&#39;nav-open&#39;);nowuiKit.misc.navbar_menu_visible=1;}});nowuiKit={misc:{navbar_menu_visible:0},checkScrollForTransparentNavbar:debounce(function(){if($(document).scrollTop()&gt;scroll_distance){if(transparent){transparent=false;$(&#39;.navbar[color-on-scroll]&#39;).removeClass(&#39;navbar-transparent&#39;);}}else{if(!transparent){transparent=true;$(&#39;.navbar[color-on-scroll]&#39;).addClass(&#39;navbar-transparent&#39;);}}},17),initNavbarImage:function(){var $navbar=$(&#39;.navbar&#39;).find(&#39;.navbar-translate&#39;).siblings(&#39;.navbar-collapse&#39;);var background_image=$navbar.data(&#39;nav-image&#39;);if($(window).width()&lt;991||$(&#39;body&#39;).hasClass(&#39;burger-menu&#39;)){if(background_image!=undefined){$navbar.css(&#39;background&#39;,&quot;url(&#39;&quot;+background_image+&quot;&#39;)&quot;).removeAttr(&#39;data-nav-image&#39;).css(&#39;background-size&#39;,&quot;cover&quot;).addClass(&#39;has-image&#39;);}}else if(background_image!=undefined){$navbar.css(&#39;background&#39;,&quot;&quot;).attr(&#39;data-nav-image&#39;,&#39;&#39;+background_image+&#39;&#39;).css(&#39;background-size&#39;,&quot;&quot;).removeClass(&#39;has-image&#39;);}},initSliders:function(){ var slider=document.getElementById(&#39;sliderRegular&#39;);noUiSlider.create(slider,{start:40,connect:[true,false],range:{min:0,max:100}});var slider2=document.getElementById(&#39;sliderDouble&#39;);noUiSlider.create(slider2,{start:[20,60],connect:true,range:{min:0,max:100}});}}</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;var big_image;nowuiKitDemo={checkScrollForParallax:debounce(function(){var current_scroll=$(this).scrollTop();oVal=($(window).scrollTop()/3);big_image.css({&#39;transform&#39;:&#39;translate3d(0,&#39;+oVal+&#39;px,0)&#39;,&#39;-webkit-transform&#39;:&#39;translate3d(0,&#39;+oVal+&#39;px,0)&#39;,&#39;-ms-transform&#39;:&#39;translate3d(0,&#39;+oVal+&#39;px,0)&#39;,&#39;-o-transform&#39;:&#39;translate3d(0,&#39;+oVal+&#39;px,0)&#39;});},6)}</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;function debounce(func,wait,immediate){var timeout;return function(){var context=this,args=arguments;clearTimeout(timeout);timeout=setTimeout(function(){timeout=null;if(!immediate)func.apply(context,args);},wait);if(immediate&amp;&amp;!timeout)func.apply(context,args);};};</div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_0fc3f8f3ef96ce2d45d66d6e29832317.html">resources</a></li><li class="navelem"><a class="el" href="../../dir_a794a5ff81584a815c22a64994c08658.html">js</a></li><li class="navelem"><a class="el" href="../../dir_6b32be4c544df309a31d0b8b2bb74de2.html">now-ui-kit</a></li><li class="navelem"><b>now-ui-kit.min.js</b></li>
+    <li class="footer">Generado el Miércoles, 8 de Diciembre de 2021 14:39:58 para KAVAC por
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

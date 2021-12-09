@@ -1,0 +1,10 @@
+[
+    {
+        "element": "#helpIconTabs",
+        "intro": "Selecciona los distintos paquetes de iconos disponibles"
+    },
+    {
+        "element": "#helpPackContent",
+        "intro": "Muestra los distintos iconos disponibles del paquete seleccionado"
+    }
+]

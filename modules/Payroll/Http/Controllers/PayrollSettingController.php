@@ -21,6 +21,7 @@ class PayrollSettingController extends Controller
      */
     public function index()
     {
+        $enable = isModuleEnabled('DigitalSignature');
         $codeSettings = CodeSetting::where('module', 'payroll')->get();
         $sCode  = $codeSettings->where('table', 'payroll_staffs')->first();
         $ssCode = $codeSettings->where('table', 'payroll_salary_scales')->first();

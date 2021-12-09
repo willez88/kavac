@@ -1,5 +1,7 @@
 # Project information
 site_name: Documentación de Usuario.
+site_dir: ../../../public/docs/user_budget
+use_directory_urls: true
 
 # Page tree
 nav:
@@ -15,8 +17,6 @@ nav:
         - Proyectos: setting/projects.md 
         - Acciones Centralizadas: setting/centralized_actions.md
         - Acciones Específicas: setting/specific_actions.md
-      - Panel de Control: 
-        - Panel de Control: control_panel/control_panel.md 
       - Preguntas Frecuentes: frequent_questions.md  
 
 # Repository

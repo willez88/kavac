@@ -1,0 +1,8 @@
+digraph "BudgetSubSpecificFormulationController"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{BudgetSubSpecificFormulation\lController\n||+ __construct()\l+ create()\l+ destroy()\l+ download()\l+ edit()\l+ getAvailabilityOpenedAccounts()\l+ getFormulation()\l+ importFormulation()\l+ index()\l+ printFormulated()\l+ printFormulatedSign()\l+ show()\l+ store()\l+ update()\l+ vueList()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Controlador de formulaciones de presupuesto por sub específicas."];
+}

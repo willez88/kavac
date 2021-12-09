@@ -98,7 +98,7 @@
                 },
                 records: [],
                 errors: [],
-                columns: ['file', 'size', 'state', 'id']
+                columns: ['file', 'state', 'id']
             }
         },
         mounted() {
@@ -113,12 +113,11 @@
         created() {
             this.table_options.headings = {
                 'file': 'Archivo',
-                'size': 'Tamaño',
                 'state': 'Estado',
                 'id': 'Acción'
             };
-            this.table_options.sortable = ['file', 'size', 'state'];
-            this.table_options.filterable = ['file', 'size', 'state'];
+            this.table_options.sortable = ['file','state'];
+            this.table_options.filterable = ['file','state'];
 
         },
         props: {
@@ -194,7 +193,7 @@
                 var inputFile = document.querySelector('#file');
                 formData.append("file", inputFile.files[0]);
                 formData.append("request_id", $(".modal-body #id").val())
-                axios.post('citizenservice/requests/validate-document', formData, {
+                axios.post('/citizenservice/requests/validate-document', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }

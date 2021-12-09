@@ -17,7 +17,7 @@ use Maatwebsite\Excel\HeadingRowImport;
 use App\Imports\DataImport;
 use App\Models\FiscalYear;
 use App\Repositories\ReportRepository;
-
+use Modules\DigitalSignature\Repositories\ReportRepositorySign;
 /**
  * @class BudgetSubSpecificFormulationController
  * @brief Controlador de formulaciones de presupuesto por sub específicas
@@ -158,7 +158,8 @@ class BudgetSubSpecificFormulationController extends Controller
     public function show($id)
     {
         $formulation = BudgetSubSpecificFormulation::find($id);
-        return view('budget::formulations.show', compact('formulation'));
+        $enable = isModuleEnabled('DigitalSignature');
+        return view('budget::formulations.show', compact('formulation', 'enable'));
     }
 
     /**
@@ -374,7 +375,7 @@ class BudgetSubSpecificFormulationController extends Controller
     }
 
     /**
-     * Genera el reporte de presupuesto formulado
+     * Genera el reporte de presupuesto formulado 
      *
      * @method    printFormulated
      *
@@ -404,6 +405,45 @@ class BudgetSubSpecificFormulationController extends Controller
         $pdf->setBody('budget::reports.formulation', true, compact('formulation'));
         $file = storage_path() . '/reports/' . $filename;
         return response()->download($file, $filename, [], 'inline');
+    }
+
+
+    /**
+     * Genera el reporte de presupuesto formulado
+     *
+     * @method    printFormulatedSign
+     *
+     * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     integer            $id    Identificador del presupuesto formulado a imprimir
+     *
+     * @return    Response           Respuesta de la solicitud para descargar el reporte
+     */
+    public function printFormulatedSign($id)
+    {
+        $pdf = new ReportRepositorySign;
+        $formulation = BudgetSubSpecificFormulation::with(['currency', 'institution'])
+                                                   ->where('id', $id)->first();
+        $filename = 'formulated-' . $formulation->id . '.pdf';
+        $pdf->setConfig(
+            [
+                'institution' => $formulation->institution,
+                'urlVerify'   => 'www.google.com',
+                'orientation' => 'P',
+                'filename'    => $filename
+            ]
+        );
+        $pdf->setHeader("Oficina de Programación y Presupuesto", "Presupuesto de Gastos por Sub Específicas");
+
+        $pdf->setFooter();
+        $sign = $pdf->setBody('budget::reports.formulation', true, compact('formulation'));
+
+        if($sign['status'] == 'true') {
+            return response()->download($sign['file'], $sign['filename'], [], 'inline');
+        }
+        else {
+            return response()->json(['result' => $sign['status'], 'message' => $sign['message']], 200);
+        }
     }
 
     /**

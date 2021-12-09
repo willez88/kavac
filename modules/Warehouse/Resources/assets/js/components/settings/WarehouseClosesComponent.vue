@@ -51,13 +51,13 @@
 									<label>Inicio del cierre de almacén:</label>
 									<input type="date" placeholder="Inicio del cierre del almacén" data-toggle="tooltip"
 													   title="Indique la fecha de inicio del cierre del almacén (requerido)"
-													   class="form-control input-sm" v-model="record.initial_date">
+													   class="form-control no-restrict":min="new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)).toISOString().split('T')[0]" v-model="record.initial_date">
 			                    </div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group is-required">
 									<label>Fin del cierre de almacén:</label>
-									<input type="date" placeholder="Fin del cierre del almacén" data-toggle="tooltip"
+									<input type="date" placeholder="Fin del cierre del almacén" data-toggle="tooltip" :min="record.initial_date"
 													   title="Indique la fecha en que culmina el cierre del almacén (requerido)"
 													   class="form-control input-sm" v-model="record.end_date">
 			                    </div>

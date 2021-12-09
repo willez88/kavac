@@ -306,11 +306,12 @@
             },
         },
 		created() {
-			this.getPayrollStaffs();
-			this.getPayrollPositionTypes();
-			this.getPayrollPositions();
-			this.getAssetTypes();
-			this.getInstitutions();
+			const vm = this;
+			vm.getPayrollStaffs();
+			vm.getPayrollPositionTypes();
+			vm.getPayrollPositions();
+			vm.getAssetTypes();
+			vm.getInstitutions();
 		},
 		mounted() {
 			this.loadAssets('/asset/registers/vue-list/' + this.perPage + '/' + this.page);

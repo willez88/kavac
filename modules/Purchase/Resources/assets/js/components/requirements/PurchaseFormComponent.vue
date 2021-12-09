@@ -17,7 +17,7 @@
                 <div class="col-3">
                     <div class="form-group">
                         <label class="control-label">Ejercicio económico</label><br>
-                        <label class="control-label"><h5>{{ fiscal_years.year }}</h5></label>
+                        <label class="control-label"><h5>{{ (fiscalYear)?fiscalYear.year:'' }}</h5></label>
                     </div>
                 </div>
                 <div class="col-6">
@@ -115,11 +115,9 @@
         props:{
             date:{
                 type: String,
-            },
-            fiscal_years:{
-                type:Object,
                 default: function(){
-                    return null
+                    const dateJs = new Date();
+                    return dateJs.getFullYear()+'-'+(dateJs.getMonth()+1)+'-'+dateJs.getDate();
                 }
             },
             institutions:{
@@ -156,15 +154,16 @@
         data(){
             return {
                 record:{
-                    institution_id            : '',
-                    contracting_department_id : '',
-                    user_department_id        : '',
-                    warehouse_id              : '',
-                    purchase_supplier_object_id : '',
-                    description               : '',
-                    fiscal_year_id            : '',
-                    products                  : [],
+                    institution_id             : '',
+                    contracting_department_id  : '',
+                    user_department_id         : '',
+                    warehouse_id               : '',
+                    purchase_supplier_object_id: '',
+                    description                : '',
+                    fiscal_year_id             : '',
+                    products                   : [],
                 },
+                fiscalYear: null,
                 product:{},
                 products:[],
                 compare_contracting_department_id: '',
@@ -194,19 +193,23 @@
             }
         },
         mounted(){
-            this.record.fiscal_year_id = this.fiscal_years.id;
-            if (this.requirement_edit) {
-                this.record.description = this.requirement_edit.description;
+            const vm = this;
+            if (vm.requirement_edit) {
                 // asignara la institucion por medio del usuario
-                this.record.institution_id = 1;
-                // this.getDepartments();
-
-                this.record.contracting_department_id = this.requirement_edit.contracting_department_id;
-                this.record.user_department_id = this.requirement_edit.user_department_id;
-                this.record.purchase_supplier_object_id = this.requirement_edit.purchase_supplier_object_id;
-                this.record.fiscal_year_id = this.requirement_edit.fiscal_year_id;
-                this.record_products = this.requirement_edit.purchase_requirement_items;
+                vm.record.institution_id              = vm.requirement_edit.institution_id;
+                vm.record.description                 = vm.requirement_edit.description;
+                vm.record.contracting_department_id   = vm.requirement_edit.contracting_department_id;
+                vm.record.user_department_id          = vm.requirement_edit.user_department_id;
+                vm.record.purchase_supplier_object_id = vm.requirement_edit.purchase_supplier_object_id;
+                vm.record.fiscal_year_id              = vm.requirement_edit.fiscal_year_id;
+                vm.record_products                    = vm.requirement_edit.purchase_requirement_items;
+                vm.getDepartments();
             }
+
+            axios.get('/purchase/get-fiscal-year').then(response => {
+                vm.fiscalYear            = response.data.fiscal_year;
+                vm.record.fiscal_year_id = vm.fiscalYear.id;
+            });
         },
         methods:{
             reset(){

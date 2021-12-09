@@ -1,0 +1,9 @@
+digraph "Representación gráfica de la clase"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="CreatePayrollLicenseDegrees\lTable",height=0.2,width=0.4,color="black",URL="$d3/d97/classCreatePayrollLicenseDegreesTable.html",tooltip="Crear tabla para los grados de licencia de conducir."];
+}

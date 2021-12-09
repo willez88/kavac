@@ -22,7 +22,7 @@
         <li>
             <a href="{{ route('purchase.requirements.index') }}"
                 title="Gestión de Requerimientos" data-toggle="tooltip" data-placement="right"
-                >Requermientos
+                >Requerimientos
             </a>
         </li>
         <li>

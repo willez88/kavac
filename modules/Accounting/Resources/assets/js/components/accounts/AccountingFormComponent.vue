@@ -116,7 +116,7 @@
             *
             * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
             */
-            reset:function(resetRecords = true){
+            reset(resetRecords = true){
                 if (resetRecords) {
                     this.accRecords = [];
                 }
@@ -139,7 +139,7 @@
             * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
             * @return {boolean} retorna falso si algun campo no cumple el formato correspondiente
             */
-            FormatCode:function(){
+            FormatCode(){
                 var res = true;
                 var errors = [];
 
@@ -160,7 +160,7 @@
             *
             * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
             */
-            createRecord:function(url){
+            createRecord(url){
 
                 const vm = this;
                 if (!vm.FormatCode()) { return; }
@@ -255,7 +255,7 @@
             *
             * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
             */
-            record_select:function(res, ant) {
+            record_select(res, ant) {
                 if (res != '' && res != ant) {
                     // esta validacion es para el caso de cargar datos en el formulario
                     // evitando que realize la consulta axios
@@ -276,7 +276,7 @@
                     });
                 }
             },
-            records:function(res){
+            records(res){
                 this.accRecords = res;
             }
         }

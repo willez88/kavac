@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
+use Module;
 
 class CitizenServiceRegister extends Model implements Auditable
 {
@@ -26,7 +27,22 @@ class CitizenServiceRegister extends Model implements Auditable
      */
     protected $fillable = [
 
-        'date_register', 'first_name', 'project_name', 'activities', 'start_date', 'end_date', 'email', 'percent',
+        'date_register', 'payroll_staff_id', 'project_name', 'team_name', 'activities', 'start_date', 'end_date', 'email', 'percent',
 
     ];
+    protected $with = ['payrollStaff'];
+
+    /**
+     * Método que obtiene la información del trabajador asociado a un registro en ingresar un cronograma. 
+     *
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
+     *
+     * @return    \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    
+    public function payrollStaff()
+    {
+        return (Module::has('Payroll'))
+               ? $this->belongsTo(\Modules\Payroll\Models\PayrollStaff::class) : [];
+    }
 }

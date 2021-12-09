@@ -14,6 +14,7 @@ use Modules\Accounting\Models\Profile;
 use Modules\Accounting\Models\Setting;
 
 use App\Repositories\ReportRepository;
+use Modules\DigitalSignature\Repositories\ReportRepositorySign;
 use DateTime;
 use Auth;
 
@@ -38,7 +39,7 @@ class AccountingAuxiliaryBookController extends Controller
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
-        $this->middleware('permission:accounting.report.auxiliarybook', ['only' => ['index', 'pdf', 'pdfVue']]);
+        $this->middleware('permission:accounting.report.auxiliarybook', ['only' => ['index', 'pdf', 'pdfVue', 'pdfSign', 'pdfVueSign']]);
     }
 
     /**
@@ -282,6 +283,245 @@ class AccountingAuxiliaryBookController extends Controller
     }
 
     /**
+     * [pdfVue verifica las conversiones monetarias de un reporte de libro auxiliar]
+     *
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param string $account_id [variable con el id de la cuenta]
+     * @param string $date       [fecha para la generación de reporte, formato 'YYYY-mm']
+     * @param Currency $currency moneda en que se expresara el reporte
+     */
+    public function pdfVueSign($date, Currency $currency, $account_id = null)
+    {
+        /**
+         * [$initDate fecha inicial de busqueda]
+         * @var string
+         */
+        $initDate = $date.'-01';
+
+        /**
+         * [$day ultimo dia correspondiente al mes]
+         * @var date
+         */
+        $day = date('d', (mktime(0, 0, 0, explode('-', $date)[1]+1, 1, explode('-', $date)[0])-1));
+
+        /**
+         * [$endDate fecha final de busqueda]
+         * @var string
+         */
+        $endDate     = $date.'-'.$day;
+
+        $institution_id = null;
+
+        $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+
+        $is_admin = auth()->user()->isAdmin();
+
+        if (!$is_admin && $user_profile['institution']) {
+            $institution_id = $user_profile['institution']['id'];
+        }
+
+        $convertions = [];
+
+        if (!$account_id) {
+            /**
+             * [$query cuenta patrimonial con su relacion en asientos contables]
+             * @var [Modules\Accounting\Models\AccountingEntry]
+             */
+            $query = AccountingAccount::with([
+                'entryAccount.entries' => function ($query) use ($initDate, $endDate, $institution_id, $is_admin) {
+                    if ($institution_id) {
+                        if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                            ->where('institution_id', $institution_id)) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                            ->where('institution_id', $institution_id);
+                        }
+                    } else {
+                        if ($is_admin) {
+                            if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
+                                $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                            }
+                        }
+                    }
+                }])
+            ->where('group', '>', 0)
+            ->where('subgroup', '>', 0)
+            ->orderBy('group', 'ASC')
+            ->orderBy('subgroup', 'ASC')
+            ->orderBy('item', 'ASC')
+            ->orderBy('generic', 'ASC')
+            ->orderBy('specific', 'ASC')
+            ->orderBy('subspecific', 'ASC')
+            ->orderBy('denomination', 'ASC')->get();
+
+            foreach ($query as $account) {
+                /*
+                 * Se recorre y evalua la relacion en las conversiones necesarias a realizar
+                 */
+                foreach ($account['entryAccount'] as $entryAccount) {
+                    $inRange = false;
+                    if ($entryAccount['entries']) {
+                        if (!array_key_exists(
+                            $entryAccount['entries']['currency']['id'],
+                            $convertions
+                        )) {
+                            $convertions = $this->calculateExchangeRates(
+                                $convertions,
+                                $entryAccount['entries'],
+                                $currency['id']
+                            );
+                        }
+                        foreach ($convertions as $convertion) {
+                            foreach ($convertion as $convert) {
+                                if ($entryAccount['entries']['from_date'] >= $convert['start_at'] &&
+                                    $entryAccount['entries']['from_date'] <= $convert['end_at']) {
+                                    $inRange = true;
+                                }
+                            }
+                        }
+
+                        if (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)
+                                    && $entryAccount['entries']['currency']['id'] != $currency['id']) {
+                            return response()->json([
+                                    'result'  => false,
+                                    'message' => 'Imposible expresar saldos de '.
+                                                 $entryAccount['entries']['currency']['symbol']
+                                                 .' ('.$entryAccount['entries']['currency']['name'].')'
+                                                 .' a '.$currency['symbol'].'('.$currency['name'].')'.
+                                                 ', verificar tipos de cambio configurados.'.
+                                                 ' Para la fecha de '.
+                                                 $entryAccount['entries']['from_date'],
+                              ], 200);
+                        } elseif (!$inRange) {
+                            if ($entryAccount['entries']['currency']['id'] != $currency['id']) {
+                                return response()->json([
+                                    'result'  => false,
+                                    'message' => 'Imposible expresar saldos de '.
+                                                 $entryAccount['entries']['currency']['symbol']
+                                                 .' ('.$entryAccount['entries']['currency']['name'].')'
+                                                 .' a '.$currency['symbol'].'('.$currency['name'].')'.
+                                                 ', verificar tipos de cambio configurados.'.
+                                                 ' Para la fecha de '.
+                                                 $entryAccount['entries']['from_date'],
+                                ], 200);
+                            }
+                        }
+                    }
+                }
+            }
+        } elseif ($account_id) {
+            $account = AccountingAccount::with([
+                'entryAccount.entries' => function ($query) use ($initDate, $endDate, $institution_id, $is_admin) {
+                    if ($institution_id) {
+                        if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                            ->where('institution_id', $institution_id)) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                            ->where('institution_id', $institution_id);
+                        }
+                    } else {
+                        if ($is_admin) {
+                            if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
+                                $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                            }
+                        }
+                    }
+                }])->find($account_id);
+            /*
+             * Se recorre y evalua la relacion en las conversiones necesarias a realizar
+             */
+            foreach ($account['entryAccount'] as $entryAccount) {
+                $inRange = false;
+                if ($entryAccount['entries']) {
+                    if (!array_key_exists(
+                        $entryAccount['entries']['currency']['id'],
+                        $convertions
+                    )) {
+                        $convertions = $this->calculateExchangeRates(
+                            $convertions,
+                            $entryAccount['entries'],
+                            $currency['id']
+                        );
+                    }
+
+                    foreach ($convertions as $convertion) {
+                        foreach ($convertion as $convert) {
+                            if ($entryAccount['entries']['from_date'] >= $convert['start_at'] &&
+                                $entryAccount['entries']['from_date'] <= $convert['end_at']) {
+                                $inRange = true;
+                            }
+                        }
+                    }
+
+                    if (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)
+                        && $entryAccount['entries']['currency']['id'] != $currency['id']) {
+                        return response()->json([
+                            'result'  => false,
+                            'message' => 'Imposible expresar saldos de '.
+                                         $entryAccount['entries']['currency']['symbol']
+                                         .' ('.$entryAccount['entries']['currency']['name'].')'
+                                         .' a '.$currency['symbol'].'('.$currency['name'].')'.
+                                         ', verificar tipos de cambio configurados.'.
+                                         ' Para la fecha de '.
+                                         $entryAccount['entries']['from_date'],
+                        ], 200);
+                    } elseif (!$inRange) {
+                        if ($entryAccount['entries']['currency']['id'] != $currency['id']) {
+                            return response()->json([
+                                'result'  => false,
+                                'message' => 'Imposible expresar saldos de '.
+                                             $entryAccount['entries']['currency']['symbol']
+                                             .' ('.$entryAccount['entries']['currency']['name'].')'
+                                             .' a '.$currency['symbol'].'('.$currency['name'].')'.
+                                             ', verificar tipos de cambio configurados.'.
+                                             ' Para la fecha de '.
+                                             $entryAccount['entries']['from_date'],
+                            ], 200);
+                        }
+                    }
+                }
+            }
+        }
+
+        /**
+         * Se guarda un registro cada vez que se genera un reporte, en caso de que ya exista se actualiza
+        */
+        $url = 'auxiliaryBookSign/'.$date.'/'.$account_id;
+
+        $currentDate = new DateTime;
+        $currentDate = $currentDate->format('Y-m-d');
+
+        /**
+         * [$report almacena el registro del reporte del dia si existe]
+         * @var [type]
+         */
+        $report = AccountingReportHistory::whereBetween('updated_at', [
+                                                                        $currentDate.' 00:00:00',
+                                                                        $currentDate.' 23:59:59'
+                                                                    ])
+                                        ->where('report', 'Libro Auxiliar')
+                                        ->where('institution_id', $institution_id)->first();
+
+        /*
+        * se crea o actualiza el registro del reporte
+        */
+        if (!$report) {
+            $report = AccountingReportHistory::create(
+                [
+                    'report'      => 'Libro Auxiliar',
+                    'url'         => $url,
+                    'currency_id' => $currency->id,
+                    'institution_id' => $institution_id,
+                ]
+            );
+        } else {
+            $report->url         = $url;
+            $report->currency_id = $currency->id;
+            $report->institution_id = $institution_id;
+            $report->save();
+        }
+
+        return response()->json(['result'=>true, 'id'=>$report->id], 200);
+    }
+    /**
      * [pdf vista en la que se genera el reporte en pdf]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      * @param  integer $report [id de reporte y su informacion]
@@ -521,6 +761,253 @@ class AccountingAuxiliaryBookController extends Controller
         ]);
     }
 
+    /**
+     * [pdf vista en la que se genera el reporte en pdf y se realiza la firma electrónica del mismo ]
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  integer $report [id de reporte y su informacion]
+     */
+    public function pdfSign($report)
+    {
+        $report     = AccountingReportHistory::with('currency')->find($report);
+        // Validar acceso para el registro
+        if (!auth()->user()->isAdmin()) {
+            $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+            if ($report && $report->queryAccess($user_profile['institution']['id'])) {
+                return view('errors.403');
+            }
+        }
+        $date       = explode('/', $report->url)[1];
+        $account_id = explode('/', $report->url)[2];
+        $initMonth  = (int)explode('-', $date)[1];
+        $initYear   = (int)explode('-', $date)[0];
+
+        if ($initMonth < 10) {
+            $initMonth = '0'.$initMonth;
+        }
+        $date     = $initYear.'-'.$initMonth;
+
+        $currency = $report->currency;
+
+        /**
+         * [$initDate fecha inicial de busqueda]
+         * @var string
+         */
+        $initDate = $date.'-01';
+
+        /**
+         * [$day ultimo dia correspondiente al mes]
+         * @var date
+         */
+        $day = date('d', (mktime(0, 0, 0, explode('-', $date)[1]+1, 1, explode('-', $date)[0])-1));
+
+        /**
+         * [$endDate fecha final de busqueda]
+         * @var string
+         */
+        $endDate = $date.'-'.$day;
+
+        $institution_id = null;
+
+        $is_admin = auth()->user()->isAdmin();
+
+        if (!$is_admin && $user_profile['institution']) {
+            $institution_id = $user_profile['institution']['id'];
+        }
+
+
+        $convertions = [];
+        if (!$account_id) {
+            // todas las cuentas auxiliares
+            $query = AccountingAccount::with([
+                'entryAccount.entries' => function ($query) use ($initDate, $endDate, $institution_id, $is_admin) {
+                    if ($institution_id) {
+                        if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                            ->where('institution_id', $institution_id)) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                            ->where('institution_id', $institution_id);
+                        }
+                    } else {
+                        if ($is_admin) {
+                            if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
+                                $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                            }
+                        }
+                    }
+                }])
+            ->where('group', '>', '0')
+            ->where('subgroup', '>', '0')
+            ->orderBy('group', 'ASC')
+            ->orderBy('subgroup', 'ASC')
+            ->orderBy('item', 'ASC')
+            ->orderBy('generic', 'ASC')
+            ->orderBy('specific', 'ASC')
+            ->orderBy('subspecific', 'ASC')
+            ->orderBy('denomination', 'ASC')->get();
+
+            $acc  = [];
+            $cont = 0;
+            foreach ($query as $account) {
+                array_push($acc, [
+                    'id'           => $account['id'],
+                    'denomination' => $account['denomination'],
+                    'code'         => $account->getCodeAttribute(),
+                    'entryAccount' => [],
+                ]);
+                /*
+                 * Se recorre y evalua la relacion en las conversiones necesarias a realizar
+                 */
+                foreach ($account['entryAccount'] as $entryAccount) {
+                    if ($entryAccount['entries']) {
+                        $r = [
+                                'debit'      => '0',
+                                'assets'     => '0',
+                                'entries'    => [
+                                    'reference'  => $entryAccount['entries']['reference'],
+                                    'concept'    => $entryAccount['entries']['concept'],
+                                    'created_at' => $entryAccount['entries']['created_at']->format('d/m/Y'),
+                                ],
+                            ];
+
+                        if (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)) {
+                            $convertions = $this->calculateExchangeRates(
+                                $convertions,
+                                $entryAccount['entries'],
+                                $currency['id']
+                            );
+                        }
+
+                        $r['debit'] = ($entryAccount['debit'] != 0)?
+                                        $this->calculateOperation(
+                                            $convertions,
+                                            $entryAccount['entries']['currency']['id'],
+                                            $entryAccount['debit'],
+                                            $entryAccount['entries']['from_date'],
+                                            ($entryAccount['entries']['currency']['id'] == $currency['id'])??false
+                                        ):0;
+
+                        $r['assets'] = ($entryAccount['assets'] != 0)?
+                                        $this->calculateOperation(
+                                            $convertions,
+                                            $entryAccount['entries']['currency']['id'],
+                                            $entryAccount['assets'],
+                                            $entryAccount['entries']['from_date'],
+                                            ($entryAccount['entries']['currency']['id'] == $currency['id'])??false
+                                        ):0;
+                        array_push($acc[$cont]['entryAccount'], $r);
+                    }
+                }
+                $cont++;
+            }
+        } elseif ($account_id) {
+            // Una sola cuenta auxiliar
+            $account = AccountingAccount::with([
+                'entryAccount.entries' => function ($query) use ($initDate, $endDate, $institution_id, $is_admin) {
+                    if ($institution_id) {
+                        if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                            ->where('institution_id', $institution_id)) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                            ->where('institution_id', $institution_id);
+                        }
+                    } else {
+                        if ($is_admin) {
+                            if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
+                                $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                            }
+                        }
+                    }
+                }])->find($account_id);
+
+            $acc[0] = [
+                'id'             => $account['id'],
+                'denomination'   => $account['denomination'],
+                'code'           => $account->getCodeAttribute(),
+                'entryAccount'   => [],
+            ];
+            /*
+             * recorrido y formateo de informacion en arreglos para mostrar en pdf
+             */
+            foreach ($account['entryAccount'] as $entryAccount) {
+                if ($entryAccount['entries']) {
+                    $r = [
+                            'debit'      => '0',
+                            'assets'     => '0',
+                            'entries'    => [
+                                'reference'  => $entryAccount['entries']['reference'],
+                                'concept'    => $entryAccount['entries']['concept'],
+                                'created_at' => $entryAccount['entries']['created_at']->format('d/m/Y'),
+                            ],
+                        ];
+
+                    if (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)) {
+                        $convertions = $this->calculateExchangeRates(
+                            $convertions,
+                            $entryAccount['entries'],
+                            $currency['id']
+                        );
+                    }
+
+                    $r['debit'] = ($entryAccount['debit'] != 0)?
+                                    $this->calculateOperation(
+                                        $convertions,
+                                        $entryAccount['entries']['currency']['id'],
+                                        $entryAccount['debit'],
+                                        $entryAccount['entries']['from_date'],
+                                        ($entryAccount['entries']['currency']['id'] == $currency['id'])??false
+                                    ):0;
+
+                    $r['assets'] = ($entryAccount['assets'] != 0)?
+                                    $this->calculateOperation(
+                                        $convertions,
+                                        $entryAccount['entries']['currency']['id'],
+                                        $entryAccount['assets'],
+                                        $entryAccount['entries']['from_date'],
+                                        ($entryAccount['entries']['currency']['id'] == $currency['id'])??false
+                                    ):0;
+
+                    array_push($acc[0]['entryAccount'], $r);
+                }
+            }
+        }
+        /**
+         * [$setting configuración general de la aplicación]
+         * @var [Modules\Accounting\Models\Setting]
+         */
+        $setting  = Setting::all()->first();
+        $initDate = new DateTime($initDate);
+        $endDate  = new DateTime($endDate);
+
+        $initDate = $initDate->format('d/m/Y');
+        $endDate  = $endDate->format('d/m/Y');
+
+        /**
+         * [$pdf base para generar el pdf]
+         * @var [Modules\Accounting\Pdf\Pdf]
+         */
+        //$pdf = new ReportRepository();
+        $pdf = new ReportRepositorySign;
+
+        /*
+         *  Definicion de las caracteristicas generales de la página pdf
+         */
+        $institution = Institution::find(1);
+        $pdf->setConfig(['institution' => $institution, 'urlVerify' => url('report/auxiliaryBook/'.$report->id)]);
+        $pdf->setHeader('Reporte de Contabilidad', 'Reporte de libro Auxiliar');
+        $pdf->setFooter();
+        $report = $pdf->setBody('accounting::pdf.auxiliary_book', true, [
+            'pdf'      => $pdf,
+            'record'   => $acc,
+            'initDate' => $initDate,
+            'endDate'  => $endDate,
+            'currency' => $currency,
+        ]);
+        if($report['status'] == 'true') {
+            return response()->download($report['file'], $report['filename'], [], 'inline');
+        }
+        else {
+            return response()->json(['result' => $report['status'], 'message' => $report['message']], 200);
+        }
+
+    }
     /**
      * [calculateOperation realiza la conversion de saldo]
      * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>

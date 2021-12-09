@@ -395,6 +395,16 @@ $(document).ready(function() {
                 group: 'Lider de proyecto / Diseño / Desarrollo / Autor / Director de Desarrollo (2021)'
             },
             {
+                name: 'Cipriano Alvarado',
+                email: 'calvarado@cenditel.gob.ve',
+                group: 'Diseñadores'
+            },
+            {
+                name: 'Jessica Ferreira',
+                email: 'jferreira@cenditel.gob.ve',
+                group: 'Diseñadores'
+            },
+            {
                 name: 'Julie Vera',
                 email: 'jvera@cenditel.gob.ve',
                 group: 'Analistas'
@@ -425,7 +435,7 @@ $(document).ready(function() {
                 group: 'Analistas'
             },
             {
-                name: 'Kleibymar Montilla',
+                name: 'Kleivymar Montilla',
                 email: 'kmontilla@cenditel.gob.ve',
                 group: 'Analistas'
             },
@@ -485,6 +495,16 @@ $(document).ready(function() {
                 group: 'Desarrolladores'
             },
             {
+                name: 'Marco Anthony Ocanto Sánchez',
+                email: 'sanchezmarco8882@gmail.com',
+                group: 'Desarrolladores'
+            },
+            {
+                name: 'Jonathan Alberto Alvarado Batista',
+                email: 'jonathanalvarado1407@gmail.com',
+                group: 'Desarrolladores'
+            },
+            {
                 name: 'Argenis Osorio',
                 email: 'aosorio@cenditel.gob.ve',
                 group: 'Director de Desarrollo (2018-2019)'
@@ -523,6 +543,8 @@ $(document).ready(function() {
         e.preventDefault();
         const appInfo = new AppInfo([
             { name: 'Roldan Vargas' },
+            { name: 'Cipriano Alvarado' },
+            { name: 'Jessica Ferreira' },
             { name: 'Julie Vera' },
             { name: 'María González' },
             { name: 'María Rujano' },
@@ -530,7 +552,7 @@ $(document).ready(function() {
             { name: 'Francisco Berbesí' },
             { name: 'Luis Ramírez' },
             { name: 'Hyildayra Colmenares' },
-            { name: 'Kleibymar Montilla' },
+            { name: 'Kleivymar Montilla' },
             { name: 'Daniel Contreras' },
             { name: 'Marilyn Caballero' },
             { name: 'William Páez' },
@@ -544,6 +566,8 @@ $(document).ready(function() {
             { name: 'Pedro Buitrago' },
             { name: 'José Puentes' },
             { name: 'Miguel Narváez' },
+            { name: 'Marco Ocanto' },
+            { name: 'Jonathan Alvarado' }
         ]);
         bootbox.alert({
             className: 'modal-credits',
@@ -563,6 +587,63 @@ $(document).ready(function() {
             $('.bootstrap-switch').tooltip('hide');
         }, 1500);
     });
+
+    /**
+     * Función que realiza la verificación de la frase de paso del certificado
+     * p12 guardado en el modulo de Firma electrónica.
+     *
+     * @author Ing. Angelo Osorio  <adosorio@cenditel.gob.ve> | <adosorio@gmail.com>
+     */
+    $('#verify-modal').click(function() {
+        let data = { 'passphrase': $('#phasepass-modal').val() };
+        axios.post('/digitalsignature/validateAuthApi', data).then(function (response) {
+            if (response.data.auth === true) {
+                $('#signed-modal').removeClass('d-none');
+                $('#authentication').addClass('d-none');
+            } else {
+                $('#authentication').removeClass('d-none');
+                $('#signed-modal').addClass('d-none');
+            }
+        }).catch(error => {
+            if (typeof(error.response) !="undefined") {
+                for (var index in error.response.data.errors) {
+                    if (error.response.data.errors[index]) {
+                        vm.errors.push(error.response.data.errors[index][0]);
+                    }
+                }
+            }
+        });
+    });
+
+    /**
+     * Función que define el atributo href para dirigir a la documentación 
+     * de usuario según la ubicación en el sistema
+     *
+     * @author Luis Ramírez  <lgramirez@cenditel.gob.ve>
+     */
+    $('#list_options_user').on('click', function(){
+        let link = document.getElementById('doc-user');
+        let path= window.location.pathname.split('/');
+        let location= path[1];
+        let module;
+
+        if (modules) {
+            modules.forEach(element => {
+                if (location === element.toLowerCase()) {
+                    module = element.toLowerCase();
+                    return module;
+                }
+            });
+            if (module) {
+                link.href= `${app_url}`+'/docs/user'+'_' +`${module}`+'/';  
+            }else{
+                link.href= `${app_url}`+'/docs/user/';
+            }
+        }else {
+            link.href= `${app_url}`+'/docs/user/';
+        }
+    });
+
 });
 
 /** Script para medir la fortaleza de la contraseña */
@@ -667,3 +748,9 @@ function delete_record(url) {
         }
     });
 }
+
+
+
+
+
+

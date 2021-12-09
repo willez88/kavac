@@ -1,0 +1,8 @@
+digraph "PayrollStaff"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{PayrollStaff\n|# $dates\l# $fillable\l# $table\l# $with\l|+ assetAsignation()\l+ budgetCentralizedActions()\l+ budgetProjects()\l+ citizenServiceRegister()\l+ getFullNameAttribute()\l+ parish()\l+ payrollBenefitsRequests()\l+ payrollBloodType()\l+ payrollConceptAssignOptions()\l+ payrollDisability()\ly 10 más...\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Datos de la información personal del trabajador."];
+}

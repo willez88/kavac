@@ -36,14 +36,94 @@ class SaleOrderSettingController extends Controller
      */
     public function index()
     {
-        //return view('sale::order.list');
-        return response()->json(['records' => SaleOrder::all()], 200);
+        return view('sale::order.list');
+        //return response()->json(['records' => SaleOrder::all()], 200);
+    }
+
+    /**
+     * Obtiene un listado de las ordenes solicitadas con estado pendiente
+     */
+    public function getListPending()
+    {
+      $data = [];
+      $records = SaleOrder::where('status', '=', 'pending')->get();
+      foreach ($records as $key => $record) {
+        if (!empty($record->products))  {
+          $product = [];
+          $products = json_decode($record->products, true);
+
+          foreach ($products as $id => $row) {
+            $product[] = [
+              'id' => $id,
+              'name' => $row['name'],
+              'quantity' => $row['quantity'],
+              'price_product' => $row['price_product'],
+              'total' => $row['total']
+            ];
+          }
+          $records[$key]->list_products = $product;
+        }
+      }
+
+      return response()->json(['records' => $records], 200);
+    }
+
+    /**
+     * Obtiene un listado de las ordenes solicitadas con estado rechazadas
+     */
+    public function getListRejected()
+    {
+      $records = SaleOrder::where('status', '=', 'rechazado')->get();
+      foreach ($records as $key => $record) {
+        if (!empty($record->products))  {
+          $product = [];
+          $products = json_decode($record->products, true);
+
+          foreach ($products as $id => $row) {
+            $product[] = [
+              'id' => $id,
+              'name' => $row['name'],
+              'quantity' => $row['quantity'],
+              'price_product' => $row['price_product'],
+              'total' => $row['total']
+            ];
+          }
+          $records[$key]->list_products = $product;
+        }
+      }
+      return response()->json(['records' => $records], 200);
+    }
+
+    /**
+     * Obtiene un listado de las ordenes solicitadas con estado aprobadas
+     */
+    public function getListApproved()
+    {
+      $records = SaleOrder::where('status', '=', 'aprobado')->get();
+      foreach ($records as $key => $record) {
+        if (!empty($record->products))  {
+          $product = [];
+          $products = json_decode($record->products, true);
+
+          foreach ($products as $id => $row) {
+            $product[] = [
+              'id' => $id,
+              'name' => $row['name'],
+              'quantity' => $row['quantity'],
+              'price_product' => $row['price_product'],
+              'total' => $row['total']
+            ];
+          }
+          $records[$key]->list_products = $product;
+        }
+      }
+      return response()->json(['records' => $records], 200);
     }
 
     public function options()
     {
-        return view('sale::order.list');
-        //return response()->json(['records' => SaleOrder::all()], 200);
+        //return view('sale::order.list');
+        return response()->json(['records' => SaleOrder::all()], 200);
     }
 
     /**
@@ -57,7 +137,7 @@ class SaleOrderSettingController extends Controller
      */
     public function create()
     {
-        //return view('sale::create');
+        return view('sale::order.create');
     }
 
     /**
@@ -73,19 +153,30 @@ class SaleOrderSettingController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => ['required', 'max:100'],
-            'email' => ['required', 'max:200'],
-            'phone' => ['required', 'regex:/^\d{2}-\d{3}-\d{7}$/u'],
-            'description' => ['required', 'max:200']
-        ]);
-        $order = SaleOrder::create([
-            'name'        => $request->name,
-            'email'       => $request->email,
-            'phone'       => $request->phone,
-            'description' => $request->description
-        ]);
-        return response()->json(['record' => $order, 'message' => 'Success'], 200);
+      $products = [];
+
+      if ($request->list_products && !empty($request->list_products)) {
+        foreach ($request->list_products as $product) {
+          $products[] = $product;
+        }
+      }
+
+      $this->validate($request, [
+        'name' => ['required', 'max:100'],
+        'email' => ['required', 'max:200'],
+        'phone' => ['required', 'regex:/^\d{2}-\d{3}-\d{7}$/u'],
+        'description' => ['required', 'max:200']
+      ]);
+
+      $order = SaleOrder::create([
+        'name'        => $request->name,
+        'email'       => $request->email,
+        'phone'       => $request->phone,
+        'description' => $request->description,
+        'products'    => json_encode($products, JSON_FORCE_OBJECT)
+      ]);
+
+      return response()->json(['record' => $order, 'message' => 'Success', 'redirect' => route('sale.order.index')], 200);
     }
 
     /**
@@ -117,7 +208,9 @@ class SaleOrderSettingController extends Controller
      */
     public function edit($id)
     {
-        return view('sale::edit');
+        $order = SaleOrder::find($id);
+        //dd($order);
+        return view('sale::order.create', compact('order'));
     }
 
     /**
@@ -135,6 +228,14 @@ class SaleOrderSettingController extends Controller
     public function update(Request $request, $id)
     {
         $order = SaleOrder::find($id);
+
+        $products = [];
+        if ($request->list_products && !empty($request->list_products)) {
+          foreach ($request->list_products as $product) {
+            $products[] = $product;
+          }
+        }
+
         $this->validate($request, [
             'name' => ['required', 'max:100'],
             'email' => ['required', 'max:200'],
@@ -145,8 +246,9 @@ class SaleOrderSettingController extends Controller
         $order->email  = $request->email;
         $order->phone  = $request->phone;
         $order->description = $request->description;
+        $order->products = json_encode($products, JSON_FORCE_OBJECT);
         $order->save();
-        return response()->json(['message' => 'Success'], 200);
+        return response()->json(['message' => 'Success', 'redirect' => route('sale.order.index')], 200);
     }
 
     /**
@@ -164,7 +266,7 @@ class SaleOrderSettingController extends Controller
     {
         $order = SaleOrder::find($id);
         $order->delete();
-        return response()->json(['record' => $order, 'message' => 'Success'], 200);
+        return response()->json(['record' => $order, 'message' => 'Success', 'redirect' => route('sale.order.index')], 200);
     }
 
     /**
@@ -178,5 +280,69 @@ class SaleOrderSettingController extends Controller
     {
         $product = SaleSettingProduct::find($id);
         return response()->json(['record' => $product, 'message' => 'Success'], 200);
+    }
+
+    /**
+     * Rechaza la solicitud de la orden
+     */
+    public function rejectedOrder(Request $request, $id)
+    {
+        $sale_order = SaleOrder::find($id);
+        $sale_order->status = 'rechazado';
+        $sale_order->save();
+
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true, 'redirect' => route('sale.order.index')], 200);
+    }
+
+    /**
+     * Aprueba la solicitud de la orden
+     */
+    public function approvedOrder(Request $request, $id)
+    {
+        $sale_order = SaleOrder::find($id);
+        $sale_order->status = 'aprobado';
+        $sale_order->save();
+
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true, 'redirect' => route('sale.order.index')], 200);
+    }
+
+    /**
+     * Obtiene la información de la orden
+     */
+    public function getOrderInfo($id)
+    {
+      $data = [];
+      $record = SaleOrder::where('id', $id)->first();
+
+      if (!empty($record->products))  {
+        $products = json_decode($record->products, true);
+
+        foreach ($products as $key => $row) {
+          $product[] = [
+            'id' => $key,
+            'name' => $row['name'],
+            'quantity' => $row['quantity'],
+            'price_product' => $row['price_product'],
+            'total' => $row['total']
+          ];
+        }
+      }
+
+      if (!empty($record->id)) {
+        $data = [
+          'id' => $record->id,
+          'name' => $record->name,
+          'email' => $record->email,
+          'phone' => $record->phone,
+          'description' => $record->description,
+          'status' => $record->status,
+          'created_at' => $record->created_at,
+          'updated_at' => $record->updated_at,
+          'list_products' => $product,
+        ];
+      }
+      return response()->json(['values' => $data], 200);
     }
 }

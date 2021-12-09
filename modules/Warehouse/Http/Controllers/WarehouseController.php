@@ -29,6 +29,18 @@ class WarehouseController extends Controller
     use ValidatesRequests;
 
     /**
+     * Arreglo con las reglas de validación sobre los datos de un formulario
+     * @var Array $validateRules
+     */
+    protected $validateRules;
+
+    /**
+     * Arreglo con los mensajes para las reglas de validación
+     * @var Array $messages
+     */
+    protected $messages;
+
+    /**
      * Define la configuración de la clase
      *
      * @author Henry Paredes <hparedes@cenditel.gob.ve>
@@ -37,6 +49,21 @@ class WarehouseController extends Controller
     {
         /** Establece permisos de acceso para cada método del controlador */
         $this->middleware('permission:warehouse.setting.warehouse');
+
+        /** Define las reglas de validación para el formulario */
+        $this->validateRules = [
+            'name'      => ['required', 'max:100'],
+            'address'   => ['required'],
+            'parish_id' => ['required'],
+        ];
+
+        /** Define los mensajes de validación para las reglas del formulario */
+        $this->messages = [
+            'name.required'      => 'El campo nombre del almacén es obligatorio.',
+            'name.max'           => 'El campo nombre del almacén no debe ser mayor que 100 caracteres.',
+            'address.required'   => 'El campo dirección es obligatorio.',
+            'parish_id.required' => 'El campo parroquia es obligatorio.'
+        ];
     }
 
     /**
@@ -90,12 +117,7 @@ class WarehouseController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => ['required', 'max:100'],
-            'address' => ['required'],
-            'parish_id' => ['required'],
-
-        ]);
+        $this->validate($request, $this->validateRules, $this->messages);
 
         $warehouse = Warehouse::create([
             'name'      => $request->input('name'),
@@ -151,11 +173,7 @@ class WarehouseController extends Controller
      */
     public function update(Request $request, Warehouse $warehouse)
     {
-        $this->validate($request, [
-            'name'      => ['required', 'max:100'],
-            'address'   => ['required'],
-            'parish_id' => ['required'],
-        ]);
+        $this->validate($request, $this->validateRules, $this->messages);
 
         $warehouse->name      = $request->input('name');
         $warehouse->address   = $request->input('address');

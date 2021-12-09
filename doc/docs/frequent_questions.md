@@ -4,7 +4,7 @@
 ??? question "¿Cómo adaptar el sistema KAVAC a cualquier organización?"
    	El sistema KAVAC está diseñado de forma modular, incluso cuando los módulos se relacionan entre si, existe independencia entre ellos.  Su diseño y estructura de desarrollo permite la extensión de nuevos módulos y funcionalidades que se puedan adaptar a una institución con requerimientos específicos.
 
-??? question "¿Cómo registrar varias organizaciones?""
+??? question "¿Cómo registrar varias organizaciones?"
 
     Una vez se ha iniciado las actividades en el sistema KAVAC, es necesario realizar el registro de al menos una organización.  Para el registro de otras organizaciones el usuario debe activar la opción **Multi Gestión**, ubicada en la sección **Parámetros Generales** de la Configuración General del sistema, de igual forma es necesario guardar los cambios para registrar esta configuración. 
 
@@ -38,4 +38,12 @@
     A continuación se muestra la sección **Administración de Respaldos**.  Desde esta sección es posible crear un nuevo respaldo y gestionar los respaldos generados. 
 
     - Para crear un nuevo respaldo presione el botón **Crear un nuevo respaldo** ![Screenshot](img/new_database_backups.png#imagen) 
+
+??? question "¿Cómo completar de forma correcta el campo R.I.F?"
+    Para completar el campo R.I.F en el fomarto correcto, se debe iniciar con una letra mayúscula seguida de elementos numéricos sin guiones.
+
+    **Ejemplo:**
+    V111111111  
+
+    
 

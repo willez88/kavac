@@ -317,7 +317,7 @@ Vue.mixin({
 		 * @return {string}       Fecha con el formato establecido
 		 */
 		format_timestamp: function(value) {
-			return moment(String(value)).format('DD/MM/YYYY hh:mm:ss');
+			return moment(String(value)).format('DD/MM/YYYY hh:mm:ss A');
 		},
 		/**
 		 * Método que calcula la diferencia entre dos fechas con marca de tiempo
@@ -342,6 +342,28 @@ Vue.mixin({
 				minutes: d._data.minutes,
 				seconds: d._data.seconds
 			};
+		},
+		/**
+		 * Obtiene la fecha actual
+		 *
+		 * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+		 *
+		 * @return    {String}          Devuelve la fecha actual
+		 */
+		getCurrentDate() {
+			let today = new Date();
+            let dd = today.getDate();
+            let mm = today.getMonth() + 1;
+            let yyyy = today.getFullYear();
+            
+            if (dd < 10) {
+                dd = `0${dd}`;
+            }
+
+            if ( mm < 10) {
+                mm=`0${mm}`;
+            }
+            return `${yyyy}-${mm}-${dd}`;
 		},
         /**
          * Método que muestra un número formateado
@@ -710,7 +732,7 @@ Vue.mixin({
 
 			bootbox.confirm({
 				title: "¿Eliminar registro?",
-				message: "¿Esta seguro de eliminar este registro?",
+				message: "¿Está seguro de eliminar este registro?",
 				buttons: {
 					cancel: {
 						label: '<i class="fa fa-times"></i> Cancelar'
@@ -1213,6 +1235,7 @@ Vue.mixin({
                 });
             });
             $("[id^=VueTables__limit]").removeClass('form-control').addClass('custom-select-sm');
+            $('.btn-action').tooltip({delay: {hide:100}});
         });
     }
 });

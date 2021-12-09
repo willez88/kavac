@@ -1,5 +1,7 @@
 # Project information
 site_name: Documentación de Usuario.
+site_dir: ../../../public/docs/user_payroll
+use_directory_urls: true
 
 # Page tree
 nav:
@@ -27,8 +29,6 @@ nav:
         - Configuración de la Edad Laboral Permitida: setting/working_age.md
         - Registros Comunes: setting/common_records.md 
         - Parámetros Generales de Nómina: setting/general_parameters.md 
-      - Panel de Control: 
-        - Panel de Control: control_panel/control_panel.md 
       - Preguntas Frecuentes: frequent_questions.md  
 
 # Repository

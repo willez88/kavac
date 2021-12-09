@@ -1,6 +1,5 @@
 <template>
 	<section>
-
 		<div class="form-group form-inline pull-right VueTables__limit-2">
 			<div class="VueTables__limit-field">
 				<label class="">Registros</label>

@@ -1,32 +1,52 @@
 <template>
-    <v-client-table :columns="columns" :data="records" :options="table_options">
-        <div slot="state" slot-scope="props">
-            <span>
-                {{ (props.row.state)?props.row.state:'N/A' }}
-            </span>
-        </div>
-        
-        <div slot="id" slot-scope="props" class="text-center">
-            <div class="d-inline-flex">
-                 <!--sale-bill-info
-                    :route_list="'/sale/bills/info/'+ props.row.id">
-                </sale-bill-info-->
-
-                <button @click="approvedService(props.index)" 
-                        class="btn btn-success btn-xs btn-icon btn-action" title="Aceptar Solicitud"
-                        data-toggle="tooltip" type="button"
-                        :disabled="props.row.state != 'Pendiente'">
-                    <i class="fa fa-check"></i>
-                </button>
-                <button @click="rejectedService(props.index)" 
-                        class="btn btn-danger btn-xs btn-icon btn-action" title="Rechazar Solicitud"
-                        data-toggle="tooltip" type="button"
-                        :disabled="props.row.state != 'Pendiente'">
-                    <i class="fa fa-ban"></i>
-                </button>
+    <section>
+        <v-client-table :columns="columns" :data="records" :options="table_options" ref="tableResults">
+            <div slot="code" slot-scope="props">
+                <span>
+                    {{ (props.row.code) ? props.row.code : '' }}
+                </span>
             </div>
-        </div>
-    </v-client-table>
+            <div slot="application_date" slot-scope="props">
+                <span>
+                    {{ (props.row.created_at) ? props.row.created_at : '' }}
+                </span>
+            </div>
+            <div slot="sale_client" slot-scope="props">
+                <span>
+                    {{ (props.row.sale_client.name) ? props.row.sale_client.name : '' }}
+                </span>
+                <span>
+                    {{ (props.row.sale_client.business_name) ? props.row.sale_client.business_name : '' }}
+                </span>
+            </div>
+            <div slot="department" slot-scope="props">
+                <span v-for="sale_good in props.row.sale_goods">
+                    <span v-for="good in sale_good">
+                        {{ (props.row.sale_goods) ? good.department.name : '' }}
+                    </span>
+                </span>
+            </div>
+            <div slot="id" slot-scope="props" class="text-center">
+                <div class="d-inline-flex">
+                    <button @click.prevent="setDetails('ServiceInfo', props.row.id, 'SaleServiceInfo')"
+                            class="btn btn-info btn-xs btn-icon btn-action btn-tooltip"
+                            title="Ver registro" data-toggle="tooltip" data-placement="bottom" type="button">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                    <sale-service-pending
+                        :serviceid="props.row.id"
+                        route_update="sale/services/pending"
+                        request_type='accept'>
+                    </sale-service-pending>
+                    <sale-service-pending
+                        :serviceid="props.row.id"
+                        route_update="sale/services/pending"
+                        request_type='rejected'>
+                    </sale-service-pending>
+                </div>
+            </div>
+        </v-client-table>
+    </section>
 </template>
 
 <script>
@@ -34,31 +54,32 @@
         data() {
             return {
                 records: [],
-                columns: ['code', 'application_date', 'sale_client.name_client', 'responsible_department', 'state', 'id']
+                columns: ['code', 'application_date', 'sale_client', 'department', 'status', 'id']
             }
         },
         created() {
             this.table_options.headings = {
                 'code': 'Código',
                 'application_date': 'Fecha de solicitud',
-                'sale_client.name_client': 'Nombre del cliente',
-                'responsible_department': 'Unidad o departamento responsable',
-                'state': 'Estado de la solicitud',
+                'sale_client': 'Nombre del cliente',
+                'department': 'Unidad o departamento responsable',
+                'status': 'Estado de la solicitud',
                 'id': 'Acción'
             };
-            this.table_options.sortable = ['code', 'application_date', 'sale_client.name_client', 'responsible_department', 'state'];
-            this.table_options.filterable = ['code', 'application_date', 'sale_client.name_client', 'responsible_department', 'state'];
+            this.table_options.sortable = ['code', 'application_date', 'sale_client', 'department', 'status'];
+            this.table_options.filterable = ['code', 'application_date', 'sale_client', 'department', 'status'];
             this.table_options.columnsClasses = {
                 'code': 'col-md-2',
                 'application_date': 'col-md-2',
-                'sale_client.name_client': 'col-md-2',
-                'responsible_department': 'col-md-2',
-                'state': 'col-md-2',
+                'sale_client': 'col-md-2',
+                'department': 'col-md-2',
+                'status': 'col-md-2',
                 'id': 'col-md-2'
             };
         },
         mounted () {
-            this.initRecords(this.route_list, '');
+            const vm = this;
+            vm.getSalePendingService()
         },
         methods: {
             /**
@@ -69,79 +90,44 @@
             reset() {
                 
             },
-            rejectedService(index)
-            {
+            /**
+             * Método que carga los registros en la tabla
+             *
+             * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+             */
+            getSalePendingService() {
                 const vm = this;
-                var dialog = bootbox.confirm({
-                    title: 'Rechazar operación?',
-                    message: "<p>¿Seguro que desea rechazar esta operación?. Una vez rechazada la operación no se podrán realizar cambios en la misma.<p>",
-                    size: 'medium',
-                    buttons: {
-                        cancel: {
-                            label: '<i class="fa fa-times"></i> Cancelar'
-                        },
-                        confirm: {
-                            label: '<i class="fa fa-check"></i> Confirmar'
-                        }
-                    },
-                    callback: function (result) {
-                        if (result) {
-                            var fields = vm.records[index-1];
-                            var id = vm.records[index-1].id;
 
-                            axios.put('/'+vm.route_update+'/serive-rejected/'+id, fields).then(response => {
-                                if (typeof(response.data.redirect) !== "undefined")
-                                    location.href = response.data.redirect;
-                            }).catch(error => {
-                                vm.errors = [];
-                                if (typeof(error.response) !="undefined") {
-                                    for (var index in error.response.data.errors) {
-                                        if (error.response.data.errors[index]) {
-                                            vm.errors.push(error.response.data.errors[index][0]);
-                                        }
-                                    }
-                                }
-                            });
-                        }
-                    }
+                axios.get('/sale/services/vue-pending-list/Pendiente').then(response => {
+                    vm.records = response.data.records;
                 });
             },
-            approvedService(index)
-            {
+            /**
+             * Método reemplaza el metodo setDetails para usar la referencia del parent por defecto
+             *
+             * @method    setDetails
+             *
+             * @author     Daniel Contreras <dcontreras@cenditel.gob.ve>
+             *
+             * @param     string   ref       Identificador del componente
+             * @param     integer  id        Identificador del registro seleccionado
+             * @param     object  var_list  Objeto con las variables y valores a asignar en las variables del componente
+             */
+            setDetails(ref, id, modal ,var_list = null) {
                 const vm = this;
-                var dialog = bootbox.confirm({
-                    title: 'Aprobar operación?',
-                    message: "<p>¿Seguro que desea aprobar esta operación?. Una vez aprobada la operación no se podrán realizar cambios en la misma.<p>",
-                    size: 'medium',
-                    buttons: {
-                        cancel: {
-                            label: '<i class="fa fa-times"></i> Cancelar'
-                        },
-                        confirm: {
-                            label: '<i class="fa fa-check"></i> Confirmar'
-                        }
-                    },
-                    callback: function (result) {
-                        if (result) {
-                            var fields = vm.records[index-1];
-                            var id = vm.records[index-1].id;
-
-                            axios.put('/'+vm.route_update+'/service-approved/'+id, fields).then(response => {
-                                if (typeof(response.data.redirect) !== "undefined")
-                                    location.href = response.data.redirect;
-                            }).catch(error => {
-                                vm.errors = [];
-                                if (typeof(error.response) !="undefined") {
-                                    for (var index in error.response.data.errors) {
-                                        if (error.response.data.errors[index]) {
-                                            vm.errors.push(error.response.data.errors[index][0]);
-                                        }
-                                    }
-                                }
-                            });
-                        }
+                if (var_list) {
+                    for(var i in var_list){
+                        vm.$parent.$refs[ref][i] = var_list[i];
                     }
-                });
+                }else{
+                    vm.$parent.$refs[ref].record = vm.$refs.tableResults.data.filter(r => {
+                        return r.id === id;
+                    })[0];
+                }
+                vm.$parent.$refs[ref].id = id;
+
+                $(`#${modal}`).modal('show');
+                document.getElementById("info_general").click();
             },
         }
     };

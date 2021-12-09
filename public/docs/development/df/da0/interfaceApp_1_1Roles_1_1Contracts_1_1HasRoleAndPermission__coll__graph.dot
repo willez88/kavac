@@ -1,0 +1,8 @@
+digraph "HasRoleAndPermission"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{HasRoleAndPermission\n||+ allowed()\l+ attachPermission()\l+ attachRole()\l+ checkPermission()\l+ checkRole()\l+ detachAllPermissions()\l+ detachAllRoles()\l+ detachPermission()\l+ detachRole()\l+ getPermissions()\ly 13 más...\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Interface para la gestión de roles y permisos."];
+}

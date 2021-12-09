@@ -41,13 +41,13 @@
 					</div>
 
                     <div class="col-md-4">
-						<div class="form-group is-required">
-							<label for="first_name">Nombre del director</label>
-        					<input type="text" class="form-control input-sm" data-toggle="tooltip"
-								   v-input-mask data-inputmask-regex="[a-zA-ZÁ-ÿ0-9\s]*"
-                                   title="Indique el nombre del director" v-model="record.first_name">
-						</div>
-					</div>
+					<div class="form-group is-required">
+						<label for="payrollStaff">Nombre del director</label>
+						<select2 :options="payroll_staffs"
+								  v-model="record.payroll_staff_id"></select2>
+                    </div>
+				    </div>
+
                     <div class="col-md-4">
 						<div class="form-group is-required">
 							<label for="project_name">Nombre del proyecto</label>
@@ -55,11 +55,25 @@
                                    title="Indique el nombre del proyecto" v-model="record.project_name">
 						</div>
 					</div>
+					 <div class="col-md-4">
+						<div class="form-group is-required">
+							<label for="team_name">Equipo responsable</label>
+        					<input type="text" id="team_name" class="form-control input-sm" data-toggle="tooltip"
+                                   title="Indique el nombre del equipo responsable" v-model="record.team_name">
+						</div>
+					</div>
 					<div class="col-md-4">
 						<div class="form-group is-required">
 							<label for="activities">Actividades</label>
         					<input type="text" id="activities" class="form-control input-sm" data-toggle="tooltip"
                                    title="Indique las actividades" v-model="record.activities">
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group is-required">
+							<label for="email">Correo electrónico</label>
+        					<input type="email" id="email" class="form-control input-sm" data-toggle="tooltip"
+                                   title="Indique el correo electrónico del responsable" v-model="record.email">
 						</div>
 					</div>
 					<div class="col-md-4">
@@ -76,15 +90,8 @@
                                    title="Indique la fecha de culminación" v-model="record.end_date">
         				</div>
 					</div>
-                    <div class="col-md-4">
-						<div class="form-group is-required">
-							<label for="email">Correo electrónico</label>
-        					<input type="email" id="email" class="form-control input-sm" data-toggle="tooltip"
-                                   title="Indique el correo electrónico del responsable" v-model="record.email">
-						</div>
-					</div>
 					<div class="col-md-4">
-						<div class="form-group is-required">
+						<div class="form-group">
 							<label for="percent">Porcentaje de cumplimiento</label>
         					<input type="text" min="1" max="100" id="percent" class="form-control input-sm" data-toggle="tooltip"
 								   v-input-mask data-inputmask-regex="[0-9]*"
@@ -92,7 +99,6 @@
 						</div>
 					</div>
 				</div>
-
             </div>
 
 		<div class="card-footer text-right">
@@ -128,8 +134,9 @@
 				record: {
 					id: '',
 					date_register: '',
-					first_name: '',
+					payroll_staff_id: '',
 					project_name: '',
+					team_name: '',
 					activities: '',
 					start_date: '',
 					end_date: '',
@@ -139,6 +146,7 @@
 
 				errors: [],
 				records: [],
+				payroll_staffs: []
 
 			}
 		},
@@ -163,8 +171,9 @@
 				this.record = {
 					id: '',
 					date_register: '',
-					first_name: '',
+					payroll_staff_id: '',
 					project_name: '',
+					team_name: '',
 					activities: '',
 					start_date: '',
 					end_date: '',
@@ -172,6 +181,19 @@
 					percent: ''
 				};
 			},
+
+			/**
+			 * Obtiene los datos de los trabajadores registrados
+			 *
+			 * @author William Páez <wpaez@cenditel.gob.ve>
+			 */
+			getPayrollStaffs() {
+				this.payroll_staffs = [];
+				axios.get('/payroll/get-staffs').then(response => {
+					this.payroll_staffs = response.data;
+				});
+			},
+
 		},
 		mounted() {
 			const vm = this;
@@ -189,6 +211,8 @@
 		},
 
 		created() {
+			const vm = this;
+			vm.getPayrollStaffs();
 
 		},
 	};

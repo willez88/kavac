@@ -31,6 +31,9 @@
     					</div>
     				</div>
                 </div>
+                <send-messages></send-messages>
+                <send-notifications></send-notifications>
+                <user-settings></user-settings>
 				<table class="table table-hover table-striped dt-responsive nowrap datatable" id="helpConnectedUserList">
 					<thead>
 						<tr class="text-center">
@@ -82,34 +85,41 @@
 	                                @endif
 								</td>
 								<td class="text-center" width="10%">
-                                    @if($user->lock_screen)
+                                    @if($user->blocked_at)
                                     	{!! Form::button('<i class="fa fa-unlock"></i>', [
                                     		'class' => 'btn btn-success btn-xs btn-icon btn-action',
                                     		'data-toggle' => 'tooltip',
-                                    		'title' => __('Bloquear pantalla de aplicación'),
-                                            'onclick' => 'javascript::void(0)'
+                                    		'title' => __('Desbloquear usuario'),
+                                            'onclick' => 'unlockUser('.$user->id.')'
                                         ]) !!}
                                     @endif
                                     {!! Form::button('<i class="fa fa-comment"></i>', [
                                         'class' => 'btn btn-default btn-xs btn-icon btn-action',
-                                        'data-toggle' => 'tooltip', 'onclick' => 'javascript:void(0)',
+                                        'data-toggle' => 'modal', 'data-target' => '#modalSendMessage',
                                         'title' => __('Enviar mensaje al usuario'),
+                                        'onclick' => "setUserModalMessage(".$user->id.")",
+                                        'disabled' => (auth()->user()->id === $user->id)
                                     ]) !!}
                                     {!! Form::button('<i class="fa fa-cogs"></i>', [
                                         'class' => 'btn btn-primary btn-xs btn-icon btn-action',
-                                        'data-toggle' => 'tooltip', 'onclick' => 'javascript:void(0)',
+                                        'data-toggle' => 'modal', 'data-target' => '#modalUserSettings',
+                                        'onclick' => 'setUser('.$user->id.')',
                                         'title' => __('Configurar cuenta de usuario'),
+                                        'disabled' => (auth()->user()->id === $user->id)
                                     ]) !!}
                                     {!! Form::button('<i class="fa fa-bell"></i>', [
                                         'class' => 'btn btn-danger btn-xs btn-icon btn-action',
-                                        'data-toggle' => 'tooltip', 'onclick' => 'javascript:void(0)',
+                                        'data-toggle' => 'modal', 'data-target' => '#modalSendNotification',
                                         'title' => __('Enviar notificación de proceso'),
+                                        'onclick' => "setUserModalNotify(".$user->id.")",
+                                        'disabled' => (auth()->user()->id === $user->id)
                                     ]) !!}
                                 	{!! Form::button('<i class="fa fa-info-circle"></i>', [
                                         'class' => 'btn btn-info btn-xs btn-icon btn-action',
                                         'data-toggle' => 'tooltip',
                                         'onclick' => 'view_user_info('.$user->id.')',
                                         'title' => __('Ver información del usuario'),
+                                        'disabled' => (auth()->user()->id === $user->id)
                                     ]) !!}
                                     {!! Form::button('<i class="fa fa-filter"></i>', [
                                         'class' => 'btn btn-warning btn-xs btn-icon btn-action',

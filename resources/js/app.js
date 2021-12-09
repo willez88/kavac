@@ -127,6 +127,16 @@ Vue.component('document-management', () => import(
     './components/Shared/DocumentManagementComponent.vue'
 ));
 
+Vue.component('send-messages', () => import(
+    /* webpackChunkName: "send-messages" */
+    './components/Shared/SendMessagesComponent.vue'
+));
+
+Vue.component('send-notifications', () => import(
+    /* webpackChunkName: "send-notifications" */
+    './components/Shared/SendNotificationsComponent.vue'
+));
+
 /**
  * Componente genérico para el uso de listas desplegables con select2 y selects dependientes
  *
@@ -207,6 +217,16 @@ Vue.component('restore-records', () => import(
 Vue.component('audit-records', () => import(
     /* webpackChunkName: "audit-records" */
     './components/Admins/AuditRecordsComponent.vue'
+));
+
+/**
+ * Componente para configuraciones de usuarios
+ *
+ * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ */
+Vue.component('user-settings', () => import(
+    /* webpackChunkName: "user-settings" */
+    './components/Admins/UserSettingsComponent.vue'
 ));
 
 /**

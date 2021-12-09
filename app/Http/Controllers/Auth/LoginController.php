@@ -76,6 +76,16 @@ class LoginController extends Controller
     }
 
     /**
+     * Muestra el formulario de autenticación de usuario
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showLoginForm()
+    {
+        return view(env('AUTH_VIEW', 'auth.login'));
+    }
+
+    /**
      * Gestiona una petición de acceso a la aplicación.
      *
      * @method  login

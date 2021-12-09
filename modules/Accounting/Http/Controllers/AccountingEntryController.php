@@ -48,7 +48,7 @@ class AccountingEntryController extends Controller
 		$this->middleware('permission:accounting.entries.create', ['only' => ['create', 'store']]);
 		$this->middleware('permission:accounting.entries.edit', ['only' => ['edit', 'update']]);
 		$this->middleware('permission:accounting.entries.delete', ['only' => 'destroy']);
-		$this->middleware('permission:accounting.entries.approve', ['only' => 'approve']);
+		// $this->middleware('permission:accounting.entries.approve', ['only' => 'approve']);
 	}
 	/**
 	 * muestra la vista donde se mostraran los asientos contables aprobados
@@ -78,6 +78,12 @@ class AccountingEntryController extends Controller
 		 * @var AccountingEntry
 		 */
 		$entries = AccountingEntry::orderBy('from_date', 'ASC')->first();
+
+		/**
+		 * [$entries almacena el registro de asiento contable no aprobados]
+		 * @var AccountingEntry
+		 */
+		$entriesNotApproved = $this->unapproved();
 
 		/**
 		 * [$yearOld determinara el año mas antiguo para el filtrado]
@@ -118,7 +124,7 @@ class AccountingEntryController extends Controller
 		 */
 		$categories = json_encode($categories);
 
-		return view('accounting::entries.index', compact('categories', 'yearOld', 'currencies', 'institutions'));
+		return view('accounting::entries.index', compact('categories', 'yearOld', 'currencies', 'institutions', 'entriesNotApproved'));
 	}
 
 	/**
@@ -584,7 +590,6 @@ class AccountingEntryController extends Controller
 		);
 	}
 
-
 	/**
 	 * Obtiene los registros de las cuentas patrimoniales
 	 * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
@@ -624,11 +629,10 @@ class AccountingEntryController extends Controller
 		return json_encode($records);
 	}
 
-
 	/**
 	 * [unapproved vista con listado de asientos contable no aprobados]
 	 * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-	 * @return Renderable
+	 * @return AccountingEntry
 	 */
 	public function unapproved()
 	{
@@ -654,7 +658,8 @@ class AccountingEntryController extends Controller
 						->orderBy('from_date', 'ASC')->get();
 		}
 
-		return view('accounting::entries.listing', compact('entries'));
+		return $entries;
+		// return view('accounting::entries.listing', compact('entries'));
 	}
 
 	/**

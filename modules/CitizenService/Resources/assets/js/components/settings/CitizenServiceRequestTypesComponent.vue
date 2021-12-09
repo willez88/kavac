@@ -3,7 +3,7 @@
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href="#"
 		   title="Registros de tipo de solicitudes" data-toggle="tooltip"
 		   @click="addRecord('add_citizenservice-request-type', 'citizenservice/request-types', $event)">
-           <i class="icofont icofont-briefcase-alt-1 ico-3x"></i>
+           <i class="icofont icofont-files ico-3x"></i>
 		   <span>Tipo de Solicitud</span>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_citizenservice-request-type">
@@ -14,7 +14,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-briefcase-alt-1 ico-3x"></i>
+							<i class="icofont icofont-files ico-3x"></i>
 							Tipo de solicitud
 						</h6>
 					</div>
@@ -76,9 +76,7 @@
 	                </div>
 	                <div class="modal-body modal-table">
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
-							<div slot="updated_at" slot-scope="props" class="text-center">
-								{{ format_timestamp(props.row.updated_at, 'YYYY-MM-DD') }}
-							</div>
+							
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.row.id, $event)"
 		                				class="btn btn-warning btn-xs btn-icon btn-action"
@@ -113,7 +111,7 @@
 				},
 				errors: [],
 				records: [],
-				columns: ['name', 'description', 'requirement', 'updated_at', 'id'],
+				columns: ['name', 'description', 'requirement', 'id'],
 			}
 		},
 		methods: {
@@ -137,16 +135,14 @@
 				'name': 'Nombre',
                 'description': 'Descripción',
 				'requirement': 'Requerimientos de solicitud',
-				'updated_at': 'Última modificación',
 				'id': 'Acción'
 			};
 			this.table_options.sortable = ['name'];
 			this.table_options.filterable = ['name'];
 			this.table_options.columnsClasses = {
 				'name': 'col-md-3',
-                'description': 'col-md-2',
+                'description': 'col-md-3',
 				'requirement': 'col-md-3',
-				'updated_at': 'col-md-2',
 				'id': 'col-md-2'
 			};
 		},

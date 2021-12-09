@@ -116,9 +116,19 @@ Vue.component('accounting-entry', () => import(
  *
  * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  */
-Vue.component('accounting-entry-li', () => import(
-    /* webpackChunkName: "accounting-entry-li" */
+Vue.component('accounting-entry-list-approved', () => import(
+    /* webpackChunkName: "accounting-entry-list-approved" */
     './components/entries/AccountingListComponent.vue')
+);
+
+/**
+ * Componente para cargar la tabla de asientos contables no aprobados
+ *
+ * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ */
+Vue.component('accounting-entry-list-not-approved', () => import(
+    /* webpackChunkName: "accounting-entry-list-not-approved" */
+    './components/entries/AccountingListNotApprovedComponent.vue')
 );
 
 /**

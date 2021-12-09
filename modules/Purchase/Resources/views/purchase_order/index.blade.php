@@ -21,6 +21,21 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
+                    <h6 class="card-title">Contratación directa</h6>
+                    <div class="card-btns">
+                        @include('buttons.previous', ['route' => url()->previous()])
+                        @include('buttons.new', ['route' => route('purchase.direct_hire.create')])
+                        @include('buttons.minimize')
+                    </div>
+                </div>
+                <div class="card-body">
+                    <purchase-order-direct-hire-list :records="{{ $records }}" route_edit="/purchase/direct_hire/{id}/edit" route_delete="/purchase/direct_hire" />
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
                     <h6 class="card-title">Listado de ordenes de compra</h6>
                     <div class="card-btns">
                         @include('buttons.previous', ['route' => url()->previous()])

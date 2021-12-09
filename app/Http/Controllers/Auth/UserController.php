@@ -13,6 +13,7 @@ use App\Models\NotificationSetting;
 use App\Roles\Models\Role;
 use App\Roles\Models\Permission;
 use App\Notifications\UserRegistered;
+use Carbon\Carbon;
 
 /**
  * @class UserController
@@ -519,6 +520,24 @@ class UserController extends Controller
     }
 
     /**
+     * Establece la configuración de un usuario desde el panel administrativo
+     *
+     * @method    setAdminUserSetting
+     *
+     * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request                $request    Datos de la petición
+     */
+    public function setAdminUserSetting(Request $request)
+    {
+        $user = User::find($request->user_id);
+        $user->blocked_at = ($request->blocked_at === true) ? Carbon::now() : null;
+        $user->active = ($request->active === true) ? true : false;
+        $user->save();
+        return response()->json(['result' => true], 200);
+    }
+
+    /**
      * Gestiona la configuración de notificaciones establecida por el usuario
      *
      * @method     setMyNotifications(Request $request)
@@ -626,5 +645,31 @@ class UserController extends Controller
         $user->save();
 
         return response()->json(['result' => true, 'new_csrf' => csrf_token()], 200);
+    }
+
+    /**
+     * Desbloquea un usuario
+     *
+     * @method    unlock
+     *
+     * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request    $request    Datos de la petición
+     * @param     User       $user       Usuario a desbloquear
+     *
+     * @return    ResponseJson
+     */
+    public function unlock(Request $request, User $user)
+    {
+        $user->blocked_at = null;
+        $user->save();
+        $request->session()->flash('message', ['type' => 'other', 'text' => 'Usuario desbloqueado']);
+        return response()->json(['result' => true], 200);
+    }
+
+    public function getAll()
+    {
+        $users = User::select('id', 'name')->get();
+        return response()->json(['result' => true, 'records' => $users]);
     }
 }

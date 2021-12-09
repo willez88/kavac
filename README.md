@@ -1,3 +1,9 @@
+     _  __    ___     ___    ____ 
+    | |/ /   / \ \   / / \  / ___|
+    | ' /   / _ \ \ / / _ \| |    
+    | . \  / ___ \ V / ___ \ |___ 
+    |_|\_\/_/   \_\_/_/   \_\____|
+
 # KAVAC | Sistema de Gestión Organizacional
 
 ## Sobre la aplicación
@@ -294,6 +300,13 @@ Puedes, de igual forma asignarle una dirección IP o dominio a este comando y un
 
     $ php artisan serve --port 192.168.1.1 --port 9000
 
+## Procesamiento de colas
+
+Ciertos procedimientos del sistema permiten y requieren establecer colas de trabajo para peticiones y registros con grandes cantidades de información.
+Para entornos de producción se recomienda realizar una configuración previa antes de iniciar la aplicación, la descripción de esta configuración se encuentra en la sección 'Configuración extra para entornos de producción > Procesamiento de colas' de este archivo. Para activar los workers en un entorno de desarrollo, se debe ejecutar el siguiente comando, el cual debe quedar iniciado y mantenerse en una consola de comandos:
+
+    $ php artisan queue:work
+
 Llegado a este punto ya se debe contar con la aplicación funcional en un entorno local de desarrollo, a continuación se describen configuraciones para entornos de producción.
 
 ## Configuración extra para entornos de producción
@@ -444,7 +457,7 @@ Lo primero es configuar dentro del archivo de entorno (.env) la variable **QUEUE
 
     QUEUE_CONNECTION=database
 
-Si se desea configurar otro driver para la gestión de colas se puede obtener información en la documentación oficial del framework [Larave](https://docs.laravel.com).
+Si se desea configurar otro driver para la gestión de colas se puede obtener información en la documentación oficial del framework [Laravel](https://docs.laravel.com).
 
 Una vez configurado el servidor de colas es necesario realizar los procedimientos necesarios para que los
 **workers** que procesan las colas de trabajo esten activo en todo momento, para esto es recomendable configurar a supervisorctl  de la siguiente forma:

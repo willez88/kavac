@@ -1,0 +1,8 @@
+digraph "SaleGoodsToBeTradedController"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{SaleGoodsToBeTradedController\n||+ destroy()\l+ getCurrencies()\l+ getDepartments()\l+ getPayrollStaffs()\l+ getSaleGoods()\l+ getSaleGoodsAttributes()\l+ getSaleGoodsToBeTraded()\l+ getTaxes()\l+ index()\l+ store()\l+ update()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Gestionar bienes a Comercializar en el sistema."];
+}

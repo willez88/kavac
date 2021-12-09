@@ -3,7 +3,7 @@
 		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
 		   href="#" title="Registros de Categorias Específicas de Bienes" data-toggle="tooltip"
 		   @click="addRecord('add_specific_category', 'asset/specific', $event)">
-			<i class="icofont icofont-read-book ico-3x"></i>
+			<i class="icofont icofont-cube ico-3x"></i>
 			<span>Categorias<br>Específicas</span>
 		</a>
 		<div class="modal fade text-left" tabindex="-1" role="dialog" id="add_specific_category">
@@ -14,7 +14,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
-							<i class="icofont icofont-read-book ico-2x"></i>
+							<i class="icofont icofont-cube ico-2x"></i>
 							Nueva Categoria Específica de Bienes
 						</h6>
 					</div>
@@ -89,7 +89,7 @@
 	                <div class="modal-body modal-table">
 	                	
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
-	                		<div slot="id" slot-scope="props" class="text-center">
+	                		<div slot="id" slot-scope="props">
 	                			<button @click="initUpdate(props.row.id, $event)"
 		                				class="btn btn-warning btn-xs btn-icon btn-action" v-has-tooltip
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
@@ -140,10 +140,10 @@
 			this.table_options.sortable = ['asset_subcategory.name','name', 'code'];
 			this.table_options.filterable = ['asset_subcategory.name','name', 'code'];
 			this.table_options.columnsClasses = {
-                'asset_subcategory.name': 'col-xs-5',
-                'name': 'col-xs-4',
-                'code': 'col-xs-1 text-center',
-                'id': 'col-xs-2'
+                'asset_subcategory.name': 'col-md-5',
+                'name':                   'col-md-4',
+                'code':                   'col-md-1 text-center',
+                'id':                     'col-md-2 text-center'
             };
 
 		},
@@ -166,18 +166,6 @@
 					code: ''
                 };
             },
-            initUpdate(id, event) {
-                const vm = this;
-				vm.errors = [];
-
-                let recordEdit = JSON.parse(JSON.stringify(vm.records.filter((rec) => {
-                    return rec.id === id;
-                })[0])) || vm.reset();
-
-                vm.record = recordEdit;
-
-                event.preventDefault();
-			},
 		},
 	};
 </script>

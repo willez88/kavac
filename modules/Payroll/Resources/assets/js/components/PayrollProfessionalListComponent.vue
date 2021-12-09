@@ -77,6 +77,41 @@
                         </div>
 
                         <hr>
+                        <h6 class="card-title">
+    						Estudios Universitarios
+    					</h6>
+                        <div class="row" v-for="(payroll_study, index) in record.payroll_studies">
+                            <div class="col-3">
+    							<div class="form-group is-required">
+    								<label>Nombre de la Universidad:</label>
+    								<input type="text" class="form-control input-sm"
+    									disabled="true" v-model="payroll_study.university_name"/>
+    							</div>
+                            </div>
+    						<div class="col-3">
+    							<div class="form-group is-required">
+    								<label>Anño de Graduación:</label>
+    								<input type="text" class="form-control input-sm"
+    									disabled="true" v-model="payroll_study.graduation_year"/>
+    							</div>
+    						</div>
+    						<div class="col-3">
+    							<div class="form-group is-required">
+    								<label>Tipo de Estudio:</label>
+    								<select2 :options="payroll_study_types"
+    									disabled="true" v-model="payroll_study.payroll_study_type_id">
+    								</select2>
+    							</div>
+    						</div>
+    						<div class="col-3">
+    							<div class="form-group is-required">
+    								<label>Profesión:</label>
+    								<select2 :options="professions"
+                                        disabled="true" v-model="payroll_study.profession_id">
+    								</select2>
+    							</div>
+    						</div>
+    					</div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -140,6 +175,46 @@
                                 </div>
                             </div>
                         </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h6 class="card-title">
+                                    Capacitación y Reconocimientos
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="row" v-for="(payroll_cou_ack_file, index) in payroll_cou_ack_files">
+                            <div class="col-3">
+    							<div class="form-group is-required">
+    								<label>Nombre del Curso:</label>
+    								<input type="text" class="form-control input-sm"
+    									disabled="true" v-model="payroll_cou_ack_file.course_name"/>
+    							</div>
+    						</div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label>Curso</label>
+                                    <div>
+                                        <a :href="`/${payroll_cou_ack_file.course_file_url}`" target="_blank">Documento</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+    							<div class="form-group is-required">
+    								<label>Nombre del Reconocimiento:</label>
+    								<input type="text" class="form-control input-sm"
+    									disabled="true" v-model="payroll_cou_ack_file.ack_name"/>
+    							</div>
+    						</div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label>Reconocimiento</label>
+                                    <div>
+                                        <a :href="`/${payroll_cou_ack_file.ack_file_url}`" target="_blank">Documento</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -155,6 +230,9 @@
                 record: [],
 				columns: ['payroll_staff.first_name', 'payroll_instruction_degree.name', 'professions', 'is_student', 'id'],
                 payroll_class_schedule: '',
+                payroll_cou_ack_files: [],
+                payroll_study_types: [],
+                professions: [],
 			}
 		},
 
@@ -170,10 +248,16 @@
 			this.table_options.filterable = ['payroll_staff.first_name', 'payroll_instruction_degree.name'];
             this.getPayrollLanguages();
 			this.getPayrollLanguageLevels();
+            this.getPayrollStudyTypes();
+            this.getProfessions();
 		},
 
 		mounted() {
-			this.initRecords(this.route_list, '');
+            const vm = this;
+			vm.initRecords(vm.route_list, '');
+            $('#show_professional').on('hidden.bs.modal', function (e) {
+                vm.payroll_cou_ack_files = [];
+            });
 		},
 
         methods: {
@@ -182,15 +266,26 @@
             },
 
             showInfo(id) {
+                const vm = this;
                 axios.get(`/payroll/professionals/${id}`).then(response => {
-					this.record = response.data.record;
-                    $('#payroll_staff').val(this.record.payroll_staff.first_name + ' ' + this.record.payroll_staff.last_name);
-                    $('#payroll_instruction_degree').val(this.record.payroll_instruction_degree.name);
-                    $('#instruction_degree_name').val(this.record.instruction_degree_name);
-                    (this.record.is_student) ? $('#is_student').bootstrapSwitch('state', true) : $('#is_student').bootstrapSwitch('state', false);
-                    $('#payroll_study_type').val( (this.record.payroll_study_type) ? this.record.payroll_study_type.name : ' ' );
-                    $('#study_program_name').val(this.record.study_program_name);
-                    this.payroll_class_schedule = response.data.record.payroll_class_schedule;
+					vm.record = response.data.record;
+                    $('#payroll_staff').val(vm.record.payroll_staff.first_name + ' ' + vm.record.payroll_staff.last_name);
+                    $('#payroll_instruction_degree').val(vm.record.payroll_instruction_degree.name);
+                    $('#instruction_degree_name').val(vm.record.instruction_degree_name);
+                    (vm.record.is_student) ? $('#is_student').bootstrapSwitch('state', true) : $('#is_student').bootstrapSwitch('state', false);
+                    $('#payroll_study_type').val( (vm.record.payroll_study_type) ? vm.record.payroll_study_type.name : ' ' );
+                    $('#study_program_name').val(vm.record.study_program_name);
+                    vm.payroll_class_schedule = (response.data.record.payroll_class_schedule) ? response.data.record.payroll_class_schedule : {};
+                    for (const a in response.data.record.payroll_course.payroll_course_files) {
+                        var payroll_course_file = response.data.record.payroll_course.payroll_course_files[a];
+                        var payroll_ack_file = response.data.record.payroll_acknowledgment.payroll_acknowledgment_files[a];
+                        vm.payroll_cou_ack_files.push({
+                            course_name: payroll_course_file.name,
+                            course_file_url: (payroll_course_file.image) ? payroll_course_file.image.url : payroll_course_file.documents[0].url,
+                            ack_name: payroll_ack_file.name,
+                            ack_file_url: (payroll_ack_file.image) ? payroll_ack_file.image.url : payroll_ack_file.documents[0].url,
+                        });
+                    }
 				});
                 $('#show_professional').modal('show');
             }

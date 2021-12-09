@@ -13,7 +13,7 @@
 				<div class="col-3" id="helpDailyBookEndDate">
 					<label class="control-label">Fecha final</label>
 					<input type="date" class="form-control input-sm"
-						v-model="dateEnd">
+						v-model="dateEnd" :min="dateIni?dateIni:''" :disabled="dateIni?false:true">
 				</div>
 				<div class="col-3" id="helpDailyBookCurrency">
 					<label class="control-label">Expresar en</label>
@@ -25,6 +25,11 @@
 			<button class="btn btn-primary btn-sm" data-toggle="tooltip" title="Generar Reporte"
                     v-on:click="OpenPdf(getUrlReport(), '_blank')" id="helpDailyBookGenerateReport">
                 <span>Generar reporte</span>
+                <i class="fa fa-print"></i>
+			</button>
+			<button class="btn btn-primary btn-sm" data-toggle="tooltip" title="Generar y Firmar Reporte"
+                    v-on:click="OpenPdf(getUrlReportSign(), '_blank')" id="helpDailyBookGenerateReportSign">
+                <span>Generar y firmar reporte</span>
                 <i class="fa fa-print"></i>
 			</button>
 		</div>
@@ -44,6 +49,7 @@
 		data(){
 			return{
 				url:'/accounting/report/dailyBook/pdf/',
+				urlSign:'/accounting/report/dailyBookSign/pdf/',
 				dateIni:'',
 				dateEnd:'',
 				currency:'',
@@ -79,6 +85,37 @@
 				var dateEnd = this.dateEnd;
 				var info = (this.dateIni <= this.dateEnd) ? (dateIni+'/'+dateEnd) : (dateEnd+'/'+dateIni) ;
 				var url = this.url+info+'/'+this.currency;
+				return url;
+			},
+			/**
+			* Formatea la url para el reporte
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			* @return {string} url para el reporte
+			*/
+			getUrlReportSign:function() {
+
+				var errors = [];
+				if (!this.dateIni) {
+					errors.push("La fecha inicial es obligatorio.");
+				}
+				if (!this.dateEnd) {
+					errors.push("La fecha final es obligatorio.");
+				}
+				if (!this.currency) {
+					errors.push("El tipo de moneda es obligatorio.");
+				}
+
+				if (errors.length > 0) {
+					this.$refs.errorsDialyBook.showAlertMessages(errors);
+					return;
+				}
+				this.$refs.errorsDialyBook.reset();
+
+				var dateIni = this.dateIni;
+				var dateEnd = this.dateEnd;
+				var info = (this.dateIni <= this.dateEnd) ? (dateIni+'/'+dateEnd) : (dateEnd+'/'+dateIni) ;
+				var url = this.urlSign+info+'/'+this.currency;
 				return url;
 			},
 		}

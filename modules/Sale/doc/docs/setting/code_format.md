@@ -5,7 +5,7 @@
 
 ## Formatos de códigos
 
-La sección de **Formatos de Códigos** permite establecer un código de referencia para los registros posteriores (productos, movimientos, facturas), para completar esta configuración el usuario debe dirigirse al módulo de **Comercialización**, luego a **Configuración** y ubicarse en la sección **Formatos de Códigos**.
+La sección de **Formatos de Códigos** permite establecer un código de referencia para los registros posteriores de: productos, movimientos, facturas y solicitudes de servicios. Para completar esta configuración el usuario debe dirigirse al módulo de **Comercialización**, luego a **Configuración** y ubicarse en la sección **Formatos de Códigos**.
 
 Cada código debe establecerse de acuerdo a un formato específico el cual se divide en tres (3) secciones: prefijo-dígitos-año.
 

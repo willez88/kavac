@@ -51,6 +51,17 @@
 								]) !!}
 							</div>
 						</div>
+						<div class="col-md-3" id="helpCodeSaleService">
+							<div class="form-group">
+								{!! Form::label('sale_service_code', 'Código para las solicitudes de servicios', []) !!}
+								{!! Form::text('services_code', ($serviceCode) ? $serviceCode->format_code : old('services_code'), [
+									'class' => 'form-control input-sm', 'data-toggle' => 'tooltip',
+									'title' => 'Formato para el código de las solicitudes de servicios',
+									'placeholder' => 'Ej. XXX-00000000-YYYY',
+									'readonly' => ($serviceCode) ? true : false
+								]) !!}
+							</div>
+						</div>
 					</div>
 					@include('layouts.help-text', ['codeSetting' => true])
 				</div>

@@ -30,12 +30,36 @@ Route::group(
         /**
          * Panel de control referente a los pedidos
          */
-        Route::get('order', 'SaleOrderSettingController@options')->name('sale.order.options');
+        Route::resource('order', 'SaleOrderSettingController', ['only' => 'store']);
+        Route::get('order/create', 'SaleOrderSettingController@create')->name('sale.order.create');
+        Route::get('order', 'SaleOrderSettingController@index')->name('sale.order.index');
+        Route::patch('order/{order}', 'SaleOrderSettingController@update');
+        Route::get('order/vue-list', 'SaleOrderSettingController@getListPending');
+        Route::get('order/list-rejected', 'SaleOrderSettingController@getListRejected');
+        Route::get('order/list-approved', 'SaleOrderSettingController@getListApproved');
+
+        /** Ruta que muestra el formulario para actualizar la información de una orden */
+        Route::get('order/edit/{order}', 'SaleOrderSettingController@edit')->name('sale.order.edit');
+        /** Ruta que obtiene la información de un bien institucional registrado */
+        Route::get('order/info/{order}', 'SaleOrderSettingController@getOrderInfo');
 
         Route::resource(
-            'register-order',
-            'SaleOrderSettingController',
-            ['as' => 'order', 'except' => ['create','edit','show']]
+          'approve-order',
+          'SaleOrderSettingController',
+          ['as' => 'order', 'except' => ['create','edit','show']]
+        );
+
+        Route::put(
+          'order/rejected/{order}',
+          'SaleOrderSettingController@rejectedOrder'
+        );
+        Route::put(
+          'order/approved/{order}',
+          'SaleOrderSettingController@approvedOrder'
+        );
+        Route::put(
+          'order/delete/{order}',
+          'SaleOrderSettingController@destroy'
         );
 
         /** Ruta que obtiene un array con los precios registrados, de acuerdo al producto seleccionado */
@@ -98,6 +122,12 @@ Route::group(
             'SaleFormPaymentController',
             ['as' => 'sale']
         );
+
+        Route::get(
+            'get-form-payments',
+            'SaleFormPaymentController@getSaleFormPayment'
+        )->name('sale.get-sale-form-payment');
+
         /**
          * -----------------------------------------------------------------------
          * Rutas para la configuración general del módulo de Comercialización
@@ -114,15 +144,7 @@ Route::group(
             'get-paymentmethod',
             'SalePaymentMethodController@getSalePaymentMethod'
         )->name('sale.get-sale-paymentmethod');
-        Route::resource(
-            'setting-product',
-            'SaleSettingProductController',
-            ['as' => 'sale', 'except' => ['create','edit','show']]
-        );
-        Route::get(
-            'get-setting-product',
-            'SaleSettingProductController@getSaleSettingProduct'
-        )->name('sale.get-sale-setting-product');
+
         Route::resource(
             'setting-product-type',
             'SaleSettingProductTypeController',
@@ -281,6 +303,7 @@ Route::group(
         Route::put('bills/bill-approved/{bill}', 'SaleBillController@approvedBill');
         Route::put('bills/bill-rejected/{bill}', 'SaleBillController@rejectedBill');
         Route::get('bills/vue-approved-list/{state}', 'SaleBillController@vueApprovedList');
+        Route::get('get-bill-product/{product}/{id}', 'SaleBillController@getBillProduct');
         Route::get('bills/pdf/{id}', 'Reports\SaleBillController@pdf');
 
         /*
@@ -310,24 +333,33 @@ Route::group(
         )->name('sale.get-sale-listsubservicesmethod');
 
         /**
-
          * ---------------------------------------------------------------------------------
-         * Rutas para gestionar la generación de facturas en el Modulo de Comercialización
+         * Rutas para gestionar la generación de solicitudes de servicios en el Modulo de Comercialización
          * ---------------------------------------------------------------------------------
          */
 
         Route::resource('services', 'SaleServiceController', ['as' => 'sale', 'except' => ['create','edit','show']]);
         Route::get('services/create', 'SaleServiceController@create')->name('sale.services.create');
-        //  Route::get('bills', 'SaleBillController@index')->name('sale.bills.index');
-        //  Route::get('bills/vue-list', 'SaleBillController@vueList');
-        //  Route::patch('bills/{bill}', 'SaleBillController@update');
-        //  Route::get('bills/info/{bill}', 'SaleBillController@vueInfo');
-        //  Route::get('bills/edit/{bill}', 'SaleBillController@edit')->name('sale.bills.edit');
-        //  Route::delete('bills/delete/{bill}', 'SaleBillController@destroy')->name('sale.bills.destroy');
-        //  Route::put('bills/bill-approved/{bill}', 'SaleBillController@approvedBill');
-        //  Route::put('bills/bill-rejected/{bill}', 'SaleBillController@rejectedBill');
-        //  Route::get('bills/vue-approved-list/{state}', 'SaleBillController@vueApprovedList');
-        //  Route::get('bills/pdf/{id}', 'Reports\SaleBillController@pdf');
+        Route::get('services/vue-list', 'SaleServiceController@vueList');
+        Route::get('services/edit/{id}', 'SaleServiceController@edit')->name('sale.services.edit');
+        Route::get('services/info/{id}', 'SaleServiceController@vueInfo');
+        Route::patch('services/{id}', 'SaleServiceController@update');
+        Route::delete('services/delete/{id}', 'SaleServiceController@destroy');
+        Route::put('services/service-approved/{id}', 'SaleServiceController@approved');
+        Route::put('services/service-rejected/{id}', 'SaleServiceController@rejected');
+        Route::get('services/vue-pending-list/{status}', 'SaleServiceController@vuePendingList');
+
+        /**
+         * ---------------------------------------------------------------------------------
+         * Rutas para gestionar la generación de propuestas técnicas en el Modulo de Comercialización
+         * ---------------------------------------------------------------------------------
+         */
+
+        Route::resource('technical-proposals', 'SaleTechnicalProposalController', ['as' => 'sale', 'except' => ['create','edit','show']]);
+        Route::get('technical-proposals/complete/{id}', 'SaleTechnicalProposalController@saleCompleteTechnicalProposal')
+             ->name('sale.technical-proposals.create');
+        Route::get('technical-proposals/info/{id}', 'SaleTechnicalProposalController@vueInfo');
+        Route::delete('technical-proposals/delete/{id}', 'SaleTechnicalProposalController@destroy');
 
         //Frecuency (periodicidad de tiempo)
         Route::resource(
@@ -352,6 +384,49 @@ Route::group(
             'get-periodic-cost',
             'PeriodicCostController@getPeriodicCostAttributes'
         )->name('sale.get-sale-periodic-cost');
+        //Products (productos)
+        Route::resource(
+            'product',
+            'SaleSettingProductController',
+            ['as' => 'sale', 'except' => ['create','edit','show']]
+        );
+
+        Route::get(
+            'get-setting-product',
+            'SaleSettingProductController@getSaleSettingProduct'
+        )->name('sale.get-sale-setting-product');
+
+        /**
+         * ---------------------------------------------------------------------------------
+         * Rutas para gestionar la generación de cotizaciones en el Modulo de Comercialización
+         * ---------------------------------------------------------------------------------
+         */
+
+        Route::resource('quotes', 'SaleQuoteController', ['only' => 'store']);
+        Route::get('quotes/create', 'SaleQuoteController@create')->name('sale.quotes.create');
+        Route::get('quotes', 'SaleQuoteController@index')->name('sale.quotes.index');
+        Route::get('quotes/vue-list', 'SaleQuoteController@vueList');
+        Route::patch('quotes/{SaleQuote}', 'SaleQuoteController@update');
+        Route::get('quotes/info/{SaleQuote}', 'SaleQuoteController@vueInfo');
+        Route::get('quotes/edit/{SaleQuote}', 'SaleQuoteController@edit')->name('sale.quotes.edit');
+        Route::delete('quotes/delete/{SaleQuote}', 'SaleQuoteController@destroy')->name('sale.quotes.destroy');
+        Route::put('quotes/quote-approved/{SaleQuote}', 'SaleQuoteController@approvedQuote');
+        Route::put('quotes/quote-rejected/{SaleQuote}', 'SaleQuoteController@rejectedQuote');
+        Route::get('quotes/vue-state-list/{state}', 'SaleQuoteController@vueStateList');
+        Route::get('get-quote-taxes', 'SaleQuoteController@getTaxes');
+        Route::get('get-quote-status', 'SaleQuoteController@getSaleQuoteStatus');
+        Route::get('get-quote-subservices', 'SaleQuoteController@getSaleListSubservices');
+        Route::get('get-quote-sale-goods', 'SaleQuoteController@getQuoteGoodsToBeTradeds');
+        Route::get('get-quote-inventory', 'SaleQuoteController@getInventoryProducts');
+        Route::get('get-quote-payment', 'SaleQuoteController@getSaleFormPayments');
+        Route::get('get-quote-price-product/{id?}', 'SaleQuoteController@getPriceProduct');
+        Route::get('get-quote-price-service/{id?}', 'SaleQuoteController@getPriceService');
+        Route::get('get-quote-measurement-units', 'SaleQuoteController@getMeasurementUnits');
+        Route::get('get-quote-clients', 'SaleQuoteController@getSaleClients');
+        //Route::get('quotes/pdf/{id}', 'Reports\SaleBillController@pdf');
+
+
+
 
         /*
          * ------------------------------------------------------------
@@ -359,6 +434,33 @@ Route::group(
          * ------------------------------------------------------------
          */
         Route::get('payment', 'SalePaymentController@index')->name('sale.payment.index');
+
+        Route::get('payment/create', 'SalePaymentController@create')->name('payment.register.create');
+
+        Route::post('payment/store', 'SalePaymentController@store')->name('payment.register.store');
+
+        Route::get(
+            'get-sales-client/{id}',
+            'SalePaymentController@getSaleClient'
+        )->name('sale.get-sales-client');
+
+        Route::get(
+            'get-sales-to-be-trade/{id}',
+            'SalePaymentController@getSaleGoodsToBeTraded'
+        )->name('sale.get-sales-to-be-trade');  
+
+        Route::get(
+            'get-sales-service/{id}',
+            'SalePaymentController@getSaleService'
+        )->name('sale.get-sales-service');       
+
+        Route::get('get-sale-order-list', 'SalePaymentController@getSaleOrderList');
+
+        Route::get('get-sale-service-list', 'SalePaymentController@getSaleServiceList');
+
+        Route::get('get-bank', 'SalePaymentController@getSaleBank');
+
+        Route::get('get-currencie', 'SalePaymentController@getCurrencie');
 
         /*
          * ------------------------------------------------------------
@@ -376,6 +478,11 @@ Route::group(
             'SaleGoodsToBeTradedController@getSaleGoodsAttributes'
         )->name('sale.get-sale-goods-attribute');
 
+        Route::get(
+            'get-sale-goods',
+            'SaleGoodsToBeTradedController@getSaleGoods'
+        );
+
         /**
          * -------------------------------------------------------------------
          * Rutas para gestionar los Elementos select de bienes a comercializar
@@ -385,5 +492,29 @@ Route::group(
         Route::get('get-departments', 'SaleGoodsToBeTradedController@getDepartments');
         Route::get('get-taxes', 'SaleGoodsToBeTradedController@getTaxes');
         Route::get('get-payroll-staffs', 'SaleGoodsToBeTradedController@getPayrollStaffs');
+        
+        /**
+         * -------------------------------------------------------------------
+         * Rutas para gestionar los Elementos select de la propuesta técnica
+         * -------------------------------------------------------------------
+         */
+        Route::get('get-asignation-staffs', 'SaleTechnicalProposalController@getAsignationStaffs');
+
+
+        /*
+         * ------------------------------------------------------------
+         * Rutas para gestionar la generación de reportes en el Modulo de Pagos
+         * ------------------------------------------------------------
+         */
+        Route::get('reports/payment', 'SalePaymentReportController@listPayment')
+            ->name('sale.report.payment');
+
+        /*
+         * ------------------------------------------------------------
+         * Rutas para gestionar la generación de reportes en el Modulo de Solicitud de servicios
+         * ------------------------------------------------------------
+         */
+        Route::get('reports/service-requests', 'Reports\SaleServiceRequestController@index')
+            ->name('sale.report.service-requests');
     }
 );

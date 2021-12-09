@@ -19,7 +19,7 @@ La sección de **Solicitudes** esta orientada a la formulación de solicitudes h
 
 A través de la generación de **Reportes** es posible generar informes en tiempo real sobre: resumen de disfrute de vacaciones, estatus de vacaciones, cálculo del bono vacacional y pago de bono vacacional.  
 
-A través de la **Configuración** del módulo se establecen los códigos de registros, edad laboral permitida, registros comunes y parámetros generales de nómina.   Todos estos registros son parámetros que serán considerados en las demás secciones del módulo
+A través de la **Configuración** del módulo se establecen los códigos de registros, edad laboral permitida, registros comunes y parámetros generales de nómina.   Todos estos registros son parámetros que serán considerados en las demás secciones del módulo.
 
 ## Sobre los usuarios
 
@@ -104,9 +104,9 @@ La Fundación Centro Nacional de Desarrollo e Investigación en Tecnologías Lib
 Cada vez que copie y distribuya este producto debe acompañarlo de una copia de las licencias. Para más información sobre los términos y condiciones de las licencias visite las siguientes direcciones electrónicas:  
 
 
-[Licencia de Software](https://conocimientolibre.cenditel.gob.ve/legislacion)
+[Licencia de Software](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
 
-[Licencia de Contenidos](https://conocimientolibre.cenditel.gob.ve/legislacion)
+[Licencia de Contenidos](http://conocimientolibre.cenditel.gob.ve/licencias/)
 
 ![Screenshot](img/licencia.png)
 

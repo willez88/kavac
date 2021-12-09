@@ -103,7 +103,6 @@
 			},
 		},
 		created() {
-            this.getCountries();
 			this.table_options.headings = {
 				'name': 'Nombre',
                 'country.name': 'País',
@@ -117,5 +116,11 @@
 				'id': 'col-md-2'
 			};
 		},
+        mounted() {
+            const vm = this;
+            $("#add_payroll_nationality").on('show.bs.modal', function() {
+                vm.getCountries();
+            });
+        }
 	};
 </script>
