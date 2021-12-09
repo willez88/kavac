@@ -56,22 +56,22 @@
                 <div class="col-md-9">
                     <ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#profile" role="tab">
+                            <a class="nav-link profile active" data-toggle="tab" href="#profile" role="tab">
                                 <i class="ion-android-person"></i> {{ __('Perfil') }}
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#activity" role="tab">
+                            <a class="nav-link activity" data-toggle="tab" href="#activity" role="tab">
                                 <i class="ion-arrow-swap"></i> {{ __('Actividad') }}
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#messages" role="tab">
+                            <a class="nav-link messages" data-toggle="tab" href="#messages" role="tab">
                                 <i class="ion-android-mail"></i> {{ __('Mensajes') }}
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#directory" role="tab">
+                            <a class="nav-link directory" data-toggle="tab" href="#directory" role="tab">
                                 <i class="ion-android-contacts"></i> {{ __('Directorio') }}
                             </a>
                         </li>
@@ -235,7 +235,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <ul class="timeline timeline-inverse">
+                                    <ul class="timeline timeline-inverse" style="max-height:500px; overflow-y: auto;">
                                         <li class="time-label">
                                             <span class="bg-red">
                                                 10 Feb. 2016
@@ -253,10 +253,6 @@
                                                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
                                                     cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                                                     proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                                </div>
-                                                <div class="timeline-footer">
-                                                    <a class="btn btn-info btn-xs">Read more</a>
-                                                    <a class="btn btn-warning btn-xs">Delete</a>
                                                 </div>
                                             </div>
                                         </li>
@@ -279,11 +275,7 @@
                                                     cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                                                     proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                                                 </div>
-                                                <div class="timeline-footer">
-                                                    <a class="btn btn-info btn-xs">Read more</a>
-                                                    <a class="btn btn-warning btn-xs">Delete</a>
-                                                </div>
-                                            </div>
+                                           </div>
                                         </li>
                                     </ul>
                                 </div>
@@ -818,5 +810,11 @@
                 $('.preloader').fadeOut(2000);
             });
         }
+
+        @if (request()->input('tab')!==null)
+            $(document).ready(function() {
+                $('.{!! request()->input('tab') !!}').click();
+            });
+        @endif
     </script>
 @endsection

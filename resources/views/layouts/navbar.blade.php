@@ -176,7 +176,7 @@
 						   title="{{ __('Actualizar datos de perfil del usuario') }}"
 						   data-toggle="tooltip" data-placement="left">
 							<i class="ion-person"></i>{{ __('Mi Perfil') }}</a>
-						<a class="dropdown-item" href="{{ url('users') . "/" . Auth::user()->id }}#activity"
+						<a class="dropdown-item" href="{{ url('users') . "/" . Auth::user()->id }}/?tab=activity"
                            title="{{ __('Ver actividad en la aplicación') }}" data-toggle="tooltip"
                            data-placement="left">
 							<i class="ion-ios-star"></i>{{ __('Registro de Actividad') }}</a>
