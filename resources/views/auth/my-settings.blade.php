@@ -53,7 +53,8 @@
                             {!! Form::label('time_lock', __('Tiempo de inactividad'), []) !!}
                             {!! Form::number('time_lock', auth()->user()->time_lock ?? 0, [
                                 'class' => 'form-control input-sm', 'data-toggle' => 'tooltip',
-                                'title' => __('Tiempo de inactividad en minutos para bloquear la pantalla del sistema')
+                                'title' => __('Tiempo de inactividad en minutos para bloquear la pantalla del sistema'),
+                                'readonly' => (!auth()->user()->lock_screen)?true:false
                             ]) !!}
                         </div>
                     </div>
@@ -140,6 +141,9 @@
                     'data-toggle': 'tooltip'
                 }).tooltip({delay: 8});
             @endforeach
+            $('#lock_screen').on('switchChange.bootstrapSwitch', function() {
+                $('#time_lock').attr('readonly', ($(this).is(':checked'))?false:true);
+            });
         });
     </script>
 @stop

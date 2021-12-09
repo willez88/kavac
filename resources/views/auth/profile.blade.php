@@ -18,7 +18,20 @@
 
 @section('content')
     <div class="card">
-        <div class="card-body">
+        <div class="card-header">
+            <h6 class="card-title">
+                {{ __('Perfil de usuario') }}
+                @include('buttons.help', [
+                    'helpId' => 'myProfile',
+                    'helpSteps' => get_json_resource('ui-guides/my_profile.json')
+                ])
+            </h6>
+            <div class="card-btns">
+                @include('buttons.previous', ['route' => url()->previous()])
+                @include('buttons.minimize')
+            </div>
+        </div>
+        <div class="card-body" id="helpProfile">
             <div class="row">
                 <div class="col-md-3 col-right-border">
                     <div class="row">
@@ -33,7 +46,7 @@
                                 @endphp
                                 <img src="{{ asset($img_profile ?? 'images/default-avatar.png') }}"
                                      alt="{{ $model->name ?? auth()->user()->name }}"
-                                     class="img-profile" style="cursor:pointer"
+                                     class="img-profile" style="cursor:pointer" id="helpProfilePicture"
                                      title="{{ __('Click para modificar imagen de perfil') }}"
                                      data-toggle="tooltip" onclick="$('input[name=profile_image]').click()">
                                 <input type="file" id="profile_image" name="profile_image" style="display:none"
@@ -41,36 +54,36 @@
                             {!! Form::close() !!}
                         </div>
                         <div class="col-12 text-center">
-                            <h4>{{ auth()->user()->name }}</h4>
-                            <h5>{{ __('Cargo') }}</h5>
+                            <h4 id="helpProfileName">{{ auth()->user()->name }}</h4>
+                            <h5 id="helpProfilePosition">{{ __('Cargo') }}</h5>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <button type="button" class="btn btn-info btn-block">
+                            <button type="button" class="btn btn-info btn-block" id="helpProfileLockScreen">
                                 {{ __('Bloquear Pantalla') }}
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-9" id="helpProfileContent">
                     <ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
-                        <li class="nav-item">
+                        <li class="nav-item" id="helpProfileData">
                             <a class="nav-link profile active" data-toggle="tab" href="#profile" role="tab">
                                 <i class="ion-android-person"></i> {{ __('Perfil') }}
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="helpProfileActivity">
                             <a class="nav-link activity" data-toggle="tab" href="#activity" role="tab">
                                 <i class="ion-arrow-swap"></i> {{ __('Actividad') }}
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="helpProfileMessages">
                             <a class="nav-link messages" data-toggle="tab" href="#messages" role="tab">
                                 <i class="ion-android-mail"></i> {{ __('Mensajes') }}
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="helpProfileDirectory">
                             <a class="nav-link directory" data-toggle="tab" href="#directory" role="tab">
                                 <i class="ion-android-contacts"></i> {{ __('Directorio') }}
                             </a>
