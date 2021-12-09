@@ -102,17 +102,6 @@
     	</section>
 	</div>
 </template>
-<style type="text/css" scope>
-	.VueTables__search {
-		display: none;
-	}
-	.VueTables__limit {
-		display: none;
-	}
-	.VuePagination {
-		display: none;
-	}
-</style>
 <script>
 	export default{
 		props:{
