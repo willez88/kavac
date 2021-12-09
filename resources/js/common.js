@@ -28,6 +28,9 @@ $(document).ready(function() {
             <h6 style="text-transform: uppercase;text-align: center;color: #0073b7;">Registros</h6>
         </div>`
     );
+
+    $('.modal').data('backdrop', 'static');
+    $('.modal').data('keyboard', false);
 });
 
 /**
