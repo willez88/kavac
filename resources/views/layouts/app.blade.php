@@ -369,6 +369,24 @@
                 @endrole
 
                 /**
+                 * Establece la información del usuario a notificar
+                 *
+                 * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+                 */
+                var setUserModalNotify = function(id) {
+                    $('#modalSendNotification').find('#user').val(id);
+                };
+
+                /**
+                 * Establece la información del usuario a enviar mensaje
+                 *
+                 * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+                 */
+                var setUserModalMessage = function(id) {
+                    $('#modalSendMessage').find('#user').val(id);
+                }
+
+                /**
                  * Registro de eventos del sistema
                  *
                  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>

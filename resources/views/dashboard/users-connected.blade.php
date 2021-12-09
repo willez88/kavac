@@ -96,6 +96,7 @@
                                         'class' => 'btn btn-default btn-xs btn-icon btn-action',
                                         'data-toggle' => 'modal', 'data-target' => '#modalSendMessage',
                                         'title' => __('Enviar mensaje al usuario'),
+                                        'onclick' => "setUserModalMessage(".$user->id.")"
                                     ]) !!}
                                     {!! Form::button('<i class="fa fa-cogs"></i>', [
                                         'class' => 'btn btn-primary btn-xs btn-icon btn-action',
@@ -106,6 +107,7 @@
                                         'class' => 'btn btn-danger btn-xs btn-icon btn-action',
                                         'data-toggle' => 'modal', 'data-target' => '#modalSendNotification',
                                         'title' => __('Enviar notificación de proceso'),
+                                        'onclick' => "setUserModalNotify(".$user->id.")"
                                     ]) !!}
                                 	{!! Form::button('<i class="fa fa-info-circle"></i>', [
                                         'class' => 'btn btn-info btn-xs btn-icon btn-action',

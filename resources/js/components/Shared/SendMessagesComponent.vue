@@ -10,6 +10,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <input type="hidden" id="user" v-model="record.userId">
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group is-required">
@@ -28,7 +29,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Enviar</button>
+                    <button type="button" class="btn btn-primary" @click="sendMessage()">Enviar</button>
                 </div>
             </div>
         </div>
@@ -40,10 +41,52 @@
         data() {
             return {
                 record: {
+                    userId: '',
                     toEmail: '',
                     message: ''
                 }
             }
+        },
+        methods: {
+            getUserInfo(id) {
+                const vm = this;
+                axios.get(`${window.app_url}/user-info/${id}`).then(response => {
+                    vm.record.userId = id;
+                    vm.record.toEmail = response.data.user.email;
+                }).catch(error => {
+                    console.error(error);
+                });
+            },
+            async sendMessage() {
+                const vm = this;
+                vm.loading = true;
+                await axios.post(`${window.app_url}/messages/send`, {
+                    toEmail: vm.record.toEmail,
+                    subject: 'Mensaje del sistema',
+                    message: vm.record.message,
+                }).then(response => {
+                    vm.showMessage(
+                        'custom', 'Enviado', 'success', 'screen-ok', 'Mensaje enviado'
+                    );
+                    $("#modalSendMessage").find('.close').click();
+                }).catch(error => {
+                    console.error(error);
+                });
+                vm.loading = false;
+            }
+        },
+        mounted() {
+            const vm = this;
+            $("#modalSendMessage").on("shown.bs.modal", function () {
+                vm.getUserInfo($("#user").val());
+            });
+            $('#modalSendMessage').on('hidden.bs.modal', function (e) {
+                vm.record = {
+                    userId: '',
+                    toEmail: '',
+                    message: ''
+                };
+            });
         }
     }
 </script>
