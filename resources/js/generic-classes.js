@@ -145,7 +145,7 @@ class AppInfo {
 				<li class="no-list-symbol">
 					<a href="https://gestion.cenditel.gob.ve/trac/browser/kavac" target="_blank" data-toggle="tooltip"
                        title="Enlace al repositorio del proyecto">
-						https://gestion.cenditel.gob.ve/trac/browser/kavac
+						https://gestion.cenditel.gob.ve/scm/git/kavac.git
 					</a>
 				</li>
 			</ul>
