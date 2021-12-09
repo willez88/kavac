@@ -1,0 +1,10 @@
+[
+	{
+		"element": "#helpMyNotify",
+		"intro": "Configuración de notificaciones a recibir"
+	},
+	{
+		"element": "#helpMyNotifyOptions",
+		"intro": "Opciones de funcionalidades o módulos de los cuales recibir notificaciones"
+	}
+]
