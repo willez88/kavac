@@ -181,8 +181,11 @@
                 }).then(response => {
                     if (response.data.result && typeof(response.data.records) !== "undefined") {
                         vm.records = response.data.records;
+                    } else {
+                        vm.showMessage(
+                            'custom', 'Alerta', 'warning', 'screen-warning', response.data.message
+                        );
                     }
-                    vm.loading = false;
                 }).catch(error => {
                     console.error(error);
                 });
