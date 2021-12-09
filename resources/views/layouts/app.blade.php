@@ -387,6 +387,17 @@
                 }
 
                 /**
+                 * Establece los datos de un usuario
+                 *
+                 * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+                 *
+                 * @param     {String}    id       Identificador del usuario
+                 */
+                var setUser = function(id) {
+                    window.userId = id;
+                }
+
+                /**
                  * Registro de eventos del sistema
                  *
                  * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>

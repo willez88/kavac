@@ -13,6 +13,7 @@ use App\Models\NotificationSetting;
 use App\Roles\Models\Role;
 use App\Roles\Models\Permission;
 use App\Notifications\UserRegistered;
+use Carbon\Carbon;
 
 /**
  * @class UserController
@@ -516,6 +517,24 @@ class UserController extends Controller
         $request->session()->flash('message', ['type' => 'store']);
 
         return redirect()->route('my.settings');
+    }
+
+    /**
+     * Establece la configuración de un usuario desde el panel administrativo
+     *
+     * @method    setAdminUserSetting
+     *
+     * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request                $request    Datos de la petición
+     */
+    public function setAdminUserSetting(Request $request)
+    {
+        $user = User::find($request->user_id);
+        $user->blocked_at = ($request->blocked_at === true) ? Carbon::now() : null;
+        $user->active = ($request->active === true) ? true : false;
+        $user->save();
+        return response()->json(['result' => true], 200);
     }
 
     /**

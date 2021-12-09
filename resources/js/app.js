@@ -220,6 +220,16 @@ Vue.component('audit-records', () => import(
 ));
 
 /**
+ * Componente para configuraciones de usuarios
+ *
+ * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ */
+Vue.component('user-settings', () => import(
+    /* webpackChunkName: "user-settings" */
+    './components/Admins/UserSettingsComponent.vue'
+));
+
+/**
  * Componente para la gestión de estados civiles
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
