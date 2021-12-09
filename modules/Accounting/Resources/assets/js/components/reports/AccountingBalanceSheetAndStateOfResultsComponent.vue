@@ -42,6 +42,10 @@
                         :id="'help'+this.type_report+'GenerateReport'">
 					Generar Reporte <i class="fa fa-print"></i>
 				</button>
+				<button class="btn btn-primary btn-sm" @click="OpenPdf(getUrlReportSign(), '_blank')"
+                        :id="'help'+this.type_report+'GenerateReportSign'">
+					Generar y firmar Reporte <i class="fa fa-print"></i>
+				</button>
 			</div>
 		</div>
 	</div>
@@ -77,12 +81,14 @@
 					{ id:6, text:'Nivel 6' },
 				],
 				url:'/accounting/report/',
+				urlSign:'/accounting/report/',
 				currency:'',
 			}
 		},
 		created(){
 			this.CalculateOptionsYears(this.year_old);
 			this.url += this.type_report+'/pdf/';
+			this.urlSign += this.type_report+'Sign/pdf/';
 		},
 		methods:{
 
@@ -107,6 +113,30 @@
 
 				var zero = ($('#zero'+this.type_report).prop('checked'))?'true':'';
 				return ( this.url+(this.year_init+'-'+this.month_init) )+'/'+this.level+'/'+this.currency+'/'+zero;
+			},
+
+			/**
+			* Formatea la url para el reporte
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			* @return {string} url para el reporte
+			*/
+			getUrlReportSign:function() {
+
+				var errors = [];
+				if (!this.currency) {
+					errors.push("El tipo de moneda es obligatorio.");
+				}
+
+				if (errors.length > 0) {
+					this.$refs[this.type_report+'Sign'].showAlertMessages(errors);
+					return;
+				}
+
+				this.$refs[this.type_report].reset();
+
+				var zero = ($('#zero'+this.type_report).prop('checked'))?'true':'';
+				return ( this.urlSign+(this.year_init+'-'+this.month_init) )+'/'+this.level+'/'+this.currency+'/'+zero;
 			}
 		}
 	};

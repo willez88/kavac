@@ -51,6 +51,10 @@
                     data-toggle="tooltip" data-placement="right">
                     <a href="/sale/reports/payment">Pagos</a>
                 </li>
+                <li title="Reporte de servicios"
+                    data-toggle="tooltip" data-placement="right">
+                    <a href="/sale/reports/service-requests">Solicitudes de servicios</a>
+                </li>
             </ul>
         </li>
 

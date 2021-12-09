@@ -509,5 +509,12 @@ Route::group(
         Route::get('reports/payment', 'SalePaymentReportController@listPayment')
             ->name('sale.report.payment');
 
+        /*
+         * ------------------------------------------------------------
+         * Rutas para gestionar la generación de reportes en el Modulo de Solicitud de servicios
+         * ------------------------------------------------------------
+         */
+        Route::get('reports/service-requests', 'Reports\SaleServiceRequestController@index')
+            ->name('sale.report.service-requests');
     }
 );
