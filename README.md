@@ -300,6 +300,13 @@ Puedes, de igual forma asignarle una dirección IP o dominio a este comando y un
 
     $ php artisan serve --port 192.168.1.1 --port 9000
 
+## Procesamiento de colas
+
+Ciertos procedimientos del sistema permiten y requieren establecer colas de trabajo para peticiones y registros con grandes cantidades de información.
+Para entornos de producción se recomienda realizar una configuración previa antes de iniciar la aplicación, la descripción de esta configuración se encuentra en la sección 'Configuración extra para entornos de producción > Procesamiento de colas' de este archivo. Para activar los workers en un entorno de desarrollo, se debe ejecutar el siguiente comando, el cual debe quedar iniciado y mantenerse en una consola de comandos:
+
+    $ php artisan queue:work
+
 Llegado a este punto ya se debe contar con la aplicación funcional en un entorno local de desarrollo, a continuación se describen configuraciones para entornos de producción.
 
 ## Configuración extra para entornos de producción
