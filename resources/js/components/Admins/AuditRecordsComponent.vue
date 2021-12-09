@@ -153,7 +153,13 @@
             },
             end_date: function() {
                 const vm = this;
-                $('#auditStartDate').attr('max', vm.end_date);
+                if (vm.end_date) {
+                    $('#auditStartDate').attr('max', vm.end_date);
+                } else {
+                    if (!$('#auditStartDate').hasClass('no-restrict')) {
+                        $('#auditStartDate').attr('max', vm.getCurrentDate());
+                    }
+                }
             }
         },
         methods: {

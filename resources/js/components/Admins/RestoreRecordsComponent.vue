@@ -28,7 +28,7 @@
                                     <i class="now-ui-icons ui-1_calendar-60"></i>
                                 </span>
                                 <input type="date" class="form-control" data-toggle="tooltip" title="Desde la fecha"
-                                       v-model="start_delete_at" placeholder="Fecha">
+                                       v-model="start_delete_at" id="startDeleteAt" placeholder="Fecha">
                             </div>
                         </div>
                         <div class="form-group col-md-2" id="helpRestoreFilterToDate">
@@ -37,7 +37,7 @@
                                     <i class="now-ui-icons ui-1_calendar-60"></i>
                                 </span>
                                 <input type="date" class="form-control" data-toggle="tooltip" title="Hasta la fecha"
-                                       v-model="end_delete_at" placeholder="Fecha">
+                                       v-model="end_delete_at" id="endDeleteAt" placeholder="Fecha">
                             </div>
                         </div>
                         <div class="form-group col-md-2" id="helpRestoreFilterModule">
@@ -100,6 +100,22 @@
                 default: null
             }
         },
+        watch: {
+            start_delete_at: function() {
+                const vm = this;
+                $('#endDeteleAt').attr('min', vm.start_delete_at);
+            },
+            end_delete_at: function() {
+                const vm = this;
+                if (vm.end_delete_at) {
+                    $('#startDeleteAt').attr('max', vm.end_delete_at);
+                } else {
+                    if (!$('#startDeleteAt').hasClass('no-restrict')) {
+                        $('#startDeleteAt').attr('max', vm.getCurrentDate());
+                    }
+                }
+            }
+        },
         methods: {
             /**
              * Restaurar registro eliminado
@@ -135,10 +151,10 @@
              *
              * @param  {string} url Ruta que obtiene todos los registros solicitados
              */
-            readRecords() {
+            async readRecords() {
                 const vm = this;
                 vm.loading = true;
-                axios.post('/app/deleted-records', {
+                await axios.post('/app/deleted-records', {
                     start_delete_at: vm.start_delete_at,
                     end_delete_at: vm.end_delete_at,
                     module_delete_at: vm.module_delete_at
@@ -146,10 +162,10 @@
                     if (response.data.result && typeof(response.data.records) !== "undefined") {
                         vm.records = response.data.records;
                     }
-                    vm.loading = false;
                 }).catch(error => {
                     console.error(error);
                 });
+                vm.loading = false;
             },
         },
         created() {

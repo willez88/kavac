@@ -10,13 +10,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <input type="hidden" id="user" v-model="record.userId">
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group is-required">
                                 <label>Usuario(s):</label>
-                                <v-multiselect :options="users" track_by="name" :hide_selected="true" 
-                                               :selected="record.users" v-model="record.users">
-                                </v-multiselect>
+                                <span>{{ record.user }}</span>
                             </div>
                             <div class="form-group is-required">
                                 <label>Mensaje</label>
@@ -27,7 +26,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Enviar</button>
+                    <button type="button" class="btn btn-primary" @click="sendNotify()">Enviar</button>
                 </div>
             </div>
         </div>
@@ -39,27 +38,52 @@
         data() {
             return {
                 record: {
-                    users: [],
+                    userId: '',
+                    user: '',
                     message: ''
                 },
-                users: []
             }
         },
         methods: {
-            getUsers() {
+            getUserInfo(id) {
                 const vm = this;
-                axios.get(`${window.app_url}/users-all`).then(response => {
-                    if (response.data.result) {
-                        vm.users = response.data.records;
-                    }
+                axios.get(`${window.app_url}/user-info/${id}`).then(response => {
+                    vm.record.userId = id;
+                    vm.record.user = response.data.user.name;
                 }).catch(error => {
                     console.error(error);
                 });
+            },
+            async sendNotify() {
+                const vm = this;
+                vm.loading = true;
+                await axios.post(`${window.app_url}/notifications/send`, {
+                    user_id: vm.record.userId,
+                    title: 'Notificación de proceso',
+                    details: vm.record.message
+                }).then(response => {
+                    vm.showMessage(
+                        'custom', 'Enviado', 'success', 'screen-ok', 'Notificación enviada'
+                    );
+                    $("#modalSendNotification").find('.close').click();
+                }).catch(error => {
+                    console.error(error);
+                });
+                vm.loading = false;
             }
         },
         mounted() {
             const vm = this;
-            vm.getUsers();
+            $("#modalSendNotification").on("shown.bs.modal", function () {
+                vm.getUserInfo($("#user").val());
+            });
+            $('#modalSendNotification').on('hidden.bs.modal', function (e) {
+                vm.record = {
+                    userId: '',
+                    user: '',
+                    message: ''
+                };
+            });
         }
     }
 </script>
