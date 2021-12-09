@@ -1,0 +1,9 @@
+digraph "Representación gráfica de la clase"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="CompileModules",height=0.2,width=0.4,color="black",URL="$d1/d4e/classApp_1_1Console_1_1Commands_1_1CompileModules.html",tooltip="Gestiona las instrucciones necesarias para ejecutar los comandos para la compilación de archivos."];
+}

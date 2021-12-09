@@ -1,0 +1,8 @@
+digraph "UploadDocRepository"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{UploadDocRepository\n|- $allowed_upload\l- $doc_extension\l- $doc_name\l- $doc_stored\l- $error_msg\l|+ deleteDoc()\l+ getDocExtension()\l+ getDocName()\l+ getDocStored()\l+ getErrorMessage()\l+ uploadDoc()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Gestiona las acciones a ejecutar en la carga de documentos al servidor."];
+}

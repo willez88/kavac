@@ -1,0 +1,8 @@
+digraph "PayrollScaleRequirements"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{PayrollScaleRequirements\n|# $attribute\l# $group_by_clasification\l# $group_by_years\l|+ __construct()\l+ message()\l+ passes()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Reglas de validación para los requerimientos de las escalas de un escalafón salarial."];
+}

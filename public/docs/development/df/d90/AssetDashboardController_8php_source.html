@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>KAVAC: Fichero Fuente AssetDashboardController.php</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+<link href="../../customdoxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../logo-doc.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">KAVAC
+   &#160;<span id="projectnumber">versión 1.0.0</span>
+   </div>
+   <div id="projectbrief">Sistema de Gestión Organizacional</div>
+  </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="../../search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.png" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "../../search",false,'Buscar');
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('df/d90/AssetDashboardController_8php_source.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">AssetDashboardController.php</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;&lt;?php</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">/** Revisar */</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../dc/d56/namespaceModules_1_1Asset_1_1Http_1_1Controllers.html">Modules\Asset\Http\Controllers</a>;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;use Illuminate\Http\Response;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;use Illuminate\Contracts\Support\Renderable;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;use Illuminate\Routing\Controller;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;use <a class="code" href="../../d1/d18/classModules_1_1Asset_1_1Models_1_1Asset.html">Modules\Asset\Models\Asset</a>;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;use <a class="code" href="../../d9/d2c/classModules_1_1Asset_1_1Models_1_1AssetAsignation.html">Modules\Asset\Models\AssetAsignation</a>;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;use <a class="code" href="../../de/dcb/classModules_1_1Asset_1_1Models_1_1AssetDisincorporation.html">Modules\Asset\Models\AssetDisincorporation</a>;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;use <a class="code" href="../../d3/db5/classModules_1_1Asset_1_1Models_1_1AssetRequest.html">Modules\Asset\Models\AssetRequest</a>;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">/**</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> * @class      AssetDashboardController</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * @brief      Controlador del panel de control módulo de bienes</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * Clase que gestiona las peticiones realizadas desde el panel de control del módulo de bienes</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * @author     Henry Paredes &lt;hparedes@cenditel.gob.ve&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> * @license</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="../../dc/de7/classModules_1_1Asset_1_1Http_1_1Controllers_1_1AssetDashboardController.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="../../dc/de7/classModules_1_1Asset_1_1Http_1_1Controllers_1_1AssetDashboardController.html">AssetDashboardController</a> <span class="keyword">extends</span> Controller</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{<span class="comment"></span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">     * Muestra la sección del dashboard del módulo de bienes</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">     * @author    Henry Paredes &lt;hparedes@cenditel.gob.ve&gt;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">     * @return    Renderable</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="../../dc/de7/classModules_1_1Asset_1_1Http_1_1Controllers_1_1AssetDashboardController.html#a149eb92716c1084a935e04a8d95f7347">   32</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="../../dc/de7/classModules_1_1Asset_1_1Http_1_1Controllers_1_1AssetDashboardController.html#a149eb92716c1084a935e04a8d95f7347">index</a>()</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">return</span> view(<span class="stringliteral">&#39;asset::dashboard&#39;</span>);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">     * Otiene un listado de las existencias en inventario de los bienes registradas</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">     * @author    Henry Paredes &lt;hparedes@cenditel.gob.ve&gt;</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">     * @param     String                           $type     Tipo de solicitud</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">     * @param     String                           $order    Orden en el que se expresan los registros</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="../../dc/de7/classModules_1_1Asset_1_1Http_1_1Controllers_1_1AssetDashboardController.html#a12ad3c1b0a753f4423b505f2997ae14d">   45</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="../../dc/de7/classModules_1_1Asset_1_1Http_1_1Controllers_1_1AssetDashboardController.html#a12ad3c1b0a753f4423b505f2997ae14d">getInventoryAssets</a>($type, $order = <span class="stringliteral">&#39;desc&#39;</span>)</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        $fields = [];</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordflow">if</span> ($type == <span class="stringliteral">&#39;exist&#39;</span>) {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            $fields = Asset::with(<span class="stringliteral">&#39;assetSpecificCategory&#39;</span>)</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                -&gt;select(<span class="stringliteral">&#39;asset_specific_category_id&#39;</span>, \DB::raw(<span class="stringliteral">&#39;count(*) as total&#39;</span>))</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                -&gt;groupBy(<span class="stringliteral">&#39;asset_specific_category_id&#39;</span>);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            $fields = ($order == <span class="stringliteral">&#39;desc&#39;</span>)?$fields-&gt;orderBy(<span class="stringliteral">&#39;total&#39;</span>, <span class="stringliteral">&#39;desc&#39;</span>)-&gt;get():</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                $fields-&gt;orderBy(<span class="stringliteral">&#39;total&#39;</span>, <span class="stringliteral">&#39;asc&#39;</span>)-&gt;get();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            $fields = \DB::table(<span class="stringliteral">&#39;asset_request_assets&#39;</span>)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                -&gt;leftJoin(<span class="stringliteral">&#39;assets&#39;</span>, <span class="stringliteral">&#39;asset_request_assets.asset_id&#39;</span>, <span class="charliteral">&#39;=&#39;</span>, <span class="stringliteral">&#39;assets.id&#39;</span>)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                -&gt;leftJoin(</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                    <span class="stringliteral">&#39;asset_specific_categories&#39;</span>,</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                    <span class="stringliteral">&#39;assets.asset_specific_category_id&#39;</span>,</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                    <span class="charliteral">&#39;=&#39;</span>,</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                    <span class="stringliteral">&#39;asset_specific_categories.id&#39;</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                )</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                -&gt;select(</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                    <span class="stringliteral">&#39;asset_specific_categories.id&#39;</span>,</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                    <span class="stringliteral">&#39;asset_specific_categories.name as name&#39;</span>,</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                    \DB::raw(<span class="stringliteral">&#39;count(*) as total&#39;</span>)</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                )</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                -&gt;groupBy(<span class="stringliteral">&#39;asset_specific_categories.id&#39;</span>);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            $fields = ($order == <span class="stringliteral">&#39;desc&#39;</span>)?$fields-&gt;orderBy(<span class="stringliteral">&#39;total&#39;</span>, <span class="stringliteral">&#39;desc&#39;</span>)-&gt;get():</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                $fields-&gt;orderBy(<span class="stringliteral">&#39;total&#39;</span>, <span class="stringliteral">&#39;asc&#39;</span>)-&gt;get();</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordflow">return</span> response()-&gt;json([<span class="stringliteral">&#39;records&#39;</span> =&gt; $fields]);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    }</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">     * Obtiene la url de la operación a mostrar</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">     * @author    Henry Paredes &lt;hparedes@cenditel.gob.ve&gt;</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">     * @param     String                           $type_operation    Tipo de operación a mostrar</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">     * @param     String                           $code              Identificador único de la operación</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="../../dc/de7/classModules_1_1Asset_1_1Http_1_1Controllers_1_1AssetDashboardController.html#a8187c31bdf9d27f8eb8dc6fb04c013db">   84</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="../../dc/de7/classModules_1_1Asset_1_1Http_1_1Controllers_1_1AssetDashboardController.html#a8187c31bdf9d27f8eb8dc6fb04c013db">getOperation</a>($type_operation, $code)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">if</span> ($type_operation == <span class="stringliteral">&#39;registers&#39;</span>) {</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            <span class="keywordflow">return</span> response()-&gt;json([<span class="stringliteral">&#39;result&#39;</span> =&gt; <span class="keyword">true</span>, <span class="stringliteral">&#39;redirect&#39;</span> =&gt; <span class="stringliteral">&#39;/asset/reports/show/&#39;</span> . $code], 200);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <span class="keywordflow">return</span> response()-&gt;json([<span class="stringliteral">&#39;result&#39;</span> =&gt; <span class="keyword">true</span>, <span class="stringliteral">&#39;redirect&#39;</span> =&gt; <span class="stringliteral">&#39;/asset/reports/show/&#39;</span> . $code], 200);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    }</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">     * Otiene un listado de las operaciones registradas</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">     * @author    Henry Paredes &lt;hparedes@cenditel.gob.ve&gt;</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="../../dc/de7/classModules_1_1Asset_1_1Http_1_1Controllers_1_1AssetDashboardController.html#a2f4889e99dc55ae0f3a3d9da267e8677">   99</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="../../dc/de7/classModules_1_1Asset_1_1Http_1_1Controllers_1_1AssetDashboardController.html#a2f4889e99dc55ae0f3a3d9da267e8677">vueListOperations</a>()</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    {</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        $tables = [<span class="stringliteral">&#39;assets&#39;</span>, <span class="stringliteral">&#39;asset_asignations&#39;</span>, <span class="stringliteral">&#39;asset_disincorporations&#39;</span>, <span class="stringliteral">&#39;asset_requests&#39;</span>];</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        $fields = [];</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keywordflow">foreach</span> ($tables as $table) {</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            <span class="keywordflow">if</span> ($table == <span class="stringliteral">&#39;assets&#39;</span>) {</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                $type_operation = <span class="stringliteral">&#39;registers&#39;</span>;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                $description = <span class="stringliteral">&#39;Registro manual de bienes institucionales&#39;</span>;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                $data_operations = \DB::table($table)</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                    -&gt;select(<span class="stringliteral">&#39;created_at&#39;</span>, \DB::raw(<span class="stringliteral">&#39;count(*) as total&#39;</span>))</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                    -&gt;groupBy(<span class="stringliteral">&#39;created_at&#39;</span>)</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                    -&gt;get();</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                <span class="keywordflow">foreach</span> ($data_operations as $data) {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                    array_push($fields, [</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                        <span class="stringliteral">&#39;code&#39;</span> =&gt; $data-&gt;created_at,</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                        <span class="stringliteral">&#39;type_operation&#39;</span> =&gt; $type_operation,</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                        <span class="stringliteral">&#39;description&#39;</span> =&gt; $description,</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                        <span class="stringliteral">&#39;created_at&#39;</span> =&gt; $data-&gt;created_at,</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                        <span class="stringliteral">&#39;total_assets&#39;</span> =&gt; $data-&gt;total,</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                    ]);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                }</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                <span class="keywordflow">if</span> ($table == <span class="stringliteral">&#39;asset_asignations&#39;</span>) {</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                    $type_operation = <span class="stringliteral">&#39;asignations&#39;</span>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                    $description = <span class="stringliteral">&#39;Asignación de bienes institucionales&#39;</span>;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                } elseif ($table == <span class="stringliteral">&#39;asset_disincorporations&#39;</span>) {</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                    $type_operation = <span class="stringliteral">&#39;disincorporations&#39;</span>;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                    $description = <span class="stringliteral">&#39;Desincorporación de bienes institucionales&#39;</span>;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                } elseif ($table == <span class="stringliteral">&#39;asset_requests&#39;</span>) {</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                    $type_operation = <span class="stringliteral">&#39;requests&#39;</span>;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                    $description = <span class="stringliteral">&#39;Solicitud de bienes institucionales&#39;</span>;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                }</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                $data_operations = \DB::table($table)</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                     -&gt;select(<span class="stringliteral">&#39;code&#39;</span>, <span class="stringliteral">&#39;created_at&#39;</span>)</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                     -&gt;get();</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                <span class="keywordflow">foreach</span> ($data_operations as $data) {</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                    array_push($fields, [</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                        <span class="stringliteral">&#39;code&#39;</span> =&gt; $data-&gt;code,</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                        <span class="stringliteral">&#39;type_operation&#39;</span> =&gt; $type_operation,</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                        <span class="stringliteral">&#39;description&#39;</span> =&gt; $description,</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;                        <span class="stringliteral">&#39;created_at&#39;</span> =&gt; $data-&gt;created_at,</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;                    ]);</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;                }</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;            }</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        }</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <span class="keywordflow">return</span> response()-&gt;json([<span class="stringliteral">&#39;records&#39;</span> =&gt; $fields]);</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    }</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="comment">     * Obtiene la información de una operación registrada</span></div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="comment">     * @author    Henry Paredes &lt;hparedes@cenditel.gob.ve&gt;</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="comment">     * @param     String                           $type_operation    Tipo de operación a mostrar</span></div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="comment">     * @param     String                           $filter            Identificador único de la operación</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="comment">     * @return    \Illuminate\Http\JsonResponse    Objeto con los registros a mostrar</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno"><a class="line" href="../../dc/de7/classModules_1_1Asset_1_1Http_1_1Controllers_1_1AssetDashboardController.html#a126e17c42ddae901d897bb6803a28b70">  156</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="../../dc/de7/classModules_1_1Asset_1_1Http_1_1Controllers_1_1AssetDashboardController.html#a126e17c42ddae901d897bb6803a28b70">vueInfo</a>($type_operation, $filter)</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    {</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keywordflow">if</span> ($type_operation == <span class="stringliteral">&#39;registers&#39;</span>) {</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            $assets = Asset::where(<span class="stringliteral">&#39;created_at&#39;</span>, $filter)-&gt;get();</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;            <span class="keywordflow">return</span> response()-&gt;json([<span class="stringliteral">&#39;records&#39;</span> =&gt; $assets], 200);</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        } elseif ($type_operation == <span class="stringliteral">&#39;asignations&#39;</span>) {</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;            $field = AssetAsignation::where(<span class="stringliteral">&#39;code&#39;</span>, $filter)</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                -&gt;with([<span class="stringliteral">&#39;assetAsignationAssets&#39;</span> =&gt; <span class="keyword">function</span> ($query) {</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                    $query-&gt;with(<span class="stringliteral">&#39;asset&#39;</span>);</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                }])-&gt;first();</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;            <span class="keywordflow">return</span> response()-&gt;json([<span class="stringliteral">&#39;records&#39;</span> =&gt; $field-&gt;assetAsignationAssets], 200);</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        } elseif ($type_operation == <span class="stringliteral">&#39;disincorporations&#39;</span>) {</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;            $field = AssetDisincorporation::where(<span class="stringliteral">&#39;code&#39;</span>, $filter)</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                -&gt;with([<span class="stringliteral">&#39;assetDisincorporationAssets&#39;</span> =&gt; <span class="keyword">function</span> ($query) {</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                    $query-&gt;with(<span class="stringliteral">&#39;asset&#39;</span>);</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                }])-&gt;first();</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;            <span class="keywordflow">return</span> response()-&gt;json([<span class="stringliteral">&#39;records&#39;</span> =&gt; $field-&gt;assetDisincorporationAssets], 200);</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        } elseif ($type_operation == <span class="stringliteral">&#39;requests&#39;</span>) {</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;            $field = AssetRequest::where(<span class="stringliteral">&#39;code&#39;</span>, $filter)</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                -&gt;with([<span class="stringliteral">&#39;assetRequestAssets&#39;</span> =&gt; <span class="keyword">function</span> ($query) {</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                    $query-&gt;with(<span class="stringliteral">&#39;asset&#39;</span>);</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                }])-&gt;first();</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;            <span class="keywordflow">return</span> response()-&gt;json([<span class="stringliteral">&#39;records&#39;</span> =&gt; $field-&gt;assetRequestAssets], 200);</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        }</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    }</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;}</div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="aclassModules_1_1Asset_1_1Models_1_1Asset_html"><div class="ttname"><a href="../../d1/d18/classModules_1_1Asset_1_1Models_1_1Asset.html">Modules\Asset\Models\Asset</a></div><div class="ttdoc">Datos de los bienes institucionales.</div><div class="ttdef"><b>Definition:</b> <a href="../../da/dc3/Asset_8php_source.html#l00024">Asset.php:24</a></div></div>
+<div class="ttc" id="aclassModules_1_1Asset_1_1Models_1_1AssetAsignation_html"><div class="ttname"><a href="../../d9/d2c/classModules_1_1Asset_1_1Models_1_1AssetAsignation.html">Modules\Asset\Models\AssetAsignation</a></div><div class="ttdoc">Datos de las asignaciones de los bienes institucionales.</div><div class="ttdef"><b>Definition:</b> <a href="../../de/d43/AssetAsignation_8php_source.html#l00023">AssetAsignation.php:23</a></div></div>
+<div class="ttc" id="aclassModules_1_1Asset_1_1Http_1_1Controllers_1_1AssetDashboardController_html_a2f4889e99dc55ae0f3a3d9da267e8677"><div class="ttname"><a href="../../dc/de7/classModules_1_1Asset_1_1Http_1_1Controllers_1_1AssetDashboardController.html#a2f4889e99dc55ae0f3a3d9da267e8677">Modules\Asset\Http\Controllers\AssetDashboardController\vueListOperations</a></div><div class="ttdeci">vueListOperations()</div><div class="ttdoc">Otiene un listado de las operaciones registradas.</div><div class="ttdef"><b>Definition:</b> <a href="../../df/d90/AssetDashboardController_8php_source.html#l00099">AssetDashboardController.php:99</a></div></div>
+<div class="ttc" id="aclassModules_1_1Asset_1_1Models_1_1AssetRequest_html"><div class="ttname"><a href="../../d3/db5/classModules_1_1Asset_1_1Models_1_1AssetRequest.html">Modules\Asset\Models\AssetRequest</a></div><div class="ttdoc">Datos de las solicitudes de bienes institucionales.</div><div class="ttdef"><b>Definition:</b> <a href="../../d7/d7c/AssetRequest_8php_source.html#l00023">AssetRequest.php:23</a></div></div>
+<div class="ttc" id="aclassModules_1_1Asset_1_1Models_1_1AssetDisincorporation_html"><div class="ttname"><a href="../../de/dcb/classModules_1_1Asset_1_1Models_1_1AssetDisincorporation.html">Modules\Asset\Models\AssetDisincorporation</a></div><div class="ttdoc">Datos de las desincorporaciones de los bienes institucionales.</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d77/AssetDisincorporation_8php_source.html#l00023">AssetDisincorporation.php:23</a></div></div>
+<div class="ttc" id="aclassModules_1_1Asset_1_1Http_1_1Controllers_1_1AssetDashboardController_html_a126e17c42ddae901d897bb6803a28b70"><div class="ttname"><a href="../../dc/de7/classModules_1_1Asset_1_1Http_1_1Controllers_1_1AssetDashboardController.html#a126e17c42ddae901d897bb6803a28b70">Modules\Asset\Http\Controllers\AssetDashboardController\vueInfo</a></div><div class="ttdeci">vueInfo($type_operation, $filter)</div><div class="ttdoc">Obtiene la información de una operación registrada.</div><div class="ttdef"><b>Definition:</b> <a href="../../df/d90/AssetDashboardController_8php_source.html#l00156">AssetDashboardController.php:156</a></div></div>
+<div class="ttc" id="aclassModules_1_1Asset_1_1Http_1_1Controllers_1_1AssetDashboardController_html"><div class="ttname"><a href="../../dc/de7/classModules_1_1Asset_1_1Http_1_1Controllers_1_1AssetDashboardController.html">Modules\Asset\Http\Controllers\AssetDashboardController</a></div><div class="ttdoc">Controlador del panel de control módulo de bienes.</div><div class="ttdef"><b>Definition:</b> <a href="../../df/d90/AssetDashboardController_8php_source.html#l00024">AssetDashboardController.php:24</a></div></div>
+<div class="ttc" id="aclassModules_1_1Asset_1_1Http_1_1Controllers_1_1AssetDashboardController_html_a149eb92716c1084a935e04a8d95f7347"><div class="ttname"><a href="../../dc/de7/classModules_1_1Asset_1_1Http_1_1Controllers_1_1AssetDashboardController.html#a149eb92716c1084a935e04a8d95f7347">Modules\Asset\Http\Controllers\AssetDashboardController\index</a></div><div class="ttdeci">index()</div><div class="ttdoc">Muestra la sección del dashboard del módulo de bienes.</div><div class="ttdef"><b>Definition:</b> <a href="../../df/d90/AssetDashboardController_8php_source.html#l00032">AssetDashboardController.php:32</a></div></div>
+<div class="ttc" id="aclassModules_1_1Asset_1_1Http_1_1Controllers_1_1AssetDashboardController_html_a12ad3c1b0a753f4423b505f2997ae14d"><div class="ttname"><a href="../../dc/de7/classModules_1_1Asset_1_1Http_1_1Controllers_1_1AssetDashboardController.html#a12ad3c1b0a753f4423b505f2997ae14d">Modules\Asset\Http\Controllers\AssetDashboardController\getInventoryAssets</a></div><div class="ttdeci">getInventoryAssets($type, $order='desc')</div><div class="ttdoc">Otiene un listado de las existencias en inventario de los bienes registradas.</div><div class="ttdef"><b>Definition:</b> <a href="../../df/d90/AssetDashboardController_8php_source.html#l00045">AssetDashboardController.php:45</a></div></div>
+<div class="ttc" id="aclassModules_1_1Asset_1_1Http_1_1Controllers_1_1AssetDashboardController_html_a8187c31bdf9d27f8eb8dc6fb04c013db"><div class="ttname"><a href="../../dc/de7/classModules_1_1Asset_1_1Http_1_1Controllers_1_1AssetDashboardController.html#a8187c31bdf9d27f8eb8dc6fb04c013db">Modules\Asset\Http\Controllers\AssetDashboardController\getOperation</a></div><div class="ttdeci">getOperation($type_operation, $code)</div><div class="ttdoc">Obtiene la url de la operación a mostrar.</div><div class="ttdef"><b>Definition:</b> <a href="../../df/d90/AssetDashboardController_8php_source.html#l00084">AssetDashboardController.php:84</a></div></div>
+<div class="ttc" id="anamespaceModules_1_1Asset_1_1Http_1_1Controllers_html"><div class="ttname"><a href="../../dc/d56/namespaceModules_1_1Asset_1_1Http_1_1Controllers.html">Modules\Asset\Http\Controllers</a></div><div class="ttdoc">Revisar.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d40/AssetAcquisitionTypeController_8php_source.html#l00003">AssetAcquisitionTypeController.php:3</a></div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_e05d7e2b1ecd646af5bb94391405f3b5.html">modules</a></li><li class="navelem"><a class="el" href="../../dir_7b3fcb102f79a4d8ecbf49ec4c3cc818.html">Asset</a></li><li class="navelem"><a class="el" href="../../dir_02d4d95d0d1836aca8a50ad7f31be718.html">Http</a></li><li class="navelem"><a class="el" href="../../dir_64758ee9a8c48bd91da73bb84ee3153d.html">Controllers</a></li><li class="navelem"><b>AssetDashboardController.php</b></li>
+    <li class="footer">Generado el Miércoles, 8 de Diciembre de 2021 14:39:57 para KAVAC por
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

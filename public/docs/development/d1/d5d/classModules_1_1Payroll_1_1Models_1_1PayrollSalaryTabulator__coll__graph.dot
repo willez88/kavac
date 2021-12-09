@@ -1,0 +1,8 @@
+digraph "PayrollSalaryTabulator"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{PayrollSalaryTabulator\n|# $dates\l# $fillable\l|+ currency()\l+ institution()\l+ payrollConcepts()\l+ payrollHorizontalSalaryScale()\l+ payrollSalaryTabulatorScales()\l+ payrollStaffTypes()\l+ payrollVerticalSalaryScale()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Datos de los tabuladores salariales."];
+}

@@ -32,6 +32,8 @@ use App\Rules\Rif as RifRule;
  */
 class SalePaymentController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * [descripción del método]
      *
@@ -79,14 +81,41 @@ class SalePaymentController extends Controller
      */
     public function store(Request $request)
     {
+
+        //Establecer servicio. (true) pedido, (false).
+        $order_or_service_define_attributes = ($request->sale_service_id) ? true : false;
+        //valor de orden o servicio.
+        $order_service_id = ($request->sale_service_id) ? $request->sale_service_id : $request->sale_order_id;
+
+        //Si es servicio calcula el monto
+        if ($order_or_service_define_attributes) {
+            $SaleService = SaleService::find($request->sale_service_id);
+            $sale_goods_to_be_traded_count = count($SaleService->sale_goods_to_be_traded);
+            for ($i=0; $i < $sale_goods_to_be_traded_count; $i++) { 
+                //Consulta valor de servicio segun el id de servicios
+                $SaleGoodsToBeTraded = SaleGoodsToBeTraded::find($SaleService->sale_goods_to_be_traded[$i]);
+                // valor de impuesto
+                if ($SaleGoodsToBeTraded->history_tax_id) {
+                    $HistoryTax = HistoryTax::find($SaleGoodsToBeTraded->history_tax_id);
+                    // valor de servicio con impuesto
+                    $porcentaje = ((float)$HistoryTax->percentage * $SaleGoodsToBeTraded->unit_price) / 100;
+                }
+                else{$porcentaje = 0;}
+                //total de servicio + impuesto
+                $sumatoria[$i] = $porcentaje + $SaleGoodsToBeTraded->unit_price;
+            };
+            $total_amount = array_sum($sumatoria); 
+        }
         $this->validate($request, [
-            'name' => ['required', 'max:100'],
-            'description' => ['required', 'max:200']
+            'bank_id' => ['required'],
+            'currency_id' => ['required'],
+            'number_reference' => ['required'],
+            'payment_date' => ['required'],
         ]);
-        return $request;
-        
+        //anticipo
+        $advance_define_attributes = ($request->advance !== null) ? true : false;
         $SalePayment = SaleRegisterPayment::create([
-            'name' => $request->name,'description' => $request->description
+            'order_or_service_define_attributes' => $order_or_service_define_attributes, 'order_service_id' => $order_service_id, 'total_amount' => $total_amount, 'way_to_pay' => $request->currency_id, 'banking_entity' => $request->bank_id, 'reference_number' => $request->number_reference, 'payment_date' => $request->payment_date, 'advance_define_attributes' => $advance_define_attributes
         ]);
         return response()->json(['record' => $SalePayment, 'message' => 'Success'], 200);
     }
@@ -105,6 +134,35 @@ class SalePaymentController extends Controller
     public function show($id)
     {
     //    return view('sale::show');
+    }
+
+    /**
+     * Obtiene un listado de los pagos registrados
+     */
+    public function vueList()
+    {
+        $SaleRegisterPayment = SaleRegisterPayment::all();
+        return $SaleRegisterPayment;
+        /*
+        return response()->json(['records' => SaleRegisterPayment::with(['payment_date','total_amount', 'reference_number'])->get()], 200);
+        $saleClients = SaleClient::find($SaleRegisterPayment->id);
+        $saleClientsEmail = SaleClientsEmail::find($SaleRegisterPayment->id);
+        $saleClientsPhone = Phone::find($SaleRegisterPayment->id);
+        //nombre
+        $saleClients->name;
+        //identificación
+        $saleClients->id_type;
+        $saleClients->id_number;
+        //rif
+        $saleClients->rif;
+        // teléfono
+        $saleClients->phones;
+        //email
+        $saleClientsEmail->email;
+        //Teléfono
+        $saleClientsPhone->extension;
+        $saleClientsPhone->area_code;
+        $saleClientsPhone->number;*/
     }
 
     /**
@@ -234,24 +292,28 @@ class SalePaymentController extends Controller
     public function getSaleClient($id)
     {
         $SaleService = SaleService::find($id);
+        //datos del cliente
+        $saleClients = SaleClient::find($SaleService->sale_client_id);
+        //email
+        $saleClientsEmail = SaleClientsEmail::find($SaleService->sale_client_id);
+        //teléfono
+        $saleClientsPhone = Phone::find($SaleService->sale_client_id);
         $sale_goods_to_be_traded_count = count($SaleService->sale_goods_to_be_traded);
         for ($i=0; $i < $sale_goods_to_be_traded_count; $i++) { 
-            //id de servicios
-            $SaleService->sale_goods_to_be_traded[$i];
-            //Consulta valor de servicio
-            $SaleGoodsToBeTraded = SaleGoodsToBeTraded::find($id);
+            //Consulta valor de servicio segun el id de servicios
+            $SaleGoodsToBeTraded = SaleGoodsToBeTraded::find($SaleService->sale_goods_to_be_traded[$i]);
             // valor de impuesto
             if ($SaleGoodsToBeTraded->history_tax_id) {
                 $HistoryTax = HistoryTax::find($SaleGoodsToBeTraded->history_tax_id);
                 // valor de servicio con impuesto
-                $porcentaje = ((float)$HistoryTax->percentage * $SaleGoodsToBeTraded->unit_price) / 100; // Regla de tres
+                $porcentaje = ((float)$HistoryTax->percentage * $SaleGoodsToBeTraded->unit_price) / 100;
             }
             else{$porcentaje = 0;}
             //total de servicio + impuesto
-            $total = $sumatoria[$i] = $porcentaje + $SaleGoodsToBeTraded->unit_price;
+            $sumatoria[$i] = $porcentaje + $SaleGoodsToBeTraded->unit_price;
         };
-        $value = [];
-        $value = array('code' =>  $SaleService->code, 'total' =>  $total);
+        $total = array_sum($sumatoria);  
+        $value = array('code' =>  $SaleService->code, 'total' =>  $total, 'name' =>  $saleClients->name, 'idntifiaction' =>  $saleClients->id_type, 'identification_number' =>  $saleClients->id_number, 'rif' =>  $saleClients->rif, 'email' =>  $saleClientsEmail->email, 'phone_extension' =>  $saleClientsPhone->extension, 'phone_area_code' =>  $saleClientsPhone->area_code, 'total' =>  $total, 'phone_number' =>  $saleClientsPhone->number);
         return response()->json(['sale_service' => $value], 200);
     }
 }

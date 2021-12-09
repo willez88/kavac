@@ -1,0 +1,8 @@
+digraph "UploadImageRepository"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{UploadImageRepository\n|- $allowed_upload\l- $error_msg\l- $image_extension\l- $image_name\l- $image_stored\l- $max_sizes\l- $min_sizes\l|+ deleteImage()\l+ getErrorMessage()\l+ getImageExtension()\l+ getImageName()\l+ getImageStored()\l+ verifySize()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Gestiona las acciones a ejecutar en la carga de imágenes al servidor."];
+}

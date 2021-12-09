@@ -1,0 +1,9 @@
+digraph "Representación gráfica de la clase"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="AccountingReportPdfState\lOfResultsController",height=0.2,width=0.4,color="black",URL="$d3/db4/classAccountingReportPdfStateOfResultsController.html",tooltip="Controlador para la generación del reporte de estado de resultados."];
+}

@@ -1,0 +1,733 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>KAVAC: Fichero Fuente jquery.sharrre.js</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+<link href="../../customdoxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../logo-doc.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">KAVAC
+   &#160;<span id="projectnumber">versión 1.0.0</span>
+   </div>
+   <div id="projectbrief">Sistema de Gestión Organizacional</div>
+  </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="../../search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.png" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "../../search",false,'Buscar');
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('dd/d78/jquery_8sharrre_8js_source.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">jquery.sharrre.js</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;/*!</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; *  Sharrre.com - Make your sharing widget!</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; *  Version: beta 1.3.5</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; *  Author: Julien Hany</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; *  License: MIT http://en.wikipedia.org/wiki/MIT_License or GPLv2 http://en.wikipedia.org/wiki/GNU_General_Public_License</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; */</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;(function($, window, document, undefined) {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    /* Defaults</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    ================================================== */</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    var pluginName = &#39;sharrre&#39;,</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        defaults = {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;            className: &#39;sharrre&#39;,</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;            share: {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                googlePlus: false,</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;                facebook: false,</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;                twitter: false,</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                digg: false,</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;                delicious: false,</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                stumbleupon: false,</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                linkedin: false,</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                pinterest: false</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            },</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            shareTotal: 0,</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            template: &#39;&#39;,</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            title: &#39;&#39;,</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            url: document.location.href,</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            text: document.title,</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            urlCurl: &#39;sharrre.php&#39;, //PHP script for google plus...</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            count: {}, //counter by social network</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            total: 0, //total of sharing</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            shorterTotal: true, //show total by k or M when number is to big</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            enableHover: true, //disable if you want to personalize hover event with callback</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            enableCounter: true, //disable if you just want use buttons</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            enableTracking: false, //tracking with google analitycs</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            hover: function() {}, //personalize hover event with this callback function</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            hide: function() {}, //personalize hide event with this callback function</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            click: function() {}, //personalize click event with this callback function</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            render: function() {}, //personalize render event with this callback function</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            buttons: { //settings for buttons</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                googlePlus: { //http://www.google.com/webmasters/+1/button/</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                    url: &#39;&#39;, //if you need to personnalize button url</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                    urlCount: false, //if you want to use personnalize button url on global counter</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                    size: &#39;medium&#39;,</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                    lang: &#39;en-US&#39;,</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                    annotation: &#39;&#39;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                },</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                facebook: { //http://developers.facebook.com/docs/reference/plugins/like/</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                    url: &#39;&#39;, //if you need to personalize url button</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                    urlCount: false, //if you want to use personnalize button url on global counter</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                    action: &#39;like&#39;,</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                    layout: &#39;button_count&#39;,</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                    width: &#39;&#39;,</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                    send: &#39;false&#39;,</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                    faces: &#39;false&#39;,</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                    colorscheme: &#39;&#39;,</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                    font: &#39;&#39;,</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                    lang: &#39;en_US&#39;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                },</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                twitter: { //http://twitter.com/about/resources/tweetbutton</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                    url: &#39;&#39;, //if you need to personalize url button</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                    urlCount: false, //if you want to use personnalize button url on global counter</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                    count: &#39;horizontal&#39;,</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                    hashtags: &#39;&#39;,</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                    via: &#39;&#39;,</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                    related: &#39;&#39;,</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                    lang: &#39;en&#39;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                },</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                digg: { //http://about.digg.com/downloads/button/smart</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                    url: &#39;&#39;, //if you need to personalize url button</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                    urlCount: false, //if you want to use personnalize button url on global counter</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                    type: &#39;DiggCompact&#39;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                },</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                delicious: {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                    url: &#39;&#39;, //if you need to personalize url button</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                    urlCount: false, //if you want to use personnalize button url on global counter</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                    size: &#39;medium&#39; //medium or tall</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                },</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                stumbleupon: { //http://www.stumbleupon.com/badges/</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                    url: &#39;&#39;, //if you need to personalize url button</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                    urlCount: false, //if you want to use personnalize button url on global counter</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                    layout: &#39;1&#39;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                },</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                linkedin: { //http://developer.linkedin.com/plugins/share-button</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                    url: &#39;&#39;, //if you need to personalize url button</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                    urlCount: false, //if you want to use personnalize button url on global counter</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                    counter: &#39;&#39;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                },</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                pinterest: { //http://pinterest.com/about/goodies/</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                    url: &#39;&#39;, //if you need to personalize url button</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                    media: &#39;&#39;,</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                    description: &#39;&#39;,</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                    layout: &#39;horizontal&#39;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                }</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            }</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        },</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        /* Json URL to get count number</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        ================================================== */</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        urlJson = {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            googlePlus: &quot;&quot;,</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            //new FQL method by Sire</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            facebook: &quot;https://graph.facebook.com/fql?q=SELECT%20url,%20normalized_url,%20share_count,%20like_count,%20comment_count,%20total_count,commentsbox_count,%20comments_fbid,%20click_count%20FROM%20link_stat%20WHERE%20url=%27{url}%27&amp;callback=?&quot;,</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            //old method facebook: &quot;http://graph.facebook.com/?id={url}&amp;callback=?&quot;,</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            //facebook : &quot;http://api.ak.facebook.com/restserver.php?v=1.0&amp;method=links.getStats&amp;urls={url}&amp;format=json&quot;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            twitter: &quot;http://cdn.api.twitter.com/1/urls/count.json?url={url}&amp;callback=?&quot;,</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            digg: &quot;http://services.digg.com/2.0/story.getInfo?links={url}&amp;type=javascript&amp;callback=?&quot;,</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            delicious: &#39;http://feeds.delicious.com/v2/json/urlinfo/data?url={url}&amp;callback=?&#39;,</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            //stumbleupon: &quot;http://www.stumbleupon.com/services/1.01/badge.getinfo?url={url}&amp;format=jsonp&amp;callback=?&quot;,</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            stumbleupon: &quot;&quot;,</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            linkedin: &quot;http://www.linkedin.com/countserv/count/share?format=jsonp&amp;url={url}&amp;callback=?&quot;,</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            pinterest: &quot;http://api.pinterest.com/v1/urls/count.json?url={url}&amp;callback=?&quot;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        },</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        /* Load share buttons asynchronously</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        ================================================== */</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        loadButton = {</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            googlePlus: function(self) {</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                var sett = self.options.buttons.googlePlus;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                //$(self.element).find(&#39;.buttons&#39;).append(&#39;&lt;div class=&quot;button googleplus&quot;&gt;&lt;g:plusone size=&quot;&#39;+self.options.buttons.googlePlus.size+&#39;&quot; href=&quot;&#39;+self.options.url+&#39;&quot;&gt;&lt;/g:plusone&gt;&lt;/div&gt;&#39;);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                $(self.element).find(&#39;.buttons&#39;).append(&#39;&lt;div class=&quot;button googleplus&quot;&gt;&lt;div class=&quot;g-plusone&quot; data-size=&quot;&#39; + sett.size + &#39;&quot; data-href=&quot;&#39; + (sett.url !== &#39;&#39; ? sett.url : self.options.url) + &#39;&quot; data-annotation=&quot;&#39; + sett.annotation + &#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                window.___gcfg = {</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                    lang: self.options.buttons.googlePlus.lang</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                };</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                var loading = 0;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                if (typeof gapi === &#39;undefined&#39; &amp;&amp; loading == 0) {</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                    loading = 1;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                    (function() {</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                        var po = document.createElement(&#39;script&#39;);</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                        po.type = &#39;text/javascript&#39;;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                        po.async = true;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                        po.src = &#39;//apis.google.com/js/plusone.js&#39;;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                        var s = document.getElementsByTagName(&#39;script&#39;)[0];</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                        s.parentNode.insertBefore(po, s);</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                    })();</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                } else {</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                    gapi.plusone.go();</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;                }</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;            },</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;            facebook: function(self) {</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                var sett = self.options.buttons.facebook;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                $(self.element).find(&#39;.buttons&#39;).append(&#39;&lt;div class=&quot;button facebook&quot;&gt;&lt;div id=&quot;fb-root&quot;&gt;&lt;/div&gt;&lt;div class=&quot;fb-like&quot; data-href=&quot;&#39; + (sett.url !== &#39;&#39; ? sett.url : self.options.url) + &#39;&quot; data-send=&quot;&#39; + sett.send + &#39;&quot; data-layout=&quot;&#39; + sett.layout + &#39;&quot; data-width=&quot;&#39; + sett.width + &#39;&quot; data-show-faces=&quot;&#39; + sett.faces + &#39;&quot; data-action=&quot;&#39; + sett.action + &#39;&quot; data-colorscheme=&quot;&#39; + sett.colorscheme + &#39;&quot; data-font=&quot;&#39; + sett.font + &#39;&quot; data-via=&quot;&#39; + sett.via + &#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                var loading = 0;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                if (typeof FB === &#39;undefined&#39; &amp;&amp; loading == 0) {</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                    loading = 1;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                    (function(d, s, id) {</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;                        var js, fjs = d.getElementsByTagName(s)[0];</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;                        if (d.getElementById(id)) {</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                            return;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                        }</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                        js = d.createElement(s);</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                        js.id = id;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                        js.src = &#39;//connect.facebook.net/&#39; + sett.lang + &#39;/all.js#xfbml=1&#39;;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                        fjs.parentNode.insertBefore(js, fjs);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                    }(document, &#39;script&#39;, &#39;facebook-jssdk&#39;));</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                } else {</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                    FB.XFBML.parse();</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                }</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;            },</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;            twitter: function(self) {</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                var sett = self.options.buttons.twitter;</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                $(self.element).find(&#39;.buttons&#39;).append(&#39;&lt;div class=&quot;button twitter&quot;&gt;&lt;a href=&quot;https://twitter.com/share&quot; class=&quot;twitter-share-button&quot; data-url=&quot;&#39; + (sett.url !== &#39;&#39; ? sett.url : self.options.url) + &#39;&quot; data-count=&quot;&#39; + sett.count + &#39;&quot; data-text=&quot;&#39; + self.options.text + &#39;&quot; data-via=&quot;&#39; + sett.via + &#39;&quot; data-hashtags=&quot;&#39; + sett.hashtags + &#39;&quot; data-related=&quot;&#39; + sett.related + &#39;&quot; data-lang=&quot;&#39; + sett.lang + &#39;&quot;&gt;Tweet&lt;/a&gt;&lt;/div&gt;&#39;);</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                var loading = 0;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                if (typeof twttr === &#39;undefined&#39; &amp;&amp; loading == 0) {</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                    loading = 1;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                    (function() {</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                        var twitterScriptTag = document.createElement(&#39;script&#39;);</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                        twitterScriptTag.type = &#39;text/javascript&#39;;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                        twitterScriptTag.async = true;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                        twitterScriptTag.src = &#39;//platform.twitter.com/widgets.js&#39;;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                        var s = document.getElementsByTagName(&#39;script&#39;)[0];</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                        s.parentNode.insertBefore(twitterScriptTag, s);</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                    })();</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                } else {</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                    $.ajax({</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;                        url: &#39;//platform.twitter.com/widgets.js&#39;,</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;                        dataType: &#39;script&#39;,</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;                        cache: true</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;                    }); //http://stackoverflow.com/q/6536108</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;                }</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;            },</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;            digg: function(self) {</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;                var sett = self.options.buttons.digg;</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                $(self.element).find(&#39;.buttons&#39;).append(&#39;&lt;div class=&quot;button digg&quot;&gt;&lt;a class=&quot;DiggThisButton &#39; + sett.type + &#39;&quot; rel=&quot;nofollow external&quot; href=&quot;http://digg.com/submit?url=&#39; + encodeURIComponent((sett.url !== &#39;&#39; ? sett.url : self.options.url)) + &#39;&quot;&gt;&lt;/a&gt;&lt;/div&gt;&#39;);</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                var loading = 0;</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                if (typeof __DBW === &#39;undefined&#39; &amp;&amp; loading == 0) {</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                    loading = 1;</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;                    (function() {</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                        var s = document.createElement(&#39;SCRIPT&#39;),</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                            s1 = document.getElementsByTagName(&#39;SCRIPT&#39;)[0];</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;                        s.type = &#39;text/javascript&#39;;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                        s.async = true;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                        s.src = &#39;//widgets.digg.com/buttons.js&#39;;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                        s1.parentNode.insertBefore(s, s1);</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;                    })();</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;                }</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;            },</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;            delicious: function(self) {</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                if (self.options.buttons.delicious.size == &#39;tall&#39;) { //tall</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;                    var css = &#39;width:50px;&#39;,</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;                        cssCount = &#39;height:35px;width:50px;font-size:15px;line-height:35px;&#39;,</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;                        cssShare = &#39;height:18px;line-height:18px;margin-top:3px;&#39;;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;                } else { //medium</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;                    var css = &#39;width:93px;&#39;,</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;                        cssCount = &#39;float:right;padding:0 3px;height:20px;width:26px;line-height:20px;&#39;,</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;                        cssShare = &#39;float:left;height:20px;line-height:20px;&#39;;</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;                }</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;                var count = self.shorterTotal(self.options.count.delicious);</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;                if (typeof count === &quot;undefined&quot;) {</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;                    count = 0;</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;                }</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;                $(self.element).find(&#39;.buttons&#39;).append(</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;                    &#39;&lt;div class=&quot;button delicious&quot;&gt;&lt;div style=&quot;&#39; + css + &#39;font:12px Arial,Helvetica,sans-serif;cursor:pointer;color:#666666;display:inline-block;float:none;height:20px;line-height:normal;margin:0;padding:0;text-indent:0;vertical-align:baseline;&quot;&gt;&#39; +</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;                    &#39;&lt;div style=&quot;&#39; + cssCount + &#39;background-color:#fff;margin-bottom:5px;overflow:hidden;text-align:center;border:1px solid #ccc;border-radius:3px;&quot;&gt;&#39; + count + &#39;&lt;/div&gt;&#39; +</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;                    &#39;&lt;div style=&quot;&#39; + cssShare + &#39;display:block;padding:0;text-align:center;text-decoration:none;width:50px;background-color:#7EACEE;border:1px solid #40679C;border-radius:3px;color:#fff;&quot;&gt;&#39; +</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;                    &#39;&lt;img src=&quot;http://www.delicious.com/static/img/delicious.small.gif&quot; height=&quot;10&quot; width=&quot;10&quot; alt=&quot;Delicious&quot; /&gt; Add&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&#39;);</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160; </div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;                $(self.element).find(&#39;.delicious&#39;).on(&#39;click&#39;, function() {</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;                    self.openPopup(&#39;delicious&#39;);</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;                });</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;            },</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;            stumbleupon: function(self) {</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;                var sett = self.options.buttons.stumbleupon;</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;                $(self.element).find(&#39;.buttons&#39;).append(&#39;&lt;div class=&quot;button stumbleupon&quot;&gt;&lt;su:badge layout=&quot;&#39; + sett.layout + &#39;&quot; location=&quot;&#39; + (sett.url !== &#39;&#39; ? sett.url : self.options.url) + &#39;&quot;&gt;&lt;/su:badge&gt;&lt;/div&gt;&#39;);</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;                var loading = 0;</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;                if (typeof STMBLPN === &#39;undefined&#39; &amp;&amp; loading == 0) {</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;                    loading = 1;</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;                    (function() {</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;                        var li = document.createElement(&#39;script&#39;);</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;                        li.type = &#39;text/javascript&#39;;</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;                        li.async = true;</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;                        li.src = &#39;//platform.stumbleupon.com/1/widgets.js&#39;;</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;                        var s = document.getElementsByTagName(&#39;script&#39;)[0];</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;                        s.parentNode.insertBefore(li, s);</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;                    })();</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;                    s = window.setTimeout(function() {</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;                        if (typeof STMBLPN !== &#39;undefined&#39;) {</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;                            STMBLPN.processWidgets();</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;                            clearInterval(s);</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;                        }</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;                    }, 500);</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;                } else {</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;                    STMBLPN.processWidgets();</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;                }</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;            },</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;            linkedin: function(self) {</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;                var sett = self.options.buttons.linkedin;</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;                $(self.element).find(&#39;.buttons&#39;).append(&#39;&lt;div class=&quot;button linkedin&quot;&gt;&lt;script type=&quot;in/share&quot; data-url=&quot;&#39; + (sett.url !== &#39;&#39; ? sett.url : self.options.url) + &#39;&quot; data-counter=&quot;&#39; + sett.counter + &#39;&quot;&gt;&lt;/script&gt;&lt;/div&gt;&#39;);</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;                var loading = 0;</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;                if (typeof window.IN === &#39;undefined&#39; &amp;&amp; loading == 0) {</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;                    loading = 1;</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;                    (function() {</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;                        var li = document.createElement(&#39;script&#39;);</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;                        li.type = &#39;text/javascript&#39;;</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;                        li.async = true;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;                        li.src = &#39;//platform.linkedin.com/in.js&#39;;</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;                        var s = document.getElementsByTagName(&#39;script&#39;)[0];</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;                        s.parentNode.insertBefore(li, s);</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;                    })();</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;                } else {</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;                    window.IN.init();</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;                }</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;            },</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;            pinterest: function(self) {</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;                var sett = self.options.buttons.pinterest;</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;                $(self.element).find(&#39;.buttons&#39;).append(&#39;&lt;div class=&quot;button pinterest&quot;&gt;&lt;a href=&quot;http://pinterest.com/pin/create/button/?url=&#39; + (sett.url !== &#39;&#39; ? sett.url : self.options.url) + &#39;&amp;media=&#39; + sett.media + &#39;&amp;description=&#39; + sett.description + &#39;&quot; class=&quot;pin-it-button&quot; count-layout=&quot;&#39; + sett.layout + &#39;&quot;&gt;Pin It&lt;/a&gt;&lt;/div&gt;&#39;);</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160; </div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;                (function() {</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;                    var li = document.createElement(&#39;script&#39;);</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;                    li.type = &#39;text/javascript&#39;;</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;                    li.async = true;</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;                    li.src = &#39;//assets.pinterest.com/js/pinit.js&#39;;</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;                    var s = document.getElementsByTagName(&#39;script&#39;)[0];</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;                    s.parentNode.insertBefore(li, s);</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;                })();</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;            }</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        },</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        /* Tracking for Google Analytics</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;        ================================================== */</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        tracking = {</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;            googlePlus: function() {},</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;            facebook: function() {</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;                //console.log(&#39;facebook&#39;);</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;                fb = window.setInterval(function() {</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;                    if (typeof FB !== &#39;undefined&#39;) {</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;                        FB.Event.subscribe(&#39;edge.create&#39;, function(targetUrl) {</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;                            _gaq.push([&#39;_trackSocial&#39;, &#39;facebook&#39;, &#39;like&#39;, targetUrl]);</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;                        });</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;                        FB.Event.subscribe(&#39;edge.remove&#39;, function(targetUrl) {</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;                            _gaq.push([&#39;_trackSocial&#39;, &#39;facebook&#39;, &#39;unlike&#39;, targetUrl]);</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;                        });</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;                        FB.Event.subscribe(&#39;message.send&#39;, function(targetUrl) {</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;                            _gaq.push([&#39;_trackSocial&#39;, &#39;facebook&#39;, &#39;send&#39;, targetUrl]);</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;                        });</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;                        //console.log(&#39;ok&#39;);</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;                        clearInterval(fb);</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;                    }</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;                }, 1000);</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;            },</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;            twitter: function() {</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;                //console.log(&#39;twitter&#39;);</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;                tw = window.setInterval(function() {</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;                    if (typeof twttr !== &#39;undefined&#39;) {</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;                        twttr.events.bind(&#39;tweet&#39;, function(event) {</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;                            if (event) {</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;                                _gaq.push([&#39;_trackSocial&#39;, &#39;twitter&#39;, &#39;tweet&#39;]);</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;                            }</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;                        });</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;                        //console.log(&#39;ok&#39;);</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;                        clearInterval(tw);</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;                    }</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;                }, 1000);</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;            },</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;            digg: function() {</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;                //if somenone find a solution, mail me !</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;                /*$(this.element).find(&#39;.digg&#39;).on(&#39;click&#39;, function(){</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;                  _gaq.push([&#39;_trackSocial&#39;, &#39;digg&#39;, &#39;add&#39;]);</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;                });*/</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;            },</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;            delicious: function() {},</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;            stumbleupon: function() {},</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;            linkedin: function() {</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;                function LinkedInShare() {</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;                    _gaq.push([&#39;_trackSocial&#39;, &#39;linkedin&#39;, &#39;share&#39;]);</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;                }</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;            },</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;            pinterest: function() {</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;                //if somenone find a solution, mail me !</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;            }</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        },</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;        /* Popup for each social network</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;        ================================================== */</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;        popup = {</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;            googlePlus: function(opt) {</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;                window.open(&quot;https://plus.google.com/share?hl=&quot; + opt.buttons.googlePlus.lang + &quot;&amp;url=&quot; + encodeURIComponent((opt.buttons.googlePlus.url !== &#39;&#39; ? opt.buttons.googlePlus.url : opt.url)), &quot;&quot;, &quot;toolbar=0, status=0, width=900, height=500&quot;);</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;            },</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;            facebook: function(opt) {</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;                window.open(&quot;http://www.facebook.com/sharer/sharer.php?u=&quot; + encodeURIComponent((opt.buttons.facebook.url !== &#39;&#39; ? opt.buttons.facebook.url : opt.url)) + &quot;&amp;t=&quot; + opt.text + &quot;&quot;, &quot;&quot;, &quot;toolbar=0, status=0, width=900, height=500&quot;);</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;            },</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;            twitter: function(opt) {</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;                window.open(&quot;https://twitter.com/intent/tweet?text=&quot; + encodeURIComponent(opt.text) + &quot;&amp;url=&quot; + encodeURIComponent((opt.buttons.twitter.url !== &#39;&#39; ? opt.buttons.twitter.url : opt.url)) + (opt.buttons.twitter.via !== &#39;&#39; ? &#39;&amp;via=&#39; + opt.buttons.twitter.via : &#39;&#39;), &quot;&quot;, &quot;toolbar=0, status=0, width=650, height=360&quot;);</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;            },</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;            digg: function(opt) {</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;                window.open(&quot;http://digg.com/tools/diggthis/submit?url=&quot; + encodeURIComponent((opt.buttons.digg.url !== &#39;&#39; ? opt.buttons.digg.url : opt.url)) + &quot;&amp;title=&quot; + opt.text + &quot;&amp;related=true&amp;style=true&quot;, &quot;&quot;, &quot;toolbar=0, status=0, width=650, height=360&quot;);</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;            },</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;            delicious: function(opt) {</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;                window.open(&#39;http://www.delicious.com/save?v=5&amp;noui&amp;jump=close&amp;url=&#39; + encodeURIComponent((opt.buttons.delicious.url !== &#39;&#39; ? opt.buttons.delicious.url : opt.url)) + &#39;&amp;title=&#39; + opt.text, &#39;delicious&#39;, &#39;toolbar=no,width=550,height=550&#39;);</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;            },</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;            stumbleupon: function(opt) {</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;                window.open(&#39;http://www.stumbleupon.com/badge/?url=&#39; + encodeURIComponent((opt.buttons.stumbleupon.url !== &#39;&#39; ? opt.buttons.stumbleupon.url : opt.url)), &#39;stumbleupon&#39;, &#39;toolbar=no,width=550,height=550&#39;);</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;            },</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;            linkedin: function(opt) {</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;                window.open(&#39;https://www.linkedin.com/cws/share?url=&#39; + encodeURIComponent((opt.buttons.linkedin.url !== &#39;&#39; ? opt.buttons.linkedin.url : opt.url)) + &#39;&amp;token=&amp;isFramed=true&#39;, &#39;linkedin&#39;, &#39;toolbar=no,width=550,height=550&#39;);</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;            },</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;            pinterest: function(opt) {</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;                window.open(&#39;http://pinterest.com/pin/create/button/?url=&#39; + encodeURIComponent((opt.buttons.pinterest.url !== &#39;&#39; ? opt.buttons.pinterest.url : opt.url)) + &#39;&amp;media=&#39; + encodeURIComponent(opt.buttons.pinterest.media) + &#39;&amp;description=&#39; + opt.buttons.pinterest.description, &#39;pinterest&#39;, &#39;toolbar=no,width=700,height=300&#39;);</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;            }</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;        };</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160; </div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    /* Plugin constructor</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    ================================================== */</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    function Plugin(element, options) {</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;        this.element = element;</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160; </div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;        this.options = $.extend(true, {}, defaults, options);</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;        this.options.share = options.share; //simple solution to allow order of buttons</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160; </div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;        this._defaults = defaults;</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;        this._name = pluginName;</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160; </div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;        this.init();</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    };</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160; </div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    /* Initialization method</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    ================================================== */</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    Plugin.prototype.init = function() {</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;        var self = this;</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;        if (this.options.urlCurl !== &#39;&#39;) {</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;            urlJson.googlePlus = this.options.urlCurl + &#39;?url={url}&amp;type=googlePlus&#39;; // PHP script for GooglePlus...</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;            urlJson.stumbleupon = this.options.urlCurl + &#39;?url={url}&amp;type=stumbleupon&#39;; // PHP script for Stumbleupon...</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;        }</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;        $(this.element).addClass(this.options.className); //add class</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160; </div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;        //HTML5 Custom data</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;        if (typeof $(this.element).data(&#39;title&#39;) !== &#39;undefined&#39;) {</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;            this.options.title = $(this.element).attr(&#39;data-title&#39;);</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;        }</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;        if (typeof $(this.element).data(&#39;url&#39;) !== &#39;undefined&#39;) {</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;            this.options.url = $(this.element).data(&#39;url&#39;);</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;        }</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;        if (typeof $(this.element).data(&#39;text&#39;) !== &#39;undefined&#39;) {</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;            this.options.text = $(this.element).data(&#39;text&#39;);</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;        }</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160; </div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;        //how many social website have been selected</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;        $.each(this.options.share, function(name, val) {</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;            if (val === true) {</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;                self.options.shareTotal++;</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;            }</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;        });</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160; </div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;        if (self.options.enableCounter === true) { //if for some reason you don&#39;t need counter</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;            //get count of social share that have been selected</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;            $.each(this.options.share, function(name, val) {</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;                if (val === true) {</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;                    //self.getSocialJson(name);</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;                    try {</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;                        self.getSocialJson(name);</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;                    } catch (e) {}</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;                }</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;            });</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;        } else if (self.options.template !== &#39;&#39;) { //for personalized button (with template)</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;            this.options.render(this, this.options);</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;        } else { // if you want to use official button like example 3 or 5</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;            this.loadButtons();</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;        }</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160; </div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;        //add hover event</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;        $(this.element).hover(function() {</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;            //load social button if enable and 1 time</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;            if ($(this).find(&#39;.buttons&#39;).length === 0 &amp;&amp; self.options.enableHover === true) {</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;                self.loadButtons();</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;            }</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;            self.options.hover(self, self.options);</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;        }, function() {</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;            self.options.hide(self, self.options);</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;        });</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160; </div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;        //click event</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;        $(this.element).click(function() {</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;            self.options.click(self, self.options);</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;            return false;</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;        });</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;    };</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160; </div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;    /* loadButtons methode</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;    ================================================== */</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    Plugin.prototype.loadButtons = function() {</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;        var self = this;</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;        $(this.element).append(&#39;&lt;div class=&quot;buttons&quot;&gt;&lt;/div&gt;&#39;);</div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;        $.each(self.options.share, function(name, val) {</div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;            if (val == true) {</div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;                loadButton[name](self);</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;                if (self.options.enableTracking === true) { //add tracking</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;                    tracking[name]();</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;                }</div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;            }</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;        });</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;    };</div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160; </div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    /* getSocialJson methode</div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;    ================================================== */</div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;    Plugin.prototype.getSocialJson = function(name) {</div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;        var self = this,</div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;            count = 0,</div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;            url = urlJson[name].replace(&#39;{url}&#39;, encodeURIComponent(this.options.url));</div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;        if (this.options.buttons[name].urlCount === true &amp;&amp; this.options.buttons[name].url !== &#39;&#39;) {</div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;            url = urlJson[name].replace(&#39;{url}&#39;, this.options.buttons[name].url);</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;        }</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;        //console.log(&#39;name : &#39; + name + &#39; - url : &#39;+url); //debug</div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;        if (url != &#39;&#39; &amp;&amp; self.options.urlCurl !== &#39;&#39;) { //urlCurl = &#39;&#39; if you don&#39;t want to used PHP script but used social button</div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;            $.getJSON(url, function(json) {</div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;                    if (typeof json.count !== &quot;undefined&quot;) { //GooglePlus, Stumbleupon, Twitter, Pinterest and Digg</div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;                        var temp = json.count + &#39;&#39;;</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;                        temp = temp.replace(&#39;\u00c2\u00a0&#39;, &#39;&#39;); //remove google plus special chars</div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;                        count += parseInt(temp, 10);</div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;                    }</div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;                    //get the FB total count (shares, likes and more)</div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;                    else if (json.data &amp;&amp; json.data.length &gt; 0 &amp;&amp; typeof json.data[0].total_count !== &quot;undefined&quot;) { //Facebook total count</div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;                        count += parseInt(json.data[0].total_count, 10);</div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;                    } else if (typeof json[0] !== &quot;undefined&quot;) { //Delicious</div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;                        count += parseInt(json[0].total_posts, 10);</div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;                    } else if (typeof json[0] !== &quot;undefined&quot;) { //Stumbleupon</div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;                    }</div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;                    self.options.count[name] = count;</div>
+<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;                    self.options.total += count;</div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;                    self.renderer();</div>
+<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;                    self.rendererPerso();</div>
+<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;                    //console.log(json); //debug</div>
+<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;                })</div>
+<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;                .error(function() {</div>
+<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;                    self.options.count[name] = 0;</div>
+<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;                    self.rendererPerso();</div>
+<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;                });</div>
+<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;        } else {</div>
+<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;            self.renderer();</div>
+<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;            self.options.count[name] = 0;</div>
+<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;            self.rendererPerso();</div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;        }</div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;    };</div>
+<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160; </div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;    /* launch render methode</div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;    ================================================== */</div>
+<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;    Plugin.prototype.rendererPerso = function() {</div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;        //check if this is the last social website to launch render</div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;        var shareCount = 0;</div>
+<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;        for (e in this.options.count) {</div>
+<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;            shareCount++;</div>
+<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;        }</div>
+<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;        if (shareCount === this.options.shareTotal) {</div>
+<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;            this.options.render(this, this.options);</div>
+<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;        }</div>
+<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;    };</div>
+<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160; </div>
+<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;    /* render methode</div>
+<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;    ================================================== */</div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;    Plugin.prototype.renderer = function() {</div>
+<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;        var total = this.options.total,</div>
+<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;            template = this.options.template;</div>
+<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;        if (this.options.shorterTotal === true) { //format number like 1.2k or 5M</div>
+<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;            total = this.shorterTotal(total);</div>
+<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;        }</div>
+<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160; </div>
+<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;        if (template !== &#39;&#39;) { //if there is a template</div>
+<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;            template = template.replace(&#39;{total}&#39;, total);</div>
+<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;            $(this.element).html(template);</div>
+<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;        } else { //template by defaults</div>
+<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;            $(this.element).html(</div>
+<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;                &#39;&lt;div class=&quot;box&quot;&gt;&lt;a class=&quot;count&quot; href=&quot;#&quot;&gt;&#39; + total + &#39;&lt;/a&gt;&#39; +</div>
+<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;                (this.options.title !== &#39;&#39; ? &#39;&lt;a class=&quot;share&quot; href=&quot;#&quot;&gt;&#39; + this.options.title + &#39;&lt;/a&gt;&#39; : &#39;&#39;) +</div>
+<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;                &#39;&lt;/div&gt;&#39;</div>
+<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;            );</div>
+<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;        }</div>
+<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;    };</div>
+<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160; </div>
+<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;    /* format total numbers like 1.2k or 5M</div>
+<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;    ================================================== */</div>
+<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;    Plugin.prototype.shorterTotal = function(num) {</div>
+<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;        if (num &gt;= 1e6) {</div>
+<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;            num = (num / 1e6).toFixed(2) + &quot;M&quot;</div>
+<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;        } else if (num &gt;= 1e3) {</div>
+<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;            num = (num / 1e3).toFixed(1) + &quot;k&quot;</div>
+<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;        }</div>
+<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;        return num;</div>
+<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;    };</div>
+<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160; </div>
+<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;    /* Methode for open popup</div>
+<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;    ================================================== */</div>
+<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;    Plugin.prototype.openPopup = function(site) {</div>
+<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;        popup[site](this.options); //open</div>
+<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;        if (this.options.enableTracking === true) { //tracking!</div>
+<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;            var tracking = {</div>
+<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;                googlePlus: {</div>
+<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;                    site: &#39;Google&#39;,</div>
+<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;                    action: &#39;+1&#39;</div>
+<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;                },</div>
+<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160;                facebook: {</div>
+<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160;                    site: &#39;facebook&#39;,</div>
+<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;                    action: &#39;like&#39;</div>
+<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;                },</div>
+<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;                twitter: {</div>
+<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;                    site: &#39;twitter&#39;,</div>
+<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;                    action: &#39;tweet&#39;</div>
+<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;                },</div>
+<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;                digg: {</div>
+<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;                    site: &#39;digg&#39;,</div>
+<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;                    action: &#39;add&#39;</div>
+<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;                },</div>
+<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;                delicious: {</div>
+<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;                    site: &#39;delicious&#39;,</div>
+<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;                    action: &#39;add&#39;</div>
+<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;                },</div>
+<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;                stumbleupon: {</div>
+<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;                    site: &#39;stumbleupon&#39;,</div>
+<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;                    action: &#39;add&#39;</div>
+<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;                },</div>
+<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;                linkedin: {</div>
+<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;                    site: &#39;linkedin&#39;,</div>
+<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;                    action: &#39;share&#39;</div>
+<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;                },</div>
+<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;                pinterest: {</div>
+<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;                    site: &#39;pinterest&#39;,</div>
+<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;                    action: &#39;pin&#39;</div>
+<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;                }</div>
+<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;            };</div>
+<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;            _gaq.push([&#39;_trackSocial&#39;, tracking[site].site, tracking[site].action]);</div>
+<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;        }</div>
+<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;    };</div>
+<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160; </div>
+<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;    /* Methode for add +1 to a counter</div>
+<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;    ================================================== */</div>
+<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;    Plugin.prototype.simulateClick = function() {</div>
+<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;        var html = $(this.element).html();</div>
+<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;        $(this.element).html(html.replace(this.options.total, this.options.total + 1));</div>
+<div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160;    };</div>
+<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160; </div>
+<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;    /* Methode for add +1 to a counter</div>
+<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;    ================================================== */</div>
+<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;    Plugin.prototype.update = function(url, text) {</div>
+<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;        if (url !== &#39;&#39;) {</div>
+<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;            this.options.url = url;</div>
+<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;        }</div>
+<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;        if (text !== &#39;&#39;) {</div>
+<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;            this.options.text = text;</div>
+<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;        }</div>
+<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;    };</div>
+<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160; </div>
+<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;    /* A really lightweight plugin wrapper around the constructor, preventing against multiple instantiations</div>
+<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;    ================================================== */</div>
+<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;    $.fn[pluginName] = function(options) {</div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;        var args = arguments;</div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;        if (options === undefined || typeof options === &#39;object&#39;) {</div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;            return this.each(function() {</div>
+<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;                if (!$.data(this, &#39;plugin_&#39; + pluginName)) {</div>
+<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;                    $.data(this, &#39;plugin_&#39; + pluginName, new Plugin(this, options));</div>
+<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;                }</div>
+<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;            });</div>
+<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;        } else if (typeof options === &#39;string&#39; &amp;&amp; options[0] !== &#39;_&#39; &amp;&amp; options !== &#39;init&#39;) {</div>
+<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;            return this.each(function() {</div>
+<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;                var instance = $.data(this, &#39;plugin_&#39; + pluginName);</div>
+<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;                if (instance instanceof Plugin &amp;&amp; typeof instance[options] === &#39;function&#39;) {</div>
+<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;                    instance[options].apply(instance, Array.prototype.slice.call(args, 1));</div>
+<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;                }</div>
+<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;            });</div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;        }</div>
+<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;    };</div>
+<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;})(jQuery, window, document);</div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_0fc3f8f3ef96ce2d45d66d6e29832317.html">resources</a></li><li class="navelem"><a class="el" href="../../dir_a794a5ff81584a815c22a64994c08658.html">js</a></li><li class="navelem"><a class="el" href="../../dir_6b32be4c544df309a31d0b8b2bb74de2.html">now-ui-kit</a></li><li class="navelem"><a class="el" href="../../dir_adabbc8a6c2e6945a0b54a9026c71839.html">plugins</a></li><li class="navelem"><b>jquery.sharrre.js</b></li>
+    <li class="footer">Generado el Miércoles, 8 de Diciembre de 2021 14:39:58 para KAVAC por
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

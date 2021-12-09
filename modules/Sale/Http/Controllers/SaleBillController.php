@@ -105,7 +105,7 @@ class SaleBillController extends Controller
                     'id_number'              => ['required'],
                     'phone'                  => ['required'],
                     'email'                  => ['required'],
-                    'sale_payment_method_id' => ['required'],
+                    'sale_form_payment_id' => ['required'],
                 ]);
             } else if ($request->type_person == 'Jurídica'){
                 $this->validate($request, [
@@ -114,7 +114,7 @@ class SaleBillController extends Controller
                     'rif'                    => ['required'],
                     'phone'                  => ['required'],
                     'email'                  => ['required'],
-                    'sale_payment_method_id' => ['required'],
+                    'sale_form_payment_id' => ['required'],
                 ]);
             } else {
                 $this->validate($request, [
@@ -124,20 +124,21 @@ class SaleBillController extends Controller
                     'id_number'              => ['required'],
                     'phone'                  => ['required'],
                     'email'                  => ['required'],
-                    'sale_payment_method_id' => ['required'],
+                    'sale_form_payment_id'   => ['required'],
                 ]);
             }
 
             $data_request = SaleBill::create([
-                'code'        => $code,
-                'state'       => 'Pendiente',
-                'type'        => 'N',
-                'type_person' => $request->input('type_person'),
-                'name'        => $request->input('name'),
-                'id_number'   => $request->input('id_number'),
-                'rif'         => $request->input('rif'),
-                'phone'       => $request->input('phone'),
-                'email'       => $request->input('email'),
+                'code'                 => $code,
+                'state'                => 'Pendiente',
+                'type'                 => 'N',
+                'type_person'          => $request->input('type_person'),
+                'name'                 => $request->input('name'),
+                'id_number'            => $request->input('id_number'),
+                'rif'                  => $request->input('rif'),
+                'phone'                => $request->input('phone'),
+                'email'                => $request->input('email'),
+                'sale_form_payment_id' => $request->input('sale_form_payment_id'),
             ]);
 
             foreach ($request->sale_bill_products as $product) {
@@ -233,54 +234,92 @@ class SaleBillController extends Controller
     public function update(Request $request, $id)
     {
         $sale_bills = SaleBill::find($id);
-        $this->validate($request, [
-            'sale_client_id.*' => ['required'],
-            'sale_warehouse_id' => ['required'],
-            'sale_payment_method_id' => ['required'],
-            'currency_id' => ['required'],
-            'sale_discount_id' => ['nullable']
-        ]);
+        if ($request->type_person == 'Natural'){
+            $this->validate($request, [
+                'type_person'            => ['required'],
+                'name'                   => ['required'],
+                'id_number'              => ['required'],
+                'phone'                  => ['required'],
+                'email'                  => ['required'],
+                'sale_form_payment_id' => ['required'],
+            ]);
+        } else if ($request->type_person == 'Jurídica'){
+            $this->validate($request, [
+                'type_person'            => ['required'],
+                'name'                   => ['required'],
+                'rif'                    => ['required'],
+                'phone'                  => ['required'],
+                'email'                  => ['required'],
+                'sale_form_payment_id' => ['required'],
+            ]);
+        } else {
+            $this->validate($request, [
+                'type_person'            => ['required'],
+                'name'                   => ['required'],
+                'rif'                    => ['required'],
+                'id_number'              => ['required'],
+                'phone'                  => ['required'],
+                'email'                  => ['required'],
+                'sale_form_payment_id'   => ['required'],
+            ]);
+        }
 
-        $sale_bills->sale_client_id = $request->input('sale_client_id');
-        $sale_bills->sale_warehouse_id = $request->input('sale_warehouse_id');
-        $sale_bills->sale_payment_method_id = $request->input('sale_payment_method_id');
-        $sale_bills->currency_id = $request->input('currency_id');
-        $sale_bills->sale_discount_id = $request->input('sale_discount_id');
+        $sale_bills->type_person = $request->input('type_person');
+        $sale_bills->name = $request->input('name');
+        $sale_bills->id_number = $request->input('id_number');
+        $sale_bills->rif = $request->input('rif');
+        $sale_bills->phone = $request->input('phone');
+        $sale_bills->email = $request->input('email');
+        $sale_bills->sale_form_payment_id = $request->input('sale_form_payment_id');
         $sale_bills->save();
 
         $update = now();
 
         /** Se agregan los nuevos elementos a la solicitud */
-        foreach ($request->sale_setting_products as $product) {
-            $inventory_product = SaleWarehouseInventoryProduct::find($product['id']);
-            if (!is_null($inventory_product)) {
-                $exist_real = $inventory_product->exist - $inventory_product->reserved;
-                if ($exist_real >= $product['requested']) {
-                    $old_request = SaleBillInventoryProduct::where(
-                        'sale_bill_id',
-                        $sale_bills->id
-                    )
-                    ->where('sale_warehouse_inventory_product_id', $inventory_product->id)->first();
-                    if (!is_null($old_request)) {
-                        $old_request->quantity = $product['requested'];
-                        $old_request->updated_at = $update;
-                        $old_request->save();
-                    } else {
-                        SaleBillInventoryProduct::updateOrCreate([
+        foreach ($request->sale_bill_products as $product) {
+            if ($product['product_type'] == 'Producto') {
+                $inventory_product = SaleWarehouseInventoryProduct::find($product['sale_warehouse_inventory_product_id']);
+                if (!is_null($inventory_product)) {
+                    $exist_real = $inventory_product->exist - $inventory_product->reserved;
+                    if ($exist_real >= $product['quantity']) {
+                        SaleBillInventoryProduct::create([
                             'sale_warehouse_inventory_product_id' => $inventory_product->id,
-                            'sale_bill_id' => $sale_bills->id,
-                            'quantity' => $product['requested'],
-                            'updated_at' => $update,
+                            'sale_bill_id'               => $sale_bills->id,
+                            'quantity'                   => $product['quantity'],
+                            'currency_id'                => $product['currency_id'],
+                            'history_tax_id'             => $product['history_tax_id'],
+                            'measurement_unit_id'        => $product['measurement_unit_id'],
+                            'value'                      => $product['value'],
+                            'product_type'               => $product['product_type'],
+                            'quantity'                   => $product['quantity'],
                         ]);
+                    } else {
+                        /** Si la exitencia del producto es menor que lo que se solicita
+                         *  se revierten los cambios
+                         */
+                        DB::rollback();
                     }
                 } else {
-                    /** Si la exitencia del producto es menor que lo que se solicita
+                    /** Si no existe el registro en inventario
                      *  se revierten los cambios
                      */
                     DB::rollback();
                 }
+            } else {
+                SaleBillInventoryProduct::create([
+                    'sale_bill_id'               => $sale_bills->id,
+                    'quantity'                   => $product['quantity'],
+                    'currency_id'                => $product['currency_id'],
+                    'history_tax_id'             => $product['history_tax_id'],
+                    'measurement_unit_id'        => $product['measurement_unit_id'],
+                    'sale_goods_to_be_traded_id' => $product['sale_goods_to_be_traded_id'],
+                    'sale_list_subservices_id'   => $product['sale_list_subservices_id'],
+                    'value'                      => $product['value'],
+                    'product_type'               => $product['product_type'],
+                    'quantity'                   => $product['quantity'],
+                ]);
             }
-        };
+        }
 
         /** Se eliminan los demas elementos de la solicitud */
         $sale_bill_products = SaleBillInventoryProduct::where(
@@ -364,7 +403,7 @@ class SaleBillController extends Controller
      */
     public function vueInfo($id)
     {
-        return response()->json(['records' => SaleBill::with(['saleBillInventoryProduct' => function ($query) {
+        return response()->json(['records' => SaleBill::with(['SaleFormPayment', 'saleBillInventoryProduct' => function ($query) {
                     $query->with(['saleGoodsToBeTraded', 'currency', 'saleListSubservices', 'measurementUnit', 'historyTax',
                         'saleWarehouseInventoryProduct' => function ($q) {
                             $q->with('saleSettingProduct');
