@@ -1,38 +1,26 @@
 <template>
-	<div class="card">
-			<div class="card-header">
-				<h6 class="card-title">Cronograma de actividades</h6>
-				<div class="card-btns">
-					<a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)"
-                       title="Ir atrás" data-toggle="tooltip">
-                        <i class="fa fa-reply"></i>
-                    </a>
-					<a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar"
-						data-toggle="tooltip">
-						<i class="now-ui-icons arrows-1_minimal-up"></i>
-					</a>
-				</div>
-			</div>
+	<section id="CitizenServiceRegisterForm">
+			
 			<div class="card-body">
 				<div class="alert alert-danger" v-if="errors.length > 0">
-					<div class="container">
-						<div class="alert-icon">
-							<i class="now-ui-icons objects_support-17"></i>
-						</div>
-						<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close"
-								@click.prevent="errors = []">
-							<span aria-hidden="true">
-								<i class="now-ui-icons ui-1_simple-remove"></i>
-							</span>
-						</button>
-						<ul>
-							<li v-for="error in errors">{{ error }}</li>
-						</ul>
+				<div class="container">
+					<div class="alert-icon">
+						<i class="now-ui-icons objects_support-17"></i>
 					</div>
+					<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"
+							@click.prevent="errors = []">
+						<span aria-hidden="true">
+							<i class="now-ui-icons ui-1_simple-remove"></i>
+						</span>
+					</button>
+					<ul>
+						<li v-for="error in errors">{{ error }}</li>
+					</ul>
 				</div>
+			</div>
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-4" id="helpCitizenServiceRegisterDate">
 						<div class="form-group is-required">
 							<label for="date_register">Fecha del registro</label>
         					<input type="text" readonly id="date_register" class="form-control input-sm" data-toggle="tooltip"
@@ -40,7 +28,7 @@
         				</div>
 					</div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-4" id="helpCitizenServiceRegisterFirstName">
 					<div class="form-group is-required">
 						<label for="payrollStaff">Nombre del director</label>
 						<select2 :options="payroll_staffs"
@@ -48,49 +36,49 @@
                     </div>
 				    </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-4" id="helpCitizenServiceRegisterNameProyect">
 						<div class="form-group is-required">
 							<label for="project_name">Nombre del proyecto</label>
         					<input type="text" id="project_name" class="form-control input-sm" data-toggle="tooltip"
                                    title="Indique el nombre del proyecto" v-model="record.project_name">
 						</div>
 					</div>
-					 <div class="col-md-4">
+					 <div class="col-md-4" id="helpCitizenServiceRegisterTeam">
 						<div class="form-group is-required">
 							<label for="team_name">Equipo responsable</label>
         					<input type="text" id="team_name" class="form-control input-sm" data-toggle="tooltip"
                                    title="Indique el nombre del equipo responsable" v-model="record.team_name">
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-4" id="helpCitizenServiceRegisterActivities">
 						<div class="form-group is-required">
 							<label for="activities">Actividades</label>
         					<input type="text" id="activities" class="form-control input-sm" data-toggle="tooltip"
                                    title="Indique las actividades" v-model="record.activities">
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-4" id="helpCitizenServiceRegisterEmail">
 						<div class="form-group is-required">
 							<label for="email">Correo electrónico</label>
         					<input type="email" id="email" class="form-control input-sm" data-toggle="tooltip"
                                    title="Indique el correo electrónico del responsable" v-model="record.email">
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-4" id="helpCitizenServiceRegisterStartDate">
 						<div class="form-group is-required">
 							<label for="start_date">Fecha de inicio</label>
         					<input type="date" id="start_date" class="form-control input-sm no-restrict" data-toggle="tooltip"
                                    title="Indique la fecha de inicio" v-model="record.start_date">
         				</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-4" id="helpCitizenServiceRegisterEndDate">
 						<div class="form-group is-required">
 							<label for="end_date">Fecha de culminación</label>
         					<input type="date" id="end_date" class="form-control input-sm no-restrict" data-toggle="tooltip"
                                    title="Indique la fecha de culminación" v-model="record.end_date">
         				</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-4" id="helpCitizenServiceRegisterPercent">
 						<div class="form-group">
 							<label for="percent">Porcentaje de cumplimiento</label>
         					<input type="text" min="1" max="100" id="percent" class="form-control input-sm" data-toggle="tooltip"
@@ -124,7 +112,7 @@
 		        </div>
 		    </div>
         </div>
-    </div>
+    </section>
 </template>
 
 <script>
