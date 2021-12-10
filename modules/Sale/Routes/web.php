@@ -500,7 +500,6 @@ Route::group(
          */
         Route::get('get-asignation-staffs', 'SaleTechnicalProposalController@getAsignationStaffs');
 
-
         /*
          * ------------------------------------------------------------
          * Rutas para gestionar la generación de reportes en el Modulo de Pagos
@@ -516,5 +515,13 @@ Route::group(
          */
         Route::get('reports/service-requests', 'Reports\SaleServiceRequestController@index')
             ->name('sale.report.service-requests');
+
+        /*
+         * ----------------------------------------------------------
+         * Rutas para gestionar la generación de reportes de facturas
+         * ----------------------------------------------------------
+         */
+        Route::get('reports/bills', 'Reports\BillReportController@index')
+        ->name('sale.report.bill');
     }
 );
