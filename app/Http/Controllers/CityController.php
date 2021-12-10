@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\City;
 use Illuminate\Http\Request;
+use App\Rules\UniqueCityName;
 
 /**
  * @class CityController
@@ -55,7 +56,7 @@ class CityController extends Controller
     {
         if (!restore_record(City::class, ['name' => $request->name, 'estate_id' => $request->estate_id])) {
             $this->validate($request, [
-                'name' => ['required', 'max:100'],
+                'name' => ['required', 'max:100', new UniqueCityName],
                 'estate_id' => ['required']
             ]);
         }
