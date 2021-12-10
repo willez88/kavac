@@ -53,6 +53,16 @@ Vue.component('modal-form-buttons', () => import(
 ));
 
 /**
+ * Componente genérico para los mensajes de error en formularios
+ *
+ * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+ */
+Vue.component('form-errors', () => import(
+    /* webpackChunkName: "form-errors" */
+    './components/Shared/FormErrorsComponent.vue'
+));
+
+/**
  * Componente genérico para la gestión de imágenes
  *
  * @author  Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>

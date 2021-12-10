@@ -21,11 +21,7 @@
 						</h6>
 					</div>
 					<div class="modal-body">
-						<div class="alert alert-danger" v-if="errors.length > 0">
-							<ul>
-								<li v-for="error in errors">{{ error }}</li>
-							</ul>
-						</div>
+						<form-errors :listErrors="errors"></form-errors>
 						<div class="form-group is-required">
 							<label for="marital_status_name">Nombre:</label>
 							<input type="text" placeholder="Estado Civil"
