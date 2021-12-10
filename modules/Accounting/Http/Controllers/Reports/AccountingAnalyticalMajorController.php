@@ -18,6 +18,7 @@ use Modules\Accounting\Models\Institution;
 use Modules\Accounting\Pdf\Pdf;
 
 use App\Repositories\ReportRepository;
+use Modules\DigitalSignature\Repositories\ReportRepositorySign;
 use Auth;
 
 /**
@@ -48,7 +49,7 @@ class AccountingAnalyticalMajorController extends Controller
          */
         $this->middleware(
             'permission:accounting.report.analiticalmajor',
-            ['only' => ['index', 'getAccAccount', 'pdf', 'pdfVue']]
+            ['only' => ['index', 'getAccAccount', 'pdf', 'pdfVue', 'pdfSign', 'pdfVueSign']]
         );
     }
 
@@ -321,6 +322,178 @@ class AccountingAnalyticalMajorController extends Controller
         return response()->json(['result'=>true, 'id'=>$report->id], 200);
     }
 
+    /**
+     * [pdfVue verifica las conversiones monetarias de un reporte de mayor analitico]
+     *
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param String $initDate [rango de fecha inicial YYYY-mm]
+     * @param String $endDate [rango de fecha final YYYY-mm]
+     * @param String $initAcc  [id de cuenta patrimonial inicial]
+     * @param String $endAcc   [id de cuenta patrimonial final]
+     * @param Currency $currency moneda en que se expresara el reporte
+     */
+    public function pdfVueSign($initDate, $endDate, $initAcc, $endAcc, Currency $currency)
+    {
+        $initDate = $initDate.'-01';
+
+        /**
+         * [$endDay ultimo dia correspondiente al mes]
+         * @var [date]
+         */
+        $endDay = date('d', (mktime(0, 0, 0, explode('-', $endDate)[1]+1, 1, explode('-', $endDate)[0])-1));
+
+        /**
+         * [$endDate formatea la fecha final de busqueda]
+         * @var string
+         */
+        $endDate = explode('-', $endDate)[0].'-'.explode('-', $endDate)[1].'-'.$endDay;
+
+        if (isset($endAcc) && $endAcc < $initAcc) {
+            $endAcc  = (int)$endAcc;
+            $aux     = $initAcc;
+            $initAcc = $endAcc;
+            $endAcc  = $aux;
+        }
+
+        $institution_id = null;
+
+        $is_admin = auth()->user()->isAdmin();
+
+        if (!$is_admin && $user_profile['institution']) {
+            $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+            $institution_id = $user_profile['institution']['id'];
+        }
+
+        /**
+         * [$query registros de las cuentas patrimoniales seleccionadas]
+         * @var Modules\Accounting\Models\AccountingAccount
+         */
+        $query = AccountingAccount::with(['entryAccount.entries' =>
+                function ($query) use ($initDate, $endDate, $institution_id, $is_admin) {
+                    if ($institution_id) {
+                        if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                            ->where('institution_id', $institution_id)) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                            ->where('institution_id', $institution_id);
+                        }
+                    } else {
+                        if ($is_admin) {
+                            if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
+                                $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                            }
+                        }
+                    }
+                }])
+            ->whereBetween('id', [$initAcc, $endAcc])
+            ->whereHas(
+                'entryAccount.entries',
+                function ($query) use ($initDate, $endDate, $institution_id, $is_admin) {
+                    if ($institution_id) {
+                        $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                        ->where('institution_id', $institution_id);
+                    } else {
+                        if ($is_admin) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                        }
+                    }
+                }
+            )->orderBy('group', 'ASC')
+            ->orderBy('subgroup', 'ASC')
+            ->orderBy('item', 'ASC')
+            ->orderBy('generic', 'ASC')
+            ->orderBy('specific', 'ASC')
+            ->orderBy('subspecific', 'ASC')
+            ->orderBy('denomination', 'ASC');
+
+        $convertions = [];
+
+        /*
+         * Se recorre y evalua la relacion en las conversiones necesarias a realizar
+         */
+        foreach ($query as $record) {
+            /**
+             * [$inRange indica si la fecha del asiento esta en el rango de alguna conversion]
+             * @var boolean
+             */
+            $cont = 0;
+            foreach ($record['entryAccount'] as $entryAccount) {
+                $inRange = false;
+                if ($entryAccount['entries']) {
+                    if (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions) &&
+                        $entryAccount['entries']['currency']['id'] != $currency->id) {
+                        $convertions = $this->calculateExchangeRates(
+                            $convertions,
+                            $entryAccount['entries'],
+                            $currency['id']
+                        );
+                    }
+
+                    foreach ($convertions as $convertion) {
+                        foreach ($convertion as $convert) {
+                            if ($entryAccount['entries']['from_date'] >= $convert['start_at'] &&
+                                $entryAccount['entries']['from_date'] <= $convert['end_at']) {
+                                $inRange = true;
+                            }
+                        }
+                    }
+
+                    if ((!$inRange || !array_key_exists($entryAccount['entries']['currency']['id'], $convertions)) &&
+                        $entryAccount['entries']['currency']['id'] != $currency['id']) {
+                        return response()->json([
+                                    'result'  => false,
+                                    'message' => 'Imposible expresar '.$entryAccount['entries']['currency']['symbol']
+                                                 .' ('.$entryAccount['entries']['currency']['name'].')'
+                                                 .' en '.$currency['symbol'].'('.$currency['name'].')'.
+                                                 ', verificar tipos de cambio configurados. Para la fecha de '.
+                                                 $entryAccount['entries']['from_date'],
+                                ], 200);
+                    }
+                }
+            }
+        }
+
+        /**
+         * [$url link para consultar ese regporte]
+         * @var string
+         */
+        $url = 'analyticalMajorSign/'.$initDate.'/'.$endDate.'/'.$initAcc.'/'.$endAcc;
+
+        $currentDate = new DateTime;
+        $currentDate = $currentDate->format('Y-m-d');
+
+        /**
+         * [$report almacena el registro del reporte del dia si existe]
+         * @var [type]
+         */
+        $report = AccountingReportHistory::whereBetween('updated_at', [
+                                                                        $currentDate.' 00:00:00',
+                                                                        $currentDate.' 23:59:59'
+                                                                    ])
+                                        ->where('report', 'Mayor Analítico')
+                                        ->where('institution_id', $institution_id)->first();
+
+        /*
+        * se crea o actualiza el registro del reporte
+        */
+        if (!$report) {
+            $report = AccountingReportHistory::create(
+                [
+                    'report'         => 'Mayor Analítico',
+                    'url'            => $url,
+                    'currency_id'    => $currency->id,
+                    'institution_id' => $institution_id,
+                ]
+            );
+        } else {
+            $report->url            = $url;
+            $report->currency_id    = $currency->id;
+            $report->institution_id = $institution_id;
+            $report->save();
+        }
+
+        return response()->json(['result'=>true, 'id'=>$report->id], 200);
+    }
+
 
     /**
      * [pdf vista en la que se genera el reporte en pdf]
@@ -494,6 +667,186 @@ class AccountingAnalyticalMajorController extends Controller
             'endDate'  => $endDate,
             'currency' => $currency,
         ]);
+    }
+
+    /**
+     * [pdf vista en la que se genera el reporte en pdf]
+     *
+     * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @param  integer $report [id de reporte y su informacion]
+     */
+    public function pdfSign($report)
+    {
+        $report   = AccountingReportHistory::with('currency')->find($report);
+
+        // Validar acceso para el registro
+        if (!auth()->user()->isAdmin()) {
+            $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+            if ($report && $report->queryAccess($user_profile['institution']['id'])) {
+                return view('errors.403');
+            }
+        }
+
+        $initDate = explode('/', $report->url)[1];
+        $endDate  = explode('/', $report->url)[2];
+        $initAcc  = explode('/', $report->url)[3];
+        $endAcc   = explode('/', $report->url)[4];
+
+        $currency = $report->currency;
+
+        if (isset($endAcc) && $endAcc < $initAcc) {
+            $endAcc  = (int)$endAcc;
+            $aux     = $initAcc;
+            $initAcc = $endAcc;
+            $endAcc  = $aux;
+        }
+
+        $institution_id = null;
+
+        $is_admin = auth()->user()->isAdmin();
+
+        if (!$is_admin && $user_profile['institution']) {
+            $institution_id = $user_profile['institution']['id'];
+        }
+
+        /**
+         * [$query registros de las cuentas patrimoniales seleccionadas]
+         * @var Modules\Accounting\Models\AccountingAccount
+         */
+        $query = AccountingAccount::with(['entryAccount.entries' =>
+                function ($query) use ($initDate, $endDate, $institution_id, $is_admin) {
+                    if ($institution_id) {
+                        if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                            ->where('institution_id', $institution_id)) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                            ->where('institution_id', $institution_id);
+                        }
+                    } else {
+                        if ($is_admin) {
+                            if ($query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)) {
+                                $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                            }
+                        }
+                    }
+                }])
+            ->whereBetween('id', [$initAcc, $endAcc])
+            ->whereHas(
+                'entryAccount.entries',
+                function ($query) use ($initDate, $endDate, $institution_id, $is_admin) {
+                    if ($institution_id) {
+                        $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true)
+                        ->where('institution_id', $institution_id);
+                    } else {
+                        if ($is_admin) {
+                            $query->whereBetween('from_date', [$initDate,$endDate])->where('approved', true);
+                        }
+                    }
+                }
+            )->orderBy('group', 'ASC')
+            ->orderBy('subgroup', 'ASC')
+            ->orderBy('item', 'ASC')
+            ->orderBy('generic', 'ASC')
+            ->orderBy('specific', 'ASC')
+            ->orderBy('subspecific', 'ASC')
+            ->orderBy('denomination', 'ASC')->get();
+
+        $convertions = [];
+        $records     = [];
+
+        /*
+         * recorrido y formateo de informacion en arreglos para mostrar en pdf
+         */
+        foreach ($query as $record) {
+            $acc = [
+                        'denomination' => $record['denomination'],
+                        'entryAccount' => [],
+                    ];
+            foreach ($record['entryAccount'] as $entryAccount) {
+                if ($entryAccount['entries']) {
+                    $from_date = explode('-', $entryAccount['entries']['from_date'])[2].'/'.
+                                 explode('-', $entryAccount['entries']['from_date'])[1].'/'.
+                                 explode('-', $entryAccount['entries']['from_date'])[0];
+
+                    $r = [
+                            'debit'      => '0',
+                            'assets'     => '0',
+                            'entries'    => [
+                                'reference'  => $entryAccount['entries']['reference'],
+                                'concept'    => $entryAccount['entries']['concept'],
+                                'created_at' => $from_date,
+                            ],
+                        ];
+
+                    if (!array_key_exists($entryAccount['entries']['currency']['id'], $convertions)) {
+                        $convertions = $this->calculateExchangeRates(
+                            $convertions,
+                            $entryAccount['entries'],
+                            $currency['id']
+                        );
+                    }
+
+                    $r['debit'] = ($entryAccount['debit'] != 0)?
+                                    $this->calculateOperation(
+                                        $convertions,
+                                        $entryAccount['entries']['currency']['id'],
+                                        $entryAccount['debit'],
+                                        $entryAccount['entries']['from_date'],
+                                        ($entryAccount['entries']['currency']['id'] == $currency['id'])??false
+                                    ):0;
+
+                    $r['assets'] = ($entryAccount['assets'] != 0)?
+                                    $this->calculateOperation(
+                                        $convertions,
+                                        $entryAccount['entries']['currency']['id'],
+                                        $entryAccount['assets'],
+                                        $entryAccount['entries']['from_date'],
+                                        ($entryAccount['entries']['currency']['id'] == $currency['id'])??false
+                                    ):0;
+
+                    array_push($acc['entryAccount'], $r);
+                }
+            }
+            array_push($records, $acc);
+        }
+
+        /**
+         * [$setting configuración general de la apliación]
+         * @var [Modules\Accounting\Models\Setting]
+         */
+        $setting  = Setting::all()->first();
+
+        $initDate = new DateTime($initDate);
+        $endDate  = new DateTime($endDate);
+
+        $initDate = $initDate->format('d/m/Y');
+        $endDate  = $endDate->format('d/m/Y');
+
+        /**
+         * [$pdf base para generar el pdf]
+         * @var [Modules\Accounting\Pdf\Pdf]
+         */
+        $pdf = new ReportRepositorySign();
+
+        /*
+         *  Definicion de las caracteristicas generales de la página pdf
+         */
+        $institution = Institution::find(1);
+        $pdf->setConfig(['institution' => $institution, 'urlVerify' => url('report/analyticalMajor/'.$report->id)]);
+        $pdf->setHeader('Reporte de Contabilidad', 'Reporte de mayor analítico');
+        $pdf->setFooter();
+        $sign = $pdf->setBody('accounting::pdf.analytical_major', true, [
+            'pdf'      => $pdf,
+            'records'  => $records,
+            'initDate' => $initDate,
+            'endDate'  => $endDate,
+            'currency' => $currency,
+        ]);
+        if($sign['status'] == 'true') {
+            return response()->download($sign['file'], $sign['filename'], [], 'inline');
+        }
+        else {
+            return response()->json(['result' => $sign['status'], 'message' => $sign['message']], 200);
+        }
     }
 
     /**

@@ -38,7 +38,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group is-required">
+                            <div class="form-group">
                                 <strong>Fecha de verificación</strong>
                                 <input type="date" id="date"
                                     class="form-control input-sm" data-toggle="tooltip"
@@ -66,7 +66,7 @@
 
                         <div slot="id" slot-scope="props" class="text-center">
                                 <div class="d-inline-flex">
-                                    <button @click="deleteRecord(props.index, 'request-close')"
+                                    <button @click="deleteRecord(props.index, 'citizenservice/request-close')"
                                         class="btn btn-danger btn-xs btn-icon btn-action"
                                         title="Eliminar registro" data-toggle="tooltip" type="button">
                                         <i class="fa fa-trash-o"></i>

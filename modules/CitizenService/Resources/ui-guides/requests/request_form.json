@@ -1,0 +1,91 @@
+[
+    {
+        "element" : "#cardCitizenServiceRequestForm",
+        "intro" : "Formulario de solicitudes de atención al ciudadano"
+    },
+    {
+        "element" : "#helpCitizenServiceRequestDate",
+        "intro" : "Parámetro que establece la fecha de la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceRequestFirstName",
+        "intro" : "Parámetro que establece el nombre del solicitante",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceRequestLastName",
+        "intro" : "Parámetro que establece el apellido del solicitante",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceRequestIdNumber",
+        "intro" : "Parámetro que establece la cédula de identidad del solicitante",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceEmail",
+        "intro" : "Parámetro que establece el correo electrónico del solicitante",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServicePhones",
+        "intro" : "Parámetro que establece los números telefónicos del solicitante",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceCountry",
+        "intro" : "Parámetro que establece el país donde se realiza la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceEstate",
+        "intro" : "Parámetro que establece el estado donde se realiza la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceCity",
+        "intro" : "Parámetro que establece la ciudad donde se realiza la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceMunicipality",
+        "intro" : "Parámetro que establece el municipio donde se realiza la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceParish",
+        "intro" : "Parámetro que establece la parroquia donde se realiza la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceAddress",
+        "intro" : "Parámetro que establece la dirección del solicitante",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceMotiveRequest",
+        "intro" : "Parámetro que establece el motivo de la solicitud a realizar",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceAttribute",
+        "intro" : "Parámetro que establece los atributos de la solicitud",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceRequestType",
+        "intro" : "Parámetro que estable los tipos de solicitudes que tiene la institución",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceDepartment",
+        "intro" : "Parámetro que estable los tipos de departamentos que tiene la institución",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceTypeInstitution",
+        "intro" : "Parámetro que estable si la solicitud es realizada desde una institución",
+        "position" : "right"
+    }
+]

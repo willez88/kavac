@@ -4,17 +4,19 @@
 
 		<v-client-table :columns="columns" :data="records" :options="table_options">
 			<div slot="id" slot-scope="props" class="text-center">
-				<citizenservice-request-pending
-                    :requestid="props.row.id"
-                    route_update="citizenservice/requests/pending"
-                    request_type='accept'>
-                </citizenservice-request-pending>
+				<div class="d-inline-flex">
+					<citizenservice-request-pending
+	                    :requestid="props.row.id"
+	                    route_update="citizenservice/requests/pending"
+	                    request_type='accept'>
+	                </citizenservice-request-pending>
 
-                <citizenservice-request-pending
-                    :requestid="props.row.id"
-                    route_update="citizenservice/requests/pending"
-                    request_type='rejected'>
-                </citizenservice-request-pending>
+	                <citizenservice-request-pending
+	                    :requestid="props.row.id"
+	                    route_update="citizenservice/requests/pending"
+	                    request_type='rejected'>
+	                </citizenservice-request-pending>
+	            </div>
 
 			</div>
 			<div slot="requested_by" slot-scope="props" class="text-center">

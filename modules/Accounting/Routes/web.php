@@ -184,6 +184,19 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'accounti
         'Reports\AccountingAnalyticalMajorController@pdfVue'
     );
 
+     /**
+     * rutas para reporte del Mayor Analítico con firma electrónica
+     */
+    Route::get(
+        'report/analyticalMajorSign/{report}',
+        'Reports\AccountingAnalyticalMajorController@pdfSign'
+    );
+
+    Route::get(
+        'report/analyticalMajorSign/pdfVue/{initDate}/{endDate}/{initAcc}/{endAcc}/{currency}',
+        'Reports\AccountingAnalyticalMajorController@pdfVueSign'
+    );
+
     /**
      * rutas para reporte del libro diario
      */
