@@ -667,6 +667,15 @@ class UserController extends Controller
         return response()->json(['result' => true], 200);
     }
 
+    /**
+     * Obtiene información de todos los usuarios registrados en el sistema
+     *
+     * @method    getAll
+     *
+     * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return    JsonResponse
+     */
     public function getAll()
     {
         $users = User::select('id', 'name')->get();

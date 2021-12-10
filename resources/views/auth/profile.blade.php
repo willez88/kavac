@@ -50,7 +50,7 @@
                                      title="{{ __('Click para modificar imagen de perfil') }}"
                                      data-toggle="tooltip" onclick="$('input[name=profile_image]').click()">
                                 <input type="file" id="profile_image" name="profile_image" style="display:none"
-                                       onchange="uploadProfileImage()">
+                                       onchange="uploadProfileImage()" accept="image/*">
                             {!! Form::close() !!}
                         </div>
                         <div class="col-12 text-center">
@@ -782,6 +782,18 @@
             var url = $("#formImgProfile").attr('action');
             var formData = new FormData();
             var imageFile = document.querySelector('#profile_image');
+            if (imageFile.files[0].type.indexOf("image") < 0) {
+                $.gritter.add({
+                    title: '{{ __('Alerta') }}!',
+                    text: "{{ __('El formato de la imagen es incorrecto') }}",
+                    class_name: 'growl-warning',
+                    image: "{{ asset('images/screen-warning.png') }}",
+                    sticky: false,
+                    time: 2500
+                });
+                $('.preloader').fadeOut(2000);
+                return false;
+            }
             formData.append("image", imageFile.files[0]);
             axios.post(url, formData, {
                 headers: {
