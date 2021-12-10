@@ -28,9 +28,10 @@
                     @include('buttons.minimize')
                 </div>
             </div>
-            <sale-report-payment
+            <sale-report-service-requests
+                year_old="2021"
                 route_list="{{ url()->previous() }}">
-            </sale-report-payment>
+            </sale-report-service-requests>
         </div>
     </div>
 </div>

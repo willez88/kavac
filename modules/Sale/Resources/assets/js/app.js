@@ -467,6 +467,16 @@ Vue.component('sale-report-payment', () => import(
     './components/reports/SaleReportPaymentComponent.vue')
 );
 
+/*
+ * Componente para gestionar la creación de los reportes de solicitud de servicios
+ *
+ * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>>
+ */
+Vue.component('sale-report-service-requests', () => import(
+    /* webpackChunkName: "sale-report-service-requests" */
+    './components/reports/SaleReportServiceRequestComponent.vue')
+);
+
 /**
  * Opciones de configuración global del módulo de Commercialización
  */
