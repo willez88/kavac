@@ -127,7 +127,7 @@
 
 										<div class="col-md-4">
 											<div class="form-group">
-												<strong>Teléfono</strong>
+												<strong>Números teléfonicos</strong>
 												<div class="row" style="margin: 1px 0">
 													<span class="col-md-12" id="applicant_phone">
 													</span>
@@ -352,11 +352,17 @@
 						document.getElementById('attribute').innerText = (fields.attribute)?fields.attribute:'N/A';
 		            	document.getElementById('applicant_name').innerText = (fields.first_name)?((fields.last_name)?(fields.first_name + ' ' + fields.last_name):(fields.first_name)):'N/A';
 		            	let phoneText = `
-		            		<div class = "col-md-6">
+		            		<div>
 
 		            	`;
 		            	fields.phones.forEach(function(phone) {
-							phoneText += `<p>${phone.area_code} ${phone.number}</p>`;
+		            		if (phone.type == 'T') {
+		            			phoneText += `<span class="d-block">Teléfono: ${phone.area_code} ${phone.number}</span>`;
+		            		} else if (phone.type == 'F') {
+		            			phoneText += `<span class="d-block">Fax: ${phone.area_code} ${phone.number}</span>`;
+		            		} else if (phone.type == 'M') {
+		            			phoneText += `<span class="d-block">Móvil: ${phone.area_code} ${phone.number}</span>`;
+		            		}
 						});
 
 		            	phoneText += '</div>';

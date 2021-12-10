@@ -1,44 +1,33 @@
 <template>
-	<div class="card">
-        <div class="card-header">
-            <h6 class="card-title">Datos de la Persona Solicitante</h6>
-            <div class="card-btns">
-                <a href="#" class="btn btn-sm btn-primary btn-custom" @click="redirect_back(route_list)"
-                   title="Ir atrás" data-toggle="tooltip">
-                    <i class="fa fa-reply"></i>
-                </a>
-                <a href="#" class="card-minimize btn btn-card-action btn-round" title="Minimizar" data-toggle="tooltip">
-                    <i class="now-ui-icons arrows-1_minimal-up"></i>
-                </a>
-            </div>
-        </div>
+	<section id="CitizenServiceRequestForm">
         <div class="card-body">
-            <div class="alert alert-danger" v-if="errors.length > 0">
-                <div class="container">
-                    <div class="alert-icon">
-                        <i class="now-ui-icons objects_support-17"></i>
-                    </div>
-                    <strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"
-                            @click.prevent="errors = []">
-                        <span aria-hidden="true">
-                            <i class="now-ui-icons ui-1_simple-remove"></i>
-                        </span>
-                    </button>
-                    <ul>
-                        <li v-for="error in errors">{{ error }}</li>
-                    </ul>
-                </div>
-            </div>
+        	<div class="alert alert-danger" v-if="errors.length > 0">
+				<div class="container">
+					<div class="alert-icon">
+						<i class="now-ui-icons objects_support-17"></i>
+					</div>
+					<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"
+							@click.prevent="errors = []">
+						<span aria-hidden="true">
+							<i class="now-ui-icons ui-1_simple-remove"></i>
+						</span>
+					</button>
+					<ul>
+						<li v-for="error in errors">{{ error }}</li>
+					</ul>
+				</div>
+			</div>
+            
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4" id="helpCitizenServiceRequestDate">
                     <div class="form-group is-required">
                         <label for="date">Fecha</label>
                         <input type="text" readonly id="date" class="form-control input-sm" data-toggle="tooltip"
                                title="Indique la fecha de solicitud" v-model="record.date">
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" id="helpCitizenServiceRequestFirstName">
                     <div class="form-group is-required">
                         <label for="first_name">Nombres</label>
                         <input type="text" class="form-control input-sm" data-toggle="tooltip"
@@ -46,7 +35,7 @@
                                title="Indique los nombres del solicitante" v-model="record.first_name">
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" id="helpCitizenServiceRequestLastName">
                     <div class="form-group is-required">
                         <label for="last_name">Apellidos</label>
                         <input type="text" id="apellido" class="form-control input-sm" data-toggle="tooltip"
@@ -54,14 +43,14 @@
                                title="Indique los apellidos del solicitante" v-model="record.last_name">
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" id="helpCitizenServiceRequestIdNumber">
                     <div class="form-group is-required">
                         <label for="id_number">Cédula de identidad</label>
                         <input type="text" class="form-control input-sm" data-toggle="tooltip"
                                title="Indique la cédula de identidad del solicitante" v-model="record.id_number">
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" id="helpCitizenServiceEmail">
                     <div class="form-group is-required">
                         <label for="email">Correo electrónico</label>
                         <input type="email" id="email" class="form-control input-sm" data-toggle="tooltip"
@@ -73,7 +62,7 @@
                 Números Telefónicos <i class="fa fa-plus-circle cursor-pointer" @click="addPhone"></i>
             </h6>
             <div class="row" v-for="(phone, index) in record.phones">
-                <div class="col-3">
+                <div class="col-3" id="helpCitizenServicePhones">
                     <div class="form-group is-required">
                         <select data-toggle="tooltip" v-model="phone.type" class="select2"
                                 title="Seleccione el tipo de número telefónico">
@@ -118,57 +107,57 @@
             <hr>
 		    <div class="row">
 		    	<div class="col-md-4">
-					<div class="form-group is-required">
+					<div class="form-group is-required" id="helpCitizenServiceCountry">
 						<label for="countries">País</label>
 						<select2 id="input_country" :options="countries" @input="getEstates()" v-model="record.country_id"></select2>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpCitizenServiceEstate">
 					<div class="form-group is-required">
 						<label for="estates">Estado</label>
 						<select2  id="input_estate" :options="estates" @input="getCities()" v-model="record.estate_id"></select2>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpCitizenServiceCity">
 					<div class="form-group is-required">
 						<label for="cities">Ciudad</label>
 						<select2  id="input_city" :options="cities" @input="getMunicipalities()" v-model="record.city_id"></select2>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpCitizenServiceMunicipality">
 					<div class="form-group is-required">
 						<label for="municipalities">Municipio</label>
 						<select2 id="input_municipality" :options="municipalities" @input="getParishes()" v-model="record.municipality_id"></select2>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpCitizenServiceParish">
 					<div class="form-group is-required">
 						<label for="parishes">Parroquia</label>
 						<select2 :options="parishes" v-model="record.parish_id"></select2>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpCitizenServiceAddress">
 					<div class="form-group is-required">
 						<label for="address">Dirección</label>
     					<input type="text" id="address" class="form-control input-sm" data-toggle="tooltip"
                                title="Indique la dirección" v-model="record.address">
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpCitizenServiceMotiveRequest">
 					<div class="form-group is-required">
 						<label for="motive_request">Motivo de la solicitud</label>
     					<input type="text" id="motive_request" class="form-control input-sm" data-toggle="tooltip"
                                title="Indique el motivo de la solicitud" v-model="record.motive_request">
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpCitizenServiceAttribute">
 					<div class="form-group is-required">
 						<label for="attribute">Atributos</label>
     					<input type="text" id="attribute" class="form-control input-sm" data-toggle="tooltip"
                                title="Indique los atributos" v-model="record.attribute">
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpCitizenServiceRequestType">
 					<div class="form-group is-required">
 						<label for="citizenserviceRequestTypes">Tipo de solicitud</label>
 						<select2 :options="citizen_service_request_types"
@@ -258,7 +247,7 @@
 			<div class="row" v-if="((citizenServiceRequestType == 'Migración a software libre')
 					|| (citizenServiceRequestType == 'Talleres de formación - asesorias')
 					|| (citizenServiceRequestType == 'Desarrollo de software libre'))">
-				<div class="col-md-4">
+				<div class="col-md-4" id="helpCitizenServiceDepartment">
 					<div class="form-group is-required">
 						<label for="citizenserviceDepartment">Dirección de departamento</label>
 						<select2 :options="citizen_service_departments" v-model="record.citizen_service_department_id"></select2>
@@ -283,7 +272,7 @@
     			</div>
 
 			<div v-show="this.record.type_institution">
-				<div class="col-md-12">
+				<div class="col-md-12" id="helpCitizenServiceTypeInstitution">
 					<b>Datos de la institución</b>
 				</div>
 				<div class="row">
@@ -338,7 +327,7 @@
 				<i class="fa fa-save"></i>
             </button>
         </div>
-   	</div>
+   	</section>
 </template>
 
 <script>
