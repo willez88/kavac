@@ -105,10 +105,10 @@ mix.combine([
 
 mix.webpackConfig({
     plugins: [
-        new WebpackShellPlugin({
+        /*new WebpackShellPlugin({
             onBuildStart:['php artisan lang:js --quiet'],
             onBuildEnd: []
-        }),
+        }),*/
         new webpack.IgnorePlugin({
             resourceRegExp: /^\.\/locale$/,
             contextRegExp: /moment$/

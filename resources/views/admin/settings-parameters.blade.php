@@ -35,7 +35,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-3" id="switchChat">
+						{{-- <div class="col-md-3" id="switchChat">
 							<div class="form-group">
 								<label for="" class="control-label">{{ __('Chat') }}</label>
 								<div class="col-12 bootstrap-switch-mini">
@@ -46,7 +46,7 @@
 									]) !!}
 								</div>
 							</div>
-						</div>
+						</div> --}}
 						<div class="col-md-3" id="switchNotify">
 							<div class="form-group">
 								<label for="" class="control-label">{{ __('Notificaciones') }}</label>

@@ -57,50 +57,6 @@
                                    list-notifications-url="{!! route('notifications.list') !!}"></notifications>
 				@endif
 
-				{{-- <li class="nav-item dropdown dropdown-notify">
-					<a href="#" class="nav-link dropdown-toggle btn btn-sm btn-info btn-notify" data-toggle="dropdown"
-					   aria-expanded="false" title="{{ __('Mensajes') }}" id="list_messages">
-					   	<i class="now-ui-icons ui-1_email-85"></i>
-						<!-- Mensajes de Notificación de procesos o usuarios -->
-						<span class="badge badge-primary badge-notify">2</span>
-					</a>
-					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="list_messages">
-						<a class="dropdown-header text-center">{{ __('Mensajes nuevos') }}</a>
-						<div class="dropdown-item">
-							<ul class="media-list msg-list">
-	                            <li class="media unread">
-	                                <div class="media-body">
-	                                    <div class="float-right media-option">
-	                                        <i class="fa fa-paperclip mr5"></i>
-	                                        <small>Ayer 5:51am</small>
-	                                    </div>
-	                                    <h4 class="sender">Nombre persona</h4>
-	                                    <p>
-	                                        <strong class="subject">Asunto!</strong> Descripción breve del mensaje (max 50 carácteres)...
-	                                    </p>
-	                                </div>
-	                            </li>
-	                            <li class="media unread">
-	                                <div class="media-body">
-	                                    <div class="float-right media-option">
-	                                        <i class="fa fa-paperclip mr5"></i>
-	                                        <small>Ayer 5:51am</small>
-	                                    </div>
-	                                    <h4 class="sender">Nombre persona</h4>
-	                                    <p>
-	                                        <strong class="subject">Asunto!</strong> Descripción breve del mensaje (max 50 carácteres)...
-	                                    </p>
-	                                </div>
-	                            </li>
-	                        </ul>
-						</div>
-						<a class="dropdown-item dropdown-footer text-center"
-						   href="{{ url('users/' . auth()->user()->id . '#messages') }}"
-						   title="{{ __('Ver todos los mensajes') }}" data-toggle="tooltip" data-placement="left">
-							{{ __('Ver todos los mensajes') }}
-						</a>
-					</div>
-				</li> --}}
                 {{--
 				<li class="nav-item dropdown">
 					<a href="#" class="nav-link dropdown-toggle btn btn-sm btn-info" id="list_options_language"
@@ -125,12 +81,12 @@
 					</a>
 				</li> --}}
 				@if ($chat)
-					<li class="nav-item">
+					{{-- <li class="nav-item">
 						<a class="nav-link btn btn-sm btn-info" href="javascript:void(0)" title="{{ __('Chat') }}"
                            data-toggle="tooltip">
 							<i class="now-ui-icons ui-2_chat-round"></i>
 						</a>
-					</li>
+					</li> --}}
 				@endif
 				@if ($support)
 					<li class="nav-item">

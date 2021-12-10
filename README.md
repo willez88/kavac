@@ -345,6 +345,10 @@ Una vez completada la instalación, inicie el servicio nginx y agréguelo para q
 
 El servidor Nginx se ejecutará en el puerto 80, para verificar si se ejecutó correctamente debe ejecutar el comando
 
+    # sudo systemctl status nginx
+
+o
+
     # netstat -plntu
 
 Si todo lo muestra correctamente, nginx estará instalado y en ejecución.
