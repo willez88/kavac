@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Municipality;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Rules\UniqueMunicipalityCode;
 
 /**
  * @class MunicipalityController
@@ -64,7 +65,7 @@ class MunicipalityController extends Controller
     {
         $this->validate($request, [
             'name' => ['required', 'max:100'],
-            'code' => ['required', 'max:10'],
+            'code' => ['required', 'max:10', new UniqueMunicipalityCode],
             'estate_id' => ['required']
         ]);
 

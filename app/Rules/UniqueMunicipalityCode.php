@@ -4,9 +4,9 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Contracts\Validation\DataAwareRule;
-use App\Models\Estate;
+use App\Models\Municipality;
 
-class UniqueEstateCode implements Rule, DataAwareRule
+class UniqueMunicipalityCode implements Rule, DataAwareRule
 {
     /**
      * All of the data under validation.
@@ -37,9 +37,9 @@ class UniqueEstateCode implements Rule, DataAwareRule
      */
     public function passes($attribute, $value)
     {
-        $estate = Estate::where(['country_id' => $this->data['country_id'], 'code' => $value])->first();
+        $municipality = Municipality::where(['estate_id' => $this->data['estate_id'], 'code' => $value])->first();
 
-        return !$estate;
+        return !$municipality;
     }
 
     /**
@@ -49,6 +49,6 @@ class UniqueEstateCode implements Rule, DataAwareRule
      */
     public function message()
     {
-        return 'Él código del Estado ya existe para el Pais seleccionado.';
+        return 'Él código del Estado ya existe para el Pais y Estado seleccionado.';
     }
 }

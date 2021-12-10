@@ -105,7 +105,9 @@
                 deep: true,
                 handler: function(newValue, oldValue) {
                     const vm = this;
-                    vm.record.estate_id = vm.selectedEstateId;
+                    if (vm.record.id) {
+                    	vm.record.estate_id = vm.selectedEstateId;
+                    }
                 }
             },
         },
