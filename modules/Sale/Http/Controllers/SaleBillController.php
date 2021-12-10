@@ -403,12 +403,14 @@ class SaleBillController extends Controller
      */
     public function vueInfo($id)
     {
-        return response()->json(['records' => SaleBill::with(['SaleFormPayment', 'saleBillInventoryProduct' => function ($query) {
-                    $query->with(['saleGoodsToBeTraded', 'currency', 'saleListSubservices', 'measurementUnit', 'historyTax',
-                        'saleWarehouseInventoryProduct' => function ($q) {
-                            $q->with('saleSettingProduct');
-                    }]);
-                }])->first()], 200);
+        $saleBill = SaleBill::where('id', $id)->with(['SaleFormPayment', 'saleBillInventoryProduct' => function ($query) {
+                        $query->with(['saleGoodsToBeTraded', 'currency', 'saleListSubservices', 'measurementUnit', 'historyTax',
+                            'saleWarehouseInventoryProduct' => function ($q) {
+                                $q->with('saleSettingProduct');
+                        }]);
+                    }])->first();
+
+        return response()->json(['record' => $saleBill], 200);
     }
 
     /**
@@ -419,11 +421,12 @@ class SaleBillController extends Controller
      */
     public function vueList()
     {
-        $bills = SaleBill::with(['saleBillInventoryProduct' => function ($query) {
-                    $query->with(['saleGoodsToBeTraded', 'currency', 'saleWarehouseInventoryProduct' => function ($q) {
-                        $q->with('saleSettingProduct');
-                    }]);
-                }])->get();
+        $bills = SaleBill::with(['SaleFormPayment', 'saleBillInventoryProduct' => function ($query) {
+                        $query->with(['saleGoodsToBeTraded', 'currency', 'saleListSubservices', 'measurementUnit', 'historyTax',
+                            'saleWarehouseInventoryProduct' => function ($q) {
+                                $q->with('saleSettingProduct');
+                        }]);
+                    }])->get();
         return response()->json(['records' => $bills], 200);
     }
 

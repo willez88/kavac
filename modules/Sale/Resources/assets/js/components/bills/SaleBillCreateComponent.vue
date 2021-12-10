@@ -294,9 +294,9 @@
 <script>
     export default {
         props:{
-                billid:{
-                    type:Number,
-                },
+            billid:{
+                type:Number,
+            },
         },
         data() {
             return {

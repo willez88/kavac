@@ -115,5 +115,8 @@
             </div>
         </div>
     </div>
+    <sale-bill-info
+        ref="BillInfo">
+    </sale-bill-info>
     @endrole
 @stop
