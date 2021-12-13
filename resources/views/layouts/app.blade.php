@@ -94,9 +94,6 @@
         @show
 
         @yield('modals')
-        {{-- Scripts --}}
-        {{-- Plugin Sliders --}}
-        {{-- {!! Html::script('js/nouislider.min.js', [], Request::secure()) !!} --}}
         {{-- Scripts de la aplicación --}}
         <script src="{{ asset('js/app.js', Request::secure()) }}"></script>
         <script src="{{ asset('js/generic-classes.js', Request::secure()) }}"></script>

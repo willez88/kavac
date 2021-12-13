@@ -9,16 +9,6 @@ mix.mergeManifest();
 
 /*
  |--------------------------------------------------------------------------
- | Webpack Shell Plugin
- |--------------------------------------------------------------------------
- |
- | Permite la ejecución de comandos en consola
- |
- */
-const WebpackShellPlugin = require('webpack-shell-plugin');
-
-/*
- |--------------------------------------------------------------------------
  | Mix Asset Management
  |--------------------------------------------------------------------------
  |
@@ -73,42 +63,8 @@ mix.combine([
     'public/css/now-ui-kit.css', 'public/css/materialdesignicons.css', 'public/css/custom.css'
 ], 'public/css/app.css');
 
-/*
- |--------------------------------------------------------------------------
- | Mix Asset Modules Management
- |--------------------------------------------------------------------------
- |
- | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel application. By default, we are compiling the Sass
- | file for the application as well as bundling up all the JS files.
- |
- */
-/*if (mix.inProduction()) {
-    const moduleFolder = './modules';
-
-    const dirs = p => fs.readdirSync(p).filter(f => fs.statSync(path.resolve(p,f)).isDirectory());
-
-    let modules = dirs(moduleFolder);
-
-    modules.forEach(function(m) {
-       let js = path.resolve(moduleFolder,m,'Resources/assets','js', 'app.js');
-       mix.js(js, `public/modules/${m.toLowerCase()}/js/app.js`);
-       let scss = path.resolve(moduleFolder,m,'Resources/assets','scss', 'app.scss');
-       mix.sass(scss, `public/modules/${m}/css/app.css`);
-       mix.webpackConfig({
-            output:{
-                chunkFilename: `modules/${m}/components/${(mix.inProduction()) ? 'prod/[chunkhash]' : '[name]'}.js`,
-            }
-        });
-    });
-}*/
-
 mix.webpackConfig({
     plugins: [
-        /*new WebpackShellPlugin({
-            onBuildStart:['php artisan lang:js --quiet'],
-            onBuildEnd: []
-        }),*/
         new webpack.IgnorePlugin({
             resourceRegExp: /^\.\/locale$/,
             contextRegExp: /moment$/
