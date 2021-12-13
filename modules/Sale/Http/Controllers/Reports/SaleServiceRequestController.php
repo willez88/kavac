@@ -126,4 +126,8 @@ class SaleServiceRequestController extends Controller
     {
         //
     }
+
+    public function filterRecords(Request $request){
+        return response()->json(['message' => 'success'], 200);
+    }
 }
