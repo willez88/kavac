@@ -18,7 +18,7 @@
 					</ul>
 				</div>
 			</div>
-            
+
             <div class="row">
                 <div class="col-md-4" id="helpCitizenServiceRequestDate">
                     <div class="form-group is-required">
@@ -254,7 +254,7 @@
 					</div>
 				</div>
 			</div>
-    			<div class="col-md-4">
+    			<div class="col-md-4" id="helpCitizenServiceTypeInstitution">
     				<div class="form-group">
     					<label>Institución</label>
     					<div class="col-12">
@@ -272,7 +272,7 @@
     			</div>
 
 			<div v-show="this.record.type_institution">
-				<div class="col-md-12" id="helpCitizenServiceTypeInstitution">
+				<div class="col-md-12">
 					<b>Datos de la institución</b>
 				</div>
 				<div class="row">
