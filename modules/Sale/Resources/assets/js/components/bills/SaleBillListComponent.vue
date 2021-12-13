@@ -1,5 +1,5 @@
 <template>
-    <v-client-table :columns="columns" :data="records" :options="table_options">
+    <v-client-table :columns="columns" :data="records" :options="table_options" ref="tableResults">
         <div slot="product_name" slot-scope="props">
             <p v-for="product in props.row.sale_bill_inventory_product">
                 {{ (product.product_type == 'Servicio') ? product.sale_goods_to_be_traded.name : product.sale_warehouse_inventory_product.sale_setting_product.name }}
@@ -22,10 +22,11 @@
         </div>
         <div slot="id" slot-scope="props" class="text-center">
             <div class="d-inline-flex">
-                <sale-bill-info
-                    :route_list="'/sale/bills/info/'+ props.row.id">
-                </sale-bill-info>
-
+                <button @click.prevent="setDetails('BillInfo', props.row.id, 'SaleBillInfo')"
+                            class="btn btn-info btn-xs btn-icon btn-action btn-tooltip"
+                            title="Ver registro" data-toggle="tooltip" data-placement="bottom" type="button">
+                        <i class="fa fa-eye"></i>
+                    </button>
                 <button @click="editForm(props.row.id)"
                         class="btn btn-warning btn-xs btn-icon btn-action"
                         title="Modificar registro" data-toggle="tooltip" type="button"
@@ -86,6 +87,34 @@
              */
             reset() {
 
+            },
+
+            /**
+             * Método reemplaza el metodo setDetails para usar la referencia del parent por defecto
+             *
+             * @method    setDetails
+             *
+             * @author     Daniel Contreras <dcontreras@cenditel.gob.ve>
+             *
+             * @param     string   ref       Identificador del componente
+             * @param     integer  id        Identificador del registro seleccionado
+             * @param     object  var_list  Objeto con las variables y valores a asignar en las variables del componente
+             */
+            setDetails(ref, id, modal ,var_list = null) {
+                const vm = this;
+                if (var_list) {
+                    for(var i in var_list){
+                        vm.$parent.$refs[ref][i] = var_list[i];
+                    }
+                }else{
+                    vm.$parent.$refs[ref].record = vm.$refs.tableResults.data.filter(r => {
+                        return r.id === id;
+                    })[0];
+                }
+                vm.$parent.$refs[ref].id = id;
+
+                $(`#${modal}`).modal('show');
+                document.getElementById("info_general").click();
             },
         }
     };

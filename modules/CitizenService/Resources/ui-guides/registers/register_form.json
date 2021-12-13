@@ -1,0 +1,51 @@
+[
+    {
+        "element" : "#cardCitizenServiceRegisterForm",
+        "intro" : "Formulario de ingresar cronograma de atención al ciudadano"
+    },
+    {
+        "element" : "#helpCitizenServiceRegisterDate",
+        "intro" : "Parámetro que establece la fecha del cronograma registrado",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceRegisterFirstName",
+        "intro" : "Parámetro que establece el nombre del director encargado en el proyecto",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceRegisterNameProyect",
+        "intro" : "Parámetro que establece el nombre del proyecto a registrar",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceRegisterTeam",
+        "intro" : "Parámetro que establece el nombre del equipo responsable a ejecutar el proyecto",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceRegisterActivities",
+        "intro" : "Parámetro que establece las actividades a realizar en el proyecto",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceRegisterEmail",
+        "intro" : "Parámetro que establece el correo electrónico del responsable encargado en el proyecto",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceRegisterStartDate",
+        "intro" : "Parámetro que establece la fecha de inicio a ejecutarse el proyecto",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceRegisterEndDate",
+        "intro" : "Parámetro que establece la fecha final para la culminación del proyecto",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceRegisterPercent",
+        "intro" : "Parámetro que establece el porcentaje de cumplimiento que llevar el proyecto",
+        "position" : "right"
+    }
+]

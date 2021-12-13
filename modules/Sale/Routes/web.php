@@ -513,8 +513,11 @@ Route::group(
          * Rutas para gestionar la generación de reportes en el Modulo de Solicitud de servicios
          * ------------------------------------------------------------
          */
-        Route::get('reports/service-requests', 'Reports\SaleServiceRequestController@index')
+        Route::get('reports/service-requests', 'Reports\SaleServiceRequestController@index',
+            ['except' => ['create', 'store','edit','update','show', 'destroy']])
             ->name('sale.report.service-requests');
+
+        Route::post('reports/service-requests/filter-records', 'Reports\SaleServiceRequestController@filterRecords');
 
         /*
          * ----------------------------------------------------------

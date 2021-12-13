@@ -1,0 +1,27 @@
+[
+    {
+        "element" : "#cardCitizenServiceReportForm",
+        "intro" : "Formulario para la generación de reportes en atención al ciudadano",
+        "position" : "top"
+    },
+    {
+        "element" : "#helpCitizenServiceReportRequestType",
+        "intro" : "Parámetro que establece el tipo de solicitud para la busqueda del reporte",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceReportStates",
+        "intro" : "Parámetro que establece el estado que tiene la solicitud para la busqueda del reporte",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceReportTypeSearch",
+        "intro" : "Parámetro que establece la busqueda por periodo de fechas",
+        "position" : "right"
+    },
+    {
+        "element" : "#helpCitizenServiceReportSearchDate",
+        "intro" : "Parámetro que establece la busqueda por una fecha específica",
+        "position" : "right"
+    }
+]

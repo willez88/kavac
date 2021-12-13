@@ -41,34 +41,32 @@
 								</ul>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<p>
-									Una vez aprobada la operación no se podrán realizar cambios en la misma.
-								</p>
-							</div>
-							<div class="col-md-12">
-									<div class="form-group">
-										<label>Observación:</label>
-	                                    <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
-	                                              title="Indique alguna observación referente a la operación que esta realizando "
-	                                              :config="ckeditor.editorConfig" class="form-control" tag-name="textarea"
-	                                              rows="3" v-model="record.observation"
-	                                              placeholder="Observaciones referentes a la operación"></ckeditor>
-									   <input type="hidden" v-model="record.id" id="id">
-				          </div>
-							</div>
-
-						</div>
-	                </div>
+						  <div class="row">
+								<div class="col-md-12">
+									<p>
+										Una vez aprobada la operación no se podrán realizar cambios en la misma.
+									</p>
+								</div>
+								<div class="col-md-12">
+										<div class="form-group">
+											<label>Observación:</label>
+		                                    <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
+		                                              title="Indique alguna observación referente a la operación que esta realizando "
+		                                              :config="ckeditor.editorConfig" class="form-control" tag-name="textarea"
+		                                              rows="3" v-model="record.observation"
+		                                              placeholder="Observaciones referentes a la operación"></ckeditor>
+										  <input type="hidden" v-model="record.id" id="id">
+					          </div>
+								</div>
+						  </div>
+	          </div>
 
 	                <div class="modal-footer">
-	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
-	                			data-dismiss="modal">
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" data-dismiss="modal" title="Presione para cerrar la ventana" data-toggle="tooltip" v-has-tooltip>
 	                		Cerrar
 	                	</button>
 	                	<button type="button" @click="updateRecord('/citizenservice/requests/request-approved/')"
-	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
+	                			class="btn btn-primary btn-sm btn-round btn-modal-save"  title="Presione para guardar el registro" data-toggle="tooltip" v-has-tooltip>
 	                		Guardar
 		                </button>
 		            </div>
@@ -127,12 +125,11 @@
 	                </div>
 
 	                <div class="modal-footer">
-	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
-	                			data-dismiss="modal">
+	                	<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" data-dismiss="modal" title="Presione para cerrar la ventana" data-toggle="tooltip" v-has-tooltip>
 	                		Cerrar
 	                	</button>
 	                	<button type="button" @click="updateRecord('/citizenservice/requests/request-rejected/')"
-	                			class="btn btn-primary btn-sm btn-round btn-modal-save">
+	                			class="btn btn-primary btn-sm btn-round btn-modal-save" title="Presione para guardar el registro" data-toggle="tooltip" v-has-tooltip>
 	                		Guardar
 		                </button>
 		            </div>

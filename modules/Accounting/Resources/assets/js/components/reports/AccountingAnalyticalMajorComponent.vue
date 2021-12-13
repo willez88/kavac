@@ -65,6 +65,11 @@
 				<span>Generar reporte</span>
 				<i class="fa fa-print"></i>
 			</button>
+			<button class="btn btn-primary btn-sm" title="Generar Reporte" data-toggle="tooltip"
+					v-on:click="OpenPdf(getUrlReportSign(), '_blank')" id="helpAnaliticalMajorGenerateReport">
+				<span>Generar y firmar reporte</span>
+				<i class="fa fa-print"></i>
+			</button>
 		</div>
 	</div>
 </template>
@@ -85,6 +90,7 @@
 		data(){
 			return {
 				url:'/accounting/report/analyticalMajor',
+				urlSign:'/accounting/report/analyticalMajorSign',
 				InitAcc:0,
 				EndAcc:0,
 				dates:null,
@@ -168,6 +174,47 @@
 				this.$refs.errorsAnalyticalMajor.reset();
 
 				var url = this.url+'/pdf';
+				var InitAcc = (this.InitAcc > this.EndAcc)? this.EndAcc  : this.InitAcc;
+				var EndAcc  = (this.InitAcc > this.EndAcc)? this.InitAcc : this.EndAcc;
+
+				var dates = '/'+this.dates.initYear+'-'+this.dates.initMonth+
+								  '/'+this.dates.endYear+'-'+this.dates.endMonth;
+
+				url += dates;
+
+				if (InitAcc != 0) { url += '/'+InitAcc; }
+
+				if (EndAcc != 0) { url += '/'+EndAcc; }
+
+				url += '/'+this.currency;
+				return url;
+			},
+			/**
+			* genera la url para el reporte
+			*
+			* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+			* @return {string} url para el reporte
+			*/
+			getUrlReportSign:function(){
+
+				var errors = [];
+				if (this.InitAcc <= 0) {
+					errors.push("Debe seleccionar una cuenta de inicio.");
+				}
+				if (this.EndAcc <= 0) {
+					errors.push("Debe seleccionar una cuenta de final.");
+				}
+				if (!this.currency) {
+					errors.push("El tipo de moneda es obligatorio.");
+				}
+
+				if (errors.length > 0) {
+					this.$refs.errorsAnalyticalMajor.showAlertMessages(errors);
+					return;
+				}
+				this.$refs.errorsAnalyticalMajor.reset();
+
+				var url = this.urlSign+'/pdf';
 				var InitAcc = (this.InitAcc > this.EndAcc)? this.EndAcc  : this.InitAcc;
 				var EndAcc  = (this.InitAcc > this.EndAcc)? this.InitAcc : this.EndAcc;
 

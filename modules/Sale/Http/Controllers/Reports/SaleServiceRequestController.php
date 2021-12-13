@@ -29,7 +29,7 @@ class SaleServiceRequestController extends Controller
      */
     public function index()
     {
-        return view('sale::index');
+        return view('sale::reports.sale-report-service-request');
     }
 
     /**
@@ -125,5 +125,9 @@ class SaleServiceRequestController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function filterRecords(Request $request){
+        return response()->json(['message' => 'success'], 200);
     }
 }
