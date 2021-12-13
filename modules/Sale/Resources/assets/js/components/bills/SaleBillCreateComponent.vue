@@ -375,8 +375,8 @@
                 const vm = this;
 
                 await axios.get('/sale/bills/info/'+id).then(response => {
-                    if(typeof(response.data.records != "undefined")){
-                        let data = response.data.records;
+                    if(typeof(response.data.record != "undefined")){
+                        let data = response.data.record;
                         vm.record = {
                             id: data.id,
                             //Datos del solicitante
@@ -388,52 +388,11 @@
                             email: data.email,
                             bill_clients: [],
                             //Descripción de productos
-                            bill_total_without_tax: 0,
-                            bill_total: 0,
-                            sale_bill_products: [],
+                            bill_total_without_tax: data.bill_total_without_taxs,
+                            bill_total: data.bill_totals,
+                            sale_bill_products: Object.values(data.sale_bill_products),
                             //Complementarios
                             sale_form_payment_id: data.sale_form_payment_id,
-                        },
-                        vm.record.sale_bill_products = [];
-                        vm.record.bill_total_without_tax = 0;
-                        vm.record.bill_total = 0;
-
-                        for (let product of response.data.records.sale_bill_inventory_product) {
-                            let total_without_tax = parseFloat(product.value) * product.quantity;
-                            let total = total_without_tax;
-                            let history_tax_value = 0;
-
-                            if (product.history_tax_id){
-                                history_tax_value = product.history_tax.percentage * total_without_tax / 100;
-                                total = total_without_tax + history_tax_value;
-                            }
-
-                            let bill_product = {
-                                product_type: product.product_type,
-                                sale_warehouse_inventory_product_id: product.sale_warehouse_inventory_product_id,
-                                sale_goods_to_be_traded_id: product.sale_goods_to_be_traded_id,
-                                sale_list_subservices_id: product.sale_list_subservices_id,
-                                measurement_unit_id: product.measurement_unit_id,
-                                currency_id: product.currency_id,
-                                history_tax_id: product.history_tax_id,
-                                value: product.value,
-                                quantity: product.quantity,
-                                total_without_tax: total_without_tax,
-                                sale_goods_to_be_traded_name: product.sale_goods_to_be_traded ? product.sale_goods_to_be_traded.name : '',
-                                inventory_product_name: product.sale_warehouse_inventory_product ? product.sale_warehouse_inventory_product.sale_setting_product.name : '',
-                                measurement_unit_name: product.measurement_unit.name,
-                                sale_list_subservices_name: product.sale_list_subservices ? product.sale_list_subservices.name : '',
-                                currency_name: product.currency.symbol + ' - ' + product.currency.name,
-                                history_tax_value: history_tax_value,
-                                total: total,
-                            };
-
-                            vm.record.sale_bill_products.push(bill_product);
-                        }
-
-                        for (let bill_inventory_product of vm.record.sale_bill_products) {
-                            vm.record.bill_total_without_tax += bill_inventory_product.total_without_tax;
-                            vm.record.bill_total += bill_inventory_product.total;
                         }
                     }
                 });

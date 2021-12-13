@@ -22,7 +22,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#products" role="tab" @click="loadProducts()">
+                            <a class="nav-link" data-toggle="tab" href="#products" role="tab">
                                 <i class="ion-arrow-swap"></i> Equipos Solicitados
                             </a>
                         </li>
@@ -115,8 +115,8 @@
                         </div>
 
                         <div class="tab-pane" id="products" role="tabpanel">
-                            <div class="modal-table">
-                                <v-client-table :columns="columns" :data="record.sale_bill_products" :options="table_options">
+                            <div class="modal-table" v-if="record.sale_bill_products">
+                                <v-client-table :columns="columns" :data="Object.values(record.sale_bill_products)" :options="table_options">
                                     <div slot="sale_warehouse_inventory_product_id" slot-scope="props" class="text-center">
                                         <span>
                                             {{ (props.row.sale_warehouse_inventory_product_id)? props.row.inventory_product_name : props.row.sale_goods_to_be_traded_name }}
@@ -148,7 +148,7 @@
                                         <div class="d-inline-flex align-items-center">
                                             <label class="font-weight-bold">Total sin iva:</label>
                                             <div class="form-group">
-                                                <input type="text" disabled placeholder="Total Sin IVA" id="bill_total_without_tax" title="Total sin IVA" v-model="record.bill_total_without_tax" class="form-control input-sm">
+                                                <input type="text" disabled placeholder="Total Sin IVA" id="bill_total_without_tax" title="Total sin IVA" v-model="record.bill_total_without_taxs" class="form-control input-sm">
                                             </div>
                                         </div>
                                     </div>
@@ -156,7 +156,7 @@
                                         <div class="d-inline-flex align-items-center">
                                             <label class="font-weight-bold">IVA:</label>
                                             <div class="form-group">
-                                                <input type="text" disabled placeholder="Total IVA" id="total_iva" title="Total IVA" v-model="(record.bill_total - record.bill_total_without_tax).toFixed(2)" class="form-control input-sm">
+                                                <input type="text" disabled placeholder="Total IVA" id="total_iva" title="Total IVA" v-model="(record.bill_totals - record.bill_total_without_taxs).toFixed(2)" class="form-control input-sm">
                                             </div>
                                         </div>
                                     </div>
@@ -164,7 +164,7 @@
                                         <div class="d-inline-flex align-items-center">
                                             <label class="font-weight-bold">Total a pagar:</label>
                                             <div class="form-group">
-                                                <input type="text" disabled placeholder="Total a pagar" id="bill_total" title="Total" v-model="record.bill_total" class="form-control input-sm">
+                                                <input type="text" disabled placeholder="Total a pagar" id="bill_total" title="Total" v-model="record.bill_totals" class="form-control input-sm">
                                             </div>
                                         </div>
                                     </div>
@@ -252,57 +252,6 @@
              * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
              */
             reset() {
-            },
-
-            /**
-             * Método que carga los registros en la tabla de productos
-             *
-             * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
-             */
-            loadProducts(){
-                const vm = this;
-
-                vm.record.sale_bill_products = [];
-                vm.record.bill_total_without_tax = 0;
-                vm.record.bill_total = 0;
-
-                for (let product of vm.record.sale_bill_inventory_product) {
-                    let total_without_tax = parseFloat(product.value) * product.quantity;
-                    let total = total_without_tax;
-                    let history_tax_value = 0;
-
-                    if (product.history_tax_id){
-                        history_tax_value = product.history_tax.percentage * total_without_tax / 100;
-                        total = total_without_tax + history_tax_value;
-                    }
-
-                    let bill_product = {
-                        product_type: product.product_type,
-                        sale_warehouse_inventory_product_id: product.sale_warehouse_inventory_product_id,
-                        sale_goods_to_be_traded_id: product.sale_goods_to_be_traded_id,
-                        sale_list_subservices_id: product.sale_list_subservices_id,
-                        measurement_unit_id: product.measurement_unit_id,
-                        currency_id: product.currency_id,
-                        history_tax_id: product.history_tax_id,
-                        value: product.value,
-                        quantity: product.quantity,
-                        total_without_tax: total_without_tax,
-                        sale_goods_to_be_traded_name: product.sale_goods_to_be_traded ? product.sale_goods_to_be_traded.name : '',
-                        inventory_product_name: product.sale_warehouse_inventory_product ? product.sale_warehouse_inventory_product.sale_setting_product.name : '',
-                        measurement_unit_name: product.measurement_unit.name,
-                        sale_list_subservices_name: product.sale_list_subservices ? product.sale_list_subservices.name : '',
-                        currency_name: product.currency.symbol + ' - ' + product.currency.name,
-                        history_tax_value: history_tax_value,
-                        total: total,
-                    };
-
-                    vm.record.sale_bill_products.push(bill_product);
-                }
-
-                for (let bill_inventory_product of vm.record.sale_bill_products) {
-                    vm.record.bill_total_without_tax += bill_inventory_product.total_without_tax;
-                    vm.record.bill_total += bill_inventory_product.total;
-                }
             },
         },
     }
