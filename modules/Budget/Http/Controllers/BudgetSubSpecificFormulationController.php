@@ -394,7 +394,7 @@ class BudgetSubSpecificFormulationController extends Controller
         $pdf->setConfig(
             [
                 'institution' => $formulation->institution,
-                'urlVerify'   => 'www.google.com',
+                'urlVerify'   => url(''),
                 'orientation' => 'P',
                 'filename'    => $filename
             ]
@@ -428,7 +428,7 @@ class BudgetSubSpecificFormulationController extends Controller
         $pdf->setConfig(
             [
                 'institution' => $formulation->institution,
-                'urlVerify'   => 'www.google.com',
+                'urlVerify'   => url(''),
                 'orientation' => 'P',
                 'filename'    => $filename
             ]

@@ -35,7 +35,7 @@ class ReportController extends Controller
     {
         /*$institution = Institution::find(1);
         $pdf = new PDF(config('app.name'));
-        $pdf->setConfig(['institution' => $institution, 'urlVerify' => 'www.google.com']);
+        $pdf->setConfig(['institution' => $institution, 'urlVerify' => 'www.cenditel.gob.ve']);
         $pdf->setHeader(__('Formulación de Presupuesto'), __('Mes de Septiembre'));
         $pdf->setFooter();
         $pdf->setBody('budget::reports.formulation', true, [

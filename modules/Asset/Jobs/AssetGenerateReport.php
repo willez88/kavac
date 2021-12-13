@@ -114,7 +114,7 @@ class AssetGenerateReport implements ShouldQueue
         $pdf->setConfig(
             [
                 'institution' => $institution,
-                'urlVerify'   => 'www.google.com',
+                'urlVerify'   => url(''),
                 'orientation' => 'L',
                 'filename'    => 'asset-report-' . Carbon::now() . '.pdf'
             ]

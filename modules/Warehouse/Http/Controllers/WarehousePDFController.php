@@ -191,7 +191,7 @@ class WarehousePDFController extends Controller
         $pdf->setConfig(
             [
                 'institution' => $institution,
-                'urlVerify'   => 'www.google.com',
+                'urlVerify'   => url(''),
                 'orientation' => 'L',
                 'filename'    => 'warehouse-report-' . Carbon::now() . '.pdf'
             ]
