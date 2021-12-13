@@ -38,7 +38,7 @@
                     </div>
                 </div>
 
-                <div class="col-3" v-show="filterDate == 'general'">
+                <div class="col-md-3" v-show="filterDate == 'general'">
                     <label class="control-label">Fecha Inicial</label>
                     <div class="is-required">
                         <label>Mes</label>
@@ -49,7 +49,7 @@
                         <select2 :options="years" v-model="record.year_init"></select2>
                     </div>
                 </div>
-                <div class="col-3" v-show="filterDate == 'general'">
+                <div class="col-md-3" v-show="filterDate == 'general'">
                     <label class="control-label">Fecha Final</label>
                     <div class="is-required">
                         <label>Mes</label>
@@ -67,15 +67,41 @@
                         <select2 :options="status_list" v-model="record.status"></select2>
                     </div>
                 </div>
+                <div class="col-md-12">
+                    <br>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="CheckClient" v-model="record.check_client">
+                        <label class="form-check-label" for="CheckClient">Clientes</label>
+                    </div>
+                </div>
+                <div class="col-md-6" v-if="record.check_client">
+                    <div class="form-group is-required" style="margin-top: -1.5rem;">
+                        <v-multiselect :options="client_list" track_by="text"
+                            :hide_selected="false" :selected="record.clients" v-model="record.clients">
+                        </v-multiselect>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="card-footer text-right" >
-            <button class="btn btn-primary btn-sm" data-toggle="tooltip" title="Generar Reporte"
+            <button data-toggle="tooltip" title="Buscar" class="btn btn-info btn-sm" @click="searchRecords">
+                <i class="fa fa-search"></i>
+            </button>
+            <!-- <button class="btn btn-primary btn-sm" data-toggle="tooltip" title="Generar Reporte"
                     v-on:click="OpenPdf(getUrlReport(), '_blank')" id="saleOrderGenerateReport">
                 <span>Generar reporte</span>
                 <i class="fa fa-print"></i>
-            </button>
-        </div>     
+            </button> -->
+        </div>
+        <div class="col-12"><hr></div>
+        <div class="col-12">
+            <v-client-table :columns="columns" :data="records" :options="table_options">
+                <div slot="id" slot-scope="props">
+                </div>
+            </v-client-table>
+        </div>
     </section>
 </template>
 
@@ -106,31 +132,41 @@ export default {
                 year_init:new Date().getFullYear(),
                 month_end:'',
                 year_end:new Date().getFullYear(),
+                check_client:false,
+                clients:[],
             },
             status_list:[
-                { id:'waiting', text:'pendiente'},
-                { id:'approved', text:'aprobado'},
-                { id:'dismissed', text:'rechazado'},
-                { id:'all', text:'todos'},
+                { id:'', text:'Seleccione...' },
+                { id:'waiting', text:'pendiente' },
+                { id:'approved', text:'aprobado' },
+                { id:'dismissed', text:'rechazado' },
+                { id:'all', text:'todos' },
+            ],
+            client_list:[
+                { id:'waiting', text:'pendiente' },
+                { id:'approved', text:'aprobado' },
+                { id:'dismissed', text:'rechazado' },
+                { id:'all', text:'todos' },
             ],
             months:[
-                {id:1, text:'Enero'},
-                {id:2, text:'Febrero'},
-                {id:3, text:'Marzo'},
-                {id:4, text:'Abril'},
-                {id:5, text:'Mayo'},
-                {id:6, text:'Junio'},
-                {id:7, text:'Julio'},
-                {id:8, text:'Agosto'},
-                {id:9, text:'Septiembre'},
-                {id:10, text:'Octubre'},
-                {id:11, text:'Noviembre'},
-                {id:12, text:'Diciembre'}
+                { id:'', text:'Seleccione...' },
+                { id:1,  text:'Enero' },
+                { id:2,  text:'Febrero' },
+                { id:3,  text:'Marzo' },
+                { id:4,  text:'Abril' },
+                { id:5,  text:'Mayo' },
+                { id:6,  text:'Junio' },
+                { id:7,  text:'Julio' },
+                { id:8,  text:'Agosto' },
+                { id:9,  text:'Septiembre' },
+                { id:10, text:'Octubre' },
+                { id:11, text:'Noviembre' },
+                { id:12, text:'Diciembre' }
             ],
             years:[],
             errors: [],
             records: [],
-            columns: ['name', 'description', 'id'],
+            columns: ['select', 'code', 'date', 'client', 'description', 'status'],
             filterDate:'specific',
             dateEnd:'',
         }
@@ -177,21 +213,35 @@ export default {
                 });
             }
         },
+
+        /**
+        * Consulta y filtra los registros de solicitud de servicios
+        *
+        * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+        */
+        searchRecords(){
+            axios.post('/sale/reports/service-requests/filter-records', this.record).then(response => {
+                console.log(response.data.message);
+            });
+        },
     },
     created() {
         const vm = this;
         vm.table_options.headings = {
-            'name': 'Nombre',
-            'description': 'Descripción',
-            'id': 'Acción'
+            'select': 'Selección',
+            'code': 'Código',
+            'date': 'Fecha',
+            'client': 'Nombre o Razón social del cliente',
+            'description': 'Descripción del servicio',
+            'status': 'Estatus solicitud',
         };
-        vm.table_options.sortable = ['name'];
-        vm.table_options.filterable = ['name'];
-        vm.table_options.columnsClasses = {
-            'name': 'col-md-5',
-            'description': 'col-md-5',
-            'id': 'col-md-2'
-        };
+        vm.table_options.sortable = ['code', 'date', 'client'];
+        vm.table_options.filterable = ['code', 'date', 'client'];
+        // vm.table_options.columnsClasses = {
+        //     'name': 'col-md-5',
+        //     'description': 'col-md-5',
+        //     'id': 'col-md-2'
+        // };
     },
     mounted(){
         const vm = this;
