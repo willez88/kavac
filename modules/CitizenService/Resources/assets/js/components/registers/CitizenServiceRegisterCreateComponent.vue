@@ -1,6 +1,6 @@
 <template>
 	<section id="CitizenServiceRegisterForm">
-			
+
 			<div class="card-body">
 				<div class="alert alert-danger" v-if="errors.length > 0">
 				<div class="container">
@@ -67,14 +67,16 @@
 					<div class="col-md-4" id="helpCitizenServiceRegisterStartDate">
 						<div class="form-group is-required">
 							<label for="start_date">Fecha de inicio</label>
-        					<input type="date" id="start_date" class="form-control input-sm no-restrict" data-toggle="tooltip"
-                                   title="Indique la fecha de inicio" v-model="record.start_date">
+        					<input type="date" id="start_date" data-toggle="tooltip" title="Indique la fecha de inicio"
+								   class="form-control no-restrict":min="new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)).toISOString().split('T')[0]"
+                                   v-model="record.start_date">
         				</div>
 					</div>
 					<div class="col-md-4" id="helpCitizenServiceRegisterEndDate">
 						<div class="form-group is-required">
 							<label for="end_date">Fecha de culminación</label>
         					<input type="date" id="end_date" class="form-control input-sm no-restrict" data-toggle="tooltip"
+								   :min="record.start_date"
                                    title="Indique la fecha de culminación" v-model="record.end_date">
         				</div>
 					</div>
