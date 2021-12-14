@@ -439,6 +439,8 @@ Route::group(
 
         Route::post('payment/store', 'SalePaymentController@store')->name('payment.register.store');
 
+        Route::get('payment/vue-list', 'SalePaymentController@vueList');
+        
         Route::get(
             'get-sales-client/{id}',
             'SalePaymentController@getSaleClient'
