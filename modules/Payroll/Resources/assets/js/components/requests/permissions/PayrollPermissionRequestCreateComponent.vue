@@ -64,7 +64,8 @@
 								<i class="now-ui-icons ui-1_calendar-60"></i>
 							</span>
 							<input type="date" id="start_date" @input="getcalculate()" data-toggle="tooltip" title="Indique la fecha de inicio del permiso"
-								   class="form-control input-sm no-restrict" v-model="record.start_date">
+								   class="form-control no-restrict":min="new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)).toISOString().split('T')[0]"
+								   v-model="record.start_date">
 						</div>
 					</div>
 				</div>
@@ -77,7 +78,7 @@
 								<i class="now-ui-icons ui-1_calendar-60"></i>
 							</span>
 							<input type="date" id="end_date" @input="getcalculate()" data-toggle="tooltip" title="Indique la fecha final del permiso"
-								   class="form-control input-sm no-restrict" v-model="record.end_date">
+								   class="form-control input-sm no-restrict" :min="record.start_date" v-model="record.end_date">
 						</div>
 					</div>
 				</div>
@@ -149,7 +150,6 @@
 
 	                }
 	            });
-				console.log(id);
 			},
 			/**
 			 * Método que borra todos los datos del formulario
@@ -213,7 +213,6 @@
 
 		    	sumarLaborables(start_date, dias);
 		    	vm.record.day_permission = dias;
-				console.log(dias);
 			},
 		},
 

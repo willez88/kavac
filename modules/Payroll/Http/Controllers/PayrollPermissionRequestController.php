@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Payroll\Models\PayrollPermissionRequest;
+use Illuminate\Validation\Rule;
 
 /**
  * @class      PayrollPermissionRequestController
@@ -23,9 +24,48 @@ class PayrollPermissionRequestController extends Controller
 {
     use ValidatesRequests;
     /**
-     * Display a listing of the resource.
-     * @return Renderable
-    */
+     * Arreglo con las reglas de validación sobre los datos de un formulario
+     * @var Array $validateRules
+     */
+    protected $validateRules;
+    /**
+     * Arreglo con los mensajes para las reglas de validación
+     * @var Array $messages
+     */
+    protected $messages;
+
+    /**
+     * Define la configuración de la clase
+     *
+     * @author    Yennifer Ramirez <yramirez@cenditel.gob.ve>
+     */
+    public function __construct()
+    {
+        /** Establece permisos de acceso para cada método del controlador */
+        /** Define las reglas de validación para el formulario */
+        $this->validateRules = [
+            'date'                             => ['required'],
+            'payroll_staff_id'                 => ['required'],
+            'payroll_permission_policy_id'     => ['required'],
+            'start_date'                       => ['required'],
+            'end_date'                         => ['required', 'date', 'after_or_equal:start_date'],
+            'day_permission'                   => ['required'],
+            'motive_permission'                => ['required', 'max:200'],
+
+        ];
+        /** Define los mensajes de validación para las reglas del formulario */
+        $this->messages = [
+            'payroll_staff_id.required'             => 'El campo trabajador es obligatorio.',
+            'payroll_permission_policy_id.required' => 'El campo tipo de permiso es obligatorio.',
+            'start_date.required'                   => 'El campo desde es obligatorio.',
+            'end_date.required'                     => 'El campo hasta es obligatorio.',
+            'end_date.after_or_equal'    => 'La fecha hasta debe ser una fecha posterior o igual a la fecha desde.',
+            'day_permission.required'               => 'El campo días de permiso es obligatorio.',
+            'motive_permission.required'            => 'El campo motivos del permiso es obligatorio.',
+            'motive_permission.max'                 => 'El campo motivos del permiso no debe
+                                                        contener más de 200 caracteres.',
+        ];
+    }
     public function index()
     {
         return view('payroll::requests.permissions.index');
@@ -54,16 +94,7 @@ class PayrollPermissionRequestController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'date'                             => ['required'],
-            'payroll_staff_id'                 => ['required'],
-            'payroll_permission_policy_id'     => ['required'],
-            'start_date'                       => ['required'],
-            'end_date'                         => ['required'],
-            'day_permission'                   => ['required'],
-            'motive_permission'                => ['required', 'max:200'],
-        ]);
-
+        $this->validate($request, $this->validateRules, $this->messages);
         $payrollPermissionRequest = PayrollPermissionRequest::create([
             'status'                           => 'Pendiente',
             'date'                             => $request->date,
@@ -127,17 +158,8 @@ class PayrollPermissionRequestController extends Controller
     */
     public function update(Request $request, $id)
     {
+        $this->validate($request, $this->validateRules, $this->messages);
         $payrollPermissionRequest = PayrollPermissionRequest::find($id);
-        $this->validate($request, [
-            'date'                             => ['required'],
-            'payroll_staff_id'                 => ['required'],
-            'payroll_permission_policy_id'     => ['required'],
-            'start_date'                       => ['required'],
-            'end_date'                         => ['required'],
-            'day_permission'                   => ['required'],
-            'motive_permission'                => ['required', 'max:200'],
-
-        ]);
         $payrollPermissionRequest->status                           = 'Pendiente';
         $payrollPermissionRequest->date                             = $request->date;
         $payrollPermissionRequest->payroll_staff_id                 = $request->payroll_staff_id;
