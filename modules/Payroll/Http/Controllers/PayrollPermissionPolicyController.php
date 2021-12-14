@@ -39,8 +39,12 @@ class PayrollPermissionPolicyController extends Controller
 
        /** Define los mensajes de validación para las reglas del formulario */
         $this->messages = [
-           'day_min.required' => 'El rango debe ser mínimo.',
-           'day_max.required' => 'El rango debe ser máximo.'
+           'name.required'    => 'El campo nombre es obligatorio.',
+           'name.max'         => 'El campo nombre no debe contener más de 100 caracteres.',
+           'anticipation_day.required' => 'El campo días de anticipación es obligatorio.',
+           'day_min.required' => 'El campo rango mínimo es obligatorio.',
+           'day_max.required' => 'El campo rango máximo es obligatorio.',
+           'institution_id.required' => 'El campo organización es obligatorio.',
         ];
     }
     /**
@@ -128,7 +132,7 @@ class PayrollPermissionPolicyController extends Controller
         );
 
         $this->validate($request, $validateRules, $this->messages);
-        
+
         $payrollPermissionPolicy = PayrollPermissionPolicy::find($id);
         $payrollPermissionPolicy->name             = $request->name;
         $payrollPermissionPolicy->anticipation_day = $request->anticipation_day;

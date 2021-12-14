@@ -49,19 +49,20 @@ class CitizenServiceRegisterController extends Controller
         /** Define los mensajes de validación para las reglas del formulario */
         $this->messages = [
             'payroll_staff_id.required'   => 'El campo nombre del director es obligatorio.',
-            'project_name.required' => 'El campo nombre del proyecto es obligatorio',
-            'project_name.max'      => 'El campo nombre del proyecto no debe contener más de 100 caracteres.',
-            'team_name.required'    => 'El campo equipo responsable es obligatorio',
-            'team_name.max'         => 'El campo equipo responsable no debe contener más de 200 caracteres.',
-            'activities.required'   => 'El campo actividades es obligatorio',
-            'activities.max'        => 'El campo actividades no debe contener más de 100 caracteres.',
-            'start_date.required'   => 'El campo fecha de inicio es obligatorio',
-            'end_date.required'     => 'El campo fecha de culminación es obligatorio',
-            'email.required'        => 'El campo correo electrónico es obligatorio',
-            'email.email'           => 'El campo correo electrónico es de tipo email',
-            'percent.max'           => 'El campo porcentaje de cumplimiento no debe contener más de 100 caracteres.',
-            'percent.integer'       => 'El campo porcentaje de cumpliento debe ser entero',
-            'percent.min'           => 'El campo porcentaje de cumpliento número minimo es 1',
+            'project_name.required'   => 'El campo nombre del proyecto es obligatorio',
+            'project_name.max'        => 'El campo nombre del proyecto no debe contener más de 100 caracteres.',
+            'team_name.required'      => 'El campo equipo responsable es obligatorio',
+            'team_name.max'           => 'El campo equipo responsable no debe contener más de 200 caracteres.',
+            'activities.required'     => 'El campo actividades es obligatorio',
+            'activities.max'          => 'El campo actividades no debe contener más de 100 caracteres.',
+            'start_date.required'     => 'El campo fecha de inicio es obligatorio',
+            'end_date.required'       => 'El campo fecha de culminación es obligatorio',
+            'end_date.after_or_equal' => 'La fecha de culminación debe ser una fecha posterior o igual a la fecha de inicio',
+            'email.required'          => 'El campo correo electrónico es obligatorio',
+            'email.email'             => 'El campo correo electrónico es de tipo email',
+            'percent.max'             => 'El campo porcentaje de cumplimiento no debe contener más de 100 caracteres.',
+            'percent.integer'         => 'El campo porcentaje de cumpliento debe ser entero',
+            'percent.min'             => 'El campo porcentaje de cumpliento número minimo es 1',
         ];
     }
 
