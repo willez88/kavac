@@ -126,7 +126,7 @@
                 <div v-show="bill_product.product_type == 'Producto'" class="col-md-3">
                     <div class="form-group is-required">
                         <label for="product_type">Producto:</label>
-                        <select2 :options="quote_inventory_products_list" id="sale_warehouse_inventory_product_id" v-model="bill_product.sale_warehouse_inventory_product_id" @input="updateProduct"></select2>
+                        <select2 :options="bill_inventory_products_list" id="sale_warehouse_inventory_product_id" v-model="bill_product.sale_warehouse_inventory_product_id" @input="updateProduct"></select2>
                     </div>
                 </div>
                 <div v-show="bill_product.product_type == 'Servicio'" class="col-md-3">
@@ -355,7 +355,7 @@
                     {'id' : 'Producto', 'text' : 'Producto'},
                     {'id' : 'Servicio', 'text' : 'Servicio'}
                 ],
-                quote_inventory_products_list : [],
+                bill_inventory_products_list : [],
                 bill_good_to_be_traded : [],
                 quote_subservices_list : [],
                 currencies : [],
@@ -605,7 +605,7 @@
                                 }
                             }
                         }
-                        for (let inventory_products_list of vm.quote_inventory_products_list){
+                        for (let inventory_products_list of vm.bill_inventory_products_list){
                             if (vm.bill_product.sale_warehouse_inventory_product_id > 0 && inventory_products_list.id == vm.bill_product.sale_warehouse_inventory_product_id) {
                                 inventory_product_name = inventory_products_list.text;
                             }
@@ -624,9 +624,6 @@
                             if (tax.id == vm.bill_product.history_tax_id) {
                                 history_tax_value = parseFloat(tax.text) * total_without_tax / 100;
                                 total = total_without_tax + history_tax_value;
-                            } else {
-                                history_tax_value = '';
-                                total = total_without_tax;
                             }
                         }
                         vm.record.sale_bill_products.push({
@@ -703,7 +700,7 @@
                                 }
                             }
                         }
-                        for (let inventory_products_list of vm.quote_inventory_products_list){
+                        for (let inventory_products_list of vm.bill_inventory_products_list){
                             if (vm.bill_product.sale_warehouse_inventory_product_id > 0 && inventory_products_list.id == vm.bill_product.sale_warehouse_inventory_product_id) {
                                 inventory_product_name = inventory_products_list.text;
                             }
@@ -821,7 +818,7 @@
             },
 
             /**
-             * Obtiene un arreglo con la lista los productos para ser comercializados en facturas
+             * Obtiene un arreglo con la lista los servicios para ser comercializados en facturas
              *
              * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
              */
@@ -830,6 +827,19 @@
                 vm.bill_good_to_be_traded = [];
                 axios.get('/sale/get-sale-goods').then(response => {
                     vm.bill_good_to_be_traded = response.data.records;
+                });
+            },
+
+            /**
+             * Obtiene un arreglo con la lista los productos para ser comercializados en facturas
+             *
+             * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+             */
+            getBillInventoryProducts() {
+                const vm = this;
+                vm.bill_inventory_products_list = [];
+                axios.get('/sale/get-bill-inventory-product').then(response => {
+                    vm.bill_inventory_products_list = response.data.records;
                 });
             },
         },
@@ -959,7 +969,7 @@
             vm.getQuoteListSubservices();
             vm.getQuoteMeasurementUnits();
             vm.getQuotePayments();
-            vm.getQuoteInventoryProducts();
+            vm.getBillInventoryProducts();
             vm.getQuoteClients();
             /*vm.extractQuote();*/
             vm.getSalePayments();

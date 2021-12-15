@@ -306,6 +306,13 @@ Route::group(
         Route::get('get-bill-product/{product}/{id}', 'SaleBillController@getBillProduct');
         Route::get('bills/pdf/{id}', 'Reports\SaleBillController@pdf');
 
+        /**
+         * ---------------------------------------------------------------------------------
+         * Rutas para gestionar los select de facturas en el Modulo de Comercialización
+         * ---------------------------------------------------------------------------------
+         */
+        Route::get('get-bill-inventory-product', 'SaleBillController@getBillInventoryProducts');
+
         /*
          * ------------------------------------------------------------
          * Rutas para gestionar la generación de reportes en el Modulo de Pedidos
