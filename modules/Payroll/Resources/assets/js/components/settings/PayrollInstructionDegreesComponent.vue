@@ -19,11 +19,25 @@
 						</h6>
 					</div>
 					<div class="modal-body">
-						<div class="alert alert-danger" v-if="errors.length > 0">
-							<ul>
-								<li v-for="error in errors">{{ error }}</li>
-							</ul>
-						</div>
+						<!-- mensajes de error -->
+                        <div class="alert alert-danger" v-if="errors.length > 0">
+                            <div class="container">
+                                <div class="alert-icon">
+                                    <i class="now-ui-icons objects_support-17"></i>
+                                </div>
+                                <strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                                        @click.prevent="errors = []">
+                                    <span aria-hidden="true">
+                                        <i class="now-ui-icons ui-1_simple-remove"></i>
+                                    </span>
+                                </button>
+                                <ul>
+                                    <li v-for="error in errors">{{ error }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- ./mensajes de error -->
                         <div class="row">
                             <div class="col-md-6">
         						<div class="form-group is-required">
@@ -39,7 +53,7 @@
         							<label for="description">Descripción:</label>
         							<input type="text" id="description" placeholder="Descripción"
         								   class="form-control input-sm" v-model="record.description" data-toggle="tooltip"
-        								   title="Indique la descripción del grado de instrucción (requerido)">
+        								   title="Indique la descripción del grado de instrucción">
         	                    </div>
                             </div>
                         </div>
