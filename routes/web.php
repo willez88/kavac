@@ -111,6 +111,15 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     /**
      * -----------------------------------------------------------------------
+     * Ruta para verificar registros eliminados
+     * -----------------------------------------------------------------------
+     * 
+     * Ruta que permite verificar si un registro se encuentra eliminado
+     */
+    Route::post('is-deleted', 'CommonController@isDeleted')->name('common.is-deleted');
+
+    /**
+     * -----------------------------------------------------------------------
      * Ruta para gestión de parámetros
      * -----------------------------------------------------------------------
      *
