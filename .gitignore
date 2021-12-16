@@ -2,7 +2,7 @@
 /node_modules
 /public/hot
 /public/storage
-/public/css/*.css
+/public/css/
 /public/js/*.js
 /public/lang/lang.js
 /public/js/components
