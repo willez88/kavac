@@ -7,14 +7,17 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\CodeSetting;
+use App\Models\User;
 
 use Modules\Sale\Models\SaleBill;
 use Modules\Sale\Models\SaleBillInventoryProduct;
 use Modules\Sale\Models\SaleWarehouseInventoryProduct;
 use Modules\Sale\Models\SaleWarehouseMovement;
 use Modules\Sale\Models\SaleGoodsToBeTraded;
+use Modules\Sale\Notifications\BillApproved;
 
 /**
  * @class SaleBillController
@@ -351,14 +354,24 @@ class SaleBillController extends Controller
         $sale_bills->state = 'Aprobado';
         $sale_bills->save();
 
+        $users = User::whereHas('roles', function ($query) {
+            $query->whereIn('slug', ['account', 'admin']);
+        })->get();
+
+        foreach ($users as $user) {
+            $user->notify(new BillApproved(Auth::user(), $sale_bills->code));
+        };
+
         $bill_inventory_products = $sale_bills->SaleBillInventoryProduct;
 
         foreach ($bill_inventory_products as $bill_inventory_product) {
-            $sale_warehouse_inventory_product = $bill_inventory_product->SaleWarehouseInventoryProduct;
-            $exist = $sale_warehouse_inventory_product->exist;
-            $exist -= $bill_inventory_product->quantity;
-            $sale_warehouse_inventory_product->exist = $exist;
-            $sale_warehouse_inventory_product->save();
+            if($bill_inventory_product->SaleWarehouseInventoryProduct){
+                $sale_warehouse_inventory_product = $bill_inventory_product->SaleWarehouseInventoryProduct;
+                $exist = $sale_warehouse_inventory_product->exist;
+                $exist -= $bill_inventory_product->quantity;
+                $sale_warehouse_inventory_product->exist = $exist;
+                $sale_warehouse_inventory_product->save();
+            }
         }
 
         $request->session()->flash('message', ['type' => 'update']);
@@ -422,7 +435,7 @@ class SaleBillController extends Controller
      */
     public function vueList()
     {
-        $bills = SaleBill::with(['SaleFormPayment', 'saleBillInventoryProduct' => function ($query) {
+        $bills = SaleBill::where('state', 'Pendiente')->with(['SaleFormPayment', 'saleBillInventoryProduct' => function ($query) {
                         $query->with(['saleGoodsToBeTraded', 'currency', 'saleListSubservices', 'measurementUnit', 'historyTax',
                             'saleWarehouseInventoryProduct' => function ($q) {
                                 $q->with('saleSettingProduct');
@@ -437,13 +450,31 @@ class SaleBillController extends Controller
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
      * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
      */
-    public function vueApprovedList($state)
+    public function vueApprovedList()
     {
-        $bills = SaleBill::with(['saleClient', 'SaleBillInventoryProduct' =>
-            function ($query) {
-                $query->with('SaleWarehouseInventoryProduct');
-            }])
-            ->where('state', $state)->get();
+        $bills = SaleBill::where('state', 'Aprobado')->with(['SaleFormPayment', 'saleBillInventoryProduct' => function ($query) {
+                        $query->with(['saleGoodsToBeTraded', 'currency', 'saleListSubservices', 'measurementUnit', 'historyTax',
+                            'saleWarehouseInventoryProduct' => function ($q) {
+                                $q->with('saleSettingProduct');
+                        }]);
+                    }])->get();
+        return response()->json(['records' => $bills], 200);
+    }
+
+    /**
+     * Obtiene un listado de las facturas rechazadas
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse Objeto con los registros a mostrar
+     */
+    public function vueRejectedList()
+    {
+        $bills = SaleBill::where('state', 'Rechazado')->with(['SaleFormPayment', 'saleBillInventoryProduct' => function ($query) {
+                        $query->with(['saleGoodsToBeTraded', 'currency', 'saleListSubservices', 'measurementUnit', 'historyTax',
+                            'saleWarehouseInventoryProduct' => function ($q) {
+                                $q->with('saleSettingProduct');
+                        }]);
+                    }])->get();
         return response()->json(['records' => $bills], 200);
     }
 
