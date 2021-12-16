@@ -336,7 +336,6 @@
 				payroll_nationalities: [],
 				payroll_genders: [],
                 countries: [],
-				setEstate: '',
                 estates: [],
                 municipalities: [],
                 parishes: [],
