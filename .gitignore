@@ -2,13 +2,8 @@
 /node_modules
 /public/hot
 /public/storage
-public/css/now-ui-kit.css
-/public/css/app.css
-/public/js/app.js
-/public/js/chart.js
-/public/js/shared-components.js
-/public/js/generic-classes.js
-/public/js/common.js
+/public/css/
+/public/js/*.js
 /public/lang/lang.js
 /public/js/components
 /public/modules

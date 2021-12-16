@@ -37,7 +37,28 @@
                 </div>
             </div>
         </div>
-        <br>
+        <div class="col-md-3" v-show="record.sale_service_id > 0">
+            <div class="form-group">
+                <label for="applicant_name">Rif:</label>
+                  <span class="col-md-12" id="Rif">{{ sale_service.rif }}</span>
+            </div>  
+            <div class="form-group">
+                <label for="applicant_name">Identificación:</label>
+                  <span class="col-md-12" id="identification">{{ sale_service.idntifiaction }} {{ sale_service.identification_number }}</span>
+            </div>  
+                                            <div class="form-group">
+                <label for="applicant_name">Nombre:</label>
+                  <span class="col-md-12" id="name">{{ sale_service.name }}</span>
+            </div>  
+            <div class="form-group">
+                <label for="applicant_name">Email:</label>
+                  <span class="col-md-12" id="email">{{ sale_service.email }}</span>
+            </div>  
+                                            <div class="form-group">
+                <label for="applicant_name">Teléfono:</label>
+                  <span class="col-md-12" id="phone">{{ sale_service.phone_extension }} {{ sale_service.phone_area_code }} {{ sale_service.phone_number }}</span>
+            </div>   
+        </div>
         <div class="row">
             <div class="col-md-3">
                 <div class="form-group is-required">
@@ -108,7 +129,7 @@
                         title ="Borrar datos del formulario">
                         <i class="fa fa-eraser"></i>
                 </button>
-                <button type="button"  @click="createRecord('sale/services')"
+                <button type="button"  @click="createRecord('sale/payment/store')"
                         class="btn btn-success btn-icon btn-round btn-modal-save"
                         title="Guardar registro">
                     <i class="fa fa-save"></i>
@@ -146,6 +167,14 @@ export default {
             sale_service: {
                 code : '',
                 total : '',
+                name : '',
+                email : '',
+                identification_number : '',
+                idntifiaction : '',
+                phone_area_code : '',
+                phone_extension : '',
+                phone_number : '',
+                rif : '',
             },
             sale_order: {
                 code : '',
@@ -259,6 +288,14 @@ export default {
                 axios.get('/sale/get-sales-client/' + vm.record.sale_service_id).then(response => {
                     vm.sale_service.code = response.data.sale_service.code;
                     vm.sale_service.total = response.data.sale_service.total;
+                    vm.sale_service.name = response.data.sale_service.name;
+                    vm.sale_service.email = response.data.sale_service.email;
+                    vm.sale_service.identification_number = response.data.sale_service.identification_number;
+                    vm.sale_service.idntifiaction = response.data.sale_service.idntifiaction;
+                    vm.sale_service.phone_area_code = response.data.sale_service.phone_area_code;
+                    vm.sale_service.phone_extension = response.data.sale_service.phone_extension;
+                    vm.sale_service.phone_number = response.data.sale_service.phone_number;
+                    vm.sale_service.rif = response.data.sale_service.rif;
                 });
             }
         },

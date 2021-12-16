@@ -94,9 +94,6 @@
         @show
 
         @yield('modals')
-        {{-- Scripts --}}
-        {{-- Plugin Sliders --}}
-        {{-- {!! Html::script('js/nouislider.min.js', [], Request::secure()) !!} --}}
         {{-- Scripts de la aplicación --}}
         <script src="{{ asset('js/app.js', Request::secure()) }}"></script>
         <script src="{{ asset('js/generic-classes.js', Request::secure()) }}"></script>
@@ -367,6 +364,35 @@
                         });
                     };
                 @endrole
+
+                /**
+                 * Establece la información del usuario a notificar
+                 *
+                 * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+                 */
+                var setUserModalNotify = function(id) {
+                    $('#modalSendNotification').find('#user').val(id);
+                };
+
+                /**
+                 * Establece la información del usuario a enviar mensaje
+                 *
+                 * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+                 */
+                var setUserModalMessage = function(id) {
+                    $('#modalSendMessage').find('#user').val(id);
+                }
+
+                /**
+                 * Establece los datos de un usuario
+                 *
+                 * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+                 *
+                 * @param     {String}    id       Identificador del usuario
+                 */
+                var setUser = function(id) {
+                    window.userId = id;
+                }
 
                 /**
                  * Registro de eventos del sistema

@@ -1,0 +1,8 @@
+digraph "AgeToWork"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{AgeToWork\n|# $age\l|+ __construct()\l+ message()\l+ passes()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Reglas de validación para la edad requerida para trabajar."];
+}

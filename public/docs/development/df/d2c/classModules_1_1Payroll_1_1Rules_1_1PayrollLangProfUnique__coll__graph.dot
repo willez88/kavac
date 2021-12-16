@@ -1,0 +1,8 @@
+digraph "PayrollLangProfUnique"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{PayrollLangProfUnique\n|# $payroll_lang_id\l# $payroll_prof_id\l|+ __construct()\l+ message()\l+ passes()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Validación para dupla de campos únicos en tabla intermedia idioma y dato profesional."];
+}

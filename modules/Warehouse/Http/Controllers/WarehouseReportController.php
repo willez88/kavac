@@ -343,7 +343,7 @@ class WarehouseReportController extends Controller
         $pdf->setConfig(
             [
                 'institution' => $institution,
-                'urlVerify'   => 'www.google.com',
+                'urlVerify'   => url(''),
                 'orientation' => 'L',
                 'filename'    => $filename
             ]

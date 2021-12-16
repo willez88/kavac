@@ -162,6 +162,8 @@ class AppManagementController extends Controller
 
             if (!$users->isEmpty()) {
                 $auditables = $auditables->whereIn('user_id', $users);
+            } else {
+                return response()->json(['result' => false, 'message' => __('El usuario no está registrado')], 200);
             }
         }
         if ($request->module) {

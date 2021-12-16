@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Parish;
 use Illuminate\Http\Request;
+use App\Rules\UniqueParishCode;
 
 /**
  * @class ParishController
@@ -60,7 +61,6 @@ class ParishController extends Controller
             'data' => $data->items(),
             'count' => $data->total()
         ], 200, [], env('APP_DEBUG') == true ? JSON_PRETTY_PRINT : 0);
-        //return response()->json(['records' => Parish::with('municipality')->get()], 200);
     }
 
     /**
@@ -78,7 +78,7 @@ class ParishController extends Controller
     {
         $this->validate($request, [
             'name' => ['required', 'max:100'],
-            'code' => ['required', 'max:10'],
+            'code' => ['required', 'max:10', new UniqueParishCode],
             'municipality_id' => ['required']
         ]);
 

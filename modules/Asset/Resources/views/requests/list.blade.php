@@ -30,9 +30,9 @@
 				</div>
 				<div class="card-body">
 					<asset-request-list
-						route_list="{{ url('asset/requests/vue-list') }}"
-						route_edit="{{ url('asset/requests/edit/{id}') }}"
-						route_delete="{{ url('asset/requests/delete') }}">
+						route_list="asset/requests/vue-list"
+						route_edit="asset/requests/edit/{id}"
+						route_delete="asset/requests/delete">
 					</asset-request-list>
 				</div>
 			</div>

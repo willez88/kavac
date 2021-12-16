@@ -51,7 +51,7 @@
         							<label for="description">Descripción:</label>
         							<input type="text" id="description" placeholder="Descripción"
         								   class="form-control input-sm" v-model="record.description" data-toggle="tooltip"
-        								   title="Indique la descripción del grado de instrucción (requerido)">
+        								   title="Indique la descripción del grado de instrucción">
         	                    </div>
                             </div>
                         </div>

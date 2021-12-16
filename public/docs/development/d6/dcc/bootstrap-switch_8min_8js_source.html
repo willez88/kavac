@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>KAVAC: Fichero Fuente bootstrap-switch.min.js</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+<link href="../../customdoxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../logo-doc.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">KAVAC
+   &#160;<span id="projectnumber">versión 1.0.0</span>
+   </div>
+   <div id="projectbrief">Sistema de Gestión Organizacional</div>
+  </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="../../search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.png" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "../../search",false,'Buscar');
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('d6/dcc/bootstrap-switch_8min_8js_source.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">bootstrap-switch.min.js</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;(function(){var slice=[].slice;(function($,window){&quot;use strict&quot;;var BootstrapSwitch;BootstrapSwitch=(function(){function BootstrapSwitch(element,options){if(options==null){options={};}</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;this.$element=$(element);this.options=$.extend({},$.fn.bootstrapSwitch.defaults,{state:this.$element.is(&quot;:checked&quot;),size:this.$element.data(&quot;size&quot;),animate:this.$element.data(&quot;animate&quot;),disabled:this.$element.is(&quot;:disabled&quot;),readonly:this.$element.is(&quot;[readonly]&quot;),indeterminate:this.$element.data(&quot;indeterminate&quot;),inverse:this.$element.data(&quot;inverse&quot;),radioAllOff:this.$element.data(&quot;radio-all-off&quot;),onColor:this.$element.data(&quot;on-color&quot;),offColor:this.$element.data(&quot;off-color&quot;),onText:this.$element.data(&quot;on-text&quot;),offText:this.$element.data(&quot;off-text&quot;),labelText:this.$element.data(&quot;label-text&quot;),handleWidth:this.$element.data(&quot;handle-width&quot;),labelWidth:this.$element.data(&quot;label-width&quot;),baseClass:this.$element.data(&quot;base-class&quot;),wrapperClass:this.$element.data(&quot;wrapper-class&quot;)},options);this.prevOptions={};this.$wrapper=$(&quot;&lt;div&gt;&quot;,{&quot;class&quot;:(function(_this){return function(){var classes;classes=[&quot;&quot;+_this.options.baseClass].concat(_this._getClasses(_this.options.wrapperClass));classes.push(_this.options.state?_this.options.baseClass+&quot;-on&quot;:_this.options.baseClass+&quot;-off&quot;);if(_this.options.size!=null){classes.push(_this.options.baseClass+&quot;-&quot;+_this.options.size);}</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;if(_this.options.disabled){classes.push(_this.options.baseClass+&quot;-disabled&quot;);}</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;if(_this.options.readonly){classes.push(_this.options.baseClass+&quot;-readonly&quot;);}</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;if(_this.options.indeterminate){classes.push(_this.options.baseClass+&quot;-indeterminate&quot;);}</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;if(_this.options.inverse){classes.push(_this.options.baseClass+&quot;-inverse&quot;);}</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;if(_this.$element.attr(&quot;id&quot;)){classes.push(_this.options.baseClass+&quot;-id-&quot;+(_this.$element.attr(&quot;id&quot;)));}</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;return classes.join(&quot; &quot;);};})(this)()});this.$container=$(&quot;&lt;div&gt;&quot;,{&quot;class&quot;:this.options.baseClass+&quot;-container&quot;});this.$on=$(&quot;&lt;span&gt;&quot;,{html:this.options.onText,&quot;class&quot;:this.options.baseClass+&quot;-handle-on &quot;+this.options.baseClass+&quot;-&quot;+this.options.onColor});this.$off=$(&quot;&lt;span&gt;&quot;,{html:this.options.offText,&quot;class&quot;:this.options.baseClass+&quot;-handle-off &quot;+this.options.baseClass+&quot;-&quot;+this.options.offColor});this.$label=$(&quot;&lt;span&gt;&quot;,{html:this.options.labelText,&quot;class&quot;:this.options.baseClass+&quot;-label&quot;});this.$element.on(&quot;init.bootstrapSwitch&quot;,(function(_this){return function(){return _this.options.onInit.apply(element,arguments);};})(this));this.$element.on(&quot;switchChange.bootstrapSwitch&quot;,(function(_this){return function(e){if(false===_this.options.onSwitchChange.apply(element,arguments)){if(_this.$element.is(&quot;:radio&quot;)){return $(&quot;[name=&#39;&quot;+(_this.$element.attr(&#39;name&#39;))+&quot;&#39;]&quot;).trigger(&quot;previousState.bootstrapSwitch&quot;,true);}else{return _this.$element.trigger(&quot;previousState.bootstrapSwitch&quot;,true);}}};})(this));this.$container=this.$element.wrap(this.$container).parent();this.$wrapper=this.$container.wrap(this.$wrapper).parent();this.$element.before(this.options.inverse?this.$off:this.$on).before(this.$label).before(this.options.inverse?this.$on:this.$off);if(this.options.indeterminate){this.$element.prop(&quot;indeterminate&quot;,true);}</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;this._init();this._elementHandlers();this._handleHandlers();this._labelHandlers();this._formHandler();this._externalLabelHandler();this.$element.trigger(&quot;init.bootstrapSwitch&quot;,this.options.state);}</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;BootstrapSwitch.prototype._constructor=BootstrapSwitch;BootstrapSwitch.prototype.setPrevOptions=function(){return this.prevOptions=$.extend(true,{},this.options);};BootstrapSwitch.prototype.state=function(value,skip){if(typeof value===&quot;undefined&quot;){return this.options.state;}</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;if(this.options.disabled||this.options.readonly){return this.$element;}</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;if(this.options.state&amp;&amp;!this.options.radioAllOff&amp;&amp;this.$element.is(&quot;:radio&quot;)){return this.$element;}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;if(this.$element.is(&quot;:radio&quot;)){$(&quot;[name=&#39;&quot;+(this.$element.attr(&#39;name&#39;))+&quot;&#39;]&quot;).trigger(&quot;setPreviousOptions.bootstrapSwitch&quot;);}else{this.$element.trigger(&quot;setPreviousOptions.bootstrapSwitch&quot;);}</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;if(this.options.indeterminate){this.indeterminate(false);}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;value=!!value;this.$element.prop(&quot;checked&quot;,value).trigger(&quot;change.bootstrapSwitch&quot;,skip);return this.$element;};BootstrapSwitch.prototype.toggleState=function(skip){if(this.options.disabled||this.options.readonly){return this.$element;}</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;if(this.options.indeterminate){this.indeterminate(false);return this.state(true);}else{return this.$element.prop(&quot;checked&quot;,!this.options.state).trigger(&quot;change.bootstrapSwitch&quot;,skip);}};BootstrapSwitch.prototype.size=function(value){if(typeof value===&quot;undefined&quot;){return this.options.size;}</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;if(this.options.size!=null){this.$wrapper.removeClass(this.options.baseClass+&quot;-&quot;+this.options.size);}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;if(value){this.$wrapper.addClass(this.options.baseClass+&quot;-&quot;+value);}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;this._width();this._containerPosition();this.options.size=value;return this.$element;};BootstrapSwitch.prototype.animate=function(value){if(typeof value===&quot;undefined&quot;){return this.options.animate;}</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;value=!!value;if(value===this.options.animate){return this.$element;}</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;return this.toggleAnimate();};BootstrapSwitch.prototype.toggleAnimate=function(){this.options.animate=!this.options.animate;this.$wrapper.toggleClass(this.options.baseClass+&quot;-animate&quot;);return this.$element;};BootstrapSwitch.prototype.disabled=function(value){if(typeof value===&quot;undefined&quot;){return this.options.disabled;}</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;value=!!value;if(value===this.options.disabled){return this.$element;}</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;return this.toggleDisabled();};BootstrapSwitch.prototype.toggleDisabled=function(){this.options.disabled=!this.options.disabled;this.$element.prop(&quot;disabled&quot;,this.options.disabled);this.$wrapper.toggleClass(this.options.baseClass+&quot;-disabled&quot;);return this.$element;};BootstrapSwitch.prototype.readonly=function(value){if(typeof value===&quot;undefined&quot;){return this.options.readonly;}</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;value=!!value;if(value===this.options.readonly){return this.$element;}</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;return this.toggleReadonly();};BootstrapSwitch.prototype.toggleReadonly=function(){this.options.readonly=!this.options.readonly;this.$element.prop(&quot;readonly&quot;,this.options.readonly);this.$wrapper.toggleClass(this.options.baseClass+&quot;-readonly&quot;);return this.$element;};BootstrapSwitch.prototype.indeterminate=function(value){if(typeof value===&quot;undefined&quot;){return this.options.indeterminate;}</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;value=!!value;if(value===this.options.indeterminate){return this.$element;}</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;return this.toggleIndeterminate();};BootstrapSwitch.prototype.toggleIndeterminate=function(){this.options.indeterminate=!this.options.indeterminate;this.$element.prop(&quot;indeterminate&quot;,this.options.indeterminate);this.$wrapper.toggleClass(this.options.baseClass+&quot;-indeterminate&quot;);this._containerPosition();return this.$element;};BootstrapSwitch.prototype.inverse=function(value){if(typeof value===&quot;undefined&quot;){return this.options.inverse;}</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;value=!!value;if(value===this.options.inverse){return this.$element;}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;return this.toggleInverse();};BootstrapSwitch.prototype.toggleInverse=function(){var $off,$on;this.$wrapper.toggleClass(this.options.baseClass+&quot;-inverse&quot;);$on=this.$on.clone(true);$off=this.$off.clone(true);this.$on.replaceWith($off);this.$off.replaceWith($on);this.$on=$off;this.$off=$on;this.options.inverse=!this.options.inverse;return this.$element;};BootstrapSwitch.prototype.onColor=function(value){var color;color=this.options.onColor;if(typeof value===&quot;undefined&quot;){return color;}</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;if(color!=null){this.$on.removeClass(this.options.baseClass+&quot;-&quot;+color);}</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;this.$on.addClass(this.options.baseClass+&quot;-&quot;+value);this.options.onColor=value;return this.$element;};BootstrapSwitch.prototype.offColor=function(value){var color;color=this.options.offColor;if(typeof value===&quot;undefined&quot;){return color;}</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;if(color!=null){this.$off.removeClass(this.options.baseClass+&quot;-&quot;+color);}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;this.$off.addClass(this.options.baseClass+&quot;-&quot;+value);this.options.offColor=value;return this.$element;};BootstrapSwitch.prototype.onText=function(value){if(typeof value===&quot;undefined&quot;){return this.options.onText;}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;this.$on.html(value);this._width();this._containerPosition();this.options.onText=value;return this.$element;};BootstrapSwitch.prototype.offText=function(value){if(typeof value===&quot;undefined&quot;){return this.options.offText;}</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;this.$off.html(value);this._width();this._containerPosition();this.options.offText=value;return this.$element;};BootstrapSwitch.prototype.labelText=function(value){if(typeof value===&quot;undefined&quot;){return this.options.labelText;}</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;this.$label.html(value);this._width();this.options.labelText=value;return this.$element;};BootstrapSwitch.prototype.handleWidth=function(value){if(typeof value===&quot;undefined&quot;){return this.options.handleWidth;}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;this.options.handleWidth=value;this._width();this._containerPosition();return this.$element;};BootstrapSwitch.prototype.labelWidth=function(value){if(typeof value===&quot;undefined&quot;){return this.options.labelWidth;}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;this.options.labelWidth=value;this._width();this._containerPosition();return this.$element;};BootstrapSwitch.prototype.baseClass=function(value){return this.options.baseClass;};BootstrapSwitch.prototype.wrapperClass=function(value){if(typeof value===&quot;undefined&quot;){return this.options.wrapperClass;}</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;if(!value){value=$.fn.bootstrapSwitch.defaults.wrapperClass;}</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;this.$wrapper.removeClass(this._getClasses(this.options.wrapperClass).join(&quot; &quot;));this.$wrapper.addClass(this._getClasses(value).join(&quot; &quot;));this.options.wrapperClass=value;return this.$element;};BootstrapSwitch.prototype.radioAllOff=function(value){if(typeof value===&quot;undefined&quot;){return this.options.radioAllOff;}</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;value=!!value;if(value===this.options.radioAllOff){return this.$element;}</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;this.options.radioAllOff=value;return this.$element;};BootstrapSwitch.prototype.onInit=function(value){if(typeof value===&quot;undefined&quot;){return this.options.onInit;}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;if(!value){value=$.fn.bootstrapSwitch.defaults.onInit;}</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;this.options.onInit=value;return this.$element;};BootstrapSwitch.prototype.onSwitchChange=function(value){if(typeof value===&quot;undefined&quot;){return this.options.onSwitchChange;}</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;if(!value){value=$.fn.bootstrapSwitch.defaults.onSwitchChange;}</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;this.options.onSwitchChange=value;return this.$element;};BootstrapSwitch.prototype.destroy=function(){var $form;$form=this.$element.closest(&quot;form&quot;);if($form.length){$form.off(&quot;reset.bootstrapSwitch&quot;).removeData(&quot;bootstrap-switch&quot;);}</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;this.$container.children().not(this.$element).remove();this.$element.unwrap().unwrap().off(&quot;.bootstrapSwitch&quot;).removeData(&quot;bootstrap-switch&quot;);return this.$element;};BootstrapSwitch.prototype._width=function(){var $handles,handleWidth;$handles=this.$on.add(this.$off);$handles.add(this.$label).css(&quot;width&quot;,&quot;&quot;);handleWidth=this.options.handleWidth===&quot;auto&quot;?Math.max(this.$on.width(),this.$off.width()):this.options.handleWidth;$handles.width(handleWidth);this.$label.width((function(_this){return function(index,width){if(_this.options.labelWidth!==&quot;auto&quot;){return _this.options.labelWidth;}</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;if(width&lt;handleWidth){return handleWidth;}else{return width;}};})(this));this._handleWidth=this.$on.outerWidth();this._labelWidth=this.$label.outerWidth();this.$container.width((this._handleWidth*2)+this._labelWidth);return this.$wrapper.width(this._handleWidth+this._labelWidth);};BootstrapSwitch.prototype._containerPosition=function(state,callback){if(state==null){state=this.options.state;}</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;this.$container.css(&quot;margin-left&quot;,(function(_this){return function(){var values;values=[0,&quot;-&quot;+_this._handleWidth+&quot;px&quot;];if(_this.options.indeterminate){return&quot;-&quot;+(_this._handleWidth/2)+&quot;px&quot;;}</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;if(state){if(_this.options.inverse){return values[1];}else{return values[0];}}else{if(_this.options.inverse){return values[0];}else{return values[1];}}};})(this));if(!callback){return;}</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;return setTimeout(function(){return callback();},50);};BootstrapSwitch.prototype._init=function(){var init,initInterval;init=(function(_this){return function(){_this.setPrevOptions();_this._width();return _this._containerPosition(null,function(){if(_this.options.animate){return _this.$wrapper.addClass(_this.options.baseClass+&quot;-animate&quot;);}});};})(this);if(this.$wrapper.is(&quot;:visible&quot;)){return init();}</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;return initInterval=window.setInterval((function(_this){return function(){if(_this.$wrapper.is(&quot;:visible&quot;)){init();return window.clearInterval(initInterval);}};})(this),50);};BootstrapSwitch.prototype._elementHandlers=function(){return this.$element.on({&quot;setPreviousOptions.bootstrapSwitch&quot;:(function(_this){return function(e){return _this.setPrevOptions();};})(this),&quot;previousState.bootstrapSwitch&quot;:(function(_this){return function(e){_this.options=_this.prevOptions;if(_this.options.indeterminate){_this.$wrapper.addClass(_this.options.baseClass+&quot;-indeterminate&quot;);}</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;return _this.$element.prop(&quot;checked&quot;,_this.options.state).trigger(&quot;change.bootstrapSwitch&quot;,true);};})(this),&quot;change.bootstrapSwitch&quot;:(function(_this){return function(e,skip){var state;e.preventDefault();e.stopImmediatePropagation();state=_this.$element.is(&quot;:checked&quot;);_this._containerPosition(state);if(state===_this.options.state){return;}</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;_this.options.state=state;_this.$wrapper.toggleClass(_this.options.baseClass+&quot;-off&quot;).toggleClass(_this.options.baseClass+&quot;-on&quot;);if(!skip){if(_this.$element.is(&quot;:radio&quot;)){$(&quot;[name=&#39;&quot;+(_this.$element.attr(&#39;name&#39;))+&quot;&#39;]&quot;).not(_this.$element).prop(&quot;checked&quot;,false).trigger(&quot;change.bootstrapSwitch&quot;,true);}</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;return _this.$element.trigger(&quot;switchChange.bootstrapSwitch&quot;,[state]);}};})(this),&quot;focus.bootstrapSwitch&quot;:(function(_this){return function(e){e.preventDefault();return _this.$wrapper.addClass(_this.options.baseClass+&quot;-focused&quot;);};})(this),&quot;blur.bootstrapSwitch&quot;:(function(_this){return function(e){e.preventDefault();return _this.$wrapper.removeClass(_this.options.baseClass+&quot;-focused&quot;);};})(this),&quot;keydown.bootstrapSwitch&quot;:(function(_this){return function(e){if(!e.which||_this.options.disabled||_this.options.readonly){return;}</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;switch(e.which){case 37:e.preventDefault();e.stopImmediatePropagation();return _this.state(false);case 39:e.preventDefault();e.stopImmediatePropagation();return _this.state(true);}};})(this)});};BootstrapSwitch.prototype._handleHandlers=function(){this.$on.on(&quot;click.bootstrapSwitch&quot;,(function(_this){return function(event){event.preventDefault();event.stopPropagation();_this.state(false);return _this.$element.trigger(&quot;focus.bootstrapSwitch&quot;);};})(this));return this.$off.on(&quot;click.bootstrapSwitch&quot;,(function(_this){return function(event){event.preventDefault();event.stopPropagation();_this.state(true);return _this.$element.trigger(&quot;focus.bootstrapSwitch&quot;);};})(this));};BootstrapSwitch.prototype._labelHandlers=function(){return this.$label.on({&quot;click&quot;:function(e){return e.stopPropagation();},&quot;mousedown.bootstrapSwitch touchstart.bootstrapSwitch&quot;:(function(_this){return function(e){if(_this._dragStart||_this.options.disabled||_this.options.readonly){return;}</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;e.preventDefault();e.stopPropagation();_this._dragStart=(e.pageX||e.originalEvent.touches[0].pageX)-parseInt(_this.$container.css(&quot;margin-left&quot;),10);if(_this.options.animate){_this.$wrapper.removeClass(_this.options.baseClass+&quot;-animate&quot;);}</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;return _this.$element.trigger(&quot;focus.bootstrapSwitch&quot;);};})(this),&quot;mousemove.bootstrapSwitch touchmove.bootstrapSwitch&quot;:(function(_this){return function(e){var difference;if(_this._dragStart==null){return;}</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;e.preventDefault();difference=(e.pageX||e.originalEvent.touches[0].pageX)-_this._dragStart;if(difference&lt;-_this._handleWidth||difference&gt;0){return;}</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;_this._dragEnd=difference;return _this.$container.css(&quot;margin-left&quot;,_this._dragEnd+&quot;px&quot;);};})(this),&quot;mouseup.bootstrapSwitch touchend.bootstrapSwitch&quot;:(function(_this){return function(e){var state;if(!_this._dragStart){return;}</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;e.preventDefault();if(_this.options.animate){_this.$wrapper.addClass(_this.options.baseClass+&quot;-animate&quot;);}</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;if(_this._dragEnd){state=_this._dragEnd&gt;-(_this._handleWidth/2);_this._dragEnd=false;_this.state(_this.options.inverse?!state:state);}else{_this.state(!_this.options.state);}</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;return _this._dragStart=false;};})(this),&quot;mouseleave.bootstrapSwitch&quot;:(function(_this){return function(e){return _this.$label.trigger(&quot;mouseup.bootstrapSwitch&quot;);};})(this)});};BootstrapSwitch.prototype._externalLabelHandler=function(){var $externalLabel;$externalLabel=this.$element.closest(&quot;label&quot;);return $externalLabel.on(&quot;click&quot;,(function(_this){return function(event){event.preventDefault();event.stopImmediatePropagation();if(event.target===$externalLabel[0]){return _this.toggleState();}};})(this));};BootstrapSwitch.prototype._formHandler=function(){var $form;$form=this.$element.closest(&quot;form&quot;);if($form.data(&quot;bootstrap-switch&quot;)){return;}</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;return $form.on(&quot;reset.bootstrapSwitch&quot;,function(){return window.setTimeout(function(){return $form.find(&quot;input&quot;).filter(function(){return $(this).data(&quot;bootstrap-switch&quot;);}).each(function(){return $(this).bootstrapSwitch(&quot;state&quot;,this.checked);});},1);}).data(&quot;bootstrap-switch&quot;,true);};BootstrapSwitch.prototype._getClasses=function(classes){var c,cls,i,len;if(!$.isArray(classes)){return[this.options.baseClass+&quot;-&quot;+classes];}</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;cls=[];for(i=0,len=classes.length;i&lt;len;i++){c=classes[i];cls.push(this.options.baseClass+&quot;-&quot;+c);}</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;return cls;};return BootstrapSwitch;})();$.fn.bootstrapSwitch=function(){var args,option,ret;option=arguments[0],args=2&lt;=arguments.length?slice.call(arguments,1):[];ret=this;this.each(function(){var $this,data;$this=$(this);data=$this.data(&quot;bootstrap-switch&quot;);if(!data){$this.data(&quot;bootstrap-switch&quot;,data=new BootstrapSwitch(this,option));}</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;if(typeof option===&quot;string&quot;){return ret=data[option].apply(data,args);}});return ret;};$.fn.bootstrapSwitch.Constructor=BootstrapSwitch;return $.fn.bootstrapSwitch.defaults={state:true,size:null,animate:true,disabled:false,readonly:false,indeterminate:false,inverse:false,radioAllOff:false,onColor:&quot;primary&quot;,offColor:&quot;default&quot;,onText:&quot;ON&quot;,offText:&quot;OFF&quot;,labelText:&quot;&amp;nbsp;&quot;,handleWidth:&quot;auto&quot;,labelWidth:&quot;auto&quot;,baseClass:&quot;bootstrap-switch&quot;,wrapperClass:&quot;wrapper&quot;,onInit:function(){},onSwitchChange:function(){}};})(window.jQuery,window);}).call(this);</div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_0fc3f8f3ef96ce2d45d66d6e29832317.html">resources</a></li><li class="navelem"><a class="el" href="../../dir_a794a5ff81584a815c22a64994c08658.html">js</a></li><li class="navelem"><a class="el" href="../../dir_6b32be4c544df309a31d0b8b2bb74de2.html">now-ui-kit</a></li><li class="navelem"><a class="el" href="../../dir_adabbc8a6c2e6945a0b54a9026c71839.html">plugins</a></li><li class="navelem"><b>bootstrap-switch.min.js</b></li>
+    <li class="footer">Generado el Miércoles, 8 de Diciembre de 2021 14:39:57 para KAVAC por
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

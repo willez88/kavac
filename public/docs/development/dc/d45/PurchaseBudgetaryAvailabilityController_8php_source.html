@@ -1,0 +1,384 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>KAVAC: Fichero Fuente PurchaseBudgetaryAvailabilityController.php</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+<link href="../../customdoxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../logo-doc.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">KAVAC
+   &#160;<span id="projectnumber">versión 1.0.0</span>
+   </div>
+   <div id="projectbrief">Sistema de Gestión Organizacional</div>
+  </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="../../search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.png" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "../../search",false,'Buscar');
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('dc/d45/PurchaseBudgetaryAvailabilityController_8php_source.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">PurchaseBudgetaryAvailabilityController.php</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;&lt;?php</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d4/d38/namespaceModules_1_1Purchase_1_1Http_1_1Controllers.html">Modules\Purchase\Http\Controllers</a>;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;use Illuminate\Http\Request;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;use Illuminate\Contracts\Support\Renderable;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;use Illuminate\Routing\Controller;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;use Modules\Purchase\Models\FiscalYear;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;use Modules\Purchase\Models\HistoryTax;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;use Modules\Purchase\Models\PurchaseQuotation;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;use Modules\Purchase\Models\PurchaseBaseBudget;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;use <a class="code" href="../../d2/d0d/classModules_1_1Purchase_1_1Models_1_1BudgetCompromise.html">Modules\Purchase\Models\BudgetCompromise</a>;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;use <a class="code" href="../../d8/dbe/classModules_1_1Purchase_1_1Models_1_1BudgetCompromiseDetail.html">Modules\Purchase\Models\BudgetCompromiseDetail</a>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;use Modules\Purchase\Models\BudgetStage;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;use <a class="code" href="../../df/d47/classModules_1_1Purchase_1_1Models_1_1PurchaseCompromise.html">Modules\Purchase\Models\PurchaseCompromise</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;use <a class="code" href="../../d8/d2e/classModules_1_1Purchase_1_1Models_1_1PurchaseCompromiseDetail.html">Modules\Purchase\Models\PurchaseCompromiseDetail</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;use Modules\Purchase\Models\PurchaseStage;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;use Module\Budget\Helpers\Helper;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;use Module;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">class </span>PurchaseBudgetaryAvailabilityController <span class="keyword">extends</span> Controller</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;{<span class="comment"></span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">     * Display a listing of the resource.</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">     * @return Renderable</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> index()</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">return</span> view(<span class="stringliteral">&#39;purchase::index&#39;</span>);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">     * Show the form for creating a new resource.</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">     * @return Renderable</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> create()</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">return</span> view(<span class="stringliteral">&#39;purchase::create&#39;</span>);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">     * Store a newly created resource in storage.</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">     * @param  Request $request</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">     * @return Renderable</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> store(Request $request)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        $this-&gt;validate($request, [</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="stringliteral">&#39;purchase_supplier_id&#39;</span> =&gt; <span class="stringliteral">&#39;required|integer&#39;</span>,</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="stringliteral">&#39;currency_id&#39;</span>          =&gt; <span class="stringliteral">&#39;required|integer&#39;</span>,</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <span class="stringliteral">&#39;file&#39;</span>                 =&gt; <span class="stringliteral">&#39;required|mimes:pdf&#39;</span>,</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <span class="stringliteral">&#39;base_budget_id&#39;</span>       =&gt; <span class="stringliteral">&#39;required&#39;</span>,</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <span class="stringliteral">&#39;description&#39;</span>          =&gt; <span class="stringliteral">&#39;required&#39;</span>,</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        ], [</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="stringliteral">&#39;file.required&#39;</span>                   =&gt; <span class="stringliteral">&#39;El archivo de acta de inicio es obligatorio.&#39;</span>,</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="stringliteral">&#39;file.mimes&#39;</span>                      =&gt; <span class="stringliteral">&#39;El archivo de acta de inicio debe ser de tipo pdf.&#39;</span>,</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="stringliteral">&#39;purchase_supplier_id.required&#39;</span>   =&gt; <span class="stringliteral">&#39;El campo proveedor es obligatorio.&#39;</span>,</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            <span class="stringliteral">&#39;purchase_supplier_id.integer&#39;</span>    =&gt; <span class="stringliteral">&#39;El campo proveedor debe ser numerico.&#39;</span>,</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <span class="stringliteral">&#39;currency_id.required&#39;</span>            =&gt; <span class="stringliteral">&#39;El campo de tipo de moneda es obligatorio.&#39;</span>,</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <span class="stringliteral">&#39;currency_id.integer&#39;</span>             =&gt; <span class="stringliteral">&#39;El campo de tipo de moneda debe ser numerico.&#39;</span>,</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            <span class="stringliteral">&#39;base_budget_id&#39;</span>                  =&gt; <span class="stringliteral">&#39;Debe seleccionar almenos un requerimiento.&#39;</span>,</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            <span class="stringliteral">&#39;description&#39;</span>                     =&gt; <span class="stringliteral">&#39;El campo descripción es un campo obligatorio.&#39;</span>,</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        ]);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        $code_states = $this-&gt;generateCodeAvailable(<span class="stringliteral">&#39;purchase_states&#39;</span>);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">if</span> (!$code_states) {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            <span class="keywordflow">return</span> response()-&gt;json([<span class="stringliteral">&#39;error&#39;</span>=&gt;<span class="stringliteral">&#39;Error al intentar generar código para el estado del pre-compromiso&#39;</span>], 200);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        }</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        $historyTax = HistoryTax::with(<span class="stringliteral">&#39;tax&#39;</span>)-&gt;whereHas(<span class="stringliteral">&#39;tax&#39;</span>, <span class="keyword">function</span> ($query) {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            $query-&gt;where(<span class="stringliteral">&#39;active&#39;</span>, <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        })-&gt;where(<span class="stringliteral">&#39;operation_date&#39;</span>, <span class="stringliteral">&#39;&lt;=&#39;</span>, $request-&gt;date)-&gt;orderBy(<span class="stringliteral">&#39;operation_date&#39;</span>, <span class="stringliteral">&#39;DESC&#39;</span>)-&gt;first();</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">if</span> (Module::has(<span class="stringliteral">&#39;Budget&#39;</span>) &amp;&amp; Module::isEnabled(<span class="stringliteral">&#39;Budget&#39;</span>)) {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            $model_compromise = BudgetCompromise::class;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            $model_compromise_detail = BudgetCompromiseDetail::class;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            $model_state = BudgetStage::class;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        }<span class="keywordflow">else</span>{</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            $model_compromise = PurchaseCompromise::class;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            $model_compromise_detail = PurchaseCompromiseDetail::class;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            $model_state = PurchaseStage::class;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        }</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">        /////// Se guarda el archivo ///////</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment"></span>        $document = <span class="keyword">new</span> UploadDocRepository();</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        $name = $request[<span class="stringliteral">&#39;file&#39;</span>]-&gt;getClientOriginalName();</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        $docs = Document::where(<span class="stringliteral">&#39;file&#39;</span>, ($name))-&gt;get()-&gt;count();</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        $compromise = $model_compromise::create([</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            <span class="stringliteral">&#39;code&#39;</span> =&gt; $request-&gt;code,</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            <span class="stringliteral">&#39;description&#39;</span> =&gt; $request-&gt;description,</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            <span class="stringliteral">&#39;compromised_at&#39;</span> =&gt; $request-&gt;date,</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            <span class="stringliteral">&#39;document_status_id&#39;</span> =&gt; 4,   <span class="comment">//id de document_status &gt;&gt; Elaborado(a) Faltan todas las firmas</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        ]);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        $document-&gt;uploadDoc(</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            $request[<span class="stringliteral">&#39;file&#39;</span>],</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="stringliteral">&#39;documents&#39;</span>,</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            PurchaseCompromise::class,</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            $compromise-&gt;id,</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <span class="keyword">null</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        );</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        $model_compromise_detail::create([</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            <span class="stringliteral">&#39;description&#39;</span> =&gt; $request-&gt;description,</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            <span class="stringliteral">&#39;amount&#39;</span> =&gt; $request-&gt;subtotal,</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            <span class="stringliteral">&#39;tax_amount&#39;</span> =&gt; ($request-&gt;subtotal*100/$historyTax[<span class="stringliteral">&#39;percentage&#39;</span>]),</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            <span class="stringliteral">&#39;tax_id&#39;</span> =&gt; $historyTax[<span class="stringliteral">&#39;tax_id&#39;</span>],</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            <span class="stringliteral">&#39;budget_compromise_id&#39;</span> =&gt; $compromise-&gt;id,</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            <span class="stringliteral">&#39;budget_account_id&#39;</span> =&gt; $request-&gt;budget_account_id,</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            <span class="stringliteral">&#39;budget_sub_specific_formulation_id&#39;</span> =&gt; $crequest-&gt;budget_sub_specific_formulation_id,</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        ]);</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        $state = $model_state::create([</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            <span class="stringliteral">&#39;code&#39;</span> =&gt; $code_states,</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            <span class="stringliteral">&#39;registered_at&#39;</span> =&gt; $request-&gt;date,</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            <span class="stringliteral">&#39;type&#39;</span> =&gt; <span class="stringliteral">&#39;PRE&#39;</span>,</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            <span class="stringliteral">&#39;amount&#39;</span> =&gt; $request-&gt;subtotal,</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            <span class="stringliteral">&#39;budget_compromise_id&#39;</span> =&gt; $compromise-&gt;id,</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        ]);</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        </div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <span class="keywordflow">return</span> response()-&gt;json([<span class="stringliteral">&#39;message&#39;</span>=&gt;<span class="stringliteral">&#39;success&#39;</span>], 200);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    }</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="comment">     * Show the specified resource.</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="comment">     * @return Renderable</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> show($id)</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    {</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        $purchase_quotation = PurchaseQuotation::with([</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;            <span class="stringliteral">&#39;purchaseSupplier&#39;</span>, </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;            <span class="stringliteral">&#39;currency&#39;</span>, </div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            <span class="stringliteral">&#39;pivot_recordable.relatable.purchaseRequirement&#39;</span>,</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;            <span class="stringliteral">&#39;pivot_recordable.relatable.relatable.purchaseRequirementItem.warehouseProduct.measurementUnit&#39;</span>,</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;            <span class="stringliteral">&#39;relatable.purchaseRequirementItem.warehouseProduct.measurementUnit&#39;</span>,</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        ])-&gt;orderBy(<span class="stringliteral">&#39;id&#39;</span>, <span class="stringliteral">&#39;ASC&#39;</span>)-&gt;find($id);</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <span class="keywordflow">if</span> (!$purchase_quotation) {</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;            <span class="keywordflow">return</span> view(<span class="stringliteral">&#39;errors.404&#39;</span>);</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        }</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        $currency = $purchase_quotation-&gt;currency;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        $supplier = $purchase_quotation-&gt;purchaseSupplier;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        $record_items = [];</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="comment">        /**</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="comment">         * [$has_budget determina si esta instalado el modulo Budget]</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="comment">         * @var [boolean]</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        $has_budget = (Module::has(<span class="stringliteral">&#39;Budget&#39;</span>) &amp;&amp; Module::isEnabled(<span class="stringliteral">&#39;Budget&#39;</span>));</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keywordflow">if</span> ($has_budget) {</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;            $budget_items = template_choices(</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                <span class="stringliteral">&#39;Modules\Budget\Models\BudgetAccount&#39;</span>,</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                [<span class="stringliteral">&#39;code&#39;</span>, <span class="charliteral">&#39;-&#39;</span>, <span class="stringliteral">&#39;denomination&#39;</span>],</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                [],</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                <span class="keyword">true</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;            );</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;            $specific_actions = template_choices(</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                <span class="stringliteral">&#39;Modules\Budget\Models\BudgetSpecificAction&#39;</span>,</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                [<span class="stringliteral">&#39;code&#39;</span>, <span class="charliteral">&#39;-&#39;</span>, <span class="stringliteral">&#39;name&#39;</span>],</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                [],</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                <span class="keyword">true</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;            );</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;            <span class="keywordflow">return</span> view(<span class="stringliteral">&#39;purchase::budgetary_availability.index&#39;</span>, [</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                <span class="stringliteral">&#39;has_budget&#39;</span> =&gt; $has_budget,</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                <span class="stringliteral">&#39;record_items&#39;</span> =&gt; $purchase_quotation,</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;                <span class="stringliteral">&#39;currency&#39;</span> =&gt; $currency,</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;                <span class="stringliteral">&#39;supplier&#39;</span> =&gt; $supplier,</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;                <span class="stringliteral">&#39;budget_items&#39;</span> =&gt; json_encode($budget_items),</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;                <span class="stringliteral">&#39;specific_actions&#39;</span> =&gt; json_encode($specific_actions),</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;            ]);</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;            <span class="keywordflow">return</span> view(<span class="stringliteral">&#39;purchase::budgetary_availability.index&#39;</span>, [</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;                <span class="stringliteral">&#39;record_items&#39;</span> =&gt; $purchase_quotation,</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                <span class="stringliteral">&#39;currency&#39;</span> =&gt; $currency,</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                <span class="stringliteral">&#39;supplier&#39;</span> =&gt; $supplier,</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                <span class="stringliteral">&#39;budget_items&#39;</span> =&gt; json_encode([[</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                    <span class="stringliteral">&#39;id&#39;</span>=&gt;<span class="stringliteral">&#39;&#39;</span>,</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;                    <span class="stringliteral">&#39;text&#39;</span>=&gt;<span class="stringliteral">&#39;Seleccione...&#39;</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                ]]),</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                <span class="stringliteral">&#39;specific_actions&#39;</span> =&gt; json_encode([[</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;                    <span class="stringliteral">&#39;id&#39;</span>=&gt;<span class="stringliteral">&#39;&#39;</span>,</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                    <span class="stringliteral">&#39;text&#39;</span>=&gt;<span class="stringliteral">&#39;Seleccione...&#39;</span></div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                ]]),</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;            ]);</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        }</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    }</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<span class="comment">     * Show the form for editing the specified resource.</span></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="comment">     * @return Renderable</span></div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> edit()</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    {</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        <span class="keywordflow">return</span> view(<span class="stringliteral">&#39;purchase::edit&#39;</span>);</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    }</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="comment">     * Update the specified resource in storage.</span></div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;<span class="comment">     * @param  Request $request</span></div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;<span class="comment">     * @return Renderable</span></div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> update(Request $request)</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    {</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    }</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;<span class="comment">     * Remove the specified resource from storage.</span></div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;<span class="comment">     * @return Renderable</span></div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> destroy()</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    {</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    }</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160; </div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> getBudgetAvailable($specific_action_id, $account_id)</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    {</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        <span class="keywordflow">return</span> response()-&gt;json([</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;            <span class="stringliteral">&#39;amount&#39;</span> =&gt; budget_available(</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;                                        FiscalYear::where(<span class="stringliteral">&#39;active&#39;</span>, <span class="keyword">true</span>)-&gt;first(), </div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;                                        $specific_action_id, </div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;                                        $account_id)</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        ], 200);</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    }</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;<span class="comment">     * [generateCodeAvailable genera el código disponible]</span></div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;<span class="comment">     * @author Juan Rosas &lt;jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com&gt;</span></div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;<span class="comment">     * @return string|null [código que se asignara]</span></div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> generateCodeAvailable($table)</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    {</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        $codeSetting = CodeSetting::where(<span class="stringliteral">&#39;table&#39;</span>, $table)</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;                                    -&gt;first();</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160; </div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;        <span class="keywordflow">if</span> (!$codeSetting) {</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;            $codeSetting = CodeSetting::where(<span class="stringliteral">&#39;table&#39;</span>, $table)</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;                                    -&gt;first();</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        }</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160; </div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;        <span class="keywordflow">if</span> ($codeSetting) {</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;            $code  = generate_registration_code(</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;                $codeSetting-&gt;format_prefix,</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;                strlen($codeSetting-&gt;format_digits),</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;                (strlen($codeSetting-&gt;format_year) == 2) ? date(<span class="charliteral">&#39;y&#39;</span>) : date(<span class="charliteral">&#39;Y&#39;</span>),</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;                AccountingEntry::class,</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;                $codeSetting-&gt;field</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;            );</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;            $code = <span class="keyword">null</span>;</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;        }</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160; </div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;        <span class="keywordflow">return</span> $code;</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    }</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;}</div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="aclassModules_1_1Purchase_1_1Models_1_1PurchaseCompromise_html"><div class="ttname"><a href="../../df/d47/classModules_1_1Purchase_1_1Models_1_1PurchaseCompromise.html">Modules\Purchase\Models\PurchaseCompromise</a></div><div class="ttdoc">Datos de los compromisos de compras.</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/d7d/PurchaseCompromise_8php_source.html#l00023">PurchaseCompromise.php:23</a></div></div>
+<div class="ttc" id="anamespaceModules_1_1Purchase_1_1Http_1_1Controllers_html"><div class="ttname"><a href="../../d4/d38/namespaceModules_1_1Purchase_1_1Http_1_1Controllers.html">Modules\Purchase\Http\Controllers</a></div><div class="ttdoc">[descripción del namespace]</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d98/PurchaseBaseBudgetController_8php_source.html#l00003">PurchaseBaseBudgetController.php:3</a></div></div>
+<div class="ttc" id="aclassModules_1_1Purchase_1_1Models_1_1BudgetCompromise_html"><div class="ttname"><a href="../../d2/d0d/classModules_1_1Purchase_1_1Models_1_1BudgetCompromise.html">Modules\Purchase\Models\BudgetCompromise</a></div><div class="ttdoc">Extension de la clase BudgetCompromise del modulo de presupuesto.</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d80/Purchase_2Models_2BudgetCompromise_8php_source.html#l00019">Purchase/Models/BudgetCompromise.php:19</a></div></div>
+<div class="ttc" id="aclassModules_1_1Purchase_1_1Models_1_1BudgetCompromiseDetail_html"><div class="ttname"><a href="../../d8/dbe/classModules_1_1Purchase_1_1Models_1_1BudgetCompromiseDetail.html">Modules\Purchase\Models\BudgetCompromiseDetail</a></div><div class="ttdoc">Extension de la clase BudgetCompromiseDetail del modulo de presupuesto.</div><div class="ttdef"><b>Definition:</b> <a href="../../dc/d29/Purchase_2Models_2BudgetCompromiseDetail_8php_source.html#l00018">Purchase/Models/BudgetCompromiseDetail.php:18</a></div></div>
+<div class="ttc" id="aclassModules_1_1Purchase_1_1Models_1_1PurchaseCompromiseDetail_html"><div class="ttname"><a href="../../d8/d2e/classModules_1_1Purchase_1_1Models_1_1PurchaseCompromiseDetail.html">Modules\Purchase\Models\PurchaseCompromiseDetail</a></div><div class="ttdoc">Datos de los detalles de los compromisos de compras.</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d7e/PurchaseCompromiseDetail_8php_source.html#l00023">PurchaseCompromiseDetail.php:23</a></div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_e05d7e2b1ecd646af5bb94391405f3b5.html">modules</a></li><li class="navelem"><a class="el" href="../../dir_1a7f16d625b68127205b7b7b2277f8ef.html">Purchase</a></li><li class="navelem"><a class="el" href="../../dir_3edbe04198f9051d1add862b167ed578.html">Http</a></li><li class="navelem"><a class="el" href="../../dir_09b745eb5b134ea40b635fb862f7c84c.html">Controllers</a></li><li class="navelem"><b>PurchaseBudgetaryAvailabilityController.php</b></li>
+    <li class="footer">Generado el Miércoles, 8 de Diciembre de 2021 14:39:59 para KAVAC por
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

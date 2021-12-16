@@ -1,0 +1,8 @@
+digraph "WarehouseRequestStaffController"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{WarehouseRequestStaffController\n||+ __construct()\l+ create()\l+ edit()\l+ store()\l+ update()\l+ vueInfo()\l+ vueList()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Controlador de solicitudes de trabajadores al almacén."];
+}

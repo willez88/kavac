@@ -30,9 +30,9 @@
 				</div>
 				<div class="card-body">
 					<sale-warehouse-reception-list
-						route_list="{{ url('sale/receptions/vue-list') }}"
-						route_edit="{{ url('sale/receptions/edit/{id}') }}"
-						route_delete="{{ url('sale/receptions/delete') }}">
+						route_list="sale/receptions/vue-list"
+						route_edit="sale/receptions/edit/{id}"
+						route_delete="sale/receptions/delete">
 					</sale-warehouse-reception-list>
 				</div>
 			</div>
@@ -51,7 +51,7 @@
 				</div>
 				<div class="card-body">
 					<sale-warehouse-reception-pending-list
-						route_list="{{ url('sale/receptions/vue-list') }}"
+						route_list="sale/receptions/vue-list"
 						route_update='sale/receptions'>
 					</sale-warehouse-reception-pending-list>
 				</div>

@@ -13,6 +13,7 @@ use App\Models\NotificationSetting;
 use App\Roles\Models\Role;
 use App\Roles\Models\Permission;
 use App\Notifications\UserRegistered;
+use Carbon\Carbon;
 
 /**
  * @class UserController
@@ -213,14 +214,14 @@ class UserController extends Controller
             $this->validate($request, [
                 'password' => ['min:6', 'confirmed'],
                 'password_confirmation' => ['min:6', 'required_with:password'],
-                'complexity-level' => ['numeric', 'min:43', 'max:100']
+		/*'complexity-level' => ['numeric', 'min:43', 'max:100']*/
             ], [
                 'confirmed' => __('La contraseña no coincide con la verificación'),
                 'required_with' => __('Debe confirmar la nueva contraseña'),
-                'complexity-level' => __(
+               /* 'complexity-level' => __(
                     'Contraseña muy débil. Intente incorporar símbolos, letras y números, ' .
                     'en cominación con mayúsculas y minúsculas.'
-                ),
+	       ),*/
             ]);
 
             $user->password = bcrypt($request->input('password'));
@@ -519,6 +520,24 @@ class UserController extends Controller
     }
 
     /**
+     * Establece la configuración de un usuario desde el panel administrativo
+     *
+     * @method    setAdminUserSetting
+     *
+     * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request                $request    Datos de la petición
+     */
+    public function setAdminUserSetting(Request $request)
+    {
+        $user = User::find($request->user_id);
+        $user->blocked_at = ($request->blocked_at === true) ? Carbon::now() : null;
+        $user->active = ($request->active === true) ? true : false;
+        $user->save();
+        return response()->json(['result' => true], 200);
+    }
+
+    /**
      * Gestiona la configuración de notificaciones establecida por el usuario
      *
      * @method     setMyNotifications(Request $request)
@@ -648,6 +667,15 @@ class UserController extends Controller
         return response()->json(['result' => true], 200);
     }
 
+    /**
+     * Obtiene información de todos los usuarios registrados en el sistema
+     *
+     * @method    getAll
+     *
+     * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @return    JsonResponse
+     */
     public function getAll()
     {
         $users = User::select('id', 'name')->get();

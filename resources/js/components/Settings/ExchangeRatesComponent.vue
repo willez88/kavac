@@ -19,11 +19,7 @@
                         </h6>
                     </div>
                     <div class="modal-body">
-                        <div class="alert alert-danger" v-if="errors.length > 0">
-                            <ul>
-                                <li v-for="error in errors">{{ error }}</li>
-                            </ul>
-                        </div>
+                        <form-errors :listErrors="errors"></form-errors>
                         <div class="row">
                             <div class="col-12 col-md-6">
                                 <div class="form-group is-required">

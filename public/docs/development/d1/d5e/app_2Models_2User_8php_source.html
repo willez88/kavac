@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>KAVAC: Fichero Fuente User.php</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+<link href="../../customdoxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../logo-doc.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">KAVAC
+   &#160;<span id="projectnumber">versión 1.0.0</span>
+   </div>
+   <div id="projectbrief">Sistema de Gestión Organizacional</div>
+  </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="../../search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.png" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "../../search",false,'Buscar');
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('d1/d5e/app_2Models_2User_8php_source.html','../../'); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">app/Models/User.php</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;&lt;?php<span class="comment"></span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">/** Modelos generales de base de datos */</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d4/de2/namespaceApp_1_1Models.html">App\Models</a>;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;use Illuminate\Notifications\Notifiable;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;use Illuminate\Foundation\Auth\User as Authenticatable;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;use Illuminate\Contracts\Auth\MustVerifyEmail;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;use Illuminate\Database\Eloquent\Factories\HasFactory;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;use Illuminate\Database\Eloquent\SoftDeletes;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;use <a class="code" href="../../d0/dce/classApp_1_1Notifications_1_1ResetPasswordNotification.html">App\Notifications\ResetPasswordNotification</a>;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;use <a class="code" href="../../d4/d42/classApp_1_1Notifications_1_1VerifyEmailNotification.html">App\Notifications\VerifyEmailNotification</a>;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;use App\Roles\Traits\HasRoleAndPermission;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;use OwenIt\Auditing\Contracts\Auditable;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;use OwenIt\Auditing\Auditable as AuditableTrait;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">/**</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * @class User</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * @brief Datos de Usuarios</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * Gestiona el modelo de datos para las Usuarios</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * @author Ing. Roldan Vargas &lt;rvargas@cenditel.gob.ve&gt; | &lt;roldandvg@gmail.com&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * @license</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="../../dc/d3b/classApp_1_1Models_1_1User.html">   27</a></span>&#160;<span class="keyword">class </span><a class="code" href="../../dc/d3b/classApp_1_1Models_1_1User.html">User</a> <span class="keyword">extends</span> Authenticatable implements Auditable, MustVerifyEmail</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    use HasFactory, Notifiable, SoftDeletes, HasRoleAndPermission, AuditableTrait;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">     * The attributes that are mass assignable.</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">     * @var array</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">protected</span> $fillable = [</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="stringliteral">&#39;name&#39;</span>, <span class="stringliteral">&#39;email&#39;</span>, <span class="stringliteral">&#39;password&#39;</span>, <span class="stringliteral">&#39;username&#39;</span>, <span class="stringliteral">&#39;lock_screen&#39;</span>, <span class="stringliteral">&#39;time_lock&#39;</span>, <span class="stringliteral">&#39;blocked_at&#39;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    ];</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">     * The attributes that should be hidden for arrays.</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">     * @var array</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">protected</span> $hidden = [</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="stringliteral">&#39;password&#39;</span>, <span class="stringliteral">&#39;remember_token&#39;</span>,</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    ];</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">     * The attributes that should be cast to native types.</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">     * @var array</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">protected</span> $casts = [</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="stringliteral">&#39;email_verified_at&#39;</span> =&gt; <span class="stringliteral">&#39;datetime&#39;</span>,</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    ];</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">     * The attributes that should be mutated to dates.</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">     * @var array</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">protected</span> $dates = [<span class="stringliteral">&#39;deleted_at&#39;</span>, <span class="stringliteral">&#39;last_login&#39;</span>, <span class="stringliteral">&#39;blocked_at&#39;</span>];</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">     * User has many FailedLoginAttempts.</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">     * @method failedLoginAttempts</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">     * @return \Illuminate\Database\Eloquent\Relations\HasMany</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="../../dc/d3b/classApp_1_1Models_1_1User.html#abef29e4bf5323034de8713b0c94cc30d">   72</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="../../dc/d3b/classApp_1_1Models_1_1User.html#abef29e4bf5323034de8713b0c94cc30d">failedLoginAttempts</a>()</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordflow">return</span> $this-&gt;hasMany(FailedLoginAttempt::class);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    }</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">     * Método que obtiene el perfil de un usuario</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">     * @method  profile</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">     * @return \Illuminate\Database\Eloquent\Relations\HasOne</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="../../dc/d3b/classApp_1_1Models_1_1User.html#a7bd7264f00dc27e7316ac4382a1f0f4c">   84</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="../../dc/d3b/classApp_1_1Models_1_1User.html#a7bd7264f00dc27e7316ac4382a1f0f4c">profile</a>()</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">return</span> $this-&gt;hasOne(Profile::class);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">     * User belongs to Many NotificationSetting.</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">     * @method  notificationSettings</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="../../dc/d3b/classApp_1_1Models_1_1User.html#a12108605c89babc8cc3dc24a7430604a">   96</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="../../dc/d3b/classApp_1_1Models_1_1User.html#a12108605c89babc8cc3dc24a7430604a">notificationSettings</a>()</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    {</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">return</span> $this-&gt;belongsToMany(NotificationSetting::class)-&gt;withPivot(<span class="stringliteral">&#39;type&#39;</span>)-&gt;withTimestamps();</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    }</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">     * Envía la notificación por correo para el reestablecimiento de la contraseña</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">     * @method    sendPasswordResetNotification</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">     * @param     string    $token    Token de la URL para el acceso al formulario de reestablecimiento de contraseña</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="../../dc/d3b/classApp_1_1Models_1_1User.html#af077432f53a93b477e72f563b4b41b30">  108</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="../../dc/d3b/classApp_1_1Models_1_1User.html#af077432f53a93b477e72f563b4b41b30">sendPasswordResetNotification</a>($token)</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    {</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        $this-&gt;notify(<span class="keyword">new</span> <a class="code" href="../../d0/dce/classApp_1_1Notifications_1_1ResetPasswordNotification.html">ResetPasswordNotification</a>($token));</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    }</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">     * Envía la notificación de verificación de usuario para poder acceder a la aplicación</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">     * @method    sendEmailVerificationNotification</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="../../dc/d3b/classApp_1_1Models_1_1User.html#a3d252d71fd16b39a166c4ad9578cce82">  118</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="../../dc/d3b/classApp_1_1Models_1_1User.html#a3d252d71fd16b39a166c4ad9578cce82">sendEmailVerificationNotification</a>()</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    {</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        $this-&gt;notify(<span class="keyword">new</span> <a class="code" href="../../d4/d42/classApp_1_1Notifications_1_1VerifyEmailNotification.html">VerifyEmailNotification</a>);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    }</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment">    /**</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">     * Obtiene el identificador del usuario</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment">     * @method    getIdentifier</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="comment">     * @return    string|integer           Identificador del usuario</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno"><a class="line" href="../../dc/d3b/classApp_1_1Models_1_1User.html#a6da3f4f9718ce7343730b457b255b477">  130</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="../../dc/d3b/classApp_1_1Models_1_1User.html#a6da3f4f9718ce7343730b457b255b477">getIdentifier</a>()</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    {</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        <span class="keywordflow">return</span> $this-&gt;getKey();</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    }</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;}</div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="aclassApp_1_1Models_1_1User_html_af077432f53a93b477e72f563b4b41b30"><div class="ttname"><a href="../../dc/d3b/classApp_1_1Models_1_1User.html#af077432f53a93b477e72f563b4b41b30">App\Models\User\sendPasswordResetNotification</a></div><div class="ttdeci">sendPasswordResetNotification($token)</div><div class="ttdoc">Envía la notificación por correo para el reestablecimiento de la contraseña.</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d5e/app_2Models_2User_8php_source.html#l00108">app/Models/User.php:108</a></div></div>
+<div class="ttc" id="aclassApp_1_1Models_1_1User_html_a6da3f4f9718ce7343730b457b255b477"><div class="ttname"><a href="../../dc/d3b/classApp_1_1Models_1_1User.html#a6da3f4f9718ce7343730b457b255b477">App\Models\User\getIdentifier</a></div><div class="ttdeci">getIdentifier()</div><div class="ttdoc">Obtiene el identificador del usuario.</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d5e/app_2Models_2User_8php_source.html#l00130">app/Models/User.php:130</a></div></div>
+<div class="ttc" id="aclassApp_1_1Models_1_1User_html_abef29e4bf5323034de8713b0c94cc30d"><div class="ttname"><a href="../../dc/d3b/classApp_1_1Models_1_1User.html#abef29e4bf5323034de8713b0c94cc30d">App\Models\User\failedLoginAttempts</a></div><div class="ttdeci">failedLoginAttempts()</div><div class="ttdoc">User has many FailedLoginAttempts.</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d5e/app_2Models_2User_8php_source.html#l00072">app/Models/User.php:72</a></div></div>
+<div class="ttc" id="aclassApp_1_1Models_1_1User_html_a7bd7264f00dc27e7316ac4382a1f0f4c"><div class="ttname"><a href="../../dc/d3b/classApp_1_1Models_1_1User.html#a7bd7264f00dc27e7316ac4382a1f0f4c">App\Models\User\profile</a></div><div class="ttdeci">profile()</div><div class="ttdoc">Método que obtiene el perfil de un usuario.</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d5e/app_2Models_2User_8php_source.html#l00084">app/Models/User.php:84</a></div></div>
+<div class="ttc" id="aclassApp_1_1Models_1_1User_html_a12108605c89babc8cc3dc24a7430604a"><div class="ttname"><a href="../../dc/d3b/classApp_1_1Models_1_1User.html#a12108605c89babc8cc3dc24a7430604a">App\Models\User\notificationSettings</a></div><div class="ttdeci">notificationSettings()</div><div class="ttdoc">User belongs to Many NotificationSetting.</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d5e/app_2Models_2User_8php_source.html#l00096">app/Models/User.php:96</a></div></div>
+<div class="ttc" id="aclassApp_1_1Models_1_1User_html"><div class="ttname"><a href="../../dc/d3b/classApp_1_1Models_1_1User.html">App\Models\User</a></div><div class="ttdoc">Datos de Usuarios.</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d5e/app_2Models_2User_8php_source.html#l00027">app/Models/User.php:27</a></div></div>
+<div class="ttc" id="anamespaceApp_1_1Models_html"><div class="ttname"><a href="../../d4/de2/namespaceApp_1_1Models.html">App\Models</a></div><div class="ttdoc">Modelos generales de base de datos.</div><div class="ttdef"><b>Definition:</b> <a href="../../d7/dc6/app_2Models_2City_8php_source.html#l00004">app/Models/City.php:4</a></div></div>
+<div class="ttc" id="aclassApp_1_1Models_1_1User_html_a3d252d71fd16b39a166c4ad9578cce82"><div class="ttname"><a href="../../dc/d3b/classApp_1_1Models_1_1User.html#a3d252d71fd16b39a166c4ad9578cce82">App\Models\User\sendEmailVerificationNotification</a></div><div class="ttdeci">sendEmailVerificationNotification()</div><div class="ttdoc">Envía la notificación de verificación de usuario para poder acceder a la aplicación.</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d5e/app_2Models_2User_8php_source.html#l00118">app/Models/User.php:118</a></div></div>
+<div class="ttc" id="aclassApp_1_1Notifications_1_1VerifyEmailNotification_html"><div class="ttname"><a href="../../d4/d42/classApp_1_1Notifications_1_1VerifyEmailNotification.html">App\Notifications\VerifyEmailNotification</a></div><div class="ttdoc">Notificaciones para la verificación de usuarios.</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d31/VerifyEmailNotification_8php_source.html#l00021">VerifyEmailNotification.php:21</a></div></div>
+<div class="ttc" id="aclassApp_1_1Notifications_1_1ResetPasswordNotification_html"><div class="ttname"><a href="../../d0/dce/classApp_1_1Notifications_1_1ResetPasswordNotification.html">App\Notifications\ResetPasswordNotification</a></div><div class="ttdoc">Notificaciones para el reestablecimiento de contraseña.</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d8f/ResetPasswordNotification_8php_source.html#l00021">ResetPasswordNotification.php:21</a></div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_d422163b96683743ed3963d4aac17747.html">app</a></li><li class="navelem"><a class="el" href="../../dir_fc6199fba97859a095e1d9a5aa5fae23.html">Models</a></li><li class="navelem"><b>User.php</b></li>
+    <li class="footer">Generado el Miércoles, 8 de Diciembre de 2021 14:40:00 para KAVAC por
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -194,4 +194,9 @@ class PurchaseDirectHireController extends Controller
     {
         //
     }
+
+    public function updatePurchaseOrder($id)
+    {
+        //
+    }
 }

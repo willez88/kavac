@@ -29,8 +29,8 @@
 				</div>
 				<div class="card-body">
 					<accounting-entry-li 
-					route_list = "{{ url('accounting/entries/Filter-Records') }}"
-					route_edit = "{{ url('accounting/entries/{id}/edit') }}" 
+					route_list = "accounting/entries/Filter-Records"
+					route_edit = "accounting/entries/{id}/edit" 
 					:entries = "{{ $entries }}"> </accounting-entry-li>
 				</div>
 			</div>

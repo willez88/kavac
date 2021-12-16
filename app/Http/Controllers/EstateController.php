@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Estate;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Rules\UniqueEstateCode;
 
 /**
  * @class EstateController
@@ -64,14 +65,16 @@ class EstateController extends Controller
     {
         $this->validate($request, [
             'name' => ['required', 'max:100'],
-            'code' => ['required', 'max:10'],
+            'code' => ['required', 'max:10', new UniqueEstateCode],
             'country_id' => ['required']
         ]);
 
         if (!restore_record(Estate::class, ['name' => $request->name, 'country_id' => $request->country_id])) {
             $this->validate($request, [
                 'name' => Rule::unique('estates')->where(function ($query) use ($request) {
-                    return $query->where('country_id', $request->country_id)->where('name', $request->name);
+                    return $query->where([
+                        'country_id' => $request->country_id, 'name' => $request->name
+                    ]);
                 })
             ]);
         }

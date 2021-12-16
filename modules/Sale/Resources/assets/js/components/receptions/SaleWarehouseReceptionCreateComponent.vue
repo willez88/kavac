@@ -91,7 +91,7 @@
                     <div v-show="this.record.iva || this.record.history_tax_id" class="form-group">
                         <label>IVA:</label>
                             <select2 :options="taxes"
-                                    v-model="record.history_tax_id"></select2>
+                                    v-model="sale_warehouse_inventory_product.history_tax_id"></select2>
                     </div>
                 </div>
 
@@ -206,6 +206,7 @@
     				unit_value:'',
     				currency_id: '',
                     measurement_unit_id: '',
+                    history_tax_id: '',
                     sale_setting_product_id: '',
     			},
     			
@@ -241,6 +242,8 @@
     				currency_name: '',
                     measurement_unit_id:'',
                     measurement_unit_name:'',
+                    history_tax_id:'',
+                    history_tax_name:'',
 
                     sale_setting_product_id: '',
                     sale_setting_product_name: '',
@@ -296,6 +299,7 @@
     			var att = [];
     			var currency_name = '';
                 var measurement_unit_name = '';
+                var history_tax_name = '';
                 var sale_setting_product_name = '';
     			event.preventDefault();
 
@@ -317,6 +321,12 @@
                             measurement_unit_name = campo.text;
                     });
                 }
+                if (vm.sale_warehouse_inventory_product.history_tax_id != '') {
+                    $.each(vm.measurement_units, function(index, campo) {
+                        if (campo.id == vm.sale_warehouse_inventory_product.history_tax_id)
+                            history_tax_name = campo.text;
+                    });
+                }
                 vm.sale_warehouse_inventory_product.sale_setting_product = {
                     name: sale_setting_product_name,
     		    }
@@ -325,6 +335,9 @@
     		    }
                 vm.sale_warehouse_inventory_product.measurement_unit = {
                     name: measurement_unit_name,
+                }
+                vm.sale_warehouse_inventory_product.history_tax = {
+                    name: history_tax_name,
                 }
                 
 

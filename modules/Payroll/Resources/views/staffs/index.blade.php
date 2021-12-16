@@ -29,10 +29,10 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<payroll-staffs-list route_list="{{ url('payroll/staffs/show/vue-list') }}"
-										  route_delete="{{ url('payroll/staffs') }}"
-										  route_edit="{{ url('payroll/staffs/{id}/edit') }}"
-										  route_show="{{ url('payroll/staffs/{id}') }}">
+					<payroll-staffs-list route_list="payroll/staffs/show/vue-list"
+										  route_delete="payroll/staffs"
+										  route_edit="payroll/staffs/{id}/edit"
+										  route_show="payroll/staffs/{id}">
 					</payroll-staffs-list>
 				</div>
 			</div>

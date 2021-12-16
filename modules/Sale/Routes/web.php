@@ -306,6 +306,13 @@ Route::group(
         Route::get('get-bill-product/{product}/{id}', 'SaleBillController@getBillProduct');
         Route::get('bills/pdf/{id}', 'Reports\SaleBillController@pdf');
 
+        /**
+         * ---------------------------------------------------------------------------------
+         * Rutas para gestionar los select de facturas en el Modulo de Comercialización
+         * ---------------------------------------------------------------------------------
+         */
+        Route::get('get-bill-inventory-product', 'SaleBillController@getBillInventoryProducts');
+
         /*
          * ------------------------------------------------------------
          * Rutas para gestionar la generación de reportes en el Modulo de Pedidos
@@ -437,8 +444,10 @@ Route::group(
 
         Route::get('payment/create', 'SalePaymentController@create')->name('payment.register.create');
 
-        Route::get('payment/store', 'SalePaymentController@store')->name('payment.register.store');
+        Route::post('payment/store', 'SalePaymentController@store')->name('payment.register.store');
 
+        Route::get('payment/vue-list', 'SalePaymentController@vueList');
+        
         Route::get(
             'get-sales-client/{id}',
             'SalePaymentController@getSaleClient'
@@ -500,7 +509,6 @@ Route::group(
          */
         Route::get('get-asignation-staffs', 'SaleTechnicalProposalController@getAsignationStaffs');
 
-
         /*
          * ------------------------------------------------------------
          * Rutas para gestionar la generación de reportes en el Modulo de Pagos
@@ -509,5 +517,23 @@ Route::group(
         Route::get('reports/payment', 'SalePaymentReportController@listPayment')
             ->name('sale.report.payment');
 
+        /*
+         * ------------------------------------------------------------
+         * Rutas para gestionar la generación de reportes en el Modulo de Solicitud de servicios
+         * ------------------------------------------------------------
+         */
+        Route::get('reports/service-requests', 'Reports\SaleServiceRequestController@index',
+            ['except' => ['create', 'store','edit','update','show', 'destroy']])
+            ->name('sale.report.service-requests');
+
+        Route::post('reports/service-requests/filter-records', 'Reports\SaleServiceRequestController@filterRecords');
+
+        /*
+         * ----------------------------------------------------------
+         * Rutas para gestionar la generación de reportes de facturas
+         * ----------------------------------------------------------
+         */
+        Route::get('reports/bills', 'Reports\BillReportController@index')
+        ->name('sale.report.bill');
     }
 );

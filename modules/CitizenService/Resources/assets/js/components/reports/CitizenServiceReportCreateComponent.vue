@@ -1,12 +1,12 @@
 <template>
-	<section>
+	<section id="CitizenServiceReportForm">
 		<div class="alert alert-danger" v-if="errors.length > 0">
 			<ul>
 				<li v-for="error in errors">{{ error }}</li>
 			</ul>
 		</div>
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-6" id="helpCitizenServiceReportRequestType">
 				<div class="form-group is-required">
 					<label for="citizenserviceRequestTypes">Tipo de solicitud</label>
 				    <v-multiselect :options="citizen_service_request_types" track_by="text"
@@ -15,7 +15,7 @@
 				    </v-multiselect>
 				</div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-6" id="helpCitizenServiceReportStates">
 				<div class="form-group is-required">
 					<label>Estado de la solicitud:</label>
 					<v-multiselect :options="citizen_service_states" track_by="text"
@@ -26,7 +26,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-6"  id="helpCitizenServiceReportTypeSearch">
 				<div class="form-group" style="text-align: right;">
 					<label>Busqueda por periodo</label>
 					<div class="col-12">
@@ -39,7 +39,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-6" id="helpCitizenServiceReportSearchDate">
 				<div class=" form-group">
 					<label>Busqueda por fecha </label>
 					<div class="col-12">
@@ -198,7 +198,7 @@
 				for (var index in this.records) {
 					fields[index] = this.records[index];
 				}
-				
+
 				axios.post('/citizenservice/reports/request/create' , fields).then(response => {
 					if (response.data.result == false)
 						location.href = response.data.redirect;

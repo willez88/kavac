@@ -34,7 +34,7 @@
 				</div>
 			</div>
 			<asset-report-create
-				route_list='{{ url('asset/registers/vue-list')}}'>
+				route_list='asset/registers/vue-list'>
 			</asset-report-create>
 		</div>
 	</div>

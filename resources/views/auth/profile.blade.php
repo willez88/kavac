@@ -18,7 +18,20 @@
 
 @section('content')
     <div class="card">
-        <div class="card-body">
+        <div class="card-header">
+            <h6 class="card-title">
+                {{ __('Perfil de usuario') }}
+                @include('buttons.help', [
+                    'helpId' => 'myProfile',
+                    'helpSteps' => get_json_resource('ui-guides/my_profile.json')
+                ])
+            </h6>
+            <div class="card-btns">
+                @include('buttons.previous', ['route' => url()->previous()])
+                @include('buttons.minimize')
+            </div>
+        </div>
+        <div class="card-body" id="helpProfile">
             <div class="row">
                 <div class="col-md-3 col-right-border">
                     <div class="row">
@@ -33,45 +46,45 @@
                                 @endphp
                                 <img src="{{ asset($img_profile ?? 'images/default-avatar.png') }}"
                                      alt="{{ $model->name ?? auth()->user()->name }}"
-                                     class="img-profile" style="cursor:pointer"
+                                     class="img-profile" style="cursor:pointer" id="helpProfilePicture"
                                      title="{{ __('Click para modificar imagen de perfil') }}"
                                      data-toggle="tooltip" onclick="$('input[name=profile_image]').click()">
                                 <input type="file" id="profile_image" name="profile_image" style="display:none"
-                                       onchange="uploadProfileImage()">
+                                       onchange="uploadProfileImage()" accept="image/*">
                             {!! Form::close() !!}
                         </div>
                         <div class="col-12 text-center">
-                            <h4>{{ auth()->user()->name }}</h4>
-                            <h5>{{ __('Cargo') }}</h5>
+                            <h4 id="helpProfileName">{{ auth()->user()->name }}</h4>
+                            <h5 id="helpProfilePosition">{{ __('Cargo') }}</h5>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <button type="button" class="btn btn-info btn-block">
+                            <button type="button" class="btn btn-info btn-block" id="helpProfileLockScreen">
                                 {{ __('Bloquear Pantalla') }}
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-9" id="helpProfileContent">
                     <ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#profile" role="tab">
+                        <li class="nav-item" id="helpProfileData">
+                            <a class="nav-link profile active" data-toggle="tab" href="#profile" role="tab">
                                 <i class="ion-android-person"></i> {{ __('Perfil') }}
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#activity" role="tab">
+                        <li class="nav-item" id="helpProfileActivity">
+                            <a class="nav-link activity" data-toggle="tab" href="#activity" role="tab">
                                 <i class="ion-arrow-swap"></i> {{ __('Actividad') }}
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#messages" role="tab">
+                        <li class="nav-item" id="helpProfileMessages">
+                            <a class="nav-link messages" data-toggle="tab" href="#messages" role="tab">
                                 <i class="ion-android-mail"></i> {{ __('Mensajes') }}
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#directory" role="tab">
+                        <li class="nav-item" id="helpProfileDirectory">
+                            <a class="nav-link directory" data-toggle="tab" href="#directory" role="tab">
                                 <i class="ion-android-contacts"></i> {{ __('Directorio') }}
                             </a>
                         </li>
@@ -235,7 +248,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <ul class="timeline timeline-inverse">
+                                    <ul class="timeline timeline-inverse" style="max-height:500px; overflow-y: auto;">
                                         <li class="time-label">
                                             <span class="bg-red">
                                                 10 Feb. 2016
@@ -253,10 +266,6 @@
                                                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
                                                     cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                                                     proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                                </div>
-                                                <div class="timeline-footer">
-                                                    <a class="btn btn-info btn-xs">Read more</a>
-                                                    <a class="btn btn-warning btn-xs">Delete</a>
                                                 </div>
                                             </div>
                                         </li>
@@ -279,11 +288,7 @@
                                                     cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                                                     proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                                                 </div>
-                                                <div class="timeline-footer">
-                                                    <a class="btn btn-info btn-xs">Read more</a>
-                                                    <a class="btn btn-warning btn-xs">Delete</a>
-                                                </div>
-                                            </div>
+                                           </div>
                                         </li>
                                     </ul>
                                 </div>
@@ -777,6 +782,18 @@
             var url = $("#formImgProfile").attr('action');
             var formData = new FormData();
             var imageFile = document.querySelector('#profile_image');
+            if (imageFile.files[0].type.indexOf("image") < 0) {
+                $.gritter.add({
+                    title: '{{ __('Alerta') }}!',
+                    text: "{{ __('El formato de la imagen es incorrecto') }}",
+                    class_name: 'growl-warning',
+                    image: "{{ asset('images/screen-warning.png') }}",
+                    sticky: false,
+                    time: 2500
+                });
+                $('.preloader').fadeOut(2000);
+                return false;
+            }
             formData.append("image", imageFile.files[0]);
             axios.post(url, formData, {
                 headers: {
@@ -818,5 +835,11 @@
                 $('.preloader').fadeOut(2000);
             });
         }
+
+        @if (request()->input('tab')!==null)
+            $(document).ready(function() {
+                $('.{!! request()->input('tab') !!}').click();
+            });
+        @endif
     </script>
 @endsection

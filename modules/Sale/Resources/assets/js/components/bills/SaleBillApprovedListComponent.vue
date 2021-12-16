@@ -13,9 +13,9 @@
         
         <div slot="id" slot-scope="props" class="text-center">
             <div class="d-inline-flex">
-                 <sale-bill-info
+                 <!--sale-bill-info
                     :route_list="'/sale/bills/info/'+ props.row.id">
-                </sale-bill-info>
+                </sale-bill-info-->
 
                 <a class="btn btn-primary btn-xs btn-icon"
                         :href="'/sale/bills/pdf/'+props.row.id"

@@ -34,7 +34,7 @@
                 </div>
                 <payroll-vacation-request-form
                     :id="{!! (isset($payrollVacationRequest)) ? $payrollVacationRequest->id : 'null' !!}"
-                    route_list="{{ url('payroll/vacation-requests') }}">
+                    route_list="payroll/vacation-requests">
                 </payroll-vacation-request-form>
             </div>
         </div>

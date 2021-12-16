@@ -54,5 +54,11 @@ class PayrollDatabaseSeeder extends Seeder
 
         /** Seeder para la configuración general del módulo nómina */
         $this->call(PayrollSettingsTableSeeder::class);
+
+        /** Seed para datos iniciales de tipos de sangre */
+        $this->call(PayrollBloodTypesTableSeeder::class);
+
+        /** Seed para datos iniciales de licencias de conducir */
+        $this->call(PayrollLicenseDegreesTableSeeder::class);
     }
 }

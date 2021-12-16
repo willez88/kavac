@@ -34,7 +34,7 @@
 				</div>
 			</div>
 			<asset-asignation-create
-				route_list="{{ url('asset/asignations')}}"
+				route_list="asset/asignations"
 				:asignationid ="{!! (isset($asignation)) ? $asignation->id : 'null' !!}"
 				:assetid ="{!! (isset($asset)) ? $asset->id : 'null' !!}">
 			</asset-asignation-create>

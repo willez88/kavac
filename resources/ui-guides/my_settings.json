@@ -1,0 +1,14 @@
+[
+	{
+        "element": "#helpScreenLocked",
+        "intro": "Configuración sobre el bloqueo de pantalla por inactividad"
+    },
+    {
+    	"element": "#helpScreenLockedActivated",
+    	"intro": "Activa / Desactiva el bloqueo de pantalla por inactividad"
+    },
+    {
+    	"element": "#helpScreenLockedTime",
+    	"intro": "Tiempo de inactividad antes de bloquear la pantalla"
+    }
+]

@@ -32,7 +32,7 @@ class SaleBill extends Model implements Auditable
      * @var array $appends
      */
     protected $appends = [
-        'bill_total_without_taxs', 'bill_taxs', 'bill_totals'
+        'bill_total_without_taxs', 'bill_taxs', 'bill_totals', 'sale_bill_products'
     ];
 
     /**
@@ -48,8 +48,10 @@ class SaleBill extends Model implements Auditable
         $data = 0;
 
         foreach ($billProducts as $product){
-            $value = $product->value * $product->quantity;
-            $data += $value;
+            if($product->sale_bill_id === $this->id){
+                $value = $product->value * $product->quantity;
+                $data += $value;
+            }
         }
 
         return $data;
@@ -68,10 +70,12 @@ class SaleBill extends Model implements Auditable
         $total_iva = 0;
 
         foreach ($billProducts as $product){
-            if($product->historyTax){
-                $value = $product->value * $product->quantity;
-                $iva = $product->historyTax->percentage * $value / 100;
-                $total_iva += $iva;
+            if($product->sale_bill_id === $this->id){
+                if($product->historyTax){
+                    $value = $product->value * $product->quantity;
+                    $iva = $product->historyTax->percentage * $value / 100;
+                    $total_iva += $iva;
+                }
             }
         }
 
@@ -93,18 +97,68 @@ class SaleBill extends Model implements Auditable
         $total = 0;
 
         foreach ($billProducts as $product){
-            $value = $product->value * $product->quantity;
+            if($product->sale_bill_id === $this->id){
+                $value = $product->value * $product->quantity;
 
-            if($product->historyTax){
-                $iva = $product->historyTax->percentage * $value / 100;
-                $total_iva += $iva;
+                if($product->historyTax){
+                    $iva = $product->historyTax->percentage * $value / 100;
+                    $total_iva += $iva;
+                }
+
+                $total_value += $value;
+                $total = $total_iva + $total_value;
             }
-
-            $total_value += $value;
-            $total = $total_iva + $total_value;
         }
 
         return $total;
+    }
+
+    /**
+     * Atributo que devuelve informacion de los productos registrados
+     *
+     * @author    Daniel Contreras <dcontreras@cenditel.gob.ve>
+     *
+     * @return    $data
+     */
+    public function getSaleBillProductsAttribute()
+    {
+        $billProducts = SaleBillInventoryProduct::with('historyTax', 'measurementUnit','saleGoodsToBeTraded', 'saleWarehouseInventoryProduct')->get();
+        $products = [];
+
+        foreach ($billProducts as $product){
+            if($product->sale_bill_id === $this->id){
+                $total_without_tax = $product->value * $product->quantity;
+                $total = $total_without_tax;
+                $history_tax_value = 0;
+
+                if ($product->history_tax_id){
+                    $history_tax_value = $product->historyTax->percentage * $total_without_tax / 100;
+                    $total = $total_without_tax + $history_tax_value;
+                }
+
+                $products[$product->id] = [
+                    'product_type' => $product->product_type,
+                    'sale_warehouse_inventory_product_id' => $product->sale_warehouse_inventory_product_id,
+                    'sale_goods_to_be_traded_id' => $product->sale_goods_to_be_traded_id,
+                    'sale_list_subservices_id' => $product->sale_list_subservices_id,
+                    'measurement_unit_id' => $product->measurement_unit_id,
+                    'currency_id' => $product->currency_id,
+                    'history_tax_id' => $product->history_tax_id,
+                    'value' => $product->value,
+                    'quantity' => $product->quantity,
+                    'total_without_tax' => $total_without_tax,
+                    'sale_goods_to_be_traded_name' => $product->saleGoodsToBeTraded ? $product->saleGoodsToBeTraded->name : '',
+                    'inventory_product_name' => $product->sale_warehouse_inventory_product_id ? $product->saleWarehouseInventoryProduct->saleSettingProduct->name : '',
+                    'measurement_unit_name' => $product->measurementUnit->name,
+                    'sale_list_subservices_name' => $product->saleListSubservices ? $product->saleListSubservices->name : '',
+                    'currency_name' => $product->currency->symbol . ' - ' . $product->currency->name,
+                    'history_tax_value' => $history_tax_value,
+                    'total' => $total,
+                ];
+            }
+        }
+
+        return $products;
     }
 
     /**

@@ -1,0 +1,42 @@
+[
+	{
+		"element": "#helpProfile",
+		"intro": "Datos y registros asociados al usuario"
+	},
+	{
+		"element": "#helpProfilePicture",
+		"intro": "Imagen de perfil. Presione sobre ella para cargar una nueva."
+	},
+	{
+		"element": "#helpProfileName",
+		"intro": "Nombre del usuario autenticado"
+	},
+	{
+		"element": "#helpProfilePosition",
+		"intro": "Cargo del usuario autenticado"
+	},
+	{
+		"element": "#helpProfileLockScreen",
+		"intro": "Permite bloquear la pantalla del sistema"
+	},
+	{
+		"element": "#helpProfileContent",
+		"intro": "Datos e información del usuario"
+	},
+	{
+		"element": "#helpProfileData",
+		"intro": "Datos básicos del perfil del usuario"
+	},
+	{
+		"element": "#helpProfileActivity",
+		"intro": "Actividad del usuario en los últimos 20 registros"
+	},
+	{
+		"element": "#helpProfileMessages",
+		"intro": "Listado de mensajes enviados por otros usuarios del sistema"
+	},
+	{
+		"element": "#helpProfileDirectory",
+		"intro": "Directorio con información de los usuarios del sistema"
+	}
+]

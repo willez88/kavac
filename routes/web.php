@@ -327,6 +327,13 @@ Route::group(['middleware' => ['auth', 'verified'], 'namespace' => 'Services'], 
         Route::get('list', 'NotificationsController@show')->name('notifications.list');
         /** Marca una notificación como leída o no leída */
         Route::post('mark', 'NotificationsController@mark');
+        /** Envía una notificación */
+        Route::post('send', 'NotificationsController@send')->name('notifications.send');
+    });
+
+    Route::group(['prefix' => 'messages'], function() {
+        /** Envíar mensajes */
+        Route::post('send', 'MessageController@send')->name('messages.send');
     });
 });
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Currency;
 use Illuminate\Http\Request;
+use App\Rules\UniqueCurrency;
 
 /**
  * @class CurrencyController
@@ -62,7 +63,7 @@ class CurrencyController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required', 'max:40'],
+            'name' => ['required', 'max:40', new UniqueCurrency],
             'symbol' => ['required', 'max:4'],
             'country_id' => ['required'],
             'decimal_places' => ['required', 'numeric', 'min:2', 'max:10']

@@ -34,7 +34,7 @@
 				</div>
 			</div>
 			<asset-disincorporation-create
-				route_list="{{ url('asset/disincorporations')}}"
+				route_list="asset/disincorporations"
 				:disincorporationid ="{!! (isset($disincorporation)) ? $disincorporation->id : 'null' !!}"
 				:assetid ="{!! (isset($asset)) ? $asset->id : 'null' !!}">
 			</asset-disincorporation-create>

@@ -120,57 +120,56 @@
                 <div class="col-md-3">
                     <div class="form-group is-required">
                         <label for="product_type">Tipo de Producto:</label>
-                        <input type="hidden" name="product_position_value" id="product_position_value" v-model="record.product_position_value">
                         <select2 :options="type_products" id='product_type' v-model="product_type"></select2>
                     </div>
                 </div>
-                <div v-show="record.product_type == 'Producto'" class="col-md-3">
+                <div v-show="bill_product.product_type == 'Producto'" class="col-md-3">
                     <div class="form-group is-required">
                         <label for="product_type">Producto:</label>
-                        <select2 :options="quote_inventory_products_list" id="sale_warehouse_inventory_product_id" v-model="record.sale_warehouse_inventory_product_id" @input="updateProduct"></select2>
+                        <select2 :options="bill_inventory_products_list" id="sale_warehouse_inventory_product_id" v-model="bill_product.sale_warehouse_inventory_product_id" @input="updateProduct"></select2>
                     </div>
                 </div>
-                <div v-show="record.product_type == 'Servicio'" class="col-md-3">
+                <div v-show="bill_product.product_type == 'Servicio'" class="col-md-3">
                     <div class="form-group is-required">
                         <label for="sale_goods_to_be_traded_id">Servicio:</label>
-                        <select2 :options="bill_good_to_be_traded" id="sale_goods_to_be_traded_id" v-model="record.sale_goods_to_be_traded_id" @input="updateProduct"></select2>
+                        <select2 :options="bill_good_to_be_traded" id="sale_goods_to_be_traded_id" v-model="bill_product.sale_goods_to_be_traded_id" @input="updateProduct"></select2>
                     </div>
                 </div>
-                <div v-show="record.product_type == 'Servicio'" class="col-md-3">
+                <div v-show="bill_product.product_type == 'Servicio'" class="col-md-3">
                     <div class="form-group is-required">
                         <label for="sale_list_subservices_id">Subservicios:</label>
-                        <select2 :options="quote_subservices_list" id="sale_list_subservices_id" v-model="record.sale_list_subservices_id"></select2>
+                        <select2 :options="quote_subservices_list" id="sale_list_subservices_id" v-model="bill_product.sale_list_subservices_id"></select2>
                     </div>
                 </div>
                 <div class="col-md-3" id="SaleHelpProductMeasurementUnit">
                     <div class="form-group is-required">
                         <label>Unidad de medida</label>
                         <select2 :options="quote_measurement_units" id='measurement_unit_id'
-                         v-model="record.measurement_unit_id"></select2>
+                         v-model="bill_product.measurement_unit_id"></select2>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group is-required">
                         <label>Precio unitario:</label>
-                        <input type="text" placeholder="Precio unitario" id="value" title="Precio unitario" v-model="record.value" class="form-control input-sm" required @change="updateTotalProduct()">
+                        <input type="text" placeholder="Precio unitario" id="value" title="Precio unitario" v-model="bill_product.value" class="form-control input-sm" required @change="updateTotalProduct()">
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group is-required">
                         <label>Cantidad de productos:</label>
-                        <input type="text" placeholder="Cantidad de productos" id='quantity' title="Cantidad de productos" v-model="record.quantity" class="form-control input-sm" required @input="updateTotalProduct()">
+                        <input type="text" placeholder="Cantidad de productos" id='quantity' title="Cantidad de productos" v-model="bill_product.quantity" class="form-control input-sm" required @input="updateTotalProduct()">
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group is-required">
                         <label>Precio total:</label>
-                        <input type="text" disabled placeholder="Total" id="total" title="Cantidad total" v-model="record.total" class="form-control input-sm" required>
+                        <input type="text" disabled placeholder="Total" id="total" title="Cantidad total" v-model="bill_product.value * bill_product.quantity"class="form-control input-sm" required>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group is-required">
                         <label>Moneda:</label>
-                        <select2 :options="currencies" v-model="record.currency_id" id="currency_id"></select2>
+                        <select2 :options="currencies" v-model="bill_product.currency_id" id="currency_id"></select2>
                     </div>
                 </div>
             </div>
@@ -189,12 +188,27 @@
             <v-client-table :columns="columns" :data="record.sale_bill_products" :options="table_options">
                 <div slot="sale_warehouse_inventory_product_id" slot-scope="props" class="text-center">
                     <span>
-                        {{ (props.row.sale_warehouse_inventory_product_id)? props.row.inventory_product.name : props.row.sale_goods_to_be_traded.name }}
+                        {{ (props.row.sale_warehouse_inventory_product_id)? props.row.inventory_product_name : props.row.sale_goods_to_be_traded_name }}
                     </span>
                 </div>
                 <div slot="sale_list_subservices_id" slot-scope="props" class="text-center">
                     <span>
-                        {{ (props.row.sale_list_subservices_id)? props.row.sale_list_subservices.name : 'N/A' }}
+                        {{ (props.row.sale_list_subservices_id)? props.row.sale_list_subservices_name : 'N/A' }}
+                    </span>
+                </div>
+                <div slot="measurement_unit" slot-scope="props" class="text-center">
+                    <span>
+                        {{ (props.row.measurement_unit_id)? props.row.measurement_unit_name : 'N/A' }}
+                    </span>
+                </div>
+                <div slot="currency" slot-scope="props" class="text-center">
+                    <span>
+                        {{ (props.row.currency_id)? props.row.currency_name : 'N/A' }}
+                    </span>
+                </div>
+                <div slot="product_tax_value" slot-scope="props" class="text-center">
+                    <span>
+                        {{ (props.row.history_tax_id)? props.row.history_tax_value : 'N/A' }}
                     </span>
                 </div>
                 <div slot="id" slot-scope="props" class="text-center">
@@ -247,7 +261,7 @@
                 <div class="col-md-3" id="SaleHelpPaymentMethod">
                     <div class="form-group is-required">
                         <label>Forma de cobro:</label>
-                        <select2 :options="bill_payments" v-model="record.sale_payment_method_id" id="sale_payment_method_id"></select2>
+                        <select2 :options="bill_payments" v-model="record.sale_form_payment_id" id="sale_form_payment_id"></select2>
                     </div>
                 </div>
             </div>
@@ -280,9 +294,9 @@
 <script>
     export default {
         props:{
-                billid:{
-                    type:Number,
-                },
+            billid:{
+                type:Number,
+            },
         },
         data() {
             return {
@@ -297,40 +311,37 @@
                     email: '',
                     bill_clients: [],
                     //Descripción de productos
+                    bill_total_without_tax: '0',
+                    bill_total: '0',
+                    sale_bill_products: [],
+                    //Complementarios
+                    sale_form_payment_id: '',
+                },
+                bill_product: {
                     product_type: '',
                     sale_warehouse_inventory_product_id: '',
-                    bill_edit: false,
                     sale_goods_to_be_traded_id: '',
                     measurement_unit_id: '',
+                    currency_id: '',
+                    history_tax_id: '',
                     value: 0,
                     quantity: 0,
                     total: 0,
-                    bill_total_without_tax: '0',
-                    bill_total: '0',
-                    currency_id: '',
-                    history_tax_id: '',
-                    history_tax_value: 0,
-                    product_position_value: 0,
-                    sale_bill_products: [],
-                    //Complementarios
-                    sale_payment_method_id: '',
                 },
                 product_type: '',
-                sale_bill_products: [],
-                product_position_value: 0,
                 quote_clients: [],
                 errors: [],
                 columns: [
                     'product_type',
                     'sale_warehouse_inventory_product_id',
                     'sale_list_subservices_id',
-                    'measurement_unit.name',
+                    'measurement_unit',
                     'value',
                     'quantity',
                     'total_without_tax',
                     'product_tax_value',
                     'total',
-                    'currency.name',
+                    'currency',
                     'id',
                 ],
                 columns_clients: ['id', 'type_person_juridica', 'rif', 'name_client', 'phones', 'sale_clients_email'],
@@ -344,13 +355,14 @@
                     {'id' : 'Producto', 'text' : 'Producto'},
                     {'id' : 'Servicio', 'text' : 'Servicio'}
                 ],
-                quote_inventory_products_list : [],
+                bill_inventory_products_list : [],
                 bill_good_to_be_traded : [],
                 quote_subservices_list : [],
                 currencies : [],
                 quote_taxes : [],
                 quote_measurement_units : [],
                 bill_payments : [],
+                editIndex: null,
             }
         },
         methods: {
@@ -363,28 +375,24 @@
                 const vm = this;
 
                 await axios.get('/sale/bills/info/'+id).then(response => {
-                    if(typeof(response.data.records != "undefined")){
-                        vm.record = response.data.records;
-
-                        for (let product of response.data.records.sale_bill_inventory_product) {
-                            if (product.sale_warehouse_inventory_product_id) {
-                                product.inventory_product = {
-                                    'id': product.sale_warehouse_inventory_product_id,
-                                    'name': product.sale_warehouse_inventory_product.sale_setting_product.name,
-                                };
-                            }
-
-                            if(product.history_tax_id) {
-                                product.total_without_tax = product.quantity * product.value;
-                                product.product_tax_value = (product.total_without_tax * parseFloat(product.history_tax.percentage)) / 100;
-                                product.total = product.total_without_tax + product.product_tax_value;
-                            } else {
-                                product.total_without_tax = product.quantity * product.value;
-                                product.product_tax_value = 0;
-                                product.total = product.total_without_tax + product.product_tax_value;
-                            }
-
-                            vm.record.sale_bill_products.push(product);                            
+                    if(typeof(response.data.record != "undefined")){
+                        let data = response.data.record;
+                        vm.record = {
+                            id: data.id,
+                            //Datos del solicitante
+                            type_person: data.type_person,
+                            name: data.name,
+                            id_number: data.id_number,
+                            rif: data.rif,
+                            phone: data.phone,
+                            email: data.email,
+                            bill_clients: [],
+                            //Descripción de productos
+                            bill_total_without_tax: data.bill_total_without_taxs,
+                            bill_total: data.bill_totals,
+                            sale_bill_products: Object.values(data.sale_bill_products),
+                            //Complementarios
+                            sale_form_payment_id: data.sale_form_payment_id,
                         }
                     }
                 });
@@ -418,16 +426,8 @@
                     id_number: '',
                     email: '',
                     phone: '',
-                    product_position_value: 0,
                 };
-                vm.record.product_position_value = 0;
-                vm.record.product_type = '';
-                vm.record.sale_warehouse_inventory_product_id = '';
-                vm.record.sale_goods_to_be_traded_id = '';
-                vm.record.sale_list_subservices_id = '';
-                vm.resetProduct();
-                vm.record.bill_total_without_tax = 0;
-                vm.record.bill_total = 0;
+                vm.editIndex = null;
             },
             /**
              * Limpia el formulario de productos cuando hay un cambio en los selects
@@ -447,28 +447,30 @@
             },
 
             /**
-             * Agrega la informacion de un producto al formulario para su edicion
+             * Método que permite la edición de un producto
              *
-             * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
             */
             editProduct(index, event) {
                 const vm = this;
-                vm.resetProduct();
-                let product = vm.record.sale_bill_products[index - 1];
-                vm.record.product_type = product.product_type;
-                vm.record.sale_warehouse_inventory_product_id = product.sale_warehouse_inventory_product_id;
-                vm.record.sale_goods_to_be_traded_id = product.sale_goods_to_be_traded_id;
-                vm.record.sale_list_subservices_id = product.sale_list_subservices_id;
-                vm.record.measurement_unit_id = product.measurement_unit_id;
-                vm.record.currency_id = product.currency_id;
-                vm.record.value = product.value;
-                vm.record.quantity = product.quantity;
-                vm.record.history_tax_id = product.history_tax_id;
-                vm.record.history_tax_value = product.history_tax_value;
-                vm.updateTotalProduct();
-                vm.record.product_position_value = index;
+                vm.bill_product = {
+                    product_type: '',
+                    sale_warehouse_inventory_product_id: '',
+                    sale_goods_to_be_traded_id: '',
+                    measurement_unit_id: '',
+                    currency_id: '',
+                    history_tax_id: '',
+                    value: 0,
+                    quantity: 0,
+                    total: 0,
+                }
+                vm.editIndex = index-1;
+                vm.bill_product = vm.record.sale_bill_products[index - 1];
+                vm.product_type = vm.bill_product.product_type;
+
                 event.preventDefault();
             },
+
             /**
              * Elimina un producto de la tabla del formulario
              *
@@ -477,11 +479,14 @@
             */
             removeProduct(index, event) {
                 const vm = this;
-                let previos_total = parseFloat(vm.record.sale_bill_products[index - 1].total);
-                let previos_total_without_tax = parseFloat(vm.record.sale_bill_products[index - 1].total_without_tax);
-                vm.record.bill_total -= previos_total;
-                vm.record.bill_total_without_tax -= previos_total_without_tax;
-                this.record.sale_bill_products.splice(index - 1, 1);
+                vm.record.sale_bill_products.splice(index - 1, 1);
+                vm.record.bill_total_without_tax = 0;
+                vm.record.bill_total = 0;
+
+                for (let product of vm.record.sale_bill_products) {
+                    vm.record.bill_total_without_tax += product.total_without_tax;
+                    vm.record.bill_total += product.total;
+                }
             },
             /**
              * Actualiza el total de los productos
@@ -504,15 +509,15 @@
                 const vm = this;
                 let entity_load = '';
                 let id = 0;
-                if (vm.record.product_type == 'Producto') {
+                if (vm.bill_product.product_type == 'Producto') {
                     entity_load = 'Producto';
-                    vm.record.sale_goods_to_be_traded_id = '';
-                    id = vm.record.sale_warehouse_inventory_product_id;
+                    vm.bill_product.sale_goods_to_be_traded_id = '';
+                    id = vm.bill_product.sale_warehouse_inventory_product_id;
                 }
                 else {
                     entity_load = 'Servicio';
-                    vm.record.sale_warehouse_inventory_product_id = '';
-                    id = vm.record.sale_goods_to_be_traded_id;
+                    vm.bill_product.sale_warehouse_inventory_product_id = '';
+                    id = vm.bill_product.sale_goods_to_be_traded_id;
                 }
                 if (id) {
                     axios.get('/sale/get-bill-product' + '/' + entity_load + '/' + id).then(function (response) {
@@ -520,28 +525,20 @@
                         let tax_percentage = '';
 
                         if (entity_load == 'Producto' && product) {
-                            let product_value = product.unit_value ? product.unit_value : vm.record.value;
-                            vm.record.value = product_value;
-                            product_value = product.measurement_unit_id ? product.measurement_unit_id : vm.record.measurement_unit_id;
-                            vm.record.measurement_unit_id = product_value;
-                            product_value = product.currency_id ? product.currency_id : vm.record.currency_id;
-                            vm.record.currency_id = product_value;
-                            product_value = product.history_tax_id ? product.history_tax_id : vm.record.history_tax_id;
-                            vm.record.history_tax_id = product_value;
-                            vm.record.history_tax_value = vm.quote_taxes[product_value] ? parseFloat(quote_taxes[product_value].text) : vm.record.history_tax_value;
+                            vm.bill_product.value = product.unit_value ? product.unit_value : vm.bill_product.value;
+                            vm.bill_product.measurement_unit_id = product.measurement_unit_id ? product.measurement_unit_id : vm.bill_product.measurement_unit_id;
+                            vm.bill_product.currency_id = product.currency_id ? product.currency_id : vm.bill_product.currency_id;
+                            vm.bill_product.history_tax_id = product.history_tax_id ? product.history_tax_id : vm.bill_product.history_tax_id;
+                            //vm.bill_product.history_tax_value = vm.quote_taxes[product_value] ? parseFloat(quote_taxes[product_value].text) : vm.bill_product.history_tax_value;
                             vm.updateTotalProduct();
                         }
 
                         if (entity_load == 'Servicio' && product) {
-                            let product_value = product.unit_price ? product.unit_price : vm.record.value;
-                            vm.record.value = product_value;
-                            product_value = product.measurement_unit_id ? product.measurement_unit_id : vm.record.measurement_unit_id;
-                            vm.record.measurement_unit_id = product_value;
-                            product_value = product.currency_id ? product.currency_id : vm.record.currency_id;
-                            vm.record.currency_id = product_value;
-                            product_value = product.history_tax_id ? product.history_tax_id : vm.record.history_tax_id;
-                            vm.record.history_tax_id = product_value;
-                            vm.record.history_tax_value = product.history_tax_id ? parseFloat(product.history_tax.percentage) : vm.record.history_tax_value;
+                            vm.bill_product.value = product.unit_price ? product.unit_price : vm.bill_product.value;
+                            vm.bill_product.measurement_unit_id = product.measurement_unit_id ? product.measurement_unit_id : vm.bill_product.measurement_unit_id;
+                            vm.bill_product.currency_id = product.currency_id ? product.currency_id : vm.bill_product.currency_id;
+                            vm.bill_product.history_tax_id = product.history_tax_id ? product.history_tax_id : vm.bill_product.history_tax_id;
+                            //vm.bill_product.history_tax_value = product.history_tax_id ? parseFloat(product.history_tax.percentage) : vm.bill_product.history_tax_value;
                             vm.updateTotalProduct();
                         }
                     });
@@ -555,127 +552,229 @@
             */
             addProduct(event) {
                 const vm = this;
-                let product = {}
-                //validate product
-                let option_name;
-                if (vm.record.product_type == '') {
-                    bootbox.alert("Debe seleccionar un tipo de producto");
-                    return false;
-                }
-                product.product_type = vm.record.product_type;
-                if (vm.record.product_type == 'Producto') {
-                    if (vm.record.sale_warehouse_inventory_product_id == '') {
-                        bootbox.alert("Debe seleccionar un producto");
-                        return false;
-                    }
-                    product.sale_warehouse_inventory_product_id = vm.record.sale_warehouse_inventory_product_id;
-                    option_name = product.sale_warehouse_inventory_product_id;
-                    let inventory_product = vm.quote_inventory_products_list.find(o => o.id == product.sale_warehouse_inventory_product_id);
-                    if (typeof inventory_product !== "undefined") {
-                        option_name = inventory_product.text;
-                    }
-                    product.inventory_product = {
-                        'id': product.sale_warehouse_inventory_product_id,
-                        'name': option_name,
-                    };
+                vm.errors = [];
 
-                    product.sale_goods_to_be_traded_id = '';
-                    product.sale_list_subservices_id = '';
-                }
-                else if (vm.record.product_type == 'Servicio') {
-                    if (vm.record.sale_goods_to_be_traded_id == '') {
-                        bootbox.alert("Debe seleccionar un servicio");
-                        return false;
+                if (vm.editIndex === null) {
+                    if (!vm.bill_product.product_type) {
+                        vm.errors.push('El campo tipo de producto es obligatorio.');
                     }
-                    product.sale_warehouse_inventory_product_id = '';
-                    product.sale_goods_to_be_traded_id = vm.record.sale_goods_to_be_traded_id;
-                    option_name = product.sale_goods_to_be_traded_id;
-                    let good_to_be_traded = vm.bill_good_to_be_traded.find(o => o.id == product.sale_goods_to_be_traded_id);
-                    if (typeof good_to_be_traded !== "undefined") {
-                        option_name = good_to_be_traded.text;
+                    if (vm.bill_product.product_type == 'Producto' && !vm.bill_product.sale_warehouse_inventory_product_id) {
+                        vm.errors.push('El campo producto es obligatorio.');
                     }
-                    product.sale_goods_to_be_traded = {
-                        'id': product.sale_goods_to_be_traded_id,
-                        'name': option_name,
-                    };
-                    product.sale_list_subservices_id = ''
-                    if (vm.record.sale_list_subservices_id != '') {
-                        product.sale_list_subservices_id = vm.record.sale_list_subservices_id;
-                        option_name = product.sale_list_subservices_id;
-                        let subservices_list = vm.quote_subservices_list.find(o => o.id == product.sale_list_subservices_id);
-                        if (typeof subservices_list !== "undefined") {
-                            option_name = subservices_list.text;
+                    if (vm.bill_product.product_type == 'Servicio' && !vm.bill_product.sale_goods_to_be_traded_id) {
+                        vm.errors.push('El campo servicio es obligatorio.');
+                    }
+                    if (vm.bill_product.product_type == 'Servicio' && !vm.bill_product.sale_list_subservices_id) {
+                        vm.errors.push('El campo subservicio es obligatorio.');
+                    }
+                    if (!vm.bill_product.measurement_unit_id) {
+                        vm.errors.push('El campo unidad de medida es obligatorio.');
+                    }
+                    if (!vm.bill_product.currency_id) {
+                        vm.errors.push('El campo moneda es obligatorio.');
+                    }
+                    if (!vm.bill_product.value) {
+                        vm.errors.push('El campo precio unitario es obligatorio.');
+                    }
+                    if (!vm.bill_product.quantity) {
+                        vm.errors.push('El campo cantidad de productos es obligatorio.');
+                    }
+                    if(vm.errors.length > 0){
+                        $('html,body').animate({
+                            scrollTop: $("#SaleBillForm").offset()
+                        }, 1000);
+                    } else {
+                        let inventory_product_name = '';
+                        let good_to_be_traded_name = '';
+                        let sale_list_subservices_name = '';
+                        let measurement_unit_name = '';
+                        let currency_name = '';
+                        let history_tax_value = '';
+                        let total_without_tax = parseFloat(vm.bill_product.value) * parseFloat(vm.bill_product.quantity);
+                        let total = total_without_tax;
+
+                        if(vm.product_type == 'Servicio'){
+                            for (let good_to_be_traded of vm.bill_good_to_be_traded){
+                                if (vm.bill_product.sale_goods_to_be_traded_id > 0 && good_to_be_traded.id == vm.bill_product.sale_goods_to_be_traded_id) {
+                                    good_to_be_traded_name = good_to_be_traded.text;
+                                }
+                            }
+                            for (let list_subservices of vm.quote_subservices_list){
+                                if (list_subservices.id == vm.bill_product.sale_list_subservices_id) {
+                                    sale_list_subservices_name = list_subservices.text;
+                                }
+                            }
                         }
-                        product.sale_list_subservices = {
-                            'id': product.sale_list_subservices_id,
-                            'name': option_name,
-                        };
+                        for (let inventory_products_list of vm.bill_inventory_products_list){
+                            if (vm.bill_product.sale_warehouse_inventory_product_id > 0 && inventory_products_list.id == vm.bill_product.sale_warehouse_inventory_product_id) {
+                                inventory_product_name = inventory_products_list.text;
+                            }
+                        }
+                        for (let measurement_unit of vm.quote_measurement_units){
+                            if (measurement_unit.id == vm.bill_product.measurement_unit_id) {
+                                measurement_unit_name = measurement_unit.text;
+                            }
+                        }
+                        for (let currency of vm.currencies){
+                            if (currency.id == vm.bill_product.currency_id) {
+                                currency_name = currency.text;
+                            }
+                        }
+                        for (let tax of vm.quote_taxes){
+                            if (tax.id == vm.bill_product.history_tax_id) {
+                                history_tax_value = parseFloat(tax.text) * total_without_tax / 100;
+                                total = total_without_tax + history_tax_value;
+                            }
+                        }
+                        vm.record.sale_bill_products.push({
+                            product_type: vm.bill_product.product_type,
+                            sale_warehouse_inventory_product_id: vm.bill_product.sale_warehouse_inventory_product_id,
+                            sale_goods_to_be_traded_id: vm.bill_product.sale_goods_to_be_traded_id,
+                            sale_list_subservices_id: vm.bill_product.sale_list_subservices_id,
+                            measurement_unit_id: vm.bill_product.measurement_unit_id,
+                            currency_id: vm.bill_product.currency_id,
+                            history_tax_id: vm.bill_product.history_tax_id,
+                            value: vm.bill_product.value,
+                            quantity: vm.bill_product.quantity,
+                            total_without_tax: total_without_tax,
+                            sale_goods_to_be_traded_name: good_to_be_traded_name,
+                            inventory_product_name: inventory_product_name,
+                            measurement_unit_name: measurement_unit_name,
+                            sale_list_subservices_name: sale_list_subservices_name,
+                            currency_name: currency_name,
+                            history_tax_value: history_tax_value,
+                            total: total,
+                        });
+
+                        vm.record.bill_total_without_tax += parseFloat(total_without_tax);
+                        vm.record.bill_total += parseFloat(total);
+                    }
+                } else if (vm.editIndex >= 0) {
+                    if (!vm.bill_product.product_type) {
+                        vm.errors.push('El campo tipo de producto es obligatorio.');
+                    }
+                    if (vm.bill_product.product_type == 'Producto' && !vm.bill_product.sale_warehouse_inventory_product_id) {
+                        vm.errors.push('El campo producto es obligatorio.');
+                    }
+                    if (vm.bill_product.product_type == 'Servicio' && !vm.bill_product.sale_goods_to_be_traded_id) {
+                        vm.errors.push('El campo servicio es obligatorio.');
+                    }
+                    if (vm.bill_product.product_type == 'Servicio' && !vm.bill_product.sale_list_subservices_id) {
+                        vm.errors.push('El campo subservicio es obligatorio.');
+                    }
+                    if (!vm.bill_product.measurement_unit_id) {
+                        vm.errors.push('El campo unidad de medida es obligatorio.');
+                    }
+                    if (!vm.bill_product.currency_id) {
+                        vm.errors.push('El campo moneda es obligatorio.');
+                    }
+                    if (!vm.bill_product.value) {
+                        vm.errors.push('El campo precio unitario es obligatorio.');
+                    }
+                    if (!vm.bill_product.quantity) {
+                        vm.errors.push('El campo cantidad de productos es obligatorio.');
+                    }
+                    if(vm.errors.length > 0){
+                        $('html,body').animate({
+                            scrollTop: $("#SaleBillForm").offset()
+                        }, 1000);
+                    } else {
+                        let inventory_product_name = '';
+                        let good_to_be_traded_name = '';
+                        let sale_list_subservices_name = '';
+                        let measurement_unit_name = '';
+                        let currency_name = '';
+                        let history_tax_value = '';
+                        let total_without_tax = parseInt(vm.bill_product.value) * parseInt(vm.bill_product.quantity);
+                        let total = total_without_tax;
+
+                        if(vm.product_type == 'Servicio'){
+                            for (let good_to_be_traded of vm.bill_good_to_be_traded){
+                                if (vm.bill_product.sale_goods_to_be_traded_id > 0 && good_to_be_traded.id == vm.bill_product.sale_goods_to_be_traded_id) {
+                                    good_to_be_traded_name = good_to_be_traded.text;
+                                }
+                            }
+                            for (let list_subservices of vm.quote_subservices_list){
+                                if (list_subservices.id == vm.bill_product.sale_list_subservices_id) {
+                                    sale_list_subservices_name = list_subservices.text;
+                                }
+                            }
+                        }
+                        for (let inventory_products_list of vm.bill_inventory_products_list){
+                            if (vm.bill_product.sale_warehouse_inventory_product_id > 0 && inventory_products_list.id == vm.bill_product.sale_warehouse_inventory_product_id) {
+                                inventory_product_name = inventory_products_list.text;
+                            }
+                        }
+                        for (let measurement_unit of vm.quote_measurement_units){
+                            if (measurement_unit.id == vm.bill_product.measurement_unit_id) {
+                                measurement_unit_name = measurement_unit.text;
+                            }
+                        }
+                        for (let currency of vm.currencies){
+                            if (currency.id == vm.bill_product.currency_id) {
+                                currency_name = currency.text;
+                            }
+                        }
+                        for (let tax of vm.quote_taxes){
+                            if (tax.id == vm.bill_product.history_tax_id) {
+                                history_tax_value = parseFloat(tax.text) * total_without_tax / 100;
+                                total = total_without_tax + history_tax_value;
+                            } else {
+                                history_tax_value = '';
+                                total = total_without_tax;
+                            }
+                        }
+
+                        vm.record.sale_bill_products.splice(vm.editIndex, 1);
+                        vm.record.sale_bill_products.push({
+                            product_type: vm.bill_product.product_type,
+                            sale_warehouse_inventory_product_id: vm.bill_product.sale_warehouse_inventory_product_id,
+                            sale_goods_to_be_traded_id: vm.bill_product.sale_goods_to_be_traded_id,
+                            sale_list_subservices_id: vm.bill_product.sale_list_subservices_id,
+                            measurement_unit_id: vm.bill_product.measurement_unit_id,
+                            currency_id: vm.bill_product.currency_id,
+                            history_tax_id: vm.bill_product.history_tax_id,
+                            value: vm.bill_product.value,
+                            quantity: vm.bill_product.quantity,
+                            total_without_tax: total_without_tax,
+                            sale_goods_to_be_traded_name: good_to_be_traded_name,
+                            inventory_product_name: inventory_product_name,
+                            measurement_unit_name: measurement_unit_name,
+                            sale_list_subservices_name: sale_list_subservices_name,
+                            currency_name: currency_name,
+                            history_tax_value: history_tax_value,
+                            total: total,
+                        });
+
+                        vm.record.bill_total_without_tax = 0;
+                        vm.record.bill_total = 0;
+
+                        for (let product of vm.record.sale_bill_products) {
+                            vm.record.bill_total_without_tax += product.total_without_tax;
+                            vm.record.bill_total += product.total;
+                        }
+
+                        vm.editIndex = null;
                     }
                 }
-                if (vm.record.measurement_unit_id == '') {
-                    bootbox.alert("Debe seleccionar una unidad de medida");
-                    return false;
-                }
-                product.measurement_unit_id = vm.record.measurement_unit_id;
-                option_name = product.measurement_unit_id;
-                let measurement_unit = vm.quote_measurement_units.find(o => o.id == product.measurement_unit_id);
-                if (typeof measurement_unit !== "undefined") {
-                    option_name = measurement_unit.text;
-                }
-                product.measurement_unit = {
-                    'id': product.measurement_unit_id,
-                    'name': option_name,
-                };
 
-                if (vm.record.value <= 0) {
-                    bootbox.alert("El precio unitario debe ser mayor que 0");
-                    return false;
-                }
-                product.value = vm.record.value;
-                if (vm.record.quantity <= 0) {
-                    bootbox.alert("La cantidad de productos debe ser mayor que 0");
-                    return false;
-                }
-                product.quantity = vm.record.quantity;
-                //math total without tax
-                product.total_without_tax = product.quantity * product.value;
-                
-                if (vm.record.currency_id == '') {
-                    bootbox.alert("Debe seleccionar un tipo de moneda");
-                    return false;
-                }
-                product.currency_id = vm.record.currency_id;
-                option_name = product.currency_id;
-                let currency = vm.currencies.find(o => o.id == product.currency_id);
-                if (typeof currency !== "undefined") {
-                    option_name = currency.text;
-                }
-                product.currency = {
-                    'id': product.currency_id,
-                    'name': option_name,
-                };
-                product.history_tax_id = vm.record.history_tax_id;
-                product.history_tax_value = vm.record.history_tax_value;
-                product.product_tax_value = (product.total_without_tax * product.history_tax_value) / 100;
-                product.total = product.total_without_tax + product.product_tax_value;
-                let product_index = parseInt(vm.record.product_position_value);
-                let previos_total = 0;
-                let previos_total_without_tax = 0;
-                if (product_index > 0) {
-                    previos_total = parseFloat(vm.record.sale_bill_products[product_index - 1].total);
-                    previos_total_without_tax = parseFloat(vm.record.sale_bill_products[product_index - 1].total_without_tax);
-                    vm.record.sale_bill_products.splice(product_index - 1, 1);
-                }
-                vm.record.sale_bill_products.push(product);
-                vm.record.bill_total = parseFloat(vm.record.bill_total) + parseFloat(product.total) - previos_total;
-                vm.record.bill_total_without_tax = parseFloat(vm.record.bill_total_without_tax) + parseFloat(product.total_without_tax) - previos_total_without_tax;
                 vm.product_type = '';
-                vm.record.product_position_value = 0;
-                vm.record.product_type = '';
-                vm.record.sale_warehouse_inventory_product_id = '';
-                vm.record.sale_goods_to_be_traded_id = '';
-                vm.record.sale_list_subservices_id = '';
-                vm.record.quantity = 0;
+                vm.bill_product.product_type = '';
+                vm.bill_product.sale_warehouse_inventory_product_id = '';
+                vm.bill_product.sale_goods_to_be_traded_id = '';
+                vm.bill_product.sale_list_subservices_id = '';
+                vm.bill_product.currency_id = '';
+                vm.bill_product.measurement_unit_id = '';
+                vm.bill_product.history_tax_id = '';
+                vm.bill_product.currency_name = '';
+                vm.bill_product.history_tax_value = '';
+                vm.bill_product.measurement_unit_name = '';
+                vm.bill_product.sale_goods_to_be_traded_name = '';
+                vm.bill_product.sale_list_subservices_name = '';
+                vm.bill_product.total_without_tax = '';
+                vm.bill_product.total = 0;
+                vm.bill_product.value = 0;
+                vm.bill_product.quantity = 0;
                 this.resetProduct();
             },
             /**
@@ -719,7 +818,7 @@
             },
 
             /**
-             * Obtiene un arreglo con la lista los productos para ser comercializados en facturas
+             * Obtiene un arreglo con la lista los servicios para ser comercializados en facturas
              *
              * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
              */
@@ -730,6 +829,19 @@
                     vm.bill_good_to_be_traded = response.data.records;
                 });
             },
+
+            /**
+             * Obtiene un arreglo con la lista los productos para ser comercializados en facturas
+             *
+             * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+             */
+            getBillInventoryProducts() {
+                const vm = this;
+                vm.bill_inventory_products_list = [];
+                axios.get('/sale/get-bill-inventory-product').then(response => {
+                    vm.bill_inventory_products_list = response.data.records;
+                });
+            },
         },
         created() {
             this.record.sale_bill_products = [];
@@ -737,13 +849,13 @@
                 'product_type': 'Tipo de Producto',
                 'sale_warehouse_inventory_product_id': 'Producto',
                 'sale_list_subservices_id': 'Subservicio',
-                'measurement_unit.name': 'Unidad de medida',
+                'measurement_unit': 'Unidad de medida',
                 'value': 'Precio unitario',
                 'quantity': 'Cantidad de productos',
                 'total_without_tax': 'Total sin iva',
                 'product_tax_value': 'Iva',
                 'total': 'Total',
-                'currency.name': 'Moneda',
+                'currency': 'Moneda',
                 'id': 'Acción'
             };
             this.table_options.sortable = [];
@@ -819,7 +931,7 @@
             product_type() {
                 const vm = this;
                 if (vm.product_type == 'Producto') {
-                    vm.record.product_type = 'Producto';
+                    vm.bill_product.product_type = 'Producto';
                     vm.record.sale_goods_to_be_traded_id = '';
                     vm.record.sale_list_subservices_id = '';
                     vm.record.value = 0;
@@ -828,7 +940,7 @@
                     vm.record.quantity = 0;
                     vm.record.total = 0;
                 } else if (vm.product_type == 'Servicio') {
-                    vm.record.product_type = 'Servicio';
+                    vm.bill_product.product_type = 'Servicio';
                     vm.record.sale_warehouse_inventory_product_id = '';
                     vm.record.value = 0;
                     vm.record.measurement_unit_id = '';
@@ -836,7 +948,7 @@
                     vm.record.quantity = 0;
                     vm.record.total = 0;
                 } else {
-                    vm.record.product_type = '';
+                    vm.bill_product.product_type = '';
                     vm.record.sale_goods_to_be_traded_id = '';
                     vm.record.sale_list_subservices_id = '';
                     vm.record.value = 0;
@@ -849,16 +961,15 @@
         },
         mounted() {
             const vm = this;
-            vm.product_position_value = 0;
-            vm.record.bill_total_without_tax = '0';
-            vm.record.bill_total = '0';
+            vm.record.bill_total_without_tax = 0;
+            vm.record.bill_total = 0;
             vm.resetProduct();
             vm.getCurrencies();
             vm.getQuoteTaxes();
             vm.getQuoteListSubservices();
             vm.getQuoteMeasurementUnits();
             vm.getQuotePayments();
-            vm.getQuoteInventoryProducts();
+            vm.getBillInventoryProducts();
             vm.getQuoteClients();
             /*vm.extractQuote();*/
             vm.getSalePayments();

@@ -29,7 +29,7 @@
                 </div>
                 <div class="card-body">
                     <technicalsupport-repair-list
-                        route_list="{{ url('technicalsupport/repairs/vue-list') }}">
+                        route_list="technicalsupport/repairs/vue-list">
                     </technicalsupport-repair-list>
                 </div>
             </div>

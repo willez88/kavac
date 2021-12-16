@@ -51,7 +51,7 @@
             clearFilters: function() {
                 $(".VueTables__search__input").val('');
                 this.$parent.$children.forEach((child) => {
-                    if (child.$el.className.startsWith('VueTables')) {
+                    if (typeof(child.$el.className) !== "undefined" && child.$el.className.startsWith('VueTables')) {
                         child._data.query = "";
                     }
                 });

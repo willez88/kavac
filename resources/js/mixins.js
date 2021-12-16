@@ -343,6 +343,28 @@ Vue.mixin({
 				seconds: d._data.seconds
 			};
 		},
+		/**
+		 * Obtiene la fecha actual
+		 *
+		 * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+		 *
+		 * @return    {String}          Devuelve la fecha actual
+		 */
+		getCurrentDate() {
+			let today = new Date();
+            let dd = today.getDate();
+            let mm = today.getMonth() + 1;
+            let yyyy = today.getFullYear();
+            
+            if (dd < 10) {
+                dd = `0${dd}`;
+            }
+
+            if ( mm < 10) {
+                mm=`0${mm}`;
+            }
+            return `${yyyy}-${mm}-${dd}`;
+		},
         /**
          * Método que muestra un número formateado
          *

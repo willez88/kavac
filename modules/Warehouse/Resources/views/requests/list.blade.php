@@ -30,9 +30,9 @@
 				</div>
 				<div class="card-body">
 					<warehouse-request-list
-						route_list="{{ url('warehouse/requests/vue-list') }}"
-						route_edit="{{ url('warehouse/requests/edit/{id}') }}"
-						route_delete="{{ url('warehouse/requests/delete') }}">
+						route_list="warehouse/requests/vue-list}"
+						route_edit="warehouse/requests/edit/{id}"
+						route_delete="warehouse/requests/delete">
 					</warehouse-request-list>
 				</div>
 			</div>
@@ -52,9 +52,9 @@
 				</div>
 				<div class="card-body">
 					<warehouse-request-staff-list
-						route_list="{{ url('warehouse/requests/staff/vue-list') }}"
-						route_edit="{{ url('warehouse/requests/staff/edit/{id}') }}"
-						route_delete="{{ url('warehouse/requests/delete') }}">
+						route_list="warehouse/requests/staff/vue-list"
+						route_edit="warehouse/requests/staff/edit/{id}"
+						route_delete="warehouse/requests/delete">
 					</warehouse-request-staff-list>
 				</div>
 			</div>
@@ -74,7 +74,7 @@
 					</div>
 					<div class="card-body">
 						<warehouse-request-pending-list
-							route_list="{{ url('warehouse/requests/vue-pending-list') }}"
+							route_list="warehouse/requests/vue-pending-list"
 							route_update='warehouse/requests'>
 						</warehouse-request-pending-list>
 					</div>

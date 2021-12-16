@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Services;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Notifications\SystemNotification;
 use Carbon\Carbon;
 
 /**
@@ -122,6 +124,26 @@ class NotificationsController extends Controller
 
         return response()->json([
             'result' => true, 'markAs' => $markAs, 'notifications' => auth()->user()->unreadNotifications
+        ], 200);
+    }
+
+    /**
+     * Envía notificación al usuario seleccionado
+     *
+     * @method    send
+     *
+     * @author    Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+     *
+     * @param     Request    $request    Datos de la petición
+     *
+     * @return    JsonResponse
+     */
+    public function send(Request $request)
+    {
+        $user = User::find($request->user_id);
+        $user->notify(new SystemNotification($request->title, $request->details));
+        return response()->json([
+            'result' => true
         ], 200);
     }
 }

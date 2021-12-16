@@ -1,0 +1,8 @@
+digraph "RoleHasRelations"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{RoleHasRelations\n||+ attachPermission()\l+ detachAllPermissions()\l+ detachPermission()\l+ permissions()\l+ syncPermissions()\l+ users()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Interface para la gestión de roles y sus relaciones."];
+}

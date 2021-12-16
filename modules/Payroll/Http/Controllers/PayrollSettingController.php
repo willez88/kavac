@@ -54,13 +54,24 @@ class PayrollSettingController extends Controller
     public function store(Request $request)
     {
         /** Reglas de validación para la configuración de códigos */
-        $this->validate($request, [
-            'staffs_code'            => [new CodeSettingRule],
-            'salary_scales_code'     => [new CodeSettingRule],
-            'salary_tabulators_code' => [new CodeSettingRule],
-            'vacation_requests_code' => [new CodeSettingRule],
-            'benefits_requests_code' => [new CodeSettingRule]
-        ]);
+        $this->validate(
+            $request,
+            [
+                'staffs_code'            => [new CodeSettingRule],
+                'vacation_requests_code' => [new CodeSettingRule],
+                'benefits_requests_code' => [new CodeSettingRule],
+                'salary_scales_code'     => [new CodeSettingRule],
+                'salary_tabulators_code' => [new CodeSettingRule]
+            ],
+            [],
+            [
+                'staffs_code'            => 'código del personal',
+                'salary_scales_code'     =>'código de los escalafones salariales',
+                'salary_tabulators_code' =>'código de los tabuladores salariales',
+                'vacation_requests_code' =>'código de las solicitudes de vacaciones',
+                'benefits_requests_code' =>'código de las solicitudes de adelanto de prestaciones'
+            ]
+        );
 
         /** @var array Arreglo con información de los campos de códigos configurados */
         $codes = $request->input();

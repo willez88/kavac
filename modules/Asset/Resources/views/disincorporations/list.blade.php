@@ -30,9 +30,9 @@
 				</div>
 				<div class="card-body">
 					<asset-disincorporation-list
-						route_list="{{ url('asset/disincorporations/vue-list') }}"
-						route_edit="{{ url('asset/disincorporations/edit/{id}') }}"
-						route_delete="{{ url('asset/disincorporations/delete') }}">
+						route_list="asset/disincorporations/vue-list"
+						route_edit="asset/disincorporations/edit/{id}"
+						route_delete="asset/disincorporations/delete">
 					</asset-disincorporation-list>
 				</div>
 			</div>

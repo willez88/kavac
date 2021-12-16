@@ -1,0 +1,9 @@
+digraph "Representación gráfica de la clase"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="AddFieldUniformSizeAndMedical\lHistoryToPayrollStaffsTable",height=0.2,width=0.4,color="black",URL="$da/d59/classAddFieldUniformSizeAndMedicalHistoryToPayrollStaffsTable.html",tooltip="Agrega los campos uniform_size y medical_history a la tabla payroll_staffs."];
+}

@@ -154,6 +154,19 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'accounti
     );
 
     /**
+     * rutas para reporte de balance de comprobación con firma electrónica
+     */
+    Route::get(
+        'report/balanceCheckUpSign/{report}',
+        'Reports\AccountingCheckupBalanceController@pdfSign'
+    );
+
+    Route::get(
+        'report/balanceCheckUpSign/pdfVue/{initDate}/{endDate}/{currency}/{all?}',
+        'Reports\AccountingCheckupBalanceController@pdfVueSign'
+    );
+
+    /**
      * rutas para reporte del Mayor Analítico
      */
     Route::post(
@@ -169,6 +182,19 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'accounti
     Route::get(
         'report/analyticalMajor/pdfVue/{initDate}/{endDate}/{initAcc}/{endAcc}/{currency}',
         'Reports\AccountingAnalyticalMajorController@pdfVue'
+    );
+
+     /**
+     * rutas para reporte del Mayor Analítico con firma electrónica
+     */
+    Route::get(
+        'report/analyticalMajorSign/{report}',
+        'Reports\AccountingAnalyticalMajorController@pdfSign'
+    );
+
+    Route::get(
+        'report/analyticalMajorSign/pdfVue/{initDate}/{endDate}/{initAcc}/{endAcc}/{currency}',
+        'Reports\AccountingAnalyticalMajorController@pdfVueSign'
     );
 
     /**
@@ -235,6 +261,18 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'accounti
         'report/BalanceSheet/pdfVue/{date}/{level}/{currency}/{zero?}',
         'Reports\AccountingBalanceSheetController@pdfVue'
     );
+    /**
+     * rutas para reporte de balance general con firma electrónica
+     */
+    Route::get(
+        'report/BalanceSheetSign/{report}',
+        'Reports\AccountingBalanceSheetController@pdfSign'
+    );
+
+    Route::get(
+        'report/BalanceSheetSign/pdfVue/{date}/{level}/{currency}/{zero?}',
+        'Reports\AccountingBalanceSheetController@pdfVueSign'
+    );
 
     /**
      * rutas para reporte de estado de resultados
@@ -247,6 +285,18 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'accounti
     Route::get(
         'report/StateOfResults/pdfVue/{date}/{level}/{currency}/{zero?}',
         'Reports\AccountingStateOfResultsController@pdfVue'
+    );
+    /**
+     * rutas para reporte de estado de resultados con firma electrónica
+     */
+    Route::get(
+        'report/StateOfResultsSign/{report}',
+        'Reports\AccountingStateOfResultsController@pdfSign'
+    );
+
+    Route::get(
+        'report/StateOfResultsSign/pdfVue/{date}/{level}/{currency}/{zero?}',
+        'Reports\AccountingStateOfResultsController@pdfVueSign'
     );
 
     /**

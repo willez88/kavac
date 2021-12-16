@@ -29,8 +29,8 @@
                 </div>
                 <div class="card-body">
                     <payroll-report-employment-status
-                     route_list="{{ url('payroll/employments/show/vue-list') }}"
-                     route_show="{{ url('payroll/employments/{id}') }}"
+                     route_list="payroll/employments/show/vue-list"
+                     route_show="payroll/employments/{id}"
                      >
                     </payroll-report-employment-status>
                 </div>

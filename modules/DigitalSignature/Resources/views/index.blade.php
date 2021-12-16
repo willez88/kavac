@@ -170,30 +170,36 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <h6 class="text-info">Nombre del asunto</h6>
-                  <p><b>C(País):</b> <span id="idsubjC"></span></p>
-                  <p><b>ST(Estado):</b> <span id="idsubjST"></span></p>
-                  <p><b>L(Localidad):</b> <span id="idsubjL"></span></p>
-                  <p><b>O(Organización):</b> <span id="idsubjO"></span></p>
-                  <p><b>OU(Unidad de organización):</b> <span id="idsubjOU"></span></p>
-                  <p><b>CN(Nombre común):</b> <span id="idsubjCN"></span></p>
-                  <p><b>EMAIL(Dirección de correo electrónico):</b> <span id="idsubjEMAIL"></span></p>
-                  <h6 class="text-info">Nombre del emisor</h6>
-                  <p><b>C(País):</b> <span id="idissC"></span></p>
-                  <p><b>ST(Estado):</b> <span id="idissST"></span></p>
-                  <p><b>L(Localidad):</b> <span id="idissL"></span></p>
-                  <p><b>O(Organización):</b> <span id="idissO"></span></p>
-                  <p><b>OU(Unidad de organización):</b> <span id="idissOU"></span></p>
-                  <p><b>CN(Nombre común):</b> <span id="idissCN"></span></p>
-                  <p><b>EMAIL(Dirección de correo electrónico):</b> <span id="idissEMAIL"></span></p>
-                  <h6 class="text-info">Certificado</h6>
-                  <p><b>Algoritmo de firma LN:</b> <span id="idsignatureTypeLN"></span></p>
-                  <p><b>Algoritmo de firma NID:</b> <span id="idsignatureTypeNID"></span></p>
-                  <p><b>Algoritmo de firma SN:</b> <span id="idsignatureTypeSN"></span></p>
-                  <p><b>Serial:</b> <span id="idserialNumber"></span></p>
-                  <p><b>Válido desde:</b> <span id="idvalidFrom"></span></p>
-                  <p><b>Válido hasta:</b> <span id="idvalidTo"></span></p>
-                  <p><b>Versión:</b> <span id="idversion"></span></p>
+                  <h6 class="text-info">Asunto</h6>
+                  <ul class="list-group">
+                    <li class="list-group-item"><b>C(País):</b> <span id="idsubjC"></span></li>
+                    <li class="list-group-item"><b>ST(Estado):</b> <span id="idsubjST"></span></li>
+                    <li class="list-group-item"><b>L(Localidad):</b> <span id="idsubjL"></span></li>
+                    <li class="list-group-item"><b>O(Organización):</b> <span id="idsubjO"></span></li>
+                    <li class="list-group-item"><b>OU(Unidad de organización):</b> <span id="idsubjOU"></span></li>
+                    <li class="list-group-item"><b>CN(Nombre común):</b> <span id="idsubjCN"></span></li>
+                    <li class="list-group-item"><b>EMAIL(Dirección de correo electrónico):</b> <span id="idsubjEMAIL"></span></li>
+                  </ul>
+                  <h6 class="text-info mt-3">Nombre del emisor</h6>
+                  <ul class="list-group">
+                    <li class="list-group-item"><b>C(País):</b> <span id="idissC"></span></li>
+                    <li class="list-group-item"><b>ST(Estado):</b> <span id="idissST"></span></li>
+                    <li class="list-group-item"><b>L(Localidad):</b> <span id="idissL"></span></li>
+                    <li class="list-group-item"><b>O(Organización):</b> <span id="idissO"></span></li>
+                    <li class="list-group-item"><b>OU(Unidad de organización):</b> <span id="idissOU"></span></li>
+                    <li class="list-group-item"><b>CN(Nombre común):</b> <span id="idissCN"></span></li>
+                    <li class="list-group-item"><b>EMAIL(Dirección de correo electrónico):</b> <span id="idissEMAIL"></span></li>
+                  </ul>
+                  <h6 class="text-info mt-3">Certificado</h6>
+                  <ul class="list-group">
+                    <li class="list-group-item"><b>Algoritmo de firma LN:</b> <span id="idsignatureTypeLN"></span></li>
+                    <li class="list-group-item"><b>Algoritmo de firma NID:</b> <span id="idsignatureTypeNID"></span></li>
+                    <li class="list-group-item"><b>Algoritmo de firma SN:</b> <span id="idsignatureTypeSN"></span></li>
+                    <li class="list-group-item"><b>Serial:</b> <span id="idserialNumber"></span></li>
+                    <li class="list-group-item"><b>Válido desde:</b> <span id="idvalidFrom"></span></li>
+                    <li class="list-group-item"><b>Válido hasta:</b> <span id="idvalidTo"></span></li>
+                    <li class="list-group-item"><b>Versión:</b> <span id="idversion"></span></li>
+                  </ul>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"

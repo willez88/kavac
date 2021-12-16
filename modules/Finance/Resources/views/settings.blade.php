@@ -9,7 +9,7 @@
 @stop
 
 @section('maproute-actual')
-	Finanza
+	Finanzas
 @stop
 
 @section('maproute-title')
@@ -17,36 +17,6 @@
 @stop
 
 @section('content')
-	<div class="row">
-		<div class="col-12">
-			<div class="card">
-				<div class="card-header">
-					<h6 class="card-title">Configuración General</h6>
-					<div class="card-btns">
-						@include('buttons.previous', ['route' => url()->previous()])
-						@include('buttons.minimize')
-					</div>
-				</div>
-				<div class="card-body">
-					<div class="row">
-						<finance-banks></finance-banks>
-						<finance-banking-agencies></finance-banking-agencies>
-						<finance-account-types></finance-account-types>
-						<finance-bank-accounts></finance-bank-accounts>
-						<finance-checkbooks></finance-checkbooks>
-						<div class="col-md-2 text-center">
-							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-							   href="{{ route('finance.voucher.design') }}" title="Diseñador de voucher"
-							   data-toggle="tooltip" >
-								<i class="icofont icofont-rulers-alt ico-3x"></i>
-								<span>Diseñador<br>Voucher</span>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<div class="row">
 		<div class="col-12">
 			<div class="card">
@@ -89,7 +59,37 @@
 		</div>
 	</div>
 
-
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<h6 class="card-title">Configuración General</h6>
+					<div class="card-btns">
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.minimize')
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<finance-banks></finance-banks>
+						<finance-banking-agencies></finance-banking-agencies>
+						<finance-account-types></finance-account-types>
+						<finance-bank-accounts></finance-bank-accounts>
+						<finance-checkbooks></finance-checkbooks>
+						<div class="col-md-2 text-center">
+							<a class="btn-simplex btn-simplex-md btn-simplex-primary"
+							   href="{{ route('finance.voucher.design') }}" title="Diseñador de voucher"
+							   data-toggle="tooltip" >
+								<i class="icofont icofont-rulers-alt ico-3x"></i>
+								<span>Diseñador<br>Voucher</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<div class="row">
 		<div class="col-12">
 			<div class="card">

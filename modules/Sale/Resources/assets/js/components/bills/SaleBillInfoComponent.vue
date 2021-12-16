@@ -1,146 +1,185 @@
 <template>
-    <div>
-        <a class="btn btn-info btn-xs btn-icon btn-action" 
-           href="#" title="Ver información del registro" data-toggle="tooltip" 
-           @click="addRecord('view_sale_bill', route_list , $event)">
-            <i class="fa fa-info-circle"></i>
-        </a>
-        <div class="modal fade text-left" tabindex="-1" role="dialog" id="view_sale_bill">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                        <h6>
-                            <i class="icofont icofont-read-book ico-2x"></i> 
-                             Información de la Factura Registrada
-                        </h6>
-                    </div>
-                    
-                    <div class="modal-body">
-                        <ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" id="info_general" href="#general" role="tab">
-                                    <i class="ion-android-person"></i> Información General
-                                </a>
-                            </li>
-                            
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#products" role="tab" @click="loadProducts()">
-                                    <i class="ion-arrow-swap"></i> Equipos Solicitados
-                                </a>
-                            </li>
-                        </ul>
+    <div id="SaleBillInfo" class="modal fade" tabindex="-1" role="dialog"
+         aria-labelledby="SaleBillInfoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document" style="max-width:60rem">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h6>
+                        <i class="icofont icofont-read-book ico-2x"></i>
+                         Información de la Factura Registrada
+                    </h6>
+                </div>
 
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="general" role="tabpanel">
-                                <div class="row">        
-                                    
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <strong>Fecha de Registro</strong>
-                                            <div class="row" style="margin: 1px 0">
-                                                <span class="col-md-12" id="date_init">
-                                                </span>
-                                            </div>
-                                            <input type="hidden" id="id">
+                <div class="modal-body">
+                    <ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" id="info_general" href="#general" role="tab">
+                                <i class="ion-android-person"></i> Información General
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#products" role="tab">
+                                <i class="ion-arrow-swap"></i> Equipos Solicitados
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="general" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <strong>Tipo de persona</strong>
+                                        <div class="row" style="margin: 1px 0">
+                                            <span class="col-md-12">
+                                                {{ record.type_person }}
+                                            </span>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <strong>RIF</strong>
-                                            <div class="row" style="margin: 1px 0">
-                                                <span class="col-md-12" id="sale_client_rif">
-                                                </span>
-                                            </div>
+                                </div>
+                                <div v-if="record.type_person == 'Natural'" class="col-md-6">
+                                    <div class="form-group">
+                                        <strong>Nombre y apellido</strong>
+                                        <div class="row" style="margin: 1px 0">
+                                            <span class="col-md-12">
+                                                {{ record.name }}
+                                            </span>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <strong>Nombre del cliente</strong>
-                                            <div class="row" style="margin: 1px 0">
-                                                <span class="col-md-12" id="sale_client_name">
-                                                </span>
-                                            </div>
+                                </div>
+                                <div v-if="record.type_person == 'Natural'" class="col-md-6">
+                                    <div class="form-group">
+                                        <strong>Identificación</strong>
+                                        <div class="row" style="margin: 1px 0">
+                                            <span class="col-md-12">
+                                                {{ record.id_number }}
+                                            </span>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <strong>Almacén</strong>
-                                            <div class="row" style="margin: 1px 0">
-                                                <span class="col-md-12" id="sale_warehouse">
-                                                </span>
-                                            </div>
+                                </div>
+                                <div v-if="record.type_person == 'Jurídica'" class="col-md-6">
+                                    <div class="form-group">
+                                        <strong>Nombre de la empresa</strong>
+                                        <div class="row" style="margin: 1px 0">
+                                            <span class="col-md-12">
+                                                {{ record.name }}
+                                            </span>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <strong>Forma de pago</strong>
-                                            <div class="row" style="margin: 1px 0">
-                                                <span class="col-md-12" id="sale_payment_method">
-                                                </span>
-                                            </div>
+                                </div>
+                                <div v-if="record.type_person == 'Jurídica'" class="col-md-6">
+                                    <div class="form-group">
+                                        <strong>RIF</strong>
+                                        <div class="row" style="margin: 1px 0">
+                                            <span class="col-md-12">
+                                                {{ record.rif }}
+                                            </span>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <strong>Descuento</strong>
-                                            <div class="row" style="margin: 1px 0">
-                                                <span class="col-md-12" id="sale_discount">
-                                                </span>
-                                            </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <strong>Teléfono de contacto  </strong>
+                                        <div class="row" style="margin: 1px 0">
+                                            <span class="col-md-12">
+                                                {{ record.phone }}
+                                            </span>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <strong>Estado de la Solicitud</strong>
-                                            <div class="row" style="margin: 1px 0">
-                                                <span class="col-md-12" id="state">
-                                                </span>
-                                            </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <strong>Correo electrónico</strong>
+                                        <div class="row" style="margin: 1px 0">
+                                            <span class="col-md-12">
+                                                {{ record.email }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <strong>Forma de cobro</strong>
+                                        <div class="row" style="margin: 1px 0">
+                                            <span class="col-md-12">
+                                                {{ record.sale_form_payment_id ? record.sale_form_payment.name_form_payment : '' }}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div class="tab-pane" id="products" role="tabpanel">            
-                                <div class="modal-table" v-if="records">
-                                    <v-client-table :columns="columns" :data="records" :options="table_options">
-                                        <div slot="code" slot-scope="props" class="text-center">
-                                            <span>
-                                                {{ props.row.sale_warehouse_inventory_product.code }} 
-                                            </span>
+                        </div>
+
+                        <div class="tab-pane" id="products" role="tabpanel">
+                            <div class="modal-table" v-if="record.sale_bill_products">
+                                <v-client-table :columns="columns" :data="Object.values(record.sale_bill_products)" :options="table_options">
+                                    <div slot="sale_warehouse_inventory_product_id" slot-scope="props" class="text-center">
+                                        <span>
+                                            {{ (props.row.sale_warehouse_inventory_product_id)? props.row.inventory_product_name : props.row.sale_goods_to_be_traded_name }}
+                                        </span>
+                                    </div>
+                                    <div slot="sale_list_subservices_id" slot-scope="props" class="text-center">
+                                        <span>
+                                            {{ (props.row.sale_list_subservices_id)? props.row.sale_list_subservices_name : 'N/A' }}
+                                        </span>
+                                    </div>
+                                    <div slot="measurement_unit" slot-scope="props" class="text-center">
+                                        <span>
+                                            {{ (props.row.measurement_unit_id)? props.row.measurement_unit_name : 'N/A' }}
+                                        </span>
+                                    </div>
+                                    <div slot="currency" slot-scope="props" class="text-center">
+                                        <span>
+                                            {{ (props.row.currency_id)? props.row.currency_name : 'N/A' }}
+                                        </span>
+                                    </div>
+                                    <div slot="product_tax_value" slot-scope="props" class="text-center">
+                                        <span>
+                                            {{ (props.row.history_tax_id)? props.row.history_tax_value : 'N/A' }}
+                                        </span>
+                                    </div>
+                                </v-client-table>
+                                <div class="row">
+                                    <div class="col-md-12 text-right">
+                                        <div class="d-inline-flex align-items-center">
+                                            <label class="font-weight-bold">Total sin iva:</label>
+                                            <div class="form-group">
+                                                <input type="text" disabled placeholder="Total Sin IVA" id="bill_total_without_tax" title="Total sin IVA" v-model="record.bill_total_without_taxs" class="form-control input-sm">
+                                            </div>
                                         </div>
-                                        <div slot="requested" slot-scope="props">
-                                            <span >
-                                                <b>Solicitados</b>
-                                                {{ props.row.quantity }}
-                                            </span>
+                                    </div>
+                                    <div class="col-md-12 text-right">
+                                        <div class="d-inline-flex align-items-center">
+                                            <label class="font-weight-bold">IVA:</label>
+                                            <div class="form-group">
+                                                <input type="text" disabled placeholder="Total IVA" id="total_iva" title="Total IVA" v-model="(record.bill_totals - record.bill_total_without_taxs).toFixed(2)" class="form-control input-sm">
+                                            </div>
                                         </div>
-                                        <div slot="unit_value" slot-scope="props">
-                                            <span>
-                                                <b>Valor:</b> {{props.row.sale_warehouse_inventory_product.unit_value}}
-                                            </span>
+                                    </div>
+                                    <div class="col-md-12 text-right">
+                                        <div class="d-inline-flex align-items-center">
+                                            <label class="font-weight-bold">Total a pagar:</label>
+                                            <div class="form-group">
+                                                <input type="text" disabled placeholder="Total a pagar" id="bill_total" title="Total" v-model="record.bill_totals" class="form-control input-sm">
+                                            </div>
                                         </div>
-                                        <div slot="price" slot-scope="props">
-                                            <span>
-                                                Precio total: {{ price(props.row.quantity, props.row.sale_warehouse_inventory_product.unit_value) }}
-                                            </span>
-                                        </div>
-                                    </v-client-table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="modal-footer">
-                        
-                        <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
-                                data-dismiss="modal">
-                            Cerrar
-                        </button>
-                    </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close"
+                            data-dismiss="modal">
+                        Cerrar
+                    </button>
                 </div>
             </div>
         </div>
@@ -151,54 +190,81 @@
     export default {
         data() {
             return {
-                records: [],
+                record: {
+                    bill_taxs:'',
+                    bill_total_without_taxs:'',
+                    bill_totals:'',
+                    code:'',
+                    created_at:'',
+                    deleted_at:'',
+                    email:'',
+                    id:'',
+                    id_number:'',
+                    name:'',
+                    phone:'',
+                    rif:'',
+                    sale_bill_inventory_product:[],
+                    sale_bill_products:{},
+                    sale_form_payment:{},
+                    sale_form_payment_id:'',
+                    state:'',
+                    type:'',
+                    type_person:'',
+                },
                 errors: [],
                 columns: [
-                    'code',
-                    'sale_warehouse_inventory_product.sale_setting_product.name',
-                    'sale_warehouse_inventory_product.sale_setting_product.description',
-                    'requested',
-                    'unit_value',
-                    'price'
+                    'product_type',
+                    'sale_warehouse_inventory_product_id',
+                    'sale_list_subservices_id',
+                    'measurement_unit',
+                    'value',
+                    'quantity',
+                    'total_without_tax',
+                    'product_tax_value',
+                    'total',
+                    'currency',
                 ],
             }
         },
         created() {
             this.table_options.headings = {
-                'code': 'Código',
-                'sale_warehouse_inventory_product.sale_setting_product.name': 'Nombre',
-                'sale_warehouse_inventory_product.sale_setting_product.description': 'Descripción',
-                'unit_value': 'Valor por unidad',
-                'requested': 'Solicitados',
-                'price': 'Precio total'
+                'product_type': 'Tipo de Producto',
+                'sale_warehouse_inventory_product_id': 'Producto',
+                'sale_list_subservices_id': 'Subservicio',
+                'measurement_unit': 'Unidad de medida',
+                'value': 'Precio unitario',
+                'quantity': 'Cantidad de productos',
+                'total_without_tax': 'Total sin iva',
+                'product_tax_value': 'Iva',
+                'total': 'Total',
+                'currency': 'Moneda',
             };
             this.table_options.sortable = [
-                'code',
-                'sale_warehouse_inventory_product.sale_setting_product.name',
-                'sale_warehouse_inventory_product.sale_setting_product.description',
-                'unit_value',
-                'requested',
-                'price'
+                'product_type',
+                'sale_warehouse_inventory_product_id',
+                'sale_list_subservices_id',
+                'measurement_unit',
+                'value',
+                'quantity',
+                'total_without_tax',
+                'product_tax_value',
+                'total',
+                'currency',
             ];
             this.table_options.filterable = [
-                'code',
-                'sale_warehouse_inventory_product.sale_setting_product.name',
-                'sale_warehouse_inventory_product.sale_setting_product.description',
-                'unit_value',
-                'requested',
-                'price'
+                'product_type',
+                'sale_warehouse_inventory_product_id',
+                'sale_list_subservices_id',
+                'measurement_unit',
+                'value',
+                'quantity',
+                'total_without_tax',
+                'product_tax_value',
+                'total',
+                'currency',
             ];
-
         },
         methods: {            
-            price(quantity, prod){
-                const vm = this;
-                var total = 0;
-                if (quantity && prod) {
-                    total += quantity*parseInt(prod);
-                }
-                return total;
-            },
             /**
              * Método que borra todos los datos del formulario
              * 
@@ -206,66 +272,6 @@
              */
             reset() {
             },
-            /**
-             * Reescribe el método initRecords para cambiar su comportamiento por defecto
-             * Inicializa los registros base del formulario
-             *
-             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
-             * @param {string} url Ruta que obtiene los datos a ser mostrado en listados
-             * @param {string} modal_id Identificador del modal a mostrar con la información solicitada
-             */
-            initRecords(url, modal_id) {
-                this.errors = [];
-                this.reset();
-
-                const vm = this;
-                var fields = {};
-                
-                document.getElementById("info_general").click();
-                axios.get(url).then(response => {
-                    if (typeof(response.data.records) !== "undefined") {
-                        fields = response.data.records;
-
-                        $(".modal-body #id").val( fields.id );
-                        document.getElementById('date_init').innerText = (fields.created_at)?fields.created_at:'';
-                        document.getElementById('sale_warehouse').innerText = (fields.sale_warehouse)?fields.sale_warehouse.name:'';
-                        document.getElementById('sale_client_rif').innerText = (fields.sale_client)?fields.sale_client.rif:'';
-                        document.getElementById('sale_client_name').innerText = (fields.sale_client)?fields.sale_client.name_client:'';
-                        document.getElementById('sale_payment_method').innerText = (fields.sale_payment_method)?fields.sale_payment_method.name:'';
-                        document.getElementById('sale_discount').innerText = (fields.sale_discount)?fields.sale_discount.name:'N/A';
-                        document.getElementById('state').innerText = (fields.state)?fields.state:'';
-                        this.records = fields.sale_bill_inventory_products;
-                    }
-                    if ($("#" + modal_id).length) {
-                        $("#" + modal_id).modal('show');
-                    }
-                }).catch(error => {
-                    if (typeof(error.response) !== "undefined") {
-                        if (error.response.status == 403) {
-                            vm.showMessage(
-                                'custom', 'Acceso Denegado', 'danger', 'screen-error', error.response.data.message
-                            );
-                        }
-                        else {
-                            vm.logs('resources/js/all.js', 343, error, 'initRecords');
-                        }
-                    }
-                });
-
-            },
-
-            /**
-             * Actualiza los productos asociados a la factura
-             *
-             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
-             */
-            loadProducts() {
-                const vm = this;
-                var index = $(".modal-body #id").val();
-                axios.get('/sale/bills/info/' + index).then(response => {
-                    this.records = response.data.records.sale_bill_inventory_product;
-                });
-            }
         },
     }
 </script>

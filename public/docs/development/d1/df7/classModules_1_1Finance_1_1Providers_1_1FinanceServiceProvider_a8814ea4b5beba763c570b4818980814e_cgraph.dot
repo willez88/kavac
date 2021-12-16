@@ -1,0 +1,17 @@
+digraph "boot"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="boot",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Boot the application events."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="registerConfig",height=0.2,width=0.4,color="black",URL="$d1/df7/classModules_1_1Finance_1_1Providers_1_1FinanceServiceProvider.html#ae3b55e0b197cd07e04673b8ddded82e8",tooltip="Register config."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="registerFactories",height=0.2,width=0.4,color="black",URL="$d1/df7/classModules_1_1Finance_1_1Providers_1_1FinanceServiceProvider.html#a5fd4226764c7b498b81958b2ba9077ad",tooltip="Register an additional directory of factories."];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="registerTranslations",height=0.2,width=0.4,color="black",URL="$d1/df7/classModules_1_1Finance_1_1Providers_1_1FinanceServiceProvider.html#a09835f90ad36479b364740905741e627",tooltip="Register translations."];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="registerViews",height=0.2,width=0.4,color="black",URL="$d1/df7/classModules_1_1Finance_1_1Providers_1_1FinanceServiceProvider.html#ace230673c353d46a0058ca73134fbc2c",tooltip="Register views."];
+}
