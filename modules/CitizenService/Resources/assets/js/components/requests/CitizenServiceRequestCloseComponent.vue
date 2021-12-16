@@ -1,11 +1,6 @@
 <template>
     <section>
-        <a class="btn btn-info btn-xs btn-icon btn-action"
-           href="#" title="Cerrar solicitud" data-toggle="tooltip" v-has-tooltip
-           @click="addRecord('view_close'+request_id, route_list, $event)">
-           <i class="icofont icofont-zipped"></i>
-        </a>
-        <div class="modal fade text-left" tabindex="-1" role="dialog" :id="'view_close'+request_id">
+        <div class="modal fade text-left" tabindex="-1" role="dialog" id="citizenserviceRequestViewClose">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -38,11 +33,11 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-group is-required">
                                 <strong>Fecha de verificación</strong>
-                                <input type="date" id="date"
+                                <input type="date" readonly id="date"
                                     class="form-control input-sm" data-toggle="tooltip"
-                                    title="Indique la fecha de verificación">
+                                    title="Indique la fecha de verificación" v-model="record.date_verification">
                                     <input type="hidden" id="id">
 
                             </div>
@@ -52,7 +47,7 @@
                         <div class="col-6">
                             <div class="input-group">
                                     <input id="file" name="file" class="d-none" type="file"
-                                           accept=".doc, .pdf, .odt, .docx, .jpg, .png, .jpeg, .mp4, .avi" @change="processFiles()">
+                                           accept=".doc, .pdf, .odt, .docx, .jpg, .png, .jpeg, .mp4, .avi" @change.prevent="processFiles()">
                                     <label for="file">
                                     <a class="btn btn-sm btn-primary btn-info text-light"> Subir archivo </a>
                                     </label>
@@ -78,9 +73,13 @@
                     </v-client-table>
                 </div>
                     <div class="modal-footer">
-                        <div class="form-group">
-                            <modal-form-buttons saveRoute="citizenservice/request-close"></modal-form-buttons>
-                        </div>
+                        <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" data-dismiss="modal" title="Presione para cerrar la ventana" data-toggle="tooltip" v-has-tooltip>
+                            Cerrar
+                        </button>
+                        <button type="button" @click="createRecord('/citizenservice/request-close')"
+                                class="btn btn-primary btn-sm btn-round btn-modal-save"  title="Presione para guardar el registro" data-toggle="tooltip" v-has-tooltip>
+                            Guardar
+                        </button>
                     </div>
                 </div>
             </div>
@@ -94,8 +93,10 @@
         data() {
             return {
                 record: {
-                    id: ''
+                    id: '',
+                    date_verification: '',
                 },
+
                 records: [],
                 errors: [],
                 columns: ['file', 'state', 'id']
@@ -103,27 +104,23 @@
         },
         mounted() {
             const vm = this;
-            $('#view_close'+ vm.request_id).on('show.bs.modal', function() {
-                vm.records = [];
-                vm.readRecords(vm.route_list);
-                $(".modal-body #id").val( vm.request_id );
-                vm.record['id'] = $(".modal-body #id").val();
+            $("#citizenserviceRequestViewClose").on('show.bs.modal', function() {
+                $(".modal-body #id").val(vm.record['id']);
+                vm.readRecords('/citizenservice/get-documents/' + vm.record['id'] + '/1');
+                if ((vm.record.date_verification == null) || (vm.record.date_verification == '')) {
+                    vm.record.date_verification = moment(String(new Date())).format('YYYY-MM-DD');
+                }
             });
         },
         created() {
-            this.table_options.headings = {
+            vm.table_options.headings = {
                 'file': 'Archivo',
                 'state': 'Estado',
                 'id': 'Acción'
             };
-            this.table_options.sortable = ['file','state'];
-            this.table_options.filterable = ['file','state'];
+            vm.table_options.sortable = ['file','state'];
+            vm.table_options.filterable = ['file','state'];
 
-        },
-        props: {
-            request_id: {
-                type: Number
-            },
         },
         methods: {
             /**
@@ -134,7 +131,8 @@
             reset() {
                 const vm = this;
                 vm.record = {
-                    id: $(".modal-body #id").val()
+                    id:                '',
+                    date_verification: '',
                 };
                 vm.records = [];
             },
@@ -181,18 +179,12 @@
                 }
             },
 
-            initRecords(url,modal_id){
-                this.errors = [];
-                this.reset();
-                if ($("#" + modal_id).length) {
-                    $("#" + modal_id).modal('show');
-                }
-            },
             processFiles() {
                 const vm = this;
                 var inputFile = document.querySelector('#file');
                 formData.append("file", inputFile.files[0]);
-                formData.append("request_id", $(".modal-body #id").val())
+                formData.append("date_verification",vm.record.date_verification);
+                formData.append("request_id", vm.record['id']);
                 axios.post('/citizenservice/requests/validate-document', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -205,7 +197,7 @@
                         size:  response.data.file_size ? response.data.file_size: 'No definido',
                         state: 'Completado',
                     };
-                    vm.records.push(field);
+                    vm.readRecords('/citizenservice/get-documents/' + vm.record['id'] + '/1');
                     vm.showMessage(
                         'custom', 'Éxito', 'success', 'screen-ok',
                         'Documento cargado de manera existosa.'

@@ -168,6 +168,22 @@ Vue.mixin({
                 }
             }
         },
+        /**
+         * Método que establece los datos del registro seleccionado para el cual se desea mostrar detalles
+         *
+         * @method    setDetails
+         *
+         * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve>
+         *
+         * @param     string   ref       Identificador del componente
+         * @param     integer  id        Identificador del registro seleccionado
+         */
+        setDetails(ref, id) {
+            const vm = this;
+            vm.$refs[ref].record = vm.$refs.tableResults.data.filter(r => {
+                return r.id === id;
+            })[0];
+        },
 
 	},
 });
