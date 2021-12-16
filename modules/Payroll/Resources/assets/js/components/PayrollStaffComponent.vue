@@ -360,19 +360,62 @@
 				await axios.get(`/payroll/staffs/${vm.payroll_staff_id}`).then(response => {
 					vm.record = response.data.record;
 					vm.record.country_id = vm.record.parish.municipality.estate.country_id;
-					/*vm.record.id = response.data.record.id;
-					vm.record.first_name = response.data.record.first_name;
-					vm.record.last_name = response.data.record.last_name;
-					vm.record.payroll_nationality_id = response.data.record.payroll_nationality_id;
-					vm.record.id_number = response.data.record.id_number;
-					vm.record.passport = response.data.record.passport;
-					vm.record.email = response.data.record.email;
-					vm.record.birthdate = response.data.record.birthdate;
-					vm.record.payroll_gender_id = response.data.record.payroll_gender_id;
-					vm.record.has_disability = response.data.record.has_disability;
-					vm.record.disability = response.data.record.disability;*/
 				});
 			},
+			/**
+	         * Obtiene los Estados del Pais seleccionado
+	         *
+	         * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+			 * @author  William Páez <wpaez@cenditel.gob.ve> | paez.william8@gmail.com
+	         */
+	        async getEstates() {
+	            const vm = this;
+	            vm.estates = [];
+	            if (vm.record.country_id) {
+	                await axios.get(`/get-estates/${vm.record.country_id}`).then(response => {
+	                    vm.estates = response.data;
+	                });
+	                if (vm.record.id) {
+	                    vm.record.estate_id = vm.record.parish.municipality.estate_id;
+	                }
+	            }
+	        },
+			/**
+	         * Obtiene los Municipios del Estado seleccionado
+	         *
+	         * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+			 * @author  William Páez <wpaez@cenditel.gob.ve> | paez.william8@gmail.com
+	         */
+			async getMunicipalities() {
+	            const vm = this;
+	            vm.municipalities = [];
+	            if (vm.record.estate_id) {
+	                await axios.get(`/get-municipalities/${vm.record.estate_id}`).then(response => {
+	                    vm.municipalities = response.data;
+	                });
+	                if (vm.record.id) {
+	                    vm.record.municipality_id = vm.record.parish.municipality_id;
+	                }
+	            }
+	        },
+			/**
+	         * Obtiene las Parroquias del Municipio seleccionado
+	         *
+	         * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+			 * @author  William Páez <wpaez@cenditel.gob.ve> | paez.william8@gmail.com
+	         */
+			async getParishes() {
+	            const vm = this;
+	            vm.parishes = [];
+	            if (vm.record.municipality_id) {
+	                await axios.get(`/get-parishes/${vm.record.municipality_id}`).then(response => {
+	                    vm.parishes = response.data;
+	                });
+	                if (vm.record.id) {
+	                    vm.record.parish_id = vm.record.parish.id;
+	                }
+	            }
+	        },
 		},
 		created() {
             this.getPayrollNationalities();
@@ -388,11 +431,12 @@
 			this.record.phones = [];
 		},
 		mounted() {
-			if(this.payroll_staff_id) {
-				this.getStaff();
+			const vm = this;
+			if(vm.payroll_staff_id) {
+				vm.getStaff();
 			}
-			this.switchHandler('has_disability');
-			this.switchHandler('has_driver_license');
+			vm.switchHandler('has_disability');
+			vm.switchHandler('has_driver_license');
 		},
 		watch: {
 			record: {
