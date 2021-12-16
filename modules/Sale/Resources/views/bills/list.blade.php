@@ -70,7 +70,7 @@
                 </div>
                 <div class="card-body">
                     <sale-bill-rejected-list
-                        route_list="sale/bills/vue-approved-list"
+                        route_list="sale/bills/vue-rejected-list"
                         route_update='sale/bills'>
                     </sale-bill-rejected-list>
                 </div>
@@ -107,10 +107,10 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <sale-bill-pending-list
+                    <!--sale-bill-advance-payment-list
                         route_list="sale/bills/vue-list"
                         route_update='sale/bills'>
-                    </sale-bill-pending-list>
+                    </sale-bill-advance-payment-list-->
                 </div>
             </div>
         </div>

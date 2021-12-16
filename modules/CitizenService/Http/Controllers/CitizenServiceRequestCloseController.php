@@ -41,8 +41,11 @@ class CitizenServiceRequestCloseController extends Controller
      */
     public function store(Request $request, UploadImageRepository $upImage, UploadDocRepository $upDoc)
     {
+        
         $citizenServiceRequest = CitizenServiceRequest::find($request->request_id);
         $this->validate($request, [
+
+            'date_verification'    => ['required'],
             'file' => ['required', 'max:10000', 'mimes:jpeg,jpg,png,pdf,docx,doc,odt,mp4,avi'],
         ]);
 
@@ -51,7 +54,7 @@ class CitizenServiceRequestCloseController extends Controller
         $videoFormat    = ['mp4', 'avi'];
         $extensionFile  = $request->file('file')->getClientOriginalExtension();
         if (in_array($extensionFile, $documentFormat)) {
-            //if ($citizenServiceRequest->file_counter <= 2) {
+
             if ($upDoc->uploadDoc(
                 $request->file('file'),
                 'documents',
@@ -62,11 +65,11 @@ class CitizenServiceRequestCloseController extends Controller
                 false,
                 true
             )) {
+                     $citizenServiceRequest->date_verification = $request->date_verification;
                      $file_id = $upDoc->getDocStored()->id;
                      $file_url = $upDoc->getDocStored()->url;
                      $file_name = $upDoc->getDocName();
-
-                //$citizenServiceRequest->file_counter = $citizenServiceRequest->file_counter + 1;
+                     
                      $citizenServiceRequest->save();
 
                 return response()->json([
@@ -96,10 +99,9 @@ class CitizenServiceRequestCloseController extends Controller
                         'file_name' => $file_name
                 ], 200);
             }
-        } //elseif (in_array($extensionFile, $videoFormat)) {
-                //dd('Is video');
-            //}
-        //}
+        }
+        $request->session()->flash('message', ['type' => 'store']);
+        return response()->json(['result' => true, 'redirect' => route('citizenservice.request.index')], 200);
     }
 
     /**
@@ -134,7 +136,9 @@ class CitizenServiceRequestCloseController extends Controller
     public function update(Request $request, $id)
     {
         $citizenServiceRequest = CitizenServiceRequest::find($id);
+        $citizenServiceRequest->date_verification = $request->date_verification;
         $citizenServiceRequest->state = 'Culminado';
+        
 
 
         $citizenServiceRequest->save();

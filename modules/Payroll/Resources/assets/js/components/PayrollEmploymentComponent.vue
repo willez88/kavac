@@ -18,9 +18,21 @@
 
 				<div class="card-body">
 					<div class="alert alert-danger" v-if="errors.length > 0">
-						<ul>
-							<li v-for="error in errors">{{ error }}</li>
-						</ul>
+						<div class="container">
+							<div class="alert-icon">
+								<i class="now-ui-icons objects_support-17"></i>
+							</div>
+							<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"
+									@click.prevent="errors = []">
+								<span aria-hidden="true">
+									<i class="now-ui-icons ui-1_simple-remove"></i>
+								</span>
+							</button>
+							<ul>
+								<li v-for="error in errors">{{ error }}</li>
+							</ul>
+						</div>
 					</div>
 
 					<div class="row">
@@ -203,22 +215,29 @@
 				departments: [],
 				payroll_contract_types: [],
 				institutions: [],
-				setDepartment: ''
 			}
 		},
 		methods: {
 
-			getEmployment() {
+			async getEmployment() {
 				let vm = this;
-				axios.get(
-					`/payroll/employments/${vm.payroll_employment_id}`
-				).then(response => {
+				await axios.get(`/payroll/employments/${vm.payroll_employment_id}`).then(response => {
 					vm.record = response.data.record;
 					vm.record.institution_id = response.data.record.department.institution_id;
-					vm.setDepartment = response.data.record.department.id;
 				});
 			},
-
+			async getDepartments() {
+				let vm = this;
+				vm.departments = [];
+				if (vm.record.department.institution_id) {
+	                await axios.get(`/get-departments/${vm.record.department.institution_id}`).then(response => {
+	                    vm.departments = response.data;
+	                });
+	                if (vm.record.id) {
+	                    vm.record.department_id = vm.record.department.id;
+	                }
+	            }
+			},
 			reset() {
 				this.record = {
 					id: '',
@@ -238,17 +257,6 @@
 					payroll_contract_type_id: ''
 				};
 			},
-		},
-		watch: {
-			record: {
-				deep: true,
-				handler: function() {
-					if (this.record.institution_id !== "" && this.setDepartment !== "") {
-						this.record.department_id = this.setDepartment;
-						$("#department").val(this.record.department_id).select2();
-					}
-				}
-			}
 		},
 		created() {
 			this.record.active = true;

@@ -18,9 +18,21 @@
 
 				<div class="card-body">
 					<div class="alert alert-danger" v-if="errors.length > 0">
-						<ul>
-							<li v-for="error in errors">{{ error }}</li>
-						</ul>
+						<div class="container">
+							<div class="alert-icon">
+								<i class="now-ui-icons objects_support-17"></i>
+							</div>
+							<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"
+									@click.prevent="errors = []">
+								<span aria-hidden="true">
+									<i class="now-ui-icons ui-1_simple-remove"></i>
+								</span>
+							</button>
+							<ul>
+								<li v-for="error in errors">{{ error }}</li>
+							</ul>
+						</div>
 					</div>
 
 					<div class="row">
@@ -166,22 +178,19 @@
                         <div class="col-md-4">
 							<div class="form-group is-required">
 								<label>País</label>
-								<select2 :options="countries" @input="getEstates" v-model="record.country_id"
-                                         id="country_id"></select2>
+								<select2 :options="countries" @input="getEstates()" v-model="record.country_id"></select2>
 							</div>
 						</div>
                         <div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Estado</label>
-								<select2 :options="estates" @input="getMunicipalities" id="estate_id"
-                                         v-model="record.estate_id"></select2>
+								<select2 :options="estates" @input="getMunicipalities()" v-model="record.estate_id"></select2>
 							</div>
 						</div>
                         <div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Municipio</label>
-								<select2 :options="municipalities" @input="getParishes" id="municipality_id"
-                                         v-model="record.municipality_id"></select2>
+								<select2 :options="municipalities" @input="getParishes()" v-model="record.municipality_id"></select2>
 							</div>
 						</div>
 					</div>
@@ -190,7 +199,7 @@
                         <div class="col-md-4">
 							<div class="form-group is-required">
 								<label>Parroquia</label>
-								<select2 :options="parishes" id="parish_id" v-model="record.parish_id"></select2>
+								<select2 :options="parishes" v-model="record.parish_id"></select2>
 							</div>
 						</div>
                         <div class="col-md-4">
@@ -327,7 +336,6 @@
 				payroll_nationalities: [],
 				payroll_genders: [],
                 countries: [],
-				setEstate: '',
                 estates: [],
                 municipalities: [],
                 parishes: [],
@@ -346,23 +354,67 @@
 
 			},
 
-			getStaff() {
+			async getStaff() {
 				let vm = this;
-				axios.get(`/payroll/staffs/${vm.payroll_staff_id}`).then(response => {
+				await axios.get(`/payroll/staffs/${vm.payroll_staff_id}`).then(response => {
 					vm.record = response.data.record;
-					/*vm.record.id = response.data.record.id;
-					vm.record.first_name = response.data.record.first_name;
-					vm.record.last_name = response.data.record.last_name;
-					vm.record.payroll_nationality_id = response.data.record.payroll_nationality_id;
-					vm.record.id_number = response.data.record.id_number;
-					vm.record.passport = response.data.record.passport;
-					vm.record.email = response.data.record.email;
-					vm.record.birthdate = response.data.record.birthdate;
-					vm.record.payroll_gender_id = response.data.record.payroll_gender_id;
-					vm.record.has_disability = response.data.record.has_disability;
-					vm.record.disability = response.data.record.disability;*/
+					vm.record.country_id = vm.record.parish.municipality.estate.country_id;
 				});
 			},
+			/**
+	         * Obtiene los Estados del Pais seleccionado
+	         *
+	         * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+			 * @author  William Páez <wpaez@cenditel.gob.ve> | paez.william8@gmail.com
+	         */
+	        async getEstates() {
+	            const vm = this;
+	            vm.estates = [];
+	            if (vm.record.country_id) {
+	                await axios.get(`/get-estates/${vm.record.country_id}`).then(response => {
+	                    vm.estates = response.data;
+	                });
+	                if (vm.record.id) {
+	                    vm.record.estate_id = vm.record.parish.municipality.estate_id;
+	                }
+	            }
+	        },
+			/**
+	         * Obtiene los Municipios del Estado seleccionado
+	         *
+	         * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+			 * @author  William Páez <wpaez@cenditel.gob.ve> | paez.william8@gmail.com
+	         */
+			async getMunicipalities() {
+	            const vm = this;
+	            vm.municipalities = [];
+	            if (vm.record.estate_id) {
+	                await axios.get(`/get-municipalities/${vm.record.estate_id}`).then(response => {
+	                    vm.municipalities = response.data;
+	                });
+	                if (vm.record.id) {
+	                    vm.record.municipality_id = vm.record.parish.municipality_id;
+	                }
+	            }
+	        },
+			/**
+	         * Obtiene las Parroquias del Municipio seleccionado
+	         *
+	         * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+			 * @author  William Páez <wpaez@cenditel.gob.ve> | paez.william8@gmail.com
+	         */
+			async getParishes() {
+	            const vm = this;
+	            vm.parishes = [];
+	            if (vm.record.municipality_id) {
+	                await axios.get(`/get-parishes/${vm.record.municipality_id}`).then(response => {
+	                    vm.parishes = response.data;
+	                });
+	                if (vm.record.id) {
+	                    vm.record.parish_id = vm.record.parish.id;
+	                }
+	            }
+	        },
 		},
 		created() {
             this.getPayrollNationalities();
@@ -378,11 +430,12 @@
 			this.record.phones = [];
 		},
 		mounted() {
-			if(this.payroll_staff_id) {
-				this.getStaff();
+			const vm = this;
+			if(vm.payroll_staff_id) {
+				vm.getStaff();
 			}
-			this.switchHandler('has_disability');
-			this.switchHandler('has_driver_license');
+			vm.switchHandler('has_disability');
+			vm.switchHandler('has_driver_license');
 		},
 		watch: {
 			record: {

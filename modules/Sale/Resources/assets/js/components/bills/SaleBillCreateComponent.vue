@@ -99,9 +99,10 @@
                 </div>
                 <div v-if="record.type_person" class="col-md-3">
                     <div class="form-group is-required">
-                        <label for="phone">Teléfono de contacto:</label>
-                        <input type="text" id="phone" class="form-control input-sm" data-toggle="tooltip" required
-                            title="Número de teléfono" v-model="record.phone" placeholder="00-000-0000000">
+                        <label>Teléfono de contacto</label>
+                        <input type="text" class="form-control input-sm" placeholder="+00-000-0000000"
+                               v-model="record.phone" v-input-mask
+                               data-inputmask="'mask': '+99-999-9999999'"/>
                     </div>
                 </div>
                 <div v-if="record.type_person" class="col-md-3">
@@ -407,7 +408,7 @@
                 this.record.type_person = client.type_person_juridica;
                 this.record.name = client.name_client? client.name_client : client.name;
                 this.record.id_number = client.rif? client.rif : client.id_type + '-' + client.id_number;
-                this.record.phone = client.phones && client.phones.length? client.phones[0].area_code + '-' + client.phones[0].number : '';
+                this.record.phone = client.phones && client.phones.length? client.phones[0].extension + client.phones[0].area_code + '-' + client.phones[0].number : '';
                 this.record.email = client.sale_clients_email && client.sale_clients_email.length? client.sale_clients_email[0].email : '';
                 $("#view_sale_bill_clients").modal('hide');
             },

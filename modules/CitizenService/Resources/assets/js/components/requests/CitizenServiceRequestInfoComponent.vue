@@ -244,20 +244,26 @@
 		                    		</div>
 		                    	</div>
 								<div class="tab-pane" id="info"  role="tabpanel">
-									<div class="col-md-12">
-										<div class="row">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">	
 												<strong>Nombre del archivo</strong>
-										</div>
-										<div class="row">
-											<div class="form-group">
-
 												<div class="row" style="margin: 1px 0">
-													<span class="col-md-12" id="archive">
+														<span class="col-md-12" id="archive">
+														</span>
+												</div>
+											</div>	
+										</div>
+
+										<div class="col-md-6">
+											<div class="form-group">
+												<strong>Fecha de verificación</strong>
+												<div class="row" style="margin: 1px 0">
+													<span class="col-md-12" id="date_verification">
 													</span>
 												</div>
 											</div>
 										</div>
-
 									</div>
 								</div>
 	                        </div>
@@ -324,7 +330,7 @@
 						fileText += '</div>';
 					});
 
-
+						document.getElementById('date_verification').innerText = (fields.date_verification)?fields.date_verification:'N/A';
                         document.getElementById('archive').innerHTML = fileText;
 					}).catch(error => {
 						if (typeof(error.response) !== "undefined") {

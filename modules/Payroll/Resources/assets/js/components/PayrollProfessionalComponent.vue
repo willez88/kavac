@@ -18,9 +18,21 @@
 
 				<div class="card-body">
 					<div class="alert alert-danger" v-if="errors.length > 0">
-						<ul>
-							<li v-for="error in errors">{{ error }}</li>
-						</ul>
+						<div class="container">
+							<div class="alert-icon">
+								<i class="now-ui-icons objects_support-17"></i>
+							</div>
+							<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"
+									@click.prevent="errors = []">
+								<span aria-hidden="true">
+									<i class="now-ui-icons ui-1_simple-remove"></i>
+								</span>
+							</button>
+							<ul>
+								<li v-for="error in errors">{{ error }}</li>
+							</ul>
+						</div>
 					</div>
 
 					<div class="row">
@@ -79,7 +91,7 @@
                         </div>
 						<div class="col-2">
 							<div class="form-group is-required">
-								<label>Anño de Graduación:</label>
+								<label>Año de Graduación:</label>
 								<input type="text" class="form-control input-sm"
 									v-model="payroll_study.graduation_year"/>
 							</div>

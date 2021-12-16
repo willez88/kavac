@@ -19,8 +19,7 @@
 						</h6>
 					</div>
 					<div class="modal-body">
-						<!-- mensajes de error -->
-                        <div class="alert alert-danger" v-if="errors.length > 0">
+						<div class="alert alert-danger" v-if="errors.length > 0">
                             <div class="container">
                                 <div class="alert-icon">
                                     <i class="now-ui-icons objects_support-17"></i>
@@ -37,7 +36,6 @@
                                 </ul>
                             </div>
                         </div>
-                        <!-- ./mensajes de error -->
                         <div class="row">
                             <div class="col-md-6">
         						<div class="form-group is-required">
@@ -127,6 +125,12 @@
 				'name': 'col-md-5',
 				'id': 'col-md-2'
 			};
+		},
+		mounted () {
+			const vm = this;
+			$("#add_payroll_language").on('show.bs.modal', function() {
+                vm.reset();
+            });
 		},
 	};
 </script>
