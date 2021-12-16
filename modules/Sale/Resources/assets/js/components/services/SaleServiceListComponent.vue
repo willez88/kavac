@@ -83,26 +83,10 @@
             this.initRecords(this.route_list, '');
         },
         methods: {
-            /**
-             * Inicializa los datos del formulario
-             *
-             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
-             */
             reset() {
 
             },
 
-            /**
-             * Método reemplaza el metodo setDetails para usar la referencia del parent por defecto
-             *
-             * @method    setDetails
-             *
-             * @author     Daniel Contreras <dcontreras@cenditel.gob.ve>
-             *
-             * @param     string   ref       Identificador del componente
-             * @param     integer  id        Identificador del registro seleccionado
-             * @param     object  var_list  Objeto con las variables y valores a asignar en las variables del componente
-             */
             setDetails(ref, id, modal ,var_list = null) {
                 const vm = this;
                 if (var_list) {

@@ -148,7 +148,7 @@ class SaleBill extends Model implements Auditable
                     'quantity' => $product->quantity,
                     'total_without_tax' => $total_without_tax,
                     'sale_goods_to_be_traded_name' => $product->saleGoodsToBeTraded ? $product->saleGoodsToBeTraded->name : '',
-                    'inventory_product_name' => $product->saleWarehouseInventoryProduct ? $product->$saleWarehouseInventoryProduct->$sale_setting_product->name : '',
+                    'inventory_product_name' => $product->sale_warehouse_inventory_product_id ? $product->saleWarehouseInventoryProduct->saleSettingProduct->name : '',
                     'measurement_unit_name' => $product->measurementUnit->name,
                     'sale_list_subservices_name' => $product->saleListSubservices ? $product->saleListSubservices->name : '',
                     'currency_name' => $product->currency->symbol . ' - ' . $product->currency->name,

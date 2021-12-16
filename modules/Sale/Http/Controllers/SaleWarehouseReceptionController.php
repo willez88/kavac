@@ -135,7 +135,6 @@ class SaleWarehouseReceptionController extends Controller
                 'code' => $code,
                 'type' => 'C',
                 'state' => 'Pendiente',
-                'history_tax_id' => $request->input('history_tax_id'),
                 'description' => 'Registro manual de productos en el inventario del almacén',
                 'sale_warehouse_institution_warehouse_end_id' => $inst_ware->id,
                 'user_id' => Auth::id(),
@@ -149,6 +148,7 @@ class SaleWarehouseReceptionController extends Controller
                 $measurement_unit = $product['measurement_unit_id'];
                 $quantity = $product['quantity'];
                 $value = $product['unit_value'];
+                $history_tax = $product['history_tax_id'];
 
                 /** Se busca en el inventario por producto y unidad si existe un registro previo */
 
@@ -216,6 +216,7 @@ class SaleWarehouseReceptionController extends Controller
                         'currency_id' => $currency,
                         'measurement_unit_id' => $measurement_unit,
                         'unit_value' => $value,
+                        'history_tax_id' => $history_tax,
                         'sale_warehouse_institution_warehouse_id' => $inst_ware->id,
                     ]);
             
@@ -296,7 +297,8 @@ class SaleWarehouseReceptionController extends Controller
             $sale_warehouse_movement->id
         )->get();
 
-        $inst_ware = SaleWarehouse::where('institution_id', $request->institution_id)->first();
+        $inst_ware = SaleWarehouseInstitutionWarehouse::where('sale_warehouse_id', $request->sale_warehouse_id)
+            ->where('institution_id', $request->institution_id)->first();
 
         DB::transaction(function () use ($request, $sale_warehouse_movement, $inst_ware, $product_movements) {
             $sale_warehouse_movement->sale_warehouse_institution_warehouse_end_id = $inst_ware->id;
@@ -306,16 +308,17 @@ class SaleWarehouseReceptionController extends Controller
             $update = now();
             /** Se agregan los nuevos elementos a la solicitud */
 
-            foreach ($request->warehouse_inventory_products as $product) {
+            foreach ($request->sale_warehouse_inventory_products as $product) {
                 $product_id = $product['sale_setting_product_id'];
                 $currency = $product['currency_id'];
                 $measurement_unit = $product['measurement_unit_id'];
                 $quantity = $product['quantity'];
                 $value = $product['unit_value'];
+                $history_tax = $product['history_tax_id'];
 
                 /** Se busca en el inventario por producto y unidad si existe un registro previo */
 
-                $inventory = WarehouseInventoryProduct::where('sale_setting_product_id', $product_id)
+                $inventory = SaleWarehouseInventoryProduct::where('sale_setting_product_id', $product_id)
                     ->where('sale_warehouse_id', $inst_ware->id)
                     ->where('unit_value', $value)->get();
 
@@ -339,7 +342,8 @@ class SaleWarehouseReceptionController extends Controller
                         'currency_id' => $currency,
                         'measurement_unit_id' => $measurement_unit,
                         'unit_value' => $value,
-                        'sale_warehouse_id' => $inst_ware->id,
+                        'sale_warehouse_institution_warehouse_id' => $inst_ware->id,
+                        'history_tax_id' => $history_tax,
                     ]);
             
                     $inventory_movement = SaleWarehouseInventoryProductMovement::create([

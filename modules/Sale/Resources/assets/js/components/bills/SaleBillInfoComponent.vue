@@ -190,7 +190,27 @@
     export default {
         data() {
             return {
-                record: {},
+                record: {
+                    bill_taxs:'',
+                    bill_total_without_taxs:'',
+                    bill_totals:'',
+                    code:'',
+                    created_at:'',
+                    deleted_at:'',
+                    email:'',
+                    id:'',
+                    id_number:'',
+                    name:'',
+                    phone:'',
+                    rif:'',
+                    sale_bill_inventory_product:[],
+                    sale_bill_products:{},
+                    sale_form_payment:{},
+                    sale_form_payment_id:'',
+                    state:'',
+                    type:'',
+                    type_person:'',
+                },
                 errors: [],
                 columns: [
                     'product_type',
@@ -243,7 +263,6 @@
                 'total',
                 'currency',
             ];
-
         },
         methods: {            
             /**

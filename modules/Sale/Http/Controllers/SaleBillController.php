@@ -13,6 +13,7 @@ use App\Models\CodeSetting;
 use Modules\Sale\Models\SaleBill;
 use Modules\Sale\Models\SaleBillInventoryProduct;
 use Modules\Sale\Models\SaleWarehouseInventoryProduct;
+use Modules\Sale\Models\SaleWarehouseMovement;
 use Modules\Sale\Models\SaleGoodsToBeTraded;
 
 /**
@@ -463,5 +464,33 @@ class SaleBillController extends Controller
         } else {
             return response()->json(['record' => [], 'message' => 'Success'], 200);
         }
+    }
+
+    /**
+     * Muestra una lista de los productos aprobados en el almacen
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return Array con los productos
+     */
+    public function getBillInventoryProducts()
+    {
+        $records = [];
+        $inventoryProduct = SaleWarehouseMovement::where('state', 'Aprobado')
+            ->with(['saleWarehouseInventoryProductMovements' => function ($query) {
+                        $query->with(['saleWarehouseInventoryProduct']);
+                    }])->get();
+
+        
+        array_push($records, ['id' => '', 'text' => 'Seleccione...']);
+
+        foreach ($inventoryProduct as $invProduct){
+            foreach ($invProduct->saleWarehouseInventoryProductMovements as $product) {
+                array_push($records, [
+                    'id' => $product->saleWarehouseInventoryProduct->id, 
+                    'text' => $product->saleWarehouseInventoryProduct->SaleSettingProduct->name
+                ]);
+            }
+        }
+        return response()->json(['records' => $records], 200);
     }
 }

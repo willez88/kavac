@@ -36,7 +36,7 @@ class SaleWarehouseInventoryProduct extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = [
-        'code', 'exist', 'reserved', 'unit_value', 'currency_id', 'measurement_unit_id', 'sale_setting_product_id', 'sale_warehouse_institution_warehouse_id'
+        'code', 'exist', 'reserved', 'unit_value', 'currency_id', 'measurement_unit_id', 'sale_setting_product_id', 'sale_warehouse_institution_warehouse_id', 'history_tax_id'
     ];
 
     /**
@@ -108,5 +108,29 @@ class SaleWarehouseInventoryProduct extends Model implements Auditable
     public function measurementUnit()
     {
         return $this->belongsTo(\App\Models\MeasurementUnit::class);
+    }
+
+    /**
+     * Método que obtiene los porcentajes de impuestos almacenados en el sistema
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * HistoryTax
+     */
+    public function historyTax()
+    {
+        return $this->belongsTo(\App\Models\HistoryTax::class);
+    }
+
+    /**
+     * Método que obtiene el registro en el inventario del producto movilizado
+     *
+     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany Objeto con el registro relacionado al modelo
+     * SaleWarehouseInventoryProductMovement
+     */
+    public function saleWarehouseInventoryProductMovement()
+    {
+        return $this->hasMany(SaleWarehouseInventoryProductMovement::class);
     }
 }

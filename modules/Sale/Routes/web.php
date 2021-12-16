@@ -306,6 +306,13 @@ Route::group(
         Route::get('get-bill-product/{product}/{id}', 'SaleBillController@getBillProduct');
         Route::get('bills/pdf/{id}', 'Reports\SaleBillController@pdf');
 
+        /**
+         * ---------------------------------------------------------------------------------
+         * Rutas para gestionar los select de facturas en el Modulo de Comercialización
+         * ---------------------------------------------------------------------------------
+         */
+        Route::get('get-bill-inventory-product', 'SaleBillController@getBillInventoryProducts');
+
         /*
          * ------------------------------------------------------------
          * Rutas para gestionar la generación de reportes en el Modulo de Pedidos
@@ -439,6 +446,8 @@ Route::group(
 
         Route::post('payment/store', 'SalePaymentController@store')->name('payment.register.store');
 
+        Route::get('payment/vue-list', 'SalePaymentController@vueList');
+        
         Route::get(
             'get-sales-client/{id}',
             'SalePaymentController@getSaleClient'

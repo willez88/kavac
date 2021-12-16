@@ -55,7 +55,9 @@ class ParameterController extends Controller
                 [
                     'p_value' => ['required', 'integer', 'min:16']
                 ],
-                [],
+                [
+                    'p_value.min' => 'La edad laboral mínima permitida es 16 años.'
+                ],
                 [
                     'p_value' => 'edad laboral permitida'
                 ]
