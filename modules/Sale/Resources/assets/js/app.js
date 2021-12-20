@@ -201,6 +201,16 @@ Vue.component('sale-bill-list', () => import(
 );
 
 /**
+ * Componente que permite filtrar las facturas registradas en el sistema.
+ *
+ * @author Ing. Argenis Osorio <aosorio@cenditel.gob.ve>
+ */
+ Vue.component('sale-report-bill-list', () => import(
+    /* webpackChunkName: "sale-report-bill-list" */
+    './components/bills/SaleReportBillListComponent.vue')
+);
+
+/**
  * Componente para mostrar la información de las solicitudes de almacén
  *
  * @author Daniel Contreras <dcontreras@cenditel.gob.ve>

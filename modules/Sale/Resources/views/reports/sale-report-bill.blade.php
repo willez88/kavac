@@ -28,7 +28,10 @@
                     @include('buttons.minimize')
                 </div>
             </div>
-            <h1>Hello!!!</h1>
+            <div class="card-body">
+                <sale-report-bill-list>
+                </sale-report-bill-list>
+            </div>
         </div>
     </div>
 </div>
