@@ -205,7 +205,7 @@ Vue.component('sale-bill-list', () => import(
  *
  * @author Ing. Argenis Osorio <aosorio@cenditel.gob.ve>
  */
- Vue.component('sale-report-bill-list', () => import(
+Vue.component('sale-report-bill-list', () => import(
     /* webpackChunkName: "sale-report-bill-list" */
     './components/bills/SaleReportBillListComponent.vue')
 );

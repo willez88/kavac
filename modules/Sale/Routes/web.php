@@ -534,7 +534,8 @@ Route::group(
          * Rutas para gestionar la generación de reportes de facturas
          * ----------------------------------------------------------
          */
-        Route::get('reports/bills', 'Reports\BillReportController@index')
+        Route::get('reports/bills', 'Reports\SaleBillReportController@index')
         ->name('sale.report.bill');
+        Route::get('reports/bills/vue-list', 'Reports\SaleBillReportController@vueList');
     }
 );

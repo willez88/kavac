@@ -29,7 +29,9 @@
                 </div>
             </div>
             <div class="card-body">
-                <sale-report-bill-list>
+                <sale-report-bill-list
+                    route_list="sale/reports/bills/vue-list"
+                >
                 </sale-report-bill-list>
             </div>
         </div>
