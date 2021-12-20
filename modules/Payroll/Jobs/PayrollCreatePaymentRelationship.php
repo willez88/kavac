@@ -420,7 +420,7 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
                                                                                     if ($sclV == $recordV[Str::camel($childrenV['required'][0]) . '_count']) {
                                                                                         $tabScale = PayrollSalaryTabulatorScale::where('payroll_salary_tabulator_id', $payrollSalaryTabulator->id)
                                                                                             ->where('payroll_horizontal_scale_id', $scale['id'])
-                                                                                            ->where('payroll_vertical_scale_id', $scaleV['id']))->first();
+                                                                                            ->where('payroll_vertical_scale_id', $scaleV['id'])->first();
                                                                                         $formula = json_decode($tabScale['value']);
                                                                                     }
                                                                                 }
@@ -433,14 +433,14 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
                                                                                         ($recordV[age($recordV[$childrenV['required'][0]])] < $sclV['to'])) {
                                                                                         $tabScale = PayrollSalaryTabulatorScale::where('payroll_salary_tabulator_id', $payrollSalaryTabulator->id)
                                                                                             ->where('payroll_horizontal_scale_id', $scale['id'])
-                                                                                            ->where('payroll_vertical_scale_id', $scaleV['id']))->first();
+                                                                                            ->where('payroll_vertical_scale_id', $scaleV['id'])->first();
                                                                                         $formula = json_decode($tabScale['value']);
                                                                                     }
                                                                                 } else {
                                                                                     if ($sclV == $recordV[age($recordV[$childrenV['required'][0]])]) {
                                                                                         $tabScale = PayrollSalaryTabulatorScale::where('payroll_salary_tabulator_id', $payrollSalaryTabulator->id)
                                                                                             ->where('payroll_horizontal_scale_id', $scale['id'])
-                                                                                            ->where('payroll_vertical_scale_id', $scaleV['id']))->first();
+                                                                                            ->where('payroll_vertical_scale_id', $scaleV['id'])->first();
                                                                                         $formula = json_decode($tabScale['value']);
                                                                                     }
                                                                                 }
@@ -451,7 +451,7 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
                                                                                 if (json_decode($scaleV['value']) == $recordV[$childrenV['required'][0]]) {
                                                                                     $tabScale = PayrollSalaryTabulatorScale::where('payroll_salary_tabulator_id', $payrollSalaryTabulator->id)
                                                                                         ->where('payroll_horizontal_scale_id', $scale['id'])
-                                                                                        ->where('payroll_vertical_scale_id', $scaleV['id']))->first();
+                                                                                        ->where('payroll_vertical_scale_id', $scaleV['id'])->first();
                                                                                     $formula = json_decode($tabScale['value']);
                                                                                 }
                                                                             }
@@ -490,7 +490,7 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
                                                                                     if ($sclV == $recordV[Str::camel($childrenV['required'][0]) . '_count']) {
                                                                                         $tabScale = PayrollSalaryTabulatorScale::where('payroll_salary_tabulator_id', $payrollSalaryTabulator->id)
                                                                                             ->where('payroll_horizontal_scale_id', $scale['id'])
-                                                                                            ->where('payroll_vertical_scale_id', $scaleV['id']))->first();
+                                                                                            ->where('payroll_vertical_scale_id', $scaleV['id'])->first();
                                                                                         $formula = json_decode($tabScale['value']);
                                                                                     }
                                                                                 }
@@ -503,14 +503,14 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
                                                                                         ($recordV[age($recordV[$childrenV['required'][0]])] < $sclV['to'])) {
                                                                                         $tabScale = PayrollSalaryTabulatorScale::where('payroll_salary_tabulator_id', $payrollSalaryTabulator->id)
                                                                                             ->where('payroll_horizontal_scale_id', $scale['id'])
-                                                                                            ->where('payroll_vertical_scale_id', $scaleV['id']))->first();
+                                                                                            ->where('payroll_vertical_scale_id', $scaleV['id'])->first();
                                                                                         $formula = json_decode($tabScale['value']);
                                                                                     }
                                                                                 } else {
                                                                                     if ($sclV == $recordV[age($recordV[$childrenV['required'][0]])]) {
                                                                                         $tabScale = PayrollSalaryTabulatorScale::where('payroll_salary_tabulator_id', $payrollSalaryTabulator->id)
                                                                                             ->where('payroll_horizontal_scale_id', $scale['id'])
-                                                                                            ->where('payroll_vertical_scale_id', $scaleV['id']))->first();
+                                                                                            ->where('payroll_vertical_scale_id', $scaleV['id'])->first();
                                                                                         $formula = json_decode($tabScale['value']);
                                                                                     }
                                                                                 }
@@ -521,7 +521,7 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
                                                                                 if (json_decode($scaleV['value']) == $recordV[$childrenV['required'][0]]) {
                                                                                     $tabScale = PayrollSalaryTabulatorScale::where('payroll_salary_tabulator_id', $payrollSalaryTabulator->id)
                                                                                         ->where('payroll_horizontal_scale_id', $scale['id'])
-                                                                                        ->where('payroll_vertical_scale_id', $scaleV['id']))->first();
+                                                                                        ->where('payroll_vertical_scale_id', $scaleV['id'])->first();
                                                                                     $formula = json_decode($tabScale['value']);
                                                                                 }
                                                                             }
@@ -566,7 +566,7 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
                                                                                     if ($sclV == $recordV[Str::camel($childrenV['required'][0]) . '_count']) {
                                                                                         $tabScale = PayrollSalaryTabulatorScale::where('payroll_salary_tabulator_id', $payrollSalaryTabulator->id)
                                                                                             ->where('payroll_horizontal_scale_id', $scale['id'])
-                                                                                            ->where('payroll_vertical_scale_id', $scaleV['id']))->first();
+                                                                                            ->where('payroll_vertical_scale_id', $scaleV['id'])->first();
                                                                                         $formula = json_decode($tabScale['value']);
                                                                                     }
                                                                                 }
@@ -579,14 +579,14 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
                                                                                         ($recordV[age($recordV[$childrenV['required'][0]])] < $sclV['to'])) {
                                                                                         $tabScale = PayrollSalaryTabulatorScale::where('payroll_salary_tabulator_id', $payrollSalaryTabulator->id)
                                                                                             ->where('payroll_horizontal_scale_id', $scale['id'])
-                                                                                            ->where('payroll_vertical_scale_id', $scaleV['id']))->first();
+                                                                                            ->where('payroll_vertical_scale_id', $scaleV['id'])->first();
                                                                                         $formula = json_decode($tabScale['value']);
                                                                                     }
                                                                                 } else {
                                                                                     if ($sclV == $recordV[age($recordV[$childrenV['required'][0]])]) {
                                                                                         $tabScale = PayrollSalaryTabulatorScale::where('payroll_salary_tabulator_id', $payrollSalaryTabulator->id)
                                                                                             ->where('payroll_horizontal_scale_id', $scale['id'])
-                                                                                            ->where('payroll_vertical_scale_id', $scaleV['id']))->first();
+                                                                                            ->where('payroll_vertical_scale_id', $scaleV['id'])->first();
                                                                                         $formula = json_decode($tabScale['value']);
                                                                                     }
                                                                                 }
@@ -597,7 +597,7 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
                                                                                 if (json_decode($scaleV['value']) == $recordV[$childrenV['required'][0]]) {
                                                                                     $tabScale = PayrollSalaryTabulatorScale::where('payroll_salary_tabulator_id', $payrollSalaryTabulator->id)
                                                                                         ->where('payroll_horizontal_scale_id', $scale['id'])
-                                                                                        ->where('payroll_vertical_scale_id', $scaleV['id']))->first();
+                                                                                        ->where('payroll_vertical_scale_id', $scaleV['id'])->first();
                                                                                     $formula = json_decode($tabScale['value']);
                                                                                 }
                                                                             }
@@ -635,7 +635,7 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
                                                                                     if ($sclV == $recordV[Str::camel($childrenV['required'][0]) . '_count']) {
                                                                                         $tabScale = PayrollSalaryTabulatorScale::where('payroll_salary_tabulator_id', $payrollSalaryTabulator->id)
                                                                                             ->where('payroll_horizontal_scale_id', $scale['id'])
-                                                                                            ->where('payroll_vertical_scale_id', $scaleV['id']))->first();
+                                                                                            ->where('payroll_vertical_scale_id', $scaleV['id'])->first();
                                                                                         $formula = json_decode($tabScale['value']);
                                                                                     }
                                                                                 }
@@ -648,14 +648,14 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
                                                                                         ($recordV[age($recordV[$childrenV['required'][0]])] < $sclV['to'])) {
                                                                                         $tabScale = PayrollSalaryTabulatorScale::where('payroll_salary_tabulator_id', $payrollSalaryTabulator->id)
                                                                                             ->where('payroll_horizontal_scale_id', $scale['id'])
-                                                                                            ->where('payroll_vertical_scale_id', $scaleV['id']))->first();
+                                                                                            ->where('payroll_vertical_scale_id', $scaleV['id'])->first();
                                                                                         $formula = json_decode($tabScale['value']);
                                                                                     }
                                                                                 } else {
                                                                                     if ($sclV == $recordV[age($recordV[$childrenV['required'][0]])]) {
                                                                                         $tabScale = PayrollSalaryTabulatorScale::where('payroll_salary_tabulator_id', $payrollSalaryTabulator->id)
                                                                                             ->where('payroll_horizontal_scale_id', $scale['id'])
-                                                                                            ->where('payroll_vertical_scale_id', $scaleV['id']))->first();
+                                                                                            ->where('payroll_vertical_scale_id', $scaleV['id'])->first();
                                                                                         $formula = json_decode($tabScale['value']);
                                                                                     }
                                                                                 }
@@ -666,7 +666,7 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
                                                                                 if (json_decode($scaleV['value']) == $recordV[$childrenV['required'][0]]) {
                                                                                     $tabScale = PayrollSalaryTabulatorScale::where('payroll_salary_tabulator_id', $payrollSalaryTabulator->id)
                                                                                         ->where('payroll_horizontal_scale_id', $scale['id'])
-                                                                                        ->where('payroll_vertical_scale_id', $scaleV['id']))->first();
+                                                                                        ->where('payroll_vertical_scale_id', $scaleV['id'])->first();
                                                                                     $formula = json_decode($tabScale['value']);
                                                                                 }
                                                                             }
@@ -708,7 +708,7 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
                                                                                 if ($sclV == $recordV[Str::camel($childrenV['required'][0]) . '_count']) {
                                                                                     $tabScale = PayrollSalaryTabulatorScale::where('payroll_salary_tabulator_id', $payrollSalaryTabulator->id)
                                                                                         ->where('payroll_horizontal_scale_id', $scale['id'])
-                                                                                        ->where('payroll_vertical_scale_id', $scaleV['id']))->first();
+                                                                                        ->where('payroll_vertical_scale_id', $scaleV['id'])->first();
                                                                                     $formula = json_decode($tabScale['value']);
                                                                                 }
                                                                             }
@@ -721,14 +721,14 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
                                                                                     ($recordV[age($recordV[$childrenV['required'][0]])] < $sclV['to'])) {
                                                                                     $tabScale = PayrollSalaryTabulatorScale::where('payroll_salary_tabulator_id', $payrollSalaryTabulator->id)
                                                                                         ->where('payroll_horizontal_scale_id', $scale['id'])
-                                                                                        ->where('payroll_vertical_scale_id', $scaleV['id']))->first();
+                                                                                        ->where('payroll_vertical_scale_id', $scaleV['id'])->first();
                                                                                     $formula = json_decode($tabScale['value']);
                                                                                 }
                                                                             } else {
                                                                                 if ($sclV == $recordV[age($recordV[$childrenV['required'][0]])]) {
                                                                                     $tabScale = PayrollSalaryTabulatorScale::where('payroll_salary_tabulator_id', $payrollSalaryTabulator->id)
                                                                                         ->where('payroll_horizontal_scale_id', $scale['id'])
-                                                                                        ->where('payroll_vertical_scale_id', $scaleV['id']))->first();
+                                                                                        ->where('payroll_vertical_scale_id', $scaleV['id'])->first();
                                                                                     $formula = json_decode($tabScale['value']);
                                                                                 }
                                                                             }
@@ -739,7 +739,7 @@ class PayrollCreatePaymentRelationship implements ShouldQueue
                                                                             if (json_decode($scaleV['value']) == $recordV[$childrenV['required'][0]]) {
                                                                                 $tabScale = PayrollSalaryTabulatorScale::where('payroll_salary_tabulator_id', $payrollSalaryTabulator->id)
                                                                                     ->where('payroll_horizontal_scale_id', $scale['id'])
-                                                                                    ->where('payroll_vertical_scale_id', $scaleV['id']))->first();
+                                                                                    ->where('payroll_vertical_scale_id', $scaleV['id'])->first();
                                                                                 $formula = json_decode($tabScale['value']);
                                                                             }
                                                                         }
