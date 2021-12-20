@@ -1,0 +1,12 @@
+[
+    {
+        "element" : "#settings_users",
+        "intro" : "Sección que permite llevar a cabo la gestión de usuarios",
+        "position" : "top"
+    },
+    {
+        "element" : "#create_user",
+        "intro" : "Botón para realizar el registro de un nuevo usuario",
+        "position" : "right"
+    }
+]
