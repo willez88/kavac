@@ -19,7 +19,13 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h6 class="card-title">{{ __('Gestión de usuario') }}</h6>
+            <h6 class="card-title">
+                {{ __('Gestión de usuario') }}
+                @include('buttons.help', [
+				    'helpId' => 'CreateUser',
+				    'helpSteps' => get_json_resource('ui-guides/create_user.json')
+				])
+            </h6>
             <div class="card-btns">
                 @include('buttons.previous', ['route' => url()->previous()])
                 @include('buttons.minimize')
@@ -31,7 +37,7 @@
                 @include('layouts.form-errors')
                 <div class="row">
                     <div class="col-6">
-                        <div class="form-group">
+                        <div class="form-group" id="user">
                             {!! Form::label('staff', __('Empleado'), []) !!}
                             {!! Form::select('staff', (isset($persons))?$persons:[], null, [
                                     'class' => 'form-control select2', 'onchange' => 'hasStaff()',
@@ -41,7 +47,7 @@
                         </div>
                     </div>
                     <div class="col-6 staff_name">
-                        <div class="form-group is-required">
+                        <div class="form-group is-required" id="user_first_name">
                             {!! Form::label('first_name', __('Nombre'), ['id' => 'first_name_label']) !!}
                             {!! Form::text('first_name', (isset($model))?$model->profile->first_name:old('first_name'), [
                                 'class' => 'form-control input-sm', 'id' => 'first_name', 'data-toggle' => 'tooltip',
@@ -52,7 +58,7 @@
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <div class="form-group is-required">
+                        <div class="form-group is-required" id="email">
                             {!! Form::label('email', __('Correo electrónico'), []) !!}
                             {!! Form::text('email', (isset($model))?$model->email:old('email'), [
                                 'class' => 'form-control input-sm',
@@ -62,7 +68,7 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        <div class="form-group is-required">
+                        <div class="form-group is-required" id="user_name">
                             {!! Form::label('username', __('Usuario'), []) !!}
                             {!! Form::text('username', (isset($model))?$model->username:old('username'), [
                                 'class' => 'form-control input-sm',
@@ -74,7 +80,7 @@
                 </div>
                 @include('auth.roles-permissions', ['user' => $model ?? null])
             </div>
-            <div class="card-footer text-right">
+            <div class="card-footer text-right" id="buttons">
                 @include('buttons.form-display')
                 @include('layouts.form-buttons')
             </div>

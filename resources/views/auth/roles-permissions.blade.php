@@ -1,5 +1,5 @@
 <h5 class="card-title text-center">{{ __('Roles') }}</h5>
-<div class="row">
+<div class="row" id="role">
     @foreach (App\Roles\Models\Role::all() as $role)
         <div class="col-md-2 text-center">
             <div class="form-group">
@@ -18,7 +18,7 @@
 @php
     $module = "";
 @endphp
-<div class="row">
+<div class="row" id="permissions">
     @foreach (App\Roles\Models\Permission::orderBy('model_prefix')->get() as $permission)
         @if ($module != $permission->model_prefix)
             @php
