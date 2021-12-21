@@ -1,0 +1,37 @@
+[
+    {
+        "element" : "#user",
+        "intro" : "Parámetro que permite seleccionar un usuario registrado previamente en el módulo de talento humano",
+        "position" : "top"
+    },
+    {
+        "element" : "#user_first_name",
+        "intro" : "Parámetro que permite establecer el nombre del usuario",
+        "position" : "top"
+    },
+    {
+        "element" : "#email",
+        "intro" : "Parámetro que permite establecer la dirección de correo electrónico del usuario",
+        "position" : "top"
+    },
+    {
+        "element" : "#user_name",
+        "intro" : "Parámetro que permite establecer el nombre de usuario en el sistema",
+        "position" : "top"
+    },
+    {
+        "element" : "#role",
+        "intro" : "Parámetros que permiten establecer los roles del usuario",
+        "position" : "right"
+    },
+    {
+        "element" : "#permissions",
+        "intro" : "Parámetros que permiten establecer los permisos al usuario por módulo del sistema",
+        "position" : "right"
+    },
+    {
+        "element" : "#buttons",
+        "intro" : "Botones para ejecutar las acciones de limpiar, cancelar o guardar los datos del formulario",
+        "position" : "right"
+    }
+]
