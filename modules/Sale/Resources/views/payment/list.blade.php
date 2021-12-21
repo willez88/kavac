@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <pending-payments-list></pending-payments-list>
+                <pending-payments-list route_list="{{ url('sale/payment/payment_pending') }}"></pending-payments-list>
                 {{-- <payment-registered-list route_edit="{{ url('sale/payment/{id}/edit') }}" /> --}}
             </div>
         </div>
@@ -90,7 +90,7 @@
                 </div>
             </div>  
             <div class="card-body">
-                <approved-payments-list></approved-payments-list>
+                <approved-payments-list route_list="{{ url('sale/payment/payment_approve') }}"></approved-payments-list>
                 {{-- <payment-registered-list route_edit="{{ url('sale/payment/{id}/edit') }}" /> --}}
             </div>
         </div>
@@ -116,7 +116,7 @@
                 </div>
             </div>  
             <div class="card-body">
-                <approved-advance-payments-list></approved-advance-payments-list>
+                <approved-advance-payments-list route_list="{{ url('sale/payment/advance_define_attributes_approve') }}"></approved-advance-payments-list>
                 {{-- <payment-registered-list route_edit="{{ url('sale/payment/{id}/edit') }}" /> --}}
             </div>
         </div>
