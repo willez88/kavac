@@ -36,9 +36,10 @@ class BillApproved extends Notification //implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(User $user, $bill)
+    public function __construct(User $user, $auth_user, $bill)
     {
         $this->user = $user;
+        $this->auth_user = $auth_user;
         $this->bill = $bill;
         $this->notifyTitle = __('Factura aprobada');
         $this->notifyMessage = __('Se ha aprobado una factura');
@@ -72,9 +73,9 @@ class BillApproved extends Notification //implements ShouldQueue
         return (new MailMessage)
                     ->from(config('mail.from.address'), config('mail.from.name'))
                     ->subject(config('app.name') . ' - ' . __('Factura aprobada'))
-                    ->greeting(__('Factura aprobada'))
+                    ->greeting(__('Estimado(a) :username', ['username' => $this->auth_user->username]))
                     ->line(
-                        __('El usuario :username', ['username' => $this->user->username])
+                        __('El usuario :auth_username', ['auth_username' => $this->user->username])
                     )
                     ->line(__('ha aprobado la factura :bill', ['bill' => $this->bill]))
                     ->line(__('Para detallar la factura, pulse a continuación'))
