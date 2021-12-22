@@ -146,49 +146,34 @@ class SalePaymentController extends Controller
             join("sale_services","sale_register_payments.order_service_id","=","sale_services.id")
             ->join("sale_clients","sale_services.sale_client_id","=","sale_clients.id")
             ->get()], 200);
+    }
 
+    public function pending()
+    {
+            return response()->json(['records' => SaleRegisterPayment::
+            join("sale_services","sale_register_payments.order_service_id","=","sale_services.id")
+            ->join("sale_clients","sale_services.sale_client_id","=","sale_clients.id")
+            ->where('payment_approve', '=', false)
+            ->get()], 200);
+    }
 
+    public function payment_approve()
+    {
+            return response()->json(['records' => SaleRegisterPayment::
+            join("sale_services","sale_register_payments.order_service_id","=","sale_services.id")
+            ->join("sale_clients","sale_services.sale_client_id","=","sale_clients.id")
+            ->where('payment_approve', '=', true)
+            ->get()], 200);
+    }
 
-
-
-
-
-        /*
-            ->join("sale_goods_to_be_tradeds","sale_services.sale_goods_to_be_traded","=","sale_goods_to_be_tradeds.id")
-        $mergedAdminUser = $admins->merge($users);
-            ->with(['payment_date','name', 'payrollStaff'])
-        $SaleRegisterPayment = SaleRegisterPayment::all();
-        return $SaleRegisterPayment;
-
-        $users = SaleRegisterPayment::join("sale_services","sale_services.order_service_id","=","SaleRegisterPayment.id")
-        ->join('sale_clients', 'sale_services.sale_client_id', '=', 'sale_clients.id')
-        ->get();
-
-        $sale_register_payments = DB::table('sale_register_payments')
-        ->join('sale_services', 'sale_register_payments.order_service_id', '=', 'sale_services.id')
-        ->get();
-        */
-
-        /*
-        return response()->json(['records' => SaleRegisterPayment::with(['payment_date','total_amount', 'reference_number'])->get()], 200);
-        $saleClients = SaleClient::find($SaleRegisterPayment->id);
-        $saleClientsEmail = SaleClientsEmail::find($SaleRegisterPayment->id);
-        $saleClientsPhone = Phone::find($SaleRegisterPayment->id);
-        //nombre
-        $saleClients->name;
-        //identificación
-        $saleClients->id_type;
-        $saleClients->id_number;
-        //rif
-        $saleClients->rif;
-        // teléfono
-        $saleClients->phones;
-        //email
-        $saleClientsEmail->email;
-        //Teléfono
-        $saleClientsPhone->extension;
-        $saleClientsPhone->area_code;
-        $saleClientsPhone->number;*/
+    public function advance_define_attributes_approve()
+    {
+            return response()->json(['records' => SaleRegisterPayment::
+            join("sale_services","sale_register_payments.order_service_id","=","sale_services.id")
+            ->join("sale_clients","sale_services.sale_client_id","=","sale_clients.id")
+            ->where('advance_define_attributes', '=', true)
+            ->where('payment_approve', '=', true)
+            ->get()], 200);
     }
 
     /**

@@ -102,7 +102,7 @@
 			<div class="card-footer text-right">
 				<button class="btn btn-info btn-sm" data-toggle="tooltip" title="Buscar asientos contables aprobados"
                         v-on:click="searchRecords()">
-                    <i class="fa fa-search"></i>
+                    Buscar <i class="fa fa-search"></i>
                 </button>
 			</div>
 		</form>

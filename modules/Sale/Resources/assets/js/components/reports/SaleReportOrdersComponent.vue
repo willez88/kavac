@@ -87,7 +87,7 @@
                 <span>Generar reporte</span>
                 <i class="fa fa-print"></i>
             </button>
-        </div>     
+        </div>
     </section>
 </template>
 

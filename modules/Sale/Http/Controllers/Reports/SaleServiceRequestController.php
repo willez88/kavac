@@ -5,6 +5,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
+use Modules\Sale\Models\SaleService;
+
 /**
  * @class SaleServiceRequestController
  * @brief [descripción detallada]
@@ -128,6 +130,26 @@ class SaleServiceRequestController extends Controller
     }
 
     public function filterRecords(Request $request){
-        return response()->json(['message' => 'success'], 200);
+        $filter = $request->all();
+
+        $records = SaleService::with(['SaleServiceRequirement','saleClient', 'payrollStaff']);
+        if ($filter['filterDate'] == 'specific') {
+            if ($filter['dateIni'] != null && $filter['dateEnd'] != null) {
+                $records->whereDate('created_at', '>=', $filter['dateIni'])->whereDate('created_at', '<=', $filter['dateEnd']);
+            }
+        }
+        else if ($filter['filterDate'] == 'general') {
+            if ($filter['year_init'] != null && $filter['year_end'] != null && $filter['month_init'] != null && $filter['month_end'] != null) {
+                $records->whereYear('created_at', '>=', $filter['year_init'])->whereYear('created_at', '<=', $filter['year_end'])
+                        ->whereMonth('created_at', '>=', $filter['month_init'])->whereMonth('created_at', '<=', $filter['month_end']);
+            }
+        }
+
+        if ($filter['status'] != null && $filter['status'] != 'Todos') {
+            $records->where('status', $filter['status']);
+        }
+        return response()->json([
+            'records' => $records->get(),
+            'message' => 'success'], 200);
     }
 }
