@@ -231,6 +231,26 @@ Vue.component('sale-bill-pending-list', () => import(
 );
 
 /**
+ * Componente para aprobar las facturas pendientes
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-bill-accept-pending', () => import(
+    /* webpackChunkName: "sale-bill-accept-pending" */
+    './components/bills/SaleBillAcceptPendingComponent.vue')
+);
+
+/**
+ * Componente para rechazar las facturas pendientes
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-bill-rejected-pending', () => import(
+    /* webpackChunkName: "sale-bill-rejected-pending" */
+    './components/bills/SaleBillRejectedPendingComponent.vue')
+);
+
+/**
  * Componente para mostrar un listado de las facturas aprobadas
  *
  * @author Daniel Contreras <dcontreras@cenditel.gob.ve>

@@ -111,6 +111,16 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-6" v-if="record.rejected_reason">
+                                    <div class="form-group">
+                                        <strong>Motivo del rechazo</strong>
+                                        <div class="row" style="margin: 1px 0">
+                                            <span class="col-md-12">
+                                                {{ record.rejected_reason }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
