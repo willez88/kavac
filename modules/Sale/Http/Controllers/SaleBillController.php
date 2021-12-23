@@ -388,6 +388,10 @@ class SaleBillController extends Controller
      */
     public function rejectedBill(Request $request, $id)
     {
+        $this->validate($request, [
+            'rejected_reason'        => ['required'],
+        ]);
+
         $sale_bills = SaleBill::find($id);
         $sale_bills->state = 'Rechazado';
         $sale_bills->rejected_reason = $request->input('rejected_reason');
