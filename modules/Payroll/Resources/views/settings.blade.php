@@ -271,10 +271,14 @@
 					<payroll-concepts></payroll-concepts>
 
 					{{-- Tipos de pago --}}
-					<payroll-payment-types></payroll-payment-types>
+					<payroll-payment-types
+						start_operations_date="{!! (isset($institution)) ? $institution->start_operations_date : '' !!}">
+					</payroll-payment-types>
 
 					{{-- Políticas vacacionales --}}
-					<payroll-vacation-policies></payroll-vacation-policies>
+					<payroll-vacation-policies
+						start_operations_date="{!! (isset($institution)) ? $institution->start_operations_date : '' !!}">
+					</payroll-vacation-policies>
 
 					{{-- Políticas de prestaciones sociales --}}
 					<payroll-benefits-policies></payroll-benefits-policies>

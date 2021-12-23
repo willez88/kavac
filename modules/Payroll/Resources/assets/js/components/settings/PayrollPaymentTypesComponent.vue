@@ -84,7 +84,8 @@
                                     <label>Fecha de inicio del primer período:</label>
                                     <input type="date" id="start_date" placeholder="Fecha de inicio"
                                            data-toggle="tooltip" title="Indique la fecha de inicio del primer período"
-                                           class="form-control input-sm" v-model="record.start_date">
+                                           class="form-control input-sm"
+                                           :min="start_operations_date" v-model="record.start_date">
                                 </div>
                             </div>
                             <!-- ./fecha de inicio -->
@@ -259,6 +260,13 @@
                 ],
                 payroll_concepts:      [],
                 associated_records:    []
+            }
+        },
+        props: {
+            start_operations_date: {
+                type:     Date,
+                required: false,
+                default:  ''
             }
         },
         created() {
