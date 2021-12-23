@@ -34,7 +34,7 @@
                         route_show="payroll/registers/show/{id}"
                         route_edit="payroll/registers/edit/{id}"
                         route_delete="payroll/registers">
-                    </payroll-registers-lit>
+                    </payroll-registers-list>
                 </div>
             </div>
         </div>

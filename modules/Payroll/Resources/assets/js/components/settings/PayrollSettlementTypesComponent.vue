@@ -59,12 +59,9 @@
                             <div class="col-md-6">
                                 <div class="form-group is-required">
                                     <label for="motive">Motivo:</label>
-                                    <ckeditor :editor="ckeditor.editor" id="motive"
-                                              data-toggle="tooltip"
-                                              title="Indique el motivo del tipo de liquidación (requerido)"
-                                              :config="ckeditor.editorConfig" class="form-control"
-                                              name="motive"
-                                              v-model="record.motive"></ckeditor>
+                                    <input type="text" id="motive" placeholder="Motivo"
+        								   class="form-control input-sm" v-model="record.motive" data-toggle="tooltip"
+        								   title="Indique el motivo del tipo de liquidación (requerido)">
         	                    </div>
                             </div>
                         </div>
