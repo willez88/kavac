@@ -359,7 +359,7 @@ class SaleBillController extends Controller
         })->get();
 
         foreach ($users as $user) {
-            $user->notify(new BillApproved(Auth::user(), $user, $sale_bills->code));
+            $user->notify(new BillApproved(Auth::user(), $user, $sale_bills));
         };
 
         $bill_inventory_products = $sale_bills->SaleBillInventoryProduct;

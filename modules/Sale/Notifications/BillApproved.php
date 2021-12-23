@@ -77,9 +77,9 @@ class BillApproved extends Notification //implements ShouldQueue
                     ->line(
                         __('El usuario :auth_username', ['auth_username' => $this->user->username])
                     )
-                    ->line(__('ha aprobado la factura :bill', ['bill' => $this->bill]))
+                    ->line(__('ha aprobado la factura :bill', ['bill' => $this->bill->code]))
                     ->line(__('Para detallar la factura, pulse a continuación'))
-                    ->action(__('Factura'), route('index'))
+                    ->action(__('Factura'), url('/sale/bills/pdf/'.$this->bill->id))
                     ->line(__(
                         'Este correo es enviado de manera automática por la aplicación y no esta siendo monitoreado. ' .
                         'Por favor no responda a este correo!'
