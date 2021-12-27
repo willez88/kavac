@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Rules\CodeSetting as CodeSettingRule;
 use App\Models\CodeSetting;
+use App\Models\Institution;
 use Modules\Payroll\Models\Parameter;
 
 class PayrollSettingController extends Controller
@@ -21,6 +22,10 @@ class PayrollSettingController extends Controller
      */
     public function index()
     {
+        $institution = Institution::where([
+            'active'  => true,
+            'default' => true
+        ])->first();
         $enable = isModuleEnabled('DigitalSignature');
         $codeSettings = CodeSetting::where('module', 'payroll')->get();
         $sCode  = $codeSettings->where('table', 'payroll_staffs')->first();
@@ -33,7 +38,7 @@ class PayrollSettingController extends Controller
         ])->first();
         return view(
             'payroll::settings',
-            compact('codeSettings', 'sCode', 'ssCode', 'stCode', 'vRCode', 'bRCode', 'parameter')
+            compact('codeSettings', 'sCode', 'ssCode', 'stCode', 'vRCode', 'bRCode', 'parameter', 'institution')
         );
     }
 

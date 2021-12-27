@@ -51,19 +51,12 @@ class SaleBillController extends Controller
 		$is_admin = auth()->user()->isAdmin();
 
 
-		$sale_bills = SaleBill::with(
-			[
-                'saleClient',
-                'saleWarehouse',
-                'salePaymentMethod',
-                'saleDiscount',
-                'saleBillInventoryProduct' => function ($query) {
-                        $query->with(['saleWarehouseInventoryProduct' => function ($query){
-                            $query->with('saleSettingProduct');
+		$sale_bills = SaleBill::where('state', 'Aprobado')->with(['SaleFormPayment', 'saleBillInventoryProduct' => function ($query) {
+                        $query->with(['saleGoodsToBeTraded', 'currency', 'saleListSubservices', 'measurementUnit', 'historyTax',
+                            'saleWarehouseInventoryProduct' => function ($q) {
+                                $q->with('saleSettingProduct');
                         }]);
-                    }
-            ]
-		)->find($id);
+                    }])->find($id);
 		// if (!$is_admin && $user_profile && $user_profile['institution']) {
 		// 	// )->where('institution_id', $user_profile['institution']['id'])->find($id);
 		// } else {

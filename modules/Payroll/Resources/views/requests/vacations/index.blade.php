@@ -53,7 +53,7 @@
                     </div>
                     <div class="card-body">
                         <payroll-vacation-request-pending-list
-                            route_list="payroll/vacation-requests/vue-pending-list') }}"
+                            route_list="payroll/vacation-requests/vue-pending-list"
                             route_update='payroll/vacation-requests'>
                         </payroll-vacation-request-pending-list>
                     </div>

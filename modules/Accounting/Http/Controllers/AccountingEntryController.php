@@ -690,6 +690,15 @@ class AccountingEntryController extends Controller
 		return response()->json(['message'=>'Success'], 200);
 	}
 
+	/**
+	 * Obtiene un listado con las instituciones registradas en el sistemas
+	 * Caso Admin muestra todas
+	 * Caso User muestra solo a la que pertenece
+	 * 
+	 * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+	 * 
+	 * @return Array
+	 */
 	public function getInstitutionAvailables($text)
 	{
 		$institutions = [];

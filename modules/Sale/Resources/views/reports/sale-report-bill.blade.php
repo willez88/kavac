@@ -28,7 +28,12 @@
                     @include('buttons.minimize')
                 </div>
             </div>
-            <h1>Hello!!!</h1>
+            <div class="card-body">
+                <sale-report-bill-list
+                    route_list="sale/reports/bills/vue-list"
+                >
+                </sale-report-bill-list>
+            </div>
         </div>
     </div>
 </div>

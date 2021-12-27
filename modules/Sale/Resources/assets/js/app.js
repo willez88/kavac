@@ -201,6 +201,16 @@ Vue.component('sale-bill-list', () => import(
 );
 
 /**
+ * Componente que permite filtrar las facturas registradas en el sistema.
+ *
+ * @author Ing. Argenis Osorio <aosorio@cenditel.gob.ve>
+ */
+Vue.component('sale-report-bill-list', () => import(
+    /* webpackChunkName: "sale-report-bill-list" */
+    './components/bills/SaleReportBillListComponent.vue')
+);
+
+/**
  * Componente para mostrar la información de las solicitudes de almacén
  *
  * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
@@ -218,6 +228,26 @@ Vue.component('sale-bill-info', () => import(
 Vue.component('sale-bill-pending-list', () => import(
     /* webpackChunkName: "sale-bill-pending-list" */
     './components/bills/SaleBillPendingListComponent.vue')
+);
+
+/**
+ * Componente para aprobar las facturas pendientes
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-bill-accept-pending', () => import(
+    /* webpackChunkName: "sale-bill-accept-pending" */
+    './components/bills/SaleBillAcceptPendingComponent.vue')
+);
+
+/**
+ * Componente para rechazar las facturas pendientes
+ *
+ * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+ */
+Vue.component('sale-bill-rejected-pending', () => import(
+    /* webpackChunkName: "sale-bill-rejected-pending" */
+    './components/bills/SaleBillRejectedPendingComponent.vue')
 );
 
 /**

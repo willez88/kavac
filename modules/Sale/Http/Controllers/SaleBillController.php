@@ -359,7 +359,7 @@ class SaleBillController extends Controller
         })->get();
 
         foreach ($users as $user) {
-            $user->notify(new BillApproved(Auth::user(), $sale_bills->code));
+            $user->notify(new BillApproved(Auth::user(), $user, $sale_bills));
         };
 
         $bill_inventory_products = $sale_bills->SaleBillInventoryProduct;
@@ -388,8 +388,13 @@ class SaleBillController extends Controller
      */
     public function rejectedBill(Request $request, $id)
     {
+        $this->validate($request, [
+            'rejected_reason'        => ['required'],
+        ]);
+
         $sale_bills = SaleBill::find($id);
         $sale_bills->state = 'Rechazado';
+        $sale_bills->rejected_reason = $request->input('rejected_reason');
         $sale_bills->save();
 
         $request->session()->flash('message', ['type' => 'update']);

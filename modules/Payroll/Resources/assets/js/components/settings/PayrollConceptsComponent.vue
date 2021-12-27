@@ -283,7 +283,8 @@
                                 <div class="form-group is-required">
                                     <label>Fórmula</label>
                                     <textarea type="text"
-                                              class="form-control input-sm BlockDeletion" data-toggle="tooltip"
+                                              :class="['form-control input-sm BlockDeletion', isInvalid('formula')]"
+                                              data-toggle="tooltip"
                                               title="Fórmula a aplicar para el concepto. Utilice la siguiente calculadora para establecer los parámetros de la fórmula"
                                               rows="3" v-model="record.formula"
                                               autocomplete="off"
@@ -481,6 +482,9 @@
                             <div slot="description" slot-scope="props">
                                 <span v-html="props.row.description"></span>
                             </div>
+                            <div slot="incidence_type" slot-scope="props">
+                                <span> {{ incidence_types[props.row.incidence_type] }} </span>
+                            </div>
                             <div slot="id" slot-scope="props" class="text-center">
                                 <button @click="initUpdate(props.row.id, $event)"
                                         class="btn btn-warning btn-xs btn-icon  btn-action"
@@ -566,7 +570,13 @@
                     {"id": "dialy_salary",         "text": "Salario diario"},
                     {"id": "comprehensive_salary", "text": "Salario integral"},
                     {"id": "none",                 "text": "Ninguno"}
-                ]
+                ],
+                incidence_types: {
+                    'value':          'Valor',
+                    'absolute_value': 'Valor absoluto',
+                    'tax_unit':       'Unidad tributaria',
+                    'percent':        'Porcentaje'
+                }
             }
         },
         created() {
@@ -934,7 +944,27 @@
                         }
                     });
                 }
-            }
+            },
+            /**
+             * Método que obtiene el estado de la propiedad is-invalid para elementos del formulario
+             *
+             * @method    isInvalid
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve> | <henryp2804@gmail.com>
+             *
+             * @param     {string}    elName    Nombre del elemento a buscar
+             * @param     {string}    model     Nombre del modelo donde buscar
+             */
+            isInvalid(elName, model = 'record') {
+                const vm = this;
+                
+                if (typeof vm[model][elName] != 'undefined') {
+                    let keys = vm[model][elName].indexOf('/0');
+                    return (keys > 0) ? 'is-invalid': '';
+                } else {
+                    return '';
+                }
+            },
         }
     };
 </script>

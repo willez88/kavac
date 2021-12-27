@@ -115,8 +115,14 @@
             </div>
         </div>
     </div>
+     <sale-bill-accept-pending
+        ref="BillAccept">
+    </sale-bill-accept-pending>
+    <sale-bill-rejected-pending
+        ref="BillRejected">
+    </sale-bill-rejected-pending>
+    @endrole
     <sale-bill-info
         ref="BillInfo">
     </sale-bill-info>
-    @endrole
 @stop

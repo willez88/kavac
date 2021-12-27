@@ -11,26 +11,26 @@
                 <div class="col-xs-6 col-sm-6 col-md-2">
                     <label class="control-label">Filtrar por</label>
                     <div class="form-check col-xs-12 col-sm-12 col-md-12">
-                      <input class="form-check-input" type="radio" name="flexRadioDate" id="flexRadioDateSpecific" value="specific" v-model="filterDate">
+                      <input class="form-check-input" type="radio" name="flexRadioDate" id="flexRadioDateSpecific" value="specific" v-model="record.filterDate">
                       <label class="form-check-label" for="flexRadioDateSpecific">
                         Por Período
                       </label>
                     </div>
                     <div class="form-check col-xs-12 col-sm-12 col-md-12">
-                      <input class="form-check-input" type="radio" name="flexRadioDate" id="flexRadioDateGeneral" value="general" v-model="filterDate">
+                      <input class="form-check-input" type="radio" name="flexRadioDate" id="flexRadioDateGeneral" value="general" v-model="record.filterDate">
                       <label class="form-check-label" for="flexRadioDateGeneral">
                         Por Mes
                       </label>
                     </div>
                 </div>
-                <div class="col-md-3" v-show="filterDate == 'specific'">
+                <div class="col-md-3" v-show="record.filterDate == 'specific'">
                     <div class="form-group is-required">
                         <label class="control-label">Fecha inicial</label>
                         <input type="date" class="form-control input-sm"
                             v-model="record.dateIni">
                     </div>
                 </div>
-                <div class="col-md-3" v-show="filterDate == 'specific'">
+                <div class="col-md-3" v-show="record.filterDate == 'specific'">
                     <div class="form-group is-required">
                         <label class="control-label">Fecha final</label>
                         <input type="date" class="form-control input-sm"
@@ -38,7 +38,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-3" v-show="filterDate == 'general'">
+                <div class="col-md-3" v-show="record.filterDate == 'general'">
                     <label class="control-label">Fecha Inicial</label>
                     <div class="is-required">
                         <label>Mes</label>
@@ -49,7 +49,7 @@
                         <select2 :options="years" v-model="record.year_init"></select2>
                     </div>
                 </div>
-                <div class="col-md-3" v-show="filterDate == 'general'">
+                <div class="col-md-3" v-show="record.filterDate == 'general'">
                     <label class="control-label">Fecha Final</label>
                     <div class="is-required">
                         <label>Mes</label>
@@ -78,7 +78,7 @@
                 </div>
                 <div class="col-md-6" v-if="record.check_client">
                     <div class="form-group is-required" style="margin-top: -1.5rem;">
-                        <v-multiselect :options="client_list" track_by="text"
+                        <v-multiselect :options="clients" track_by="text"
                             :hide_selected="false" :selected="record.clients" v-model="record.clients">
                         </v-multiselect>
                     </div>
@@ -87,20 +87,26 @@
         </div>
         <div class="card-footer text-right" >
             <button data-toggle="tooltip" title="Buscar" class="btn btn-info btn-sm" @click="searchRecords">
-                <i class="fa fa-search"></i>
+                Buscar <i class="fa fa-search"></i>
             </button>
-            <!-- <button class="btn btn-primary btn-sm" data-toggle="tooltip" title="Generar Reporte"
-                    v-on:click="OpenPdf(getUrlReport(), '_blank')" id="saleOrderGenerateReport">
-                <span>Generar reporte</span>
-                <i class="fa fa-print"></i>
-            </button> -->
         </div>
         <div class="col-12"><hr></div>
         <div class="col-12">
             <v-client-table :columns="columns" :data="records" :options="table_options">
+                <div slot="date" slot-scope="props">
+                    {{ props.row.created_at }}
+                </div>
                 <div slot="id" slot-scope="props">
+                    <input type="checkbox" id="CheckAddToReport" @click="addToReport(props.row.id)">
                 </div>
             </v-client-table>
+        </div>
+        <div class="card-footer text-right" v-if="records.length > 0">
+            <button class="btn btn-primary btn-sm" data-toggle="tooltip" title="Generar Reporte" :disabled="recordsToReport.length == 0"
+                    v-on:click="OpenPdf(getUrlReport(), '_blank')" id="saleOrderGenerateReport">
+                <span>Generar reporte</span>
+                <i class="fa fa-print"></i>
+            </button>
         </div>
     </section>
 </template>
@@ -122,32 +128,24 @@ export default {
     data() {
         return {
             record: {
-                id: '',
-                name: '',
-                description: '',
-                dateEnd:'',
-                currency:'',
-                status:'all',
-                month_init:'',
-                year_init:new Date().getFullYear(),
-                month_end:'',
-                year_end:new Date().getFullYear(),
-                check_client:false,
-                clients:[],
+                filterDate  : '',
+                dateIni     : '',
+                dateEnd     : '',
+                status      : 'Todos',
+                month_init  : '',
+                year_init   : new Date().getFullYear(),
+                month_end   : '',
+                year_end    : new Date().getFullYear(),
+                check_client: false,
+                clients     : [],
             },
             status_list:[
-                { id:'', text:'Seleccione...' },
-                { id:'waiting', text:'pendiente' },
-                { id:'approved', text:'aprobado' },
-                { id:'dismissed', text:'rechazado' },
-                { id:'all', text:'todos' },
+                { id:'Todos', text:'Todos' },
+                { id:'Pendiente', text:'Pendiente' },
+                { id:'Aprobado', text:'Aprobado' },
+                { id:'Rechazado', text:'Rechazado' },
             ],
-            client_list:[
-                { id:'waiting', text:'pendiente' },
-                { id:'approved', text:'aprobado' },
-                { id:'dismissed', text:'rechazado' },
-                { id:'all', text:'todos' },
-            ],
+            clients: [],
             months:[
                 { id:'', text:'Seleccione...' },
                 { id:1,  text:'Enero' },
@@ -166,26 +164,28 @@ export default {
             years:[],
             errors: [],
             records: [],
-            columns: ['select', 'code', 'date', 'client', 'description', 'status'],
-            filterDate:'specific',
-            dateEnd:'',
+            recordsToReport:[],
+            columns: ['code', 'date', 'organization', 'description', 'status', 'id'],
         }
     },
     methods: {
         /**
         * Método que borra todos los datos del formulario
         *
-        * @author  Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+        * @author  Juan Rosas <mnarvaez@cenditel.gob.ve>
         */
         reset() {
             this.record = {
-                id: '',
-                name: '',
-                description: 'specific',
-                filterDate:'specific',
-                dateEnd:'',
-                currency:'',
-                status:'all',
+                filterDate  : '',
+                dateIni     : '',
+                dateEnd     : '',
+                status      : 'Todos',
+                month_init  : '',
+                year_init   : new Date().getFullYear(),
+                month_end   : '',
+                year_end    : new Date().getFullYear(),
+                check_client: false,
+                clients     : [],
             };
         },
 
@@ -220,31 +220,68 @@ export default {
         * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
         */
         searchRecords(){
+            const vm = this;
             axios.post('/sale/reports/service-requests/filter-records', this.record).then(response => {
-                console.log(response.data.message);
+                vm.recordsToReport = [];
+                vm.records = response.data.records;
             });
+        },
+
+        /**
+         * Método que carga los clientes registrados para los select
+         *
+         * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+         */
+        getSaleClientsRif() {
+            const vm = this;
+            vm.clients = [];
+            axios.get(`${window.app_url}/sale/get-sale-clients-rif/`).then(response => {
+                vm.clients = response.data.records;
+            });
+        },
+
+        /**
+         * Método que almacena y elimina los registros que se agregaran al reporte
+         * Mantiene la lista ordenada
+         *
+         * @author  Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+         * @param  {integer} id Identificador del registro
+         */
+        addToReport(id){
+            const vm = this;
+            var pos = vm.recordsToReport.indexOf(id);
+            if (pos != -1) {
+                vm.recordsToReport.splice(pos, 1);
+            } else {
+                vm.recordsToReport.push(id);
+            }
+            vm.recordsToReport.sort();
+        },
+
+        getUrlReport(reportUrl, reportId){
+            return (this.url+(reportUrl).split('/')[0]+'/'+reportId);
         },
     },
     created() {
         const vm = this;
         vm.table_options.headings = {
-            'select': 'Selección',
             'code': 'Código',
             'date': 'Fecha',
-            'client': 'Nombre o Razón social del cliente',
+            'organization': 'Nombre o Razón social del cliente',
             'description': 'Descripción del servicio',
             'status': 'Estatus solicitud',
+            'id': 'Acciones',
         };
-        vm.table_options.sortable = ['code', 'date', 'client'];
-        vm.table_options.filterable = ['code', 'date', 'client'];
-        // vm.table_options.columnsClasses = {
-        //     'name': 'col-md-5',
-        //     'description': 'col-md-5',
-        //     'id': 'col-md-2'
-        // };
+        vm.table_options.sortable = ['code', 'date', 'organization'];
+        vm.table_options.filterable = ['code', 'date', 'organization'];
+        vm.table_options.columnsClasses = {
+            'id': 'text-center'
+        };
     },
     mounted(){
         const vm = this;
+        vm.reset();
+        vm.getSaleClientsRif();
         vm.CalculateOptionsYears(vm.year_old);
     },
 };

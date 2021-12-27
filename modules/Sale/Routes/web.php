@@ -442,12 +442,12 @@ Route::group(
          * ------------------------------------------------------------
          */
         Route::get('payment', 'SalePaymentController@index')->name('sale.payment.index');
-
         Route::get('payment/create', 'SalePaymentController@create')->name('payment.register.create');
-
         Route::post('payment/store', 'SalePaymentController@store')->name('payment.register.store');
-
         Route::get('payment/vue-list', 'SalePaymentController@vueList');
+        Route::get('payment/payment_pending', 'SalePaymentController@pending');
+        Route::get('payment/payment_approve', 'SalePaymentController@payment_approve');
+        Route::get('payment/advance_define_attributes_approve', 'SalePaymentController@advance_define_attributes_approve');
         
         Route::get(
             'get-sales-client/{id}',
@@ -534,7 +534,8 @@ Route::group(
          * Rutas para gestionar la generación de reportes de facturas
          * ----------------------------------------------------------
          */
-        Route::get('reports/bills', 'Reports\BillReportController@index')
+        Route::get('reports/bills', 'Reports\SaleBillReportController@index')
         ->name('sale.report.bill');
+        Route::get('reports/bills/vue-list', 'Reports\SaleBillReportController@vueList');
     }
 );

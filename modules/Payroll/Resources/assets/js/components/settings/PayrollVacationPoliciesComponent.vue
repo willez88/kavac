@@ -139,7 +139,9 @@
                                                 <label>Desde:</label>
                                                 <input type="date" id="start_date" placeholder="Desde"
                                                        data-toggle="tooltip" title="Indique la fecha de aplicación asociada a la política vacacional"
-                                                       class="form-control input-sm" v-model="record.start_date">
+                                                       class="form-control input-sm"
+                                                       :min="start_operations_date" :max="record.end_date"
+                                                       v-model="record.start_date">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -599,6 +601,13 @@
                     {"id": "dialy_salary",         "text": "Salario Diario"}
                 ],
                 panel:                 'vacationPolicyForm',
+            }
+        },
+        props: {
+            start_operations_date: {
+                type:     Date,
+                required: false,
+                default:  ''
             }
         },
         created() {

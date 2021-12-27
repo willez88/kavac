@@ -160,11 +160,13 @@ class PayrollPaymentTypeController extends Controller
         }
         /** Se agregan los períodos de pago asociados al tipo de pago */
         foreach ($request->payroll_payment_periods as $paymentPeriod) {
+            $startDate = \DateTime::createFromFormat('d/m/Y', $paymentPeriod['start_date']);
+            $endDate   = \DateTime::createFromFormat('d/m/Y', $paymentPeriod['end_date']);
             $payrollPaymentPeriod = PayrollPaymentPeriod::create([
                 'number'                  => $paymentPeriod['number'],
-                'start_date'              => $paymentPeriod['start_date'],
+                'start_date'              => $startDate->format('Y-m-d'),
                 'start_day'               => $paymentPeriod['start_day'],
-                'end_date'                => $paymentPeriod['end_date'],
+                'end_date'                => $endDate->format('Y-m-d'),
                 'end_day'                 => $paymentPeriod['end_day'],
                 'payment_status'          => $paymentPeriod['payment_status'],
                 'payroll_payment_type_id' => $payrollPaymentType->id
@@ -227,15 +229,17 @@ class PayrollPaymentTypeController extends Controller
         }
         /** Se agregan los períodos de pago asociados al tipo de pago */
         foreach ($request->payroll_payment_periods as $paymentPeriod) {
+            $startDate = \DateTime::createFromFormat('d/m/Y', $paymentPeriod['start_date']);
+            $endDate   = \DateTime::createFromFormat('d/m/Y', $paymentPeriod['end_date']);
             /**
              * Objeto asociado al modelo PayrollPaymentPeriod
              * @var Object $payrollPaymentPeriod
              */
             $payrollPaymentPeriod = PayrollPaymentPeriod::create([
                 'number'                  => $paymentPeriod['number'],
-                'start_date'              => $paymentPeriod['start_date'],
+                'start_date'              => $startDate->format('Y-m-d'),
                 'start_day'               => $paymentPeriod['start_day'],
-                'end_date'                => $paymentPeriod['end_date'],
+                'end_date'                => $endDate->format('Y-m-d'),
                 'end_day'                 => $paymentPeriod['end_day'],
                 'payment_status'          => $paymentPeriod['payment_status'],
                 'payroll_payment_type_id' => $payrollPaymentType->id

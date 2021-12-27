@@ -21,6 +21,24 @@ use Modules\Payroll\Models\PayrollSettlementType;
  */
 class PayrollSettlementTypeController extends Controller
 {
+    /**
+     * Arreglo con las reglas de validación sobre los datos de un formulario
+     * @var Array $validateRules
+     */
+    protected $validateRules;
+
+    /**
+     * Arreglo con los mensajes para las reglas de validación
+     * @var Array $messages
+     */
+    protected $messages;
+
+    /**
+     * Arreglo con los atributos para las reglas de validación
+     * @var Array $attributes
+     */
+    protected $attributes;
+
     use ValidatesRequests;
 
     /**
@@ -41,6 +59,11 @@ class PayrollSettlementTypeController extends Controller
             'name' => [],
             'motive' => ['required', 'max:10'],
             'payroll_concept_id' => ['required'],
+        ];
+
+        /** Define los mensajes de validación para las reglas del formulario */
+        $this->messages = [
+            'motive.max' => 'El campo motivo no debe ser mayor que 10 caracteres',
         ];
 
         /** Define los atributos para los campos personalizados */
@@ -92,7 +115,7 @@ class PayrollSettlementTypeController extends Controller
     public function store(Request $request)
     {
         $this->rules['name'] = ['required', 'unique:payroll_settlement_types,name'];
-        $this->validate($request, $this->rules, [], $this->attributes);
+        $this->validate($request, $this->rules, $this->messages, $this->attributes);
         $payrollSettlementType = PayrollSettlementType::create([
             'name' => $request->name,
             'motive' => $request->motive,
@@ -149,7 +172,7 @@ class PayrollSettlementTypeController extends Controller
     {
         $payrollSettlementType = PayrollSettlementType::find($id);
         $this->rules['name'] = ['required', 'unique:payroll_settlement_types,name,' . $payrollSettlementType->id];
-        $this->validate($request, $this->rules, [], $this->attributes);
+        $this->validate($request, $this->rules, $this->messages, $this->attributes);
         $payrollSettlementType->name = $request->name;
         $payrollSettlementType->motive = $request->motive;
         $payrollSettlementType->payroll_concept_id = $request->payroll_concept_id;

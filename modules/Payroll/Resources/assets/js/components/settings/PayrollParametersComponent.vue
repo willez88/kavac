@@ -140,7 +140,8 @@
                                 <div class="form-group is-required">
                                     <label for="formula">Fórmula:</label>
                                     <textarea type="text"
-                                              class="form-control input-sm BlockDeletion" data-toggle="tooltip"
+                                              :class="['form-control input-sm BlockDeletion', isInvalid('formula')]"
+                                              data-toggle="tooltip"
                                               title="Fórmula a aplicar para la variable. Utilice la siguiente calculadora para establecer los parámetros de la fórmula"
                                               rows="3" v-model="record.formula"
                                               autocomplete="off"
@@ -611,7 +612,27 @@
                         }
                     });
                 }
-            }
+            },
+            /**
+             * Método que obtiene el estado de la propiedad is-invalid para elementos del formulario
+             *
+             * @method    isInvalid
+             *
+             * @author    Henry Paredes <hparedes@cenditel.gob.ve> | <henryp2804@gmail.com>
+             *
+             * @param     {string}    elName    Nombre del elemento a buscar
+             * @param     {string}    model     Nombre del modelo donde buscar
+             */
+            isInvalid(elName, model = 'record') {
+                const vm = this;
+                
+                if (typeof vm[model][elName] != 'undefined') {
+                    let keys = vm[model][elName].indexOf('/0');
+                    return (keys > 0) ? 'is-invalid': '';
+                } else {
+                    return '';
+                }
+            },
         }
     };
 </script>

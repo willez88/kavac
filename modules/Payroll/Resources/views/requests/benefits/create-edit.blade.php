@@ -34,7 +34,7 @@
                 </div>
                 <payroll-benefits-request-form
                     :id="{!! (isset($payrollBenefitsRequest)) ? $payrollBenefitsRequest->id : 'null' !!}"
-                    route_list="payroll/benefits-requests">
+                    route_list="/payroll/benefits-requests">
                 </payroll-benefits-request-form>
             </div>
         </div>
