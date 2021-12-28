@@ -127,6 +127,7 @@ export default {
     },
     data() {
         return {
+            reportUrl:'sale/reports/service-requests/pdf',
             record: {
                 filterDate  : '',
                 dateIni     : '',
@@ -258,9 +259,11 @@ export default {
             vm.recordsToReport.sort();
         },
 
-        getUrlReport(reportUrl, reportId){
-            return (this.url+(reportUrl).split('/')[0]+'/'+reportId);
+        getUrlReport(){
+            const vm = this;
+            return ('/'+vm.reportUrl+'/['+vm.recordsToReport+']');
         },
+
     },
     created() {
         const vm = this;
