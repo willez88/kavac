@@ -748,6 +748,34 @@ Vue.mixin({
         },
 
         /**
+        * Abre una nueva ventana en el navegador
+        *
+        * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+        * @param  {string} url para la nueva ventana
+        * @param  {string} type tipo de ventana que se desea abrir
+        * @return {boolean} Devuelve falso si no se ha indicado alguna información requerida
+        */
+        OpenPdf(url, type){
+            const vm = this;
+            if (!url) {
+                return;
+            }
+            vm.loading = true;
+            axios.get(url).then(response=>{
+                if (!response.data.result) {
+                    vm.showMessage(
+                            'custom', 'Error en conversión', 'danger', 'screen-error', response.data.message
+                        );
+                }else{
+                    url = url.split('/pdf')[0];
+                    url += '/'+response.data.id;
+                    window.open(url, type);
+                }
+                vm.loading = false;
+            })
+        },
+
+        /**
          * Obtiene los Estados del Pais seleccionado
          *
          * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>

@@ -529,6 +529,11 @@ Route::group(
 
         Route::post('reports/service-requests/filter-records', 'Reports\SaleServiceRequestController@filterRecords');
 
+        Route::get(
+            'reports/service-requests/pdf/{ListIds}',
+            'Reports\SaleServiceRequestController@pdf'
+        );
+
         /*
          * ----------------------------------------------------------
          * Rutas para gestionar la generación de reportes de facturas

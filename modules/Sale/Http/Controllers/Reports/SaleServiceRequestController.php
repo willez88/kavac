@@ -129,6 +129,17 @@ class SaleServiceRequestController extends Controller
         //
     }
 
+    /**
+     * [descripción del método]
+     *
+     * @method    filterRecords
+     *
+     * @author    Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     *
+     * @param     Requert    $request    Informacion de la consulta
+     *
+     * @return    Response
+     */
     public function filterRecords(Request $request){
         $filter = $request->all();
 
@@ -151,5 +162,14 @@ class SaleServiceRequestController extends Controller
         return response()->json([
             'records' => $records->get(),
             'message' => 'success'], 200);
+    }
+
+    public function pdf($value=[])
+    {
+        return response()->json([
+            // 'records' => $records->get(),
+            'result' => true,
+            'message' => 'success'], 200);
+        dd(json_decode($value));
     }
 }
