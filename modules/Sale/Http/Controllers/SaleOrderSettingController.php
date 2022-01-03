@@ -16,7 +16,7 @@ use Modules\Sale\Models\SaleSettingProduct;
  *
  * [descripción corta]
  *
- * @author [autor de la clase] [correo del autor]
+ * @author jose puentes jpuentes@cenditel.gob.ve
  *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
@@ -49,19 +49,12 @@ class SaleOrderSettingController extends Controller
       $records = SaleOrder::where('status', '=', 'pending')->get();
       foreach ($records as $key => $record) {
         if (!empty($record->products))  {
-          $product = [];
+          $total = 0;
           $products = json_decode($record->products, true);
-
           foreach ($products as $id => $row) {
-            $product[] = [
-              'id' => $id,
-              'name' => $row['name'],
-              'quantity' => $row['quantity'],
-              'price_product' => $row['price_product'],
-              'total' => $row['total']
-            ];
+            $total += $row['total'];
           }
-          $records[$key]->list_products = $product;
+          $records[$key]->total = $total;
         }
       }
 
@@ -76,19 +69,12 @@ class SaleOrderSettingController extends Controller
       $records = SaleOrder::where('status', '=', 'rechazado')->get();
       foreach ($records as $key => $record) {
         if (!empty($record->products))  {
-          $product = [];
+          $total = 0;
           $products = json_decode($record->products, true);
-
           foreach ($products as $id => $row) {
-            $product[] = [
-              'id' => $id,
-              'name' => $row['name'],
-              'quantity' => $row['quantity'],
-              'price_product' => $row['price_product'],
-              'total' => $row['total']
-            ];
+            $total += $row['total'];
           }
-          $records[$key]->list_products = $product;
+          $records[$key]->total = $total;
         }
       }
       return response()->json(['records' => $records], 200);
@@ -102,19 +88,12 @@ class SaleOrderSettingController extends Controller
       $records = SaleOrder::where('status', '=', 'aprobado')->get();
       foreach ($records as $key => $record) {
         if (!empty($record->products))  {
-          $product = [];
+          $total = 0;
           $products = json_decode($record->products, true);
-
           foreach ($products as $id => $row) {
-            $product[] = [
-              'id' => $id,
-              'name' => $row['name'],
-              'quantity' => $row['quantity'],
-              'price_product' => $row['price_product'],
-              'total' => $row['total']
-            ];
+            $total += $row['total'];
           }
-          $records[$key]->list_products = $product;
+          $records[$key]->total = $total;
         }
       }
       return response()->json(['records' => $records], 200);
@@ -154,8 +133,7 @@ class SaleOrderSettingController extends Controller
     public function store(Request $request)
     {
       $products = [];
-
-      if ($request->list_products && !empty($request->list_products)) {
+      if (count($request->list_products)) {
         foreach ($request->list_products as $product) {
           $products[] = $product;
         }
@@ -163,6 +141,7 @@ class SaleOrderSettingController extends Controller
 
       $this->validate($request, [
         'name' => ['required', 'max:100'],
+        'id_number' => ['required', 'max:100'],
         'email' => ['required', 'max:200'],
         'phone' => ['required', 'regex:/^\d{2}-\d{3}-\d{7}$/u'],
         'description' => ['required', 'max:200']
@@ -170,10 +149,12 @@ class SaleOrderSettingController extends Controller
 
       $order = SaleOrder::create([
         'name'        => $request->name,
+        'id_number'   => $request->id_number,
         'email'       => $request->email,
         'phone'       => $request->phone,
         'description' => $request->description,
-        'products'    => json_encode($products, JSON_FORCE_OBJECT)
+        'products'    => json_encode($products, JSON_FORCE_OBJECT),
+        'status' => 'pending'
       ]);
 
       return response()->json(['record' => $order, 'message' => 'Success', 'redirect' => route('sale.order.index')], 200);
@@ -196,21 +177,39 @@ class SaleOrderSettingController extends Controller
     }
 
     /**
-     * [descripción del método]
-     *
-     * @method    edit
-     *
-     * @author    [nombre del autor] [correo del autor]
-     *
-     * @param     integer    $id    Identificador del registro
-     *
-     * @return    Renderable    [description de los datos devueltos]
+     * Muestra el formulario para editar una orden de pedido
      */
     public function edit($id)
     {
-        $order = SaleOrder::find($id);
-        //dd($order);
-        return view('sale::order.create', compact('order'));
+      $total = 0;
+      $productos = [];
+      $total_without_tax = 0;
+      $record = SaleOrder::where('id', $id)->first();
+      $products = json_decode($record->products, true);
+      foreach ($products as $id => $row) {
+        $productos[] = [
+          'id' => $id,
+          'sale_warehouse_inventory_product_id' => $row['inventory_product']['name'],
+          'quantity' => $row['quantity'],
+          'value' => $row["value"],
+          'iva' => $row["product_tax_value"],
+          'total' => $row['total'],
+          'measurement_unit_id' => $row['measurement_unit_id'],
+          'measurement_unit' => $row['measurement_unit'],
+          'total_without_tax' => $row['total_without_tax'],
+          'product_type' => $row['product_type'],
+          'currency_id' => $row['currency']['name']
+        ];
+        $total += $row['total'];
+        $total_without_tax += $row['total_without_tax'];
+      }
+      if (!empty($record->id)) {
+        $record->list_products = $productos;
+        $record->total_without_tax = $total_without_tax;
+        $record->total = $total;
+      }
+
+      return view('sale::order.create', ['orderid' => $id, 'order' => $record]);
     }
 
     /**
@@ -238,11 +237,13 @@ class SaleOrderSettingController extends Controller
 
         $this->validate($request, [
             'name' => ['required', 'max:100'],
+            'id_number' => ['required', 'max:100'],
             'email' => ['required', 'max:200'],
             'phone' => ['required', 'regex:/^\d{2}-\d{3}-\d{7}$/u'],
             'description' => ['required', 'max:200']
         ]);
         $order->name  = $request->name;
+        $order->id_number = $request->id_number;
         $order->email  = $request->email;
         $order->phone  = $request->phone;
         $order->description = $request->description;
@@ -314,35 +315,41 @@ class SaleOrderSettingController extends Controller
     public function getOrderInfo($id)
     {
       $data = [];
+      $total = 0;
+      $total_without_tax = 0;
       $record = SaleOrder::where('id', $id)->first();
-
-      if (!empty($record->products))  {
-        $products = json_decode($record->products, true);
-
-        foreach ($products as $key => $row) {
-          $product[] = [
-            'id' => $key,
-            'name' => $row['name'],
-            'quantity' => $row['quantity'],
-            'price_product' => $row['price_product'],
-            'total' => $row['total']
-          ];
-        }
+      $products = json_decode($record->products, true);
+      foreach ($products as $id => $row) {
+        $productos[] = [
+          'id' => $id,
+          'name' => $row['inventory_product']['name'],
+          'quantity' => $row['quantity'],
+          'price_product' => $row["total_without_tax"],
+          'iva' => $row["product_tax_value"],
+          'total' => $row['total'],
+          'tipo_producto' => $row['product_type'],
+          'moneda' => $row['currency']['name']
+        ];
+        $total += $row['total'];
+        $total_without_tax += $row['total_without_tax'];
       }
 
       if (!empty($record->id)) {
         $data = [
           'id' => $record->id,
           'name' => $record->name,
+          'id_number' => $record->id_number,
           'email' => $record->email,
           'phone' => $record->phone,
           'description' => $record->description,
           'status' => $record->status,
           'created_at' => $record->created_at,
           'updated_at' => $record->updated_at,
-          'list_products' => $product,
+          'list_products' => $productos,
+          'total_without_tax' => $total_without_tax,
+          'total' => $total,
         ];
       }
-      return response()->json(['values' => $data], 200);
+      return response()->json(['record' => $data], 200);
     }
 }

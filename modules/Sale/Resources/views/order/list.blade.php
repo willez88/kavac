@@ -32,9 +32,11 @@
                   {{-- Lista de pedidos de cliente --}}
                   <register-order-pending-list
                     route_list="{{ url('sale/order/vue-list') }}"
-					route_edit="{{ url('sale/order/edit/{id}') }}"
-                    route_update='sale/order'
-                  >
+                    route_show="{{ url('sale/order/info/{id}') }}"
+                    route_edit="{{ url('sale/order/edit/{id}') }}"
+                    route_delete="{{ url('sale/order/delete') }}"
+                    route_update="sale/order"
+                    >
                   </register-order-pending-list>
                 </div>
             </div>
@@ -54,6 +56,7 @@
                     {{-- Lista de pedidos de cliente rechazados --}}
                     <register-order-rejected-list
                       route_list="{{ url('sale/order/list-rejected') }}"
+                      route_show="{{ url('sale/order/info/{id}') }}"
                       route_update='sale/order'
                     >
                     </register-order-rejected-list>
@@ -75,6 +78,7 @@
                   {{-- Lista de pedidos de cliente aprobados --}}
                   <register-order-approved-list
                       route_list="{{ url('sale/order/list-approved') }}"
+                      route_show="{{ url('sale/order/info/{id}') }}"
                       route_update='sale/order'
                   >
                   </register-order-approved-list>
