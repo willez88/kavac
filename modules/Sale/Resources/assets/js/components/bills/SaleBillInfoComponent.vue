@@ -23,7 +23,7 @@
 
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#products" role="tab">
-                                <i class="ion-arrow-swap"></i> Equipos Solicitados
+                                <i class="ion-arrow-swap"></i> Productos/Servicios Solicitados
                             </a>
                         </li>
                     </ul>
