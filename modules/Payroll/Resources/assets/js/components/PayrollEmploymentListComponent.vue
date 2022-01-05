@@ -185,7 +185,7 @@
             },
 
             show_info(id) {
-                axios.get('/payroll/employments/' + id).then(response => {
+                axios.get(`${window.app_url}/payroll/employments/${id}`).then(response => {
 					this.record = response.data.record;
                     $('#payroll_staff').val(this.record.payroll_staff.first_name + ' ' + this.record.payroll_staff.last_name);
                     $('#start_date_apn').val(this.record.start_date_apn);

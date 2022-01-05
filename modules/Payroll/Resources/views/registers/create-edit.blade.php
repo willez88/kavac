@@ -21,7 +21,7 @@
         <div class="col-12">
             <payroll-registers-form
                 :payroll_id="{!! (isset($payroll)) ? $payroll->id : 'null' !!}"
-                route_list="payroll/registers">
+                route_list="{{ url('payroll/registers') }}">
             </payroll-registers-form>
         </div>
     </div>

@@ -30,9 +30,9 @@
                 </div>
                 <div class="card-body">
                     <payroll-permission-request-list
-                        route_list="payroll/permission-requests/vue-list"
-                        route_edit="payroll/permission-requests/edit/{id}"
-                        route_delete="payroll/permission-requests/delete">
+                        route_list="{{ url('payroll/permission-requests/vue-list') }}"
+                        route_edit="{{ url('payroll/permission-requests/edit/{id}') }}"
+                        route_delete="{{ url('payroll/permission-requests/delete') }}">
                     </payroll-permission-request-list>
                 </div>
             </div>
@@ -52,8 +52,8 @@
                     </div>
                     <div class="card-body">
                         <payroll-permission-request-pending-list
-                            route_list="payroll/permission-requests/vue-pending-list"
-                            route_update='payroll/permission-requests'>
+                            route_list="{{ url('payroll/permission-requests/vue-pending-list') }}"
+                            route_update="{{ url('payroll/permission-requests') }}">
                         </payroll-permission-request-pending-list>
                     </div>
                 </div>

@@ -30,10 +30,10 @@
                 </div>
                 <div class="card-body">
                     <payroll-vacation-request-list
-                        route_list="payroll/vacation-requests/vue-list"
-                        route_show="payroll/vacation-requests/show/{id}"
-                        route_edit="payroll/vacation-requests/edit/{id}"
-                        route_delete="payroll/vacation-requests">
+                        route_list="{{ url('payroll/vacation-requests/vue-list') }}"
+                        route_show="{{ url('payroll/vacation-requests/show/{id}') }}"
+                        route_edit="{{ url('payroll/vacation-requests/edit/{id}') }}"
+                        route_delete="{{ url('payroll/vacation-requests') }}">
                     </payroll-vacation-request-list>
                 </div>
             </div>
@@ -53,8 +53,8 @@
                     </div>
                     <div class="card-body">
                         <payroll-vacation-request-pending-list
-                            route_list="payroll/vacation-requests/vue-pending-list"
-                            route_update='payroll/vacation-requests'>
+                            route_list="{{ url('payroll/vacation-requests/vue-pending-list') }}"
+                            route_update="{{ url('payroll/vacation-requests') }}">
                         </payroll-vacation-request-pending-list>
                     </div>
                 </div>

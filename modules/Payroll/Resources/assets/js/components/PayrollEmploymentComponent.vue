@@ -30,7 +30,7 @@
 								</span>
 							</button>
 							<ul>
-								<li v-for="error in errors">{{ error }}</li>
+								<li v-for="error in errors" :key="error">{{ error }}</li>
 							</ul>
 						</div>
 					</div>
@@ -221,7 +221,7 @@
 
 			async getEmployment() {
 				let vm = this;
-				await axios.get(`/payroll/employments/${vm.payroll_employment_id}`).then(response => {
+				await axios.get(`${window.app_url}/payroll/employments/${vm.payroll_employment_id}`).then(response => {
 					vm.record = response.data.record;
 					vm.record.institution_id = response.data.record.department.institution_id;
 				});
@@ -230,7 +230,7 @@
 				let vm = this;
 				vm.departments = [];
 				if (vm.record.department.institution_id) {
-	                await axios.get(`/get-departments/${vm.record.department.institution_id}`).then(response => {
+	                await axios.get(`${window.app_url}/get-departments/${vm.record.department.institution_id}`).then(response => {
 	                    vm.departments = response.data;
 	                });
 	                if (vm.record.id) {

@@ -34,7 +34,7 @@
                                     </span>
                                 </button>
                                 <ul>
-                                    <li v-for="error in errors">{{ error }}</li>
+                                    <li v-for="error in errors" :key="error">{{ error }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -196,7 +196,8 @@
                                                         @change="isDisable('horizontal');loadSalaryScales('horizontal')"
                                                         v-model="record.payroll_horizontal_salary_scale_id">
                                                     <option v-for="option in payroll_horizontal_salary_scales"
-                                                            :id="option.id + '_h'" :value="option.id">
+                                                            :id="option.id + '_h'" :value="option.id" 
+                                                            :key="option.id">
                                                         {{ option.text }}
                                                     </option>
                                                 </select>
@@ -212,7 +213,8 @@
                                                         @change="isDisable('vertical');loadSalaryScales('vertical')"
                                                         v-model="record.payroll_vertical_salary_scale_id">
                                                     <option v-for="option in payroll_vertical_salary_scales"
-                                                            :id="option.id + '_v'" :value="option.id">
+                                                            :id="option.id + '_v'" :value="option.id" 
+                                                            :key="option.id">
                                                         {{ option.text }}
                                                     </option>
                                                 </select>
@@ -244,7 +246,7 @@
                                                 <tr class="text-center">
                                                     <th>Nombre:</th>
                                                     <th
-                                                        v-for="(field_h, index) in payroll_salary_scale_h.payroll_scales">
+                                                        v-for="(field_h, index) in payroll_salary_scale_h.payroll_scales" :key="index">
                                                         {{field_h.name}}
                                                     </th>
                                                 </tr>
@@ -252,7 +254,8 @@
                                                     v-if="record.payroll_salary_tabulator_type == 'horizontal'">
                                                     <th>Incidencia:</th>
                                                     <td class="td-with-border"
-                                                        v-for="(field_h, index) in payroll_salary_scale_h.payroll_scales">
+                                                        v-for="(field_h, index) in payroll_salary_scale_h.payroll_scales" 
+                                                        :key="index">
                                                         <div>
                                                             <input type="text" :id="'salary_scale_h_' + field_h.id"
                                                                    class="form-control input-sm" data-toggle="tooltip"
@@ -268,12 +271,13 @@
                                                 <tr class="text-center"
                                                     v-if="record.payroll_vertical_salary_scale_id > 0
                                                        && record.payroll_salary_tabulator_type == 'mixed'"
-                                                    v-for="(field_v, index_v) in payroll_salary_scale_v.payroll_scales">
+                                                    v-for="(field_v, index_v) in payroll_salary_scale_v.payroll_scales" 
+                                                    :key="index_v">
                                                     <th>
                                                         {{field_v.name}}
                                                     </th>
                                                     <td class="td-with-border"
-                                                        v-for="(field_h, index_h) in payroll_salary_scale_h.payroll_scales">
+                                                        v-for="(field_h, index_h) in payroll_salary_scale_h.payroll_scales" :key="index_h">
                                                         <div>
                                                             <input type="text"
                                                                    :id="'salary_scale_' + field_v.id + '_' + field_h.id"
@@ -302,7 +306,8 @@
                                                     <th>Incidencia</th>
                                                 </tr>
                                                 <tr class="text-center"
-                                                    v-for="(field, index) in payroll_salary_scale_v.payroll_scales">
+                                                    v-for="(field, index) in payroll_salary_scale_v.payroll_scales" 
+                                                    :key="index">
                                                     <th>
                                                         {{field.name}}
                                                     </th>
@@ -346,7 +351,7 @@
 			        </div>
 			        <div class="modal-footer">
                         <div class="form-group">
-                            <modal-form-buttons :saveRoute="'payroll/salary-tabulators'"></modal-form-buttons>
+                            <modal-form-buttons :saveRoute="app_url + '/payroll/salary-tabulators'"></modal-form-buttons>
                         </div>
                     </div>
                     <div class="modal-body modal-table">
@@ -583,7 +588,7 @@
              * @param     {object}     event    Objeto que gestiona los eventos
              */
 			exportRecord(id, event) {
-				window.open('/payroll/salary-tabulators/export/' + id);
+				window.open(`${window.app_url}/payroll/salary-tabulators/export/${id}`);
 				event.preventDefault();
 			},
             /**
@@ -609,7 +614,7 @@
                 vm.edit = false;
 
                 if (vm.record.payroll_salary_tabulator_type != '') {
-                    axios.post('/payroll/get-salary-scales', field).then(response => {
+                    axios.post(`${window.app_url}/payroll/get-salary-scales`, field).then(response => {
                         if (typeof(response.data) !== "undefined") {
 
                             if (vm.record.payroll_salary_tabulator_type == 'vertical') {
@@ -659,14 +664,14 @@
                     if (ladder == 'horizontal') {
                         if (vm.record.payroll_horizontal_salary_scale_id > 0) {
                             id = vm.record.payroll_horizontal_salary_scale_id;
-                            axios.get('/payroll/salary-scales/info/' + id).then(response => {
+                            axios.get(`${window.app_url}/payroll/salary-scales/info/${id}`).then(response => {
                                 vm.payroll_salary_scale_h = response.data.record;
                             });
                         };
                     } else {
                         if (vm.record.payroll_vertical_salary_scale_id > 0) {
                             id = vm.record.payroll_vertical_salary_scale_id;
-                            axios.get('/payroll/salary-scales/info/' + id).then(response => {
+                            axios.get(`${window.app_url}/payroll/salary-scales/info/${id}`).then(response => {
                                 vm.payroll_salary_scale_v = response.data.record;
                             });
                         }
@@ -735,6 +740,8 @@
             createRecord(url, list = true, reset = true) {
                 const vm = this;
                 var payroll_scales = [];
+                url = (!url.includes('http://') || !url.includes('http://'))
+                      ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
 
                 if ((vm.record.payroll_horizontal_salary_scale_id > 0
                     && vm.payroll_salary_scale_h.payroll_scales.length > 0)
@@ -798,7 +805,7 @@
                     for (var index in this.record) {
                         fields[index] = this.record[index];
                     }
-                    axios.post('/' + url, fields).then(response => {
+                    axios.post(url, fields).then(response => {
                         if (typeof(response.data.redirect) !== "undefined") {
                             location.href = response.data.redirect;
                         }

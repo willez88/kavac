@@ -100,6 +100,8 @@ Vue.directive('has-tooltip', {
 Vue.mixin({
 	data() {
 		return {
+			/** @type {String} Establece la ruta del dominio o subdominio de la aplicación */
+			app_url: window.app_url,
 			/** @type {Boolean} Establece si se esta o no cargando una petición del sistema */
 			loading: true,
 			/** @type {Object} Objeto que contiene los atributos y métodos para obtener traducciones del sistema  */
@@ -274,6 +276,18 @@ Vue.mixin({
 				});
 			}
 		},
+		/**
+		 * Establece la url absoluta
+		 * 
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+		 *
+		 * @param   {String}  route  Ruta de la URL
+		 *
+		 * @return  {String}         Ruta absoluta
+		 */
+		setUrl(route) {
+            return `${window.app_url}/${route}`;
+        },
 		/**
 		 * Redirecciona a una url esecífica si fue suministrada
 		 *
@@ -559,7 +573,7 @@ Vue.mixin({
 		 */
 		createRecord(url, list = true, reset = true) {
 			const vm = this;
-			url = (!url.includes('http://') || !url.includes('http://'))
+			url = (!url.includes('http://') || !url.includes('https://'))
 				  ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
 
 			if (vm.record.id) {
@@ -650,9 +664,6 @@ Vue.mixin({
 				if (value === true || value === false) {
 					$("input[name=" + el + "].bootstrap-switch").bootstrapSwitch('state', value, true);
 				}
-				/*if (el.substring(el.length - 3, el.length) === "_id") {
-					$("#" + el + ".select2").val(value);
-				}*/
 			});
 
 			event.preventDefault();

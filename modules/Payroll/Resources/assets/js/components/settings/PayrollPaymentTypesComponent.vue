@@ -33,7 +33,7 @@
                                     </span>
                                 </button>
                                 <ul>
-                                    <li v-for="error in errors">{{ error }}</li>
+                                    <li v-for="error in errors" :key="error">{{ error }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -176,7 +176,7 @@
                     </div>
                     <div class="modal-footer">
                         <div class="form-group">
-                            <modal-form-buttons :saveRoute="'payroll/payment-types'"></modal-form-buttons>
+                            <modal-form-buttons :saveRoute="app_url + '/payroll/payment-types'"></modal-form-buttons>
                         </div>
                     </div>
                     <div class="modal-body modal-table">
@@ -425,7 +425,9 @@
             getOptions(url) {
                 const vm = this;
                 vm.associated_records = [];
-                axios.get('/' + url).then(response => {
+                url = (!url.includes('http://') || !url.includes('http://')) 
+                      ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
+                axios.get(url).then(response => {
                     if (response.data.length > 0) {
                         $.each(response.data, function(index, field) {
                             if (typeof(field['children']) != 'undefined') {

@@ -33,7 +33,7 @@
                                     </span>
                                 </button>
                                 <ul>
-                                    <li v-for="error in errors">{{ error }}</li>
+                                    <li v-for="error in errors" :key="error">{{ error }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -140,7 +140,7 @@
                                             <tbody>
                                                 <tr class="selected-row text-center">
                                                     <th>{{ getGroupBy }}</th>
-                                                    <th v-for="(field,index) in record.payroll_scales">
+                                                    <th v-for="(field,index) in record.payroll_scales" :key="index">
                                                         <span v-if="type == 'list'
                                                                  && options.length > 0">
                                                             {{ getValueScale(field.value) }}
@@ -158,13 +158,13 @@
                                                 </tr>
                                                 <tr class="selected-row text-center">
                                                     <th>Nombre</th>
-                                                    <td v-for="(field,index) in record.payroll_scales">
+                                                    <td v-for="(field,index) in record.payroll_scales" :key="index">
                                                         {{ field.name}}
                                                     </td>
                                                 </tr>
                                                 <tr class="config-row text-center">
                                                     <th>Acción:</th>
-                                                    <td v-for="(field,index) in record.payroll_scales">
+                                                    <td v-for="(field,index) in record.payroll_scales" :key="index">
                                                         <div class="d-inline-flex">
                                                             <button @click="editScale(index,$event)"
                                                                     class="btn btn-warning btn-xs btn-icon btn-action"
@@ -310,7 +310,7 @@
                     </div>
                     <div class="modal-footer">
                         <div class="form-group">
-                            <modal-form-buttons :saveRoute="'payroll/salary-scales'"></modal-form-buttons>
+                            <modal-form-buttons :saveRoute="app_url + '/payroll/salary-scales'"></modal-form-buttons>
                         </div>
                     </div>
                     <div class="modal-body modal-table">
@@ -415,7 +415,9 @@
                                 response = field['text'];
                                 if (field['type'] == 'list') {
                                     vm.options = [];
-                                    axios.get('/payroll/get-parameter-options/' + field['id']).then(response => {
+                                    axios.get(
+                                        `${window.app_url}/payroll/get-parameter-options/${field['id']}`
+                                    ).then(response => {
                                         vm.options = response.data;
                                     });
                                 }
@@ -514,7 +516,9 @@
                                 vm.type = field['type'];
                                 if (field['type'] == 'list') {
                                     vm.options = [];
-                                    axios.get('/payroll/get-parameter-options/' + field['id']).then(response => {
+                                    axios.get(
+                                        `${window.app_url}/payroll/get-parameter-options/${field['id']}`
+                                    ).then(response => {
                                         vm.options = response.data;
                                     });
                                 }
@@ -532,7 +536,7 @@
             getPayrollSalaryTabulatorsGroups() {
                 const vm = this;
                 vm.payroll_salary_tabulators_groups = [];
-                axios.get('/payroll/get-salary-tabulators-groups').then(response => {
+                axios.get(`${window.app_url}/payroll/get-salary-tabulators-groups`).then(response => {
                     vm.payroll_salary_tabulators_groups = response.data;
                 });
             },

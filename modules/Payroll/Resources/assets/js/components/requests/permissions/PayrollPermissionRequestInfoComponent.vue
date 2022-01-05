@@ -21,7 +21,7 @@
 				<div class="modal-body">
 						<div class="alert alert-danger" v-if="errors.length > 0">
 							<ul>
-								<li v-for="error in errors">{{ error }}</li>
+								<li v-for="error in errors" :key="error">{{ error }}</li>
 							</ul>
 						</div>
 						<ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
@@ -156,7 +156,7 @@
 
             	document.getElementById("info_general").click();
 
-            	axios.get('/' + url).then(response => {
+            	axios.get(`${window.app_url}/${url}`).then(response => {
 					if (typeof(response.data.record) !== "undefined") {
 						fields = response.data.record;
 
