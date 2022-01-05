@@ -80,8 +80,8 @@
 					{ id:5, text:'Nivel 5' },
 					{ id:6, text:'Nivel 6' },
 				],
-				url:'/accounting/report/',
-				urlSign:'/accounting/report/',
+				url:`${window.app_url}/accounting/report/`,
+				urlSign:`${window.app_url}/accounting/report/`,
 				currency:'',
 			}
 		},

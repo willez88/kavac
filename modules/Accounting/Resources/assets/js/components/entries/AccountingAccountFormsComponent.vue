@@ -12,7 +12,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr v-for="record in recordsAccounting">
+			<tr v-for="(record, index) in recordsAccounting" :key="index">
 				<td>
 					<select2 :options="accounting_accounts" v-model="record.id"
 								@input="changeSelectinTable(record)"></select2>
@@ -110,7 +110,7 @@
 				recordsBudget:[],
 				rowsToDelete:[],
 				columns: ['code', 'debit', 'assets', 'id'],
-				urlPrevious:'/accounting/entries',
+				urlPrevious:`${window.app_url}/accounting/entries`,
 				data:{
 					date:'',
 					reference:'',
@@ -157,7 +157,7 @@
 
 			EventBus.$on('change:currency',(data)=>{
 				if (data != '') {
-					axios.get('/currencies/info/'+data).then(response => {
+					axios.get(`${window.app_url}/currencies/info/${data}`).then(response => {
 						this.data.currency = response.data.currency;
 					});
 				}else{
@@ -369,7 +369,7 @@
 				
 				vm.loading = true;
 
-				axios.post('/accounting/entries', vm.data).then(response => {
+				axios.post(`${window.app_url}/accounting/entries`, vm.data).then(response => {
 					vm.loading = false;
 					vm.showMessage('store');
 					setTimeout(function() {
@@ -410,7 +410,7 @@
 
 				vm.loading = true;
 
-				axios.put('/accounting/entries/'+vm.entries.id, vm.data)
+				axios.put(`${window.app_url}/accounting/entries/${vm.entries.id}`, vm.data)
 				.then(response=>{
 					vm.loading = false;
 					vm.showMessage('update');

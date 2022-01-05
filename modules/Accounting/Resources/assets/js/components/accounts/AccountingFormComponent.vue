@@ -75,7 +75,7 @@
                     denomination:'',
                     active:false,
                 },
-                urlPrevious:'/accounting/accounts',
+                urlPrevious: `${window.app_url}/accounting/accounts`,
             }
         },
         created(){
@@ -196,6 +196,9 @@
 
                 auxRecord.active        = $('#active').prop('checked');
 
+                url = (!url.includes('http://') || !url.includes('http://'))
+				      ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
+
                 vm.loading              = true;
 
                 if (auxRecord.id) {
@@ -262,7 +265,7 @@
                     if (typeof res == 'number') {
                         return;
                     }
-                    axios.get('/accounting/get-children-account/' + res).then(response => {
+                    axios.get(`${window.app_url}/accounting/get-children-account/${res}`).then(response => {
                             var account = response.data.account;
                             /**
                              * Selecciona en pantalla la nueva cuentas

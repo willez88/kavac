@@ -315,6 +315,8 @@ Vue.mixin({
 			if (!url) {
 				return;
 			}
+			url = (!url.includes('http://') || !url.includes('http://'))
+				  ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
 			vm.loading = true;
 			axios.get(url.replace('/pdf','/pdfVue')).then(response=>{
 				if (!response.data.result) {
@@ -336,7 +338,7 @@ Vue.mixin({
 		* @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 		*/
 		approve:function(index) {
-			var url = '/accounting/entries/approve';
+			var url = `${window.app_url}/accounting/entries/approve`;
 			var records = this.records;
 			var confirmated = false;
 			var index = index - 1;

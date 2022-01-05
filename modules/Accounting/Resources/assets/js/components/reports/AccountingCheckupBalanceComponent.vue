@@ -76,8 +76,8 @@
         },
 		data(){
 			return{
-				url:'/accounting/report/balanceCheckUp/pdf/',
-				urlSign:'/accounting/report/balanceCheckUpSign/pdf/',
+				url:`${window.app_url}/accounting/report/balanceCheckUp/pdf/`,
+				urlSign:`${window.app_url}/accounting/report/balanceCheckUpSign/pdf/`,
 				currency:'',
 			}
 		},

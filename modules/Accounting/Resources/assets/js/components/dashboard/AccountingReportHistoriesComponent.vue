@@ -32,7 +32,7 @@
         data(){
             return {
                 records: [],
-                url:'/accounting/report/',
+                url:`${window.app_url}/accounting/report/`,
                 columns: ['institution_name', 'name', 'created_at', 'range', 'interval', 'id'],
             }
         },
@@ -66,7 +66,7 @@
              * @author Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
              */
             loadRecords(){
-                axios.post('/accounting/get_report_histories').then(response=>{
+                axios.post(`${window.app_url}/accounting/get_report_histories`).then(response=>{
                     this.records = response.data.report_histories;
                 });
             },

@@ -89,7 +89,7 @@
                 reload:false,
                 records: [],
                 record:{},
-                url:'/accounting/entries/',
+                url:`${window.app_url}/accounting/entries/`,
                 columns: ['from_date', 'reference', 'concept', 'total', 'approved', 'id']
             }
         },
@@ -134,7 +134,7 @@
              * @author Juan Rosas <jrosas@cenditel.gob.ve> | <juan.rosasr01@gmail.com>
              */
             loadRecords(){
-                axios.post('/accounting/lastOperations').then(response=>{
+                axios.post(`${window.app_url}/accounting/lastOperations`).then(response=>{
                     this.records = response.data.lastRecords;
                 });
             }

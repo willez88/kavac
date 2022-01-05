@@ -58,11 +58,11 @@
                 accountingAccounts:null,
                 accountOptions:[[],[]],
                 accountSelect:{
-                                init_id:'',
-                                end_id:'',
-                                type:'budget',
-                                all:false,
-                             },
+                    init_id:'',
+                    end_id:'',
+                    type:'budget',
+                    all:false,
+                },
                 searchActive:false,
                 searchBudgetAccount:true, //true: para cuentas presupuestarias, false para cuentas patrimoniales
                 convertionId:null,
@@ -170,7 +170,7 @@
                 }
 
                 if (query) {
-                    axios.post('/accounting/converter/'+name_route).then(response=>{
+                    axios.post(`${window.app_url}/accounting/converter/${name_route}`).then(response=>{
                         vm.setValues(response.data.records, type_select, type_search);
                         vm.loading = false;
                     });
@@ -192,7 +192,7 @@
 
                     vm.loading = true;
 
-                    axios.post('/accounting/converter/get-Records',vm.accountSelect)
+                    axios.post(`${window.app_url}/accounting/converter/get-Records`, vm.accountSelect)
                     .then(response=>{
                         vm.records = [];
                         vm.records = response.data.records;
@@ -201,7 +201,9 @@
                             'Consulta realizada de manera existosa.'
                         );
                         if (vm.records.length == 0) {
-                            vm.$refs.accountingConverter.showAlertMessages('No se encontraron registros de conversiones en el rango dado','primary');
+                            vm.$refs.accountingConverter.showAlertMessages(
+                                'No se encontraron registros de conversiones en el rango dado','primary'
+                            );
                         }else{
                             vm.$refs.accountingConverter.reset();
                         }

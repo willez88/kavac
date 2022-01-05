@@ -50,7 +50,7 @@
 
 					<div class="modal-footer" v-if="!formImport">
 	                	<div class="form-group">
-	                		<modal-form-buttons :saveRoute="'/accounting/accounts/'"></modal-form-buttons>
+	                		<modal-form-buttons :saveRoute="app_url+'/accounting/accounts/'"></modal-form-buttons>
 	                	</div>
 	                </div>
 
@@ -145,6 +145,8 @@ export default{
 		registerImportedAccounts:function(url) {
 			const vm = this;
 			if (vm.accounts != null) {
+				url = (!url.includes('http://') || !url.includes('http://'))
+					  ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
 				axios.post(url, { records: vm.accounts }).then(response=>{
 					vm.showMessage(
 						'custom', 'Éxito', 'success', 'screen-ok',
@@ -164,6 +166,8 @@ export default{
 		 * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 		 */
 		registerAccount(url){
+			url = (!url.includes('http://') || !url.includes('http://'))
+				  ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
 			EventBus.$emit('register:account',url);
 		}
 	},

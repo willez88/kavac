@@ -47,7 +47,7 @@
                     </div>
                     <div class="modal-footer">
                         <div class="form-group">
-                            <modal-form-buttons :saveRoute="'/accounting/settings/categories/'"></modal-form-buttons>
+                            <modal-form-buttons :saveRoute="app_url+'/accounting/settings/categories/'"></modal-form-buttons>
                         </div>
                     </div>
                     <div class="modal-body modal-table">
@@ -186,6 +186,8 @@ export default{
         createRecord(url){
             const vm = this;
             this.record.acronym = this.record.acronym.toUpperCase();
+            url = (!url.includes('http://') || !url.includes('http://'))
+				  ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
 
             if (this.state == 'store') {
                 if (!this.validInformation()) return;

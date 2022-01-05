@@ -101,7 +101,7 @@
                 var formData = new FormData();
                 formData.append("file", file);
                 vm.loading = true;
-                axios.post('/accounting/import', formData, {
+                axios.post(`${window.app_url}/accounting/import`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }

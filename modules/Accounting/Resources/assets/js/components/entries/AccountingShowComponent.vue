@@ -55,7 +55,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="row in accounting_accounts" class="row">
+                                        <tr v-for="(row, index) in accounting_accounts" :key="index" class="row">
                                             <td style="border: 1px solid #dee2e6;" tabindex="0" class="col-8 text-left">
                                                 {{ row.account.denomination }}
                                             </td>

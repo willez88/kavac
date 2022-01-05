@@ -31,10 +31,10 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr v-for="record in recordsAccounting">
+			<tr v-for="(record, index) in recordsAccounting" :key="index">
 				<td>
-					<select2 :options="accounting_accounts" v-model="record.id"
-								@input="changeSelectinTable(record)"></select2>
+					<select2 :options="accounting_accounts" v-model="record.id" 
+							 @input="changeSelectinTable(record)"></select2>
 				</td>
 				<td>
 					<input :disabled="record.assets != 0" type="number"
@@ -162,7 +162,7 @@
 		},
 		mounted(){
 			if (this.recordToConverter) {
-				axios.post('/accounting/entries/converterToEntry', { 
+				axios.post(`${window.app_url}/accounting/entries/converterToEntry`, { 
 						objectsList: this.recordToConverter
 					}
 				).then(response => {
@@ -350,7 +350,7 @@
 
 				vm.loading = true;
 
-				axios.post('/accounting/entries', vm.data).then(response => {
+				axios.post(`${window.app_url}/accounting/entries`, vm.data).then(response => {
 					vm.loading = false;
 					vm.showMessage('store');
 				}).catch(error=>{
@@ -378,7 +378,7 @@
 			*/
 			changeCurrency(currency_id){
 				if (currency_id) {
-					axios.get('/currencies/info/'+currency_id).then(response => {
+					axios.get(`${window.app_url}/currencies/info/${currency_id}`).then(response => {
 						this.data.currency 	= response.data.currency;
 						this.data.currency_id 	= response.data.currency.id;
 					});

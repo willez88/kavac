@@ -48,8 +48,8 @@
 		},
 		data(){
 			return{
-				url:'/accounting/report/dailyBook/pdf/',
-				urlSign:'/accounting/report/dailyBookSign/pdf/',
+				url:`${window.app_url}/accounting/report/dailyBook/pdf/`,
+				urlSign:`${window.app_url}/accounting/report/dailyBookSign/pdf/`,
 				dateIni:'',
 				dateEnd:'',
 				currency:'',
