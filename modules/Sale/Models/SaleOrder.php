@@ -14,7 +14,7 @@ use App\Traits\ModelsTrait;
  *
  * [descripción corta]
  *
- * @author [autor de la clase] [correo del autor]
+ * @author jpuentes jpuentes@cenditel.gob.ve
  *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
@@ -35,5 +35,5 @@ class SaleOrder extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['name','email','phone','description', 'status', 'products'];
+    protected $fillable = ['name', 'id_number', 'email', 'phone', 'description', 'status', 'products'];
 }

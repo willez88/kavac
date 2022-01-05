@@ -34,13 +34,11 @@ Route::group(
         Route::get('order/create', 'SaleOrderSettingController@create')->name('sale.order.create');
         Route::get('order', 'SaleOrderSettingController@index')->name('sale.order.index');
         Route::patch('order/{order}', 'SaleOrderSettingController@update');
+        Route::delete('order/delete/{order}', 'SaleOrderSettingController@destroy')->name('sale.order.destroy');
+        Route::get('order/edit/{order}', 'SaleOrderSettingController@edit')->name('sale.order.edit');
         Route::get('order/vue-list', 'SaleOrderSettingController@getListPending');
         Route::get('order/list-rejected', 'SaleOrderSettingController@getListRejected');
         Route::get('order/list-approved', 'SaleOrderSettingController@getListApproved');
-
-        /** Ruta que muestra el formulario para actualizar la información de una orden */
-        Route::get('order/edit/{order}', 'SaleOrderSettingController@edit')->name('sale.order.edit');
-        /** Ruta que obtiene la información de un bien institucional registrado */
         Route::get('order/info/{order}', 'SaleOrderSettingController@getOrderInfo');
 
         Route::resource(

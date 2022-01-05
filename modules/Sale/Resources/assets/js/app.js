@@ -207,7 +207,7 @@ Vue.component('sale-bill-list', () => import(
  */
 Vue.component('sale-report-bill-list', () => import(
     /* webpackChunkName: "sale-report-bill-list" */
-    './components/bills/SaleReportBillListComponent.vue')
+    './components/reports/SaleReportBillListComponent.vue')
 );
 
 /**
