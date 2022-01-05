@@ -30,7 +30,7 @@
 								</span>
 							</button>
 							<ul>
-								<li v-for="error in errors">{{ error }}</li>
+								<li v-for="error in errors" :key="error">{{ error }}</li>
 							</ul>
 						</div>
 					</div>
@@ -81,7 +81,7 @@
 					<h6 class="card-title">
 						Estudios Universitarios <i class="fa fa-plus-circle cursor-pointer" @click="addPayrollStudies"></i>
 					</h6>
-					<div class="row" v-for="(payroll_study, index) in record.payroll_studies">
+					<div class="row" v-for="(payroll_study, index) in record.payroll_studies" :key="index">
                         <div class="col-3">
 							<div class="form-group is-required">
 								<label>Nombre de la Universidad:</label>
@@ -159,7 +159,7 @@
 								<label for="class_schedules">
 									Horario de Clase:
 	                            </label>
-								<div v-for="(document, index) in payroll_class_schedule.documents">
+								<div v-for="(document, index) in payroll_class_schedule.documents" :key="index">
 									<a :href="`/${document.url}`" target="_blank">Documento</a>
 									<button class="btn btn-sm btn-danger btn-action" type="button"
 	                                        @click="deleteDocument(index, payroll_class_schedule.documents)"
@@ -177,7 +177,7 @@
 					<h6 class="card-title">
 						Detalles de Idiomas <i class="fa fa-plus-circle cursor-pointer" @click="addPayrollLanguages"></i>
 					</h6>
-					<div class="row" v-for="(payroll_language, index) in record.payroll_languages">
+					<div class="row" v-for="(payroll_language, index) in record.payroll_languages" :key="index">
                         <div class="col-3">
 							<div class="form-group is-required">
 								<label>Idioma:</label>
@@ -211,7 +211,7 @@
 						Capacitación y Reconocimientos <i class="fa fa-plus-circle cursor-pointer" @click="addPayrollCouAckFiles"></i>
 					</h6>
 					<!--Formulario de registros nuevos-->
-					<div class="row" v-for="(payroll_cou_ack_file, index) in record.payroll_cou_ack_files">
+					<div class="row" v-for="(payroll_cou_ack_file, index) in record.payroll_cou_ack_files" :key="index">
 						<div class="col-3">
 							<div class="form-group is-required">
 								<label>Nombre del Curso:</label>
@@ -223,7 +223,7 @@
 							<div class="form-group">
 								<label>Curso:</label>
 								<div v-show="payroll_cou_ack_file.course_file_url">
-									<a :href="`/${payroll_cou_ack_file.course_file_url}`" target="_blank">Documento</a>
+									<a :href="`${window.app_url}/${payroll_cou_ack_file.course_file_url}`" target="_blank">Documento</a>
 								</div>
 								<input :id="'course_'+index" type="file"
 									accept=".png, .jpg, .pdf, .odt" @change="processFile($event, index)">
@@ -240,7 +240,7 @@
 							<div class="form-group">
 								<label>Reconocimiento:</label>
 								<div v-show="payroll_cou_ack_file.ack_file_url">
-									<a :href="`/${payroll_cou_ack_file.ack_file_url}`" target="_blank">Documento</a>
+									<a :href="`${window.app_url}/${payroll_cou_ack_file.ack_file_url}`" target="_blank">Documento</a>
 								</div>
 								<input :id="'acknowledgment_'+index" type="file"
 									accept=".png, .jpg, .pdf, .odt" @change="processFile($event, index)">
@@ -315,7 +315,7 @@
 
 			getProfessional() {
 				const vm = this;
-				axios.get(`/payroll/professionals/${vm.payroll_professional_id}`).then(response => {
+				axios.get(`${window.app_url}/payroll/professionals/${vm.payroll_professional_id}`).then(response => {
 					vm.record.id = response.data.record.id;
 					vm.record.payroll_staff_id = response.data.record.payroll_staff_id;
 					vm.record.payroll_instruction_degree_id = response.data.record.payroll_instruction_degree_id;
@@ -434,7 +434,7 @@
 				for (var x = 0; x < inputFiles.files.length; x++) {
     				formData.append(`documents[${x}]`, inputFiles.files[x]);
 				}
-                axios.post('upload-document', formData, {
+                axios.post(`${window.app_url}/upload-document`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -467,7 +467,7 @@
 				var inputFile = document.querySelector(`#${event.currentTarget.id}`);
 				if( inputFile.files[0].type.match('image/png') || inputFile.files[0].type.match('image/jpeg') || inputFile.files[0].type.match('image/jpg') ) {
 					formData.append("image", inputFile.files[0]);
-					axios.post('upload-image', formData, {
+					axios.post(`${window.app_url}/upload-image`, formData, {
 	                    headers: {
 	                        'Content-Type': 'multipart/form-data'
 	                    }
@@ -497,7 +497,7 @@
 				}
 				else {
 					formData.append(`documents[${0}]`, inputFile.files[0]);
-					axios.post('upload-document', formData, {
+					axios.post(`${window.app_url}/upload-document`, formData, {
 	                    headers: {
 	                        'Content-Type': 'multipart/form-data'
 	                    }
@@ -533,7 +533,7 @@
 			 * @author William Páez <wpaez@cenditel.gob.ve>
 			 */
 			deleteDocument(index, documents) {
-				axios.delete(`upload-document/${documents[index].id}`).then(response => {
+				axios.delete(`${window.app_url}/upload-document/${documents[index].id}`).then(response => {
 					documents.splice(index, 1);
 				});
 			},

@@ -15,7 +15,7 @@
                         </span>
                     </button>
                     <ul>
-                        <li v-for="error in errors">{{ error }}</li>
+                        <li v-for="error in errors" :key="error">{{ error }}</li>
                     </ul>
                 </div>
             </div>
@@ -264,9 +264,11 @@
             getPayrollStaffInfo() {
                 const vm = this;
                 if (vm.record.payroll_staff_id > 0) {
-                    axios.get('/payroll/staffs/' + vm.record.payroll_staff_id).then(response => {
+                    axios.get(`${window.app_url}/payroll/staffs/${vm.record.payroll_staff_id}`).then(response => {
                         vm.payroll_staff = response.data.record;
-                        axios.get('/payroll/get-benefits-requests/' + vm.record.payroll_staff_id).then(response => {
+                        axios.get(
+                            `${window.app_url}/payroll/get-benefits-requests/${vm.record.payroll_staff_id}`
+                        ).then(response => {
                             /**
                              * Calcular según politica de prestaciones:
                              * Monto acumulado
@@ -310,7 +312,7 @@
             },
             getPayrollBenefitsPolicy() {
                 const vm = this;
-                axios.get('/payroll/get-benefits-policy').then(response => {
+                axios.get(`${window.app_url}/payroll/get-benefits-policy`).then(response => {
                     vm.payroll_benefits_policy = response.data.record;
                 });
             },
@@ -324,7 +326,7 @@
              */
             showRecord(id) {
                 const vm = this;
-                axios.get('/payroll/benefits-requests/show/' + id).then(response => {
+                axios.get(`${window.app_url}/payroll/benefits-requests/show/${id}`).then(response => {
                     vm.record = response.data.record;
                     vm.record.created_at = vm.format_date(response.data.record.created_at, 'YYYY-MM-DD');
                 });

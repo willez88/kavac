@@ -33,7 +33,7 @@
                                     </span>
                                 </button>
                                 <ul>
-                                    <li v-for="error in errors">{{ error }}</li>
+                                    <li v-for="error in errors" :key="error">{{ error }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -244,7 +244,8 @@
                                                               title="Nuevo período vacacional" data-toggle="tooltip"
                                                               @click="addVacationPeriod()"></i>
                                     </h6>
-                                    <div class="row" v-for="(vacation_period, index) in record.vacation_periods">
+                                    <div class="row" v-for="(vacation_period, index) in record.vacation_periods" 
+                                         :key="index">
                                         <!-- fecha de inicio del período de vacaciones colectivas -->
                                         <div class="col-md-5">
                                             <div class="form-group is-required">
@@ -512,7 +513,7 @@
                     </div>
                     <div class="modal-footer">
                         <div class="form-group">
-                            <modal-form-buttons :saveRoute="'payroll/vacation-policies'"></modal-form-buttons>
+                            <modal-form-buttons :saveRoute="app_url + '/payroll/vacation-policies'"></modal-form-buttons>
                         </div>
                     </div>
                     <div class="modal-body modal-table">

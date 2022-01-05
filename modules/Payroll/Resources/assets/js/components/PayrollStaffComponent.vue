@@ -30,7 +30,7 @@
 								</span>
 							</button>
 							<ul>
-								<li v-for="error in errors">{{ error }}</li>
+								<li v-for="error in errors" :key="error">{{ error }}</li>
 							</ul>
 						</div>
 					</div>
@@ -234,7 +234,7 @@
 					<h6 class="card-title">
 						Números Telefónicos <i class="fa fa-plus-circle cursor-pointer" @click="addPhone"></i>
 					</h6>
-                    <div class="row phone-row" v-for="(phone, index) in record.phones">
+                    <div class="row phone-row" v-for="(phone, index) in record.phones" :key="index">
                         <div class="col-3">
                             <div class="form-group is-required">
                                 <select data-toggle="tooltip" v-model="phone.type" class="select2"
@@ -356,7 +356,7 @@
 
 			async getStaff() {
 				let vm = this;
-				await axios.get(`/payroll/staffs/${vm.payroll_staff_id}`).then(response => {
+				await axios.get(`${window.app_url}/payroll/staffs/${vm.payroll_staff_id}`).then(response => {
 					vm.record = response.data.record;
 					vm.record.country_id = vm.record.parish.municipality.estate.country_id;
 				});
@@ -371,7 +371,7 @@
 	            const vm = this;
 	            vm.estates = [];
 	            if (vm.record.country_id) {
-	                await axios.get(`/get-estates/${vm.record.country_id}`).then(response => {
+	                await axios.get(`${window.app_url}/get-estates/${vm.record.country_id}`).then(response => {
 	                    vm.estates = response.data;
 	                });
 	                if (vm.record.id) {
@@ -389,7 +389,7 @@
 	            const vm = this;
 	            vm.municipalities = [];
 	            if (vm.record.estate_id) {
-	                await axios.get(`/get-municipalities/${vm.record.estate_id}`).then(response => {
+	                await axios.get(`${window.app_url}/get-municipalities/${vm.record.estate_id}`).then(response => {
 	                    vm.municipalities = response.data;
 	                });
 	                if (vm.record.id) {
@@ -407,7 +407,7 @@
 	            const vm = this;
 	            vm.parishes = [];
 	            if (vm.record.municipality_id) {
-	                await axios.get(`/get-parishes/${vm.record.municipality_id}`).then(response => {
+	                await axios.get(`${window.app_url}/get-parishes/${vm.record.municipality_id}`).then(response => {
 	                    vm.parishes = response.data;
 	                });
 	                if (vm.record.id) {

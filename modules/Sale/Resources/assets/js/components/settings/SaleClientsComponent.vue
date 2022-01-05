@@ -16,9 +16,17 @@
                         <h6><i class="icofont icofont-business-man ico-3x"></i>Clientes</h6>
                     </div>
                     <div class="modal-body">
-                        <div class="alert alert-danger" v-if="errors.length > 0">
+                        <div class="alert alert-danger" role="alert" v-if="errors.length > 0">
+                            <strong>¡Cuidado! Debe verificar los siguientes errores antes de continuar:</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                                    @click.prevent="errors = {}">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <hr>
                             <ul>
-                                <li v-for="error in errors">{{ error }}</li>
+                                <li v-for="error in errors">
+                                    {{ error }}
+                                </li>
                             </ul>
                         </div>
                         <h6 class="card-title">Datos del cliente:</h6>

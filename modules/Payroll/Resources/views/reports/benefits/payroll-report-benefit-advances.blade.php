@@ -29,7 +29,7 @@
                 </div>
                 <div class="card-body">
                     <payroll-report-benefit-advances
-                        route_list="payroll/benefits-requests/vue-list">
+                        route_list="{{ url('payroll/benefits-requests/vue-list') }}">
                     </payroll-report-benefit-advances>
                 </div>
             </div>

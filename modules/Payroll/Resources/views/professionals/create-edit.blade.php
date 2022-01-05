@@ -20,7 +20,7 @@
 	<div class="row">
 		<div class="col-12">
 			<payroll-professional :payroll_professional_id="{!! (isset($payrollProfessional)) ? $payrollProfessional->id : "null" !!}"
-                route_list='payroll/professionals'>
+                route_list="{{ url('payroll/professionals') }}">
             </payroll-professional>
 		</div>
 	</div>

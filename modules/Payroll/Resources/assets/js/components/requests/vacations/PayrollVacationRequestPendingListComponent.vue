@@ -19,7 +19,7 @@
             
             <div slot="id" slot-scope="props" class="text-center">
                 <payroll-review-vacation-request-pending-form
-                    :route_show="'payroll/vacation-requests/show/' + props.row.id"
+                    :route_show="app_url + 'payroll/vacation-requests/show/' + props.row.id"
                     :id="props.row.id">
                 </payroll-review-vacation-request-pending-form>
             </div>

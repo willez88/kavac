@@ -32,7 +32,7 @@
                                     </span>
                                 </button>
                                 <ul>
-                                    <li v-for="error in errors">{{ error }}</li>
+                                    <li v-for="error in errors" :key="error">{{ error }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                     </div>
                     <div class="modal-footer">
                         <div class="form-group">
-                            <modal-form-buttons :saveRoute="'payroll/permission-policies'"></modal-form-buttons>
+                            <modal-form-buttons :saveRoute="app_url + '/payroll/permission-policies'"></modal-form-buttons>
                         </div>
                     </div>
                     <div class="modal-body modal-table">
@@ -208,6 +208,8 @@
                     callback: function (result) {
                         if (result) {
                             confirmated = true;
+                            url = (!url.includes('http://') || !url.includes('http://'))
+                                  ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
                             axios.delete(url + '/' + records[index].id).then(response => {
                                 if (typeof(response.data.error) !== "undefined") {
                                     /** Muestra un mensaje de error si sucede algún evento en la eliminación */

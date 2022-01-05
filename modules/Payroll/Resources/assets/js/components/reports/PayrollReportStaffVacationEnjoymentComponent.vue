@@ -3,7 +3,7 @@
 		<div class="card-body">
 			<div class="alert alert-danger" v-if="errors.length > 0">
 				<ul>
-					<li v-for="error in errors">{{ error }}</li>
+					<li v-for="error in errors" :key="error">{{ error }}</li>
 				</ul>
 			</div>
 
@@ -164,22 +164,20 @@ export default {
 				current,
 				payroll_staff_id: this.record.payroll_staff_id
 			};
-			axios
-				.post(`/payroll/reports/${current}/create`, fields)
-				.then(response => {
-					if (typeof response.data.redirect !== 'undefined') {
-						window.open(response.data.redirect, '_blank');
-					} else {
-						vm.reset();
-					}
-					vm.loading = false;
-				})
-				.catch(error => {
-					if (typeof error.response != 'undefined') {
-						console.log('error');
-					}
-					vm.loading = false;
-				});
+			axios.post(`${window.app_url}/payroll/reports/${current}/create`, fields).then(response => {
+				if (typeof response.data.redirect !== 'undefined') {
+					window.open(response.data.redirect, '_blank');
+				} else {
+					vm.reset();
+				}
+				vm.loading = false;
+			})
+			.catch(error => {
+				if (typeof error.response != 'undefined') {
+					console.log('error');
+				}
+				vm.loading = false;
+			});
 		},
 		getYearAntiquity(start_date) {
 			const vm = this;
@@ -198,28 +196,25 @@ export default {
 			const vm = this;
 			vm.record.current = current;
 			vm.loading = true;
-			axios
-				.post('/payroll/reports/vue-list', vm.record)
-				.then(response => {
-					if (typeof response.data.records !== 'undefined') {
-						vm.records = response.data.records;
-					}
-					vm.loading = false;
-				})
-				.catch(error => {
-					vm.errors = [];
+			axios.post(`${window.app_url}/payroll/reports/vue-list`, vm.record).then(response => {
+				if (typeof response.data.records !== 'undefined') {
+					vm.records = response.data.records;
+				}
+				vm.loading = false;
+			}).catch(error => {
+				vm.errors = [];
 
-					if (typeof error.response != 'undefined') {
-						for (var index in error.response.data.errors) {
-							if (error.response.data.errors[index]) {
-								vm.errors.push(
-									error.response.data.errors[index][0]
-								);
-							}
+				if (typeof error.response != 'undefined') {
+					for (var index in error.response.data.errors) {
+						if (error.response.data.errors[index]) {
+							vm.errors.push(
+								error.response.data.errors[index][0]
+							);
 						}
 					}
-					vm.loading = false;
-				});
+				}
+				vm.loading = false;
+			});
 		}
 	},
 	created() {

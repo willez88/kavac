@@ -233,9 +233,9 @@
 
                         <hr>
                         <h6 class="card-title">
-                            Números Telefónicos</i>
+                            Números Telefónicos
                         </h6>
-                        <div class="row" v-for="phone in record.phones">
+                        <div class="row" v-for="(phone, index) in record.phones" :key="index">
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Tipo</label>
@@ -303,7 +303,7 @@
             },
 
             show_info(id) {
-                axios.get('/payroll/staffs/' + id).then(response => {
+                axios.get(`${window.app_url}/payroll/staffs/${id}`).then(response => {
 					this.record = response.data.record;
                     $('#code').val(this.record.code);
                     $('#payroll_staff').val(this.record.first_name + ' ' + this.record.last_name);

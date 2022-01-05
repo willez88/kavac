@@ -30,10 +30,10 @@
                 </div>
                 <div class="card-body">
                     <payroll-benefits-request-list
-                        route_list="payroll/benefits-requests/vue-list"
-                        route_show="payroll/benefits-requests/show/{id}"
-                        route_edit="payroll/benefits-requests/edit/{id}"
-                        route_delete="payroll/benefits-requests">
+                        route_list="{{ url('payroll/benefits-requests/vue-list') }}"
+                        route_show="{{ url('payroll/benefits-requests/show/{id}') }}"
+                        route_edit="{{ url('payroll/benefits-requests/edit/{id}') }}"
+                        route_delete="{{ url('payroll/benefits-requests') }}">
                     </payroll-benefits-request-list>
                 </div>
             </div>
@@ -53,8 +53,8 @@
                     </div>
                     <div class="card-body">
                         <payroll-benefits-request-pending-list
-                            route_list="payroll/benefits-requests/vue-pending-list"
-                            route_update='payroll/benefits-requests'>
+                            route_list="{{ url('payroll/benefits-requests/vue-pending-list') }}"
+                            route_update="{{ url('payroll/benefits-requests') }}">
                         </payroll-benefits-request-pending-list>
                     </div>
                 </div>

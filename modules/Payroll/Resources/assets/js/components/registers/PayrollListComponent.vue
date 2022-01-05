@@ -75,9 +75,10 @@
             },
             closeRecord(id) {
                 const vm = this;
-                axios.patch("/payroll/registers/close/" + id, null).then(response => {
-                    if (typeof(response.data.redirect) !== "undefined")
+                axios.patch(`${window.app_url}/payroll/registers/close/${id}`, null).then(response => {
+                    if (typeof(response.data.redirect) !== "undefined") {
                         location.href = response.data.redirect;
+                    }
                 }).catch(error => {
                     vm.errors = [];
                     if (typeof(error.response) !="undefined") {
@@ -97,7 +98,7 @@
                     current: current
                 };
                 event.preventDefault();
-                axios.post(`/payroll/reports/${current}/create`, fields).then(response => {
+                axios.post(`${window.app_url}/payroll/reports/${current}/create`, fields).then(response => {
                     if (typeof(response.data.redirect) !== "undefined") {
                         window.open(response.data.redirect, '_blank');
                     }

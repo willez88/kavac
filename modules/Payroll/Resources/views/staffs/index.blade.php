@@ -29,10 +29,10 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<payroll-staffs-list route_list="payroll/staffs/show/vue-list"
-										  route_delete="payroll/staffs"
-										  route_edit="payroll/staffs/{id}/edit"
-										  route_show="payroll/staffs/{id}">
+					<payroll-staffs-list route_list="{{ url('payroll/staffs/show/vue-list') }}"
+										  route_delete="{{ url('payroll/staffs') }}"
+										  route_edit="{{ url('payroll/staffs/{id}/edit') }}"
+										  route_show="{{ url('payroll/staffs/{id}') }}">
 					</payroll-staffs-list>
 				</div>
 			</div>
@@ -44,7 +44,7 @@
 	<script type="text/javascript">
 		var records;
 		function openmodal($staff) {
-			axios.get("/payroll/staffs/" + $staff).then(response => {
+			axios.get("{{ url('payroll/staffs') }}/" + $staff).then(response => {
 				records = response.data.record;
 				$(".modal-body #code").val( records.code );
 				$(".modal-body #first_name").val( records.first_name );
@@ -57,14 +57,6 @@
 				$(".modal-body #gender").val( records.gender );
 				$(".modal-body #emergency_contact").val( records.emergency_contact );
 				$(".modal-body #emergency_phone").val( records.emergency_phone );
-				/*if(records.active)
-				{
-					$('#active').bootstrapSwitch('state', true);
-				}
-				else
-				{
-					$('#active').bootstrapSwitch('state', false);
-				}*/
 				$(".modal-body #country").val( records.country );
 				$(".modal-body #estate").val( records.estate );
 				$(".modal-body #municipality").val( records.municipality );

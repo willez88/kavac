@@ -3,7 +3,7 @@
         <div class="card-body">
             <div class="alert alert-danger" v-if="errors.length > 0">
                 <ul>
-                    <li v-for="error in errors">{{ error }}</li>
+                    <li v-for="error in errors" :key="error">{{ error }}</li>
                 </ul>
             </div>
 
@@ -130,7 +130,7 @@
                     current: current
                 };
                 event.preventDefault();
-                axios.post(`/payroll/reports/${current}/create`, fields).then(response => {
+                axios.post(`${window.app_url}/payroll/reports/${current}/create`, fields).then(response => {
                     if (typeof(response.data.redirect) !== "undefined") {
                         window.open(response.data.redirect, '_blank');
                     }
@@ -167,7 +167,7 @@
                 for (var index in vm.record) {
                     fields[index] = vm.record[index];
                 }
-                axios.post('/payroll/reports/vue-list', fields).then(response => {
+                axios.post(`${window.app_url}/payroll/reports/vue-list`, fields).then(response => {
                     if (typeof(response.data.records) !== "undefined") {
                         vm.records = response.data.records;
                     }
@@ -207,7 +207,5 @@
             vm.getPayrollStaffs();
             vm.initRecords(vm.route_list, '');
         }
-   
-
     };
 </script>

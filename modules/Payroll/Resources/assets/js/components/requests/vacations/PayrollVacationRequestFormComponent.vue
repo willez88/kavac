@@ -15,7 +15,7 @@
                         </span>
                     </button>
                     <ul>
-                        <li v-for="error in errors">{{ error }}</li>
+                        <li v-for="error in errors" :key="error">{{ error }}</li>
                     </ul>
                 </div>
             </div>
@@ -171,7 +171,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4 with-border with-radius"
+                        <div class="col-md-4 with-border with-radius" :key="vacation_request_for_period['period']"
                              v-for="vacation_request_for_period in vacation_request_for_periods">
                             <div class="form-group">
                                 <strong> Período: </strong>
@@ -309,9 +309,11 @@
             getPayrollStaffInfo() {
                 const vm = this;
                 if (vm.record.payroll_staff_id > 0) {
-                    axios.get('/payroll/staffs/' + vm.record.payroll_staff_id).then(response => {
+                    axios.get(`${window.app_url}/payroll/staffs/${vm.record.payroll_staff_id}`).then(response => {
                         vm.payroll_staff = response.data.record;
-                        axios.get('/payroll/get-vacation-requests/' + vm.record.payroll_staff_id).then(response => {
+                        axios.get(
+                            `${window.app_url}/payroll/get-vacation-requests/${vm.record.payroll_staff_id}`
+                        ).then(response => {
                             /**
                              * Extraer dias solicitados
                              * Número de periodos por año
@@ -391,7 +393,7 @@
             },
             getPayrollVacationPolicy() {
                 const vm = this;
-                axios.get('/payroll/get-vacation-policy').then(response => {
+                axios.get(`${window.app_url}/payroll/get-vacation-policy`).then(response => {
                     vm.payroll_vacation_policy = response.data.record;
                 });
             },
@@ -438,7 +440,7 @@
              */
             async showRecord(id) {
                 const vm = this;
-                await axios.get('/payroll/vacation-requests/show/' + id).then(response => {
+                await axios.get(`${window.app_url}/payroll/vacation-requests/show/${id}`).then(response => {
                     vm.record = response.data.record;
                     vm.record.created_at = vm.format_date(response.data.record.created_at, 'YYYY-MM-DD');
                 });

@@ -30,7 +30,7 @@
                             </span>
                         </button>
                         <ul>
-                            <li v-for="error in errors">{{ error }}</li>
+                            <li v-for="error in errors" :key="error">{{ error }}</li>
                         </ul>
                     </div>
                 </div>
@@ -125,7 +125,8 @@
                                         <th>Nombre:</th>
                                         <th
                                             v-for="(field_h, index) in
-                                            payroll_salary_tabulator.payroll_horizontal_salary_scale.payroll_scales">
+                                            payroll_salary_tabulator.payroll_horizontal_salary_scale.payroll_scales" 
+                                            :key="index">
                                             {{ field_h.name }}
                                         </th>
                                     </tr>
@@ -134,7 +135,8 @@
                                         <th>Incidencia:</th>
                                         <td class="td-with-border"
                                             v-for="(field_h, index) in
-                                            payroll_salary_tabulator.payroll_horizontal_salary_scale.payroll_scales">
+                                            payroll_salary_tabulator.payroll_horizontal_salary_scale.payroll_scales" 
+                                            :key="index">
                                             <div>
                                                 <input type="text" :id="'salary_scale_h_' + field_h.id"
                                                        class="form-control input-sm" data-toggle="tooltip"
@@ -148,13 +150,15 @@
                                     <tr class="text-center"
                                         v-else
                                         v-for="(field_v, index_v) in
-                                        payroll_salary_tabulator.payroll_vertical_salary_scale.payroll_scales">
+                                        payroll_salary_tabulator.payroll_vertical_salary_scale.payroll_scales" 
+                                        :key="index_v">
                                         <th>
                                             {{field_v.name}}
                                         </th>
                                         <td class="td-with-border"
                                             v-for="(field_h, index_h) in
-                                            payroll_salary_tabulator.payroll_horizontal_salary_scale.payroll_scales">
+                                            payroll_salary_tabulator.payroll_horizontal_salary_scale.payroll_scales" 
+                                            :key="index_h">
                                             <div>
                                                 <input type="text"
                                                        :id="'salary_scale_' + field_v.id + '_' + field_h.id"
@@ -182,7 +186,8 @@
                                     </tr>
                                     <tr class="text-center"
                                         v-for="(field, index) in
-                                        payroll_salary_tabulator.payroll_vertical_salary_scale.payroll_scales">
+                                        payroll_salary_tabulator.payroll_vertical_salary_scale.payroll_scales" 
+                                        :key="index">
                                         <th>
                                             {{field.name}}
                                         </th>
