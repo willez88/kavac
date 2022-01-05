@@ -26,7 +26,7 @@
                         </span>
                     </button>
                     <ul>
-                        <li v-for="error in errors">{{ error }}</li>
+                        <li v-for="error in errors" :key="error">{{ error }}</li>
                     </ul>
                 </div>
             </div>
@@ -64,7 +64,7 @@
 								<i class="now-ui-icons ui-1_calendar-60"></i>
 							</span>
 							<input type="date" id="start_date" @input="getcalculate()" data-toggle="tooltip" title="Indique la fecha de inicio del permiso"
-								   class="form-control no-restrict":min="new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)).toISOString().split('T')[0]"
+								   class="form-control no-restrict" :min="new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)).toISOString().split('T')[0]"
 								   v-model="record.start_date">
 						</div>
 					</div>
@@ -93,9 +93,9 @@
 			<div class="row">
 				<div class="col-md-4">
 				    <div class="form-group is-required">
-					<label for="motive_permission">Motivo del permiso</label>
-    				<input type="text" id="motive_permission" class="form-control input-sm" data-toggle="tooltip"
-                        title="Indique el motivo del permiso" v-model="record.motive_permission">
+						<label for="motive_permission">Motivo del permiso</label>
+						<input type="text" id="motive_permission" class="form-control input-sm" data-toggle="tooltip"
+							title="Indique el motivo del permiso" v-model="record.motive_permission">
 				    </div>
 				</div>
 			</div>
@@ -144,7 +144,7 @@
 			loadForm(id){
 				const vm = this;
 
-	            axios.get('/payroll/permission-requests/vue-info/'+id).then(response => {
+	            axios.get(`${window.app_url}/payroll/permission-requests/vue-info/${id}`).then(response => {
 	                if(typeof(response.data.record != "undefined")){
 						vm.record = response.data.record;
 

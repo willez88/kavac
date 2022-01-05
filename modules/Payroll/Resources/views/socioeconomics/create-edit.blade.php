@@ -20,7 +20,7 @@
 	<div class="row">
 		<div class="col-12">
 			<payroll-socioeconomic :payroll_socioeconomic_id="{!! (isset($payrollSocioeconomic)) ? $payrollSocioeconomic->id : "null" !!}"
-                route_list='payroll/socioeconomics'>
+                route_list="{{ url('payroll/socioeconomics') }}">
             </payroll-socioeconomic>
 		</div>
 	</div>

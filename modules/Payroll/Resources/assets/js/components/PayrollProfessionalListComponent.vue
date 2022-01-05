@@ -20,7 +20,7 @@
     			</button>
     		</div>
             <div slot="professions" slot-scope="props" class="text-center">
-                <span v-for="profession in props.row.professions">
+                <span v-for="profession in props.row.professions" :key="profession.id">
                     <div>
                         {{ profession.name }}
                     </div>
@@ -80,7 +80,7 @@
                         <h6 class="card-title">
     						Estudios Universitarios
     					</h6>
-                        <div class="row" v-for="(payroll_study, index) in record.payroll_studies">
+                        <div class="row" v-for="(payroll_study, index) in record.payroll_studies" :key="index">
                             <div class="col-3">
     							<div class="form-group is-required">
     								<label>Nombre de la Universidad:</label>
@@ -142,8 +142,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Horario de Clase</label>
-                                    <div v-for="(document, index) in payroll_class_schedule.documents">
-    									<a :href="`/${document.url}`" target="_blank">Documento</a>
+                                    <div v-for="(doc, index) in payroll_class_schedule.documents" :key="index">
+    									<a :href="`${window.app_url}/${doc.url}`" target="_blank">Documento</a>
     								</div>
                                 </div>
                             </div>
@@ -157,7 +157,7 @@
                                 </h6>
                             </div>
                         </div>
-                        <div class="row" v-for="(payroll_language, index) in record.payroll_languages">
+                        <div class="row" v-for="(payroll_language, index) in record.payroll_languages" :key="index">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Idioma</label>
@@ -183,7 +183,7 @@
                                 </h6>
                             </div>
                         </div>
-                        <div class="row" v-for="(payroll_cou_ack_file, index) in payroll_cou_ack_files">
+                        <div class="row" v-for="(payroll_cou_ack_file, index) in payroll_cou_ack_files" :key="index">
                             <div class="col-3">
     							<div class="form-group is-required">
     								<label>Nombre del Curso:</label>
@@ -195,7 +195,7 @@
                                 <div class="form-group">
                                     <label>Curso</label>
                                     <div>
-                                        <a :href="`/${payroll_cou_ack_file.course_file_url}`" target="_blank">Documento</a>
+                                        <a :href="`${window.app_url}/${payroll_cou_ack_file.course_file_url}`" target="_blank">Documento</a>
                                     </div>
                                 </div>
                             </div>
@@ -210,7 +210,7 @@
                                 <div class="form-group">
                                     <label>Reconocimiento</label>
                                     <div>
-                                        <a :href="`/${payroll_cou_ack_file.ack_file_url}`" target="_blank">Documento</a>
+                                        <a :href="`${window.app_url}/${payroll_cou_ack_file.ack_file_url}`" target="_blank">Documento</a>
                                     </div>
                                 </div>
                             </div>
@@ -267,7 +267,7 @@
 
             showInfo(id) {
                 const vm = this;
-                axios.get(`/payroll/professionals/${id}`).then(response => {
+                axios.get(`${window.app_url}/payroll/professionals/${id}`).then(response => {
 					vm.record = response.data.record;
                     $('#payroll_staff').val(vm.record.payroll_staff.first_name + ' ' + vm.record.payroll_staff.last_name);
                     $('#payroll_instruction_degree').val(vm.record.payroll_instruction_degree.name);

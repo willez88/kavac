@@ -100,6 +100,8 @@ Vue.directive('has-tooltip', {
 Vue.mixin({
 	data() {
 		return {
+			/** @type {String} Establece la ruta del dominio o subdominio de la aplicación */
+			app_url: window.app_url,
 			/** @type {Boolean} Establece si se esta o no cargando una petición del sistema */
 			loading: true,
 			/** @type {Object} Objeto que contiene los atributos y métodos para obtener traducciones del sistema  */
@@ -571,7 +573,7 @@ Vue.mixin({
 		 */
 		createRecord(url, list = true, reset = true) {
 			const vm = this;
-			url = (!url.includes('http://') || !url.includes('http://'))
+			url = (!url.includes('http://') || !url.includes('https://'))
 				  ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
 
 			if (vm.record.id) {

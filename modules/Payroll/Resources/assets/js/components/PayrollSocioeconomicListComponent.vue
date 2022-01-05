@@ -80,7 +80,8 @@
                                     Hijos del Trabajador
                                 </h6>
                             </div>
-                            <div class="row" v-for="payroll_children in record.payroll_childrens">
+                            <div class="row" v-for="payroll_children in record.payroll_childrens" 
+                                 :key="payroll_children.id">
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Nombres</label>
@@ -147,7 +148,7 @@
             },
 
             show_info(id) {
-                axios.get('/payroll/socioeconomics/' + id).then(response => {
+                axios.get(`${window.app_url}/payroll/socioeconomics/${id}`).then(response => {
 					this.record = response.data.record;
                     $('#payroll_staff').val(this.record.payroll_staff.first_name + ' ' + this.record.payroll_staff.last_name);
                     $('#marital_status').val(this.record.marital_status.name);

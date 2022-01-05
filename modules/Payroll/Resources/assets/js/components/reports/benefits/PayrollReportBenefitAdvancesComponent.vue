@@ -3,15 +3,14 @@
         <div class="card-body">
             <div class="alert alert-danger" v-if="errors.length > 0">
                 <ul>
-                    <li v-for="error in errors">{{ error }}</li>
+                    <li v-for="error in errors" :key="error">{{ error }}</li>
                 </ul>
             </div>
 			<div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Trabajador:</label>
-                        <select2 :options="payroll_staffs"
-                                 v-model="record.payroll_staff_id">
+                        <select2 :options="payroll_staffs" v-model="record.payroll_staff_id">
                         </select2>
                     </div>
                 </div>
@@ -102,7 +101,7 @@
 				<div slot="id" slot-scope="props" class="text-center">
 					<div class="d-inline-flex">
 						<button @click="createReport()" class="btn btn-primary btn-xs btn-icon btn-action"
-                                title="Generar reporte" data-toggle="tooltip" type="button">
+                                title="Generar reporte" data-toggle="tooltip" type="button" :id="'btn'+props.row.id">
 							<i class="fa fa-file-pdf-o"></i>
 						</button>
 					</div>
@@ -170,7 +169,7 @@
 				}
 
 
-				axios.post('/payroll/reports/benefits/create' , fields).then(response => {
+				axios.post(`${window.app_url}/payroll/reports/benefits/create` , fields).then(response => {
 					if (response.data.result == false)
 						location.href = response.data.redirect;
 					else if (typeof(response.data.redirect) !== "undefined") {
@@ -197,7 +196,7 @@
 			filterRecords() {
 
 				const vm = this;
-				var url =  '/payroll/reports/search';
+				var url =  `${window.app_url}/payroll/reports/search`;
 
 				var fields = {};
 				if(vm.record.type_search == 'period'){

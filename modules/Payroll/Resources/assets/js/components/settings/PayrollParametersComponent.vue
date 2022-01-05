@@ -33,7 +33,7 @@
                                     </span>
                                 </button>
                                 <ul>
-                                    <li v-for="error in errors">{{ error }}</li>
+                                    <li v-for="error in errors" :key="error">{{ error }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -302,7 +302,7 @@
                     </div>
                     <div class="modal-footer">
                         <div class="form-group">
-                            <modal-form-buttons :saveRoute="'payroll/parameters'"></modal-form-buttons>
+                            <modal-form-buttons :saveRoute="app_url + '/payroll/parameters'"></modal-form-buttons>
                         </div>
                     </div>
                     <div class="modal-body modal-table">
@@ -441,7 +441,7 @@
             type: function(type) {
                 const vm = this;
                 if (vm.type == 'list') {
-                    axios.get('/payroll/get-parameter-options/' + vm.variable_option).then(response => {
+                    axios.get(`${window.app_url}/payroll/get-parameter-options/${vm.variable_option}`).then(response => {
                         vm.subOptions = response.data;
                     });
                 } else if (vm.type == 'boolean') {
@@ -525,7 +525,7 @@
             getPayrollParameterTypes() {
                 const vm = this;
                 vm.parameter_types = [];
-                axios.get('/payroll/get-parameter-types').then(response => {
+                axios.get(`${window.app_url}/payroll/get-parameter-types`).then(response => {
                     vm.parameter_types = response.data;
                 });
             },
@@ -537,7 +537,9 @@
             getOptions(url) {
                 const vm = this;
                 vm.options = [];
-                axios.get('/' + url).then(response => {
+                url = (!url.includes('http://') || !url.includes('http://')) 
+                      ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
+                axios.get(url).then(response => {
                     vm.options = response.data;
                 });
             },

@@ -30,7 +30,7 @@
                             </span>
                         </button>
                         <ul>
-                            <li v-for="error in errors">{{ error }}</li>
+                            <li v-for="error in errors" :key="error">{{ error }}</li>
                         </ul>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                             <h6 class="card-title"> Parámetros de nómina </h6>
                             <div class="row">
                                 <!-- parámetros globales de nómina -->
-                                <div class="col-md-6"
+                                <div class="col-md-6" :key="payroll_parameter['code']"
                                      v-for="payroll_parameter in payroll_parameters">
                                     <div class="form-group is-required">
                                         <label>{{ payroll_parameter['code'] }}:</label>
@@ -284,7 +284,9 @@
                 vm.record.payroll_payment_period_id = '';
 
                 if (vm.record.payroll_payment_type_id > 0) {
-                    axios.get('/payroll/get-payment-periods/' + vm.record.payroll_payment_type_id).then(response => {
+                    axios.get(
+                        `${window.app_url}/payroll/get-payment-periods/${vm.record.payroll_payment_type_id}`
+                    ).then(response => {
                         vm.payroll_payment_periods = response.data.records;
                         vm.record.payroll_concepts = response.data.concepts;
                         if (vm.payroll_id) {
@@ -312,7 +314,7 @@
                     fields['payroll_concepts'] = vm.record['payroll_concepts']
                                                      ? vm.record['payroll_concepts']
                                                      : [];
-                    axios.post('/payroll/get-parameters', fields).then(response => {
+                    axios.post(`${window.app_url}/payroll/get-parameters`, fields).then(response => {
                         vm.payroll_parameters = response.data;
                     });
                 }
@@ -373,7 +375,7 @@
              */
             showRecord(id) {
                 const vm = this;
-                axios.get('/payroll/registers/vue-info/' + id).then(response => {
+                axios.get(`${window.app_url}/payroll/registers/vue-info/${id}`).then(response => {
                     vm.record = response.data.record;
                     vm.record.created_at = vm.format_date(response.data.record.created_at, 'YYYY-MM-DD');
                     if (response.data.record.payroll_payment_period) {

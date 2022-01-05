@@ -17,7 +17,7 @@
     			<div class="d-inline-flex">
 
     				<payroll-permission-request-info
-    					:route_list="'payroll/permission-requests/vue-info/' + props.row.id">
+    					:route_list="app_url + '/payroll/permission-requests/vue-info/' + props.row.id">
     				</payroll-permission-request-info>
 
     	    		<button @click="editForm(props.row.id)"
@@ -69,7 +69,11 @@
 
 			},
 			deleteRecord(index, url) {
-	            var url = (url)?url:this.route_delete;
+	            var url = (url)?(
+					(!url.includes('http://') || !url.includes('http://'))
+					?`${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` 
+					: url
+				):this.route_delete;
 	            var records = this.records;
 	            var confirmated = false;
 	            var index = index - 1;

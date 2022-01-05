@@ -33,7 +33,7 @@
                                     </span>
                                 </button>
                                 <ul>
-                                    <li v-for="error in errors">{{ error }}</li>
+                                    <li v-for="error in errors" :key="error">{{ error }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -229,55 +229,53 @@
                         <div class="row" style="align-items: flex-end;"
                              v-if="record.assign_to">
                              <div class="col-md-4"
-                                  v-for="field in record.assign_to"
-                                  v-if="field['type']
-                                     && assign_options[field['id']]
-                                     && record.assign_options[field['id']]">
-                                <!-- registro de opciones a asignar -->
-                                <div class="form-group is-required"
-                                      v-if="field['type'] == 'list'">
-                                    <label>{{ field['name'] }}</label>
-                                    <v-multiselect
-                                                   :options="assign_options[field['id']]" track_by="text"
-                                                   :hide_selected="false" data-toggle="tooltip"
-                                                   title="Indique los registros a los que se les va asignar el concepto"
-                                                   v-model="record.assign_options[field['id']]">
-                                    </v-multiselect>
-                                </div>
-                                <!-- ./registro de opciones a asignar -->
-                                <!-- registro de rangos a asignar -->
-                                <div class="form-group"
-                                      v-if="field['type'] == 'range'
-                                         && assign_options[field['id']]">
-                                    <label>{{ field['name'] }}</label>
-                                    <div class="row" style="align-items: baseline;">
-                                        <dir class="col-6">
-                                            <div class="form-group is-required">
-                                                <label>Minimo:</label>
-                                                <input type="number" min="0" step=".01"
-                                                       placeholder="Minimo" data-toggle="tooltip"
-                                                       title="Indique el minimo requerido para asignar el concepto"
-                                                       class="form-control input-sm"
-                                                       v-model="record.assign_options[field['id']]['minimum']">
-                                            </div>
-                                        </dir>
-                                        <div class="col-6">
-                                            <div class="form-group is-required">
-                                                <label>Máximo:</label>
-                                                <input type="number" min="0" step=".01"
-                                                       placeholder="Máximo" data-toggle="tooltip"
-                                                       title="Indique el máximo requerido para asignar el concepto"
-                                                       class="form-control input-sm"
-                                                       v-model="record.assign_options[field['id']]['maximum']">
+                                  v-for="field in record.assign_to" :key="field['id']">
+                                <div v-if="field['type'] && assign_options[field['id']] && record.assign_options[field['id']]">
+                                    <!-- registro de opciones a asignar -->
+                                    <div class="form-group is-required"
+                                        v-if="field['type'] == 'list'">
+                                        <label>{{ field['name'] }}</label>
+                                        <v-multiselect
+                                                    :options="assign_options[field['id']]" track_by="text"
+                                                    :hide_selected="false" data-toggle="tooltip"
+                                                    title="Indique los registros a los que se les va asignar el concepto"
+                                                    v-model="record.assign_options[field['id']]">
+                                        </v-multiselect>
+                                    </div>
+                                    <!-- ./registro de opciones a asignar -->
+                                    <!-- registro de rangos a asignar -->
+                                    <div class="form-group"
+                                        v-if="field['type'] == 'range'
+                                            && assign_options[field['id']]">
+                                        <label>{{ field['name'] }}</label>
+                                        <div class="row" style="align-items: baseline;">
+                                            <dir class="col-6">
+                                                <div class="form-group is-required">
+                                                    <label>Minimo:</label>
+                                                    <input type="number" min="0" step=".01"
+                                                        placeholder="Minimo" data-toggle="tooltip"
+                                                        title="Indique el minimo requerido para asignar el concepto"
+                                                        class="form-control input-sm"
+                                                        v-model="record.assign_options[field['id']]['minimum']">
+                                                </div>
+                                            </dir>
+                                            <div class="col-6">
+                                                <div class="form-group is-required">
+                                                    <label>Máximo:</label>
+                                                    <input type="number" min="0" step=".01"
+                                                        placeholder="Máximo" data-toggle="tooltip"
+                                                        title="Indique el máximo requerido para asignar el concepto"
+                                                        class="form-control input-sm"
+                                                        v-model="record.assign_options[field['id']]['maximum']">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- ./registro de opciones a asignar -->
                                 </div>
-                                 <!-- ./registro de opciones a asignar -->
                             </div>
                         </div>
-                        <div class="row"
-                             v-show="record.calculation_way == 'formula'">
+                        <div class="row" v-show="record.calculation_way == 'formula'">
                             <div class="col-md-6">
                                 <!-- fórmula -->
                                 <div class="form-group is-required">
@@ -474,7 +472,7 @@
                     </div>
                     <div class="modal-footer">
                         <div class="form-group">
-                            <modal-form-buttons :saveRoute="'payroll/concepts'"></modal-form-buttons>
+                            <modal-form-buttons :saveRoute="app_url + '/payroll/concepts'"></modal-form-buttons>
                         </div>
                     </div>
                     <div class="modal-body modal-table">
@@ -683,7 +681,7 @@
             type: function(type) {
                 const vm = this;
                 if (vm.type == 'list') {
-                    axios.get('/payroll/get-parameter-options/' + vm.variable_option).then(response => {
+                    axios.get(`${window.app_url}/payroll/get-parameter-options/${vm.variable_option}`).then(response => {
                         vm.subOptions = response.data;
                     });
                 } else if (vm.type == 'boolean') {
@@ -805,7 +803,7 @@
             getAccountingAccounts() {
                 const vm = this;
                 vm.accounting_accounts = [];
-                axios.get('/accounting/accounts').then(response => {
+                axios.get(`${window.app_url}/accounting/accounts`).then(response => {
                     if (response.data.records.length > 0) {
                         vm.accounting_accounts.push({
                             id:   '',
@@ -831,7 +829,7 @@
             getBudgetAccounts() {
                 const vm = this;
                 vm.budget_accounts = [];
-                axios.get('/budget/accounts/vue-list').then(response => {
+                axios.get(`${window.app_url}/budget/accounts/vue-list`).then(response => {
                     if (response.data.records.length > 0) {
                         vm.budget_accounts.push({
                             id:   '',
@@ -857,7 +855,10 @@
             getOptions(url) {
                 const vm = this;
                 vm.variable_options = [];
-                axios.get('/' + url).then(response => {
+                url = (!url.includes('http://') || !url.includes('http://')) 
+                      ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
+
+                axios.get(url).then(response => {
                     vm.variable_options = response.data;
                 });
             },
@@ -869,7 +870,7 @@
             getPayrollConceptAssignTo() {
                 const vm = this;
                 vm.assign_to = [];
-                axios.get('/payroll/get-concept-assign-to').then(response => {
+                axios.get(`${window.app_url}/payroll/get-concept-assign-to`).then(response => {
                     vm.assign_to = response.data;
                 });
             },

@@ -19,7 +19,7 @@
                 <div class="form-group">
                     <strong>Parámetros empleados en la nómina:</strong>
                     <div class="row" style="margin: 1px 0">
-                        <div class="col-md-4"
+                        <div class="col-md-4" :key="payroll_parameter['code']"
                              v-for="payroll_parameter in record.payroll_parameters">
                             <div class="form-group">
                                 <strong>{{ payroll_parameter['code'] }}:</strong>
@@ -46,7 +46,7 @@
             </div>
             <div slot="assignments" slot-scope="props">
                 <span>
-                    <div v-for="att in props.row.assignments">
+                    <div v-for="att in props.row.assignments" :key="att.id">
                         <p><strong> Concepto: </strong> {{ att.name }} </p>
                         <p><strong> Valor: </strong> {{ att.value }} </p>
                     </div>
@@ -54,7 +54,7 @@
             </div>
             <div slot="deductions" slot-scope="props">
                 <span>
-                    <div v-for="att in props.row.deductions">
+                    <div v-for="att in props.row.deductions" :key="att.id">
                         <p><strong> Concepto: </strong> {{ att.name }} </p>
                         <p><strong> Valor: </strong> {{ att.value }} </p>
                     </div>
@@ -117,7 +117,7 @@
              */
             showRecord(id) {
                 const vm = this;
-                axios.get('/payroll/registers/vue-info/' + id).then(response => {
+                axios.get(`${window.app_url}/payroll/registers/vue-info/${id}`).then(response => {
                     $.each(response.data.record.payroll_staff_payrolls, function(index, field) {
                         vm.records.push({
                             'assignments':   JSON.parse(field['assignments']),

@@ -3,7 +3,7 @@
         <div class="card-body">
             <div class="alert alert-danger" v-if="errors.length > 0">
                 <ul>
-                    <li v-for="error in errors">{{ error }}</li>
+                    <li v-for="error in errors" :key="error">{{ error }}</li>
                 </ul>
             </div>
        <div class="row">
@@ -284,7 +284,7 @@
                     active: '',
                     payroll_staff_id: ''
                 },
-
+                
                 errors:         [],
                 records:        [],
                 payroll_staffs: [],
@@ -306,31 +306,44 @@
 
 
             show_info(id) {
-                axios.get('/payroll/employments/' + id).then(response => {
-                    this.record = response.data.record;
-                    $('#payroll_staff').val(this.record.payroll_staff.first_name + ' ' + this.record.payroll_staff.last_name);
-                    $('#start_date_apn').val(this.record.start_date_apn);
-                    $('#start_date').val(this.record.start_date);
-                    $('#end_date').val(this.record.end_date);
-                    (this.record.active) ? $('#active').bootstrapSwitch('state', true) : $('#active').bootstrapSwitch('state', false);
-                    $('#payroll_inactivity_type').val( (this.record.payroll_inactivity_type) ? this.record.payroll_inactivity_type.name : ' ' );
-                    $('#institution_email').val(this.record.institution_email);
-                    $('#function_description').val(this.record.function_description);
-                    $('#payroll_position_type').val(this.record.payroll_position_type.name);
-                    $('#payroll_position').val(this.record.payroll_position.name);
-                    $('#payroll_staff_type').val(this.record.payroll_staff_type.name);
-                    $('#institution').val(this.record.department.institution.name);
-                    $('#department').val(this.record.department.name);
-                    $('#payroll_contract_type').val(this.record.payroll_contract_type.name);
-                    $('#payroll_gender').val(this.record.payroll_staff.payroll_gender.name);
-                     (this.record.payroll_staff.has_disability) ? $('#has_disability').bootstrapSwitch('state', true) : $('#has_disability').bootstrapSwitch('state', false);
-                    $('#payroll_disability').val((this.record.payroll_staff.payroll_disability) ? this.record.payroll_staff.payroll_disability.name : ' ');
-                    $('#payroll_blood_type').val(this.record.payroll_staff.payroll_blood_type.name);
-                    $('#social_security').val(this.record.payroll_staff.social_security);
-                    (this.record.payroll_staff.has_driver_license) ? $('#has_driver_license').bootstrapSwitch('state', true) : $('#has_driver_license').bootstrapSwitch('state', false);
-                    $('#payroll_license_degree').val((this.record.payroll_staff.payroll_license_degree) ? this.record.payroll_staff.payroll_license_degree.name : ' ');
-                     $('#payroll_nationality').val(this.record.payroll_staff.payroll_nationality.name);
-                     $('#birthdate').val(this.record.payroll_staff.birthdate);
+                const vm = this;
+                axios.get(`${window.app_url}/payroll/employments/${id}`).then(response => {
+                    vm.record = response.data.record;
+                    $('#payroll_staff').val(`${vm.record.payroll_staff.first_name} ${vm.record.payroll_staff.last_name}`);
+                    $('#start_date_apn').val(vm.record.start_date_apn);
+                    $('#start_date').val(vm.record.start_date);
+                    $('#end_date').val(vm.record.end_date);
+                    $('#active').bootstrapSwitch('state', (vm.record.active)?true:false);
+                    $('#payroll_inactivity_type').val(
+                        (vm.record.payroll_inactivity_type) ? vm.record.payroll_inactivity_type.name : ' '
+                    );
+                    $('#institution_email').val(vm.record.institution_email);
+                    $('#function_description').val(vm.record.function_description);
+                    $('#payroll_position_type').val(vm.record.payroll_position_type.name);
+                    $('#payroll_position').val(vm.record.payroll_position.name);
+                    $('#payroll_staff_type').val(vm.record.payroll_staff_type.name);
+                    $('#institution').val(vm.record.department.institution.name);
+                    $('#department').val(vm.record.department.name);
+                    $('#payroll_contract_type').val(vm.record.payroll_contract_type.name);
+                    $('#payroll_gender').val(vm.record.payroll_staff.payroll_gender.name);
+                    $('#has_disability').bootstrapSwitch('state', (vm.record.payroll_staff.has_disability)?true:false);
+                    $('#payroll_disability').val(
+                        (vm.record.payroll_staff.payroll_disability) 
+                        ? vm.record.payroll_staff.payroll_disability.name 
+                        : ' '
+                    );
+                    $('#payroll_blood_type').val(vm.record.payroll_staff.payroll_blood_type.name);
+                    $('#social_security').val(vm.record.payroll_staff.social_security);
+                    $('#has_driver_license').bootstrapSwitch(
+                        'state', (vm.record.payroll_staff.has_driver_license)?true:false
+                    );
+                    $('#payroll_license_degree').val(
+                        (vm.record.payroll_staff.payroll_license_degree) 
+                        ? vm.record.payroll_staff.payroll_license_degree.name 
+                        : ' '
+                    );
+                     $('#payroll_nationality').val(vm.record.payroll_staff.payroll_nationality.name);
+                     $('#birthdate').val(vm.record.payroll_staff.birthdate);
                      $('#age').val(response.data.age);
                 });
                 $('#show_employment').modal('show');
@@ -344,7 +357,7 @@
                     current: current
                 };
                 event.preventDefault();
-                axios.post(`/payroll/reports/${current}/create`, fields).then(response => {
+                axios.post(`${window.app_url}/payroll/reports/${current}/create`, fields).then(response => {
                     if (typeof(response.data.redirect) !== "undefined") {
                         window.open(response.data.redirect, '_blank');
                     }
@@ -376,7 +389,7 @@
                 for (var index in vm.record) {
                     fields[index] = vm.record[index];
                 }
-                axios.post('/payroll/reports/vue-list', fields).then(response => {
+                axios.post(`${window.app_url}/payroll/reports/vue-list`, fields).then(response => {
                     if (typeof(response.data.records) !== "undefined") {
                         vm.records = response.data.records;
                     }

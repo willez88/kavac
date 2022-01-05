@@ -30,7 +30,7 @@
 								</span>
 							</button>
 							<ul>
-								<li v-for="error in errors">{{ error }}</li>
+								<li v-for="error in errors" :key="error">{{ error }}</li>
 							</ul>
 						</div>
 					</div>
@@ -84,7 +84,7 @@
 					<h6 class="card-title">
 						Hijos del Trabajador <i class="fa fa-plus-circle cursor-pointer" @click="addPayrollChildren"></i>
 					</h6>
-					<div class="row" v-for="(payroll_children, index) in record.payroll_childrens">
+					<div class="row" v-for="(payroll_children, index) in record.payroll_childrens" :key="index">
 						<div class="col-3">
 							<div class="form-group is-required">
 								<input type="text" placeholder="Nombres del hijo del trabajador" data-toggle="tooltip"
@@ -184,7 +184,7 @@
 			},
 
 			getSocioeconomic() {
-				axios.get('/payroll/socioeconomics/' + this.payroll_socioeconomic_id).then(response => {
+				axios.get(`${window.app_url}/payroll/socioeconomics/${this.payroll_socioeconomic_id}`).then(response => {
 					this.record = response.data.record;
 				});
 			},

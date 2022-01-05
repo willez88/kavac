@@ -29,7 +29,7 @@
             </div>
             <div slot="id" slot-scope="props" class="text-center">
                 <payroll-vacation-request-show
-                    :route_show="'payroll/vacation-requests/show/' + props.row.id"
+                    :route_show="app_url + 'payroll/vacation-requests/show/' + props.row.id"
                     :id="props.row.id">
                 </payroll-vacation-request-show>
                 <button @click="editForm(props.row.id)"

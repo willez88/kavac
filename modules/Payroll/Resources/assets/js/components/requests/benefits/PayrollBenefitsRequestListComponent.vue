@@ -30,7 +30,7 @@
             <div slot="id" slot-scope="props" class="text-center">
                 <div class="d-inline-flex ">
                     <payroll-benefits-request-show
-                        :route_show="'payroll/benefits-requests/show/' + props.row.id"
+                        :route_show="app_url + '/payroll/benefits-requests/show/' + props.row.id"
                         :id="props.row.id">
                     </payroll-benefits-request-show>
                     <button @click="editForm(props.row.id)"
