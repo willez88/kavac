@@ -14,7 +14,7 @@
 						</span>
 					</button>
 					<ul>
-						<li v-for="error in errors">{{ error }}</li>
+						<li v-for="error in errors" :key="error">{{ error }}</li>
 					</ul>
 				</div>
 			</div>
@@ -366,7 +366,7 @@
 			getAssetAcquisitionTypes() {
 				const vm = this;
 				vm.asset_acquisition_types = [];
-				axios.get('/asset/get-acquisition-types').then(response => {
+				axios.get(`${window.app_url}/asset/get-acquisition-types`).then(response => {
 					vm.asset_acquisition_types = response.data;
 				});
 			},
@@ -378,7 +378,7 @@
 			getAssetConditions() {
 				const vm = this;
 				vm.asset_conditions = [];
-				axios.get('/asset/get-conditions').then(response => {
+				axios.get(`${window.app_url}/asset/get-conditions`).then(response => {
 					vm.asset_conditions = response.data;
 				});
 			},
@@ -390,7 +390,7 @@
 			getAssetStatus() {
 				const vm = this;
 				vm.asset_status = [];
-				axios.get('/asset/get-status').then(response => {
+				axios.get(`${window.app_url}/asset/get-status`).then(response => {
 					vm.asset_status = response.data;
 				});
 			},
@@ -402,7 +402,7 @@
 			getAssetUseFunctions() {
 				const vm = this;
 				vm.asset_use_functions = [];
-				axios.get('/asset/get-use-functions').then(response => {
+				axios.get(`${window.app_url}/asset/get-use-functions`).then(response => {
 					vm.asset_use_functions = response.data;
 				});
 			},
@@ -415,7 +415,7 @@
 			async loadForm(id) {
 				const vm = this;
 				vm.loading = true;
-          		await axios.get('/asset/registers/info' + '/' + id).then(response => {
+          		await axios.get(`${window.app_url}/asset/registers/info/${id}`).then(response => {
               		if(typeof(response.data.records != "undefined")) {
               			let recordEdit = response.data.records;
                   		
@@ -439,7 +439,7 @@
 				vm.estates = [];
 
 				if (vm.record.country_id) {
-					await axios.get('/get-estates/' + this.record.country_id).then(response => {
+					await axios.get(`${window.app_url}/get-estates/${this.record.country_id}`).then(response => {
 						vm.estates = response.data;
 					});
 					if ((vm.record.parish) && (vm.record.id)) {
@@ -459,7 +459,7 @@
 				vm.municipalities = [];
 
 				if (vm.record.estate_id) {
-					await axios.get('/get-municipalities/' + this.record.estate_id).then(response => {
+					await axios.get(`${window.app_url}/get-municipalities/${this.record.estate_id}`).then(response => {
 						vm.municipalities = response.data;
 					});
 				}
@@ -479,7 +479,7 @@
 				vm.parishes = [];
 
 				if (this.record.municipality_id) {
-					await axios.get('/get-parishes/' + this.record.municipality_id).then(response => {
+					await axios.get(`${window.app_url}/get-parishes/${this.record.municipality_id}`).then(response => {
 						vm.parishes = response.data;
 					});
 				}
@@ -492,7 +492,9 @@
 				vm.required = {};
 
 				if (vm.record.asset_specific_category_id) {
-					axios.get('/asset/get-required/' + this.record.asset_specific_category_id).then(response => {
+					axios.get(
+						`${window.app_url}/asset/get-required/${this.record.asset_specific_category_id}`
+					).then(response => {
 						vm.required = response.data.record;
 					});
 				}

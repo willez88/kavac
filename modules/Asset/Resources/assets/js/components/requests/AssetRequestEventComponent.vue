@@ -32,7 +32,7 @@
 									</span>
 								</button>
 								<ul>
-									<li v-for="error in errors">{{ error }}</li>
+									<li v-for="error in errors" :key="error">{{ error }}</li>
 								</ul>
 							</div>
 						</div>
@@ -103,7 +103,7 @@
 	                	<hr>
 	                	<v-client-table :columns="columns" :data="records" :options="table_options">
 	                		<div slot="type" slot-scope="props" class="text-center">
-								<div v-for="type in types">
+								<div v-for="type in types" :key="type.id">
 									<span v-if="props.row.type == type.id">
 										{{ type.text }}
 									</span>
@@ -283,7 +283,8 @@
 
 					  formData.append('files[' + i + ']', file);
 					}
-	                axios.post('/' + url, formData, {
+					url = vm.setUrl(url);
+	                axios.post(url, formData, {
                     	headers: {
                         	'Content-Type': 'multipart/form-data'
                     	}
@@ -319,13 +320,15 @@
 			},
 
 			getTypes() {
-				axios.get('/asset/get-request-types').then(response => {
-					this.types = response.data;
+				const vm = this;
+				axios.get(`${window.app_url}/asset/get-request-types`).then(response => {
+					vm.types = response.data;
 				});
 			},
 			getEquipments() {
-				axios.get('/asset/requests/get-equipments/' + this.id).then(response => {
-					this.equipments = response.data;
+				const vm = this;
+				axios.get(`${window.app_url}/asset/requests/get-equipments/${vm.id}`).then(response => {
+					vm.equipments = response.data;
 				});
 			},
 			viewMessage() {

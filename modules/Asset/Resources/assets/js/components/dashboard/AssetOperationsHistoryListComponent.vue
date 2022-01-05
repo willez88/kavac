@@ -3,7 +3,7 @@
 		<div slot="id" slot-scope="props" class="text-center">
 			<div class="d-inline-flex">
 				<asset-operations-history-info
-					route_list="/asset/dashboard/operations/info"
+					:route_list="app_url+'/asset/dashboard/operations/info'"
 					:operation="props.row">
 				</asset-operations-history-info>
 				<button @click="showReport(props.index, $event)" 
@@ -63,7 +63,7 @@
 				const vm = this;
 				vm.record = vm.records[index-1];
 
-				var url = '/asset/dashboard/get-operation/' + vm.record.type_operation + '/' + vm.record.code;
+				var url = `${window.app_url}/asset/dashboard/get-operation/${vm.record.type_operation}/${vm.record.code}`;
 				event.preventDefault();
 
 				axios.get(url).then(response => {

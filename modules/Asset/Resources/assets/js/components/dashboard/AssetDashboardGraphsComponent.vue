@@ -12,7 +12,7 @@
         <div class="card-body">
             <div class="alert alert-danger" v-if="errors.length > 0">
                 <ul>
-                    <li v-for="error in errors">{{ error }}</li>
+                    <li v-for="error in errors" :key="error">{{ error }}</li>
                 </ul>
             </div>
             <div class="row">
@@ -116,7 +116,7 @@
                         <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-prev-page" v-if="pag > 1">
                             <a class="page-link" @click="prevPag()">&lt;</a>
                         </li>
-                        <li :class="(pag ==number)?'VuePagination__pagination-item page-item active':'VuePagination__pagination-item page-item'" v-for="number in numbers" v-if="records.length >= number">
+                        <li :class="(pag ==number)?'VuePagination__pagination-item page-item active':'VuePagination__pagination-item page-item'" v-for="(number, index) in numbers" :key="index" v-if="records.length >= number">
                             <a class="page-link active" role="button" @click.prevent="pag = number">{{number}}</a>
                         </li>
                         <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-next-page" v-if="records.length > pag">
@@ -282,7 +282,7 @@
                 var index = 0;
                 if (vm.record.type_graph_assets == 'exist') {
                     vm.title = 'Bienes Institucionales Registrados';
-                    axios.get('/asset/dashboard/get-inventory-assets/exist').then(response => {
+                    axios.get(`${window.app_url}/asset/dashboard/get-inventory-assets/exist`).then(response => {
                         if (typeof(response.data.records) != "undefined") {
                             if (response.data.records.length > 5) {
                                 $.each(response.data.records, function(indice, field) {
@@ -308,7 +308,7 @@
                     });
                 } else if (vm.record.type_graph_assets == 'min_request') {
                     vm.title = 'Bienes Institucionales Menos Solicitados';
-                    axios.get('/asset/dashboard/get-inventory-assets/request/asc').then(response => {
+                    axios.get(`${window.app_url}/asset/dashboard/get-inventory-assets/request/asc`).then(response => {
                         if (typeof(response.data.records) != "undefined") {
                             if (response.data.records.length > 5) {
                                 $.each(response.data.records, function(indice, field) {
@@ -334,7 +334,7 @@
                     });
                 } else if (vm.record.type_graph_assets == 'max_request') {
                     vm.title = 'Bienes Institucionales Mas Solicitados';
-                    axios.get('/asset/dashboard/get-inventory-assets/request/desc').then(response => {
+                    axios.get(`${window.app_url}/asset/dashboard/get-inventory-assets/request/desc`).then(response => {
                         if (typeof(response.data.records) != "undefined") {
                             if (response.data.records.length > 5) {
                                 $.each(response.data.records, function(indice, field) {

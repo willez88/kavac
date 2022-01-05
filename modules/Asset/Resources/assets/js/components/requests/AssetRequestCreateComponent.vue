@@ -14,7 +14,7 @@
 						</span>
 					</button>
 					<ul>
-						<li v-for="error in errors">{{ error }}</li>
+						<li v-for="error in errors" :key="error">{{ error }}</li>
 					</ul>
 				</div>
 			</div>
@@ -75,7 +75,7 @@
 				</div>
 			</div>
 			<div v-if="record.type_id > 1">
-				<div class="row"style="margin: 10px 0">
+				<div class="row" style="margin: 10px 0">
 					<div class="col-md-12">
 						<b>Ubicación</b>
 					</div>
@@ -128,7 +128,7 @@
 				</div>
 			</div>
 			<div v-show="record.type_id == 3">
-				<div class="row"style="margin: 10px 0">
+				<div class="row" style="margin: 10px 0">
 					<div class="col-md-12">
 						<b>Información de contacto</b>
 					</div>
@@ -206,7 +206,7 @@
 	                    <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-prev-page" v-if="page > 1">
 	                        <a class="page-link" @click="changePage(page - 1)">&lt;</a>
 	                    </li>
-	                    <li :class="(page == number)?'VuePagination__pagination-item page-item active':'VuePagination__pagination-item page-item'" v-for="number in pageValues" v-if="number <= lastPage">
+	                    <li :class="(page == number)?'VuePagination__pagination-item page-item active':'VuePagination__pagination-item page-item'" v-for="(number, index) in pageValues" :key="index" v-if="number <= lastPage">
 	                        <a class="page-link active" role="button" @click="changePage(number)">{{number}}</a>
 	                    </li>
 	                    <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-next-page" v-if="page < lastPage">
@@ -332,17 +332,17 @@
 		watch: {
             perPage(res) {
             	if (this.page == 1){
-            		this.loadAssets('/asset/registers/vue-list/' + res + '/' + this.page);
+            		this.loadAssets(`${window.app_url}/asset/registers/vue-list/${res}/${this.page}`);
             	} else {
             		this.changePage(1);
             	}
             },
             page(res) {
-                this.loadAssets('/asset/registers/vue-list/' + this.perPage + '/' + res);
+                this.loadAssets(`${window.app_url}/asset/registers/vue-list/${this.perPage}/${res}`);
             },
         },
 		created() {
-			this.loadAssets('/asset/registers/vue-list/' + this.perPage + '/' + this.page);
+			this.loadAssets(`${window.app_url}/asset/registers/vue-list/${this.perPage}/${this.page}`);
 			this.getCountries();
 		},
 		mounted() {
@@ -463,7 +463,8 @@
 					  formData.append('files[' + i + ']', file);
 					}
 	                formData.append("assets", vm.selected);
-	                axios.post('/' + url, formData, {
+					url = vm.setUrl(url);
+	                axios.post(url, formData, {
 	                    headers: {
 	                        'Content-Type': 'multipart/form-data'
 	                    }
@@ -501,7 +502,7 @@
 				const vm = this;
 	            var fields = {};
 
-	            axios.get('/asset/requests/vue-info/'+id).then(response => {
+	            axios.get(`${window.app_url}/asset/requests/vue-info/${id}`).then(response => {
 	                if(typeof(response.data.records != "undefined")){
 						vm.record = response.data.records;
 						vm.record.created_at = vm.format_date(vm.record.created_at);
@@ -514,6 +515,7 @@
 			},
 			loadAssets(url) {
 				const vm = this;
+				url = vm.setUrl(url);
 				url += (vm.requestid != null)?'/requests/' + vm.requestid:'/requests';
 				axios.get(url).then(response => {
 					if (typeof(response.data.records) !== "undefined") {

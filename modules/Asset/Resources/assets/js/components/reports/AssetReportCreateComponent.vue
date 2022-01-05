@@ -3,7 +3,7 @@
 		<div class="card-body">
 			<div class="alert alert-danger" v-if="errors.length > 0">
 				<ul>
-					<li v-for="error in errors">{{ error }}</li>
+					<li v-for="error in errors" :key="error">{{ error }}</li>
 				</ul>
 			</div>
 			<div class="row">
@@ -250,7 +250,7 @@
 	                    <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-prev-page" v-if="page > 1">
 	                        <a class="page-link" @click="changePage(page - 1)">&lt;</a>
 	                    </li>
-	                    <li :class="(page == number)?'VuePagination__pagination-item page-item active':'VuePagination__pagination-item page-item'" v-for="number in pageValues" v-if="number <= lastPage">
+	                    <li :class="(page == number)?'VuePagination__pagination-item page-item active':'VuePagination__pagination-item page-item'" v-for="(number, index) in pageValues" :key="index" v-if="number <= lastPage">
 	                        <a class="page-link active" role="button" @click="changePage(number)">{{number}}</a>
 	                    </li>
 	                    <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-next-page" v-if="page < lastPage">
@@ -369,17 +369,17 @@
 		watch: {
             perPage(res) {
             	if (this.page == 1){
-            		this.loadAssets('/asset/registers/vue-list/' + res + '/' + this.page);
+            		this.loadAssets(`${window.app_url}/asset/registers/vue-list/${res}/${this.page}`);
             	} else {
             		this.changePage(1);
             	}
             },
             page(res) {
-                this.loadAssets('/asset/registers/vue-list/' + this.perPage + '/' + res);
+                this.loadAssets(`${window.app_url}/asset/registers/vue-list/${this.perPage}/${res}`);
             },
         },
 		created() {
-			this.loadAssets('/asset/registers/vue-list/' + this.perPage + '/' + this.page);
+			this.loadAssets(`${window.app_url}/asset/registers/vue-list/${this.perPage}/${this.page}`);
 			this.getInstitutions();
 			this.getAssetTypes();
 			this.getAssetStatus();
@@ -420,7 +420,7 @@
 			getAssetStatus() {
 				const vm = this;
 				vm.asset_status = [];
-				axios.get('/asset/get-status').then(response => {
+				axios.get(`${window.app_url}/asset/get-status`).then(response => {
 					vm.asset_status = response.data;
 				});
 			},
@@ -463,7 +463,7 @@
 			createRecord() {
 				const vm = this;
 				var fields = {};
-				var url = 'asset/reports';
+				var url = `${window.app_url}/asset/reports`;
 
 				if (vm.record.type_report == '') {
 					bootbox.alert("Debe seleccionar el tipo de reporte a generar");
@@ -501,7 +501,7 @@
 			},
 			filterRecords() {
 				const vm = this;
-				var url =  '/asset/registers/search';
+				var url =  `${window.app_url}/asset/registers/search`;
 				var fields = {};
 
 				if(vm.record.type_report == 'general'){

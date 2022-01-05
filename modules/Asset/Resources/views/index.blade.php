@@ -4,8 +4,7 @@
 @endsection
 
 {{-- Gráficos Estadísticos --}}
-<asset-dashboard-graphs>
-</asset-dashboard-graphs>
+<asset-dashboard-graphs></asset-dashboard-graphs>
 
 {{-- Histórico de Operaciones --}}
 <div class="row">
@@ -19,7 +18,7 @@
 			</div>
 			<div class="card-body">
 				<asset-operations-history-list
-					route_list="asset/dashboard/operations/vue-list">
+					route_list="{{ url('asset/dashboard/operations/vue-list') }}">
 				</asset-operations-history-list>
 			</div>
 		</div>

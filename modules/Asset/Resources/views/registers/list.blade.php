@@ -47,9 +47,9 @@
 				</div>
 				<div class="card-body">
 					<asset-list
-						route_list="asset/registers/vue-list"
-						route_edit="asset/registers/edit/{id}"
-						route_delete="asset/registers/delete">
+						route_list="{{ url('asset/registers/vue-list') }}"
+						route_edit="{{ url('asset/registers/edit/{id}') }}"
+						route_delete="{{ url('asset/registers/delete') }}">
 					</asset-list>
 				</div>
 			</div>
@@ -61,10 +61,10 @@
 	@parent
     <script>
         function exportData() {
-            location.href = '/asset/registers/export/all';
+            location.href = `${window.app_url}/asset/registers/export/all`;
         };
         function importData() {
-        	var url = '/asset/registers/import/all' ;
+        	var url = `${window.app_url}/asset/registers/import/all`;
             var formData = new FormData();
             var importFile = document.querySelector('#importFile');
             formData.append("file", importFile.files[0]);

@@ -30,9 +30,9 @@
 				</div>
 				<div class="card-body">
 					<asset-request-list
-						route_list="asset/requests/vue-list"
-						route_edit="asset/requests/edit/{id}"
-						route_delete="asset/requests/delete">
+						route_list="{{ url('asset/requests/vue-list') }}"
+						route_edit="{{ url('asset/requests/edit/{id}') }}"
+						route_delete="{{ url('asset/requests/delete') }}">
 					</asset-request-list>
 				</div>
 			</div>
@@ -52,8 +52,8 @@
 				</div>
 				<div class="card-body">
 					<asset-request-list-pending
-							route_list='asset/requests/vue-pending-list'
-							route_update='asset/requests'>
+							route_list="{{ url('asset/requests/vue-pending-list') }}"
+							route_update="{{ url('asset/requests') }}">
 					</asset-request-list-pending>
 				</div>
 			</div>
@@ -72,8 +72,8 @@
 				</div>
 				<div class="card-body">
 					<asset-request-list-pending
-							route_list='asset/requests/extensions/vue-pending-list'
-							route_update='asset/requests/extensions'>
+							route_list="{{ url('asset/requests/extensions/vue-pending-list') }}"
+							route_update="{{ url('asset/requests/extensions') }}">
 					</asset-request-list-pending>
 				</div>
 			</div>
@@ -92,7 +92,7 @@
 				</div>
 				<div class="card-body">
 					<asset-request-delivery-list
-							route_list='asset/requests/deliveries'>
+							route_list="{{ url('asset/requests/deliveries') }}">
 					</asset-request-delivery-list>
 				</div>
 			</div>

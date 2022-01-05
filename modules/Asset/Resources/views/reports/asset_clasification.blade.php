@@ -85,12 +85,6 @@
 
 							</div>
 						</div>
-
-
-
-
-
-
 					</div>
 					<div class="row">
 						<div class="col-12">
@@ -133,7 +127,6 @@
 								        <td> {{ $asset->serial }} </td>
 								        <td> {{ $asset->marca }} </td>
 										<td> {{ $asset->model }} </td>
-
 									</tr>
 								@endforeach
 							</tbody>
