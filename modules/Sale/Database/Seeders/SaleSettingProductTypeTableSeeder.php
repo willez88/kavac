@@ -41,7 +41,8 @@ class SaleSettingProductTypeTableSeeder extends Seeder
 
         DB::transaction(function () use ($saleSettingProductType) {
             foreach ($saleSettingProductType as $saleSettingProductType) {
-                saleSettingProductType::Create(
+                saleSettingProductType::updateOrCreate(
+                    ['name' => $saleSettingProductType['name']],
                     ['name' => $saleSettingProductType['name']],
                 );
             }
