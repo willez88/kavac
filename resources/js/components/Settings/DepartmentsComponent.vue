@@ -33,7 +33,7 @@
 							<div class="col-12 col-md-6">
 								<div class="form-group">
 									<label>Depende de:</label>
-									<select2 :options="departments" v-model="record.parent_id"
+									<select2 :options="departments" v-model="record.parent_id" id="parentId"
 											 title="Unidad, Departamento o dependencia de la cual depende. No seleccionar si no es subordinada a otra dependencia"
 											 data-toggle="tooltip"></select2>
 			                    </div>
@@ -97,7 +97,7 @@
 	                </div>
 	                <div class="modal-footer">
 	                	<div class="form-group">
-	                		<modal-form-buttons :saveRoute="'departments'"></modal-form-buttons>
+	                		<modal-form-buttons :saveRoute="setUrl('departments')"></modal-form-buttons>
 	                	</div>
 	                </div>
 	                <div class="modal-body modal-table">
@@ -155,6 +155,25 @@
 					'institution.acronym', 'parent.name', 'acronym', 'name', 'active', 'id'
 				],
 			}
+		},
+		watch: {
+			record: {
+				deep: true,
+				handler: function(newValue, oldValue) {
+					const vm = this;
+					
+					if (
+						typeof(vm.record.parent) !== "undefined" && 
+						vm.record.parent !== null && 
+						vm.record.parent_id !== vm.record.parent.id && 
+						!vm.record.parent_id
+					) {
+						setTimeout(() => {
+							vm.record.parent_id = vm.record.parent.id;
+						}, 3000);
+					}
+				}
+			},
 		},
 		methods: {
 			/**

@@ -275,6 +275,18 @@ Vue.mixin({
 			}
 		},
 		/**
+		 * Establece la url absoluta
+		 * 
+		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
+		 *
+		 * @param   {String}  route  Ruta de la URL
+		 *
+		 * @return  {String}         Ruta absoluta
+		 */
+		setUrl(route) {
+            return `${window.app_url}/${route}`;
+        },
+		/**
 		 * Redirecciona a una url esecífica si fue suministrada
 		 *
 		 * @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
@@ -650,9 +662,6 @@ Vue.mixin({
 				if (value === true || value === false) {
 					$("input[name=" + el + "].bootstrap-switch").bootstrapSwitch('state', value, true);
 				}
-				/*if (el.substring(el.length - 3, el.length) === "_id") {
-					$("#" + el + ".select2").val(value);
-				}*/
 			});
 
 			event.preventDefault();
