@@ -55,12 +55,12 @@
                         <v-client-table :columns="columns" :data="records" :options="table_options">
                             <div slot="id" slot-scope="props" class="text-center">
                                 <button @click="loadCategory(props.row)"
-                                        class="btn btn-warning btn-xs btn-icon"
+                                        class="btn btn-warning btn-xs btn-icon btn-action"
                                         title="Modificar registro" data-toggle="tooltip">
                                     <i class="fa fa-edit"></i>
                                 </button>
-                                <button @click="deleteRecord(props.index, '/accounting/settings/categories')"
-                                        class="btn btn-danger btn-xs btn-icon"
+                                <button @click="deleteRecord(props.row.id, '/accounting/settings/categories')"
+                                        class="btn btn-danger btn-xs btn-icon btn-action"
                                         title="Eliminar registro" data-toggle="tooltip" >
                                     <i class="fa fa-trash-o"></i>
                                 </button>

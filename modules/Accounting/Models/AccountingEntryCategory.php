@@ -25,13 +25,12 @@ class AccountingEntryCategory extends Model implements Auditable
     protected $fillable = ['name','acronym','institution_id'];
 
     /**
-     * AccountingEntryCategory has many AccountingEntries.
+     * AccountingEntryCategory has many AccountingEntry.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function accountingEntries()
     {
-        // hasMany(RelatedModel, foreignKeyOnRelatedModel = accountingEntryCategory_id, localKey = id)
         return $this->hasMany(AccountingEntry::class);
     }
 }
