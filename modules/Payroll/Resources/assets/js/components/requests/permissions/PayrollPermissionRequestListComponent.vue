@@ -14,8 +14,7 @@
                 </span>
             </div>
     		<div slot="id" slot-scope="props" class="text-center">
-    			<div class="d-inline-flex">
-
+    			<section class="d-inline-flex">
     				<payroll-permission-request-info
     					:route_list="app_url + '/payroll/permission-requests/vue-info/' + props.row.id">
     				</payroll-permission-request-info>
@@ -32,7 +31,7 @@
     						:disabled="props.row.status != 'Pendiente'">
     					<i class="fa fa-trash-o"></i>
     				</button>
-    			</div>
+    			</section>
     		</div>
     	</v-client-table>
 	</section>
