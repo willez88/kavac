@@ -423,6 +423,16 @@ Vue.component('sale-quote-list', () => import(
 );
 
 /**
+ * Componente para mostrar un listado de Cotizaciones
+ *
+ * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+ */
+Vue.component('sale-report-quote', () => import(
+    /* webpackChunkName: "sale-report-quote" */
+    './components/reports/SaleReportQuotesComponent.vue')
+);
+
+/**
  * Componente para gestionar bienes a Comercializar
  *
  * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
@@ -689,9 +699,6 @@ Vue.mixin({
 			axios.get('/sale/get-quote-payment').then(response => {
                                let quote_payment_id = vm.record.sale_payment_method_id;
 				vm.quote_payments = response.data;
-                               if (quote_payment_id > 0) {
-                                    $('#sale_payment_method_id').val(quote_payment_id).trigger('change');
-                               }
 			});
 		},
 
