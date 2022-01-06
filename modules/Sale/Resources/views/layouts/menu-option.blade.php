@@ -59,6 +59,10 @@
                     data-toggle="tooltip" data-placement="right">
                     <a href="/sale/reports/bills">Facturas</a>
                 </li>
+                <li title="Reporte de cotizaciones"
+                    data-toggle="tooltip" data-placement="right">
+                    <a href="/sale/reports/quotes">Cotizaciones</a>
+                </li>
             </ul>
         </li>
 
