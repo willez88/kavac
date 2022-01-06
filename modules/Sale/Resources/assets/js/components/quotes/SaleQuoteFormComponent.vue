@@ -781,7 +781,7 @@
           option_name = product.sale_warehouse_inventory_product_id;
           let inventory_product = product_load.sale_warehouse_inventory_product;
           if (typeof inventory_product !== "undefined" && inventory_product) {
-            option_name = inventory_product.code;
+            option_name = inventory_product.sale_setting_product.name;
             if (inventory_product.exist) {
               product.has_quantity_max = 1;
               product.quantity_max_value = inventory_product.exist;

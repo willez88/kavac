@@ -119,7 +119,7 @@ class SaleQuoteController extends Controller
     {
         $width = [
           'SaleFormPayment',
-          'saleQuoteProduct.saleWarehouseInventoryProduct',
+          'saleQuoteProduct.saleWarehouseInventoryProduct.SaleSettingProduct',
           'saleQuoteProduct.saleTypeGood',
           'saleQuoteProduct.SaleListSubservices',
           'saleQuoteProduct.measurementUnit',
@@ -345,7 +345,7 @@ class SaleQuoteController extends Controller
     {
         $width = [
           'SaleFormPayment',
-          'saleQuoteProduct.saleWarehouseInventoryProduct',
+          'saleQuoteProduct.saleWarehouseInventoryProduct.SaleSettingProduct',
           'saleQuoteProduct.saleTypeGood',
           'saleQuoteProduct.SaleListSubservices',
           'saleQuoteProduct.measurementUnit',
@@ -402,7 +402,20 @@ class SaleQuoteController extends Controller
 
     public function getSaleQuoteStatus()
     {
-        return response()->json(['records' => $this->status_list], 200);
+
+        $status = [];
+        $status[] = [
+          'id' => '',
+          'text' => 'Seleccione...',
+        ];
+        foreach($this->status_list as $id => $name) {
+          $status[] = [
+            'id' => $id,
+            'text' => $name,
+          ];
+        }
+
+        return response()->json($status, 200);
     }
 
     /**
@@ -519,5 +532,80 @@ class SaleQuoteController extends Controller
           $clients[] = $client;
         }
         return response()->json($clients, 200);
+    }
+
+    /**
+     * Obtiene una lista con de los clientes con cotizaciones
+     *
+     * @author PHD. Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+     * @return \Illuminate\Http\JsonResponse Json con los datos de los productos
+     */
+    public function getSaleQuoteClients()
+    {
+        $Quoteclients = SaleQuote::select('id_number','name', 'email', 'type_person')->distinct('id_number')->get();
+        $clients = [];
+        $clients[] = [
+          'id' => '',
+          'text' => 'Todos',
+        ];
+        foreach($Quoteclients as $client) {
+          $clients[] = [
+            'id' => $client->id_number,
+            'text' => $client->name . ' (' . $client->email . ')',
+          ];
+        }
+        return response()->json($clients, 200);
+    }
+
+    /**
+     * Obtiene una lista con la fecha minima de cotizaciones
+     *
+     * @author PHD. Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+     * @return \Illuminate\Http\JsonResponse Json con los datos de fecha
+     */
+    public function getSaleQuoteYear()
+    {
+        $Quotedate = SaleQuote::all('created_at')->min('created_at')->toArray();
+        $years = [];
+        $years[] = [
+          'id' => '',
+          'text' => 'Todos',
+        ];
+        if (isset($Quotedate['year'])) {
+          $current = date("Y");
+          for($i = $Quotedate['year']; $i <= $current; $i++) {
+            $years[] = [
+              'id' => $i,
+              'text' => $i,
+            ];
+          }
+        }
+        return response()->json($years, 200);
+    }
+
+    /**
+     * Obtiene una lista con la fecha de creacion min y max de cotizaciones
+     *
+     * @author PHD. Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+     * @return \Illuminate\Http\JsonResponse Json con los datos de fechas
+     */
+    public function getSaleQuoteRangeDates()
+    {
+        $Quotedate = SaleQuote::all('created_at')->min('created_at')->toArray();
+        $dates = [];
+        if ($Quotedate) {
+          if ($Quotedate['day'] < 10) {
+            $Quotedate['day'] = '0' . $Quotedate['day'];
+          }
+          $dates['min'] = $Quotedate['year'] . '-' . $Quotedate['month'] . '-' . $Quotedate['day'];
+        }
+        $Quotedate = SaleQuote::all('created_at')->max('created_at')->toArray();
+        if ($Quotedate) {
+          if ($Quotedate['day'] < 10) {
+            $Quotedate['day'] = '0' . $Quotedate['day'];
+          }
+          $dates['max'] = $Quotedate['year'] . '-' . $Quotedate['month'] . '-' . $Quotedate['day'];
+        }
+        return response()->json($dates, 200);
     }
 }

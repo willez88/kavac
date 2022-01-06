@@ -734,6 +734,44 @@ Vue.mixin({
 			});
 		},
 
+		/**
+		 * Obtiene un arreglo con la lista con los clientes con cotizaciones
+		 *
+		 * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+		 */
+		getQuoteWithClients() {
+			const vm = this;
+			vm.quote_with_clients = [];
+			axios.get('/sale/get-quote-with-clients').then(response => {
+				vm.quote_with_clients = response.data;
+			});
+		},
+		/**
+		 * Obtiene un arreglo con la lista con los clientes con cotizaciones
+		 *
+		 * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+		 */
+		getSaleQuoteYear() {
+			const vm = this;
+			vm.quote_years = [];
+			axios.get('/sale/get-quote-years').then(response => {
+				vm.quote_years = response.data;
+			});
+		},
+		/**
+		 * Obtiene un arreglo con la lista con los clientes con cotizaciones
+		 *
+		 * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+		 */
+		getSaleQuoteRangeDates() {
+			const vm = this;
+			vm.quote_range_dates = [];
+			axios.get('/sale/get-quote-range-dates').then(response => {
+				vm.quote_range_dates = response.data;
+			});
+		},
+
+
         /**
          * Obtiene los datos de Bienes a Comercializar
          *
