@@ -141,11 +141,44 @@ class SalePaymentController extends Controller
      */
     public function vueList()
     {
+         
 
-        return response()->json(['records' => SaleRegisterPayment::
-            join("sale_services","sale_register_payments.order_service_id","=","sale_services.id")
-            ->join("sale_clients","sale_services.sale_client_id","=","sale_clients.id")
-            ->get()], 200);
+        $x2 = SaleService::with(['SaleGoodsToBeTraded'])
+                    ->join("sale_register_payments","sale_services.id","=","sale_register_payments.order_service_id")
+                    ->join("sale_clients","sale_services.sale_client_id","=","sale_clients.id")
+                    ->get();
+        /*
+        $x6 = SaleService::with(['jose'])
+                    ->join("sale_register_payments","sale_services.id","=","sale_register_payments.order_service_id")
+                    ->join("sale_clients","sale_services.sale_client_id","=","sale_clients.id")
+                    ->get();*/
+        $x4 = [];
+        foreach ($x2 as $value) {
+            $x5 = true;
+            if ($x5 == true && $value->order_or_service_define_attributes == true) {
+                $x3 = $value;
+                array_push($x4,$x3);
+            }
+        }
+        /*
+        foreach ($x6 as $value) {
+            $x5 = false;
+            if ($x5 == false && $value->order_or_service_define_attributes == false) {
+                $x3 = $value;
+                array_push($x4,$x3);
+            }
+        }
+        */
+        return response()->json(['records' => collect($x4)], 200);
+
+        /*
+         $x = response()->json(['records' => SaleService::with(['SaleGoodsToBeTraded'])
+        ->join("sale_register_payments","sale_services.id","=","sale_register_payments.order_service_id")
+        ->join("sale_clients","sale_services.sale_client_id","=","sale_clients.id")
+        ->get()], 200); 
+        return $x;*/
+
+
     }
 
     public function pending()

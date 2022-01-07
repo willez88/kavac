@@ -24,24 +24,24 @@
         data(){
             return{
                 records:[],
-                columns: ['payment_date', 'name','description', 'total_amount','reference_number','id'],
+                columns: ['payment_date', 'name','sale_goods', 'total_amount','reference_number','id'],
             }
         },
         created(){
             this.table_options.headings = {
                 'payment_date': 'Fecha del pago',
                 'name': 'Nombre o razón social',
-                'description': 'Productos o servicios asociados al pago',
+                'sale_goods': 'Productos o servicios asociados al pago',
                 'total_amount': 'Monto del pago',
                 'reference_number': 'Número de referencia de la operación',
                 'id': 'ACCIÓN'
             };
-            this.table_options.sortable = ['payment_date', 'name', 'description', 'total_amount', 'reference_number'];
-            this.table_options.filterable = ['payment_date', 'name', 'description', 'total_amount', 'reference_number'];
+            this.table_options.sortable = ['payment_date', 'name', 'sale_goods', 'total_amount', 'reference_number'];
+            this.table_options.filterable = ['payment_date', 'name', 'sale_goods', 'total_amount', 'reference_number'];
             this.table_options.columnsClasses = {
                 'payment_date': 'col-xs-2',
                 'name': 'col-xs-2',
-                'description': 'col-xs-2',
+                'sale_goods': 'col-xs-2',
                 'total_amount': 'col-xs-2',
                 'reference_number': 'col-xs-2',
                 'id': 'col-xs-2'
