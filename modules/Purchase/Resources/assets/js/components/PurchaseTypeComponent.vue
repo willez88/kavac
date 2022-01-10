@@ -20,11 +20,7 @@
                         </h6>
                     </div>
                     <div class="modal-body">
-                        <div class="alert alert-danger" v-if="errors.length > 0">
-                            <ul>
-                                <li v-for="error in errors">{{ error }}</li>
-                            </ul>
-                        </div>
+                        <purchase-show-errors ref="purchaseTypesErrors" />
 
                         <div class="row">
                             <div class="col-md-6">
@@ -144,6 +140,7 @@
                                     vm.errors.push(error.response.data.errors[index][0]);
                                 }
                             }
+                            // vm.$refs.purchaseTypesErrors.showMessages(vm.errors)
                         }
                         vm.loading = false;
                     });
@@ -163,6 +160,7 @@
                                     vm.errors.push(error.response.data.errors[index][0]);
                                 }
                             }
+                            // vm.$refs.purchaseTypesErrors.showMessages(vm.errors)
                         }
                         vm.loading = false;
                     });

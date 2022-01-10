@@ -239,17 +239,17 @@
                     }).catch(error=>{
                         vm.loading = false;
                         this.$refs.PurchaseFormComponent.reset();
-                        var  errors = [];
+                        vm.errors = [];
                         if (typeof(error.response) != 'undefined') {
                             for (var index in error.response.data.errors) {
                                 if (error.response.data.errors[index]) {
-                                    errors.push(error.response.data.errors[index][0]);
+                                    vm.errors.push(error.response.data.errors[index][0]);
                                 }
                             }
                         }
-                        if (this.$refs.PurchaseFormComponent) {
-                            this.$refs.PurchaseFormComponent.showAlertMessages(errors);
-                        }
+                        // if (this.$refs.PurchaseFormComponent) {
+                        //     this.$refs.PurchaseFormComponent.showAlertMessages(errors);
+                        // }
                     });
                 }else{
                     axios.post('/purchase/requirements',vm.record).then(response=>{
@@ -261,17 +261,17 @@
                     }).catch(error=>{
                         vm.loading = false;
                         this.$refs.PurchaseFormComponent.reset();
-                        var errors = [];
+                        vm.errors = [];
                         if (typeof(error.response) != 'undefined') {
                             for (var index in error.response.data.errors) {
                                 if (error.response.data.errors[index]) {
-                                    errors.push(error.response.data.errors[index][0]);
+                                    vm.errors.push(error.response.data.errors[index][0]);
                                 }
                             }
                         }
-                        if (this.$refs.PurchaseFormComponent) {
-                            this.$refs.PurchaseFormComponent.showAlertMessages(errors);
-                        }
+                        // if (this.$refs.PurchaseFormComponent) {
+                        //     this.$refs.PurchaseFormComponent.showAlertMessages(errors);
+                        // }
                     });
                 }
             },
