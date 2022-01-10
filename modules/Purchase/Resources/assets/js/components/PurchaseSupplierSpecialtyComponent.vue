@@ -20,11 +20,10 @@
 						</h6>
 					</div>
 					<div class="modal-body">
-						<div class="alert alert-danger" v-if="errors.length > 0">
-							<ul>
-								<li v-for="error in errors">{{ error }}</li>
-							</ul>
-						</div>
+
+						<!-- Componente para mostrar errores en el formulario -->
+						<purchase-show-errors />
+
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group is-required">
@@ -37,7 +36,7 @@
 			                    </div>
 							</div>
 							<div class="col-md-12">
-								<div class="form-group is-required">
+								<div class="form-group">
 									<label>Descripción:</label>
                                     <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
                                               title="Indique la descripción para la especialidad del proveedor"
@@ -60,12 +59,12 @@
 	                		</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.row.id, $event)"
-		                				class="btn btn-warning btn-xs btn-icon btn-round"
+		                				class="btn btn-warning btn-xs btn-icon btn-action"
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
 		                		<button @click="deleteRecord(props.row.id, '/purchase/supplier-specialties')"
-										class="btn btn-danger btn-xs btn-icon btn-round"
+										class="btn btn-danger btn-xs btn-icon btn-action"
 										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
 									<i class="fa fa-trash-o"></i>

@@ -72,7 +72,7 @@ class PurchaseSupplierSpecialtyController extends Controller
      * @param  Request $request
      * @return JsonResponse
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         /** @var object Datos de la especialidad de proveedores */
         $supplierSpecialty = PurchaseSupplierSpecialty::find($id);
@@ -91,7 +91,7 @@ class PurchaseSupplierSpecialtyController extends Controller
      * Remove the specified resource from storage.
      * @return JsonResponse
      */
-    public function destroy()
+    public function destroy($id)
     {
         /** @var object Datos de la especialidad de proveedores */
         $supplierSpecialty = PurchaseSupplierSpecialty::find($id);
