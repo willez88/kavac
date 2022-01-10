@@ -5,11 +5,6 @@
 				<i class="now-ui-icons objects_support-17"></i>
 			</div>
 			<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
-            <!-- <button type="button" @click="this.reset" class="close" data-dismiss="alert" aria-label="Close">
-				<span aria-hidden="true">
-					<i class="now-ui-icons ui-1_simple-remove"></i>
-				</span>
-			</button> -->
 			<ul>
 				<li v-for="error in options">{{ error }}</li>
 			</ul>

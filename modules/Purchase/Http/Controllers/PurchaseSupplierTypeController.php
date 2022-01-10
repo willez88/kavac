@@ -71,7 +71,7 @@ class PurchaseSupplierTypeController extends Controller
      * @param  Request $request
      * @return JsonResponse
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         /** @var object Datos del tipo de proveedores */
         $supplierType = PurchaseSupplierType::find($id);
@@ -90,7 +90,7 @@ class PurchaseSupplierTypeController extends Controller
      * Remove the specified resource from storage.
      * @return JsonResponse
      */
-    public function destroy()
+    public function destroy($id)
     {
         /** @var object Datos del tipo de proveedores */
         $supplierType = PurchaseSupplierType::find($id);
