@@ -124,7 +124,6 @@
                                 }
                             }
                         }
-                        // vm.$refs.PurchaseFormComponent.showAlertMessages(errors);
                     });
                 }else{
                     axios.put('/purchase/purchase_plans/'+this.record_edit.id, vm.record).then(response=>{
@@ -144,7 +143,6 @@
                                 }
                             }
                         }
-                        // vm.$refs.PurchaseFormComponent.showAlertMessages(errors);
                     });
                 }
             },

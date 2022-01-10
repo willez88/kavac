@@ -20,6 +20,7 @@
                         </h6>
                     </div>
                     <div class="modal-body">
+
                         <purchase-show-errors ref="purchaseErrors" />
 
                         <div class="row">
@@ -126,12 +127,5 @@
                 'id': 'col-xs-1'
             };
         },
-        watch:{
-            errors:function(res) {
-                const vm = this;
-                vm.$refs.purchaseErrors.reset();
-                vm.$refs.purchaseErrors.showAlertMessages(res);
-            }
-        }
     };
 </script>

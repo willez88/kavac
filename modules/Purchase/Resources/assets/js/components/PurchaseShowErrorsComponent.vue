@@ -36,32 +36,6 @@
 			reset(){
 				this.options = [];
 			},
-
-			/**
-			 * [showAlertMessages carga la informacion de los errores]
-			 * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
-			 * @param  {string|array} messages mensajes de error
-			 * @param  {string} messages clase de mensaje
-			 */
-			showAlertMessages(messages, classAlert = 'danger'){
-
-				this.classAlert = classAlert;
-
-				if (Array.isArray(messages)) {
-					if (messages.length == 0) {
-						this.options = [];	
-					}else{
-						this.options = messages;
-					}
-				}
-				else if(!messages){
-					this.options = [];
-				}
-				else{
-					this.options = [];
-					this.options.push(messages);
-				}
-			},
 		}
 	};
 </script>

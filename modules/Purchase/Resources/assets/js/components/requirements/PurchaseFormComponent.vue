@@ -247,9 +247,6 @@
                                 }
                             }
                         }
-                        // if (this.$refs.PurchaseFormComponent) {
-                        //     this.$refs.PurchaseFormComponent.showAlertMessages(errors);
-                        // }
                     });
                 }else{
                     axios.post('/purchase/requirements',vm.record).then(response=>{
@@ -269,9 +266,6 @@
                                 }
                             }
                         }
-                        // if (this.$refs.PurchaseFormComponent) {
-                        //     this.$refs.PurchaseFormComponent.showAlertMessages(errors);
-                        // }
                     });
                 }
             },
