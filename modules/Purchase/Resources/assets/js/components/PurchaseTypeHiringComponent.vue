@@ -82,6 +82,9 @@
                                     <span class="badge badge-warning"><strong>Inactiva</strong></span>
                                 </div>
                             </div>
+                            <div slot="description" slot-scope="props">
+                                <p v-html="props.row.description"></p>
+                            </div>
                             <div slot="id" slot-scope="props" class="text-center">
                                 <div class="d-inline-flex">
                                     <button @click="loadData(props.row)"

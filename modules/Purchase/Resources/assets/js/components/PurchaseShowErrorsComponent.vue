@@ -20,16 +20,16 @@
 	export default{
 		data(){
 			return{
-				options:[],
+				options: [],
 				classAlert:'danger'
 			}
 		},
 		computed:{
 			existErrors:function(){
 				// Si hay algun error en el componente padre actualiza
-				if (this.$parent.errors.length > 0) {
+				if (this.$parent.errors) {
 					this.options = this.$parent.errors;
-				}
+				};
 				return (this.options.length > 0);
 			},
 		},

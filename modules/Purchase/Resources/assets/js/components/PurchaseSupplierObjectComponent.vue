@@ -67,6 +67,9 @@
 	                			<span v-if="props.row.type==='O'">Obras</span>
 	                			<span v-if="props.row.type==='S'">Servicios</span>
 	                		</div>
+	                		<div slot="description" slot-scope="props">
+	                			<p v-html="props.row.description"></p>
+	                		</div>
 	                		<div slot="id" slot-scope="props" class="text-center">
 	                			<button @click="initUpdate(props.row.id, $event)"
 		                				class="btn btn-warning btn-xs btn-icon btn-round"
