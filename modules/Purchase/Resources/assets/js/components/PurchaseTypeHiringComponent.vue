@@ -4,7 +4,7 @@
            href="#" title="Registros de tipos de compras"
            data-toggle="tooltip"
            @click="addRecord('add_purchase_type_hiring', '/purchase/type_hiring', $event)">
-            <i class="fa fa-tag ico-3x"></i>
+            <div class="mdi-margin"><i class="mdi mdi-handshake ico-3x mr-1"></i></div>
             <span>Tipos de<br>contratación</span>
         </a>
         <div class="modal fade text-left" tabindex="-1" role="dialog" id="add_purchase_type_hiring">
@@ -186,3 +186,13 @@
         },
     };
 </script>
+
+<style>
+    .mdi-margin{
+        margin-top: -1rem;
+        margin-bottom: -0.9rem;
+    }
+    .mdi-margin::before{
+        display: none;
+    }
+</style>

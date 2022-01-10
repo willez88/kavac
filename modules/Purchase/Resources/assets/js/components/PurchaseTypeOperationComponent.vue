@@ -4,7 +4,7 @@
            href="#" title="Registros de tipos de compras"
            data-toggle="tooltip"
            @click="addRecord('add_purchase_type_operation', '/purchase/type_operations', $event)">
-            <i class="fa fa-tag ico-3x"></i>
+            <i class="fa fa-bookmark-o ico-3x"></i>
             <span>Tipos de<br>Operaciones</span>
         </a>
         <div class="modal fade text-left" tabindex="-1" role="dialog" id="add_purchase_type_operation">
