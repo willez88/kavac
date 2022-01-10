@@ -1,8 +1,8 @@
 <template>
 	<div class="col-xs-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-		   href="#" title="Catálogo de Cuentas patrimoniales"
-		   data-toggle="tooltip" @click="addRecord('crud_accounts', 'accounting/accounts', $event)">
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href="" 
+			title="Catálogo de Cuentas patrimoniales" data-toggle="tooltip" 
+			@click="addRecord('crud_accounts', 'accounting/accounts', $event)">
 			<i class="fa fa-list ico-3x"></i>
 			<span>Catálogo de cuentas</span>
 		</a>
@@ -26,7 +26,7 @@
 								<i class="fa fa-reply"></i>
 						</button>
 
-						<button type="reset" class="close" data-dismiss="modal" aria-label="Close">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>

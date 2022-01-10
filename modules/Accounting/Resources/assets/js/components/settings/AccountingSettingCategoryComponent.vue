@@ -1,16 +1,16 @@
 <template>
-    <div class="col-xs-2 text-center">
-        <a class="btn-simplex btn-simplex-md btn-simplex-primary"
-           href="#" title="Registros de categorias de origen de asientos contables"
-           data-toggle="tooltip" @click="addRecord('crud_categories12', 'accounting/settings/categories', $event)">
+    <div class="text-center">
+        <a class="btn-simplex btn-simplex-md btn-simplex-primary" href="" 
+            title="Registros de categorias de origen de asientos contables" data-toggle="tooltip" 
+            @click="addRecord('crud_categories', 'accounting/settings/categories', $event)">
             <i class="fa fa-tags ico-3x"></i>
             <span>Categorias de origen</span>
         </a>
-        <div class="modal fade text-left" tabindex="-1" role="dialog" id="crud_categories12">
+        <div class="modal fade text-left" tabindex="-1" role="dialog" id="crud_categories">
             <div class="modal-dialog vue-crud" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="reset" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
                         <h6>
