@@ -5,11 +5,11 @@
 				<i class="now-ui-icons objects_support-17"></i>
 			</div>
 			<strong>Cuidado!</strong> Debe verificar los siguientes errores antes de continuar:
-            <button type="button" @click="this.reset" class="close" data-dismiss="alert" aria-label="Close">
+            <!-- <button type="button" @click="this.reset" class="close" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true">
 					<i class="now-ui-icons ui-1_simple-remove"></i>
 				</span>
-			</button>
+			</button> -->
 			<ul>
 				<li v-for="error in options">{{ error }}</li>
 			</ul>
@@ -26,8 +26,12 @@
 		},
 		computed:{
 			existErrors:function(){
+				// Si hay algun error en el componente padre actualiza
+				if (this.$parent.errors.length > 0) {
+					this.options = this.$parent.errors;
+				}
 				return (this.options.length > 0);
-			}
+			},
 		},
 		methods:{
 			/**
@@ -44,9 +48,9 @@
 			 * @param  {string|array} messages mensajes de error
 			 * @param  {string} messages clase de mensaje
 			 */
-			showAlertMessages(messages, classAlert){
+			showAlertMessages(messages, classAlert = 'danger'){
 
-				this.classAlert = (classAlert)?classAlert:'danger';
+				this.classAlert = classAlert;
 
 				if (Array.isArray(messages)) {
 					if (messages.length == 0) {
