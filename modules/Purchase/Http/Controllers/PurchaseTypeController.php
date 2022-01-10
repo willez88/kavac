@@ -5,11 +5,24 @@ namespace Modules\Purchase\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Routing\Controller;
-
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Modules\Purchase\Models\PurchaseType;
 
+/**
+ * @class PurchaseTypeController
+ * @brief Controlador para gestionar los tipos de compras
+ *
+ * Clase que gestiona los tipos de compras
+ *
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
+ */
 class PurchaseTypeController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * Display a listing of the resource.
      * @return JsonResponse
@@ -35,6 +48,13 @@ class PurchaseTypeController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => ['required', 'unique:purchase_types,name'],
+            'purchase_processes_id' => ['required'],
+        ],
+            [ 'purchase_processes_id.required' => 'El campo proceso de compra es obligatorio.']
+        );
+
         PurchaseType::create($request->all());
         return response()->json(['records' => PurchaseType::with('purchaseProcess')->orderBy('id')->get(),
             'message' => 'Success'], 200);
@@ -65,6 +85,13 @@ class PurchaseTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name' => ['required', 'unique:purchase_types,name,' . $id],
+            'purchase_processes_id' => ['required'],
+        ], 
+            [ 'purchase_processes_id.required' => 'El campo proceso de compra es obligatorio.']
+        );
+
         $record                        = PurchaseType::find($id);
         $record->name                  = $request->name;
         $record->description           = $request->description;

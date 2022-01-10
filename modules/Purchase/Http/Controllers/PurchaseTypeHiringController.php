@@ -8,6 +8,18 @@ use Illuminate\Routing\Controller;
 
 use Modules\Purchase\Models\PurchaseTypeHiring;
 
+/**
+ * @class PurchaseTypeController
+ * @brief Controlador para gestionar los tipos de contrataciones
+ *
+ * Clase que gestiona los tipos de contrataciones
+ *
+ * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+ * @license <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>
+ *              LICENCIA DE SOFTWARE CENDITEL
+ *          </a>
+ */
+
 class PurchaseTypeHiringController extends Controller
 {
     /**
