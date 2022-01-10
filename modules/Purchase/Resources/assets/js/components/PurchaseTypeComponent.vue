@@ -20,7 +20,8 @@
                         </h6>
                     </div>
                     <div class="modal-body">
-                        <purchase-show-errors ref="purchaseTypesErrors" />
+                        <!-- Componente para mostrar errores en el formulario -->
+                        <purchase-show-errors />
 
                         <div class="row">
                             <div class="col-md-6">
@@ -143,7 +144,6 @@
                                     vm.errors.push(error.response.data.errors[index][0]);
                                 }
                             }
-                            // vm.$refs.purchaseTypesErrors.showMessages(vm.errors)
                         }
                         vm.loading = false;
                     });
@@ -163,7 +163,6 @@
                                     vm.errors.push(error.response.data.errors[index][0]);
                                 }
                             }
-                            // vm.$refs.purchaseTypesErrors.showMessages(vm.errors)
                         }
                         vm.loading = false;
                     });

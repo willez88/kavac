@@ -41,7 +41,9 @@ class PurchaseSupplierObjectController extends Controller
         $this->validate($request, [
             'type' => ['required'],
             'name' => ['required', 'unique:purchase_supplier_objects,name'],
-        ]);
+        ],
+            [ 'type.required' => 'El campo tipo es obligatorio.']
+        );
 
         $supplierObject = PurchaseSupplierObject::create([
             'type' => $request->type,
@@ -75,7 +77,7 @@ class PurchaseSupplierObjectController extends Controller
      * @param  Request $request
      * @return JsonResponse
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         /** @var object Datos del objeto de proveedores */
         $supplierObject = PurchaseSupplierObject::find($id);
@@ -83,7 +85,9 @@ class PurchaseSupplierObjectController extends Controller
         $this->validate($request, [
             'type' => ['required'],
             'name' => ['required', 'unique:purchase_supplier_objects,name,' . $supplierObject->id],
-        ]);
+        ],
+            [ 'type.required' => 'El campo tipo es obligatorio.']
+        );
 
         $supplierObject->type = $request->type;
         $supplierObject->name = $request->name;
@@ -97,7 +101,7 @@ class PurchaseSupplierObjectController extends Controller
      * Remove the specified resource from storage.
      * @return JsonResponse
      */
-    public function destroy()
+    public function destroy($id)
     {
         /** @var object Datos del objeto de proveedores */
         $supplierObject = PurchaseSupplierObject::find($id);

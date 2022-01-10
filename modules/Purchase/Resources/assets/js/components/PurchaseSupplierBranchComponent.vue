@@ -21,7 +21,8 @@
 					</div>
 					<div class="modal-body">
 
-						<purchase-show-errors ref="purchaseTypesErrors" />
+						<!-- Componente para mostrar errores en el formulario -->
+						<purchase-show-errors />
 
 						<div class="row">
 							<div class="col-md-12">
