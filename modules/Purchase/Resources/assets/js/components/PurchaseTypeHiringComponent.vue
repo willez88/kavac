@@ -20,14 +20,16 @@
                         </h6>
                     </div>
                     <div class="modal-body">
-                        <purchase-show-errors ref="purchaseTypesErrors" />
+                        <purchase-show-errors />
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group is-required">
                                     <label class="control-label" for="record_date">Fecha
                                     </label>
-                                    <input type="date" class="form-control" id="record_date" v-model="record.date"
+                                    <input type="date" class="form-control" id="record_date" 
+                                            data-toggle="tooltip" title="Fecha" 
+                                            v-model="record.date"
                                             tabindex="1">
                                 </div>
                             </div>
@@ -43,7 +45,8 @@
                             <div class="col-md-6">
                                 <div class="form-group is-required">
                                     <label for="record_ut">Unidades tributarias:</label>
-                                    <input type="number" id="record_ut" class="form-control" v-model="record.ut"
+                                    <input type="number" id="record_ut" class="form-control" data-toggle="tooltip"
+                                            v-model="record.ut"
                                             title="Indique las unidades tributarias">
                                 </div>
                             </div>
@@ -145,17 +148,42 @@
 
             createRecord(url){
                 this.record.active = $('#active').prop('checked');
+                vm.loading = true;
                 if (!this.edit) {
                     axios.post(url,this.record).then(response=>{
                         this.records = response.data.records;
                         this.showMessage("store");
                         this.reset();
+                        vm.loading = false;
+                    }).catch(error => {
+                        vm.errors = [];
+
+                        if (typeof(error.response) !="undefined") {
+                            for (var index in error.response.data.errors) {
+                                if (error.response.data.errors[index]) {
+                                    vm.errors.push(error.response.data.errors[index][0]);
+                                }
+                            }
+                        }
+                        vm.loading = false;
                     });
                 }else if(this.edit && this.record.id){
                     axios.put(url+'/'+this.record.id, this.record).then(response=>{
                         this.records = response.data.records;
                         this.showMessage("update");
                         this.reset();
+                        vm.loading = false;
+                    }).catch(error => {
+                        vm.errors = [];
+
+                        if (typeof(error.response) !="undefined") {
+                            for (var index in error.response.data.errors) {
+                                if (error.response.data.errors[index]) {
+                                    vm.errors.push(error.response.data.errors[index][0]);
+                                }
+                            }
+                        }
+                        vm.loading = false;
                     });
                 }
             },

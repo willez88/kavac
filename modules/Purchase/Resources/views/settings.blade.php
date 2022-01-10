@@ -21,32 +21,6 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h6 class="card-title">Configuración General</h6>
-					<div class="card-btns">
-						@include('buttons.previous', ['route' => url()->previous()])
-						@include('buttons.minimize')
-					</div>
-				</div>
-				<div class="card-body">
-					<div class="row">
-						<purchase-supplier-branches></purchase-supplier-branches>
-						<purchase-supplier-objects></purchase-supplier-objects>
-						<purchase-supplier-specialties></purchase-supplier-specialties>
-						<purchase-supplier-types></purchase-supplier-types>
-						<required-documents module="purchase" model="supplier"></required-documents>
-						<purchase-processes></purchase-processes>
-						<purchase-type></purchase-type>
-						<purchase-type-hiring></purchase-type-hiring>
-						<purchase-type-operations></purchase-type-operations>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-12">
-			<div class="card">
-				<div class="card-header">
 					<h6 class="card-title">Formatos de Códigos</h6>
 					<div class="card-btns">
 						@include('buttons.previous', ['route' => url()->previous()])
@@ -181,6 +155,32 @@
 						@include('layouts.form-buttons')
 					</div>
 				{!! Form::close() !!}
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<h6 class="card-title">Configuración General</h6>
+					<div class="card-btns">
+						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.minimize')
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<purchase-supplier-branches></purchase-supplier-branches>
+						<purchase-supplier-objects></purchase-supplier-objects>
+						<purchase-supplier-specialties></purchase-supplier-specialties>
+						<purchase-supplier-types></purchase-supplier-types>
+						<required-documents module="purchase" model="supplier"></required-documents>
+						<purchase-processes></purchase-processes>
+						<purchase-type></purchase-type>
+						<purchase-type-hiring></purchase-type-hiring>
+						<purchase-type-operations></purchase-type-operations>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
