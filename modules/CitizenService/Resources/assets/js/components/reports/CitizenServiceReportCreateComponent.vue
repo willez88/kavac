@@ -2,7 +2,7 @@
 	<section id="CitizenServiceReportForm">
 		<div class="alert alert-danger" v-if="errors.length > 0">
 			<ul>
-				<li v-for="error in errors">{{ error }}</li>
+				<li v-for="(error, index) in errors" :key="index">{{ error }}</li>
 			</ul>
 		</div>
 		<div class="row">
@@ -199,7 +199,7 @@
 					fields[index] = this.records[index];
 				}
 
-				axios.post('/citizenservice/reports/request/create' , fields).then(response => {
+				axios.post(`${window.app_url}/citizenservice/reports/request/create` , fields).then(response => {
 					if (response.data.result == false)
 						location.href = response.data.redirect;
 					else if (typeof(response.data.redirect) !== "undefined") {
@@ -226,7 +226,7 @@
 			filterRecords() {
 
 				const vm = this;
-				var url =  '/citizenservice/reports/search';
+				var url =  `${window.app_url}/citizenservice/reports/search`;
 
 				var fields = {};
 				if(vm.record.type_search == 'period'){

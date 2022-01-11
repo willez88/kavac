@@ -27,7 +27,7 @@
                                 </span>
                             </button>
                             <ul>
-                                <li v-for="error in errors">{{ error }}</li>
+                                <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
                             </ul>
                         </div>
                     </div>
@@ -143,6 +143,7 @@
                 var confirmated = false;
                 var index = index - 1;
                 const vm = this;
+                url = vm.setUrl(url);
 
                 bootbox.confirm({
                     title: "¿Eliminar registro?",
@@ -185,7 +186,7 @@
                 formData.append("file", inputFile.files[0]);
                 formData.append("date_verification",vm.record.date_verification);
                 formData.append("request_id", vm.record['id']);
-                axios.post('/citizenservice/requests/validate-document', formData, {
+                axios.post(`${window.app_url}/citizenservice/requests/validate-document`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }

@@ -57,7 +57,7 @@
                 var fields = this.records[index-1];
                 var id = this.records[index-1].id;
 
-                axios.put('/'+this.route_update+'/request-approved/'+id, fields).then(response => {
+                axios.put(`${this.route_update}/request-approved/${id}`, fields).then(response => {
                     if (typeof(response.data.redirect) !== "undefined") {
                         location.href = response.data.redirect;
                     }

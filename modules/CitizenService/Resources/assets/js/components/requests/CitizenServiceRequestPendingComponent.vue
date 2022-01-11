@@ -37,7 +37,7 @@
 									</span>
 								</button>
 								<ul>
-									<li v-for="error in errors">{{ error }}</li>
+									<li v-for="(error, index) in errors" :key="index">{{ error }}</li>
 								</ul>
 							</div>
 						</div>
@@ -99,7 +99,7 @@
 									</span>
 								</button>
 								<ul>
-									<li v-for="error in errors">{{ error }}</li>
+									<li v-for="(error, index) in errors" :key="index">{{ error }}</li>
 								</ul>
 							</div>
 						</div>
@@ -183,6 +183,7 @@
 				const vm = this;
 				var id = $(".modal-body #id").val();
 				if(typeof(url) != 'undefined'){
+					url = vm.setUrl(url);
 					axios.put(url + id, vm.record).then(response => {
 	                    if (typeof(response.data.redirect) !== "undefined")
 	                        location.href = response.data.redirect;

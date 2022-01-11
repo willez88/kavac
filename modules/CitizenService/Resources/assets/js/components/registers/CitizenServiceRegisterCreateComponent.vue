@@ -15,7 +15,7 @@
 						</span>
 					</button>
 					<ul>
-						<li v-for="error in errors">{{ error }}</li>
+						<li v-for="(error, index) in errors" :key="index">{{ error }}</li>
 					</ul>
 				</div>
 			</div>
@@ -68,7 +68,7 @@
 						<div class="form-group is-required">
 							<label for="start_date">Fecha de inicio</label>
         					<input type="date" id="start_date" data-toggle="tooltip" title="Indique la fecha de inicio"
-								   class="form-control no-restrict":min="new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)).toISOString().split('T')[0]"
+								   class="form-control no-restrict" :min="new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)).toISOString().split('T')[0]"
                                    v-model="record.start_date">
         				</div>
 					</div>
@@ -145,7 +145,7 @@
 
 				const vm = this;
 
-	            axios.get('/citizenservice/registers/vue-info/'+id).then(response => {
+	            axios.get(`${window.app_url}/citizenservice/registers/vue-info/${id}`).then(response => {
 	                if(typeof(response.data.record != "undefined")){
 						vm.record = response.data.record;
 
@@ -179,7 +179,7 @@
 			 */
 			getPayrollStaffs() {
 				this.payroll_staffs = [];
-				axios.get('/payroll/get-staffs').then(response => {
+				axios.get(`${window.app_url}/payroll/get-staffs`).then(response => {
 					this.payroll_staffs = response.data;
 				});
 			},

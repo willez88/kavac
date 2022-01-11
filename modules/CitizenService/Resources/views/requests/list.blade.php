@@ -30,9 +30,9 @@
 				</div>
 				<div class="card-body">
 					<citizenservice-request-list
-						route_list="citizenservice/requests/vue-list"
-						route_edit="citizenservice/requests/edit/{id}"
-						route_delete="citizenservice/requests/delete">
+						route_list="{{ url('citizenservice/requests/vue-list') }}"
+						route_edit="{{ url('citizenservice/requests/edit/{id}') }}"
+						route_delete="{{ url('citizenservice/requests/delete') }}">
 					</citizenservice-request-list>
 				</div>
 			</div>
@@ -52,8 +52,8 @@
 				</div>
 				<div class="card-body">
 					<citizenservice-request-list-pending
-							route_list='citizenservice/requests/vue-pending-list'
-							route_update='citizenservice/requests'>
+							route_list="{{ url('citizenservice/requests/vue-pending-list') }}"
+							route_update="{{ url('citizenservice/requests') }}">
 					</citizenservice-request-list-pending>
 				</div>
 			</div>
@@ -72,8 +72,8 @@
 				</div>
 				<div class="card-body">
 					<citizenservice-request-list-closing
-							route_list='citizenservice/requests/vue-list-closing'
-							route_update='citizenservice/requests'>
+							route_list="{{ url('citizenservice/requests/vue-list-closing') }}"
+							route_update="{{ url('citizenservice/requests') }}">
 					</citizenservice-request-list-closing>
 				</div>
 			</div>

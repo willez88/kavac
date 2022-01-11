@@ -85,13 +85,13 @@ Vue.mixin({
 
 		getCitizenServiceRequestTypes() {
 			this.citizen_service_request_types = [];
-			axios.get('/citizenservice/get-request-types').then(response => {
+			axios.get(`${window.app_url}/citizenservice/get-request-types`).then(response => {
 				this.citizen_service_request_types = response.data;
 			});
 		},
 		getCitizenServiceDepartments() {
 			this.citizen_service_departments = [];
-			axios.get('/citizenservice/get-departments').then(response => {
+			axios.get(`${window.app_url}/citizenservice/get-departments`).then(response => {
 				this.citizen_service_departments = response.data;
 			});
 		},
@@ -106,7 +106,7 @@ Vue.mixin({
             const vm = this;
             vm.estates = [];
             if (vm.record.country_id) {
-                await axios.get(`/get-estates/${vm.record.country_id}`).then(response => {
+                await axios.get(`${window.app_url}/get-estates/${vm.record.country_id}`).then(response => {
                     vm.estates = response.data;
                 });
                 if (vm.record.id) {
@@ -124,7 +124,7 @@ Vue.mixin({
             const vm = this;
             vm.cities = [];
             if (vm.record.estate_id) {
-                await axios.get(`/get-cities/${vm.record.estate_id}`).then(response => {
+                await axios.get(`${window.app_url}/get-cities/${vm.record.estate_id}`).then(response => {
                     vm.cities = response.data;
                 });
                 if (vm.record.id) {
@@ -143,7 +143,7 @@ Vue.mixin({
             const vm = this;
             vm.municipalities = [];
             if (vm.record.estate_id) {
-                await axios.get(`/get-municipalities/${vm.record.estate_id}`).then(response => {
+                await axios.get(`${window.app_url}/get-municipalities/${vm.record.estate_id}`).then(response => {
                     vm.municipalities = response.data;
                 });
                 if (vm.record.id) {
@@ -160,7 +160,7 @@ Vue.mixin({
             const vm = this;
             vm.parishes = [];
             if (vm.record.municipality_id) {
-                await axios.get(`/get-parishes/${vm.record.municipality_id}`).then(response => {
+                await axios.get(`${window.app_url}/get-parishes/${vm.record.municipality_id}`).then(response => {
                     vm.parishes = response.data;
                 });
                 if (vm.record.id) {
@@ -187,10 +187,3 @@ Vue.mixin({
 
 	},
 });
-
-
-//import uploader from 'vue-simple-uploader'
-
-
-//Vue.use(uploader)
-

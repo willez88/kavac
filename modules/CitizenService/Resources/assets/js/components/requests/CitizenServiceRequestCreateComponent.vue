@@ -14,7 +14,7 @@
 						</span>
 					</button>
 					<ul>
-						<li v-for="error in errors">{{ error }}</li>
+						<li v-for="(error, index) in errors" :key="index">{{ error }}</li>
 					</ul>
 				</div>
 			</div>
@@ -61,7 +61,7 @@
             <h6 class="card-title">
                 Números Telefónicos <i class="fa fa-plus-circle cursor-pointer" @click="addPhone"></i>
             </h6>
-            <div class="row" v-for="(phone, index) in record.phones">
+            <div class="row" v-for="(phone, index) in record.phones" :key="index">
                 <div class="col-3" id="helpCitizenServicePhones">
                     <div class="form-group is-required">
                         <select data-toggle="tooltip" v-model="phone.type" class="select2"
@@ -387,7 +387,7 @@
 			async loadForm(id){
 				const vm = this;
 
-	            await axios.get('/citizenservice/requests/vue-info/'+id).then(response => {
+	            await axios.get(`${window.app_url}/citizenservice/requests/vue-info/${id}`).then(response => {
 	                if(typeof(response.data.record != "undefined")){
 						vm.record = response.data.record;
 						vm.record.country_id = vm.record.parish.municipality.estate.country_id;

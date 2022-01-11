@@ -7,13 +7,13 @@
 				<div class="d-inline-flex">
 					<citizenservice-request-pending
 	                    :requestid="props.row.id"
-	                    route_update="citizenservice/requests/pending"
+	                    :route_update="app_url + '/citizenservice/requests/pending'"
 	                    request_type='accept'>
 	                </citizenservice-request-pending>
 
 	                <citizenservice-request-pending
 	                    :requestid="props.row.id"
-	                    route_update="citizenservice/requests/pending"
+	                    :route_update="app_url + '/citizenservice/requests/pending'"
 	                    request_type='rejected'>
 	                </citizenservice-request-pending>
 	            </div>

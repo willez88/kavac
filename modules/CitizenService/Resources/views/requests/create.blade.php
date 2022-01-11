@@ -35,7 +35,7 @@
     				</div>
     		</div>
 			<citizenservice-request-create
-				route_list="citizenservice/requests"
+				route_list="{{ url('citizenservice/requests') }}"
 				:requestid ="{!! (isset($request)) ? $request->id : 'null' !!}">
 		    </citizenservice-request-create>
 	    </div>
