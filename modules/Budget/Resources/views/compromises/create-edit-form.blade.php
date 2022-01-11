@@ -30,7 +30,7 @@
                         @include('buttons.minimize')
                     </div>
                 </div>
-                <budget-compromise route_list='budget/compromises'></budget-compromise>
+                <budget-compromise route_list="{{ url('budget/compromises') }}"></budget-compromise>
             </div>
         </div>
     </div>

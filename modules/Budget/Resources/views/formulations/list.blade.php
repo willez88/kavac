@@ -32,10 +32,10 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<budget-formulation-list route_list='budget/subspecific-formulations/vue-list'
-										  route_delete="budget/subspecific-formulations"
-										  route_edit="budget/subspecific-formulations/{id}/edit"
-										  route_show="budget/subspecific-formulations/show/{id}">
+					<budget-formulation-list route_list="{{ url('budget/subspecific-formulations/vue-list') }}"
+										  route_delete="{{ url('budget/subspecific-formulations') }}"
+										  route_edit="{{ url('budget/subspecific-formulations/{id}/edit') }}"
+										  route_show="{{ url('budget/subspecific-formulations/show/{id}') }}">
 					</budget-formulation-list>
 				</div>
 			</div>

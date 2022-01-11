@@ -245,12 +245,12 @@ export default {
 	},
 	methods: {
 		async getProjects() {
-			const { data } = await axios.get('/budget/get-projects');
+			const { data } = await axios.get(`${window.app_url}/budget/get-projects`);
 
 			this.projects = data;
 		},
 		async getCentralizedActions() {
-			const { data } = await axios.get('/budget/get-centralized-actions');
+			const { data } = await axios.get(`${window.app_url}/budget/get-centralized-actions`);
 
 			this.centralizedActions = data;
 		},

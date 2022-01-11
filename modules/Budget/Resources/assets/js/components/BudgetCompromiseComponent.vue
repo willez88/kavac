@@ -3,7 +3,7 @@
         <div class="card-body">
             <div class="alert alert-danger" v-if="errors.length > 0">
                 <ul>
-                    <li v-for="error in errors">{{ error }}</li>
+                    <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
                 </ul>
             </div>
             <div class="row">
@@ -81,7 +81,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr v-for="(source, index) in document_sources">
+                                                <tr v-for="(source, index) in document_sources" :key="index">
                                                     <td>{{ source.sourceable.code }}</td>
                                                     <td>{{ format_date(source.created_at) }}</td>
                                                     <td>{{ source.budget_stages[0].amount }}</td>
@@ -149,7 +149,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(account, index) in record.accounts">
+                                <tr v-for="(account, index) in record.accounts" :key="index">
                                     <td>{{ account.spac_description }}</td>
                                     <td>{{ account.code }}</td>
                                     <td>{{ account.description }}</td>
@@ -185,7 +185,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(tax_account, index) in record.tax_accounts" :id="tax_account.parent_account_id">
+                                <tr v-for="(tax_account, index) in record.tax_accounts" 
+                                    :id="tax_account.parent_account_id" :key="index">
                                     <td>{{ tax_account.spac_description }}</td>
                                     <td>{{ tax_account.code }}</td>
                                     <td>{{ tax_account.description }}</td>
@@ -217,7 +218,7 @@
                             <div class="modal-body">
                                 <div class="alert alert-danger" v-if="errors.length > 0">
                                     <ul>
-                                        <li v-for="error in errors">{{ error }}</li>
+                                        <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
                                     </ul>
                                 </div>
                                 <div class="row">
@@ -263,7 +264,7 @@
                                             <label>Impuesto:</label>
                                             <select class="select2" v-model="account_tax_id">
                                                 <option value="">Seleccione</option>
-                                                <option :value="tax.id" v-for="tax in taxes">
+                                                <option :value="tax.id" v-for="tax in taxes" :key="tax.id">
                                                     {{ tax.name }} {{ tax.histories[0].percentaje }}%
                                                 </option>
                                             </select>
