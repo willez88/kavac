@@ -24,7 +24,7 @@ class CompileModules extends Command
      * @var string
      */
     protected $signature = 'module:compile
-                            {module? : The module name to compile}
+                            {module? : The module name to compile. Example: module:compile moduleName}
                             {--p|prod : Option to compile in production mode}
                             {--i|install : With previous install node packages}
                             {--u|update : With previous update node packages}
@@ -55,6 +55,15 @@ class CompileModules extends Command
      */
     public function handle()
     {
+        $result = shell_exec("npm -v");
+        
+        if (strpos($result, 'no encontrada')!==false || strpos($result, 'not found')!==false || $result===null) {
+            $this->line('');
+            $this->line('<fg=red>El paquete node no esta instalado.</>');
+            $this->line('<fg=red>Antes de continuar instale el paquete y repita el proceso.</>');
+            $this->line('');
+            return 0;
+        }
         $withCore = ($this->option('system'))?true:false;
 
         $this->line('');
