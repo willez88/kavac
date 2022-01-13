@@ -119,7 +119,19 @@
                 </div>
             </div>
             <hr>
-            <v-client-table :columns="columns" :data="records" :options="table_options">
+            <v-client-table @row-click="toggleActive" :columns="columns" :data="records" :options="table_options">
+                <div slot="h__check" class="text-center">
+                    <label class="form-checkbox">
+                        <input type="checkbox" v-model="selectAll" @click="select()" class="cursor-pointer">
+                    </label>
+                </div>
+
+                <div slot="check" slot-scope="props" class="text-center">
+                    <label class="form-checkbox">
+                        <input type="checkbox" class="cursor-pointer" :value="props.row.id" :id="'checkbox_'+props.row.id" v-model="selected">
+                    </label>
+                </div>
+
                 <div slot="description" slot-scope="props">
                     <span>
                         <b> {{ (props.row.sale_setting_product)?
@@ -175,13 +187,16 @@
                     mes_id: '',
                     year: '',
                     start_date: '',
-                    end_date: ''
+                    end_date: '',
+                    sale_warehouse_products: []
                 },
                 sale_warehouses: [],
+                selected: [],
+                selectAll: false,
                 sale_setting_products: [],
                 records: [],
                 errors: [],
-                columns: ['code', 'description', 'inventory'],
+                columns: ['check', 'code', 'description', 'inventory'],
                 mes: [
                     {"id":"","text":"Todos"},
                     {"id":1,"text":"Enero"},
@@ -197,10 +212,36 @@
                     {"id":11,"text":"Noviembre"},
                     {"id":12,"text":"Diciembre"}
                 ],
-                institutions: []
+                institutions: [],
+                table_options: {
+                    rowClassCallback(row) {
+                        var checkbox = document.getElementById('checkbox_' + row.id);
+                        return ((checkbox)&&(checkbox.checked))? 'selected-row cursor-pointer' : 'cursor-pointer';
+                    },
+                }
             }
         },
         methods: {
+            toggleActive({ row }) {
+                const vm = this;
+                var checkbox = document.getElementById('checkbox_' + row.id);
+
+                if((checkbox)&&(checkbox.checked == false)){
+                    var index = vm.selected.indexOf(row.id);
+                    if (index >= 0){
+                        vm.selected.splice(index,1);
+                    }
+                    else
+                        checkbox.click();
+                }
+                else if ((checkbox)&&(checkbox.checked == true)) {
+                    var index = vm.selected.indexOf(row.id);
+                    if (index >= 0)
+                        checkbox.click();
+                    else
+                        vm.selected.push(row.id);
+                }
+            },
             reset() {
                 this.record = {
                     id: '',
@@ -214,6 +255,31 @@
                     year: '',
                     start_date: '',
                     end_date: ''
+                }
+            },
+            select() {
+                const vm = this;
+                vm.selected = [];
+                $.each(vm.records, function(index,campo){
+                    var checkbox = document.getElementById('checkbox_' + campo.id);
+
+                    if(!vm.selectAll)
+                        vm.selected.push(campo.id);
+                    else if(checkbox && checkbox.checked){
+                        checkbox.click();
+                    }
+                });
+            },
+            selectElement(id) {
+                var input = document.getElementById('request_product_' + id);
+                var checkbox = document.getElementById('checkbox_' + id);
+                if ((input.value == '')||(input.value == 0)){
+                    if(checkbox.checked){
+                        checkbox.click();
+                    }
+                }
+                else if(!checkbox.checked){
+                    checkbox.click();
                 }
             },
             getSaleSettingProducts() {
@@ -230,6 +296,23 @@
             },
             createReport(current) {
                 const vm = this;
+                let complete = true;
+                let selected = '';
+                let product = '';
+                vm.record.sale_warehouse_products = [];
+                if(!vm.selected.length > 0){
+                    bootbox.alert("Debe agregar almenos un elemento a la solicitud");
+                    return false;
+                };
+
+                for (selected of vm.selected){
+                    for (product of vm.records){
+                        if (selected == product.id) {
+                            vm.record.sale_warehouse_products.push(product);
+                        }
+                    }
+                }
+
                 vm.loading = true;
                 var fields = {};
                 for (var index in this.record) {
@@ -237,8 +320,9 @@
                 }
                 fields["current"] = current;
                 axios.post("/sale/reports/inventory-products/create", fields).then(response => {
-                    if (response.data.result == false)
+                    if (response.data.result == false){
                         location.href = response.data.redirect;
+                    }
                     else if (typeof(response.data.redirect) !== "undefined") {
                         window.open(response.data.redirect, '_blank');
                     }
