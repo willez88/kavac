@@ -138,15 +138,15 @@
 					this.institution_id == null)) {
 
 					EventBus.$emit('enableInput:entries-account',{
-																	'value':false,
-																	'date':this.date,
-																	'reference':this.reference,
-																	'concept':this.concept,
-																	'observations':this.observations,
-																	'category':this.category,
-																	'institution_id':this.institution_id,
-																	'currency_id':this.currency_id,
-																});
+						'value':false,
+						'date':this.date,
+						'reference':this.reference,
+						'concept':this.concept,
+						'observations':this.observations,
+						'category':this.category,
+						'institution_id':this.institution_id,
+						'currency_id':this.currency_id,
+					});
 				}
 
 				if (this.validated == false) {
@@ -155,16 +155,16 @@
 					*/
 					if (this.date != '' && this.institution_id != null && this.category != ''
 						&& this.currency_id != '') {
-						EventBus.$emit('enableInput:entries-account',{
-																		'value':true,
-																		'date':this.date,
-																		'reference':this.reference,
-																		'concept':this.concept,
-																		'observations':this.observations,
-																		'category':this.category,
-																		'institution_id':this.institution_id,
-																		'currency_id':this.currency_id,
-																	});
+						EventBus.$emit('enableInput:entries-account', {
+							'value':true,
+							'date':this.date,
+							'reference':this.reference,
+							'concept':this.concept,
+							'observations':this.observations,
+							'category':this.category,
+							'institution_id':this.institution_id,
+							'currency_id':this.currency_id,
+						});
 						this.validated = true;
 					}
 				}
@@ -172,15 +172,16 @@
 					/**
 					 *si se modifica la fecha o la referencia se envia la información actualizada
 					*/
-					EventBus.$emit('enableInput:entries-account',{'value':true,
-																  'date':this.date,
-																  'reference':this.reference,
-																  'concept':this.concept,
-																  'observations':this.observations,
-																  'category':this.category,
-																  'institution_id':this.institution_id,
-																  'currency_id':this.currency_id,
-																});
+					EventBus.$emit('enableInput:entries-account',{
+						'value':true,
+						'date':this.date,
+						'reference':this.reference,
+						'concept':this.concept,
+						'observations':this.observations,
+						'category':this.category,
+						'institution_id':this.institution_id,
+						'currency_id':this.currency_id,
+					});
 				}
 			},
 

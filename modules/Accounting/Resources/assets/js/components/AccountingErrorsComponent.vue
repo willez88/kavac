@@ -11,7 +11,7 @@
 				</span>
 			</button>
 			<ul>
-				<li v-for="error in options">{{ error }}</li>
+				<li v-for="error in options" :key="error">{{ error }}</li>
 			</ul>
 		</div>
 	</div>

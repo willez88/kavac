@@ -27,7 +27,7 @@
 		<div class="card-body">
 			<div class="alert alert-danger" v-if="errors.length > 0">
 				<ul>
-					<li v-for="error in errors">{{ error }}</li>
+					<li v-for="(error, index) in errors" :key="index">{{ error }}</li>
 				</ul>
 			</div>
 			<div class="row mb-3" v-if="fiscal_years.length > 0">
@@ -199,7 +199,7 @@
 						<th class="text-uppercase">Real</th>
 						<th class="text-uppercase">Estimado</th>
 						<th class="text-uppercase">Total año</th>
-						<th class="text-uppercase" v-for="month in months">
+						<th class="text-uppercase" v-for="(month, index) in months" :key="index">
 							<span v-if="month === 'jan'">Ene</span>
 							<span v-else-if="month === 'apr'">Abr</span>
 							<span v-else-if="month === 'aug'">Ago</span>
@@ -209,8 +209,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr
-						v-for="(account, index) in records"
+					<tr v-for="(account, index) in records" :key="index"
 						:class="account.specific === '00' ? 'disable-row' : ''"
 						:data-index="index"
 						:id="account.id"
@@ -421,12 +420,12 @@
 				</tbody>
 			</table>
 			<buttonsDisplay
-				route_list="/budget/subspecific-formulations"
+				:route_list="app_url+'/budget/subspecific-formulations'"
 			></buttonsDisplay>
 		</div>
 		<div class="card-footer text-right">
 			<buttonsDisplay
-				route_list="/budget/subspecific-formulations"
+				:route_list="app_url+'/budget/subspecific-formulations'"
 				display="false"
 			></buttonsDisplay>
 		</div>
@@ -789,7 +788,7 @@ export default {
 		 */
 		getProjects(id) {
 			var project_id = typeof id !== 'undefined' ? '/' + id : '';
-			axios.get('/budget/get-projects' + project_id).then(response => {
+			axios.get(`${window.app_url}/budget/get-projects${project_id}`).then(response => {
 				this.projects = response.data;
 			});
 		},
@@ -802,11 +801,9 @@ export default {
 		getCentralizedActions(id) {
 			var centralized_action_id =
 				typeof id !== 'undefined' ? '/' + id : '';
-			axios
-				.get('/budget/get-centralized-actions' + centralized_action_id)
-				.then(response => {
-					this.centralized_actions = response.data;
-				});
+			axios.get(`${window.app_url}/budget/get-centralized-actions${centralized_action_id}`).then(response => {
+				this.centralized_actions = response.data;
+			});
 		},
 		/**
 		 * Obtiene las Acciones Específicas
@@ -823,25 +820,19 @@ export default {
 			this.specific_actions = [];
 
 			if (id) {
-				axios
-					.get(
-						'/budget/get-specific-actions/' +
-							type +
-							'/' +
-							id +
-							'/formulation'
-					)
-					.then(response => {
-						this.specific_actions = response.data;
-					})
-					.catch(error => {
-						vm.logs(
-							'BudgetSubSpecificFormulationComponent.vue',
-							551,
-							error,
-							'getSpecificActions'
-						);
-					});
+				axios.get(
+					`${window.app_url}/budget/get-specific-actions/${type}/${id}/formulation`
+				).then(response => {
+					this.specific_actions = response.data;
+				})
+				.catch(error => {
+					vm.logs(
+						'BudgetSubSpecificFormulationComponent.vue',
+						551,
+						error,
+						'getSpecificActions'
+					);
+				});
 			}
 
 			var len = this.specific_actions.length;
@@ -876,7 +867,7 @@ export default {
 					fields[index] = this.record[index];
 				}
 				axios
-					.post('/budget/subspecific-formulations', fields)
+					.post(`${window.app_url}/budget/subspecific-formulations`, fields)
 					.then(response => {
 						if (response.data.result) {
 							vm.showMessage('store');
@@ -897,7 +888,7 @@ export default {
 								callback: function(result) {
 									location.href = result
 										? vm.route_create
-										: '/budget/subspecific-formulations';
+										: `${window.app_url}/budget/subspecific-formulations`;
 								}
 							});
 						} else {
@@ -935,7 +926,7 @@ export default {
 			const vm = this;
 			this.record.id = id;
 			axios
-				.get('/budget/get-subspecific-formulation/' + id)
+				.get(`${window.app_url}/budget/get-subspecific-formulation/${id}`)
 				.then(response => {
 					var pry_acc_id =
 						response.data.formulation.specific_action.specificable
@@ -1022,14 +1013,14 @@ export default {
 			}
 			axios
 				.patch(
-					'/budget/subspecific-formulations/' + this.record.id,
+					`${window.app_url}/budget/subspecific-formulations/${this.record.id}`,
 					fields
 				)
 				.then(response => {
 					if (response.data.result) {
 						this.showMessage('update');
 						setTimeout(function() {
-							location.href = '/budget/subspecific-formulations/';
+							location.href = `${window.app_url}/budget/subspecific-formulations`;
 						}, 2000);
 					} else {
 						let msg = response.data.message;
@@ -1068,7 +1059,7 @@ export default {
 			var inputFile = document.querySelector(`#${input_id}`);
 			formData.append('file', inputFile.files[0]);
 			axios
-				.post('/budget/get-import-formulation', formData, {
+				.post(`${window.app_url}/budget/get-import-formulation`, formData, {
 					headers: {
 						'Content-Type': 'multipart/form-data'
 					}
@@ -1141,7 +1132,7 @@ export default {
 				this.decimals = 2;
 				if (newValue.currency_id) {
 					axios
-						.get('/currencies/info/' + newValue.currency_id)
+						.get(`${window.app_url}/currencies/info/${newValue.currency_id}`)
 						.then(response => {
 							if (response.data.result) {
 								this.decimals =
@@ -1158,7 +1149,7 @@ export default {
 		this.getCurrencies();
 		this.getProjects();
 		this.getCentralizedActions();
-		this.initRecords('/budget/accounts/egress-list/true', '');
+		this.initRecords(`${window.app_url}/budget/accounts/egress-list/true`, '');
 
 		if (this.formulationId) {
 			this.loadFormulation(this.formulationId);

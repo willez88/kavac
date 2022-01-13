@@ -406,7 +406,7 @@ Route::group(
          * ---------------------------------------------------------------------------------
          * Rutas para gestionar la generación de cotizaciones en el Modulo de Comercialización
          * ---------------------------------------------------------------------------------
-         */
+        */
 
         Route::resource('quotes', 'SaleQuoteController', ['only' => 'store']);
         Route::get('quotes/create', 'SaleQuoteController@create')->name('sale.quotes.create');
@@ -429,9 +429,13 @@ Route::group(
         Route::get('get-quote-price-service/{id?}', 'SaleQuoteController@getPriceService');
         Route::get('get-quote-measurement-units', 'SaleQuoteController@getMeasurementUnits');
         Route::get('get-quote-clients', 'SaleQuoteController@getSaleClients');
-        //Route::get('quotes/pdf/{id}', 'Reports\SaleBillController@pdf');
-
-
+        Route::get('get-quote-with-clients', 'SaleQuoteController@getSaleQuoteClients');
+        Route::get('get-quote-years', 'SaleQuoteController@getSaleQuoteYear');
+        Route::get('get-quote-range-dates', 'SaleQuoteController@getSaleQuoteRangeDates');
+        Route::get('reports/quotes', 'Reports\SaleQuoteReportController@index')
+            ->name('sale.report.quote');
+        Route::post('reports/quotes/data', 'Reports\SaleQuoteReportController@quotesSearch');
+        Route::get('reports/quotes/pdf/{ListIds}', 'Reports\SaleQuoteReportController@pdf');
 
 
         /*

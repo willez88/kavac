@@ -35,7 +35,7 @@
 									</span>
 								</button>
 								<ul>
-									<li v-for="error in errors">{{ error }}</li>
+									<li v-for="error in errors" :key="error">{{ error }}</li>
 								</ul>
 							</div>
 						</div>
@@ -111,7 +111,7 @@
 				const vm = this;
 				vm.errors = [];
             	var fields = {};
-            	var url = 'requests/vue-info/' + this.requestid;
+            	var url = `${window.app_url}/requests/vue-info/${this.requestid}`;
             	axios.get(url).then(response => {
 					if (typeof(response.data.records) !== "undefined") {
 						fields = response.data.records;

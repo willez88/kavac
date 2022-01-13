@@ -3,7 +3,7 @@
 		<div class="card-body">
 			<div class="alert alert-danger" v-if="errors.length > 0">
 				<ul>
-					<li v-for="error in errors">{{ error }}</li>
+					<li v-for="(error, index) in errors" :key="index">{{ error }}</li>
 				</ul>
 			</div>
 			<div class="row">
@@ -64,7 +64,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr v-for="(account, index) in modification_accounts">
+								<tr v-for="(account, index) in modification_accounts" :key="index">
 									<td>{{ account.from_spac_description }}</td>
 									<td>{{ account.from_code }}</td>
 									<td>{{ account.from_description }}</td>
@@ -116,7 +116,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr v-for="(account, index) in modification_accounts">
+								<tr v-for="(account, index) in modification_accounts" :key="index">
 									<td>{{ account.from_spac_description }}</td>
 									<td>{{ account.from_code }}</td>
 									<td>{{ account.from_description }}</td>
@@ -157,7 +157,7 @@
 							<div class="modal-body">
 								<div class="alert alert-danger" v-if="errors.length > 0">
 									<ul>
-										<li v-for="error in errors">{{ error }}</li>
+										<li v-for="(error, index) in errors" :key="index">{{ error }}</li>
 									</ul>
 								</div>
 								<div class="row" v-if="(type_modification==='TR')">

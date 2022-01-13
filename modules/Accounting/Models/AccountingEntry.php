@@ -31,7 +31,7 @@ class AccountingEntry extends Model implements Auditable
         'reference',
         'tot_debit',
         'tot_assets',
-        'accounting_entry_categories_id',
+        'accounting_entry_category_id',
         'institution_id',
         'currency_id',
         'approved'
@@ -51,15 +51,15 @@ class AccountingEntry extends Model implements Auditable
     }
 
     /**
-     * AccountingEntry belongs to AccountingEntryCategory.
+     * AccountingEntry has many AccountingEntryCategory.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function accountingEntryCategory()
     {
-        // belongsTo(RelatedModel, foreignKey = accountingEntryCategory_id, keyOnRelatedModel = id)
-        return $this->belongsTo(AccountingEntryCategory::class, 'accounting_entry_categories_id');
+        return $this->belongsTo(AccountingEntryCategory::class, 'accounting_entry_category_id');
     }
+
 
     /**
      * Indica si el asiento contable esta aprobado

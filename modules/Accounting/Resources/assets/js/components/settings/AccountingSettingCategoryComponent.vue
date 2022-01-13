@@ -1,16 +1,16 @@
 <template>
-    <div class="col-xs-2 text-center">
-        <a class="btn-simplex btn-simplex-md btn-simplex-primary"
-           href="#" title="Registros de categorias de origen de asientos contables"
-           data-toggle="tooltip" @click="addRecord('crud_categories12', 'accounting/settings/categories', $event)">
+    <div class="text-center">
+        <a class="btn-simplex btn-simplex-md btn-simplex-primary" href="" 
+            title="Registros de categorias de origen de asientos contables" data-toggle="tooltip" 
+            @click="addRecord('crud_categories', 'accounting/settings/categories', $event)">
             <i class="fa fa-tags ico-3x"></i>
             <span>Categorias de origen</span>
         </a>
-        <div class="modal fade text-left" tabindex="-1" role="dialog" id="crud_categories12">
+        <div class="modal fade text-left" tabindex="-1" role="dialog" id="crud_categories">
             <div class="modal-dialog vue-crud" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="reset" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
                         <h6>
@@ -47,7 +47,7 @@
                     </div>
                     <div class="modal-footer">
                         <div class="form-group">
-                            <modal-form-buttons :saveRoute="'/accounting/settings/categories/'"></modal-form-buttons>
+                            <modal-form-buttons :saveRoute="app_url+'/accounting/settings/categories/'"></modal-form-buttons>
                         </div>
                     </div>
                     <div class="modal-body modal-table">
@@ -55,12 +55,12 @@
                         <v-client-table :columns="columns" :data="records" :options="table_options">
                             <div slot="id" slot-scope="props" class="text-center">
                                 <button @click="loadCategory(props.row)"
-                                        class="btn btn-warning btn-xs btn-icon"
+                                        class="btn btn-warning btn-xs btn-icon btn-action"
                                         title="Modificar registro" data-toggle="tooltip">
                                     <i class="fa fa-edit"></i>
                                 </button>
-                                <button @click="deleteRecord(props.index, '/accounting/settings/categories')"
-                                        class="btn btn-danger btn-xs btn-icon"
+                                <button @click="deleteRecord(props.row.id, '/accounting/settings/categories')"
+                                        class="btn btn-danger btn-xs btn-icon btn-action"
                                         title="Eliminar registro" data-toggle="tooltip" >
                                     <i class="fa fa-trash-o"></i>
                                 </button>
@@ -186,6 +186,8 @@ export default{
         createRecord(url){
             const vm = this;
             this.record.acronym = this.record.acronym.toUpperCase();
+            url = (!url.includes('http://') || !url.includes('http://'))
+				  ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
 
             if (this.state == 'store') {
                 if (!this.validInformation()) return;

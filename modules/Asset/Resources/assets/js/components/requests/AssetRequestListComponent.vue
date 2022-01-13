@@ -9,7 +9,7 @@
 				</span>
 			</div>
 			<div slot="type" slot-scope="props" class="text-center">
-				<div v-for="type in types">
+				<div v-for="type in types" :key="type.id">
 					<span v-if="props.row.type == type.id">
 						{{ type.text }}
 					</span>
@@ -18,17 +18,11 @@
 			</div>
 			<div slot="id" slot-scope="props" class="text-center d-inline-flex">
 
-				<asset-request-info
-					:route_list="'requests/vue-info/' + props.row.id">
-				</asset-request-info>
+				<asset-request-info :route_list="app_url + 'requests/vue-info/' + props.row.id"></asset-request-info>
 
-				<asset-request-extension :requestid="props.row.id"
-										 :state="props.row.state">
-				</asset-request-extension>
+				<asset-request-extension :requestid="props.row.id" :state="props.row.state"></asset-request-extension>
 
-				<asset-request-event 	:id="props.row.id"
-										:state="props.row.state">
-				</asset-request-event>
+				<asset-request-event :id="props.row.id" :state="props.row.state"></asset-request-event>
 
 				<button @click="deliverEquipment(props.index)"
 						class="btn btn-primary btn-xs btn-icon btn-action"
@@ -103,7 +97,7 @@
 				var fields = this.records[index-1];
 				var id = this.records[index-1].id;
 
-				axios.put('/asset/requests/deliver-equipment/'+id, fields).then(response => {
+				axios.put(`${window.app_url}/asset/requests/deliver-equipment/${id}`, fields).then(response => {
 					if (typeof(response.data.redirect) !== "undefined") {
 						location.href = response.data.redirect;
 					}
@@ -134,7 +128,7 @@
 	         * @param  {string}  url   Ruta que ejecuta la acción para eliminar un registro
 	         */
 	        deleteRecord(index, url) {
-	            var url = (url)?url:this.route_delete;
+	            var url = (url)?vm.setUrl(url):this.route_delete;
 	            var records = this.records;
 	            var confirmated = false;
 	            var index = index - 1;

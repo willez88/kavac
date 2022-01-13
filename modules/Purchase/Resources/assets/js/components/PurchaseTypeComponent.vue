@@ -4,7 +4,7 @@
            href="#" title="Registros de tipos de compras"
            data-toggle="tooltip"
            @click="addRecord('add_purchase_types', '/purchase/purchase_types', $event)">
-            <i class="fa fa-tag ico-3x"></i>
+            <i class="now-ui-icons shopping_tag-content ico-3x"></i>
             <span>Tipos de<br>Compras</span>
         </a>
         <div class="modal fade text-left" tabindex="-1" role="dialog" id="add_purchase_types">
@@ -20,7 +20,8 @@
                         </h6>
                     </div>
                     <div class="modal-body">
-                        <purchase-show-errors ref="purchaseTypesErrors" />
+                        <!-- Componente para mostrar errores en el formulario -->
+                        <purchase-show-errors />
 
                         <div class="row">
                             <div class="col-md-6">
@@ -33,7 +34,7 @@
                                            class="form-control input-sm">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 is-required">
                                 <div class="form-group">
                                     <label class="control-label" for="purchase_process">Proceso de compra:</label><br>
                                     <select2 :options="purchaseProcesses" id="purchase_process"
@@ -43,7 +44,7 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <div class="form-group is-required">
+                                <div class="form-group">
                                     <label>Descripción:</label>
                                     <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
                                               title="Indique la descripción para el tipo de compra"
@@ -61,6 +62,9 @@
                     </div>
                     <div class="modal-body modal-table">
                         <v-client-table :columns="columns" :data="records" :options="table_options">
+                            <div slot="description" slot-scope="props">
+                                <p v-html="props.row.description"></p>
+                            </div>
                             <div slot="id" slot-scope="props" class="text-center">
                                 <div class="d-inline-flex">
                                     <button @click="loadData(props.row)"
@@ -69,7 +73,7 @@
                                             data-toggle="tooltip">
                                         <i class="fa fa-edit"></i>
                                     </button>
-                                    <button @click="deleteRecord(props.index,'/purchase/purchase_types')"
+                                    <button @click="deleteRecord(props.row.id,'/purchase/purchase_types')"
                                             class="btn btn-danger btn-xs btn-icon btn-action"
                                             title="Eliminar registro"
                                             data-toggle="tooltip" >
@@ -123,17 +127,44 @@
                 });
             },
             createRecord(url){
-                if (!this.edit) {
-                    axios.post(url,this.record).then(response=>{
-                        this.records = response.data.records;
-                        this.showMessage("store");
-                        this.reset();
+                const vm = this;
+                if (!vm.edit) {
+                    vm.loading = true;
+                    axios.post(url,vm.record).then(response=>{
+                        vm.records = response.data.records;
+                        vm.showMessage("store");
+                        vm.reset();
+                        vm.loading = false;
+                    }).catch(error => {
+                        vm.errors = [];
+
+                        if (typeof(error.response) !="undefined") {
+                            for (var index in error.response.data.errors) {
+                                if (error.response.data.errors[index]) {
+                                    vm.errors.push(error.response.data.errors[index][0]);
+                                }
+                            }
+                        }
+                        vm.loading = false;
                     });
-                }else if(this.edit && this.record.id){
-                    axios.put(url+'/'+this.record.id, this.record).then(response=>{
-                        this.records = response.data.records;
-                        this.showMessage("update");
-                        this.reset();
+                }else if(vm.edit && vm.record.id){
+                    vm.loading = true;
+                    axios.put(url+'/'+vm.record.id, vm.record).then(response=>{
+                        vm.records = response.data.records;
+                        vm.showMessage("update");
+                        vm.reset();
+                        vm.loading = false;
+                    }).catch(error => {
+                        vm.errors = [];
+
+                        if (typeof(error.response) !="undefined") {
+                            for (var index in error.response.data.errors) {
+                                if (error.response.data.errors[index]) {
+                                    vm.errors.push(error.response.data.errors[index][0]);
+                                }
+                            }
+                        }
+                        vm.loading = false;
                     });
                 }
             },

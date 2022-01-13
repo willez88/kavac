@@ -331,7 +331,7 @@ Vue.mixin({
 		 */
 		async getAssetTypes() {
 			const vm = this;
-			await axios.get('/asset/get-types').then(response => {
+			await axios.get(`${window.app_url}/asset/get-types`).then(response => {
 				vm.asset_types = response.data;
 			});
             if ((vm.record.asset_type) && (vm.record.id)) {
@@ -350,7 +350,9 @@ Vue.mixin({
 			vm.asset_categories = [];
 
 			if (vm.record.asset_type_id) {
-				await axios.get('/asset/get-categories' + '/' + vm.record.asset_type_id).then(function (response) {
+				await axios.get(
+                    `${window.app_url}/asset/get-categories/${vm.record.asset_type_id}`
+                ).then(function (response) {
 					vm.asset_categories = response.data;
 				});
                 if ((vm.record.asset_category) && (vm.record.id)) {
@@ -377,7 +379,9 @@ Vue.mixin({
 			vm.asset_subcategories = [];
 
 			if (vm.record.asset_category_id) {
-				await axios.get('/asset/get-subcategories' + '/' + vm.record.asset_category_id).then(function (response) {
+				await axios.get(
+                    `${window.app_url}/asset/get-subcategories/${vm.record.asset_category_id}`
+                ).then(function (response) {
 					vm.asset_subcategories = response.data;
 				});
                 if ((vm.record.asset_subcategory) && (vm.record.id)) {
@@ -395,7 +399,9 @@ Vue.mixin({
 			vm.asset_specific_categories = [];
 
 			if (vm.record.asset_subcategory_id) {
-				await axios.get('/asset/get-specific-categories' + '/' + vm.record.asset_subcategory_id).then(function (response) {
+				await axios.get(
+                    `${window.app_url}/asset/get-specific-categories/${vm.record.asset_subcategory_id}`
+                ).then(function (response) {
 					vm.asset_specific_categories = response.data;
 				});
                 if ((vm.record.asset_specific_category) && (vm.record.id)) {
@@ -414,7 +420,7 @@ Vue.mixin({
 		getPayrollPositionTypes() {
 			const vm = this;
 			vm.payroll_position_types = [];
-			axios.get('/asset/get-payroll-position-types').then(response => {
+			axios.get(`${window.app_url}/asset/get-payroll-position-types`).then(response => {
 				vm.payroll_position_types = response.data;
 			});
 		},
@@ -422,14 +428,14 @@ Vue.mixin({
 		getPayrollPositions() {
 			const vm = this;
 			vm.payroll_positions = [];
-			axios.get('/asset/get-payroll-positions').then(response => {
+			axios.get(`${window.app_url}/asset/get-payroll-positions`).then(response => {
 				vm.payroll_positions = response.data;
 			});
 		},
 
 		getPayrollStaffs() {
 			this.payroll_staffs = [];
-			axios.get('/asset/get-payroll-staffs').then(response => {
+			axios.get(`${window.app_url}/asset/get-payroll-staffs`).then(response => {
 				this.payroll_staffs = response.data;
 			});
 		},

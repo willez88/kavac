@@ -20,7 +20,7 @@
 			<div class="d-inline-flex">
 
 				<citizenservice-register-info
-					:route_list="'citizenservice/registers/vue-info/' + props.row.id">
+					:route_list="app_url+'/citizenservice/registers/vue-info/' + props.row.id">
 				</citizenservice-register-info>
 
 	    		<button @click="editForm(props.row.id)"
@@ -84,6 +84,7 @@
 	            var confirmated = false;
 	            var index = index - 1;
 	            const vm = this;
+				url = vm.setUrl(url);
 
 	            bootbox.confirm({
 	                title: "¿Eliminar registro?",
@@ -99,7 +100,7 @@
 	                callback: function (result) {
 	                    if (result) {
 	                        confirmated = true;
-	                        axios.delete(url + '/' + records[index].id).then(response => {
+	                        axios.delete(`${url}/${records[index].id}`).then(response => {
 	                            if (typeof(response.data.error) !== "undefined") {
 	                                /** Muestra un mensaje de error si sucede algún evento en la eliminación */
 	                                vm.showMessage('custom', 'Alerta!', 'warning', 'screen-error', response.data.message);

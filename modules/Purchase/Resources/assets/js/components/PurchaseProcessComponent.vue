@@ -20,11 +20,10 @@
                         </h6>
                     </div>
                     <div class="modal-body">
-                        <div class="alert alert-danger" v-if="errors.length > 0">
-                            <ul>
-                                <li v-for="error in errors">{{ error }}</li>
-                            </ul>
-                        </div>
+
+                        <!-- Componente para mostrar errores en el formulario -->
+                        <purchase-show-errors />
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -124,14 +123,17 @@
                                 <span v-if="props.row.require_documents">SI</span>
                                 <span v-else>NO</span>
                             </div>
+                            <div slot="description" slot-scope="props">
+                                <p v-html="props.row.description"></p>
+                            </div>
                             <div slot="id" slot-scope="props" class="text-center">
                                 <button @click="loadDataUpdate(props.index, $event)"
-                                        class="btn btn-warning btn-xs btn-icon btn-round"
+                                        class="btn btn-warning btn-xs btn-icon btn-action"
                                         title="Modificar registro" data-toggle="tooltip" type="button">
                                     <i class="fa fa-edit"></i>
                                 </button>
-                                <button @click="deleteRecord(props.index, '/purchase/processes')"
-                                        class="btn btn-danger btn-xs btn-icon btn-round"
+                                <button @click="deleteRecord(props.row.id, '/purchase/processes')"
+                                        class="btn btn-danger btn-xs btn-icon btn-action"
                                         title="Eliminar registro" data-toggle="tooltip"
                                         type="button">
                                     <i class="fa fa-trash-o"></i>

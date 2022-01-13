@@ -282,14 +282,7 @@ Vue.mixin(
 
         },
         methods:{
-            showMessageError(refsID,  message = null, reset = false){
-                if (reset) {
-                    refsID.reset();
-                }
-                if (message && refsID) {
-                    refsID.showAlertMessages(message);
-                }
-            },
+
         }
     }
 );

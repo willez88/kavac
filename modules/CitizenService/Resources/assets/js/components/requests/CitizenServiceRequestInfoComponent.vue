@@ -22,7 +22,7 @@
 					<div class="modal-body">
 						<div class="alert alert-danger" v-if="errors.length > 0">
 							<ul>
-								<li v-for="error in errors">{{ error }}</li>
+								<li v-for="(error, index) in errors" :key="index">{{ error }}</li>
 							</ul>
 						</div>
 						<div class="row">
@@ -313,11 +313,13 @@
                 var tipo="";
 				var documents="";
             	document.getElementById("info_general").click();
+				url = vm.setUrl(url);
 
+            	axios.get(url).then(response => {
 
-            	axios.get('/' + url).then(response => {
-
-					axios.get('/citizenservice/get-documents/' + response.data.record.id).then(response => {
+					axios.get(
+						`${window.app_url}/citizenservice/get-documents/${response.data.record.id}`
+					).then(response => {
 
 
                       documents=response.data;

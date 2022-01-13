@@ -26,9 +26,7 @@
 			</div>
 			<div slot="id" slot-scope="props" class="text-center">
 				<div class="d-inline-flex">
-					<asset-info
-		            		:route_list="'asset/registers/info/'+ props.row.id">
-		        	</asset-info>
+					<asset-info :route_list="app_url+'asset/registers/info/'+ props.row.id"></asset-info>
 
 					<button @click="assignAsset(props.row.id)"
 		    				class="btn btn-primary btn-xs btn-icon btn-action"
@@ -69,7 +67,7 @@
                     <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-prev-page" v-if="page > 1">
                         <a class="page-link" @click="changePage(page - 1)">&lt;</a>
                     </li>
-                    <li :class="(page == number)?'VuePagination__pagination-item page-item active':'VuePagination__pagination-item page-item'" v-for="number in pageValues" v-if="number <= lastPage">
+                    <li :class="(page == number)?'VuePagination__pagination-item page-item active':'VuePagination__pagination-item page-item'" v-for="(number, index) in pageValues" :key="index" v-if="number <= lastPage">
                         <a class="page-link active" role="button" @click="changePage(number)">{{number}}</a>
                     </li>
                     <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-next-page" v-if="page < lastPage">
@@ -172,7 +170,7 @@
 			 */
 			assignAsset(id)
 			{
-				location.href = '/asset/asignations/asset/' + id;
+				location.href = `${window.app_url}/asset/asignations/asset/${id}`;
 			},
 
 			/**
@@ -184,7 +182,7 @@
 			 */
 			disassignAsset(id)
 			{
-				location.href = '/asset/disincorporations/asset/' + id;
+				location.href = `${window.app_url}/asset/disincorporations/asset/${id}`;
 			},
 			/**
 			 * Cambia la pagina actual de la tabla
@@ -223,7 +221,7 @@
 	            this.errors = [];
 	            this.reset();
 	            const vm = this;
-
+				url = vm.setUrl(url);
 	            axios.get(url).then(response => {
 	                if (typeof(response.data.records) !== "undefined") {
 	                    vm.records  = response.data.records;

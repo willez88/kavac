@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
+use Modules\Sale\Models\SaleGoodsToBeTraded;
 
 /**
  * @class SaleRegisterPayment
@@ -36,11 +37,10 @@ class SaleRegisterPayment extends Model implements Auditable
      * @var array $fillable
      */
     protected $fillable = ['id','order_or_service_define_attributes','order_service_id','total_amount','way_to_pay','banking_entity','reference_number','payment_date','advance_define_attributes','payment_approve','payment_refuse'];
+
+
+
 }
-
-
-
-
 
 
 

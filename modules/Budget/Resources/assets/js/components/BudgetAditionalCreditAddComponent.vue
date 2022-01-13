@@ -20,7 +20,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for="(account, index) in aditional_credit_accounts">
+						<tr v-for="(account, index) in aditional_credit_accounts" :key="index">
 							<td>{{ account.spac_description }}</td>
 							<td>{{ account.code }}</td>
 							<td>{{ account.description }}</td>
@@ -30,8 +30,8 @@
 									   :value="account.budget_specific_action_id + '|' + account.budget_account_id">
 								<input type="hidden" name="budget_account_amount[]" readonly
 									   :value="account.amount">
-								<a class="btn btn-sm btn-danger btn-action" href="#" @click="deleteAccount(index)"
-								   title="Eliminar este registro" data-toggle="tooltip">
+								<a class="btn btn-sm btn-danger btn-action" href="javascript:void(0)" 
+								   @click="deleteAccount(index)" title="Eliminar este registro" data-toggle="tooltip">
 									<i class="fa fa-minus-circle"></i>
 								</a>
 							</td>
@@ -55,7 +55,7 @@
 					<div class="modal-body">
 						<div class="alert alert-danger" v-if="errors.length > 0">
 							<ul>
-								<li v-for="error in errors">{{ error }}</li>
+								<li v-for="(error, index) in errors" :key="index">{{ error }}</li>
 							</ul>
 						</div>
 						<div class="row">
@@ -131,7 +131,7 @@
 		mounted() {
 			const vm = this;
 
-			axios.get('/budget/get-group-specific-actions/' + vm.execution_year).then(response => {
+			axios.get(`${window.app_url}/budget/get-group-specific-actions/${vm.execution_year}`).then(response => {
 				if (!$.isEmptyObject(response.data)) {
 					vm.specific_actions = response.data;
 				}
@@ -214,18 +214,19 @@
 
 
 				/** Obtiene datos de la acción específica seleccionada */
-				axios.get('/budget/detail-specific-actions/' + vm.budget_specific_action_id).then(response => {
+				axios.get(
+					`${window.app_url}/budget/detail-specific-actions/${vm.budget_specific_action_id}`
+				).then(response => {
 					if (response.data.result) {
 						let record = response.data.record;
-						to_add.spac_description = record.specificable.code + " - " + record.code +
-													 " | " + record.name;
+						to_add.spac_description = record.specificable.code + " - " + record.code + " | " + record.name;
 					}
 				}).catch(error => {
 					console.log(error);
 				});
 
 				/** Obtiene datos de la cuenta presupuestaria */
-				axios.get('/budget/detail-accounts/' + vm.budget_account_id).then(response => {
+				axios.get(`${window.app_url}/budget/detail-accounts/${vm.budget_account_id}`).then(response => {
 					console.log(response.data.result)
 					if (response.data.result) {
 						let record = response.data.record;
@@ -283,14 +284,14 @@
 					text: 'Seleccione...'
 				}];
 
-				axios.get('/budget/accounts/egress-list/').then(response => {
+				axios.get(`${window.app_url}/budget/accounts/egress-list/`).then(response => {
 					if (!$.isEmptyObject(response.data.records)) {
 						$.each(response.data.records, function() {
 							if (this.specific !== "00") {
 								var spActionId = vm.budget_specific_action_id;
 								if (vm.budget_specific_action_id) {
 									axios.get(
-										`/budget/get-availability-opened-accounts/${spActionId}/${this.id}`
+										`${window.app_url}/budget/get-availability-opened-accounts/${spActionId}/${this.id}`
 									).then(response => {
 										if (response.data.result) {
 											console.log(response.data.account);

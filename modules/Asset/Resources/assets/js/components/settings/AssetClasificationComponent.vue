@@ -33,7 +33,7 @@
                                     </span>
                                 </button>
                                 <ul>
-                                    <li v-for="error in errors">{{ error }}</li>
+                                    <li v-for="error in errors" :key="error">{{ error }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -270,7 +270,7 @@
 			getAssetTypes() {
 				let vm = this;
 
-				axios.get('/asset/get-types').then(response => {
+				axios.get(`${window.app_url}/asset/get-types`).then(response => {
 					$.each(response.data, function() {
 			        	if (this.id === 1){
 				            vm.asset_types.push({
@@ -302,7 +302,7 @@
 				var first = true;
 
 				if (this.record.asset_type_id > 0 ) {
-					axios.get('/asset/get-categories/' + this.record.asset_type_id).then(response => {
+					axios.get(`${window.app_url}/asset/get-categories/${this.record.asset_type_id}`).then(response => {
 						vm.asset_categories = [];
 						$.each(response.data, function() {
 
@@ -346,7 +346,9 @@
 				var first = true;
 
 				if (this.record.asset_category_id > 0) {
-					axios.get('/asset/get-subcategories/' + this.record.asset_category_id).then(response => {
+					axios.get(
+						`${window.app_url}/asset/get-subcategories/${this.record.asset_category_id}`
+					).then(response => {
 						vm.asset_subcategories= [];
 						$.each(response.data, function() {
 
@@ -421,6 +423,7 @@
 			},
 			createClasification(url) {
 				const vm = this;
+				url = vm.setUrl(url);
 				if (this.record.id) {
 					this.updateRecord(url);
 				}
@@ -446,7 +449,7 @@
 						}
 					};
 
-					axios.post('/' + url, fields).then(response => {
+					axios.post(url, fields).then(response => {
 						vm.reset();
 						vm.readRecords(url);
 						vm.showMessage('store');
@@ -476,10 +479,11 @@
 			updateRecord(url) {
 				const vm = this;
 				var fields = {};
+				url = vm.setUrl(url);
 				for (var index in this.record) {
 					fields[index] = this.record[index];
 				}
-				axios.patch('/' + url + '/' + this.record.id, fields).then(response => {
+				axios.patch(url + '/' + this.record.id, fields).then(response => {
 					vm.readRecords(url);
 					vm.reset();
 					vm.showMessage('update');

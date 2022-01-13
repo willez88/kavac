@@ -32,7 +32,7 @@
                                     </span>
                                 </button>
                                 <ul>
-                                    <li v-for="error in errors">{{ error }}</li>
+                                    <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
 	                </div>
 					<div class="modal-footer">
 	                	<div class="form-group">
-	                		<modal-form-buttons :saveRoute="'citizenservice/departments'"></modal-form-buttons>
+	                		<modal-form-buttons :saveRoute="app_url + '/citizenservice/departments'"></modal-form-buttons>
 	                	</div>
 	                </div>
 	                <div class="modal-body modal-table">

@@ -100,14 +100,15 @@ class AccountingSettingCategoryController extends Controller
     public function destroy($id)
     {
         $category = AccountingEntryCategory::with('accountingEntries')->find($id);
+
         if ($category) {
             /**
              * validar si no esta relacionada con algun asiento es permitido eliminarla
              */
-            if (count($category->accountingEntries) > 0) {
+            if (!is_null($category->accountingEntries) && count($category->accountingEntries) > 0) {
                 return response()->json([
                     'error'   => true,
-                    'message' => 'El registro no se puede eliminar, debido a que existen asientos relacionados.'
+                    'message' => 'El registro no se puede eliminar, debido a que existen asientos contables que la usan.'
                 ], 200);
             }
             $category->delete();

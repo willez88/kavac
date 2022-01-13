@@ -1,8 +1,8 @@
 <template>
 	<div class="col-xs-2 text-center">
-		<a class="btn-simplex btn-simplex-md btn-simplex-primary"
-		   href="#" title="Catálogo de Cuentas patrimoniales"
-		   data-toggle="tooltip" @click="addRecord('crud_accounts', 'accounting/accounts', $event)">
+		<a class="btn-simplex btn-simplex-md btn-simplex-primary" href="" 
+			title="Catálogo de Cuentas patrimoniales" data-toggle="tooltip" 
+			@click="addRecord('crud_accounts', 'accounting/accounts', $event)">
 			<i class="fa fa-list ico-3x"></i>
 			<span>Catálogo de cuentas</span>
 		</a>
@@ -26,7 +26,7 @@
 								<i class="fa fa-reply"></i>
 						</button>
 
-						<button type="reset" class="close" data-dismiss="modal" aria-label="Close">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
 						<h6>
@@ -50,7 +50,7 @@
 
 					<div class="modal-footer" v-if="!formImport">
 	                	<div class="form-group">
-	                		<modal-form-buttons :saveRoute="'/accounting/accounts/'"></modal-form-buttons>
+	                		<modal-form-buttons :saveRoute="app_url+'/accounting/accounts/'"></modal-form-buttons>
 	                	</div>
 	                </div>
 
@@ -145,6 +145,8 @@ export default{
 		registerImportedAccounts:function(url) {
 			const vm = this;
 			if (vm.accounts != null) {
+				url = (!url.includes('http://') || !url.includes('http://'))
+					  ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
 				axios.post(url, { records: vm.accounts }).then(response=>{
 					vm.showMessage(
 						'custom', 'Éxito', 'success', 'screen-ok',
@@ -164,6 +166,8 @@ export default{
 		 * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
 		 */
 		registerAccount(url){
+			url = (!url.includes('http://') || !url.includes('http://'))
+				  ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
 			EventBus.$emit('register:account',url);
 		}
 	},

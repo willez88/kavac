@@ -116,15 +116,14 @@
                     }).catch(error=>{
                         vm.loading = false;
                         vm.$refs.PurchaseFormComponent.reset();
-                        var errors = [];
+                        vm.errors = [];
                         if (typeof(error.response) != 'undefined') {
                             for (var index in error.response.data.errors) {
                                 if (error.response.data.errors[index]) {
-                                    errors.push(error.response.data.errors[index][0]);
+                                    vm.errors.push(error.response.data.errors[index][0]);
                                 }
                             }
                         }
-                        vm.$refs.PurchaseFormComponent.showAlertMessages(errors);
                     });
                 }else{
                     axios.put('/purchase/purchase_plans/'+this.record_edit.id, vm.record).then(response=>{
@@ -136,15 +135,14 @@
                     }).catch(error=>{
                         vm.loading = false;
                         vm.$refs.PurchaseFormComponent.reset();
-                        var errors = [];
+                        vm.errors = [];
                         if (typeof(error.response) != 'undefined') {
                             for (var index in error.response.data.errors) {
                                 if (error.response.data.errors[index]) {
-                                    errors.push(error.response.data.errors[index][0]);
+                                    vm.errors.push(error.response.data.errors[index][0]);
                                 }
                             }
                         }
-                        vm.$refs.PurchaseFormComponent.showAlertMessages(errors);
                     });
                 }
             },

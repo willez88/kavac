@@ -194,16 +194,17 @@
         <div class="card-footer text-right" id="helpParamButtons">
             <button type="button" @click="reset()"
                     class="btn btn-default btn-icon btn-round" data-toggle="tooltip"
-                    title="Borrar datos del formulario">
+                    title="Borrar datos del formulario" v-has-tooltip>
                 <i class="fa fa-eraser"></i>
             </button>
             <button type="button" @click="redirect_back(route_list)"
                     class="btn btn-warning btn-icon btn-round" data-toggle="tooltip"
-                    title="Cancelar y regresar">
+                    title="Cancelar y regresar" v-has-tooltip>
                 <i class="fa fa-ban"></i>
             </button>
             <button type="button" @click="createRecord('payroll/vacation-requests')"
-                    class="btn btn-success btn-icon btn-round">
+                    class="btn btn-success btn-icon btn-round" data-toggle="tooltip"
+                    title="Guardar registro" v-has-tooltip>
                 <i class="fa fa-save"></i>
             </button>
         </div>

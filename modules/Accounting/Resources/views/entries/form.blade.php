@@ -54,7 +54,9 @@
 					@if(!isset($entry))
 					<accounting-entry-form-account :accounting_accounts="{{ $AccountingAccounts }}" />
 					@else
-						<accounting-entry-form-account :accounting_accounts="{{ $AccountingAccounts }}" :entries="{{ $entry }}" route_list="accounting/entries/unapproved"/>
+						<accounting-entry-form-account :accounting_accounts="{{ $AccountingAccounts }}" 
+													   :entries="{{ $entry }}" 
+													   route_list="{{ url('accounting/entries/unapproved') }}"/>
 					@endif
 				</div>
 			</div>

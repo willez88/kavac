@@ -82,8 +82,8 @@
 		data(){
 			return {
 				account_id:0,
-				url:'/accounting/report/auxiliaryBook/pdf/',
-				urlSign:'/accounting/report/auxiliaryBookSign/pdf/',
+				url:`${window.app_url}/accounting/report/auxiliaryBook/pdf/`,
+				urlSign:`${window.app_url}/accounting/report/auxiliaryBookSign/pdf/`,
 				currency:'',
 				allAccounts:false,
 			}

@@ -4,7 +4,7 @@
            href="#" title="Registros de tipos de compras"
            data-toggle="tooltip"
            @click="addRecord('add_purchase_type_hiring', '/purchase/type_hiring', $event)">
-            <i class="fa fa-tag ico-3x"></i>
+            <div class="mdi-margin"><i class="mdi mdi-handshake ico-3x mr-1"></i></div>
             <span>Tipos de<br>contratación</span>
         </a>
         <div class="modal fade text-left" tabindex="-1" role="dialog" id="add_purchase_type_hiring">
@@ -20,14 +20,16 @@
                         </h6>
                     </div>
                     <div class="modal-body">
-                        <purchase-show-errors ref="purchaseTypesErrors" />
+                        <purchase-show-errors />
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group is-required">
                                     <label class="control-label" for="record_date">Fecha
                                     </label>
-                                    <input type="date" class="form-control" id="record_date" v-model="record.date"
+                                    <input type="date" class="form-control" id="record_date" 
+                                            data-toggle="tooltip" title="Fecha" 
+                                            v-model="record.date"
                                             tabindex="1">
                                 </div>
                             </div>
@@ -43,7 +45,8 @@
                             <div class="col-md-6">
                                 <div class="form-group is-required">
                                     <label for="record_ut">Unidades tributarias:</label>
-                                    <input type="number" id="record_ut" class="form-control" v-model="record.ut"
+                                    <input type="number" id="record_ut" class="form-control" data-toggle="tooltip"
+                                            v-model="record.ut"
                                             title="Indique las unidades tributarias">
                                 </div>
                             </div>
@@ -81,6 +84,9 @@
                                 <div v-else>
                                     <span class="badge badge-warning"><strong>Inactiva</strong></span>
                                 </div>
+                            </div>
+                            <div slot="description" slot-scope="props">
+                                <p v-html="props.row.description"></p>
                             </div>
                             <div slot="id" slot-scope="props" class="text-center">
                                 <div class="d-inline-flex">
@@ -142,17 +148,42 @@
 
             createRecord(url){
                 this.record.active = $('#active').prop('checked');
+                vm.loading = true;
                 if (!this.edit) {
                     axios.post(url,this.record).then(response=>{
                         this.records = response.data.records;
                         this.showMessage("store");
                         this.reset();
+                        vm.loading = false;
+                    }).catch(error => {
+                        vm.errors = [];
+
+                        if (typeof(error.response) !="undefined") {
+                            for (var index in error.response.data.errors) {
+                                if (error.response.data.errors[index]) {
+                                    vm.errors.push(error.response.data.errors[index][0]);
+                                }
+                            }
+                        }
+                        vm.loading = false;
                     });
                 }else if(this.edit && this.record.id){
                     axios.put(url+'/'+this.record.id, this.record).then(response=>{
                         this.records = response.data.records;
                         this.showMessage("update");
                         this.reset();
+                        vm.loading = false;
+                    }).catch(error => {
+                        vm.errors = [];
+
+                        if (typeof(error.response) !="undefined") {
+                            for (var index in error.response.data.errors) {
+                                if (error.response.data.errors[index]) {
+                                    vm.errors.push(error.response.data.errors[index][0]);
+                                }
+                            }
+                        }
+                        vm.loading = false;
                     });
                 }
             },
@@ -186,3 +217,13 @@
         },
     };
 </script>
+
+<style>
+    .mdi-margin{
+        margin-top: -1rem;
+        margin-bottom: -0.9rem;
+    }
+    .mdi-margin::before{
+        display: none;
+    }
+</style>

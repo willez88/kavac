@@ -14,7 +14,7 @@
 						</span>
 					</button>
 					<ul>
-						<li v-for="error in errors">{{ error }}</li>
+						<li v-for="error in errors" :key="error">{{ error }}</li>
 					</ul>
 				</div>
 			</div>
@@ -64,7 +64,7 @@
 					<b>Información de los bienes a ser desincorporados</b>
 				</div>
 			</div>
-			<div class="row"style="margin: 10px 0">
+			<div class="row" style="margin: 10px 0">
 				<div class="col-md-12">
 					<b>Filtros</b>
 				</div>
@@ -114,7 +114,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<button type="button" id="helpSearchButton"
-							@click="filterRecords()"class="btn btn-sm btn-primary btn-info float-right"
+							@click="filterRecords()" class="btn btn-sm btn-primary btn-info float-right"
 							title="Buscar registros"
 							data-toggle="tooltip">
 						<i class="fa fa-search"></i>
@@ -167,7 +167,7 @@
 	                    <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-prev-page" v-if="page > 1">
 	                        <a class="page-link" @click="changePage(page - 1)">&lt;</a>
 	                    </li>
-	                    <li :class="(page == number)?'VuePagination__pagination-item page-item active':'VuePagination__pagination-item page-item'" v-for="number in pageValues" v-if="number <= lastPage">
+	                    <li :class="(page == number)?'VuePagination__pagination-item page-item active':'VuePagination__pagination-item page-item'" v-for="(number, index) in pageValues" :key="index" v-if="number <= lastPage">
 	                        <a class="page-link active" role="button" @click="changePage(number)">{{number}}</a>
 	                    </li>
 	                    <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-next-page" v-if="page < lastPage">
@@ -292,17 +292,17 @@
 		watch: {
             perPage(res) {
             	if (this.page == 1){
-            		this.loadAssets('/asset/registers/vue-list/' + res + '/' + this.page);
+            		this.loadAssets(`${window.app_url}/asset/registers/vue-list/${res}/${this.page}`);
             	} else {
             		this.changePage(1);
             	}
             },
             page(res) {
-                this.loadAssets('/asset/registers/vue-list/' + this.perPage + '/' + res);
+                this.loadAssets(`${window.app_url}/asset/registers/vue-list/${this.perPage}/${res}`);
             },
         },
 		created() {
-			this.loadAssets('/asset/registers/vue-list/' + this.perPage + '/' + this.page);
+			this.loadAssets(`${window.app_url}/asset/registers/vue-list/${this.perPage}/${this.page}`);
 			this.getAssetTypes();
 			this.getAssetDisincorporationMotives();
 
@@ -405,6 +405,8 @@
 				const vm = this;
 				var inputFiles = document.querySelector('#files');
 				var formData   = new FormData();
+				url = (!url.includes('http://') || !url.includes('http://'))
+				  	  ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
 
 				vm.errors = [];
 				if(!vm.selected.length > 0){
@@ -425,7 +427,7 @@
 					  formData.append('files[' + i + ']', file);
 					}
 	                formData.append("assets", vm.selected);
-	                axios.post('/' + url, formData, {
+	                axios.post(url, formData, {
 	                    headers: {
 	                        'Content-Type': 'multipart/form-data'
 	                    }
@@ -463,7 +465,7 @@
 				const vm = this;
 	            var fields = {};
 
-	            axios.get('/asset/disincorporations/vue-info/'+id).then(response => {
+	            axios.get(`${window.app_url}/asset/disincorporations/vue-info/${id}`).then(response => {
 	                if(typeof(response.data.records != "undefined")){
 						vm.record = response.data.records;
 	                    fields = response.data.records.asset_disincorporation_assets;
@@ -475,6 +477,8 @@
 			},
 			loadAssets(url) {
 				const vm = this;
+				url = (!url.includes('http://') || !url.includes('http://'))
+				  	  ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
 				url += (vm.disincorporationid != null)?'/disincorporations/' + vm.disincorporationid:'/disincorporations';
 				axios.get(url).then(response => {
 					if (typeof(response.data.records) !== "undefined") {
@@ -487,7 +491,7 @@
 			},
 			filterRecords(){
 				const vm = this;
-				var url =  '/asset/registers/search/clasification';
+				var url =  `${window.app_url}/asset/registers/search/clasification`;
 
 				var filters = {
 					asset_type: vm.record.asset_type_id,
@@ -509,7 +513,7 @@
 			getAssetDisincorporationMotives(){
 				const vm = this;
 				vm.asset_disincorporation_motives = [];
-				axios.get('/asset/disincorporations/get-motives').then(response => {
+				axios.get(`${window.app_url}/asset/disincorporations/get-motives`).then(response => {
 					vm.asset_disincorporation_motives = response.data;
 				});
 

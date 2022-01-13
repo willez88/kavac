@@ -179,7 +179,7 @@
 				});
 
 				if ($(this).val()) {
-					axios.get('/budget/set-children-account/' + $(this).val()).then(response => {
+					axios.get(window.app_url + '/budget/set-children-account/' + $(this).val()).then(response => {
 						if (response.data.result) {
 							let new_account = response.data.new_account;
 							/** Genera las nuevas cuentas */

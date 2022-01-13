@@ -19,7 +19,7 @@
         <div slot="id" slot-scope="props" class="text-center">
             <div class="d-inline-flex">
                 <payroll-review-benefits-request-pending-form
-                    :route_show="app_url + 'payroll/benefits-requests/show/' + props.row.id"
+                    :route_show="app_url + '/payroll/benefits-requests/show/' + props.row.id"
                     :id="props.row.id">
                 </payroll-review-benefits-request-pending-form>
             </div>

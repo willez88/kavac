@@ -46,7 +46,7 @@
                             v-if="!props.row.approved">
                         <i class="fa fa-check"></i>
                     </button>
-                    <accounting-entry-show :id="props.row.id" :route_show="'accounting/entries/'+props.row.id" />
+                    <accounting-entry-show :id="props.row.id" :route_show="app_url+'accounting/entries/'+props.row.id" />
                     <button @click="editForm(props.row.id)"
                             class="btn btn-warning btn-xs btn-icon btn-action"
                             title="Modificar registro" data-toggle="tooltip"
@@ -82,7 +82,7 @@
                     <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-prev-page" v-if="page > 1">
                         <a class="page-link" @click="changePage(page - 1)">&lt;</a>
                     </li>
-                    <li :class="(page == number)?'VuePagination__pagination-item page-item active':'VuePagination__pagination-item page-item'" v-for="number in pageValues" v-if="number <= lastPage">
+                    <li :class="(page == number)?'VuePagination__pagination-item page-item active':'VuePagination__pagination-item page-item'" v-for="(number, index) in pageValues" :key="index" v-if="number <= lastPage">
                         <a class="page-link active" role="button" @click="changePage(number)">{{number}}</a>
                     </li>
                     <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-next-page" v-if="page < lastPage">
@@ -136,7 +136,7 @@
 					}
 				],
 
-				urlPdf:'/accounting/entries',
+				urlPdf:`${window.app_url}/accounting/entries`,
 				columns: ['from_date', 'reference', 'concept', 'total', 'approved', 'id']
 			}
 		},

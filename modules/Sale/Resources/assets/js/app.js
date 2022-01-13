@@ -423,6 +423,16 @@ Vue.component('sale-quote-list', () => import(
 );
 
 /**
+ * Componente para mostrar un listado de Cotizaciones
+ *
+ * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+ */
+Vue.component('sale-report-quote', () => import(
+    /* webpackChunkName: "sale-report-quote" */
+    './components/reports/SaleReportQuotesComponent.vue')
+);
+
+/**
  * Componente para gestionar bienes a Comercializar
  *
  * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
@@ -689,9 +699,6 @@ Vue.mixin({
 			axios.get('/sale/get-quote-payment').then(response => {
                                let quote_payment_id = vm.record.sale_payment_method_id;
 				vm.quote_payments = response.data;
-                               if (quote_payment_id > 0) {
-                                    $('#sale_payment_method_id').val(quote_payment_id).trigger('change');
-                               }
 			});
 		},
 
@@ -733,6 +740,44 @@ Vue.mixin({
 				vm.quote_clients = response.data;
 			});
 		},
+
+		/**
+		 * Obtiene un arreglo con la lista con los clientes con cotizaciones
+		 *
+		 * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+		 */
+		getQuoteWithClients() {
+			const vm = this;
+			vm.quote_with_clients = [];
+			axios.get('/sale/get-quote-with-clients').then(response => {
+				vm.quote_with_clients = response.data;
+			});
+		},
+		/**
+		 * Obtiene un arreglo con la lista con los clientes con cotizaciones
+		 *
+		 * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+		 */
+		getSaleQuoteYear() {
+			const vm = this;
+			vm.quote_years = [];
+			axios.get('/sale/get-quote-years').then(response => {
+				vm.quote_years = response.data;
+			});
+		},
+		/**
+		 * Obtiene un arreglo con la lista con los clientes con cotizaciones
+		 *
+		 * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+		 */
+		getSaleQuoteRangeDates() {
+			const vm = this;
+			vm.quote_range_dates = [];
+			axios.get('/sale/get-quote-range-dates').then(response => {
+				vm.quote_range_dates = response.data;
+			});
+		},
+
 
         /**
          * Obtiene los datos de Bienes a Comercializar

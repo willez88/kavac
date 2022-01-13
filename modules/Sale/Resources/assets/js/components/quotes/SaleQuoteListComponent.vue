@@ -6,6 +6,11 @@
         {{ (props.row.status_text)? props.row.status_text : props.row.status }}
       </span>
     </div>
+    <div slot="deadline_date" slot-scope="props">
+      <span>
+        {{ new Date(props.row.deadline_date).toLocaleString() }}
+      </span>
+    </div>
     <div slot="id" slot-scope="props" class="text-center">
       <div class="d-inline-flex">
         <button @click="showQuote(props.row.id)" v-if="route_show"
@@ -81,7 +86,7 @@
           <v-client-table :columns="columns_products" :data="quote_load.sale_quote_product" :options="table_options_products">
             <div slot="sale_warehouse_inventory_product_id" slot-scope="props" class="text-center">
               <span>
-                {{ (props.row.sale_warehouse_inventory_product_id)? props.row.sale_warehouse_inventory_product.code : props.row.sale_type_good.name }}
+                {{ (props.row.sale_warehouse_inventory_product_id)? props.row.sale_warehouse_inventory_product.sale_setting_product.name : props.row.sale_type_good.name }}
               </span>
             </div>
             <div slot="sale_list_subservices_id" slot-scope="props" class="text-center">
@@ -111,13 +116,13 @@
           </div>
           <h6 class="card-title mt-4">III Complementarios:</h6>
           <div class="row">
-            <div class="col-md-3" id="SaleHelpPaymentMethod">
+            <div class="col-md-6" id="SaleHelpPaymentMethod">
               <label>Forma de cobro:</label>
               <div class="data-value"><span>{{ quote_load.sale_form_payment.name_form_payment }}</span></div>
             </div>
             <div class="col-md-6">
-              <label>Fecha límite de respuesta</label>
-              <div class="data-value"><span>{{ quote_load.deadline_date }}</span></div>
+              <label>Fecha límite de respuesta:</label>
+              <div class="data-value"><span>{{ new Date(quote_load.deadline_date).toLocaleString() }}</span></div>
             </div>
           </div>
         </div>

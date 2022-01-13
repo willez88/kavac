@@ -153,9 +153,9 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<budget-projects-list route_list='budget/projects/vue-list'
-										  route_delete="budget/projects"
-										  route_edit="budget/projects/{id}/edit">
+					<budget-projects-list route_list="{{ url('budget/projects/vue-list') }}"
+										  route_delete="{{ url('budget/projects') }}"
+										  route_edit="{{ url('budget/projects/{id}/edit') }}">
 					</budget-projects-list>
 				</div>
 			</div>
@@ -176,9 +176,9 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<budget-centralized-actions-list route_list='budget/centralized-actions/vue-list'
-										  route_delete="budget/centralized-actions"
-										  route_edit="budget/centralized-actions/{id}/edit">
+					<budget-centralized-actions-list route_list="{{ url('budget/centralized-actions/vue-list') }}"
+										  route_delete="{{ url('budget/centralized-actions') }}"
+										  route_edit="{{ url('budget/centralized-actions/{id}/edit') }}">
 					</budget-centralized-actions-list>
 				</div>
 			</div>
@@ -199,9 +199,9 @@
 					</div>
 				</div>
 				<div class="card-body">
-					<budget-specific-actions-list route_list='budget/specific-actions/vue-list'
-										  route_delete="budget/specific-actions"
-										  route_edit="budget/specific-actions/{id}/edit">
+					<budget-specific-actions-list route_list="{{ url('budget/specific-actions/vue-list') }}"
+										  route_delete="{{ url('budget/specific-actions') }}"
+										  route_edit="{{ url('budget/specific-actions/{id}/edit') }}">
 					</budget-specific-actions-list>
 				</div>
 			</div>

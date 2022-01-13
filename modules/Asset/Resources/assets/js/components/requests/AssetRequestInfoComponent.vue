@@ -22,7 +22,7 @@
 
 						<div class="alert alert-danger" v-if="errors.length > 0">
 							<ul>
-								<li v-for="error in errors">{{ error }}</li>
+								<li v-for="error in errors" :key="error">{{ error }}</li>
 							</ul>
 						</div>
 						<ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
@@ -135,9 +135,7 @@
 	                    		<div class="row">
 	                    			<div class="col-md-12">
 										<hr>
-										<v-client-table :columns="columns" :data="records" :options="table_options">
-
-										</v-client-table>
+										<v-client-table :columns="columns" :data="records" :options="table_options"></v-client-table>
 									</div>
 	                    		</div>
 	                    	</div>
@@ -198,7 +196,7 @@
 			 *
 			 * @author Henry Paredes <hparedes@cenditel.gob.ve>
 			 */
-            initRecords(url,modal_id){
+            initRecords(url,modal_id) {
             	this.errors = [];
 				this.reset();
 
@@ -206,7 +204,7 @@
             	var fields = {};
 
             	document.getElementById("info_general").click();
-
+				url = vm.setUrl(url);
             	axios.get(url).then(response => {
 					if (typeof(response.data.records) !== "undefined") {
 						fields = response.data.records;
@@ -240,7 +238,7 @@
             },
 			loadEquipment(){
 				var index = $(".modal-body #id").val();
-				axios.get('/asset/requests/vue-info/' + index).then(response => {
+				axios.get(`${window.app_url}/asset/requests/vue-info/${index}`).then(response => {
 					this.records = response.data.records.asset_request_assets;
 				});
 			}

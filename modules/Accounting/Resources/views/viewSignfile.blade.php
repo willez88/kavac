@@ -34,7 +34,7 @@
         <div class="card-header">
             <h6 class="card-title"> Acciones Comúnes </h6>
             <div class="card-btns">
-                <a href="#" data-toggle="tooltip" class="card-minimize btn btn-card-action btn-round"
+                <a href="javascript:void(0)" data-toggle="tooltip" class="card-minimize btn btn-card-action btn-round"
                    data-original-title="Minimize Panel">
                     <i class="now-ui-icons arrows-1_minimal-up"></i>
                 </a>
@@ -46,7 +46,7 @@
                     <h6><i class="icofont icofont-file-pdf"></i> Firmar documentos PDF...!!!! </h6>
                 </div>
                 <digitalsignature-signfile-component
-                    route_list="digitalsignature/apiSignFile" >
+                    route_list="{{ url('digitalsignature/apiSignFile') }}" >
                 </digitalsignature-signfile-component>
             </div>
         </div>

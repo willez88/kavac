@@ -187,10 +187,7 @@
 		});
 
         var printFormulated = (id, esp) => {
-            location.href = `/budget/print-formulated/${id}`;
-            /*axios.get(`/budget/print-formulated/${id}`).catch(error => {
-                console.error(error);
-            });*/
+            location.href = window.app_url + '/budget/print-formulated/' + id;
         };
 	</script>
 @endsection

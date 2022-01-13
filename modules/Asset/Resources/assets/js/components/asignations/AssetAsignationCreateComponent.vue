@@ -14,7 +14,7 @@
 						</span>
 					</button>
 					<ul>
-						<li v-for="error in errors">{{ error }}</li>
+						<li v-for="error in errors" :key="error">{{ error }}</li>
 					</ul>
 				</div>
 			</div>
@@ -34,31 +34,27 @@
 				<div class="col-md-4" id="helpDepartment">
 					<div class="form-group is-required">
 						<label>Departamento:</label>
-						<select2 :options="departments" @input=""
-								 v-model="record.department_id"></select2>
+						<select2 :options="departments" v-model="record.department_id"></select2>
                     </div>
 
 				</div>
 				<div class="col-md-4" id="helpPositionType">
 					<div class="form-group">
 						<label>Puesto de trabajo:</label>
-						<select2 :options="payroll_position_types" @input=""
-								 v-model="record.payroll_position_type_id"></select2>
+						<select2 :options="payroll_position_types" v-model="record.payroll_position_type_id"></select2>
 						<input type="hidden" v-model="record.id">
                     </div>
 				</div>
 				<div class="col-md-4" id="helpPosition">
 					<div class="form-group">
 						<label>Cargo:</label>
-						<select2 :options="payroll_positions" @input=""
-								 v-model="record.payroll_position_id"></select2>
+						<select2 :options="payroll_positions" v-model="record.payroll_position_id"></select2>
                     </div>
 				</div>
 				<div class="col-md-4" id="helpStaff">
 					<div class="form-group is-required">
 						<label>Trabajador:</label>
-						<select2 :options="payroll_staffs" @input=""
-								 v-model="record.payroll_staff_id"></select2>
+						<select2 :options="payroll_staffs" v-model="record.payroll_staff_id"></select2>
                     </div>
 				</div>
 
@@ -145,15 +141,21 @@
 				</div>
 				<div slot="institution" slot-scope="props" class="text-center">
 					<span>
-						{{ (props.row.institution)?
-							props.row.institution.name:((props.row.institution_id)?props.row.institution_id:'N/A') }}
+						{{ 
+							(props.row.institution)
+							?props.row.institution.name
+							:((props.row.institution_id)?props.row.institution_id:'N/A')
+						}}
 					</span>
 
 				</div>
 				<div slot="asset_condition" slot-scope="props" class="text-center">
 					<span>
-						{{ (props.row.asset_condition)?
-							props.row.asset_condition.name:props.row.asset_condition_id }}
+						{{ 
+							(props.row.asset_condition)
+							?props.row.asset_condition.name
+							:props.row.asset_condition_id
+						}}
 					</span>
 				</div>
 				<div slot="asset_status" slot-scope="props" class="text-center">
@@ -172,7 +174,7 @@
 	                    <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-prev-page" v-if="page > 1">
 	                        <a class="page-link" @click="changePage(page - 1)">&lt;</a>
 	                    </li>
-	                    <li :class="(page == number)?'VuePagination__pagination-item page-item active':'VuePagination__pagination-item page-item'" v-for="number in pageValues" v-if="number <= lastPage">
+	                    <li :class="(page == number)?'VuePagination__pagination-item page-item active':'VuePagination__pagination-item page-item'" v-for="(number, index) in pageValues" :key="index" v-if="number <= lastPage">
 	                        <a class="page-link active" role="button" @click="changePage(number)">{{number}}</a>
 	                    </li>
 	                    <li class="VuePagination__pagination-item page-item  VuePagination__pagination-item-next-page" v-if="page < lastPage">
@@ -296,13 +298,13 @@
 		watch: {
             perPage(res) {
             	if (this.page == 1){
-            		this.loadAssets('/asset/registers/vue-list/' + res + '/' + this.page);
+            		this.loadAssets(`${window.app_url}/asset/registers/vue-list/${res}/${this.page}`);
             	} else {
             		this.changePage(1);
             	}
             },
             page(res) {
-                this.loadAssets('/asset/registers/vue-list/' + this.perPage + '/' + res);
+                this.loadAssets(`${window.app_url}/asset/registers/vue-list/${this.perPage}/${res}`);
             },
         },
 		created() {
@@ -314,7 +316,7 @@
 			vm.getInstitutions();
 		},
 		mounted() {
-			this.loadAssets('/asset/registers/vue-list/' + this.perPage + '/' + this.page);
+			this.loadAssets(`${window.app_url}/asset/registers/vue-list/${this.perPage}/${this.page}`);
 			if((this.asignationid)&&(!this.assetid)) {
 				this.loadForm(this.asignationid);
             }
@@ -426,7 +428,7 @@
 				const vm = this;
 	            var fields = {};
 
-	            axios.get('/asset/asignations/vue-info/'+id).then(response => {
+	            axios.get(`${window.app_url}/asset/asignations/vue-info/${id}`).then(response => {
 	                if(typeof(response.data.records != "undefined")){
 
 						vm.record = response.data.records;
@@ -440,6 +442,8 @@
 			loadAssets(url)
 			{
 				const vm = this;
+				url = (!url.includes('http://') || !url.includes('http://'))
+					  ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
 				url += (vm.asignationid != null)?'/asignations/' + vm.asignationid:'/asignations';
 				axios.get(url).then(response => {
 					if (typeof(response.data.records) !== "undefined") {
@@ -453,7 +457,7 @@
 			filterRecords()
 			{
 				const vm = this;
-				var url =  '/asset/registers/search/clasification';
+				var url =  `${window.app_url}/asset/registers/search/clasification`;
 
 				var filters = {
 					asset_type: vm.record.asset_type_id,

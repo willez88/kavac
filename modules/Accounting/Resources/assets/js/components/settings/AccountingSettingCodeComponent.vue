@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="card-footer text-right">
-                <buttonsDisplay route_list="/accounting/settings" display="false" />
+                <buttonsDisplay :route_list="app_url+'/accounting/settings'" display="false" />
             </div>
         </form>
     </div>
@@ -89,10 +89,10 @@
                 if (vm.validatedFormatCode()) {
                     return;
                 }
-                axios.post('/accounting/settings/code', {entries_reference:vm.code})
+                axios.post(`${window.app_url}/accounting/settings/code`, {entries_reference:vm.code})
                 .then(response=>{
                     vm.showMessage('store');
-                    vm.redirect_back('/accounting/settings');
+                    vm.redirect_back(`${window.app_url}/accounting/settings`);
                 });
                 
             }

@@ -18,7 +18,7 @@
             </div>
             <br><br>
             <div class="card-footer text-right">
-                <buttonsDisplay route_list="/accounting/converter" display="false"/>
+                <buttonsDisplay :route_list="app_url + '/accounting/converter'" display="false"/>
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
                 accountingOptions:[],
                 budgetSelect:'',
                 accountingSelect:'',
-                urlPrevious:'/accounting/converter'
+                urlPrevious: `${window.app_url}/accounting/converter`
             }
         },
         created(){
@@ -99,13 +99,12 @@
 
                 vm.loading = true;
                 if (vm.account_to_edit == null) {
-                    axios.post('/accounting/converter', {
-                                                        'module'                : 'Budget',
-                                                        'model'                 : 'Modules\\Accounting\\Models\\BudgetAccount',
-                                                        'accountable_id'        : vm.budgetSelect,
-                                                        'accounting_account_id' : vm.accountingSelect,
-                                                        })
-                    .then(response=>{
+                    axios.post(`${window.app_url}/accounting/converter`, {
+                        'module'                : 'Budget',
+                        'model'                 : 'Modules\\Accounting\\Models\\BudgetAccount',
+                        'accountable_id'        : vm.budgetSelect,
+                        'accounting_account_id' : vm.accountingSelect,
+                    }).then(response=>{
 
                         if (response.data.message !== 'Success') {
                             vm.showMessage('custom','Error', 'danger', 'fa-ban', response.data.message);
@@ -121,13 +120,12 @@
                         vm.loading           = false;
                     });
                 } else{
-                    axios.put('/accounting/converter/'+vm.account_to_edit.id, {
-                                                        'module'                : 'Budget',
-                                                        'model'                 : 'Modules\\Accounting\\Models\\BudgetAccount',
-                                                        'accountable_id'        : vm.budgetSelect,
-                                                        'accounting_account_id' : vm.accountingSelect,
-                                                        })
-                    .then(response=>{
+                    axios.put(`${window.app_url}/accounting/converter/${vm.account_to_edit.id}`, {
+                        'module'                : 'Budget',
+                        'model'                 : 'Modules\\Accounting\\Models\\BudgetAccount',
+                        'accountable_id'        : vm.budgetSelect,
+                        'accounting_account_id' : vm.accountingSelect,
+                    }).then(response=>{
                         if (response.data.message !== 'Success') {
                             vm.showMessage('custom','Error', 'danger', 'fa-ban', response.data.message);
                         }else{

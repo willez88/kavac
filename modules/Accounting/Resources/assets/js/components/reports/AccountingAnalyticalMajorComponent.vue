@@ -89,8 +89,8 @@
 		},
 		data(){
 			return {
-				url:'/accounting/report/analyticalMajor',
-				urlSign:'/accounting/report/analyticalMajorSign',
+				url:`${window.app_url}/accounting/report/analyticalMajor`,
+				urlSign:`${window.app_url}/accounting/report/analyticalMajorSign`,
 				InitAcc:0,
 				EndAcc:0,
 				dates:null,

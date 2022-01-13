@@ -18,7 +18,7 @@
 		<div slot="id" slot-scope="props" class="text-center">
 			<div class="d-inline-flex">
 				<asset-disincorporation-info
-					:route_list="'asset/disincorporations/vue-info/' + props.row.id">
+					:route_list="app_url + 'asset/disincorporations/vue-info/' + props.row.id">
 				</asset-disincorporation-info>
 
 				<button @click="editForm(props.row.id)"

@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section class="PurchaseFormComponent">
         <div class="form-horizontal">
 
             <purchase-show-errors ref="PurchaseBaseBudgetComponent" />
@@ -220,30 +220,19 @@
             // },
             createRecord(){
                 const vm = this;
-                vm.showMessageError(vm.$refs.PurchaseBaseBudgetComponent, null, true);
+                vm.errors = [];
+
                 if (!vm.record_tax) {
-                    vm.showMessageError(vm.$refs.PurchaseBaseBudgetComponent, 'Debe configurar el IVA en el sistema.');
-                    vm.showMessage(
-                        'custom', 'Error', 'danger', 'screen-error', 
-                        'Debe configurar el IVA en el sistema.'
-                    );
+                    vm.errors.push('Debe configurar el IVA en el sistema.');
                     return;
                 }
                 if (!vm.currency_id) {
-                    vm.showMessageError(vm.$refs.PurchaseBaseBudgetComponent, 'Debe seleccionar un tipo de moneda.');
-                    vm.showMessage(
-                        'custom', 'Error', 'danger', 'screen-error', 
-                        'Debe seleccionar un tipo de moneda.'
-                    );
+                    vm.errors.push('Debe seleccionar un tipo de moneda.');
                     return;
                 }
                 for (var i = 0; i < vm.record_items.length; i++) {
                     if (!vm.record_items[i].qty_price) {
-                        vm.showMessageError(vm.$refs.PurchaseBaseBudgetComponent, 'El precio unitario de los registros son obligatorios.');
-                        vm.showMessage(
-                            'custom', 'Error', 'danger', 'screen-error', 
-                            'El precio unitario de los registros son obligatorios.'
-                        );
+                        vm.errors.push('El precio unitario de los registros son obligatorios.');
                         return;
                     }
                     vm.record_items[i].qty_price = (vm.record_items[i].qty_price).toFixed((vm.currency)?vm.currency.decimal_places:'');
@@ -263,20 +252,15 @@
                         }, 2000);
                     }).catch(error=>{
                         vm.loading = false;
-                        vm.showMessageError(vm.$refs.PurchaseBaseBudgetComponent, null, true);
-                        var errors = [];
+
+                        vm.errors = [];
                         if (typeof(error.response) != 'undefined') {
                             for (var index in error.response.data.errors) {
                                 if (error.response.data.errors[index]) {
-                                    errors.push(error.response.data.errors[index][0]);
-                                    vm.showMessage(
-                                        'custom', 'Error', 'danger', 'screen-error', 
-                                        error.response.data.errors[index][0]
-                                    );
+                                    vm.errors.push(error.response.data.errors[index][0]);
                                 }
                             }
                         }
-                        vm.showMessageError(vm.$refs.PurchaseBaseBudgetComponent, errors);
                     });
                 }else{
                     axios.put('/purchase/base_budget/'+vm.base_budget_edit.id,{   
@@ -293,22 +277,18 @@
                         }, 2000);
                     }).catch(error=>{
                         vm.loading = false;
-                        vm.showMessageError(vm.$refs.PurchaseBaseBudgetComponent, null, true);
-                        var errors = [];
+
+                        vm.errors = [];
                         if (typeof(error.response) != 'undefined') {
                             for (var index in error.response.data.errors) {
                                 if (error.response.data.errors[index]) {
-                                    errors.push(error.response.data.errors[index][0]);
-                                    vm.showMessage(
-                                        'custom', 'Error', 'danger', 'screen-error', 
-                                        error.response.data.errors[index][0]
-                                    );
+                                    vm.errors.push(error.response.data.errors[index][0]);
                                 }
                             }
                         }
-                        vm.showMessageError(vm.$refs.PurchaseBaseBudgetComponent, errors);
                     });
                 }
+                $(".PurchaseFormComponent").offset().top
             },
 
             CalculateQtyPrice(qty_price){
@@ -373,7 +353,7 @@
         mounted(){
             const vm = this;
             if (!vm.record_tax) {
-                vm.showMessageError(vm.$refs.PurchaseBaseBudgetComponent, 'Debe configurar el IVA en el sistema.');
+                vm.errors.push('Debe configurar el IVA en el sistema.');
             }
             if (vm.base_budget_edit) {
                 vm.currency_id = vm.base_budget_edit.currency_id;

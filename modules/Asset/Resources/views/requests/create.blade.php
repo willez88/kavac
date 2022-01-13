@@ -34,7 +34,7 @@
     				</div>
     			</div>
     			<asset-request-create
-    				route_list="asset/requests"
+    				route_list="{{ url('asset/requests') }}"
     				:requestid ="{!! (isset($request)) ? $request->id : 'null' !!}">
     			</asset-request-create>
     		</div>

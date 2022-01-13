@@ -4,7 +4,7 @@
            href="#" title="Registros de tipos de compras"
            data-toggle="tooltip"
            @click="addRecord('add_purchase_type_operation', '/purchase/type_operations', $event)">
-            <i class="fa fa-tag ico-3x"></i>
+            <i class="fa fa-bookmark-o ico-3x"></i>
             <span>Tipos de<br>Operaciones</span>
         </a>
         <div class="modal fade text-left" tabindex="-1" role="dialog" id="add_purchase_type_operation">
@@ -20,7 +20,8 @@
                         </h6>
                     </div>
                     <div class="modal-body">
-                        <purchase-show-errors ref="purchaseTypesOperationErrors" />
+
+                        <purchase-show-errors ref="purchaseErrors" />
 
                         <div class="row">
                             <div class="col-md-6">
@@ -52,6 +53,9 @@
                     </div>
                     <div class="modal-body modal-table">
                         <v-client-table :columns="columns" :data="records" :options="table_options">
+                            <div slot="description" slot-scope="props">
+                                <p v-html="props.row.description"></p>
+                            </div>
                             <div slot="id" slot-scope="props" class="text-center">
                                 <div class="d-inline-flex">
                                     <button @click="loadData(props.row)"
@@ -123,12 +127,5 @@
                 'id': 'col-xs-1'
             };
         },
-        watch:{
-            errors:function(res) {
-                const vm = this;
-                vm.$refs.purchaseTypesOperationErrors.reset();
-                vm.$refs.purchaseTypesOperationErrors.showAlertMessages(res);
-            }
-        }
     };
 </script>
