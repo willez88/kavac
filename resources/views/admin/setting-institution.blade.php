@@ -15,6 +15,20 @@
 				</div>
 			</div>
 			<div class="card-body">
+				@if (
+					$errors->has('onapre_code') || $errors->has('rif') || $errors->has('name') || 
+					$errors->has('acronym') || $errors->has('business_name') || $errors->has('country_id') || 
+					$errors->has('estate_id') || $errors->has('municipality_id') || $errors->has('city_id') || 
+					$errors->has('parish_id') || $errors->has('postal_code') || 
+					$errors->has('start_operations_date') || $errors->has('organism_adscript_id') || 
+					$errors->has('institution_sector_id') || $errors->has('institution_type_id') || 
+					$errors->has('legal_address') || $errors->has('active') || $errors->has('default') || 
+					$errors->has('retention_agent') || $errors->has('web') || $errors->has('social_networks') || 
+					$errors->has('legal_base') || $errors->has('legal_form') || $errors->has('main_activity') || 
+					$errors->has('mission') || $errors->has('vision') || $errors->has('composition_assets')
+				)
+					@include('layouts.form-errors')
+				@endif
 				<div class="row" id="helpInstitutionImgs">
 					<div class="col-md-4">
 						<div class="form-group">
@@ -86,7 +100,6 @@
 			</div>
 			{!! Form::model($model_institution, $header_institution) !!}
 				<div class="card-body">
-					@include('layouts.form-errors')
 					{!! Form::hidden('logo_id', null, ['readonly' => 'readonly', 'id' => 'logo_id']) !!}
 					{!! Form::hidden('banner_id', null, ['readonly' => 'readonly', 'id' => 'banner_id']) !!}
 					{!! Form::hidden('institution_id', (isset($model_institution))?$model_institution->id:'', [
@@ -173,10 +186,10 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									{!! Form::label('estate_id', __('Estado'), []) !!}
-									{!! Form::select('estate_id', (isset($estates))?$estates:[], (isset($model_institution)) ? $model_institution->city->estate->id : null, [
+									{!! Form::select('estate_id', (isset($estates))?$estates:[], (isset($model_institution)) ? $model_institution->city->estate->id : old('estate_id'), [
 										'class' => 'form-control select2', 'id' => 'estate_id',
 										'onchange' => 'updateSelect($(this), $("#municipality_id"), "Municipality"), updateSelect($(this), $("#city_id"), "City")',
-										'disabled' => (!isset($model_institution))
+										//'disabled' => (!isset($model_institution))
 									]) !!}
 								</div>
 							</div>
@@ -184,10 +197,10 @@
 								<div class="form-group">
 									{!! Form::label('municipality_id', __('Municipio'), []) !!}
 									{!! Form::select(
-										'municipality_id', (isset($municipalities))?$municipalities:[], null, [
+										'municipality_id', (isset($municipalities))?$municipalities:[], (isset($model_institution)) ? $model_institution->municipality_id : old('municipality_id'), [
 											'class' => 'form-control select2', 'id' => 'municipality_id',
 											'onchange' => 'updateSelect($(this), $("#parish_id"), "Parish")',
-											'disabled' => (!isset($model_institution))
+											//'disabled' => (!isset($model_institution))
 										]
 									) !!}
 								</div>
@@ -195,9 +208,9 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									{!! Form::label('city_id', __('Ciudad'), []) !!}
-									{!! Form::select('city_id', (isset($cities))?$cities:[], null, [
+									{!! Form::select('city_id', (isset($cities))?$cities:[], (isset($model_institution))? $model_institution->city_id : old('city_id'), [
 										'class' => 'form-control select2', 'id' => 'city_id',
-										'disabled' => (!isset($model_institution))
+										//'disabled' => (!isset($model_institution))
 									]) !!}
 								</div>
 							</div>
@@ -639,5 +652,16 @@
 				logs('setting-institution', 594, error, 'loadInstitution');
 			});
 		}
+		@if (old('country_id')!=='')
+			$("#country_id").click();
+		@endif
+		@if (old('estate_id')!=='')
+			$("#estate_id").click();
+		@endif
+		@if (old('municipality_id')!=='')
+			$("#municipality_id").click();
+		@endif
 	</script>
+	
+	
 @endsection

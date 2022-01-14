@@ -21,7 +21,13 @@
 							<h6>{{ __('Activar funciones de la aplicación') }}</h6>
 						</div>
 					</div>
-					@include('layouts.form-errors')
+					@if (
+						$errors->has('support') || $errors->has('chat') || $errors->has('notify') || 
+						$errors->has('report_banner') || $errors->has('multi_institution') || 
+						$errors->has('digital_sign') || $errors->has('online')
+					)
+						@include('layouts.form-errors')
+					@endif
 					<div class="row">
 						{{-- <div class="col-md-3" id="switchSupport">
 							<div class="form-group">
