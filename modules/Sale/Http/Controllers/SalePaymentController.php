@@ -178,30 +178,107 @@ class SalePaymentController extends Controller
 
     public function pending()
     {
-            return response()->json(['records' => SaleRegisterPayment::
-            join("sale_services","sale_register_payments.order_service_id","=","sale_services.id")
+            $saleservice = SaleService::with(['SaleGoodsToBeTraded'])
+            ->join("sale_register_payments","sale_services.id","=","sale_register_payments.order_service_id")
             ->join("sale_clients","sale_services.sale_client_id","=","sale_clients.id")
             ->where('payment_approve', '=', false)
-            ->get()], 200);
+            ->get();
+            /*
+            $x6 = SaleService::with(['jose'])
+                        ->join("sale_register_payments","sale_services.id","=","sale_register_payments.order_service_id")
+                        ->join("sale_clients","sale_services.sale_client_id","=","sale_clients.id")
+                        ->get();*/
+
+            $values_all = [];
+            foreach ($saleservice as $value) {
+                $bolean = true;
+                if ($bolean == true && $value->order_or_service_define_attributes == true) {
+                    $value_2 = $value;
+                    array_push($values_all,$value_2);
+                }
+            }
+            /*
+            foreach ($x6 as $value) {
+                $bolean = false;
+                if ($bolean == false && $value->order_or_service_define_attributes == false) {
+                    $value_2 = $value;
+                    array_push($values_all,$value_2);
+                }
+            }
+            */
+            return response()->json(['records' => collect($values_all)], 200);
+
     }
 
     public function payment_approve()
     {
-            return response()->json(['records' => SaleRegisterPayment::
-            join("sale_services","sale_register_payments.order_service_id","=","sale_services.id")
+            $saleservice = SaleService::with(['SaleGoodsToBeTraded'])
+            ->join("sale_register_payments","sale_services.id","=","sale_register_payments.order_service_id")
             ->join("sale_clients","sale_services.sale_client_id","=","sale_clients.id")
             ->where('payment_approve', '=', true)
-            ->get()], 200);
+            ->get();
+
+            /*
+            $x6 = SaleService::with(['jose'])
+                        ->join("sale_register_payments","sale_services.id","=","sale_register_payments.order_service_id")
+                        ->join("sale_clients","sale_services.sale_client_id","=","sale_clients.id")
+                        ->get();*/
+
+            $values_all = [];
+            foreach ($saleservice as $value) {
+                $bolean = true;
+                if ($bolean == true && $value->order_or_service_define_attributes == true) {
+                    $value_2 = $value;
+                    array_push($values_all,$value_2);
+                }
+            }
+            /*
+            foreach ($x6 as $value) {
+                $bolean = false;
+                if ($bolean == false && $value->order_or_service_define_attributes == false) {
+                    $value_2 = $value;
+                    array_push($values_all,$value_2);
+                }
+            }
+            */
+           
+            return response()->json(['records' => collect($values_all)], 200);
     }
 
     public function advance_define_attributes_approve()
     {
-            return response()->json(['records' => SaleRegisterPayment::
-            join("sale_services","sale_register_payments.order_service_id","=","sale_services.id")
+            $saleservice = SaleService::with(['SaleGoodsToBeTraded'])
+            ->join("sale_register_payments","sale_services.id","=","sale_register_payments.order_service_id")
             ->join("sale_clients","sale_services.sale_client_id","=","sale_clients.id")
             ->where('advance_define_attributes', '=', true)
             ->where('payment_approve', '=', true)
-            ->get()], 200);
+            ->get();
+            /*
+            $x6 = SaleService::with(['jose'])
+                        ->join("sale_register_payments","sale_services.id","=","sale_register_payments.order_service_id")
+                        ->join("sale_clients","sale_services.sale_client_id","=","sale_clients.id")
+                        ->get();*/
+
+            $values_all = [];
+            foreach ($saleservice as $value) {
+                $bolean = true;
+                if ($bolean == true && $value->order_or_service_define_attributes == true) {
+                    $value_2 = $value;
+                    array_push($values_all,$value_2);
+                }
+            }
+            /*
+            foreach ($x6 as $value) {
+                $bolean = false;
+                if ($bolean == false && $value->order_or_service_define_attributes == false) {
+                    $value_2 = $value;
+                    array_push($values_all,$value_2);
+                }
+            }
+            */
+
+            return response()->json(['records' => collect($values_all)], 200);
+
     }
 
     /**
