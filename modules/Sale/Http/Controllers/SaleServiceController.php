@@ -30,6 +30,44 @@ class SaleServiceController extends Controller
     use ValidatesRequests;
 
     /**
+     * Arreglo con las reglas de validación sobre los datos de un formulario
+     * @var Array $validateRules
+     */
+    protected $validateRules;
+
+    /**
+     * Arreglo con los mensajes para las reglas de validación
+     * @var Array $messages
+     */
+    protected $messages;
+
+    /**
+     * Define la configuración de la clase
+     *
+     * @author    Daniel Contreras <dcontreras@cenditel.gob.ve>>
+     */
+    public function __construct()
+    {
+        /** Define las reglas de validación para el formulario */
+        $this->validateRules = [
+            'sale_client_id'          => ['required'],
+            'organization'            => ['required'],
+            'description'             => ['required'],
+            'sale_goods_to_be_traded' => ['required'],
+            'resume'                  => ['required'],
+        ];
+
+        /** Define los mensajes de validación para las reglas del formulario */
+        $this->messages = [
+            'sale_client_id.required'          => 'El campo cliente es obligatorio.',
+            'organization.required'            => 'El campo organización es obligatorio.',
+            'description.required'             => 'El campo descripción de la actividad económica es obligatorio.',
+            'sale_goods_to_be_traded.required' => 'El campo servicio es obligatorio.',
+            'resume.required'                  => 'El campo resumen de la solicitud es obligatorio.',
+        ];
+    }
+
+    /**
      * [descripción del método]
      *
      * @method    index
@@ -69,13 +107,7 @@ class SaleServiceController extends Controller
      
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'organization' => ['required'],
-            'description' => ['required'],
-            'resume' => ['required'],
-            'sale_client_id' => ['required'],
-            'sale_goods_to_be_traded' => ['required'],
-        ]);
+        $this->validate($request, $this->validateRules, $this->messages);
 
         $codeSetting = CodeSetting::where('table', 'sale_services')->first();
         if (is_null($codeSetting)) {
@@ -176,13 +208,7 @@ class SaleServiceController extends Controller
     public function update(Request $request, $id)
     {
         $saleService = SaleService::with('SaleServiceRequirement')->find($id);
-        $this->validate($request, [
-            'organization' => ['required'],
-            'description' => ['required'],
-            'resume' => ['required'],
-            'sale_client_id' => ['required'],
-            'sale_goods_to_be_traded' => ['required'],
-        ]);
+        $this->validate($request, $this->validateRules, $this->messages);
 
         $saleService->organization            = $request->input('organization');
         $saleService->description             = $request->input('description');
