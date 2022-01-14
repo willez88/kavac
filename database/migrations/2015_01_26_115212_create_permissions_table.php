@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -19,6 +20,9 @@ class CreatePermissionsTable extends Migration
                 $table->string('slug')->unique();
                 $table->string('description')->nullable();
                 $table->string('model')->nullable();
+                $table->string('model_prefix', 100)->nullable()->comment('Prefijo del modelo');
+                $table->string('slug_alt', 50)->nullable()->comment('Slug alternativo');
+                $table->string('short_description')->default('')->comment('Descripción breve del permiso');
                 $table->timestamps();
             });
         }

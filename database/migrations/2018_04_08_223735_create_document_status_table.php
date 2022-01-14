@@ -20,6 +20,11 @@ class CreateDocumentStatusTable extends Migration
                 $table->text('description')->nullable()
                       ->comment('Descripción detallada para el estatus del documento');
                 $table->string('color', 30)->unique()->comment('Color del estatus del documento');
+                $table->enum('action', ['AP', 'RE', 'EL', 'PR', 'AN', 'CE'])->default('AP')
+                      ->comment(
+                          'Acción que realiza el estado del documento. Valores aceptados: (AP)robado, ' .
+                          '(RE)chazado, (EL)aborado, (PR)or revisar, (AN)ulado, (CE)rrado'
+                      );
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });

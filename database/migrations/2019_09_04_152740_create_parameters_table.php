@@ -17,7 +17,7 @@ class CreateParametersTable extends Migration
             Schema::create('parameters', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->string('p_key')->comment('Clave de referencia para el parámetro');
-                $table->string('p_value')->comment('Valor establecido para el parámetro');
+                $table->longText('p_value')->comment('Valor establecido para el parámetro');
                 $table->string('required_by')->default('core')->comment(
                     'Indica quien requiere del parámetro (aplicación base o módulo). ' .
                     'Por defecto se establece la aplicación base, para modulos se debe indicar el nombre del mismo'
