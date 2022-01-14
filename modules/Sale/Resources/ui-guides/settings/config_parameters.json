@@ -1,0 +1,50 @@
+[
+    {
+        "element" : "#helpWarehouseMethod",
+        "intro" : "Gestiona información acerca de los almacenes"
+    },
+    {
+        "element" : "#helpClients",
+        "intro" : "Gestiona información acerca de los clientes"
+    },
+    {
+        "element" : "#helpSettingProducts",
+        "intro" : "Gestiona información acerca de los productos"
+    },
+    {
+        "element" : "#helpSettingProductTypes",
+        "intro" : "Gestiona información acerca de los tipos de productos"
+    },
+    {
+        "element" : "#helpDiscounts",
+        "intro" : "Gestiona información acerca de los descuentos"
+    },
+    {
+        "element" : "#helpTypeGood",
+        "intro" : "Gestiona información acerca de los tipos de bien"
+    },
+    {
+        "element" : "#helpSubservicesMethod",
+        "intro" : "Gestiona información acerca de la lista de subservicios"
+    },
+    {
+        "element" : "#helpPeriodicCosts",
+        "intro" : "Gestiona información acerca de los costos fijos"
+    },
+    {
+        "element" : "#helpSettingChargeMoney",
+        "intro" : "Gestiona información acerca de los métodos de cobro"
+    },
+    {
+        "element" : "#helpFormPayment",
+        "intro" : "Gestiona información acerca de las formas de cobro"
+    },
+    {
+        "element" : "#helpFrecuencies",
+        "intro" : "Gestiona información acerca de los periodos de tiempo"
+    },
+    {
+        "element" : "#helpGoodsToBeTraded",
+        "intro" : "Gestiona información acerca de los bienes a comercializar"
+    }
+]

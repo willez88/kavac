@@ -14,5 +14,13 @@
     {
         "element" : "#helpCodeSaleBill",
         "intro" : "La configuración de este código permite identificar los registros de las facturas mediante un formato único."
+    },
+    {
+        "element" : "#helpCodeSaleService",
+        "intro" : "La configuración de este código permite identificar los registros de los servicios mediante un formato único."
+    },
+    {
+        "element" : "#helpCodeSaleWarehouseReport",
+        "intro" : "La configuración de este código permite identificar los reportes de inventario de productos mediante un formato único."
     }
 ]
