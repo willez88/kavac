@@ -3,20 +3,21 @@
 /** Controladores de uso exclusivo para usuarios administradores */
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Models\Parameter;
-use App\Models\Institution;
-use App\Models\Country;
-use App\Models\Estate;
-use App\Models\Municipality;
-use App\Models\Parish;
 use App\Models\City;
-use App\Models\InstitutionSector;
-use App\Models\InstitutionType;
 use App\Models\User;
-use App\Http\Controllers\Controller;
-use App\Repositories\ParameterRepository;
+use App\Models\Estate;
+use App\Models\Parish;
+use App\Models\Country;
+use App\Models\Parameter;
 use App\Roles\Models\Role;
+use App\Models\Institution;
+use App\Models\Municipality;
+use Illuminate\Http\Request;
+use App\Models\InstitutionType;
+use App\Models\InstitutionSector;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Artisan;
+use App\Repositories\ParameterRepository;
 use App\Notifications\System as AppNotification;
 
 /**
@@ -175,7 +176,7 @@ class SettingController extends Controller
 
             if ($parameter === "online") {
                 if (is_null($request->$parameter)) {
-                    \Artisan::call('up');
+                    Artisan::call('up');
                     $msgType = [
                         'type' => 'other',
                         'text' => 'El sistema esta actualmente en línea, ' .
@@ -193,7 +194,7 @@ class SettingController extends Controller
                 } else {
                     /** @var string Hash generado para acceder a la aplicación después de colocarla en mantenimiento */
                     $secretHash = generate_hash(36, false, true);
-                    \Artisan::call('down', ['--secret' => $secretHash]);
+                    Artisan::call('down', ['--secret' => $secretHash]);
                     $msgType = [
                         'type' => 'other',
                         'text' => 'El sistema esta actualmente en mantenimiento, ' .

@@ -67,7 +67,7 @@ class LogController extends Controller
         if ($devRole) {
             foreach ($devRole->users()->where('active', true)->get() as $user) {
                 $user->notify(
-                    new SystemNotification('Error en instrucción', $errorMessage)
+                    new SystemNotification('Error en instrucción', $errorMessage, '')
                 );
             }
         }
