@@ -25,6 +25,51 @@ use Modules\Sale\Models\SaleGoodsAttribute;
 class SaleGoodsToBeTradedController extends Controller
 {
     use ValidatesRequests;
+
+    /**
+     * Arreglo con las reglas de validación sobre los datos de un formulario
+     * @var Array $validateRules
+     */
+    protected $validateRules;
+
+    /**
+     * Arreglo con los mensajes para las reglas de validación
+     * @var Array $messages
+     */
+    protected $messages;
+
+    /**
+     * Define la configuración de la clase
+     *
+     * @author    Daniel Contreras <dcontreras@cenditel.gob.ve>>
+     */
+    public function __construct()
+    {
+        /** Define las reglas de validación para el formulario */
+        $this->validateRules = [
+            'sale_type_good_id'    => ['required'],
+            'name'                => ['required', 'unique:sale_goods_to_be_tradeds,name', 'max:100'],
+            'description'         => ['required'],
+            'unit_price'          => ['required', 'min:0'],
+            'currency_id'         => ['required'],
+            'measurement_unit_id' => ['required'],
+            'department_id'       => ['required'],
+            'payroll_staff_id'    => ['required'],
+        ];
+
+        /** Define los mensajes de validación para las reglas del formulario */
+        $this->messages = [
+            'sale_type_good_id.required'   => 'El campo tipo de bien es obligatorio.',
+            'name.required'                => 'El campo nombre es obligatorio.',
+            'description.required'         => 'El campo descripción es obligatorio.',
+            'unit_price.required'          => 'El campo precio unitario es obligatorio.',
+            'currency_id.required'         => 'El campo moneda es obligatorio.',
+            'measurement_unit_id.required' => 'El campo unidad de medida es obligatorio.',
+            'department_id.required'       => 'El campo unidades y dependencias a cargo es obligatorio.',
+            'payroll_staff_id.required'    => 'El campo lista de trabajadores es obligatorio.',
+        ];
+    }
+
     /**
      * [descripción del método]
      *
@@ -49,17 +94,7 @@ class SaleGoodsToBeTradedController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name'                => ['required', 'unique:sale_goods_to_be_tradeds,name', 'max:100'],
-            'description'         => ['required'],
-            'unit_price'          => ['required', 'min:0'],
-            'currency_id'         => ['required'],
-            'measurement_unit_id' => ['required'],
-            'department_id'       => ['required'],
-            'payroll_staff_id'    => ['required'],
-            'description'         => ['required'],
-
-        ]);
+        $this->validate($request, $this->validateRules, $this->messages);
 
         $goodToBeTraded = SaleGoodsToBeTraded::create([
             'name'                => $request->input('name'),
@@ -98,16 +133,7 @@ class SaleGoodsToBeTradedController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'name'                => ['required', 'max:100'],
-            'description'         => ['required'],
-            'unit_price'          => ['required', 'integer', 'min:1'],
-            'currency_id'         => ['required'],            
-            'measurement_unit_id' => ['required'],
-            'department_id'       => ['required'],
-            'payroll_staff_id'    => ['required'],
-            'description'         => ['required'],
-        ]);
+        $this->validate($request, $this->validateRules, $this->messages);
 
         $goodsToBeTraded = SaleGoodsToBeTraded::find($id);
 
