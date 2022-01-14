@@ -36,11 +36,22 @@ class SaleBillController extends Controller
     use ValidatesRequests;
 
     /**
+     * Arreglo con las reglas de validación sobre los datos de un formulario
+     * @var Array $validateRules
+     */
+    protected $validateRules;
+
+    /**
+     * Arreglo con los mensajes para las reglas de validación
+     * @var Array $messages
+     */
+    protected $messages;
+
+    /**
      * Define la configuración de la clase
      *
-     * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
+     * @author    Daniel Contreras <dcontreras@cenditel.gob.ve> | <exodiadaniel@gmail.com>
      */
-
     public function __construct()
     {
         /** Establece permisos de acceso para cada método del controlador */
@@ -48,6 +59,23 @@ class SaleBillController extends Controller
         // $this->middleware('permission:sale.bill.create', ['only' => ['create', 'store']]);
         // $this->middleware('permission:sale.bill.edit', ['only' => ['edit', 'update']]);
         // $this->middleware('permission:sale.bill.delete', ['only' => 'destroy']);
+
+        /** Define las reglas de validación para el formulario */
+        $this->validateRules = [
+            'type_person'          => ['required'],
+            'sale_form_payment_id' => ['required'],
+        ];
+
+        /** Define los mensajes de validación para las reglas del formulario */
+        $this->messages = [
+            'type_person.required'          => 'El campo tipo de persona es obligatorio.',
+            'sale_form_payment_id.required' => 'El campo forma de cobro es obligatorio.',
+            'name.required' => 'El campo nombre y apellido es obligatorio.',
+            'id_number.required' => 'El campo identificación es obligatorio.',
+            'phone.required' => 'El campo teléfono de contacto es obligatorio.',
+            'email.required' => 'El campo correo electrónico es obligatorio.',
+            'rif.required' => 'El campo rif es obligatorio.',
+        ];
     }
 
     /**
@@ -102,33 +130,26 @@ class SaleBillController extends Controller
         );
 
         DB::transaction(function () use ($request, $code) {
+            $this->validate($request, $this->validateRules, $this->messages);
+
             if ($request->type_person == 'Natural'){
                 $this->validate($request, [
-                    'type_person'            => ['required'],
                     'name'                   => ['required'],
                     'id_number'              => ['required'],
                     'phone'                  => ['required'],
                     'email'                  => ['required'],
-                    'sale_form_payment_id' => ['required'],
-                ]);
-            } else if ($request->type_person == 'Jurídica'){
-                $this->validate($request, [
-                    'type_person'            => ['required'],
-                    'name'                   => ['required'],
-                    'rif'                    => ['required'],
-                    'phone'                  => ['required'],
-                    'email'                  => ['required'],
-                    'sale_form_payment_id' => ['required'],
-                ]);
+                ], $this->messages);
             } else {
                 $this->validate($request, [
-                    'type_person'            => ['required'],
                     'name'                   => ['required'],
                     'rif'                    => ['required'],
-                    'id_number'              => ['required'],
                     'phone'                  => ['required'],
                     'email'                  => ['required'],
-                    'sale_form_payment_id'   => ['required'],
+                ], $this->messages = [
+                    'name.required' => 'El campo nombre de la empresa es obligatorio.',
+                    'rif.required' => 'El campo rif es obligatorio.',
+                    'phone.required' => 'El campo teléfono de contacto es obligatorio.',
+                    'email.required' => 'El campo correo electrónico es obligatorio.',
                 ]);
             }
 
@@ -238,33 +259,26 @@ class SaleBillController extends Controller
     public function update(Request $request, $id)
     {
         $sale_bills = SaleBill::find($id);
+        $this->validate($request, $this->validateRules, $this->messages);
+
         if ($request->type_person == 'Natural'){
             $this->validate($request, [
-                'type_person'            => ['required'],
                 'name'                   => ['required'],
                 'id_number'              => ['required'],
                 'phone'                  => ['required'],
                 'email'                  => ['required'],
-                'sale_form_payment_id' => ['required'],
-            ]);
-        } else if ($request->type_person == 'Jurídica'){
-            $this->validate($request, [
-                'type_person'            => ['required'],
-                'name'                   => ['required'],
-                'rif'                    => ['required'],
-                'phone'                  => ['required'],
-                'email'                  => ['required'],
-                'sale_form_payment_id' => ['required'],
-            ]);
+            ], $this->messages);
         } else {
             $this->validate($request, [
-                'type_person'            => ['required'],
                 'name'                   => ['required'],
                 'rif'                    => ['required'],
-                'id_number'              => ['required'],
                 'phone'                  => ['required'],
                 'email'                  => ['required'],
-                'sale_form_payment_id'   => ['required'],
+            ], $this->messages = [
+                'name.required' => 'El campo nombre de la empresa es obligatorio.',
+                'rif.required' => 'El campo rif es obligatorio.',
+                'phone.required' => 'El campo teléfono de contacto es obligatorio.',
+                'email.required' => 'El campo correo electrónico es obligatorio.',
             ]);
         }
 
