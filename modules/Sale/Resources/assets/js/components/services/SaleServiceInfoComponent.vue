@@ -330,7 +330,7 @@
                                             <div v-if="record.sale_technical_proposal">
                                                 <div v-for="technical_proposal in record.sale_technical_proposal">
                                                     <span class="col-md-12" id="service_requirement">
-                                                        {{ record.sale_technical_proposal ? technical_proposal.frecuency_id : 'No definido' }}
+                                                        {{ record.sale_technical_proposal && technical_proposal.frecuency_id ? technical_proposal.frecuency.name : 'No definido' }}
                                                     </span>
                                                 </div>
                                             </div>    

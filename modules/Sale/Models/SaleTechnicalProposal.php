@@ -121,7 +121,7 @@ class SaleTechnicalProposal extends Model implements Auditable
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
      * SaleSettingFrecuency
      */
-    public function saleSettingFrecuency()
+    public function frecuency()
     {
         return $this->belongsTo(SaleSettingFrecuency::class);
     }

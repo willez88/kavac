@@ -335,7 +335,7 @@ class SaleServiceController extends Controller
     {
         $saleService = SaleService::with(['SaleServiceRequirement',
             'saleClient', 'payrollStaff', 'saleTechnicalProposal' => function ($query) {
-                $query->with(['saleService', 'saleProposalSpecification', 'saleProposalRequirement',
+                $query->with(['saleService', 'saleProposalSpecification', 'saleProposalRequirement', 'frecuency',
                                 'saleGanttDiagram' => function ($query) {
                                     $query->with(['saleGanttDiagramStage','payrollStaff']);
                                 }]);

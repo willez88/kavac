@@ -175,7 +175,10 @@
                     <label for="duration">Duración:</label>
                         <input type="text" class="form-control input-sm"
                             data-toggle="tooltip" title="Duración"
-                            id="duration" v-model="record.duration"></input>
+                            id="duration" v-model="record.duration"
+                            v-input-mask data-inputmask="
+                                       'alias': 'numeric',
+                                       'allowMinus': 'false'"></input>
                 </div>
             </div>
             <div class="col-md-3">
