@@ -16,9 +16,13 @@ class CreateFiscalYearsTable extends Migration
         if (!Schema::hasTable('fiscal_years')) {
             Schema::create('fiscal_years', function (Blueprint $table) {
                 $table->bigIncrements('id');
-                $table->string("year", 4)->unique()->comment("Año fiscal");
-                $table->boolean("active")->default(true)->comment("Estatus del año fiscal");
-                $table->text("observations")->nullable()->comment("Observaciones al año fiscal");
+                $table->string('year', 4)->unique()->comment('Año fiscal');
+                $table->boolean('active')->default(true)->comment('Estatus del año fiscal');
+                $table->text('observations')->nullable()->comment('Observaciones al año fiscal');
+                $table->boolean('closed')->default(false)
+                      ->comment('Establece si el año de ejercicio fiscal ya fue cerrado');
+                $table->foreignId('institution_id')->nullable()->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });

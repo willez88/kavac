@@ -20,6 +20,11 @@ class CreateProfilesTable extends Migration
                 $table->string('last_name')->nullable()->comment('Apellidos');
                 $table->foreignId('image_id')->nullable()->counstrained()->onUpdate('cascade');
                 $table->foreignId('user_id')->nullable()->constrained()->onDelete('restrict')->onUpdate('cascade');
+                $table->foreignId('institution_id')->nullable()->constrained()
+                      ->onDelete('restrict')->onUpdate('cascade');
+                $table->unsignedBigInteger('employee_id')->nullable()->comment(
+                    'Identificador del empleado al que pertenece el perfil'
+                );
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });

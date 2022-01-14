@@ -18,6 +18,11 @@ class CreateImagesTable extends Migration
                 $table->bigIncrements('id')->comment('Identificador único del registro');
                 $table->string('file')->comment('Nombre del archivo');
                 $table->string('url')->comment('URL de la imagen');
+                $table->float('max_width')->nullable();
+                $table->float('max_height')->nullable();
+                $table->float('min_width')->nullable();
+                $table->float('min_height')->nullable();
+                $table->nullableMorphs('imageable');
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
             });

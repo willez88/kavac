@@ -28,6 +28,11 @@ class CreateCodeSettingsTable extends Migration
                 $table->string('format_digits', 8)->comment('Formato de los dígitos configurados');
                 $table->enum('format_year', ['YY', 'YYYY'])->comment('Formato del prefijo configurado');
                 $table->text('description')->nullable()->comment('Descripción de la configuración del código');
+                $table->string('type')->nullable()
+                      ->comment(
+                          "Define un tipo de registro en caso de que en un mismo modelo se registre " .
+                          "distinta información"
+                      );
                 $table->timestamps();
                 $table->softDeletes()->comment('Fecha y hora en la que el registro fue eliminado');
                 $table->unique([
