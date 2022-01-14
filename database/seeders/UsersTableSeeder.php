@@ -1,11 +1,13 @@
 <?php
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
+use Exception;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Roles\Models\Role;
-use Carbon\Carbon;
-use DB;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @class UsersTableSeeder
@@ -27,13 +29,18 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::transaction(function () {
+        $adminEmail = $this->command->ask('Indique el correo del usuario administrador: ', 'admin@mail.com');
+        $adminUser = $this->command->ask('Indique el usuario administrador: ', 'admin');
+        $adminName = $this->command->ask("Indique el nombre del usuario ${adminUser}: ");
+        $adminPass = $this->command->secret("Indique la contraseña del usuario ${adminUser}: ");
+
+        DB::transaction(function () use ($adminEmail, $adminUser, $adminName, $adminPass) {
             /** @var object Crea el usuario por defecto de la aplicación */
             $user_admin = User::updateOrCreate(
-                ['username' => 'admin', 'email' => 'admin@admin.com'],
+                ['username' => $adminUser, 'email' => $adminEmail],
                 [
-                    'name' => 'Admin',
-                    'password' => bcrypt('123456'),
+                    'name' => $adminName,
+                    'password' => Hash::make($adminPass),
                     'level' => 1,
                     'created_at' => Carbon::now(),
                     'email_verified_at' => Carbon::now()
@@ -59,17 +66,26 @@ class UsersTableSeeder extends Seeder
                     /** Asigna el rol de administrador */
                     $user_admin->attachRole($devRole);
                 }
-                /** Crea un usuario de prueba para entornos de desarrollo, sin roles ni permisos */
-                User::updateOrCreate(
-                    ['username' => 'user', 'email' => 'user@kavac-testing.com'],
-                    [
-                        'name' => 'Usuario de prueba',
-                        'password' => bcrypt('123456'),
-                        'level' => 2,
-                        'created_at' => Carbon::now(),
-                        'email_verified_at' => Carbon::now()
-                    ]
+
+                $usrTest = $this->command->askWithCompletion(
+                    '¿Desea crear un usuario de prueba?: ', ['y', 'n'], 'n'
                 );
+
+                if ($usrTest==='y') {
+                    /** Crea un usuario de prueba para entornos de desarrollo, sin roles ni permisos */
+                    User::updateOrCreate(
+                        ['username' => 'user', 'email' => 'user@kavac-testing.com'],
+                        [
+                            'name' => 'Usuario de prueba',
+                            'password' => Hash::make('123456'),
+                            'level' => 2,
+                            'created_at' => Carbon::now(),
+                            'email_verified_at' => Carbon::now()
+                        ]
+                    );
+
+                    print("Se ha creado un usuario de prueba con el nombre 'user' y contraseña '123456'\n\n");
+                }
             }
         });
     }
