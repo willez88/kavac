@@ -30,9 +30,9 @@
                 </div>
                 <div class="card-body">
                     <sale-bill-list
-                        route_list="sale/bills/vue-list"
-                        route_edit="sale/bills/edit/{id}"
-                        route_delete="sale/bills/delete">
+                        route_list="{{ url('sale/bills/vue-list') }}"
+                        route_edit="{{ url('sale/bills/edit/{id}') }}"
+                        route_delete="{{ url('sale/bills/delete') }}">
                     </sale-bill-list>
                 </div>
             </div>

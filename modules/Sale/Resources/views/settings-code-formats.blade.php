@@ -62,6 +62,17 @@
 								]) !!}
 							</div>
 						</div>
+						<div class="col-md-3" id="helpCodeSaleWarehouseReport">
+							<div class="form-group">
+								{!! Form::label('sale_warehouse_report_code', 'Código para los reportes de inventario de productos', []) !!}
+								{!! Form::text('reports_code', ($saleWarehouseReportCode) ? $saleWarehouseReportCode->format_code : old('reports_code'), [
+									'class' => 'form-control input-sm', 'data-toggle' => 'tooltip',
+									'title' => 'Formato para el código de los reportes de inventario de productos',
+									'placeholder' => 'Ej. XXX-00000000-YYYY',
+									'readonly' => ($saleWarehouseReportCode) ? true : false
+								]) !!}
+							</div>
+						</div>
 					</div>
 					@include('layouts.help-text', ['codeSetting' => true])
 				</div>

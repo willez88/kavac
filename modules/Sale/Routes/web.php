@@ -279,9 +279,9 @@ Route::group(
         Route::get('reports/inventory-products', 'SaleReportController@inventoryProducts')
             ->name('sale.report.inventory-products');
         Route::post('reports/inventory-products/vue-list', 'SaleReportController@vueList');
-        //Route::post('reports/inventory-products/create', 'SaleReportController@create');
+        Route::post('reports/inventory-products/create', 'SaleReportController@create');
 
-        //Route::get('report/show/{code}', 'SaleReportController@show');
+        Route::get('reports/show/{code}', 'SaleReportController@show');
 
         /**
 
