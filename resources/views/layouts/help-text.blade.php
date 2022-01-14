@@ -4,7 +4,7 @@
 	<div class="row">
 		<div class="col-12" id="formatCode">
 			<span class="form-text">
-				<strong>{{ __('Formato') }}:</strong> {{ __('prefijo-digitos-año') }}
+				<strong>{{ __('Formato') }}:</strong> {{ __('prefijo-dígitos-año') }}
 				<ul>
 					<li id="formatCodePrefix">{{ __('Prefijo (requerido): 1 a 3 caracteres') }}</li>
 					<li id="formatCodeDigits">{{ __('Digitos (requerido): 4 caracteres (mínimo), 8 caracteres (máximo)') }}</li>
