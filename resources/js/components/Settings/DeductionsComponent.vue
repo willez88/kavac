@@ -29,13 +29,15 @@
                                            class="form-control input-sm" v-model="record.name" v-is-text>
                                     <input type="hidden" v-model="record.id">
                                 </div>
+                            </div>
+                            <div class="col-12 col-md-6">
                                 <div class="form-group" v-if="accountingAccount">
                                     <label>Cuenta Contable:</label>
                                     <select2 :options="accounting_accounts"
                                              v-model="record.accounting_account_id"></select2>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Descripción:</label>
                                     <ckeditor :editor="ckeditor.editor" data-toggle="tooltip"
