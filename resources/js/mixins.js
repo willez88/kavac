@@ -286,9 +286,7 @@ Vue.mixin({
 		 * @return  {String}         Ruta absoluta
 		 */
 		setUrl(route) {
-			return (
-				!route.includes('http://') || !route.includes('http://')
-			) ? `${window.app_url}${(route.startsWith('/'))?'':'/'}${route}` : route;
+			return (!route.includes('http')) ? `${window.app_url}${(route.startsWith('/'))?'':'/'}${route}` : route;
         },
 		/**
 		 * Redirecciona a una url esecífica si fue suministrada
