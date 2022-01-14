@@ -23,7 +23,7 @@
 					</div>
 					@include('layouts.form-errors')
 					<div class="row">
-						<div class="col-md-3" id="switchSupport">
+						{{-- <div class="col-md-3" id="switchSupport">
 							<div class="form-group">
 								<label for="" class="control-label">{{ __('Soporte técnico') }}</label>
 								<div class="col-12 bootstrap-switch-mini">
@@ -34,7 +34,7 @@
 									]) !!}
 								</div>
 							</div>
-						</div>
+						</div> --}}
 						{{-- <div class="col-md-3" id="switchChat">
 							<div class="form-group">
 								<label for="" class="control-label">{{ __('Chat') }}</label>
