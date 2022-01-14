@@ -501,8 +501,7 @@ Vue.mixin({
 			this.errors = [];
 			this.reset();
 			const vm = this;
-			url = (!url.includes('http://') || !url.includes('http://'))
-				  ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
+			url = this.setUrl(url);
 
 			axios.get(url).then(response => {
 				if (typeof(response.data.records) !== "undefined") {
@@ -534,8 +533,7 @@ Vue.mixin({
 		readRecords(url) {
 			const vm = this;
 			vm.loading = true;
-			url = (!url.includes('http://') || !url.includes('http://'))
-				  ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
+			url = this.setUrl(url);
 
 			axios.get(url).then(response => {
 				if (typeof(response.data.records) !== "undefined") {
@@ -575,9 +573,8 @@ Vue.mixin({
 		 */
 		createRecord(url, list = true, reset = true) {
 			const vm = this;
-			url = (!url.includes('http://') || !url.includes('https://'))
-				  ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
-
+			url = vm.setUrl(url);
+			
 			if (vm.record.id) {
 				vm.updateRecord(url);
 			}
@@ -681,8 +678,7 @@ Vue.mixin({
 			const vm = this;
 			vm.loading = true;
 			var fields = {};
-			url = (!url.includes('http://') || !url.includes('http://'))
-				  ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
+			url = vm.setUrl(url);
 
 			for (var index in vm.record) {
 				fields[index] = vm.record[index];
@@ -739,9 +735,7 @@ Vue.mixin({
 		deleteRecord(id, url) {
 			const vm = this;
 			/** @type {string} URL que atiende la petición de eliminación del registro */
-			var url = (url)?url:vm.route_delete;
-			url = (!url.includes('http://') || !url.includes('http://'))
-				  ? `${window.app_url}${(url.startsWith('/'))?'':'/'}${url}` : url;
+			var url = vm.setUrl((url)?url:vm.route_delete);
 
 			bootbox.confirm({
 				title: "¿Eliminar registro?",
