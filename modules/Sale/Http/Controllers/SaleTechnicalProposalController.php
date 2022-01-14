@@ -31,6 +31,41 @@ use Modules\Asset\Models\AssetAsignation;
 class SaleTechnicalProposalController extends Controller
 {
     use ValidatesRequests;
+
+    /**
+     * Arreglo con las reglas de validación sobre los datos de un formulario
+     * @var Array $validateRules
+     */
+    protected $validateRules;
+
+    /**
+     * Arreglo con los mensajes para las reglas de validación
+     * @var Array $messages
+     */
+    protected $messages;
+
+    /**
+     * Define la configuración de la clase
+     *
+     * @author    Daniel Contreras <dcontreras@cenditel.gob.ve>>
+     */
+    public function __construct()
+    {
+        /** Define las reglas de validación para el formulario */
+        $this->validateRules = [
+            'sale_list_subservices' => ['required'],
+            'frecuency_id'          => ['required'],
+            'duration'              => ['required'],
+        ];
+
+        /** Define los mensajes de validación para las reglas del formulario */
+        $this->messages = [
+            'sale_list_subservices.required' => 'El campo subservicio es obligatorio.',
+            'frecuency_id.required'          => 'El campo duración es obligatorio.',
+            'duration.required'              => 'El campo duración es obligatorio.'
+        ];
+    }
+
     /**
      * [descripción del método]
      *
@@ -134,11 +169,8 @@ class SaleTechnicalProposalController extends Controller
         $technicalProposal = SaleTechnicalProposal::with(['saleProposalSpecification', 'saleProposalRequirement',
                                                         'saleGanttDiagram'])->where('sale_service_id', $id)
                                                         ->first();
-        $this->validate($request, [
-            'sale_list_subservices' => ['required'],
-            'frecuency_id' => ['required'],
-            'duration' => ['required'],
-        ]);
+
+        $this->validate($request, $this->validateRules, $this->messages);
 
         $technicalProposal->sale_service_id       = $request->input('sale_service_id');
         $technicalProposal->duration              = $request->input('duration');
