@@ -264,7 +264,7 @@
         },
         props: {
             start_operations_date: {
-                type:     Date,
+                type:     [Date, String],
                 required: false,
                 default:  ''
             }
