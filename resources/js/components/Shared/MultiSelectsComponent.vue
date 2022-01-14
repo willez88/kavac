@@ -13,7 +13,10 @@
 <script>
 	import Multiselect from 'vue-multiselect';
 
-  	Vue.component('multiselectComponent', Multiselect)
+	/** Elimina el prop loading por conflicto con el mixin de la aplicación */
+	delete Multiselect.props.loading;
+	
+	Vue.component('multiselectComponent', Multiselect);
 
 	export default {
 		data () {
