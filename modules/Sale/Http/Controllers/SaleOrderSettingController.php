@@ -26,13 +26,7 @@ class SaleOrderSettingController extends Controller
     use ValidatesRequests;
 
     /**
-     * [descripción del método]
-     *
      * @method    index
-     *
-     * @author    [nombre del autor] [correo del autor]
-     *
-     * @return    Renderable    [description de los datos devueltos]
      */
     public function index()
     {
@@ -144,15 +138,15 @@ class SaleOrderSettingController extends Controller
         'id_number' => ['required', 'max:100'],
         'email' => ['required', 'max:200'],
         'phone' => ['required', 'regex:/^\d{2}-\d{3}-\d{7}$/u'],
-        'description' => ['required', 'max:200']
+        'type_person' => ['required'],
       ]);
 
       $order = SaleOrder::create([
         'name'        => $request->name,
         'id_number'   => $request->id_number,
         'email'       => $request->email,
+        'type_person' => $request->type_person,
         'phone'       => $request->phone,
-        'description' => $request->description,
         'products'    => json_encode($products, JSON_FORCE_OBJECT),
         'status' => 'pending'
       ]);
@@ -161,15 +155,7 @@ class SaleOrderSettingController extends Controller
     }
 
     /**
-     * [descripción del método]
-     *
      * @method    show
-     *
-     * @author    [nombre del autor] [correo del autor]
-     *
-     * @param     integer    $id    Identificador del registro
-     *
-     * @return    Renderable    [description de los datos devueltos]
      */
     public function show($id)
     {
@@ -197,7 +183,6 @@ class SaleOrderSettingController extends Controller
           'measurement_unit_id' => $row['measurement_unit_id'],
           'measurement_unit' => $row['measurement_unit'],
           'total_without_tax' => $row['total_without_tax'],
-          'product_type' => $row['product_type'],
           'currency_id' => $row['currency']['name']
         ];
         $total += $row['total'];
@@ -208,21 +193,12 @@ class SaleOrderSettingController extends Controller
         $record->total_without_tax = $total_without_tax;
         $record->total = $total;
       }
-
       return view('sale::order.create', ['orderid' => $id, 'order' => $record]);
     }
 
     /**
-     * [descripción del método]
-     *
-     * @method    update
-     *
-     * @author    [nombre del autor] [correo del autor]
-     *
      * @param     object    Request    $request         Objeto con datos de la petición
      * @param     integer   $id        Identificador del registro
-     *
-     * @return    Renderable    [description de los datos devueltos]
      */
     public function update(Request $request, $id)
     {
@@ -240,13 +216,13 @@ class SaleOrderSettingController extends Controller
             'id_number' => ['required', 'max:100'],
             'email' => ['required', 'max:200'],
             'phone' => ['required', 'regex:/^\d{2}-\d{3}-\d{7}$/u'],
-            'description' => ['required', 'max:200']
+            'type_person' => ['required']
         ]);
         $order->name  = $request->name;
         $order->id_number = $request->id_number;
         $order->email  = $request->email;
         $order->phone  = $request->phone;
-        $order->description = $request->description;
+        $order->type_person  = $request->type_person;
         $order->products = json_encode($products, JSON_FORCE_OBJECT);
         $order->save();
         return response()->json(['message' => 'Success', 'redirect' => route('sale.order.index')], 200);
@@ -271,9 +247,6 @@ class SaleOrderSettingController extends Controller
     }
 
     /**
-     * Obtiene el listado de las categorias generales de bienes institucionales a implementar en elementos select
-     *
-     * @author    Henry Paredes <hparedes@cenditel.gob.ve>
      * @param     Integer    $type_id    Identificador único del tipo de bien
      * @return    Array      Arreglo con los registros a mostrar
      */
@@ -327,7 +300,6 @@ class SaleOrderSettingController extends Controller
           'price_product' => $row["total_without_tax"],
           'iva' => $row["product_tax_value"],
           'total' => $row['total'],
-          'tipo_producto' => $row['product_type'],
           'moneda' => $row['currency']['name']
         ];
         $total += $row['total'];
@@ -340,8 +312,8 @@ class SaleOrderSettingController extends Controller
           'name' => $record->name,
           'id_number' => $record->id_number,
           'email' => $record->email,
+          'type_person' => $record->type_person,
           'phone' => $record->phone,
-          'description' => $record->description,
           'status' => $record->status,
           'created_at' => $record->created_at,
           'updated_at' => $record->updated_at,

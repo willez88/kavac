@@ -20,18 +20,29 @@
       </div>
       <h6 class="card-title">Datos del solicitante:</h6>
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div class="form-group is-required">
-            <label for="name">Identificación del solicitante:</label>
-            <input type="text" id="id_number" class="form-control input-sm" data-toggle="tooltip"
-              title="Indique la identificación del cliente" v-model="record.id_number">
+            <label for="type_person">Tipo de persona:</label>
+            <select2 :options="types_person" id='type_person' v-model="record.type_person"></select2>
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div class="form-group is-required">
-            <label for="name">Nombre y apellido del solicitante:</label>
-            <input type="text" id="name" class="form-control input-sm" data-toggle="tooltip" required
-              title="Nombre y apellido del solicitante" v-model="record.name">
+            <label v-show="record.type_person == ''" for="name">Nombre de la Empresa:</label>
+            <label v-show="record.type_person == 'Jurídica'" for="name">Nombre de la Empresa:</label>
+            <label v-show="record.type_person == 'Natural'" for="name">Nombre y Apellido:</label>
+            <input type="text" id="name" class="form-control input-sm" data-toggle="tooltip"
+              title="Nombre" v-model="record.name">
+            <input type="hidden" name="id" id="id" v-model="record.id">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group is-required">
+            <label v-show="record.type_person == ''" for="id_number">RIF</label>
+            <label v-show="record.type_person == 'Jurídica'" for="id_number">RIF</label>
+            <label v-show="record.type_person == 'Natural'" for="id_number">Identificación</label>
+            <input type="text" id="id_number" class="form-control input-sm" data-toggle="tooltip"
+              title="Indique la identificación del cliente" v-model="record.id_number">
           </div>
         </div>
       </div>
@@ -51,45 +62,15 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group is-required">
-            <label for="description">Descripción de la actividad económica</label>
-            <textarea id="description"
-              title="Indique la descripción de la actividad económica"
-              class="form-control" name="description" rows="3"
-              v-model="record.description"></textarea>
-          </div>
-        </div>
-      </div>
       <h6 class="card-title">Datos del pedido:</h6>
       <div class="row">
         <div class="col-md-6">
           <div class="form-group is-required">
-            <label for="product_type">Tipo de Producto:</label>
-            <input type="hidden" name="product_position_value" id="product_position_value" v-model="record.product_position_value">
-            <select2 :options="type_products" id='product_type' v-model="record.product_type"></select2>
-          </div>
-        </div>
-        <div v-show="record.product_type == ''" class="col-md-6">
-        </div>
-        <div v-show="record.product_type == 'Producto'" class="col-md-6">
-          <div class="form-group is-required">
-            <label for="product_type">Producto:</label>
+            <label>Producto:</label>
             <select2 :options="quote_inventory_products_list" id="sale_warehouse_inventory_product_id" v-model="record.sale_warehouse_inventory_product_id" @input="updateProduct"></select2>
           </div>
         </div>
-        <div v-show="record.product_type == 'Servicio'" class="col-md-3">
-          <div class="form-group is-required">
-            <label for="sale_type_good_id">Servicio:</label>
-            <select2 :options="quote_good_to_be_traded" id="sale_type_good_id" v-model="record.sale_type_good_id" @input="updateProduct"></select2>
-          </div>
-        </div>
-        <div v-show="record.product_type == 'Servicio'" class="col-md-3">
-          <div class="form-group is-required">
-            <label for="sale_list_subservices_id">Subservicios:</label>
-            <select2 :options="quote_subservices_list" id="sale_list_subservices_id" v-model="record.sale_list_subservices_id"></select2>
-          </div>
+        <div class="col-md-6">
         </div>
         <div class="col-md-2" id="SaleHelpProductMeasurementUnit">
           <div class="form-group is-required">
@@ -148,11 +129,6 @@
         <div slot="sale_warehouse_inventory_product_id" slot-scope="props" class="text-center">
           <span>
             {{ (props.row.sale_warehouse_inventory_product_id)? props.row.inventory_product.name : props.row.sale_type_good.name }}
-          </span>
-        </div>
-        <div slot="sale_list_subservices_id" slot-scope="props" class="text-center">
-          <span>
-            {{ (props.row.sale_list_subservices_id)? props.row.sale_list_subservices.name : 'N/A' }}
           </span>
         </div>
         <div slot="id" slot-scope="props" class="text-center">
@@ -243,10 +219,8 @@
           id_number: '',
           phone: '',
           email: '',
-          description: '',
           quote_clients: [],
           //Descripción de productos
-          product_type: '',
           sale_warehouse_inventory_product_id: '',
           quote_edit: false,
           sale_type_good_id: '',
@@ -269,9 +243,7 @@
         quote_clients: [],
         errors: [],
         columns: [
-          'product_type',
           'sale_warehouse_inventory_product_id',
-          'sale_list_subservices_id',
           'measurement_unit.name',
           'value',
           'quantity',
@@ -281,14 +253,13 @@
           'currency.name',
           'id',
         ],
-        type_products:  [
+        types_person:  [
           {'id' : '', 'text' : "Seleccione..."},
-          {'id' : 'Producto', 'text' : 'Producto'},
-          {'id' : 'Servicio', 'text' : 'Servicio'}
+          {'id' : 'Natural', 'text' : 'Natural'},
+          {'id' : 'Jurídica', 'text' : 'Jurídica'}
         ],
         quote_inventory_products_list : [],
         quote_good_to_be_traded : [],
-        quote_subservices_list : [],
         currencies : [],
         quote_taxes : [],
         quote_measurement_units : [],
@@ -309,14 +280,11 @@
           id_number: '',
           email: '',
           phone: '',
-          description: '',
           product_position_value: 0,
         };
         vm.record.product_position_value = 0;
-        vm.record.product_type = '';
         vm.record.sale_warehouse_inventory_product_id = '';
         vm.record.sale_type_good_id = '';
-        vm.record.sale_list_subservices_id = '';
         vm.resetProduct();
         vm.record.quote_total_without_tax = 0;
         vm.record.quote_total = 0;
@@ -342,10 +310,8 @@
       resetProductClean(event) {
         const vm = this;
         vm.record.product_position_value = 0;
-        vm.record.product_type = '';
         vm.record.sale_warehouse_inventory_product_id = '';
         vm.record.sale_type_good_id = '';
-        vm.record.sale_list_subservices_id = '';
         vm.resetProduct();
       },
       /**
@@ -355,10 +321,8 @@
         const vm = this;
         vm.resetProduct();
         let product = vm.record.list_products[index - 1];
-        vm.record.product_type = product.product_type;
         vm.record.sale_warehouse_inventory_product_id = product.sale_warehouse_inventory_product_id;
         vm.record.sale_type_good_id = product.sale_type_good_id;
-        vm.record.sale_list_subservices_id = product.sale_list_subservices_id;
         vm.record.measurement_unit_id = product.measurement_unit_id;
         vm.record.currency_id = product.currency_id;
         vm.record.value = product.value;
@@ -404,16 +368,11 @@
         const vm = this;
         var entity_load = 'service';
         var id = 0;
-        if (vm.record.product_type == 'Producto') {
+
           entity_load = 'product';
           vm.record.sale_type_good_id = '';
           id = vm.record.sale_warehouse_inventory_product_id;
-        }
-        else {
-          entity_load = 'service';
-          vm.record.sale_warehouse_inventory_product_id = '';
-          id = vm.record.sale_type_good_id;
-        }
+    
         if (id) {
           axios.get('/sale/get-quote-price-' + entity_load + '/' + id).then(function (response) {
             let product = response.data.record;
@@ -457,60 +416,19 @@
         let product = {}
         //validate product
         let option_name;
-        if (vm.record.product_type == '') {
-          bootbox.alert("Debe seleccionar un tipo de producto");
-          return false;
-        }
-        product.product_type = vm.record.product_type;
-        if (vm.record.product_type == 'Producto') {
-          if (vm.record.sale_warehouse_inventory_product_id == '') {
-            bootbox.alert("Debe seleccionar un producto");
-            return false;
-          }
-          product.sale_warehouse_inventory_product_id = vm.record.sale_warehouse_inventory_product_id;
-          option_name = product.sale_warehouse_inventory_product_id;
-          let inventory_product = vm.quote_inventory_products_list.find(o => o.id == product.sale_warehouse_inventory_product_id);
-          if (typeof inventory_product !== "undefined") {
-            option_name = inventory_product.text;
-          }
-          product.inventory_product = {
-            'id': product.sale_warehouse_inventory_product_id,
-            'name': option_name,
-          };
 
-          product.sale_type_good_id = '';
-          product.sale_list_subservices_id = '';
+        product.sale_warehouse_inventory_product_id = vm.record.sale_warehouse_inventory_product_id;
+        option_name = product.sale_warehouse_inventory_product_id;
+        let inventory_product = vm.quote_inventory_products_list.find(o => o.id == product.sale_warehouse_inventory_product_id);
+        if (typeof inventory_product !== "undefined") {
+          option_name = inventory_product.text;
         }
-        else if (vm.record.product_type == 'Servicio') {
-          if (vm.record.sale_type_good_id == '') {
-            bootbox.alert("Debe seleccionar un servicio");
-            return false;
-          }
-          product.sale_warehouse_inventory_product_id = '';
-          product.sale_type_good_id = vm.record.sale_type_good_id;
-          option_name = product.sale_type_good_id;
-          let good_to_be_traded = vm.quote_good_to_be_traded.find(o => o.id == product.sale_type_good_id);
-          if (typeof good_to_be_traded !== "undefined") {
-            option_name = good_to_be_traded.text;
-          }
-          product.sale_type_good = {
-            'id': product.sale_type_good_id,
-            'name': option_name,
-          };
-          product.sale_list_subservices_id = ''
-          if (vm.record.sale_list_subservices_id != '') {
-            product.sale_list_subservices_id = vm.record.sale_list_subservices_id;
-            option_name = product.sale_list_subservices_id;
-            let subservices_list = vm.quote_subservices_list.find(o => o.id == product.sale_list_subservices_id);
-            if (typeof subservices_list !== "undefined") {
-              option_name = subservices_list.text;
-            }
-            product.sale_list_subservices = {
-              'id': product.sale_list_subservices_id,
-              'name': option_name,
-            };
-          }
-        }
+        product.inventory_product = {
+          'id': product.sale_warehouse_inventory_product_id,
+          'name': option_name,
+        };
+
+        product.sale_type_good_id = '';      
         if (vm.record.measurement_unit_id == '') {
           bootbox.alert("Debe seleccionar una unidad de medida");
           return false;
@@ -577,10 +495,8 @@
         vm.record.quote_total = vm.record.quote_total.toFixed(2);
         vm.record.quote_total_without_tax = vm.record.quote_total_without_tax.toFixed(2);
         vm.record.product_position_value = 0;
-        vm.record.product_type = '';
         vm.record.sale_warehouse_inventory_product_id = '';
         vm.record.sale_type_good_id = '';
-        vm.record.sale_list_subservices_id = '';
         vm.record.quantity = 0;
         this.resetProduct();
       },
@@ -609,7 +525,6 @@
           vm.record.name = vm.order.name;
           vm.record.phone = vm.order.phone;
           vm.record.id_number = vm.order.id_number;
-          vm.record.description = vm.order.description;
           vm.record.quote_total_without_tax = vm.order.total_without_tax;
           vm.record.quote_total = vm.order.total;
           //extract products data
@@ -627,54 +542,26 @@
         const vm = this;
         let product = {};
         let option_name;
-        product.product_type = product_load.product_type;
         product.has_quantity_max = 0;
         product.quantity_max_value = '';
-        if (product.product_type == 'Producto') {
-          product.sale_warehouse_inventory_product_id = product_load.sale_warehouse_inventory_product_id;
-          option_name = product.sale_warehouse_inventory_product_id;
-          let inventory_product = product_load.sale_warehouse_inventory_product;
-          if (typeof inventory_product !== "undefined" && inventory_product) {
-            option_name = inventory_product.code;
-            if (inventory_product.exist) {
-              product.has_quantity_max = 1;
-              product.quantity_max_value = inventory_product.exist;
-            }
-          }
-          product.inventory_product = {
-            'id': product.sale_warehouse_inventory_product_id,
-            'name': option_name,
-          };
 
-          product.sale_type_good_id = '';
-          product.sale_list_subservices_id = '';
-        }
-        else if (product.product_type == 'Servicio') {
-          product.sale_warehouse_inventory_product_id = '';
-          product.sale_type_good_id = product_load.sale_type_good_id;
-          option_name = product.sale_type_good_id;
-          let good_to_be_traded = product_load.sale_type_good;
-          if (typeof good_to_be_traded !== "undefined" && good_to_be_traded) {
-            option_name = good_to_be_traded.name;
-          }
-          product.sale_type_good = {
-            'id': product.sale_type_good_id,
-            'name': option_name,
-          };
-          product.sale_list_subservices_id = ''
-          if (product_load.sale_list_subservices_id != '') {
-            product.sale_list_subservices_id = product_load.sale_list_subservices_id;
-            option_name = product.sale_list_subservices_id;
-            let subservices_list = product_load.sale_list_subservices;
-            if (typeof subservices_list !== "undefined" && subservices_list) {
-              option_name = subservices_list.name;
-            }
-            product.sale_list_subservices = {
-              'id': product.sale_list_subservices_id,
-              'name': option_name,
-            };
+        product.sale_warehouse_inventory_product_id = product_load.sale_warehouse_inventory_product_id;
+        option_name = product.sale_warehouse_inventory_product_id;
+        let inventory_product = product_load.sale_warehouse_inventory_product;
+        if (typeof inventory_product !== "undefined" && inventory_product) {
+          option_name = inventory_product.code;
+          if (inventory_product.exist) {
+            product.has_quantity_max = 1;
+            product.quantity_max_value = inventory_product.exist;
           }
         }
+        product.inventory_product = {
+          'id': product.sale_warehouse_inventory_product_id,
+          'name': option_name,
+        };
+
+        product.sale_type_good_id = '';
+       
         product.value = product_load.value;
         product.measurement_unit_id = product_load.measurement_unit_id;
         option_name = product.measurement_unit_id;
@@ -716,9 +603,7 @@
     created() {
       this.record.list_products = [];
       this.table_options.headings = {
-        'product_type': 'Tipo de Producto',
         'sale_warehouse_inventory_product_id': 'Producto',
-        'sale_list_subservices_id': 'Subservicio',
         'measurement_unit.name': 'Unidad de medida',
         'value': 'Precio unitario',
         'quantity': 'Cantidad de productos',
@@ -731,10 +616,8 @@
       this.table_options.sortable = [];
       this.table_options.filterable = [];
       this.table_options.columnsClasses = {
-        'product_type': 'col-xs-1',
-        'sale_warehouse_inventory_product_id': 'col-xs-1',
-        'sale_list_subservices_id': 'col-xs-1',
-        'measurement_unit.name': 'col-xs-1',
+        'sale_warehouse_inventory_product_id': 'col-xs-2',
+        'measurement_unit.name': 'col-xs-2',
         'value': 'col-xs-1',
         'quantity': 'col-xs-1',
         'total_without_tax': 'col-xs-1',
@@ -752,7 +635,6 @@
       vm.resetProduct();
       vm.getCurrencies();
       vm.getQuoteTaxes();
-      vm.getQuoteListSubservices();
       vm.getQuoteGoodsToBeTraded();
       vm.getQuoteMeasurementUnits();
       vm.getQuotePayments();

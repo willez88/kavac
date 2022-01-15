@@ -28,9 +28,29 @@
               <div class="row">        
                 <div class="col-md-6">
                   <div class="form-group">
-                    <strong>Nombre</strong>
+                    <strong>Tipo de persona</strong>
                     <div class="row" style="margin: 1px 0">
-                      <span class="col-md-12" id="name">{{ props.row.name }}</span>
+                      <span class="col-md-12" id="type_person">{{ order_load.type_person }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <strong v-show="order_load.type_person == ''" for="id_number">RIF</strong>
+                    <strong v-show="order_load.type_person == 'Jurídica'" for="id_number">RIF</strong>
+                    <strong v-show="order_load.type_person == 'Natural'" for="id_number">Identificación</strong>
+                    <div class="row" style="margin: 1px 0">
+                      <span class="col-md-12" id="id_number">{{ order_load.id_number }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <strong v-show="order_load.type_person == ''" for="name">Nombre de la Empresa:</strong>
+                    <strong v-show="order_load.type_person == 'Jurídica'" for="name">Nombre de la Empresa:</strong>
+                    <strong v-show="order_load.type_person == 'Natural'" for="name">Nombre y Apellido:</strong>
+                    <div class="row" style="margin: 1px 0">
+                      <span class="col-md-12" id="name">{{ order_load.name }}</span>
                     </div>
                   </div>
                 </div>
@@ -38,17 +58,7 @@
                   <div class="form-group">
                     <strong>Email</strong>
                     <div class="row" style="margin: 1px 0">
-                      <span class="col-md-12" id="email">{{ props.row.email }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">        
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <strong>Telefono</strong>
-                    <div class="row" style="margin: 1px 0">
-                      <span class="col-md-12" id="phone">{{ props.row.phone }}</span>
+                      <span class="col-md-12" id="email">{{ order_load.email }}</span>
                     </div>
                   </div>
                 </div>
@@ -56,20 +66,15 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <strong>Descripción</strong>
+                    <strong>Telefono</strong>
                     <div class="row" style="margin: 1px 0">
-                      <span class="col-md-12" id="description" v-html="props.row.description"></span>
+                      <span class="col-md-12" id="phone">{{ order_load.phone }}</span>
                     </div>
                   </div>
                 </div>
               </div>
               <h6 class="card-title mt-4">Descripción de productos:</h6>
               <v-client-table :columns="columns_products" :data="order_load.list_products" :options="table_options_products">
-                <div slot="tipo_producto" slot-scope="props" class="text-center">
-                  <span>
-                   {{ props.row.tipo_producto }}
-                  </span>
-                </div>
                 <div slot="name" slot-scope="props" class="text-center">
                   <span>
                    {{ props.row.name }}
@@ -137,7 +142,6 @@
             order_load: {},
             columns: ['name', 'id_number', 'email', 'phone', 'total', 'id'],
             columns_products: [
-              'tipo_producto',
               'name',
               'moneda',
               'quantity',
@@ -168,7 +172,6 @@
           };
           this.table_options_products = {};
           this.table_options_products.headings = {
-            'tipo_producto': 'Tipo de producto',
             'name': 'Nombre',
             'moneda': 'Moneda',
             'quantity': 'Cantidad',

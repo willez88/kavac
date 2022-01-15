@@ -35,5 +35,5 @@ class SaleOrder extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['name', 'id_number', 'email', 'phone', 'description', 'status', 'products'];
+    protected $fillable = ['name', 'id_number', 'email', 'phone', 'status', 'products', 'type_person'];
 }

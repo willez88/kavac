@@ -47,17 +47,6 @@
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group is-required">
-                  <label>Descripción de la actividad económica</label>
-                  <ckeditor :editor="ckeditor.editor" id="direction" data-toggle="tooltip"
-                    title="Indique la descripción de la actividad económica" :config="ckeditor.editorConfig"
-                    class="form-control" name="description" tag-name="textarea" rows="3"
-                    v-model="record.description"></ckeditor>
-                </div>
-              </div>
-            </div>
             <h6 class="card-title">Datos del pedido:</h6>
             <div class="row">
               <div class="col-md-12">
@@ -147,8 +136,7 @@
           id: '',
           list_products: [],
           name: '',
-          email: '',
-          description: '',
+          email: ''
         },
         sale_setting_products: [],
         errors: [],
@@ -163,8 +151,7 @@
           list_products: [],
           name: '',
           email: '',
-          phone: '',
-          description: ''
+          phone: ''
         };
       },
       getTotalProduct(event) {
