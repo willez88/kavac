@@ -1,12 +1,12 @@
 <?php
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 use App\Roles\Models\Role;
-use App\Roles\Models\Permission;
 use App\Models\MeasurementUnit;
-use DB;
+use Illuminate\Database\Seeder;
+use App\Roles\Models\Permission;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @class MeasurementUnitsTableSeeder
@@ -123,11 +123,12 @@ class MeasurementUnitsTableSeeder extends Seeder
 
         DB::transaction(function () use ($adminRole, $permissions, $measurement_units) {
             foreach ($measurement_units as $unit) {
-                MeasurementUnit::updateOrCreate(
+                MeasurementUnit::withTrashed()->updateOrCreate(
                     ['acronym' => $unit['acronym']],
                     [
                         'name' => $unit['name'],
-                        'description' => $unit['description']
+                        'description' => $unit['description'],
+                        'deleted_at' => null
                     ]
                 );
             }

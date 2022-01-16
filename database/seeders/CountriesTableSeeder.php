@@ -1,13 +1,13 @@
 <?php
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-
-use Illuminate\Database\Eloquent\Model;
-use App\Roles\Models\Role;
-use App\Roles\Models\Permission;
 use App\Models\Country;
-use DB;
+
+use App\Roles\Models\Role;
+use Illuminate\Database\Seeder;
+use App\Roles\Models\Permission;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @class CountriesTableSeeder
@@ -65,9 +65,9 @@ class CountriesTableSeeder extends Seeder
         ];
 
         DB::transaction(function () use ($adminRole, $permissions) {
-            Country::updateOrCreate(
+            Country::withTrashed()->updateOrCreate(
                 ['name' => 'Venezuela'],
-                ['prefix' => '58']
+                ['prefix' => '58', 'deleted_at' => null]
             );
 
             foreach ($permissions as $permission) {

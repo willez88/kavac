@@ -40,7 +40,10 @@ class ParametersTableSeeder extends Seeder
 
         DB::transaction(function () use ($parameters) {
             foreach ($parameters as $parameter) {
-                Parameter::updateOrCreate(['p_key' => $parameter['p_key']], ['p_value' => $parameter['p_value']]);
+                Parameter::withTrashed()->updateOrCreate(
+                    ['p_key' => $parameter['p_key']], 
+                    ['p_value' => $parameter['p_value'], 'deleted_at' => null]
+                );
             }
         });
     }

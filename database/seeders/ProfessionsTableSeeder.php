@@ -1,13 +1,13 @@
 <?php
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-
-use Illuminate\Database\Eloquent\Model;
-use App\Roles\Models\Role;
-use App\Roles\Models\Permission;
 use App\Models\Profession;
-use DB;
+
+use App\Roles\Models\Role;
+use Illuminate\Database\Seeder;
+use App\Roles\Models\Permission;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @class ProfessionsTableSeeder
@@ -96,9 +96,12 @@ class ProfessionsTableSeeder extends Seeder
 
         DB::transaction(function () use ($adminRole, $permissions, $professions) {
             foreach ($professions as $profession) {
-                Profession::updateOrCreate(
+                Profession::withTrashed()->updateOrCreate(
                     ['name' => $profession['name']],
-                    ['acronym' => ($profession['acronym'])?$profession['acronym']:null]
+                    [
+                        'acronym' => ($profession['acronym'])?$profession['acronym']:null,
+                        'deleted_at' => null
+                    ]
                 );
             }
 

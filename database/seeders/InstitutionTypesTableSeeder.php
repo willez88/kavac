@@ -1,13 +1,13 @@
 <?php
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-
-use Illuminate\Database\Eloquent\Model;
 use App\Roles\Models\Role;
-use App\Roles\Models\Permission;
+
 use App\Models\InstitutionType;
-use DB;
+use Illuminate\Database\Seeder;
+use App\Roles\Models\Permission;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @class InstitutionTypesTableSeeder
@@ -65,21 +65,21 @@ class InstitutionTypesTableSeeder extends Seeder
         ];
 
         DB::transaction(function () use ($adminRole, $permissions) {
-            InstitutionType::updateOrCreate(
+            InstitutionType::withTrashed()->updateOrCreate(
                 ['acronym' => 'EDSF'],
-                ['name' => 'Ente Desentralizado sin fines empresariales']
+                ['name' => 'Ente Desentralizado sin fines empresariales', 'deleted_at' => null]
             );
-            InstitutionType::updateOrCreate(
+            InstitutionType::withTrashed()->updateOrCreate(
                 ['acronym' => 'ALCD'],
-                ['name' => 'Alcaldía']
+                ['name' => 'Alcaldía', 'deleted_at' => null]
             );
-            InstitutionType::updateOrCreate(
+            InstitutionType::withTrashed()->updateOrCreate(
                 ['acronym' => 'MINS'],
-                ['name' => 'Ministerio']
+                ['name' => 'Ministerio', 'deleted_at' => null]
             );
-            InstitutionType::updateOrCreate(
+            InstitutionType::withTrashed()->updateOrCreate(
                 ['acronym' => 'GOBR'],
-                ['name' => 'Gobernación']
+                ['name' => 'Gobernación', 'deleted_at' => null]
             );
 
 

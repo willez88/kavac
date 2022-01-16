@@ -1,14 +1,14 @@
 <?php
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-
-use Illuminate\Database\Eloquent\Model;
-use App\Roles\Models\Role;
-use App\Roles\Models\Permission;
-use App\Models\Estate;
 use App\Models\City;
-use DB;
+
+use App\Models\Estate;
+use App\Roles\Models\Role;
+use Illuminate\Database\Seeder;
+use App\Roles\Models\Permission;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @class CitiesTableSeeder
@@ -433,7 +433,10 @@ class CitiesTableSeeder extends Seeder
                 /** @var object Almacena información del Estado */
                 $edo = Estate::where('code', $code_estate)->first();
                 foreach ($cities as $city) {
-                    City::updateOrCreate(['name' => $city, 'estate_id' => $edo->id], []);
+                    City::withTrashed()->updateOrCreate(
+                        ['name' => $city, 'estate_id' => $edo->id], 
+                        ['deleted_at' => null]
+                    );
                 }
             }
 

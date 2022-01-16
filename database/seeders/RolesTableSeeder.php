@@ -1,9 +1,10 @@
 <?php
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
+use Exception;
 use App\Roles\Models\Role;
-use DB;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @class RolesTableSeeder

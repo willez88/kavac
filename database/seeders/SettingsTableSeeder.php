@@ -1,10 +1,10 @@
 <?php
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Setting;
-use DB;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @class SettingsTableSeeder
@@ -29,7 +29,7 @@ class SettingsTableSeeder extends Seeder
         Model::unguard();
 
         DB::transaction(function () {
-            Setting::updateOrCreate(['active' => true], []);
+            Setting::withTrashed()->updateOrCreate(['active' => true], ['deleted_at' => null]);
         });
     }
 }

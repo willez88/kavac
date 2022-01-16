@@ -1,13 +1,13 @@
 <?php
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-
-use Illuminate\Database\Eloquent\Model;
 use App\Roles\Models\Role;
-use App\Roles\Models\Permission;
+
 use App\Models\DocumentStatus;
-use DB;
+use Illuminate\Database\Seeder;
+use App\Roles\Models\Permission;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @class DocumentStatusTableSeeder
@@ -106,12 +106,13 @@ class DocumentStatusTableSeeder extends Seeder
 
         DB::transaction(function () use ($adminRole, $permissions, $doc_status) {
             foreach ($doc_status as $doc) {
-                DocumentStatus::updateOrCreate(
+                DocumentStatus::withTrashed()->updateOrCreate(
                     ['name' => $doc['name']],
                     [
                         'description' => $doc['description'],
                         'color' => $doc['color'],
-                        'action' => $doc['action']
+                        'action' => $doc['action'],
+                        'deleted_at' => null
                     ]
                 );
             }

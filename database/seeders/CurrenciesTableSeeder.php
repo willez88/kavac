@@ -1,14 +1,14 @@
 <?php
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-
-use Illuminate\Database\Eloquent\Model;
-use App\Roles\Models\Role;
-use App\Roles\Models\Permission;
-use App\Models\Currency;
 use App\Models\Country;
-use DB;
+
+use App\Models\Currency;
+use App\Roles\Models\Role;
+use Illuminate\Database\Seeder;
+use App\Roles\Models\Permission;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @class CurrenciesTableSeeder
@@ -65,13 +65,13 @@ class CurrenciesTableSeeder extends Seeder
         $country = Country::where('name', 'Venezuela')->first();
 
         DB::transaction(function () use ($adminRole, $permissions, $country) {
-            Currency::updateOrCreate(
+            Currency::withTrashed()->updateOrCreate(
                 ['country_id' => $country->id, 'symbol' => 'BsS'],
-                ['name' => 'Bolívar Soberano', 'default' => true]
+                ['name' => 'Bolívar Soberano', 'default' => true, 'deleted_at' => null]
             );
-            Currency::updateOrCreate(
+            Currency::withTrashed()->updateOrCreate(
                 ['country_id' => $country->id, 'symbol' => 'Pt'],
-                ['name' => 'Petro', 'default' => false]
+                ['name' => 'Petro', 'default' => false, 'deleted_at' => null]
             );
 
             foreach ($permissions as $permission) {

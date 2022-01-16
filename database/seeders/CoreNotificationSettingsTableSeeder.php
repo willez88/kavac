@@ -1,36 +1,36 @@
 <?php
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
-use App\Models\City;
-use App\Models\CodeSetting;
-use App\Models\Country;
-use App\Models\Currency;
-use App\Models\Deduction;
-use App\Models\Department;
-use App\Models\Document;
-use App\Models\DocumentStatus;
-use App\Models\Estate;
-use App\Models\ExchangeRate;
-use App\Models\FiscalYear;
-use App\Models\Institution;
-use App\Models\InstitutionSector;
-use App\Models\InstitutionType;
-use App\Models\Profession;
 use App\Models\Tax;
-use App\Models\HistoryTax;
-use App\Models\TaxUnit;
-use App\Models\MaritalStatus;
-use App\Models\MeasurementUnit;
-use App\Models\Municipality;
-use App\Models\Parameter;
-use App\Models\Parish;
-use App\Models\Setting;
-use App\Models\RequiredDocument;
-use App\Models\NotificationSetting;
+use App\Models\City;
 use App\Models\User;
-use DB;
+use App\Models\Estate;
+use App\Models\Parish;
+use App\Models\Country;
+use App\Models\Setting;
+use App\Models\TaxUnit;
+use App\Models\Currency;
+use App\Models\Document;
+use App\Models\Deduction;
+use App\Models\Parameter;
+use App\Models\Department;
+use App\Models\FiscalYear;
+use App\Models\HistoryTax;
+use App\Models\Profession;
+use App\Models\CodeSetting;
+use App\Models\Institution;
+use App\Models\ExchangeRate;
+use App\Models\Municipality;
+use App\Models\MaritalStatus;
+use App\Models\DocumentStatus;
+use App\Models\InstitutionType;
+use App\Models\MeasurementUnit;
+use Illuminate\Database\Seeder;
+use App\Models\RequiredDocument;
+use App\Models\InstitutionSector;
+use Illuminate\Support\Facades\DB;
+use App\Models\NotificationSetting;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @class CoreNotificationSettingsTableSeeder
