@@ -2,6 +2,8 @@
 /** Traits de uso general */
 namespace App\Traits;
 
+use Illuminate\Support\Facades\Cache;
+
 /**
  * Trait para la gestión de modelos
  *
@@ -12,6 +14,26 @@ namespace App\Traits;
  */
 trait ModelsTrait
 {
+    protected static function boot()
+    {
+        parent::boot();
+        
+        static::deleted(function ($model) {
+            $modelClass = get_class($model);
+            $deletedRecords = $modelClass::where('id', $model->id)->onlyTrashed()->orderBy('deleted_at', 'desc')->get();
+            
+            if (Cache::has('deleted_records')) {
+                $deleted = Cache::get('deleted_records');
+                $deletedRecords = $deleted->merge($deletedRecords);
+                Cache::put('deleted_records', $deletedRecords);
+            } else {
+                Cache::rememberForever('deleted_records', function () use ($deletedRecords) {
+                    return $deletedRecords;
+                });
+            }
+
+        });
+    }
     /**
      * Método que escanea todos los modelos presentes en la aplicación
      *

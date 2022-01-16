@@ -2,12 +2,13 @@
 /** Gestiona algunos procesos de acceso administrativo de la aplicación */
 namespace App\Http\Controllers\Admin;
 
+use Exception;
+use App\Models\User;
+use App\Traits\ModelsTrait;
 use Illuminate\Http\Request;
 use OwenIt\Auditing\Models\Audit;
 use App\Http\Controllers\Controller;
-use App\Traits\ModelsTrait;
-use App\Models\User;
-use Exception;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * @class AppManagementController
@@ -52,54 +53,90 @@ class AppManagementController extends Controller
     {
         /** @var array Arreglo con los registros eliminados */
         $trashed = [];
-
-        foreach ($this->getModels() as $model_name) {
-            /** @var string Nombre del modelo del cual se va a buscar registros eliminados */
-            $model = app($model_name);
-            try {
-                if ($this->isModelSoftDelete($model)) {
-                    if ($request->start_delete_at) {
-                        $model = $model->whereDate('deleted_at', '>=', $request->start_delete_at);
-                    }
-                    if ($request->end_delete_at) {
-                        $model = $model->whereDate('deleted_at', '<=', $request->end_delete_at);
-                    }
-                    if ($request->module_delete_at && strpos($model_name, $request->module_delete_at) === false) {
-                        continue;
-                    }
-                    /** @var object Objeto con información de registros eliminados */
-                    $filtered = $model->onlyTrashed()->orderBy('deleted_at', 'desc');
-                    /** @var object Objeto con información de los registros eliminados */
-                    $deleted = $filtered->get();
-                    if (!$deleted->isEmpty()) {
-                        /** Si ya dispone de un listado de 20 registros, se detiene y se retorna la consulta */
-                        if (count($trashed) >= 20) {
-                            break;
-                        }
-                        foreach ($deleted as $del) {
-                            /** @var string Texto con las etiquetas html que contiene los registros eliminados */
-                            $regs = '<div class="row">';
-                            foreach ($del->getAttributes() as $attr => $value) {
-                                if (!in_array($attr, ['created_at', 'updated_at', 'deleted_at'])) {
-                                    $regs .= "<div class='col-6 break-words'><b>$attr:</b> $value</div>";
-                                }
-                            }
-                            $regs .= '</div>';
-                            array_push($trashed, [
-                                'id' => secure_record($del->id),
-                                'deleted_at' => $del->deleted_at->format("d-m-Y"),
-                                'module' => $model_name,
-                                'registers' => $regs
-                            ]);
-                        }
-                    }
-                }
-            } catch (Exception $e) {
-                continue;
+        
+        if (Cache::has('deleted_records')) {
+            $deletedRecords = Cache::get('deleted_records');
+            if ($request->start_delete_at) {
+                $deletedRecords = $deletedRecords->filter(function ($deleted) use ($request) {
+                    return $deleted->deleted_at->format('Y-m-d') >= $request->start_delete_at;
+                });
             }
-        }
+            if ($request->end_delete_at) {
+                $deletedRecords = $deletedRecords->filter(function ($deleted) use ($request) {
+                    return $deleted->deleted_at->format('Y-m-d') <= $request->end_delete_at;
+                });
+            }
+            if ($request->module_delete_at) {
+                $deletedRecords = $deletedRecords->filter(function ($deleted) use ($request) {
+                    return strpos(get_class($deleted), $request->module_delete_at)!==false;
+                });
+            }
+            if (!$deletedRecords->isEmpty()) {
+                
+                $trashed = $this->setDeletedRecords($trashed, $deletedRecords);
+                /** Si ya dispone de un listado de 20 registros, se detiene y se retorna la consulta */
+                if ($deletedRecords->count() >= 20) {
+                    return response()->json(['result' => true, 'records' => $trashed]);
+                }
+            }
+        } else {
+            foreach ($this->getModels() as $model_name) {
+                //if (Cache::has($cacheKey)) {}
+                /** @var string Nombre del modelo del cual se va a buscar registros eliminados */
+                $model = app($model_name);
+                
+                try {
+                    if ($this->isModelSoftDelete($model)) {
+                        if ($request->start_delete_at) {
+                            $model = $model->whereDate('deleted_at', '>=', $request->start_delete_at);
+                        }
+                        if ($request->end_delete_at) {
+                            $model = $model->whereDate('deleted_at', '<=', $request->end_delete_at);
+                        }
+                        if ($request->module_delete_at && strpos($model_name, $request->module_delete_at) === false) {
+                            continue;
+                        }
+                        /** @var object Objeto con información de registros eliminados */
+                        $filtered = $model->onlyTrashed()->orderBy('deleted_at', 'desc');
+                        /** @var object Objeto con información de los registros eliminados */
+                        $deleted = $filtered->get();
+                        if (!$deleted->isEmpty()) {
+                            /** Si ya dispone de un listado de 20 registros, se detiene y se retorna la consulta */
+                            if (count($trashed) >= 20) {
+                                break;
+                            }
+                            
+                            $trashed = $this->setDeletedRecords($trashed, $deleted, $model_name);
+                        }
+                    }
+                } catch (Exception $e) {
+                    continue;
+                }
+            }
+        }        
 
         return response()->json(['result' => true, 'records' => $trashed]);
+    }
+
+    public function setDeletedRecords($trashed, $deleted, $model_name = null)
+    {
+        foreach ($deleted as $del) {
+            /** @var string Texto con las etiquetas html que contiene los registros eliminados */
+            $regs = '<div class="row">';
+            foreach ($del->getAttributes() as $attr => $value) {
+                if (!in_array($attr, ['created_at', 'updated_at', 'deleted_at'])) {
+                    $regs .= "<div class='col-6 break-words'><b>$attr:</b> $value</div>";
+                }
+            }
+            $regs .= '</div>';
+            array_push($trashed, [
+                'id' => secure_record($del->id),
+                'deleted_at' => $del->deleted_at->format("d-m-Y"),
+                'module' => $model_name ?? get_class($del),
+                'registers' => $regs
+            ]);
+        }
+        return $trashed;
     }
 
     /**
