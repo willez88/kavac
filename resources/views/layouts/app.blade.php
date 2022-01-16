@@ -12,23 +12,25 @@
         <link rel="shortcut icon" href="{{ asset('images/favicon.png', Request::secure()) }}">
         {{-- Estilos de la aplicación --}}
         {!! Html::style('css/app.css', ['media' => 'screen'], Request::secure()) !!}
-        {{-- Icofont --}}
-        {!! Html::style('css/icofont.css', [], Request::secure()) !!}
-        {{-- Estilos de Plugins --}}
-        {{-- Datatable --}}
-        {!! Html::style(
-            'vendor/datatable/css/dataTables.bootstrap4.min.css', ['media' => 'screen'], Request::secure()
-        ) !!}
-        {!! Html::style('vendor/datatable/css/jquery.dataTables.min.css', ['media' => 'screen'], Request::secure()) !!}
-        {!! Html::style('vendor/datatable/css/select.dataTables.min.css', ['media' => 'screen'], Request::secure()) !!}
-        {!! Html::style(
-            'vendor/datatable/css/buttons.dataTables.min.css', ['media' => 'screen'], Request::secure()
-        ) !!}
-        {!! Html::style(
-            'vendor/datatable/responsive/css/responsive.bootstrap4.min.css', ['media' => 'screen'], Request::secure()
-        ) !!}
-        {{-- Hoja de estilo para los mensajes de la aplicación (requerida) --}}
-        {!! Html::style('vendor/jquery.gritter/css/jquery.gritter.css', ['media' => 'screen'], Request::secure()) !!}
+        @auth
+            {{-- Icofont --}}
+            {!! Html::style('css/icofont.css', [], Request::secure()) !!}
+            {{-- Estilos de Plugins --}}
+            {{-- Datatable --}}
+            {!! Html::style(
+                'vendor/datatable/css/dataTables.bootstrap4.min.css', ['media' => 'screen'], Request::secure()
+            ) !!}
+            {!! Html::style('vendor/datatable/css/jquery.dataTables.min.css', ['media' => 'screen'], Request::secure()) !!}
+            {!! Html::style('vendor/datatable/css/select.dataTables.min.css', ['media' => 'screen'], Request::secure()) !!}
+            {!! Html::style(
+                'vendor/datatable/css/buttons.dataTables.min.css', ['media' => 'screen'], Request::secure()
+            ) !!}
+            {!! Html::style(
+                'vendor/datatable/responsive/css/responsive.bootstrap4.min.css', ['media' => 'screen'], Request::secure()
+            ) !!}
+            {{-- Hoja de estilo para los mensajes de la aplicación (requerida) --}}
+            {!! Html::style('vendor/jquery.gritter/css/jquery.gritter.css', ['media' => 'screen'], Request::secure()) !!}
+        @endauth
 
         @yield('modules-css')
         <script>
@@ -97,24 +99,25 @@
         {{-- Scripts de la aplicación --}}
         <script src="{{ asset('js/app.js', Request::secure()) }}"></script>
         <script src="{{ asset('js/generic-classes.js', Request::secure()) }}"></script>
-        <script src="{{ asset('js/shared-components.js', Request::secure()) }}"></script>
-        @yield('modules-js')
-
         {{-- Plugin Bootbox --}}
         <script src="{{ asset('js/bootbox.min.js', Request::secure()) }}" defer></script>
-        {{-- Plugin Datatable --}}
-        <script src="{{ asset('vendor/datatable/js/jquery.dataTables.min.js', Request::secure()) }}" defer></script>
-        <script src="{{ asset('vendor/datatable/js/dataTables.select.min.js', Request::secure()) }}" defer></script>
-        <script src="{{ asset('vendor/datatable/js/dataTables.buttons.min.js', Request::secure()) }}" defer></script>
-        <script src="{{ asset('vendor/datatable/js/dataTables.bootstrap4.min.js', Request::secure()) }}" defer></script>
-        <script src="{{ asset('vendor/datatable/js/dataTables.responsive.min.js', Request::secure()) }}" defer></script>
-        <script src="{{ asset('vendor/datatable/js/responsive.bootstrap4.min.js', Request::secure()) }}" defer></script>
-        {{-- Plugin Gritter --}}
-        <script src="{{ asset('vendor/jquery.gritter/js/jquery.gritter.min.js', Request::secure()) }}" defer></script>
-        {{-- Scripts comúnes --}}
-        <script src="{{ asset('js/common.js', Request::secure()) }}" defer></script>
 
         @auth
+            <script src="{{ asset('js/shared-components.js', Request::secure()) }}"></script>
+            @yield('modules-js')
+
+            {{-- Plugin Datatable --}}
+            <script src="{{ asset('vendor/datatable/js/jquery.dataTables.min.js', Request::secure()) }}" defer></script>
+            <script src="{{ asset('vendor/datatable/js/dataTables.select.min.js', Request::secure()) }}" defer></script>
+            <script src="{{ asset('vendor/datatable/js/dataTables.buttons.min.js', Request::secure()) }}" defer></script>
+            <script src="{{ asset('vendor/datatable/js/dataTables.bootstrap4.min.js', Request::secure()) }}" defer></script>
+            <script src="{{ asset('vendor/datatable/js/dataTables.responsive.min.js', Request::secure()) }}" defer></script>
+            <script src="{{ asset('vendor/datatable/js/responsive.bootstrap4.min.js', Request::secure()) }}" defer></script>
+            {{-- Plugin Gritter --}}
+            <script src="{{ asset('vendor/jquery.gritter/js/jquery.gritter.min.js', Request::secure()) }}" defer></script>
+            {{-- Scripts comúnes --}}
+            <script src="{{ asset('js/common.js', Request::secure()) }}" defer></script>
+
             {{-- Botón de ir al inicio de la página cuando se excede de un alto preestablecido --}}
             @include('buttons.to-top')
             {{-- Ventanas modales de uso general --}}
