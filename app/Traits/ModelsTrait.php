@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Cache;
  */
 trait ModelsTrait
 {
+    /**
+     * Método que ejecuta eventos del modelo
+     *
+     * @author Ing. Roldan Vargas <roldandvg at gmail.com> | <rvargas at cenditel.gob.ve>
+     *
+     * @return void 
+     */
     protected static function boot()
     {
         parent::boot();
