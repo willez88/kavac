@@ -46,6 +46,9 @@ class SaleClientsController extends Controller
             'parish_id'                  => ['required', 'max:200'],
             'address_tax'                => ['required', 'max:200'],
             'phones'                     => ['required'],
+            'phones.*.area_code'         => ['max:3'],
+            'phones.*.number'            => ['max:8'],
+            'phones.*.extension'         => ['max:2'],
             'sale_clients_email'         => ['required'],
             'sale_clients_email.*.email' => ['email'],
         ];
@@ -69,6 +72,9 @@ class SaleClientsController extends Controller
             'id_number.required'                  => 'El número de identificación es obligatorio.',
             'id_number.unique'                    => 'El número de identificación ya ha sido registrado.',
             'phones.required'                     => 'El campo números telefónicos es obligatorio.',
+            'phones.*.area_code.max'              => 'El campo código de área debe contener un máximo de 3 caracteres.',
+            'phones.*.number.max'                 => 'El campo número debe contener un máximo de 8 caracteres.',
+            'phones.*.extension.max'              => 'El campo extensión debe contener un máximo de 2 caracteres.',
             'sale_clients_email.required'         => 'El campo correo electrónico es obligatorio.',
             'sale_clients_email.*.email.email'    => 'El formato del correo electrónico es incorrecto.',
         ];
