@@ -79,19 +79,39 @@ class SaleSettingProductController extends Controller
     {
 
         $SaleSettingProduct = SaleSettingProduct::with('SaleSettingProductAttribute')->find($id);
-        $this->saleSettingProductValidate($request);
-        foreach ($this->getSaleSaleSettingProductFields() as $id) {
-          if ($id != 'attributes') {
-            $SaleSettingProduct->{$id} = $request->input($id);
-          }
-          else {
-            $SaleSettingProduct->{$id} = !empty($request->{$id})? $request->input($id) : false;
-          }
-        }
+
+        $this->validate($request, [
+            'name' => ['required', 'unique:sale_setting_products,name,' . $SaleSettingProduct->id, 'max:60'],
+            'description' => ['required'],
+            'sale_setting_product_attribute.*' => ['max:100'],
+        ]);
+
+        $SaleSettingProduct->name = $request->name;
+        $SaleSettingProduct->description = $request->description;
         $SaleSettingProduct->save();
-        $attributes = !empty($request->attributes)? $request->sale_setting_product_attribute : [];
-        $this->createAttributes($attributes, $SaleSettingProduct->id);
-        return response()->json(['message' => 'Success'], 200);
+
+        $attributes = SaleSettingProductAttribute::where('sale_setting_product_id', $SaleSettingProduct->id)->get();
+
+
+        foreach ($attributes as $attr) {
+            $attr->delete();
+        }
+
+        if ($request->sale_setting_product_attribute && !empty($request->sale_setting_product_attribute)) {
+            foreach ($request->sale_setting_product_attribute as $att) {
+                $attribute = SaleSettingProductAttribute::where('name', $att['name'])
+                             ->where('sale_setting_product_id', $SaleSettingProduct->id)->first();
+                if (is_null($attribute)) {
+                    $attribute = SaleSettingProductAttribute::create([
+                        'name' => $att['name'],
+                        'sale_setting_product_id' => $SaleSettingProduct->id
+                    ]);
+                }
+            }
+        }
+
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true], 200);
     }
 
     /**
@@ -120,7 +140,7 @@ class SaleSettingProductController extends Controller
     public function saleSettingProductValidate(Request $request)
     {
         $validation = [];
-        $validation['name'] = ['required', 'max:60'];
+        $validation['name'] = ['required', 'max:60', 'unique:sale_setting_products,name'];
         $validation['description'] = ['required'];
         if (!empty($request->attributes)) {
             $validation['sale_setting_product_attribute.*'] = ['required', 'max:100'];
