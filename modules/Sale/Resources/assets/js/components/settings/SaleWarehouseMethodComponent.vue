@@ -78,21 +78,21 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Pais:</label>
-									<select2 :options="countries" @input="getEstates"
+									<select2 :options="countries" @input="getEstates()"
 											 v-model="record.country_id"></select2>
 			                    </div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Estado:</label>
-									<select2 :options="estates" @input="getMunicipalities"
+									<select2 :options="estates" @input="getMunicipalities()"
 											 v-model="record.estate_id"></select2>
 			                    </div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Municipio:</label>
-									<select2 :options="municipalities" @input="getParishes"
+									<select2 :options="municipalities" @input="getParishes()"
 									v-model="record.municipality_id"></select2>
 			                    </div>
 							</div>
@@ -129,7 +129,7 @@
 		                				title="Modificar registro" data-toggle="tooltip" type="button">
 		                			<i class="fa fa-edit"></i>
 		                		</button>
-                                <button @click="deleteRecord(props.index, 'warehouse-method')"
+                                <button @click="deleteRecord(props.row.id, 'sale/warehouse-method')"
 										class="btn btn-danger btn-xs btn-icon btn-action"
 										title="Eliminar registro" data-toggle="tooltip"
 										type="button">
