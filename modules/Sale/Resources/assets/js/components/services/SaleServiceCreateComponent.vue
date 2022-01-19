@@ -23,14 +23,14 @@
             <div class="col-md-12">
                 <b>Datos del solicitante</b>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" id="helpClient">
                 <div class="form-group is-required">
                     <label>Cliente:</label>
                     <select2 :options="sale_clients_rif"
                              v-model="record.sale_client_id" @input="getSaleClient"></select2>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" id="helpClientMail">
                 <div v-show="record.sale_client_id != 0" class="form-group">
                     <label for="sale_clients_email">Correo:</label>
                     <p v-for="email in sale_client.sale_clients_email">
@@ -40,7 +40,7 @@
                     </p>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" id="helpClientPhone">
                 <div v-show="record.sale_client_id != 0" class="form-group">
                     <label for="phones">Número telefónico:</label>
                     <p v-for="phone in sale_client.phones">
@@ -53,7 +53,7 @@
         </div>
         <br>
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3" id="HelpOrganization">
                 <div class="form-group is-required">
                     <label for="applicant_organization">Organización:</label>
                     <input type="text" class="form-control input-sm" 
@@ -61,7 +61,7 @@
                         v-model="record.organization" id="applicant_organization"></input>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" id="HelpDescription">
                 <div class="form-group is-required">
                     <label for="economic_activity">Descripción de la actividad económica:</label>
                     <textarea type="text" class="form-control input-sm"
@@ -75,7 +75,7 @@
             <div class="col-md-12">
                 <b>Datos de la solicitud de servicios</b>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" id="HelpService">
                 <div class="form-group is-required">
                     <label>Servicio:</label>
                     <v-multiselect :options="services" track_by="text"
@@ -86,7 +86,7 @@
                 </div>
             </div>
             <div v-if="record.sale_goods_to_be_traded && record.sale_goods_to_be_traded.length > 0" class="col-md-3">
-                <div class="form-group">
+                <div class="form-group" id="HelpServiceDescription">
                     <label for="applicant_name">Descripción:</label>
                     <p v-for="good_to_be_traded in sale_goods_to_be_traded">
                         <input type="text" class="form-control input-sm"
@@ -97,14 +97,14 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="form-group is-required">
+                <div class="form-group is-required" id="HelpServiceResume">
                     <label for="economic_activity">Resumen de la solicitud:</label>
                     <textarea type="text" class="form-control input-sm"
                         data-toggle="tooltip" title="Dirección fiscal" 
                         v-model="record.resume" id="economic_activity"></textarea>
                 </div>
             </div>
-            <div class="col-md-3" v-if="record.sale_goods_to_be_traded && record.sale_goods_to_be_traded.length > 0">
+            <div class="col-md-3" v-if="record.sale_goods_to_be_traded && record.sale_goods_to_be_traded.length > 0" id="HelpServiceDepartment">
                 <div class="form-group">
                     <label for="applicant_name">Unidad o departamento:</label>
                     <p v-for="good_to_be_traded in sale_goods_to_be_traded">
@@ -116,7 +116,7 @@
                     <br>
                 </div>
             </div>
-            <div class="col-md-3" v-if="record.sale_goods_to_be_traded && record.sale_goods_to_be_traded.length > 0">
+            <div class="col-md-3" v-if="record.sale_goods_to_be_traded && record.sale_goods_to_be_traded.length > 0" id="HelpServiceStaffName">
                 <div id="saleServiceName" class="form-group">
                     <label for="applicant_name">Nombre:</label>
                     <p v-for="good_to_be_traded in sale_goods_to_be_traded">
@@ -127,7 +127,7 @@
                     </p>
                 </div>
             </div>
-            <div class="col-md-3" v-if="record.sale_goods_to_be_traded && record.sale_goods_to_be_traded.length > 0">
+            <div class="col-md-3" v-if="record.sale_goods_to_be_traded && record.sale_goods_to_be_traded.length > 0" id=HelpServiceStaffLastName>
                 <div id="saleServiceLastname" class="form-group">
                     <label for="applicant_name">Apellido:</label>
                     <p v-for="good_to_be_traded in sale_goods_to_be_traded">
@@ -138,7 +138,7 @@
                     </p>
                 </div>
             </div>
-            <div class="col-md-3" v-if="record.sale_goods_to_be_traded && record.sale_goods_to_be_traded.length > 0">
+            <div class="col-md-3" v-if="record.sale_goods_to_be_traded && record.sale_goods_to_be_traded.length > 0" id="HelpServiceStaffPhone">
                 <div id="saleServicePhone" class="form-group">
                     <label for="applicant_name">Teléfono:</label>
                     <p v-for="good_to_be_traded in sale_goods_to_be_traded">
@@ -149,7 +149,7 @@
                     </p>
                 </div>
             </div>
-            <div class="col-md-3" v-if="record.sale_goods_to_be_traded && record.sale_goods_to_be_traded.length > 0">
+            <div class="col-md-3" v-if="record.sale_goods_to_be_traded && record.sale_goods_to_be_traded.length > 0" id="HelpServiceStaffMail">
                 <div id="saleServiceEmail" class="form-group">
                     <label for="applicant_name">Correo electrónico:</label>
                     <p v-for="good_to_be_traded in sale_goods_to_be_traded">
@@ -161,7 +161,7 @@
                 </div>
             </div>
             <br>
-            <div class="col-md-12">
+            <div class="col-md-12" id="HelpServiceRequirement">
                 <h6 class="card-title">Requerimiento del solicitante <i class="fa fa-plus-circle cursor-pointer"
                     @click="addRequirement()"></i></h6>
                 <div class="row" v-for="(service_requirement, index) in record.requirements">
@@ -187,7 +187,7 @@
     </div>
     <div class="card-footer text-right">
         <div class="row">
-            <div class="col-md-3 offset-md-9" id="saleHelpParamButtons">
+            <div class="col-md-3 offset-md-9" id="HelpButtons">
                 <button type="button" @click="reset()"
                         class="btn btn-default btn-icon btn-round"
                         title ="Borrar datos del formulario">
