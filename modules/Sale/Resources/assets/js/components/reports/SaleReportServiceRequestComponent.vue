@@ -277,7 +277,7 @@ export default {
 
         getUrlReport(){
             const vm = this;
-            return ('/'+vm.reportUrl+'?listIds=['+vm.recordsToReport+']');
+            return ('/'+vm.reportUrl+'/['+vm.recordsToReport+']');
         },
 
     },
