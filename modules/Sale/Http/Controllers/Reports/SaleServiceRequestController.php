@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 use Modules\Accounting\Models\Profile;
 
 use Modules\Accounting\Models\Institution;
-use Modules\Accounting\Pdf\Pdf;
+// use Modules\Accounting\Pdf\Pdf;
 
 use App\Repositories\ReportRepository;
 use Modules\DigitalSignature\Repositories\ReportRepositorySign;
@@ -196,7 +196,12 @@ class SaleServiceRequestController extends Controller
         /*
          *  Definicion de las caracteristicas generales de la página pdf
          */
-        $institution = Institution::find(1);
+        if (auth()->user()->isAdmin()) {
+            $institution = Institution::first();
+        } else {
+            $institution = Institution::find($user_profile->institution->id);
+        }
+
         $pdf->setConfig(['institution' => $institution, 'urlVerify' => url('/sale/reports/service-requests/pdf/'.$value)]);
         $pdf->setHeader('Reporte de comercialización', 'Reporte de solicitudes de servicios');
         $pdf->setFooter();
