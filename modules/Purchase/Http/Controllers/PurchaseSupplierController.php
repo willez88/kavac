@@ -106,7 +106,22 @@ class PurchaseSupplierController extends Controller
             'phone_area_code' => ['array'],
             'phone_number' => ['array'],
             'phone_extension' => ['array'],
-        ]);
+        ],
+        [
+            'person_type.required' => 'El campo tipo de persona es obligatorio.',
+            'company_type.required' => 'El campo tipo de empresa es obligatorio.',
+            'rif.required' => 'El campo rif es obligatorio.',
+            'name.required' => 'El campo nombre es obligatorio.',
+            'purchase_supplier_type_id.required' => 'El campo denominación comercial es obligatorio.',
+            'purchase_supplier_object_id.required' => 'El campo objeto principal es obligatorio.',
+            'purchase_supplier_branch_id.required' => 'El campo rama es obligatorio.',
+            'purchase_supplier_specialty_id.required' => 'El campo especialidad es obligatorio.',
+            'city_id.required' => 'El campo ciudad es obligatorio.',
+            'direction.required' => 'El campo dirección fiscal es obligatorio.',
+            'contact_name.required' => 'El campo nombre de contacto es obligatorio.',
+            'contact_email.required' => 'El campo correo electrónico de contacto es obligatorio.',
+        ]
+    );
 
         $supplier = PurchaseSupplier::create([
             'person_type' => $request->person_type,
