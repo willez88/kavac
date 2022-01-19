@@ -5,10 +5,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-use Modules\Accounting\Models\Profile;
-
-use Modules\Accounting\Models\Institution;
-// use Modules\Accounting\Pdf\Pdf;
+use Modules\Sale\Models\Profile;
+use Modules\Sale\Models\Institution;
 
 use App\Repositories\ReportRepository;
 use Modules\DigitalSignature\Repositories\ReportRepositorySign;
@@ -23,7 +21,7 @@ use Modules\Sale\Models\SaleService;
  *
  * [descripción corta]
  *
- * @author [autor de la clase] [correo del autor]
+ * @author    Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
  *
  * @license
  *     [LICENCIA DE SOFTWARE CENDITEL](http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/)
@@ -35,7 +33,7 @@ class SaleServiceRequestController extends Controller
      *
      * @method    index
      *
-     * @author    [nombre del autor] [correo del autor]
+     * @author    Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      *
      * @return    Renderable    [description de los datos devueltos]
      */
@@ -49,7 +47,7 @@ class SaleServiceRequestController extends Controller
      *
      * @method    create
      *
-     * @author    [nombre del autor] [correo del autor]
+     * @author    Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      *
      * @return    Renderable    [description de los datos devueltos]
      */
@@ -63,7 +61,7 @@ class SaleServiceRequestController extends Controller
      *
      * @method    store
      *
-     * @author    [nombre del autor] [correo del autor]
+     * @author    Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      *
      * @param     object    Request    $request    Objeto con información de la petición
      *
@@ -79,7 +77,7 @@ class SaleServiceRequestController extends Controller
      *
      * @method    show
      *
-     * @author    [nombre del autor] [correo del autor]
+     * @author    Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      *
      * @param     integer    $id    Identificador del registro
      *
@@ -95,7 +93,7 @@ class SaleServiceRequestController extends Controller
      *
      * @method    edit
      *
-     * @author    [nombre del autor] [correo del autor]
+     * @author    Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      *
      * @param     integer    $id    Identificador del registro
      *
@@ -111,7 +109,7 @@ class SaleServiceRequestController extends Controller
      *
      * @method    update
      *
-     * @author    [nombre del autor] [correo del autor]
+     * @author    Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      *
      * @param     object    Request    $request         Objeto con datos de la petición
      * @param     integer   $id        Identificador del registro
@@ -128,7 +126,7 @@ class SaleServiceRequestController extends Controller
      *
      * @method    destroy
      *
-     * @author    [nombre del autor] [correo del autor]
+     * @author    Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
      *
      * @param     integer    $id    Identificador del registro
      *
@@ -174,6 +172,13 @@ class SaleServiceRequestController extends Controller
             'message' => 'success'], 200);
     }
 
+    /**
+     * Genera Pdf
+     *
+     * @author    Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     *
+     * @param     Array    $value    Listado de identificadores
+     */
     public function pdf($value = [])
     {
         $listIds = json_decode($value);
@@ -189,7 +194,10 @@ class SaleServiceRequestController extends Controller
 
         /**
          * [$pdf base para generar el pdf]
-         * @var [Modules\Accounting\Pdf\Pdf]
+         * 
+         * @author    Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+         * 
+         * @var [App\Repositories\ReportRepository]
          */
         $pdf = new ReportRepository();
 
