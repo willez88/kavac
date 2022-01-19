@@ -206,8 +206,18 @@ class PurchaseSupplierController extends Controller
      * Remove the specified resource from storage.
      * @return Renderable
      */
-    public function destroy()
+    public function destroy($id)
     {
+        /**
+         * Objeto con la información asociada al modelo PurchaseSupplier
+         * @var Object $purchaseSupplier
+         */
+        $purchaseSupplier = PurchaseSupplier::find($id);
+        if ($purchaseSupplier) {
+            $purchaseSupplier->delete();
+        }
+        return response()->json(['records' => PurchaseSupplier::orderBy('id')->get(),
+        'message'=>'Success'], 200);
     }
 
     /**
