@@ -532,7 +532,7 @@ Route::group(
         Route::post('reports/service-requests/filter-records', 'Reports\SaleServiceRequestController@filterRecords');
 
         Route::get(
-            'reports/service-requests/pdf/{ListIds}',
+            'reports/service-requests/pdf/{value?}',
             'Reports\SaleServiceRequestController@pdf'
         );
 
