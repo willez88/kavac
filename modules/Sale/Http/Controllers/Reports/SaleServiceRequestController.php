@@ -5,7 +5,17 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
+use Modules\Accounting\Models\Profile;
+
+use Modules\Accounting\Models\Institution;
+use Modules\Accounting\Pdf\Pdf;
+
+use App\Repositories\ReportRepository;
+use Modules\DigitalSignature\Repositories\ReportRepositorySign;
+use Auth;
+
 use Modules\Sale\Models\SaleService;
+
 
 /**
  * @class SaleServiceRequestController
@@ -164,12 +174,35 @@ class SaleServiceRequestController extends Controller
             'message' => 'success'], 200);
     }
 
-    public function pdf($value=[])
+    public function pdf($value = [])
     {
-        return response()->json([
-            // 'records' => $records->get(),
-            'result' => true,
-            'message' => 'success'], 200);
-        dd(json_decode($value));
+        $listIds = json_decode($value);
+        // Validar acceso para el registro
+        if (!auth()->user()->isAdmin()) {
+            $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+            if ($report && $report->queryAccess($user_profile['institution']['id'])) {
+                return view('errors.403');
+            }
+        }
+
+        $service_requests = SaleService::whereIn('id', $listIds)->get()->toArray();
+
+        /**
+         * [$pdf base para generar el pdf]
+         * @var [Modules\Accounting\Pdf\Pdf]
+         */
+        $pdf = new ReportRepository();
+
+        /*
+         *  Definicion de las caracteristicas generales de la página pdf
+         */
+        $institution = Institution::find(1);
+        $pdf->setConfig(['institution' => $institution, 'urlVerify' => url('/sale/reports/service-requests/pdf/'.$value)]);
+        $pdf->setHeader('Reporte de comercialización', 'Reporte de solicitudes de servicios');
+        $pdf->setFooter();
+        $pdf->setBody('sale::pdf.service-requests', true, [
+            'pdf'      => $pdf,
+            'records'  => $service_requests,
+        ]);
     }
 }
