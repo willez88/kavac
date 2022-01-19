@@ -25,6 +25,7 @@
                 <h6 class="card-title text-uppercase">Completar propuesta técnica
                     @include('buttons.help', [
                         'helpId' => 'SaleTechnicalProposalForm',
+                        'helpSteps' => get_json_resource('ui-guides/services/technical_proposal_form.json', 'sale')
                     ])
                 </h6>
                 </h6>

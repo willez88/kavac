@@ -18,149 +18,150 @@
                 </ul>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <b>Datos del solicitante</b>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>Cliente:</label>
-                    <select2 :options="sale_clients_rif"
-                             v-model="service.sale_client_id" @input="getSaleClient" :disabled="true"></select2>
+        <div id="HelpServiceSection">
+            <div class="row">
+                <div class="col-md-12">
+                    <b>Datos del solicitante</b>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div v-show="service.sale_client_id != 0" class="form-group">
-                    <label for="sale_clients_email">Correo:</label>
-                    <p v-for="email in sale_client.sale_clients_email">
-                        <input type="text" class="form-control input-sm" :disabled="true" 
-                            data-toggle="tooltip" title="Dirección" 
-                            id="email" v-model="email.email"></input>
-                    </p>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Cliente:</label>
+                        <select2 :options="sale_clients_rif"
+                                 v-model="service.sale_client_id" @input="getSaleClient" :disabled="true"></select2>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div v-show="service.sale_client_id != 0" class="form-group">
-                    <label for="phones">Número telefónico:</label>
-                    <p v-for="phone in sale_client.phones">
-                        <input type="text" class="form-control input-sm" :disabled="true"
-                            data-toggle="tooltip" title="Dirección fiscal" 
-                            id="phone" v-model="phone.extension + '-' + phone.area_code + phone.number"></input>
-                    </p>
+                <div class="col-md-3">
+                    <div v-show="service.sale_client_id != 0" class="form-group">
+                        <label for="sale_clients_email">Correo:</label>
+                        <p v-for="email in sale_client.sale_clients_email">
+                            <input type="text" class="form-control input-sm" :disabled="true"
+                                data-toggle="tooltip" title="Dirección"
+                                id="email" v-model="email.email"></input>
+                        </p>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="applicant_organization">Organización:</label>
-                    <input type="text" class="form-control input-sm" 
-                        data-toggle="tooltip" title="Dirección" 
-                        v-model="service.organization" :disabled="true" id="applicant_organization"></input>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="economic_activity">Descripción de la actividad económica:</label>
-                    <textarea type="text" class="form-control input-sm"
-                        data-toggle="tooltip" title="Dirección fiscal" 
-                        v-model="service.description" :disabled="true" id="economic_activity"></textarea>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-12">
-                <b>Datos de la solicitud de servicios</b>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>Servicio:</label>
-                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
-                        <input type="text" class="form-control input-sm"
-                            data-toggle="tooltip" title="Nombre o razón social" 
-                            :disabled="true"
-                            id="service_description" v-model="good_to_be_traded.name"></input>
-                    </p>
-                </div>
-            </div>
-            <div v-if="service.sale_goods_to_be_traded && service.sale_goods_to_be_traded.length > 0" class="col-md-3">
-                <div class="form-group">
-                    <label for="applicant_name">Descripción:</label>
-                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
-                        <input type="text" class="form-control input-sm"
-                            data-toggle="tooltip" title="Nombre o razón social" 
-                            :disabled="true"
-                            id="service_description" v-model="good_to_be_traded.description"></input>
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-3" v-if="service.sale_goods_to_be_traded && service.sale_goods_to_be_traded.length > 0">
-                <div class="form-group">
-                    <label for="applicant_name">Unidad o departamento:</label>
-                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
-                        <input type="text" class="form-control input-sm"
-                            data-toggle="tooltip" title="Nombre o razón social" 
-                            :disabled="true"
-                            id="service_department" v-model="good_to_be_traded.department"></input>
-                    </p>
-                    <br>
-                </div>
-            </div>
-            <div class="col-md-3" v-if="service.sale_goods_to_be_traded && service.sale_goods_to_be_traded.length > 0">
-                <div id="saleServiceName" class="form-group">
-                    <label for="applicant_name">Nombre:</label>
-                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
-                        <input type="text" class="form-control input-sm"
-                            data-toggle="tooltip" title="Nombre o razón social" 
-                            :disabled="true"
-                            id="staff_name" v-model="good_to_be_traded.staff_name"></input>
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-3" v-if="service.sale_goods_to_be_traded && service.sale_goods_to_be_traded.length > 0">
-                <div id="saleServiceLastname" class="form-group">
-                    <label for="applicant_name">Apellido:</label>
-                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
-                        <input type="text" class="form-control input-sm"
-                            data-toggle="tooltip" title="Nombre o razón social" 
-                            :disabled="true"
-                            id="staff_last_name" v-model="good_to_be_traded.staff_last_name"></input>
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-3" v-if="service.sale_goods_to_be_traded && service.sale_goods_to_be_traded.length > 0">
-                <div id="saleServicePhone" class="form-group">
-                    <label for="applicant_name">Teléfono:</label>
-                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
-                        <input type="text" class="form-control input-sm"
-                            data-toggle="tooltip" title="Nombre o razón social" 
-                            :disabled="true"
-                            id="staff_phone" v-model="good_to_be_traded.staff_phone"></input>
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-3" v-if="service.sale_goods_to_be_traded && service.sale_goods_to_be_traded.length > 0">
-                <div id="saleServiceEmail" class="form-group">
-                    <label for="applicant_name">Correo electrónico:</label>
-                    <p v-for="good_to_be_traded in sale_goods_to_be_traded">
-                        <input type="text" class="form-control input-sm"
-                            data-toggle="tooltip" title="Nombre o razón social" 
-                            :disabled="true"
-                            id="staff_email" v-model="good_to_be_traded.staff_email"></input>
-                    </p>
+                <div class="col-md-3">
+                    <div v-show="service.sale_client_id != 0" class="form-group">
+                        <label for="phones">Número telefónico:</label>
+                        <p v-for="phone in sale_client.phones">
+                            <input type="text" class="form-control input-sm" :disabled="true"
+                                data-toggle="tooltip" title="Dirección fiscal"
+                                id="phone" v-model="phone.extension + '-' + phone.area_code + phone.number"></input>
+                        </p>
+                    </div>
                 </div>
             </div>
             <br>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="applicant_organization">Organización:</label>
+                        <input type="text" class="form-control input-sm"
+                            data-toggle="tooltip" title="Dirección" 
+                            v-model="service.organization" :disabled="true" id="applicant_organization"></input>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="economic_activity">Descripción de la actividad económica:</label>
+                        <textarea type="text" class="form-control input-sm"
+                            data-toggle="tooltip" title="Dirección fiscal" 
+                            v-model="service.description" :disabled="true" id="economic_activity"></textarea>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <b>Datos de la solicitud de servicios</b>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Servicio:</label>
+                        <p v-for="good_to_be_traded in sale_goods_to_be_traded">
+                            <input type="text" class="form-control input-sm"
+                                data-toggle="tooltip" title="Servicio"
+                                :disabled="true"
+                                id="service_description" v-model="good_to_be_traded.name"></input>
+                        </p>
+                    </div>
+                </div>
+                <div v-if="service.sale_goods_to_be_traded && service.sale_goods_to_be_traded.length > 0" class="col-md-3">
+                    <div class="form-group">
+                        <label for="applicant_name">Descripción:</label>
+                        <p v-for="good_to_be_traded in sale_goods_to_be_traded">
+                            <input type="text" class="form-control input-sm"
+                                data-toggle="tooltip" title="Descripción"
+                                :disabled="true"
+                                id="service_description" v-model="good_to_be_traded.description"></input>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-3" v-if="service.sale_goods_to_be_traded && service.sale_goods_to_be_traded.length > 0">
+                    <div class="form-group">
+                        <label for="applicant_name">Unidad o departamento:</label>
+                        <p v-for="good_to_be_traded in sale_goods_to_be_traded">
+                            <input type="text" class="form-control input-sm"
+                                data-toggle="tooltip" title="Unidad o departamento"
+                                :disabled="true"
+                                id="service_department" v-model="good_to_be_traded.department"></input>
+                        </p>
+                        <br>
+                    </div>
+                </div>
+                <div class="col-md-3" v-if="service.sale_goods_to_be_traded && service.sale_goods_to_be_traded.length > 0">
+                    <div id="saleServiceName" class="form-group">
+                        <label for="applicant_name">Nombre:</label>
+                        <p v-for="good_to_be_traded in sale_goods_to_be_traded">
+                            <input type="text" class="form-control input-sm"
+                                data-toggle="tooltip" title="Nombre"
+                                :disabled="true"
+                                id="staff_name" v-model="good_to_be_traded.staff_name"></input>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-3" v-if="service.sale_goods_to_be_traded && service.sale_goods_to_be_traded.length > 0">
+                    <div id="saleServiceLastname" class="form-group">
+                        <label for="applicant_name">Apellido:</label>
+                        <p v-for="good_to_be_traded in sale_goods_to_be_traded">
+                            <input type="text" class="form-control input-sm"
+                                data-toggle="tooltip" title="Apellido"
+                                :disabled="true"
+                                id="staff_last_name" v-model="good_to_be_traded.staff_last_name"></input>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-3" v-if="service.sale_goods_to_be_traded && service.sale_goods_to_be_traded.length > 0">
+                    <div id="saleServicePhone" class="form-group">
+                        <label for="applicant_name">Teléfono:</label>
+                        <p v-for="good_to_be_traded in sale_goods_to_be_traded">
+                            <input type="text" class="form-control input-sm"
+                                data-toggle="tooltip" title="Teléfono"
+                                :disabled="true"
+                                id="staff_phone" v-model="good_to_be_traded.staff_phone"></input>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-3" v-if="service.sale_goods_to_be_traded && service.sale_goods_to_be_traded.length > 0">
+                    <div id="saleServiceEmail" class="form-group">
+                        <label for="applicant_name">Correo electrónico:</label>
+                        <p v-for="good_to_be_traded in sale_goods_to_be_traded">
+                            <input type="text" class="form-control input-sm"
+                                data-toggle="tooltip" title="Correo electrónico"
+                                :disabled="true"
+                                id="staff_email" v-model="good_to_be_traded.staff_email"></input>
+                        </p>
+                    </div>
+                </div>
+                <br>
+            </div>
         </div>
         <hr>
-        <div class="row">
+        <div class="row" id="HelpServiceFeatures">
             <div class="col-md-12">
                 <b>Características del servicio</b>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" id="HelpSubservices">
                 <div class="form-group is-required">
                     <label>Subservicio:</label>
                     <v-multiselect :options="list_subservices" track_by="text"
@@ -170,7 +171,7 @@
                     </v-multiselect>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" id="HelpDuration">
                 <div class="form-group is-required">
                     <label for="duration">Duración:</label>
                         <input type="text" class="form-control input-sm"
@@ -181,14 +182,14 @@
                                        'allowMinus': 'false'"></input>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" id="HelpFrecuency">
                 <div class="form-group is-required">
                     <label>Duración:</label>
                     <select2 :options="frecuencies"
                              v-model="record.frecuency_id"></select2>
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12" id="HelpTechnicalSpecifications">
                 <h6 class="card-title">Especificaciones técnicas <i class="fa fa-plus-circle cursor-pointer"
                     @click="addSpecification()"></i></h6>
                 <div class="row" v-for="(specification, index) in record.specifications">
@@ -209,7 +210,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12" id="HelpClientRequirements">
                 <h6 class="card-title">Requerimientos que serán suministrados por el cliente <i class="fa fa-plus-circle cursor-pointer"
                     @click="addRequirement()"></i></h6>
                 <div class="row" v-for="(requirement, index) in record.requirements">
@@ -236,7 +237,7 @@
             <div class="col-md-12">
                 <b>Personal técnico a utilizar</b>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" id="HelpStaff">
                 <div class="form-group">
                     <label>Lista de trabajadores:</label>
                     <v-multiselect :options="payroll_staffs_assignations" track_by="text"
@@ -254,7 +255,7 @@
                     <b>Equipos a utilizar</b>
                 </div>
                 <br>
-                <div class="col-md-12">
+                <div class="col-md-12" id="HelpStaffEquipments">
                     <v-client-table :columns="columns_assets" :data="records" :options="table_options" ref="tableResults">
                         <div slot="inventory_serial" slot-scope="props" class="text-center">
                             <p v-for="assets in props.row.asset_asignation_assets">
@@ -284,148 +285,150 @@
             </div>
         </div>
         <hr>
-        <div class="row">
-            <div class="col-md-12">
-                <b>Diagrama de Gantt</b>
-            </div>
-            <br>
-            <br>
-            <div class="col-md-12">
-                <b>Etapas</b>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group is-required">
-                    <label for="gantt_stage">Etapa:</label>
-                    <input type="text" class="form-control input-sm" 
-                        data-toggle="tooltip" title="Etapa" 
-                        v-model="stage.stage" id="gantt_stage"></input>
+        <div id="HelpGanttDiagramSection">
+            <div class="row">
+                <div class="col-md-12">
+                    <b>Diagrama de Gantt</b>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="gantt_description">Descripción:</label>
-                    <textarea type="text" class="form-control input-sm"
-                        data-toggle="tooltip" title="Descripción" 
-                        v-model="stage.description" id="gantt_description"></textarea>
+                <br>
+                <br>
+                <div class="col-md-12">
+                    <b>Etapas</b>
                 </div>
-            </div>
-            <div class="col-md-12"></div>
-            <div class="col-md-6">
-                <button type="button" @click="addStage($event)" class="btn btn-sm btn-primary btn-custom float-right" 
-                        title="Agregar registro a la lista"
-                        data-toggle="tooltip">
-                    <i class="fa fa-plus-circle"></i>
-                    Agregar
-                </button>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-12">
-                <b>Actividades</b>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group is-required">
-                    <label>Etapas:</label>
-                        <select2 :options="stages"
-                                    v-model="activity.stage_id" @input="activityStages()"></select2>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group is-required">
-                    <label for="gantt_stage">Actividad:</label>
-                    <input type="text" class="form-control input-sm" 
-                        data-toggle="tooltip" title="Etapa" 
-                        v-model="activity.name" id="gantt_stage"></input>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="gantt_description">Descripción:</label>
-                    <textarea type="text" class="form-control input-sm"
-                        data-toggle="tooltip" title="Descripción" 
-                        v-model="activity.description" id="gantt_description"></textarea>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group is-required">
-                    <label>Fecha de inicio:</label>
-                    <div class="input-group input-sm">
-                        <span class="input-group-addon">
-                            <i class="now-ui-icons ui-1_calendar-60"></i>
-                        </span>
-                        <input type="date" data-toggle="tooltip" title="Indique la fecha de inicio"
-                               class="form-control input-sm no-restrict" v-model="activity.start_date">
+                <div class="col-md-3" id="HelpStageName">
+                    <div class="form-group is-required">
+                        <label for="gantt_stage">Etapa:</label>
+                        <input type="text" class="form-control input-sm"
+                            data-toggle="tooltip" title="Etapa"
+                            v-model="stage.stage" id="gantt_stage"></input>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group is-required">
-                    <label>Fecha de fin:</label>
-                    <div class="input-group input-sm">
-                        <span class="input-group-addon">
-                            <i class="now-ui-icons ui-1_calendar-60"></i>
-                        </span>
-                        <input type="date" data-toggle="tooltip" title="Indique la fecha de fin"
-                               class="form-control input-sm no-restrict" v-model="activity.end_date">
+                <div class="col-md-3" id="HelpStageDescription">
+                    <div class="form-group">
+                        <label for="gantt_description">Descripción:</label>
+                        <textarea type="text" class="form-control input-sm"
+                            data-toggle="tooltip" title="Descripción"
+                            v-model="stage.description" id="gantt_description"></textarea>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group is-required">
-                    <label>Trabajador:</label>
-                        <select2 :options="payroll_staffs" v-model="activity.payroll_staff_id"
-                                    @input="activityStaff()"></select2>
+                <div class="col-md-12"></div>
+                <div class="col-md-6">
+                    <button type="button" @click="addStage($event)" class="btn btn-sm btn-primary btn-custom float-right"
+                            title="Agregar registro a la lista"
+                            data-toggle="tooltip">
+                        <i class="fa fa-plus-circle"></i>
+                        Agregar
+                    </button>
                 </div>
             </div>
-            <div class="col-md-3" id="saleHelpProductValue">
-                <div class="form-group is-required">
-                    <label>Porcentaje:</label>
-                        <input class="form-control input-sm" type="text"
-                                   v-model="activity.percentage" required
-                                   v-input-mask data-inputmask="
-                                   'alias': 'numeric',
-                                   'allowMinus': 'false'"/>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <b>Actividades</b>
                 </div>
-            </div>
-            <div class="col-md-12">
-                <button type="button" @click="addActivity($event)" class="btn btn-sm btn-primary btn-custom float-right" 
-                        title="Agregar registro a la lista"
-                        data-toggle="tooltip">
-                    <i class="fa fa-plus-circle"></i>
-                    Agregar
-                </button>
-            </div>
-        </div>
-        <br>
-        <br>
-        <br>
-        <div class="row">
-            <div class="col-md-12">
-                <v-client-table :columns="columns_activities" :data="record.activities" :options="table_option_activities">
-                    <div slot="id" slot-scope="props" class="text-center">
-                        <div class="d-inline-flex">
-                            <button @click="editActivity(props.index, $event)" 
-                                    class="btn btn-warning btn-xs btn-icon btn-action" 
-                                    title="Modificar registro" data-toggle="tooltip" type="button">
-                                <i class="fa fa-edit"></i>
-                            </button>
-                            
-                            <button @click="removeActivity(props.index, $event)" 
-                                    class="btn btn-danger btn-xs btn-icon btn-action" 
-                                    title="Eliminar registro" data-toggle="tooltip" 
-                                    type="button">
-                                <i class="fa fa-trash-o"></i>
-                            </button>
+                <div class="col-md-3" id="HelpActivityStage">
+                    <div class="form-group is-required">
+                        <label>Etapas:</label>
+                            <select2 :options="stages"
+                                        v-model="activity.stage_id" @input="activityStages()"></select2>
+                    </div>
+                </div>
+                <div class="col-md-3" id="HelpActivityName">
+                    <div class="form-group is-required">
+                        <label for="gantt_stage">Actividad:</label>
+                        <input type="text" class="form-control input-sm"
+                            data-toggle="tooltip" title="Actividad"
+                            v-model="activity.name" id="gantt_stage"></input>
+                    </div>
+                </div>
+                <div class="col-md-3" id="HelpActivityDescription">
+                    <div class="form-group">
+                        <label for="gantt_description">Descripción:</label>
+                        <textarea type="text" class="form-control input-sm"
+                            data-toggle="tooltip" title="Descripción"
+                            v-model="activity.description" id="gantt_description"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-3" id="HelpActivityStartDate">
+                    <div class="form-group is-required">
+                        <label>Fecha de inicio:</label>
+                        <div class="input-group input-sm">
+                            <span class="input-group-addon">
+                                <i class="now-ui-icons ui-1_calendar-60"></i>
+                            </span>
+                            <input type="date" data-toggle="tooltip" title="Indique la fecha de inicio"
+                                   class="form-control input-sm no-restrict" v-model="activity.start_date">
                         </div>
                     </div>
-                </v-client-table>
+                </div>
+                <div class="col-md-3" id="HelpActivityEndDate">
+                    <div class="form-group is-required">
+                        <label>Fecha de fin:</label>
+                        <div class="input-group input-sm">
+                            <span class="input-group-addon">
+                                <i class="now-ui-icons ui-1_calendar-60"></i>
+                            </span>
+                            <input type="date" data-toggle="tooltip" title="Indique la fecha de fin"
+                                   class="form-control input-sm no-restrict" v-model="activity.end_date">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3" id="HelpActivityStaff">
+                    <div class="form-group is-required">
+                        <label>Trabajador:</label>
+                            <select2 :options="payroll_staffs" v-model="activity.payroll_staff_id"
+                                        @input="activityStaff()"></select2>
+                    </div>
+                </div>
+                <div class="col-md-3" id="HelpActivityPercentage">
+                    <div class="form-group is-required">
+                        <label>Porcentaje:</label>
+                            <input class="form-control input-sm" type="text"
+                                       v-model="activity.percentage" required
+                                       v-input-mask data-inputmask="
+                                       'alias': 'numeric',
+                                       'allowMinus': 'false'"/>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <button type="button" @click="addActivity($event)" class="btn btn-sm btn-primary btn-custom float-right"
+                            title="Agregar registro a la lista"
+                            data-toggle="tooltip">
+                        <i class="fa fa-plus-circle"></i>
+                        Agregar
+                    </button>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-md-12" id="HelpActivitiesTable">
+                    <v-client-table :columns="columns_activities" :data="record.activities" :options="table_option_activities">
+                        <div slot="id" slot-scope="props" class="text-center">
+                            <div class="d-inline-flex">
+                                <button @click="editActivity(props.index, $event)"
+                                        class="btn btn-warning btn-xs btn-icon btn-action"
+                                        title="Modificar registro" data-toggle="tooltip" type="button">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+
+                                <button @click="removeActivity(props.index, $event)"
+                                        class="btn btn-danger btn-xs btn-icon btn-action"
+                                        title="Eliminar registro" data-toggle="tooltip"
+                                        type="button">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </v-client-table>
+                </div>
             </div>
         </div>
     </div>
     <div class="card-footer text-right">
         <div class="row">
-            <div class="col-md-3 offset-md-9" id="saleHelpParamButtons">
+            <div class="col-md-3 offset-md-9" id="HelpButtons">
                 <button type="button" @click="reset()"
                         class="btn btn-default btn-icon btn-round"
                         title ="Borrar datos del formulario">
