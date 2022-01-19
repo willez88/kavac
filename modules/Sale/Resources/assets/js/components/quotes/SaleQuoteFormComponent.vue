@@ -79,13 +79,13 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4" id="HelpTypePerson">
           <div class="form-group is-required">
             <label for="type_person">Tipo de persona:</label>
             <select2 :options="types_person" id='type_person' v-model="record.type_person"></select2>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4" id="HelpName">
           <div class="form-group is-required">
             <label v-show="record.type_person == ''" for="name">Nombre de la Empresa:</label>
             <label v-show="record.type_person == 'Jurídica'" for="name">Nombre de la Empresa:</label>
@@ -95,7 +95,7 @@
             <input type="hidden" name="id" id="id" v-model="record.id">
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4" id="HelpIdentification">
           <div class="form-group is-required">
             <label v-show="record.type_person == ''" for="id_number">RIF</label>
             <label v-show="record.type_person == 'Jurídica'" for="id_number">RIF</label>
@@ -104,14 +104,14 @@
               title="Indique la identificación del cliente" v-model="record.id_number">
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" id="HelpPhone">
           <div class="form-group is-required">
             <label for="phone">Teléfono de contacto:</label>
             <input type="text" id="phone" class="form-control input-sm" data-toggle="tooltip" required
               title="Número de teléfono" v-model="record.phone" placeholder="000-0000000">
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" id="HelpMail">
           <div class="form-group is-required">
             <label for="email">Correo Electrónico:</label>
             <input type="text" id="email" class="form-control input-sm" data-toggle="tooltip" required
@@ -121,7 +121,7 @@
       </div>
       <h6 class="card-title">II Descripción de productos:</h6>
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6" id="HelpProductType">
           <div class="form-group is-required">
             <label for="product_type">Tipo de Producto:</label>
             <input type="hidden" name="product_position_value" id="product_position_value" v-model="record.product_position_value">
@@ -148,20 +148,20 @@
             <select2 :options="quote_subservices_list" id="sale_list_subservices_id" v-model="record.sale_list_subservices_id"></select2>
           </div>
         </div>
-        <div class="col-md-2" id="SaleHelpProductMeasurementUnit">
+        <div class="col-md-2" id="HelpMeasurementUnit">
           <div class="form-group is-required">
             <label>Unidad de medida</label>
             <select2 :options="quote_measurement_units" id='measurement_unit_id'
              v-model="record.measurement_unit_id"></select2>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3" id="HelpUnitPrice">
           <div class="form-group is-required">
             <label>Precio unitario:</label>
             <input type="text" placeholder="Precio unitario" id="value" title="Precio unitario" v-model="record.value" class="form-control input-sm" required @change="updateTotalProduct()">
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3" id="HelpQuantity">
           <div class="form-group is-required">
             <label>Cantidad de productos:</label>
             <input type="text" placeholder="Cantidad de productos" id='quantity' title="Cantidad de productos" v-model="record.quantity" class="form-control input-sm" required @input="updateTotalProduct()">
@@ -170,7 +170,7 @@
             <input type="hidden" name="quantity_max_value" id="quantity_max_value" v-model="record.quantity_max_value">
           </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2" id="HelpTotalPrice">
           <div class="form-group">
             <label>Precio total:</label>
             <input type="text" disabled placeholder="Total" id="total" title="Cantidad total" v-model="record.total" class="form-control input-sm" required>
@@ -178,7 +178,7 @@
             <input type="hidden" name="history_tax_value" id="history_tax_value" v-model="record.history_tax_value">
           </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2" id="HelpCurrency">
           <div class="form-group is-required">
             <label>Moneda:</label>
             <select2 :options="currencies" v-model="record.currency_id" id="currency_id"></select2>
@@ -201,34 +201,35 @@
           </div>
         </div>
       </div>
-
-      <v-client-table :columns="columns" :data="record.sale_quote_products" :options="table_options">
-        <div slot="sale_warehouse_inventory_product_id" slot-scope="props" class="text-center">
-          <span>
-            {{ (props.row.sale_warehouse_inventory_product_id)? props.row.inventory_product.name : props.row.sale_type_good.name }}
-          </span>
-        </div>
-        <div slot="sale_list_subservices_id" slot-scope="props" class="text-center">
-          <span>
-            {{ (props.row.sale_list_subservices_id)? props.row.sale_list_subservices.name : 'N/A' }}
-          </span>
-        </div>
-        <div slot="id" slot-scope="props" class="text-center">
-          <div class="d-inline-flex">
-            <button @click="editProduct(props.index, $event)" 
-              class="btn btn-warning btn-xs btn-icon btn-action" 
-              title="Modificar Producto" data-toggle="tooltip" type="button">
-              <i class="fa fa-edit"></i>
-            </button>
-            <button @click="removeProduct(props.index, $event)" 
-              class="btn btn-danger btn-xs btn-icon btn-action" 
-              title="Eliminar producto" data-toggle="tooltip" 
-              type="button">
-              <i class="fa fa-trash-o"></i>
-            </button>
+      <div id="HelpProductsTable">
+        <v-client-table :columns="columns" :data="record.sale_quote_products" :options="table_options">
+          <div slot="sale_warehouse_inventory_product_id" slot-scope="props" class="text-center">
+            <span>
+              {{ (props.row.sale_warehouse_inventory_product_id)? props.row.inventory_product.name : props.row.sale_type_good.name }}
+            </span>
           </div>
-        </div>
-      </v-client-table>
+          <div slot="sale_list_subservices_id" slot-scope="props" class="text-center">
+            <span>
+              {{ (props.row.sale_list_subservices_id)? props.row.sale_list_subservices.name : 'N/A' }}
+            </span>
+          </div>
+          <div slot="id" slot-scope="props" class="text-center">
+            <div class="d-inline-flex">
+              <button @click="editProduct(props.index, $event)"
+                class="btn btn-warning btn-xs btn-icon btn-action"
+                title="Modificar Producto" data-toggle="tooltip" type="button">
+                <i class="fa fa-edit"></i>
+              </button>
+              <button @click="removeProduct(props.index, $event)"
+                class="btn btn-danger btn-xs btn-icon btn-action"
+                title="Eliminar producto" data-toggle="tooltip"
+                type="button">
+                <i class="fa fa-trash-o"></i>
+              </button>
+            </div>
+          </div>
+        </v-client-table>
+      </div>
       <div class="row">
         <div class="col-md-12 text-right">
           <div class="d-inline-flex align-items-center">
@@ -257,13 +258,13 @@
       </div>
       <h6 class="card-title">III Complementarios:</h6>
       <div class="row">
-        <div class="col-md-3" id="SaleHelpPaymentMethod">
+        <div class="col-md-3" id="HelpPaymentForm">
           <div class="form-group is-required">
             <label>Forma de cobro:</label>
             <select2 :options="quote_payments" v-model="record.sale_form_payment_id" id="sale_form_payment_id"></select2>
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" id="HelpLimitDate">
           <div class="form-group is-required">
             <label>Fecha límite de respuesta</label>
             <input type="date" class="form-control input-sm no-restrict min-now" v-model="record.deadline_date" id="deadline_date"/>
@@ -273,7 +274,7 @@
     </div>
     <div class="card-footer text-right">
       <div class="row">
-        <div class="col-md-3 offset-md-9" id="saleHelpParamButtons">
+        <div class="col-md-3 offset-md-9" id="HelpButtons">
     	  <button type="button" @click="reset()"
             class="btn btn-default btn-icon btn-round"
       	    title ="Borrar datos del formulario">
