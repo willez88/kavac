@@ -1,87 +1,82 @@
 [
     {
-        "element" : "#cardSaleWarehouseReceptionForm",
-        "intro" : "Formulario de ingresos de productos al almacén",
+        "element" : "#cardSaleQuoteForm",
+        "intro" : "Formulario de cotizaciones",
         "position" : "top"
     },
     {
-        "element" : "#saleHelpInstitution",
-        "intro" : "Parámetro que establece la institución asociada al ingreso de los productos",
-        "position" : "right"
-    },
-    {
-        "element" : "#saleHelpWarehouse",
-        "intro" : "Parámetro que establece el almacén asociado al ingreso de los productos",
-        "position" : "right"
-    },
-    {
-        "element" : "#saleHelpSectionProducts",
-        "intro" : "En esta sección se establecen los parámetros de los productos que se desean ingresar al almacén",
-        "position" : "right"
-    },
-    {
-        "element" : "#saleHelpProductName",
-        "intro" : "Parámetro que establece el nombre del producto",
-        "position" : "right"
-    },
-    {
-        "element" : "#saleHelpProductQuantity",
-        "intro" : "Parámetro que establece la cantidad del producto",
-        "position" : "right"
-    },
-    {
-        "element" : "#saleHelpProductValue",
-        "intro" : "Parámetro que establece el precio por unidad del producto",
-        "position" : "right"
-    },
-    {
-        "element" : "#saleHelpProductCurrency",
-        "intro" : "Parámetro que establece la moneda en la que se expresa el valor del producto",
-        "position" : "right"
-    },
-    {
-        "element" : "#saleHelpTable",
-        "intro" : "Listado de productos registrados y disponibles en almacén para su correspondiente solicitud",
+        "element" : "#HelpTypePerson",
+        "intro" : "Parámetro que establece el tipo de persona",
         "position" : "top"
     },
     {
-        "element" : "#saleHelpParamButtons",
+        "element" : "#HelpName",
+        "intro" : "Parámetro que establece el nombre de la empresa o el nombre y apellido, según el tipo de persona",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpIdentification",
+        "intro" : "Parámetro que establece el RIF o el número de identificación, según el tipo de persona",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpPhone",
+        "intro" : "Parámetro que establece el número de teléfono",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpMail",
+        "intro" : "Parámetro que establece el correo electrónico",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpProductType",
+        "intro" : "Parámetro que establece el tipo de producto",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpMeasurementUnit",
+        "intro" : "Parámetro que establece la unidad de medida",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpUnitPrice",
+        "intro" : "Parámetro que establece el precio unitario",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpQuantity",
+        "intro" : "Parámetro que establece la cantidad de productos",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpTotalPrice",
+        "intro" : "Parámetro que calcula el precio total",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpCurrency",
+        "intro" : "Parámetro que establece la moneda a utilizar",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpProductsTable",
+        "intro" : "Tabla donde se muestran los productos o servicios agregados",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpPaymentForm",
+        "intro" : "Parámetro donde se establece la forma de cobro",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpLimitDate",
+        "intro" : "Parámetro donde se establece la fecha límite de respuesta",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpButtons",
         "intro" : "Botones para ejecutar las acciones de limpiar, cancelar o guardar los datos del formulario",
-        "position" : "left"
-    },
-    {
-        "element" : "#saleHelpClientsRif",
-        "intro" : "Parámetro que establece el número de identificación de un cliente",
-        "position" : "right"
-    },
-    {
-        "element" : "#saleHelpClientsName",
-        "intro" : "Parámetro que establece el nombre o razón social de un cliente",
-        "position" : "right"
-    },
-    {
-        "element" : "#saleHelpClientsAddress",
-        "intro" : "Parámetro que establece la dirección de un cliente",
-        "position" : "right"
-    },
-    {
-        "element" : "#saleHelpClientsFiscalAddress",
-        "intro" : "Parámetro que establece la dirección fiscal de un cliente",
-        "position" : "right"
-    },
-    {
-        "element" : "#SaleHelpPaymentMethod",
-        "intro" : "Parámetro que establece la dirección fiscal de un cliente",
-        "position" : "right"
-    },
-    {
-        "element" : "#SaleHelpDiscount",
-        "intro" : "Parámetro que establece si se requiere un descuento",
-        "position" : "rigth"
-    },
-    {
-        "element" : "#SaleHelpDiscountSwitch",
-        "intro" : "Parámetro que establece si se requiere un descuento",
-        "position" : "rigth"
-    },
+        "position" : "top"
+    }
 ]
