@@ -6,6 +6,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use App\Models\Institution;
+use App\Repositories\ReportRepository;
 use Modules\Finance\Models\FinanceBank;
 use Modules\Sale\Models\SaleService;
 use Modules\Sale\Models\SaleClient;
@@ -117,6 +119,33 @@ class SalePaymentController extends Controller
         $SalePayment = SaleRegisterPayment::create([
             'order_or_service_define_attributes' => $order_or_service_define_attributes, 'order_service_id' => $order_service_id, 'total_amount' => $total_amount, 'way_to_pay' => $request->currency_id, 'banking_entity' => $request->bank_id, 'reference_number' => $request->number_reference, 'payment_date' => $request->payment_date, 'advance_define_attributes' => $advance_define_attributes
         ]);
+        if ($advance_define_attributes == true) {
+            /**
+             * [$pdf base para generar el pdf del recibo de pago]
+             * @var [Modules\Accounting\Pdf\Pdf]
+             */
+            $pdf = new ReportRepository();
+
+            /*
+             *  Definicion de las caracteristicas generales de la página pdf
+             */
+            $institution = null;
+            $is_admin = auth()->user()->isAdmin();
+
+            if (!$is_admin && $user_profile && $user_profile['institution']) {
+                $institution = Institution::find($user_profile['institution']['id']);
+            } else {
+                $institution = '';
+            }
+
+            $pdf->setConfig(['institution' => Institution::first()]);
+            $pdf->setHeader('Recibo de Pago');
+            $pdf->setFooter();
+            $pdf->setBody('sale::pdf.payment_advance_receipt', true, [
+                'pdf'         => $pdf,
+                'SalePayment' => $SalePayment
+            ]);
+        }
         return response()->json(['record' => $SalePayment, 'message' => 'Success'], 200);
     }
 
@@ -294,9 +323,10 @@ class SalePaymentController extends Controller
      */
     public function edit($id)
     {
-    //    return view('sale::edit');
+        $payment = SaleRegisterPayment::find($id);
+        return view('sale::payment.list', compact("payment"));
     }
-
+    
     /**
      * [descripción del método]
      *
