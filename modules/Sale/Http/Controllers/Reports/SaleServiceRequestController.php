@@ -190,7 +190,10 @@ class SaleServiceRequestController extends Controller
             }
         }
 
-        $service_requests = SaleService::whereIn('id', $listIds)->get()->toArray();
+        $service_requests = SaleService::with('saleClient.phones', 
+                                            'saleClient.saleClientsEmail', 
+                                            'saleServiceRequirement', 
+                                            'payrollStaff')->whereIn('id', $listIds)->get()->toArray();
 
         /**
          * [$pdf base para generar el pdf]
@@ -209,10 +212,10 @@ class SaleServiceRequestController extends Controller
         } else {
             $institution = Institution::find($user_profile->institution->id);
         }
-
+        // dd($service_requests);
         $pdf->setConfig(['institution' => $institution, 'urlVerify' => url('/sale/reports/service-requests/pdf/'.$value)]);
         $pdf->setHeader('Reporte de comercialización', 'Reporte de solicitudes de servicios');
-        $pdf->setFooter();
+        $pdf->setFooter(true, $institution->rif.' '.$institution->legal_address);
         $pdf->setBody('sale::pdf.service-requests', true, [
             'pdf'      => $pdf,
             'records'  => $service_requests,
