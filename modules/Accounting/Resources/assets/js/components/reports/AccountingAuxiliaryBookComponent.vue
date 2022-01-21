@@ -133,7 +133,13 @@
 				}
 
 				this.$refs.errorAuxiliaryBook.reset();
-				var acc = (this.account_id == 0 && this.allAccounts)?'':'0';
+				var acc = 0;
+				if (this.allAccounts) {
+					acc = '';
+				} else {
+					acc = this.account_id;
+				}
+
 				return ( this.url+(this.year_init+'-'+this.month_init)+'/'+this.currency+'/'+acc );
 			},
 
