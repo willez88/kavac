@@ -530,7 +530,7 @@ class AccountingAuxiliaryBookController extends Controller
     public function pdf($report)
     {
         $report     = AccountingReportHistory::with('currency')->find($report);
-        // dd($report);
+
         // Validar acceso para el registro
         if (!auth()->user()->isAdmin()) {
             $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
