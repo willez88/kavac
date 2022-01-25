@@ -497,6 +497,18 @@ Vue.component('approved-advance-payments-list', () => import(
     './components/payment/SaleApprovedAdvancePaymentsListComponent.vue')
 );
 
+
+/**
+ * Componente para mostrar la información de los Pagos
+ *
+ * @author Miguel Narvaez <mnarvaez@cenditel.gob.ve>
+ */
+Vue.component('sale-payment-info', () => import(
+    /* webpackChunkName: "sale-payment-info" */
+    './components/payment/SalePaymentInfoComponent.vue')
+);
+
+
 /**
  * Componente para gestionar la creación de los reportes de Pagos
  *
@@ -506,6 +518,7 @@ Vue.component('sale-report-payment', () => import(
     /* webpackChunkName: "sale-report-payment" */
     './components/reports/SaleReportPaymentComponent.vue')
 );
+
 
 /*
  * Componente para gestionar la creación de los reportes de solicitud de servicios
