@@ -232,7 +232,33 @@
     	receptionid: Number, 
     	},
     	methods: {
-    		reset() {
+    		reset(){
+                this.record = {
+                    institution_id: '',
+                    sale_warehouse_id: '',
+                    iva: false,
+                };
+                this.sale_warehouse_inventory_product = {
+                    id: '',
+                    quantity: '',
+
+                    unit_value:'',
+                    currency_id: '',
+                    currency_name: '',
+                    measurement_unit_id:'',
+                    measurement_unit_name:'',
+                    history_tax_id:'',
+                    history_tax_name:'',
+
+                    sale_setting_product_id: '',
+                    sale_setting_product_name: '',
+                    history_tax_id: '',
+                    iva: false,
+                };
+                this.editIndex = null;
+            },
+
+            resetProduct() {
     			this.sale_warehouse_inventory_product = {
     				id: '',
     				quantity: '',
@@ -249,19 +275,22 @@
                     sale_setting_product_name: '',
                     history_tax_id: '',
                     iva: false,
-    			},
+    			};
     			this.editIndex = null;
     		},
 
-            getSaleWarehouse() {
+            async getSaleWarehouse() {
     			const vm = this;
                 vm.sale_warehouse = [];
 
     			if (vm.record.institution_id != '') {
-    				axios.get('/sale/get-salewarehousemethod/' + vm.record.institution_id).then(response => {
+    				await axios.get('/sale/get-salewarehousemethod/' + vm.record.institution_id).then(response => {
                         vm.sale_warehouse = response.data;
     				});
     			}
+                if (vm.record.id) {
+                    vm.record.sale_warehouse_id = vm.record.warehouse_id;
+                }
     		},
 
     		getSaleSettingProduct() {
@@ -343,17 +372,17 @@
 
     			if (this.editIndex === null) {					
     				vm.records.push(vm.sale_warehouse_inventory_product);
-    				vm.reset();
+    				vm.resetProduct();
     			}
     			else if (this.editIndex >= 0 ) {				
     				vm.records.splice(this.editIndex, 1);
-    				vm.records.push(vm.warehouse_inventory_product);
-    				vm.reset();
+    				vm.records.push(vm.sale_warehouse_inventory_product);
+    				vm.resetProduct();
     			}
     		},
 
     		editProduct(index, event) {
-    			this.reset();
+    			this.resetProduct();
     			this.editIndex = index-1;
     			this.sale_warehouse_inventory_product = this.records[index - 1];
 
@@ -373,38 +402,27 @@
     			const vm = this;
                 
                 axios.get('/sale/receptions/info/' + id).then(response => {
-                    vm.record = response.data.records;
-                    vm.record.institution_id = vm.record.sale_warehouse_institution_warehouse_end.institution_id;
-                    vm.record.sale_warehouse_id = vm.record.sale_warehouse_institution_warehouse_end.sale_warehouse_id;
-
-                    $.each(vm.record.sale_warehouse_inventory_products_movements, function(index, campo) {
-                    	var atts = [];
-                    	$.each(campo.sale_warehouse_inventory_product.sale_warehouse_product_values, function(index, field) {
-                            var name = field.sale_setting_product.name;
-                    		var value = field.value;
-                    		atts.push({name:name, value:value});
-                    	});
-                        var sale_warehouse_inventory_product = {
+                    let data = response.data.records;
+                    vm.record = {
+                        id: data.id,
+                        institution_id: data.sale_warehouse_institution_warehouse_end.institution_id,
+                        warehouse_id: data.sale_warehouse_institution_warehouse_end.sale_warehouse_id,
+                        iva: false,
+                    }
+                    for (let product of data.sale_warehouse_inventory_product_movements) {
+                        let sale_warehouse_inventory_product = {
     						id: '',
-    						quantity: campo.quantity,
-    						unit_value: campo.new_value,
-    						currency_id: 
-                            campo.sale_warehouse_inventory_product.currency_id,
-    						currency: {
-    							name: campo.sale_warehouse_inventory_product.currency.name,
-    						},
-                            measurement_unit_id: campo.sale_warehouse_inventory_product.measurement_unit_id,
-                            measurement_unit: {
-                                name: campo.sale_warehouse_inventory_product.measurement_unit.name,
-                            }, 
-                            sale_setting_product_id: campo.sale_warehouse_inventory_product.sale_setting_product_id,
+    						quantity: product.quantity,
+    						unit_value: product.new_value,
+    						currency_id: product.sale_warehouse_inventory_product.currency_id,
+                            measurement_unit_id: product.sale_warehouse_inventory_product.measurement_unit_id,
+                            sale_setting_product_id: product.sale_warehouse_inventory_product.sale_setting_product_id,
                             sale_setting_product: {
-                                name:
-                                campo.sale_warehouse_inventory_product.sale_setting_product.name,
-    						},
+                                name: product.sale_warehouse_inventory_product.sale_setting_product.name,
+                            },
     					};
     					vm.records.push(sale_warehouse_inventory_product);
-                    });
+                    };
                 });
             },
     	},

@@ -1,13 +1,13 @@
 <?php
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-
-use Illuminate\Database\Eloquent\Model;
 use App\Roles\Models\Role;
+
+use Illuminate\Database\Seeder;
 use App\Roles\Models\Permission;
 use App\Models\InstitutionSector;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @class InstitutionSectorsTableSeeder
@@ -65,9 +65,15 @@ class InstitutionSectorsTableSeeder extends Seeder
         ];
 
         DB::transaction(function () use ($adminRole, $permissions) {
-            InstitutionSector::updateOrCreate(['name' => 'Desarrollo'], []);
-            InstitutionSector::updateOrCreate(['name' => 'Ciencia y Tecnología'], []);
-            InstitutionSector::updateOrCreate(['name' => 'Gobierno'], []);
+            InstitutionSector::withTrashed()->updateOrCreate(
+                ['name' => 'Desarrollo'], ['deleted_at' => null]
+            );
+            InstitutionSector::withTrashed()->updateOrCreate(
+                ['name' => 'Ciencia y Tecnología'], ['deleted_at' => null]
+            );
+            InstitutionSector::withTrashed()->updateOrCreate(
+                ['name' => 'Gobierno'], ['deleted_at' => null]
+            );
 
             foreach ($permissions as $permission) {
                 $per = Permission::updateOrCreate(

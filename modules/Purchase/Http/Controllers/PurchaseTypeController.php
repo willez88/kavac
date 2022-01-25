@@ -107,7 +107,10 @@ class PurchaseTypeController extends Controller
      */
     public function destroy($id)
     {
-        PurchaseType::find($id)->delete();
+        $type = PurchaseType::find($id);
+        if ($type) {
+            $type->->delete();
+        }
         return response()->json(['records' => PurchaseType::with('purchaseProcess')->orderBy('id')->get(),
             'message'=>'Success'], 200);
     }

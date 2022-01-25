@@ -415,12 +415,14 @@
              * Agrega la informacion del cliente desde el modal de clientes
              *
              * @author Juan Vizcarrondo <jvizcarrondo@cenditel.gob.ve> | <juanvizcarrondo@gmail.com>
+             * @author Daniel Contreras <dcontreras@cenditel.gob.ve>
             */
             addClient(index, client) {
                 this.record.type_person = client.type_person_juridica;
-                this.record.name = client.name_client? client.name_client : client.name;
-                this.record.id_number = client.rif? client.rif : client.id_type + '-' + client.id_number;
-                this.record.phone = client.phones && client.phones.length? client.phones[0].extension + client.phones[0].area_code + '-' + client.phones[0].number : '';
+                this.record.name = client.name_client ? client.name_client : client.name;
+                this.record.id_number = client.id_type + '-' + client.id_number;
+                this.record.rif = client.rif;
+                this.record.phone = client.phones && client.phones.length ? client.phones[0].extension + client.phones[0].area_code + '-' + client.phones[0].number : '';
                 this.record.email = client.sale_clients_email && client.sale_clients_email.length? client.sale_clients_email[0].email : '';
                 $("#view_sale_bill_clients").modal('hide');
             },

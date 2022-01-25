@@ -31,7 +31,7 @@
 				<div class="card-body">
 					<purchase-suppliers-list route_list='purchase/suppliers/vue-list'
 											 route_delete="purchase/suppliers"
-											 route_edit="purchase/suppliers/{id}/edit"/>
+											 route_edit="/purchase/suppliers/{id}/edit"/>
 				</div>
 			</div>
 		</div>

@@ -38,6 +38,12 @@ class SaleGoodsToBeTraded extends Model implements Auditable
     protected $fillable = ['name', 'description', 'unit_price', 'define_attributes', 'currency_id', 'measurement_unit_id', 'department_id', 'history_tax_id' ,'payroll_staff_id', 'sale_type_good_id'];
 
     /**
+     * Lista de atributos que deben ser asignados a tipos nativos.
+     * @var array
+     */
+    protected $with = ['department'];
+
+    /**
      * Método que obtiene las formas de pago almacenadas en el sistema
      *
      * @author Daniel Contreras <dcontreras@cenditel.gob.ve>

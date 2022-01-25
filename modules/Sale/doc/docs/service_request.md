@@ -51,3 +51,6 @@ A través de la sección **Solicitudes Pendientes** el encargado de bienes o usu
 La sección **Solicitudes rechazadas** lista las solicitudes rechazadas, con los datos: código, fecha de la solicitud, nombre del cliente, unidad o departamento responsable y estado de la solicitud. La columna **Acción**, presenta solo el botón que permiten al usuario autorizado: Ver información detallada de una solicitud de servicio rechazada de interés.
 
 ![Screenshot](img/img1031.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Solicitudes Rechazadas</div>
+
+## Propuestas técnicas
+

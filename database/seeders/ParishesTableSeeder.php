@@ -1,14 +1,14 @@
 <?php
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-
-use Illuminate\Database\Eloquent\Model;
-use App\Roles\Models\Role;
-use App\Roles\Models\Permission;
-use App\Models\Municipality;
 use App\Models\Parish;
-use DB;
+
+use App\Roles\Models\Role;
+use App\Models\Municipality;
+use Illuminate\Database\Seeder;
+use App\Roles\Models\Permission;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @class ParishTableSeeder
@@ -1929,9 +1929,9 @@ class ParishesTableSeeder extends Seeder
                 $mun = Municipality::where('code', $code_municipality)->first();
                 foreach ($parishes as $code => $parish) {
                     if ($parish && isset($mun->id)) {
-                        Parish::updateOrCreate(
+                        Parish::withTrashed()->updateOrCreate(
                             ['code' => $code],
-                            ['name' => $parish, 'municipality_id' => $mun->id]
+                            ['name' => $parish, 'municipality_id' => $mun->id, 'deleted_at' => null]
                         );
                     }
                 }

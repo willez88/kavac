@@ -345,8 +345,8 @@ Vue.mixin({
 			const vm = this;
 
 			bootbox.confirm({
-    			title: "Aprobar Asiento?",
-    			message: "Esta seguro de aprobar este asiento?",
+    			title: "¿Aprobar Asiento?",
+    			message: "¿Esta seguro de aprobar este asiento?",
     			buttons: {
     				cancel: {
     					label: '<i class="fa fa-times"></i> Cancelar'

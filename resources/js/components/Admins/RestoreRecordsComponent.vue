@@ -41,9 +41,11 @@
                             </div>
                         </div>
                         <div class="form-group col-md-2" id="helpRestoreFilterModule">
-                            <select v-model="module_delete_at" class="form-control select2">
+                            <select v-model="module_delete_at" class="form-control select2" id="restoreSearchModule">
                                 <option value="">Módulo</option>
-                                <option :value="mod.originalName" v-for="mod in modules">{{ mod.name }}</option>
+                                <option :value="mod.originalName" v-for="(mod, index) in modules" :key="index">
+                                    {{ mod.name }}
+                                </option>
                             </select>
                         </div>
                         <div class="form-group col-md-2" id="helpRestoreFilterButton">
@@ -189,6 +191,10 @@
             const vm = this;
 
             vm.readRecords();
+
+            $('#restoreSearchModule').on('change', function() {
+                vm.module_delete_at = $(this).val();
+            });
         }
     };
 </script>

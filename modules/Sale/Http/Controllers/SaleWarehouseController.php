@@ -74,6 +74,9 @@ class SaleWarehouseController extends Controller
         $this->validate($request, [
             'name' => ['required', 'unique:sale_warehouses,name', 'regex:/([A-Za-z\s])\w+/u','max:200'],
             'address' => ['required', 'max:900'],
+            'country_id' => ['required'],
+            'estate_id' => ['required'],
+            'municipality_id' => ['required'],
             'parish_id' => ['required'],
         ]);
         //Define almacén principal
@@ -81,18 +84,23 @@ class SaleWarehouseController extends Controller
             $main = SaleWarehouse::where('main', '=', true)->update(['main' => false]);
         }
         //Guarda datos de almacen.
-        $SaleWarehouse = SaleWarehouse::create([
+        $institution_id = empty($request->institution_id)?$institution->id:$request->institution_id;
 
+        $SaleWarehouse = SaleWarehouse::create([
             'name' => $request->name,
+            'institution_id' => $institution_id,
             'address' => $request->address,
+            'country_id' => $request->country_id,
+            'estate_id' => $request->estate_id,
             'parish_id' => $request->parish_id,
+            'municipality_id' => $request->municipality_id,
             'active' => !empty($request->input('active')) ? $request->input('active') : false
         ]);
+
 
         if (empty($request->institution_id)) {
             $institution = Institution::where('active', true)->where('default', true)->first();
         }
-        $institution_id = empty($request->institution_id)?$institution->id:$request->institution_id;
 
         $sale_warehouse_institution = SaleWarehouseInstitutionWarehouse::create([
             'institution_id' => $institution_id,
@@ -126,8 +134,31 @@ class SaleWarehouseController extends Controller
      * @param  Request $request
      * @return Renderable
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        $saleWarehouse = SaleWarehouse::find($id);
+
+        $this->validate($request, [
+            'name' => ['required', 'unique:sale_warehouses,name,' . $saleWarehouse->id, 'regex:/([A-Za-z\s])\w+/u','max:200'],
+            'address' => ['required', 'max:900'],
+            'country_id' => ['required'],
+            'estate_id' => ['required'],
+            'municipality_id' => ['required'],
+            'parish_id' => ['required'],
+        ]);
+
+        $saleWarehouse->name = $request->name;
+        $saleWarehouse->institution_id = $request->institution_id;
+        $saleWarehouse->address = $request->address;
+        $saleWarehouse->country_id = $request->country_id;
+        $saleWarehouse->estate_id = $request->estate_id;
+        $saleWarehouse->parish_id = $request->parish_id;
+        $saleWarehouse->municipality_id = $request->municipality_id;
+        $saleWarehouse->active = !empty($request->input('active')) ? $request->input('active') : false;
+        $saleWarehouse->save();
+
+        $request->session()->flash('message', ['type' => 'update']);
+        return response()->json(['result' => true], 200);
     }
 
     /**
@@ -136,11 +167,11 @@ class SaleWarehouseController extends Controller
      */
     public function destroy($id)
     {   
-        $sale_warehouse_institution = SaleWarehouseInstitutionWarehouse::find($id);
-        $SaleWarehouse = SaleWarehouse::find($sale_warehouse_institution->sale_warehouse_id);
+        $sale_warehouse_institution = SaleWarehouseInstitutionWarehouse::where('sale_warehouse_id', $id);
+        $saleWarehouse = SaleWarehouse::find($id);
         $sale_warehouse_institution->delete();
-        $SaleWarehouse->delete();
-        return response()->json(['record' => $SaleWarehouse, 'message' => 'Success'], 200);
+        $saleWarehouse->delete();
+        return response()->json(['record' => $saleWarehouse, 'message' => 'Success'], 200);
     }
 
     /**

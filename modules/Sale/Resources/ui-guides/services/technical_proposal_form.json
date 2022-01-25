@@ -1,0 +1,112 @@
+[
+    {
+        "element" : "#cardSaleTechnicalProposalForm",
+        "intro" : "Formulario de propuesta técnica",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpServiceSection",
+        "intro" : "Sección con los datos de la solicitud de servicio",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpServiceFeatures",
+        "intro" : "Sección donde se agregan las características del servicio",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpSubservices",
+        "intro" : "Parámetro donde se establece el subservicio",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpDuration",
+        "intro" : "Parámetro donde se establece la duración",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpFrecuency",
+        "intro" : "Parámetro donde se establece la frecuencia",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpTechnicalSpecifications",
+        "intro" : "Parámetro donde se agregan las especificaciones técnicas",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpClientRequirements",
+        "intro" : "Parámetro donde se agregan los requerimientos suministrados por el cliente",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpStaff",
+        "intro" : "Parámetro donde se agrega el personal que cuenta con equipos registrados",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpStaffEquipments",
+        "intro" : "Tabla donde se muestran los equipos registrados del personal seleccionado",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpGanttDiagramSection",
+        "intro" : "Sección donde se agregan las etapas y actividades para el diagrama de gantt",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpStageName",
+        "intro" : "Parámetro donde se agrega el nombre de la etapa para el diagrama de gantt",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpStageDescription",
+        "intro" : "Parámetro donde se agrega la descripción de la etapa para el diagrama de gantt",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpActivityStage",
+        "intro" : "Parámetro donde se agrega la etapa para el diagrama de gantt",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpActivityName",
+        "intro" : "Parámetro donde se agrega el nombre de la actividad para el diagrama de gantt",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpActivityDescription",
+        "intro" : "Parámetro donde se agrega la descripción de la actividad para el diagrama de gantt",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpActivityStartDate",
+        "intro" : "Parámetro donde se agrega la fecha de inicio de la actividad para el diagrama de gantt",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpActivityEndDate",
+        "intro" : "Parámetro donde se agrega la fecha de fin de la actividad para el diagrama de gantt",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpActivityStaff",
+        "intro" : "Parámetro donde se agrega el trabajador asociado a la actividad para el diagrama de gantt",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpActivityPercentage",
+        "intro" : "Parámetro donde se asigna el porcentaje de la actividad para el diagrama de gantt",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpActivitiesTable",
+        "intro" : "Tabla donde se listan los registros para el diagrama de gantt",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpButtons",
+        "intro" : "Botones para limpiar, cancelar y guardar el formulario",
+        "position" : "top"
+    }
+]

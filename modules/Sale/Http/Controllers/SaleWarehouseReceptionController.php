@@ -314,18 +314,68 @@ class SaleWarehouseReceptionController extends Controller
                 $measurement_unit = $product['measurement_unit_id'];
                 $quantity = $product['quantity'];
                 $value = $product['unit_value'];
-                $history_tax = $product['history_tax_id'];
+                $history_tax = $product['history_tax_id'] ?? null;
 
                 /** Se busca en el inventario por producto y unidad si existe un registro previo */
 
                 $inventory = SaleWarehouseInventoryProduct::where('sale_setting_product_id', $product_id)
-                    ->where('sale_warehouse_id', $inst_ware->id)
+                    ->where('sale_warehouse_institution_warehouse_id', $inst_ware->id)
                     ->where('unit_value', $value)->get();
 
-                /** Si no existe un registro previo de ese producto en inventario
-                 *  (se genera un nuevo registro)
-                 */
-                if ((count($inventory) == 0)) {
+                /** Si existe un registro previo se verifican los atributos del nuevo ingreso */
+                if (count($inventory) > 0) {
+                    foreach ($inventory as $product_inventory) {
+                        /** @var boolean $equal Define si los atributos coinciden con los registrados */
+                        $equal = true;
+
+                        foreach ($product['sale_setting_product'] as $attribute) {
+                            $name = 'sale_setting_product.name';
+
+                            $product_att = SaleSettingProduct::where('id', $product_id)
+                                ->where('name', $name)->first();
+
+                            if (!is_null($product_att)) {
+                                $product_value = SaleWarehouseProductValue::where('value', $val) 
+                                    ->where('sale_warehouse_inventory_product_id', $product_inventory->id)->first();
+
+                                if (is_null($product_value)) {
+                                    /** si el valor de este atributo no existe, son diferentes */
+                                    $equal = false;
+                                    break;
+                                }
+                            } else {
+                                $equal = false;
+                                break;
+                            }
+                        }
+
+                        if ($equal === true) {
+
+                            /** Se eliminan los demas elementos de la solicitud */
+                            $sale_warehouse_inventory_product_movements = SaleWarehouseInventoryProductMovement::where(
+                                'sale_warehouse_movement_id',
+                                $sale_warehouse_movement->id
+                            )->where('updated_at', '!=', $update)->get();
+
+                            foreach ($sale_warehouse_inventory_product_movements as $sale_warehouse_inventory_product_movement) {
+                                $sale_warehouse_inventory_product_movement->delete();
+                            }
+                            
+                            /** Se genera el movimiento, para su posterior aprobación */
+
+                            $inventory_movement = SaleWarehouseInventoryProductMovement::create([
+                                'quantity' => $quantity,
+                                'new_value' => $value,
+                                'sale_warehouse_movement_id' => $sale_warehouse_movement->id,
+                                'sale_warehouse_inventory_product_id' => $product_inventory->id,
+                            ]);
+                        }
+                    }
+                } elseif ((count($inventory) == 0) || ($equal == false)) {
+                    /**
+                     * Si no existe un registro previo de ese producto en inventario o algún atributo es diferente
+                     * se genera un nuevo registro
+                     */
                     $codeSetting = CodeSetting::where('table', 'sale_warehouse_inventory_products')->first();
                     
                     $codep  = generate_registration_code(
@@ -342,28 +392,27 @@ class SaleWarehouseReceptionController extends Controller
                         'currency_id' => $currency,
                         'measurement_unit_id' => $measurement_unit,
                         'unit_value' => $value,
-                        'sale_warehouse_institution_warehouse_id' => $inst_ware->id,
                         'history_tax_id' => $history_tax,
+                        'sale_warehouse_institution_warehouse_id' => $inst_ware->id,
                     ]);
+
+                    /** Se eliminan los demas elementos de la solicitud */
+                    $sale_warehouse_inventory_product_movements = SaleWarehouseInventoryProductMovement::where(
+                        'sale_warehouse_movement_id',
+                        $sale_warehouse_movement->id
+                    )->where('updated_at', '!=', $update)->get();
+
+                    foreach ($sale_warehouse_inventory_product_movements as $sale_warehouse_inventory_product_movement) {
+                        $sale_warehouse_inventory_product_movement->delete();
+                    }
             
                     $inventory_movement = SaleWarehouseInventoryProductMovement::create([
                         'quantity' => $quantity,
                         'new_value' => $value,
                         'sale_warehouse_movement_id' => $sale_warehouse_movement->id,
                         'sale_warehouse_inventory_product_id' => $product_inventory->id,
-                        'updated_at' => $update,
                     ]);
                 }
-            }
-
-            /** Se eliminan los demas elementos de la solicitud */
-            $sale_warehouse_inventory_product_movements = SaleWarehouseInventoryProductMovement::where(
-                'sale_warehouse_movement_id',
-                $sale_warehouse_movement->id
-            )->where('updated_at', '!=', $update)->get();
-
-            foreach ($sale_warehouse_inventory_product_movements as $sale_warehouse_inventory_product_movement) {
-                $sale_warehouse_inventory_product_movement->delete();
             }
         });
         $request->session()->flash('message', ['type' => 'update']);
@@ -399,10 +448,8 @@ class SaleWarehouseReceptionController extends Controller
                 [
                     'saleWarehouseInventoryProductMovements' => function ($query) {
                         $query->with(['saleWarehouseInventoryProduct' => function ($query) {
-                                $query->with('measurementUnit');
-                            }, 'saleWarehouseInventoryProduct' => function ($query) {
-                                $query->with('saleSettingProduct');
-                            }, 'currency']);
+                                $query->with(['measurementUnit', 'saleSettingProduct', 'currency']);
+                            }]);
 
                     }, 'saleWarehouseInstitutionWarehouseInitial', 'saleWarehouseInstitutionWarehouseEnd', 'user']
             )->first()], 200);

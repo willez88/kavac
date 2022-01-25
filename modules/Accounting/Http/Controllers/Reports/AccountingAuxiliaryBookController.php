@@ -52,6 +52,7 @@ class AccountingAuxiliaryBookController extends Controller
      */
     public function pdfVue($date, Currency $currency, $account_id = null)
     {
+
         /**
          * [$initDate fecha inicial de busqueda]
          * @var string
@@ -529,6 +530,7 @@ class AccountingAuxiliaryBookController extends Controller
     public function pdf($report)
     {
         $report     = AccountingReportHistory::with('currency')->find($report);
+
         // Validar acceso para el registro
         if (!auth()->user()->isAdmin()) {
             $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();

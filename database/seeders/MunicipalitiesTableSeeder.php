@@ -1,14 +1,14 @@
 <?php
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-
-use Illuminate\Database\Eloquent\Model;
-use App\Roles\Models\Role;
-use App\Roles\Models\Permission;
 use App\Models\Estate;
+
+use App\Roles\Models\Role;
 use App\Models\Municipality;
-use DB;
+use Illuminate\Database\Seeder;
+use App\Roles\Models\Permission;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @class MunicipalitiesTableSeeder
@@ -457,9 +457,9 @@ class MunicipalitiesTableSeeder extends Seeder
                 $edo = Estate::where('code', $code_estate)->first();
                 foreach ($municipalities as $code => $municipality) {
                     if ($municipality) {
-                        Municipality::updateOrCreate(
+                        Municipality::withTrashed()->updateOrCreate(
                             ['code' => $code],
-                            ['name' => $municipality, 'estate_id' => $edo->id]
+                            ['name' => $municipality, 'estate_id' => $edo->id, 'deleted_at' => null]
                         );
                     }
                 }

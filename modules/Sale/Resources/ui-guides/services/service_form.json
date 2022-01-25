@@ -1,0 +1,82 @@
+[
+    {
+        "element" : "#cardSaleServicesForm",
+        "intro" : "Formulario de solicitud de servicios",
+        "position" : "top"
+    },
+    {
+        "element" : "#helpClient",
+        "intro" : "Parámetro que establece el cliente asociado al servicio",
+        "position" : "top"
+    },
+    {
+        "element" : "#helpClientMail",
+        "intro" : "Correo electrónico del cliente asociado al servicio",
+        "position" : "top"
+    },
+    {
+        "element" : "#helpClientPhone",
+        "intro" : "Número de teléfono del cliente asociado al servicio",
+        "position" : "top"
+    },
+    {
+        "element" : "#helpOrganization",
+        "intro" : "Organización que realiza la solicitud del servicio",
+        "position" : "top"
+    },
+    {
+        "element" : "#helpDescription",
+        "intro" : "Descripción de la actividad económica de la organización",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpService",
+        "intro" : "Servicio a solicitar",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpServiceDescription",
+        "intro" : "Descripción del servicio a solicitar",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpServiceResume",
+        "intro" : "Resumen de la solicitud del servicio",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpServiceDepartment",
+        "intro" : "Unidad o departamento al que pertenece el servicio",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpServiceStaffName",
+        "intro" : "Nombre del personal asociado al servicio",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpServiceStaffLastName",
+        "intro" : "Apellido del personal asociado al servicio",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpServiceStaffPhone",
+        "intro" : "Número de teléfono del personal asociado al servicio",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpServiceStaffMail",
+        "intro" : "Correo del personal asociado al servicio",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpServiceRequirement",
+        "intro" : "Requerimientos del solicitante del servicio",
+        "position" : "top"
+    },
+    {
+        "element" : "#HelpButtons",
+        "intro" : "Botones para limpiar, cancelar, y guardar el formulario",
+        "position" : "top"
+    }
+]

@@ -269,8 +269,8 @@ class SaleServiceController extends Controller
         $saleService = SaleService::find($id);
         if ($saleService) {
             $saleService->delete();
-            return response()->json(['result' => true, 'redirect' => route('sale.services.index'), 'message' => 'Success'], 200);
         }
+        return response()->json(['result' => true, 'redirect' => route('sale.services.index'), 'message' => 'Success'], 200);
     }
 
     /**

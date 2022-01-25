@@ -450,6 +450,7 @@ Route::group(
         Route::get('payment/payment_pending', 'SalePaymentController@pending');
         Route::get('payment/payment_approve', 'SalePaymentController@payment_approve');
         Route::get('payment/advance_define_attributes_approve', 'SalePaymentController@advance_define_attributes_approve');
+        Route::get('payment/edit/{id}', 'SalePaymentController@edit')->name('sale.payment.edit');
         
         Route::get(
             'get-sales-client/{id}',
@@ -532,7 +533,7 @@ Route::group(
         Route::post('reports/service-requests/filter-records', 'Reports\SaleServiceRequestController@filterRecords');
 
         Route::get(
-            'reports/service-requests/pdf/{ListIds}',
+            'reports/service-requests/pdf/{value?}',
             'Reports\SaleServiceRequestController@pdf'
         );
 

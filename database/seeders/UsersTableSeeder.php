@@ -41,14 +41,20 @@ class UsersTableSeeder extends Seeder
                 $adminName = $this->command->ask("Indique el nombre del usuario ${adminUser}");
                 $adminPass = $this->command->secret("Indique la contraseña del usuario ${adminUser}");
                 /** @var object Crea el usuario por defecto de la aplicación */
-                $user_admin = User::updateOrCreate(
+                $user_admin = User::withTrashed()->updateOrCreate(
                     ['username' => $adminUser, 'email' => $adminEmail],
                     [
                         'name' => $adminName,
                         'password' => Hash::make($adminPass),
                         'level' => 1,
                         'created_at' => Carbon::now(),
-                        'email_verified_at' => Carbon::now()
+                        'email_verified_at' => Carbon::now(),
+                        'deleted_at' => null,
+                        'blocked_at' => null,
+                        'last_login' => null,
+                        'remember_token' => null,
+                        'lock_screen' => false,
+                        'time_lock' => 10
                     ]
                 );
                 if (!$user_admin) {
@@ -79,14 +85,20 @@ class UsersTableSeeder extends Seeder
 
                 if ($usrTest==='s') {
                     /** Crea un usuario de prueba para entornos de desarrollo, sin roles ni permisos */
-                    User::updateOrCreate(
+                    User::withTrashed()->updateOrCreate(
                         ['username' => 'user', 'email' => 'user@kavac-testing.com'],
                         [
                             'name' => 'Usuario de prueba',
                             'password' => Hash::make('123456'),
                             'level' => 2,
                             'created_at' => Carbon::now(),
-                            'email_verified_at' => Carbon::now()
+                            'email_verified_at' => Carbon::now(),
+                            'deleted_at' => null,
+                            'blocked_at' => null,
+                            'last_login' => null,
+                            'remember_token' => null,
+                            'lock_screen' => false,
+                            'time_lock' => 10
                         ]
                     );
 
@@ -117,14 +129,20 @@ class UsersTableSeeder extends Seeder
                     $usrName = $this->command->ask("Indique el nombre del usuario ${usrUser}");
                     $password = generate_hash();
                     /** @var object Crea el usuario por defecto de la aplicación */
-                    $user = User::updateOrCreate(
+                    $user = User::withTrashed()->updateOrCreate(
                         ['username' => $usrUser, 'email' => $usrEmail],
                         [
                             'name' => $usrName,
                             'password' => Hash::make($password),
                             'level' => 2,
                             'created_at' => Carbon::now(),
-                            'email_verified_at' => Carbon::now()
+                            'email_verified_at' => Carbon::now(),
+                            'deleted_at' => null,
+                            'blocked_at' => null,
+                            'last_login' => null,
+                            'remember_token' => null,
+                            'lock_screen' => false,
+                            'time_lock' => 10
                         ]
                     );
                     if (!$user) {

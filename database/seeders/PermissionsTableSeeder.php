@@ -1,37 +1,37 @@
 <?php
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Roles\Models\Role;
-use App\Roles\Models\Permission;
+use App\Models\Tax;
 use App\Models\City;
-use App\Models\CodeSetting;
+use App\Models\User;
+use App\Models\Estate;
+use App\Models\Parish;
 use App\Models\Country;
+use App\Models\Setting;
+use App\Models\TaxUnit;
 use App\Models\Currency;
+use App\Models\Document;
 use App\Models\Deduction;
 use App\Models\Department;
-use App\Models\Document;
-use App\Models\DocumentStatus;
-use App\Models\Estate;
-use App\Models\ExchangeRate;
 use App\Models\HistoryTax;
-use App\Models\Institution;
-use App\Models\InstitutionSector;
-use App\Models\InstitutionType;
-use App\Models\MaritalStatus;
-use App\Models\MeasurementUnit;
-use App\Models\Municipality;
-use App\Models\Parish;
 use App\Models\Profession;
+use App\Roles\Models\Role;
+use App\Models\CodeSetting;
+use App\Models\Institution;
+use App\Models\ExchangeRate;
+use App\Models\Municipality;
+use App\Models\MaritalStatus;
+use App\Models\DocumentStatus;
+use App\Models\InstitutionType;
+use App\Models\MeasurementUnit;
+use Illuminate\Database\Seeder;
 use App\Models\RequiredDocument;
-use App\Models\Setting;
-use App\Models\Tax;
-use App\Models\TaxUnit;
-use App\Models\User;
+use App\Roles\Models\Permission;
+use App\Models\InstitutionSector;
 use OwenIt\Auditing\Models\Audit;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @class PermissionsTableSeeder

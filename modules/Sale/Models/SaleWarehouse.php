@@ -25,6 +25,7 @@ class SaleWarehouse extends Model implements Auditable
     use AuditableTrait;
     use ModelsTrait;
 
+    protected $with = ['parish'];
     /**
      * Lista de atributos para la gestión de fechas
      * @var array $dates
@@ -35,7 +36,8 @@ class SaleWarehouse extends Model implements Auditable
      * Lista de atributos que pueden ser asignados masivamente
      * @var array $fillable
      */
-    protected $fillable = ['name','main','active','address','institution_id','parish_id'];
+    protected $fillable = ['name','main','active','address','institution_id','country_id','estate_id',
+                            'municipality_id','parish_id',];
 
     /**
      * Método que obtiene las instituciones que gestionan el almacén
@@ -47,5 +49,16 @@ class SaleWarehouse extends Model implements Auditable
     public function saleWarehouseInstitutionWarehouses()
     {
         return $this->hasMany(SaleWarehouseInstitutionWarehouse::class);
+    }
+
+    /**
+     * Método que obtiene la solicitud asociado a una parroquia
+     *
+     * @author
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function parish()
+    {
+        return $this->belongsTo(Parish::class);
     }
 }

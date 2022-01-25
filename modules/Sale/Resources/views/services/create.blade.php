@@ -20,13 +20,13 @@
 @section('content')
 <div class="row">
     <div class="col-12">
-        <div class="card" id="cardSaleServiceForm">
+        <div class="card" id="cardSaleServicesForm">
             <div class="card-header">
                 <h6 class="card-title text-uppercase">Nueva Solicitud de Servicio
                     @include('buttons.help', [
-                        'helpId' => 'SaleserviceForm',
+                        'helpId' => 'SaleServicesForm',
+                        'helpSteps' => get_json_resource('ui-guides/services/service_form.json', 'sale')
                     ])
-                </h6>
                 </h6>
                 <div class="card-btns">
                     @include('buttons.previous', ['route' => url()->previous()])

@@ -1,14 +1,14 @@
 <?php
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-
-use Illuminate\Database\Eloquent\Model;
-use App\Roles\Models\Role;
-use App\Roles\Models\Permission;
-use App\Models\Country;
 use App\Models\Estate;
-use DB;
+
+use App\Models\Country;
+use App\Roles\Models\Role;
+use Illuminate\Database\Seeder;
+use App\Roles\Models\Permission;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @class EstatesTableSeeder
@@ -97,9 +97,9 @@ class EstatesTableSeeder extends Seeder
 
         DB::transaction(function () use ($adminRole, $permissions, $country_default, $estates) {
             foreach ($estates as $code => $state) {
-                Estate::updateOrCreate(
+                Estate::withTrashed()->updateOrCreate(
                     ['code' => $code],
-                    ['name' => $state, 'country_id' => $country_default->id]
+                    ['name' => $state, 'country_id' => $country_default->id, 'deleted_at' => null]
                 );
             }
 

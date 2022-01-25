@@ -1,13 +1,13 @@
 <?php
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-
-use Illuminate\Database\Eloquent\Model;
 use App\Roles\Models\Role;
-use App\Roles\Models\Permission;
+
 use App\Models\MaritalStatus;
-use DB;
+use Illuminate\Database\Seeder;
+use App\Roles\Models\Permission;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @class MaritalStatusTableSeeder
@@ -65,10 +65,22 @@ class MaritalStatusTableSeeder extends Seeder
         ];
 
         DB::transaction(function () use ($adminRole, $permissions) {
-            MaritalStatus::updateOrCreate(['name' => 'Soltero(a)'], []);
-            MaritalStatus::updateOrCreate(['name' => 'Casado(a)'], []);
-            MaritalStatus::updateOrCreate(['name' => 'Divorciado(a)'], []);
-            MaritalStatus::updateOrCreate(['name' => 'Viudo(a)'], []);
+            MaritalStatus::withTrashed()->updateOrCreate(
+                ['name' => 'Soltero(a)'],
+                ['deleted_at' => null]
+            );
+            MaritalStatus::withTrashed()->updateOrCreate(
+                ['name' => 'Casado(a)'], 
+                ['deleted_at' => null]
+            );
+            MaritalStatus::withTrashed()->updateOrCreate(
+                ['name' => 'Divorciado(a)'], 
+                ['deleted_at' => null]
+            );
+            MaritalStatus::withTrashed()->updateOrCreate(
+                ['name' => 'Viudo(a)'], 
+                ['deleted_at' => null]
+            );
 
             foreach ($permissions as $permission) {
                 $per = Permission::updateOrCreate(
