@@ -361,6 +361,24 @@ class SalePaymentController extends Controller
     }
    
     /**
+     * Vizualiza información de una solicitud de pagos
+     *
+     * @author Miguel Narvaez <mnarvaezcenditel.gob.ve>
+     * @param  Integer $id Identificador único de la solicitud de almacén
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
+     */
+    public function vueInfo($id)
+    {
+
+        $payment = SaleService::where('id', $id)->with(['SaleGoodsToBeTraded'])
+                    ->join("sale_register_payments","sale_services.id","=","sale_register_payments.order_service_id")
+                    ->join("sale_clients","sale_services.sale_client_id","=","sale_clients.id")
+                    ->first();
+
+        return response()->json(['record' => $payment], 200);
+    }
+
+    /**
      * Muestra una lista de pediros registrados
      *
      * @author Miguel Narvaez <mnarvaezcenditel.gob.ve>

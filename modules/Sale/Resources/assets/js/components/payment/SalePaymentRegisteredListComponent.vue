@@ -10,18 +10,25 @@
             </div>
         </div>
         <div slot="id" slot-scope="props" class="text-center">
-            <button class="btn btn-warning btn-xs btn-icon btn-action"
-                    title="Modificar registro"
-                    data-toggle="tooltip"
-                    v-on:click="editForm(props.row.id)">
-                <i class="fa fa-edit"></i>
-            </button>
-            <button class="btn btn-danger btn-xs btn-icon btn-action"
-                    title="Eliminar registro"
-                    data-toggle="tooltip"
-                    v-on:click="deleteRecord(props.index,'/sale/payment')">
-                <i class="fa fa-trash-o"></i>
-            </button>
+            <div class="d-inline-flex">
+                <button @click.prevent="setDetails('PaymentInfo', props.row.id, 'SalePaymentInfo')"
+                        class="btn btn-info btn-xs btn-icon btn-action btn-tooltip"
+                        title="Ver registro" data-toggle="tooltip" data-placement="bottom" type="button">
+                    <i class="fa fa-eye"></i>
+                </button>
+                <button class="btn btn-warning btn-xs btn-icon btn-action"
+                        title="Modificar registro"
+                        data-toggle="tooltip"
+                        v-on:click="editForm(props.row.id)">
+                    <i class="fa fa-edit"></i>
+                </button>
+                <button class="btn btn-danger btn-xs btn-icon btn-action"
+                        title="Eliminar registro"
+                        data-toggle="tooltip"
+                        v-on:click="deleteRecord(props.index,'/sale/payment')">
+                    <i class="fa fa-trash-o"></i>
+                </button>
+            </div>
         </div>
     </v-client-table>
 </div>
