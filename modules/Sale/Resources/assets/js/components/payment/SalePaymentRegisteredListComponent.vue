@@ -1,7 +1,7 @@
 <template>
 <div>
 
-    <v-client-table :columns="columns" :data="records" :options="table_options">
+    <v-client-table :columns="columns" :data="records" :options="table_options" ref="tableResults">
         <div slot="sale_goods_name" slot-scope="props" class="text-center">
             <div v-for="sale_goods in props.row.sale_goods">
                 <p v-for="sale_good in sale_goods" >
