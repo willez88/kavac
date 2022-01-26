@@ -61,7 +61,7 @@
                 <div class="col-md-3">
                     <label class="control-label">Estatus</label>
                     <div class="form-group is-required">
-                        <select2 :options="status_list" v-model="record.status"></select2>
+                        <select2 :options="state_list" v-model="record.state"></select2>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -89,9 +89,26 @@
         </div>
         <div class="col-12"><hr></div>
         <div class="col-12">
-            <v-client-table :columns="columns" :data="records" :options="table_options" ref="tableResults">
-                <div slot="date" slot-scope="props">
-                    {{ props.row.created_at }}
+            <v-client-table :columns="columns" :data="records" :options="table_options">
+                <div slot="product_name" slot-scope="props">
+                    <p v-for="product in props.row.sale_bill_inventory_product">
+                        {{ (product.product_type == 'Servicio') ? product.sale_goods_to_be_traded.name : product.sale_warehouse_inventory_product.sale_setting_product.name }}
+                    </p>
+                </div>
+                <div slot="price" slot-scope="props">
+                    <p v-for="product in props.row.sale_bill_inventory_product">
+                        {{ product.value }}
+                    </p>
+                </div>
+                <div slot="currency" slot-scope="props">
+                    <p v-for="product in props.row.sale_bill_inventory_product">
+                        {{ product.currency.symbol + ' - ' + product.currency.name }}
+                    </p>
+                </div>
+                <div slot="state" slot-scope="props">
+                    <span>
+                        {{ (props.row.state)?props.row.state:'N/A' }}
+                    </span>
                 </div>
                 <div slot="id" slot-scope="props">
                     <input type="checkbox" id="CheckAddToReport" @click="addToReport(props.row.id)">
@@ -124,12 +141,12 @@ export default {
     },
     data() {
         return {
-            reportUrl:'sale/reports/service-requests/pdf',
+            reportUrl:'sale/reports/bills/pdf',
             record: {
                 filterDate  : '',
                 dateIni     : '',
                 dateEnd     : '',
-                status      : 'Todos',
+                state      : 'Todos',
                 month_init  : '',
                 year_init   : new Date().getFullYear(),
                 month_end   : '',
@@ -137,7 +154,7 @@ export default {
                 check_client: false,
                 clients     : [],
             },
-            status_list:[
+            state_list:[
                 { id:'Todos', text:'Todos' },
                 { id:'Pendiente', text:'Pendiente' },
                 { id:'Aprobado', text:'Aprobado' },
@@ -177,7 +194,7 @@ export default {
                 filterDate  : '',
                 dateIni     : '',
                 dateEnd     : '',
-                status      : 'Todos',
+                state       : 'Todos',
                 month_init  : '',
                 year_init   : new Date().getFullYear(),
                 month_end   : '',
@@ -216,10 +233,11 @@ export default {
         * Consulta y filtra los registros de solicitud de servicios
         *
         * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+        * @author Daniel Contreras <dcontreras@cenditel.gob.ve | exodiadaniel@gmail.com>
         */
         searchRecords(){
             const vm = this;
-            axios.post('/sale/reports/service-requests/filter-records', this.record).then(response => {
+            axios.post('/sale/reports/bills/filter-records', this.record).then(response => {
                 vm.recordsToReport = [];
                 vm.records = response.data.records;
             });

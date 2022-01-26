@@ -41,12 +41,59 @@ class SaleBillReportController extends Controller
      * @method    vueList
      *
      * @author    Ing. Argenis Osorio <aosorio@cenditel.gob.ve>
+     * @author    Daniel Contreras <dcontreras@cenditel.gob.ve>
      *
      * @return    Renderable    [description de los datos devueltos]
-     */
     public function vueList()
     {
-        $bills = SaleBill::get();
+        $bills = SaleBill::with(['SaleFormPayment', 'saleBillInventoryProduct' => function ($query) {
+                        $query->with(['saleGoodsToBeTraded', 'currency', 'saleListSubservices', 'measurementUnit', 'historyTax',
+                            'saleWarehouseInventoryProduct' => function ($q) {
+                                $q->with('saleSettingProduct');
+                        }]);
+                    }])->get();
         return response()->json(['records' => $bills], 200);
+    }
+
+    */
+    /**
+     * [descripción del método]
+     *
+     * @method    filterRecords
+     *
+     * @author    Daniel Contreras <dcontreras@cenditel.gob.ve>
+     *
+     * @param     Requert    $request    Informacion de la consulta
+     *
+     * @return    Response
+     */
+    public function filterRecords(Request $request){
+        $filter = $request->all();
+
+        $records = SaleBill::with(['SaleFormPayment', 'saleBillInventoryProduct' => function ($query) {
+                        $query->with(['saleGoodsToBeTraded', 'currency', 'saleListSubservices', 'measurementUnit', 'historyTax',
+                            'saleWarehouseInventoryProduct' => function ($q) {
+                                $q->with('saleSettingProduct');
+                        }]);
+                    }]);
+
+        if ($filter['filterDate'] == 'specific') {
+            if ($filter['dateIni'] != null && $filter['dateEnd'] != null) {
+                $records->whereDate('created_at', '>=', $filter['dateIni'])->whereDate('created_at', '<=', $filter['dateEnd']);
+            }
+        }
+        else if ($filter['filterDate'] == 'general') {
+            if ($filter['year_init'] != null && $filter['year_end'] != null && $filter['month_init'] != null && $filter['month_end'] != null) {
+                $records->whereYear('created_at', '>=', $filter['year_init'])->whereYear('created_at', '<=', $filter['year_end'])
+                        ->whereMonth('created_at', '>=', $filter['month_init'])->whereMonth('created_at', '<=', $filter['month_end']);
+            }
+        }
+
+        if ($filter['state'] != null && $filter['state'] != 'Todos') {
+            $records->where('state', $filter['state']);
+        }
+        return response()->json([
+            'records' => $records->get(),
+            'message' => 'success'], 200);
     }
 }
