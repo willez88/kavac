@@ -451,6 +451,8 @@ Route::group(
         Route::get('payment/payment_approve', 'SalePaymentController@payment_approve');
         Route::get('payment/advance_define_attributes_approve', 'SalePaymentController@advance_define_attributes_approve');
         Route::get('payment/edit/{id}', 'SalePaymentController@edit')->name('sale.payment.edit');
+        Route::get('payment/info/{id}', 'SalePaymentController@vueInfo');
+        
         
         Route::get(
             'get-sales-client/{id}',

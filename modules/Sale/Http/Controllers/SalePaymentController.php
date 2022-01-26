@@ -115,10 +115,12 @@ class SalePaymentController extends Controller
             'payment_date' => ['required'],
         ]);
         //anticipo
-        $advance_define_attributes = ($request->advance !== null) ? true : false;
+        $advance_define_attributes = ($request->advance == null) ? false : true;
         $SalePayment = SaleRegisterPayment::create([
             'order_or_service_define_attributes' => $order_or_service_define_attributes, 'order_service_id' => $order_service_id, 'total_amount' => $total_amount, 'way_to_pay' => $request->currency_id, 'banking_entity' => $request->bank_id, 'reference_number' => $request->number_reference, 'payment_date' => $request->payment_date, 'advance_define_attributes' => $advance_define_attributes
         ]);
+
+
         if ($advance_define_attributes == true) {
             /**
              * [$pdf base para generar el pdf del recibo de pago]

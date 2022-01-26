@@ -31,7 +31,7 @@
             </div>
             <div class="col-md-3">
                 <div class="form-group" v-show="show_order">
-                    <label>Pedido:</label>
+                    <label>Producto:</label>
                     <select2 :options="sale_order_list"
                              v-model="record.sale_order_id" @input="getSaleService(); show();" ></select2>
                 </div>

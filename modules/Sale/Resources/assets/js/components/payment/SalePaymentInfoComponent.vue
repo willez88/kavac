@@ -36,7 +36,7 @@
                                         <strong>Tipo de persona</strong>
                                         <div class="row" style="margin: 1px 0">
                                             <span class="col-md-12">
-                                                {{ record.type_person }}
+                                                {{ record.type_person_juridica }}
                                             </span>
                                         </div>
                                     </div>
@@ -66,7 +66,7 @@
                                         <strong>Nombre de la empresa</strong>
                                         <div class="row" style="margin: 1px 0">
                                             <span class="col-md-12">
-                                                {{ record.name }}
+                                                {{ record.organization }}
                                             </span>
                                         </div>
                                     </div>
@@ -86,7 +86,7 @@
                                         <strong>Teléfono de contacto  </strong>
                                         <div class="row" style="margin: 1px 0">
                                             <span class="col-md-12">
-                                                {{ record.phone }}
+                                                {{ record.phones }}
                                             </span>
                                         </div>
                                     </div>
@@ -96,27 +96,27 @@
                                         <strong>Correo electrónico</strong>
                                         <div class="row" style="margin: 1px 0">
                                             <span class="col-md-12">
-                                                {{ record.email }}
+                                                {{ record.emails }}
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <strong>Forma de cobro</strong>
+                                        <strong>Fecha de pago</strong>
                                         <div class="row" style="margin: 1px 0">
                                             <span class="col-md-12">
-                                                {{ record.sale_form_payment_id ? record.sale_form_payment.name_form_payment : '' }}
+                                                {{ record.payment_date }}
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6" v-if="record.rejected_reason">
                                     <div class="form-group">
-                                        <strong>Motivo del rechazo</strong>
+                                        <strong>Pago rechazado</strong>
                                         <div class="row" style="margin: 1px 0">
                                             <span class="col-md-12">
-                                                {{ record.rejected_reason }}
+                                                {{ record.payment_refuse }}
                                             </span>
                                         </div>
                                     </div>
@@ -143,25 +143,7 @@
         data() {
             return {
                 record: {
-                    bill_taxs:'',
-                    bill_total_without_taxs:'',
-                    bill_totals:'',
-                    code:'',
-                    created_at:'',
-                    deleted_at:'',
-                    email:'',
-                    id:'',
-                    id_number:'',
-                    name:'',
-                    phone:'',
-                    rif:'',
-                    sale_bill_inventory_product:[],
-                    sale_bill_products:{},
-                    sale_form_payment:{},
-                    sale_form_payment_id:'',
-                    state:'',
-                    type:'',
-                    type_person:'',
+                    total_amount:'',
                 },
                 errors: [],
             }

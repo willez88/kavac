@@ -121,7 +121,10 @@
             </div>
         </div>
     </div>
-</div>     
+</div>
+    <sale-payment-info
+        ref="PaymentInfo">
+    </sale-payment-info>     
 @stop
 
 @section('extra-js')
