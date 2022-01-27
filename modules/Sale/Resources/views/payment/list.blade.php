@@ -37,8 +37,10 @@
             </div>
 		    <div class="card-body">
                 <payment-registered-list 
-                    route_list="{{ url('sale/payment/vue-list') }}">
-                    {{-- route_edit="{{ url('sale/payment/edit/{id}') }}">  --}}
+                    route_list="{{ url('sale/payment/vue-list') }}"
+                    route_edit="{{ url('sale/payment/edit/{id}') }}"
+                    route_delete="{{ url('sale/payment/delete') }}"
+                    >
                 </payment-registered-list>
             </div>
         </div>
@@ -59,7 +61,6 @@
                         'title'       => __('Descargar'),
                         'onclick'     => 'exportData()'
                     ]) !!}     
-                    @include('buttons.new', ['route' => route('payment.register.create')])
                     @include('buttons.minimize')
                 </div>
             </div>
@@ -85,7 +86,6 @@
                         'title'       => __('Descargar'),
                         'onclick'     => 'exportData()'
                     ]) !!}     
-                    @include('buttons.new', ['route' => route('payment.register.create')])
                     @include('buttons.minimize')
                 </div>
             </div>  
@@ -111,12 +111,15 @@
                         'title'       => __('Descargar'),
                         'onclick'     => 'exportData()'
                     ]) !!}     
-                    @include('buttons.new', ['route' => route('payment.register.create')])
                     @include('buttons.minimize')
                 </div>
             </div>  
             <div class="card-body">
-                <approved-advance-payments-list route_list="{{ url('sale/payment/advance_define_attributes_approve') }}"></approved-advance-payments-list>
+                <approved-advance-payments-list 
+                route_list="{{ url('sale/payment/advance_define_attributes_approve') }}"
+                >
+                    
+                </approved-advance-payments-list>
                 {{-- <payment-registered-list route_edit="{{ url('sale/payment/{id}/edit') }}" /> --}}
             </div>
         </div>

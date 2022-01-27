@@ -38,7 +38,10 @@ class SaleRegisterPayment extends Model implements Auditable
      */
     protected $fillable = ['id','order_or_service_define_attributes','order_service_id','total_amount','way_to_pay','banking_entity','reference_number','payment_date','advance_define_attributes','payment_approve','payment_refuse'];
 
-
+    public function saleService()
+    {
+        return $this->belongsTo(SaleService::class, 'order_service_id', 'id');
+    }
 
 }
 

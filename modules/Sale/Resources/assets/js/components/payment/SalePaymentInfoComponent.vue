@@ -17,13 +17,17 @@
                     <ul class="nav nav-tabs custom-tabs justify-content-center" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" id="info_general" href="#general" role="tab">
-                                <i class="ion-android-person"></i> Información General
+                                <i class="ion-android-person"></i> Datos del Cliente
                             </a>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#products" role="tab">
-                                <i class="ion-arrow-swap"></i> Productos/Servicios Solicitados
+                                <i class="ion-arrow-swap"></i> Datos del Servicio o Pedido
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#products" role="tab">
+                                <i class="ion-cash"></i> Datos del Pago
                             </a>
                         </li>
                     </ul>

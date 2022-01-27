@@ -325,8 +325,9 @@ class SalePaymentController extends Controller
      */
     public function edit($id)
     {
+        
         $payment = SaleRegisterPayment::find($id);
-        return view('sale::payment.list', compact("payment"));
+        return view('sale::payment.create', compact("payment"));
     }
     
     /**
@@ -343,6 +344,8 @@ class SalePaymentController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd($id) ;
+
         //
     }
 
@@ -359,7 +362,9 @@ class SalePaymentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $payment = SaleRegisterPayment::find($id);
+        $payment->delete();
+        return response()->json(['record' => $payment, 'message' => 'Success'], 200);
     }
    
     /**
@@ -371,11 +376,13 @@ class SalePaymentController extends Controller
      */
     public function vueInfo($id)
     {
-
-        $payment = SaleService::where('id', $id)->with(['SaleGoodsToBeTraded'])
-                    ->join("sale_register_payments","sale_services.id","=","sale_register_payments.order_service_id")
+/*
+        $payment = SaleService::with(['SaleGoodsToBeTraded'])
+                    ->join("sale_register_payments","sale_services.".$id."","=","sale_register_payments.order_service_id")
                     ->join("sale_clients","sale_services.sale_client_id","=","sale_clients.id")
                     ->first();
+*/
+        $payment = SaleRegisterPayment::with('saleService')->where('id', $id)->get();
 
         return response()->json(['record' => $payment], 200);
     }
@@ -481,5 +488,34 @@ class SalePaymentController extends Controller
         $total = array_sum($sumatoria);  
         $value = array('code' =>  $SaleService->code, 'total' =>  $total, 'name' =>  $saleClients->name, 'idntifiaction' =>  $saleClients->id_type, 'identification_number' =>  $saleClients->id_number, 'rif' =>  $saleClients->rif, 'email' =>  $saleClientsEmail->email, 'phone_extension' =>  $saleClientsPhone->extension, 'phone_area_code' =>  $saleClientsPhone->area_code, 'total' =>  $total, 'phone_number' =>  $saleClientsPhone->number);
         return response()->json(['sale_service' => $value], 200);
+    }
+
+    /**
+     * Aprueba la solicitud realizada
+     *
+     * @author Miguel Narvaez <mnarvaezcenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de los clientes
+     */
+    public function approvedPayment(Request $request, $id)
+    {
+        $payment = SaleRegisterPayment::find($id);
+        $payment->payment_approve = true;
+        $payment->save();
+
+        return response()->json(['record' => $payment, 'message' => 'Success'], 200);
+    }
+    /**
+     * Rechaza la solicitud realizada
+     *
+     * @author Miguel Narvaez <mnarvaezcenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de los clientes
+     */
+        public function refusePayment(Request $request, $id)
+    {
+        $payment = SaleRegisterPayment::find($id);
+        $payment->payment_refuse = true;
+        $payment->save();
+
+        return response()->json(['record' => $payment, 'message' => 'Success'], 200);
     }
 }
