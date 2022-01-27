@@ -31,7 +31,7 @@
             </div>
             <div class="col-md-3">
                 <div class="form-group" v-show="show_order">
-                    <label>Pedido:</label>
+                    <label>Producto:</label>
                     <select2 :options="sale_order_list"
                              v-model="record.sale_order_id" @input="getSaleService(); show();" ></select2>
                 </div>
@@ -191,23 +191,18 @@ export default {
         async loadForm(id){
             const vm = this;
 
-            await axios.get('/sale/services/info/'+id).then(response => {
+            await axios.get('/sale/payment/info/'+id).then(response => {
                 if(typeof(response.data.record != "undefined")){
-                    vm.record = response.data.record;
-
-                    vm.sale_goods_to_be_traded = [];
-                    vm.record.requirements = [];
-
-                    for (let data of vm.services) {
-                        for (let good_id of response.data.record.sale_goods_to_be_traded) {
-                            if (good_id == data.id) {
-                                vm.sale_goods_to_be_traded.push(data);
-                            }
-                        }
-                    }
-
-                    for (let requirement of response.data.record.sale_service_requirement) {
-                        vm.record.requirements.push(requirement);
+                    let data = response.data.record;
+                    vm.record = {
+                        id: data.id,
+                        sale_service_id: data.sale_service_id,
+                        sale_order_id: data.sale_order_id,
+                        currency_id: data.currency_id,
+                        bank_id: data.bank_id,
+                        number_reference: data.number_reference,
+                        payment_date: data.payment_date,
+                        advance: data.advance,
                     }
                 }
             });
@@ -330,15 +325,15 @@ export default {
     mounted() {
         const vm = this;
 
-        if(this.serviceid){
-            this.loadForm(this.serviceid);
+        if(this.paymentid){
+            this.loadForm(this.paymentid);
         }
         else {
             vm.record.date = moment(String(new Date())).format('YYYY-MM-DD');
         }
     },
     props: {
-        serviceid: {
+        paymentid: {
             type: Number
         },
     },

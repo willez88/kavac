@@ -34,7 +34,7 @@
                 </div>
             </div>
             <payment-registered-create
-                :serviceid ="{!! (isset($services)) ? $services->id : 'null' !!}">
+                :paymentid ="{!! (isset($payment)) ? $payment->id : 'null' !!}">
             </payment-registered-create>
         </div>
     </div>

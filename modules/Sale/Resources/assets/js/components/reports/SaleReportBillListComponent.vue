@@ -61,7 +61,7 @@
                 <div class="col-md-3">
                     <label class="control-label">Estatus</label>
                     <div class="form-group is-required">
-                        <select2 :options="status_list" v-model="record.status"></select2>
+                        <select2 :options="state_list" v-model="record.state"></select2>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -89,22 +89,39 @@
         </div>
         <div class="col-12"><hr></div>
         <div class="col-12">
-            <v-client-table :columns="columns" :data="records" :options="table_options" ref="tableResults">
-                <div slot="date" slot-scope="props">
-                    {{ props.row.created_at }}
+            <v-client-table :columns="columns" :data="records" :options="table_options">
+                <div slot="product_name" slot-scope="props">
+                    <p v-for="product in props.row.sale_bill_inventory_product">
+                        {{ (product.product_type == 'Servicio') ? product.sale_goods_to_be_traded.name : product.sale_warehouse_inventory_product.sale_setting_product.name }}
+                    </p>
+                </div>
+                <div slot="price" slot-scope="props">
+                    <p v-for="product in props.row.sale_bill_inventory_product">
+                        {{ product.value }}
+                    </p>
+                </div>
+                <div slot="currency" slot-scope="props">
+                    <p v-for="product in props.row.sale_bill_inventory_product">
+                        {{ product.currency.symbol + ' - ' + product.currency.name }}
+                    </p>
+                </div>
+                <div slot="state" slot-scope="props">
+                    <span>
+                        {{ (props.row.state)?props.row.state:'N/A' }}
+                    </span>
                 </div>
                 <div slot="id" slot-scope="props">
                     <input type="checkbox" id="CheckAddToReport" @click="addToReport(props.row.id)">
                 </div>
             </v-client-table>
         </div>
-        <!--div class="card-footer text-right" v-if="records.length > 0">
+        <div class="card-footer text-right" v-if="records.length > 0">
             <button class="btn btn-primary btn-sm" data-toggle="tooltip" title="Generar Reporte" :disabled="recordsToReport.length == 0"
-                    v-on:click="OpenPdf(getUrlReport(), '_blank')" id="saleOrderGenerateReport">
+                    v-on:click="OpenPdf(getUrlReport(), '_blank')" id="saleBillGenerateReport">
                 <span>Generar reporte</span>
                 <i class="fa fa-print"></i>
             </button>
-        </!div-->
+        </div>
     </section>
 </template>
 
@@ -124,12 +141,12 @@ export default {
     },
     data() {
         return {
-            reportUrl:'sale/reports/service-requests/pdf',
+            reportUrl:'sale/reports/bills/pdf',
             record: {
                 filterDate  : '',
                 dateIni     : '',
                 dateEnd     : '',
-                status      : 'Todos',
+                state      : 'Todos',
                 month_init  : '',
                 year_init   : new Date().getFullYear(),
                 month_end   : '',
@@ -137,7 +154,7 @@ export default {
                 check_client: false,
                 clients     : [],
             },
-            status_list:[
+            state_list:[
                 { id:'Todos', text:'Todos' },
                 { id:'Pendiente', text:'Pendiente' },
                 { id:'Aprobado', text:'Aprobado' },
@@ -177,7 +194,7 @@ export default {
                 filterDate  : '',
                 dateIni     : '',
                 dateEnd     : '',
-                status      : 'Todos',
+                state       : 'Todos',
                 month_init  : '',
                 year_init   : new Date().getFullYear(),
                 month_end   : '',
@@ -216,10 +233,11 @@ export default {
         * Consulta y filtra los registros de solicitud de servicios
         *
         * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+        * @author Daniel Contreras <dcontreras@cenditel.gob.ve | exodiadaniel@gmail.com>
         */
         searchRecords(){
             const vm = this;
-            axios.post('/sale/reports/service-requests/filter-records', this.record).then(response => {
+            axios.post('/sale/reports/bills/filter-records', this.record).then(response => {
                 vm.recordsToReport = [];
                 vm.records = response.data.records;
             });
@@ -254,6 +272,22 @@ export default {
                 vm.recordsToReport.push(id);
             }
             vm.recordsToReport.sort();
+        },
+
+        /**
+        * Abre una nueva ventana en el navegador
+        *
+        * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+        * @param  {string} url para la nueva ventana
+        * @param  {string} type tipo de ventana que se desea abrir
+        * @return {boolean} Devuelve falso si no se ha indicado alguna información requerida
+        */
+        OpenPdf(url, type){
+            const vm = this;
+            if (!url) {
+                return;
+            }
+            window.open(url, type);
         },
 
         getUrlReport(){

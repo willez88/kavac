@@ -259,6 +259,22 @@ export default {
             vm.recordsToReport.sort();
         },
 
+        /**
+        * Abre una nueva ventana en el navegador
+        *
+        * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+        * @param  {string} url para la nueva ventana
+        * @param  {string} type tipo de ventana que se desea abrir
+        * @return {boolean} Devuelve falso si no se ha indicado alguna información requerida
+        */
+        OpenPdf(url, type){
+            const vm = this;
+            if (!url) {
+                return;
+            }
+            window.open(url, type);
+        },
+
         getUrlReport(){
             const vm = this;
             return ('/'+vm.reportUrl+'/['+vm.recordsToReport+']');

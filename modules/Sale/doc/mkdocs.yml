@@ -9,6 +9,11 @@ nav:
       - Inicio: index.md
       - Módulo de Comercialización:
         - Solicitud de Servicios: service_request.md
+        - Facturas: bills.md
+        - Recepciones de almacén: receptions.md
+        - Pagos: payment.md
+        - Pedidos: order.md
+        - Cotizaciones: quotes.md
       - Configuración: 
         - Formatos de Códigos: setting/code_format.md
         - Registros Comunes: setting/common_registers.md

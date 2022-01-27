@@ -450,6 +450,14 @@ Route::group(
         Route::get('payment/payment_pending', 'SalePaymentController@pending');
         Route::get('payment/payment_approve', 'SalePaymentController@payment_approve');
         Route::get('payment/advance_define_attributes_approve', 'SalePaymentController@advance_define_attributes_approve');
+        Route::get('payment/edit/{id}', 'SalePaymentController@edit')->name('sale.payment.edit');
+        Route::get('payment/delete/{id}', 'SalePaymentController@destroy')->name('sale.payment.delete');
+        Route::get('payment/info/{id}', 'SalePaymentController@vueInfo');
+        Route::get('payment/approvedPayment/{id}', 'SalePaymentController@approvedPayment');
+        Route::get('payment/refusePayment/{id}', 'SalePaymentController@refusePayment');
+        Route::get('payment/update/{id}', 'SalePaymentController@update');
+        
+        
         
         Route::get(
             'get-sales-client/{id}',
@@ -532,7 +540,7 @@ Route::group(
         Route::post('reports/service-requests/filter-records', 'Reports\SaleServiceRequestController@filterRecords');
 
         Route::get(
-            'reports/service-requests/pdf/{ListIds}',
+            'reports/service-requests/pdf/{value?}',
             'Reports\SaleServiceRequestController@pdf'
         );
 
@@ -543,6 +551,12 @@ Route::group(
          */
         Route::get('reports/bills', 'Reports\SaleBillReportController@index')
         ->name('sale.report.bill');
-        Route::get('reports/bills/vue-list', 'Reports\SaleBillReportController@vueList');
+
+        Route::post('reports/bills/filter-records', 'Reports\SaleBillReportController@filterRecords');
+
+        Route::get(
+            'reports/bills/pdf/{value?}',
+            'Reports\SaleBillReportController@pdf'
+        );
     }
 );

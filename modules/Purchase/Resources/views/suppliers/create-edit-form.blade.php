@@ -23,7 +23,7 @@
 				<div class="card-header">
 					<h6 class="card-title">Proveedor</h6>
 					<div class="card-btns">
-						@include('buttons.previous', ['route' => url()->previous()])
+						@include('buttons.previous', ['route' => route('purchase.suppliers.index')])
 						@include('buttons.minimize')
 					</div>
 				</div>
@@ -223,7 +223,8 @@
                                                       title="Indique la dirección del proveedor"
                                                       :config="ckeditor.editorConfig" name="direction"
                                                       class="form-control" tag-name="textarea" rows="3"
-                                                      placeholder="dirección del proveedor"></ckeditor>
+                                                      placeholder="dirección del proveedor" value="{{isset($model) ? $model->direction : ''}}">
+                                                      </ckeditor>
 										</div>
 									</div>
 								</div>

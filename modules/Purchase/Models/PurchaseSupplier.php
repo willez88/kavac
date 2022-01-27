@@ -38,7 +38,7 @@ class PurchaseSupplier extends Model implements Auditable
     protected $fillable = [
         'rif', 'code', 'name', 'direction', 'person_type', 'company_type', 'contact_name', 'contact_email', 'website',
         'active', 'purchase_supplier_specialty_id', 'purchase_supplier_type_id', 'purchase_supplier_object_id',
-        'purchase_supplier_branch_id', 'city_id', 'rnc_status', 'rnc_certificate_number'
+        'purchase_supplier_branch_id', 'country_id', 'estate_id', 'city_id', 'rnc_status', 'rnc_certificate_number'
     ];
 
     /**
@@ -70,6 +70,26 @@ class PurchaseSupplier extends Model implements Auditable
     public function purchaseSupplierType()
     {
         return $this->belongsTo(PurchaseSupplierType::class);
+    }
+
+    /**
+     * PurchaseSupplier belongs to Country.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    /**
+     * PurchaseSupplier belongs to Estate.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function estate()
+    {
+        return $this->belongsTo(Estate::class);
     }
 
     /**

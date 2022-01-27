@@ -1,7 +1,7 @@
 <template>
 <div>
 
-    <v-client-table :columns="columns" :data="records" :options="table_options">
+    <v-client-table :columns="columns" :data="records" :options="table_options" ref="tableResults">
         <div slot="sale_goods_name" slot-scope="props" class="text-center">
             <div v-for="sale_goods in props.row.sale_goods">
                 <p v-for="sale_good in sale_goods" >
@@ -10,18 +10,34 @@
             </div>
         </div>
         <div slot="id" slot-scope="props" class="text-center">
-            <button class="btn btn-warning btn-xs btn-icon btn-action"
-                    title="Modificar registro"
-                    data-toggle="tooltip"
-                    v-on:click="editForm(props.row.id)">
-                <i class="fa fa-edit"></i>
-            </button>
-            <button class="btn btn-danger btn-xs btn-icon btn-action"
-                    title="Eliminar registro"
-                    data-toggle="tooltip"
-                    v-on:click="deleteRecord(props.index,'/sale/payment')">
-                <i class="fa fa-trash-o"></i>
-            </button>
+            <div class="d-inline-flex">
+                <button @click.prevent="setDetails('PaymentInfo', props.row.id, 'SalePaymentInfo')"
+                        class="btn btn-info btn-xs btn-icon btn-action btn-tooltip"
+                        title="Ver registro" data-toggle="tooltip" data-placement="bottom" type="button">
+                    <i class="fa fa-eye"></i>
+                </button>            
+                <button type="button" data-toggle="tooltip"
+                        data-placement="bottom"
+                        class="btn btn-primary btn-xs btn-icon btn-action"
+                        title="Presione para descargar el documento con la información del registros."
+                        v-on:click="deleteRecord(props.index,'/sale/payment/download')">
+                    <i class="fa fa-download"></i>
+                </button>                 
+                <button type="button" data-toggle="tooltip"
+                        data-placement="bottom"
+                        class="btn btn-primary btn-xs btn-icon btn-action"
+                        title="Aprobar."
+                        v-on:click="deleteRecord(props.index,'/sale/payment/aprobe')">
+                    <i class="icofont icofont-check-circled ico-3x"></i>
+                </button> 
+                <button class="btn btn-danger btn-xs btn-icon btn-action"
+                    title="Rechazar solicitud" data-toggle="tooltip" data-placement="bottom" type="button"
+                    @click.prevent="setDetails('BillRejected', props.row.id, 'SaleBillRejected')"
+                    >
+                    <i class="fa fa-ban"></i>
+                </button>
+
+            </div>
         </div>
     </v-client-table>
 </div>

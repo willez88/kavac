@@ -6,6 +6,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use App\Models\Institution;
+use App\Repositories\ReportRepository;
 use Modules\Finance\Models\FinanceBank;
 use Modules\Sale\Models\SaleService;
 use Modules\Sale\Models\SaleClient;
@@ -113,10 +115,39 @@ class SalePaymentController extends Controller
             'payment_date' => ['required'],
         ]);
         //anticipo
-        $advance_define_attributes = ($request->advance !== null) ? true : false;
+        $advance_define_attributes = ($request->advance == null) ? false : true;
         $SalePayment = SaleRegisterPayment::create([
             'order_or_service_define_attributes' => $order_or_service_define_attributes, 'order_service_id' => $order_service_id, 'total_amount' => $total_amount, 'way_to_pay' => $request->currency_id, 'banking_entity' => $request->bank_id, 'reference_number' => $request->number_reference, 'payment_date' => $request->payment_date, 'advance_define_attributes' => $advance_define_attributes
         ]);
+
+
+        if ($advance_define_attributes == true) {
+            /**
+             * [$pdf base para generar el pdf del recibo de pago]
+             * @var [Modules\Accounting\Pdf\Pdf]
+             */
+            $pdf = new ReportRepository();
+
+            /*
+             *  Definicion de las caracteristicas generales de la página pdf
+             */
+            $institution = null;
+            $is_admin = auth()->user()->isAdmin();
+
+            if (!$is_admin && $user_profile && $user_profile['institution']) {
+                $institution = Institution::find($user_profile['institution']['id']);
+            } else {
+                $institution = '';
+            }
+
+            $pdf->setConfig(['institution' => Institution::first()]);
+            $pdf->setHeader('Recibo de Pago');
+            $pdf->setFooter();
+            $pdf->setBody('sale::pdf.payment_advance_receipt', true, [
+                'pdf'         => $pdf,
+                'SalePayment' => $SalePayment
+            ]);
+        }
         return response()->json(['record' => $SalePayment, 'message' => 'Success'], 200);
     }
 
@@ -294,9 +325,11 @@ class SalePaymentController extends Controller
      */
     public function edit($id)
     {
-    //    return view('sale::edit');
+        
+        $payment = SaleRegisterPayment::find($id);
+        return view('sale::payment.create', compact("payment"));
     }
-
+    
     /**
      * [descripción del método]
      *
@@ -311,6 +344,8 @@ class SalePaymentController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd($id) ;
+
         //
     }
 
@@ -327,9 +362,31 @@ class SalePaymentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $payment = SaleRegisterPayment::find($id);
+        $payment->delete();
+        return response()->json(['record' => $payment, 'message' => 'Success'], 200);
     }
    
+    /**
+     * Vizualiza información de una solicitud de pagos
+     *
+     * @author Miguel Narvaez <mnarvaezcenditel.gob.ve>
+     * @param  Integer $id Identificador único de la solicitud de almacén
+     * @return \Illuminate\Http\JsonResponse (JSON con los registros a mostrar)
+     */
+    public function vueInfo($id)
+    {
+/*
+        $payment = SaleService::with(['SaleGoodsToBeTraded'])
+                    ->join("sale_register_payments","sale_services.".$id."","=","sale_register_payments.order_service_id")
+                    ->join("sale_clients","sale_services.sale_client_id","=","sale_clients.id")
+                    ->first();
+*/
+        $payment = SaleRegisterPayment::with('saleService')->where('id', $id)->get();
+
+        return response()->json(['record' => $payment], 200);
+    }
+
     /**
      * Muestra una lista de pediros registrados
      *
@@ -431,5 +488,34 @@ class SalePaymentController extends Controller
         $total = array_sum($sumatoria);  
         $value = array('code' =>  $SaleService->code, 'total' =>  $total, 'name' =>  $saleClients->name, 'idntifiaction' =>  $saleClients->id_type, 'identification_number' =>  $saleClients->id_number, 'rif' =>  $saleClients->rif, 'email' =>  $saleClientsEmail->email, 'phone_extension' =>  $saleClientsPhone->extension, 'phone_area_code' =>  $saleClientsPhone->area_code, 'total' =>  $total, 'phone_number' =>  $saleClientsPhone->number);
         return response()->json(['sale_service' => $value], 200);
+    }
+
+    /**
+     * Aprueba la solicitud realizada
+     *
+     * @author Miguel Narvaez <mnarvaezcenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de los clientes
+     */
+    public function approvedPayment(Request $request, $id)
+    {
+        $payment = SaleRegisterPayment::find($id);
+        $payment->payment_approve = true;
+        $payment->save();
+
+        return response()->json(['record' => $payment, 'message' => 'Success'], 200);
+    }
+    /**
+     * Rechaza la solicitud realizada
+     *
+     * @author Miguel Narvaez <mnarvaezcenditel.gob.ve>
+     * @return \Illuminate\Http\JsonResponse    Json con los datos de los clientes
+     */
+        public function refusePayment(Request $request, $id)
+    {
+        $payment = SaleRegisterPayment::find($id);
+        $payment->payment_refuse = true;
+        $payment->save();
+
+        return response()->json(['record' => $payment, 'message' => 'Success'], 200);
     }
 }
