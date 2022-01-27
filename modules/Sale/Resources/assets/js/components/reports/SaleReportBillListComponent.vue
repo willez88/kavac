@@ -115,13 +115,13 @@
                 </div>
             </v-client-table>
         </div>
-        <!--div class="card-footer text-right" v-if="records.length > 0">
+        <div class="card-footer text-right" v-if="records.length > 0">
             <button class="btn btn-primary btn-sm" data-toggle="tooltip" title="Generar Reporte" :disabled="recordsToReport.length == 0"
-                    v-on:click="OpenPdf(getUrlReport(), '_blank')" id="saleOrderGenerateReport">
+                    v-on:click="OpenPdf(getUrlReport(), '_blank')" id="saleBillGenerateReport">
                 <span>Generar reporte</span>
                 <i class="fa fa-print"></i>
             </button>
-        </!div-->
+        </div>
     </section>
 </template>
 
@@ -272,6 +272,22 @@ export default {
                 vm.recordsToReport.push(id);
             }
             vm.recordsToReport.sort();
+        },
+
+        /**
+        * Abre una nueva ventana en el navegador
+        *
+        * @author Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+        * @param  {string} url para la nueva ventana
+        * @param  {string} type tipo de ventana que se desea abrir
+        * @return {boolean} Devuelve falso si no se ha indicado alguna información requerida
+        */
+        OpenPdf(url, type){
+            const vm = this;
+            if (!url) {
+                return;
+            }
+            window.open(url, type);
         },
 
         getUrlReport(){

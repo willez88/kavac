@@ -4,7 +4,14 @@ namespace Modules\Sale\Http\Controllers\Reports;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+
+use Modules\Sale\Models\Profile;
+use Modules\Sale\Models\Institution;
 use Modules\Sale\Models\SaleBill;
+
+use App\Repositories\ReportRepository;
+use Modules\DigitalSignature\Repositories\ReportRepositorySign;
+use Auth;
 
 /**
  * @class BillReportController
@@ -34,28 +41,6 @@ class SaleBillReportController extends Controller
         return view('sale::reports.sale-report-bill');
     }
 
-    /**
-     * Método que devuelve los datos de las facturas registradas en formato
-     * json.
-     *
-     * @method    vueList
-     *
-     * @author    Ing. Argenis Osorio <aosorio@cenditel.gob.ve>
-     * @author    Daniel Contreras <dcontreras@cenditel.gob.ve>
-     *
-     * @return    Renderable    [description de los datos devueltos]
-    public function vueList()
-    {
-        $bills = SaleBill::with(['SaleFormPayment', 'saleBillInventoryProduct' => function ($query) {
-                        $query->with(['saleGoodsToBeTraded', 'currency', 'saleListSubservices', 'measurementUnit', 'historyTax',
-                            'saleWarehouseInventoryProduct' => function ($q) {
-                                $q->with('saleSettingProduct');
-                        }]);
-                    }])->get();
-        return response()->json(['records' => $bills], 200);
-    }
-
-    */
     /**
      * [descripción del método]
      *
@@ -95,5 +80,59 @@ class SaleBillReportController extends Controller
         return response()->json([
             'records' => $records->get(),
             'message' => 'success'], 200);
+    }
+
+    /**
+     * Genera Pdf
+     *
+     * @author    Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+     * @author    Daniel Contreras <dcontreras@cenditel.gob.ve>
+     *
+     * @param     Array    $value    Listado de identificadores
+     */
+    public function pdf($value = [])
+    {
+        $listIds = json_decode($value);
+        // Validar acceso para el registro
+        if (!auth()->user()->isAdmin()) {
+            $user_profile = Profile::with('institution')->where('user_id', auth()->user()->id)->first();
+            if ($report && $report->queryAccess($user_profile['institution']['id'])) {
+                return view('errors.403');
+            }
+        }
+
+        $bills = SaleBill::with(['SaleFormPayment', 'saleBillInventoryProduct' => function ($query) {
+                                $query->with(['saleGoodsToBeTraded', 'currency', 'saleListSubservices', 'measurementUnit', 'historyTax',
+                                    'saleWarehouseInventoryProduct' => function ($q) {
+                                        $q->with('saleSettingProduct');
+                                }]);
+                            }])->whereIn('id', $listIds)->get()->toArray();
+
+        /**
+         * [$pdf base para generar el pdf]
+         *
+         * @author    Juan Rosas <jrosas@cenditel.gob.ve | juan.rosasr01@gmail.com>
+         * @author    Daniel Contreras <dcontreras@cenditel.gob.ve>
+         *
+         * @var [App\Repositories\ReportRepository]
+         */
+        $pdf = new ReportRepository();
+
+        /*
+         *  Definicion de las caracteristicas generales de la página pdf
+         */
+        if (auth()->user()->isAdmin()) {
+            $institution = Institution::first();
+        } else {
+            $institution = Institution::find($user_profile->institution->id);
+        }
+        // dd($bills);
+        $pdf->setConfig(['institution' => $institution, 'urlVerify' => url('/sale/reports/bills/pdf/'.$value)]);
+        $pdf->setHeader('Reporte de comercialización', 'Reporte de facturas');
+        $pdf->setFooter(true, $institution->rif.' '.$institution->legal_address);
+        $pdf->setBody('sale::pdf.bill-reports', true, [
+            'pdf'      => $pdf,
+            'records'  => $bills,
+        ]);
     }
 }

@@ -551,8 +551,12 @@ Route::group(
          */
         Route::get('reports/bills', 'Reports\SaleBillReportController@index')
         ->name('sale.report.bill');
-        Route::get('reports/bills/vue-list', 'Reports\SaleBillReportController@vueList');
 
         Route::post('reports/bills/filter-records', 'Reports\SaleBillReportController@filterRecords');
+
+        Route::get(
+            'reports/bills/pdf/{value?}',
+            'Reports\SaleBillReportController@pdf'
+        );
     }
 );

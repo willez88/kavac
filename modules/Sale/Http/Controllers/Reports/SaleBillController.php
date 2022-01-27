@@ -83,16 +83,19 @@ class SaleBillController extends Controller
 		 */
 		$institution = null;
 
-		if (!$is_admin && $user_profile && $user_profile['institution']) {
-			$institution = Institution::find($user_profile['institution']['id']);
-		} else {
-			$institution = '';
-		}
+		/*
+         *  Definicion de las caracteristicas generales de la página pdf
+         */
+        if (auth()->user()->isAdmin()) {
+            $institution = Institution::first();
+        } else {
+            $institution = Institution::find($user_profile->institution->id);
+        }
 
 		// $pdf->setConfig(['institution' => $institution, 'urlVerify' => url('/purchase/purchase_requirement/pdf/'.$id)]);
 		$pdf->setConfig(['institution' => Institution::first()]);
 		$pdf->setHeader('Factura');
-		$pdf->setFooter();
+		$pdf->setFooter(true, $institution->rif.' '.$institution->legal_address);
 		$pdf->setBody('sale::pdf.bills', true, [
 			'pdf'         => $pdf,
 			'sale_bills' => $sale_bills
