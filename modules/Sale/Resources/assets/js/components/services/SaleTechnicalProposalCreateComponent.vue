@@ -46,7 +46,7 @@
                         <p v-for="phone in sale_client.phones">
                             <input type="text" class="form-control input-sm" :disabled="true"
                                 data-toggle="tooltip" title="Dirección fiscal"
-                                id="phone" v-model="phone.extension + '-' + phone.area_code + phone.number"></input>
+                                id="phone" v-model="((phone.extension == null )? '00' : phone.extension) + '-' + phone.area_code + phone.number"></input>
                         </p>
                     </div>
                 </div>
