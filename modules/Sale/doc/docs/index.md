@@ -11,7 +11,9 @@ El sistema KAVAC incluye el módulo de comercialización como parte de la admini
 
 A través de la **Configuración** del módulo de comercialización es posible adaptar los requerimientos de la organización usuaria al sistema , desde esta sección se lleva a acabo la gestión de **Formatos de Códigos** y **Registros Comunes**, siendo estos los datos iniciales a usar en las demás secciones del módulo.
 
-Desde la sección **Solicitud de servicios** se lleva a cabo la gestión en general de las solicitudes formuladas por productos o servicios ofrecidos por la institución usuaria.  Este apartado permite realizar un seguimiento a las solicitudes formuladas, pendientes, rechazadas y la elaboración de propuestas técnicas para solicitudes.    
+Desde la sección **Solicitud de Servicios** se lleva a cabo la gestión en general de las solicitudes formuladas por productos o servicios ofrecidos por la institución usuaria.  Este apartado permite realizar un seguimiento a las solicitudes formuladas, pendientes, rechazadas y la elaboración de propuestas técnicas para solicitudes.  
+
+A través de la sección **Facturas** se lleva a acabo la gestión en general de facturación, incluye el registro y gestión de facturas, así como el seguimiento a facturas emitidas, pendientes de revisión y rechazadas. 
 
 ## Sobre los usuarios
 
@@ -23,6 +25,8 @@ Los usuarios que interactuan en este módulo, serán todos aquellos usuarios con
 - Gestión de ventas.
 - Gestión de solicitudes.
 - Gestión de clientes.
+- Gestión de facturas.
+- Gestión de inventario de productos.
 ## Licencia
 
 Nombre del producto: KAVAC ‘Sistema de Gestión de Recursos’

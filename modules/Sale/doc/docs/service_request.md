@@ -38,14 +38,14 @@ A través de esta sección es posible gestionar las solicitudes pendientes, haci
 
 ### Aprobar solicitud
 
-A través de la sección **Solicitudes Pendientes** el encargado de bienes o usuario con permisos especiales sobre esta sección puede consultar una solicitud y **aprobar** la misma.
+A través de la sección **Solicitudes Pendientes** el encargado del módulo de comercialización o usuario con permisos especiales sobre esta sección puede consultar una solicitud y **aprobar** la misma.
 
 !!! success "Botón aprobar solicitud"
     ![Screenshot](img/approve.png#imagen)
 
 ### Rechazar solicitud
 
-A través de la sección **Solicitudes Pendientes** el encargado de bienes o usuario con permisos especiales sobre esta sección puede consultar una solicitud y **rechazar** la misma.
+A través de la sección **Solicitudes Pendientes** el encargado del módulo de comercialización o usuario con permisos especiales sobre esta sección puede consultar una solicitud y **rechazar** la misma.
 
 !!! danger "Botón rechazar solicitud"
     ![Screenshot](img/deny.png#imagen)
