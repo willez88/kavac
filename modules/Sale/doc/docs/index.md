@@ -9,11 +9,13 @@ El Manual de Documentación del sistema KAVAC a nivel de usuario tiene como obje
 
 El sistema KAVAC incluye el módulo de comercialización como parte de la administración que se encarga de la gestión eficiente de todo lo que está relacionado con la venta y distribución de productos y servicios que una organización usuaria tiene a disposición para otras organizaciones. El módulo de comercialización se encuentra enmarcado en la gestión de relaciones con el cliente, conocida como CRM (en inglés Customer Relationship Management), integrando los recursos y funcionalidades necesarias en el sistema para llevar a cabo una optima estrategia en la administración de ventas.   
 
-A través de la **Configuración** del módulo de comercialización es posible adaptar los requerimientos de la organización usuaria al sistema , desde esta sección se lleva a acabo la gestión de **Formatos de Códigos** y **Registros Comunes**, siendo estos los datos iniciales a usar en las demás secciones del módulo.
+A través de la **Configuración** del módulo de comercialización es posible adaptar los requerimientos de la organización usuaria al sistema, desde esta sección se lleva a acabo la gestión de **Formatos de Códigos** y **Registros Comunes**, siendo estos los datos iniciales a usar en las demás secciones del módulo.
 
 Desde la sección **Solicitud de Servicios** se lleva a cabo la gestión en general de las solicitudes formuladas por productos o servicios ofrecidos por la institución usuaria.  Este apartado permite realizar un seguimiento a las solicitudes formuladas, pendientes, rechazadas y la elaboración de propuestas técnicas para solicitudes.  
 
 A través de la sección **Facturas** se lleva a acabo la gestión en general de facturación, incluye el registro y gestión de facturas, así como el seguimiento a facturas emitidas, pendientes de revisión y rechazadas. 
+
+La gestión del inventario de productos sobre los diferentes almacenes gestionados en el módulo de comercialización se lleva a cabo desde la sección **Recepciones de Almacén**.  A través de este apartado se realiza un seguimiento sobre los registros de inventario de productos que han sido generados y que se encuentran pendientes por revisión.
 
 ## Sobre los usuarios
 

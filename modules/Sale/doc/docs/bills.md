@@ -77,8 +77,7 @@ La sección **Solicitudes de Facturas Rechazadas** lista los registros de factur
 
 La sección **Facturas Aprobadas** lista los registros de facturas que han sido aprobadas.  A través de esta sección es posible consultar y generar un archivo digital de cualquier registro seleccionado haciendo uso de los botones **Consultar** y **Emitir factura** ubicados en la columna titulada **Acción**. 
 
-![Screenshot](img/img1821.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Solicitudes de Facturas Rechazadas</div>
+![Screenshot](img/img1821.png#imagen)<div style="text-align: center;font-weight: bold">Figura: Facturas Aprobadas</div>
 
-## Facturas emitidas por pagos de anticipos
 
 
