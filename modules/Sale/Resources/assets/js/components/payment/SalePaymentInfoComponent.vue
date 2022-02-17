@@ -21,12 +21,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#products" role="tab">
+                            <a class="nav-link" data-toggle="tab" href="#service_produc" role="tab">
                                 <i class="ion-arrow-swap"></i> Datos del Servicio o Pedido
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#products" role="tab">
+                            <a class="nav-link" data-toggle="tab" href="#payment" role="tab">
                                 <i class="ion-cash"></i> Datos del Pago
                             </a>
                         </li>
@@ -45,7 +45,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div v-if="record.type_person == 'Natural'" class="col-md-6">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <strong>Organización</strong>
+                                        <div class="row" style="margin: 1px 0">
+                                            <span class="col-md-12">
+                                                {{ record.organization }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-if="record.type_person_juridica == 'Natural'" class="col-md-6">
                                     <div class="form-group">
                                         <strong>Nombre y apellido</strong>
                                         <div class="row" style="margin: 1px 0">
@@ -55,7 +65,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div v-if="record.type_person == 'Natural'" class="col-md-6">
+                                <div v-if="record.type_person_juridica == 'Natural'" class="col-md-6">
                                     <div class="form-group">
                                         <strong>Identificación</strong>
                                         <div class="row" style="margin: 1px 0">
@@ -65,7 +75,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div v-if="record.type_person == 'Jurídica'" class="col-md-6">
+                                <div v-if="record.type_person_juridica == 'Jurídica'" class="col-md-6">
                                     <div class="form-group">
                                         <strong>Nombre de la empresa</strong>
                                         <div class="row" style="margin: 1px 0">
@@ -75,7 +85,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div v-if="record.type_person == 'Jurídica'" class="col-md-6">
+                                <div v-if="record.type_person_juridica == 'Jurídica'" class="col-md-6">
                                     <div class="form-group">
                                         <strong>RIF</strong>
                                         <div class="row" style="margin: 1px 0">
@@ -85,42 +95,50 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="service_produc" role="tabpanel">
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <strong>Teléfono de contacto  </strong>
+                                        <strong>Codigo de la Solicitud</strong>
                                         <div class="row" style="margin: 1px 0">
                                             <span class="col-md-12">
-                                                {{ record.phones }}
+                                                {{ record.code }}
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <strong>Correo electrónico</strong>
-                                        <div class="row" style="margin: 1px 0">
-                                            <span class="col-md-12">
-                                                {{ record.emails }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <strong>Fecha de pago</strong>
+                                        <strong>Fecha de Pago</strong>
                                         <div class="row" style="margin: 1px 0">
                                             <span class="col-md-12">
                                                 {{ record.payment_date }}
                                             </span>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6" v-if="record.rejected_reason">
+                                </div>                                
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="payment" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <strong>Pago rechazado</strong>
+                                        <strong>Monto a Pagar</strong>
                                         <div class="row" style="margin: 1px 0">
                                             <span class="col-md-12">
-                                                {{ record.payment_refuse }}
+                                                {{ record.total_amount }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <strong>Numero de Referencia</strong>
+                                        <div class="row" style="margin: 1px 0">
+                                            <span class="col-md-12">
+                                                {{ record.reference_number }}
                                             </span>
                                         </div>
                                     </div>
@@ -158,7 +176,7 @@
             /**
              * Método que borra todos los datos del formulario
              * 
-             * @author  Daniel Contreras <dcontreras@cenditel.gob.ve>
+             * @author  Miguel Narvaez  <mnarvaez@cenditel.gob.ve>
              */
             reset() {
             },

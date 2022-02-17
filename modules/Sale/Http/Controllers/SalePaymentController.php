@@ -172,12 +172,14 @@ class SalePaymentController extends Controller
      */
     public function vueList()
     {
-         
 
         $saleservice = SaleService::with(['SaleGoodsToBeTraded'])
-                    ->join("sale_register_payments","sale_services.id","=","sale_register_payments.order_service_id")
-                    ->join("sale_clients","sale_services.sale_client_id","=","sale_clients.id")
-                    ->get();
+        ->join("sale_register_payments","sale_services.id","=","sale_register_payments.order_service_id")
+        ->join("sale_clients","sale_services.sale_client_id","=","sale_clients.id")
+        ->select('sale_register_payments.id as id', 'code', 'payment_date', 'name', 'total_amount', 'reference_number', 'sale_goods_to_be_traded', 'order_or_service_define_attributes', 'type_person_juridica', 'name', 'id_number', 'organization', 'rif', 'phones', 'emails', 'payment_date', 'payment_refuse')
+        ->orderBy('id')
+        ->get();
+
         /*
         $x6 = SaleService::with(['jose'])
                     ->join("sale_register_payments","sale_services.id","=","sale_register_payments.order_service_id")
@@ -212,6 +214,8 @@ class SalePaymentController extends Controller
             $saleservice = SaleService::with(['SaleGoodsToBeTraded'])
             ->join("sale_register_payments","sale_services.id","=","sale_register_payments.order_service_id")
             ->join("sale_clients","sale_services.sale_client_id","=","sale_clients.id")
+            ->select('sale_register_payments.id as id', 'code', 'payment_date', 'name', 'total_amount', 'reference_number', 'sale_goods_to_be_traded', 'order_or_service_define_attributes', 'type_person_juridica', 'name', 'id_number', 'organization', 'rif', 'phones', 'emails', 'payment_date', 'payment_refuse')
+            ->orderBy('id')            
             ->where('payment_approve', '=', false)
             ->get();
             /*
@@ -246,6 +250,8 @@ class SalePaymentController extends Controller
             $saleservice = SaleService::with(['SaleGoodsToBeTraded'])
             ->join("sale_register_payments","sale_services.id","=","sale_register_payments.order_service_id")
             ->join("sale_clients","sale_services.sale_client_id","=","sale_clients.id")
+            ->select('sale_register_payments.id as id', 'code', 'payment_date', 'name', 'total_amount', 'reference_number', 'sale_goods_to_be_traded', 'order_or_service_define_attributes', 'type_person_juridica', 'name', 'id_number', 'organization', 'rif', 'phones', 'emails', 'payment_date', 'payment_refuse')
+            ->orderBy('id')            
             ->where('payment_approve', '=', true)
             ->get();
 
@@ -281,6 +287,8 @@ class SalePaymentController extends Controller
             $saleservice = SaleService::with(['SaleGoodsToBeTraded'])
             ->join("sale_register_payments","sale_services.id","=","sale_register_payments.order_service_id")
             ->join("sale_clients","sale_services.sale_client_id","=","sale_clients.id")
+            ->select('sale_register_payments.id as id', 'code', 'payment_date', 'name', 'total_amount', 'reference_number', 'sale_goods_to_be_traded', 'order_or_service_define_attributes', 'type_person_juridica', 'name', 'id_number', 'organization', 'rif', 'phones', 'emails', 'payment_date', 'payment_refuse')
+            ->orderBy('id')            
             ->where('advance_define_attributes', '=', true)
             ->where('payment_approve', '=', true)
             ->get();
@@ -327,6 +335,7 @@ class SalePaymentController extends Controller
     {
         
         $payment = SaleRegisterPayment::find($id);
+        //return $payment;
         return view('sale::payment.create', compact("payment"));
     }
     
@@ -498,6 +507,7 @@ class SalePaymentController extends Controller
      */
     public function approvedPayment(Request $request, $id)
     {
+        return $id;
         $payment = SaleRegisterPayment::find($id);
         $payment->payment_approve = true;
         $payment->save();
@@ -512,9 +522,47 @@ class SalePaymentController extends Controller
      */
         public function refusePayment(Request $request, $id)
     {
+        return $id;
         $payment = SaleRegisterPayment::find($id);
         $payment->payment_refuse = true;
         $payment->save();
+
+        return response()->json(['record' => $payment, 'message' => 'Success'], 200);
+    }
+
+    /**
+     * gerena archivo Pdf
+     *
+     * @author Miguel Narvaez <mnarvaezcenditel.gob.ve>
+     */
+        public function PdfGenerator(Request $request, $id)
+    {
+            /**
+             * [$pdf base para generar el pdf del recibo de pago]
+             * @var [Modules\Accounting\Pdf\Pdf]
+             */
+            $pdf = new ReportRepository();
+
+            /*
+             *  Definicion de las caracteristicas generales de la página pdf
+             */
+            $institution = null;
+            $is_admin = auth()->user()->isAdmin();
+
+            if (!$is_admin && $user_profile && $user_profile['institution']) {
+                $institution = Institution::find($user_profile['institution']['id']);
+            } else {
+                $institution = '';
+            }
+
+            $pdf->setConfig(['institution' => Institution::first()]);
+            $pdf->setHeader('Recibo de Pago');
+            $pdf->setFooter();
+            $pdf->setBody('sale::pdf.payment_advance_receipt', true, [
+                'pdf'         => $pdf,
+                'SalePayment' => $SalePayment
+            ]);
+
 
         return response()->json(['record' => $payment, 'message' => 'Success'], 200);
     }

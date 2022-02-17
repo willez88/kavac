@@ -154,6 +154,16 @@ export default {
                 payment_date: '',
                 advance: '',
             },
+            payment_date: {
+                order_or_service_define_attributes: '',
+                order_service_id: '',
+                total_amount: 0,
+                way_to_pay: '',
+                banking_entity: '',
+                reference_number: '',
+                payment_date: '',
+                advance_define_attributes: false,
+            },            
             show_service: true,
             show_order: true,
             sale_order_list: [],
@@ -225,6 +235,32 @@ export default {
             };
             this.sale_service = [];
         },
+
+        /**
+         * Método que permite la edición
+         *
+         * @author Miguel Narvaez <manravez@cenditel.gob.ve>
+        */
+        editProduct(index, event) {
+            const vm = this;
+            vm.record = {
+                product_type: '',
+                sale_warehouse_inventory_product_id: '',
+                sale_goods_to_be_traded_id: '',
+                measurement_unit_id: '',
+                currency_id: '',
+                history_tax_id: '',
+                value: 0,
+                quantity: 0,
+                total: 0,
+            }
+            vm.editIndex = index-1;
+            vm.record = vm.record.sale_records[index - 1];
+            vm.product_type = vm.record.product_type;
+
+            event.preventDefault();
+        },
+
         /**
          * Método que oculta el campo servicio o pedido no seleccionado.
          *
@@ -241,6 +277,7 @@ export default {
                 vm.show_service=false;
             };
         },
+
         getSaleOrderList() {
                 const vm = this;
                 vm.sale_order_list = [];

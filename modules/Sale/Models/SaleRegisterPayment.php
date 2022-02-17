@@ -43,6 +43,43 @@ class SaleRegisterPayment extends Model implements Auditable
         return $this->belongsTo(SaleService::class, 'order_service_id', 'id');
     }
 
+    /**
+     * Método que obtiene las formas de pago almacenadas en el sistema
+     *
+     * @author Daniel Contreras <mnarvaez@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * Currency
+     */
+    public function Currency()
+    {
+        return $this->belongsTo(\App\Models\Currency::class);
+    }
+
+
+    /**
+     * Método que obtiene los bancos registrados
+     *
+     * @author Daniel Contreras <mnarvaez@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * Currency
+     */
+    public function FinanceBank()
+    {
+        return $this->belongsTo(\Modules\Finance\Models\FinanceBank::class);
+    }
+
+    /**
+     * Método que obtiene las formas de cobro 
+     *
+     * @author Daniel Contreras <mnarvaez@cenditel.gob.ve>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo Objeto con el registro relacionado al modelo
+     * Currency
+     */
+    public function SaleFormPayment()
+    {
+        return $this->belongsTo(\Modules\Sale\Models\SaleFormPayment::class);
+    }
+
 }
 
 

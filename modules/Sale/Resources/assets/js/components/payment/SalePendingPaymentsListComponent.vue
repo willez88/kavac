@@ -27,16 +27,16 @@
                         data-placement="bottom"
                         class="btn btn-primary btn-xs btn-icon btn-action"
                         title="Aprobar."
-                        v-on:click="deleteRecord(props.index,'/sale/payment/aprobe')">
+                        v-on:click="approvedPayment(props.index,'/sale/payment/approvedPayment')">
                     <i class="icofont icofont-check-circled ico-3x"></i>
                 </button> 
-                <button class="btn btn-danger btn-xs btn-icon btn-action"
-                    title="Rechazar solicitud" data-toggle="tooltip" data-placement="bottom" type="button"
-                    @click.prevent="setDetails('BillRejected', props.row.id, 'SaleBillRejected')"
-                    >
+                <button type="button" data-toggle="tooltip"
+                        data-placement="bottom"
+                        class="btn btn-primary btn-xs btn-icon btn-action"
+                        title="Rechazar."
+                        v-on:click="refusePayment(props.index,'/sale/payment/refusePayment')">
                     <i class="fa fa-ban"></i>
-                </button>
-
+                </button> 
             </div>
         </div>
     </v-client-table>
@@ -92,6 +92,80 @@
                 $(`#${modal}`).modal('show');
                 document.getElementById("info_general").click();
             },
-        }
+            refusePayment(index)
+            {
+                const vm = this;
+                var dialog = bootbox.confirm({
+                    title: 'Rechazar pago solicitado?',
+                    message: "<p>¿Seguro que desea rechazar este Pago?. Una vez rechazado esta operación no se podrán realizar cambios en el mismo.<p>",
+                    size: 'medium',
+                    buttons: {
+                        cancel: {
+                            label: '<i class="fa fa-times"></i> Cancelar'
+                        },
+                        confirm: {
+                            label: '<i class="fa fa-check"></i> Confirmar'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result) {
+                            var fields = vm.records[index-1];
+                            var id = vm.records[index-1].id;
+                            console.log(id);
+                            axios.put('/'+vm.route_update+'/payment/refusePayment/'+id,).then(response => {
+                                if (typeof(response.data.redirect) !== "undefined")
+                                    location.href = response.data.redirect;
+                            }).catch(error => {
+                                vm.errors = [];
+                                if (typeof(error.response) !="undefined") {
+                                    for (var index in error.response.data.errors) {
+                                        if (error.response.data.errors[index]) {
+                                            vm.errors.push(error.response.data.errors[index][0]);
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+            },
+            approvedPayment(index)
+            {
+                const vm = this;
+                var dialog = bootbox.confirm({
+                    title: 'Aprobar pago solicitado?',
+                    message: "<p>¿Seguro que desea aprobar este pago?. Una vez aprobado esta operación no se podrán realizar cambios en el mismo.<p>",
+                    size: 'medium',
+                    buttons: {
+                        cancel: {
+                            label: '<i class="fa fa-times"></i> Cancelar'
+                        },
+                        confirm: {
+                            label: '<i class="fa fa-check"></i> Confirmar'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result) {
+                            var fields = vm.records[index-1];
+                            var id = vm.records[index-1].id;
+                            console.log(vm);
+                            axios.put('/'+vm.route_update+'/payment/approvedPayment/'+id, fields).then(response => {
+                                if (typeof(response.data.redirect) !== "undefined")
+                                    location.href = response.data.redirect;
+                            }).catch(error => {
+                                vm.errors = [];
+                                if (typeof(error.response) !="undefined") {
+                                    for (var index in error.response.data.errors) {
+                                        if (error.response.data.errors[index]) {
+                                            vm.errors.push(error.response.data.errors[index][0]);
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+            },
+        },
     };
 </script>

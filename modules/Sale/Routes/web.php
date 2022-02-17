@@ -451,10 +451,10 @@ Route::group(
         Route::get('payment/payment_approve', 'SalePaymentController@payment_approve');
         Route::get('payment/advance_define_attributes_approve', 'SalePaymentController@advance_define_attributes_approve');
         Route::get('payment/edit/{id}', 'SalePaymentController@edit')->name('sale.payment.edit');
-        Route::get('payment/delete/{id}', 'SalePaymentController@destroy')->name('sale.payment.delete');
+        Route::delete('payment/delete/{id}', 'SalePaymentController@destroy')->name('sale.payment.delete');
         Route::get('payment/info/{id}', 'SalePaymentController@vueInfo');
-        Route::get('payment/approvedPayment/{id}', 'SalePaymentController@approvedPayment');
-        Route::get('payment/refusePayment/{id}', 'SalePaymentController@refusePayment');
+        Route::put('payment/approvedPayment/{id}', 'SalePaymentController@approvedPayment');
+        Route::put('payment/refusePayment/{id}', 'SalePaymentController@refusePayment');
         Route::get('payment/update/{id}', 'SalePaymentController@update');
         
         

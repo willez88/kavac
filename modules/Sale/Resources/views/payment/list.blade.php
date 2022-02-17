@@ -65,7 +65,11 @@
                 </div>
             </div>
             <div class="card-body">
-                <pending-payments-list route_list="{{ url('sale/payment/payment_pending') }}"></pending-payments-list>
+                <pending-payments-list 
+                route_list="{{ url('sale/payment/payment_pending') }}"
+                route_approved="{{ url('sale/payment/approvedPayment/{id}') }}"
+                route_refuse="{{ url('sale/payment/refusePayment/{id}') }}">
+                </pending-payments-list>
                 {{-- <payment-registered-list route_edit="{{ url('sale/payment/{id}/edit') }}" /> --}}
             </div>
         </div>

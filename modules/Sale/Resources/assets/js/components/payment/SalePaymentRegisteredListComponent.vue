@@ -19,20 +19,20 @@
                 <button class="btn btn-warning btn-xs btn-icon btn-action"
                         title="Modificar registro"
                         data-toggle="tooltip"
-                        v-on:click="editForm(props.index)">
+                        v-on:click="editForm(props.row.id)">
                     <i class="fa fa-edit"></i>
                 </button>
                 <button class="btn btn-danger btn-xs btn-icon btn-action"
                         title="Eliminar registro"
                         data-toggle="tooltip"
-                        v-on:click="deleteRecord(props.index,'/sale/payment/delete')">
+                        v-on:click="deleteRecord(props.row.id,'/sale/payment/delete')">
                     <i class="fa fa-trash-o"></i>
                 </button>
                 <button type="button" data-toggle="tooltip"
                         data-placement="bottom"
                         class="btn btn-primary btn-xs btn-icon btn-action"
                         title="Presione para descargar el documento con la información del registros."
-                        v-on:click="deleteRecord(props.index,'/sale/payment/download')">
+                        v-on:click="x(props.index,'/sale/payment/download')">
                     <i class="fa fa-download"></i>
                 </button> 
             </div>
