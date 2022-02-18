@@ -3,8 +3,9 @@
 /** Controladores base de la aplicación */
 namespace App\Http\Controllers;
 
-use App\Models\DocumentStatus;
 use Illuminate\Http\Request;
+use App\Models\DocumentStatus;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * @class DocumentStatusController
@@ -45,7 +46,10 @@ class DocumentStatusController extends Controller
      */
     public function index()
     {
-        return response()->json(['records' => DocumentStatus::all()], 200);
+        $documentStatus = Cache::rememberForever('document_status', function() {
+            return DocumentStatus::all();
+        });
+        return response()->json(['records' => $documentStatus], 200);
     }
 
     /**

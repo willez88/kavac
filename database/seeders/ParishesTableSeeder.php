@@ -1924,32 +1924,30 @@ class ParishesTableSeeder extends Seeder
             ]
         ];
 
-        DB::transaction(function () use ($adminRole, $permissions, $municipalities_parishes) {
-            foreach ($municipalities_parishes as $code_municipality => $parishes) {
-                $mun = Municipality::where('code', $code_municipality)->first();
-                foreach ($parishes as $code => $parish) {
-                    if ($parish && isset($mun->id)) {
-                        Parish::withTrashed()->updateOrCreate(
-                            ['code' => $code],
-                            ['name' => $parish, 'municipality_id' => $mun->id, 'deleted_at' => null]
-                        );
-                    }
+        foreach ($municipalities_parishes as $code_municipality => $parishes) {
+            $mun = Municipality::where('code', $code_municipality)->first();
+            foreach ($parishes as $code => $parish) {
+                if ($parish && isset($mun->id)) {
+                    Parish::withTrashed()->updateOrCreate(
+                        ['code' => $code],
+                        ['name' => $parish, 'municipality_id' => $mun->id, 'deleted_at' => null]
+                    );
                 }
             }
+        }
 
-            foreach ($permissions as $permission) {
-                $per = Permission::updateOrCreate(
-                    ['slug' => $permission['slug']],
-                    [
-                        'name' => $permission['name'], 'description' => $permission['description'],
-                        'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
-                        'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
-                    ]
-                );
-                if ($adminRole) {
-                    $adminRole->attachPermission($per);
-                }
+        foreach ($permissions as $permission) {
+            $per = Permission::updateOrCreate(
+                ['slug' => $permission['slug']],
+                [
+                    'name' => $permission['name'], 'description' => $permission['description'],
+                    'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
+                    'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
+                ]
+            );
+            if ($adminRole) {
+                $adminRole->attachPermission($per);
             }
-        });
+        }
     }
 }

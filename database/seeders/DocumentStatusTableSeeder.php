@@ -104,32 +104,30 @@ class DocumentStatusTableSeeder extends Seeder
             ],
         ];
 
-        DB::transaction(function () use ($adminRole, $permissions, $doc_status) {
-            foreach ($doc_status as $doc) {
-                DocumentStatus::withTrashed()->updateOrCreate(
-                    ['name' => $doc['name']],
-                    [
-                        'description' => $doc['description'],
-                        'color' => $doc['color'],
-                        'action' => $doc['action'],
-                        'deleted_at' => null
-                    ]
-                );
-            }
+        foreach ($doc_status as $doc) {
+            DocumentStatus::withTrashed()->updateOrCreate(
+                ['name' => $doc['name']],
+                [
+                    'description' => $doc['description'],
+                    'color' => $doc['color'],
+                    'action' => $doc['action'],
+                    'deleted_at' => null
+                ]
+            );
+        }
 
-            foreach ($permissions as $permission) {
-                $per = Permission::updateOrCreate(
-                    ['slug' => $permission['slug']],
-                    [
-                        'name' => $permission['name'], 'description' => $permission['description'],
-                        'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
-                        'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
-                    ]
-                );
-                if ($adminRole) {
-                    $adminRole->attachPermission($per);
-                }
+        foreach ($permissions as $permission) {
+            $per = Permission::updateOrCreate(
+                ['slug' => $permission['slug']],
+                [
+                    'name' => $permission['name'], 'description' => $permission['description'],
+                    'model' => $permission['model'], 'model_prefix' => $permission['model_prefix'],
+                    'slug_alt' => $permission['slug_alt'], 'short_description' => $permission['short_description']
+                ]
+            );
+            if ($adminRole) {
+                $adminRole->attachPermission($per);
             }
-        });
+        }
     }
 }

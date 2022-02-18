@@ -3,9 +3,11 @@
 /** Modelos generales de base de datos */
 namespace App\Models;
 
+use App\Traits\ModelsTrait;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
@@ -28,6 +30,7 @@ class DocumentStatus extends Model implements Auditable
 {
     use SoftDeletes;
     use AuditableTrait;
+    use ModelsTrait;
 
     /**
      * Nombre de la tabla a usar en la base de datos
@@ -56,6 +59,20 @@ class DocumentStatus extends Model implements Auditable
      * @var    array $hidden
      */
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
+    /**
+     * Ejecuta acciones generales del modelo
+     *
+     * @author Ing. Roldan Vargas <roldandvg at gmail.com> | <rvargas at cenditel.gob.ve>
+     *
+     * @return void 
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::setCacheEvents('document_status');
+    }
 
     /**
      * Obtiene el estatus del documento según los filtros indicados

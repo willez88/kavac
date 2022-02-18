@@ -3,12 +3,13 @@
 /** Modelos generales de base de datos */
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Auditable as AuditableTrait;
 use App\Traits\ModelsTrait;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 
 /**
  * @class Parish
@@ -54,6 +55,20 @@ class Parish extends Model implements Auditable
      * @var    array
      */
     protected $with = ['municipality'];
+
+    /**
+     * Ejecuta acciones generales del modelo
+     *
+     * @author Ing. Roldan Vargas <roldandvg at gmail.com> | <rvargas at cenditel.gob.ve>
+     *
+     * @return void 
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::setCacheEvents('parishes');
+    }
 
     /**
      * Método que obtiene el Municipio de una Parroquia
