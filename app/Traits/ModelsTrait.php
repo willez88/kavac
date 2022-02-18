@@ -40,6 +40,15 @@ trait ModelsTrait
             }
 
         });
+
+        static::restored(function ($model) {
+            $modelClass = get_class($model);
+            $restored = Cache::get('deleted_records');
+            $restored = $restored->filter(function ($res) use ($model, $modelClass) {
+                return ($modelClass === get_class($res) && $res->id !== $model->id) || $modelClass !== get_class($res);
+            });
+            Cache::put('deleted_records', $restored);
+        });
     }
     /**
      * Método que escanea todos los modelos presentes en la aplicación
@@ -125,5 +134,69 @@ trait ModelsTrait
         return is_array(class_uses($model)) &&
                count(class_uses($model)) > 0 &&
                in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses($model));
+    }
+
+    /**
+     * Establece datos en cache
+     *
+     * @author Ing. Roldan Vargas <roldandvg at gmail.com> | <rvargas at cenditel.gob.ve>
+     *
+     * @param  string $key  Clave del cache en el cual gestionar la información
+     */
+    public static function setCacheEvents($key)
+    {
+        static::saved(function ($model) use ($key) {
+            $record = $model->where('id', $model->id)->orderBy('created_at', 'desc')->get();
+            
+            if (Cache::has($key)) {
+                $cacheData = Cache::get($key);
+                $record = $cacheData->merge($record);
+                Cache::put($key, $record);
+            } else {
+                Cache::rememberForever($key, function () use ($record) {
+                    return $record;
+                });
+            }
+        });
+
+        static::updated(function ($model) use ($key) {
+            $record = $model->where('id', $model->id)->orderBy('updated_at', 'desc')->get();
+            
+            if (Cache::has($key)) {
+                $cacheData = Cache::get($key);
+                $record = $cacheData->filter(function($doc) use ($model) {
+                    return $doc->id !== $model->id;
+                })->merge($record);
+                Cache::put($key, $record);
+            } else {
+                Cache::rememberForever($key, function () use ($record) {
+                    return $record;
+                });
+            }
+        });
+
+        static::deleted(function ($model) use ($key) {
+            if (Cache::has($key)) {
+                $cacheData = Cache::get($key);
+                $record = $cacheData->filter(function ($doc) use ($model) {
+                    return $doc->id !== $model->id;
+                });
+                Cache::put($key, $record);
+            }
+        });
+
+        static::restored(function ($model) use ($key) {
+            $record = $model->where('id', $model->id)->orderBy('updated_at', 'desc')->get();
+            
+            if (Cache::has($key)) {
+                $cacheData = Cache::get($key);
+                $record = $cacheData->merge($record);
+                Cache::put($key, $record);
+            } else {
+                Cache::rememberForever($key, function () use ($record) {
+                    return $record;
+                });
+            }
+        });
     }
 }
