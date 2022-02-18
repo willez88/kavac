@@ -761,7 +761,7 @@ if (!function_exists('check_max_upload_size')) {
         /** @var float Conversión a bytes del tamaño máximo a través del método POST */
         $bytesPost = convert_to_bytes($sizePost);
 
-        return $fileSize < $bytes && $fileSize < $bitesPost;
+        return $fileSize < $bytes && $fileSize < $bytesPost;
     }
 }
 
