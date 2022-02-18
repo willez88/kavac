@@ -5,6 +5,7 @@ namespace Modules\Asset\Models;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\ModelsTrait;
 
 /**
@@ -21,6 +22,7 @@ use App\Traits\ModelsTrait;
 class AssetStatus extends Model implements Auditable
 {
     use AuditableTrait;
+    use SoftDeletes;
     use ModelsTrait;
 
     /**
