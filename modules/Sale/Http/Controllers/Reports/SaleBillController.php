@@ -92,7 +92,7 @@ class SaleBillController extends Controller
             $institution = Institution::find($user_profile->institution->id);
         }
 
-		// $pdf->setConfig(['institution' => $institution, 'urlVerify' => url('/purchase/purchase_requirement/pdf/'.$id)]);
+		$pdf->setConfig(['institution' => $institution, 'urlVerify' => url('/sale/reports/payment/pdf/'.$sale_bills->id)]);
 		$pdf->setConfig(['institution' => Institution::first()]);
 		$pdf->setHeader('Factura');
 		$pdf->setFooter(true, $institution->rif.' '.$institution->legal_address);

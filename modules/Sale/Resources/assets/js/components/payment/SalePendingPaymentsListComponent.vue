@@ -111,8 +111,8 @@
                         if (result) {
                             var fields = vm.records[index-1];
                             var id = vm.records[index-1].id;
-                            console.log(id);
-                            axios.put('/'+vm.route_update+'/payment/refusePayment/'+id,).then(response => {
+                            //console.log(vm);
+                            axios.put('payment/refusePayment/'+id,).then(response => {
                                 if (typeof(response.data.redirect) !== "undefined")
                                     location.href = response.data.redirect;
                             }).catch(error => {
@@ -148,8 +148,8 @@
                         if (result) {
                             var fields = vm.records[index-1];
                             var id = vm.records[index-1].id;
-                            console.log(vm);
-                            axios.put('/'+vm.route_update+'/payment/approvedPayment/'+id, fields).then(response => {
+                            //console.log(vm);
+                            axios.put('payment/approvedPayment/'+id, fields).then(response => {
                                 if (typeof(response.data.redirect) !== "undefined")
                                     location.href = response.data.redirect;
                             }).catch(error => {

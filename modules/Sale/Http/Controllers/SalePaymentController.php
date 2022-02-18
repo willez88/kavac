@@ -20,6 +20,7 @@ use Modules\Sale\Models\SaleRegisterPayment;
 use App\Models\Phone;
 use App\Models\HistoryTax;
 use App\Rules\Rif as RifRule;
+use Auth;
 
 /**
  * @class SalePaymentController
@@ -505,9 +506,8 @@ class SalePaymentController extends Controller
      * @author Miguel Narvaez <mnarvaezcenditel.gob.ve>
      * @return \Illuminate\Http\JsonResponse    Json con los datos de los clientes
      */
-    public function approvedPayment(Request $request, $id)
+    public function approvedPayment($id)
     {
-        return $id;
         $payment = SaleRegisterPayment::find($id);
         $payment->payment_approve = true;
         $payment->save();
@@ -520,9 +520,8 @@ class SalePaymentController extends Controller
      * @author Miguel Narvaez <mnarvaezcenditel.gob.ve>
      * @return \Illuminate\Http\JsonResponse    Json con los datos de los clientes
      */
-        public function refusePayment(Request $request, $id)
+        public function refusePayment($id)
     {
-        return $id;
         $payment = SaleRegisterPayment::find($id);
         $payment->payment_refuse = true;
         $payment->save();
@@ -537,33 +536,39 @@ class SalePaymentController extends Controller
      */
         public function PdfGenerator(Request $request, $id)
     {
-            /**
-             * [$pdf base para generar el pdf del recibo de pago]
-             * @var [Modules\Accounting\Pdf\Pdf]
-             */
-            $pdf = new ReportRepository();
 
-            /*
-             *  Definicion de las caracteristicas generales de la página pdf
-             */
-            $institution = null;
-            $is_admin = auth()->user()->isAdmin();
+        $SalePayment = SaleRegisterPayment::find($id);
 
-            if (!$is_admin && $user_profile && $user_profile['institution']) {
-                $institution = Institution::find($user_profile['institution']['id']);
-            } else {
-                $institution = '';
+        /**
+         * [$pdf base para generar el pdf del recibo de pago]
+         * @var [Modules\Accounting\Pdf\Pdf]
+         */
+        $pdf = new ReportRepository();
+
+        /*
+         *  Definicion de las caracteristicas generales de la página pdf
+         */
+        $institution = null;
+        $is_admin = auth()->user()->isAdmin();
+
+        if (!auth()->user()->isAdmin()) {
+            if ($requirement && $requirement->queryAccess($user_profile['institution']['id'])) {
+                return view('errors.403');
             }
+        }
 
-            $pdf->setConfig(['institution' => Institution::first()]);
-            $pdf->setHeader('Recibo de Pago');
-            $pdf->setFooter();
-            $pdf->setBody('sale::pdf.payment_advance_receipt', true, [
-                'pdf'         => $pdf,
-                'SalePayment' => $SalePayment
-            ]);
+        if (!$is_admin && $user_profile && $user_profile['institution']) {
+            $institution = Institution::find($user_profile['institution']['id']);
+        } else {
+            $institution = '';
+        }
 
-
-        return response()->json(['record' => $payment, 'message' => 'Success'], 200);
+        $pdf->setConfig(['institution' => Institution::first()]);
+        $pdf->setHeader('Información de Registro');
+        $pdf->setFooter();
+        $pdf->setBody('sale::pdf.payment_record_information', true, [
+            'pdf'         => $pdf,
+            'SalePayment' => $SalePayment
+        ]);
     }
 }
