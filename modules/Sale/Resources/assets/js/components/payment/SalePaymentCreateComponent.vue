@@ -380,8 +380,6 @@ export default {
         this.getBank();
         this.getCurrencies();
         this.getSaleService();
-        this.getSaleClientsRif();
-        this.getSaleClient();
         this.getSaleGoods();
         this.record.sale_goods_to_be_traded = [];
         this.record.requirements = [];

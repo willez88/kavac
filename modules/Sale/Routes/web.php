@@ -456,9 +456,9 @@ Route::group(
         Route::put('payment/approvedPayment/{id}', 'SalePaymentController@approvedPayment');
         Route::put('payment/refusePayment/{id}', 'SalePaymentController@refusePayment');
         Route::get('payment/update/{id}', 'SalePaymentController@update');
-        
-        
-        
+        //imprime en pdf 
+        Route::get('payment/pdf/{id}','SalePaymentController@PdfGenerator');
+                
         Route::get(
             'get-sales-client/{id}',
             'SalePaymentController@getSaleClient'
