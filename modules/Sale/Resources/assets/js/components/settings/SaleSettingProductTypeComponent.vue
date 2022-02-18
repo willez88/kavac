@@ -32,7 +32,7 @@
 			                    </span>
 			                </button>
 			                <ul>
-			                    <li v-for="error in errors">{{ error }}</li>
+			                    <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
 			                </ul>
 			            </div>
                         <div class="row">
@@ -49,7 +49,18 @@
 	                </div>
 					<div class="modal-footer">
 	                	<div class="form-group">
-	                		<modal-form-buttons :saveRoute="'sale/setting-product-type'"></modal-form-buttons>
+	                		<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+									@click="clearFilters" data-dismiss="modal">
+								Cerrar
+							</button>
+							<button type="button" class="btn btn-warning btn-sm btn-round btn-modal btn-modal-clear" 
+									@click="reset()">
+								Cancelar
+							</button>
+							<button type="button" @click="createRecord('sale/setting-product-type')" 
+									class="btn btn-primary btn-sm btn-round btn-modal-save">
+								Guardar
+							</button>
 	                	</div>
 	                </div>
 	                <div class="modal-body modal-table">

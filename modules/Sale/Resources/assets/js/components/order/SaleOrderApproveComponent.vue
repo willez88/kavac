@@ -18,7 +18,7 @@
           <div class="modal-body">
             <div class="alert alert-danger" v-if="errors.length > 0">
               <ul>
-                <li v-for="error in errors">{{ error }}</li>
+                <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
               </ul>
             </div>
             <h6 class="card-title">Datos del solicitante:</h6>
@@ -58,7 +58,7 @@
                 </h6>
               </div>
             </div>
-            <div class="row" v-for="(product, index) in record.list_products">
+            <div class="row" v-for="(product, index) in record.list_products" :key="index">
               <div class="col-md-5">
                 <div class="form-group is-required">
                   <select2 :options="sale_setting_products"
@@ -86,7 +86,18 @@
           </div>
           <div class="modal-footer">
             <div class="form-group">
-              <modal-form-buttons :saveRoute="'sale/register-clients'"></modal-form-buttons>
+              <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+									@click="clearFilters" data-dismiss="modal">
+								Cerrar
+							</button>
+							<button type="button" class="btn btn-warning btn-sm btn-round btn-modal btn-modal-clear" 
+									@click="reset()">
+								Cancelar
+							</button>
+							<button type="button" @click="createRecord('sale/register-clients')" 
+									class="btn btn-primary btn-sm btn-round btn-modal-save">
+								Guardar
+							</button>
             </div>
           </div>
           <div class="modal-body modal-table">

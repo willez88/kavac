@@ -27,7 +27,7 @@
                                     </span>
                                 </button>
                                 <ul>
-                                    <li v-for="error in errors">{{ error }}</li>
+                                    <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -144,7 +144,7 @@
                                 </h6>
                             </div>
                             <div class="row" style="margin: 20px 0">
-                                <div class="col-6" v-for="(attribute, index) in record.sale_goods_attribute">
+                                <div class="col-6" v-for="(attribute, index) in record.sale_goods_attribute" :key="index">
                                     <div class="d-inline-flex">
                                         <div class="col-10">
                                             <div class="form-group">
@@ -169,7 +169,18 @@
                     </div>
                     <div class="modal-footer">
                         <div class="form-group">
-                            <modal-form-buttons :saveRoute="'sale/good_to_be_traded'"></modal-form-buttons>
+                            <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+									@click="clearFilters" data-dismiss="modal">
+								Cerrar
+							</button>
+							<button type="button" class="btn btn-warning btn-sm btn-round btn-modal btn-modal-clear" 
+									@click="reset()">
+								Cancelar
+							</button>
+							<button type="button" @click="createRecord('sale/good_to_be_traded')" 
+									class="btn btn-primary btn-sm btn-round btn-modal-save">
+								Guardar
+							</button>
                         </div>
                     </div>
                     <div class="modal-body modal-table">
@@ -200,7 +211,7 @@
                             </div>
                             <div slot="attributes" slot-scope="props">
                                 <div v-if="props.row.define_attributes">
-                                    <div v-for="att in props.row.sale_goods_attribute">
+                                    <div v-for="(att, index) in props.row.sale_goods_attribute" :key="index">
                                         <span>
                                                 {{ att.name }}
                                         </span>

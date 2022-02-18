@@ -24,7 +24,7 @@
                             </button>
                             <hr>
                             <ul>
-                                <li v-for="error in errors">
+                                <li v-for="(error, index) in errors" :key="index">
                                     {{ error }}
                                 </li>
                             </ul>
@@ -132,7 +132,8 @@
                                     </div>
                                     <div class="col-md-12">
                                         <h6 class="card-title">Correo electrónico <i class="fa fa-plus-circle cursor-pointer" @click="addEmail"></i></h6>
-                                        <div class="row" v-for="(clients_email, index) in record.sale_clients_email">
+                                        <div class="row" v-for="(clients_email, index) in record.sale_clients_email" 
+                                             :key="index">
                                             <div class="col-md-4">
                                                 <div class="form-group is-required">
                                                     <label for="email_client">Correo electrónico:</label>
@@ -154,7 +155,7 @@
                                         <h6 class="card-title">
                                                 Números Telefónicos <i class="fa fa-plus-circle cursor-pointer" @click="addPhone"></i>
                                         </h6>
-                                        <div class="row phone-row" v-for="(phone, index) in record.phones">
+                                        <div class="row phone-row" v-for="(phone, index) in record.phones" :key="index">
                                             <div class="col-3">
                                                 <div class="form-group is-required">
                                                     <select data-toggle="tooltip" v-model="phone.type" class="select2"
@@ -204,7 +205,18 @@
                     </div>
                     <div class="modal-footer">
                         <div class="form-group">
-                            <modal-form-buttons :saveRoute="'sale/register-clients'"></modal-form-buttons>
+                            <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+									@click="clearFilters" data-dismiss="modal">
+								Cerrar
+							</button>
+							<button type="button" class="btn btn-warning btn-sm btn-round btn-modal btn-modal-clear" 
+									@click="reset()">
+								Cancelar
+							</button>
+							<button type="button" @click="createRecord('sale/register-clients')" 
+									class="btn btn-primary btn-sm btn-round btn-modal-save">
+								Guardar
+							</button>
                         </div>
                     </div>
                     <div class="modal-body modal-table">

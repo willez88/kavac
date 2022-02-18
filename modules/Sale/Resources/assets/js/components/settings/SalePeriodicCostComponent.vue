@@ -27,7 +27,7 @@
                   </span>
                 </button>
                 <ul>
-                  <li v-for="error in errors">{{ error }}</li>
+                  <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
                 </ul>
               </div>
             </div>
@@ -84,7 +84,7 @@
                 <h6 class="card-title cursor-pointer" @click="addAttribute()" >Gestionar nuevo atributo <i class="fa fa-plus-circle"></i></h6>
               </div>
               <div class="row" style="my-5">
-                <div class="col-6" v-for="(attribute, index) in record.periodic_cost_attribute">
+                <div class="col-6" v-for="(attribute, index) in record.periodic_cost_attribute" :key="index">
                   <div class="d-inline-flex">
                     <div class="col-10">
                       <div class="form-group">
@@ -105,14 +105,25 @@
           </div>
           <div class="modal-footer">
             <div class="form-group">
-              <modal-form-buttons :saveRoute="'sale/periodic-cost'"></modal-form-buttons>
+              <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+									@click="clearFilters" data-dismiss="modal">
+								Cerrar
+							</button>
+							<button type="button" class="btn btn-warning btn-sm btn-round btn-modal btn-modal-clear" 
+									@click="reset()">
+								Cancelar
+							</button>
+							<button type="button" @click="createRecord('sale/periodic-cost')" 
+									class="btn btn-primary btn-sm btn-round btn-modal-save">
+								Guardar
+							</button>
             </div>
           </div>
           <div class="modal-body modal-table">
             <v-client-table :columns="columns" :data="records" :options="table_options">
               <div slot="attributes" slot-scope="props">
                 <div v-if="props.row.attributes">
-                  <ul v-for="att in props.row.periodic_cost_attribute">
+                  <ul v-for="(att, index) in props.row.periodic_cost_attribute" :key="index">
                     <li>{{ att.name }}</li>
                   </ul>
                 </div>

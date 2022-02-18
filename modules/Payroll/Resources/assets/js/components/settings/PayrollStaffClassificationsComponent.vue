@@ -58,7 +58,18 @@
 	                </div>
 					<div class="modal-footer">
 	                	<div class="form-group">
-	                		<modal-form-buttons :saveRoute="app_url + '/payroll/staff-classifications'"></modal-form-buttons>
+	                		<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+									@click="clearFilters" data-dismiss="modal">
+								Cerrar
+							</button>
+							<button type="button" class="btn btn-warning btn-sm btn-round btn-modal btn-modal-clear" 
+									@click="reset()">
+								Cancelar
+							</button>
+							<button type="button" @click="createRecord('payroll/staff-classifications')" 
+									class="btn btn-primary btn-sm btn-round btn-modal-save">
+								Guardar
+							</button>
 	                	</div>
 	                </div>
 	                <div class="modal-body modal-table">

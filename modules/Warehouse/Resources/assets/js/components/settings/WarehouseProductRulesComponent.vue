@@ -32,7 +32,7 @@
 									</span>
 								</button>
 								<ul>
-									<li v-for="error in errors">{{ error }}</li>
+									<li v-for="(error, index) in errors" :key="index">{{ error }}</li>
 								</ul>
 							</div>
 						</div>
@@ -78,7 +78,18 @@
 	                </div>
 	                <div class="modal-footer">
                         <div class="form-group">
-                            <modal-form-buttons :saveRoute="'warehouse/rules'"></modal-form-buttons>
+                            <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+									@click="clearFilters" data-dismiss="modal">
+								Cerrar
+							</button>
+							<button type="button" class="btn btn-warning btn-sm btn-round btn-modal btn-modal-clear" 
+									@click="reset()">
+								Cancelar
+							</button>
+							<button type="button" @click="createRecord('warehouse/rules')" 
+									class="btn btn-primary btn-sm btn-round btn-modal-save">
+								Guardar
+							</button>
                         </div>
                     </div>
 	                <div class="modal-body modal-table">
@@ -113,7 +124,7 @@
 							</div>
 							<div slot="details" slot-scope="props">
 								<span>
-									<div v-for="att in props.row.warehouse_product_values">
+									<div v-for="(att, index) in props.row.warehouse_product_values" :key="index">
 										<b>{{att.warehouse_product_attribute.name +":"}}</b> {{ att.value}}
 									</div>
 										<b>Valor:</b> {{props.row.unit_value}} {{(props.row.currency)?props.row.currency.name:''}}

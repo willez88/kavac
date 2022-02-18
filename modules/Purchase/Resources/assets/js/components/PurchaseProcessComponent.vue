@@ -70,7 +70,8 @@
                         <h6 class="text-center text-info">DOCUMENTOS A CONSIGNAR</h6>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="accordion" id="documentsList" v-for="(list, index) in listSelectDocuments">
+                                <div class="accordion" id="documentsList" v-for="(list, index) in listSelectDocuments" 
+                                     :key="index">
                                     <h6 class="mb-0" style="text-transform:uppercase;font-weight:bold;">
                                         <button class="btn btn-link" type="button" data-toggle="collapse" rel="tooltip"
                                                 :data-target="'#collapseDocumentsList'+index"
@@ -83,7 +84,8 @@
                                     <div :id="'collapseDocumentsList'+index" class="collapse" :class="{'show': (index===0)}" :aria-labelledby="'heading'+index" data-parent="#documentsList">
                                         <div class="card-body">
                                             <ul class="feature-list list-group list-group-flush">
-                                                <li class="list-group-item" v-for="(document, idx) in list.documents">
+                                                <li class="list-group-item" v-for="(document, idx) in list.documents" 
+                                                    :key="idx">
                                                     <div class="feature-list-indicator bg-info"></div>
                                                     <div class="feature-list-content p-0">
                                                         <div class="feature-list-content-wrapper">
@@ -114,7 +116,18 @@
                     </div>
                     <div class="modal-footer">
                         <div class="form-group">
-                            <modal-form-buttons :saveRoute="'purchase/processes'"></modal-form-buttons>
+                            <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+									@click="clearFilters" data-dismiss="modal">
+								Cerrar
+							</button>
+							<button type="button" class="btn btn-warning btn-sm btn-round btn-modal btn-modal-clear" 
+									@click="reset()">
+								Cancelar
+							</button>
+							<button type="button" @click="createRecord('purchase/processes')" 
+									class="btn btn-primary btn-sm btn-round btn-modal-save">
+								Guardar
+							</button>
                         </div>
                     </div>
                     <div class="modal-body modal-table">

@@ -18,7 +18,7 @@
           <div class="modal-body">
             <div class="alert alert-danger" v-if="errors.length > 0">
               <ul>
-                <li v-for="error in errors">{{ error }}</li>
+                <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
               </ul>
             </div>
             <h6 class="card-title">Datos del Método de cobro:</h6>
@@ -45,7 +45,7 @@
                 </h6>
               </div>
             </div>
-            <div class="row" v-for="(attrib, index) in record.list_attributes">
+            <div class="row" v-for="(attrib, index) in record.list_attributes" :key="index">
               <div class="col-6">
                 <div class="form-group is-required">
                   <input type="text" placeholder="Nombre del atributo" title="Nuevo atributo" v-model="attrib.attributes" class="form-control input-sm" required>
@@ -62,7 +62,18 @@
           </div>
           <div class="modal-footer">
             <div class="form-group">
-              <modal-form-buttons :saveRoute="'sale/register-form-payment'"></modal-form-buttons>
+              <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+									@click="clearFilters" data-dismiss="modal">
+								Cerrar
+							</button>
+							<button type="button" class="btn btn-warning btn-sm btn-round btn-modal btn-modal-clear" 
+									@click="reset()">
+								Cancelar
+							</button>
+							<button type="button" @click="createRecord('sale/register-form-payment')" 
+									class="btn btn-primary btn-sm btn-round btn-modal-save">
+								Guardar
+							</button>
             </div>
           </div>
           <div class="modal-body modal-table">

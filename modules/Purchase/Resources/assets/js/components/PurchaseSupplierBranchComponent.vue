@@ -49,7 +49,18 @@
 	                </div>
 	                <div class="modal-footer">
 	                	<div class="form-group">
-	                		<modal-form-buttons :saveRoute="'purchase/supplier-branches'"></modal-form-buttons>
+	                		<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+									@click="clearFilters" data-dismiss="modal">
+								Cerrar
+							</button>
+							<button type="button" class="btn btn-warning btn-sm btn-round btn-modal btn-modal-clear" 
+									@click="reset()">
+								Cancelar
+							</button>
+							<button type="button" @click="createRecord('purchase/supplier-branches')" 
+									class="btn btn-primary btn-sm btn-round btn-modal-save">
+								Guardar
+							</button>
 	                	</div>
 	                </div>
 	                <div class="modal-body modal-table">

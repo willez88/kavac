@@ -23,7 +23,7 @@
 						<input type="hidden" v-model="record.id">
 						<div class="alert alert-danger" v-if="errors.length > 0">
 							<ul>
-								<li v-for="error in errors">{{ error }}</li>
+								<li v-for="(error, index) in errors" :key="index">{{ error }}</li>
 							</ul>
 						</div>
 						<div class="row">
@@ -64,7 +64,7 @@
 							</div>
 						</div>
 						<div class="row" v-if="record.checks && record.checks > 0">
-							<div class="col-md-3" v-for="(number, index) in record.numbers">
+							<div class="col-md-3" v-for="(number, index) in record.numbers" :key="index">
 								<div class="form-group is-required">
 									<label>Cheque #{{ index + 1 }}</label>
 									<input type="text" class="form-control input-sm" data-toggle="tooltip"
@@ -75,7 +75,18 @@
 	                </div>
 	                <div class="modal-footer">
 	                	<div class="form-group">
-	                		<modal-form-buttons :saveRoute="'finance/check-books'"></modal-form-buttons>
+	                		<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+									@click="clearFilters" data-dismiss="modal">
+								Cerrar
+							</button>
+							<button type="button" class="btn btn-warning btn-sm btn-round btn-modal btn-modal-clear" 
+									@click="reset()">
+								Cancelar
+							</button>
+							<button type="button" @click="createRecord('finance/check-books')" 
+									class="btn btn-primary btn-sm btn-round btn-modal-save">
+								Guardar
+							</button>
 	                	</div>
 	                </div>
 	                <div class="modal-body modal-table">

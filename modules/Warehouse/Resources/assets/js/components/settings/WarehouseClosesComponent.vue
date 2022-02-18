@@ -32,7 +32,7 @@
 									</span>
 								</button>
 								<ul>
-									<li v-for="error in errors">{{ error }}</li>
+									<li v-for="(error, index) in errors" :key="index">{{ error }}</li>
 								</ul>
 							</div>
 						</div>
@@ -51,7 +51,7 @@
 									<label>Inicio del cierre de almacén:</label>
 									<input type="date" placeholder="Inicio del cierre del almacén" data-toggle="tooltip"
 													   title="Indique la fecha de inicio del cierre del almacén (requerido)"
-													   class="form-control no-restrict":min="new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)).toISOString().split('T')[0]" v-model="record.initial_date">
+													   class="form-control no-restrict" :min="new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)).toISOString().split('T')[0]" v-model="record.initial_date">
 			                    </div>
 							</div>
 							<div class="col-md-4">
@@ -76,7 +76,18 @@
 	                </div>
 	                <div class="modal-footer">
                         <div class="form-group">
-                            <modal-form-buttons :saveRoute="'warehouse/closes'"></modal-form-buttons>
+                            <button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+									@click="clearFilters" data-dismiss="modal">
+								Cerrar
+							</button>
+							<button type="button" class="btn btn-warning btn-sm btn-round btn-modal btn-modal-clear" 
+									@click="reset()">
+								Cancelar
+							</button>
+							<button type="button" @click="createRecord('warehouse/closes')" 
+									class="btn btn-primary btn-sm btn-round btn-modal-save">
+								Guardar
+							</button>
                         </div>
                     </div>
 	                <div class="modal-body modal-table">

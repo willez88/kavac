@@ -50,7 +50,18 @@
 
 					<div class="modal-footer" v-if="!formImport">
 	                	<div class="form-group">
-	                		<modal-form-buttons :saveRoute="app_url+'/accounting/accounts/'"></modal-form-buttons>
+	                		<button type="button" class="btn btn-default btn-sm btn-round btn-modal-close" 
+									@click="clearFilters" data-dismiss="modal">
+								Cerrar
+							</button>
+							<button type="button" class="btn btn-warning btn-sm btn-round btn-modal btn-modal-clear" 
+									@click="reset()">
+								Cancelar
+							</button>
+							<button type="button" @click="createRecord('accounting/accounts')" 
+									class="btn btn-primary btn-sm btn-round btn-modal-save">
+								Guardar
+							</button>
 	                	</div>
 	                </div>
 
