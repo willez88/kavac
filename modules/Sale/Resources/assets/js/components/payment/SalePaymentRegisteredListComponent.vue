@@ -28,18 +28,13 @@
                         v-on:click="deleteRecord(props.row.id,'/sale/payment/delete')">
                     <i class="fa fa-trash-o"></i>
                 </button>
-                <button type="button" data-toggle="tooltip"
-                        data-placement="bottom"
-                        class="btn btn-primary btn-xs btn-icon btn-action"
+                <a class="btn btn-primary btn-xs btn-icon btn-action"
+                        :href="'/sale/payment/pdf/'+props.row.id"
                         title="Presione para descargar el documento con la información del registros."
-                        v-on:click="PdfGenerator(props.row.id,'/sale/payment/pdf')">
-                    <i class="fa fa-download"></i>
-                </button> 
-
-
-
-
-
+                        data-toggle="tooltip"
+                        target="_blank">
+                        <i class="fa fa-print" style="text-align: center;"></i>
+                </a>
             </div>
         </div>
     </v-client-table>
@@ -94,39 +89,6 @@
 
                 $(`#${modal}`).modal('show');
                 document.getElementById("info_general").click();
-            },
-
-            /**
-             * Imprime documento con la información del registro.
-             *
-             * @author  Miguel Narvaez <mnarvaez@cenditel.gob.ve>
-             */
-            PdfGenerator(index) {
-                const vm = this;
-                var fields = vm.records[index-1];
-                var id = vm.records[index-1].id;
-                //console.log(vm);
-                axios.get('payment/pdf/'+id, fields).then(response => {
-                    if (typeof(response.data.redirect) !== "undefined")
-                        location.href = response.data.redirect;
-                }).catch(error => {
-                    vm.errors = [];
-                    if (typeof(error.response) !="undefined") {
-                        for (var index in error.response.data.errors) {
-                            if (error.response.data.errors[index]) {
-                                vm.errors.push(error.response.data.errors[index][0]);
-                            }
-                        }
-                    }
-                });
-
-                /*
-                const vm = this;
-                vm.bill_inventory_products_list = [];
-                axios.get('payment/pdf').then(response => {
-                    vm.bill_inventory_products_list = response.data.records;
-                });
-                */
             },
         }
     };

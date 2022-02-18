@@ -564,7 +564,7 @@ class SalePaymentController extends Controller
         }
 
         $pdf->setConfig(['institution' => Institution::first()]);
-        $pdf->setHeader('Información de Registro');
+        $pdf->setHeader('Pago Registrado');
         $pdf->setFooter();
         $pdf->setBody('sale::pdf.payment_record_information', true, [
             'pdf'         => $pdf,

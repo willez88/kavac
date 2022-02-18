@@ -16,13 +16,13 @@
                         title="Ver registro" data-toggle="tooltip" data-placement="bottom" type="button">
                     <i class="fa fa-eye"></i>
                 </button>            
-                <button type="button" data-toggle="tooltip"
-                        data-placement="bottom"
-                        class="btn btn-primary btn-xs btn-icon btn-action"
+                <a class="btn btn-primary btn-xs btn-icon btn-action"
+                        :href="'/sale/payment/pdf/'+props.row.id"
                         title="Presione para descargar el documento con la información del registros."
-                        v-on:click="deleteRecord(props.index,'/sale/payment/download')">
-                    <i class="fa fa-download"></i>
-                </button>                 
+                        data-toggle="tooltip"
+                        target="_blank">
+                        <i class="fa fa-print" style="text-align: center;"></i>
+                </a>               
                 <button type="button" data-toggle="tooltip"
                         data-placement="bottom"
                         class="btn btn-primary btn-xs btn-icon btn-action"
