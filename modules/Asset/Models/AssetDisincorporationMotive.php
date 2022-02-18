@@ -2,10 +2,11 @@
 
 namespace Modules\Asset\Models;
 
+use App\Traits\ModelsTrait;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as AuditableTrait;
-use App\Traits\ModelsTrait;
 
 /**
  * @class AssetDisincorporationMotive
@@ -21,6 +22,7 @@ use App\Traits\ModelsTrait;
 class AssetDisincorporationMotive extends Model implements Auditable
 {
     use ModelsTrait;
+    use SoftDeletes;
     use AuditableTrait;
 
     /**
