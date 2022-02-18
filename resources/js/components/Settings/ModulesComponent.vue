@@ -26,7 +26,7 @@
                         <div class="col-8">{{ details.description }}</div>
                         <div class="col-4">
                             <ul>
-                                <li v-for="author in details.authors">
+                                <li v-for="(author, index) in details.authors" :key="index">
                                     <a :href="'mailto:'+author.email[0]">{{ author.name }}</a>
                                 </li>
                             </ul>
@@ -49,7 +49,7 @@
                         <div class="col-12 mt-4">
                             <h6 class="md-title">Requerimientos:</h6>
                             <ul v-if="details.requirements">
-                                <li v-for="(version, require) in details.requirements">
+                                <li v-for="(version, require) in details.requirements" :key="require">
                                     <i :class="checkRequirement(require)"></i>
                                     {{ require }} v{{ version }}
                                 </li>
@@ -99,7 +99,7 @@
             </div>
             <hr>
             <div class="row">
-                <div class="col-4 mb-4" v-for="module in modules">
+                <div class="col-4 mb-4" v-for="(module, index) in modules" :key="index">
                     <div class="list-group list-group-modules">
                         <a href="javascript:void(0);" class="list-group-item" data-toggle="tooltip"
                            :data-original-title="'Ver detalles del módulo de ' + module.name"

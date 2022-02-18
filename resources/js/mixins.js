@@ -1179,7 +1179,13 @@ Vue.mixin({
 		 * @author     Ing. Roldan Vargas <rvargas@cenditel.gob.ve> | <roldandvg@gmail.com>
 		 */
 		clearFilters() {
-			//this.$refs['table'].setFilter('');
+			const vm = this;
+			$(".VueTables__search__input").val('');
+			vm.$children.forEach((child) => {
+				if (typeof(child.$el.className) !== "undefined" && child.$el.className.startsWith('VueTables')) {
+					child._data.query = "";
+				}
+			});
 		}
 		/*loadRelationalSelect(parent_id, target_url) {
 			var parent_id = (typeof(parent_id) !== "undefined")?parent_id:false;

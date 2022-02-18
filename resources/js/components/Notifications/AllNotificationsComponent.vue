@@ -19,7 +19,7 @@
             <div class="row">
                 <div class="col-12 mt-3">
                     <ul class="media-list msg-list">
-                        <li class="media unread" v-for="notify in notifications">
+                        <li class="media unread" v-for="(notify, index) in notifications" :key="index">
                             <div class="float-left">
                                 <input type="checkbox" name="chkNotify" id="chkNotify" class="form-control" 
                                        v-model="selected" :value="notify.id">

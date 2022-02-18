@@ -12,7 +12,7 @@
             <a class="dropdown-header text-center">Notificaciones</a>
             <div class="dropdown-item">
                 <ul class="media-list msg-list" v-if="notifications.length">
-                    <li class="media unread" v-for="(notify, index) in notifications" v-if="index<5">
+                    <li class="media unread" v-for="(notify, index) in notifications" :key="index" v-if="index<5">
                         <div class="media-body" v-if="notify.data.title && notify.data.message">
                             <strong>
                                 <i class="fa fa-envelope-o cursor-pointer" title="Marcar como leído"

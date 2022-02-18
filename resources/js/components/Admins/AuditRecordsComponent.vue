@@ -52,7 +52,9 @@
                         <div class="form-group col-md-2" id="helpAuditFilterModule">
                             <select v-model="module" class="form-control select2">
                                 <option value="">Módulo</option>
-                                <option :value="mod.originalName" v-for="mod in modules">{{ mod.name }}</option>
+                                <option :value="mod.originalName" v-for="(mod, index) in modules" :key="index">
+                                    {{ mod.name }}
+                                </option>
                             </select>
                             <!--<div class="input-group input-sm">
                                 <span class="input-group-addon">
