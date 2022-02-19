@@ -82,6 +82,7 @@ class PurchaseSupplierSpecialtyController extends Controller
         ]);
 
         $supplierSpecialty->name = $request->name;
+        $supplierSpecialty->description = $request->description ?? null;
         $supplierSpecialty->save();
 
         return response()->json(['message' => 'Registro actualizado correctamente'], 200);
