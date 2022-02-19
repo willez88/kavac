@@ -229,13 +229,13 @@
 			async getDepartments() {
 				let vm = this;
 				vm.departments = [];
-				if (vm.record.department.institution_id) {
-	                await axios.get(`${window.app_url}/get-departments/${vm.record.department.institution_id}`).then(response => {
+				if (vm.record.institution_id) {
+	                await axios.get(`${window.app_url}/get-departments/${vm.record.institution_id}`).then(response => {
 	                    vm.departments = response.data;
 	                });
-	                if (vm.record.id) {
+	                /*if (vm.record.id) {
 	                    vm.record.department_id = vm.record.department.id;
-	                }
+	                }*/
 	            }
 			},
 			reset() {
