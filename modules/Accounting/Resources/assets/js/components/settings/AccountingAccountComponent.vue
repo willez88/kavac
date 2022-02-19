@@ -125,6 +125,7 @@ export default{
 		},
 
 		createRecord:function(url) {
+			url = vm.setUrl(url);
 			if (this.formImport) {
 				this.registerImportedAccounts(url);
 			}else{
