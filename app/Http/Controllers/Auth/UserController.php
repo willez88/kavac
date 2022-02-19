@@ -185,7 +185,26 @@ class UserController extends Controller
         ];
         /** @var User Objeto con información del usuario */
         $model = $user;
-        return view('auth.register', compact('header', 'model'));
+
+        $persons = template_choices(Profile::class, ['first_name', ' ', 'last_name'], $filters = ['user_id' => null]);
+
+        foreach ($persons as $key => $person) {
+            if ($key && $key !== "0" && $profile = Profile::find($key)) {
+                if ($profile->institution) {
+                    $persons[$key] = $profile->institution->acronym . " - " . $persons[$key];
+                }
+            }
+        }
+        
+        if ($user->profile !== null && !array_key_exists($user->profile->id, $persons)) {
+            $profile = Profile::where('user_id', $user->id)->first();
+            if ($profile) {
+                if ($profile->institution) {
+                    $persons[$profile->id] = $profile->institution->acronym . " - " . $profile->first_name . " " . $profile->last_name;
+                }
+            }
+        }
+        return view('auth.register', compact('header', 'model', 'persons'));
     }
 
     /**
@@ -202,6 +221,14 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        if ($request->staff) {
+            /** @var Profile Objeto con información del perfil del usuario */
+            $profile = Profile::find($request->staff);
+            if ($profile && $profile->user_id === null) {
+                $profile->user_id = $user->id;
+                $profile->save();
+            }
+        }
         if ($request->role) {
             $user->detachAllRoles();
             $user->syncRoles($request->role);
@@ -227,10 +254,9 @@ class UserController extends Controller
             $user->password = bcrypt($request->input('password'));
             $user->save();
 
-            $request->session()->flash('message', ['type' => 'update']);
-        } else {
-            $request->session()->flash('message', ['type' => 'other', 'text' => __('No se indicaron modificaciones')]);
         }
+
+        $request->session()->flash('message', ['type' => 'update']);
 
         return redirect()->back();
     }

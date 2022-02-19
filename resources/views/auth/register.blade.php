@@ -49,7 +49,7 @@
                     <div class="col-6 staff_name">
                         <div class="form-group is-required" id="user_first_name">
                             {!! Form::label('first_name', __('Nombre'), ['id' => 'first_name_label']) !!}
-                            {!! Form::text('first_name', (isset($model))?$model->profile->first_name:old('first_name'), [
+                            {!! Form::text('first_name', (isset($model) && $model->profile!==null)?$model->profile->first_name:old('first_name'), [
                                 'class' => 'form-control input-sm', 'id' => 'first_name', 'data-toggle' => 'tooltip',
                                 'title' => __('Indique el Nombre completo de la persona')
                             ]) !!}
